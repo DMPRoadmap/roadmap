@@ -1,15 +1,17 @@
-h2. DMP Roadmap
+## DMP Roadmap
 
-h4. Current Release
+#### Current Release
 v.0.1.0
 
-h4. Summary
+#### Summary
 
-h4. Installation
+#### Installation
+Clone the repository and build from the latest tag
 
-h4. Troubleshooting
+#### Troubleshooting
 
-h4. Become a contributor
+#### Become a contributor
+Fork the repository.
 
-h4. More information 
-<a href="./LICENSE.md">MIT License</a>
+#### License
+The DMP Roadmap project uses to the <a href="./LICENSE.md">MIT License</a>.
