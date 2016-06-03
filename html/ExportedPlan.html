@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class ExportedPlan - DMPonline4 Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/exported_plan.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-admin_details">#admin_details</a>
+    
+    <li><a href="#method-i-as_csv">#as_csv</a>
+    
+    <li><a href="#method-i-as_txt">#as_txt</a>
+    
+    <li><a href="#method-i-funder">#funder</a>
+    
+    <li><a href="#method-i-grant_title">#grant_title</a>
+    
+    <li><a href="#method-i-institution">#institution</a>
+    
+    <li><a href="#method-i-principal_investigator">#principal_investigator</a>
+    
+    <li><a href="#method-i-project_data_contact">#project_data_contact</a>
+    
+    <li><a href="#method-i-project_description">#project_description</a>
+    
+    <li><a href="#method-i-project_identifier">#project_identifier</a>
+    
+    <li><a href="#method-i-project_name">#project_name</a>
+    
+    <li><a href="#method-i-questions">#questions</a>
+    
+    <li><a href="#method-i-questions_for_section">#questions_for_section</a>
+    
+    <li><a href="#method-i-sanitize_text">#sanitize_text</a>
+    
+    <li><a href="#method-i-sections">#sections</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./Settings/Dmptemplate.html">Settings::Dmptemplate</a>
+  
+    <li><a href="./Settings/PlanList.html">Settings::PlanList</a>
+  
+    <li><a href="./Settings/PlansController.html">Settings::PlansController</a>
+  
+    <li><a href="./Settings/ProjectsController.html">Settings::ProjectsController</a>
+  
+    <li><a href="./Settings/SettingsController.html">Settings::SettingsController</a>
+  
+    <li><a href="./ActiveAdmin.html">ActiveAdmin</a>
+  
+    <li><a href="./ActiveAdmin/Views.html">ActiveAdmin::Views</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages.html">ActiveAdmin::Views::Pages</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages/Base.html">ActiveAdmin::Views::Pages::Base</a>
+  
+    <li><a href="./Users.html">Users</a>
+  
+    <li><a href="./Users/OmniauthCallbacksController.html">Users::OmniauthCallbacksController</a>
+  
+    <li><a href="./Users/OmniauthShibbolethRequestController.html">Users::OmniauthShibbolethRequestController</a>
+  
+    <li><a href="./DMPonline4.html">DMPonline4</a>
+  
+    <li><a href="./DMPonline4/Application.html">DMPonline4::Application</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Answer.html">Answer</a>
+  
+    <li><a href="./AnswersController.html">AnswersController</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./ConfirmationsController.html">ConfirmationsController</a>
+  
+    <li><a href="./ContactsController.html">ContactsController</a>
+  
+    <li><a href="./CustomFailure.html">CustomFailure</a>
+  
+    <li><a href="./Dmptemplate.html">Dmptemplate</a>
+  
+    <li><a href="./DmptemplatesController.html">DmptemplatesController</a>
+  
+    <li><a href="./ExistingUsersController.html">ExistingUsersController</a>
+  
+    <li><a href="./ExportedPlan.html">ExportedPlan</a>
+  
+    <li><a href="./FileType.html">FileType</a>
+  
+    <li><a href="./FileUpload.html">FileUpload</a>
+  
+    <li><a href="./Guidance.html">Guidance</a>
+  
+    <li><a href="./GuidanceGroup.html">GuidanceGroup</a>
+  
+    <li><a href="./GuidanceGroupsController.html">GuidanceGroupsController</a>
+  
+    <li><a href="./GuidancesController.html">GuidancesController</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Option.html">Option</a>
+  
+    <li><a href="./OptionWarning.html">OptionWarning</a>
+  
+    <li><a href="./Organisation.html">Organisation</a>
+  
+    <li><a href="./OrganisationType.html">OrganisationType</a>
+  
+    <li><a href="./OrganisationUsersController.html">OrganisationUsersController</a>
+  
+    <li><a href="./OrganisationsController.html">OrganisationsController</a>
+  
+    <li><a href="./PasswordsController.html">PasswordsController</a>
+  
+    <li><a href="./Phase.html">Phase</a>
+  
+    <li><a href="./Plan.html">Plan</a>
+  
+    <li><a href="./PlanSection.html">PlanSection</a>
+  
+    <li><a href="./PlansController.html">PlansController</a>
+  
+    <li><a href="./PlansHelper.html">PlansHelper</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectGroup.html">ProjectGroup</a>
+  
+    <li><a href="./ProjectGroupsController.html">ProjectGroupsController</a>
+  
+    <li><a href="./ProjectPartner.html">ProjectPartner</a>
+  
+    <li><a href="./ProjectsController.html">ProjectsController</a>
+  
+    <li><a href="./Question.html">Question</a>
+  
+    <li><a href="./QuestionFormat.html">QuestionFormat</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./Section.html">Section</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SplashLog.html">SplashLog</a>
+  
+    <li><a href="./SplashLogsController.html">SplashLogsController</a>
+  
+    <li><a href="./StaticPagesController.html">StaticPagesController</a>
+  
+    <li><a href="./SuggestedAnswer.html">SuggestedAnswer</a>
+  
+    <li><a href="./Theme.html">Theme</a>
+  
+    <li><a href="./ThemesController.html">ThemesController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UserOrgRole.html">UserOrgRole</a>
+  
+    <li><a href="./UserOrgRolesController.html">UserOrgRolesController</a>
+  
+    <li><a href="./UserRoleType.html">UserRoleType</a>
+  
+    <li><a href="./UserRoleTypesController.html">UserRoleTypesController</a>
+  
+    <li><a href="./UserStatus.html">UserStatus</a>
+  
+    <li><a href="./UserStatusesController.html">UserStatusesController</a>
+  
+    <li><a href="./UserType.html">UserType</a>
+  
+    <li><a href="./UserTypesController.html">UserTypesController</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./Version.html">Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ExportedPlan</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="VALID_FORMATS">VALID_FORMATS
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-admin_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">admin_details</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="admin_details-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_details</span>
+  <span class="ruby-ivar">@admin_details</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:export</span>).<span class="ruby-identifier">fields</span>[<span class="ruby-value">:admin</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- admin_details-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- admin_details-method -->
+
+    
+      <div id="method-i-as_csv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">as_csv</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Export formats</p>
+          
+
+          
+          <div class="method-source-code" id="as_csv-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">as_csv</span>
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&quot;Section&quot;</span>,<span class="ruby-string">&quot;Question&quot;</span>,<span class="ruby-string">&quot;Answer&quot;</span>,<span class="ruby-string">&quot;Selected option(s)&quot;</span>,<span class="ruby-string">&quot;Answered by&quot;</span>,<span class="ruby-string">&quot;Answered at&quot;</span>]
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sections</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">section</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">questions_for_section</span>(<span class="ruby-identifier">section</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">answer</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">answer</span>(<span class="ruby-identifier">question</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">options_string</span> = <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">text</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;; &#39;</span>)
+
+        <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">section</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">question</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">sanitize_text</span>(<span class="ruby-identifier">answer</span>.<span class="ruby-identifier">text</span>), <span class="ruby-identifier">options_string</span>, <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:user</span>).<span class="ruby-identifier">try</span>(<span class="ruby-value">:name</span>), <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">created_at</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- as_csv-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- as_csv-method -->
+
+    
+      <div id="method-i-as_txt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">as_txt</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="as_txt-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">as_txt</span>
+  <span class="ruby-identifier">output</span> = <span class="ruby-node">&quot;#{self.plan.project.title}\n\n#{self.plan.version.phase.title}\n&quot;</span>
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sections</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">section</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">output</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\n#{section.title}\n&quot;</span>
+
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">questions_for_section</span>(<span class="ruby-identifier">section</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">question</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">output</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\n#{question.text}\n&quot;</span>
+      <span class="ruby-identifier">answer</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">answer</span>(<span class="ruby-identifier">question</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword">false</span>)
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">output</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;Question not answered.\n&quot;</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">output</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">text</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">question</span>.<span class="ruby-identifier">option_comment_display</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">then</span>
+          <span class="ruby-identifier">output</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\n#{sanitize_text(answer.text)}\n&quot;</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">output</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>
+        <span class="ruby-keyword">end</span>  
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- as_txt-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- as_txt-method -->
+
+    
+      <div id="method-i-funder" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">funder</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="funder-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">funder</span>
+  <span class="ruby-identifier">org</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:organisation</span>)
+  <span class="ruby-identifier">org</span>.<span class="ruby-identifier">name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">org</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">org</span>.<span class="ruby-identifier">organisation_type</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:name</span>) <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.org_type.funder&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- funder-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- funder-method -->
+
+    
+      <div id="method-i-grant_title" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">grant_title</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="grant_title-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">grant_title</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">grant_number</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- grant_title-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- grant_title-method -->
+
+    
+      <div id="method-i-institution" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">institution</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="institution-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">institution</span>
+  <span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- institution-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- institution-method -->
+
+    
+      <div id="method-i-principal_investigator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">principal_investigator</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="principal_investigator-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">principal_investigator</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">principal_investigator</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- principal_investigator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- principal_investigator-method -->
+
+    
+      <div id="method-i-project_data_contact" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project_data_contact</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="project_data_contact-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_data_contact</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">data_contact</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project_data_contact-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project_data_contact-method -->
+
+    
+      <div id="method-i-project_description" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project_description</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="project_description-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_description</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">description</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project_description-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project_description-method -->
+
+    
+      <div id="method-i-project_identifier" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project_identifier</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="project_identifier-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_identifier</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">identifier</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project_identifier-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project_identifier-method -->
+
+    
+      <div id="method-i-project_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project_name</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Getters to match Settings::Dmptemplate::VALID_ADMIN_FIELDS</p>
+          
+
+          
+          <div class="method-source-code" id="project_name-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_name</span>
+  <span class="ruby-identifier">name</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">title</span>
+  <span class="ruby-identifier">name</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; - #{self.plan.title}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">phases</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project_name-method -->
+
+    
+      <div id="method-i-questions_for_section" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">questions_for_section</span><span
+            class="method-args">(section_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="questions_for_section-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">questions_for_section</span>(<span class="ruby-identifier">section_id</span>)
+  <span class="ruby-identifier">questions</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">section_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">section_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- questions_for_section-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- questions_for_section-method -->
+
+    
+      <div id="method-i-sections" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sections</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>sections taken from fields settings</p>
+          
+
+          
+          <div class="method-source-code" id="sections-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sections</span>
+  <span class="ruby-identifier">sections</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">sections</span>
+
+  <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">if</span> <span class="ruby-identifier">questions</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">section_ids</span> = <span class="ruby-identifier">questions</span>.<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:section_id</span>).<span class="ruby-identifier">uniq</span>
+  <span class="ruby-identifier">sections</span> = <span class="ruby-identifier">sections</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">section</span><span class="ruby-operator">|</span> <span class="ruby-identifier">section_ids</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">section</span>.<span class="ruby-identifier">id</span>) }
+
+  <span class="ruby-identifier">sections</span>.<span class="ruby-identifier">sort_by</span>(&amp;<span class="ruby-value">:number</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sections-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sections-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Private Instance Methods</h3>
+
+    
+      <div id="method-i-questions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">questions</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="questions-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">questions</span>
+  <span class="ruby-ivar">@questions</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">question_settings</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:export</span>).<span class="ruby-identifier">fields</span>[<span class="ruby-value">:questions</span>]
+
+    <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">if</span> <span class="ruby-identifier">question_settings</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">question_settings</span>.<span class="ruby-identifier">empty?</span>
+
+    <span class="ruby-identifier">questions</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">question_settings</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">question_settings</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:all</span>
+      <span class="ruby-constant">Question</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">question_settings</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Question</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">section_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">plan</span>.<span class="ruby-identifier">sections</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span> })
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">questions</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:number</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- questions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- questions-method -->
+
+    
+      <div id="method-i-sanitize_text" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sanitize_text</span><span
+            class="method-args">(text)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sanitize_text-source">
+            <pre><span class="ruby-comment"># File app/models/exported_plan.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sanitize_text</span>(<span class="ruby-identifier">text</span>)
+  <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">text</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-keyword">then</span> <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">full_sanitizer</span>.<span class="ruby-identifier">sanitize</span>(<span class="ruby-identifier">text</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/&amp;nbsp;/</span>,<span class="ruby-string">&quot;&quot;</span>)) <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sanitize_text-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sanitize_text-method -->
+
+    
+    </section><!-- private-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

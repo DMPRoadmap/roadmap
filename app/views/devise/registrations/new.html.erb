@@ -1,0 +1,13 @@
+<h1><%= t('helpers.sign_up') %></h1>
+<% unless session[:shibboleth_data].nil? %>
+	<p class="alert alert-notice">
+		<%= raw t('helpers.sign_up_shibboleth_alert_text_html')%>
+	</p>
+	<% cookies[:show_shib_link] = { value: 'show_shib_link', expires: 3.hours.from_now } %>
+<% end %>	
+	
+<div class='white_background'>
+	<br />
+	<!-- call the register form  block-->	
+	<%= render :partial => 'shared/register_form', locals: {extended: true} %>
+</div>	

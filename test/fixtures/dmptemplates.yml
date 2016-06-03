@@ -1,0 +1,65 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+dcc_template:
+  title: "DMP Template"
+  description: "The default DCC template"
+  published: true
+  organisation: dcc
+  locale: en
+  is_default: true
+
+ahrc_template:
+  title: "AHRC Template"
+  description: "AHRC template"
+  published: true
+  organisation: ahrc
+  locale: en
+
+bbsrc_template:
+  title: "BBSRC Template"
+  description: "BBSRC template"
+  published: true
+  organisation: bbsrc
+  locale: en
+
+cruk_template:
+  title: "CRUK Template"
+  description: "CRUK template"
+  published: true
+  organisation: cruk
+  locale: en
+
+esrc_template:
+  title: "ESRC Template"
+  description: "ESRC template"
+  published: true
+  organisation: esrc
+  locale: en
+
+nerc_template:
+  title: "NERC Template"
+  description: "NERC template"
+  published: true
+  organisation: nerc
+  locale: en
+
+mrc_template:
+  title: "MRC Template"
+  description: "MRC template"
+  published: true
+  organisation: mrc
+  locale: en
+
+stfc_template:
+  title: "STFC Template"
+  description: "STFC template"
+  published: true
+  organisation: stfc
+  locale: en
+
+wellcome_template:
+  title: "Wellcome Trust Template"
+  description: "Wellcome Trust template"
+  published: true
+  organisation: wellcome
+  locale: en

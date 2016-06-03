@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module PlansHelper - DMPonline4 Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/helpers/plans_helper.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-plan_settings_indicator">#plan_settings_indicator</a>
+    
+    <li><a href="#method-i-project_list_body">#project_list_body</a>
+    
+    <li><a href="#method-i-project_list_head">#project_list_head</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./Settings/Dmptemplate.html">Settings::Dmptemplate</a>
+  
+    <li><a href="./Settings/PlanList.html">Settings::PlanList</a>
+  
+    <li><a href="./Settings/PlansController.html">Settings::PlansController</a>
+  
+    <li><a href="./Settings/ProjectsController.html">Settings::ProjectsController</a>
+  
+    <li><a href="./Settings/SettingsController.html">Settings::SettingsController</a>
+  
+    <li><a href="./ActiveAdmin.html">ActiveAdmin</a>
+  
+    <li><a href="./ActiveAdmin/Views.html">ActiveAdmin::Views</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages.html">ActiveAdmin::Views::Pages</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages/Base.html">ActiveAdmin::Views::Pages::Base</a>
+  
+    <li><a href="./Users.html">Users</a>
+  
+    <li><a href="./Users/OmniauthCallbacksController.html">Users::OmniauthCallbacksController</a>
+  
+    <li><a href="./Users/OmniauthShibbolethRequestController.html">Users::OmniauthShibbolethRequestController</a>
+  
+    <li><a href="./DMPonline4.html">DMPonline4</a>
+  
+    <li><a href="./DMPonline4/Application.html">DMPonline4::Application</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Answer.html">Answer</a>
+  
+    <li><a href="./AnswersController.html">AnswersController</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./ConfirmationsController.html">ConfirmationsController</a>
+  
+    <li><a href="./ContactsController.html">ContactsController</a>
+  
+    <li><a href="./CustomFailure.html">CustomFailure</a>
+  
+    <li><a href="./Dmptemplate.html">Dmptemplate</a>
+  
+    <li><a href="./DmptemplatesController.html">DmptemplatesController</a>
+  
+    <li><a href="./ExistingUsersController.html">ExistingUsersController</a>
+  
+    <li><a href="./ExportedPlan.html">ExportedPlan</a>
+  
+    <li><a href="./FileType.html">FileType</a>
+  
+    <li><a href="./FileUpload.html">FileUpload</a>
+  
+    <li><a href="./Guidance.html">Guidance</a>
+  
+    <li><a href="./GuidanceGroup.html">GuidanceGroup</a>
+  
+    <li><a href="./GuidanceGroupsController.html">GuidanceGroupsController</a>
+  
+    <li><a href="./GuidancesController.html">GuidancesController</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Option.html">Option</a>
+  
+    <li><a href="./OptionWarning.html">OptionWarning</a>
+  
+    <li><a href="./Organisation.html">Organisation</a>
+  
+    <li><a href="./OrganisationType.html">OrganisationType</a>
+  
+    <li><a href="./OrganisationUsersController.html">OrganisationUsersController</a>
+  
+    <li><a href="./OrganisationsController.html">OrganisationsController</a>
+  
+    <li><a href="./PasswordsController.html">PasswordsController</a>
+  
+    <li><a href="./Phase.html">Phase</a>
+  
+    <li><a href="./Plan.html">Plan</a>
+  
+    <li><a href="./PlanSection.html">PlanSection</a>
+  
+    <li><a href="./PlansController.html">PlansController</a>
+  
+    <li><a href="./PlansHelper.html">PlansHelper</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectGroup.html">ProjectGroup</a>
+  
+    <li><a href="./ProjectGroupsController.html">ProjectGroupsController</a>
+  
+    <li><a href="./ProjectPartner.html">ProjectPartner</a>
+  
+    <li><a href="./ProjectsController.html">ProjectsController</a>
+  
+    <li><a href="./Question.html">Question</a>
+  
+    <li><a href="./QuestionFormat.html">QuestionFormat</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./Section.html">Section</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SplashLog.html">SplashLog</a>
+  
+    <li><a href="./SplashLogsController.html">SplashLogsController</a>
+  
+    <li><a href="./StaticPagesController.html">StaticPagesController</a>
+  
+    <li><a href="./SuggestedAnswer.html">SuggestedAnswer</a>
+  
+    <li><a href="./Theme.html">Theme</a>
+  
+    <li><a href="./ThemesController.html">ThemesController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UserOrgRole.html">UserOrgRole</a>
+  
+    <li><a href="./UserOrgRolesController.html">UserOrgRolesController</a>
+  
+    <li><a href="./UserRoleType.html">UserRoleType</a>
+  
+    <li><a href="./UserRoleTypesController.html">UserRoleTypesController</a>
+  
+    <li><a href="./UserStatus.html">UserStatus</a>
+  
+    <li><a href="./UserStatusesController.html">UserStatusesController</a>
+  
+    <li><a href="./UserType.html">UserType</a>
+  
+    <li><a href="./UserTypesController.html">UserTypesController</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./Version.html">Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module PlansHelper</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-plan_settings_indicator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">plan_settings_indicator</span><span
+            class="method-args">(plan)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Shows whether the user has default, template-default or custom settings for
+the given plan.</p>
+          
+
+          
+          <div class="method-source-code" id="plan_settings_indicator-source">
+            <pre><span class="ruby-comment"># File app/helpers/plans_helper.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">plan_settings_indicator</span>(<span class="ruby-identifier">plan</span>)
+  <span class="ruby-identifier">plan_settings</span>     = <span class="ruby-identifier">plan</span>.<span class="ruby-identifier">super_settings</span>(<span class="ruby-value">:export</span>)
+  <span class="ruby-identifier">template_settings</span> = <span class="ruby-identifier">plan</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:settings</span>, <span class="ruby-value">:export</span>)
+
+  <span class="ruby-identifier">key</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">plan_settings</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:value?</span>)
+    <span class="ruby-identifier">plan_settings</span>.<span class="ruby-identifier">formatting</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">template_settings</span>.<span class="ruby-identifier">formatting</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;template_formatting&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;custom_formatting&#39;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">template_settings</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:value?</span>)
+    <span class="ruby-string">&#39;template_formatting&#39;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-string">&#39;default_formatting&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:small</span>, <span class="ruby-identifier">t</span>(<span class="ruby-node">&quot;helpers.settings.plans.#{key}&quot;</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- plan_settings_indicator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- plan_settings_indicator-method -->
+
+    
+      <div id="method-i-project_list_body" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project_list_body</span><span
+            class="method-args">(column, project)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="project_list_body-source">
+            <pre><span class="ruby-comment"># File app/helpers/plans_helper.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_list_body</span>(<span class="ruby-identifier">column</span>, <span class="ruby-identifier">project</span>)
+  <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">content</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">column</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:name</span>
+      [ <span class="ruby-string">&#39;dmp_td_big&#39;</span>, <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">project</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">project_path</span>(<span class="ruby-identifier">project</span>), <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dmp_table_link&#39;</span>) ]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:owner</span>
+      <span class="ruby-identifier">user</span> = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">owner</span>
+      <span class="ruby-identifier">text</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-string">&#39;Unknown&#39;</span>
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span>
+        <span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.me&#39;</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">user</span>.<span class="ruby-identifier">name</span>
+      <span class="ruby-keyword">end</span>
+
+      [ <span class="ruby-string">&#39;tmp_td_small&#39;</span>, <span class="ruby-identifier">text</span> ]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:shared</span>
+      <span class="ruby-identifier">shared_num</span> = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">text</span> = <span class="ruby-identifier">shared_num</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> (<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.yes&#39;</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot; (with #{shared_num} people) &quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.no&#39;</span>)
+      [ <span class="ruby-string">&#39;dmp_td_small&#39;</span>, <span class="ruby-identifier">text</span> ]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:last_edited</span>
+      [ <span class="ruby-string">&#39;dmp_td_small&#39;</span>, <span class="ruby-identifier">l</span>(<span class="ruby-identifier">project</span>.<span class="ruby-identifier">latest_update</span>.<span class="ruby-identifier">to_date</span>, <span class="ruby-identifier">formats</span><span class="ruby-operator">:</span> <span class="ruby-value">:short</span>) ]
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:description</span>
+      [ <span class="ruby-string">&#39;dmp_td_medium&#39;</span>, (<span class="ruby-identifier">project</span>.<span class="ruby-identifier">try</span>(<span class="ruby-identifier">column</span>) <span class="ruby-operator">||</span> <span class="ruby-string">&#39;Unknown&#39;</span>) ]
+    <span class="ruby-keyword">else</span>
+      [ <span class="ruby-string">&#39;dmp_td_small&#39;</span>, (<span class="ruby-identifier">project</span>.<span class="ruby-identifier">try</span>(<span class="ruby-identifier">column</span>) <span class="ruby-operator">||</span> <span class="ruby-string">&#39;Unknown&#39;</span>) ]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:td</span>, <span class="ruby-identifier">content</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project_list_body-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project_list_body-method -->
+
+    
+      <div id="method-i-project_list_head" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project_list_head</span><span
+            class="method-args">(column)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="project_list_head-source">
+            <pre><span class="ruby-comment"># File app/helpers/plans_helper.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_list_head</span>(<span class="ruby-identifier">column</span>)
+  <span class="ruby-identifier">klass</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">column</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:name</span>  <span class="ruby-keyword">then</span> <span class="ruby-value">:dmp_th_big</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:description</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:dmp_th_big</span>
+    <span class="ruby-keyword">else</span> <span class="ruby-value">:dmp_th_small</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:th</span>, <span class="ruby-identifier">t</span>(<span class="ruby-node">&quot;helpers.project.columns.#{column}&quot;</span>), <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project_list_head-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project_list_head-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

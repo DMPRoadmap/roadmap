@@ -1,0 +1,6 @@
+<tr>
+  <% @selected_columns.each do |column| %>
+    <%= project_list_head(column) %>
+  <% end %>
+  <th class="dmp_th_medium"><%= t("helpers.select_action")%> </th>
+</tr>

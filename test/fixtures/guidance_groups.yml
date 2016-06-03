@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+dcc_guidance_group_1:
+  name: "DCC guidance group 1"
+  organisation: dcc
+  guidances: related_policies, existing_data, licensing_of_existing_data, relationship_to_existing_data, description_of_data_content, data_format, data_volumes, data_type, data_capture_methods, data_organisation, data_quality, documentation, metadata_capture, metadata_standards, discovery_by_users, ethical_issues, ipr_ownership_and_licencing, active_data_storage, backup_procedures, data_security, data_selection, preservation_plan, period_of_preservation, data_repository, audience, expected_reuse, method_for_data_sharing, timeframe_for_data_sharing, embargo_period, restrictions_on_sharing, managed_access_procedures, responsibilities, resourcing_skills_and_training, resourcing_hardware_and_software, resourcing_preservation_and_data_sharing

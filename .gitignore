@@ -1,0 +1,30 @@
+# Ignore bundler config
+/.bundle
+
+# Ignore all logfiles, tempfiles, public assets, 
+/log/*.log
+/tmp
+public/assets/*
+
+# Ignore gemfile.lock
+Gemfile.lock
+
+# Ignore db schema.rb
+#db/schema.rb
+
+# Ignore database configuration and token secrets
+config/database.yml
+config/secrets.yml
+
+# Ignore some of the initializers
+config/initializers/recaptcha.rb
+config/initializers/devise.rb
+config/initializers/contact_us.rb
+
+# Ignore enviroments settings
+config/environments/development.rb
+config/environments/production.rb
+config/environments/test.rb
+
+
+
