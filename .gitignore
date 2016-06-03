@@ -27,4 +27,6 @@ config/environments/production.rb
 config/environments/test.rb
 
 
+# Ignore local licensing and readme information
+README.rdoc
 
