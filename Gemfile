@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # additional gems for rails 4
-gem 'turbolinks'
 gem 'railties', '= 4.0.0'
 # add these gems to help with the transition:
 gem 'protected_attributes'

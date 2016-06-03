@@ -21,7 +21,13 @@ DMPonline is a Ruby on Rails application and you will need to have:
 2. Rails >= 4.0
 3. MySql >= 5.0
 
-Further details on how to install Ruby on Rails applications are available from the Ruby on Rails site, http://rubyonrails.org
+Further details on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
+
+Further details on how to install MySQL and create your first user and database. Be sure to follow the instructions for your particular environment. 
+* Install: http://dev.mysql.com/downloads/mysql/
+* 
+* Create a user: http://dev.mysql.com/doc/refman/5.7/en/create-user.html
+* Create the database: http://dev.mysql.com/doc/refman/5.7/en/creating-database.html
 
 You may also find the following resources handy:
 
@@ -29,11 +35,19 @@ You may also find the following resources handy:
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 #### Installation
-Fork the repository and then clone it onto your server
-> git clone https://github.com/[your organization]/roadmap.git
-> 
+* Create your mysql db. Select UTF-8 Unicode (utf8mb4) encoding.
+* Fork the repository and then clone it onto your server
+** > git clone https://github.com/[your organization]/roadmap.git
+** > cd roadmap
+** > gem install bundler (if bundler is not yet installed)
+** > bundle install
 
 #### Troubleshooting
+* Installation
+** ``` An error occurred while installing libv8 (3.11.8.17), and Bundler cannot continue.
+Make sure that `gem install libv8 -v '3.11.8.17'` succeeds before bundling. ```
+*** If you are installing on a system that already has v8 installed then you may need to install the libv8 gem manually using your system's current v8 engine.
+*** ``` gem install libv8 -v '3.11.8.17' -- --with-system-v8 ```
 
 #### Support
 Issues should be reported here on Github https://github.com/DMPRoadmap/roadmap/issues
