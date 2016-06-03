@@ -26,7 +26,7 @@ gem 'sass-rails'
 # Use SCSS for stylesheets
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
-gem 'therubyracer', '0.11.4', platforms: :ruby
+gem 'therubyracer', '>=0.11.4', platforms: :ruby #'0.11.4', platforms: :ruby
 
 gem 'libv8'
 

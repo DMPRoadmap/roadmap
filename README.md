@@ -37,17 +37,40 @@ You may also find the following resources handy:
 #### Installation
 * Create your mysql db. Select UTF-8 Unicode (utf8mb4) encoding.
 * Fork the repository and then clone it onto your server
-** > git clone https://github.com/[your organization]/roadmap.git
-** > cd roadmap
-** > gem install bundler (if bundler is not yet installed)
-** > bundle install
+
+>     > git clone https://github.com/[your organization]/roadmap.git
+
+>     > cd roadmap
+
+* Make copies of the yaml configuration files and update the values for your installation
+
+>     > cp config/database_example.yml config/database.yml
+>     > cp config/secrets_example.yml config/secrets.yml
+
+* Run bundler and perform the DB migrations
+
+>     > gem install bundler (if bundler is not yet installed)
+
+>     > bundle install
+
+>     > rake db:migrate
 
 #### Troubleshooting
-* Installation
-** ``` An error occurred while installing libv8 (3.11.8.17), and Bundler cannot continue.
-Make sure that `gem install libv8 -v '3.11.8.17'` succeeds before bundling. ```
-*** If you are installing on a system that already has v8 installed then you may need to install the libv8 gem manually using your system's current v8 engine.
-*** ``` gem install libv8 -v '3.11.8.17' -- --with-system-v8 ```
+##### Installation - OSX:
+
+```
+An error occurred while installing libv8 (3.11.8.17), and Bundler cannot continue.
+
+Make sure that `gem install libv8 -v '3.11.8.17'` succeeds before bundling. 
+```
+
+If you are installing on a system that already has v8 installed then you may need to install the libv8 gem manually using your system's current v8 engine. If you're using homebrew to manage your packages you should run 'brew update' and 'brew upgrade' to make sure you have the latest packages
+
+>     > gem uninstall -a libv8
+
+>     > gem install libv8 -v '<<VERSION>>' -- --with-system-v8
+
+>     > bundle install
 
 #### Support
 Issues should be reported here on Github https://github.com/DMPRoadmap/roadmap/issues
