@@ -1,0 +1,80 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+	<%= t('org_admin.org_details_label') %>
+</h1>
+<%= t('org_admin.org_text')%>
+<br/>
+<div class="clear"></div>
+<!-- :abbreviation, :banner_file_id, :description, :domain, :logo_file_id, :name,
+ :stylesheet_file_id, :target_url, :organisation_type_id, :wayfless_entity, :parent_id, :sort_name
+	-->
+<div class="white_background blue_border">
+	<!-- body -->
+	<div class="dmp_details" >
+        
+        <!-- organisation logo -->
+		<% if @organisation.logo_file_name.present? then%>
+            <div class="div_right">
+                <%= image_tag("#{@organisation.logo_file_name}", class: "org_logo_admin_area" )%>
+            </div>
+        <%end%>
+        
+        <!-- table with org details-->
+		<table class="dmp_details_table">
+			<% if @organisation.name.present? then%>
+			<tr>
+				<td class="first"><%= t('org_admin.org_name') %></td>
+				<td><%= @organisation.name %></td>
+			</tr>
+			<%end%>
+			<% if @organisation.abbreviation.present? then%>
+			<tr>
+				<td class="first"><%= t('org_admin.org_abbr') %></td>
+				<td><%= @organisation.abbreviation %></td>
+			</tr>
+			<%end%>
+			<% if @organisation.description.present? then%>
+			<tr>
+				<td class="first"><%= t('org_admin.org_desc') %></td>
+				<td><%= raw @organisation.description %></td>
+			</tr>
+			<%end%>
+            <% if @organisation.banner_text.present? then%>
+			<tr>
+				<td class="first"><%= t('org_admin.org_banner_text') %></td>
+				<td><%= raw @organisation.banner_text %></td>
+			</tr>
+			<%end%>
+			<% if @organisation.target_url.present? then%>
+			<tr>
+				<td class="first"><%= t('org_admin.org_target_url') %></td>
+				<td><%= @organisation.target_url %></td>
+			</tr>
+			<%end%>
+			<% if @organisation.organisation_type_id.present? then%>
+			<tr>
+				<td class="first"><%= t('org_admin.org_type') %></td>
+				<td><%= @organisation.organisation_type.name %></td>
+			</tr>
+			<%end%>
+			<% if @organisation.parent_id.present? then%>
+				<tr>
+					<td class="first"><%= t('org_admin.parent_org') %></td>
+					<td><%= @organisation.parent.name %></td>
+				</tr>
+			<%end%>
+			<tr>
+				<td class="first"><%= t('org_admin.last_updated') %></td>
+				<td><%= l @organisation.updated_at.to_date, :formats => :short %></td>
+			</tr>
+		</table>
+        
+        <div class="div_clear">
+        </div>
+		<div class="move_2_right">
+			<%= link_to t("helpers.submit.edit"), admin_edit_organisation_path(current_user.organisation), :class => 'btn btn-primary'%>
+		</div>
+		<br />
+	</div>
+</div>	

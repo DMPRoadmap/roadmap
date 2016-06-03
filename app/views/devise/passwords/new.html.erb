@@ -1,0 +1,26 @@
+<h1><%= t("helpers.forgot_password") %></h1>
+	<div class="dmp_details_body">
+
+		<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+		  <%= devise_error_messages! %>
+			<div class="dmp_details">
+				<table class="dmp_details_table">
+					<tr>
+						<td class="first"><%= t("helpers.email") %>
+							<p><%= t("helpers.send_password_info")%></p>
+				
+						</td>
+						<td><%= f.email_field :email, :autofocus => true , :style => "width:95%;" %></td>
+					</tr>
+				</table>
+				
+				
+	  		</div>
+	  		<div class="div_right">
+					<%= f.submit t("helpers.send"), :class => "btn btn-primary", :id => "send_btn" %>
+				</div>
+		<% end %>
+
+<%= render "devise/shared/links" %>
+	
+</div>	

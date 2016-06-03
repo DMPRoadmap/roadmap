@@ -1,0 +1,36 @@
+<%= form_for(resource, :as => "user", :url => user_session_path) do |f| %>
+<ul>
+	<li>
+		<%= devise_error_messages! %>
+	</li>
+	<li>
+		<%= f.email_field :email, placeholder: (t('helpers.user_name')  + ' *') , :as => :email%>
+	</li>
+	<li>
+		<%= f.password_field :password, placeholder: (t('helpers.password') + ' *'), :as => :password %>
+	</li>
+	<li class="forgot_password_link">
+		<%= link_to t('helpers.forgot_password'), new_password_path('user'), :class => "a-orange" %>
+	</li>
+	<li class="remember_me_li">
+		<%= f.check_box :remember_me %><%= f.label :remember_me, :class => "remember_div" do %>
+			<%= t('helpers.remember_me') %>
+		<%end%>
+	</li>
+	<li>
+		<%= f.submit t('helpers.sign_in'), :class => "btn btn-primary" %>
+	</li>
+    <% if Rails.application.config.shibboleth_enabled %>
+        <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+            <li>
+                <div class="institution_login_link">
+                    <%= link_to t('helpers.institution_sign_in_link'), user_omniauth_shibboleth_path, :class => "a-orange" %>
+                    <%= t('helpers.institution_sign_in')%>
+                </div>
+            </li>
+        <%else%>
+            <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+        <%end%> 
+    <% end %>
+</ul>
+<% end %>

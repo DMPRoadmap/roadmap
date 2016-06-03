@@ -1,0 +1,89 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+	<%= t("org_admin.guidance.guidance_group_label") %>
+
+	<!-- link button to add new guidance -->
+	<div class="move_2_right">
+		<%= link_to t("org_admin.guidance.view_all_guidance"),
+		            admin_index_guidance_path,
+		            :class => "btn btn-primary" %>
+	</div>            
+</h1>
+
+<div class="div_clear"></div>
+
+<div class="white_background blue_border">
+	<!-- body -->
+	<div class="dmp_details">
+		
+		<table class="dmp_details_table">
+			<tr>
+				<td class="first"><%= t("org_admin.guidance_group.name_label") %></td>
+				<td><%= raw @guidance_group.name %></td>
+			</tr>
+			<tr>
+				<td class="first">
+					<% if @guidance_group.dmptemplates.count == 1 then %>
+						<%= t("org_admin.guidance.template") %>
+					<%else%>
+						<%= t("org_admin.guidance.templates") %>
+					<%end%>		
+				</td>
+				<td><% i = 1 %>
+					<% if @guidance_group.dmptemplates.count == 0 then %>
+						<% list = Dmptemplate.funders_and_own_templates(current_user.organisation_id)%>
+						<% list.each do |tem|%>
+							<%= tem.title %>
+							<% if list.count > i then%> 
+								,	
+								<% i +=1 %>		
+							<% end %>
+						<%end%>
+					<%else%>	
+						<% @guidance_group.dmptemplates.each do |tem|%>
+							<%= tem.title %>
+							<% if @guidance_group.dmptemplates.count > i then%> 
+								,	
+								<% i +=1 %>		
+							<% end %>
+						<%end%>
+					<%end%>	
+				</td>
+			</tr>
+            <tr>
+				<td class="first"><%= t("org_admin.guidance_group.published") %></td>
+				<td><%if @guidance_group.published.nil? || @guidance_group.published == false then%>
+						<%= t("helpers.no_label")%>
+					<%else%>
+						<%= t("helpers.yes_label")%>	
+					<%end%>
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="first"><%= t("org_admin.guidance_group.subset") %></td>
+				<td><%if @guidance_group.optional_subset.nil? || @guidance_group.optional_subset == false then%>
+						<%= t("helpers.no")%>
+					<%else%>
+						<%= t("helpers.yes")%>	
+					<%end%>
+				</td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("org_admin.guidance.created") %></td>
+				<td><%= l @guidance_group.created_at.to_date, :formats => :short %></td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("org_admin.guidance.last_updated") %></td>
+				<td><%= l @guidance_group.updated_at.to_date, :formats => :short %></td>
+			</tr>
+			
+		</table>
+		<div class="move_2_right">
+			<%= link_to t("helpers.submit.edit"), admin_edit_guidance_group_path(@guidance_group.id), :class => "btn btn-primary"%>
+			<%= link_to t("helpers.submit.back"), :back, :class => "btn cancel" %>
+		</div>
+		<br />
+	</div>
+</div>	
