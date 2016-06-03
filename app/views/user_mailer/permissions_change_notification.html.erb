@@ -1,0 +1,12 @@
+<p>Hello <%= @project_group.user.name %></p>
+
+<% 
+access_level = "read-only"
+if @project_group.access_level == 2 then
+	access_level = "editor"
+elsif @project_group.access_level == 3 then
+	access_level = "co-owner"
+end
+%>
+
+<p>Your permissions relating to "<%= link_to @project_group.project.title, project_path(@project_group.project, :only_path => false) %>" have changed. You now have <%= access_level %> access.</p>

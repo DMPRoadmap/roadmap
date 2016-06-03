@@ -1,0 +1,60 @@
+<script>
+	$(function(){
+	  var hash = window.location.hash;
+	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+	
+	  $('.nav-tabs a').click(function (e) {
+	    $(this).tab('show');
+	    var scrollmem = $('body').scrollTop();
+	    window.location.hash = this.hash;
+	    $('html,body').scrollTop(scrollmem);
+	  });
+	});
+
+</script>
+
+
+<h1>
+	<%= t("about_page.title")%>
+</h1>
+<div id="project-tabs" class="nav-project-tabs">
+	<ul class="nav nav-tabs" data-tabs="tabs">
+		<li class="active">
+            <%= link_to t("about_page.tab_1"), "#Background", :data => { :toggle => "tab"} %>
+        </li>
+        <li><%= link_to t("about_page.tab_2"), "#News", :data => { :toggle => "tab"} %></li>
+	</ul>
+</div>
+<div class="dmp_details_body">
+	<div id="my-tab-content" class="tab-content">
+		<div class="tab-pane active" id="Background">
+			<%= raw t("about_page.body_text_tab_1_html")%>
+		</div>	
+		<div class="tab-pane" id="News">
+			<%= raw t("about_page.body_text_tab_2_html")%>
+            <% news_left = @dcc_news_feed.entries.count %>
+            
+            <% @dcc_news_feed.entries.each do |entry| %>
+                <h3><%= entry.title.sanitize %></h3>
+                <% summary = entry.summary.sanitize %>
+                <% summary = summary.gsub(/\A<img([^>])+>/, "") %>
+                <% summary = summary.gsub(/\A<div([^>])+>/, "") %>
+                <% name = summary[/\A[\s\w]*([^,])/].strip %>
+                <% summary = summary.gsub(/\A.*div>/, "") %>
+                <% summary = summary.gsub(/<p>.*\z/, "") %>
+                <p><%= raw summary.strip %></p>
+                <p>By <%= entry.author %> on <%= entry.published.strftime("%d/%m/%Y") %></p>
+                <p>Read more on the <%= link_to "DCC Website", entry.url %></p>
+                </br>
+                <!--verify how many news are left -->
+                <%if news_left.to_i > 1 then %>
+                    <div class="two-column-clear question-divider"></div>
+                <%else%>
+                    <div class="two-column-clear"></div>
+                <%end%>
+                <% news_left = news_left - 1 %>
+            <% end %>
+		</div>		
+	</div>
+</div>	
+

@@ -1,0 +1,28 @@
+<!--edit comment to question. comment passed as argument-->
+
+<%= form_for(comment, :url => {:controller => :comments, :action => :archive } , :html => { :method => :put, :class => "archive_comment_form", :id => "archive_comment_form_#{comment.id}"}) do |f| %>
+    <%= f.hidden_field :id, :value => comment.id %>
+    <%= f.hidden_field :archived_by, :value => current_user.id %>
+	
+    <%= render :partial => "view_comment", locals: {comment: comment} %> 
+    
+    <% if current_user.id == comment.user_id then %>
+        <%= t("helpers.comments.archive_own_comment_question")%>
+        <% button_label = t("helpers.comments.archive_own_comment_button_label") %>
+    <% else%>
+        <%= t("helpers.comments.archive_comment_question")%>
+        <% button_label = t("helpers.comments.archive_comment_button_label") %>
+	<%end%>
+    
+	<!-- submit buttons -->
+	<div class="move_2_right">
+        <% question = Question.find(comment.question_id)%>	
+        <%= hidden_field_tag :plan_id, comment.plan_id, :class => "plan_id" %>
+        <%= hidden_field_tag :comment_id, comment.id, :class => "comment_id" %>
+        <%= hidden_field_tag :section_id, question.section_id, :class => "section_id" %>
+		<%= f.submit button_label, :class => "btn btn-primary archive_comment_submit_button" %>
+        <%= hidden_field_tag :comment_id, comment.id, :class => "comment_id" %>
+        <%= link_to t("helpers.submit.cancel"), "#", :class => "cancel_archive_comment btn cancel" %>
+	</div>
+    </br>
+<%end%>

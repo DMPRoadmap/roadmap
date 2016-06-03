@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+#one:
+#  locked: false
+#  project_id: 1
+#  version_id: 1
+#
+#two:
+#  locked: false
+#  project_id: 1
+#  version_id: 1

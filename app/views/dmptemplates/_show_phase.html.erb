@@ -1,0 +1,37 @@
+<!-- show phase details -->
+
+<h3>
+	<%= t('org_admin.templates.phase_details_label')%>
+
+	<!-- edit phase details button -->
+	<% if @phase.dmptemplate.org_type != t("helpers.org_type.funder") || current_user.org_type == t("helpers.org_type.funder") then %>
+		<div class="move_2_right">
+			<%= link_to t("org_admin.templates.edit_phase_details_label"), '#', :class => "btn btn-primary", :id => "edit_phase_button"%>
+		</div>
+	<%end%>
+</h3>
+
+<%if @phase.dmptemplate.org_type != t("helpers.org_type.funder") then%>
+	<div class="div_left">
+		<%= raw t('org_admin.templates.phase_details_text_html')%>
+	</div>	
+<%end%>	
+
+<br />
+<div class="div_clear"></div>
+
+<table class="dmp_details_table phase">
+	<tr>
+		<td class="first_template"><%= t('org_admin.templates.title_label') %></td>
+		<td><%= @phase.title %></td>
+	</tr>
+	<tr>
+		<td class="first_template"><%= t('org_admin.templates.phase_order_label') %></td>
+		<td><%= @phase.number %></td>
+	</tr>
+	<tr>
+		<td class="first_template"><%= t('org_admin.templates.desc_label') %></td>
+		<td class="phase_table_last_column"><%= raw @phase.description %></td>
+	</tr>
+</table>
+<div class="div_clear"></div>	

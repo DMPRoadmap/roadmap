@@ -1,0 +1,46 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+	<%= t('org_admin.users_list') %>
+</h1>
+
+<%= raw t('org_admin.user_text_html')%>
+<% @user_roles = current_user.organisation.user_org_roles %>
+<% @user_roles = @user_roles.uniq_by {|u| u.user_id } %>  	
+  	<table id="dmp_table" class="dmp_table tablesorter">
+	  <thead>
+	    <tr>
+	      	<th class="dmp_th_big"><%= t('org_admin.user_full_name') %></th>
+	      	<th class="dmp_th_medium"><%= t('org_admin.user_name') %></th>
+	      	<th class="dmp_th_small"><%= t('org_admin.last_logged_in') %></th>
+			<th class="dmp_th_small"><%= t('org_admin.how_many_plans') %></th>
+	      
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @user_roles.each do |user_id| %>
+	  		<% if !user_id.user.nil? then%>
+		      <tr>
+		        <td class="dmp_td_big">
+		        	<% if !user_id.user.name.nil? then%>
+		        		<%= user_id.user.name %>
+		        	<%end%>	
+		        </td>
+		        <td class="dmp_td_medium">
+		        	<%= user_id.user.email %>
+		        </td>
+		        <td class="dmp_td_small">
+		        	<% if !user_id.user.last_sign_in_at.nil? then%>
+		        	<%= l user_id.user.last_sign_in_at.to_date, :formats => :short %>
+					<%end%>
+		        </td>
+		        <td class="dmp_td_small">
+		        	<% if !user_id.user.project_groups.nil? then%>
+		        	<%= user_id.user.project_groups.count %>
+		        	<%end%>
+		        </td>
+		      </tr>
+	      	<%end%>
+	    <% end %>
+	  </tbody>
+	</table>

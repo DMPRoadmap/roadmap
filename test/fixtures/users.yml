@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+#one:
+#  firstname: MyString
+#  surname: MyString
+#  email: MyString
+#  password: MyString
+#  orcid_id: MyString
+#  shibboleth_id: MyString
+#  user_type_id: 1
+#  user_status_id: 1
+#  login_count: 1
+#  last_login: 2013-06-11 13:58:06
+#
+#two:
+#  firstname: MyString
+#  surname: MyString
+#  email: MyString
+#  password: MyString
+#  orcid_id: MyString
+#  shibboleth_id: MyString
+#  user_type_id: 1
+#  user_status_id: 1
+#  login_count: 1
+#  last_login: 2013-06-11 13:58:06
+
+with_many_projects:
+  firstname: Many
+  surname: Projects
+  email: many.projects@example.com
+  password: password

@@ -1,0 +1,140 @@
+<%- model_class = Plan -%>
+<% javascript "plans.js" %>
+
+
+
+<!-- render the project title -->
+<%= render :partial => "/projects/project_title", locals: {project: @plan.project} %>
+
+<!-- progress bar -->
+<% status = @plan.status %>
+    <div class="progress">
+        <%space_used = status["space_used"].to_i
+          space_title = t("helpers.plan.export.space_used", space_used: space_used, num_pages: @plan.dmptemplate.settings(:export).max_pages)
+          answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
+        <div class="bar-container">
+            <span id="questions-progress-title"><%= answered -%> <% t("helpers.project.questions_answered")%></span>
+            <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <% t("helpers.project.questions_answered")%>"></span>
+        </div>
+        <hr>
+        <div class="bar-container">
+            <span id="export-progress-title" <%= space_used >= 100 ? "class=bar-full-text" : "" -%>><%= space_title -%></span>
+            <span id="export-progress" class="bar <%= space_used >= 100 ? "full" : "space" -%>" style="width: <%= space_used -%>%;" title="<%= space_title -%>"></span>
+        </div>
+    </div>
+
+<% readonly = nil %>
+<% if ! @plan.editable_by(current_user.id) then %>
+	<% readonly = "always" %>
+<% end %>
+
+<!-- render the project tabs in -->
+<%= render :partial => "/projects/project_nav_tabs", locals: {project: @plan.project, active: @plan.id} %>
+
+<!--
+	Need to verify each section and group them by organisations (eg. funders, institutions)
+	-->
+    
+<!-- plan main container -->
+<div class="project-tabs-body">
+    <div class="accordion" id="sections-accordion">
+    	<% sections = @plan.sections %>
+    	<% sections.each do |section| %>
+            <% locked = @plan.locked(section.id, current_user.id) %>
+				<% if readonly == nil && locked["locked"] then %>
+					<% readonly = "conditional" %>
+				<% end %>
+                
+                <!-- verify if the session[:question_id_comments] has been created. -->
+                <% if session[:question_id_comments].to_i != 0 then %>
+                    <% question_from_comment = Question.find(session[:question_id_comments])%>
+                    <% if section.id == question_from_comment.section_id then %>    
+                        <%= hidden_field_tag :comment_section_id, question_from_comment.section_id, :class => "comment_section_id" %>
+                   <%end%>    
+                <% end%>     
+                
+                
+                
+    		<div class="accordion-group">
+    			<% num_section_questions = @plan.status["sections"][section.id]["num_questions"] %>
+    			<% num_section_answers = @plan.status["sections"][section.id]["num_answers"] %>
+    			<% question_word = "questions" %>
+    			<% if num_section_questions == 1 then %>
+    				<% question_word = "question" %>
+    			<% end %>
+    			<% section_status = "#{num_section_questions} #{question_word}, #{num_section_answers} answered" %>
+    			<div class="accordion-heading">
+    				<a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section.id%>">
+    					<div class="accordion_heading_text" id="section-header-<%= section.id %>">
+							<%= section.title %>
+							<% if num_section_questions.to_i > num_section_answers.to_i then %>
+								<span id="<%= section.id %>-status" class="label label-warning section-status">(<%= section_status %>)</span>
+							<% else %>
+								<span id="<%= section.id %>-status" class="label label-info section-status">(<%= section_status %>)</span>
+							<% end %>
+						</div>
+    					<!-- + or - icon-->
+                    	<span class="icon-plus icon-white accordion-icon"> </span>
+
+    				</a>
+    			</div>
+    			<div id="collapse-<%= section.id%>" class="accordion-body collapse section-collapse">
+    				<div class="section_desc">
+						<%= raw section.description %>
+					</div>
+    				<div class="accordion-inner">
+							<div class="loading">
+								<p><%= t ("helpers.loading")%></p>
+							</div>
+                            <div class="saving" style="display: none">
+								<p><%= t ("helpers.saving")%></p>
+							</div>
+                            <div class="removing" style="display: none">
+								<p><%= t ("helpers.removing")%></p>
+							</div>
+							<div class="loaded">
+								<div id="section-lock-message-<%= section.id %>" class="alert section-lock-notice"<% if !locked["locked"] then %> style="display:none"<% end %>>
+									<% if locked["locked"] then %>
+										<p><% t("helpers.project.share.locked_section_text")%><%= locked["locked_by"] %></p>
+									<% end %>
+								</div>
+								<% section.questions.order("number").each do |question| %>
+                                    <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
+                                    <div id="<%= id_css%>">
+                                        <%= render partial: "answer_form", locals: {question: question, readonly: readonly, last_question_id: section.questions.order("number DESC").first.id} %>
+                                    </div>    
+								<% end %>
+							</div>
+    				</div>
+    			</div>
+    		</div>
+            <!-- pop up about unsaved answers -->
+    		<div id="section-<%= section.id %>-collapse-alert" data-container="body" class="modal hide fade">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3><% t("helpers.project.not_saved_answers_header")%></h3>
+					</div>
+					<div class="modal-body">
+						<div id="section-<%= section.id %>-collapse-alert-plural">
+							<p><% t("helpers.project.not_saved_answers_text_alert")%></p>
+                            <ul id="unsaved-answers-<%= section.id %>"></ul>
+							<p><% t("helpers.project.not_saved_answers_confirmation_alert")%></p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a href="#" id="section-<%= section.id %>-collapse-cancel" data-section="<%= section.id %>" class="cancel-section-collapse btn"><%= t("helpers.submit.cancel")%></a>
+						<a href="#" id="section-<%= section.id %>-collapse-discard" data-section="<%= section.id %>" class="discard-section-collapse btn"><%= t("helpers.submit.discard")%></a>
+						<a href="#" id="section-<%= section.id %>-collapse-save" data-section="<%= section.id %>" class="save-section-collapse btn btn-primary"><%= t("helpers.submit.save")%></a>
+					</div>
+				</div>
+    	<% end %>
+    </div>
+    <%= tinymce :content_css => asset_path("application.css"), :setup => "function(editor){editor.on('change', function(e){$.fn.check_textarea(editor)});}" %>
+</div>
+<div class="div_right">
+	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= t("helpers.export") %></a>
+</div>
+<%= render :partial => "export", locals: {plan: @plan} %>
+
+<!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
+<% session.delete(:question_id_comments)%>
