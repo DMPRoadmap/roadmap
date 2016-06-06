@@ -47,6 +47,8 @@ You may also find the following resources handy:
 >     > cp config/database_example.yml config/database.yml
 >     > cp config/secrets_example.yml config/secrets.yml
 
+* Create an environment variable for your instance's secret (as defined in config/secrets.yml)
+
 * Run bundler and perform the DB migrations
 
 >     > gem install bundler (if bundler is not yet installed)
