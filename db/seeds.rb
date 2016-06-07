@@ -25,9 +25,11 @@ organisation_types = {
  }
 
  organisation_types.each do |org_type, details|
-   organisation_type = OrganisationType.new
-   organisation_type.name = details[:name]
-   organisation_type.save!
+   if OrganisationType.where(name: details[:name]).empty?
+     organisation_type = OrganisationType.new
+     organisation_type.name = details[:name]
+     organisation_type.save!
+   end
  end
 
  organisations = {
@@ -53,13 +55,15 @@ organisation_types = {
  }
 
  organisations.each do |org, details|
-   organisation = Organisation.new
-   organisation.name = details[:name]
-   organisation.abbreviation = details[:abbreviation]
-   organisation.domain = details[:domain]
-   organisation.sort_name = details[:sort_name]
-   organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
-   organisation.save!
+   if Organisation.where(abbreviation: details[:abbreviation]).empty?
+     organisation = Organisation.new
+     organisation.name = details[:name]
+     organisation.abbreviation = details[:abbreviation]
+     organisation.domain = details[:domain]
+     organisation.sort_name = details[:sort_name]
+     organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
+     organisation.save!
+   end
  end
  
 roles = {
@@ -72,12 +76,31 @@ roles = {
 }
 
 roles.each do |role, details|
-  role = Role.new
-  role.name = details[:name]
-  role.save!
+  if Role.where(name: details[:name]).empty?
+    role = Role.new
+    role.name = details[:name]
+    role.save!
+  end
 end
 
- 
+user_role_types = {
+  'admin' => {
+    name: 'admin'
+  },
+  'org_admin' => {
+    name: 'org_admin'
+  },
+  'user' => {
+    name: 'user'
+  }
+}
+
+user_role_types.each do |urt, details|
+  if UserRoleType.where(name: details[:name]).empty?
+    UserRoleType.create(name: details[:name])
+  end
+end
+
  users = {
     'Super admin' => {
         email: "super_admin@example.com",
@@ -99,21 +122,24 @@ end
     }
  }
  
- users.each do |user, details|
-    user = User.new
-    user.email = details[:email]
-    user.password = details[:password]
-    user.password_confirmation = details[:password_confirmation]
-    user.confirmed_at = details[:confirmed_at]
-    user.user_org_roles << Organisation.find_by_abbreviation(details[:organisation])
+users.each do |user, details|
+  if User.where(email: details[:email]).empty?
+    usr = User.new
+    usr.email = details[:email]
+    usr.password = details[:password]
+    usr.password_confirmation = details[:password_confirmation]
+    usr.confirmed_at = details[:confirmed_at]
+    usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
+#    usr.user_org_roles << UserOrgRole.create(organisation: Organisation.find_by_abbreviation(details[:organisation]),
+#                                             user_role_type: UserRoleType.find_by_name('admin'))
     details[:roles].each do |role|
-     user.roles << Role.find_by_name(role)
+     usr.roles << Role.find_by_name(role)
     end
-    user.accept_terms = details[:accept_terms]
-    user.save!
+    usr.accept_terms = details[:accept_terms]
     
- end
-
+    usr.save!
+  end
+end
 
  themes = {
    "Theme 1" => {
@@ -137,11 +163,13 @@ end
  }
 
  themes.each do |t, details|
-   theme = Theme.new
-   theme.title = details[:title]
-   theme.locale = details[:locale]
-   theme.description = details[:description]
-   theme.save!
+   if Theme.where(title: details[:title]).empty?
+     theme = Theme.new
+     theme.title = details[:title]
+     theme.locale = details[:locale]
+     theme.description = details[:description]
+     theme.save!
+   end
  end
 
  question_formats = {
@@ -166,9 +194,11 @@ end
  }
 
  question_formats.each do |qf, details|
-   question_format = QuestionFormat.new
-   question_format.title = details[:title]
-   question_format.save!
+   if QuestionFormat.where(title: details[:title]).empty?
+     question_format = QuestionFormat.new
+     question_format.title = details[:title]
+     question_format.save!
+   end
  end
 
  guidance_groups = {
@@ -185,11 +215,13 @@ end
  }
 
  guidance_groups.each do |gg, details|
-   guidance_group = GuidanceGroup.new
-   guidance_group.name = details[:name]
-   guidance_group.organisation = Organisation.find_by_abbreviation(details[:organisation])
-   guidance_group.optional_subset = details[:optional_subset]
-   guidance_group.save!
+   if GuidanceGroup.where(name: details[:name]).empty?
+     guidance_group = GuidanceGroup.new
+     guidance_group.name = details[:name]
+     guidance_group.organisation = Organisation.find_by_abbreviation(details[:organisation])
+     guidance_group.optional_subset = details[:optional_subset]
+     guidance_group.save!
+   end
  end
 
  guidances = {
@@ -216,13 +248,15 @@ end
  }
 
  guidances.each do |g, details|
-   guidance = Guidance.new
-   guidance.text = details[:text]
-   guidance.guidance_groups << GuidanceGroup.find_by_name(details[:guidance_group])
-   details[:themes].each do |theme|
-     guidance.themes << Theme.find_by_title(theme)
+   if Guidance.where(text: details[:text]).empty?
+     guidance = Guidance.new
+     guidance.text = details[:text]
+     guidance.guidance_groups << GuidanceGroup.find_by_name(details[:guidance_group])
+     details[:themes].each do |theme|
+       guidance.themes << Theme.find_by_title(theme)
+     end
+     guidance.save!
    end
-   guidance.save!
  end
 
  templates = {
@@ -245,14 +279,18 @@ end
  }
 
  templates.each do |t, details|
-   template = Dmptemplate.new
-   template.title = details[:title]
-   template.description = details[:description]
-   template.published = details[:published]
-   template.locale = details[:locale]
-   template.is_default = details[:is_default]
-   template.organisation = Organisation.find_by_abbreviation(details[:organisation])
-   template.save!
+   org = Organisation.where(abbreviation: details[:organisation]).first
+   
+   if Dmptemplate.where(organisation: org).where(title: details[:title]).empty?
+     template = Dmptemplate.new
+     template.title = details[:title]
+     template.description = details[:description]
+     template.published = details[:published]
+     template.locale = details[:locale]
+     template.is_default = details[:is_default]
+     template.organisation = org
+     template.save!
+   end
  end
 
  phases = {
@@ -269,11 +307,13 @@ end
  }
 
  phases.each do |p, details|
-   phase = Phase.new
-   phase.title = details[:title]
-   phase.number = details[:number]
-   phase.dmptemplate = Dmptemplate.find_by_title(details[:template])
-   phase.save!
+   if Phase.where(title: details[:title]).empty?
+     phase = Phase.new
+     phase.title = details[:title]
+     phase.number = details[:number]
+     phase.dmptemplate = Dmptemplate.find_by_title(details[:template])
+     phase.save!
+   end
  end
 
  versions = {
@@ -290,11 +330,13 @@ end
  }
 
  versions.each do |v, details|
-   version = Version.new
-   version.title = details[:title]
-   version.number = details[:number]
-   version.phase = Phase.find_by_title(details[:phase])
-   version.save!
+   if Version.where(title: details[:title]).empty?
+     version = Version.new
+     version.title = details[:title]
+     version.number = details[:number]
+     version.phase = Phase.find_by_title(details[:phase])
+     version.save!
+   end
  end
 
  sections = {
@@ -339,13 +381,15 @@ end
  }
 
  sections.each do |s, details|
-   section = Section.new
-   section.title = details[:title]
-   section.number = details[:number]
-   section.description = details[:description]
-   section.version = Version.find_by_title(details[:version])
-   section.organisation = Organisation.find_by_abbreviation(details[:organisation])
-   section.save!
+   if Section.where(title: details[:title]).empty?
+     section = Section.new
+     section.title = details[:title]
+     section.number = details[:number]
+     section.description = details[:description]
+     section.version = Version.find_by_title(details[:version])
+     section.organisation = Organisation.find_by_abbreviation(details[:organisation])
+     section.save!
+   end
  end
 
  questions = {
@@ -408,15 +452,17 @@ end
  }
 
  questions.each do |q, details|
-   question = Question.new
-   question.text = details[:text]
-   question.number = details[:number]
-   question.guidance = details[:guidance]
-   question.section = Section.find_by_title(details[:section])
-   details[:themes].each do |theme|
-     question.themes << Theme.find_by_title(theme)
+   if Question.where(text: details[:text]).empty?
+     question = Question.new
+     question.text = details[:text]
+     question.number = details[:number]
+     question.guidance = details[:guidance]
+     question.section = Section.find_by_title(details[:section])
+     details[:themes].each do |theme|
+       question.themes << Theme.find_by_title(theme)
+     end
+     question.save!
    end
-   question.save!
  end
 
  formatting = {
@@ -433,7 +479,9 @@ end
 }
 
  formatting.each do |org, settings|
-  template = Dmptemplate.find_by_title("#{org} Template")
-  template.settings(:export).formatting = settings
-  template.save!
+   if Dmptemplate.where(title: "#{org} Template").empty?
+    template = Dmptemplate.find_by_title("#{org} Template")
+    template.settings(:export).formatting = settings
+    template.save!
+  end
 end
