@@ -131,6 +131,8 @@ $( document ).ready(function() {
 	function update_guidance_options() {
 		var institution = $("#project_institution_id").select2('val');
 		var template = $("#project_dmptemplate_id :selected").val();
+		var options = null;
+		
 		$.ajax({
 			type: 'GET',
 			url: "possible_guidance.json?institution="+institution+"&template="+template,
@@ -138,7 +140,6 @@ $( document ).ready(function() {
 			async: false, //Needs to be synchronous, otherwise end up mixing up answers
 			success: function(data) {
 				options = data;
-				console.log(data);
 			},
 			error: function(err){
 				console.log(err);
