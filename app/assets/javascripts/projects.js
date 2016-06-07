@@ -138,14 +138,19 @@ $( document ).ready(function() {
 			async: false, //Needs to be synchronous, otherwise end up mixing up answers
 			success: function(data) {
 				options = data;
+				console.log(data);
+			},
+			error: function(err){
+				console.log(err);
 			}
 		});
 		options_container = $("#guidance-control-group");
 		options_container = options_container.find(".choices-group");
 		options_container.empty();
+				
 		var count = 0;
-		for (var id in options_container) {
-			options_container.append("<li class='choice'><label for='project_guidance_group_ids_"+id+"'><input id='project_guidance_group_ids_"+id+"' name='project[guidance_group_ids][]' type='checkbox' value='"+id+"' />"+options_container[id]+"</label></li>");
+		for (var id in options) {
+			options_container.append("<li class='choice'><label for='project_guidance_group_ids_"+id+"'><input id='project_guidance_group_ids_"+id+"' name='project[guidance_group_ids][]' type='checkbox' value='"+id+"' />"+options[id]+"</label></li>");
 			count++;
 		}
 		if (count > 0) {
