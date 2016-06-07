@@ -47,7 +47,9 @@ You may also find the following resources handy:
 >     > cp config/database_example.yml config/database.yml
 >     > cp config/secrets_example.yml config/secrets.yml
 
-* Create an environment variable for your instance's secret (as defined in config/secrets.yml)
+* Create an environment variable for your instance's secret (as defined in config/secrets.yml). You should use the following command to generate secrets for each of your environments, storing the production one in the environment variable:
+
+>     > rake secret
 
 * Run bundler and perform the DB migrations
 
@@ -56,6 +58,15 @@ You may also find the following resources handy:
 >     > bundle install
 
 >     > rake db:migrate
+
+>     > rake db:seed
+
+* Start the application
+
+>     > rails server
+
+* Verify that the site is running properly by going to http://localhost:3000
+* Login as the default administrator: 'super_admin@example.com' - 'password1'
 
 #### Troubleshooting
 ##### Installation - OSX:
