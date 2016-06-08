@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
-	devise :invitable, :database_authenticatable, :registerable,
-		 :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
+	devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, 
+         :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
 
     #associations between tables
     belongs_to :user_type
@@ -40,10 +40,10 @@ class User < ActiveRecord::Base
     accepts_nested_attributes_for :roles
     #attr_accessible :role_ids
 
-    #attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, :other_organisation, :accept_terms, :role_ids, :dmponline3
-
-    # Added to allow the profile update form to update the fields displayed to the user
-    attr_accessible :email, :firstname, :surname, :orcid_id, :organisation_id, :other_organisation
+    attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, 
+                    :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
+                    :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
+                    :other_organisation, :accept_terms, :role_ids, :dmponline3
 
     # FIXME: The duplication in the block is to set defaults. It might be better if
     #        they could be set in Settings::PlanList itself, if possible.

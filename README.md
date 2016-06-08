@@ -61,6 +61,10 @@ You may also find the following resources handy:
 
 >     > rake db:seed
 
+* Setup the devise authentication gem
+
+>     > rails generate devise:install     (Is this really necessary?)
+
 * Start the application
 
 >     > rails server

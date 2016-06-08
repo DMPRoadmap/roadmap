@@ -4,6 +4,10 @@
 	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 	
 	  $('.nav-tabs a').click(function (e) {
+
+// TODO: .nav-tabs a is not specific enough. This is interfering with top nav bar functionality
+			console.log("This: " + $(this).attr('href'));
+			
 	    $(this).tab('show');
 	    var scrollmem = $('body').scrollTop();
 	    window.location.hash = this.hash;
