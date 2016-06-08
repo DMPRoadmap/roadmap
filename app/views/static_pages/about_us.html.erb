@@ -3,9 +3,7 @@
 	  var hash = window.location.hash;
 	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 	
-	  $('.nav-tabs a').click(function (e) {
-
-// TODO: .nav-tabs a is not specific enough. This is interfering with top nav bar functionality
+	  $('#project-tabs .nav-tabs a').click(function (e) {
 			console.log("This: " + $(this).attr('href'));
 			
 	    $(this).tab('show');
