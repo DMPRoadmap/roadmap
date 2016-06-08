@@ -118,7 +118,6 @@ $( document ).ready(function() {
 		$("#user_organisation_id").change();
 	});
     
-    
     //alert dialog for unlink Shibbileth account 
    	$("#unlink-institutional-credentials-dialog").on("show", function(){
 		$('.select2-choice').hide();

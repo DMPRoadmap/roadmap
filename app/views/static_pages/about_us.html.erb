@@ -4,8 +4,6 @@
 	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 	
 	  $('#project-tabs .nav-tabs a').click(function (e) {
-			console.log("This: " + $(this).attr('href'));
-			
 	    $(this).tab('show');
 	    var scrollmem = $('body').scrollTop();
 	    window.location.hash = this.hash;
