@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require bootstrap
 //= require v1.js
 //= require select2.min.js

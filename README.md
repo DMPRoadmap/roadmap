@@ -16,7 +16,7 @@ v.0.1.0
 #### Summary
 
 #### Pre-requisites
-DMPonline is a Ruby on Rails application and you will need to have: 
+Roadmap is a Ruby on Rails application and you will need to have: 
 1. Ruby >= 2.0.0p247
 2. Rails >= 4.0
 3. MySql >= 5.0
