@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2016 University of Edinburgh & The Regents of the University of California
+Copyright (c) 2016 University of Edinburgh, University of Glasgow & The Regents of the University of California
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
 associated documentation files (the "Software"), to deal in the Software without restriction, including 
