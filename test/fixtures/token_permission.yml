@@ -1,0 +1,10 @@
+guidances_api_token:
+  token_permission_type: guidances_token_type
+  api_token: "guidances_api_token"
+  user: user_one
+
+plans_api_token:
+  token_permission_type: plans_token_type
+  api_token: "plans_api_token"
+  user: user_two
+

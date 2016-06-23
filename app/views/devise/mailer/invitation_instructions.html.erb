@@ -1,8 +1,7 @@
-<p>Hello <%= @resource.email %>!</p>
+<p><% t('custom_devise.hello') %> <%= @resource.email %>!</p>
 
-<p>A colleague has invited you to contribute to their Data Management Plan at <%= link_to 'DMPonline', root_url %></p>
+<p><% t('custom_devise.colleague_invited_you') %> <%= link_to t('tool_title'), root_url %></p>
 
-<p><%= link_to 'Click here to accept the invitation', accept_invitation_url(@resource, :invitation_token => @token) %> (or copy <%= accept_invitation_url(@resource, :invitation_token => @token) %> into your browser).</p>
+<p><%= link_to t('custom_devise.click_to_accept'), accept_invitation_url(@resource, :invitation_token => @token) %> <% t('custom_devise.1st_part_copy') %> <%= accept_invitation_url(@resource, :invitation_token => @token) %> <% t('custom_devise.2nd_part_copy') %></p>
 
-<p>If you don't want to accept the invitation, please ignore this email.<br />
-Your account won't be created until you access the link above and set your password.</p>
+<% t('custom_devise.ignore_wont_be_created') %>

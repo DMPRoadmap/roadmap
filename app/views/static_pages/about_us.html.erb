@@ -43,8 +43,8 @@
                 <% summary = summary.gsub(/\A.*div>/, "") %>
                 <% summary = summary.gsub(/<p>.*\z/, "") %>
                 <p><%= raw summary.strip %></p>
-                <p>By <%= entry.author %> on <%= entry.published.strftime("%d/%m/%Y") %></p>
-                <p>Read more on the <%= link_to "DCC Website", entry.url %></p>
+                <p><% t('helpers.about.by') %><%= entry.author %><% t('helpers.about.on') %><%= entry.published.strftime("%d/%m/%Y") %></p>
+                <p><% t('helpers.about.read_more') %><%= link_to "DCC Website", entry.url %></p>
                 </br>
                 <!--verify how many news are left -->
                 <%if news_left.to_i > 1 then %>

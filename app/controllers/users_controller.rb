@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: I18n.t('admin.user_created') }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to({:controller=> "projects", :action => "new"}, {:notice => 'Project was successfully created.'}) }
+        format.html { redirect_to({:controller=> "projects", :action => "new"}, {:notice => I18n.t('helpers.project.create_success') }) }
 				format.json { head :no_content }
       else
         format.html { render action: "edit" }

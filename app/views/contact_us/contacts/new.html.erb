@@ -76,7 +76,7 @@
 						<% if !user_signed_in? then %>
 							<tr>
 								<td class="text required first">
-									Security check
+									<%= t('helpers.security_check') %>
 								</td>
 								<td>
 									<%= recaptcha_tags %>

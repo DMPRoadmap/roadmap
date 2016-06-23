@@ -44,7 +44,7 @@ class UserOrgRolesController < ApplicationController
 
     respond_to do |format|
       if @user_org_role.save
-        format.html { redirect_to @user_org_role, notice: 'User org role was successfully created.' }
+        format.html { redirect_to @user_org_role, notice: I18n.t('org_admin.user_org_created') }
         format.json { render json: @user_org_role, status: :created, location: @user_org_role }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class UserOrgRolesController < ApplicationController
 
     respond_to do |format|
       if @user_org_role.update_attributes(params[:user_org_role])
-        format.html { redirect_to @user_org_role, notice: 'User org role was successfully updated.' }
+        format.html { redirect_to @user_org_role, notice:  I18n.t('org_admin.user_org_updated') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

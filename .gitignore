@@ -1,16 +1,18 @@
+
 # Ignore bundler config
 /.bundle
 
-# Ignore all logfiles, tempfiles, public assets, 
+# Ignore all logfiles, tempfiles, public assets,
 /log/*.log
 /tmp
 public/assets/*
+public/apidocs/*
 
 # Ignore gemfile.lock
 Gemfile.lock
 
 # Ignore db schema.rb
-#db/schema.rb
+# db/schema.rb
 
 # Ignore database configuration and token secrets
 config/database.yml
@@ -26,5 +28,7 @@ config/environments/development.rb
 config/environments/production.rb
 config/environments/test.rb
 
+config/initializers/contact_us.rb
 
-
+# ignore IDE files
+.idea/*
