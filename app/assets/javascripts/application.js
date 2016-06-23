@@ -17,6 +17,8 @@
 //= require select2.min.js
 //= require jquery.placeholder.js
 //= require turbolinks
+//= require i18n
+//= require i18n/translations
 
 
 
@@ -56,8 +58,8 @@ $( document ).ready(function() {
 	$(".help").popover();
 
 	$('.has-tooltip').tooltip({
-    placement: "right",
-    trigger: "focus"
+        placement: "right",
+        trigger: "focus"
 	});
 
 	$(".show-edit-toggle").click(function () {

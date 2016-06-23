@@ -1,5 +1,5 @@
-<p>Welcome to DMPonline, <%= @email %>!</p>
+<p><% t('custom_devise.welcome_to_DMP') %>, <%= @email %>!</p>
 
-<p>Thank you for registering at DMPonline. Please confirm your email address:</p>
+<p><% t('custom_devise.thank_you_and_confirm') %></p>
 
-<p><%= link_to 'Click here to confirm your account', confirmation_url(@resource, :confirmation_token => @token) %> (or copy <%= confirmation_url(@resource, :confirmation_token => @token) %> into your browser).</p>
+<p><%= link_to t('custom_devise.click_to_confirm'), confirmation_url(@resource, :confirmation_token => @token) %> <% t('custom_devise.1st_part_copy') %> <%= confirmation_url(@resource, :confirmation_token => @token) %> <% t('custom_devise.2nd_part_copy') %></p>

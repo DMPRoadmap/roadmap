@@ -20,7 +20,7 @@
 			
 				<table class="dmp_details_table guidance_table">
 					<tr>
-						<td class="first"><%= t('org_admin.guidance.name_label') %></td>
+						<td class="first"><%= t('org_admin.guidance_group.name_label') %></td>
 						<td><div class="div_left_icon_g">
 								<%= f.text_field :name, 
 								:as => :string, 
@@ -30,7 +30,7 @@
 							<div class="div_right_icon_g">
 								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_title_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.title_help_text_html'))%>
 							</div>
-													</td>
+						</td>
 					</tr>
 					<tr>
 						<td class="first"><%= t('org_admin.guidance.template') %></td>

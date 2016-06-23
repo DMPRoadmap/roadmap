@@ -44,7 +44,7 @@ class UserRoleTypesController < ApplicationController
 
     respond_to do |format|
       if @user_role_type.save
-        format.html { redirect_to @user_role_type, notice: 'User role type was successfully created.' }
+        format.html { redirect_to @user_role_type, notice: I18n.t('admin.user_role_type_created') }
         format.json { render json: @user_role_type, status: :created, location: @user_role_type }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class UserRoleTypesController < ApplicationController
 
     respond_to do |format|
       if @user_role_type.update_attributes(params[:user_role_type])
-        format.html { redirect_to @user_role_type, notice: 'User role type was successfully updated.' }
+        format.html { redirect_to @user_role_type, notice: I18n.t('admin.user_role_type_updated') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

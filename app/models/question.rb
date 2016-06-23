@@ -81,7 +81,7 @@ class Question < ActiveRecord::Base
         question.guidances.each do |g_by_q|
             g_by_q.guidance_groups.each do |group|
                 if group.organisation == org_admin
-                    guidances["#{group.name} guidance for this question"] = g_by_q
+                    guidances["#{group.name} guidance"] = g_by_q
                 end
             end
 	  	end

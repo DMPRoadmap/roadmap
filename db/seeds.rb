@@ -61,7 +61,7 @@ organisation_types = {
    organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
    organisation.save!
  end
- 
+
 roles = {
   'admin' => {
     name: "admin"
@@ -77,7 +77,7 @@ roles.each do |role, details|
   role.save!
 end
 
- 
+
  users = {
     'Super admin' => {
         email: "super_admin@example.com",
@@ -98,20 +98,24 @@ end
         confirmed_at: Time.zone.now
     }
  }
- 
+
  users.each do |user, details|
     user = User.new
     user.email = details[:email]
     user.password = details[:password]
     user.password_confirmation = details[:password_confirmation]
     user.confirmed_at = details[:confirmed_at]
-    user.user_org_roles << Organisation.find_by_abbreviation(details[:organisation])
     details[:roles].each do |role|
-     user.roles << Role.find_by_name(role)
+      user.roles << Role.find_by( name: role )
     end
+    user_roles = UserOrgRole.new
+    user_roles.organisation = Organisation.find_by( abbreviation: details[:organisation])
+    user_roles.user = user
+    user_roles.save!
+    user.user_org_roles << user_roles
     user.accept_terms = details[:accept_terms]
     user.save!
-    
+
  end
 
 
@@ -424,7 +428,7 @@ end
     font_face: "Arial, Helvetica, Sans-Serif",
     font_size: 11,
     margin: { top: 20, bottom: 20, left: 20, right: 20 }
-  },  
+  },
   'DCC' => {
      font_face: "Arial, Helvetica, Sans-Serif",
      font_size: 12,
@@ -437,3 +441,23 @@ end
   template.settings(:export).formatting = settings
   template.save!
 end
+
+token_permission_types = {
+  'guidances' => {
+    description: "allows a user access to the guidances api endpoint"
+  },
+  'plans' => {
+    description: "allows a user access to the plans api endpoint"
+  }
+}
+
+token_permission_types.each do |title,settings|
+  token_permission_type = TokenPermissionType.new
+  token_permission_type.token_type = title
+  token_permission_type.text_desription = settings(:description)
+  token_permission_type.save!
+end
+
+
+
+

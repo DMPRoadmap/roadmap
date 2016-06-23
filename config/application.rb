@@ -84,6 +84,12 @@ module DMPonline4
     WickedPdf.config = {
 	  :exe_path => '/usr/local/bin/wkhtmltopdf'
 	}
-	
+
+    # read secret_key_base from secrets.yml
+    # TODO Remove this in Rails 4.1
+    config.secret_key_base = YAML.load(File.open("#{Rails.root}/config/secrets.yml"))[Rails.env]['secret_key_base']
+
+
+
   end
 end

@@ -6,7 +6,7 @@
 	<!-- link button to add new guidance -->
 	<div class="move_2_right">
 		<%= link_to t("org_admin.guidance.add_guidance"),
-		            admin_new_guidance_path(),
+		            admin_new_guidance_path,
 		            :class => 'btn btn-primary' %>
 		<%= link_to t("org_admin.guidance.view_all_guidance"),
 		            admin_index_guidance_path,
@@ -144,12 +144,12 @@
 <!-- alert for the default template-->
 <div id="edit_guidance_alert_dialog" data-container="body" data-backdrop="static" class="modal hide fade">
 	<div class="modal-header">
-		<h3>Before submitting, please consider:</h3>
+		<h3><% t('helpers.before_submitting_consider') %></h3>
 	</div>
 	<div class="modal-body">
 		<ul id="missing_fields_edit_guidance"></ul>
   	</div>
 	<div class="modal-footer">
-    	<a href="#" id="return_to_edit_guidance" class="btn">OK</a>
+    	<a href="#" id="return_to_edit_guidance" class="btn"><% t('helpers.ok_label') %></a>
     </div>
 </div>

@@ -23,7 +23,7 @@ $( document ).ready(function() {
 		$("#institution-control-group").show();
 		$("#create-plan-button").show();
 		$("#other-funder-name").show();
-		$("#confirm-funder").text("None");
+		$("#confirm-funder").text(I18n.t("helpers.none"));
 	});
 
 	$("#project_funder_name").change(function(){
@@ -40,7 +40,7 @@ $( document ).ready(function() {
 		$("#project_institution_id").select2("val", "");
 		update_template_options();
 		update_guidance_options();
-		$("#confirm-institution").text("None");
+		$("#confirm-institution").text(I18n.t("helpers.none"));
 	});
 
 	$("#project_dmptemplate_id").change(function (f) {
@@ -50,10 +50,10 @@ $( document ).ready(function() {
 
 	$("#project-confirmation-dialog").on("show", function(){
 		if ($("#confirm-institution").text() == "") {
-			$("#confirm-institution").text("None");
+			$("#confirm-institution").text(I18n.t("helpers.none"));
 		}
 		if ($("#confirm-funder").text() == "") {
-			$("#confirm-funder").text("None");
+			$("#confirm-funder").text(I18n.t("helpers.none"));
 		}
 		if ($("#confirm-template").text() == "") {
 			$("#confirm-template").closest("div").hide();
