@@ -1,3 +1,8 @@
 language: ruby
 rvm:
   - 2.0.0-p247
+
+before_script:
+  - cp config/database_example.yml config/database.yml
+  - cp config/secrets_example.yml config/secrets.yml
+
