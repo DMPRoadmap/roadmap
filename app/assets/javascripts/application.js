@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require bootstrap
 //= require v1.js
 //= require select2.min.js
@@ -119,7 +120,6 @@ $( document ).ready(function() {
 		$("#other-org-link").hide();
 		$("#user_organisation_id").change();
 	});
-    
     
     //alert dialog for unlink Shibbileth account 
    	$("#unlink-institutional-credentials-dialog").on("show", function(){
