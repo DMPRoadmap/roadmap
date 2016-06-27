@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
     has_many :project_groups, :dependent => :destroy
     has_many :organisations , through: :user_org_roles
     has_many :user_role_types, through: :user_org_roles
+		has_many :token_permissions
+
 
     has_many :projects, through: :project_groups do
       def filter(query)
@@ -38,9 +40,8 @@ class User < ActiveRecord::Base
     has_many :plan_sections
 
     accepts_nested_attributes_for :roles
-    #attr_accessible :role_ids
-
-    #attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, :other_organisation, :accept_terms, :role_ids, :dmponline3
+    attr_accessible :role_ids
+    attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token
 
     # FIXME: The duplication in the block is to set defaults. It might be better if
     #        they could be set in Settings::PlanList itself, if possible.
@@ -113,7 +114,7 @@ class User < ActiveRecord::Base
 		org_admin = roles.find_by_name("org_admin")
 		return !org_admin.nil?
 	end
-    
+
     def org_type
         org_type = organisation.organisation_type.name
 		return org_type

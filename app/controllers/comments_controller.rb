@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
         respond_to do |format|
           if @comment.save
             session[:question_id_comments] = @comment.question_id
-            format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: 'Comment was successfully created.' }
+            format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.comment_created") }
             format.json { head :no_content  }
           end
         end
@@ -62,7 +62,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         session[:question_id_comments] = @comment.question_id
-        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.comment_updated") }
         format.json { head :no_content }
       end
     end
@@ -81,7 +81,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         session[:question_id_comments] = @comment.question_id
-        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: 'Comment has been removed.' }     
+        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.comment_removed") }
       end   
     end
   end

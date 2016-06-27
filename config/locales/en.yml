@@ -1,6 +1,6 @@
 # [+Project:+] DMPonline v4
 # [+Description:+] This file contains all the text present on DMPonline that is not being retrieve from the database.
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre
 
 en:
   date:
@@ -62,18 +62,27 @@ en:
     questions: "Questions"
     template_title: "Template title"
     section_title: "Section title"
+    formatting: "Formatting"
+    max_pages: "Max Pages"
     phase_title: "Phase title"
     version_title: "Version title"
     user_name: "Username"
     firstname: "First name"
     surname: "Surname"
     user: "User"
+    user_created: 'User was successfully created.'
     user_org_role: "User role on an Organisation"
     user_role_type: "User role type"
+    user_role_type_created: 'User role type was successfully created.'
+    user_role_type_updated: 'User role type was successfully updated.'
     user_role: "User role"
     role: "Role"
     user_status: "User status"
+    user_status_created: 'User status was successfully created.'
+    user_status_updated: 'User status was successfully updated.'
     user_type: "User type"
+    user_type_created: 'User type was successfully created.'
+    user_type_updated: 'User type was successfully created.'
     last_logged_in: "Last logged in"
     version_numb: "Version number"
     details: "Details"
@@ -88,14 +97,33 @@ en:
     template: "Template"
     themes: "Themes"
     theme: "Theme"
+    theme_created: 'Theme was successfully created.'
+    theme_updated: 'Theme was successfully updated.'
     sug_answer: "Suggested answer"
     sug_answers: "Suggested answers"
     old_temp_field: "old template field"
     old_theme_field: "old theme field"
+    token_permission_type: "Token Permission Type"
+    permission_description: "Permission Description"
+    token_permission: "Token Permission"
+    org_token_permission: "Organisation Token Permission"
 
+    settings_updated: 'Settings updated successfully'
+    choose_themes: 'Choose all themes that apply.'
+    all_themes: 'All themes'
+    selected_themes: "Selected themes"
+    choose_templates: 'Choose all templates that apply.'
+    all_templates: 'All templates'
+    selected_templates: "Selected templates"
+    select_question_format: "Select question format"
+    no_template: 'No template'
+    no_phase: 'No phase'
+    no_version: 'No version'
+    no_section: 'No section'
 
   org_admin:
     admin_area: "Admin area"
+    admin_details: "Admin Details"
     template_label: "Templates"
     user_list_label: "Users"
     org_details_label:  "Organisation details"
@@ -130,6 +158,8 @@ en:
     option_order_label: "Order"
     option_text_label: "Text"
     option_default_label: "Default"
+    user_org_created: 'User org role was successfully created.'
+    user_org_updated: 'User org role was successfully updated.'
     guidance:
       guidance_list: "Guidance list"
       text_label: "Text"
@@ -234,6 +264,7 @@ en:
       edit_alert_label: "Edit alert"
       edit_alert_text: "Please consider the kind of changes you are about to make as this plan is already published and might be in use"
     questions:
+      quidance_button: "Guidance"
       question_text_label: "Question text"
       question_number_label: "Question number"
       question_edit_button: "Edit question"
@@ -270,6 +301,7 @@ en:
 
 
 
+
   helpers:
     home: "Home"
     return_home: "Return to the home page"
@@ -278,10 +310,11 @@ en:
     view_plans_label: "View plans"
     create_plan_label: "Create plan"
     about_us_label: "About"
-    roadmap_label: "Roadmap"
+    roadmap_label: "Future plans"
     help_label: "Help"
     contact_label: "Contact"
     jisc: "The DCC is funded by"
+    format: "format"
 
     sign_in: "Sign in"
     sign_out: "Sign out"
@@ -312,6 +345,10 @@ en:
     send_password_info: "Reset password instructions"
     edit_password_info: "If you would like to change your password please complete the following fields."
     accept_terms_html: " I accept the <a href='/terms'>terms and conditions</a> *"
+    you_must_accept: 'You must accept the terms and conditions to register.'
+    email_already_registered: 'That email address is already registered.'
+    email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."
+    error_registration_check: 'Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.'
 
     text_area: "Text area"
     text_field: "Text field"
@@ -319,12 +356,30 @@ en:
     checkbox: "Check box"
     dropdown: "Dropdown"
     multi_select_box: "Multi select box"
+    export: "Export"
 
+    about:
+      by: "By "
+      on: " on "
+      read_more: "Read more on the "
+
+    mailer:
+      permission_relating: "Your permissions relating to "
+      changed: " have changed. You now have "
+      access: "access."
+      access_to: "Your access to "
+      removed: " has been removed."
+      given: "You have been given "
+      access_two: " access to "
+
+    truncate_continued: "... (continued)"
+    security_check: "Security check"
     error: "Error!"
     comment: "Comment"
     send: "Send"
     yes_label: "Yes"
     no_label: "No"
+    ok_label: "Ok"
     none: "None"
     false_lowercase: "false"
     title: "Title"
@@ -349,6 +404,7 @@ en:
       back: "Back"
       discard: "Discard"
 
+    before_submitting_consider: "Before submitting, please consider:"
     name: "Name"
     first_name: "First name"
     last_name: "Last name"
@@ -404,8 +460,11 @@ en:
       archive_comment_button_label: "Remove"
       clear_by: "Note removed by"
       retracted: "Note removed by you"
-      
-    
+      comment_created: 'Comment was successfully created.'
+      comment_updated: 'Comment was successfully updated.'
+      comment_removed: 'Comment has been removed.'
+
+
     org_type:
       funder: "Funder"
       institution: "Institution"
@@ -431,6 +490,7 @@ en:
       project_name: "Plan name"
       my_project_name: "My plan"
       success: "Plan was successfully created."
+      success_update: "Plan was successfully updated."
       principal_investigator: "Principal Investigator/Researcher"
       principal_investigator_help_text: "Name of Principal Investigator(s) or main researcher(s) on the project."
       principal_investigator_id: "Principal Investigator/Researcher ID"
@@ -446,6 +506,9 @@ Select what format you wish to use and click to 'Export'.</p>"
       not_saved_answers_text_alert: "You have altered answers but have not saved them:"
       not_saved_answers_confirmation_alert: "Would you like to save them now?"
       not_saved_answers_header: "Unsaved answers"
+      answer_recorded: 'Answer was successfully recorded.'
+      answer_error: 'There was an error saving the answer.'
+      answer_no_change: 'No change in answer content - not saved.'
       project_data_contact: "Plan data contact"
       project_data_contact_help_text: "Name (if different to above), telephone and email contact details"
       project_name_help_text: "If applying for funding, state the name exactly as in the grant proposal."
@@ -509,7 +572,17 @@ Select what format you wish to use and click to 'Export'.</p>"
         placeholder: "Filter plans"
         submit: "Filter"
         cancel: "Cancel"
-        no_matches: "No plans match '%{filter}'"
+        no_plans_match: "No plans match '%{filter}'"
+        no_matches: "No matches"
+      user_added: "User added to project"
+      invitation_success: 'Invitation issued successfully.'
+      enter_email: "Please enter an email address"
+      sharing_updated: 'Sharing details successfully updated.'
+      access_removed: 'Access removed'
+      update_success: 'Project was successfully updated.'
+      create_success: 'Project was successfully created.'
+      details_update_success: "Details successfully updated."
+      choose_template: "Choose a template"
 
     plan:
       export:
@@ -517,6 +590,7 @@ Select what format you wish to use and click to 'Export'.</p>"
           question_not_answered: Question not answered.
           generated_by: This document was generated by DMPonline (http://dmponline.dcc.ac.uk)
         space_used: "approx. %{space_used}% of available space used (max %{num_pages} pages)"
+        space_used_without_max: "approx. %{space_used}% of available space used"
         project_name: "Project Name"
         project_identifier: "Project Identifier"
         grant_title: "Grant Title"
@@ -525,6 +599,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         project_description: "Description"
         funder: "Funder"
         institution: "Institution"
+        not_valid_format: '%{value}% is not a valid format'
 
     settings:
       title: "Settings"
@@ -536,7 +611,7 @@ Select what format you wish to use and click to 'Export'.</p>"
           duplicate: "Duplicate column name. Please only include each column once."
           unknown: "Unknown column name."
       plans:
-        title: Plan title
+        title: "Plan title"
         reset: "Reset"
         custom_formatting: "(Using custom PDF formatting values)"
         template_formatting: "(Using template PDF formatting values)"
@@ -545,6 +620,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         pdf_formatting: "PDF Formatting"
         font_face: "Face"
         font_size: "Size"
+        font: "Font"
         margin: "Margin"
         margins:
           top: "Top"
@@ -561,12 +637,13 @@ Select what format you wish to use and click to 'Export'.</p>"
           invalid_font_face: "Invalid font face"
           unknown_key: "Unknown formatting setting"
           invalid_max_pages: "Invalid maximum pages"
+          no_access_account: "This account does not have access to that plan."
 
   about_page:
     title: "About DMPonline"
     tab_1: "Background"
     tab_2: "Latest news"
-    
+
     body_text_tab_1_html: "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. DMPonline has been produced by the UK's Digital Curation Centre to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p>
     <p>The <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> has worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p>
     </br>
@@ -701,22 +778,20 @@ Select what format you wish to use and click to 'Export'.</p>"
      </ul>
      <p>Tel. +44 (0) 131 651 1239</p>
      <p>Email <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
-  
+
   roadmap_page:
-    title: "Roadmap"
-    tab_1: "Future plans"
+    title: "Future plans"
+    tab_1: "Releases"
     tab_2: "Get involved"
-    body_text_tab_1_html: "<p>DMPonline has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. We regularly take stock of how we can expand our service to meet these evolving needs.</p>
-    <p>A number of enhancements and new features are planned. These include:</p>
+    body_text_tab_1_html: "<p>The DCC is collaborating with the DMPTool team to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank	'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
     <ul>
         <li>- APIs to create plans, extract guidance and generate statistics from DMPonline</li>
         <li>- Multi-lingual support so foreign language versions can be presented</li>
-        <li>- Locale-aware support to provide tailored instances for particular countries or other contexts</li>
+        <li>- Locales to provide a refined set of content for particular countries or other contexts</li>
         <li>- A lifecycle to indicate the status of DMPs and allow institutional access to plans</li>
         <li>- Support for reviewing Data Management Plans</li>
     </ul>
-    <p>We are currently revising the timeframes for our roadmap due to staff changes and pending recruitment. We expect to have a new version online by early 2016.</p>
-    <p>To make sure we’re on the right track, we work to develop our roadmap in conjunction with our DMPonline user group. If you would like to help shape our future plans, please join the group. More information on how you can engage with us is available under the 'Get involved' tab.</p>
+    <p>DMPonline has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p>
     </br>
     <h3>Current release</h3>
     <p>The current version of DMPonline is 4.2. This was released in August 2015 and included Institutional branding, optional guidance for funders, improvements to the question area, improvements to the admin interface, GitHub pull requests, new seed file, and an update of the gemfile.</p>
@@ -734,16 +809,21 @@ Select what format you wish to use and click to 'Export'.</p>"
       <li>- <a href='/files/DMPonline-v4-LocaleSupport.pdf' target='_blank'>Developing Locale-Aware Support for DMPonline version 4</a></li>
     </ul>
     </br>"
-     
+
     body_text_tab_2_html: "<p>DMPonline is developed and maintained by the UK Digital Curation Centre. We’re a small team, and are happy to collaborate with others. There are various ways you can get involved:</p>
     <h3>Join the user group</h3>
-    <p>We want to engage with our users more actively so invite you to join the user group. We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the group that you can request to join. We also host periodic meetings to consult on our plans</p>
-    <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is also helpful for us to know what type of user you are –researcher, institutional administrator, librarian, developer, funder etc.</p>
+    <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the DMPonline user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
+    <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p>
+	<p>Notes from previous user group sessions are provided below:</p>
+	<ul>
+      <li>- <a href='/files/DMPonline-user-group-IDCC-2016.pdf' target='_blank'>Meeting notes covering internationalisation and locales, 23 February 2016</a></li>
+      <li>- <a href='/files/DMPonline-user-group-notes-29Jan2015' target='_blank'>Meeting notes covering plan lifecycle and review, 29 January 2015</a></li>
+    </ul>
     <p>Please let us know your interests and share your ideas for future developments via the mailing list so the community as a whole can feedback on them.</p>
     </br>
     <h3>Customise DMPonline</h3>
     <p>DMPonline can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
-    <p>Futher guidance on customising DMPonline is available on the <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>DCC website</a>.</p> 
+    <p>Futher guidance on customising DMPonline is available on the <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>DCC website</a>.</p>
     </br>
     <h3>Contribute to the code</h3>
     <p>DMPonline is a Ruby on Rails application. The source code is made available under a GNU Affero General Public License. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of DMPonline and offer your contributions back to the community.</p>
@@ -753,7 +833,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     <h3>Support our work</h3>
     <p>We are impressed by the uptake of DMPonline both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p>
     <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of DMPonline. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
-    
+
   terms_page:
     title: "Terms of use"
     body_text_html: "<div class='white_background'>
@@ -786,3 +866,37 @@ Select what format you wish to use and click to 'Export'.</p>"
     <br />
     <div class='white_background'>
     <p>Use of the tool indicates that you understand and agree to these terms and conditions.</p></div>"
+
+  js:
+    question_text_empty: 'Question text is empty, please enter your question.'
+    add_guidance_text: "add guidance text"
+    select_question: "select a question"
+    select_at_least_one_theme: "select at least one theme"
+    select_guidance_group: "select a guidance group"
+    enter_up_to: "Please only enter up to 165 characters, you have used"
+    if_using_url_try: "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+    you_have_unsaved_in_sections: 'You have unsaved answers in the following sections:\n'
+
+  custom_devise:
+    resend_confirmation: "Resend confirmation instructions"
+    welcome_to_DMP: "Welcome to DMPonline"
+    thank_you_and_confirm: "Thank you for registering at DMPonline. Please confirm your email address:"
+    click_to_confirm: "Click here to confirm your account"
+    1st_part_copy: "(or copy"
+    2nd_part_copy: "into your browser)."
+    colleague_invited_you: "A colleague has invited you to contribute to their Data Management Plan at"
+    click_to_accept: "Click here to accept the invitation"
+    ignore_wont_be_created: "<p>If you don't want to accept the invitation, please ignore this email.<br />
+    Your account won't be created until you access the link above and set your password.</p>"
+    1st_part_change_password: "Someone has requested a link to change your"
+    2nd_part_change_password: "password. You can do this through the link below."
+    ignore_password_wont_be_changed: "<p>If you didn't request this, please ignore this email.</p>
+     <p>Your password won't change until you access the link above and create a new one.</p>"
+    hello: "Hello"
+    1st_part_locked: "Your "
+    2nd_part_locked: " account has been locked due to an excessive number of unsuccessful sign in attempts."
+    click_to_unlock: "Click the link below to unlock your account:"
+    unlock: 'Unlock my account'
+    waiting_for_confirmation: "Currently waiting confirmation for: "
+    resend_unlock: "Resend unlock instructions"
+

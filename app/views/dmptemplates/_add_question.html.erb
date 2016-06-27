@@ -154,7 +154,7 @@ in the admin interface.
 				<td><div class="div_left_icon">
 						<%= f.collection_select(:theme_ids,
 							Theme.find(:all, :order => "title ASC"),
-							:id, :title, {:prompt => false, :include_blank => "None"}, {:multiple => true})%>
+							:id, :title, {:prompt => false, :include_blank => t('helpers.none')}, {:multiple => true})%>
 					</div>
 					<div class="div_right_icon">
 						<%= link_to( image_tag("help_button.png"), "#", :class => "question_themes_popover", :rel => "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_themes_help_text_html"))%>

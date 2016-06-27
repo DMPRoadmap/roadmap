@@ -138,7 +138,7 @@
 			    <%end%>
 			    <% if !guidance.question_id.nil? then %>
 			        <td class="dmp_td_small">
-			        	<%= raw guidance.question.text.truncate(70, omission: "... (continued)") %>
+			        	<%= raw guidance.question.text.truncate(70, omission: t('helpers.truncate_continued')) %>
 			        </td>
 			    <%else%>
 			    	<td class="dmp_td_small">
@@ -163,7 +163,7 @@
 		        	<%= link_to t("helpers.view"), admin_show_guidance_path(guidance), :class => "dmp_table_link"%><br/>
 					<%= link_to t("helpers.submit.edit"), admin_edit_guidance_path(guidance), :class => "dmp_table_link"%><br/>
 					<%= link_to t("helpers.submit.delete"), admin_destroy_guidance_path(guidance),
-						:confirm => t("org_admin.guidance.delete_message_html", :guidance_summary => truncate(sanitize(guidance.text,:tags => %w(br a)), :length => 20 , :omission => "...(continued)") ), :method => :delete, :class => "dmp_table_link"%>
+						:confirm => t("org_admin.guidance.delete_message_html", :guidance_summary => truncate(sanitize(guidance.text,:tags => %w(br a)), :length => 20 , :omission => t('helpers.truncate_continued')) ), :method => :delete, :class => "dmp_table_link"%>
 		        </td>
 		      </tr>
 		    <%end%>

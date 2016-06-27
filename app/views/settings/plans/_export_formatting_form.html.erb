@@ -15,11 +15,11 @@
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= t("helpers.unsaved") %></span>
   <div id="custom-export-title">
-    <h3><%= t("helpers.settings.plan.title") %></h3>
+    <h3><%= t("helpers.settings.plans.title") %></h3>
     <fieldset>
       <ol>
         <li>
-          <%= label_tag("export[title]", t("helpers.settings.plan.title")) %>
+          <%= label_tag("export[title]", t("helpers.settings.plans.title")) %>
           <div class="move_2_right">
             <%= text_field_tag("export[title]", plan.title) %>
           </div>
@@ -44,7 +44,7 @@
     </ol>
   </fieldset>
   <fieldset class="check_select sections">
-    <legend><label for="sections_toggle">Sections</label></legend>
+    <legend><label for="sections_toggle"><% t('admin.sections') %></label></legend>
     <ol>
     <% plan.sections.each do |section| %>
       <li>

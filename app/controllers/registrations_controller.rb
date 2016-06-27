@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
   	if sign_up_params[:accept_terms] != "1" then
-  	  redirect_to after_sign_up_error_path_for(resource), alert: 'You must accept the terms and conditions to register.'
+  	  redirect_to after_sign_up_error_path_for(resource), alert: I18n.t('helpers.you_must_accept')
   	else
   		existing_user = User.find_by_email(sign_up_params[:email])
   		if !existing_user.nil? then
@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
   				@user = existing_user
   				do_update(false, true)
   			else
-  			    redirect_to after_sign_up_error_path_for(resource), alert: 'That email address is already registered.'
+  			    redirect_to after_sign_up_error_path_for(resource), alert: I18n.t('helpers.email_already_registered')
   			end
   		else
 			build_resource(sign_up_params)
@@ -29,7 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
 			  end
 			else
 			  clean_up_passwords resource
-			  redirect_to after_sign_up_error_path_for(resource), alert: 'Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.'
+			  redirect_to after_sign_up_error_path_for(resource), alert: I18n.t('helpers.error_registration_check')
 			end
 		end
     end
@@ -87,9 +87,9 @@ class RegistrationsController < Devise::RegistrationsController
         sign_in @user, :bypass => true
         
         if params[:unlink_flag] == 'true' then
-            redirect_to({:controller => "registrations", :action => "edit"}, {:notice => "Details successfully updated."})
+            redirect_to({:controller => "registrations", :action => "edit"}, {:notice => I18n.t('helpers.project.details_update_success')})
         else
-            redirect_to({:controller => "projects", :action => "index"}, {:notice => "Details successfully updated."})
+            redirect_to({:controller => "projects", :action => "index"}, {:notice => I18n.t('helpers.project.details_update_success')})
         end
 
     else

@@ -21,7 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 #end
 # Use SCSS for stylesheets
 gem 'sass-rails'
-#gem 'sass' 
+#gem 'sass'
 
 
 # Use SCSS for stylesheets
@@ -92,4 +92,22 @@ gem 'feedjira'
 gem 'caracal'
 gem 'caracal-rails'
 
+# TODO where to put it?
+gem "i18n-js", ">= 3.0.0.rc11"
 
+
+#
+#     TESTING
+#
+group :test do
+  gem 'minitest-rails-capybara'
+  gem 'minitest-reporters'
+end
+
+#
+#     API
+#
+gem 'swagger-docs'
+
+# TODO where to put it?
+gem "i18n-js", ">= 3.0.0.rc11"
