@@ -12,6 +12,7 @@ The tool has four main functions
 
 #### Current Release
 v.0.1.0
+[![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 #### Summary
 
