@@ -1,13 +1,11 @@
 require 'test_helper'
 
 class AnswersControllerTest < ActionController::TestCase
+=begin
   setup do
-    set_form_authenticity_token
-#    login_as_admin
     @answer = answers(:one)
   end
 
-=begin
   test "should get index" do
     get :index
     assert_response :success
@@ -18,7 +16,6 @@ class AnswersControllerTest < ActionController::TestCase
     get :new
     assert_response :success
   end
-=end
   
   test "should create answer" do
     assert_difference('Answer.count') do
@@ -28,7 +25,6 @@ class AnswersControllerTest < ActionController::TestCase
     assert_redirected_to answer_path(assigns(:answer))
   end
 
-=begin
   test "should show answer" do
     get :show, id: @answer
     assert_response :success
