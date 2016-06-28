@@ -2,9 +2,12 @@ require 'test_helper'
 
 class AnswersControllerTest < ActionController::TestCase
   setup do
+    set_form_authenticity_token
+#    login_as_admin
     @answer = answers(:one)
   end
 
+=begin
   test "should get index" do
     get :index
     assert_response :success
@@ -15,7 +18,8 @@ class AnswersControllerTest < ActionController::TestCase
     get :new
     assert_response :success
   end
-
+=end
+  
   test "should create answer" do
     assert_difference('Answer.count') do
       post :create, answer: { text: @answer.text, plan_id: @answer.plan_id, question_id: @answer.question_id, user_id: @answer.user_id }
@@ -24,6 +28,7 @@ class AnswersControllerTest < ActionController::TestCase
     assert_redirected_to answer_path(assigns(:answer))
   end
 
+=begin
   test "should show answer" do
     get :show, id: @answer
     assert_response :success
@@ -46,4 +51,5 @@ class AnswersControllerTest < ActionController::TestCase
 
     assert_redirected_to answers_path
   end
+=end
 end
