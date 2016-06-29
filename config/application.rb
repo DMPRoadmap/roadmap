@@ -84,8 +84,5 @@ module DMPonline4
     WickedPdf.config = {
 	    :exe_path => '/usr/local/bin/wkhtmltopdf'
 	  }
-    
-    # TODO: Remove this when we migrate to Rails 4.1+
-    config.secret_key_base = YAML.load(File.open("#{Rails.root}/config/secrets.yml"))[Rails.env]['secret_key_base']
   end
 end

@@ -24,8 +24,8 @@ class Version < ActiveRecord::Base
   end
   
   amoeba do
-    include_field :sections
-    include_field :questions
+    include_association :sections
+    include_association :questions
     set :published => 'false'
     prepend :title => "Copy of " 
   end
