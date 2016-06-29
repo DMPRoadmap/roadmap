@@ -9,3 +9,7 @@ before_script:
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
   - mysql -e 'create database IF NOT EXISTS roadmap_test;' -uroot
+
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate
+  - bundle exec rake db:test:prepare
