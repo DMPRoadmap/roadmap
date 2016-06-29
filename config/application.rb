@@ -84,5 +84,10 @@ module DMPonline4
     WickedPdf.config = {
 	    :exe_path => '/usr/local/bin/wkhtmltopdf'
 	  }
+    
+    # Active Record will no longer suppress errors raised in after_rollback or after_commit
+    # in the next version. Devise appears to be using those callbacks.
+    # To accept the new behaviour use 'true' otherwise use 'false'
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
