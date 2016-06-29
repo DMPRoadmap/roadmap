@@ -13,9 +13,5 @@ module DMPonline4
 	
 	# set fallback locale
     config.i18n.fallbacks = true    
-    
-    
-puts "LOADED LOCALES: #{config.i18n.available_locales}"
-    
   end
 end
