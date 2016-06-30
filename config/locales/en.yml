@@ -899,4 +899,13 @@ Select what format you wish to use and click to 'Export'.</p>"
     unlock: 'Unlock my account'
     waiting_for_confirmation: "Currently waiting confirmation for: "
     resend_unlock: "Resend unlock instructions"
+  api:
+    bad_credentials: '{"Error":"Bad credentials"}'
+    org_dosent_exist: '{"Error":"Organisation does not exist"}'
+    org_not_funder: '{"Error":"Organisation specified is not a funder"}'
+    org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
+    no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
+    bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
+
+
 
