@@ -45,6 +45,19 @@ module Api
             render json: 'error:"Organization does not exist"', status: 400 and return
           end
 
+          all_groups = []
+          # Check to see if the user specified guidances
+          if !params[:guidance][:name].nil?
+          # for each specified guidance, see if it exists
+            params[:guidance][:name].each do |guidance_name|
+              group = GuidanceGroup.find_by(name: guidance_name)
+              # if it exists, add it to the guidances for the new project
+              if !group.nil?
+                all_groups = all_groups + [group]
+              end
+            end
+          end
+
           # cant invite a user without having a current user because of devise :ivitable
           # after we have auth, will be able to assign an :invited_by_id
           user = User.find_by email: params[:project][:email]
@@ -63,6 +76,7 @@ module Api
           @project.slug = params[:project][:title]
           @project.organisation = @user.organisations.first
           @project.assign_creator(user.id)
+          @project.guidance_groups = all_groups
 
           # if save successful, render success, otherwise show error
           if @project.save
