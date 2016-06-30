@@ -34,15 +34,15 @@ module Api
                 dmptemplate = organization.templates.find_by title: params[:template][:name]
               # else error: organization has more than one template and template name unspecified
               else
-                render json: 'error:"Organization has more than one template and template name unspecified or invalid"', status: 400 and return
+                render json: I18n.t("api.org_multiple_templates"), status: 400 and return
               end
             # else error: organization specified is not a funder
             else
-              render json: 'error:"Organization specified is not a funder"', status: 400 and return
+              render json: I18n.t("api.org_not_funder"), status: 400 and return
             end
           # else error: organization does not exist
           else
-            render json: 'error:"Organization does not exist"', status: 400 and return
+            render json: I18n.t("api.org_dosent_exist"), status: 400 and return
           end
 
           all_groups = []
@@ -86,7 +86,7 @@ module Api
             render json: get_resource.errors, status: :unprocessable_entity
           end
         else
-          render json: 'error:"You do not have authorisation to view this api endpoint"', status: 400 and return
+          render json: I18n.t("api.no_auth_for_endpoint"), status: 400 and return
         end
       end
 

@@ -26,10 +26,10 @@ module Api
           if Guidance.can_view(@user, params[:id])
             respond_with get_resource
           else
-            render json: '"you do not have authorisation to view this resource"', status: 401
+            render json: I18n.t("api.bad_resource"), status: 401
           end
         else
-          render json: '"You do not have authorisation to use this api endpoint"', status: 401
+          render I18n.t("api.no_auth_for_endpoint"), status: 401
         end
       end
 
@@ -45,7 +45,7 @@ module Api
           @all_viewable_guidances = Guidance.all_viewable(@user)
           respond_with @all_viewable_guidances
         else
-          render json '"You do not have authorisation to view this api endpoint"', status: 401
+          render json I18n.t("api.no_auth_for_endpoint"), status: 401
         end
       end
 
