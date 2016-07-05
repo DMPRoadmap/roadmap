@@ -32,8 +32,8 @@ institution_guidance_group_3:
   organisation: bu
   guidances: bu_institution_guidance_1
 
-institution_guidance_group_3:
-  name: "Bangor University guidance gruop 2"
+institution_guidance_group_4:
+  name: "Bangor University guidance group 2"
   organisation: bu
   guidances: bu_institution_guidance_2
 
