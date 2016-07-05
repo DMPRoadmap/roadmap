@@ -70,7 +70,8 @@ class Guidance < ActiveRecord::Base
     guidance.guidance_groups.each do |guidance_group|
 
       # guidances are viewable if they are owned by any of the user's organisations
-      user.organisations do |organisation|
+      user.organisations.each do |organisation|
+        logger.debug "#{organisation.name}"
         if guidance_group.organisation.id == organisation.id
           viewable = true
         end
