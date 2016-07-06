@@ -43,7 +43,7 @@ class GuidanceGroup < ActiveRecord::Base
   guidance_group = GuidanceGroup.find_by(id: id)
   viewable = false
   # groups are viewable if they are owned by any of the user's organisations
-  user.organisations do |organisation|
+  user.organisations.each do |organisation|
     if guidance_group.organisation.id == organisation.id
       viewable = true
     end
