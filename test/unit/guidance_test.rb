@@ -57,8 +57,10 @@ class GuidanceTest < ActiveSupport::TestCase
   #   should not return true for an organisation outwith those above
   test "all_viewable returns all DCC guidances" do
     all_viewable_guidances = Guidance.all_viewable(users(:user_one))
-    guidance_groups(:dcc_guidance_group_1).guidances.each do |guidance|
-      assert_includes(all_viewable_guidances, guidance)
+    organisations(:dcc).guidance_groups.each do |group|
+      group.guidances.each do |guidance|
+        assert_includes(all_viewable_guidances, guidance)
+      end
     end
   end
 
@@ -107,16 +109,17 @@ class GuidanceTest < ActiveSupport::TestCase
     all_viewable_guidances.delete_if do |guidance|
       guidance.guidance_groups.each do |group|
         if group.organisation.id == organisations(:dcc).id
-          return true
+          true
         elsif group.organisation.organisation_type.id == organisation_types(:funder).id
-          return true
+          true
         elsif group.organisation.id == users(:user_one).organisations.first.id
-          return true
+          true
+        else
+          false
         end
-        return false
       end
     end
-    assert_nil(all_viewable_guidances, "there must not be any guidances which are not funders, DCC, or our own organisation")
+    assert_empty(all_viewable_guidances, "there must not be any guidances which are not funders, DCC, or our own organisation")
   end
 end
 
