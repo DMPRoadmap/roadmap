@@ -39,7 +39,7 @@
 				</div>
 				<div class="control-group" id="template-control-group">
 					<div class="controls">
-						<%= f.input :dmptemplate, :as => :select, :collection => Dmptemplate.find_all_by_published(1), :label => t('helpers.project.choose_template'), :input_html => { :multiple => false, :class => "typeahead" } %>
+						<%= f.input :dmptemplate, :as => :select, :collection => Dmptemplate.where(published: 1), :label => t('helpers.project.choose_template'), :input_html => { :multiple => false, :class => "typeahead" } %>
 						<div class="create_project_question_descriptions">
 							<%= t('helpers.project.multi_templates') %>
 						</div>
