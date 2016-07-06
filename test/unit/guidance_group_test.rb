@@ -7,12 +7,13 @@ class GuidanceGroupTest < ActiveSupport::TestCase
 
   # FIXME
   test "Funder guidance groups should be viewable" do 
-    organisation_types(:funder).organisations.each do |funder_group|
-      assert GuidanceGroup.can_view(users(:user_one), funder_group)
+    organisation_types(:funder).organisations.each do |org|
+      org.guidance_groups.each do |funder_group|
+        assert GuidanceGroup.can_view(users(:user_one), funder_group)
+      end
     end
   end
 
-  # FIXME
   test "User's organisation groups should be viewable" do 
     assert GuidanceGroup.can_view(users(:user_one), guidance_groups(:institution_guidance_group_1).id) , "user_one cannot view aru_institution_guidance"
 
@@ -71,19 +72,25 @@ class GuidanceGroupTest < ActiveSupport::TestCase
     end
   end
 
-  # FIXME
   test "all_viewable does not return any other organisaition's guidance" do
     all_viewable_groups = GuidanceGroup.all_viewable(users(:user_one))
     all_viewable_groups.delete_if do |group|
-      if group.organisation.id == organisations(:dcc).identify
+      if group.organisation.id == organisations(:dcc).id
         true
-      elsif group.organisation.organisation_type.id == organisation_types(:funder).identify
+      elsif group.organisation.organisation_type.id == organisation_types(:funder).id
         true
-      elsif group.organisation.id == users(:user_one).organisations.first.identify
+      elsif group.organisation.id == users(:user_one).organisations.first.id
         true
       else
         false
       end
     end
+    assert_empty(all_viewable_groups)
   end
 end
+
+
+
+
+
+
