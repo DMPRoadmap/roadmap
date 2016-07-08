@@ -40,6 +40,8 @@ class Dmptemplate < ActiveRecord::Base
   # @param ot [String] name of an organisation type e.g. founder
   # @return [Array<dmptemplates>] list of published dmptemplates
   def self.templates_org_type(ot)
+    # DISCUSS - This function other than the check for the template being published
+    # is a superclass for the below funders_templates
     new_org_obejcts = OrganisationType.find_by( name: ot ).organisations
 
     org_templates = Array.new
