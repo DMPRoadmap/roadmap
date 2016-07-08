@@ -111,3 +111,5 @@ gem 'swagger-docs'
 
 # TODO where to put it?
 gem "i18n-js", ">= 3.0.0.rc11"
+gem 'yard'
+gem 'redcarpet'
