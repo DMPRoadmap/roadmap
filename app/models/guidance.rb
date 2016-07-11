@@ -46,17 +46,11 @@ class Guidance < ActiveRecord::Base
   # @param org_id [Integer] the integer id for an organisation
   # @return [Array<Guidance>] list of guidance
 	def self.by_organisation(org_id)
-		all_guidance = Guidance.all
-		org_guidance = Array.new
-
-		all_guidance.each do |guidance|
-		   if guidance.in_group_belonging_to?(org_id)
-				org_guidance << guidance
-		   end
-		end
-
+    org_guidance = []
+    Organisation.find_by(id: org_id).guidance_groups.each do |group|
+      org_guidance += group.guidances
+    end
 		return org_guidance
-
 	end
 
   ##
@@ -67,7 +61,10 @@ class Guidance < ActiveRecord::Base
 	def get_guidance_group_templates? (guidance_group)
     # DISCUSS - here we have yet another way of finding a specific or group of
     # an object.  Would it make sense to standardise the project by only using
-    # either finders or where, or alteast the same syntax within the where statement
+    # either finders or where, or alteast the same syntax within the where statement.
+    # Also why is this a ? method... it dosent return a boolean
+    # Additionally, shouldnt this be a function of guidance group, not guidance?
+    # and finally, it should be a self.method, as it dosent care about the guidance it's acting on
 			templates = guidancegroups.where("guidance_group_id (?)", guidance_group.id).template
 			return templates
 	end
