@@ -1,0 +1,27 @@
+dcc_template_1:
+  guidance_group: dcc_guidance_group_1
+  dmptemplate: dcc_template
+
+ahrc_template_1:
+  guidance_group: funder_guidance_group_1
+  dmptemplate: ahrc_template
+
+bbsrc_template_1:
+  guidance_group: funder_guidance_group_2
+  dmptemplate: bbsrc_template
+
+aru_template_1:
+  guidance_group: institution_guidance_group_1
+  dmptemplate: aru_template
+
+au_template_1:
+  guidance_group: institution_guidance_group_2
+  dmptemplate: au_template
+
+bu_template_1:
+  guidance_group: institution_guidance_group_3
+  dmptemplate: bu_template
+
+bu_template_2: 
+  guidance_group: institution_guidance_group_4
+  dmptemplate: bu_template
