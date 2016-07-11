@@ -24,7 +24,7 @@ module Api
         # check if the user has permission to use the guidances api
         if has_auth("guidance")
           # determine if they have authorization to view this guidance group
-          if GuidanceGroup.can_view(@user, params[:id])
+          if GuidanceGroup.can_view?(@user, params[:id])
             respond_with get_resource
           else
             render json: I18n.t("api.bad_resource"), status: 401
