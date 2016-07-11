@@ -34,7 +34,7 @@ class GuidanceGroup < ActiveRecord::Base
 		return return_orgs
 	end
 
-  def self.can_view(user, id)
+  def self.can_view?(user, id)
   # we define guidance groups viewable to a user by:
   #   those owned by the DCC
   #   those owned by a funder organisation

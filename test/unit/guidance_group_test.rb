@@ -1,45 +1,45 @@
 require 'test_helper'
 
 class GuidanceGroupTest < ActiveSupport::TestCase
+  # ---------- can_view? ----------
   test "DCC guidance groups should be viewable" do
-    assert GuidanceGroup.can_view(users(:user_one), guidance_groups(:dcc_guidance_group_1))
+    assert GuidanceGroup.can_view?(users(:user_one), guidance_groups(:dcc_guidance_group_1))
   end
 
-  # FIXME
-  test "Funder guidance groups should be viewable" do 
+  test "Funder guidance groups should be viewable" do
     organisation_types(:funder).organisations.each do |org|
       org.guidance_groups.each do |funder_group|
-        assert GuidanceGroup.can_view(users(:user_one), funder_group)
+        assert GuidanceGroup.can_view?(users(:user_one), funder_group)
       end
     end
   end
 
-  test "User's organisation groups should be viewable" do 
-    assert GuidanceGroup.can_view(users(:user_one), guidance_groups(:institution_guidance_group_1).id) , "user_one cannot view aru_institution_guidance"
+  test "User's organisation groups should be viewable" do
+    assert GuidanceGroup.can_view?(users(:user_one), guidance_groups(:institution_guidance_group_1).id) , "user_one cannot view aru_institution_guidance"
 
-    assert GuidanceGroup.can_view(users(:user_two), guidance_groups(:institution_guidance_group_2).id), "user_two cannot view au_..._1"
+    assert GuidanceGroup.can_view?(users(:user_two), guidance_groups(:institution_guidance_group_2).id), "user_two cannot view au_..._1"
 
-    assert GuidanceGroup.can_view(users(:user_three), guidance_groups(:institution_guidance_group_3).id), "user_three cannot view bu_..._1"
-    assert GuidanceGroup.can_view(users(:user_three), guidance_groups(:institution_guidance_group_4).id), "user_three cannot view bu_..._2"
+    assert GuidanceGroup.can_view?(users(:user_three), guidance_groups(:institution_guidance_group_3).id), "user_three cannot view bu_..._1"
+    assert GuidanceGroup.can_view?(users(:user_three), guidance_groups(:institution_guidance_group_4).id), "user_three cannot view bu_..._2"
   end
 
   test "No other organisations's groups should be viewable"  do
-    assert_not GuidanceGroup.can_view(users(:user_one), guidance_groups(:institution_guidance_group_2).id)
-    assert_not GuidanceGroup.can_view(users(:user_one), guidance_groups(:institution_guidance_group_3).id)
-    assert_not GuidanceGroup.can_view(users(:user_one), guidance_groups(:institution_guidance_group_4).id)
+    assert_not GuidanceGroup.can_view?(users(:user_one), guidance_groups(:institution_guidance_group_2).id)
+    assert_not GuidanceGroup.can_view?(users(:user_one), guidance_groups(:institution_guidance_group_3).id)
+    assert_not GuidanceGroup.can_view?(users(:user_one), guidance_groups(:institution_guidance_group_4).id)
 
-    assert_not GuidanceGroup.can_view(users(:user_two), guidance_groups(:institution_guidance_group_1).id)
-    assert_not GuidanceGroup.can_view(users(:user_two), guidance_groups(:institution_guidance_group_3).id)
-    assert_not GuidanceGroup.can_view(users(:user_two), guidance_groups(:institution_guidance_group_4).id)
+    assert_not GuidanceGroup.can_view?(users(:user_two), guidance_groups(:institution_guidance_group_1).id)
+    assert_not GuidanceGroup.can_view?(users(:user_two), guidance_groups(:institution_guidance_group_3).id)
+    assert_not GuidanceGroup.can_view?(users(:user_two), guidance_groups(:institution_guidance_group_4).id)
 
-    assert_not GuidanceGroup.can_view(users(:user_three), guidance_groups(:institution_guidance_group_1).id)
-    assert_not GuidanceGroup.can_view(users(:user_three), guidance_groups(:institution_guidance_group_2).id)
+    assert_not GuidanceGroup.can_view?(users(:user_three), guidance_groups(:institution_guidance_group_1).id)
+    assert_not GuidanceGroup.can_view?(users(:user_three), guidance_groups(:institution_guidance_group_2).id)
   end
 
   # would be better to instead start with dcc and find all attached guidances?
   # I think so so I will impliment here and back-impliment to guidances
   # TODO: impliment in guidances
-  test "all_viewable returns all dcc groups" do 
+  test "all_viewable returns all dcc groups" do
     all_viewable_groups = GuidanceGroup.all_viewable(users(:user_one))
     organisations(:dcc).guidance_groups.each do |group|
       assert_includes(all_viewable_groups, group)
