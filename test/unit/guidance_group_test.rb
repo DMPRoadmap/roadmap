@@ -36,9 +36,13 @@ class GuidanceGroupTest < ActiveSupport::TestCase
     assert_not GuidanceGroup.can_view?(users(:user_three), guidance_groups(:institution_guidance_group_2).id)
   end
 
-  # would be better to instead start with dcc and find all attached guidances?
-  # I think so so I will impliment here and back-impliment to guidances
-  # TODO: impliment in guidances
+
+  # ---------- all_viewable ----------
+  # ensure that the all_viewable function returns all viewable groups
+  #   should return true for groups owned by funders
+  #   should return true for groups owned by DCC
+  #   should return true for groups owned by the user's organisation
+  #   should not return true for an organisation outwith those above
   test "all_viewable returns all dcc groups" do
     all_viewable_groups = GuidanceGroup.all_viewable(users(:user_one))
     organisations(:dcc).guidance_groups.each do |group|
@@ -87,6 +91,62 @@ class GuidanceGroupTest < ActiveSupport::TestCase
     end
     assert_empty(all_viewable_groups)
   end
+
+
+  # ---------- display_name ----------
+  test "display_name should return an org name for an org with one guidance" do
+    assert_equal(guidance_groups(:funder_guidance_group_1).display_name, "Arts and Humanities Research Council", "result of display_name for an org with one group should be the org name")
+  end
+
+  test "display_name should return an org and group name for an org with more than one guidance" do
+    assert_equal(guidance_groups(:institution_guidance_group_4).display_name, "Bangor University: Bangor University guidance group 2", "result of display_name for an org with more than one group should be <org_name>: <group_name>")
+  end
+
+  # ---------- self.guidance_groups_excluding ----------
+  test "guidance_groups_excluding should not return a group belonging to specified single org" do
+    # generate a list
+    excluding_list = GuidanceGroup.guidance_groups_excluding([organisations(:dcc)])
+    excluding_list.each do |group|
+      refute_equal(group.organisation, organisations(:dcc), "#{group.name} is owned by dcc")
+    end
+  end
+
+  test "guidance_groups_excluding should not return a group belonging to specified orgs" do
+    org_list = [organisations(:ahrc), organisations(:bu)]
+    excluding_list = GuidanceGroup.guidance_groups_excluding(org_list)
+    excluding_list.each do |group|
+      org_list.each do |org|
+        refute_equal(group.organisation, org, "#{group.name} is owned by specified org: #{org.name}")
+      end
+    end
+  end
+
+  test "guidance_groups_excluding should return all groups not belonging to the specified org" do
+    excluding_list = GuidanceGroup.guidance_groups_excluding([organisations(:dcc)])
+    GuidanceGroup.all.each do |group|
+      if group.organisation_id != organisations(:dcc).id
+        assert_includes(excluding_list, group, "#{group.name} is not owned by dcc so should be included")
+      end
+    end
+  end
+
+  test "guidance_groups_excluding should return all groups not belonging to specified orgs" do
+    excluded =false
+    org_list = [organisations(:ahrc), organisations(:bu)]
+    excluding_list = GuidanceGroup.guidance_groups_excluding(org_list)
+    GuidanceGroup.all.each do |group|
+      excluded = false
+      org_list.each do |org|
+        if group.organisation == org
+          excluded = true
+        end
+      end
+      unless excluded
+        assert_includes(excluding_list, group, "#{group.name} is not owned by a specified org so should be included")
+      end
+    end
+  end
+
 end
 
 
