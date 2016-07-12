@@ -12,11 +12,11 @@ class GuidanceGroup < ActiveRecord::Base
 
     attr_accessible :organisation_id, :name, :optional_subset, :published, :as => [:default, :admin]
     attr_accessible :dmptemplate_ids, :as => [:default, :admin]
-  
+
   ##
   # Converts a guidance group to a string containing the display name
-  # 
-  # @return [String] the name of the organisation, wiht or without the name of the guidance group
+  #
+  # @return [String] the name of the organisation, with or without the name of the guidance group
 	def to_s
 		"#{display_name}"
 	end
@@ -26,7 +26,7 @@ class GuidanceGroup < ActiveRecord::Base
   # If it's organisation has no other guidance groups, then the name is simply
   # the name of the parent organisation, otherwise it returns the name of the
   # organisation followed by the name of the guidance group.
-  # 
+  #
   # @return [String] the display name for the guidance group
 	def display_name
 		if organisation.guidance_groups.count > 1
@@ -38,7 +38,7 @@ class GuidanceGroup < ActiveRecord::Base
 
   ##
   # Returns the list of all guidance groups not coming from the given organisations
-  # 
+  #
   # @params[Array<Organisation>] a list of organisations to exclude in the result
   # @return [Array<GuidanceGroup>] a list of guidance groups
 	def self.guidance_groups_excluding(excluded_orgs)
