@@ -4,37 +4,44 @@ dcc_guidance_group_1:
   name: "DCC guidance group 1"
   organisation: dcc
   guidances: related_policies, existing_data, licensing_of_existing_data, relationship_to_existing_data, description_of_data_content, data_format, data_volumes, data_type, data_capture_methods, data_organisation, data_quality, documentation, metadata_capture, metadata_standards, discovery_by_users, ethical_issues, ipr_ownership_and_licencing, active_data_storage, backup_procedures, data_security, data_selection, preservation_plan, period_of_preservation, data_repository, audience, expected_reuse, method_for_data_sharing, timeframe_for_data_sharing, embargo_period, restrictions_on_sharing, managed_access_procedures, responsibilities, resourcing_skills_and_training, resourcing_hardware_and_software, resourcing_preservation_and_data_sharing
+  dmptemplates: dcc_template
 
 # funder groups
 funder_guidance_group_1:
   name: "Funder guidance group 1"
   organisation: ahrc
   guidances: ahrc_funder_guidance
+  dmptemplates: ahrc_template
 
 funder_guidance_group_2:
   name: "Funder guidance group 2"
   organisation: bbsrc
   guidances: bbsrc_funder_guidance
+  dmptemplates: bbsrc_template
 
 # institution groups
 institution_guidance_group_1:
   name: "Anglia Ruskin University guidance group"
   organisation: aru
   guidances: aru_institution_guidance
+  dmptemplates: aru_template
 
 institution_guidance_group_2:
   name: "Aston University guidance group"
   organisation: au
   guidances: au_institution_guidance_1, au_institution_guidance_2
+  dmptemplates: au_template
 
 institution_guidance_group_3:
   name: "Bangor University guidance group 1"
   organisation: bu
   guidances: bu_institution_guidance_1
+  dmptemplates: bu_template
 
 institution_guidance_group_4:
   name: "Bangor University guidance group 2"
   organisation: bu
   guidances: bu_institution_guidance_2
+  dmptemplates: bu_template
 
 
