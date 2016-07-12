@@ -115,31 +115,32 @@ DMPonline4::Application.routes.draw do
 
   resources :projects do
     resources :plans do
-    member do
-      get 'status'
-      get 'locked'
-      get 'answer'
-      get 'edit'
-      post 'delete_recent_locks'
-      post 'lock_section'
-      post 'unlock_section'
-      post 'unlock_all_sections'
-      get 'export'
-      get 'warning'
-      get 'section_answers'
+      member do
+        get 'status'
+        get 'locked'
+        get 'answer'
+        #get 'edit'
+        post 'delete_recent_locks'
+        post 'lock_section'
+        post 'unlock_section'
+        post 'unlock_all_sections'
+        get 'export'
+        get 'warning'
+        get 'section_answers'
+      end
     end
-  end
 
-  member do
-    get 'share'
-    get 'export'
-    post 'invite'
-    post 'create'
-  end
-  collection do
-    get 'possible_templates'
-    get 'possible_guidance'
-  end
+    member do
+      get 'share'
+      get 'export'
+      post 'invite'
+      #post 'create'
+    end
+    
+    collection do
+      get 'possible_templates'
+      get 'possible_guidance'
+    end
   end
 
 
