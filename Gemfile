@@ -92,8 +92,10 @@ gem 'feedjira'
 gem 'caracal'
 gem 'caracal-rails'
 
-# TODO where to put it?
-gem "i18n-js", ">= 3.0.0.rc11"
+#
+#     INTERNATIONALIZATION
+#
+gem "i18n-js", ">= 3.0.0.rc11"      #damodar added TODO: explain
 
 
 #
@@ -109,7 +111,9 @@ end
 #
 gem 'swagger-docs'
 
-# TODO where to put it?
-gem "i18n-js", ">= 3.0.0.rc11"
+#
+#    CODE DOCUMENTATION
+#
 gem 'yard'
 gem 'redcarpet'
+
