@@ -454,6 +454,10 @@ function remove_object(link){
 	$(link).closest(".options_content").hide();
 
 }
+$(".remove-option").click(function(e){
+	e.preventDefault();
+	remove_object($(this).parent());
+});
 
 
 function add_object(link, association, content) {
