@@ -4,7 +4,6 @@ ActiveAdmin.register TokenPermissionType do
   menu priority: 20, label: proc{ I18n.t('admin.token_permission_type')}, parent: "Api"
 
   # TODO: Find better fix for the undefined method xxx_id_eq
-  remove_filter :token_permissions
   remove_filter :org_token_permissions
 
   index do
