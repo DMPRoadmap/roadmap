@@ -58,6 +58,19 @@
 						:autocomplete => "off" ,
 						:class => "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
 			</tr>
+			<% unless @user.api_token.nil? %>
+			<tr>
+				<td class="first"><%= t("helpers.api_token") %></td>
+				<td><%= @user.api_token %></td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("helpers.api_info") %></td>
+				<!--
+				for each API the org has access to
+					display the info from database about using the api
+				-->
+			</tr>
+			<% end %>
 		</table>
 		<br />
 		<p>
