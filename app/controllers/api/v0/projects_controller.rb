@@ -13,13 +13,16 @@ module Api
         response :not_found
       end
 
+      ##
+      # Creates a new project based on the information passed in JSON to the API
+      
       def create
         # find the user's api_token permissions
         # then ensure that they have the permission associated with creating plans
         if has_auth "plans"
           #params[:organization_id] = Organisation.where(name: params[:template][:organization])
           # find_by returns nil if none found, find_by! raises an ActiveRecord error
-          organization = Organisation.find_by name: params[:template][:organization]
+          organization = Organisation.find_by name: params[:template][:organisation]
           # if organization exists
           if !organization.nil?
             # if organization is funder
@@ -47,7 +50,7 @@ module Api
 
           all_groups = []
           # Check to see if the user specified guidances
-          if !params[:guidance][:name].nil?
+          if !params[:guidance].nil?
           # for each specified guidance, see if it exists
             params[:guidance][:name].each do |guidance_name|
               group = GuidanceGroup.find_by(name: guidance_name)
@@ -90,11 +93,11 @@ module Api
         end
       end
 
-      private
-        def project_params
-          params.require(:template).permit(:organization, :name)
-          params.require(:project).permit(:title, :email)
-        end
+      # private
+      #   def project_params
+      #     params.require(:template).permit(:organisation, :name)
+      #     params.require(:project).permit(:title, :email)
+      #   end
     end
   end
 end
