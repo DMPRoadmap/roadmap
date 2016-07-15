@@ -118,12 +118,6 @@ class Guidance < ActiveRecord::Base
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    # we define vuiable guidances as those owned by a guidance group:
-    #   owned by the DCC
-    #   owned by a funder organisation
-    #   owned by an organisation, of which the user is a member
-
-    # first find all groups owned by the DCC
     dcc_groups = (Organisation.find_by name: "Digital Curation Centre").guidance_groups
     # find all groups owned by a Funder organisation
     funder_groups = []
