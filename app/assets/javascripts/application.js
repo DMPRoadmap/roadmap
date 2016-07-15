@@ -138,6 +138,21 @@ $( document ).ready(function() {
 		
 	});
 
+	// Add another option to the question's options
+	$(".add-option").click(function(e){
+		e.preventDefault();
+	
+		var tbl = $(this).parent().find("table.options_table > tbody"),
+			  last = tbl.find("tr:last"),
+    		clone = last.clone();
+		
+				clone.find(".number_field").val(parseInt(last.find(".number_field").val()) + 1);
+				clone.find(".small_text_field").val("");
+				clone.find("input[type='checkbox']").prop("checked", false);
+		
+		last.after(clone);
+	});
+
 
 	/*$('#continue-to-new').click(function(e){
 		var destination = $(this).attr("href");

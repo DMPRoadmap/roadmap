@@ -500,7 +500,4 @@ class DmptemplatesController < ApplicationController
 	 	end
 	end
 
-
-
-
 end

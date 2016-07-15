@@ -68,12 +68,14 @@ in the admin interface.
 									
 								<%end%>	
 								<tr class="new_option_before">
-									<td></td>
+									<td>
+									</td>
 								</tr>	
 								
 							</tbody>
 						</table>
-						<%= link_to_add_object t("org_admin.add_option_label"), f, :options , "new_option_button", i %>
+
+						<a class="add-option" href="#"><%= t("org_admin.add_option_label") %></a>
                         
                         <div class="clearfix"></div>
                         <!--display for selecting comment box when multiple choice is being used-->
