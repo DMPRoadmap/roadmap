@@ -102,9 +102,13 @@ module Api
 
       def authenticate_token
         authenticate_with_http_token do |token, options|
-          @token = token
-          @user = User.find_by(api_token: token)
-          !@user.nil?
+          if !token = ""
+            @token = token
+            @user = User.find_by(api_token: token)
+            !@user.nil?
+          else
+            false
+          end
         end
       end
 
