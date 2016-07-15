@@ -454,7 +454,7 @@ token_permission_types = {
 token_permission_types.each do |title,settings|
   token_permission_type = TokenPermissionType.new
   token_permission_type.token_type = title
-  token_permission_type.text_desription = settings(:description)
+  token_permission_type.text_desription = settings[:description]
   token_permission_type.save!
 end
 
