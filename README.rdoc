@@ -1,10 +1,8 @@
-= DMPonline v4
+= DMPRoadmap
 
-DMPonline is the DCC's data management planning tool, available at https://dmponline.dcc.ac.uk
+Roadmap is a data management planning tool, available at https://github.com/DMPRoadmap/roadmap
 
-Development of the DMPonline by the Digital Curation Centre has been funded by JISC.  JISC inspires UK colleges and universities in the innovative use of digital technologies, helping to maintain the UK's position as a global leader in education. www.jisc.ac.uk
-
-This is just the application code, the accompanying question data available at https://dmponline.dcc.ac.uk is not included.
+Development of the Roadmap is provided by the Digital Curation Centre and the University of California Curation Center.
 
 The tool has four main functions
 1. To help create and maintain different versions of Data Management Plans;
@@ -14,15 +12,16 @@ The tool has four main functions
 
 == Documentation & Support
 
-* You can contact us by email, dmponline@dcc.ac.uk, but we can only provide limited support for your installation
+* You can contact us by email, roadmap-l@listserv.ucop.edu, but we can only provide limited support for your installation
 
 == Bugs & Feature Requests
 
-* Bug Reports & Feature Requests: https://github.com/DigitalCurationCentre/DMPonline_v4/issues
+* Bug Reports & Feature Requests: https://github.com/DMPRoadmap/roadmap/issues
+* Please prefix your request with either: 'Bug:' or 'Feature:' 
 
 == Prerequisites
 
-DMPonline is a Ruby on Rails application and you will need to have Ruby 2.0.0p247 or greater installed on your server and a MySQL server v5.0 or greater.
+Roadmap is a Ruby on Rails application and you will need to have Ruby 2.0.0p247 or greater installed on your server and a MySQL server v5.0 or greater.
 
 Further details on how to install Ruby on Rails applications are available from the Ruby on Rails site, http://rubyonrails.org
 
@@ -34,10 +33,4 @@ You may also find the following resources handy:
 
 == Copyright
 
-Copyright (c) 2013 Digital Curation Centre, University of Edinburgh.
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License along with this program.  If not, see http://www.gnu.org/licenses.
+The Roadmap project uses an MIT License. The full text of the license can be found at: https://github.com/DMPRoadmap/roadmap/blob/master/LICENSE.md

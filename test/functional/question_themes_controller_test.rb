@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class QuestionThemesControllerTest < ActionController::TestCase
+=begin
   setup do
     @question_theme = question_themes(:one)
   end
@@ -46,4 +47,5 @@ class QuestionThemesControllerTest < ActionController::TestCase
 
     assert_redirected_to question_themes_path
   end
+=end
 end

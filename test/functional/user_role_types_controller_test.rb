@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UserRoleTypesControllerTest < ActionController::TestCase
+=begin
   setup do
     @user_role_type = user_role_types(:one)
   end
@@ -46,4 +47,5 @@ class UserRoleTypesControllerTest < ActionController::TestCase
 
     assert_redirected_to user_role_types_path
   end
+=end
 end

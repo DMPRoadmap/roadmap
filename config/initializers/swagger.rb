@@ -6,7 +6,7 @@ class Swagger::Docs::Config
 end
 
 Swagger::Docs::Config.register_apis({
-  '0.0': {
+  '0.0' => {
     controller_base_path: '',
     api_file_path: 'public/apidocs',
     base_path: 'http://localhost:3000',

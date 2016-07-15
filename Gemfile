@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # additional gems for rails 4
-gem 'turbolinks'
 gem 'railties', '= 4.0.0'
 # add these gems to help with the transition:
 gem 'protected_attributes'
@@ -27,7 +26,7 @@ gem 'sass-rails'
 # Use SCSS for stylesheets
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
-gem 'therubyracer', '0.11.4', platforms: :ruby
+gem 'therubyracer', '>=0.11.4', platforms: :ruby #'0.11.4', platforms: :ruby
 
 gem 'libv8'
 
@@ -108,6 +107,3 @@ end
 #     API
 #
 gem 'swagger-docs'
-
-# TODO where to put it?
-gem "i18n-js", ">= 3.0.0.rc11"
