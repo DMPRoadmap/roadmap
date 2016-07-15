@@ -14,6 +14,7 @@
 	      	<th class="dmp_th_medium"><%= t('org_admin.user_name') %></th>
 	      	<th class="dmp_th_small"><%= t('org_admin.last_logged_in') %></th>
 			<th class="dmp_th_small"><%= t('org_admin.how_many_plans') %></th>
+			<th class="dmp_th_small"><%= t('org_admin.api_privleges') %></th>
 	      
 	    </tr>
 	  </thead>
@@ -38,6 +39,14 @@
 		        	<% if !user_id.user.project_groups.nil? then%>
 		        	<%= user_id.user.project_groups.count %>
 		        	<%end%>
+		        </td>
+		        <td class="dmp_td_small">
+		        	#if the organisation has any api permissions
+		        	#show tickboxes which allow for users to have api_tokens
+		        	# if the user has an api_token, the tickbox is shown as ticked
+		        	# upon hitting save, 
+		        		# any user which previously had an apitoken, but no longer has a check, looses their token
+		        		# any user which perviously had no apitoken, and now has a check, gains a token, and gets sent an email
 		        </td>
 		      </tr>
 	      	<%end%>
