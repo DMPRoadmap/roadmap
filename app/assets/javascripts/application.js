@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require bootstrap
 //= require v1.js
 //= require select2.min.js
 //= require jquery.placeholder.js
@@ -63,7 +62,9 @@ $( document ).ready(function() {
         trigger: "focus"
 	});
 
-	$(".show-edit-toggle").click(function () {
+	$(".show-edit-toggle").click(function (e) {
+		e.preventDefault();
+		
 		$(".edit-project").toggle();
 		$(".view-project").toggle();
 	});

@@ -179,20 +179,24 @@ $( document ).ready(function() {
 
 
 	 //action for show or hide template editing display
-	 $('#edit_template_button').click(function(){
+	 $('#edit_template_button').click(function(e){
+		 e.preventDefault();
+		 
 		 $('#edit_template_div').show();
 		 $('#show_template_div').hide();
 	 });
 
 
 	 //action for show or hide phase display
-	 $('#edit_phase_button').click(function(){
+	 $('#edit_phase_button').click(function(e){
+		 e.preventDefault();
 		 $('#edit_phase_div').show();
 		 $('#show_phase_div').hide();
 	 });
 
 	 //action to hide the alert to edit a version
-	 $("#edit-version-confirmed").click(function (){
+	 $("#edit-version-confirmed").click(function (e){
+		 e.preventDefault();
 		$("#version_edit_alert").modal("hide");
 	 });
 
