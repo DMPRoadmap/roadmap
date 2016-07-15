@@ -44,4 +44,10 @@ institution_guidance_group_4:
   guidances: bu_institution_guidance_2
   dmptemplates: bu_template
 
+institution_guidance_group_5: 
+  name: "institution child guidance group 1"
+  organisation: institution_child_one
 
+institution_guidance_group_6:
+  name: "institution child guidance group 2"
+  organisation: institution_child_one
