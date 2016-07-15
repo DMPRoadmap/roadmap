@@ -13,7 +13,7 @@
                 <li>
             <% end %>
                 <%= link_to t("org_admin.template_label"), admin_index_dmptemplate_path(current_user.organisation_id) %>
-            </li>    
+            </li>
             <% if namespace == "guidances" then %>
                 <li class="active">
             <% else %>
@@ -44,7 +44,7 @@
                     <li>
                 <% end %>
                     <%= link_to t("helpers.view_plans_label"), projects_path %>
-                </li>    
+                </li>
                 <!-- create a plan page -->
                 <% if current_path == "/projects/new" then %>
                     <li class="active">
@@ -53,7 +53,7 @@
                 <% end %>
                     <%= link_to t("helpers.create_plan_label"), "/projects/new"%>
                 </li>
-                     
+
             <% else %>
                 <!-- Home page -->
                 <% if current_path == "/" then %>
@@ -61,7 +61,7 @@
                 <% else %>
                     <li>
                 <% end %>
-                    <%= link_to t("helpers.home"), root_path %>            
+                    <%= link_to t("helpers.home"), root_path %>
                 </li>
             <% end %>
             <!-- about_us page -->
@@ -72,7 +72,7 @@
             <% end %>
                 <%= link_to t("helpers.about_us_label"), "/about_us"%>
             </li>
-            
+
             <!-- roadmap page -->
             <% if current_path == "/roadmap" then %>
                 <li class="active">
@@ -89,9 +89,13 @@
             <% end %>
                 <%= link_to t("helpers.help_label"), "/help", :class => "main_nav_last_li"%>
             </li>
-        <%end%>	
+            <!-- language dropdown -->
+            <li>
+              <%= link_to "test", :controller => 'locales', :action => 'change_session_locale', :locale => 'test' %>
+            </li>
+        <%end%>
     </ul>
-                    
+
 </div>	
 	 
 

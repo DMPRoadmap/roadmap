@@ -53,15 +53,15 @@
 							</div>	
 							<div class="guindace_by_question" style="display:none;">
 								<div class="div_left_icon_g">
-									<%= collection_select(nil, :dmptemplate_id,  @dmptemplates, :id, :title, {:prompt   => "Select a template"}, {:id => 'templates_select'}) %>
+									<%= collection_select(nil, :dmptemplate_id,  @dmptemplates, :id, :title, {:prompt   => I18n.t('helpers.select_template')}, {:id => 'templates_select'}) %>
 									<br/>
-									<%= collection_select(nil, :phase_id, @phases, :id, :title, {:prompt   => "Select a phase"}, {:id => 'phases_select'}) %>
+									<%= collection_select(nil, :phase_id, @phases, :id, :title, {:prompt   => I18n.t('helpers.select_phase')}, {:id => 'phases_select'}) %>
 									<br/>
-									<%= collection_select(nil, :version_id, @versions, :id, :title, {:prompt   => "Select a version"}, {:id => 'versions_select'}) %>
+									<%= collection_select(nil, :version_id, @versions, :id, :title, {:prompt   => I18n.t('helpers.select_version')}, {:id => 'versions_select'}) %>
 	 								<br/>
-									<%= collection_select(nil, :section_id, @sections, :id, :title, {:prompt   => "Select a section"}, {:id => 'sections_select'}) %>
+									<%= collection_select(nil, :section_id, @sections, :id, :title, {:prompt   => I18n.t('helpers.select_section')}, {:id => 'sections_select'}) %>
 									<br/>
-									<%= collection_select(nil, :question_id, @questions, :id, :text, {:prompt   => "Select a question"}, {:id => 'questions_select'}) %>
+									<%= collection_select(nil, :question_id, @questions, :id, :text, {:prompt   => I18n.t('helpers.select_question')}, {:id => 'questions_select'}) %>
 	 
 								</div>
 								<div class="div_right_icon_g">

@@ -25,6 +25,9 @@ DMPonline4::Application.routes.draw do
   #organisation admin area
   get "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
 
+  # locales session setting route
+  get '/set-locales/:locale', :controller => 'locales', :action => 'change_session_locale'
+
   resources :organisations, :path => 'org/admin' do
     member do
       get 'children'
