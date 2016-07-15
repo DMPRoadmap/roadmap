@@ -37,33 +37,33 @@ class GuidancesController < ApplicationController
 			@phases = nil
 			@dmptemplates.each do |template|
 				if @phases.nil? then
-					@phases = template.phases.find(:all,:order => 'number ASC')
+					@phases = template.phases.all.order('number')
 				else
-					@phases = @phases + template.phases.find(:all,:order => 'number ASC')
+					@phases = @phases + template.phases.all.order('number')
 				end
 			end
 			@versions = nil
 			@phases.each do |phase|
 				if @versions.nil? then
-					@versions = phase.versions.find(:all,:order => 'title ASC')
+					@versions = phase.versions.all.order('title')
 				else
-					@versions = @versions + phase.versions.find(:all,:order => 'title ASC')
+					@versions = @versions + phase.versions.all.order('title')
 				end
 			end
 			@sections = nil
 			@versions.each do |version|
 				if @sections.nil? then
-					@sections = version.sections.find(:all,:order => 'number ASC')
+					@sections = version.sections.all.order('number')
 				else
-					@sections = @sections + version.sections.find(:all,:order => 'number ASC')
+					@sections = @sections + version.sections.all.order('number')
 				end
 			end
 			@questions = nil
 			@sections.each do |section|
 				if @questions.nil? then
-					@questions = section.questions.find(:all,:order => 'number ASC')
+					@questions = section.questions.all.order('number')
 				else
-					@questions = @questions + section.questions.find(:all,:order => 'number ASC')
+					@questions = @questions + section.questions.all.order('number')
 				end
 			end
 	    respond_to do |format|
@@ -116,33 +116,33 @@ class GuidancesController < ApplicationController
 			@phases = nil
 			@dmptemplates.each do |template|
 				if @phases.nil? then
-					@phases = template.phases.find(:all,:order => 'number ASC')
+					@phases = template.phases.all.order('number')
 				else
-					@phases = @phases + template.phases.find(:all,:order => 'number ASC')
+					@phases = @phases + template.phases.all.order('number')
 				end
 			end
 			@versions = nil
 			@phases.each do |phase|
 				if @versions.nil? then
-					@versions = phase.versions.find(:all,:order => 'title ASC')
+					@versions = phase.versions.all.order('title')
 				else
-					@versions = @versions + phase.versions.find(:all,:order => 'title ASC')
+					@versions = @versions + phase.versions.all.order('title')
 				end
 			end
 			@sections = nil
 			@versions.each do |version|
 				if @sections.nil? then
-					@sections = version.sections.find(:all,:order => 'number ASC')
+					@sections = version.sections.all.order('number')
 				else
-					@sections = @sections + version.sections.find(:all,:order => 'number ASC')
+					@sections = @sections + version.sections.all.order('number')
 				end
 			end
 			@questions = nil
 			@sections.each do |section|
 				if @questions.nil? then
-					@questions = section.questions.find(:all,:order => 'number ASC')
+					@questions = section.questions.all.order('number')
 				else
-					@questions = @questions + section.questions.find(:all,:order => 'number ASC')
+					@questions = @questions + section.questions.all.order('number')
 				end
 			end
     else

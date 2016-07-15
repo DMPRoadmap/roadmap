@@ -38,7 +38,7 @@ in the admin interface.
 					<div id="new-ques-format" class="ques_format">
 						<div class="div_left_icon">
 							<%= f.select :question_format_id, 
-								options_from_collection_for_select(QuestionFormat.find(:all, :order => "title ASC"),:id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id), 
+								options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id), 
 								{},	:id => "new-select-format-#{section.id}"%>
 						</div>
 						<div class="div_right_icon">
@@ -153,7 +153,7 @@ in the admin interface.
 				<td class="first_template"><%= t("org_admin.questions.themes_label")%></td>
 				<td><div class="div_left_icon">
 						<%= f.collection_select(:theme_ids,
-							Theme.find(:all, :order => "title ASC"),
+							Theme.all.order("title"),
 							:id, :title, {:prompt => false, :include_blank => t('helpers.none')}, {:multiple => true})%>
 					</div>
 					<div class="div_right_icon">

@@ -55,7 +55,7 @@
 							<div class="guindance_by_theme" style="display:none;"> 
 								<div class="div_left_icon_g">
 									<%= f.collection_select(:theme_ids,
-									Theme.find(:all, :order => 'title ASC'),
+									Theme.all.order('title'),
 									:id, :title, {:prompt => false, :include_blank => 'None'}, {:multiple => true})%>
 								</div>
 								<div class="div_right_icon_g">
@@ -71,7 +71,7 @@
 										<% phase_id = @guidance.question.section.version.phase_id %>
 										<% version_id = @guidance.question.section.version_id %>
 										<% section_id = @guidance.question.section_id %>
-										<%= collection_select(:phase, :dmptemplate_id,  Dmptemplate.find(:all, :order => 'title ASC'), :id, :title, {:prompt   => "Select a template", :selected =>  dmp_template_id}, {:id => 'templates_select'}) %>
+										<%= collection_select(:phase, :dmptemplate_id,  Dmptemplate.all.order('title'), :id, :title, {:prompt   => "Select a template", :selected =>  dmp_template_id}, {:id => 'templates_select'}) %>
 										<br/>
 										<%= collection_select(:version, :phase_id, Phase.where("dmptemplate_id = ?", dmp_template_id).order('title ASC'), :id, :title, {:prompt => "Select a phase", :selected =>  phase_id}, {:id => 'phases_select'}) %>
 										<br/>

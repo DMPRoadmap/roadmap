@@ -42,7 +42,7 @@
 							<div class="guindance_by_theme" style="display:none;"> 
 								<div class="div_left_icon_g">
 									<%= f.collection_select(:theme_ids,
-									Theme.find(:all, :order => 'title ASC'),
+									Theme.all.order('title'),
 									:id, :title, {:prompt => false, :include_blank => 'None'}, {:multiple => true})%>
 								</div>
 								<div class="div_right_icon_g">

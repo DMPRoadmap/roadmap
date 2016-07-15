@@ -33,7 +33,7 @@ in the admin interface.
 						<div class="div_left_icon">
 							<%= f.hidden_field :id,{ :class => "quest_id" } %>
 							<%= f.select :question_format_id, 
-								options_from_collection_for_select(QuestionFormat.find(:all, :order => "title ASC"),:id, :title, question.question_format_id), 
+								options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, question.question_format_id), 
 								{},	:id => "#{question.id}-select-format"%>
 						</div>
 						<div class="div_right_icon">
@@ -154,7 +154,7 @@ in the admin interface.
 				<td class="first_template"><%= t("org_admin.questions.themes_label")%></td>
 				<td><div class="div_left_icon">
 						<%= f.collection_select(:theme_ids,
-							Theme.find(:all, :order => "title ASC"),
+							Theme.all.order("title"),
 							:id, :title, {:prompt => false, :include_blank => "None"}, {:multiple => true})%>
 					</div>
 					<div class="div_right_icon">

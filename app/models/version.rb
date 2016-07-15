@@ -9,7 +9,7 @@ class Version < ActiveRecord::Base
   
   #Link the data
   accepts_nested_attributes_for :phase
-  accepts_nested_attributes_for :sections,  :allow_destroy => true 
+  #accepts_nested_attributes_for :sections,  :allow_destroy => true 
   
   attr_accessible :description, :number, :published, :title, :phase_id, :as => [:default, :admin]
   
