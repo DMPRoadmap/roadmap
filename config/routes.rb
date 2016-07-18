@@ -23,7 +23,13 @@ DMPonline4::Application.routes.draw do
   get "existing_users" => 'existing_users#index', :as => "existing_users"
 
   #organisation admin area
-  get "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
+  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
+  resources :users, :path =>'org/admin/users', only:[] do
+    collection do
+      get 'admin_index'
+      put 'api_update'
+    end
+  end
 
   resources :organisations, :path => 'org/admin' do
     member do
@@ -63,7 +69,7 @@ DMPonline4::Application.routes.draw do
     end
   end
 
-  resource :organisation
+  #resource :organisation
 
   #resources :splash_logs
 
