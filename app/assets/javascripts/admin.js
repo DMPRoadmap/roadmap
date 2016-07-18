@@ -454,12 +454,6 @@ function remove_object(link){
 	$(link).closest(".options_content").hide();
 
 }
-$(".remove-option").click(function(e){
-	e.preventDefault();
-	remove_object($(this).parent());
-});
-
-
 function add_object(link, association, content) {
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
@@ -468,7 +462,6 @@ function add_object(link, association, content) {
         $(link).parent().children('.options_table').children('.options_tbody').children('.new_option_before').before(content.replace(regexp, new_id));
     }
 }
-
 
 // Returns text statistics for the specified editor by id
 function getStats(id) {

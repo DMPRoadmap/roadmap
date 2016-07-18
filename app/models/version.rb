@@ -8,10 +8,11 @@ class Version < ActiveRecord::Base
   has_many :plans
   
   #Link the data
-  accepts_nested_attributes_for :phase
-  #accepts_nested_attributes_for :sections,  :allow_destroy => true 
+#  accepts_nested_attributes_for :phase
+  accepts_nested_attributes_for :sections,  :allow_destroy => true 
   
-  attr_accessible :description, :number, :published, :title, :phase_id, :as => [:default, :admin]
+  attr_accessible :id, :description, :number, :published, :title, :phase_id, 
+                  :sections_attributes, :as => [:default, :admin]
   
   def to_s
   	"#{title}"

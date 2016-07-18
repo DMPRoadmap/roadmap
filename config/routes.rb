@@ -85,6 +85,7 @@ DMPonline4::Application.routes.draw do
       post 'admin_create'
       post 'admin_createphase'
       post 'admin_createsection'
+      post 'admin_createguidance'
       post 'admin_createquestion'
       post 'admin_createsuggestedanswer'
       put 'admin_update'

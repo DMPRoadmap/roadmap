@@ -16,7 +16,7 @@
 //= require v1.js
 //= require select2.min.js
 //= require jquery.placeholder.js
-//= require turbolinks
+//= require tinymce-jquery
 //= require i18n
 //= require i18n/translations
 
@@ -138,21 +138,35 @@ $( document ).ready(function() {
 		
 	});
 
+	//Question Options
+	// ---------------------------------------------------
+	$(".remove-option").click(function(e){
+		e.preventDefault();
+		$(this).parent().parent().remove();
+	});
 	// Add another option to the question's options
 	$(".add-option").click(function(e){
 		e.preventDefault();
-	
-		var tbl = $(this).parent().find("table.options_table > tbody"),
+
+		var tbl = $(this).parent().find("table.options_table > tbody.options_tbody"),
 			  last = tbl.find("tr:last"),
-    		clone = last.clone();
-		
-				clone.find(".number_field").val(parseInt(last.find(".number_field").val()) + 1);
-				clone.find(".small_text_field").val("");
-				clone.find("input[type='checkbox']").prop("checked", false);
+	  		clone = last.clone();
+				nbr = parseInt(last.find(".number_field").val());
+	
+		clone.find("input").each(function(index){
+			if($(this).hasClass("number_field")){
+				$(this).val("" + (nbr + 1)).prop("value", nbr + 1);
+				
+			}else if($(this).hasClass("small_text_field")){
+				$(this).val("");
+			}
+			
+			$(this).prop("id", $(this).prop("id").replace(/_\d+_/g, "_" + nbr + "_"));
+			$(this).prop("name", $(this).prop("name").replace(/\[\d+\]/g, "[" + nbr + "]"));
+		});
 		
 		last.after(clone);
 	});
-
 
 	/*$('#continue-to-new').click(function(e){
 		var destination = $(this).attr("href");

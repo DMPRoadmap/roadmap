@@ -8,7 +8,7 @@ class Section < ActiveRecord::Base
 
   #Link the data
   accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :version
+#  accepts_nested_attributes_for :version
 
   attr_accessible :organisation_id, :description, :number, :title, :version_id , :published, :questions_attributes, :as => [:default, :admin]
 
