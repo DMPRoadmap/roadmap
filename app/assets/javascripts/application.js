@@ -139,12 +139,17 @@ $( document ).ready(function() {
 	});
 
 	//Question Options
-	// ---------------------------------------------------
-	$(".remove-option").click(function(e){
+	// ------------------------------------------------------------------------------------
+	$(".options_table").on("click", ".remove-option", function(e){
 		e.preventDefault();
-		$(this).parent().parent().remove();
+		
+		// Mark the option for removal 
+		$($(this).siblings()[0]).val(true);
+		
+		// Hide the entire table row and the associated hidden field for the item
+		$(this).parent().parent().addClass('hidden');
 	});
-	// Add another option to the question's options
+	
 	$(".add-option").click(function(e){
 		e.preventDefault();
 
@@ -153,17 +158,20 @@ $( document ).ready(function() {
 	  		clone = last.clone();
 				nbr = parseInt(last.find(".number_field").val());
 	
+		// Update the input field names and ids
 		clone.find("input").each(function(index){
-			if($(this).hasClass("number_field")){
-				$(this).val("" + (nbr + 1)).prop("value", nbr + 1);
-				
-			}else if($(this).hasClass("small_text_field")){
-				$(this).val("");
-			}
-			
 			$(this).prop("id", $(this).prop("id").replace(/_\d+_/g, "_" + nbr + "_"));
 			$(this).prop("name", $(this).prop("name").replace(/\[\d+\]/g, "[" + nbr + "]"));
 		});
+	
+		// Remove the hidden class and make sure the new row is not marked for removal
+		clone.removeClass('hidden');
+		clone.find("[id$=" + nbr + "__destroy]").val(false);
+	
+		// Default the other values
+		clone.find("[id$=" + nbr + "_number]").val("" + (nbr + 1));
+		clone.find("[id$=" + nbr + "_text]").val("");
+		clone.find("[id$=" + nbr + "_is_default]").prop("checked", false);
 		
 		last.after(clone);
 	});

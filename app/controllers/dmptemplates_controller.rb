@@ -296,15 +296,10 @@ class DmptemplatesController < ApplicationController
 		def admin_cloneversion
 			if user_signed_in? && current_user.is_org_admin? then
         @old_version = Version.find(params[:version_id])
-        
-puts "WE ARE HERE BEFORE THE CLONE!!!!!!!!!"
-        
 				@version = @old_version.amoeba_dup
 				@phase = @version.phase
 
 		    respond_to do |format|
-          
-puts "WE ARE HERE BEFORE THE SAVE!!!!!!!!!"
           
 		      if @version.save
 		        format.html { redirect_to admin_phase_dmptemplate_path(@phase, :version_id => @version.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
@@ -421,6 +416,10 @@ puts "WE ARE HERE BEFORE THE SAVE!!!!!!!!!"
 				@phase = @version.phase
 
 				respond_to do |format|
+          
+          
+puts "PARAMS: #{params[:question]}"
+          
 		      if @question.update_attributes(params[:question])
 		        format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
 		        format.json { head :no_content }
