@@ -65,10 +65,7 @@
 			</tr>
 			<tr>
 				<td class="first"><%= t("helpers.api_info") %></td>
-				<!--
-				for each API the org has access to
-					display the info from database about using the api
-				-->
+				<td><%= link_to( t("helpers.api_use"), controller: "token_permission_types", action: "index")%></td>
 			</tr>
 			<% end %>
 		</table>
