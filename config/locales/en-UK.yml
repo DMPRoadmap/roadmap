@@ -2,7 +2,7 @@
 # [+Description:+] This file contains all the text present on DMPonline that is not being retrieve from the database.
 # [+Copyright:+] Digital Curation Centre
 
-en:
+en-UK:
   date:
     formats:
       # Use the strftime parameters for formats.

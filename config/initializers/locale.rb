@@ -9,7 +9,7 @@ module DMPonline4
     # in config/initializers/locale.rb
 
     # set default locale to something other than :en
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :'en-UK'
 
     # set fallback locale
     config.i18n.fallbacks = true

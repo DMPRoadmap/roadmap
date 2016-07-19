@@ -87,12 +87,14 @@
             <% else %>
                 <li>
             <% end %>
-                <%= link_to t("helpers.help_label"), "/help", :class => "main_nav_last_li"%>
+                <%= link_to t("helpers.help_label"), "/help", :class => "main_nav"%>
             </li>
             <!-- language dropdown -->
-            <li>
-              <%= link_to "test", :controller => 'locales', :action => 'change_session_locale', :locale => 'test' %>
-            </li>
+              <% Language.all.order("name ASC").each do |language|%>
+                <li>
+                  <%= link_to language.name, :controller => 'locales', :action => 'change_session_locale', :locale => language.name %>
+                </li>
+              <% end %>
         <%end%>
     </ul>
 
