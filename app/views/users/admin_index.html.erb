@@ -21,7 +21,7 @@
       </thead>
 
       <tbody>
-      <%= form_tag( api_update_users_path, method: :put) do %>
+      <%= form_tag( admin_api_update_users_path, method: :put) do %>
         <% @user_roles.each do |user_id| %>
             <% if !user_id.user.nil? then%>
               <tr>
@@ -45,7 +45,7 @@
                 </td>
                 <% if current_user.organisation.token_permission_types.count > 0 %>
                 <td class="dmp_td_small">
-                    <%= check_box_tag "user_ids[]", user_id, user_id.user.api_token !="" %>
+                    <%= check_box_tag "user_ids[]", user_id.user.id, user_id.user.api_token !="" %>
                 </td>
                 <% end %>
               </tr>
