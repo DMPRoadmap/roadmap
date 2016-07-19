@@ -2,7 +2,7 @@ class TokenPermissionTypesController < ApplicationController
 
 
     def index
-        if user_signed_in?
+        if user_signed_in? && user.organisation.token_permission_types.count > 0
             @user = current_user
             respond_to do |format|
                 format.html
