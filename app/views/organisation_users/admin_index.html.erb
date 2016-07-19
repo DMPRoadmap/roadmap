@@ -6,7 +6,7 @@
 
 <%= raw t('org_admin.user_text_html')%>
 <% @user_roles = current_user.organisation.user_org_roles %>
-<% @user_roles = @user_roles.uniq_by {|u| u.user_id } %>  	
+<% @user_roles = @user_roles.to_a.uniq {|u| u.user_id } %>  	
   	<table id="dmp_table" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
