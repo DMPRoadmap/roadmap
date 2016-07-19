@@ -27,7 +27,7 @@ DMPonline4::Application.routes.draw do
   resources :users, :path =>'org/admin/users', only:[] do
     collection do
       get 'admin_index'
-      put 'api_update'
+      put 'admin_api_update'
     end
   end
 
