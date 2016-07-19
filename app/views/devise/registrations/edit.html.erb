@@ -80,7 +80,7 @@
 		</p>
 		<table class="dmp_details_table">
 			<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-					    <div><% t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
+					    <div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
 			<% end %>
 			<tr>
 				<td class="first"><%= t("helpers.current_password") %></td>
