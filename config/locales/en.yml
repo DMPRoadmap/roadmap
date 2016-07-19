@@ -353,6 +353,11 @@ en:
     error_registration_check: 'Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.'
     api_token: 'API token'
     api_info: 'API Information'
+    api_use: 'How to use the API'
+    api_granted: 'You have been granted permission by your organisation to use our API.'
+    api_view_token: 'Your API token and instructions for using the API endpoints can be found here.'
+    api_mail_subject: 'API Permission Granted'
+
 
     text_area: "Text area"
     text_field: "Text field"
