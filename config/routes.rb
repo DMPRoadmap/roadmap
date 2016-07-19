@@ -171,6 +171,8 @@ DMPonline4::Application.routes.draw do
     resources :plans
   end
 
+  resources :token_permission_types, only:[:index]
+
   namespace :api, defaults: { format: :json } do
     namespace :v0 do
       resources :guidance_groups, only: [ :index, :show ]
@@ -180,6 +182,7 @@ DMPonline4::Application.routes.draw do
   end
 
    get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
