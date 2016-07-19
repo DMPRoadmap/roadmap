@@ -67,7 +67,7 @@
 								<%= f.label :message, (t(".message") + content_tag(:abbr, "*", :class => "required")).html_safe %>
 							</td>
 							<td>
-								<%= f.text_area :message, :rows => 10, :style => "width:95%;"%>
+								<%= f.text_area :message, :rows => 10 %>
 								<% if f.object.errors[:message].present? %>
 									<p class="inline-error"><%= f.object.errors[:message].join(" and ") %></p>
 								<% end %>

@@ -20,6 +20,7 @@ DMPonline4::Application.routes.draw do
   get "help" => 'static_pages#help', :as => "help"
   get "news" => 'static_pages#news', :as => "news"
   get "terms" => 'static_pages#termsuse', :as => "terms"
+  get "roadmap" => 'static_pages#roadmap', :as => "roadmap"
   get "existing_users" => 'existing_users#index', :as => "existing_users"
 
   #organisation admin area
