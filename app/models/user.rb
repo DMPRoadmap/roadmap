@@ -131,18 +131,20 @@ class User < ActiveRecord::Base
 		return org_type
     end
 
-    def remove_token
+    def remove_token!
         unless api_token.empty?
-            api_token = ""
+            self.api_token = ""
+            self.save!
         end
     end
 
-    def keep_or_generate_token
+    def keep_or_generate_token!
         if api_token.empty?
-            api_token = loop do
+            self.api_token = loop do
                 random_token = SecureRandom.urlsafe_base64(nil, false)
                 break random_token unless User.exists?(api_token: random_token)
             end
+            self.save!
         end
     end
 
