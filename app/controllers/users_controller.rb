@@ -80,25 +80,32 @@ class UsersController < ApplicationController
         else
             render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
         end
-    end
+  end
 
-    def api_update
+    def admin_api_update
         if user_signed_in? && current_user.is_org_admin? then
-            unless params[:user_ids].nil?
-                # find excluded user_id's
-                excluded_ids = params[:user_ids]
-                excluded_ids.each do |user_id|
-                    User.find(user_id).remove_token
-                end
-                # remove their api_tokens
-                # find included user id's
-                params[:user_ids].each do |user_id|
-                    User.find(user_id).keep_or_generate_token
-                end
-                # keep_or_generate_token
+          #iterate through all org users
+          current_user.organisation.users.each do |user|
+            if !params[:user_ids].nil?
+              user_ids = params[:user_ids].map(&:to_i)
+              # if user_id in passed params
+              if user_ids.include? user.id
+                # run generate_or_keep
+                user.keep_or_generate_token!
+              # if not in passed params
+              else
+                # remove the token
+                user.remove_token!
+              end
+            else
+              # no users selected so remove all tokens
+              user.remove_token!
             end
+          end
+            #redirect_to admin_index
         else
             render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
         end
     end
+
 end
