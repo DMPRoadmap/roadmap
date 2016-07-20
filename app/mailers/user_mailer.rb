@@ -16,4 +16,9 @@ class UserMailer < ActionMailer::Base
 		@project = project
 		mail(to: @user.email, subject: "DMP access removed")
 	end
+
+    def api_token_granted_notification(user)
+        @user = user
+        mail(to: @user.email, subject: I18n.t('helper.api_mail_subject')
+    end
 end

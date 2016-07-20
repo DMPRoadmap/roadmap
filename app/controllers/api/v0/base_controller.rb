@@ -102,18 +102,22 @@ module Api
 
       def authenticate_token
         authenticate_with_http_token do |token, options|
-          @token = token
-          logger.debug "whats the token? #{token}"
-          @user = User.find_by api_token: token
-          logger.debug "did we even find a guy? #{@user}"
-          !@user.nil?
+          # reject the empty string as it is our base empty token
+          if !token = ""
+            @token = token
+            @user = User.find_by(api_token: token)
+            # if no user found, return false, otherwise true
+            !@user.nil?
+          else
+            false
+          end
         end
       end
 
 
       def render_bad_credentials
         self.headers['WWW-Authenticate'] = "Token realm=\"\""
-        render json: '"Bad credentials"', status: 401
+        render json: I18n.t("api.bad_credentials"), status: 401
       end
 
       def has_auth (auth_type)

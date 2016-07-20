@@ -23,7 +23,13 @@ DMPonline4::Application.routes.draw do
   get "existing_users" => 'existing_users#index', :as => "existing_users"
 
   #organisation admin area
-  get "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
+  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
+  resources :users, :path =>'org/admin/users', only:[] do
+    collection do
+      get 'admin_index'
+      put 'admin_api_update'
+    end
+  end
 
   resources :organisations, :path => 'org/admin' do
     member do
@@ -63,7 +69,7 @@ DMPonline4::Application.routes.draw do
     end
   end
 
-  resource :organisation
+  #resource :organisation
 
   #resources :splash_logs
 
@@ -165,6 +171,8 @@ DMPonline4::Application.routes.draw do
     resources :plans
   end
 
+  resources :token_permission_types, only:[:index]
+
   namespace :api, defaults: { format: :json } do
     namespace :v0 do
       resources :guidance_groups, only: [ :index, :show ]
@@ -174,6 +182,7 @@ DMPonline4::Application.routes.draw do
   end
 
    get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

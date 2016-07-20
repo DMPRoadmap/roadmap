@@ -28,12 +28,12 @@
             <% end %>
                 <%= link_to t("org_admin.org_details_label"), admin_show_organisation_path(current_user.organisation_id)%>
             </li>
-            <% if current_path == "/org/admin/users" then %>
+            <% if current_path == "/org/admin/users/admin_index" || current_path == "/org/admin/users/admin_api_update" then %>
                 <li class="active">
             <% else %>
                 <li>
             <% end %>
-                <%= link_to t("org_admin.user_list_label"), "/org/admin/users", :class => "main_nav_last_li"%>
+                <%= link_to t("org_admin.user_list_label"), "/org/admin/users/admin_index", :class => "main_nav_last_li"%>
             </li>
         <% else %>
             <% if user_signed_in? %>

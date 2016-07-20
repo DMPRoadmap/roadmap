@@ -6,6 +6,8 @@ require File.expand_path('../config/application', __FILE__)
 
 DMPonline4::Application.load_tasks
 
+# TODO: destroy rdoc rake task once finished with new documentation
+
 RDoc::Task.new :rdoc do |rdoc|
   rdoc.main = "README.rdoc"
 
@@ -15,3 +17,4 @@ RDoc::Task.new :rdoc do |rdoc|
   rdoc.title = "DMPonline4 Documentation"
   rdoc.options << "--all" 
 end
+

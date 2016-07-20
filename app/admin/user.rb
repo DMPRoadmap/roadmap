@@ -5,7 +5,7 @@
 # [+Copyright:+] Digital Curation Centre
 
 ActiveAdmin.register User do
-	permit_params :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :orcid_id, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation,  :other_organisation, :accept_terms, :role_ids, :api_token
+	permit_params :api_token, :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :orcid_id, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation,  :other_organisation, :accept_terms, :role_ids
 
 	menu :priority => 15, :label => proc{ I18n.t('admin.user')}, :parent => "User management"
 
@@ -53,10 +53,10 @@ ActiveAdmin.register User do
   			row :orcid_id
   			row I18n.t('admin.org_title'), :organisation_id do |org_title|
 		      if !org_title.organisation_id.nil? then
-		        	 link_to org_title.organisation.name, [:admin, org_title.organisation]
-              end
+		        link_to org_title.organisation.name, [:admin, org_title.organisation]
+          end
 		   	end
-            row :other_organisation
+        row :other_organisation
   		#	row I18n.t('admin.user_status'), :user_status_id do |us|
   		#		if !us.user_status.nil? then
   		#			link_to us.user_status.name, [:admin, us.user_status]
@@ -87,7 +87,6 @@ ActiveAdmin.register User do
   			f.input :surname
   			f.input :email
   			f.input :orcid_id
-        f.input :api_token
   		#	f.input :shibboleth_id
   			f.input :organisation_id ,:label => I18n.t('admin.org_title'),
   						:as => :select,
@@ -104,6 +103,7 @@ ActiveAdmin.register User do
   							:multiple => true,
                             :include_blank => I18n.t('helpers.none'),
   							:collection => Role.order('name').map{|ro| [ro.name, ro.id]}
+        f.input :api_token
 
     end
 

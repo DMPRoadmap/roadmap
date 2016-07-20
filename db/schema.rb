@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105114044) do
+ActiveRecord::Schema.define(version: 20160719102542) do
 
   create_table "answers", force: true do |t|
     t.text     "text"
@@ -137,6 +137,13 @@ ActiveRecord::Schema.define(version: 20160105114044) do
     t.boolean  "is_default"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "org_token_permissions", force: true do |t|
+    t.integer  "organisation_id"
+    t.integer  "token_permission_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "organisation_types", force: true do |t|
@@ -320,6 +327,13 @@ ActiveRecord::Schema.define(version: 20160105114044) do
     t.integer "guidance_id"
   end
 
+  create_table "token_permission_types", force: true do |t|
+    t.string   "token_type"
+    t.text     "text_desription"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user_org_roles", force: true do |t|
     t.integer  "user_id"
     t.integer  "organisation_id"
@@ -376,9 +390,11 @@ ActiveRecord::Schema.define(version: 20160105114044) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation"
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "organisation_id"
+    t.string   "api_token"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

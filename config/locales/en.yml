@@ -107,6 +107,7 @@ en:
     permission_description: "Permission Description"
     token_permission: "Token Permission"
     org_token_permission: "Organisation Token Permission"
+#    choose_api_permissions: "Choose all API Permissions that apply."
 
     settings_updated: 'Settings updated successfully'
     choose_themes: 'Choose all themes that apply.'
@@ -160,6 +161,7 @@ en:
     option_default_label: "Default"
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
+    api_privleges: 'API Privleges?'
     guidance:
       guidance_list: "Guidance list"
       text_label: "Text"
@@ -349,6 +351,13 @@ en:
     email_already_registered: 'That email address is already registered.'
     email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."
     error_registration_check: 'Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.'
+    api_token: 'API token'
+    api_info: 'API Information'
+    api_use: 'How to use the API'
+    api_granted: 'You have been granted permission by your organisation to use our API.'
+    api_view_token: 'Your API token and instructions for using the API endpoints can be found here.'
+    api_mail_subject: 'API Permission Granted'
+
 
     text_area: "Text area"
     text_field: "Text field"
@@ -899,4 +908,13 @@ Select what format you wish to use and click to 'Export'.</p>"
     unlock: 'Unlock my account'
     waiting_for_confirmation: "Currently waiting confirmation for: "
     resend_unlock: "Resend unlock instructions"
+  api:
+    bad_credentials: '{"Error":"Bad credentials"}'
+    org_dosent_exist: '{"Error":"Organisation does not exist"}'
+    org_not_funder: '{"Error":"Organisation specified is not a funder"}'
+    org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
+    no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
+    bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
+
+
 
