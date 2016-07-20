@@ -145,6 +145,8 @@ class User < ActiveRecord::Base
                 break random_token unless User.exists?(api_token: random_token)
             end
             self.save!
+            # send an email to the user to notify them of their new api token
+            UserMailer.api_token_granted_notification(self)
         end
     end
 
