@@ -2,7 +2,10 @@ class Project < ActiveRecord::Base
 
 	extend FriendlyId
 
-	attr_accessible :dmptemplate_id, :title, :organisation_id, :unit_id, :guidance_group_ids, :project_group_ids, :funder_id, :institution_id, :grant_number, :identifier, :description, :principal_investigator, :principal_investigator_identifier, :data_contact, :funder_name, :as => [:default, :admin]
+	attr_accessible :dmptemplate_id, :title, :organisation_id, :unit_id, :guidance_group_ids, 
+                  :project_group_ids, :funder_id, :institution_id, :grant_number, :identifier, 
+                  :description, :principal_investigator, :principal_investigator_identifier, 
+                  :data_contact, :funder_name, :as => [:default, :admin]
 
 	#associations between tables
 	belongs_to :dmptemplate
@@ -22,17 +25,18 @@ class Project < ActiveRecord::Base
 	def funder_id=(new_funder_id)
 		if new_funder_id != "" then
 			new_funder = Organisation.find(new_funder_id);
-			if new_funder.dmptemplates.count == 1 then
-				dmptemplate = new_funder.dmptemplates.first
-			end
+      
+			if new_funder.dmptemplates.count >= 1 && self.dmptemplate.nil? then
+				self.dmptemplate = new_funder.dmptemplates.first
+      end
 		end
 	end
 
 	def funder_id
-		if dmptemplate.nil? then
+		if self.dmptemplate.nil? then
 			return nil
 		end
-		template_org = dmptemplate.organisation
+		template_org = self.dmptemplate.organisation
 		if template_org.organisation_type.name == I18n.t('helpers.org_type.funder').downcase
 			return template_org.id
 		else
@@ -41,10 +45,10 @@ class Project < ActiveRecord::Base
 	end
 
 	def funder
-		if dmptemplate.nil? then
+		if self.dmptemplate.nil? then
 			return nil
 		end
-		template_org = dmptemplate.organisation
+		template_org = self.dmptemplate.organisation
 		if template_org.organisation_type.name == I18n.t('helpers.org_type.funder').downcase
 			return template_org
 		else

@@ -21,7 +21,6 @@
 //= require i18n/translations
 
 
-
 $( document ).ready(function() {
 
 	$(function(){

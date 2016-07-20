@@ -113,6 +113,10 @@ class ProjectsController < ApplicationController
 	def create
     	if user_signed_in? then
 			@project = Project.new(params[:project])
+      
+puts "TEMPLATE 1: #{@project.dmptemplate.inspect}"
+puts "FUNDER 1: #{@project.funder_id}"
+      
 			if @project.dmptemplate.nil? && params[:project][:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
 				funder = Organisation.find(params[:project][:funder_id])
 				if funder.dmptemplates.count == 1 then
@@ -126,6 +130,10 @@ class ProjectsController < ApplicationController
 				end
 			end
 			@project.principal_investigator = current_user.name(false)
+      
+puts "TEMPLATE 3: #{@project.dmptemplate.inspect}"
+puts "PROJECT: #{@project.inspect}"
+      
 			@project.title = I18n.t('helpers.project.my_project_name')+' ('+@project.dmptemplate.title+')'
 			@project.assign_creator(current_user.id)
 			respond_to do |format|
