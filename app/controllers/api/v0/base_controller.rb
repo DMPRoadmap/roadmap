@@ -102,9 +102,11 @@ module Api
 
       def authenticate_token
         authenticate_with_http_token do |token, options|
+          # reject the empty string as it is our base empty token
           if !token = ""
             @token = token
             @user = User.find_by(api_token: token)
+            # if no user found, return false, otherwise true
             !@user.nil?
           else
             false

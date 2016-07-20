@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615095101) do
+ActiveRecord::Schema.define(version: 20160719102542) do
 
   create_table "answers", force: true do |t|
     t.text     "text"
@@ -332,14 +332,6 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.text     "text_desription"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "token_permissions", force: true do |t|
-    t.string   "api_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "token_permission_type_id"
   end
 
   create_table "user_org_roles", force: true do |t|
