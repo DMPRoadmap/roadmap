@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
         columns = %i(
           grant_number identifier description principal_investigator data_contact
         )
+        columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
 
         columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
 

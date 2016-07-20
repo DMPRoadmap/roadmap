@@ -5,8 +5,8 @@ class ExportedPlan < ActiveRecord::Base
   #associations between tables
   belongs_to :plan
   belongs_to :user
-
-  VALID_FORMATS = %i( csv html json pdf text xml docx)
+  
+  VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
   validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
 
