@@ -12,9 +12,6 @@ module Settings
       cols = value["columns"]
       
       if cols.present? # columns can be empty, in which case they revert to defaults
-
-puts "COLS: #{cols.keys.inspect}"
-
         errors.add(:columns, I18n.t("helpers.settings.projects.errors.no_name")) unless cols.member?("name")
         errors.add(:columns, I18n.t("helpers.settings.projects.errors.duplicate")) unless cols.keys.uniq == cols.keys
         errors.add(:columns, I18n.t("helpers.settings.projects.errors.unknown")) unless (cols.keys.uniq & ALL_COLUMNS) == cols.keys.uniq
