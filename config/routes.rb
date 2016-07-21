@@ -122,10 +122,10 @@ Rails.application.routes.draw do
         get 'locked'
         get 'answer'
         #get 'edit'
-        post 'delete_recent_locks', constraints: {format: ['html', 'json']}
-        post 'lock_section', constraints: {format: ['html', 'json']}
-        post 'unlock_section', constraints: {format: ['html', 'json']}
-        post 'unlock_all_sections', constraints: {format: ['html', 'json']}
+        post 'delete_recent_locks'
+        post 'lock_section', constraints: {format: [:html, :json]}
+        post 'unlock_section', constraints: {format: [:html, :json]}
+        post 'unlock_all_sections'
         get 'export'
         get 'warning'
         get 'section_answers'
