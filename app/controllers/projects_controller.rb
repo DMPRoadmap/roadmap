@@ -26,9 +26,6 @@ class ProjectsController < ApplicationController
 	# GET /projects/1
 	# GET /projects/1.json
 	def show
-    
-puts "PARAMS: #{params.inspect}"
-    
 		@project = Project.find(params[:id])
 		@show_form = false
 		if params[:show_form] == "yes" then
@@ -72,9 +69,6 @@ puts "PARAMS: #{params.inspect}"
 	# GET /projects/1/edit
      # Should this be removed?
 	def edit
-    
-puts "PARAMS: #{params.inspect}"
-    
 		@project = Project.find(params[:id])
 		if !user_signed_in? then
                respond_to do |format|

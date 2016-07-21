@@ -54,7 +54,7 @@ $(document).ready(function() {
     tbody.append('<td><input type="checkbox" id="columns_select" name="columns[select]" value="1" checked disabled /></td>')
 
     var submit = $('<td><input type="Submit" value="Save" class="btn btn-primary" /></td>').appendTo(tfoot);
-        cancel = $('<td><a href="#" class="btn btn-primary">' + I18n.t("helpers.cancel") + '</a></td>').appendTo(tfoot);
+        cancel = $('<td><a href="#" class="btn btn-primary">' + I18n.t("helpers.submit.cancel") + '</a></td>').appendTo(tfoot);
 
     cancel.click(function(e) {
       e.preventDefault();

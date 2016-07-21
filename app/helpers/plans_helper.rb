@@ -2,8 +2,8 @@ module PlansHelper
 
   def project_list_head(column)
     klass = case column
-      when :name  then :dmp_th_big
-      when :description then :dmp_th_big
+      when 'name'  then :dmp_th_big
+      when 'description' then :dmp_th_big
       else :dmp_th_small
     end
 
@@ -12,10 +12,12 @@ module PlansHelper
 
   def project_list_body(column, project)
     klass, content = case column
-      when :name
+      when 'name'
         [ "dmp_td_big", link_to(project.title, project_path(project), class: "dmp_table_link") ]
-      when :owner
+        
+      when 'owner'
         user = project.owner
+        
         text = if user.nil?
           "Unknown"
         elsif user == current_user
@@ -25,13 +27,13 @@ module PlansHelper
         end
 
         [ "tmp_td_small", text ]
-      when :shared
+      when 'shared'
         shared_num = project.project_groups.count - 1
         text = shared_num > 0 ? (t("helpers.yes_label") + " (with #{shared_num} people) ") : t("helpers.no_label")
         [ "dmp_td_small", text ]
-      when :last_edited
+      when 'last_edited'
         [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
-      when :description
+      when 'description'
         [ "dmp_td_medium", (project.try(column) || "Unknown") ]
       else
         [ "dmp_td_small", (project.try(column) || "Unknown") ]
