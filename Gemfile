@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 
 # additional gems for rails 4
-gem 'railties', '= 4.2.0'
+gem 'railties'#, '= 4.2.0'
 gem 'responders', '~> 2.0'   # allows use of respond_with and respond_to in controllers
 
 # add these gems to help with the transition:
@@ -43,12 +43,12 @@ gem 'amoeba'
 
 group :development, :test do
   gem "byebug"
-  gem 'web-console', '~>2.0'
 end
 
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'web-console', '~>2.0'
 end
 
 #
