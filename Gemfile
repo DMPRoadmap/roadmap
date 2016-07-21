@@ -104,6 +104,7 @@ gem "i18n-js", ">= 3.0.0.rc11"      #damodar added TODO: explain
 group :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
+  gem 'rack-test'
 end
 
 #
