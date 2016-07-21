@@ -12,4 +12,4 @@ aru_one:
 
 au_one:
   token_permission_type: guidances_token_type
-  organization: au
+  organisation: au
