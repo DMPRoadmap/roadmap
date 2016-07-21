@@ -1,17 +1,17 @@
 module PlansHelper
 
   def project_list_head(column)
-    klass = case column
+    klass = case column[0]
       when 'name'  then :dmp_th_big
       when 'description' then :dmp_th_big
       else :dmp_th_small
     end
 
-    content_tag(:th, t("helpers.project.columns.#{column}"), class: klass)
+    content_tag(:th, t("helpers.project.columns.#{column[0]}"), class: klass)
   end
 
   def project_list_body(column, project)
-    klass, content = case column
+    klass, content = case column[0]
       when 'name'
         [ "dmp_td_big", link_to(project.title, project_path(project), class: "dmp_table_link") ]
         
@@ -34,9 +34,9 @@ module PlansHelper
       when 'last_edited'
         [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
       when 'description'
-        [ "dmp_td_medium", (project.try(column) || "Unknown") ]
+        [ "dmp_td_medium", (project.try(column[0]) || "Unknown") ]
       else
-        [ "dmp_td_small", (project.try(column) || "Unknown") ]
+        [ "dmp_td_small", (project.try(column[0]) || "Unknown") ]
     end
 
     content_tag(:td, content, class: klass)

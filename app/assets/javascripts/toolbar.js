@@ -29,8 +29,13 @@ $(document).ready(function() {
         tbody = $('<tbody><tr></tr></tbody>').appendTo(table),
         tfoot = $('<tfoot><tr></tr></tfoot>').appendTo(table),
          cols = data.all_columns,
-     selected = data.selected_columns;
-
+     selected = [];
+     
+    // grab the keys from the data.selected_columns hash
+    $.each(data.selected_columns, function(k,v){
+      selected.push(k);
+    });
+     
     table.before('<input name="_method" type="hidden" value="put" />'); // PUT not POST
     table.before('<input name="authenticity_token" type="hidden" value="' + $('meta[name="csrf-token"]').attr('content') + '" />'); // Auth token
     table.after('<p>' + I18n.t("helpers.project.project_settings_text") + '</p>');

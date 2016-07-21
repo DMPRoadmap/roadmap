@@ -5,9 +5,6 @@ module Settings
     before_filter :get_settings
 
     def show
-      
-puts "COLS: #{settings_json.inspect}"
-      
       respond_to do |format|
         format.html
         format.json { render json: settings_json }
@@ -16,8 +13,6 @@ puts "COLS: #{settings_json.inspect}"
 
     def update
       columns = (params[:columns] || {})
-
-puts "COLUMNS: #{params[:columns].inspect}"
 
       if @settings.update_attributes(columns: columns)
         respond_to do |format|
