@@ -1,5 +1,5 @@
-DMPonline4::Application.routes.draw do
-
+#DMPonline4::Application.routes.draw do
+Rails.application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords', :sessions => 'sessions', :omniauth_callbacks => 'users/omniauth_callbacks'} do
     get "/users/sign_out", :to => "devise/sessions#destroy"
