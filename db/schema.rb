@@ -152,6 +152,13 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.datetime "updated_at"
   end
 
+  create_table "org_token_permissions", force: true do |t|
+    t.integer  "organisation_id"
+    t.integer  "token_permission_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organisation_types", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -340,6 +347,7 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "token_permissions", force: true do |t|
     t.string   "api_token"
     t.datetime "created_at"
@@ -348,6 +356,8 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.integer  "token_permission_type_id"
   end
 
+=======
+>>>>>>> 9c6acb3bd59ebf7ce32397c0b611a584185a88f4
   create_table "user_org_roles", force: true do |t|
     t.integer  "user_id"
     t.integer  "organisation_id"
@@ -404,7 +414,6 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation"
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "organisation_id"
     t.string   "api_token"

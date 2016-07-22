@@ -19,8 +19,9 @@
             <% end %>
         </tr>
       </thead>
-      <% form_tag admin_index_organisation_users_path, method: :put do %>
+
       <tbody>
+      <%= form_tag( admin_api_update_users_path, method: :put) do %>
         <% @user_roles.each do |user_id| %>
             <% if !user_id.user.nil? then%>
               <tr>
@@ -44,15 +45,7 @@
                 </td>
                 <% if current_user.organisation.token_permission_types.count > 0 %>
                 <td class="dmp_td_small">
-                <%= check_box_tag "user_ids[]", user_id %>
-                <!--
-                    #if the organisation has any api permissions
-                    #show tickboxes which allow for users to have api_tokens
-                    # if the user has an api_token, the tickbox is shown as ticked
-                    # upon hitting save:
-                        # any user which previously had an apitoken, but no longer has a check, looses their token
-                        # any user which perviously had no apitoken, and now has a check, gains a token, and gets sent an email
-                -->
+                    <%= check_box_tag "user_ids[]", user_id.user.id, user_id.user.api_token !="" %>
                 </td>
                 <% end %>
               </tr>

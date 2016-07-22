@@ -15,7 +15,13 @@ DMPonline4::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   #organisation admin area
-  get "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
+  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
+  resources :users, :path => 'org/admin/users', only: [] do
+    collection do
+      get 'admin_index'
+      put 'admin_api_update'
+    end
+  end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
@@ -62,7 +68,7 @@ DMPonline4::Application.routes.draw do
       end
     end
 
-    resource :organisation
+    #resource :organisation
 
     #resources :splash_logs
 
@@ -108,37 +114,37 @@ DMPonline4::Application.routes.draw do
     resources :plan_sections
     resources :comments do
       member do
-          put 'archive'
+        put 'archive'
       end
     end
 
     resources :projects do
       resources :plans do
-      member do
-        get 'status'
-        get 'locked'
-        get 'answer'
-        get 'edit'
-        post 'delete_recent_locks'
-        post 'lock_section'
-        post 'unlock_section'
-        post 'unlock_all_sections'
-        get 'export'
-        get 'warning'
-        get 'section_answers'
+        member do
+          get 'status'
+          get 'locked'
+          get 'answer'
+          get 'edit'
+          post 'delete_recent_locks'
+          post 'lock_section'
+          post 'unlock_section'
+          post 'unlock_all_sections'
+          get 'export'
+          get 'warning'
+          get 'section_answers'
+        end
       end
-    end
 
-    member do
-      get 'share'
-      get 'export'
-      post 'invite'
-      post 'create'
-    end
-    collection do
-      get 'possible_templates'
-      get 'possible_guidance'
-    end
+      member do
+        get 'share'
+        get 'export'
+        post 'invite'
+        post 'create'
+      end
+      collection do
+        get 'possible_templates'
+        get 'possible_guidance'
+      end
     end
 
 
@@ -164,15 +170,17 @@ DMPonline4::Application.routes.draw do
       resources :plans
     end
 
-    namespace :api, defaults: { format: :json } do
+    resources :token_permission_types, only: [:index]
+
+    namespace :api, defaults: {format: :json} do
       namespace :v0 do
-        resources :guidance_groups, only: [ :index, :show ]
-        resources :guidances, only: [ :index, :show ]
+        resources :guidance_groups, only: [:index, :show]
+        resources :guidances, only: [:index, :show]
         resources :plans, only: :create, controller: "projects", path: "plans"
       end
     end
 
-     get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
+    get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
 
     # The priority is based upon order of creation:
     # first created -> highest priority.

@@ -1,40 +1,40 @@
-#single_select_1_warning:
-#  option: single_select_1
-#  organisation: uog
-#  text: This warning should display when option 1 of the single item select box example is selected for a project at the University of Glasgow
-#  
-#single_select_2_warning:
-#  option: single_select_2
-#  organisation: hatii
-#  text: This warning should display when option 2 of the single item select box example is selected for a project at HATII
-#
-#  
-#multiple_select_3_warning:
-#  option: multiple_select_3
-#  organisation: uoe
-#  text: This warning should display when option 3 of the multiple item select box example is selected for a project at the University of Edinburgh
-#  
-#multiple_select_4_warning:
-#  option: multiple_select_4
-#  organisation: uoe_si
-#  text: This warning should display when option 4 of the multiple item select box example is selected for a project at the School of Informatics
-#  
-#radio_button_1_warning:
-#  option: radio_button_1
-#  organisation: uog
-#  text: This warning should display when option 1 of the radio button example is selected for a project at the University of Glasgow
-#  
-#radio_button_2_warning:
-#  option: radio_button_2
-#  organisation: hatii
-#  text: This warning should display when option 2 of the radio button example is selected for a project at HATII
-#  
-#checkbox_3_warning:
-#  option: checkbox_3
-#  organisation: uoe
-#  text: This warning should display when option 3 of the checkbox example is selected for a project at the University of Edinburgh
-#  
-#checkbox_4_warning:
-#  option: checkbox_4
-#  organisation: uoe_si
-#  text: This warning should display when option 4 of the checkbox example is selected for a project at the School of Informatics  
+single_select_1_warning:
+ option: single_select_1
+ organisation: uog
+ text: This warning should display when option 1 of the single item select box example is selected for a project at the University of Glasgow
+ 
+single_select_2_warning:
+ option: single_select_2
+ organisation: hatii
+ text: This warning should display when option 2 of the single item select box example is selected for a project at HATII
+
+ 
+multiple_select_3_warning:
+ option: multiple_select_3
+ organisation: uoe
+ text: This warning should display when option 3 of the multiple item select box example is selected for a project at the University of Edinburgh
+ 
+multiple_select_4_warning:
+ option: multiple_select_4
+ organisation: uoe_si
+ text: This warning should display when option 4 of the multiple item select box example is selected for a project at the School of Informatics
+ 
+radio_button_1_warning:
+ option: radio_button_1
+ organisation: uog
+ text: This warning should display when option 1 of the radio button example is selected for a project at the University of Glasgow
+ 
+radio_button_2_warning:
+ option: radio_button_2
+ organisation: hatii
+ text: This warning should display when option 2 of the radio button example is selected for a project at HATII
+ 
+checkbox_3_warning:
+ option: checkbox_3
+ organisation: uoe
+ text: This warning should display when option 3 of the checkbox example is selected for a project at the University of Edinburgh
+ 
+checkbox_4_warning:
+ option: checkbox_4
+ organisation: uoe_si
+ text: This warning should display when option 4 of the checkbox example is selected for a project at the School of Informatics
