@@ -9,7 +9,7 @@ user_one:
  user_type_id: 1
  user_status_id: 1
  api_token: "guidances_api_token"
- organisation_id: aru.id
+ #organisation: aru
 
 user_two:
  firstname: MyString
@@ -20,7 +20,7 @@ user_two:
  user_type_id: 1
  user_status_id: 1
  api_token: "plans_api_token"
- organisation_id: au.id
+ #organisation: au
 
 user_three:
   firstname: Mystring
@@ -31,7 +31,7 @@ user_three:
   user_type_id: 1
   user_status_id: 1
   api_token: "plans_api_token"
-  organisation_id: bu.id
+  #organisation: bu
 
 
 with_many_projects:
