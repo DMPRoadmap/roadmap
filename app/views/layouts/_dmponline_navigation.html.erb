@@ -91,8 +91,12 @@
             </li>
             <!-- language dropdown -->
               <% Language.all.order("name ASC").each do |language|%>
-                <li>
-                  <%= link_to language.name, :controller => 'locales', :action => 'change_session_locale', :locale => language.name %>
+                <% if I18n.locale == language.name %>
+                  <li class="active">
+                <% else %>
+                  <li>
+                <% end %>
+                  <%= link_to language.name, locale: language.name %>
                 </li>
               <% end %>
         <%end%>

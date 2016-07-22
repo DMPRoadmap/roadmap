@@ -13,10 +13,11 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   def set_locale
-    # session data takes precedence
-    if session[:locale]
-      # if locales data is present in the session use it
-      I18n.locale = session[:locale]
+    # parameter from url takes precedence
+    if params[:locale]
+      # if locales data is present in the parameter from url use it
+      # TODO we need to error to the user that locale is missing, it can be THE CASE because there can be a missmatch between locales files and db
+      I18n.locale = params[:locale]
     elsif false # TODO
       # if user has set preferred language use it
     elsif false # TODO
@@ -25,6 +26,11 @@ class ApplicationController < ActionController::Base
       # just use the default language, line can be commented out, included just for clarity
       # I18n.locale = config.i18n.default_locale
     end
+  end
+
+  # Added setting for passing local params across pages
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
   end
 
   def store_location
