@@ -5,11 +5,7 @@
 # [+Copyright:+] Digital Curation Centre
 
 ActiveAdmin.register User do
-<<<<<<< HEAD
-	permit_params :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :orcid_id, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation,  :other_organisation, :accept_terms, :role_ids, :api_token
-=======
 	permit_params :api_token, :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :orcid_id, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation,  :other_organisation, :accept_terms, :role_ids
->>>>>>> 97cb77ae9aa380ac8352b49ae90b0c118aa9d2a2
 
 	menu :priority => 15, :label => proc{ I18n.t('admin.user')}, :parent => "User management"
 
@@ -108,11 +104,8 @@ ActiveAdmin.register User do
   							:multiple => true,
                             :include_blank => I18n.t('helpers.none'),
   							:collection => Role.order('name').map{|ro| [ro.name, ro.id]}
-<<<<<<< HEAD
-=======
-        f.input :api_token
->>>>>>> 97cb77ae9aa380ac8352b49ae90b0c118aa9d2a2
 
+        f.input :api_token
     end
 
     f.actions
