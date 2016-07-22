@@ -13,13 +13,16 @@ module Api
         response :not_found
       end
 
+      ##
+      # Creates a new project based on the information passed in JSON to the API
       def create
         # find the user's api_token permissions
         # then ensure that they have the permission associated with creating plans
         if has_auth "plans"
           #params[:organization_id] = Organisation.where(name: params[:template][:organization])
           # find_by returns nil if none found, find_by! raises an ActiveRecord error
-          organization = Organisation.find_by name: params[:template][:organization]
+          organization = Organisation.find_by name: params[:template][:organisation]
+          
           # if organization exists
           if !organization.nil?
             # if organization is funder
@@ -34,15 +37,28 @@ module Api
                 dmptemplate = organization.templates.find_by title: params[:template][:name]
               # else error: organization has more than one template and template name unspecified
               else
-                render json: 'error:"Organization has more than one template and template name unspecified or invalid"', status: 400 and return
+                render json: I18n.t("api.org_multiple_templates"), status: 400 and return
               end
             # else error: organization specified is not a funder
             else
-              render json: 'error:"Organization specified is not a funder"', status: 400 and return
+              render json: I18n.t("api.org_not_funder"), status: 400 and return
             end
           # else error: organization does not exist
           else
-            render json: 'error:"Organization does not exist"', status: 400 and return
+            render json: I18n.t("api.org_dosent_exist"), status: 400 and return
+          end
+
+          all_groups = []
+          # Check to see if the user specified guidances
+          if !params[:guidance].nil?
+          # for each specified guidance, see if it exists
+            params[:guidance][:name].each do |guidance_name|
+              group = GuidanceGroup.find_by(name: guidance_name)
+              # if it exists, add it to the guidances for the new project
+              if !group.nil?
+                all_groups = all_groups + [group]
+              end
+            end
           end
 
           # cant invite a user without having a current user because of devise :ivitable
@@ -63,6 +79,7 @@ module Api
           @project.slug = params[:project][:title]
           @project.organisation = @user.organisations.first
           @project.assign_creator(user.id)
+          @project.guidance_groups = all_groups
 
           # if save successful, render success, otherwise show error
           if @project.save
@@ -72,15 +89,16 @@ module Api
             render json: get_resource.errors, status: :unprocessable_entity
           end
         else
-          render json: 'error:"You do not have authorisation to view this api endpoint"', status: 400 and return
+
+          render json: I18n.t("api.no_auth_for_endpoint"), status: 400 and return
         end
       end
 
-      private
-        def project_params
-          params.require(:template).permit(:organization, :name)
-          params.require(:project).permit(:title, :email)
-        end
+      # private
+      #   def project_params
+      #     params.require(:template).permit(:organisation, :name)
+      #     params.require(:project).permit(:title, :email)
+      #   end
     end
   end
 end

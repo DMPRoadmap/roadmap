@@ -44,7 +44,7 @@ class Plan < ActiveRecord::Base
             if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
                 return self.version.phase.title
             else
-                return "DMP title"
+                return I18n.t('tool_title2')
 			end
 		else
 			return self.settings(:export).title

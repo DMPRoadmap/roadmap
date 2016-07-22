@@ -89,6 +89,5 @@ module DMPonline4
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
     config.active_record.raise_in_transactional_callbacks = true
-
   end
 end

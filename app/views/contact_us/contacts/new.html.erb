@@ -20,7 +20,7 @@
 						<% if ContactUs.require_name %>
 							<tr>
 								<td class="string required first" id="contact_us_contact_name_input">
-									<%= f.label :name, (t(".name") + content_tag(:abbr, "*", :class => "required")).html_safe %>
+									<%= f.label :name, (t('admin.name') + content_tag(:abbr, "*", :class => "required")).html_safe %>
 								</td>
 								<td>
 									<% if user_signed_in? then %>
@@ -36,7 +36,7 @@
 						<% end %>
 						<tr>
 							<td class="string required first" id="contact_us_contact_email_input">
-								<%= f.label :email, (t(".email") + content_tag(:abbr, "*", :class => "required")).html_safe %>
+								<%= f.label :email, (t('helpers.email') + content_tag(:abbr, "*", :class => "required")).html_safe %>
 							</td>
 							<td>
 								<% if user_signed_in? then %>
@@ -52,7 +52,7 @@
 						<% if ContactUs.require_subject %>
 							<tr>
 								<td class="string required first" id="contact_us_contact_subject_input">
-									<%= f.label :subject, (t(".subject") + content_tag(:abbr, "*", :class => "required")).html_safe %>
+									<%= f.label :subject, (t('helpers.subject') + content_tag(:abbr, "*", :class => "required")).html_safe %>
 								</td>
 								<td>
 									<%= f.text_field :subject %>
@@ -64,7 +64,7 @@
 						<% end %>
 						<tr>
 							<td class="text required first" id="contact_us_contact_message_input">
-								<%= f.label :message, (t(".message") + content_tag(:abbr, "*", :class => "required")).html_safe %>
+								<%= f.label :message, (t('helpers.message') + content_tag(:abbr, "*", :class => "required")).html_safe %>
 							</td>
 							<td>
 								<%= f.text_area :message, :rows => 10 %>

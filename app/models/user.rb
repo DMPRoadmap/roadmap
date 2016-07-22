@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 		has_many :token_permissions
 
 
+
     has_many :projects, through: :project_groups do
       def filter(query)
         return self unless query.present?
@@ -43,11 +44,11 @@ class User < ActiveRecord::Base
     has_many :plan_sections
 
     accepts_nested_attributes_for :roles
-
+    
     attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, 
                     :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                     :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
-                    :other_organisation, :accept_terms, :role_ids, :dmponline3
+                    :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token
 
     # FIXME: The duplication in the block is to set defaults. It might be better if
     #        they could be set in Settings::PlanList itself, if possible.
@@ -65,22 +66,33 @@ class User < ActiveRecord::Base
 	end
 
 	def organisation_id=(new_organisation_id)
-    if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
-  		if self.user_org_roles.count != 1 then
-  			new_user_org_role = UserOrgRole.new
-  			new_user_org_role.organisation_id = new_organisation_id
-  			new_user_org_role.user_role_type = UserRoleType.find_by_name("user");
-  			self.user_org_roles << new_user_org_role
-  		else
-  			user_org_role = self.user_org_roles.first
-  			user_org_role.organisation_id = new_organisation_id
-            user_org_role.save
-  			org_admin_role = roles.find_by_name("org_admin")
-  			unless org_admin_role.nil? then
-  				roles.delete(org_admin_role)
-  			end
-  		end
-    end
+        # if the user is not part of the new organisation
+        if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
+            # if the user has more than one role
+      		if self.user_org_roles.count != 1 then
+      			new_user_org_role = UserOrgRole.new
+      			new_user_org_role.organisation_id = new_organisation_id
+      			new_user_org_role.user_role_type = UserRoleType.find_by_name("user");
+      			self.user_org_roles << new_user_org_role
+                #
+            # if the user has roles other than one(0/2/3?)
+      		else
+                # set role to first role
+      			user_org_role = self.user_org_roles.first
+                # change org_id to new org_id
+      			user_org_role.organisation_id = new_organisation_id
+                # save modified role
+                user_org_role.save
+                # if user has an "org_admin" role
+      			org_admin_role = roles.find_by_name("org_admin")
+      			unless org_admin_role.nil? then
+                    # delete it
+      				roles.delete(org_admin_role)
+      			end
+      		end
+        end
+        # rip api_token from user
+        self.api_token = ""
 	end
 
 	def organisation_id
@@ -126,5 +138,23 @@ class User < ActiveRecord::Base
 		return org_type
     end
 
+    def remove_token!
+        unless api_token.empty?
+            self.api_token = ""
+            self.save!
+        end
+    end
+
+    def keep_or_generate_token!
+        if api_token.empty?
+            self.api_token = loop do
+                random_token = SecureRandom.urlsafe_base64(nil, false)
+                break random_token unless User.exists?(api_token: random_token)
+            end
+            self.save!
+            # send an email to the user to notify them of their new api token
+            UserMailer.api_token_granted_notification(self)
+        end
+    end
 
 end

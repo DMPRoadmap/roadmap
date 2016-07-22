@@ -73,7 +73,7 @@ class Question < ActiveRecord::Base
         GuidanceGroup.where("organisation_id = ?", org_admin.id).each do |group|
             group.guidances.each do |g|
                 g.themes.where("id IN (?)", theme_ids).each do |gg|
-                   guidances["#{group.name} guidance on #{gg.title}"] = g
+                   guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{gg.title}"] = g
                 end
             end
         end
@@ -82,7 +82,7 @@ class Question < ActiveRecord::Base
         question.guidances.each do |g_by_q|
             g_by_q.guidance_groups.each do |group|
                 if group.organisation == org_admin
-                    guidances["#{group.name} guidance"] = g_by_q
+                    guidances["#{group.name} " + I18n.t('admin.guidance_lowercase')] = g_by_q
                 end
             end
 	  	end
