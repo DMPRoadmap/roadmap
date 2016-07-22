@@ -38,7 +38,7 @@ in the admin interface.
 					<div id="new-ques-format" class="ques_format">
 						<div class="div_left_icon">
 							<%= f.select :question_format_id, 
-								options_from_collection_for_select(QuestionFormat.find(:all, :order => "title ASC"),:id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id), 
+								options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id), 
 								{},	:id => "new-select-format-#{section.id}"%>
 						</div>
 						<div class="div_right_icon">
@@ -59,25 +59,25 @@ in the admin interface.
 								</tr>
 							</thead>
 							<tbody class="options_tbody">
+								<% i = 0 %>
+								
 								<% 2.times {@new_question.options.build } %>
-                                <% i = 0 %>
-                                <% @new_question.options.each do |options_q|%>
-                                    <%= f.fields_for :options, options_q do |op|%>
-                                        <% i = i + 1%>
-                                        <% options_q.number = i %>
-                                        <%= render "option_fields", :f => op %>
-									<%end%>
+                  <% @new_question.options.each do |options_q|%>
+                      <%= f.fields_for :options, options_q do |op|%>
+                          <% i = i + 1%>
+                          <% options_q.number = i %>
+                          <%= render "option_fields", :f => op %>
+											<%end%>
 									
-								<%end%>	
-								<tr class="new_option_before">
-									<td></td>
-								</tr>	
+									<%end%>	
 								
 							</tbody>
 							
 						</table>
-						<%= link_to_add_object t("org_admin.add_option_label"), f, :options , "", i %>	
-                        
+
+						<a href="#" class="add-option"><%= t("org_admin.add_option_label") %></a>
+												
+												
                         <div class="clearfix"></div>
                         <!--display for selecting comment box when multiple choice is being used-->
                         <%= f.check_box :option_comment_display, :as => :check_boxes%><%= f.label t("org_admin.questions.option_comment_display_checkbox"), :class => "checkbox inline"%>
@@ -153,7 +153,7 @@ in the admin interface.
 				<td class="first_template"><%= t("org_admin.questions.themes_label")%></td>
 				<td><div class="div_left_icon">
 						<%= f.collection_select(:theme_ids,
-							Theme.find(:all, :order => "title ASC"),
+							Theme.all.order("title"),
 							:id, :title, {:prompt => false, :include_blank => t('helpers.none')}, {:multiple => true})%>
 					</div>
 					<div class="div_right_icon">

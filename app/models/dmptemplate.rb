@@ -1,6 +1,6 @@
 class Dmptemplate < ActiveRecord::Base
-
-    attr_accessible :organisation_id, :description, :published, :title, :user_id, :locale, :is_default, :guidance_group_ids, as: [:default, :admin]
+    attr_accessible :id, :organisation_id, :description, :published, :title, :user_id, :locale, 
+                    :is_default, :guidance_group_ids, :as => [:default, :admin] 
 
     #associations between tables
     has_many :phases

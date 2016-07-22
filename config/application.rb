@@ -85,8 +85,9 @@ module DMPonline4
 	    :exe_path => '/usr/local/bin/wkhtmltopdf'
 	  }
     
-    # read secret_key_base from secrets.yml
-    # TODO Remove this in Rails 4.1
-    config.secret_key_base = YAML.load(File.open("#{Rails.root}/config/secrets.yml"))[Rails.env]['secret_key_base']
+    # Active Record will no longer suppress errors raised in after_rollback or after_commit
+    # in the next version. Devise appears to be using those callbacks.
+    # To accept the new behaviour use 'true' otherwise use 'false'
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

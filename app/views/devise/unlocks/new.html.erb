@@ -1,4 +1,4 @@
-<h2><% t('custom_devise.resend_unlock') %></h2>
+<h2><%= t('custom_devise.resend_unlock') %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>

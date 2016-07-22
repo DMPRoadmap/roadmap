@@ -1,9 +1,10 @@
-DMPonline4::Application.routes.draw do
+Rails.application.routes.draw do
   get "about_us" => 'static_pages#about_us', :as => "about_us"
   get "help" => 'static_pages#help', :as => "help"
   get "news" => 'static_pages#news', :as => "news"
   get "terms" => 'static_pages#termsuse', :as => "terms"
   get "existing_users" => 'existing_users#index', :as => "existing_users"
+
   devise_for :users, :controllers => {:registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords', :sessions => 'sessions', :omniauth_callbacks => 'users/omniauth_callbacks'} do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
@@ -126,8 +127,8 @@ DMPonline4::Application.routes.draw do
           get 'answer'
           get 'edit'
           post 'delete_recent_locks'
-          post 'lock_section'
-          post 'unlock_section'
+          post 'lock_section', constraints: {format: [:html, :json]}
+          post 'unlock_section', constraints: {format: [:html, :json]}
           post 'unlock_all_sections'
           get 'export'
           get 'warning'
@@ -146,7 +147,6 @@ DMPonline4::Application.routes.draw do
         get 'possible_guidance'
       end
     end
-
 
     resources :project_partners
     resources :project_groups

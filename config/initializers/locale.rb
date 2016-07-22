@@ -13,6 +13,5 @@ module DMPonline4
 
     # set fallback locale
     config.i18n.fallbacks = true
-
   end
 end

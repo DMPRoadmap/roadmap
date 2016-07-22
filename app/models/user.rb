@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
         columns = %i(
           grant_number identifier description principal_investigator data_contact
         )
+        columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
 
         columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
 
@@ -37,7 +38,9 @@ class User < ActiveRecord::Base
       end
     end
 
-    has_and_belongs_to_many :roles, :join_table => :users_roles
+    # Commented out due to warning in Rails 4. This line is redundant due to use of the rolify gem
+    #has_and_belongs_to_many :roles, :join_table => :users_roles
+    
     has_many :plan_sections
 
     accepts_nested_attributes_for :roles

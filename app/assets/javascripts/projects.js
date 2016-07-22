@@ -1,5 +1,10 @@
 $( document ).ready(function() {
 
+/*	
+	$("#project_funder_id").select2({
+		placeholder: "Select a funder"
+	});
+*/
 	$("#project_funder_id").change(function () {
 		update_template_options();
 		update_guidance_options();
