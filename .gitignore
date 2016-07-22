@@ -35,3 +35,8 @@ config/initializers/contact_us.rb
 
 # ignore yard doc files
 .yardoc/*
+
+# ignore yard generated documents
+/doc/*
+!/doc/README_FOR_APP
+
