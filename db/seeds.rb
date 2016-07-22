@@ -121,7 +121,7 @@ user_role_types.each do |urt, details|
   end
 end
 
- users = {
+users = {
     'Super admin' => {
         email: "super_admin@example.com",
         password: "password123",
@@ -599,18 +599,65 @@ end
    end
  end
 
-token_permission_types = {
-  'guidances' => {
-    description: "allows a user access to the guidances api endpoint"
-  },
-  'plans' => {
-    description: "allows a user access to the plans api endpoint"
-  }
+formatting = {
+    'Funder' => {
+        font_face: "Arial, Helvetica, Sans-Serif",
+        font_size: 11,
+        margin: { top: 20, bottom: 20, left: 20, right: 20 }
+    },
+    'DCC' => {
+        font_face: "Arial, Helvetica, Sans-Serif",
+        font_size: 12,
+        margin: { top: 20, bottom: 20, left: 20, right: 20 }
+    }
 }
 
-token_permission_types.each do |title, details|
+formatting.each do |org, settings|
+  template = Dmptemplate.find_by_title("#{org} Template")
+  template.settings(:export).formatting = settings
+  template.save!
+end
+
+token_permission_types = {
+    'guidances' => {
+        description: "allows a user access to the guidances api endpoint"
+    },
+    'plans' => {
+        description: "allows a user access to the plans api endpoint"
+    }
+}
+
+token_permission_types.each do |title,settings|
   token_permission_type = TokenPermissionType.new
   token_permission_type.token_type = title
-  token_permission_type.text_desription = details[:description]
+  token_permission_type.text_desription = settings[:description]
   token_permission_type.save!
 end
+
+languages = {
+    'EN-UK' => {
+        abbreviation: "en-UK",
+        description: "",
+        name: "en-UK"
+    },
+    'FR' => {
+        abbreviation: "fr",
+        description: "",
+        name: "fr"
+    },
+    'DE' => {
+        abbreviation: "de",
+        description: "",
+        name: "de"
+    }
+}
+
+languages.each do |l, details|
+  language = Language.new
+  language.abbreviation = details[:abbreviation]
+  language.description = details[:description]
+  language.name = details[:name]
+  language.save!
+end
+
+

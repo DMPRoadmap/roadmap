@@ -1,7 +1,7 @@
 ActiveAdmin.register OrgTokenPermission do
   permit_params :organisation_id, :token_permission_type_id
 
-  menu priority:25, label: proc{ I18n.t('admin.org_token_permission')}, parent: "Api"
+  menu priority: 40, label: proc{ I18n.t('admin.org_token_permission')}, parent: "Api"
 
   index do
     column I18n.t('admin.org') do |n|

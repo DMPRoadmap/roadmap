@@ -14,6 +14,12 @@ json.guidance_group @all_viewable_groups do |guidance_group|
   json.templates @templates do |template|
     json.title    template.title
   end
+
+  json.guidances guidance_group.guidances do |guidance|
+    json.text guidance.text
+    json.id   guidance.id
+  end
+
   json.optional   guidance_group.optional_subset
   json.updated    guidance_group.updated_at
 end

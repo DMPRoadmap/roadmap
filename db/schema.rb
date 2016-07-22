@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615095101) do
+ActiveRecord::Schema.define(version: 20160719140055) do
 
   create_table "answers", force: true do |t|
     t.text     "text"
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 20160615095101) do
   end
 
   create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
+    t.string   "slug",           limit: 191, null: false
+    t.integer  "sluggable_id",               null: false
     t.string   "sluggable_type", limit: 40
     t.datetime "created_at"
   end
@@ -120,6 +120,12 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.datetime "updated_at"
     t.integer  "question_id"
     t.boolean  "published"
+  end
+
+  create_table "languages", force: true do |t|
+    t.string "abbreviation"
+    t.string "description"
+    t.string "name"
   end
 
   create_table "option_warnings", force: true do |t|
@@ -178,7 +184,7 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.integer  "dmptemplate_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
+    t.string   "slug",           limit: 191
   end
 
   add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id", using: :btree
@@ -223,7 +229,7 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.integer  "dmptemplate_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
+    t.string   "slug",                              limit: 191
     t.integer  "organisation_id"
     t.string   "grant_number"
     t.string   "identifier"
@@ -266,7 +272,7 @@ ActiveRecord::Schema.define(version: 20160615095101) do
   add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id", using: :btree
 
   create_table "roles", force: true do |t|
-    t.string   "name"
+    t.string   "name",          limit: 191
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "role_in_plans"
@@ -289,10 +295,10 @@ ActiveRecord::Schema.define(version: 20160615095101) do
   end
 
   create_table "settings", force: true do |t|
-    t.string   "var",         null: false
+    t.string   "var",         limit: 191, null: false
     t.text     "value"
-    t.integer  "target_id",   null: false
-    t.string   "target_type", null: false
+    t.integer  "target_id",               null: false
+    t.string   "target_type", limit: 191, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -334,14 +340,6 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.datetime "updated_at"
   end
 
-  create_table "token_permissions", force: true do |t|
-    t.string   "api_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "token_permission_type_id"
-  end
-
   create_table "user_org_roles", force: true do |t|
     t.integer  "user_id"
     t.integer  "organisation_id"
@@ -374,26 +372,26 @@ ActiveRecord::Schema.define(version: 20160615095101) do
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "surname"
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  limit: 191, default: "", null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
     t.integer  "user_type_id"
     t.integer  "user_status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     default: ""
-    t.string   "reset_password_token"
+    t.string   "encrypted_password",                 default: ""
+    t.string   "reset_password_token",   limit: 191
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "confirmation_token",     limit: 191
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "invitation_token"
+    t.string   "invitation_token",       limit: 191
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"

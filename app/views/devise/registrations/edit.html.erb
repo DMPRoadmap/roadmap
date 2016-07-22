@@ -58,6 +58,16 @@
 						:autocomplete => "off" ,
 						:class => "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
 			</tr>
+			<% unless @user.api_token.nil? %>
+			<tr>
+				<td class="first"><%= t("helpers.api_token") %></td>
+				<td><%= @user.api_token %></td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("helpers.api_info") %></td>
+				<td><%= link_to( t("helpers.api_use"), controller: "token_permission_types", action: "index")%></td>
+			</tr>
+			<% end %>
 		</table>
 		<br />
 		<p>

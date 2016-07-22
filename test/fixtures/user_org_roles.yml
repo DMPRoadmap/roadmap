@@ -9,3 +9,17 @@
 #  user_id: 1
 #  organisation_id: 1
 #  user_role_type_id: 1
+#  
+
+one: 
+  user: user_one
+  organisation: aru
+
+two:
+  user: user_two
+  organisation: au
+
+three:
+  user: user_three
+  organisation: bu
+
