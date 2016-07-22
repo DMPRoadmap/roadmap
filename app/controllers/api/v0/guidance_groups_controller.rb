@@ -24,13 +24,13 @@ module Api
         # check if the user has permission to use the guidances api
         if has_auth("guidance")
           # determine if they have authorization to view this guidance group
-          if GuidanceGroup.can_view(@user, params[:id])
+          if GuidanceGroup.can_view?(@user, params[:id])
             respond_with get_resource
           else
-            render json: '"You do not have authorization to view this"', status: 401
+            render json: I18n.t("api.bad_resource"), status: 401
           end
         else
-          render json: '"You do not have authorization to use this api endpoint"', status: 401
+          render json: I18n.t("api.no_auth_for_endpoint"), status: 401
         end
       end
 
@@ -49,7 +49,7 @@ module Api
           respond_with @all_viewable_groups
         else
           #render unauthorised
-          render json: '"You do not have authorization to use this api endpoint"', status: 401
+          render json: I18n.t("api.no_auth_for_endpoint"), status: 401
         end
       end
 

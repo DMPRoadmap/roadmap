@@ -7,17 +7,26 @@ Rails.application.configure do
   config.cache_classes = false
 
   # Do not eager load code on boot.
-  config.eager_load = false
+  config.eager_load = true
 
-  # Show full error reports and disable caching.
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
+
+  # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
+  # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
-  # Print deprecation notices to the Rails logger.
+  # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
+
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
@@ -26,6 +35,8 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.assets.compress = false
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -40,4 +51,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   #
   config.action_mailer.perform_deliveries = false
+
+  config.web_console.whitelisted_ips = '192.168.33.1'
 end
+
+BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
+

@@ -10,9 +10,7 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema.define(version: 20160615095101) do
-
+ActiveRecord::Schema.define(version: 20160719140055) do
   create_table "answers", force: true do |t|
     t.text     "text"
     t.integer  "plan_id"
@@ -120,6 +118,12 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.datetime "updated_at"
     t.integer  "question_id"
     t.boolean  "published"
+  end
+
+  create_table "languages", force: true do |t|
+    t.string "abbreviation"
+    t.string "description"
+    t.string "name"
   end
 
   create_table "option_warnings", force: true do |t|
@@ -398,7 +402,6 @@ ActiveRecord::Schema.define(version: 20160615095101) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation"
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "organisation_id"
     t.string   "api_token"

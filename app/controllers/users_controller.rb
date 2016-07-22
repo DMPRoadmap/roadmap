@@ -57,9 +57,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
-  
-    
+
 
   # DELETE /users/1
   # DELETE /users/1.json
@@ -72,4 +70,42 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def admin_index
+        if user_signed_in? && current_user.is_org_admin? then
+            respond_to do |format|
+                format.html # index.html.erb
+                format.json { render json: @organisation_users }
+            end
+        else
+            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+        end
+  end
+
+    def admin_api_update
+        if user_signed_in? && current_user.is_org_admin? then
+          #iterate through all org users
+          current_user.organisation.users.each do |user|
+            if !params[:user_ids].nil?
+              user_ids = params[:user_ids].map(&:to_i)
+              # if user_id in passed params
+              if user_ids.include? user.id
+                # run generate_or_keep
+                user.keep_or_generate_token!
+              # if not in passed params
+              else
+                # remove the token
+                user.remove_token!
+              end
+            else
+              # no users selected so remove all tokens
+              user.remove_token!
+            end
+          end
+            #redirect_to admin_index
+        else
+            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+        end
+    end
+
 end
