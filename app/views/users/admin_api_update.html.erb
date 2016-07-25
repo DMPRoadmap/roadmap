@@ -5,8 +5,8 @@
 </h1>
 
 <%= raw t('org_admin.user_text_html')%>
-<% @user_roles = current_user.organisation.user_org_roles %>
-<% @user_roles = @user_roles.uniq_by {|u| u.user_id } %>
+<% @users = current_user.organisation.users %>
+<% #@user_roles = @user_roles.uniq_by {|u| u.user_id } %>
     <table id="dmp_table" class="dmp_table tablesorter">
       <thead>
         <tr>
@@ -22,30 +22,30 @@
 
       <tbody>
       <%= form_tag( admin_api_update_users_path, method: :put) do %>
-        <% @user_roles.each do |user_id| %>
-            <% if !user_id.user.nil? then%>
+        <% @users.each do |user| %>
+            <% if !user.nil? then%>
               <tr>
                 <td class="dmp_td_big">
-                    <% if !user_id.user.name.nil? then%>
-                        <%= user_id.user.name %>
+                    <% if !user.name.nil? then%>
+                        <%= user.name %>
                     <% end %>
                 </td>
                 <td class="dmp_td_medium">
-                    <%= user_id.user.email %>
+                    <%= user.email %>
                 </td>
                 <td class="dmp_td_small">
-                    <% if !user_id.user.last_sign_in_at.nil? then%>
-                    <%= l user_id.user.last_sign_in_at.to_date, :formats => :short %>
+                    <% if !user.last_sign_in_at.nil? then%>
+                    <%= l user.last_sign_in_at.to_date, :formats => :short %>
                     <% end %>
                 </td>
                 <td class="dmp_td_small">
-                    <% if !user_id.user.project_groups.nil? then%>
-                    <%= user_id.user.project_groups.count %>
+                    <% if !user.project_groups.nil? then%>
+                    <%= user.project_groups.count %>
                     <% end %>
                 </td>
                 <% if current_user.organisation.token_permission_types.count > 0 %>
                 <td class="dmp_td_small">
-                    <%= check_box_tag "user_ids[]", user_id.user.id, user_id.user.api_token !="" %>
+                    <%= check_box_tag "user_ids[]", user.id, user.api_token !="" %>
                 </td>
                 <% end %>
               </tr>
