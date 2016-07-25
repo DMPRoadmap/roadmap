@@ -32,9 +32,6 @@ config/initializers/contact_us.rb
 
 # ignore IDE files
 .idea/*
-<<<<<<< HEAD
-=======
 
 # ignore yard doc files
 .yardoc/*
->>>>>>> 97cb77ae9aa380ac8352b49ae90b0c118aa9d2a2
