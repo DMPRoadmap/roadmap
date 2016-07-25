@@ -14,6 +14,7 @@ json.guidance_group do
   json.templates @templates do |template|
     json.title    template.title
   end
+
   json.guidances @guidance_group.guidances do |guidance|
     json.text guidance.text
     json.id   guidance.id

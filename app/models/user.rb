@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
-	devise :invitable, :database_authenticatable, :registerable,
-		 :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
+	devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, 
+         :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
 
     #associations between tables
     belongs_to :user_type
@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
     has_many :project_groups, :dependent => :destroy
     has_many :organisations , through: :user_org_roles
     has_many :user_role_types, through: :user_org_roles
+		has_many :token_permissions
+
 
 
     has_many :projects, through: :project_groups do
@@ -28,6 +30,7 @@ class User < ActiveRecord::Base
         columns = %i(
           grant_number identifier description principal_investigator data_contact
         )
+        columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
 
         columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
 
@@ -35,13 +38,17 @@ class User < ActiveRecord::Base
       end
     end
 
-    has_and_belongs_to_many :roles, :join_table => :users_roles
+    # Commented out due to warning in Rails 4. This line is redundant due to use of the rolify gem
+    #has_and_belongs_to_many :roles, :join_table => :users_roles
+    
     has_many :plan_sections
 
     accepts_nested_attributes_for :roles
-    attr_accessible :role_ids
-    attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, :other_organisation, :accept_terms, :role_ids, :dmponline3
-    attr_accessible :api_token
+    
+    attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email, 
+                    :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
+                    :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
+                    :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token
 
     # FIXME: The duplication in the block is to set defaults. It might be better if
     #        they could be set in Settings::PlanList itself, if possible.

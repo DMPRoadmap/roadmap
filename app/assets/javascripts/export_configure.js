@@ -38,7 +38,7 @@ $(document).ready(function() {
       $(this).val($(this).data("default"));
     });
     $(".unsaved_changes_alert").hide();
-    $("#settings-toggle > small").text(I18n.t("settings.plans.template_formatting"));
+    $("#settings-toggle > small").text(I18n.t("project.settings.plans.template_formatting"));
   });
 
   $('.btn-primary[value="Save"]').click(function(){
@@ -49,10 +49,10 @@ $(document).ready(function() {
       }
     });
     if (custom) {
-      $("#settings-toggle > small").text(I18n.t("settings.plans.custom_formatting"));
+      $("#settings-toggle > small").text(I18n.t("project.settings.plans.custom_formatting"));
     }
     else {
-      $("#settings-toggle > small").text(I18n.t("settings.plans.template_formatting"));
+      $("#settings-toggle > small").text(I18n.t("project.settings.plans.template_formatting"));
     }
     $(".unsaved_changes_alert").hide();
   });

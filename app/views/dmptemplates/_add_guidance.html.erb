@@ -27,7 +27,7 @@
                         <div class="guindance_by_theme" style="display:none;">
                             <div class="div_left_icon_g">
                                 <%= f.collection_select(:theme_ids,
-                                Theme.find(:all, :order => "title ASC"),
+                                Theme.all.order("title"),
                                 :id, :title, {:prompt => false, :include_blank => t('helpers.none')}, {:multiple => true})%>
                             </div>
                             <div class="div_right_icon_g">
@@ -82,12 +82,12 @@
 <!-- alert for guidance-->
 <div id="new_guidance_alert_dialog" data-container="body" data-backdrop="static" class="modal hide fade">
 	<div class="modal-header">
-		<h3><% t('helpers.before_submitting_consider') %></h3>
+		<h3><%= t('helpers.before_submitting_consider') %></h3>
 	</div>
 	<div class="modal-body">
 		<ul id="missing_fields_new_guidance"></ul>
   	</div>
 	<div class="modal-footer">
-    	<a href="#" id="return_to_new_guidance" class="btn"><% t('helpers.ok_label') %></a>
+    	<a href="#" id="return_to_new_guidance" class="btn"><%= t('helpers.ok_label') %></a>
     </div>
 </div>

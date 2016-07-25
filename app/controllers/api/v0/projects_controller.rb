@@ -15,7 +15,6 @@ module Api
 
       ##
       # Creates a new project based on the information passed in JSON to the API
-      
       def create
         # find the user's api_token permissions
         # then ensure that they have the permission associated with creating plans
@@ -23,6 +22,7 @@ module Api
           #params[:organization_id] = Organisation.where(name: params[:template][:organization])
           # find_by returns nil if none found, find_by! raises an ActiveRecord error
           organization = Organisation.find_by name: params[:template][:organisation]
+          
           # if organization exists
           if !organization.nil?
             # if organization is funder
@@ -89,6 +89,7 @@ module Api
             render json: get_resource.errors, status: :unprocessable_entity
           end
         else
+
           render json: I18n.t("api.no_auth_for_endpoint"), status: 400 and return
         end
       end

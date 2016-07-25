@@ -1,5 +1,10 @@
 $( document ).ready(function() {
 
+/*	
+	$("#project_funder_id").select2({
+		placeholder: "Select a funder"
+	});
+*/
 	$("#project_funder_id").change(function () {
 		update_template_options();
 		update_guidance_options();
@@ -131,6 +136,8 @@ $( document ).ready(function() {
 	function update_guidance_options() {
 		var institution = $("#project_institution_id").select2('val');
 		var template = $("#project_dmptemplate_id :selected").val();
+		var options = null;
+		
 		$.ajax({
 			type: 'GET',
 			url: "possible_guidance.json?institution="+institution+"&template="+template,
@@ -138,11 +145,15 @@ $( document ).ready(function() {
 			async: false, //Needs to be synchronous, otherwise end up mixing up answers
 			success: function(data) {
 				options = data;
+			},
+			error: function(err){
+				console.log(err);
 			}
 		});
 		options_container = $("#guidance-control-group");
 		options_container = options_container.find(".choices-group");
 		options_container.empty();
+				
 		var count = 0;
 		for (var id in options) {
 			options_container.append("<li class='choice'><label for='project_guidance_group_ids_"+id+"'><input id='project_guidance_group_ids_"+id+"' name='project[guidance_group_ids][]' type='checkbox' value='"+id+"' />"+options[id]+"</label></li>");

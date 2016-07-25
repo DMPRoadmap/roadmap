@@ -6,6 +6,9 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # Do not eager load code on boot.
+  config.eager_load = true
+
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 
@@ -14,7 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -24,7 +27,6 @@ Rails.application.configure do
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
-
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
@@ -51,8 +53,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = false
 
   config.web_console.whitelisted_ips = '192.168.33.1'
-
-
 end
 
 BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
+

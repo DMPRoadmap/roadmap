@@ -482,12 +482,10 @@ $.fn.update_timestamp = function(question_id, data) {
 	return false;
 };
 
-// Checks section locks, applies lock if needed. Does not lift lock.
-// If locked, display questions as read-only. Otherwise, apply lock and display as editable.
 $.fn.check_section_lock = function() {
 	var section = $(this);
    	var section_id = section.attr("id").split('-')[1];
-	$.getJSON("locked.json?section_id="+section_id, function(data) {
+	$.getJSON("locked?section_id="+section_id, function(data) {
 		if (data.locked) {
 			section.find(".section-lock-notice").html("<p>" + I18n.t("helpers.project.share.locked_section_text") + data.locked_by + ".</p>");
 			section.find(".section-lock-notice").show();
@@ -500,7 +498,7 @@ $.fn.check_section_lock = function() {
 			// LIBDMP-137
 			// Changed post request 'lock_section' to  'lock_section.json'. 'lock_section' unnecessary returns a huge html response and takes a quite lot of time to process(3sec) lowering server 
 			// performance when there are large number of concurrent users.
-			$.post('lock_section.json', {section_id: section_id} ); 
+			$.post('lock_section', {section_id: section_id} ); 
 			section.find(".section-lock-notice").html("");
 			section.find(".section-lock-notice").hide();
 			section.find("input").removeAttr('disabled');

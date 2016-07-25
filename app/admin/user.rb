@@ -87,6 +87,7 @@ ActiveAdmin.register User do
   			f.input :surname
   			f.input :email
   			f.input :orcid_id
+        f.input :api_token
   		#	f.input :shibboleth_id
   			f.input :organisation_id ,:label => I18n.t('admin.org_title'),
   						:as => :select,
@@ -103,8 +104,8 @@ ActiveAdmin.register User do
   							:multiple => true,
                             :include_blank => I18n.t('helpers.none'),
   							:collection => Role.order('name').map{|ro| [ro.name, ro.id]}
-        f.input :api_token
 
+        f.input :api_token
     end
 
     f.actions

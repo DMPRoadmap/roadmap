@@ -10,6 +10,7 @@
 class Guidance < ActiveRecord::Base
   #associations between tables
 	attr_accessible :text, :question_id, :published, :as => [:default, :admin]
+
   attr_accessible :guidance_group_ids, :as => [:default, :admin]
   attr_accessible :theme_ids, :as => [:default, :admin]
 
@@ -38,7 +39,6 @@ class Guidance < ActiveRecord::Base
 		end
 		return false
 	end
-
 
   ##
   # returns all guidance that belongs to a specified organisation
@@ -89,6 +89,7 @@ class Guidance < ActiveRecord::Base
       # guidances are viewable if they are owned by any of the user's organisations
       user.organisations.each do |organisation|
         logger.debug "#{organisation.name}"
+        
         if guidance_group.organisation.id == organisation.id
           viewable = true
         end

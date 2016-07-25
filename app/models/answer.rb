@@ -4,8 +4,9 @@ class Answer < ActiveRecord::Base
 	belongs_to :question
 	belongs_to :user
 	belongs_to :plan
-    accepts_nested_attributes_for :question
-	accepts_nested_attributes_for :plan
+
+#  accepts_nested_attributes_for :question
+#	accepts_nested_attributes_for :plan
 	
 	has_and_belongs_to_many :options, join_table: "answers_options"
 	    

@@ -29,11 +29,9 @@ class GuidanceTest < ActiveSupport::TestCase
     assert Guidance.can_view?(users(:user_three), guidances(:bu_institution_guidance_2).id), "user_three cannot view bu_..._2"
   end
 
-
   test "No other organisations's guidances should be viewable" do
     # TOOD: add more fixtures with new types of guidances(i.e. not institution)
     # and add test cases
-
     assert_not Guidance.can_view?(users(:user_one), guidances(:au_institution_guidance_1).id)
     assert_not Guidance.can_view?(users(:user_one), guidances(:au_institution_guidance_2).id)
     assert_not Guidance.can_view?(users(:user_one), guidances(:bu_institution_guidance_1).id)
@@ -47,8 +45,6 @@ class GuidanceTest < ActiveSupport::TestCase
     assert_not Guidance.can_view?(users(:user_three), guidances(:au_institution_guidance_1).id)
     assert_not Guidance.can_view?(users(:user_three), guidances(:au_institution_guidance_2).id)
   end
-
-
 
 # ---------- all_viewable ----------
   # ensure that the all_viewable function returns all viewable guidances
@@ -74,7 +70,6 @@ class GuidanceTest < ActiveSupport::TestCase
       assert_includes(all_viewable_guidances, guidance)
     end
   end
-
 
   test "all_viewable returns all of a user's organisations's guidances" do
     all_viewable_guidances_one = Guidance.all_viewable(users(:user_one))
