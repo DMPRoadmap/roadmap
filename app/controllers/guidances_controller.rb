@@ -77,10 +77,10 @@ class GuidancesController < ApplicationController
     # updates phases, versions, sections and questions based on template selected
     dmptemplate = Dmptemplate.find(params[:dmptemplate_id])
     # map to title and id for use in our options_for_select
-    @phases = dmptemplate.phases.map{|a| [a.title, a.id]}.insert(0, "Select a phase")
-    @versions = dmptemplate.versions.map{|s| [s.title, s.id]}.insert(0, "Select a version")
-    @sections = dmptemplate.sections.map{|s| [s.title, s.id]}.insert(0, "Select a section")
-    @questions = dmptemplate.questions.map{|s| [s.text, s.id]}.insert(0, "Select a question")
+    @phases = dmptemplate.phases.map{|a| [a.title, a.id]}.insert(0, I18n.t('helpers.select_phase'))
+    @versions = dmptemplate.versions.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_version'))
+    @sections = dmptemplate.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
+    @questions = dmptemplate.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
 
   end
 
@@ -88,23 +88,23 @@ class GuidancesController < ApplicationController
     # updates versions, sections and questions based on phase selected
     phase = Phase.find(params[:phase_id])
     # map to name and id for use in our options_for_select
-    @versions = phase.versions.map{|s| [s.title, s.id]}.insert(0, "Select a version")
-    @sections = phase.sections.map{|s| [s.title, s.id]}.insert(0, "Select a section")
-    @questions = phase.questions.map{|s| [s.text, s.id]}.insert(0, "Select a question")
+    @versions = phase.versions.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_version'))
+    @sections = phase.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
+    @questions = phase.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
   end
 
   def update_sections
     # updates sections and questions based on version selected
     version = Version.find(params[:version_id])
     # map to name and id for use in our options_for_select
-    @sections = version.sections.map{|s| [s.title, s.id]}.insert(0, "Select a section")
-    @questions = version.questions.map{|s| [s.text, s.id]}.insert(0, "Select a question")
+    @sections = version.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
+    @questions = version.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
   end
 
   def update_questions
     # updates songs based on artist selected
     section = Section.find(params[:section_id])
-    @questions = section.questions.map{|s| [s.text, s.id]}.insert(0, "Select a question")
+    @questions = section.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
   end
 
 
