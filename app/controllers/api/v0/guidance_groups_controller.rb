@@ -22,7 +22,7 @@ module Api
 
       def show
         # check if the user has permission to use the guidances api
-        if has_auth("guidance")
+        if has_auth("guidances")
           # determine if they have authorization to view this guidance group
           if GuidanceGroup.can_view?(@user, params[:id])
             respond_with get_resource
@@ -44,7 +44,7 @@ module Api
 
       def index
 
-        if has_auth("guidance")
+        if has_auth("guidances")
           @all_viewable_groups = GuidanceGroup.all_viewable(@user)
           respond_with @all_viewable_groups
         else
