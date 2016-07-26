@@ -1,7 +1,0 @@
-guidances_token_type:
-  token_type: "guidance"
-  text_desription: "allows access to the guidance api"
-
-plans_token_type:
-  token_type: "plan"
-  text_desription: "allows access to the plan api"
