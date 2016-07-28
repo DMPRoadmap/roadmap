@@ -178,6 +178,14 @@ Rails.application.routes.draw do
         resources :guidance_groups, only: [:index, :show]
         resources :plans, only: :create, controller: "projects", path: "plans"
         resources :templates, only: :index, controller: "dmptemplates", path: "templates"
+        resource  :statistics, only: [], controller: "statistics", path: "statistics" do
+          member do
+            get :users_joined
+            get :using_template
+            get :plans_by_template
+            get :plans
+          end
+        end
       end
     end
 
