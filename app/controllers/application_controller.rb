@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
       # use user's organization language, keep in mine the "OTHER ORG" edge case which should use english
     else
       # just use the default language, line can be commented out, included just for clarity
-      I18n.locale = I18n.default_locale
+      # I18n.locale = config.I18n.default_locale
     end
   end
 
