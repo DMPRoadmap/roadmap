@@ -34,6 +34,7 @@ module Api
           @user.organisations.first.users.each do |user|
             @org_projects += user.projects
           end
+          @org_projects = restrict_date_range(@org_projects)
           respond_with restrict_date_range(@org_projects)
         else
           render json: I18n.t("api.no_auth_for_endpoint"), status: 401
@@ -47,7 +48,8 @@ module Api
           @user.organisations.first.users.each do |user|
             @org_projects += user.projects
           end
-          respond_with restrict_date_range(@org_projects)
+          @org_projects = restrict_date_range(@org_projects)
+          respond_with @org_projects
         else
           render json: I18n.t("api.no_auth_for_endpoint"), status: 401
         end

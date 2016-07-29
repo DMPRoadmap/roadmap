@@ -132,7 +132,6 @@ module Api
         #   end
         # end
         OrgTokenPermission.where(organisation_id: @user.organisation_id).find_each do |org_token_permission|
-          logger.debug "#{org_token_permission.token_permission_type.token_type}"
           if org_token_permission.token_permission_type.token_type == auth_type
             auth= true
           end

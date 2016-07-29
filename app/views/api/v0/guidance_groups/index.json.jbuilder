@@ -19,4 +19,3 @@ json.guidance_groups @all_viewable_groups do |guidance_group|
   json.optional   guidance_group.optional_subset
   json.updated    guidance_group.updated_at
 end
-§
