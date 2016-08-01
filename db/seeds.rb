@@ -624,6 +624,12 @@ token_permission_types = {
     },
     'plans' => {
         description: "allows a user access to the plans api endpoint"
+    },
+    'templates' => {
+        description: "allows a user access to the templates api endpoint"
+    },
+    'statistics' => {
+        description: "allows a user access to the statistics api endpoint"
     }
 }
 
