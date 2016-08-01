@@ -3,6 +3,10 @@ module Api
     class StatisticsController < Api::V0::BaseController
       before_action :authenticate
 
+      ##
+      # GET
+      # @return a count of users who joined DMPonline between the optional specified dates
+      # users are scoped to the organisation of the user initiating the call
       def users_joined
         if has_auth("statistics")
           @users_count = restrict_date_range(@user.organisations.first.users).count
@@ -13,6 +17,10 @@ module Api
       end
 
 
+      ##
+      # GET
+      # @return the number of DMPs using the specified template between the optional specified dates
+      # ensures that the template is owned/created by the caller's organisation
       def using_template
         if has_auth("statistics")
           template = Dmptemplate.find(params[:id])
@@ -27,7 +35,11 @@ module Api
         end
       end
 
-
+      ##
+      # GET
+      # @return a list of templates with their titles, ids, and uses between the optional specified dates
+      # the uses are restricted to DMPs created by users of the same organisation
+      # as the user who ititiated the call
       def plans_by_template
         if has_auth("templates")
           @org_projects = []
@@ -41,7 +53,11 @@ module Api
         end
       end
 
-
+      ##
+      # GET
+      # @return a list of DMPs metadata, provided the DMPs were created between the optional specified dates
+      # DMPs must be owned by a user who's organisation is the same as the user
+      # who generates the call
       def plans
         if has_auth("templates")
           @org_projects = []
