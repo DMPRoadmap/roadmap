@@ -41,13 +41,17 @@ module Api
       # the uses are restricted to DMPs created by users of the same organisation
       # as the user who ititiated the call
       def plans_by_template
-        if has_auth("templates")
+        if has_auth("statistics")
           @org_projects = []
           @user.organisations.first.users.each do |user|
-            @org_projects += user.projects
+            user.projects.each do |project|
+              unless @org_projects.include? project
+                @org_projects += [project]
+              end
+            end
           end
           @org_projects = restrict_date_range(@org_projects)
-          respond_with restrict_date_range(@org_projects)
+          respond_with @org_projects
         else
           render json: I18n.t("api.no_auth_for_endpoint"), status: 401
         end
@@ -59,10 +63,14 @@ module Api
       # DMPs must be owned by a user who's organisation is the same as the user
       # who generates the call
       def plans
-        if has_auth("templates")
+        if has_auth("statistics")
           @org_projects = []
           @user.organisations.first.users.each do |user|
-            @org_projects += user.projects
+            user.projects.each do |project|
+              unless @org_projects.include? project
+                @org_projects += [project]
+              end
+            end
           end
           @org_projects = restrict_date_range(@org_projects)
           respond_with @org_projects
@@ -88,7 +96,12 @@ module Api
 
           filtered = []
           objects.each do |obj|
-            if start_date <= obj.created_at.to_date && end_date >= obj.created_at.to_date
+            # apperantly things can have nil created_at
+            if obj.created_at.blank?
+              if params[:start_date].blank? && params[:end_date].blank?
+                filtered += [obj]
+              end
+            elsif start_date <= obj.created_at.to_date && end_date >= obj.created_at.to_date
               filtered += [obj]
             end
           end
