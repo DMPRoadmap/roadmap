@@ -3,6 +3,7 @@ json.prettify!
 json.plans @org_projects.each do |project|
   json.id             project.id
   json.grant_number   project.grant_number
+  json.org_id         project.organisation_id
   json.template do
     json.title        project.dmptemplate.title
     json.id           project.dmptemplate.id
