@@ -149,11 +149,14 @@ class ProjectsController < ApplicationController
 	def update
 		@project = Project.find(params[:id])
 		if user_signed_in? && @project.editable_by(current_user.id) then
-			respond_to do |format|
-				if @project.update_attributes(params[:project])
-					format.html { redirect_to @project, notice: I18n.t('helpers.project.success_update') }
-					format.json { head :no_content }
-				else
+      
+      if @project.update_attributes(params[:project])
+        respond_to do |format|
+				  format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
+				  format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
 					format.html { render action: "edit" }
 					format.json { render json: @project.errors, status: :unprocessable_entity }
 				end

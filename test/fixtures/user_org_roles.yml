@@ -22,8 +22,3 @@ two:
 three:
   user: user_three
   organisation: bu
-
-dcc_user_1:
-  user: user_dcc
-  organisation: dcc
-

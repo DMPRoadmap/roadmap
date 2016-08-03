@@ -39,7 +39,6 @@ ActiveAdmin.register Dmptemplate do
         end
     end
 
-    #action_item only: %i( show edit ) do
     action_item(:edit) do
         link_to(I18n.t('helpers.settings.title'), settings_admin_dmptemplate_path(resource.id))
     end

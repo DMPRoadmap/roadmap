@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get "about_us" => 'static_pages#about_us', :as => "about_us"
-  get "help" => 'static_pages#help', :as => "help"
-  get "roadmap" => 'static_pages#roadmap', :as => "roadmap"
-  get "news" => 'static_pages#news', :as => "news"
-  get "terms" => 'static_pages#termsuse', :as => "terms"
-  get "existing_users" => 'existing_users#index', :as => "existing_users"
-
   devise_for :users, :controllers => {:registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords', :sessions => 'sessions', :omniauth_callbacks => 'users/omniauth_callbacks'} do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
@@ -31,7 +24,15 @@ Rails.application.routes.draw do
   get '/:locale' => 'home#index', :as => 'locale_root'
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    resources :contacts, :controllers => {:contacts => 'contacts'}
+    get "about_us" => 'static_pages#about_us'
+    get "help" => 'static_pages#help'
+    get "roadmap" => 'static_pages#roadmap'
+    get "terms" => 'static_pages#termsuse'
+    get "existing_users" => 'existing_users#index'
+  
+    #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
+    #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
+    
     resources :organisations, :path => 'org/admin' do
       member do
         get 'children'
@@ -126,7 +127,7 @@ Rails.application.routes.draw do
           get 'status'
           get 'locked'
           get 'answer'
-          get 'edit'
+          #get 'edit'
           post 'delete_recent_locks'
           post 'lock_section', constraints: {format: [:html, :json]}
           post 'unlock_section', constraints: {format: [:html, :json]}
@@ -141,7 +142,7 @@ Rails.application.routes.draw do
         get 'share'
         get 'export'
         post 'invite'
-        post 'create'
+        #post 'create'
       end
       collection do
         get 'possible_templates'
