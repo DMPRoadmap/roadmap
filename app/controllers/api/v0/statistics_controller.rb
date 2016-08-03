@@ -9,7 +9,14 @@ module Api
       # users are scoped to the organisation of the user initiating the call
       def users_joined
         if has_auth("statistics")
-          @users_count = restrict_date_range(@user.organisations.first.users).count
+          users = restrict_date_range(@user.organisations.first.users)
+          confirmed_users = []
+          users.each do |user|
+            unless user.confirmed_at.blank?
+              confirmed_users += [user]
+            end
+          end
+          @users_count = confirmed_users.count
           respond_with @users_count
         else
           render json: I18n.t("api.no_auth_for_endpoint"), status: 401
