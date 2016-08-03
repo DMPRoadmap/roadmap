@@ -127,7 +127,7 @@ Rails.application.routes.draw do
           get 'status'
           get 'locked'
           get 'answer'
-          get 'edit'
+          #get 'edit'
           post 'delete_recent_locks'
           post 'lock_section', constraints: {format: [:html, :json]}
           post 'unlock_section', constraints: {format: [:html, :json]}
@@ -142,7 +142,7 @@ Rails.application.routes.draw do
         get 'share'
         get 'export'
         post 'invite'
-        post 'create'
+        #post 'create'
       end
       collection do
         get 'possible_templates'

@@ -467,6 +467,10 @@ $.fn.update_timestamp = function(question_id, data) {
 		timestamp = new Date(Number(timestamp) * 1000);
 		if (timestamp.getTime() != current_timestamp.getTime()) {
 			q_status.text("");
+			
+console.log("I18n: " + I18n.locale);
+console.log("I18n default: " + I18n.default_locale);
+			
 			q_status.append(I18n.t("helpers.answered_by") + " <abbr class='timeago'></abbr> " + I18n.t("helpers.answered_by_part2") + " " + data.questions[question_id]["answered_by"]);
 			t = q_status.children("abbr:first");
 			// Update label to indicate successful submission
