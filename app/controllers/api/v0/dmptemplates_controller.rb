@@ -3,8 +3,10 @@ module Api
     class DmptemplatesController < Api::V0::BaseController
       before_action :authenticate
 
-      swagger_controller :dmptemplates, 'Templates'
 
+      ##
+      # GET
+      # @return a list of templates ordered by organisation
       def index
         # check if the user has permissions to use the templates API
         if has_auth("templates")
