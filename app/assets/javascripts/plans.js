@@ -35,7 +35,7 @@ $( document ).ready(function() {
 		var message = null;
 		if ($.fn.is_dirty()) {
 			var questions = $.fn.get_unsaved_questions();
-			message = 'You have unsaved answers in the following sections:\n';
+			message = I18n.t("you_have_unsaved_in_sections");
 			$.each(questions, function(section_text, question_texts){
 				message += "\n\u2022"+section_text;
 			});
@@ -443,9 +443,9 @@ $.fn.update_section_progress = function(data) {
 
 $.fn.update_plan_progress = function(data) {
 	$("#questions-progress").css("width", (data.num_answers/data.num_questions*100)+"%");
-	$("#questions-progress-title").text(data.num_answers+"/"+data.num_questions + ' questions answered');
+	$("#questions-progress-title").text(data.num_answers+"/"+data.num_questions + " " + I18n.t("helpers.project.questions_answered"));
 	$('#export-progress').css('width', data.space_used + '%');
-	$("#export-progress-title").text('approx. ' + data.space_used + '% of available space used');
+	$("#export-progress-title").text(I18n.t("helpers.plan.export.space_used_without_max", {space_used: data.space_used}));
 	if (data.space_used >= 100) {
 		$('#export-progress').removeClass("space");
 		$('#export-progress').addClass("full");
@@ -467,7 +467,7 @@ $.fn.update_timestamp = function(question_id, data) {
 		timestamp = new Date(Number(timestamp) * 1000);
 		if (timestamp.getTime() != current_timestamp.getTime()) {
 			q_status.text("");
-			q_status.append("Answered <abbr class='timeago'></abbr> by "+data.questions[question_id]["answered_by"]);
+			q_status.append(I18n.t("helpers.answered_by") + " <abbr class='timeago'></abbr> " + I18n.t("helpers.answered_by_part2") + " " + data.questions[question_id]["answered_by"]);
 			t = q_status.children("abbr:first");
 			// Update label to indicate successful submission
 			q_status.removeClass("label-info label-warning");
@@ -482,14 +482,12 @@ $.fn.update_timestamp = function(question_id, data) {
 	return false;
 };
 
-// Checks section locks, applies lock if needed. Does not lift lock.
-// If locked, display questions as read-only. Otherwise, apply lock and display as editable.
 $.fn.check_section_lock = function() {
 	var section = $(this);
    	var section_id = section.attr("id").split('-')[1];
-	$.getJSON("locked.json?section_id="+section_id, function(data) {
+	$.getJSON("locked?section_id="+section_id, function(data) {
 		if (data.locked) {
-			section.find(".section-lock-notice").html("<p>This section is locked for editing by " + data.locked_by + ".</p>");
+			section.find(".section-lock-notice").html("<p>" + I18n.t("helpers.project.share.locked_section_text") + data.locked_by + ".</p>");
 			section.find(".section-lock-notice").show();
 			section.find("input").attr('disabled', 'disabled');
 			section.find(".question-form").hide();
@@ -500,7 +498,7 @@ $.fn.check_section_lock = function() {
 			// LIBDMP-137
 			// Changed post request 'lock_section' to  'lock_section.json'. 'lock_section' unnecessary returns a huge html response and takes a quite lot of time to process(3sec) lowering server 
 			// performance when there are large number of concurrent users.
-			$.post('lock_section.json', {section_id: section_id} ); 
+			$.post('lock_section', {section_id: section_id} ); 
 			section.find(".section-lock-notice").html("");
 			section.find(".section-lock-notice").hide();
 			section.find("input").removeAttr('disabled');

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PlanSectionsControllerTest < ActionController::TestCase
+=begin
   setup do
     @plan_section = plan_sections(:one)
   end
@@ -46,4 +47,5 @@ class PlanSectionsControllerTest < ActionController::TestCase
 
     assert_redirected_to plan_sections_path
   end
+=end
 end

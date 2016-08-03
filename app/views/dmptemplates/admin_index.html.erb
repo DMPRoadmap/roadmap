@@ -15,9 +15,9 @@
 	<!-- link button to add new guidance -->
 	<div class="move_2_right">
 		<%= link_to t("org_admin.templates.create_template"),
-		            admin_new_dmptemplate_path(),
+		            admin_new_dmptemplate_path,
 		            :class => 'btn btn-primary' %>
-	</div>    
+	</div>
 </div>
 <div class="div_clear"></div>
 
@@ -41,7 +41,7 @@
 	  				<%= org_template.title%>
 	  			</td>
 		        <td class="dmp_td_medium">
-		        	<%= raw org_template.description.truncate(90, omission: '... (continued)') %>
+		        	<%= raw org_template.description.truncate(90, omission: t('helpers.truncate_continued')) %>
 		        </td>
 		        <td class="dmp_td_small">
 			       	<%= org_template.published %>
@@ -105,7 +105,7 @@
                                 <%= org_template.title%>
                             </td>
                             <td class="dmp_td_medium">
-                                <%= raw org_template.description.truncate(90, omission: '... (continued)') %>
+                                <%= raw org_template.description.truncate(90, omission: t('helpers.truncate_continued')) %>
                             </td>
                             <td class="dmp_td_small">
                                 <%if org_template.published? then %>

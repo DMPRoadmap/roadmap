@@ -7,12 +7,11 @@ module DMPonline4
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # set default locale
     # in config/initializers/locale.rb
-	
-	# set default locale to something other than :en
-	config.i18n.default_locale = :en
-	
-	# set fallback locale
-    config.i18n.fallbacks = true    
-    
+
+    # set default locale to something other than :en
+    config.i18n.default_locale = :'en-UK'
+
+    # set fallback locale
+    config.i18n.fallbacks = true
   end
 end

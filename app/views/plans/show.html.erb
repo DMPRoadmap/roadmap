@@ -22,6 +22,6 @@
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               plan_path(@plan),
               :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('helpers.project.share.confirmation_question'))) },
               :class => 'btn btn-danger' %>
 </div>

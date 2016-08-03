@@ -1,4 +1,4 @@
-<p>Hello <%= @project_group.user.name %></p>
+<p><%= t('custom_devise.hello') %><%= @project_group.user.name %></p>
 
 <% 
 access_level = "read-only"
@@ -9,4 +9,4 @@ elsif @project_group.access_level == 3 then
 end
 %>
 
-<p>You have been given <%= access_level %> access to "<%= link_to @project_group.project.title, project_path(@project_group.project, :only_path => false) %>".</p>
+<p><%= t('helpers.mailer.given') %><%= access_level %><%= t('helpers.mailer.access_two') %>"<%= link_to @project_group.project.title, project_path(@project_group.project, :only_path => false) %>".</p>

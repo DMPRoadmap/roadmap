@@ -1,4 +1,4 @@
-<p>Hello <%= @project_group.user.name %></p>
+<p><%= t('custom_devise.hello') %><%= @project_group.user.name %></p>
 
 <% 
 access_level = "read-only"
@@ -9,4 +9,4 @@ elsif @project_group.access_level == 3 then
 end
 %>
 
-<p>Your permissions relating to "<%= link_to @project_group.project.title, project_path(@project_group.project, :only_path => false) %>" have changed. You now have <%= access_level %> access.</p>
+<p><%= t('helpers.mailer.permission_relating') %>"<%= link_to @project_group.project.title, project_path(@project_group.project, :only_path => false) %>"<%= t('helpers.mailer.changed') %><%= access_level %><%= t('helpers.mailer.access') %></p>

@@ -58,6 +58,16 @@
 						:autocomplete => "off" ,
 						:class => "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
 			</tr>
+			<% unless @user.api_token.nil? %>
+			<tr>
+				<td class="first"><%= t("helpers.api_token") %></td>
+				<td><%= @user.api_token %></td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("helpers.api_info") %></td>
+				<td><%= link_to( t("helpers.api_use"), controller: "token_permission_types", action: "index")%></td>
+			</tr>
+			<% end %>
 		</table>
 		<br />
 		<p>
@@ -80,7 +90,7 @@
 		</p>
 		<table class="dmp_details_table">
 			<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-					    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+					    <div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
 			<% end %>
 			<tr>
 				<td class="first"><%= t("helpers.current_password") %></td>

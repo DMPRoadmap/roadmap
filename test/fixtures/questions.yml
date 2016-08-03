@@ -4,7 +4,6 @@
 
 related_policies:
   text: "Related Policies:"
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are there any existing procedures that you will base your approach on?</li> <li>Does your department/group have data management guidelines?</li> <li>Does your institution have a data protection or security policy that you will follow? - Does your institution have a Research Data Management (RDM) policy?</li> <li>Does your funder have a Research Data Management policy?</li> <li>Are there any formal standards that you will adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>List any other relevant funder, institutional, departmental or group policies on data management, data sharing and data security. Some of the information you give in the remainder of the DMP will be determined by the content of other policies. If so, point/link to them here.</p>"
   number: 1
   section: administrative_data
@@ -14,7 +13,6 @@ related_policies:
 
 what_data_will_you_collect_or_create:
   text: What data will you collect or create?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What type, format and volume of data?</li> <li>Do your chosen formats and software enable sharing and long-term access to the data?</li> <li>Are there any existing data that you can reuse?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Give a brief description of the data, including any existing data or third-party sources that will be used, in each case noting its content, type and coverage. Outline and justify your choice of format and consider the implications of data format and data volumes in terms of storage, backup and access.</p>"
   number: 1
   section: data_collection
@@ -22,7 +20,6 @@ what_data_will_you_collect_or_create:
 
 how_will_the_data_be_collected_or_created:
   text: How will the data be collected or created?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What standards or methodologies will you use?</li> <li>How will you structure and name your folders and files?</li> <li>How will you handle versioning?</li> <li>What quality assurance processes will you adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline how the data will be collected/created and which community data standards (if any) will be used. Consider how the data will be organised during the project, mentioning for example naming conventions, version control and folder structures. Explain how the consistency and quality of data collection will be controlled and documented. This may include processes such as calibration, repeat samples or measurements, standardised data capture or recording, data entry validation, peer review of data or representation with controlled vocabularies.</p>"
   number: 2
   section: data_collection
@@ -32,7 +29,6 @@ how_will_the_data_be_collected_or_created:
 
 what_documentation_and_metadata_will_acompany_the_data:
   text: What documentation and metadata will acompany the data?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What information is needed for the data to be to be read and interpreted in the future?</li> <li>How will you capture / create this documentation and metadata?</li> <li>What metadata standards will you use and why?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Describe the types of documentation that will accompany the data to help secondary users to understand and reuse it. This should at least include basic details that will help people to find the data, including who created or contributed to the data, its title, date of creation and under what conditions it can be accessed.</p> <p>Documentation may also include details on the methodology used, analytical and procedural information, definitions of variables, vocabularies, units of measurement, any assumptions made, and the format and file type of the data. Consider how you will capture this information and where it will be recorded. Wherever possible you should identify and use existing community standards.</p>"
   number: 1
   section: documentation_and_metadata
@@ -42,15 +38,13 @@ what_documentation_and_metadata_will_acompany_the_data:
 
 how_will_you_manage_any_ethical_issues:
   text: How will you manage any ethical issues?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Have you gained consent for data preservation and sharing?</li> <li>How will you protect the identity of participants if required? e.g. via anonymisation</li> <li>How will sensitive data be handled to ensure it is stored and transferred securely?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Ethical issues affect how you store data, who can see/use it and how long it is kept. Managing ethical concerns may include: anonymisation of data; referral to departmental or institutional ethics committees; and formal consent agreements. You should show that you are aware of any issues and have planned accordingly. If you are carrying out research involving human participants, you must also ensure that consent is requested to allow data to be shared and reused.</p>"
   number: 1
   section: ethics_and_legal_compliance
   themes: ethical_issues, data_security
-  
+
 how_will_you_manage_copyright_and_intellectual_property_rights_ipr_issues:
   text: How will you manage copyright and Intellectual Property Rights (IPR) issues?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who owns the data?</li> <li>How will the data be licensed for reuse?</li> <li>Are there any restrictions on the reuse of third-party data?</li> <li>Will data sharing be postponed / restricted e.g. to publish or seek patents?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>State who will own the copyright and IPR of any data that you will collect or create, along with the licence(s) for its use and reuse. For multi-partner projects, IPR ownership may be worth covering in a consortium agreement. Consider any relevant funder, institutional, departmental or group policies on copyright or IPR. Also consider permissions to reuse third-party data and any restrictions needed on data sharing.</p>"
   number: 2
   section: ethics_and_legal_compliance
@@ -60,7 +54,6 @@ how_will_you_manage_copyright_and_intellectual_property_rights_ipr_issues:
 
 how_will_the_data_be_stored_and_backed_up_during_the_research:
   text: How will the data be stored and backed up during the research?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Do you have sufficient storage or will you need to include charges for additional services?</li> <li>How will the data be backed up?</li> <li>Who will be responsible for backup and recovery?</li> <li>How will the data be recovered in the event of an incident?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>State how often the data will be backed up and to which locations. How many copies are being made? Storing data on laptops, computer hard drives or external storage devices alone is very risky. The use of robust, managed storage provided by university IT teams is preferable. Similarly, it is normally better to use automatic backup services provided by IT Services than rely on manual processes. If you choose to use a third-party service, you should ensure that this does not conflict with any funder, institutional, departmental or group policies, for example in terms of the legal jurisdiction in which data are held or the protection of sensitive data.</p>"
   number: 1
   section: storage_and_backup
@@ -68,7 +61,6 @@ how_will_the_data_be_stored_and_backed_up_during_the_research:
 
 how_will_you_manage_access_and_security:
   text: How will you manage access and security?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What are the risks to data security and how will these be managed?</li> <li>How will you control access to keep the data secure?</li> <li>How will you ensure that collaborators can access your data securely?</li> <li>If creating or collecting data in the field how will you ensure its safe transfer into your main secured systems?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>If your data is confidential (e.g. personal data not already in the public domain, confidential information or trade secrets), you should outline any appropriate security measures and note any formal standards that you will comply with e.g. ISO 27001.&quot;</p>"
   number: 2
   section: storage_and_backup
@@ -78,7 +70,6 @@ how_will_you_manage_access_and_security:
 
 which_data_are_of_long-term_value_and_should_be_retained_shared_and-or_preserved:
   text: Which data are of long-term value and should be retained, shared, and/or preserved?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What data must be retained/destroyed for contractual, legal, or regulatory purposes?</li> <li>How will you decide what other data to keep?</li> <li>What are the foreseeable research uses for the data?</li> <li>How long will the data be retained and preserved?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider how the data may be reused e.g. to validate your research findings, conduct new studies, or for teaching. Decide which data to keep and for how long. This could be based on any obligations to retain certain data, the potential reuse value, what is economically viable to keep, and any additional effort required to prepare the data for data sharing and preservation. Remember to consider any additional effort required to prepare the data for sharing and preservation, such as changing file formats.</p>"
   number: 1
   section: selection_and_preservation
@@ -86,7 +77,6 @@ which_data_are_of_long-term_value_and_should_be_retained_shared_and-or_preserved
 
 what_is_the_long-term_preservation_plan_for_the_dataset:
   text: What is the long-term preservation plan for the dataset?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Where e.g. in which repository or archive will the data be held?</li> <li>What costs if any will your selected data repository or archive charge?</li> <li>Have you costed in time and effort to prepare the data for sharing / preservation?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>Consider how datasets that have long-term value will be preserved and curated beyond the lifetime of the grant. Also outline the plans for preparing and documenting data for sharing and archiving. If you do not propose to use an established repository, the data management plan should demonstrate that resources and systems will be in place to enable the data to be curated effectively beyond the lifetime of the grant.</p>"
   number: 2
   section: selection_and_preservation
@@ -96,7 +86,6 @@ what_is_the_long-term_preservation_plan_for_the_dataset:
 
 how_will_you_share_the_data:
   text: How will you share the data?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will potential users find out about your data?</li> <li>With whom will you share the data, and under what conditions?</li> <li>Will you share data via a repository, handle requests directly or use another mechanism?</li> <li>When will you make the data available?</li> <li>Will you pursue getting a persistent identifier for your data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider where, how, and to whom data with acknowledged long-term value should be made available. The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. If possible, mention earlier examples to show a track record of effective data sharing. Consider how people might acknowledge the reuse of your data.</p>"
   number: 1
   section: data_sharing
@@ -104,7 +93,6 @@ how_will_you_share_the_data:
 
 are_any_restrictions_on_data_sharing_required:
   text: Are any restrictions on data sharing required?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What action will you take to overcome or minimise restrictions?</li> <li>For how long do you need exclusive use of the data and why?</li> <li>Will a data sharing agreement (or equivalent) be required?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline any expected difficulties in sharing data with acknowledged long-term value, along with causes and possible measures to overcome these. Restrictions may be due to confidentiality, lack of consent agreements or IPR, for example. Consider whether a non-disclosure agreement would give sufficient protection for confidential data.</p>"
   number: 2
   section: data_sharing
@@ -114,7 +102,6 @@ are_any_restrictions_on_data_sharing_required:
 
 who_will_be_responsible_for_data_management:
   text: Who will be responsible for data management?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who is responsible for implementing the DMP, and ensuring it is reviewed and revised?</li> <li>Who will be responsible for each data management activity?</li> <li>How will responsibilities be split across partner sites in collaborative research projects?</li> <li>Will data ownership and responsibilities for RDM be part of any consortium agreement or contract agreed between partners?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline the roles and responsibilities for all activities e.g. data capture, metadata production, data quality, storage and backup, data archiving &amp; data sharing. Consider who will be responsible for ensuring relevant policies will be respected. Individuals should be named where possible.</p>"
   number: 1
   section: responsibilities_and_resources
@@ -122,43 +109,30 @@ who_will_be_responsible_for_data_management:
 
 what_resources_will_you_require_to_deliver_your_plan:
   text: What resources will you require to deliver your plan?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Is additional specialist expertise (or training for existing staff) required?</li> <li>Do you require hardware or software which is additional or exceptional to existing institutional provision?</li> <li>Will charges be applied by data repositories?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Carefully consider any resources needed to deliver the plan, e.g. software, hardware, technical expertise, etc. Where dedicated resources are needed, these should be outlined and justified.</p>"
   number: 2
   section: responsibilities_and_resources
   themes: resourcing_skills_and_training, resourcing_hardware_and_software, resourcing_preservation_and_data_sharing
-  
+
 #Multiple Choice
 
 #single_select_box:
 #  text: Example select box limited to one option
-#  multiple_choice: true
-#  multiple_permitted: false
-#  is_expanded: false
 #  number: 1
 #  section: multiple_choice
 #
 #multiple_select_box:
 #  text: Example select box allowing multiple options
-#  multiple_choice: true
-#  multiple_permitted: true
-#  is_expanded: false
 #  number: 2
 #  section: multiple_choice
 #
 #radio_button:
 #  text: Example radio button
-#  multiple_choice: true
-#  multiple_permitted: false
-#  is_expanded: true
 #  number: 3
 #  section: multiple_choice
 #
 #checkbox:
 #  text: Example checkbox
-#  multiple_choice: true
-#  multiple_permitted: true
-#  is_expanded: true
 #  number: 4
 #  section: multiple_choice
 
@@ -357,7 +331,7 @@ esrc_2_3:
   number: 3
   section: esrc_2
   themes: data_capture_methods
-  
+
 esrc_3_1:
   text: "Quality Assurance"
   guidance: "<p>Quality control of data is an integral part of a research process. Describe the procedures for quality assurance that will be carried out on the data collected at the time of data collection, data entry, digitisation and data checking.</p> <p>For example this might include: <ul><li>Documenting the calibration of instruments </li><li>Taking duplicate samples or measurements </li><li>Standardised data capture, data entry or recording methods </li><li>Data entry validation techniques </li><li>Methods of transcription </li><li>Peer review of data</li></ul></p> <ul><li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format/quality.aspx'>Guidance on data quality control</a></li></ul>"
@@ -485,7 +459,7 @@ nerc_2_4_1:
   number: 1
   section: nerc_2_4
   themes: active_data_storage, backup_procedures, data_security
-  
+
 nerc_2_5_1:
   text: Metadata and Documentation
   guidance: "<p>Insert statement about how metadata will be supplied and standards to which it will adhere.</p>"
@@ -520,7 +494,7 @@ nerc_2_8_2:
   number: 2
   section: nerc_2_8
   themes: data_capture_methods, project_data_contact, data_volumes, data_format, ipr_ownership_and_licencing, timeframe_for_data_sharing, preservation_plan
-  
+
 nerc_2_8_3:
   text: Physical Collections & Samples
   guidance: "<p>Enter a brief description of the activities that will produce the data</p>"
@@ -615,9 +589,6 @@ mrc_5_2:
   text: Suitability for sharing
   guidance: "<p>Indicate whether the data you propose to collect (or existing data you propose to use) in the study will be suitable for sharing. (“Yes” or “No”)</p><p>If “No,” indicate why they will not be suitable for sharing and then go to Section 6.</p>"
   number: 2
-  multiple_choice: true
-  multiple_permitted: false
-  is_expanded: true
   section: mrc_5
 
 mrc_5_3:
@@ -668,7 +639,7 @@ mrc_6_2:
   number: 2
   section: mrc_6
   themes: related_policies
-  
+
 stfc_1_1:
   text: Specify the types of data the research will generate.
   guidance: "<p>Data management plans should describe the types of data that are expected to be produced from the project, including the raw data arising directly from the research, the reduced data derived from it, and published data.</p>"

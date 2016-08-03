@@ -1,0 +1,36 @@
+= DMPRoadmap
+
+Roadmap is a data management planning tool, available at https://github.com/DMPRoadmap/roadmap
+
+Development of the Roadmap is provided by the Digital Curation Centre and the University of California Curation Center.
+
+The tool has four main functions
+1. To help create and maintain different versions of Data Management Plans;
+2. To provide useful guidance on data management issues and how to meet research funders' requirements;
+3. To export attractive and useful plans in a variety of formats;
+4. To allow collaborative work when creating Data Management Plans.
+
+== Documentation & Support
+
+* You can contact us by email, roadmap-l@listserv.ucop.edu, but we can only provide limited support for your installation
+
+== Bugs & Feature Requests
+
+* Bug Reports & Feature Requests: https://github.com/DMPRoadmap/roadmap/issues
+* Please prefix your request with either: 'Bug:' or 'Feature:' 
+
+== Prerequisites
+
+Roadmap is a Ruby on Rails application and you will need to have Ruby 2.0.0p247 or greater installed on your server and a MySQL server v5.0 or greater.
+
+Further details on how to install Ruby on Rails applications are available from the Ruby on Rails site, http://rubyonrails.org
+
+You may also find the following resources handy:
+
+* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
+* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
+
+
+== Copyright
+
+The Roadmap project uses an MIT License. The full text of the license can be found at: https://github.com/DMPRoadmap/roadmap/blob/master/LICENSE.md

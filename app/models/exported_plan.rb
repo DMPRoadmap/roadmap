@@ -5,10 +5,10 @@ class ExportedPlan < ActiveRecord::Base
   #associations between tables
   belongs_to :plan
   belongs_to :user
+  
+  VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
-  VALID_FORMATS = %i( csv html json pdf text xml docx)
-
-  validates :format, inclusion: { in: VALID_FORMATS, message: '%{value} is not a valid format' }
+  validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a
@@ -100,7 +100,7 @@ class ExportedPlan < ActiveRecord::Base
         answer = self.plan.answer(question.id, false)
 
         if answer.nil? || answer.text.nil? then
-          output += "Question not answered.\n"
+          output += I18n.t('helpers.plan.export.pdf.question_not_answered')+ "\n"
         else
           output += answer.options.collect {|o| o.text}.join("\n")
           if question.option_comment_display == true then

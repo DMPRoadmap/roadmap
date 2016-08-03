@@ -13,8 +13,8 @@
           space_title = t("helpers.plan.export.space_used", space_used: space_used, num_pages: @plan.dmptemplate.settings(:export).max_pages)
           answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
         <div class="bar-container">
-            <span id="questions-progress-title"><%= answered -%> <% t("helpers.project.questions_answered")%></span>
-            <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <% t("helpers.project.questions_answered")%>"></span>
+            <span id="questions-progress-title"><%= answered -%> <%= t("helpers.project.questions_answered")%></span>
+            <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= t("helpers.project.questions_answered")%>"></span>
         </div>
         <hr>
         <div class="bar-container">
@@ -84,18 +84,18 @@
 					</div>
     				<div class="accordion-inner">
 							<div class="loading">
-								<p><%= t ("helpers.loading")%></p>
+								<p><%= t ('helpers.loading')%></p>
 							</div>
                             <div class="saving" style="display: none">
-								<p><%= t ("helpers.saving")%></p>
+								<p><%= t ('helpers.saving')%></p>
 							</div>
                             <div class="removing" style="display: none">
-								<p><%= t ("helpers.removing")%></p>
+								<p><%= t ('helpers.removing')%></p>
 							</div>
 							<div class="loaded">
 								<div id="section-lock-message-<%= section.id %>" class="alert section-lock-notice"<% if !locked["locked"] then %> style="display:none"<% end %>>
 									<% if locked["locked"] then %>
-										<p><% t("helpers.project.share.locked_section_text")%><%= locked["locked_by"] %></p>
+										<p><%= t("helpers.project.share.locked_section_text")%><%= locked["locked_by"] %></p>
 									<% end %>
 								</div>
 								<% section.questions.order("number").each do |question| %>
@@ -112,13 +112,13 @@
     		<div id="section-<%= section.id %>-collapse-alert" data-container="body" class="modal hide fade">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3><% t("helpers.project.not_saved_answers_header")%></h3>
+						<h3><%= t("helpers.project.not_saved_answers_header")%></h3>
 					</div>
 					<div class="modal-body">
 						<div id="section-<%= section.id %>-collapse-alert-plural">
-							<p><% t("helpers.project.not_saved_answers_text_alert")%></p>
+							<p><%= t("helpers.project.not_saved_answers_text_alert")%></p>
                             <ul id="unsaved-answers-<%= section.id %>"></ul>
-							<p><% t("helpers.project.not_saved_answers_confirmation_alert")%></p>
+							<p><%= t("helpers.project.not_saved_answers_confirmation_alert")%></p>
 						</div>
 					</div>
 					<div class="modal-footer">

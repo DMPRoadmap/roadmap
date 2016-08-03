@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class FileTypesControllerTest < ActionController::TestCase
+=begin
   setup do
     @file_type = file_types(:one)
   end
@@ -46,4 +47,5 @@ class FileTypesControllerTest < ActionController::TestCase
 
     assert_redirected_to file_types_path
   end
+=end
 end

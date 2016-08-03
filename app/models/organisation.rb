@@ -1,23 +1,28 @@
 class Organisation < ActiveRecord::Base
-
-	#associations between tables
-	belongs_to :organisation_type
-	has_many :guidance_groups
+    #associations between tables
+    belongs_to :organisation_type
+    has_many :guidance_groups
     has_many :dmptemplates
-	has_many :sections
-	has_many :users
-	has_many :option_warnings
-	has_many :suggested_answers
-    
+    has_many :sections
+    has_many :users, through: :user_org_roles
+    has_many :option_warnings
+    has_many :suggested_answers
+    has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
+
     has_many :user_org_roles
-	
+
     belongs_to :parent, :class_name => 'Organisation'
+
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
-	accepts_nested_attributes_for :organisation_type
+#	accepts_nested_attributes_for :organisation_type
 	accepts_nested_attributes_for :dmptemplates
+  accepts_nested_attributes_for :token_permission_types
 
-	#attr_accessible :abbreviation, :banner_text, :description, :domain, :logo_file_name, :name, :stylesheet_file_id, :target_url, :organisation_type_id, :wayfless_entity, :parent_id, :sort_name
+	attr_accessible :abbreviation, :banner_text, :description, :domain, 
+                  :logo_file_name, :name, :stylesheet_file_id, :target_url, 
+                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
+                  :token_permission_type_ids
 
 	def to_s
 		name
@@ -41,7 +46,10 @@ class Organisation < ActiveRecord::Base
 		return children
 	end
 
-
+  ##
+  # returns a list of all guidance groups belonging to other organisations
+  #
+  # @return [Array<GuidanceGroup>]
 	def self.other_organisations
 		org_types = [I18n.t('helpers.org_type.organisation')]
 		organisations_list = []
@@ -55,6 +63,11 @@ class Organisation < ActiveRecord::Base
 		return organisations_list
 	end
 
+  ##
+  # returns a list of all sections of a given version from this organisation and it's parents
+  #
+  # @params version_id [Integer] version number of the section
+  # @return [Array<Section>] list of sections
 	def all_sections(version_id)
 		if parent.nil?
 			secs = sections.where("version_id = ?", version_id)
@@ -67,6 +80,10 @@ class Organisation < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # returns the guidance groups of this organisation and all of it's children
+  #
+  # @return [Array<GuidanceGroup>] list of guidance groups
 	def all_guidance_groups
 		ggs = guidance_groups
 		children.each do |c|
@@ -75,6 +92,10 @@ class Organisation < ActiveRecord::Base
 		return ggs
 	end
 
+  ##
+  # returns the highest parent organisation in the tree
+  #
+  # @return [organisation] the root organisation
 	def root
 		if parent.nil?
 			return self
@@ -83,6 +104,11 @@ class Organisation < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # takes in the id of, and returns an OptionWarning
+  #
+  # @params option_id [number] the id of the desired warning
+  # @return [OptionWarning] the specified warning
 	def warning(option_id)
 		warning = option_warnings.find_by_option_id(option_id)
 		if warning.nil? && !parent.nil? then
@@ -92,9 +118,20 @@ class Organisation < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # returns all published templates belonging to the organisation
+  #
+  # @return [Array<Dmptemplate>] published dmptemplates
 	def published_templates
 		return dmptemplates.where("published = ?", 1)
 	end
 
-
+  def check_api_credentials
+    if token_permission_types.count == 0
+      users.each do |user|
+        user.api_token = ""
+        user.save!
+      end
+    end
+  end
 end

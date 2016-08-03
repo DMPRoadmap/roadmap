@@ -9,42 +9,36 @@ ahrc_template_1:
   title: "AHRC Data Management Questions"
   number: 1
   description: "<p>A Technical Plan should be no more than four pages long and provided for all applications where digital outputs or digital technologies are an essential part to the planned research outcomes.</p>"
-  external_guidance_url: http://www.ahrc.ac.uk/Funding-Opportunities/Research-funding/RFG/Application-guidance/Pages/Technical-Plan.aspx
   dmptemplate: ahrc_template
 
 bbsrc_template_1:
   title: "BBSRC Data Management Questions"
   number: 1
   description: "<p>All applications seeking research grant funding from BBSRC must submit a statement on data sharing. This should include concise plans for data management and sharing as part of research grant proposal or provide explicit reasons why data sharing is not possible or appropriate. The “statement on data sharing” will be included as an additional page in the case for support.</p>"
-  external_guidance_url: http://www.bbsrc.ac.uk/web/FILES/Policies/data-sharing-policy.pdf
   dmptemplate: bbsrc_template
 
 cruk_template_1:
   title: "CRUK Data Management Questions"
   number: 1
   description: "<p>All applicants seeking funding from Cancer Research UK will be required to submit a data sharing plan as part of their research grant proposal. If data sharing is not appropriate, applicants must include a clear explanation why. The data sharing plan will be reviewed as part of the funding decision.</p>"
-  external_guidance_url: http://www.cancerresearchuk.org/science/funding/terms-conditions/funding-policies/policy-data-sharing/data-sharing-guidelines/
   dmptemplate: cruk_template
 
 esrc_template_1:
   title: "ESRC Data Management Questions"
   number: 1
   description: "<p>The ESRC requires that all applicants seeking ESRC funding include a statement on data sharing in the relevant section of the Je-S application form. If data sharing is not possible, the applicant must present a strong argument to justify their case.</p>"
-  external_guidance_url: http://www.esrc.ac.uk/_images/Research_Data_Policy_2010_tcm8-4595.pdf
   dmptemplate: esrc_template
 
 nerc_template_1:
   title: "Outline for application"
   number: 1
   description: "<p>NERC proposals should normally be accompanied by a Case for Support, and the length of these is specific to each scheme. In all cases this length should be increased by one page to be used for the Outline Data Management Plan.</p>"
-  external_guidance_url: http://www.nerc.ac.uk/research/sites/data/documents/odmp-guidance.pdf
   dmptemplate: nerc_template
 
 nerc_template_2:
   title: "Detail following award"
   number: 2
   description: "<p>The Case for Support for successful proposals will be made available to the NERC <a href='http://www.nerc.ac.uk/research/sites/data/index.asp?cookieConsent=A'>Environmental Data Centres</a> and, where appropriate, used to draft, in collaboration with the Principal Investigator, a full Data Management Plan (DMP). This full DMP should be mutually agreed between the Data Centre and the Principal Investigator within three months of the start date of the grant.</p>"
-  external_guidance_url: http://www.nerc.ac.uk/research/sites/data/documents/dmp-template.pdf
   dmptemplate: nerc_template
 
 mrc_template_1:
