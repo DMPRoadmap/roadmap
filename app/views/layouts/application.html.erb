@@ -31,7 +31,10 @@
 				$("#dmp_table").tablesorter({dateFormat: "uk"}); 
 				$("#dmp_table_2").tablesorter({dateFormat: "uk"});
 			});
-            
+         
+			// Set the JS locale equal to the one Rails has
+			I18n.defaultLocale = "<%= I18n.default_locale %>";
+			I18n.locale = "<%= I18n.locale %>";
 		</script>
 
 		<!--[if IE]>

@@ -168,7 +168,8 @@ class PlansController < ApplicationController
 			@exported_plan = ExportedPlan.new.tap do |ep|
 				ep.plan = @plan
 				ep.user = current_user
-				ep.format = request.format.try(:symbol)
+				#ep.format = request.format.try(:symbol)
+        ep.format = request.format.to_sym
 				plan_settings = @plan.settings(:export)
 
 				Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|

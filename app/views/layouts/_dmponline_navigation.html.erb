@@ -4,7 +4,7 @@
 <% current_path = request.path%>
 <% namespace = controller_path.split("/").first %>
 <div id="main-nav-tabs" class="main_nav_tabs">
-	<ul class="nav nav-tabs" data-tabs="tabs">
+  <ul class="nav nav-tabs" data-tabs="tabs">
         <!-- Navigation for organisation admin -->
         <% if (user_signed_in? && current_user.is_org_admin? && ( action_name.include? "admin_" ) ) %>
              <% if namespace == "dmptemplates" then %>
@@ -70,7 +70,7 @@
             <% else %>
                 <li>
             <% end %>
-                <%= link_to t("helpers.about_us_label"), "/about_us"%>
+              <a href="<%= about_us_path %>"><%= t("helpers.about_us_label") %></a>
             </li>
 
             <!-- roadmap page -->
@@ -79,7 +79,7 @@
             <% else %>
                 <li>
             <% end %>
-                <%= link_to t("helpers.roadmap_label"), "/roadmap"%>
+                <a href="<%= roadmap_path %>"><%= t("helpers.roadmap_label") %></a>
             </li>
             <!-- help page -->
             <% if current_path == "/help" then %>
@@ -87,7 +87,7 @@
             <% else %>
                 <li>
             <% end %>
-                <%= link_to t("helpers.help_label"), "/help", :class => "main_nav"%>
+                <a href="<%= help_path %>" class="main_nav"><%= t("helpers.help_label") %></a>
             </li>
             <!-- language dropdown -->
               <% Language.all.order("name ASC").each do |language|%>
@@ -102,6 +102,6 @@
         <%end%>
     </ul>
 
-</div>	
-	 
+</div>  
+   
 
