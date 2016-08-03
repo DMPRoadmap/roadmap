@@ -103,7 +103,7 @@ module Api
       def authenticate_token
         authenticate_with_http_token do |token, options|
           # reject the empty string as it is our base empty token
-          if !token = ""
+          if token != ""
             @token = token
             @user = User.find_by(api_token: token)
             # if no user found, return false, otherwise true
@@ -132,6 +132,7 @@ module Api
         #   end
         # end
         OrgTokenPermission.where(organisation_id: @user.organisation_id).find_each do |org_token_permission|
+          logger.debug "#{org_token_permission.token_permission_type.token_type}"
           if org_token_permission.token_permission_type.token_type == auth_type
             auth= true
           end

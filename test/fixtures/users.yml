@@ -38,3 +38,11 @@ with_many_projects:
   firstname: Many
   surname: Projects
   email: many.projects@example.com
+
+user_dcc:
+  firstname: "john"
+  surname: "doe"
+  email: "me@dcc.net"
+  user_type_id: 1
+  user_status_id: 1
+  api_token: "wasd"

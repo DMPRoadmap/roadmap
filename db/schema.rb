@@ -122,18 +122,18 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.boolean  "published",         limit: 1
   end
 
-  create_table "languages", force: true do |t|
-    t.string "abbreviation"
-    t.string "description"
-    t.string "name"
+  create_table "languages", force: :cascade do |t|
+    t.string "abbreviation", limit: 255
+    t.string "description",  limit: 255
+    t.string "name",         limit: 255
   end
 
-  create_table "option_warnings", force: true do |t|
-    t.integer  "organisation_id"
-    t.integer  "option_id"
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "option_warnings", force: :cascade do |t|
+    t.integer  "organisation_id", limit: 4
+    t.integer  "option_id",       limit: 4
+    t.text     "text",            limit: 65535
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "options", force: :cascade do |t|
@@ -294,13 +294,13 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.boolean  "published",       limit: 1
   end
 
-  create_table "settings", force: true do |t|
-    t.string   "var",         limit: 191, null: false
-    t.text     "value"
-    t.integer  "target_id",               null: false
-    t.string   "target_type", limit: 191, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",         limit: 255,   null: false
+    t.text     "value",       limit: 65535
+    t.integer  "target_id",   limit: 4,     null: false
+    t.string   "target_type", limit: 255,   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
@@ -340,12 +340,12 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.datetime "updated_at"
   end
 
-  create_table "user_org_roles", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "organisation_id"
-    t.integer  "user_role_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "user_org_roles", force: :cascade do |t|
+    t.integer  "user_id",           limit: 4
+    t.integer  "organisation_id",   limit: 4
+    t.integer  "user_role_type_id", limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "user_role_types", force: :cascade do |t|
@@ -369,29 +369,29 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "firstname"
-    t.string   "surname"
-    t.string   "email",                  limit: 191, default: "", null: false
-    t.string   "orcid_id"
-    t.string   "shibboleth_id"
-    t.integer  "user_type_id"
-    t.integer  "user_status_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "encrypted_password",                 default: ""
-    t.string   "reset_password_token",   limit: 191
+  create_table "users", force: :cascade do |t|
+    t.string   "firstname",              limit: 255
+    t.string   "surname",                limit: 255
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "orcid_id",               limit: 255
+    t.string   "shibboleth_id",          limit: 255
+    t.integer  "user_type_id",           limit: 4
+    t.integer  "user_status_id",         limit: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "encrypted_password",     limit: 255, default: ""
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0
+    t.integer  "sign_in_count",          limit: 4,   default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token",     limit: 191
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "invitation_token",       limit: 191
+    t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
