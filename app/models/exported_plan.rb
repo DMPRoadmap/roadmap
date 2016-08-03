@@ -1,11 +1,11 @@
 class ExportedPlan < ActiveRecord::Base
-  
+
   attr_accessible :plan_id, :user_id, :format, :as => [:default, :admin]
 
   #associations between tables
   belongs_to :plan
   belongs_to :user
-  
+
   VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
   validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
@@ -46,7 +46,7 @@ class ExportedPlan < ActiveRecord::Base
 
   def funder
     org = self.plan.project.dmptemplate.try(:organisation)
-    org.name if org.present? && org.organisation_type.try(:name) == I18n.t('helpers.org_type.funder')
+    org.name if org.present? && org.organisation_type.try(:name) == I18n_constant("organisation_types.funder"))
   end
 
   def institution
@@ -107,7 +107,7 @@ class ExportedPlan < ActiveRecord::Base
             output += "\n#{sanitize_text(answer.text)}\n"
           else
             output += "\n"
-          end  
+          end
         end
       end
     end

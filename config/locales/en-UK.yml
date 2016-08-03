@@ -166,6 +166,8 @@ en-UK:
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
     api_privleges: 'API Privleges?'
+    is_org_admin: 'Is Org Admin?'
+    
 
     guidance:
       guidance_list: "Guidance list"
@@ -937,4 +939,24 @@ Select what format you wish to use and click to 'Export'.</p>"
     org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
+
+  magic_strings:
+    organisation_types:
+      funder: 'Funder'
+      organisation: 'Organisation'
+      project: 'Project'
+      institution: 'Institution'
+      research_institute: 'Research Institute'
+      template: 'Template'
+      managing_organisation: 'Digital Curation Center'
+    user_role_types:
+      super_admin: 'admin'
+      organisational_admin: 'org_admin'
+      user: 'user'
+    api_endpoint_types:
+      guidances: 'guidances'
+      plans: 'plans'
+      templates: 'templates'
+      statistics: 'statistics'
+    languages:
 

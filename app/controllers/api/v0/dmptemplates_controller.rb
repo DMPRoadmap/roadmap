@@ -9,7 +9,7 @@ module Api
       # @return a list of templates ordered by organisation
       def index
         # check if the user has permissions to use the templates API
-        if has_auth("templates")
+        if has_auth(I18n_constant("api_endpoint_types.templates"))
           @all_templates = Dmptemplate.all
           respond_with @all_templates
         else

@@ -71,13 +71,13 @@ class GuidanceGroup < ActiveRecord::Base
       end
     end
     # groups are viewable if they are owned by the DCC
-    Organisation.where( name: "Digital Curation Centre").find_each do |dcc|
+    Organisation.where( name: I18n_constant("organisation_types.managing_organisation")).find_each do |dcc|
       if guidance_group.organisation.id == dcc.id
         viewable = true
       end
     end
     # groups are viewable if they are owned by a funder
-    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: "Funder")
+    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: I18n_constant("organisation_types.funder"))
       viewable = true
     end
 
@@ -96,18 +96,15 @@ class GuidanceGroup < ActiveRecord::Base
   def self.all_viewable(user)
     # first find all groups owned by the DCC
     dcc_groups = []
-    Organisation.where( name: "Digital Curation Centre").find_each do |dcc|
+    Organisation.where( name: I18n_constant("organisation_types.managing_organisation")).find_each do |dcc|
       dcc_groups = dcc_groups + dcc.guidance_groups
-      logger.info "another one"
     end
 
     # find all groups owned by  a Funder organisation
     funder_groups = []
-    funders = OrganisationType.find_by( name: "Funder")
-    logger.debug "found an org type? #{funders.organisations.first.name}"
+    funders = OrganisationType.find_by( name: I18n_constant("organisation_types.funder"))
     funders.organisations.each do |funder|
       funder_groups = funder_groups + funder.guidance_groups
-      logger.info "iterating through funders"
     end
     # find all groups owned by any of the user's organisations
     organisation_groups = []
@@ -117,7 +114,6 @@ class GuidanceGroup < ActiveRecord::Base
     # pass this list to the view with respond_with @all_viewable_groups
     all_viewable_groups = dcc_groups + funder_groups + organisation_groups
     all_viewable_groups = all_viewable_groups.uniq{|x| x.id}
-    logger.debug "we finished it?"
     return all_viewable_groups
   end
 end

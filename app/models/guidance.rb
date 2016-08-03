@@ -88,7 +88,6 @@ class Guidance < ActiveRecord::Base
 
       # guidances are viewable if they are owned by any of the user's organisations
       user.organisations.each do |organisation|
-        logger.debug "#{organisation.name}"
         
         if guidance_group.organisation.id == organisation.id
           viewable = true
@@ -96,12 +95,12 @@ class Guidance < ActiveRecord::Base
       end
 
       # guidance groups are viewable if they are owned by the DCC
-      if guidance_group.organisation.id == Organisation.find_by( name: "Digital Curation Centre").id
+      if guidance_group.organisation.id == Organisation.find_by( name: I18n_constant("organisation_types.managing_organisation")).id
         viewable = true
       end
 
       # guidance groups are viewable if they are owned by a funder
-      if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: "Funder")
+      if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: I18n_constant("organisation_types.funder"))
         viewable = true
       end
     end
@@ -119,10 +118,10 @@ class Guidance < ActiveRecord::Base
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    dcc_groups = (Organisation.find_by name: "Digital Curation Centre").guidance_groups
+    dcc_groups = (Organisation.find_by name: I18n_constant("organisation_types.managing_organisation")).guidance_groups
     # find all groups owned by a Funder organisation
     funder_groups = []
-    funders = OrganisationType.find_by( name: "Funder")
+    funders = OrganisationType.find_by( name: I18n_constant("organisation_types.funder"))
     funders.organisations.each do |funder|
       funder_groups += funder.guidance_groups
     end

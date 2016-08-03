@@ -24,8 +24,12 @@ class ApplicationController < ActionController::Base
       # use user's organization language, keep in mine the "OTHER ORG" edge case which should use english
     else
       # just use the default language, line can be commented out, included just for clarity
-      # I18n.locale = config.i18n.default_locale
+      I18n.locale = I18n.default_locale
     end
+  end
+
+  def I18n_constant(string)
+    I18n.t("magic_strings.#{string}", locale: I18n.default_locale)
   end
 
   # Added setting for passing local params across pages

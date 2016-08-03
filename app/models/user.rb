@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
       		if self.user_org_roles.count != 1 then
       			new_user_org_role = UserOrgRole.new
       			new_user_org_role.organisation_id = new_organisation_id
-      			new_user_org_role.user_role_type = UserRoleType.find_by_name("user");
+      			new_user_org_role.user_role_type = UserRoleType.find_by(name: I18n_constant("user_role_types.user"));
       			self.user_org_roles << new_user_org_role
                 #
             # if the user has roles other than one(0/2/3?)
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
                 # save modified role
                 user_org_role.save
                 # if user has an "org_admin" role
-      			org_admin_role = roles.find_by_name("org_admin")
+      			org_admin_role = roles.find_by(name: I18n_constant("user_role_types.org_admin"))
       			unless org_admin_role.nil? then
                     # delete it
       				roles.delete(org_admin_role)
@@ -123,12 +123,12 @@ class User < ActiveRecord::Base
 	end
 
 	def is_admin?
-		admin = roles.find_by_name("admin")
+		admin = roles.find_by( name: I18n_constant("user_role_types.admin"))
 		return !admin.nil?
 	end
 
 	def is_org_admin?
-		org_admin = roles.find_by_name("org_admin")
+		org_admin = roles.find_by(name: I18n_constant("user_role_types.org_admin"))
 		return !org_admin.nil?
 	end
 
