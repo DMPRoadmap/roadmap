@@ -2,14 +2,14 @@
 # [+Description:+] This file contains all the text present on DMPonline that is not being retrieve from the database.
 # [+Copyright:+] Digital Curation Centre
 
-en-UK:
+en-US:
   date:
     formats:
       # Use the strftime parameters for formats.
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
-      default: "%d-%m-%Y"
-      short: "%d/%m/%Y"
+      default: "%m-%d-%Y"
+      short: "%m/%d/%Y"
       long: "%d %B, %Y"
 
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
@@ -26,30 +26,30 @@ en-UK:
 
   time:
     formats:
-      default: "%a, %d %b %Y %H:%M:%S %z"
+      default: "%a, %b %d %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
-      custom: "%d/%m/%Y %H:%M"
+      custom: "%m/%d/%Y %H:%M"
       long: "%B %d, %Y %H:%M"
     am: "am"
     pm: "pm"
 
-  tool_title: "DMPonline"
+  tool_title: "%{application_name}"
   tool_title2: "DMP title"
-  dmponline3_text: "DMPonline previous version"
+  dmponline3_text: "%{application_name} previous version"
   dcc_name: "Digital Curation Centre"
   welcome_title: "Welcome."
-  welcome_text: "<p>DMPonline has been developed by the <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> to help you write data management plans.</p>"
-  screencast_text: "Screencast on how to use DMPonline"
+  welcome_text: "<p>%{application_name} has been developed by the <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> to help you write data management plans.</p>"
+  screencast_text: "Screencast on how to use %{application_name}"
   screencast_error_text: "Your browser does not support the video tag."
 
   admin:
-    org_title: "Organisation name"
-    org: "Organisation"
-    orgs: "Organisations"
-    org_type: "Organisation type"
+    org_title: "Organization name"
+    org: "Organization"
+    orgs: "Organizations"
+    org_type: "Organization type"
     org_parent: "Parent organisation"
-    org_created_message: "Organisation was successfully created."
-    org_updated_message: "Organisation was successfully updated."
+    org_created_message: "Organization was successfully created."
+    org_updated_message: "Organization was successfully updated."
     plans: "Plans"
     title: "Title"
     desc: "Description"
@@ -74,7 +74,7 @@ en-UK:
     surname: "Surname"
     user: "User"
     user_created: 'User was successfully created.'
-    user_org_role: "User role on an Organisation"
+    user_org_role: "User role on an Organization"
     user_role_type: "User role type"
     user_role_type_created: 'User role type was successfully created.'
     user_role_type_updated: 'User role type was successfully updated.'
@@ -109,7 +109,7 @@ en-UK:
     token_permission_type: "Token Permission Type"
     permission_description: "Permission Description"
     token_permission: "Token Permission"
-    org_token_permission: "Organisation Token Permission"
+    org_token_permission: "Organization Token Permission"
 
 #    choose_api_permissions: "Choose all API Permissions that apply."
 
@@ -131,7 +131,7 @@ en-UK:
     admin_details: "Admin Details"
     template_label: "Templates"
     user_list_label: "Users"
-    org_details_label:  "Organisation details"
+    org_details_label:  "Organization details"
     org_text: "These are the basic details for your organisation."
     org_abbr_help_text_html: "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
     users_list: "List of users"
@@ -145,7 +145,7 @@ en-UK:
     org_desc: "Description"
     org_banner_text: "Top banner text"
     org_target_url: "Website"
-    org_type: "Organisation type"
+    org_type: "Organization type"
     parent_org: "Main organisation"
     last_updated: "Last updated"
     desc_help_text_html: "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
@@ -326,7 +326,7 @@ en-UK:
     sign_in: "Sign in"
     sign_out: "Sign out"
     sign_up: "Sign up"
-    sign_up_text: "New to DMPonline? Sign up today."
+    sign_up_text: "New to %{application_name}? Sign up today."
     signed_in: "Signed in as "
     institution_sign_in_link: "Or, sign in with your institutional credentials"
     institution_sign_in: " (UK users only)"
@@ -430,15 +430,15 @@ en-UK:
     owner: "Owner"
     orcid_id: "ORCID number"
     orcid_html: "ORCID number is a persistent digital identifier that distinguishes each researcher, <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>more info</a>."
-    sign_up_shibboleth_alert_text_html: "DMPonline doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account. </br>
-     --> If you <strong>do not have</strong> an account with DMPonline, please complete the form below.</br>
-     --> If you <strong>have</strong> an account with DMPonline, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.</br>
+    sign_up_shibboleth_alert_text_html: "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account. </br>
+     --> If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.</br>
+     --> If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.</br>
     Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
     shibboleth_linked_text: "Your account is linked to your institutional credentials."
-    shibboleth_to_link_text: "Link your DMPonline account to your institutional credentials (UK users only)"
+    shibboleth_to_link_text: "Link your %{application_name} account to your institutional credentials (UK users only)"
     shibboleth_unlink_label: "Unlink your institutional credentials"
     shibboleth_unlink_alert: "Unlink institutional credentials alert"
-    shibboleth_unlink_dialog_text: "<p>You are about to unlink DMPonline of your institutional credentials, would you like to continue?</p>"
+    shibboleth_unlink_dialog_text: "<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>"
 
     select_phase: "Select a phase"
     select_version: "Select a version"
@@ -498,8 +498,8 @@ en-UK:
       funder: "Funder"
       institution: "Institution"
       project: "Project"
-      organisation: "Organisation"
-      org_name: "Organisation name"
+      organisation: "Organization"
+      org_name: "Organization name"
       school: "School"
       publisher: "Publisher"
       other_guidance: "Other guidance"
@@ -561,7 +561,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       share:
         tab_share: "Share"
         shared_label: "Shared?"
-        share_text_html: "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with \"read only\" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking \"Add collaborator\".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with DMPonline if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
+        share_text_html: "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with \"read only\" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking \"Add collaborator\".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
         collaborators: "Collaborators"
         add_collaborator: "Add collaborator"
         add: "Add"
@@ -617,7 +617,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       export:
         pdf:
           question_not_answered: "Question not answered."
-          generated_by: "This document was generated by DMPonline (http://dmponline.dcc.ac.uk)"
+          generated_by: "This document was generated by %{application_name} (http://dmponline.dcc.ac.uk)"
         space_used: "approx. %{space_used}% of available space used (max %{num_pages} pages)"
         space_used_without_max: "approx. %{space_used}% of available space used"
         project_name: "Project Name"
@@ -670,11 +670,11 @@ Select what format you wish to use and click to 'Export'.</p>"
           no_access_account: "This account does not have access to that plan."
 
   about_page:
-    title: "About DMPonline"
+    title: "About %{application_name}"
     tab_1: "Background"
     tab_2: "Latest news"
 
-    body_text_tab_1_html: "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. DMPonline has been produced by the UK's Digital Curation Centre to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p>
+    body_text_tab_1_html: "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the UK's Digital Curation Centre to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p>
     <p>The <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> has worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p>
     </br>
     <h3>How the tool works</h3>
@@ -682,20 +682,20 @@ Select what format you wish to use and click to 'Export'.</p>"
     </br>
     <h3>Getting Started</h3>
     <p>If you have an account please sign in and start creating or editing your DMP.</p>
-    <p>If you do not have a DMPonline account, click on <a href='/'>'Sign up'</a> on the homepage.</p>
+    <p>If you do not have a %{application_name} account, click on <a href='/'>'Sign up'</a> on the homepage.</p>
     <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p>
     </br>
     <h3>Additional Information</h3>
-    <p>We are constantly improving the user interface and functionality of DMPonline.
+    <p>We are constantly improving the user interface and functionality of %{application_name}.
     If you would like to contribute with feedback and suggestions, please contact us by emailing
-    <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='https://github.com/DigitalCurationCentre/DMPonline_v4' target='_top'>GitHub</a></p>
-    <p>If you need to access plans from the earlier version of the tool please visit <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
+    <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='https://github.com/DigitalCurationCentre/DMPonline_v4' target='_top'>GitHub</a></p>
+    <p>If you need to access plans from the earlier version of the tool please visit <a href='https://dmponline3.dcc.ac.uk' target='_top'>%{application_name} v3</a>.</p>"
 
-    body_text_tab_2_html: "<p>DMPonline stories from the DCC website</p></br>"
+    body_text_tab_2_html: "<p>%{application_name} stories from the DCC website</p></br>"
 
   help_page:
     title: "Help"
-    tab_1: "On DMPonline"
+    tab_1: "On %{application_name}"
     tab_2: "On data management planning"
     body_text_tab_2_html: "<h3>Useful resources on Data Management Planning</h3>
       <ul class='help_ul'>
@@ -709,7 +709,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         </li>
         <li>
           <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
-  A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in DMPonline, and is presented when no funder or organsiational requirements are applicable for the user.
+  A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in %{application_name}, and is presented when no funder or organsiational requirements are applicable for the user.
         </li>
         <li>
           <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the Digital Curation Centre that outlines typical funder requirements for DMPs and the types of considerations to make when responding.
@@ -773,7 +773,7 @@ Select what format you wish to use and click to 'Export'.</p>"
   An online training course designed for researchers or others planning to manage digital data as part of the research process. The course includes a number of software practicals on using SPSS, R, ArcGIS and NVivo.
       </li>
     </ul>"
-    body_text_tab_1_html: "<p>When you login to DMPonline you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>
+    body_text_tab_1_html: "<p>When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>
     <h3>Create a plan</h3>
     <p>To create a plan, click the 'Create plan' button from the 'My plans' page or  the top menu. Select options from the drop-down menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Yes, create plan'</p>
     <h3>Write your plan</h3>
@@ -790,14 +790,14 @@ Select what format you wish to use and click to 'Export'.</p>"
     <h3>Share plans</h3>
     <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the drop-down options and click to 'Add collaborator'</p>
     <h3>Export plans</h3>
-    <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to export. When you login to DMPonline you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>
+    <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to export. When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>
     <h3>Legacy data</h3>
-    <p>If you need to access plans from the earlier version of the tool please visit <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
+    <p>If you need to access plans from the earlier version of the tool please visit <a href='https://dmponline3.dcc.ac.uk' target='_top'>%{application_name} v3</a>.</p>"
 
   contact_page:
     title: "Contact us"
-    intro_text_html: "<p>DMPonline is provided by the Digital Curation Centre. You can find out more about us on our <a href='http://www.dcc.ac.uk/' target='_blank'>website</a>. If you would like to contact us about DMPonline, please enter your query in the form below or email <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
-    github_text_html: "<p>If you have a feature request or think you have found a bug, please check out the <a href='https://github.com/DigitalCurationCentre/DMPonline_v4/issues?state=open'>list of issues on GitHub</a>. If your issue isn't listed there, please add it; if it is, please add a comment if you have more information or just to let us know how important it is to you. This will help us to help us prioritise future developments.</p>"
+    intro_text_html: "<p>%{application_name} is provided by the Digital Curation Centre. You can find out more about us on our <a href='http://www.dcc.ac.uk/' target='_blank'>website</a>. If you would like to contact us about %{application_name}, please enter your query in the form below or email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
+    github_text_html: "<p>If you have a feature request or think you have found a bug, please check out the <a href='https://github.com/DigitalCurationCentre/%{application_name}_v4/issues?state=open'>list of issues on GitHub</a>. If your issue isn't listed there, please add it; if it is, please add a comment if you have more information or just to let us know how important it is to you. This will help us to help us prioritise future developments.</p>"
     address_text_html: "<ul>
       <li>Digital Curation Centre</li>
       <li>Level 7, Appleton Tower</li>
@@ -807,7 +807,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       <li>UK</li>
      </ul>
      <p>Tel. +44 (0) 131 651 1239</p>
-     <p>Email <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
+     <p>Email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
 
   roadmap_page:
     title: "Future plans"
@@ -815,24 +815,24 @@ Select what format you wish to use and click to 'Export'.</p>"
     tab_2: "Get involved"
     body_text_tab_1_html: "<p>The DCC is collaborating with the DMPTool team to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank	'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
     <ul>
-        <li>- APIs to create plans, extract guidance and generate statistics from DMPonline</li>
+        <li>- APIs to create plans, extract guidance and generate statistics from %{application_name}</li>
         <li>- Multi-lingual support so foreign language versions can be presented</li>
         <li>- Locales to provide a refined set of content for particular countries or other contexts</li>
         <li>- A lifecycle to indicate the status of DMPs and allow institutional access to plans</li>
         <li>- Support for reviewing Data Management Plans</li>
     </ul>
-    <p>DMPonline has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p>
+    <p>%{application_name} has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p>
     </br>
     <h3>Current release</h3>
-    <p>The current version of DMPonline is 4.2. This was released in August 2015 and included Institutional branding, optional guidance for funders, improvements to the question area, improvements to the admin interface, GitHub pull requests, new seed file, and an update of the gemfile.</p>
+    <p>The current version of %{application_name} is 4.2. This was released in August 2015 and included Institutional branding, optional guidance for funders, improvements to the question area, improvements to the admin interface, GitHub pull requests, new seed file, and an update of the gemfile.</p>
     <ul>
       <li>- <a href='/files/DMPonline-ReleaseNote-August2015.pdf' target='_blank'>Release Note</a></li>
-      <li>- <a href='/files/DMPonline-v4-InstitutionalBranding.pdf' target='_blank'>Customise DMPonline tool with institutional branding</a></li>
+      <li>- <a href='/files/DMPonline-v4-InstitutionalBranding.pdf' target='_blank'>Customise %{application_name} tool with institutional branding</a></li>
     </ul>
     <p>The code is available on <a target='_blank' href='https://github.com/DigitalCurationCentre/DMPonline_v4'>GitHub</a></p>
     </br>
     <h3>Previous release</h3>
-    <p>The previous version of DMPonline is 4.1.  This was released in May 2015 and included a comment feature, improved guidance on signing in with institutional credentials, enhanced deployment guidance and proposed methods for internationalisation. Full details can be found in the release note and associated documents.</p>
+    <p>The previous version of %{application_name} is 4.1.  This was released in May 2015 and included a comment feature, improved guidance on signing in with institutional credentials, enhanced deployment guidance and proposed methods for internationalisation. Full details can be found in the release note and associated documents.</p>
     <ul>
       <li>- <a href='/files/DMPonline-DeliveryNote-May2015.pdf' target='_blank'>Release Note</a></li>
       <li>- <a href='/files/DMPonline-v4-InstitutionalLogin.pdf' target='_blank'>Signing into DMPonline version 4 with UK Institutional Credentials</a></li>
@@ -840,9 +840,9 @@ Select what format you wish to use and click to 'Export'.</p>"
     </ul>
     </br>"
 
-    body_text_tab_2_html: "<p>DMPonline is developed and maintained by the UK Digital Curation Centre. We’re a small team, and are happy to collaborate with others. There are various ways you can get involved:</p>
+    body_text_tab_2_html: "<p>%{application_name} is developed and maintained by the UK Digital Curation Centre. We’re a small team, and are happy to collaborate with others. There are various ways you can get involved:</p>
     <h3>Join the user group</h3>
-    <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the DMPonline user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
+    <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
     <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p>
 	<p>Notes from previous user group sessions are provided below:</p>
 	<ul>
@@ -851,31 +851,31 @@ Select what format you wish to use and click to 'Export'.</p>"
     </ul>
     <p>Please let us know your interests and share your ideas for future developments via the mailing list so the community as a whole can feedback on them.</p>
     </br>
-    <h3>Customise DMPonline</h3>
-    <p>DMPonline can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
-    <p>Futher guidance on customising DMPonline is available on the <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>DCC website</a>.</p>
+    <h3>Customise %{application_name}</h3>
+    <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
+    <p>Futher guidance on customising %{application_name} is available on the <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>DCC website</a>.</p>
     </br>
     <h3>Contribute to the code</h3>
-    <p>DMPonline is a Ruby on Rails application. The source code is made available under a GNU Affero General Public License. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of DMPonline and offer your contributions back to the community.</p>
-    <p>If you install an instance of DMPonline we require that you credit the DCC as originators of the tool. We recommend that the acknowledgement takes the form of the DMPonline logo with a link back to the DCC-hosted version of the tool.</p>
+    <p>%{application_name} is a Ruby on Rails application. The source code is made available under a GNU Affero General Public License. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of %{application_name} and offer your contributions back to the community.</p>
+    <p>If you install an instance of %{application_name} we require that you credit the DCC as originators of the tool. We recommend that the acknowledgement takes the form of the %{application_name} logo with a link back to the DCC-hosted version of the tool.</p>
     <p>We are willing to work with external developers to add new features to the tool. We are also open to delivering new features on a chargeable basis. If there are extensions you would like to see prioritised and have resource to support additional developer effort, please contact us on dmponline@dcc.ac.uk to negotiate terms.</p>
     </br>
     <h3>Support our work</h3>
-    <p>We are impressed by the uptake of DMPonline both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p>
-    <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of DMPonline. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
+    <p>We are impressed by the uptake of %{application_name} both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p>
+    <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of %{application_name}. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
 
   terms_page:
     title: "Terms of use"
     body_text_html: "<div class='white_background'>
     <p>The Digital Curation Centre ('DCC') is a consortium supported by Jisc and based at the Universities of Edinburgh, Glasgow and Bath. Our primary constituency is the UK research community, particularly the higher and further education sector.</p>
     </div>
-    <h3>DMPonline</h3>
+    <h3>%{application_name}</h3>
     <div class='white_background'>
-      <p>DMPonline ('the tool', 'the system') is a tool developed by the DCC as a shared resource for the research community. It is hosted at the University of Edinburgh.</p>
+      <p>%{application_name} ('the tool', 'the system') is a tool developed by the DCC as a shared resource for the research community. It is hosted at the University of Edinburgh.</p>
     </div>
     <h3>Your personal details</h3>
     <div class='white_background'>
-      <p>In order to help identify and administer your account with DMPonline, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the DCC partner institutions but only for legitimate DCC purposes. We will not sell, rent or trade any personal information you provide to us.</p>
+      <p>In order to help identify and administer your account with %{application_name}, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the DCC partner institutions but only for legitimate DCC purposes. We will not sell, rent or trade any personal information you provide to us.</p>
     </div>
     <h3>Privacy policy</h3>
     <div class='white_background'>
@@ -891,7 +891,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     </div>
     <h3>Cookies</h3>
     <div class='white_background'>
-      <p>Please note that DMPonline uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p>
+      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p>
     </div>
     <br />
     <div class='white_background'>
@@ -909,8 +909,8 @@ Select what format you wish to use and click to 'Export'.</p>"
 
   custom_devise:
     resend_confirmation: "Resend confirmation instructions"
-    welcome_to_DMP: "Welcome to DMPonline"
-    thank_you_and_confirm: "Thank you for registering at DMPonline. Please confirm your email address:"
+    welcome_to_DMP: "Welcome to %{application_name}"
+    thank_you_and_confirm: "Thank you for registering at %{application_name}. Please confirm your email address:"
     click_to_confirm: "Click here to confirm your account"
     1st_part_copy: "(or copy"
     2nd_part_copy: "into your browser)."
@@ -932,9 +932,9 @@ Select what format you wish to use and click to 'Export'.</p>"
 
   api:
     bad_credentials: '{"Error":"Bad credentials"}'
-    org_dosent_exist: '{"Error":"Organisation does not exist"}'
-    org_not_funder: '{"Error":"Organisation specified is not a funder"}'
-    org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
+    org_dosent_exist: '{"Error":"Organization does not exist"}'
+    org_not_funder: '{"Error":"Organization specified is not a funder"}'
+    org_multiple_templates: '{"Error":"Organization has more than one template and template name unspecified or invalid"}'
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 

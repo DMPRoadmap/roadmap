@@ -3,7 +3,8 @@
 		<div class="welcome-message">
 			
 			<h2><%= raw t('welcome_title')%></h2>
-			<%= raw t('welcome_text')%>
+			<%= Rails.configuration.branding['application'] %>
+			<%= raw t('welcome_text', application_name: 'WOW')%>
 			<div class="screencast_home_page">
 				<p><%= t('screencast_text') %></p>
 				<div class="clear"></div>				

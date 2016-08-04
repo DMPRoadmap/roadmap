@@ -1,0 +1,7 @@
+organisation:
+  full_name: 'University of California Curation Center'
+  abbreviation: 'UC3'
+  url: 'http://www.cdlib.org/uc3/'
+
+application:
+  name: 'DMPTool'
