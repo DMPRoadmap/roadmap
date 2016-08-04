@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719140055) do
+ActiveRecord::Schema.define(version: 20160729091510) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
@@ -401,6 +401,7 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.string   "api_token",              limit: 255
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
+    t.integer  "language_id",            limit: 4
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
