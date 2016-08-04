@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  include GlobalHelpers
+  
+  helper_method GlobalHelpers.instance_methods
+
   # Override build_footer method in ActiveAdmin::Views::Pages
   require 'active_admin_views_pages_base.rb'
 
@@ -26,16 +30,6 @@ class ApplicationController < ActionController::Base
       # just use the default language, line can be commented out, included just for clarity
       I18n.locale = I18n.default_locale
     end
-  end
-
-  ##
-  # takes in a string which is meant to be constant, and looks it up in the default
-  # (en-UK) locale.  This should ensure that the back-end remains constant and consistantly called
-  #
-  # @param String constant the string which will be looked up in the localisation
-  # @return String the constant which the string defines
-  def I18n_constant(constant)
-    I18n.t("magic_strings.#{constant}", locale: I18n.default_locale)
   end
 
   # Added setting for passing local params across pages

@@ -1,4 +1,5 @@
 class GuidanceGroup < ActiveRecord::Base
+  include GlobalHelpers
 
     #associations between tables
     belongs_to :organisation
@@ -71,13 +72,13 @@ class GuidanceGroup < ActiveRecord::Base
       end
     end
     # groups are viewable if they are owned by the DCC
-    Organisation.where( name: I18n_constant("organisation_types.managing_organisation")).find_each do |dcc|
+    Organisation.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |dcc|
       if guidance_group.organisation.id == dcc.id
         viewable = true
       end
     end
     # groups are viewable if they are owned by a funder
-    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: I18n_constant("organisation_types.funder"))
+    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
       viewable = true
     end
 
@@ -96,13 +97,13 @@ class GuidanceGroup < ActiveRecord::Base
   def self.all_viewable(user)
     # first find all groups owned by the DCC
     dcc_groups = []
-    Organisation.where( name: I18n_constant("organisation_types.managing_organisation")).find_each do |dcc|
+    Organisation.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |dcc|
       dcc_groups = dcc_groups + dcc.guidance_groups
     end
 
     # find all groups owned by  a Funder organisation
     funder_groups = []
-    funders = OrganisationType.find_by( name: I18n_constant("organisation_types.funder"))
+    funders = OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
     funders.organisations.each do |funder|
       funder_groups = funder_groups + funder.guidance_groups
     end

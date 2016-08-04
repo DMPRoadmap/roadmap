@@ -38,7 +38,7 @@
 				<td class="first"><%= t("helpers.org_type.organisation") %></td>
 				<td><%= collection_select(:user,
 						:organisation_id, Organisation.where("parent_id IS NULL").order("name"),
-						:id, :name, {include_blank: I18n_constant("organisation_types.organisation")},
+						:id, :name, {include_blank: constant("organisation_types.organisation")},
 						{ :class => "typeahead org_sign_up" }) %></td>
 			</tr>
 			<% other_organisations = Array.new %>

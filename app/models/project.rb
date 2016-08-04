@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  include GlobalHelpers
 
 	extend FriendlyId
 
@@ -37,7 +38,7 @@ class Project < ActiveRecord::Base
 			return nil
 		end
 		template_org = self.dmptemplate.organisation
-		if template_org.organisation_type.name == I18n_constant("organisation_types.funder").downcase
+		if template_org.organisation_type.name == constant("organisation_types.funder").downcase
 			return template_org.id
 		else
 			return nil
@@ -49,7 +50,7 @@ class Project < ActiveRecord::Base
 			return nil
 		end
 		template_org = self.dmptemplate.organisation
-		if template_org.organisation_type.name == I18n_constant("organisation_types.funder").downcase
+		if template_org.organisation_type.name == constant("organisation_types.funder").downcase
 			return template_org
 		else
 			return nil

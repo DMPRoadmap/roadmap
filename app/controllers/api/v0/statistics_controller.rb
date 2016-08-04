@@ -8,7 +8,7 @@ module Api
       # @return a count of users who joined DMPonline between the optional specified dates
       # users are scoped to the organisation of the user initiating the call
       def users_joined
-        if has_auth(I18n_constant("api_endpoint_types.statistics"))
+        if has_auth(constant("api_endpoint_types.statistics"))
           users = restrict_date_range(@user.organisations.first.users)
           confirmed_users = []
           users.each do |user|
@@ -29,7 +29,7 @@ module Api
       # @return the number of DMPs using the specified template between the optional specified dates
       # ensures that the template is owned/created by the caller's organisation
       def using_template
-        if has_auth(I18n_constant("api_endpoint_types.statistics"))
+        if has_auth(constant("api_endpoint_types.statistics"))
           template = Dmptemplate.find(params[:id])
           if template.organisation == @user.organisations.first
             @template_count = restrict_date_range(template.projects).count
@@ -48,7 +48,7 @@ module Api
       # the uses are restricted to DMPs created by users of the same organisation
       # as the user who ititiated the call
       def plans_by_template
-        if has_auth(I18n_constant("api_endpoint_types.statistics"))
+        if has_auth(constant("api_endpoint_types.statistics"))
           @org_projects = []
           @user.organisations.first.users.each do |user|
             user.projects.each do |project|
@@ -70,7 +70,7 @@ module Api
       # DMPs must be owned by a user who's organisation is the same as the user
       # who generates the call
       def plans
-        if has_auth(I18n_constant("api_endpoint_types.statistics"))
+        if has_auth(constant("api_endpoint_types.statistics"))
           @org_projects = []
           @user.organisations.first.users.each do |user|
             user.projects.each do |project|

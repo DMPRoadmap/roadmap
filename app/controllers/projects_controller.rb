@@ -54,8 +54,8 @@ class ProjectsController < ApplicationController
 		if user_signed_in? then
 			@project = Project.new
 			@project.organisation = current_user.organisation
-			@funders = orgs_of_type(I18n_constant("organisation_types.funder"), true)
-			@institutions = orgs_of_type(I18n_constant("organisation_types.institution"))
+			@funders = orgs_of_type(constant("organisation_types.funder"), true)
+			@institutions = orgs_of_type(constant("organisation_types.institution"))
 			respond_to do |format|
 			  format.html # new.html.erb
 			  format.json { render json: @project }
@@ -224,7 +224,7 @@ class ProjectsController < ApplicationController
 		else
 			institution = nil
 		end
-		excluded_orgs = orgs_of_type(I18n_constant("organisation_types.funder")) + orgs_of_type(I18n_constant("organisation_types.institution")) + Organisation.orgs_with_parent_of_type(I18n_constant("organisation_types.institution"))
+		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
 		guidance_groups = {}
 		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
 
@@ -256,7 +256,7 @@ class ProjectsController < ApplicationController
 		end
 
         #If template belongs to a funder and that funder has subset guidance display then.
-        if !template.nil? && template.organisation.organisation_type.name == I18n_constant("organisation_types.funder") then
+        if !template.nil? && template.organisation.organisation_type.name == constant("organisation_types.funder") then
             optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id = ?", true, template.organisation_id)
 			optional_gg.each do|optional|
 				guidance_groups[optional.id] = optional.name

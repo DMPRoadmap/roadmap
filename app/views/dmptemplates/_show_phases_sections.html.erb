@@ -24,7 +24,7 @@
             <%= link_to t("helpers.submit.delete"), admin_destroyphase_dmptemplate_path(:phase_id => phase.id),
             :confirm => t("org_admin.templates.phase_delete_message", :phase_title => phase.title ), :method => :delete, :class => "btn btn-primary"%>
         <%end%>
-        <%if phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && current_user.org_type != I18n_constant("organisation_types.funder") then%>
+        <%if phase.dmptemplate.org_type == constant("organisation_types.funder") && current_user.org_type != constant("organisation_types.funder") then%>
             <% b_label = t('org_admin.templates.view_phase_label')%>
         <%else %>
             <% b_label = t('org_admin.templates.edit_phase_label')%>

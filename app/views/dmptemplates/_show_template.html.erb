@@ -1,6 +1,6 @@
 <!-- show template details A template is passed as an argument-->
 
-<% if @dmptemplate.org_type != I18n_constant("organisation_types.funder")  || current_user.org_type == I18n_constant("organisation_types.funder") then %>
+<% if @dmptemplate.org_type != constant("organisation_types.funder")  || current_user.org_type == constant("organisation_types.funder") then %>
 	<h3><!-- edit template button -->
 		<div class="move_2_right">
 			<%= link_to t("org_admin.templates.edit_details"), '# ', :class => "btn btn-primary", :id => "edit_template_button"%>

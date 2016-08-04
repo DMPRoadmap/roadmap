@@ -78,7 +78,7 @@
 <div class="div_clear"></div>
 
 <!-- display this only if the organisation is not a funder-->
-<% if current_user.org_type != I18n_constant("organisation_types.funder") then %>
+<% if current_user.org_type != constant("organisation_types.funder") then %>
     <h2 class="float-left">
         <%= t("org_admin.templates.funders_temp") %>
     </h2>
@@ -130,7 +130,7 @@
                             </td>
                             <td class="dmp_td_small">
                                 <%if current_user.is_org_admin? then%>
-                                    <% if org_template.org_type == I18n_constant("organisation_types.funder") then %>
+                                    <% if org_template.org_type == constant("organisation_types.funder") then %>
                                         <%if org_template.has_customisations?(current_user.organisation_id, org_template) then%>
                                             <% b_label = t("org_admin.templates.edit_customisation")%>
                                         <%else%>

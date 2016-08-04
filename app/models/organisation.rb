@@ -1,4 +1,5 @@
 class Organisation < ActiveRecord::Base
+  include GlobalHelpers
     #associations between tables
     belongs_to :organisation_type
     has_many :guidance_groups
@@ -51,7 +52,7 @@ class Organisation < ActiveRecord::Base
   #
   # @return [Array<GuidanceGroup>]
 	def self.other_organisations
-		org_types = [I18n_constant("organisation_types.funder")]
+		org_types = [GlobalHelpers.constant("organisation_types.funder")]
 		organisations_list = []
 		org_types.each do |ot|
 			new_org_obejct = OrganisationType.find_by_name(ot)

@@ -154,15 +154,15 @@
 	<h3><%= t('helpers.project.project_static_info')%></h3>
 	<table class="dmp_details_table">
 		<!-- get the funder name if there is one -->
-		<%if @project.dmptemplate.organisation.organisation_type.name == I18n_constant("organisation_types.funder")%>
+		<%if @project.dmptemplate.organisation.organisation_type.name == constant("organisation_types.funder")%>
 			<tr>
-				<td class="first"><%= I18n_constant("organisation_types.funder") %></td>
+				<td class="first"><%= constant("organisation_types.funder") %></td>
 				<td><%= @project.dmptemplate.organisation.name %></td>
 			</tr>
 		<%end%>
 		<%if !@project.organisation_id.nil?	%>
 			<tr>
-				<td class="first"><%= I18n_constant("organisation_types.institution") %></td>
+				<td class="first"><%= constant("organisation_types.institution") %></td>
 				<td><%= @project.organisation.name %></td>
 			</tr>
 		<%end%>

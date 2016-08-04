@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   # GET /users/1
   # GET /users/1.json
   def show
@@ -101,11 +102,11 @@ class UsersController < ApplicationController
             if admin_user_ids.include?( user.id) && !user.is_org_admin?
               # add admin privleges
               # MAGIC_STRING
-              user.roles << Role.find_by(name: I18n_constant("user_role_types.organisational_admin"))
+              user.roles << Role.find_by(name: constant("user_role_types.organisational_admin"))
             # if user_id not in passed, but user is an admin
             elsif !admin_user_ids.include?(user.id) && user.is_org_admin?
               # strip admin privleges
-              user.roles.delete(Role.find_by(name: I18n_constant("user_role_types.organisational_admin")))
+              user.roles.delete(Role.find_by(name: constant("user_role_types.organisational_admin")))
             end
           end
             #redirect_to admin_index

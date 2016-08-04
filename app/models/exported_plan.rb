@@ -1,4 +1,5 @@
 class ExportedPlan < ActiveRecord::Base
+  include GlobalHelpers
 
   attr_accessible :plan_id, :user_id, :format, :as => [:default, :admin]
 
@@ -46,7 +47,7 @@ class ExportedPlan < ActiveRecord::Base
 
   def funder
     org = self.plan.project.dmptemplate.try(:organisation)
-    org.name if org.present? && org.organisation_type.try(:name) == I18n_constant("organisation_types.funder"))
+    org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder"))
   end
 
   def institution

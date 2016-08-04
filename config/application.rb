@@ -68,6 +68,7 @@ module DMPonline4
     config.assets.precompile += %w(admin.css)
     
     config.autoload_paths += %W(#{config.root}/lib)
+    config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { :host => 'example@dcc.ac.uk' }

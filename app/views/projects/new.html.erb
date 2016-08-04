@@ -11,9 +11,9 @@
 		<p><%= raw t("helpers.project.confirmation_text_desc")%></p>
 	</div>
 	<div class="modal-body">
-		<div><p><%= I18n_constant("organisation_types.funder")%>: <span id="confirm-funder"><%= t("helpers.none")%></span></p></div>
-		<div><p><%= I18n_constant("organisation_types.institution")%>: <span id="confirm-institution"><%= @project.organisation.nil? ? t("helpers.none") : @project.organisation %></span></p></div>
-		<div style="display:none"><p><%= I18n_constant("organisation_types.template")%>: <span id="confirm-template"></span></p></div>
+		<div><p><%= constant("organisation_types.funder")%>: <span id="confirm-funder"><%= t("helpers.none")%></span></p></div>
+		<div><p><%= constant("organisation_types.institution")%>: <span id="confirm-institution"><%= @project.organisation.nil? ? t("helpers.none") : @project.organisation %></span></p></div>
+		<div style="display:none"><p><%= constant("organisation_types.template")%>: <span id="confirm-template"></span></p></div>
 		<div><p><%= t("helpers.org_type.other_guidance")%>: <ul id="confirm-guidance"></ul></p></div>
 	</div>
 	<div class="modal-footer">

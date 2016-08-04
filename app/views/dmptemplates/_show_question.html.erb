@@ -62,7 +62,7 @@
 		</tr>
 
 		<!-- Suggested answer or Example-->
-		<% if (question.section.version.phase.dmptemplate.org_type != I18n_constant("organisation_types.funder") && question.section.organisation_id == current_user.organisation_id ) then%>
+		<% if (question.section.version.phase.dmptemplate.org_type != constant("organisation_types.funder") && question.section.organisation_id == current_user.organisation_id ) then%>
 			<% suggested_answer = question.get_suggested_answer(current_user.organisation.id) %>
 			<% if !suggested_answer.nil?  && suggested_answer.text != "" then %>
 				<tr>
@@ -103,7 +103,7 @@
 	</table>
 	<br/>
 	<!-- Add suggested or example answers to a funders template-->
-	<% if (question.section.version.phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
+	<% if (question.section.version.phase.dmptemplate.org_type == constant("organisation_types.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
 		<% suggested_answer = question.get_suggested_answer(current_user.organisation.id) %>
 		<% if !suggested_answer.nil?  && suggested_answer.text != "" then %>
 			<div id="show_suggested_answer_div_<%= question.id%>">
@@ -125,7 +125,7 @@
 
 	<br/>
 	<!-- edit question button-->
-	<%if (@edit == 'true'&& question.section.organisation_id == current_user.organisation_id) || (question.section.version.phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && question.section.organisation_id == current_user.organisation_id && current_user.org_type != I18n_constant("organisation_types.funder")) then%>
+	<%if (@edit == 'true'&& question.section.organisation_id == current_user.organisation_id) || (question.section.version.phase.dmptemplate.org_type == constant("organisation_types.funder") && question.section.organisation_id == current_user.organisation_id && current_user.org_type != constant("organisation_types.funder")) then%>
 		<div class="move_2_right">
 			<%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
 			<%= link_to t("org_admin.questions.question_edit_button"), '# ', :class => "btn btn-primary edit_question_button"%>
@@ -134,7 +134,7 @@
 				:confirm => t("org_admin.questions.delete_message", :question_text => question.text ), :method => :delete, :class => "btn btn-primary"%>
 			<%end%>	
 		</div>
-	<%elsif  (@edit == 'false' && question.section.organisation_id != current_user.organisation_id )|| (question.section.version.phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
+	<%elsif  (@edit == 'false' && question.section.organisation_id != current_user.organisation_id )|| (question.section.version.phase.dmptemplate.org_type == constant("organisation_types.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
 		<% suggested_answer = question.get_suggested_answer(current_user.organisation.id) %>
 		<% if suggested_answer.nil? then %>
 			<div id="add_suggested_answer_button_<%= question.id%>">

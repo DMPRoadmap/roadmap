@@ -29,7 +29,7 @@
     			<div id="show_phase_div">
     				<%= render :partial => "show_phase", locals: {phase: @phase}%>
     			</div>
-    			<% if @phase.dmptemplate.org_type != I18n_constant("organisation_types.funder") || current_user.org_type == I18n_constant("organisation_types.funder") then %>
+    			<% if @phase.dmptemplate.org_type != constant("organisation_types.funder") || current_user.org_type == constant("organisation_types.funder") then %>
 	    			<div id="edit_phase_div" style="display: none">
 	    				<%= render :partial => "edit_phase", locals: {phase: @phase}%>
 	    			</div>
@@ -39,9 +39,9 @@
 	    		<%end%>
 
     			<!--display the more recent published version.  -->
-	    		<% if @edit == "false" || (@phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && current_user.org_type != I18n_constant("organisation_types.funder")) then%>
+	    		<% if @edit == "false" || (@phase.dmptemplate.org_type == constant("organisation_types.funder") && current_user.org_type != constant("organisation_types.funder")) then%>
 					<%= render :partial => 'show_version', locals: {version: @version}%>
-				<%elsif @edit == "true" || current_user.org_type ==  I18n_constant("organisation_types.funder") then %>
+				<%elsif @edit == "true" || current_user.org_type ==  constant("organisation_types.funder") then %>
 					<%= render :partial => 'edit_version', locals: {version: @version, edit: @edit, phase: @phase} %>
 				<%end%>
 			</div>
@@ -50,7 +50,7 @@
 		<!-- sections, questions and guidance details-->
 		<% @sections.order("number ASC").each do |section| %>
 			<%if (@edit == "true" && section.organisation_id == current_user.organisation_id) ||
-            (@phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && section.organisation_id == current_user.organisation_id && current_user.org_type != I18n_constant("organisation_types.funder"))then%>
+            (@phase.dmptemplate.org_type == constant("organisation_types.funder") && section.organisation_id == current_user.organisation_id && current_user.org_type != constant("organisation_types.funder"))then%>
 				<%= render :partial => 'edit_section', locals: {section: section, edit: @edit, phase: @phase, version: @version} %>
 			<%elsif (section.organisation_id == @phase.dmptemplate.organisation_id ) || ( section.organisation_id == current_user.organisation_id) then%>
 				<%= render :partial => 'show_section', locals: {section: section}%>
@@ -62,7 +62,7 @@
 
 
 	<!-- Add a new section if the version is not published-->
-	<% if !@version.published? || (@phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && current_user.org_type != I18n_constant("organisation_types.funder"))then %>
+	<% if !@version.published? || (@phase.dmptemplate.org_type == constant("organisation_types.funder") && current_user.org_type != constant("organisation_types.funder"))then %>
 
 		<!-- add section block -->
 		<div id="add_section_block_div" style="display: none">

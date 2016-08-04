@@ -19,7 +19,7 @@
 <!-- body -->
 <div class="dmp_details_body">
 	<div class="dmp_details">
-		<% if @dmptemplate.org_type != I18n_constant("organisation_types.funder") || current_user.org_type == I18n_constant("organisation_types.funder") then %>
+		<% if @dmptemplate.org_type != constant("organisation_types.funder") || current_user.org_type == constant("organisation_types.funder") then %>
 			<div id="edit_template_div" style="display: none">
 				<%= render :partial => "edit_template", locals: {dmptemplate: @dmptemplate}%>	
 			</div>
