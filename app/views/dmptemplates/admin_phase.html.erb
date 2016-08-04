@@ -41,7 +41,7 @@
     			<!--display the more recent published version.  -->
 	    		<% if @edit == "false" || (@phase.dmptemplate.org_type == I18n_constant("organisation_types.funder") && current_user.org_type != I18n_constant("organisation_types.funder")) then%>
 					<%= render :partial => 'show_version', locals: {version: @version}%>
-				<%elsif @edit == "true" || current_user.org_type ==  t("helpers.org_type.funder") then %>
+				<%elsif @edit == "true" || current_user.org_type ==  I18n_constant("organisation_types.funder") then %>
 					<%= render :partial => 'edit_version', locals: {version: @version, edit: @edit, phase: @phase} %>
 				<%end%>
 			</div>

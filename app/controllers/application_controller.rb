@@ -28,8 +28,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def I18n_constant(string)
-    I18n.t("magic_strings.#{string}", locale: I18n.default_locale)
+  ##
+  # takes in a string which is meant to be constant, and looks it up in the default
+  # (en-UK) locale.  This should ensure that the back-end remains constant and consistantly called
+  #
+  # @param String constant the string which will be looked up in the localisation
+  # @return String the constant which the string defines
+  def I18n_constant(constant)
+    I18n.t("magic_strings.#{constant}", locale: I18n.default_locale)
   end
 
   # Added setting for passing local params across pages

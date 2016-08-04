@@ -167,7 +167,6 @@ en-UK:
     user_org_updated: 'User org role was successfully updated.'
     api_privleges: 'API Privleges?'
     is_org_admin: 'Is Org Admin?'
-    
 
     guidance:
       guidance_list: "Guidance list"
