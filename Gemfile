@@ -117,8 +117,3 @@ gem 'swagger-docs'
 #
 gem 'yard'
 gem 'redcarpet'
-
-#
-#     API
-#
-gem 'swagger-docs'
