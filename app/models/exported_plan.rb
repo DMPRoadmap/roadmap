@@ -47,7 +47,7 @@ class ExportedPlan < ActiveRecord::Base
 
   def funder
     org = self.plan.project.dmptemplate.try(:organisation)
-    org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder"))
+    org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder")
   end
 
   def institution
