@@ -38,9 +38,11 @@
 			<%= raw t("roadmap_page.body_text_tab_2_html",
 								organisation_name: Rails.configuration.branding[:organisation][:name],
 								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_url: Rails.configuration.branding[:organisation][:url],
 								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
 								application_name: Rails.configuration.branding[:application][:name],
-								application_url: Rails.configuration.branding[:application][:url])%>
+								application_url: Rails.configuration.branding[:application][:url],
+								application_user_group_subscription_url: Rails.configuration.branding[:application][:user_group_subscription_url])%>
 		</div>		
 	</div>
 </div>	
