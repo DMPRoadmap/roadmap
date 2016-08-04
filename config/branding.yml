@@ -1,7 +1,25 @@
-organisation:
-  full_name: 'University of California Curation Center'
-  abbreviation: 'UC3'
-  url: 'http://www.cdlib.org/uc3/'
+defaults: &defaults
+  organisation:
+    name: 'Digital Curation Center and University of California Curation Center'
+    abbreviation: 'DCC and UC3'
+    url: 'https://github.com/DMPRoadmap/roadmap/wiki'
+    copywrite_name: 'DCC and UC3'
+    email: 'ROADMAP-L@listserv.ucop.edu'
 
-application:
-  name: 'DMPTool'
+  application:
+    name: 'DMPRoadmap'
+    url: 'https://github.com/DMPRoadmap/roadmap'
+    version: '0.1.0'
+    release_notes_url: 'https://github.com/DMPRoadmap/roadmap/wiki/Releases'
+
+development:
+  <<: *defaults
+    
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+    
+production:
+  <<: *defaults

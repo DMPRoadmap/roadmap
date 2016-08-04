@@ -3,10 +3,12 @@
 		<div class="welcome-message">
 			
 			<h2><%= raw t('welcome_title')%></h2>
-			<%= Rails.configuration.branding[:application] %>
-			<%= raw t('welcome_text', application_name: 'WOW')%>
+			<%= raw t('welcome_text', 
+								application_name: Rails.configuration.branding[:application][:name], 
+								organisation_name: Rails.configuration.branding[:organisation][:name])%>
+								
 			<div class="screencast_home_page">
-				<p><%= t('screencast_text') %></p>
+				<p><%= t('screencast_text', application_name: Rails.configuration.branding[:application][:name]) %></p>
 				<div class="clear"></div>				
 				<video controls="controls" poster="<%= asset_path('screencast.jpg')%>" style="width:100%; height:200" title="1662">
 					<source src="<%= asset_path('index.files/html5video/screencast.mp4')%>" type="video/mp4" />
@@ -41,7 +43,7 @@
 					<a class="accordion-toggle" data-toggle="collapse" data-parent="#homepage-accordion" href="#collapse-register">
 						<%= t('helpers.sign_up') %><span class="plus-laranja"> </span></a>
 					<p>
-						<%= t('helpers.sign_up_text')%>
+						<%= t('helpers.sign_up_text', application_name: Rails.configuration.branding[:application][:name])%>
 					</p>
 					
 				</div>

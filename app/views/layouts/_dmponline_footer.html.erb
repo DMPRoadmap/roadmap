@@ -10,7 +10,7 @@
        		</ul>
        	</div>
        	<div class="second_row">
-    		<p id="dcc_link">&copy; 2004 - <%= Time.now.year %><%= link_to " Digital Curation Centre (DCC)", "http://www.dcc.ac.uk"%>
+    		<p id="dcc_link">&copy; 2004 - <%= Time.now.year %><%= link_to " #{Rails.configuration.branding[:organisation][:copywrite_name]}", "#{Rails.configuration.branding[:organisation][:url]}"%>
        		</p>
     	</div>
     </div>	
