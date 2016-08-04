@@ -18,7 +18,6 @@ module Api
       end
 
       def index
-
         if has_auth(constant("api_endpoint_types.guidances"))
           @all_viewable_groups = GuidanceGroup.all_viewable(@user)
           respond_with @all_viewable_groups

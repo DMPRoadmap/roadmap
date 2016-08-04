@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 
 # additional gems for rails 4
-gem 'railties'#, '= 4.2.0'
+gem 'railties'
 gem 'responders', '~> 2.0'   # allows use of respond_with and respond_to in controllers
 
 # add these gems to help with the transition:
@@ -14,21 +14,17 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-gem 'uglifier' #, '>= 1.3.0'
+gem 'uglifier'
 
 # Gems used only for assets and not required in production environments by default.
-#group :assets do
- # gem 'coffee-rails'
-#end
 # Use SCSS for stylesheets
 gem 'sass-rails'
-#gem 'sass'
 
 
 # Use SCSS for stylesheets
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
-gem 'therubyracer', '>=0.11.4', platforms: :ruby #'0.11.4', platforms: :ruby
+gem 'therubyracer', '>=0.11.4', platforms: :ruby
 
 gem 'libv8'
 
@@ -69,8 +65,7 @@ gem 'validate_url'
 #    DATABASE/SERVER
 #
 gem 'mysql2', '~> 0.3.18'
-# Use unicorn as the app server
-# gem 'unicorn'
+
 #cancan for usergroups
 gem 'cancancan'
 
@@ -79,8 +74,8 @@ gem 'cancancan'
 #
 gem 'jquery-rails'
 gem 'tinymce-rails'
-gem 'friendly_id' #, '~> 5.0.1'
-gem 'contact_us'
+gem 'friendly_id'
+gem 'contact_us', '>= 1.1.1'
 gem 'recaptcha'
 gem 'turbolinks'
 #implementation of forms

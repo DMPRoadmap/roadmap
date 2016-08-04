@@ -13,9 +13,9 @@
       </li>
       <li>
         <%= f.label(t('helpers.settings.plans.margin')) %>
-        <% %i( top bottom left right ).each do |pos| %>
-        <span><%= t("helpers.settings.plans.margins.#{pos}") -%></span>
-        <%= select_tag("settings[export][formatting][margin][#{pos}]", options_for_select((0..100).to_a, @settings.formatting[:margin][pos])) %>
+				<% ["top", "bottom", "left", "right"].each do |pos| %>
+        	<span><%= t("helpers.settings.plans.margins.#{pos}") -%></span>
+        	<%= select_tag("settings[export][formatting][margin][#{pos}]", options_for_select((0..100).to_a, @settings.formatting[:margin][pos])) %>
         <% end %>
       </li>
     </ol>

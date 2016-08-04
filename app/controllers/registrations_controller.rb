@@ -1,7 +1,6 @@
 # app/controllers/registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
-
   # POST /resource
   def create
     logger.debug "#{sign_up_params}"
@@ -10,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
   	else
   		existing_user = User.find_by_email(sign_up_params[:email])
   		if !existing_user.nil? then
-  			if existing_user.dmponline3 && (existing_user.password == "" || existing_user.password.nil?) && existing_user.confirmed_at.nil? then
+  			if (existing_user.password == "" || existing_user.password.nil?) && existing_user.confirmed_at.nil? then
   				@user = existing_user
   				do_update(false, true)
   			else
@@ -20,13 +19,13 @@ class RegistrationsController < Devise::RegistrationsController
 			build_resource(sign_up_params)
 			if resource.save
 			  if resource.active_for_authentication?
-				set_flash_message :notice, :signed_up if is_navigational_format?
-				sign_up(resource_name, resource)
-				respond_with resource, :location => after_sign_up_path_for(resource)
+  				set_flash_message :notice, :signed_up if is_navigational_format?
+  				sign_up(resource_name, resource)
+  				respond_with resource, :location => after_sign_up_path_for(resource)
 			  else
-				set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-				expire_session_data_after_sign_in!
-				respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+  				set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+  				#expire_session_data_after_sign_in!  <-- DEPRECATED BY DEVISE
+  				respond_with resource, :location => after_inactive_sign_up_path_for(resource)
 			  end
 			else
 			  clean_up_passwords resource
@@ -96,6 +95,11 @@ class RegistrationsController < Devise::RegistrationsController
     else
       render "edit"
     end
+  end
+
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :accept_terms, 
+                                 :organisation_id, :other_organisation)
   end
 
 end

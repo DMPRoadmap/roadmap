@@ -20,7 +20,7 @@
       <% end %>
     <% else %>
       <%= link_to t(".view", :default => t("helpers.view")), project_path(project), :class => "dmp_table_link"%>
-      <%= link_to t("helpers.project.tab_export"), project_path([project, "export"]), :class => "dmp_table_link"%>
+      <%= link_to t("helpers.project.tab_export"), export_project_path(project), :class => "dmp_table_link"%>
     <% end %>
 
   </td>
