@@ -3,10 +3,9 @@
     <div class="left_side_footer">
     	<div class="first_row">
         	<ul class="footer-links">	
-	            <li><a href="/contact-us"><%= t("contact_page.title") %></a></li>
+	            <li><%= link_to t('contact_page.title'), '/contact-us'%></li>
 	            <li class="muted">|</li>
-	            <li><a href="/terms"><%= t("terms_page.title") %></a></li>
-	            
+	            <li><%= link_to t('terms_page.title'), '/terms'%></li>
        		</ul>
        	</div>
        	<div class="second_row">

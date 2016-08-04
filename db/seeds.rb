@@ -6,6 +6,32 @@
 
 d1 = DateTime.new(2015, 6, 22)
 
+languages = {
+    'EN-UK' => {
+        abbreviation: "en-UK",
+        description: "",
+        name: "en-UK"
+    },
+    'FR' => {
+        abbreviation: "fr",
+        description: "",
+        name: "fr"
+    },
+    'DE' => {
+        abbreviation: "de",
+        description: "",
+        name: "de"
+    }
+}
+
+languages.each do |l, details|
+  language = Language.new
+  language.abbreviation = details[:abbreviation]
+  language.description = details[:description]
+  language.name = details[:name]
+  language.save!
+end
+
 organisation_types = {
  'Organisation' => {
      name: "Organisation"
@@ -129,6 +155,7 @@ users = {
         surname: "Admin",
         password_confirmation: "password123",
         organisation: "RCC",
+        language: "en-UK",
         roles: ['admin','org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -140,6 +167,7 @@ users = {
         firstname: "Funder",
         surname: "Admin",
         organisation: "RegSciFed",
+        language: "en-UK",
         roles: ['org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -151,6 +179,7 @@ users = {
         firstname: "Organization",
         surname: "Admin",
         organisation: "CapColl",
+        language: "en-UK",
         roles: ['org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -162,6 +191,7 @@ users = {
         firstname: "Jane",
         surname: "Researcher",
         organisation: "CapColl",
+        language: "en-UK",
         roles: ['user'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -178,6 +208,7 @@ users.each do |user, details|
     usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
 #    usr.user_org_roles << UserOrgRole.create(organisation: Organisation.find_by_abbreviation(details[:organisation]),
 #                                             user_role_type: UserRoleType.find_by_name('admin'))
+    usr.language_id = Language.find_by_name(details[:language]).id
     details[:roles].each do |role|
      usr.roles << Role.find_by_name(role)
     end
@@ -613,9 +644,9 @@ formatting = {
 }
 
 formatting.each do |org, settings|
-  template = Dmptemplate.find_by_title("#{org} Template")
-  template.settings(:export).formatting = settings
-  template.save!
+  #template = Dmptemplate.find_by_title("#{org} Template") # this is bugged, there is no Funder Template nor DCC template
+  #template.settings(:export).formatting = settings
+  #template.save!
 end
 
 token_permission_types = {
@@ -634,30 +665,5 @@ token_permission_types.each do |title,settings|
   token_permission_type.save!
 end
 
-languages = {
-    'EN-UK' => {
-        abbreviation: "en-UK",
-        description: "",
-        name: "en-UK"
-    },
-    'FR' => {
-        abbreviation: "fr",
-        description: "",
-        name: "fr"
-    },
-    'DE' => {
-        abbreviation: "de",
-        description: "",
-        name: "de"
-    }
-}
-
-languages.each do |l, details|
-  language = Language.new
-  language.abbreviation = details[:abbreviation]
-  language.description = details[:description]
-  language.name = details[:name]
-  language.save!
-end
 
 
