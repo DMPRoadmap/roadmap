@@ -20,32 +20,63 @@ class Organisation < ActiveRecord::Base
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :description, :domain, 
-                  :logo_file_name, :name, :stylesheet_file_id, :target_url, 
+	attr_accessible :abbreviation, :banner_text, :description, :domain,
+                  :logo_file_name, :name, :stylesheet_file_id, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids
 
-	def to_s
-		name
-	end
 
-	def short_name
-		if abbreviation.nil? then
-			return name
-		else
-			return abbreviation
-		end
-	end
+  ##
+  # returns the name of the organisation
+  #
+  # @return [String]
+  def to_s
+    name
+  end
 
-	#retrieves info off a child org
-	def self.orgs_with_parent_of_type(org_type)
-		parents = OrganisationType.find_by_name(org_type).organisations
-		children = Array.new
-		parents.each do |parent|
-		  	children += parent.children
-		end
-		return children
-	end
+  ##
+  # returns the abbreviation for the organisation if it exists, or the name if not
+  #
+  # @return [String] name or abbreviation of the organisation
+  def short_name
+    if abbreviation.nil? then
+      return name
+    else
+      return abbreviation
+    end
+  end
+
+  ##
+  # finds all organisations who have a parent of the passed organisation type
+  #
+  # @params [String] the name of an organisation type
+  # @return [Array<Organisation>]
+  def self.orgs_with_parent_of_type(org_type)
+    parents = OrganisationType.find_by_name(org_type).organisations
+    children = Array.new
+    parents.each do |parent|
+        children += parent.children
+    end
+    return children
+  end
+
+  ##
+  # returns a list of all guidance groups belonging to other organisations
+  #
+  # @return [Array<GuidanceGroup>]
+  def self.other_organisations
+    org_types = [GlobalHelpers.constant("organisation_types.funder")]
+    organisations_list = []
+    org_types.each do |ot|
+      new_org_obejct = OrganisationType.find_by_name(ot)
+
+      org_with_guidance = GuidanceGroup.joins(new_org_obejct.organisations)
+
+      organisations_list = organisations_list + org_with_guidance
+    end
+    return organisations_list
+  end
+
 
   ##
   # returns a list of all guidance groups belonging to other organisations
