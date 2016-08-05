@@ -24,36 +24,54 @@ class Plan < ActiveRecord::Base
 
 	alias_method :super_settings, :settings
 
+  ##
 	# Proxy through to the template settings (or defaults if this plan doesn't have
 	# an associated template) if there are no settings stored for this plan.
 	# `key` is required by rails-settings, so it's required here, too.
+  #
+  # @param key [Key] a key required by rails
+  # @return [Settings] settings for this plan's template
 	def settings(key)
 		self_settings = self.super_settings(key)
 		return self_settings if self_settings.value?
-
 		self.dmptemplate.settings(key)
 	end
 
+  ##
+  # returns the template for this plan, or generates an empty template and returns that
+  #
+  # @return [Dmptemplate] the template associated with this plan
 	def dmptemplate
 		self.project.try(:dmptemplate) || Dmptemplate.new
 	end
 
+  ##
+  # returns the title for this project as defined by the settings
+  #
+  # @return [String] the title for this project
 	def title
 		logger.debug "Title in settings: #{self.settings(:export).title}"
 		if self.settings(:export).title == ""
-            if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
-                return self.version.phase.title
-            else
-                return I18n.t('tool_title2')
+      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
+        return self.version.phase.title
+      else
+        return I18n.t('tool_title2')
 			end
 		else
 			return self.settings(:export).title
 		end
 	end
 
+  ##
+  # returns the most recent answer to the given question id
+  # optionally can create an answer if none exists
+  #
+  # @param qid [Integer] the id for the question to find the answer for
+  # @param create_if_missing [Boolean] if true, will genereate a default answer to the question
+  # @return [Answer,nil] the most recent answer to the question, or a new question with default value, or nil
 	def answer(qid, create_if_missing = true)
-  		answer = answers.where(:question_id => qid).order("created_at DESC").first
-  		question = Question.find(qid)
+  	answer = answers.where(:question_id => qid).order("created_at DESC").first
+  	question = Question.find(qid)
 		if answer.nil? && create_if_missing then
 			answer = Answer.new
 			answer.plan_id = id
@@ -70,6 +88,10 @@ class Plan < ActiveRecord::Base
 		return answer
 	end
 
+  ##
+  # returns all of the sections for this version of the plan, and for the project's organisation
+  #
+  # @return [Array<Section>,nil] either a list of sections, or nil if none were found
 	def sections
 		unless project.organisation.nil? then
 			sections = version.global_sections + project.organisation.all_sections(version_id)
@@ -79,6 +101,11 @@ class Plan < ActiveRecord::Base
 		return sections.uniq.sort_by &:number
 	end
 
+  ##
+  # returns the guidances associated with the project's organisation, for a specified question
+  #
+  # @params question [Question] the question to find guidance for
+  # @return [Array<Guidance>] the list of guidances which pretain to the specified question
 	def guidance_for_question(question)
 		guidances = {}
 		# If project org isn't nil, get guidance by theme from any "non-subset" groups belonging to project org
@@ -93,7 +120,6 @@ class Plan < ActiveRecord::Base
 				end
 			end
 		end
-        
 		# Get guidance by theme from any guidance groups selected on creation
 		project.guidance_groups.each do |group|
 			if group.dmptemplates.pluck(:id).include?(project.dmptemplate_id) || group.dmptemplates.count == 0 then
@@ -102,23 +128,28 @@ class Plan < ActiveRecord::Base
 						guidances = self.add_guidance_to_array(guidances, group, theme, guidance)
 					end
 				end
-			end 
-       	end
-                
+			end
+    end
 		# Get guidance by question where guidance group was selected on creation or if group is organisation default
 		question.guidances.each do |guidance|
 			guidance.guidance_groups.each do |group|
 				if (group.organisation == project.organisation && !group.optional_subset) || project.guidance_groups.include?(group) then
 					guidances = self.add_guidance_to_array(guidances, group, nil, guidance)
 				end
-            end
+      end
 		end
-        
 		return guidances
 	end
 
+  ##
+  # adds the given guidance to a hash indexed by a passed guidance group and theme
+  #
+  # @param guidance_array [{GuidanceGroup => {Theme => Array<Gudiance>}}] the passed hash of arrays of guidances.  Indexed by GuidanceGroup and Theme.
+  # @param guidance_group [GuidanceGroup] the guidance_group index of the hash
+  # @param theme [Theme] the theme object for the GuidanceGroup
+  # @param guidance [Guidance] the guidance object to be appended to the correct section of the array
+  # @return [{GuidanceGroup => {Theme => Array<Guidance>}}] the updated object which was passed in
 	def add_guidance_to_array(guidance_array, guidance_group, theme, guidance)
-		
 		if guidance_array[guidance_group].nil? then
 			guidance_array[guidance_group] = {}
 		end
@@ -137,15 +168,14 @@ class Plan < ActiveRecord::Base
 				guidance_array[guidance_group][theme].push(guidance)
 			end
 		end
-		
-        return guidance_array
+      return guidance_array
 	end
-    
-    
-    
-   
-    
-    
+
+  ##
+  # finds the specified warning for the plan's project's organisation
+  #
+  # @param option_id [Integer] the id to find the OptionWarning associated
+  # @return [OptionWarning] the desired OptionWarning
 	def warning(option_id)
 		if project.organisation.nil?
 			return nil
@@ -154,10 +184,22 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # determines if the plan is editable by the specified user
+  # NOTE: This should be renamed to editable_by?
+  #
+  # @param user_id [Integer] the id for a user
+  # @return [Boolean] true if user can edit the plan
 	def editable_by(user_id)
 		return project.editable_by(user_id)
 	end
 
+  ##
+  # determines if the plan is readable by the specified user
+  # NOTE: This shoudl be renamed to readable_by?
+  #
+  # @param user_id [Integer] the id for a user
+  # @return [Boolean] true if the user can read the plan
 	def readable_by(user_id)
 		if project.nil?
 			return false
@@ -166,10 +208,21 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # determines if the plan is administerable by the specified user
+  # NOTE: This should be renamed to administerable_by?
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user can administer the plan
 	def administerable_by(user_id)
 		return project.readable_by(user_id)
 	end
 
+
+  ##
+  # defines and returns the status of the plan
+  #
+  # @return [Status]
 	def status
 		status = {
 			"num_questions" => 0,
@@ -228,6 +281,11 @@ class Plan < ActiveRecord::Base
 		return status
 	end
 
+
+  ##
+  # defines and returns the details for the plan
+  #
+  # @return [Details]
 	def details
 		details = {
 			"project_title" => project.title,
