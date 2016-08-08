@@ -221,6 +221,9 @@ class Plan < ActiveRecord::Base
 
   ##
   # defines and returns the status of the plan
+  # status consists of a hash of the num_questions, num_answers, sections, questions, and spaced used.
+  # For each section, it contains theid's of each of the questions
+  # for each question, it contains the answer_id, answer_created_by, answer_text, answer_options_id, aand answered_by
   #
   # @return [Status]
 	def status
@@ -284,6 +287,8 @@ class Plan < ActiveRecord::Base
 
   ##
   # defines and returns the details for the plan
+  # details consists of a hash of: project_title, phase_title, and for each section,
+  # section: title, question text for each question, answer type and answer value
   #
   # @return [Details]
 	def details
@@ -316,6 +321,12 @@ class Plan < ActiveRecord::Base
 		return details
 	end
 
+  ##
+  # determines wether or not a specified section of a plan is locked to a specified user and returns a status hash
+  #
+  # @param section_id [Integer] the setion to determine if locked
+  # @param user_id [Integer] the user to determine if locked for
+  # @return [Hash{String => Hash{String => Boolean, nil, String, Integer}}]
 	def locked(section_id, user_id)
 		plan_section = plan_sections.where("section_id = ? AND user_id != ? AND release_time > ?", section_id, user_id, Time.now).last
 		if plan_section.nil? then
@@ -335,24 +346,44 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # for each section, lock the section with the given user_id
+  #
+  # @param user_id [Integer] the id for the user who can use the sections
 	def lock_all_sections(user_id)
 		sections.each do |s|
 			lock_section(s.id, user_id, 1800)
 		end
 	end
 
+  ##
+  # for each section, unlock the section
+  #
+  # @param user_id [Integer] the id for the user to unlock the sections for
 	def unlock_all_sections(user_id)
 		plan_sections.where(:user_id => user_id).order("created_at DESC").each do |lock|
 			lock.delete
 		end
 	end
 
+  ##
+  # for each section, unlock the section
+  # Not sure how this is different from unlock_all_sections
+  #
+  # @param user_id [Integer]
 	def delete_recent_locks(user_id)
 		plan_sections.where(:user_id => user_id).each do |lock|
 			lock.delete
 		end
 	end
 
+  ##
+  # Locks the specified section to only be used by the specified user, for the number of secconds specified
+  #
+  # @param section_id [Integer] the id of the section to be locked
+  # @param user_id [Integer] the id of the user who can use the section
+  # @param release_time [Integer] the number of secconds the section will be locked for, defaults to 60
+  # @return [Boolean] wether or not the section was locked
 	def lock_section(section_id, user_id, release_time = 60)
 		status = locked(section_id, user_id)
 		if ! status["locked"] then
@@ -371,12 +402,22 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # unlocks the specified section for the specified user
+  #
+  # @param section_id [Integer] the id for the section to be unlocked
+  # @param user_id [Integer] the id for the user for whom the section was previously locked
+  # @return [Boolean] wether or not the lock was removed
 	def unlock_section(section_id, user_id)
 		plan_sections.where(:section_id => section_id, :user_id => user_id).order("created_at DESC").each do |lock|
 			lock.delete
 		end
 	end
 
+  ##
+  # returns the time of either the latest answer to any question, or the latest update to the model
+  #
+  # @return [DateTime] the time at which the plan was last changed
 	def latest_update
 		if answers.any? then
 			last_answered = answers.order("updated_at DESC").first.updated_at
@@ -390,6 +431,12 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # returns an array of hashes.  Each hash contains the question's id, the answer_id,
+  # the answer_text, the answer_timestamp, and the answer_options
+  #
+  # @params section_id [Integer] the section to find answers of
+  # @return [Array<Hash{String => nil,String,Integer,DateTime}]
 	def section_answers(section_id)
 		section = Section.find(section_id)
  		section_questions = Array.new
@@ -421,6 +468,7 @@ class Plan < ActiveRecord::Base
 
 private
 
+  ##
 	# Based on the height of the text gathered so far and the available vertical
 	# space of the pdf, estimate a percentage of how much space has been used.
 	# This is highly dependent on the layout in the pdf. A more accurate approach
@@ -428,6 +476,9 @@ private
 	# could be very slow.
 	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
 	# for guidance when editing plan data, not to be 100% accurate.
+  #
+  # @params used_height [Integer] an estimate of the height used so far
+  # @return [Integer] the estimate of space used of an A4 portrain
 	def estimate_space_used(used_height)
 		@formatting ||= self.settings(:export).formatting
 
@@ -441,6 +492,7 @@ private
 		(percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
 	end
 
+  ##
 	# Take a guess at the vertical height (in mm) of the given text based on the
 	# font-size and left/right margins stored in the plan's settings.
 	# This assumes a fixed-width for each glyph, which is obviously
@@ -448,6 +500,10 @@ private
 	# they'll hopefully average out to that in the long-run.
 	# Allows for hinting different font sizes (offset from base via font_size_inc)
 	# and vertical margins (i.e. for heading text)
+  #
+  # @params text [String] the text to estimate size of
+  # @params font_size_inc [Integer] the size of the font of the text, defaults to 0
+  # @params vertical_margin [Integer] the top margin above the text, defaults to 0
 	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
 		@formatting     ||= self.settings(:export).formatting
 		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
