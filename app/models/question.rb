@@ -20,20 +20,21 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :suggested_answers,  :allow_destroy => true
   accepts_nested_attributes_for :themes
 
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :parent_id, 
-                  :suggested_answer, :text, :section_id,:question_format_id,:options_attributes,
-                  :suggested_answers_attributes, :option_comment_display, :theme_ids, 
-                  :as => [:default, :admin]
+  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :parent_id, :suggested_answer, :text, :section_id,:question_format_id,:options_attributes, :suggested_answers_attributes, :option_comment_display, :theme_ids, :as => [:default, :admin]
 
+  ##
+  # returns the text from the question
+  #
+  # @return [String] question's text
 	def to_s
-        "#{text}"
-    end
+    "#{text}"
+  end
 
-    amoeba do
-        include_association :options
-        include_association :suggested_answers
-        clone [:themes]
-    end
+  amoeba do
+    include_association :options
+    include_association :suggested_answers
+    clone [:themes]
+  end
 
 	#def question_type?
 	#	type_label = {}
@@ -47,6 +48,11 @@ class Question < ActiveRecord::Base
 	#	return type_label
 	#end
 
+  ##
+  # for each question theme, appends them separated by comas
+  # shouldnt have a ? after the method name
+  #
+  # @return [Hash{String=> String}]
 	def question_themes?
 		themes_label = {}
 		i = 1
@@ -64,7 +70,12 @@ class Question < ActiveRecord::Base
 		return themes_label
 	end
 
+  ##
 	# guidance for question in the org admin
+  #
+  # @param question [Question] the question to find guidance for
+  # @param org_admin [Organisation] the organisation to find guidance for
+  # @return [Hash{String => String}]
 	def guidance_for_question(question, org_admin)
         # pulls together guidance from various sources for question
         guidances = {}
@@ -77,7 +88,6 @@ class Question < ActiveRecord::Base
                 end
             end
         end
-
 	  	# Guidance link to directly to a question
         question.guidances.each do |g_by_q|
             g_by_q.guidance_groups.each do |group|
@@ -86,20 +96,17 @@ class Question < ActiveRecord::Base
                 end
             end
 	  	end
-
 		return guidances
  	end
 
-    
-    
-    
-    
- 	#get suggested answer belonging to the currents user for this question
+  ##
+ 	# get suggested answer belonging to the currents user for this question
+  #
+  # @param org_id [Integer] the id for the organisation
+  # @return [String] the suggested_answer for this question for the specified organisation
  	def get_suggested_answer(org_id)
  		suggested_answer = suggested_answers.find_by_organisation_id(org_id)
  		return suggested_answer
  	end
-
-
 
 end
