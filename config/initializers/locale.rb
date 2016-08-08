@@ -1,4 +1,4 @@
-module DMPonline4
+module DMPRoadmap
   class Application < Rails::Application
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.

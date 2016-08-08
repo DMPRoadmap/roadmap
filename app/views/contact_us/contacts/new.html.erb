@@ -7,7 +7,13 @@
 	<%= t("contact_page.title") %>
 </h1>
 <p>
-	<%= raw t("contact_page.intro_text_html") %>
+	<%= raw t("contact_page.intro_text_html",
+						organisation_name: Rails.configuration.branding[:organisation][:name],
+						organisation_email: Rails.configuration.branding[:organisation][:email],
+						organisation_url: Rails.configuration.branding[:organisation][:url],
+						application_name: Rails.configuration.branding[:application][:name],
+						application_url: Rails.configuration.branding[:application][:url],
+						application_issue_list_url: Rails.configuration.branding[:application][:issue_list_url]) %>
   <%= raw t("contact_page.github_text_html") %>
 </p>
 <div class="column_container">
@@ -94,7 +100,10 @@
 	<!-- right column information -->
 	<div class="column_right">
 		<div class="white_background">
-			<%= raw t("contact_page.address_text_html") %>
+			<%= raw t("contact_page.address_text_html",
+								organisation_name: Rails.configuration.branding[:organisation][:name],
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								application_name: Rails.configuration.branding[:application][:name],) %>
 			<!-- map -->
 			<div class="div_map">
 				<iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=EH8+9LE&amp;aq=&amp;sll=55.85546,-4.232459&amp;sspn=0.195785,0.663986&amp;ie=UTF8&amp;hq=&amp;hnear=EH8+9LE,+United+Kingdom&amp;ll=55.944435,-3.186767&amp;spn=0.006104,0.02075&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
