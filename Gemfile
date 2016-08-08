@@ -75,7 +75,7 @@ gem 'cancancan'
 gem 'jquery-rails'
 gem 'tinymce-rails'
 gem 'friendly_id'
-gem 'contact_us'#, '>= 1.1.1'
+gem 'contact_us', '>= 1.2.0'
 gem 'recaptcha'
 gem 'turbolinks'
 #implementation of forms
