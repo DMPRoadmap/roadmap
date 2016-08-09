@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
 
+  # fix for activeadmin signout bug
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   ActiveAdmin.routes(self)
 
   #organisation admin area
