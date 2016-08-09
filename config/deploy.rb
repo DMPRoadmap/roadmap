@@ -1,11 +1,11 @@
 set :application, 'dmptool'
-set :repo_url, 'https://github.com/DMPRoadmap/roadmap.git' #'https://github.com/DMPRoadmap/roadmap.git'
+set :repo_url, 'https://github.com/CDLUC3/roadmap.git' #'https://github.com/DMPRoadmap/roadmap.git'
 
 #set :user, 'dmp'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :branch, 'master' #'development'
+set :branch, 'production' #'development'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/dmp/apps/roadmap'
