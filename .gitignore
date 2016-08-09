@@ -9,7 +9,7 @@ public/assets/*
 public/apidocs/*
 
 # Ignore gemfile.lock
-Gemfile.lock
+#Gemfile.lock
 
 # Ignore db schema.rb
 # db/schema.rb
@@ -24,11 +24,11 @@ config/initializers/devise.rb
 config/initializers/contact_us.rb
 
 # Ignore enviroments settings
-config/environments/development.rb
-config/environments/production.rb
-config/environments/test.rb
+#config/environments/development.rb
+#config/environments/production.rb
+#config/environments/test.rb
 
-config/initializers/contact_us.rb
+#config/initializers/contact_us.rb
 
 # ignore IDE files
 .idea/*
