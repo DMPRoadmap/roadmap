@@ -18,8 +18,6 @@ role :app, %w{uc3-roadmap-dev.cdlib.org}
 role :web, %w{uc3-roadmap-dev.cdlib.org}
 role :db,  %w{uc3-roadmap-dev.cdlib.org}
 
-
-
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb
@@ -28,7 +26,15 @@ role :db,  %w{uc3-roadmap-dev.cdlib.org}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
+set :sudo, true
 
+on 'uc3-roadmap-dev.cdlib.org' do
+  #execute :sudo, 'su - dmp'
+  
+  as(user: 'dmp', group: 'dmp') do
+    :deploy
+  end
+end
 
 # Custom SSH Options
 # ==================
