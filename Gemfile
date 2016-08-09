@@ -122,3 +122,11 @@ gem 'redcarpet'
 #     API
 #
 gem 'swagger-docs'
+
+# =======================================================================================
+# DMPTool specific configuration (DO NOT contribute back to the DMPRoadmap/roadmap repo)
+# =======================================================================================
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-passenger'
+gem 'capistrano-rails'
