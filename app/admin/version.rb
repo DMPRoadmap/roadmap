@@ -1,8 +1,8 @@
-# [+Project:+] DMPonline
+# [+Project:+] DMPRoadmap
 # [+Description:+] 
 #   
 # [+Created:+] 03/09/2014
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Version do
 	permit_params   :description, :number, :published, :title, :phase_id
