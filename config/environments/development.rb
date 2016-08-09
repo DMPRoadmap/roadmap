@@ -52,14 +52,8 @@ Rails.application.configure do
   
   config.action_mailer.perform_deliveries = false
   
-  config.web_console.whitelisted_ips = '192.168.33.1'
-  
   # Load Branded terminology (e.g. organization name, application name, etc.)
   config.branding = config_for(:branding).deep_symbolize_keys
-  #config.branding = YAML.load_file(Rails.root.join('config/branding.yml'))[Rails.env]
-  
-puts "YAML: #{config_for(:branding)}"
-  
 end
 
 BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
