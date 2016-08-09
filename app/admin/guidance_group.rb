@@ -1,8 +1,8 @@
-# [+Project:+] DMPonline
+# [+Project:+] DMPRoadmap
 # [+Description:+] 
 #   
 # [+Created:+] 03/09/2014
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register GuidanceGroup do
     permit_params :organisation_id, :name, :published, :optional_subset 

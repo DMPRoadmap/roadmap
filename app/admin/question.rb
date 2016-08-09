@@ -1,8 +1,8 @@
-# [+Project:+] DMPonline
+# [+Project:+] DMPRoadmap
 # [+Description:+] 
 #   
 # [+Created:+] 03/09/2014
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Question do
 	permit_params :default_value, :dependency_id, :dependency_text, :guidance, :number, :parent_id, :suggested_answer, :text, :question_type, :section_id
