@@ -1,5 +1,5 @@
 set :application, 'dmptool'
-set :repo_url, 'https://github.com/CDLUC3/roadmap.git'
+set :repo_url, 'https://github.com/DMPRoadmap/roadmap.git'
 
 #set :user, 'dmp'
 

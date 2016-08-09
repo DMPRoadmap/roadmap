@@ -3,8 +3,10 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 #server 'uc3-roadmap-dev.cdlib.org', user: 'dmp', roles: %w{app db web}, my_property: :my_value
+set :server_host, ENV["SERVER_HOST"] || 'uc3-roadmap-dev.cdlib.org'
+server fetch(:server_host), user: 'dmp', roles: %w{web app db}
 
-set :branch, 'dmptool'
+set :branch, 'development'
 
 # role-based syntax
 # ==================
@@ -14,9 +16,9 @@ set :branch, 'dmptool'
 # property set. Specify the username and a domain or IP for the server.
 # Don't use `:all`, it's a meta role.
 
-role :app, %w{uc3-roadmap-dev.cdlib.org}
-role :web, %w{uc3-roadmap-dev.cdlib.org}
-role :db,  %w{uc3-roadmap-dev.cdlib.org}
+#role :app, %w{uc3-roadmap-dev.cdlib.org}
+#role :web, %w{uc3-roadmap-dev.cdlib.org}
+#role :db,  %w{uc3-roadmap-dev.cdlib.org}
 
 # Configuration
 # =============
@@ -26,15 +28,15 @@ role :db,  %w{uc3-roadmap-dev.cdlib.org}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :sudo, true
+#set :sudo, true
 
-on 'uc3-roadmap-dev.cdlib.org' do
-  #execute :sudo, 'su - dmp'
+#on 'uc3-roadmap-dev.cdlib.org' do
+#  execute :sudo, 'su - dmp'
   
-  as(user: 'dmp', group: 'dmp') do
-    :deploy
-  end
-end
+  #as(user: 'dmp', group: 'dmp') do
+  #  :deploy
+  #end
+#end
 
 # Custom SSH Options
 # ==================
