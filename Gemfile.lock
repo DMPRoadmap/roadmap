@@ -339,6 +339,11 @@ GEM
       addressable
     warden (1.2.6)
       rack (>= 1.0)
+    web-console (2.3.0)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     wicked_pdf (1.0.6)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -399,6 +404,7 @@ DEPENDENCIES
   twitter-bootstrap-rails (= 2.2.8)
   uglifier
   validate_url
+  web-console (~> 2.0)
   wicked_pdf
   yard
 
