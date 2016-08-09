@@ -17,7 +17,7 @@ require 'csv'
 #Changed when migrated to rails 4.0.0
 Bundler.require(*Rails.groups)
 
-module DMPonline4
+module DMPRoadmap
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -2,15 +2,15 @@
 # [+Description:+] This file contains all the text present on DMPRoadmap that is not being retrieve from the database.
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-en-UK:
+en-US:
   date:
     formats:
       # Use the strftime parameters for formats.
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
-      default: "%d-%m-%Y"
-      short: "%d/%m/%Y"
-      long: "%d %B, %Y"
+      default: "%m-%d-%Y"
+      short: "%m/%d/%Y"
+      long: "%B %d, %Y"
 
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
@@ -28,7 +28,7 @@ en-UK:
     formats:
       default: "%a, %b %d %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
-      custom: "%d/%m/%Y %H:%M"
+      custom: "%m/%d/%Y %H:%M"
       long: "%B %d, %Y %H:%M"
     am: "am"
     pm: "pm"
@@ -42,13 +42,13 @@ en-UK:
   screencast_error_text: "Your browser does not support the video tag."
 
   admin:
-    org_title: "Organisation name"
-    org: "Organisation"
-    orgs: "Organisations"
-    org_type: "Organisation type"
-    org_parent: "Parent organisation"
-    org_created_message: "Organisation was successfully created."
-    org_updated_message: "Organisation was successfully updated."
+    org_title: "Organization name"
+    org: "Organization"
+    orgs: "Organizations"
+    org_type: "Organization type"
+    org_parent: "Parent organization"
+    org_created_message: "Organization was successfully created."
+    org_updated_message: "Organization was successfully updated."
     plans: "Plans"
     title: "Title"
     desc: "Description"
@@ -73,7 +73,7 @@ en-UK:
     surname: "Surname"
     user: "User"
     user_created: 'User was successfully created.'
-    user_org_role: "User role on an Organisation"
+    user_org_role: "User role on an Organization"
     user_role_type: "User role type"
     user_role_type_created: 'User role type was successfully created.'
     user_role_type_updated: 'User role type was successfully updated.'
@@ -108,7 +108,7 @@ en-UK:
     token_permission_type: "Token Permission Type"
     permission_description: "Permission Description"
     token_permission: "Token Permission"
-    org_token_permission: "Organisation Token Permission"
+    org_token_permission: "Organization Token Permission"
 
 #    choose_api_permissions: "Choose all API Permissions that apply."
 
@@ -130,29 +130,29 @@ en-UK:
     admin_details: "Admin Details"
     template_label: "Templates"
     user_list_label: "Users"
-    org_details_label:  "Organisation details"
-    org_text: "These are the basic details for your organisation."
+    org_details_label:  "Organization details"
+    org_text: "These are the basic details for your organization."
     org_abbr_help_text_html: "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
     users_list: "List of users"
     user_full_name: "Name"
     user_name: "Email address"
     last_logged_in: "Last logged in"
     how_many_plans: "How many plans?"
-    user_text_html: "Below is a list of users registered for your organisation. You can sort the data by each field."
+    user_text_html: "Below is a list of users registered for your organization. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
     org_desc: "Description"
     org_banner_text: "Top banner text"
     org_target_url: "Website"
-    org_type: "Organisation type"
-    parent_org: "Main organisation"
+    org_type: "Organization type"
+    parent_org: "Main organization"
     last_updated: "Last updated"
-    desc_help_text_html: "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
+    desc_help_text_html: "<div class='tooltip_box'>Please enter information describing your organization.</div>"
     top_banner_help_text_html: "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
     template_desc_help_text_html: "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
-    abbre_help_text: "Please enter an abbreviation to your organisation's name."
+    abbre_help_text: "Please enter an abbreviation to your organization's name."
     target_url_help_text: "Please enter a web address valid."
-    name_help_text: "Please enter your organisation's name."
+    name_help_text: "Please enter your organization's name."
     guidance_label: "Guidance"
     templates_label: "Templates"
     add_option_label: "Add option"
@@ -338,7 +338,7 @@ en-UK:
     user_details_text_html: "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
     user_details_paragraph_html: "You can edit any of the details below."
     remember_me: "Remember me"
-    org_not_listed: "My organisation isn't listed."
+    org_not_listed: "My organization isn't listed."
 
     password: "Password"
     current_password: "Current password"
@@ -361,7 +361,7 @@ en-UK:
     api_token: 'API token'
     api_info: 'API Information'
     api_use: 'How to use the API'
-    api_granted: 'You have been granted permission by your organisation to use our API.'
+    api_granted: 'You have been granted permission by your organization to use our API.'
     api_view_token: 'Your API token and instructions for using the API endpoints can be found here.'
     api_mail_subject: 'API Permission Granted'
 
@@ -497,15 +497,15 @@ en-UK:
       funder: "Funder"
       institution: "Institution"
       project: "Project"
-      organisation: "Organisation"
-      org_name: "Organisation name"
+      organisation: "Organization"
+      org_name: "Organization name"
       school: "School"
       publisher: "Publisher"
       other_guidance: "Other guidance"
       template: "Template"
       templates: "Templates"
       child: "Unit"
-      other_org_help_text: "Please enter the name of your organisation."
+      other_org_help_text: "Please enter the name of your organization."
 
 
     project:
@@ -581,8 +581,8 @@ Select what format you wish to use and click to 'Export'.</p>"
         funders_question: "If applying for funding, select your research funder."
         funders_question_description: "Otherwise leave blank."
         other_funder_name_label: "Name of funder, if applicable."
-        institution_question: "To see institutional questions and/or guidance, select your organisation."
-        institution_question_description: "You may leave blank or select a different organisation to your own."
+        institution_question: "To see institutional questions and/or guidance, select your organization."
+        institution_question_description: "You may leave blank or select a different organization to your own."
         other_guidance_question: "Tick to select any other sources of guidance you wish to see."
       configure: "Configure"
       columns:
@@ -809,7 +809,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     title: "Future plans"
     tab_1: "Releases"
     tab_2: "Get involved"
-    body_text_tab_1_html: "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank	'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
+    body_text_tab_1_html: "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
     <ul>
         <li>- APIs to create plans, extract guidance and generate statistics from %{application_name}</li>
         <li>- Multi-lingual support so foreign language versions can be presented</li>
@@ -832,22 +832,22 @@ Select what format you wish to use and click to 'Export'.</p>"
     <h3>Join the user group</h3>
     <p>We run a <a target='_blank' href='%{application_user_group_subscription_url}'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
     <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p>
-	<p>Notes from previous user group sessions are provided below:</p>
-	<ul>
+<p>Notes from previous user group sessions are provided below:</p>
+<ul>
       <li>- <a href='/files/DMPonline-user-group-IDCC-2016.pdf' target='_blank'>Meeting notes covering internationalisation and locales, 23 February 2016</a></li>
       <li>- <a href='/files/DMPonline-user-group-notes-29Jan2015' target='_blank'>Meeting notes covering plan lifecycle and review, 29 January 2015</a></li>
     </ul>
     <p>Please let us know your interests and share your ideas for future developments via the mailing list so the community as a whole can feedback on them.</p>
     </br>
     <h3>Customise %{application_name}</h3>
-    <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:%{organisation_email}?Subject=%{application_name}%20Admin%20access' target='_top'>%{organisation_email}</a>.</p>
+    <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organization and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:%{organisation_email}?Subject=%{application_name}%20Admin%20access' target='_top'>%{organisation_email}</a>.</p>
     <p>Futher guidance on customising %{application_name} is available on the <a href='%{organisation_url}dmponline' target='_blank'>%{organisation_abbreviation} website</a>.</p>
     </br>
     <h3>Contribute to the code</h3>
     <p>%{application_name} is a Ruby on Rails application. The source code is made available under a GNU Affero General Public License. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of %{application_name} and offer your contributions back to the community.</p>
     <p>If you install an instance of %{application_name} we require that you credit the %{organisation_abbreviation} as originators of the tool. We recommend that the acknowledgement takes the form of the %{application_name} logo with a link back to the %{organisation_abbreviation}-hosted version of the tool.</p>
     <p>We are willing to work with external developers to add new features to the tool. We are also open to delivering new features on a chargeable basis. If there are extensions you would like to see prioritised and have resource to support additional developer effort, please contact us on %{organisation_email} to negotiate terms.</p>
-		<p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p>
+<p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p>
     <h3>Support our work</h3>
     <p>We are impressed by the uptake of %{application_name} both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p>
     <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of %{application_name}. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
@@ -855,7 +855,7 @@ Select what format you wish to use and click to 'Export'.</p>"
   terms_page:
     title: "Terms of use"
     body_text_html: "<div class='white_background'>
-    <p>The %{organisation_name} ('%{organisation_abbreviation}') are consortia supported by %{legal_entity}. Our primary constituency is the research community, particularly the higher and further education sector.</p>
+		<p>The %{organisation_name} ('%{organisation_abbreviation}') are consortia supported by %{legal_entity}. Our primary constituency is the research community, particularly the higher and further education sector.</p>
     </div>
     <h3>%{application_name}</h3>
     <div class='white_background'>
@@ -920,8 +920,8 @@ Select what format you wish to use and click to 'Export'.</p>"
 
   api:
     bad_credentials: '{"Error":"Bad credentials"}'
-    org_dosent_exist: '{"Error":"Organisation does not exist"}'
-    org_not_funder: '{"Error":"Organisation specified is not a funder"}'
-    org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
+    org_dosent_exist: '{"Error":"Organization does not exist"}'
+    org_not_funder: '{"Error":"Organization specified is not a funder"}'
+    org_multiple_templates: '{"Error":"Organization has more than one template and template name unspecified or invalid"}'
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
