@@ -7,20 +7,23 @@
 d1 = DateTime.new(2015, 6, 22)
 
 languages = {
-    'EN-UK' => {
-        abbreviation: "en-UK",
-        description: "",
-        name: "en-UK"
+    'English(UK)' => {
+        abbreviation: 'en-UK',
+        description: 'UK English language used as default',
+        name: 'English(UK)',
+        default_language: true
     },
     'FR' => {
-        abbreviation: "fr",
-        description: "",
-        name: "fr"
+        abbreviation: 'fr',
+        description: '',
+        name: 'fr',
+        default_language: false
     },
     'DE' => {
-        abbreviation: "de",
-        description: "",
-        name: "de"
+        abbreviation: 'de',
+        description: '',
+        name: 'de',
+        default_language: false
     }
 }
 
@@ -29,7 +32,52 @@ languages.each do |l, details|
   language.abbreviation = details[:abbreviation]
   language.description = details[:description]
   language.name = details[:name]
+  language.default_language = details[:default_language]
   language.save!
+end
+
+regions = {
+    'UK' => {
+        abbreviation: 'uk',
+        description: 'default region',
+        name: 'UK',
+    },
+    'DE' => {
+        abbreviation: 'de',
+        description: '',
+        name: 'DE',
+    },
+    'Horizon2020' => {
+        abbreviation: 'horizon',
+        description: 'European super region',
+        name: 'Horizon2020',
+    }
+}
+
+regions.each do |l, details|
+  region = Region.new
+  region.abbreviation = details[:abbreviation]
+  region.description = details[:description]
+  region.name = details[:name]
+  region.save!
+end
+
+region_groups = {
+    'UK' => {
+        super_region_name: 'Horizon2020',
+        region_name: 'UK',
+    },
+    'DE' => {
+        super_region_name: 'Horizon2020',
+        region_name: 'DE',
+    }
+}
+
+region_groups.each do |l, details|
+  region_group = RegionGroup.new
+  region_group.super_region_id = Region.find_by_name(details[:super_region_name]).id
+  region_group.region_id = Region.find_by_name(details[:region_name]).id
+  region_group.save!
 end
 
 organisation_types = {
@@ -66,7 +114,9 @@ organisation_types = {
      organisation_type: "Organisation",
      description: "An example: Regional Curation Center concerned with research data management (typically the organization hosting this website)",
      banner_text: "Example: Your Regional Curation Center",
-     domain: "example.regionalcurationcenter.org"
+     domain: "example.regionalcurationcenter.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Global Funding Organization' => {
      name: "Global Research Center",
@@ -75,7 +125,9 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Research funding agency",
      banner_text: "Example: Global Research Center",
-     domain: "example.globalresearchcenter.org"
+     domain: "example.globalresearchcenter.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Regional Funding Organization' => {
      name: "Regional Science Federation",
@@ -84,7 +136,9 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Regional funding agency for scientific research",
      banner_text: "Example: Regional Science Federation",
-     domain: "example.regionalsciencefederation.org"
+     domain: "example.regionalsciencefederation.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Example Institution'=> {
      name: "Capital City College",
@@ -93,7 +147,9 @@ organisation_types = {
      sort_name: "CapitalCityCollege",
      organisation_type: "Institution",
      description: "An example: Academic institution",
-     banner_text: "Example: Capital City College ... go mascots!!"
+     banner_text: "Example: Capital City College ... go mascots!!",
+     region: 'UK',
+     language: 'English(UK)'
    }
  }
 
@@ -105,6 +161,8 @@ organisation_types = {
      organisation.domain = details[:domain]
      organisation.sort_name = details[:sort_name]
      organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
+     organisation.region_id = Region.find_by_name(details[:region]).id
+     organisation.language_id = Language.find_by_name(details[:language]).id
      organisation.save!
    end
  end
@@ -155,7 +213,7 @@ users = {
         surname: "Admin",
         password_confirmation: "password123",
         organisation: "RCC",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['admin','org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -167,7 +225,7 @@ users = {
         firstname: "Funder",
         surname: "Admin",
         organisation: "RegSciFed",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -179,7 +237,7 @@ users = {
         firstname: "Organization",
         surname: "Admin",
         organisation: "CapColl",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -191,7 +249,7 @@ users = {
         firstname: "Jane",
         surname: "Researcher",
         organisation: "CapColl",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['user'],
         accept_terms: true,
         confirmed_at: Time.zone.now

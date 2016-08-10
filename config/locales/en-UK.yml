@@ -127,6 +127,8 @@ en-UK:
     no_section: 'No section'
 
   org_admin:
+    org_default_language: "Organisation language"
+    org_default_language_help_text: "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
     admin_area: "Admin area"
     admin_details: "Admin Details"
     template_label: "Templates"
@@ -166,7 +168,6 @@ en-UK:
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
     api_privleges: 'API Privleges?'
-    is_org_admin: 'Is Org Admin?'
 
     guidance:
       guidance_list: "Guidance list"
@@ -323,6 +324,7 @@ en-UK:
     contact_label: "Contact"
     jisc: "The DCC is funded by"
     format: "format"
+    change_language: "Change language"
 
     sign_in: "Sign in"
     sign_out: "Sign out"
@@ -959,4 +961,3 @@ Select what format you wish to use and click to 'Export'.</p>"
       templates: 'templates'
       statistics: 'statistics'
     languages:
-

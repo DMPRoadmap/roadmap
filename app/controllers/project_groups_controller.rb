@@ -94,4 +94,3 @@ class ProjectGroupsController < ApplicationController
 		end
 	end
 
-end

@@ -30,4 +30,3 @@ class ContactsController < ContactUs::ContactsController
 			end
 		end		
 	end
-end
