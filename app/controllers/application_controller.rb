@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       # if locales data is present in the parameter from url use it
       I18n.locale = params[:locale]
     elsif user_signed_in? and !current_user[:language_id].nil?
-      I18n.locale = Language.find_by_id(current_user[:language_id]).name
+      I18n.locale = Language.find_by_id(current_user[:language_id]).abbreviation
       # if user has set preferred language use it
     elsif false # TODO
       # use user's organization language, keep in mine the "OTHER ORG" edge case which should use english
