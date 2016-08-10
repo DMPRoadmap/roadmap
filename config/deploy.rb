@@ -9,6 +9,7 @@ set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/dmp/apps/roadmap'
+set :share_to, 'dmp/apps/roadmap/shared'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -33,7 +34,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/syst
 set :default_env, { path: "/dmp/local/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
 
 # passenger in gemfile set since we have both passenger and capistrano-passenger in gemfile
 set :passenger_in_gemfile, true
@@ -82,7 +83,8 @@ namespace :deploy do
       end
     end
   end
-  
+
+=begin  
   Rake::Task["cleanup"].clear_actions
   desc "Clean up old releases"
   task :cleanup do
@@ -102,5 +104,6 @@ namespace :deploy do
       end
     end
   end
+=end
   
 end

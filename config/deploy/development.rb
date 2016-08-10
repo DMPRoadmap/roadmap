@@ -2,7 +2,6 @@
 # ======================
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
-#server 'uc3-roadmap-dev.cdlib.org', user: 'dmp', roles: %w{app db web}, my_property: :my_value
 set :server_host, ENV["SERVER_HOST"] || 'uc3-roadmap-dev.cdlib.org'
 server fetch(:server_host), user: 'dmp', roles: %w{web app db}
 
@@ -62,3 +61,8 @@ server fetch(:server_host), user: 'dmp', roles: %w{web app db}
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+set :rails_env, 'development'
+set :passenger_log, "/dmp/apps/roadmap/shared/log/passenger.log"
+set :passenger_pid, "/dmp/apps/roadmap/shared/tmp/pids/passenger.pid"
+set :passenger_port, "3000"
