@@ -127,6 +127,8 @@ en-UK:
     no_section: 'No section'
 
   org_admin:
+    org_default_language: "Organisation language"
+    org_default_language_help_text: "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
     admin_area: "Admin area"
     admin_details: "Admin Details"
     template_label: "Templates"
@@ -322,6 +324,7 @@ en-UK:
     contact_label: "Contact"
     jisc: "The DCC is funded by"
     format: "format"
+    change_language: "Change language"
 
     sign_in: "Sign in"
     sign_out: "Sign out"

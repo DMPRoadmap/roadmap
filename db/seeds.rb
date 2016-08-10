@@ -7,20 +7,23 @@
 d1 = DateTime.new(2015, 6, 22)
 
 languages = {
-    'EN-UK' => {
-        abbreviation: "en-UK",
-        description: "",
-        name: "en-UK"
+    'English(UK)' => {
+        abbreviation: 'en-UK',
+        description: 'UK English language used as default',
+        name: 'English(UK)',
+        default_language: true
     },
     'FR' => {
-        abbreviation: "fr",
-        description: "",
-        name: "fr"
+        abbreviation: 'fr',
+        description: '',
+        name: 'fr',
+        default_language: false
     },
     'DE' => {
-        abbreviation: "de",
-        description: "",
-        name: "de"
+        abbreviation: 'de',
+        description: '',
+        name: 'de',
+        default_language: false
     }
 }
 
@@ -29,7 +32,52 @@ languages.each do |l, details|
   language.abbreviation = details[:abbreviation]
   language.description = details[:description]
   language.name = details[:name]
+  language.default_language = details[:default_language]
   language.save!
+end
+
+regions = {
+    'UK' => {
+        abbreviation: 'uk',
+        description: 'default region',
+        name: 'UK',
+    },
+    'DE' => {
+        abbreviation: 'de',
+        description: '',
+        name: 'DE',
+    },
+    'Horizon2020' => {
+        abbreviation: 'horizon',
+        description: 'European super region',
+        name: 'Horizon2020',
+    }
+}
+
+regions.each do |l, details|
+  region = Region.new
+  region.abbreviation = details[:abbreviation]
+  region.description = details[:description]
+  region.name = details[:name]
+  region.save!
+end
+
+region_groups = {
+    'UK' => {
+        super_region_name: 'Horizon2020',
+        region_name: 'UK',
+    },
+    'DE' => {
+        super_region_name: 'Horizon2020',
+        region_name: 'DE',
+    }
+}
+
+region_groups.each do |l, details|
+  region_group = RegionGroup.new
+  region_group.super_region_id = Region.find_by_name(details[:super_region_name]).id
+  region_group.region_id = Region.find_by_name(details[:region_name]).id
+  region_group.save!
 end
 
 organisation_types = {
@@ -66,7 +114,9 @@ organisation_types = {
      organisation_type: "Organisation",
      description: "An example: Regional Curation Center concerned with research data management (typically the organization hosting this website)",
      banner_text: "Example: Your Regional Curation Center",
-     domain: "example.regionalcurationcenter.org"
+     domain: "example.regionalcurationcenter.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Global Funding Organization' => {
      name: "Global Research Center",
@@ -75,7 +125,9 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Research funding agency",
      banner_text: "Example: Global Research Center",
-     domain: "example.globalresearchcenter.org"
+     domain: "example.globalresearchcenter.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Regional Funding Organization' => {
      name: "Regional Science Federation",
@@ -84,7 +136,9 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Regional funding agency for scientific research",
      banner_text: "Example: Regional Science Federation",
-     domain: "example.regionalsciencefederation.org"
+     domain: "example.regionalsciencefederation.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Example Institution'=> {
      name: "Capital City College",
@@ -93,7 +147,9 @@ organisation_types = {
      sort_name: "CapitalCityCollege",
      organisation_type: "Institution",
      description: "An example: Academic institution",
-     banner_text: "Example: Capital City College ... go mascots!!"
+     banner_text: "Example: Capital City College ... go mascots!!",
+     region: 'UK',
+     language: 'English(UK)'
    }
  }
 
@@ -105,6 +161,8 @@ organisation_types = {
      organisation.domain = details[:domain]
      organisation.sort_name = details[:sort_name]
      organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
+     organisation.region_id = Region.find_by_name(details[:region]).id
+     organisation.language_id = Language.find_by_name(details[:language]).id
      organisation.save!
    end
  end
@@ -155,7 +213,7 @@ users = {
         surname: "Admin",
         password_confirmation: "password123",
         organisation: "RCC",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['admin','org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -167,7 +225,7 @@ users = {
         firstname: "Funder",
         surname: "Admin",
         organisation: "RegSciFed",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -179,7 +237,7 @@ users = {
         firstname: "Organization",
         surname: "Admin",
         organisation: "CapColl",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['org_admin'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -191,7 +249,7 @@ users = {
         firstname: "Jane",
         surname: "Researcher",
         organisation: "CapColl",
-        language: "en-UK",
+        language: 'English(UK)',
         roles: ['user'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -604,14 +662,14 @@ end
      text: "4a: Preserving Your Data",
      section: "Preservation, Sustainability and Use",
      number: 1,
-     guidance: "<p>Preservation of digital outputs is necessary in order for them to endure changes in the technological environment and remain potentially re-usable in the future. In this section you must state what, if any, digital outputs of your project you intend to preserve beyond the period of funding.</p><p>The length and cost of preservation should be proportionate to the value and significance of the digital outputs. If you believe that none of these should be preserved this must be justified, and if the case is a good one the application will not be prejudiced.</p><p>You must consider preservation in four ways: what, where, how and for how long. You must also consider any institutional support needed in order to carry out these plans, whether from an individual, facility, organisation or service.</p><p>You should think about the possibilities for re-use of your data in other contexts and by other users, and connect this as appropriate with your plans for dissemination and Pathways to Impact.Where there is potential for re-usability, you should use standards and formats that facilitate this.</p><p>The Technical Reviewer will be looking for evidence that you understand the reasons for the choice of technical standards and formats described in Section 2.a Technical Methodology: Standards and Formats.</p><p>You should describe the types of documentation which will accompany the data. Documentation in this sense means technical documentation as well as user documentation. It includes, for instance, technical description, code commenting, project-build guidelines, the documentation of technical decisions and resource metadata which is additional to the standards which you have described in Section 2.a. Not all types of documentation will be relevant to a project and the quantity of documentation proposed should be proportionate to the envisaged value of the data.</p>",
+     guidance: "<p>Preservation of digital outputs is necessary in order for them to endure changes in the technological environments and remain potentially re-usable in the future. In this section you must state what, if any, digital outputs of your project you intend to preserve beyond the period of funding.</p><p>The length and cost of preservation should be proportionate to the value and significance of the digital outputs. If you believe that none of these should be preserved this must be justified, and if the case is a good one the application will not be prejudiced.</p><p>You must consider preservation in four ways: what, where, how and for how long. You must also consider any institutional support needed in order to carry out these plans, whether from an individual, facility, organisation or service.</p><p>You should think about the possibilities for re-use of your data in other contexts and by other users, and connect this as appropriate with your plans for dissemination and Pathways to Impact.Where there is potential for re-usability, you should use standards and formats that facilitate this.</p><p>The Technical Reviewer will be looking for evidence that you understand the reasons for the choice of technical standards and formats described in Section 2.a Technical Methodology: Standards and Formats.</p><p>You should describe the types of documentation which will accompany the data. Documentation in this sense means technical documentation as well as user documentation. It includes, for instance, technical description, code commenting, project-build guidelines, the documentation of technical decisions and resource metadata which is additional to the standards which you have described in Section 2.a. Not all types of documentation will be relevant to a project and the quantity of documentation proposed should be proportionate to the envisaged value of the data.</p>",
      themes: ["Theme 2", "Theme 3", "Theme 4"]
    },
    "4b: Ensuring Continued Accessibility and Use of Your Digital Outputs" => {
      text: "4b: Ensuring Continued Accessibility and Use of Your Digital Outputs",
      section: "Preservation, Sustainability and Use",
      number: 2,
-     guidance: "<p>In this section you must provide information about any plans for ensuring that digital outputs remain sustainable in the sense of immediately accessible and usable beyond the period of funding. There are costs to ensuring sustainability in this sense over and above the costs of preservation. The project's sustainability plan should therefore be proportionate to the envisaged longer-term value of the data for the research community and should be closely related to your plans for dissemination and Pathways to Impact.</p><p>If you believe that digital outputs should not be sustained beyond the period of funding then this should be justified. It is not mandatory to sustain all digital outputs. While you should consider the long-term value of the digital outputs to the research community, where they are purely ancillary to a project’s research outputs there may not be a case for sustaining them (though there would usually be a case for preservation).</p><p>You must consider the sustainability of your digital outputs in five ways: what, where, how, for how long, and how the cost will be covered. You must make appropriate provision for user consultation and user testing in this connection, and plan the development of suitable user documentation.</p><p>You should provide justification if you do not envisage open, public access. A case can be made for charging for or otherwise limiting access, but the default expectation is that access will be open. The Technical Reviewer will be looking for realistic commitments to sustaining public access in line with affordability and the longer-term value of the digital output.</p><p>You must consider any institutional support needed in order to carry out these plans, if not covered under Section 3, as well as the cost of keeping the digital output publicly available in the future, including issues relating to maintenance, infrastructure and upgrade (such as the need to modify aspects of a web interface or software application in order to account for changes in the technological environment). In order to minimise sustainability costs, it is generally useful that the expertise involved in the development of your project is supported by expertise in your own or a partner institution.</p><p>A sustainability plan does not necessarily mean a requirement to generate income or prevent resources from being freely available. Rather it is a requirement to consider the direct costs and expertise of maintaining digital outputs for continued access. Some applicants might be able to demonstrate that there will be no significant sustainability problems with their digital output; in some cases the university’s computing services or library might provide a firm commitment to sustaining the resource for a specified period; others might see the benefit of Open Source community development models. You should provide reassurances of sustainability which are proportionate to the envisaged longer-term value of the digital outputs for the research community.</p><p>When completing this section, you should consider the potential impact of the data on research in your field (if research in the discipline will be improved through the creation of the digital output, how will it be affected if the resource then disappears?), and make the necessary connections with your Impact Plan. You must factor in the effects of any IP, copyright and ethical issues during the period in which the digital output will be publicly accessible, connecting what you say with the relevant part of your Case for Support.</p><p>You must identify whether or not you envisage the academic content (as distinct from the technology) of the digital output being extended or updated beyond the period of funding, addressing the following issues: how this will be done, by who and at what cost. You will need to show how the cost of this will be sustained after the period of funding ends.</p>",
+     guidance: "<p>In this section you must provide information about any plans for ensuring that digital outputs remain sustainable in the sense of immediately accessible and usable beyond the period of funding. There are costs to ensuring sustainability in this sense over and above the costs of preservation. The project's sustainability plan should therefore be proportionate to the envisaged longer-term value of the data for the research community and should be closely related to your plans for dissemination and Pathways to Impact.</p><p>If you believe that digital outputs should not be sustained beyond the period of funding then this should be justified. It is not mandatory to sustain all digital outputs. While you should consider the long-term value of the digital outputs to the research community, where they are purely ancillary to a project’s research outputs there may not be a case for sustaining them (though there would usually be a case for preservation).</p><p>You must consider the sustainability of your digital outputs in five ways: what, where, how, for how long, and how the cost will be covered. You must make appropriate provision for user consultation and user testing in this connection, and plan the development of suitable user documentation.</p><p>You should provide justification if you do not envisage open, public access. A case can be made for charging for or otherwise limiting access, but the default expectation is that access will be open. The Technical Reviewer will be looking for realistic commitments to sustaining public access in line with affordability and the longer-term value of the digital output.</p><p>You must consider any institutional support needed in order to carry out these plans, if not covered under Section 3, as well as the cost of keeping the digital output publicly available in the future, including issues relating to maintenance, infrastructure and upgrade (such as the need to modify aspects of a web interface or software application in order to account for changes in the technological environments). In order to minimise sustainability costs, it is generally useful that the expertise involved in the development of your project is supported by expertise in your own or a partner institution.</p><p>A sustainability plan does not necessarily mean a requirement to generate income or prevent resources from being freely available. Rather it is a requirement to consider the direct costs and expertise of maintaining digital outputs for continued access. Some applicants might be able to demonstrate that there will be no significant sustainability problems with their digital output; in some cases the university’s computing services or library might provide a firm commitment to sustaining the resource for a specified period; others might see the benefit of Open Source community development models. You should provide reassurances of sustainability which are proportionate to the envisaged longer-term value of the digital outputs for the research community.</p><p>When completing this section, you should consider the potential impact of the data on research in your field (if research in the discipline will be improved through the creation of the digital output, how will it be affected if the resource then disappears?), and make the necessary connections with your Impact Plan. You must factor in the effects of any IP, copyright and ethical issues during the period in which the digital output will be publicly accessible, connecting what you say with the relevant part of your Case for Support.</p><p>You must identify whether or not you envisage the academic content (as distinct from the technology) of the digital output being extended or updated beyond the period of funding, addressing the following issues: how this will be done, by who and at what cost. You will need to show how the cost of this will be sustained after the period of funding ends.</p>",
      themes: ["Theme 2"]
    }
  }

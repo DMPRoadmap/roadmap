@@ -13,13 +13,14 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   def set_locale
+    logger.debug(I18n.default_locale)
     # parameter from url takes precedence
     # check if locale is defined
     if params[:locale] # and I18n.available_locales.include? params[:locale] # throw an error if not available
       # if locales data is present in the parameter from url use it
       I18n.locale = params[:locale]
     elsif user_signed_in? and !current_user[:language_id].nil?
-      I18n.locale = Language.find_by_id(current_user[:language_id]).name
+      I18n.locale = Language.find_by_id(current_user[:language_id]).abbreviation
       # if user has set preferred language use it
     elsif false # TODO
       # use user's organization language, keep in mine the "OTHER ORG" edge case which should use english

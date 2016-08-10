@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   get '/:locale' => 'home#index', :as => 'locale_root'
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/, defaults: {locale: I18n.default_locale} do
     resources :contacts, :controllers => {:contacts => 'contacts'}
     resources :organisations, :path => 'org/admin' do
       member do

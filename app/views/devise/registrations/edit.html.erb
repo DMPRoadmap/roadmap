@@ -55,7 +55,7 @@
             <td class="first"><%= t('helpers.user_details_language') %></td>
             <td><%= collection_select(:user,
                                       :language_id, Language.all.order("name"),
-                                      :id, :name, {},
+                                      :id, :name, {:selected => Language.where(default_language: true).first.id},
                                       {:class => "typeahead org_sign_up"}) %></td>
           </tr>
           <tr>
