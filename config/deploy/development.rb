@@ -6,8 +6,6 @@
 set :server_host, ENV["SERVER_HOST"] || 'uc3-roadmap-dev.cdlib.org'
 server fetch(:server_host), user: 'dmp', roles: %w{web app db}
 
-set :branch, 'development'
-
 # role-based syntax
 # ==================
 
