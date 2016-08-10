@@ -36,10 +36,10 @@ set :default_env, { path: "/dmp/local/bin:$PATH" }
 # set :keep_releases, 5
 
 namespace :deploy do
-  after :restart, :clear_cache do
-    within release_path do
-      execute :rake, 'cache:clear'
-    end
-  end
+#  after :restart, :clear_cache do
+#    within release_path do
+#      execute :rake, 'cache:clear'
+#    end
+#  end
   
 end
