@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- Display of phases, sections and it's questions. A phase is passed as an argument-->
 
 <div class="div_clear"></div>
@@ -70,77 +69,5 @@
 
 <%end%>
 
-=======
-<!-- Display of phases, sections and it's questions. A phase is passed as an argument-->
 
-<div class="div_clear"></div>
-	
-<div class="div_left admin_left_smaller">
-	<p><%= raw phase.description %></p>
-</div>	 
-
-<% if phase.versions.any? then %>
-	
-    <% version = phase.versions.where("published = ?", true).first %>
-    <% if version.nil? then%>
-        <% version = phase.versions.order("updated_at DESC").first %>
-    <%end%>
-	
-    
-    <div class="div_right admin_right_bigger">
-        <!--delete a phase button. only displays when template not published-->
-        
-        <%if phase.has_sections == true then %>
-            <%= link_to t("helpers.preview"), admin_previewphase_dmptemplate_path(version), :class => 'btn btn-primary'%>
-        <%end%>	
-        <% if phase.latest_published_version == nil then%>
-            <%= link_to t("helpers.submit.delete"), admin_destroyphase_dmptemplate_path(:phase_id => phase.id),
-            :confirm => t("org_admin.templates.phase_delete_message", :phase_title => phase.title ), :method => :delete, :class => "btn btn-primary"%>
-        <%end%>	
-        <%if phase.dmptemplate.org_type == t("helpers.org_type.funder") && current_user.org_type != t("helpers.org_type.funder") then%>
-            <% b_label = t('org_admin.templates.view_phase_label')%>
-        <%else %>
-            <% b_label = t('org_admin.templates.edit_phase_label')%>
-        <%end%> 
-        <%= link_to b_label, admin_phase_dmptemplate_path(phase), :class => "btn btn-primary" %>
-                            
-    </div>
-    <% if version.sections.any? then %>
-		<table class="dmp_table">
-			<thead>
-			    <tr>
-			      	<th class="dmp_th_medium"><%= t('helpers.sections_label')%></th>
-			      	<th class="dmp_th_big"><%= t('helpers.questions_label')%></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% version.sections.order("number ASC").each do |section| %>
-					<%if (section.organisation_id == phase.dmptemplate.organisation_id ) || ( section.organisation_id == current_user.organisation_id) then%>
-						<tr >
-							<th class="dmp_th_border" >
-								<p><%= section.title %></p>
-							</th>
-							<td class="dmp_td_border" >	
-								<% if section.questions.any? %>
-									<% questions = section.questions.order("number ASC") %>
-									<ul class="question_ul">
-										<% questions.each do |ques|%>
-											<li>
-												- <%= ques.text %>
-											</li>	
-										<%end%>
-									</ul>
-								<%end%>		
-							</td>
-						</tr>
-					<%end%>			
-				<%end%>
-			</tbody>	
-		</table>
-	
-	<%end%>
-	
-<%end%>	
-
->>>>>>> 5081913e85a4cd405917545a8559aaaba67db1c6
 <div class="div_clear"></div>

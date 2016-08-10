@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- show template details A template is passed as an argument-->
 
 <% if @dmptemplate.org_type != constant("organisation_types.funder")  || current_user.org_type == constant("organisation_types.funder") then %>
@@ -42,49 +41,3 @@
 		<td class="phase_table_last_column"><%= l dmptemplate.updated_at.to_date, :formats => :short %></td>
 	</tr>
 </table>
-=======
-<!-- show template details A template is passed as an argument-->
-
-<% if @dmptemplate.org_type != t("helpers.org_type.funder")  || current_user.org_type == t("helpers.org_type.funder") then %>
-	<h3><!-- edit template button -->
-		<div class="move_2_right">
-			<%= link_to t("org_admin.templates.edit_details"), '# ', :class => "btn btn-primary", :id => "edit_template_button"%>
-		</div>
-	</h3>
-<%end%>	
-<br/>	
-
-<table class="dmp_details_table">
-	<tr>
-		<td class="first_template"><%= t('org_admin.templates.title_label') %></td>
-		<td><%= dmptemplate.title %></td>
-	</tr>
-	<tr>
-		<td class="first_template"><%= t('org_admin.templates.desc_label') %></td>
-		<td><% if !dmptemplate.description.nil? && dmptemplate.description != "" then %>
-				<%= raw dmptemplate.description %>
-			<%else%>
-				 -
-			<%end%>	
-		</td>
-	</tr>
-	<tr>
-		<td class="first_template"><%= t('org_admin.templates.published_label') %></td>
-		<td><%if dmptemplate.published || dmptemplate.has_published_versions? then%>
-				<%= dmptemplate.published %>
-			<%else%>
-				<%= t('org_admin.templates.cannot_publish')%>
-			<%end%>		
-		</td>
-	</tr>
-	<tr>
-		<td class="first_template"><%= t('org_admin.templates.created') %></td>
-		<td><%= l dmptemplate.created_at.to_date, :formats => :short %></td>
-	</tr>
-	<tr>
-		<td class="first_template"><%= t('org_admin.templates.last_updated') %></td>
-		<td class="phase_table_last_column"><%= l dmptemplate.updated_at.to_date, :formats => :short %></td>
-	</tr>
-</table>
->>>>>>> 5081913e85a4cd405917545a8559aaaba67db1c6
-<div class="add_space"></div>

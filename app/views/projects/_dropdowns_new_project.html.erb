@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- Create a new project (3 dropdowns = 6 options) -->
 <%= semantic_form_for @project, :url => {:controller => :projects, :action => :create }, :html=>{:method=>:post} do |f| %>
 	<%= f.inputs do %>
@@ -63,69 +62,3 @@
 		<a id="create-plan-button" style="display:none;" data-toggle="modal" href="#project-confirmation-dialog" class="btn btn-primary"><%= t('helpers.project.create')%></a>
 	<% end %>
 <% end %>
-=======
-<!-- Create a new project (3 dropdowns = 6 options) -->
-<%= semantic_form_for @project, :url => {:controller => :projects, :action => :create }, :html=>{:method=>:post} do |f| %>
-	<%= f.inputs do %>
-        <%= hidden_field_tag :default_tag, "false" ,:id => "default_tag" %>
-		<div class="createa-project">
-			<h1> <%= t('helpers.project.create_page.title')%> </h1>
-			<div class="info-new-project">
-				<p><%= raw t('helpers.project.create_page.desc_html')%></p>
-
-			</div>
-			<div class="dropdowns">
-				<div class="control-group" id="funder-control-group">
-					<div class="controls">
-						
-						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => t('helpers.project.create_page.funders_question'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  t('helpers.org_type.funder') %>
-						
-						<div class="div_clear"></div>
-						
-						<div id="other-funder-link" class="move_2_right">
-							<a href='#' id="no-funder"><%= t('helpers.project.not_applicable')%></a>
-						</div>
-						<div class="create_project_question_descriptions">
-							<%= t('helpers.project.create_page.funders_question_description')%>
-						</div>
-					</div>
-					<div class="div_clear"></div>
-					<div id="other-funder-name" class="controls" style="display:none;">
-						<%= f.input :funder_name, :as => :string, :placeholder => t('helpers.project.funder_name'), :label => t('helpers.project.create_page.other_funder_name_label') %>
-					</div>
-				</div>
-				<div class="control-group" id="institution-control-group">
-					<div class="controls">
-						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => t('helpers.project.create_page.institution_question'), :input_html => { :multiple => false, :class => "typeahead" }, :include_blank =>  t('helpers.org_type.organisation')  %>
-						<div class="div_clear"></div>
-						<div class="move_2_right">
-							<a href='#' id="no-institution"><%= t('helpers.project.not_applicable')%></a>
-						</div>
-						<div class="create_project_question_descriptions">
-							<%= t('helpers.project.create_page.institution_question_description')%>
-						</div>
-					</div>
-				</div>
-				<div class="control-group" id="template-control-group">
-					<div class="controls">
-						<%= f.input :dmptemplate, :as => :select, :collection => Dmptemplate.where(published: 1), :label => t('helpers.project.choose_template'), :input_html => { :multiple => false, :class => "typeahead" } %>
-						<div class="create_project_question_descriptions">
-							<%= t('helpers.project.multi_templates') %>
-						</div>
-					</div>
-				</div>
-				<div class="control-group" id="guidance-control-group">
-					<div class="controls">
-						<% other_guidance = GuidanceGroup.all %>
-						<%= f.input :guidance_groups, :as => :check_boxes, :collection => other_guidance, :label => t("helpers.project.create_page.other_guidance_question"), :member_label => :display_name %>
-					</div>
-				</div>
-			</div>
-		</div>
-	<% end %>
-	<!-- submit buttons -->
-	<%= f.actions do %>
-		<a id="create-plan-button" style="display:none;" data-toggle="modal" href="#project-confirmation-dialog" class="btn btn-primary"><%= t('helpers.project.create')%></a>
-	<% end %>
-<% end %>
->>>>>>> 5081913e85a4cd405917545a8559aaaba67db1c6

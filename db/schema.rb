@@ -12,8 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160805105941) do
->>>>>>> 5081913e85a4cd405917545a8559aaaba67db1c6
-
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
     t.integer  "plan_id",     limit: 4
