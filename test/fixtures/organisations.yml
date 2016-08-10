@@ -892,3 +892,14 @@ ysju:
   name: York St John University
   domain: www.yorksj.ac.uk
   organisation_type: institution
+
+institution_parent:
+  name: "Institution Parent"
+  domain: "www.example.com"
+  organisation_type: institution
+
+institution_child_one: 
+  name: "instituiton Chile 1"
+  domain: "www.institution_child.com"
+  organisation_type: instituiton
+  parent: institution_parent

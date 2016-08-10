@@ -2,92 +2,96 @@
 <% javascript 'admin.js' %>
 
 <h1>
-	<%= t('org_admin.guidance.guidance_group_label') %>
-	<!-- link button to add new guidance -->
-	<div class="move_2_right">
-		<%= link_to t("org_admin.guidance.view_all_guidance"),
-		            admin_index_guidance_path,
-		            :class => 'btn btn-primary' %>
-	</div>            
+  <%= t('org_admin.guidance.guidance_group_label') %>
+  <!-- link button to add new guidance -->
+  <div class="move_2_right">
+    <%= link_to t("org_admin.guidance.view_all_guidance"),
+                admin_index_guidance_path,
+                :class => 'btn btn-primary' %>
+  </div>
 </h1>
 
 <div class="div_clear"></div>
 
 <div class="white_background blue_border">
-	<!-- body -->
-	<div class="dmp_details">
-		<%= form_for(@guidance_group, :url => admin_update_guidance_group_path(@guidance_group), :html => { :method => :put}) do |f| %>
-			
-				<table class="dmp_details_table guidance_table">
-					<tr>
-						<td class="first"><%= t('org_admin.guidance.name_label') %></td>
-						<td><div class="div_left_icon_g">
-								<%= f.text_field :name, 
-								:as => :string, 
-								:class => 'text_field'%>
+  <!-- body -->
+  <div class="dmp_details">
+    <%= form_for(@guidance_group, :url => admin_update_guidance_group_path(@guidance_group), :html => {:method => :put}) do |f| %>
 
-							</div>
-							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_title_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.title_help_text_html'))%>
-							</div>
-													</td>
-					</tr>
-					<tr>
-						<td class="first"><%= t('org_admin.guidance.template') %></td>
-						<td><div class="div_left_icon_g">
-								<% if @guidance_group.dmptemplate_ids == [] then %>
-									<% default_select = "" %>
-								<%else%>
-									<% default_select = @guidance_group.dmptemplate_ids %>
-								<%end%>	
-								<%= f.select :dmptemplate_ids, options_for_select( 
-								[['All templates', ""]].concat( Dmptemplate.funders_and_own_templates(current_user.organisation_id).collect{ |g| [g.title, g.id] }), :selected => default_select ),{} ,
-								{:prompt => false , :multiple => true}%>
-							</div>
-							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_template_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.template_help_text_html'))%>
-							</div>
-							
-						</td>
-					</tr>
-                    <!-- if guidance group published then display check_box -->
-                    <% if @guidance_group.published == true then%>
-                        <tr>
-                            <td class="first"><%= t('org_admin.guidance_group.published') %></td>
-                            <td><div class="div_left_icon_g">
-                                    <%= f.check_box :published %> 
-                                </div>
-                                <div class="div_right_icon_g">
-                                    <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%-->
-                                </div>
-                            </td>
-                        </tr>
-                    <%end%>
-					
-                    <tr>
-						<td class="first"><%= t('org_admin.guidance_group.subset') %></td>
-						<td><div class="div_left_icon_g">
-								<%= f.check_box :optional_subset %> <%= t('org_admin.guidance_group.subset_eg') %>
-							</div>
-							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%>
-							</div>
-						</td>
-					</tr>
-										
-				</table>
-			
-			<!-- submit buttons -->
-			
-				<div class="move_2_right">
-					<%= f.submit t('helpers.submit.save'), :class => 'btn btn-primary' %>
-					<% if @guidance_group.published == false then%>
-                        <%= f.submit t("helpers.submit.save_publish"), :name => "save_publish", :class => "btn btn-primary" %>
-                    <%end%>
-                    <%= link_to t('helpers.submit.cancel'), :back, :class => 'btn cancel' %>
-				</div>
-			
-			<br />
-		<%end%>
-	</div>
+        <table class="dmp_details_table guidance_table">
+          <tr>
+            <td class="first"><%= t('org_admin.guidance_group.name_label') %></td>
+            <td>
+              <div class="div_left_icon_g">
+                <%= f.text_field :name,
+                                 :as => :string,
+                                 :class => 'text_field' %>
+
+              </div>
+              <div class="div_right_icon_g">
+                <%= link_to(image_tag('help_button.png'), '#', :class => 'guidance_group_title_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.title_help_text_html')) %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="first"><%= t('org_admin.guidance.template') %></td>
+            <td>
+              <div class="div_left_icon_g">
+                <% if @guidance_group.dmptemplate_ids == [] then %>
+                    <% default_select = "" %>
+                <% else %>
+                    <% default_select = @guidance_group.dmptemplate_ids %>
+                <% end %>
+                <%= f.select :dmptemplate_ids, options_for_select(
+                    [['All templates', ""]].concat(Dmptemplate.funders_and_own_templates(current_user.organisation_id).collect { |g| [g.title, g.id] }), :selected => default_select), {},
+                             {:prompt => false, :multiple => true} %>
+              </div>
+              <div class="div_right_icon_g">
+                <%= link_to(image_tag('help_button.png'), '#', :class => 'guidance_group_template_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.template_help_text_html')) %>
+              </div>
+
+            </td>
+          </tr>
+          <!-- if guidance group published then display check_box -->
+          <% if @guidance_group.published == true then %>
+              <tr>
+                <td class="first"><%= t('org_admin.templates.published_label') %></td>
+                <td>
+                  <div class="div_left_icon_g">
+                    <%= f.check_box :published %>
+                  </div>
+                  <div class="div_right_icon_g">
+                    <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%-->
+                  </div>
+                </td>
+              </tr>
+          <% end %>
+
+          <tr>
+            <td class="first"><%= t('org_admin.guidance_group.subset') %></td>
+            <td>
+              <div class="div_left_icon_g">
+                <%= f.check_box :optional_subset %> <%= t('org_admin.guidance_group.subset_eg') %>
+              </div>
+              <div class="div_right_icon_g">
+                <%= link_to(image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text')) %>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+        <!-- submit buttons -->
+
+        <div class="move_2_right">
+          <%= f.submit t('helpers.submit.save'), :class => 'btn btn-primary' %>
+          <% if @guidance_group.published == false then %>
+              <%= f.submit t('helpers.submit.publish'), :name => "save_publish", :class => "btn btn-primary" %>
+          <% end %>
+          <%= link_to t('helpers.submit.cancel'), :back, :class => 'btn cancel' %>
+        </div>
+
+        <br/>
+    <% end %>
+  </div>
 </div>	

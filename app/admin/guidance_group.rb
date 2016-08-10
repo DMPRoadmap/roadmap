@@ -62,12 +62,12 @@ ActiveAdmin.register GuidanceGroup do
 		end
 		
         f.inputs "Templates" do
-  			f.input :dmptemplate_ids,  :label => "Selected templates",
+  			f.input :dmptemplate_ids,  :label => I18n.t('admin.selected_templates'),
                     :as => :select, 
-                    :include_blank => "All Templates", 
+                    :include_blank => I18n.t('admin.all_templates'),
                     :multiple => true,
                     :collection => Dmptemplate.order('title').map{|the| [the.title, the.id]},
-                    :hint => 'Choose all templates that apply.'
+                    :hint => I18n.t('admin.choose_templates')
         end
         f.actions  
     end		

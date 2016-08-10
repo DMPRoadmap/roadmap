@@ -12,12 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require twitter/bootstrap
 //= require v1.js
 //= require select2.min.js
 //= require jquery.placeholder.js
-//= require turbolinks
-
+//= require tinymce-jquery
+//= require i18n
+//= require i18n/translations
 
 
 $( document ).ready(function() {
@@ -56,11 +57,13 @@ $( document ).ready(function() {
 	$(".help").popover();
 
 	$('.has-tooltip').tooltip({
-    placement: "right",
-    trigger: "focus"
+        placement: "right",
+        trigger: "focus"
 	});
 
-	$(".show-edit-toggle").click(function () {
+	$(".show-edit-toggle").click(function (e) {
+		e.preventDefault();
+		
 		$(".edit-project").toggle();
 		$(".view-project").toggle();
 	});
@@ -118,7 +121,6 @@ $( document ).ready(function() {
 		$("#user_organisation_id").change();
 	});
     
-    
     //alert dialog for unlink Shibbileth account 
    	$("#unlink-institutional-credentials-dialog").on("show", function(){
 		$('.select2-choice').hide();
@@ -135,6 +137,43 @@ $( document ).ready(function() {
 		
 	});
 
+	//Question Options
+	// ------------------------------------------------------------------------------------
+	$(".options_table").on("click", ".remove-option", function(e){
+		e.preventDefault();
+		
+		// Mark the option for removal 
+		$($(this).siblings()[0]).val(true);
+		
+		// Hide the entire table row and the associated hidden field for the item
+		$(this).parent().parent().addClass('hidden');
+	});
+	
+	$(".add-option").click(function(e){
+		e.preventDefault();
+
+		var tbl = $(this).parent().find("table.options_table > tbody.options_tbody"),
+			  last = tbl.find("tr:last"),
+	  		clone = last.clone();
+				nbr = parseInt(last.find(".number_field").val());
+	
+		// Update the input field names and ids
+		clone.find("input").each(function(index){
+			$(this).prop("id", $(this).prop("id").replace(/_\d+_/g, "_" + nbr + "_"));
+			$(this).prop("name", $(this).prop("name").replace(/\[\d+\]/g, "[" + nbr + "]"));
+		});
+	
+		// Remove the hidden class and make sure the new row is not marked for removal
+		clone.removeClass('hidden');
+		clone.find("[id$=" + nbr + "__destroy]").val(false);
+	
+		// Default the other values
+		clone.find("[id$=" + nbr + "_number]").val("" + (nbr + 1));
+		clone.find("[id$=" + nbr + "_text]").val("");
+		clone.find("[id$=" + nbr + "_is_default]").prop("checked", false);
+		
+		last.after(clone);
+	});
 
 	/*$('#continue-to-new').click(function(e){
 		var destination = $(this).attr("href");

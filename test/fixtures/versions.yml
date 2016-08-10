@@ -59,3 +59,9 @@ wellcome_template_1_version_1:
   published: 1
   number: 1
   phase: wellcome_template_1
+
+institution_child_version_1:
+  title: DCC Phase 1 Version 1
+  published: 1
+  number: 1
+  phase: DCC_phase_1

@@ -41,16 +41,16 @@ ActiveAdmin.register Theme do
 							if !question.section.version.phase.dmptemplate.nil? then
 								link_to question.section.version.phase.dmptemplate.title, [:admin, question.section.version.phase.dmptemplate]
 							else
-								'No template'
+								I18n.t('admin.no_template')
 							end
 						else
-							'No phase'
+							I18n.t('admin.no_phase')
 						end
 					else
-						'No version'
+						I18n.t('admin.no_version')
 					end
 				else
-					'No section'
+					I18n.t('admin.no_section')
 				end       
             }
 		end	

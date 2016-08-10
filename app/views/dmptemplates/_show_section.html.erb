@@ -9,7 +9,7 @@
 		<a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section.id%>">
 			<div class="accordion_heading_text">
 				<% if section.title == '' then%>
-					<%= t('org_amin.templates.new_section')%>
+					<%= t('org_admin.templates.new_section')%>
 				<%else%>
 					<%= section.title %>
 				<%end%>
@@ -24,7 +24,7 @@
 		</div>
 		<div class="accordion-inner">
 			<% section.questions.order("number").each do |question| %>
-				<% last_question_id = section.questions.order("number DESC").first.id%>
+				<% last_question_id = section.questions.order("number DESC").first.id %>
                 
                 <div class="question_guidance_block">    
                     <!--question block-->

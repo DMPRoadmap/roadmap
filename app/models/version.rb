@@ -8,10 +8,11 @@ class Version < ActiveRecord::Base
   has_many :plans
   
   #Link the data
-  accepts_nested_attributes_for :phase
+#  accepts_nested_attributes_for :phase
   accepts_nested_attributes_for :sections,  :allow_destroy => true 
   
-  attr_accessible :description, :number, :published, :title, :phase_id, :as => [:default, :admin]
+  attr_accessible :id, :description, :number, :published, :title, :phase_id, 
+                  :sections_attributes, :as => [:default, :admin]
   
   def to_s
   	"#{title}"
@@ -24,8 +25,8 @@ class Version < ActiveRecord::Base
   end
   
   amoeba do
-    include_field :sections
-    include_field :questions
+    include_association :sections
+    include_association :questions
     set :published => 'false'
     prepend :title => "Copy of " 
   end

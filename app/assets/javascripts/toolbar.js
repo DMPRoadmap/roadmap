@@ -29,11 +29,16 @@ $(document).ready(function() {
         tbody = $('<tbody><tr></tr></tbody>').appendTo(table),
         tfoot = $('<tfoot><tr></tr></tfoot>').appendTo(table),
          cols = data.all_columns,
-     selected = data.selected_columns;
-
+     selected = [];
+     
+    // grab the keys from the data.selected_columns hash
+    $.each(data.selected_columns, function(k,v){
+      selected.push(k);
+    });
+     
     table.before('<input name="_method" type="hidden" value="put" />'); // PUT not POST
     table.before('<input name="authenticity_token" type="hidden" value="' + $('meta[name="csrf-token"]').attr('content') + '" />'); // Auth token
-    table.after('<p>The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box. </p>');
+    table.after('<p>' + I18n.t("helpers.project.project_settings_text") + '</p>');
 
     // Default name column
     table.before('<input type="hidden" name="columns[name]" value="1" />');
@@ -50,11 +55,11 @@ $(document).ready(function() {
         input.attr('checked', 'checked');
     }
 
-    thead.append('<th><label for="columns_select">Select an action</label></th>');
+    thead.append('<th><label for="columns_select">' + I18n.t("helpers.select_action") + '</label></th>');
     tbody.append('<td><input type="checkbox" id="columns_select" name="columns[select]" value="1" checked disabled /></td>')
 
     var submit = $('<td><input type="Submit" value="Save" class="btn btn-primary" /></td>').appendTo(tfoot);
-        cancel = $('<td><a href="#" class="btn btn-primary">Cancel</a></td>').appendTo(tfoot);
+        cancel = $('<td><a href="#" class="btn btn-primary">' + I18n.t("helpers.submit.cancel") + '</a></td>').appendTo(tfoot);
 
     cancel.click(function(e) {
       e.preventDefault();
@@ -67,7 +72,7 @@ $(document).ready(function() {
   /*
      'My plans' filtering
    */
-  var no_matches_message = $('<tr style="display: none;"><td colspan="20">No matches</td></tr>').appendTo($('#dmp_table tbody')),
+  var no_matches_message = $('<tr style="display: none;"><td colspan="20">' + I18n.t("helpers.project.filter.no_matches") + '</td></tr>').appendTo($('#dmp_table tbody')),
                     rows = $('#dmp_table tbody tr'),
                   filter = $('#filter');
 

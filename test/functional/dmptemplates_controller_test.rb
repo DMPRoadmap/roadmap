@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class DmptemplatesControllerTest < ActionController::TestCase
+=begin
   setup do
     @dmptemplate = dmptemplates(:one)
   end
@@ -46,4 +47,5 @@ class DmptemplatesControllerTest < ActionController::TestCase
 
     assert_redirected_to dmptemplates_path
   end
+=end
 end

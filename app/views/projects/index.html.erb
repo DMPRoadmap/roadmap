@@ -22,7 +22,7 @@
 	        <%= render(partial: "project_list_item", locals: { project: project } ) %>
 	      <% end %>
 	    <% else %>
-	      <tr><td colspan="<%= @selected_columns.length -%>"><%= t("helpers.project.filter.no_matches", filter: params[:filter]) %><td></tr>
+	      <tr><td colspan="<%= @selected_columns.length -%>"><%= t("helpers.project.filter.no_plans_match", filter: params[:filter]) %><td></tr>
 	    <% end %>
 	  </tbody>
 	</table>
@@ -32,7 +32,6 @@
 	<p>
 		<%= raw t("helpers.project.project_text_when_no_project")%>
 	</p>
-
 <% end %>
 
 <!-- link button to create a new project -->

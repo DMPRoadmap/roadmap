@@ -106,17 +106,17 @@ ActiveAdmin.register Question do
             
         end
         f.inputs "Question Format" do
-  			f.input :question_format_id, :label => "Select question format",
+  			f.input :question_format_id, :label => I18n.t('admin.select_question_format'),
   					:as => :select,
-  					:collection => QuestionFormat.order('title').map{|format| [format.title, format.id]}								
+  					:collection => QuestionFormat.order('title').map{|format| [format.title, format.id]}
         end
         f.inputs "Themes" do
-  			f.input :theme_ids, :label => "Selected themes",
+  			f.input :theme_ids, :label => I18n.t('admin.selected_themes'),
                     :as => :select,
                     :multiple => true,
-                    :include_blank => "None", 
+                    :include_blank => I18n.t('helpers.none'),
                     :collection => Theme.order('title').map{|the| [the.title, the.id]}	,
-                    :hint => 'Choose all themes that apply.'
+                    :hint => I18n.t('admin.choose_themes')
                     
         end
 	 	f.actions  

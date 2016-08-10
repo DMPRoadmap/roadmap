@@ -4,7 +4,6 @@
 
 related_policies:
   text: "Related Policies:"
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are there any existing procedures that you will base your approach on?</li> <li>Does your department/group have data management guidelines?</li> <li>Does your institution have a data protection or security policy that you will follow? - Does your institution have a Research Data Management (RDM) policy?</li> <li>Does your funder have a Research Data Management policy?</li> <li>Are there any formal standards that you will adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>List any other relevant funder, institutional, departmental or group policies on data management, data sharing and data security. Some of the information you give in the remainder of the DMP will be determined by the content of other policies. If so, point/link to them here.</p>"
   number: 1
   section: administrative_data
@@ -14,7 +13,6 @@ related_policies:
 
 what_data_will_you_collect_or_create:
   text: What data will you collect or create?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What type, format and volume of data?</li> <li>Do your chosen formats and software enable sharing and long-term access to the data?</li> <li>Are there any existing data that you can reuse?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Give a brief description of the data, including any existing data or third-party sources that will be used, in each case noting its content, type and coverage. Outline and justify your choice of format and consider the implications of data format and data volumes in terms of storage, backup and access.</p>"
   number: 1
   section: data_collection
@@ -22,7 +20,6 @@ what_data_will_you_collect_or_create:
 
 how_will_the_data_be_collected_or_created:
   text: How will the data be collected or created?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What standards or methodologies will you use?</li> <li>How will you structure and name your folders and files?</li> <li>How will you handle versioning?</li> <li>What quality assurance processes will you adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline how the data will be collected/created and which community data standards (if any) will be used. Consider how the data will be organised during the project, mentioning for example naming conventions, version control and folder structures. Explain how the consistency and quality of data collection will be controlled and documented. This may include processes such as calibration, repeat samples or measurements, standardised data capture or recording, data entry validation, peer review of data or representation with controlled vocabularies.</p>"
   number: 2
   section: data_collection
@@ -32,7 +29,6 @@ how_will_the_data_be_collected_or_created:
 
 what_documentation_and_metadata_will_acompany_the_data:
   text: What documentation and metadata will acompany the data?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What information is needed for the data to be to be read and interpreted in the future?</li> <li>How will you capture / create this documentation and metadata?</li> <li>What metadata standards will you use and why?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Describe the types of documentation that will accompany the data to help secondary users to understand and reuse it. This should at least include basic details that will help people to find the data, including who created or contributed to the data, its title, date of creation and under what conditions it can be accessed.</p> <p>Documentation may also include details on the methodology used, analytical and procedural information, definitions of variables, vocabularies, units of measurement, any assumptions made, and the format and file type of the data. Consider how you will capture this information and where it will be recorded. Wherever possible you should identify and use existing community standards.</p>"
   number: 1
   section: documentation_and_metadata
@@ -42,15 +38,13 @@ what_documentation_and_metadata_will_acompany_the_data:
 
 how_will_you_manage_any_ethical_issues:
   text: How will you manage any ethical issues?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Have you gained consent for data preservation and sharing?</li> <li>How will you protect the identity of participants if required? e.g. via anonymisation</li> <li>How will sensitive data be handled to ensure it is stored and transferred securely?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Ethical issues affect how you store data, who can see/use it and how long it is kept. Managing ethical concerns may include: anonymisation of data; referral to departmental or institutional ethics committees; and formal consent agreements. You should show that you are aware of any issues and have planned accordingly. If you are carrying out research involving human participants, you must also ensure that consent is requested to allow data to be shared and reused.</p>"
   number: 1
   section: ethics_and_legal_compliance
   themes: ethical_issues, data_security
-  
+
 how_will_you_manage_copyright_and_intellectual_property_rights_ipr_issues:
   text: How will you manage copyright and Intellectual Property Rights (IPR) issues?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who owns the data?</li> <li>How will the data be licensed for reuse?</li> <li>Are there any restrictions on the reuse of third-party data?</li> <li>Will data sharing be postponed / restricted e.g. to publish or seek patents?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>State who will own the copyright and IPR of any data that you will collect or create, along with the licence(s) for its use and reuse. For multi-partner projects, IPR ownership may be worth covering in a consortium agreement. Consider any relevant funder, institutional, departmental or group policies on copyright or IPR. Also consider permissions to reuse third-party data and any restrictions needed on data sharing.</p>"
   number: 2
   section: ethics_and_legal_compliance
@@ -60,7 +54,6 @@ how_will_you_manage_copyright_and_intellectual_property_rights_ipr_issues:
 
 how_will_the_data_be_stored_and_backed_up_during_the_research:
   text: How will the data be stored and backed up during the research?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Do you have sufficient storage or will you need to include charges for additional services?</li> <li>How will the data be backed up?</li> <li>Who will be responsible for backup and recovery?</li> <li>How will the data be recovered in the event of an incident?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>State how often the data will be backed up and to which locations. How many copies are being made? Storing data on laptops, computer hard drives or external storage devices alone is very risky. The use of robust, managed storage provided by university IT teams is preferable. Similarly, it is normally better to use automatic backup services provided by IT Services than rely on manual processes. If you choose to use a third-party service, you should ensure that this does not conflict with any funder, institutional, departmental or group policies, for example in terms of the legal jurisdiction in which data are held or the protection of sensitive data.</p>"
   number: 1
   section: storage_and_backup
@@ -68,7 +61,6 @@ how_will_the_data_be_stored_and_backed_up_during_the_research:
 
 how_will_you_manage_access_and_security:
   text: How will you manage access and security?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What are the risks to data security and how will these be managed?</li> <li>How will you control access to keep the data secure?</li> <li>How will you ensure that collaborators can access your data securely?</li> <li>If creating or collecting data in the field how will you ensure its safe transfer into your main secured systems?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>If your data is confidential (e.g. personal data not already in the public domain, confidential information or trade secrets), you should outline any appropriate security measures and note any formal standards that you will comply with e.g. ISO 27001.&quot;</p>"
   number: 2
   section: storage_and_backup
@@ -78,7 +70,6 @@ how_will_you_manage_access_and_security:
 
 which_data_are_of_long-term_value_and_should_be_retained_shared_and-or_preserved:
   text: Which data are of long-term value and should be retained, shared, and/or preserved?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What data must be retained/destroyed for contractual, legal, or regulatory purposes?</li> <li>How will you decide what other data to keep?</li> <li>What are the foreseeable research uses for the data?</li> <li>How long will the data be retained and preserved?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider how the data may be reused e.g. to validate your research findings, conduct new studies, or for teaching. Decide which data to keep and for how long. This could be based on any obligations to retain certain data, the potential reuse value, what is economically viable to keep, and any additional effort required to prepare the data for data sharing and preservation. Remember to consider any additional effort required to prepare the data for sharing and preservation, such as changing file formats.</p>"
   number: 1
   section: selection_and_preservation
@@ -86,7 +77,6 @@ which_data_are_of_long-term_value_and_should_be_retained_shared_and-or_preserved
 
 what_is_the_long-term_preservation_plan_for_the_dataset:
   text: What is the long-term preservation plan for the dataset?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Where e.g. in which repository or archive will the data be held?</li> <li>What costs if any will your selected data repository or archive charge?</li> <li>Have you costed in time and effort to prepare the data for sharing / preservation?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>Consider how datasets that have long-term value will be preserved and curated beyond the lifetime of the grant. Also outline the plans for preparing and documenting data for sharing and archiving. If you do not propose to use an established repository, the data management plan should demonstrate that resources and systems will be in place to enable the data to be curated effectively beyond the lifetime of the grant.</p>"
   number: 2
   section: selection_and_preservation
@@ -96,7 +86,6 @@ what_is_the_long-term_preservation_plan_for_the_dataset:
 
 how_will_you_share_the_data:
   text: How will you share the data?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will potential users find out about your data?</li> <li>With whom will you share the data, and under what conditions?</li> <li>Will you share data via a repository, handle requests directly or use another mechanism?</li> <li>When will you make the data available?</li> <li>Will you pursue getting a persistent identifier for your data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider where, how, and to whom data with acknowledged long-term value should be made available. The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. If possible, mention earlier examples to show a track record of effective data sharing. Consider how people might acknowledge the reuse of your data.</p>"
   number: 1
   section: data_sharing
@@ -104,7 +93,6 @@ how_will_you_share_the_data:
 
 are_any_restrictions_on_data_sharing_required:
   text: Are any restrictions on data sharing required?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What action will you take to overcome or minimise restrictions?</li> <li>For how long do you need exclusive use of the data and why?</li> <li>Will a data sharing agreement (or equivalent) be required?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline any expected difficulties in sharing data with acknowledged long-term value, along with causes and possible measures to overcome these. Restrictions may be due to confidentiality, lack of consent agreements or IPR, for example. Consider whether a non-disclosure agreement would give sufficient protection for confidential data.</p>"
   number: 2
   section: data_sharing
@@ -114,7 +102,6 @@ are_any_restrictions_on_data_sharing_required:
 
 who_will_be_responsible_for_data_management:
   text: Who will be responsible for data management?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who is responsible for implementing the DMP, and ensuring it is reviewed and revised?</li> <li>Who will be responsible for each data management activity?</li> <li>How will responsibilities be split across partner sites in collaborative research projects?</li> <li>Will data ownership and responsibilities for RDM be part of any consortium agreement or contract agreed between partners?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline the roles and responsibilities for all activities e.g. data capture, metadata production, data quality, storage and backup, data archiving &amp; data sharing. Consider who will be responsible for ensuring relevant policies will be respected. Individuals should be named where possible.</p>"
   number: 1
   section: responsibilities_and_resources
@@ -122,43 +109,30 @@ who_will_be_responsible_for_data_management:
 
 what_resources_will_you_require_to_deliver_your_plan:
   text: What resources will you require to deliver your plan?
-  question_type: Text
   guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Is additional specialist expertise (or training for existing staff) required?</li> <li>Do you require hardware or software which is additional or exceptional to existing institutional provision?</li> <li>Will charges be applied by data repositories?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Carefully consider any resources needed to deliver the plan, e.g. software, hardware, technical expertise, etc. Where dedicated resources are needed, these should be outlined and justified.</p>"
   number: 2
   section: responsibilities_and_resources
   themes: resourcing_skills_and_training, resourcing_hardware_and_software, resourcing_preservation_and_data_sharing
-  
+
 #Multiple Choice
 
 #single_select_box:
 #  text: Example select box limited to one option
-#  multiple_choice: true
-#  multiple_permitted: false
-#  is_expanded: false
 #  number: 1
 #  section: multiple_choice
 #
 #multiple_select_box:
 #  text: Example select box allowing multiple options
-#  multiple_choice: true
-#  multiple_permitted: true
-#  is_expanded: false
 #  number: 2
 #  section: multiple_choice
 #
 #radio_button:
 #  text: Example radio button
-#  multiple_choice: true
-#  multiple_permitted: false
-#  is_expanded: true
 #  number: 3
 #  section: multiple_choice
 #
 #checkbox:
 #  text: Example checkbox
-#  multiple_choice: true
-#  multiple_permitted: true
-#  is_expanded: true
 #  number: 4
 #  section: multiple_choice
 
@@ -185,7 +159,7 @@ ahrc_2_2:
 
 ahrc_2_3:
   text: "Technical Methodology Data Acquisition, Processing, Analysis and Use"
-  guidance: "<p>You should provide information about the process of technical development, showing how the standards and formats described in section 2.a and the hardware and software described in section 2.b relate to each other. You must show that you have considered how you will achieve your digital output or digital technology in practice, including issues of timetabling.</p><p>You should consider the technical development process from the point of data capture or data creation through to final delivery (in the case of a digital output) or analysis (in the case of a digital process). You should consider issues such as backup, monitoring, quality control and internal documentation where relevant, identifying procedures which are appropriate to the research environment. For example Technical Reviewers acknowledge that the backup procedures which are possible during fieldwork might be very different to those which are possible within an office environment.</p><p>This section needs to relate to the timetable and milestones given in the Case for Support as well as the project’s overall research methodology.  The Technical Reviewer will be assessing the alignment of the technical development process with other project activities for logic and timeliness.</p>"
+  guidance: "<p>You should provide information about the process of technical development, showing how the standards and formats described in section 2.a and the hardware and software described in section 2.b relate to each other. You must show that you have considered how you will achieve your digital output or digital technology in practice, including issues of timetabling.</p><p>You should consider the technical development process from the point of data capture or data creation through to final delivery (in the case of a digital output) or analysis (in the case of a digital process). You should consider issues such as backup, monitoring, quality control and internal documentation where relevant, identifying procedures which are appropriate to the research environments. For example Technical Reviewers acknowledge that the backup procedures which are possible during fieldwork might be very different to those which are possible within an office environments.</p><p>This section needs to relate to the timetable and milestones given in the Case for Support as well as the project’s overall research methodology.  The Technical Reviewer will be assessing the alignment of the technical development process with other project activities for logic and timeliness.</p>"
   number: 3
   section: ahrc_2
   themes: data_capture_methods, data_quality, data_organisation, documentation, metadata_capture, metadata_standards, backup_procedures
@@ -199,14 +173,14 @@ ahrc_3_1:
 
 ahrc_4_1:
   text: "Preserving Your Data"
-  guidance: "<p>Preservation of digital outputs is necessary in order for them to endure changes in the technological environment and remain potentially re-usable in the future. In this section you must state what, if any, digital outputs of your project you intend to preserve beyond the period of funding.</p><p>The length and cost of preservation should be proportionate to the value and significance of the digital outputs. If you believe that none of these should be preserved this must be justified, and if the case is a good one the application will not be prejudiced.</p><p>You must consider preservation in four ways: what, where, how and for how long. You must also consider any institutional support needed in order to carry out these plans, whether from an individual, facility, organisation or service.</p><p>You should think about the possibilities for re-use of your data in other contexts and by other users, and connect this as appropriate with your plans for dissemination and Pathways to Impact.Where there is potential for re-usability, you should use standards and formats that facilitate this.</p><p>The Technical Reviewer will be looking for evidence that you understand the reasons for the choice of technical standards and formats described in Section 2.a Technical Methodology: Standards and Formats.</p><p>You should describe the types of documentation which will accompany the data. Documentation in this sense means technical documentation as well as user documentation. It includes, for instance, technical description, code commenting, project-build guidelines, the documentation of technical decisions and resource metadata which is additional to the standards which you have described in Section 2.a. Not all types of documentation will be relevant to a project and the quantity of documentation proposed should be proportionate to the envisaged value of the data.</p>"
+  guidance: "<p>Preservation of digital outputs is necessary in order for them to endure changes in the technological environments and remain potentially re-usable in the future. In this section you must state what, if any, digital outputs of your project you intend to preserve beyond the period of funding.</p><p>The length and cost of preservation should be proportionate to the value and significance of the digital outputs. If you believe that none of these should be preserved this must be justified, and if the case is a good one the application will not be prejudiced.</p><p>You must consider preservation in four ways: what, where, how and for how long. You must also consider any institutional support needed in order to carry out these plans, whether from an individual, facility, organisation or service.</p><p>You should think about the possibilities for re-use of your data in other contexts and by other users, and connect this as appropriate with your plans for dissemination and Pathways to Impact.Where there is potential for re-usability, you should use standards and formats that facilitate this.</p><p>The Technical Reviewer will be looking for evidence that you understand the reasons for the choice of technical standards and formats described in Section 2.a Technical Methodology: Standards and Formats.</p><p>You should describe the types of documentation which will accompany the data. Documentation in this sense means technical documentation as well as user documentation. It includes, for instance, technical description, code commenting, project-build guidelines, the documentation of technical decisions and resource metadata which is additional to the standards which you have described in Section 2.a. Not all types of documentation will be relevant to a project and the quantity of documentation proposed should be proportionate to the envisaged value of the data.</p>"
   number: 1
   section: ahrc_4
   themes: preservation_plan, period_of_preservation, resourcing_preservation_and_data_sharing, documentation
 
 ahrc_4_2:
   text: "Ensuring Continued Accessibility and Use of Your Digital Outputs"
-  guidance: "<p>In this section you must provide information about any plans for ensuring that digital outputs remain sustainable in the sense of immediately accessible and usable beyond the period of funding. There are costs to ensuring sustainability in this sense over and above the costs of preservation. The project's sustainability plan should therefore be proportionate to the envisaged longer-term value of the data for the research community and should be closely related to your plans for dissemination and Pathways to Impact.</p><p>If you believe that digital outputs should not be sustained beyond the period of funding then this should be justified. It is not mandatory to sustain all digital outputs. While you should consider the long-term value of the digital outputs to the research community, where they are purely ancillary to a project’s research outputs there may not be a case for sustaining them (though there would usually be a case for preservation).</p><p>You must consider the sustainability of your digital outputs in five ways: what, where, how, for how long, and how the cost will be covered. You must make appropriate provision for user consultation and user testing in this connection, and plan the development of suitable user documentation.</p><p>You should provide justification if you do not envisage open, public access. A case can be made for charging for or otherwise limiting access, but the default expectation is that access will be open. The Technical Reviewer will be looking for realistic commitments to sustaining public access in line with affordability and the longer-term value of the digital output.</p><p>You must consider any institutional support needed in order to carry out these plans, if not covered under Section 3, as well as the cost of keeping the digital output publicly available in the future, including issues relating to maintenance, infrastructure and upgrade (such as the need to modify aspects of a web interface or software application in order to account for changes in the technological environment). In order to minimise sustainability costs, it is generally useful that the expertise involved in the development of your project is supported by expertise in your own or a partner institution.</p><p>A sustainability plan does not necessarily mean a requirement to generate income or prevent resources from being freely available. Rather it is a requirement to consider the direct costs and expertise of maintaining digital outputs for continued access. Some applicants might be able to demonstrate that there will be no significant sustainability problems with their digital output; in some cases the university’s computing services or library might provide a firm commitment to sustaining the resource for a specified period; others might see the benefit of Open Source community development models. You should provide reassurances of sustainability which are proportionate to the envisaged longer-term value of the digital outputs for the research community.</p><p>When completing this section, you should consider the potential impact of the data on research in your field (if research in the discipline will be improved through the creation of the digital output, how will it be affected if the resource then disappears?), and make the necessary connections with your Impact Plan. You must factor in the effects of any IP, copyright and ethical issues during the period in which the digital output will be publicly accessible, connecting what you say with the relevant part of your Case for Support.</p><p>You must identify whether or not you envisage the academic content (as distinct from the technology) of the digital output being extended or updated beyond the period of funding, addressing the following issues: how this will be done, by who and at what cost. You will need to show how the cost of this will be sustained after the period of funding ends.</p>"
+  guidance: "<p>In this section you must provide information about any plans for ensuring that digital outputs remain sustainable in the sense of immediately accessible and usable beyond the period of funding. There are costs to ensuring sustainability in this sense over and above the costs of preservation. The project's sustainability plan should therefore be proportionate to the envisaged longer-term value of the data for the research community and should be closely related to your plans for dissemination and Pathways to Impact.</p><p>If you believe that digital outputs should not be sustained beyond the period of funding then this should be justified. It is not mandatory to sustain all digital outputs. While you should consider the long-term value of the digital outputs to the research community, where they are purely ancillary to a project’s research outputs there may not be a case for sustaining them (though there would usually be a case for preservation).</p><p>You must consider the sustainability of your digital outputs in five ways: what, where, how, for how long, and how the cost will be covered. You must make appropriate provision for user consultation and user testing in this connection, and plan the development of suitable user documentation.</p><p>You should provide justification if you do not envisage open, public access. A case can be made for charging for or otherwise limiting access, but the default expectation is that access will be open. The Technical Reviewer will be looking for realistic commitments to sustaining public access in line with affordability and the longer-term value of the digital output.</p><p>You must consider any institutional support needed in order to carry out these plans, if not covered under Section 3, as well as the cost of keeping the digital output publicly available in the future, including issues relating to maintenance, infrastructure and upgrade (such as the need to modify aspects of a web interface or software application in order to account for changes in the technological environments). In order to minimise sustainability costs, it is generally useful that the expertise involved in the development of your project is supported by expertise in your own or a partner institution.</p><p>A sustainability plan does not necessarily mean a requirement to generate income or prevent resources from being freely available. Rather it is a requirement to consider the direct costs and expertise of maintaining digital outputs for continued access. Some applicants might be able to demonstrate that there will be no significant sustainability problems with their digital output; in some cases the university’s computing services or library might provide a firm commitment to sustaining the resource for a specified period; others might see the benefit of Open Source community development models. You should provide reassurances of sustainability which are proportionate to the envisaged longer-term value of the digital outputs for the research community.</p><p>When completing this section, you should consider the potential impact of the data on research in your field (if research in the discipline will be improved through the creation of the digital output, how will it be affected if the resource then disappears?), and make the necessary connections with your Impact Plan. You must factor in the effects of any IP, copyright and ethical issues during the period in which the digital output will be publicly accessible, connecting what you say with the relevant part of your Case for Support.</p><p>You must identify whether or not you envisage the academic content (as distinct from the technology) of the digital output being extended or updated beyond the period of funding, addressing the following issues: how this will be done, by who and at what cost. You will need to show how the cost of this will be sustained after the period of funding ends.</p>"
   number: 2
   section: ahrc_4
   themes: resourcing_preservation_and_data_sharing, managed_access_procedures, data_repository, method_for_data_sharing, timeframe_for_data_sharing
@@ -290,7 +264,7 @@ cruk_3_1:
 
 cruk_4_1:
   text: "The method used to share data"
-  guidance: "<p>The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. Data can be shared by any of the following methods: </p><p class='guidance_header'>Under the auspices of the Principal Investigator </p><p>Investigators sharing under their own auspices may securely send data to a requestor, or upload the data to their institutional website. Investigators should consider using a data-sharing agreement (see below) to impose appropriate limitations on the secondary use of the data. </p><p>Through a third party </p><p>Investigators can share their data by transferring it to a data archive facility to distribute more widely to the scientific community, to maintain documentation and meet reporting requirements. Data archives are particularly attractive for investigators concerned about managing a large volume of requests for data, vetting frivolous or inappropriate requests, or providing technical assistance for users seeking to help with analyses. </p><p class='guidance_header'>Using a data enclave </p><p>Datasets that cannot be distributed to the general public due to confidentially concerns, or third-party licensing or use agreements that prohibit redistribution, can be accessed through a data enclave. A data enclave provides a controlled secure environment in which eligible researchers can perform analyses using restricted data resources. </p><p class='guidance_header'>Through a combination of methods </p><p>Investigators may wish to share their data by a combination of the above methods or in different versions, in order to control the level of access permitted.</p>"
+  guidance: "<p>The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. Data can be shared by any of the following methods: </p><p class='guidance_header'>Under the auspices of the Principal Investigator </p><p>Investigators sharing under their own auspices may securely send data to a requestor, or upload the data to their institutional website. Investigators should consider using a data-sharing agreement (see below) to impose appropriate limitations on the secondary use of the data. </p><p>Through a third party </p><p>Investigators can share their data by transferring it to a data archive facility to distribute more widely to the scientific community, to maintain documentation and meet reporting requirements. Data archives are particularly attractive for investigators concerned about managing a large volume of requests for data, vetting frivolous or inappropriate requests, or providing technical assistance for users seeking to help with analyses. </p><p class='guidance_header'>Using a data enclave </p><p>Datasets that cannot be distributed to the general public due to confidentially concerns, or third-party licensing or use agreements that prohibit redistribution, can be accessed through a data enclave. A data enclave provides a controlled secure environments in which eligible researchers can perform analyses using restricted data resources. </p><p class='guidance_header'>Through a combination of methods </p><p>Investigators may wish to share their data by a combination of the above methods or in different versions, in order to control the level of access permitted.</p>"
   number: 1
   section: cruk_4
   themes: discovery_by_users, method_for_data_sharing, data_repository
@@ -357,7 +331,7 @@ esrc_2_3:
   number: 3
   section: esrc_2
   themes: data_capture_methods
-  
+
 esrc_3_1:
   text: "Quality Assurance"
   guidance: "<p>Quality control of data is an integral part of a research process. Describe the procedures for quality assurance that will be carried out on the data collected at the time of data collection, data entry, digitisation and data checking.</p> <p>For example this might include: <ul><li>Documenting the calibration of instruments </li><li>Taking duplicate samples or measurements </li><li>Standardised data capture, data entry or recording methods </li><li>Data entry validation techniques </li><li>Methods of transcription </li><li>Peer review of data</li></ul></p> <ul><li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format/quality.aspx'>Guidance on data quality control</a></li></ul>"
@@ -485,7 +459,7 @@ nerc_2_4_1:
   number: 1
   section: nerc_2_4
   themes: active_data_storage, backup_procedures, data_security
-  
+
 nerc_2_5_1:
   text: Metadata and Documentation
   guidance: "<p>Insert statement about how metadata will be supplied and standards to which it will adhere.</p>"
@@ -520,7 +494,7 @@ nerc_2_8_2:
   number: 2
   section: nerc_2_8
   themes: data_capture_methods, project_data_contact, data_volumes, data_format, ipr_ownership_and_licencing, timeframe_for_data_sharing, preservation_plan
-  
+
 nerc_2_8_3:
   text: Physical Collections & Samples
   guidance: "<p>Enter a brief description of the activities that will produce the data</p>"
@@ -615,9 +589,6 @@ mrc_5_2:
   text: Suitability for sharing
   guidance: "<p>Indicate whether the data you propose to collect (or existing data you propose to use) in the study will be suitable for sharing. (“Yes” or “No”)</p><p>If “No,” indicate why they will not be suitable for sharing and then go to Section 6.</p>"
   number: 2
-  multiple_choice: true
-  multiple_permitted: false
-  is_expanded: true
   section: mrc_5
 
 mrc_5_3:
@@ -668,7 +639,7 @@ mrc_6_2:
   number: 2
   section: mrc_6
   themes: related_policies
-  
+
 stfc_1_1:
   text: Specify the types of data the research will generate.
   guidance: "<p>Data management plans should describe the types of data that are expected to be produced from the project, including the raw data arising directly from the research, the reduced data derived from it, and published data.</p>"

@@ -2,32 +2,29 @@ source 'https://rubygems.org'
 #
 #      RAILS
 #
-gem 'rails', '4.0.0'
+gem 'rails', '4.2.0'
 
 # additional gems for rails 4
-gem 'turbolinks'
-gem 'railties', '= 4.0.0'
+gem 'railties'
+gem 'responders', '~> 2.0'   # allows use of respond_with and respond_to in controllers
+
 # add these gems to help with the transition:
 gem 'protected_attributes'
 gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 # Gems used only for assets and not required in production environments by default.
-#group :assets do
- # gem 'coffee-rails'
-#end
 # Use SCSS for stylesheets
 gem 'sass-rails'
-#gem 'sass' 
 
 
 # Use SCSS for stylesheets
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
-gem 'therubyracer', '0.11.4', platforms: :ruby
+gem 'therubyracer', '>=0.11.4', platforms: :ruby
 
 gem 'libv8'
 
@@ -40,10 +37,14 @@ gem 'exception_notification'
 #to allow cloning of objects
 gem 'amoeba'
 
+group :development, :test do
+  gem "byebug"
+end
+
 group :development do
-  gem 'web-console', '~>2.0'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'web-console', '~>2.0'
 end
 
 #
@@ -63,9 +64,8 @@ gem 'validate_url'
 #
 #    DATABASE/SERVER
 #
-gem 'mysql2', '~> 0.3.10'
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'mysql2', '~> 0.3.18'
+
 #cancan for usergroups
 gem 'cancancan'
 
@@ -74,8 +74,8 @@ gem 'cancancan'
 #
 gem 'jquery-rails'
 gem 'tinymce-rails'
-gem 'friendly_id', '~> 5.0.1'
-gem 'contact_us'
+gem 'friendly_id'
+gem 'contact_us', '>= 1.1.1'
 gem 'recaptcha'
 gem 'turbolinks'
 #implementation of forms
@@ -92,4 +92,28 @@ gem 'feedjira'
 gem 'caracal'
 gem 'caracal-rails'
 
+#
+#     INTERNATIONALIZATION
+#
+gem "i18n-js", ">= 3.0.0.rc11"      #damodar added TODO: explain
 
+
+#
+#     TESTING
+#
+group :test do
+  gem 'minitest-rails-capybara'
+  gem 'minitest-reporters'
+  gem 'rack-test'
+end
+
+#
+#     API
+#
+gem 'swagger-docs'
+
+#
+#    CODE DOCUMENTATION
+#
+gem 'yard'
+gem 'redcarpet'

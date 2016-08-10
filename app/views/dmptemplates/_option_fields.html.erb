@@ -3,5 +3,5 @@
 	<td class="small"><%= f.number_field :number,:in => 1..20, :class => "number_field option"%></td>
 	<td class="medium"><%= f.text_field :text, :as => :string, :class => "small_text_field" %></td>
 	<td class="small"><%= f.check_box :is_default %></td>	
-	<td class="small"><%= f.hidden_field :_destroy %><%= link_to_function t('org_admin.remove_option_label'), "remove_object(this)"%></td>																	
+	<td class="small"><%= f.hidden_field :_destroy %><span class="remove-option"><%= t('org_admin.remove_option_label') %></span></td>																	
 </tr>

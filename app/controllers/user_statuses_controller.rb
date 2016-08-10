@@ -44,7 +44,7 @@ class UserStatusesController < ApplicationController
 
     respond_to do |format|
       if @user_status.save
-        format.html { redirect_to @user_status, notice: 'User status was successfully created.' }
+        format.html { redirect_to @user_status, notice: I18n.t('admin.user_status_created') }
         format.json { render json: @user_status, status: :created, location: @user_status }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class UserStatusesController < ApplicationController
 
     respond_to do |format|
       if @user_status.update_attributes(params[:user_status])
-        format.html { redirect_to @user_status, notice: 'User status was successfully updated.' }
+        format.html { redirect_to @user_status, notice: I18n.t('admin.user_status_updated') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

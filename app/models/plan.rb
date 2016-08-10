@@ -13,9 +13,10 @@ class Plan < ActiveRecord::Base
 	belongs_to :version
 	has_many :answers
 	has_many :plan_sections
-	accepts_nested_attributes_for :project
+
+#	accepts_nested_attributes_for :project
 	accepts_nested_attributes_for :answers
-	accepts_nested_attributes_for :version
+#	accepts_nested_attributes_for :version
 
 	has_settings :export, class_name: 'Settings::Dmptemplate' do |s|
 		s.key :export, defaults: Settings::Dmptemplate::DEFAULT_SETTINGS
@@ -43,7 +44,7 @@ class Plan < ActiveRecord::Base
             if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
                 return self.version.phase.title
             else
-                return "DMP title"
+                return I18n.t('tool_title2')
 			end
 		else
 			return self.settings(:export).title

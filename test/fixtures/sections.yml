@@ -428,3 +428,15 @@ wellcome_7:
   number: 7
   version: wellcome_template_1_version_1
   organisation: wellcome
+
+institution_parent_1:
+  title: first section
+  number: 1
+  version: institution_child_version_1
+  organisation: institution_parent
+
+institution_parent_2:
+  title: seccond section
+  number: 2
+  version: institution_child_version_1
+  organisation: institution_parent

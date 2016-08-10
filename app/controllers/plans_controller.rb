@@ -13,7 +13,7 @@ class PlansController < ApplicationController
 			end
 		elsif !@plan.readable_by(current_user.id) then
 			respond_to do |format|
-				format.html { redirect_to projects_url, notice: "This account does not have access to that plan." }
+				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
 			end
 		end
 	end
@@ -25,11 +25,11 @@ class PlansController < ApplicationController
 		if user_signed_in? && @plan.editable_by(current_user.id) then
 			respond_to do |format|
 			if @plan.update_attributes(params[:plan])
-				format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+				format.html { redirect_to @plan, notice: I18n.t('helpers.project.success_update') }
 				format.json { head :no_content }
 			else
 				format.html { render action: "edit" }
-				format.json { render json: @plan.errors, status: :unprocessable_entity }
+				format.json { render json: @plan.errors, status: :unprocessablne_entity }
 			end
 		end
     	else
@@ -168,7 +168,8 @@ class PlansController < ApplicationController
 			@exported_plan = ExportedPlan.new.tap do |ep|
 				ep.plan = @plan
 				ep.user = current_user
-				ep.format = request.format.try(:symbol)
+				#ep.format = request.format.try(:symbol)
+        ep.format = request.format.to_sym
 				plan_settings = @plan.settings(:export)
 
 				Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
@@ -204,7 +205,7 @@ class PlansController < ApplicationController
 			end
 		elsif !@plan.editable_by(current_user.id) then
 			respond_to do |format|
-				format.html { redirect_to projects_url, notice: "This account does not have access to that plan." }
+				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
 			end
 		end
 	end
