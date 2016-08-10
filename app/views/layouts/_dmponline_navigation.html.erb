@@ -90,18 +90,24 @@
                 <a href="<%= help_path %>" class="main_nav"><%= t("helpers.help_label") %></a>
             </li>
             <!-- language dropdown -->
-              <% Language.all.order("name ASC").each do |language|%>
-                <% if I18n.locale == language.name %>
-                  <li class="active">
-                <% else %>
-                  <li>
+            <li class="dropdown sign_in">
+              <a class="dropdown-toggle main_nav" data-toggle="dropdown" href="#">
+                <%= t('helpers.change_language')%>
+                <b class="caret caret-orange"></b>
+              </a>
+              <ul class="dropdown-menu" style="padding: 0;">
+                <% Language.all.order('name ASC').each do |language|%>
+                    <% if I18n.locale == language.abbreviation %>
+                        <li class="active">
+                    <% else %>
+                        <li>
+                    <% end %>
+                    <%= link_to language.name, {locale: language.abbreviation}, class: 'main_nav lang-dropdown-link'%>
+                    </li>
                 <% end %>
-                  <%= link_to language.name, locale: language.name %>
-                </li>
-              <% end %>
+              </ul>
+            </li>
         <%end%>
     </ul>
 
 </div>  
-   
-
