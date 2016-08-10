@@ -101,7 +101,7 @@ class Dmptemplate < ActiveRecord::Base
 
     #verify if org type is not a funder
     current_org = Organisation.find(org_id)
-    if current_org.organisation_type.name != Global_helpers.constant("organisation_types.funder") then
+    if current_org.organisation_type.name != GlobalHelpers.constant("organisation_types.funder") then
       own_institutional_templates = self.own_institutional_templates(org_id)
     else
       own_institutional_templates = []
