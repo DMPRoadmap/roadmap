@@ -26,7 +26,7 @@ module Api
           # if organization exists
           if !organization.nil?
             # if organization is funder
-            if organization.organisation_type == (OrganisationType.find_by() name: constant("organisation_types.funder")))
+            if organization.organisation_type == (OrganisationType.find_by(name: constant("organisation_types.funder")))
               # if organization has only 1 template
               if organization.dmptemplates.length == 1
                 # set template id
