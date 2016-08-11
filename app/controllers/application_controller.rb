@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include GlobalHelpers
+  include Pundit
   
   helper_method GlobalHelpers.instance_methods
 
