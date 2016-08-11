@@ -60,6 +60,8 @@ gem 'rolify'
 # Gems for repository integration
 gem 'email_validator'
 gem 'validate_url'
+# set of helpers for authorization
+gem 'pundit'
 
 #
 #    DATABASE/SERVER
