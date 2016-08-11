@@ -60,8 +60,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    airbrussh (1.1.0)
-      sshkit (>= 1.6.1, != 1.7.0)
     amoeba (3.0.0)
       activerecord (>= 3.2.6)
     ansi (1.5.0)
@@ -81,21 +79,6 @@ GEM
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)
-    capistrano (3.6.0)
-      airbrussh (>= 1.0.0)
-      capistrano-harrow
-      i18n
-      rake (>= 10.0.0)
-      sshkit (>= 1.9.0)
-    capistrano-bundler (1.1.4)
-      capistrano (~> 3.1)
-      sshkit (~> 1.2)
-    capistrano-harrow (0.5.3)
-    capistrano-passenger (0.2.0)
-      capistrano (~> 3.0)
-    capistrano-rails (1.1.7)
-      capistrano (~> 3.1)
-      capistrano-bundler (~> 1.1)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -227,9 +210,6 @@ GEM
     multi_json (1.12.1)
     multipart-post (2.0.0)
     mysql2 (0.3.21)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (3.2.0)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -304,9 +284,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.11.2)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
     swagger-docs (0.2.8)
       activesupport (>= 3, < 5)
       rails (>= 3, < 5)
@@ -361,10 +338,6 @@ DEPENDENCIES
   binding_of_caller
   byebug
   cancancan
-  capistrano
-  capistrano-bundler
-  capistrano-passenger
-  capistrano-rails
   caracal
   caracal-rails
   contact_us (>= 1.2.0)

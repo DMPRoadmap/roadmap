@@ -10,7 +10,7 @@ module DMPRoadmap
     # in config/initializers/locale.rb
 
     # set default locale to something other than :en
-    config.i18n.default_locale = :'en-UK'
+    config.i18n.default_locale = :'en-US'
 
     # set fallback locale
     config.i18n.fallbacks = true
