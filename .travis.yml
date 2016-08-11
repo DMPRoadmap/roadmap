@@ -17,7 +17,7 @@ services:
 before_script:
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
-  - mysql -e 'create database IF NOT EXISTS roadmap_test;' -uroot
+  - mysql -e 'create database IF NOT EXISTS roadmap_test;' -u root --innodb_large_prefix=1 --innodb_file_per_table=1 innodb_file_format=barracuda
 
 script:
   - bundle exec rake db:test:prepare
