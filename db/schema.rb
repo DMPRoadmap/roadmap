@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719140055) do
+ActiveRecord::Schema.define(version: 20160810193149) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
@@ -86,9 +86,9 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.datetime "updated_at"
   end
 
-  create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",           limit: 191, null: false
-    t.integer  "sluggable_id",               null: false
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",           limit: 255, null: false
+    t.integer  "sluggable_id",   limit: 4,   null: false
     t.string   "sluggable_type", limit: 40
     t.datetime "created_at"
   end
@@ -123,17 +123,18 @@ ActiveRecord::Schema.define(version: 20160719140055) do
   end
 
   create_table "languages", force: :cascade do |t|
-    t.string "abbreviation", limit: 255
-    t.string "description",  limit: 255
-    t.string "name",         limit: 255
+    t.string  "abbreviation",     limit: 255
+    t.string  "description",      limit: 255
+    t.string  "name",             limit: 255
+    t.boolean "default_language", limit: 1
   end
 
   create_table "option_warnings", force: :cascade do |t|
     t.integer  "organisation_id", limit: 4
     t.integer  "option_id",       limit: 4
     t.text     "text",            limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "options", force: :cascade do |t|
@@ -175,6 +176,10 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.string   "sort_name",            limit: 255
     t.text     "banner_text",          limit: 65535
     t.string   "logo_file_name",       limit: 255
+    t.integer  "region_id",            limit: 4
+    t.integer  "language_id",          limit: 4
+    t.string   "logo_uid",             limit: 255
+    t.string   "logo_name",            limit: 255
   end
 
   create_table "phases", force: :cascade do |t|
@@ -184,7 +189,7 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.integer  "dmptemplate_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",           limit: 191
+    t.string   "slug",           limit: 255
   end
 
   add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id", using: :btree
@@ -229,15 +234,15 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.integer  "dmptemplate_id",                    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",                              limit: 191
-    t.integer  "organisation_id"
-    t.string   "grant_number"
-    t.string   "identifier"
-    t.text     "description"
-    t.string   "principal_investigator"
-    t.string   "principal_investigator_identifier"
-    t.string   "data_contact"
-    t.string   "funder_name"
+    t.string   "slug",                              limit: 255
+    t.integer  "organisation_id",                   limit: 4
+    t.string   "grant_number",                      limit: 255
+    t.string   "identifier",                        limit: 255
+    t.text     "description",                       limit: 65535
+    t.string   "principal_investigator",            limit: 255
+    t.string   "principal_investigator_identifier", limit: 255
+    t.string   "data_contact",                      limit: 255
+    t.string   "funder_name",                       limit: 255
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
@@ -271,8 +276,19 @@ ActiveRecord::Schema.define(version: 20160719140055) do
 
   add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id", using: :btree
 
-  create_table "roles", force: true do |t|
-    t.string   "name",          limit: 191
+  create_table "region_groups", force: :cascade do |t|
+    t.integer "super_region_id", limit: 4
+    t.integer "region_id",       limit: 4
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "abbreviation", limit: 255
+    t.string "description",  limit: 255
+    t.string "name",         limit: 255
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "role_in_plans", limit: 1
@@ -299,8 +315,8 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.text     "value",       limit: 65535
     t.integer  "target_id",   limit: 4,     null: false
     t.string   "target_type", limit: 255,   null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
@@ -344,8 +360,8 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.integer  "user_id",           limit: 4
     t.integer  "organisation_id",   limit: 4
     t.integer  "user_role_type_id", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_role_types", force: :cascade do |t|
@@ -377,8 +393,8 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.string   "shibboleth_id",          limit: 255
     t.integer  "user_type_id",           limit: 4
     t.integer  "user_status_id",         limit: 4
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "encrypted_password",     limit: 255, default: ""
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -402,6 +418,7 @@ ActiveRecord::Schema.define(version: 20160719140055) do
     t.string   "api_token",              limit: 255
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
+    t.integer  "language_id",            limit: 4
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

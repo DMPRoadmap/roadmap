@@ -80,6 +80,10 @@ gem 'recaptcha'
 gem 'turbolinks'
 #implementation of forms
 gem 'activeadmin', github: 'activeadmin'
+#
+# LOGO UPLOAD
+#
+gem 'dragonfly'
 
 #
 #     EXPORTING PLANS
