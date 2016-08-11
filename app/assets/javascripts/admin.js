@@ -1,8 +1,8 @@
 //= require tinymce
 /* 
-**Project: DMPonline v4
+**Project: DMPRoadmap
 **Description: This file include all javascript regarding admin interface
-**Copyright: Digital Curation Centre
+**Copyright: Digital Curation Centre and University of California Curation Center
 */
 
 

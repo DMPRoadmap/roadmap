@@ -6,19 +6,24 @@ Rails.application.configure do
   config.cache_classes = false
   # Do not eager load code on boot.
   config.eager_load = false
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
@@ -28,26 +33,29 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
-  
+
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
-  
+
   config.assets.compress = false
-  
+
   config.action_mailer.perform_deliveries = false
-  
+
   config.web_console.whitelisted_ips = '192.168.33.1'
-  
+
   # Load Branded terminology (e.g. organization name, application name, etc.)
-  #config.branding = config_for(:branding).deep_symbolize_keys
+
+  config.branding = config_for(:branding).deep_symbolize_keys
   #config.branding = YAML.load_file(Rails.root.join('config/branding.yml'))[Rails.env]
-  
-#puts "YAML: #{config_for(:branding)}"
-  
+
+  puts "YAML: #{config_for(:branding)}"
+
+
+  BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
 end
-BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development

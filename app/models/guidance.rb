@@ -1,9 +1,9 @@
-# [+Project:+] DMPonline v4
+# [+Project:+] DMPRoadmap
 # [+Description:+]
 #   This class keeps the information organisations enter to support users when answering questions.
 #   It always belongs to a guidance group class and it can be linked directly to a question or through one or more themes
 # [+Created:+] 07/07/2014
-# [+Copyright:+] Digital Curation Centre
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 
 

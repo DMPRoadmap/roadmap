@@ -2,4 +2,9 @@
 	<%= t('terms_page.title')%>
 </h1>
 
-<%= raw t('terms_page.body_text_html')%>
+<%= raw t('terms_page.body_text_html',
+					legal_entity: Rails.configuration.branding[:legal_entity],
+					organisation_name: Rails.configuration.branding[:organisation][:name],
+					organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+					organisation_url: Rails.configuration.branding[:organisation][:url],
+					application_name: Rails.configuration.branding[:application][:name])%>

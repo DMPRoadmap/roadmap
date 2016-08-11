@@ -26,10 +26,23 @@
 <div class="dmp_details_body">
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="FuturePlans">
-			<%= raw t("roadmap_page.body_text_tab_1_html")%>
+			<%= raw t("roadmap_page.body_text_tab_1_html",
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								application_name: Rails.configuration.branding[:application][:name],
+								application_url: Rails.configuration.branding[:application][:url],
+								application_version: Rails.configuration.branding[:application][:version],
+								application_release_notes_url: Rails.configuration.branding[:application][:release_notes_url])%>
 		</div>	
 		<div class="tab-pane" id="GetInvolved">
-			<%= raw t("roadmap_page.body_text_tab_2_html")%>
+			<%= raw t("roadmap_page.body_text_tab_2_html",
+								organisation_name: Rails.configuration.branding[:organisation][:name],
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_url: Rails.configuration.branding[:organisation][:url],
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								application_name: Rails.configuration.branding[:application][:name],
+								application_url: Rails.configuration.branding[:application][:url],
+								application_user_group_subscription_url: Rails.configuration.branding[:application][:user_group_subscription_url])%>
 		</div>		
 	</div>
-</div>	
+</div>

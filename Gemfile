@@ -75,7 +75,7 @@ gem 'cancancan'
 gem 'jquery-rails'
 gem 'tinymce-rails'
 gem 'friendly_id'
-gem 'contact_us', '>= 1.1.0'
+gem 'contact_us', '>= 1.2.0'
 gem 'recaptcha'
 gem 'turbolinks'
 #implementation of forms
@@ -117,3 +117,11 @@ gem 'swagger-docs'
 #
 gem 'yard'
 gem 'redcarpet'
+
+# =======================================================================================
+# DMPTool specific configuration (DO NOT contribute back to the DMPRoadmap/roadmap repo)
+# =======================================================================================
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-passenger'
+gem 'capistrano-rails'

@@ -1,8 +1,8 @@
-# [+Project:+] DMPonline
+# [+Project:+] DMPRoadmap
 # [+Description:+]
 #
 # [+Created:+] 03/09/2014
-# [+Copyright:+] Digital Curation Centre
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register User do
 	permit_params :api_token, :password_confirmation, :encrypted_password, :remember_me, :id, :email, :firstname, :orcid_id, :shibboleth_id, :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation,  :other_organisation, :accept_terms, :role_ids

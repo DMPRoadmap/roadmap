@@ -66,7 +66,7 @@ module Api
           user = User.find_by email: params[:project][:email]
           # if user does not exist
           if user.nil?
-            # invite user to DMPonline
+            # invite user to DMPRoadmap
             User.invite!({email: params[:project][:email]}, ( @user))
             # set project owner to user associated w/email
             user = (User.find_by email: params[:project][:email])
