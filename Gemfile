@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
+
+ruby '>= 2.2.2'
+
 #
 #      RAILS
 #
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.7'
 
 # additional gems for rails 4
 gem 'railties'
