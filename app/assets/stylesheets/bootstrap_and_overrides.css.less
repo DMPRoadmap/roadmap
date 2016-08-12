@@ -175,13 +175,30 @@ div.header_right{
     margin-right: 0px;
 }
 
-#main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover{
-    background-color: @orange_colour;
-    color: @white_colour !important;
-    font-weight: bold;
-    border: 1px solid @orange_colour;
-    padding: 4px 15px 4px 15px;
-    text-decoration: none !important;
+#main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover, lang-dropdown-link:hover{
+  background-color: @orange_colour;
+  color: @white_colour !important;
+  font-weight: bold;
+  border: 1px solid @orange_colour;
+  padding: 4px 15px 4px 15px;
+  text-decoration: none !important;
+}
+
+.caret-orange {
+  border-top: 4px solid #f49700!important;
+  border-bottom-color: #f49700!important;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  color: #f49700;
+}
+
+a.dropdown-toggle:hover .caret-orange {
+  border-top: 4px solid white!important;
+  border-bottom-color: white!important;
+}
+
+.lang-dropdown-link {
+  margin-bottom: 0!important;
 }
 
 /********************/
@@ -704,11 +721,15 @@ input#user_remember_me, input#user_accept_terms{
   float:left;
 }
 
-#s2id_user_organisation_id{
+#s2id_user_organisation_id, #s2id_user_language_id{
   min-width:84% !important;
   clear:both;
   float:left;
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
+}
+
+#s2id__organisation_language_id {
+  float:none;
 }
 
 #other-org-link {

@@ -1,4 +1,4 @@
-<!-- templates navigation -->  
+<!-- templates navigation -->
 <div id="project-tabs" class="nav-project-tabs">
 	<ul class="nav nav-tabs" data-tabs="tabs">
 		<!-- template details (views/dmptemplate/_project_details.html.erb)-->
@@ -20,9 +20,9 @@
 		</li>
     <% end %>
     <!-- Add another phase button -->
-    <% if current_user.is_org_admin? && (dmptemplate.org_type != t("helpers.org_type.funder") || current_user.org_type == t("helpers.org_type.funder")) then %>
+    <% if current_user.is_org_admin? && (dmptemplate.org_type != constant("organisation_types.funder")|| current_user.org_type == constant("organisation_types.funder")) then %>
     	<% if active == 'add_plan' then %>
-			<li class="active">	
+			<li class="active">
 		<% else %>
 			<li>
 		<% end %>

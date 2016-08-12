@@ -12,6 +12,10 @@ class Section < ActiveRecord::Base
 
   attr_accessible :organisation_id, :description, :number, :title, :version_id , :published, :questions_attributes, :as => [:default, :admin]
 
+  ##
+  # return the title of the section
+  #
+  # @return [String] the title of the section
   def to_s
     "#{title}"
   end

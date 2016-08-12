@@ -18,7 +18,7 @@ module Api
       def create
         # find the user's api_token permissions
         # then ensure that they have the permission associated with creating plans
-        if has_auth "plans"
+        if has_auth(constant("api_endpoint_types.plans"))
           #params[:organization_id] = Organisation.where(name: params[:template][:organization])
           # find_by returns nil if none found, find_by! raises an ActiveRecord error
           organization = Organisation.find_by name: params[:template][:organisation]
@@ -26,7 +26,7 @@ module Api
           # if organization exists
           if !organization.nil?
             # if organization is funder
-            if organization.organisation_type == (OrganisationType.find_by name: "Funder")
+            if organization.organisation_type == (OrganisationType.find_by(name: constant("organisation_types.funder")))
               # if organization has only 1 template
               if organization.dmptemplates.length == 1
                 # set template id
