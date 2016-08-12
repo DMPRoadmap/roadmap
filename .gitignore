@@ -12,7 +12,7 @@ public/assets/*
 public/apidocs/*
 
 # Ignore gemfile.lock
-Gemfile.lock
+#Gemfile.lock
 
 # Ignore db schema.rb
 # db/schema.rb
