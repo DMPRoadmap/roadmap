@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805105941) do
+ActiveRecord::Schema.define(version: 20160810193149) do
+
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
     t.integer  "plan_id",     limit: 4
@@ -177,6 +178,8 @@ ActiveRecord::Schema.define(version: 20160805105941) do
     t.string   "logo_file_name",       limit: 255
     t.integer  "region_id",            limit: 4
     t.integer  "language_id",          limit: 4
+    t.string   "logo_uid",             limit: 255
+    t.string   "logo_name",            limit: 255
   end
 
   create_table "phases", force: :cascade do |t|

@@ -3,7 +3,11 @@
 <div class="main_header">
 	<div class="header_left">
         <div class="home_logo">
+          <% if (user_signed_in?) && (!current_user.organisation.nil?) && (current_user.organisation.logo.present?) then %>
+            <%= link_to(image_tag(current_user.organisation.logo.thumb('100x100%').url), current_user.organisation.target_url) %>
+          <% else %> 
             <%= link_to( image_tag("logo.jpg"), root_path)%>
+          <% end %>
         </div>
     </div>
     <div class="header_right">	
