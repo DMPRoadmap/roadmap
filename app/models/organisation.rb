@@ -1,20 +1,23 @@
 class Organisation < ActiveRecord::Base
   include GlobalHelpers
-    #associations between tables
-    belongs_to :organisation_type
-    has_many :guidance_groups
-    has_many :dmptemplates
-    has_many :sections
-    has_many :users, through: :user_org_roles
-    has_many :option_warnings
-    has_many :suggested_answers
-    has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
-    has_many :user_org_roles
+  extend Dragonfly::Model::Validations
 
-    belongs_to :parent, :class_name => 'Organisation'
+  #associations between tables
+  belongs_to :organisation_type
+  has_many :guidance_groups
+  has_many :dmptemplates
+  has_many :sections
+  has_many :users, through: :user_org_roles
+  has_many :option_warnings
+  has_many :suggested_answers
+  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
-		has_one :language
+  has_many :user_org_roles
+
+  belongs_to :parent, :class_name => 'Organisation'
+
+	has_one :language
 
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
@@ -22,11 +25,20 @@ class Organisation < ActiveRecord::Base
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :description, :domain,
-                  :logo_file_name, :name, :stylesheet_file_id, :target_url,
+	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :description, :domain, 
+                  :logo_file_name, :name, :stylesheet_file_id, :target_url, 
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id
 
+  # allow validations for logo upload
+  dragonfly_accessor :logo
+  validates_property :height, of: :logo, in: (0..100)
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
+  validates_size_of :logo, maximum: 500.kilobytes
+
+	def to_s
+		name
+	end
 
   ##
   # returns the name of the organisation
