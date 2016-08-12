@@ -173,6 +173,60 @@ class User < ActiveRecord::Base
 	end
 
   ##
+  # checks if the user can add new organisations
+  # 
+  # @return [Boolean] true if the user can add new organisations
+  def can_add_orgs?
+    add_orgs = roles.find_by(name: constant("add_organisations"))
+    return !add_orgs.nil?
+  end
+
+  ##
+  # checks if the user can change their organisation affiliations
+  # 
+  # @return [Boolean] true if the user can change their organisation affiliations
+  def can_change_org?
+    change_org = roles.find_by(name: constant("change_org_affiliation"))
+    return !change_org.nil?
+  end
+
+  ##
+  # checks if the user can grant their permissions to others
+  # 
+  # @return [Boolean] true if the user can grant their permissions to others
+  def can_grant_permissions?
+    grant_perms = roles.find_by(name: constant("grant_permissions"))
+    return !grant_perms.nil?
+  end
+
+  ##
+  # checks if the user can modify organisation templates
+  # 
+  # @return [Boolean] true if the user can modify organisation templates
+  def can_modify_templates?
+    modify_temp = roles.find_by(name: constant("modify_templates"))
+    return !modify_temp.nil?
+  end
+
+  ##
+  # checks if the user can modify organisation guidance
+  # 
+  # @return [Boolean] true if the user can modify organistion guidance
+  def can_modify_guidance?
+    modify_guidance = roles.find_by(name: constant("modify_guidance"))
+    return !modify_guidance.nil?
+  end
+
+  ##
+  # checks if the user can use the api
+  # 
+  # @return [Boolean] true if the user can use the api
+  def can_use_api?
+    use_api = roles.find_by(name: constant("use_api"))
+    return !use_api.nil?
+  end
+
+  ##
   # checks what type the user's organisation is
   #
   # @return [String] the organisation type

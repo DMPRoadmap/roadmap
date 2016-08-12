@@ -949,6 +949,12 @@ Select what format you wish to use and click to 'Export'.</p>"
       super_admin: 'admin'
       organisational_admin: 'org_admin'
       user: 'user'
+      add_organisations: 'add_organisations'
+      change_org_affiliation: 'change_org_affiliation'
+      grant_permissions: 'grant_permissions'
+      modify_templates: 'modify_templates'
+      modify_guidance: 'modify_guidance'
+      use_api: 'use_api'
     api_endpoint_types:
       guidances: 'guidances'
       plans: 'plans'
