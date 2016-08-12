@@ -9,7 +9,7 @@
 		<%= link_to t("org_admin.templates.view_all_templates"),
 		            admin_index_dmptemplate_path,
 		            :class => 'btn btn-primary' %>
-	</div>            
+	</div>
 </h1>
 
 <div class="div_clear"></div>
@@ -20,62 +20,61 @@
 <!-- phase main container -->
 <div class="project-tabs-body">
     <div class="accordion" id="sections-accordion">
-   
+
        	<!--phase details -->
     	<div class="phase_details">
     		<div class="phase_details_body">
-    			
+
                 <!-- display phase details-->
     			<div id="show_phase_div">
     				<%= render :partial => "show_phase", locals: {phase: @phase}%>
     			</div>
-    			<% if @phase.dmptemplate.org_type != t("helpers.org_type.funder") || current_user.org_type == t("helpers.org_type.funder") then %>
+    			<% if @phase.dmptemplate.org_type != constant("organisation_types.funder") || current_user.org_type == constant("organisation_types.funder") then %>
 	    			<div id="edit_phase_div" style="display: none">
 	    				<%= render :partial => "edit_phase", locals: {phase: @phase}%>
 	    			</div>
-	  
+
 	  				<!--display all versions and their status for that phase-->
 	    			<%= render :partial => "versions_table", locals: {phase: @phase}%>
-	    		<%end%>	
-    			
+	    		<%end%>
+
     			<!--display the more recent published version.  -->
-	    		<% if @edit == "false" || (@phase.dmptemplate.org_type == t("helpers.org_type.funder") && current_user.org_type != t("helpers.org_type.funder")) then%>					
+	    		<% if @edit == "false" || (@phase.dmptemplate.org_type == constant("organisation_types.funder") && current_user.org_type != constant("organisation_types.funder")) then%>
 					<%= render :partial => 'show_version', locals: {version: @version}%>
-				<%elsif @edit == "true" || current_user.org_type ==  t("helpers.org_type.funder") then %>	
+				<%elsif @edit == "true" || current_user.org_type ==  constant("organisation_types.funder") then %>
 					<%= render :partial => 'edit_version', locals: {version: @version, edit: @edit, phase: @phase} %>
-				<%end%>	
+				<%end%>
 			</div>
 		</div>
-		
+
 		<!-- sections, questions and guidance details-->
 		<% @sections.order("number ASC").each do |section| %>
-			<%if (@edit == "true" && section.organisation_id == current_user.organisation_id) || 
-            (@phase.dmptemplate.org_type == t("helpers.org_type.funder") && section.organisation_id == current_user.organisation_id && current_user.org_type != t("helpers.org_type.funder"))then%>
+			<%if (@edit == "true" && section.organisation_id == current_user.organisation_id) ||
+            (@phase.dmptemplate.org_type == constant("organisation_types.funder") && section.organisation_id == current_user.organisation_id && current_user.org_type != constant("organisation_types.funder"))then%>
 				<%= render :partial => 'edit_section', locals: {section: section, edit: @edit, phase: @phase, version: @version} %>
 			<%elsif (section.organisation_id == @phase.dmptemplate.organisation_id ) || ( section.organisation_id == current_user.organisation_id) then%>
 				<%= render :partial => 'show_section', locals: {section: section}%>
-			<%end%>	
+			<%end%>
 		 <% end %>
-		 	
-	</div>	
+
+	</div>
 </div>
-			
-	
+
+
 	<!-- Add a new section if the version is not published-->
-	<% if !@version.published? || (@phase.dmptemplate.org_type == t("helpers.org_type.funder") && current_user.org_type != t("helpers.org_type.funder"))then %>
-	
+	<% if !@version.published? || (@phase.dmptemplate.org_type == constant("organisation_types.funder") && current_user.org_type != constant("organisation_types.funder"))then %>
+
 		<!-- add section block -->
 		<div id="add_section_block_div" style="display: none">
 			<%= render :partial => 'add_section', locals: {version: @version} %>
 		</div>
-		
+
 		<!-- add section button-->
 		<div id="add_section_button_div">
 			<div class="div_right">
-				<%= link_to t('org_admin.add_section_label'),'#', :id => 'add_section_button', :class =>'btn btn-primary' %> 
+				<%= link_to t('org_admin.add_section_label'),'#', :id => 'add_section_button', :class =>'btn btn-primary' %>
 			</div>
-		</div>		
-	<%end%> 
-		    	
-		    	    
-<%= tinymce :content_css => asset_path('application.css') %>
+		</div>
+	<%end%>
+
+

@@ -1,4 +1,6 @@
 class Dmptemplate < ActiveRecord::Base
+    include GlobalHelpers
+
     attr_accessible :id, :organisation_id, :description, :published, :title, :user_id, :locale, 
                     :is_default, :guidance_group_ids, :as => [:default, :admin] 
 
@@ -57,7 +59,7 @@ class Dmptemplate < ActiveRecord::Base
   #
   # @return [Array<dmptemplates>] all templates from funder organisations
 	def self.funders_templates
-		new_org_obejcts = OrganisationType.find_by(name: I18n.t("helpers.org_type.funder")).organisations
+		new_org_obejcts = OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")).organisations
 	  org_templates = Array.new
 
    	new_org_obejcts.each do |neworg|
@@ -99,7 +101,7 @@ class Dmptemplate < ActiveRecord::Base
 
     #verify if org type is not a funder
     current_org = Organisation.find(org_id)
-    if current_org.organisation_type.name != I18n.t("helpers.org_type.funder") then
+    if current_org.organisation_type.name != GlobalHelpers.constant("organisation_types.funder") then
       own_institutional_templates = self.own_institutional_templates(org_id)
     else
       own_institutional_templates = []

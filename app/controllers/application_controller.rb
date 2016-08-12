@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  include GlobalHelpers
+  
+  helper_method GlobalHelpers.instance_methods
+
   # Override build_footer method in ActiveAdmin::Views::Pages
   require 'active_admin_views_pages_base.rb'
 
@@ -14,17 +18,19 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     # parameter from url takes precedence
-    if params[:locale]
+    # check if locale is defined
+    if params[:locale] # and I18n.available_locales.include? params[:locale] # throw an error if not available
       # if locales data is present in the parameter from url use it
-      # TODO we need to error to the user that locale is missing, it can be THE CASE because there can be a missmatch between locales files and db
       I18n.locale = params[:locale]
-    elsif false # TODO
+    elsif user_signed_in? and !current_user[:language_id].nil?
+      I18n.locale = Language.find_by_id(current_user[:language_id]).abbreviation
       # if user has set preferred language use it
-    elsif false # TODO
-      # use user's organization language, keep in mine the "OTHER ORG" edge case which should use english
+    elsif user_signed_in? and current_user.organisation.present? and !current_user.organisation[:language_id].nil?
+      I18n.locale = Language.find_by_id(current_user.organisation[:language_id]).abbreviation
+      # use user's organization language, keep in mine the "OTHER ORG" edge case which should use default language
     else
       # just use the default language, line can be commented out, included just for clarity
-      # I18n.locale = config.i18n.default_locale
+      I18n.locale = I18n.default_locale
     end
   end
 

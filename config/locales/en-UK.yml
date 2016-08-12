@@ -42,6 +42,12 @@ en-UK:
   screencast_error_text: "Your browser does not support the video tag."
 
   admin:
+    language: "Language"
+    language_name: "Language name"
+    language_abbreviation: "Language abbreviation"
+    language_is_default: "Is default language"
+    yes: "Yes"
+    no: "No"
     org_title: "Organisation name"
     org: "Organisation"
     orgs: "Organisations"
@@ -126,6 +132,8 @@ en-UK:
     no_section: 'No section'
 
   org_admin:
+    org_default_language: "Organisation language"
+    org_default_language_help_text: "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
     admin_area: "Admin area"
     admin_details: "Admin Details"
     template_label: "Templates"
@@ -321,6 +329,7 @@ en-UK:
     contact_label: "Contact"
     jisc: "The %{organisation_abbreviation} is funded by"
     format: "format"
+    change_language: "Change language"
 
     sign_in: "Sign in"
     sign_out: "Sign out"
@@ -337,6 +346,7 @@ en-UK:
     valid_email: "You must enter a valid email address."
     user_details_text_html: "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
     user_details_paragraph_html: "You can edit any of the details below."
+    user_details_language: "Language"
     remember_me: "Remember me"
     org_not_listed: "My organisation isn't listed."
 
@@ -925,3 +935,23 @@ Select what format you wish to use and click to 'Export'.</p>"
     org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
+
+  magic_strings:
+    organisation_types:
+      funder: 'Funder'
+      organisation: 'Organisation'
+      project: 'Project'
+      institution: 'Institution'
+      research_institute: 'Research Institute'
+      template: 'Template'
+      managing_organisation: 'Digital Curation Center'
+    user_role_types:
+      super_admin: 'admin'
+      organisational_admin: 'org_admin'
+      user: 'user'
+    api_endpoint_types:
+      guidances: 'guidances'
+      plans: 'plans'
+      templates: 'templates'
+      statistics: 'statistics'
+    languages:

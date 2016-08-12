@@ -8,7 +8,7 @@
 		<%= link_to t("org_admin.templates.view_all_templates"),
 		            admin_index_dmptemplate_path,
 		            :class => 'btn btn-primary' %>
-	</div>            
+	</div>
 </h1>
 
 <div class="div_clear"></div>
@@ -19,14 +19,14 @@
 <!-- body -->
 <div class="dmp_details_body">
 	<div class="dmp_details">
-		<% if @dmptemplate.org_type != t("helpers.org_type.funder") || current_user.org_type == t("helpers.org_type.funder") then %>
+		<% if @dmptemplate.org_type != constant("organisation_types.funder") || current_user.org_type == constant("organisation_types.funder") then %>
 			<div id="edit_template_div" style="display: none">
 				<%= render :partial => "edit_template", locals: {dmptemplate: @dmptemplate}%>	
-			</div>	
-		<%end%>	
+			</div>
+		<%end%>
 		<div id="show_template_div">
 			<%= render :partial => "show_template", locals: {dmptemplate: @dmptemplate}%>	
-		</div>	
+		</div>
 	</div>
 	<!-- If template has phases-->
 	<% if !@dmptemplate.phases.nil? then %>
@@ -35,7 +35,7 @@
 				<!--render the display block with the phase, sections and questions information-->
 				<%= render :partial => 'show_phases_sections', locals: {phase: phase}%>
 			<%end%>
-		<%else%>	
+		<%else%>
 			<% @dmptemplate.phases.order(:number).each do |phase| %>
 				<div class="accordion" id="project-accordion">
 					<div class="accordion-group">
@@ -52,10 +52,10 @@
 							</div>
 						</div>
 					</div>
-				</div>				
-			<%end%>	
-		<%end%>	
-	<%end%>				
-</div>						
+				</div>
+			<%end%>
+		<%end%>
+	<%end%>
+</div>
 
-<%= tinymce :content_css => asset_path('application.css') %>							
+<%= tinymce :content_css => asset_path('application.css') %>
