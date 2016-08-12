@@ -10,8 +10,16 @@ module DMPonline4
 
     # set default locale to something other than :en
     # initializers are run before migrations, languages table might not be present
-    if ActiveRecord::Base.connection.tables.include?('languages')
-      config.i18n.default_locale = Language.where(default_language: true).first.abbreviation
+    if ActiveRecord::Base.connection.tables.include?('languages') &&
+          ActiveRecord::Base.connection.column_exists?(:languages, :default_language)
+          
+      # If a default language is not defined in the DB use en-UK
+      if Language.where(default_language: true).empty?
+        config.i18n.default_locale = 'en-UK'
+      else
+        config.i18n.default_locale = Language.where(default_language: true).first.abbreviation
+      end
+      
     else
       config.i18n.default_locale = 'en-UK' # if this is not set then admin area is not working, which is required to change the default_language
     end
