@@ -729,5 +729,21 @@ token_permission_types.each do |title,settings|
   token_permission_type.save!
 end
 
+languages = {
+  'en-UK': {
+    abbreviation: 'en-UK', name: 'en-UK', description: 'English - UK', default_language: 0
+  },
+  'en-US': {
+    abbreviation: 'en-US', name: 'en-US', description: 'English - US', default_language: 1
+  },
+  'fr': {
+    abbreviation: 'fr', name: 'fr', description: 'French', default_language: 0
+  },
+  'de': {
+    abbreviation: 'de', name: 'de', description: 'German', default_language: 0
+  }
+}
 
-
+languages.each do |title,settings|
+  Language.new(settings).save!
+end
