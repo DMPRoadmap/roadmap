@@ -1,14 +1,14 @@
 <h1><%= t("helpers.edit_profile") %></h1>
 <!-- information about content in the page-->
-		<%= raw t("helpers.user_details_text_html")%>
+<%= raw t("helpers.user_details_text_html") %>
 
 <div class="white_background">
-	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-    <%= hidden_field_tag :unlink_flag, "false" ,:id => "unlink_flag" %>
-	<!-- body -->
-	<div class="dmp_details">
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}) do |f| %>
+      <%= hidden_field_tag :unlink_flag, "false", :id => "unlink_flag" %>
+      <!-- body -->
+      <div class="dmp_details">
 
-		<p><%= raw t("helpers.user_details_paragraph_html")%></p>
+        <p><%= raw t("helpers.user_details_paragraph_html") %></p>
 
 		<table class="dmp_details_table">
 			<tr>
@@ -38,7 +38,7 @@
 				<td class="first"><%= t("helpers.org_type.organisation") %></td>
 				<td><%= collection_select(:user,
 						:organisation_id, Organisation.where("parent_id IS NULL").order("name"),
-						:id, :name, {include_blank: t("helpers.org_type.organisation")},
+						:id, :name, {include_blank: constant("organisation_types.organisation")},
 						{ :class => "typeahead org_sign_up" }) %></td>
 			</tr>
 			<% other_organisations = Array.new %>
@@ -51,6 +51,13 @@
 						:as => :string,
 						:class => "text_field has-tooltip reg-input", "data-toggle" => "tooltip", "data-container" => "body", "title" => t("helpers.org_type.other_org_help_text") %></td>
 			</tr>
+      <tr>
+        <td class="first"><%= t('helpers.user_details_language') %></td>
+        <td><%= collection_select(:user,
+                                  :language_id, Language.all.order("name"),
+                                  :id, :name, {:selected => Language.where(default_language: true).first.id},
+                                  {:class => "typeahead org_sign_up"}) %></td>
+      </tr>
 			<tr>
 				<td class="first"><%= t("helpers.orcid_id") %></td>
 				<td><%= f.text_field :orcid_id ,
@@ -119,20 +126,20 @@
 			<%# = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>
 		</p-->
 
-	</div>
+  </div>
 </div>
 
 
 <!-- alert for the default template-->
 <div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
-	<div class="modal-header">
-		<h3><%= t("helpers.shibboleth_unlink_alert") %></h3>
-	</div>
-	<div class="modal-body">
-        <%= raw t("helpers.shibboleth_unlink_dialog_text")%>
-	</div>
-	<div class="modal-footer">
-    	<a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= t("helpers.submit.cancel")%></a>
-    	<a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= t("helpers.unlink_account")%></a>
-  	</div>
+  <div class="modal-header">
+    <h3><%= t("helpers.shibboleth_unlink_alert") %></h3>
+  </div>
+  <div class="modal-body">
+    <%= raw t("helpers.shibboleth_unlink_dialog_text") %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= t("helpers.submit.cancel") %></a>
+    <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= t("helpers.unlink_account") %></a>
+  </div>
 </div>

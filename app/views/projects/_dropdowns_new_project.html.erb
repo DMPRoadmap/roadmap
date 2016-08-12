@@ -11,11 +11,11 @@
 			<div class="dropdowns">
 				<div class="control-group" id="funder-control-group">
 					<div class="controls">
-						
-						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => t('helpers.project.create_page.funders_question'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  t('helpers.org_type.funder') %>
-						
+
+						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => t('helpers.project.create_page.funders_question'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  constant("organisation_types.funder") %>
+
 						<div class="div_clear"></div>
-						
+
 						<div id="other-funder-link" class="move_2_right">
 							<a href='#' id="no-funder"><%= t('helpers.project.not_applicable')%></a>
 						</div>
@@ -30,7 +30,7 @@
 				</div>
 				<div class="control-group" id="institution-control-group">
 					<div class="controls">
-						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => t('helpers.project.create_page.institution_question'), :input_html => { :multiple => false, :class => "typeahead" }, :include_blank =>  t('helpers.org_type.organisation')  %>
+						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => t('helpers.project.create_page.institution_question'), :input_html => { :multiple => false, :class => "typeahead" }, :include_blank =>  constant("organisation_types.organisation")  %>
 						<div class="div_clear"></div>
 						<div class="move_2_right">
 							<a href='#' id="no-institution"><%= t('helpers.project.not_applicable')%></a>

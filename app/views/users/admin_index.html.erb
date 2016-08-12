@@ -13,6 +13,7 @@
             <th class="dmp_th_medium"><%= t('org_admin.user_name') %></th>
             <th class="dmp_th_small"><%= t('org_admin.last_logged_in') %></th>
             <th class="dmp_th_small"><%= t('org_admin.how_many_plans') %></th>
+            <th class="dmp_th_small"><%= t('org_admin.is_org_admin') %></th>
             <% if current_user.organisation.token_permission_types.count > 0 %>
             <th class="dmp_th_small"><%= t('org_admin.api_privleges') %></th>
             <% end %>
@@ -42,15 +43,18 @@
                     <%= user.project_groups.count %>
                     <% end %>
                 </td>
+                <td class="dmp_td_small">
+                    <%= check_box_tag "org_admin_ids[]", user.id, user.is_org_admin? %>
+                </td>
                 <% if current_user.organisation.token_permission_types.count > 0 %>
                 <td class="dmp_td_small">
-                    <%= check_box_tag "user_ids[]", user.id, user.api_token !="" %>
+                    <%= check_box_tag "api_user_ids[]", user.id, user.api_token !="" %>
                 </td>
                 <% end %>
               </tr>
             <% end %>
         <% end %>
       </tbody>
-      <%= submit_tag "Update API Privleges" %>
+      <%= submit_tag "Update Users" %>
       <% end %>
     </table>

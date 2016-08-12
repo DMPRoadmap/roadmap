@@ -6,7 +6,7 @@ class RailsSettingsMigration < ActiveRecord::Migration
       t.references :target, :null => false, :polymorphic => true
       t.timestamps
     end
-    add_index :settings, [ :target_type, :target_id, :var ], :unique => true, :length => {:var => 191}
+    add_index :settings, [ :target_type, :target_id, :var ], :unique => true
   end
 
   def self.down

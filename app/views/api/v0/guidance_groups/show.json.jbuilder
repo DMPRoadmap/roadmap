@@ -13,6 +13,7 @@ json.guidance_group do
   end
   json.templates @templates do |template|
     json.title    template.title
+    json.id       template.id
   end
 
   json.guidances @guidance_group.guidances do |guidance|

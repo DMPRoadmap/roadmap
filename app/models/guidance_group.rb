@@ -1,4 +1,5 @@
 class GuidanceGroup < ActiveRecord::Base
+  include GlobalHelpers
 
     #associations between tables
     belongs_to :organisation
@@ -53,7 +54,7 @@ class GuidanceGroup < ActiveRecord::Base
   ##
   # Returns whether or not a given user can view a given guidance group
   # we define guidances viewable to a user by those owned by:
-  #   the DCC
+  #   the managing curation center
   #   a funder organisation
   #   an organisation, of which the user is a member
   #
@@ -70,14 +71,14 @@ class GuidanceGroup < ActiveRecord::Base
         viewable = true
       end
     end
-    # groups are viewable if they are owned by the DCC
-    Organisation.where( name: "Digital Curation Centre").find_each do |dcc|
-      if guidance_group.organisation.id == dcc.id
+    # groups are viewable if they are owned by the managing curation center
+    Organisation.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_group|
+      if guidance_group.organisation.id == managing_group.id
         viewable = true
       end
     end
     # groups are viewable if they are owned by a funder
-    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: "Funder")
+    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
       viewable = true
     end
 
@@ -87,27 +88,24 @@ class GuidanceGroup < ActiveRecord::Base
     ##
     # Returns a list of all guidance groups which a specified user can view
     # we define guidance groups viewable to a user by those owned by:
-    #   the DCC
+    #   the Managing Curation Center
     #   a funder organisation
     #   an organisation, of which the user is a member
     #
     # @param user [User] a user object
     # @return [Array<GuidanceGroup>] a list of all "viewable" guidance groups to a user
   def self.all_viewable(user)
-    # first find all groups owned by the DCC
-    dcc_groups = []
-    Organisation.where( name: "Digital Curation Centre").find_each do |dcc|
-      dcc_groups = dcc_groups + dcc.guidance_groups
-      logger.info "another one"
+    # first find all groups owned by the Managing Curation Center
+    managing_org_groups = []
+    Organisation.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_org|
+      managing_org_groups = managing_org_groups + managing_org.guidance_groups
     end
 
     # find all groups owned by  a Funder organisation
     funder_groups = []
-    funders = OrganisationType.find_by( name: "Funder")
-    logger.debug "found an org type? #{funders.organisations.first.name}"
+    funders = OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
     funders.organisations.each do |funder|
       funder_groups = funder_groups + funder.guidance_groups
-      logger.info "iterating through funders"
     end
     # find all groups owned by any of the user's organisations
     organisation_groups = []
@@ -115,9 +113,8 @@ class GuidanceGroup < ActiveRecord::Base
       organisation_groups = organisation_groups + organisation.guidance_groups
     end
     # pass this list to the view with respond_with @all_viewable_groups
-    all_viewable_groups = dcc_groups + funder_groups + organisation_groups
+    all_viewable_groups = managing_org_groups + funder_groups + organisation_groups
     all_viewable_groups = all_viewable_groups.uniq{|x| x.id}
-    logger.debug "we finished it?"
     return all_viewable_groups
   end
 end
