@@ -14,6 +14,8 @@ class Organisation < ActiveRecord::Base
 
     belongs_to :parent, :class_name => 'Organisation'
 
+		has_one :language
+
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
 #	accepts_nested_attributes_for :organisation_type
@@ -23,7 +25,7 @@ class Organisation < ActiveRecord::Base
 	attr_accessible :abbreviation, :banner_text, :description, :domain,
                   :logo_file_name, :name, :stylesheet_file_id, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids
+                  :token_permission_type_ids, :language_id
 
 
   ##
