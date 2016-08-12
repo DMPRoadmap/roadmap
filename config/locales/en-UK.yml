@@ -42,6 +42,12 @@ en-UK:
   screencast_error_text: "Your browser does not support the video tag."
 
   admin:
+    language: "Language"
+    language_name: "Language name"
+    language_abbreviation: "Language abbreviation"
+    language_is_default: "Is default language"
+    yes: "Yes"
+    no: "No"
     org_title: "Organisation name"
     org: "Organisation"
     orgs: "Organisations"
