@@ -68,7 +68,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin!
-    redirect_to root_path unless user_signed_in? && current_user.is_admin?
+    # currently if admin has any super-admin task, they can view the super-admin
+    redirect_to root_path unless user_signed_in? && (current_user.can_add_orgs? || current_user.can_change_org? || current_user.is_admin?)
   end
 
   def get_plan_list_columns
