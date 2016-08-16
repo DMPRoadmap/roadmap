@@ -73,40 +73,40 @@ class UsersController < ApplicationController
   end
 
   def admin_index
-        authorize User
-        respond_to do |format|
-            format.html # index.html.erb
-            format.json { render json: @organisation_users }
-        end
+    authorize User
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @organisation_users }
+    end
   end
 
-    def admin_api_update
-        authorize User
-        #iterate through all org users
-        user_ids = params[:api_user_ids].blank? ? [] : params[:api_user_ids].map(&:to_i)
-        admin_user_ids = params[:org_admin_ids].blank? ? [] : params[:org_admin_ids].map(&:to_i)
-        current_user.organisation.users.each do |user|
-          # if user_id in passed params
-          if user_ids.include? user.id
-            # run generate_or_keep
-            user.keep_or_generate_token!
-          # if not in passed params
-          else
-            # remove the token
-            user.remove_token!
-          end
-          # ORG_ADMINS
-          if admin_user_ids.include?( user.id) && !user.is_org_admin?
-            # add admin privleges
-            # MAGIC_STRING
-            user.roles << Role.find_by(name: constant("user_role_types.organisational_admin"))
-          # if user_id not in passed, but user is an admin
-          elsif !admin_user_ids.include?(user.id) && user.is_org_admin?
-            # strip admin privleges
-            user.roles.delete(Role.find_by(name: constant("user_role_types.organisational_admin")))
-          end
-        end
-          #redirect_to admin_index
+  def admin_api_update
+    authorize User
+    #iterate through all org users
+    user_ids = params[:api_user_ids].blank? ? [] : params[:api_user_ids].map(&:to_i)
+    admin_user_ids = params[:org_admin_ids].blank? ? [] : params[:org_admin_ids].map(&:to_i)
+    current_user.organisation.users.each do |user|
+      # if user_id in passed params
+      if user_ids.include? user.id
+        # run generate_or_keep
+        user.keep_or_generate_token!
+      # if not in passed params
+      else
+        # remove the token
+        user.remove_token!
+      end
+      # ORG_ADMINS
+      if admin_user_ids.include?( user.id) && !user.is_org_admin?
+        # add admin privleges
+        # MAGIC_STRING
+        user.roles << Role.find_by(name: constant("user_role_types.organisational_admin"))
+      # if user_id not in passed, but user is an admin
+      elsif !admin_user_ids.include?(user.id) && user.is_org_admin?
+        # strip admin privleges
+        user.roles.delete(Role.find_by(name: constant("user_role_types.organisational_admin")))
+      end
     end
+      #redirect_to admin_index
+  end
 
 end
