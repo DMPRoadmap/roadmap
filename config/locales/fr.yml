@@ -319,7 +319,7 @@ fr:
     no_unlock_instructions: "Vous n'avez pas reçu les directives de déverrouillage?"
     send_password_info: "Directives pour réinitialiser le mot de passe"
     edit_password_info: "Si vous souhaitez modifier votre mot de passe, veuillez remplir les champs suivants."
-    accept_terms_html: "J'accepte les <a href='terms'>conditions</a> *"
+    accept_terms_html: "J'accepte les <a href='/%{current_locale}/terms'>conditions</a> *"
 
     text_area: "Zone de texte"
     text_field: "Case de saisie simple"
