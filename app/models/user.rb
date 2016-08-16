@@ -233,7 +233,8 @@ class User < ActiveRecord::Base
   def can_modify_org_details?
     modify_org_details = roles.find_by(name: constant("user_role_types.change_org_details"))
     return !modify_org_details.nil?
-
+  end
+  
   ##
   # checks what type the user's organisation is
   #
