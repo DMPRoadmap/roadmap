@@ -200,6 +200,9 @@ roles = {
   },
   'use_api' => {
     name: 'use_api'
+  },
+  'change_org_detials' => {
+    name: 'change_org_detials'
   }
 }
 
