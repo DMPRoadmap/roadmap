@@ -81,13 +81,13 @@ class OrganisationsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def parent
   	@organisation = Organisation.find(params[:id])
   	parent_org = @organisation.find_by {|o| o.parent_id }
   	return parent_org
   end
-  
+
 	def children
 		@organisation = Organisation.find(params[:id])
 		#if user_signed_in? then
@@ -102,7 +102,7 @@ class OrganisationsController < ApplicationController
 # 			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 # 		end
 	end
-  
+
 	def templates
 		@organisation = Organisation.find(params[:id])
 		#if user_signed_in? then
