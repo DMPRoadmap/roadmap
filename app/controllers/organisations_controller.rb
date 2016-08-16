@@ -37,54 +37,37 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  
+
   # GET /organisations/1
   # GET /organisations/1.json
   def admin_show
-  	if user_signed_in? && current_user.is_org_admin? then
-	    @organisation = Organisation.find(params[:id])
-	
-	    respond_to do |format|
-	      format.html # show.html.erb
-	      format.json { render json: @organisation }
-	    end
-    else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-		end 
-		
+    @organisation = authorize Organisation.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @organisation }
+    end
   end
-  
+
    # GET /organisations/1/edit
   def admin_edit
-  	if user_signed_in? && current_user.is_org_admin? then
-        @organisation = Organisation.find(params[:id])
-    
-    else
-		render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-	end 
+    @organisation = authorize Organisation.find(params[:id])
   end
-  
-  
+
+
   # PUT /organisations/1
   # PUT /organisations/1.json
   def admin_update
-    if user_signed_in? && current_user.is_org_admin? then
-        @organisation = Organisation.find(params[:id])
-        @organisation.banner_text = params["org_banner_text"]
-		
-		
-	    respond_to do |format|
-	      if @organisation.update_attributes(params[:organisation])
-	        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
-	        format.json { head :no_content }
-	      else
-	        format.html { render action: "edit" }
-	        format.json { render json: @organisation.errors, status: :unprocessable_entity }
-	      end
-	    end
-  	else
-  	  render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-    end  	
+    @organisation = authorize Organisation.find(params[:id])
+    @organisation.banner_text = params["org_banner_text"]
+    respond_to do |format|
+      if @organisation.update_attributes(params[:organisation])
+        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @organisation.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /organisations/1
