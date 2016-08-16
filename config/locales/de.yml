@@ -315,7 +315,7 @@ de:
     no_unlock_instructions: "Entsperrungsanleitungen nicht erhalten?"
     send_password_info: "Anleitung zum Zurücksetzen des Passworts"
     edit_password_info: "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
-    accept_terms_html: "Ich akzeptiere die <a href='/terms'>Nutzungsbedingungen</a> *"
+    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms'>Nutzungsbedingungen</a> *"
 
     text_area: "Text area"
     text_field: "Textfeld"

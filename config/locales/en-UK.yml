@@ -366,7 +366,7 @@ en-UK:
     no_unlock_instructions: "Didn't receive unlock instructions?"
     send_password_info: "Reset password instructions"
     edit_password_info: "If you would like to change your password please complete the following fields."
-    accept_terms_html: " I accept the <a href='/terms'>terms and conditions</a> *"
+    accept_terms_html: " I accept the <a href='/%{current_locale}/terms'>terms and conditions</a> *"
     you_must_accept: 'You must accept the terms and conditions to register.'
     email_already_registered: 'That email address is already registered.'
     email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."

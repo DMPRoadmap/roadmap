@@ -45,7 +45,7 @@
 	</li>
 	<li class="remember_me_li">
 		<%= f.check_box :accept_terms, :required => true %> <%= f.label :accept_terms, :class => "remember_div"  do %>
-		  <%= raw t('helpers.accept_terms_html')%>
+		  <%= raw t('helpers.accept_terms_html', current_locale: I18n.locale)%>
 		<%end%>
 	</li>
 	<li>
