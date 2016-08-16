@@ -11,9 +11,9 @@
 		<p><%= raw t("helpers.project.confirmation_text_desc")%></p>
 	</div>
 	<div class="modal-body">
-		<div><p><%= t("helpers.org_type.funder")%>: <span id="confirm-funder"><%= t("helpers.none")%></span></p></div>
-		<div><p><%= t("helpers.org_type.institution")%>: <span id="confirm-institution"><%= @project.organisation.nil? ? t("helpers.none") : @project.organisation %></span></p></div>
-		<div style="display:none"><p><%= t("helpers.org_type.template")%>: <span id="confirm-template"></span></p></div>
+		<div><p><%= constant("organisation_types.funder")%>: <span id="confirm-funder"><%= t("helpers.none")%></span></p></div>
+		<div><p><%= constant("organisation_types.institution")%>: <span id="confirm-institution"><%= @project.organisation.nil? ? t("helpers.none") : @project.organisation %></span></p></div>
+		<div style="display:none"><p><%= constant("organisation_types.template")%>: <span id="confirm-template"></span></p></div>
 		<div><p><%= t("helpers.org_type.other_guidance")%>: <ul id="confirm-guidance"></ul></p></div>
 	</div>
 	<div class="modal-footer">
@@ -32,7 +32,7 @@
 		<!-- verify if the current user organisation has or a template or guidance. if true display alert text-->
 		<%if !Dmptemplate.own_institutional_templates(current_user.organisation_id).empty? then %>
 			<div><p><strong><%= raw t("helpers.project.alert_default_template_text_html", :org_name => current_user.organisation.name )%></strong></p></div>
-		<%end%>	
+		<%end%>
 	</div>
 	<div class="modal-footer">
     	<a href="#" id="default-template-cancelled" class="btn"><%= t("helpers.submit.cancel")%></a>

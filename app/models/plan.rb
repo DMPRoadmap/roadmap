@@ -24,36 +24,54 @@ class Plan < ActiveRecord::Base
 
 	alias_method :super_settings, :settings
 
+  ##
 	# Proxy through to the template settings (or defaults if this plan doesn't have
 	# an associated template) if there are no settings stored for this plan.
 	# `key` is required by rails-settings, so it's required here, too.
+  #
+  # @param key [Key] a key required by rails
+  # @return [Settings] settings for this plan's template
 	def settings(key)
 		self_settings = self.super_settings(key)
 		return self_settings if self_settings.value?
-
 		self.dmptemplate.settings(key)
 	end
 
+  ##
+  # returns the template for this plan, or generates an empty template and returns that
+  #
+  # @return [Dmptemplate] the template associated with this plan
 	def dmptemplate
 		self.project.try(:dmptemplate) || Dmptemplate.new
 	end
 
+  ##
+  # returns the title for this project as defined by the settings
+  #
+  # @return [String] the title for this project
 	def title
 		logger.debug "Title in settings: #{self.settings(:export).title}"
 		if self.settings(:export).title == ""
-            if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
-                return self.version.phase.title
-            else
-                return I18n.t('tool_title2')
+      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
+        return self.version.phase.title
+      else
+        return I18n.t('tool_title2')
 			end
 		else
 			return self.settings(:export).title
 		end
 	end
 
+  ##
+  # returns the most recent answer to the given question id
+  # optionally can create an answer if none exists
+  #
+  # @param qid [Integer] the id for the question to find the answer for
+  # @param create_if_missing [Boolean] if true, will genereate a default answer to the question
+  # @return [Answer,nil] the most recent answer to the question, or a new question with default value, or nil
 	def answer(qid, create_if_missing = true)
-  		answer = answers.where(:question_id => qid).order("created_at DESC").first
-  		question = Question.find(qid)
+  	answer = answers.where(:question_id => qid).order("created_at DESC").first
+  	question = Question.find(qid)
 		if answer.nil? && create_if_missing then
 			answer = Answer.new
 			answer.plan_id = id
@@ -70,6 +88,10 @@ class Plan < ActiveRecord::Base
 		return answer
 	end
 
+  ##
+  # returns all of the sections for this version of the plan, and for the project's organisation
+  #
+  # @return [Array<Section>,nil] either a list of sections, or nil if none were found
 	def sections
 		unless project.organisation.nil? then
 			sections = version.global_sections + project.organisation.all_sections(version_id)
@@ -79,6 +101,11 @@ class Plan < ActiveRecord::Base
 		return sections.uniq.sort_by &:number
 	end
 
+  ##
+  # returns the guidances associated with the project's organisation, for a specified question
+  #
+  # @params question [Question] the question to find guidance for
+  # @return [Array<Guidance>] the list of guidances which pretain to the specified question
 	def guidance_for_question(question)
 		guidances = {}
 		# If project org isn't nil, get guidance by theme from any "non-subset" groups belonging to project org
@@ -93,7 +120,6 @@ class Plan < ActiveRecord::Base
 				end
 			end
 		end
-        
 		# Get guidance by theme from any guidance groups selected on creation
 		project.guidance_groups.each do |group|
 			if group.dmptemplates.pluck(:id).include?(project.dmptemplate_id) || group.dmptemplates.count == 0 then
@@ -102,23 +128,28 @@ class Plan < ActiveRecord::Base
 						guidances = self.add_guidance_to_array(guidances, group, theme, guidance)
 					end
 				end
-			end 
-       	end
-                
+			end
+    end
 		# Get guidance by question where guidance group was selected on creation or if group is organisation default
 		question.guidances.each do |guidance|
 			guidance.guidance_groups.each do |group|
 				if (group.organisation == project.organisation && !group.optional_subset) || project.guidance_groups.include?(group) then
 					guidances = self.add_guidance_to_array(guidances, group, nil, guidance)
 				end
-            end
+      end
 		end
-        
 		return guidances
 	end
 
+  ##
+  # adds the given guidance to a hash indexed by a passed guidance group and theme
+  #
+  # @param guidance_array [{GuidanceGroup => {Theme => Array<Gudiance>}}] the passed hash of arrays of guidances.  Indexed by GuidanceGroup and Theme.
+  # @param guidance_group [GuidanceGroup] the guidance_group index of the hash
+  # @param theme [Theme] the theme object for the GuidanceGroup
+  # @param guidance [Guidance] the guidance object to be appended to the correct section of the array
+  # @return [{GuidanceGroup => {Theme => Array<Guidance>}}] the updated object which was passed in
 	def add_guidance_to_array(guidance_array, guidance_group, theme, guidance)
-		
 		if guidance_array[guidance_group].nil? then
 			guidance_array[guidance_group] = {}
 		end
@@ -137,15 +168,14 @@ class Plan < ActiveRecord::Base
 				guidance_array[guidance_group][theme].push(guidance)
 			end
 		end
-		
-        return guidance_array
+      return guidance_array
 	end
-    
-    
-    
-   
-    
-    
+
+  ##
+  # finds the specified warning for the plan's project's organisation
+  #
+  # @param option_id [Integer] the id to find the OptionWarning associated
+  # @return [OptionWarning] the desired OptionWarning
 	def warning(option_id)
 		if project.organisation.nil?
 			return nil
@@ -154,10 +184,22 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # determines if the plan is editable by the specified user
+  # NOTE: This should be renamed to editable_by?
+  #
+  # @param user_id [Integer] the id for a user
+  # @return [Boolean] true if user can edit the plan
 	def editable_by(user_id)
 		return project.editable_by(user_id)
 	end
 
+  ##
+  # determines if the plan is readable by the specified user
+  # NOTE: This shoudl be renamed to readable_by?
+  #
+  # @param user_id [Integer] the id for a user
+  # @return [Boolean] true if the user can read the plan
 	def readable_by(user_id)
 		if project.nil?
 			return false
@@ -166,10 +208,24 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # determines if the plan is administerable by the specified user
+  # NOTE: This should be renamed to administerable_by?
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user can administer the plan
 	def administerable_by(user_id)
 		return project.readable_by(user_id)
 	end
 
+
+  ##
+  # defines and returns the status of the plan
+  # status consists of a hash of the num_questions, num_answers, sections, questions, and spaced used.
+  # For each section, it contains theid's of each of the questions
+  # for each question, it contains the answer_id, answer_created_by, answer_text, answer_options_id, aand answered_by
+  #
+  # @return [Status]
 	def status
 		status = {
 			"num_questions" => 0,
@@ -228,6 +284,13 @@ class Plan < ActiveRecord::Base
 		return status
 	end
 
+
+  ##
+  # defines and returns the details for the plan
+  # details consists of a hash of: project_title, phase_title, and for each section,
+  # section: title, question text for each question, answer type and answer value
+  #
+  # @return [Details]
 	def details
 		details = {
 			"project_title" => project.title,
@@ -258,6 +321,12 @@ class Plan < ActiveRecord::Base
 		return details
 	end
 
+  ##
+  # determines wether or not a specified section of a plan is locked to a specified user and returns a status hash
+  #
+  # @param section_id [Integer] the setion to determine if locked
+  # @param user_id [Integer] the user to determine if locked for
+  # @return [Hash{String => Hash{String => Boolean, nil, String, Integer}}]
 	def locked(section_id, user_id)
 		plan_section = plan_sections.where("section_id = ? AND user_id != ? AND release_time > ?", section_id, user_id, Time.now).last
 		if plan_section.nil? then
@@ -277,24 +346,44 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # for each section, lock the section with the given user_id
+  #
+  # @param user_id [Integer] the id for the user who can use the sections
 	def lock_all_sections(user_id)
 		sections.each do |s|
 			lock_section(s.id, user_id, 1800)
 		end
 	end
 
+  ##
+  # for each section, unlock the section
+  #
+  # @param user_id [Integer] the id for the user to unlock the sections for
 	def unlock_all_sections(user_id)
 		plan_sections.where(:user_id => user_id).order("created_at DESC").each do |lock|
 			lock.delete
 		end
 	end
 
+  ##
+  # for each section, unlock the section
+  # Not sure how this is different from unlock_all_sections
+  #
+  # @param user_id [Integer]
 	def delete_recent_locks(user_id)
 		plan_sections.where(:user_id => user_id).each do |lock|
 			lock.delete
 		end
 	end
 
+  ##
+  # Locks the specified section to only be used by the specified user, for the number of secconds specified
+  #
+  # @param section_id [Integer] the id of the section to be locked
+  # @param user_id [Integer] the id of the user who can use the section
+  # @param release_time [Integer] the number of secconds the section will be locked for, defaults to 60
+  # @return [Boolean] wether or not the section was locked
 	def lock_section(section_id, user_id, release_time = 60)
 		status = locked(section_id, user_id)
 		if ! status["locked"] then
@@ -313,12 +402,22 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # unlocks the specified section for the specified user
+  #
+  # @param section_id [Integer] the id for the section to be unlocked
+  # @param user_id [Integer] the id for the user for whom the section was previously locked
+  # @return [Boolean] wether or not the lock was removed
 	def unlock_section(section_id, user_id)
 		plan_sections.where(:section_id => section_id, :user_id => user_id).order("created_at DESC").each do |lock|
 			lock.delete
 		end
 	end
 
+  ##
+  # returns the time of either the latest answer to any question, or the latest update to the model
+  #
+  # @return [DateTime] the time at which the plan was last changed
 	def latest_update
 		if answers.any? then
 			last_answered = answers.order("updated_at DESC").first.updated_at
@@ -332,6 +431,12 @@ class Plan < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # returns an array of hashes.  Each hash contains the question's id, the answer_id,
+  # the answer_text, the answer_timestamp, and the answer_options
+  #
+  # @params section_id [Integer] the section to find answers of
+  # @return [Array<Hash{String => nil,String,Integer,DateTime}]
 	def section_answers(section_id)
 		section = Section.find(section_id)
  		section_questions = Array.new
@@ -363,6 +468,7 @@ class Plan < ActiveRecord::Base
 
 private
 
+  ##
 	# Based on the height of the text gathered so far and the available vertical
 	# space of the pdf, estimate a percentage of how much space has been used.
 	# This is highly dependent on the layout in the pdf. A more accurate approach
@@ -370,6 +476,9 @@ private
 	# could be very slow.
 	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
 	# for guidance when editing plan data, not to be 100% accurate.
+  #
+  # @params used_height [Integer] an estimate of the height used so far
+  # @return [Integer] the estimate of space used of an A4 portrain
 	def estimate_space_used(used_height)
 		@formatting ||= self.settings(:export).formatting
 
@@ -383,6 +492,7 @@ private
 		(percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
 	end
 
+  ##
 	# Take a guess at the vertical height (in mm) of the given text based on the
 	# font-size and left/right margins stored in the plan's settings.
 	# This assumes a fixed-width for each glyph, which is obviously
@@ -390,6 +500,10 @@ private
 	# they'll hopefully average out to that in the long-run.
 	# Allows for hinting different font sizes (offset from base via font_size_inc)
 	# and vertical margins (i.e. for heading text)
+  #
+  # @params text [String] the text to estimate size of
+  # @params font_size_inc [Integer] the size of the font of the text, defaults to 0
+  # @params vertical_margin [Integer] the top margin above the text, defaults to 0
 	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
 		@formatting     ||= self.settings(:export).formatting
 		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i

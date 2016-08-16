@@ -1,13 +1,13 @@
 module PlansHelper
 
   def project_list_head(column)
-    klass = case column[0]
+    klass = case column
       when 'name'  then :dmp_th_big
       when 'description' then :dmp_th_big
       else :dmp_th_small
     end
 
-    content_tag(:th, t("helpers.project.columns.#{column[0]}"), class: klass)
+    content_tag(:th, t("helpers.project.columns.#{column}"), class: klass)
   end
 
   def project_list_body(column, project)

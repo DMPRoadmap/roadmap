@@ -5,7 +5,7 @@
 </h1>
 <div class="div_clear"></div>
 <h2>
-	<%= t('org_admin.templates.own_temp') %>      
+	<%= t('org_admin.templates.own_temp') %>
 </h2>
 
 <div class="div_left">
@@ -34,8 +34,8 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-			<% @dmptemplates_own.each do |org_template| %>	
-		
+			<% @dmptemplates_own.each do |org_template| %>
+
 		  	<tr>
 	  			<td class="dmp_td_small">
 	  				<%= org_template.title%>
@@ -64,28 +64,28 @@
 						<% b_label = t('helpers.submit.edit')%>
 					<%else%>
 						<% b_label = t('helpers.view')%>
-					<%end%> 
+					<%end%>
 					<%= link_to b_label, admin_template_dmptemplate_path(org_template), :class => "dmp_table_link"%>
 		       	</td>
 		     </tr>
-	    	<%end%>	
+	    	<%end%>
 		  </tbody>
 		</table>
-	
-<%end%>	
+
+<%end%>
 
 <br/>
 <div class="div_clear"></div>
 
 <!-- display this only if the organisation is not a funder-->
-<% if current_user.org_type != t("helpers.org_type.funder") then %>
+<% if current_user.org_type != constant("organisation_types.funder") then %>
     <h2 class="float-left">
         <%= t("org_admin.templates.funders_temp") %>
-    </h2>	
+    </h2>
 
     <!-- List of funders templates -->
     <% if @dmptemplates_funders.count > 0 then %>
-        
+
         <table id="dmp_table_2" class="dmp_table tablesorter">
             <thead>
                 <tr>
@@ -97,8 +97,8 @@
                 </tr>
             </thead>
             <tbody>
-               
-                <% @dmptemplates_funders.each do |org_template| %>	
+
+                <% @dmptemplates_funders.each do |org_template| %>
                     <% if org_template.published? ||org_template.has_customisations?(current_user.organisation_id, org_template) then %>
                        <tr>
                             <td class="dmp_td_small">
@@ -126,28 +126,28 @@
                                     <%end%>
                                 <%end%>
                                 <%= l last_updated.to_date, :formats => :short %>
-                               
+
                             </td>
                             <td class="dmp_td_small">
                                 <%if current_user.is_org_admin? then%>
-                                    <% if org_template.org_type == t("helpers.org_type.funder") then %>
+                                    <% if org_template.org_type == constant("organisation_types.funder") then %>
                                         <%if org_template.has_customisations?(current_user.organisation_id, org_template) then%>
                                             <% b_label = t("org_admin.templates.edit_customisation")%>
-                                        <%else%>	
+                                        <%else%>
                                             <% b_label = t("org_admin.templates.customise")%>
-                                        <%end%>	
+                                        <%end%>
                                     <%else%>
                                         <% b_label = t("helpers.submit.edit")%>
-                                    <%end%>	
+                                    <%end%>
                                 <%else%>
                                     <% b_label = t("helpers.view")%>
-                                <%end%> 
+                                <%end%>
                                 <%= link_to b_label, admin_template_dmptemplate_path(org_template), :class => "dmp_table_link"%>
                             </td>
                         </tr>
                     <%end%>
-                <%end%>	
+                <%end%>
             </tbody>
         </table>
 	<%end%>
-<%end%>    
+<%end%>

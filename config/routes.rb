@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users, :controllers => {:registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords', :sessions => 'sessions', :omniauth_callbacks => 'users/omniauth_callbacks'} do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
@@ -6,6 +7,11 @@ Rails.application.routes.draw do
   # WAYFless access point - use query param idp
   get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
+
+  # fix for activeadmin signout bug
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
 
   ActiveAdmin.routes(self)
 
@@ -177,8 +183,16 @@ Rails.application.routes.draw do
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
         resources :guidance_groups, only: [:index, :show]
-        resources :guidances, only: [:index, :show]
         resources :plans, only: :create, controller: "projects", path: "plans"
+        resources :templates, only: :index, controller: "dmptemplates", path: "templates"
+        resource  :statistics, only: [], controller: "statistics", path: "statistics" do
+          member do
+            get :users_joined
+            get :using_template
+            get :plans_by_template
+            get :plans
+          end
+        end
       end
     end
 

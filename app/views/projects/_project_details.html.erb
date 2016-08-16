@@ -4,9 +4,9 @@
 		<div class="div_left">
 			<p>
 				<%= t('helpers.project.project_details_text_html')%>
-			</p>	
+			</p>
 		</div>
-		
+
 		<!-- edit project button -->
 		<div class="div_right">
 			<% if @project.administerable_by(current_user.id) then %>
@@ -27,7 +27,7 @@
 							<%= @project.identifier %>
 						<%else%>
 							 -
-						<%end%>	
+						<%end%>
 					</td>
 				</tr>
 				<tr>
@@ -36,8 +36,8 @@
 						<% if !@project.grant_number.nil? && @project.grant_number!= "" then %>
 							<%= @project.grant_number %>
 						<%else%>
-							-	
-						<%end%>	
+							-
+						<%end%>
 					</td>
 				</tr>
 				<tr>
@@ -46,7 +46,7 @@
 							<%= @project.principal_investigator %>
 						<%else%>
 							 -
-						<%end%>	
+						<%end%>
 					</td>
 				</tr>
 				<% if !@project.principal_investigator_identifier.nil? && @project.principal_investigator_identifier != "" then %>
@@ -56,14 +56,14 @@
 							<%= @project.principal_investigator_identifier %>
 						</td>
 					</tr>
-				<%end%>		
+				<%end%>
 				<tr>
 					<td class="first"><%= t('helpers.project.project_data_contact') %></td>
 					<td><% if !@project.data_contact.nil? && @project.data_contact != "" then%>
 							<%= @project.data_contact %>
 						<%else%>
 							 -
-						<%end%>	
+						<%end%>
 					</td>
 				</tr>
 				<tr>
@@ -72,7 +72,7 @@
 							<%= @project.description %>
 						<%else%>
 							 -
-						<%end%>	
+						<%end%>
 					</td>
 				</tr>
 			</table>
@@ -93,7 +93,7 @@
 			<%= semantic_form_for @project, :url => {:controller => :projects, :action => :update }, :html=>{:method=>:put} do |f| %>
 			<%= f.inputs do %>
 				<div class="dmp_details">
-					
+
 					<!-- If not first time login in or editing project details -->
 					<table class="dmp_details_table">
 						<tr>
@@ -129,7 +129,7 @@
 						<tr>
 							<td class="first"><%= t('helpers.project.project_data_contact') %></td>
 							<td>
-								<%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_data_contact_help_text') %>	
+								<%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_data_contact_help_text') %>
 							</td>
 						</tr>
 						<tr>
@@ -138,41 +138,41 @@
 								<%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> t('helpers.project.project_desc_help_text_html')} %>
 							</td>
 						</tr>
-					</table>				
+					</table>
 				</div>
 				<% end %>
 				<!-- submit buttons -->
-				<%= f.actions do %>	
+				<%= f.actions do %>
 					<div class="move_2_right">
 						<%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
 						<a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.links.cancel") %></a>
 					</div>
 				<%end%>
-			<%end%>	
+			<%end%>
 	</div>
 	<% end %>
 	<h3><%= t('helpers.project.project_static_info')%></h3>
 	<table class="dmp_details_table">
 		<!-- get the funder name if there is one -->
-		<%if @project.dmptemplate.organisation.organisation_type.name == t('helpers.org_type.funder') %>
+		<%if @project.dmptemplate.organisation.organisation_type.name == constant("organisation_types.funder")%>
 			<tr>
-				<td class="first"><%= t('helpers.org_type.funder') %></td>
+				<td class="first"><%= constant("organisation_types.funder") %></td>
 				<td><%= @project.dmptemplate.organisation.name %></td>
 			</tr>
 		<%end%>
 		<%if !@project.organisation_id.nil?	%>
 			<tr>
-				<td class="first"><%= t('helpers.org_type.institution') %></td>
+				<td class="first"><%= constant("organisation_types.institution") %></td>
 				<td><%= @project.organisation.name %></td>
 			</tr>
 		<%end%>
 	</table>
-			
+
 	<!-- If project has plans-->
 	<% if @project.plans.any? %>
 		<% if @project.plans.count == 1 then %>
 			<% @project.plans.each do |plan| %>
-				
+
 				<div class="move_2_right">
 					<%= link_to t('helpers.answer_questions'), [:edit, @project, plan], :class => 'btn btn-primary'  %>
 					<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= t('helpers.export') %></a>
@@ -194,28 +194,28 @@
 									<th class="dmp_th_border" >
 										<p><%= section.title %></p>
 									</th>
-	        						<td class="dmp_td_border" >	
+	        						<td class="dmp_td_border" >
 										<% if section.questions.any? %>
 											<% questions = section.questions.sort_by(&:number) %>
 											<ul class="question_ul">
 												<% questions.each do |ques|%>
 													<li>
 														- <%= ques.text %>
-													</li>	
+													</li>
 												<%end%>
 											</ul>
-										<%end%>		
+										<%end%>
 									</td>
-								</tr>		
+								</tr>
 							<%end%>
-						</tbody>	
+						</tbody>
 					</table>
-				<%end%>	
+				<%end%>
 			<%end%>
-		<%else%>	
+		<%else%>
 			<div class="project_description">
 				<%= raw @project.dmptemplate.description %>
-			</div>	
+			</div>
 			<% @project.plans.each do |plan| %>
 				<div class="accordion" id="project-accordion">
 					<div class="accordion-group">
@@ -235,7 +235,7 @@
 								<div class="div_clear"></div>
 									<p><%= raw plan.version.phase.description %>
 								</p>
-												
+
 								<% if !plan.sections.nil? %>
 									<table class="dmp_table">
 										<thead>
@@ -250,31 +250,28 @@
 													<th class="dmp_th_border" >
 														<p><%= section.title %></p>
 													</th>
-					        						<td class="dmp_td_border" >	
+					        						<td class="dmp_td_border" >
 														<% if section.questions.any? %>
 															<% questions = section.questions.sort_by(&:number) %>
 															<ul class="question_ul">
 																<% questions.each do |ques|%>
 																	<li>
 																		- <%= ques.text %>
-																	</li>	
+																	</li>
 																<%end%>
 															</ul>
-														<%end%>		
+														<%end%>
 													</td>
-												</tr>		
+												</tr>
 											<%end%>
-										</tbody>	
+										</tbody>
 									</table>
 								<%end%>
 							</div>
 						</div>
 					</div>
-				</div>				
-			<%end%>	
-		<%end%>	
-	<%end%>				
-</div>						
-							
-							
-						
+				</div>
+			<%end%>
+		<%end%>
+	<%end%>
+</div>

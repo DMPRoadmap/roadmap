@@ -12,7 +12,7 @@
 			<td class="first_template"><%= t('org_admin.questions.question_number_label')%></td>
 			<td><%= question.number%></td>
 		</tr>
-		
+
 		<!--Question text -->
 		<tr>
 			<td class="first_template"><%= t('org_admin.questions.question_text_label')%></td>
@@ -28,7 +28,7 @@
 							<% if !question.options.to_a.nil? then %>
                                 <% question.options.to_a.sort_by{|op| op['number']}.each do |o| %>
                                     <li>- <%= o.text %></li>
-                                <%end%>    
+                                <%end%>
 							<% end %>
 						<% end %>
 						</ul>
@@ -43,7 +43,7 @@
 					<td class="first_template"><%= t('org_admin.questions.default_value_label')%></td>
 					<td><%= raw question.default_value %></td>
 				</tr>
-			<%end%>	
+			<%end%>
 		<% end %>
 		<!-- Question format -->
 		<tr>
@@ -57,12 +57,12 @@
                         <%= t("org_admin.questions.option_comment_hide")%>
                     <%end%>
                 <%end%> 
-                <div class="add_space"></div>    
+                <div class="add_space"></div>
             </td>
 		</tr>
-		
+
 		<!-- Suggested answer or Example-->
-		<% if (question.section.version.phase.dmptemplate.org_type != t("helpers.org_type.funder") && question.section.organisation_id == current_user.organisation_id ) then%>
+		<% if (question.section.version.phase.dmptemplate.org_type != constant("organisation_types.funder") && question.section.organisation_id == current_user.organisation_id ) then%>
 			<% suggested_answer = question.get_suggested_answer(current_user.organisation.id) %>
 			<% if !suggested_answer.nil?  && suggested_answer.text != "" then %>
 				<tr>
@@ -71,12 +71,12 @@
 							<%= t('org_admin.questions.example_answer_label')%>
 						<%else%>
 							<%= t('org_admin.questions.suggested_answer_label')%>
-						<%end%>		
+						<%end%>
 					</td>
 					<td><%= raw suggested_answer.text %></td>
 				</tr>
 			<%end%>
-		<%end%>	
+		<%end%>
 		<!-- Guidance linked to this question -->
 		<%if !question.guidance.nil? then %>
 			<tr>
@@ -92,9 +92,9 @@
 				<td><% i = 1%>
 					<% themes_q.each do |t|%>
 						<%= t.title %>
-						<% if themes_q.count > i then%> 
-							,	
-							<% i +=1 %>		
+						<% if themes_q.count > i then%>
+							,
+							<% i +=1 %>
 						<% end %>
 					<%end%>
 				</td>
@@ -103,7 +103,7 @@
 	</table>
 	<br/>
 	<!-- Add suggested or example answers to a funders template-->
-	<% if (question.section.version.phase.dmptemplate.org_type == t("helpers.org_type.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
+	<% if (question.section.version.phase.dmptemplate.org_type == constant("organisation_types.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
 		<% suggested_answer = question.get_suggested_answer(current_user.organisation.id) %>
 		<% if !suggested_answer.nil?  && suggested_answer.text != "" then %>
 			<div id="show_suggested_answer_div_<%= question.id%>">
@@ -112,20 +112,20 @@
 			<div id="edit_suggested_answer_div_<%= question.id%>" style="display: none">
 				<%= render :partial => 'edit_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
 			</div>
-			
+
 		<%end%>
-		
-			
+
+
 		<div id="add_suggested_answer_block_<%= question.id%>" style="display: none">
 			<%= render :partial => 'add_suggested_answer', locals: {question: question} %>
-		</div>	
-			
-		
+		</div>
+
+
 	<%end%>
-		
+
 	<br/>
 	<!-- edit question button-->
-	<%if (@edit == 'true'&& question.section.organisation_id == current_user.organisation_id) || (question.section.version.phase.dmptemplate.org_type == t("helpers.org_type.funder") && question.section.organisation_id == current_user.organisation_id && current_user.org_type != t("helpers.org_type.funder")) then%>
+	<%if (@edit == 'true'&& question.section.organisation_id == current_user.organisation_id) || (question.section.version.phase.dmptemplate.org_type == constant("organisation_types.funder") && question.section.organisation_id == current_user.organisation_id && current_user.org_type != constant("organisation_types.funder")) then%>
 		<div class="move_2_right">
 			<%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
 			<%= link_to t("org_admin.questions.question_edit_button"), '# ', :class => "btn btn-primary edit_question_button"%>
@@ -134,20 +134,20 @@
 				:confirm => t("org_admin.questions.delete_message", :question_text => question.text ), :method => :delete, :class => "btn btn-primary"%>
 			<%end%>	
 		</div>
-	<%elsif  (@edit == 'false' && question.section.organisation_id != current_user.organisation_id )|| (question.section.version.phase.dmptemplate.org_type == t("helpers.org_type.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
+	<%elsif  (@edit == 'false' && question.section.organisation_id != current_user.organisation_id )|| (question.section.version.phase.dmptemplate.org_type == constant("organisation_types.funder") && question.section.organisation_id != current_user.organisation_id ) then%>
 		<% suggested_answer = question.get_suggested_answer(current_user.organisation.id) %>
 		<% if suggested_answer.nil? then %>
 			<div id="add_suggested_answer_button_<%= question.id%>">
 				<div class="move_2_right">
 					<%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
 					<%= link_to t("org_admin.questions.suggested_or_example_answer_button"), '# ', :class => "btn btn-primary add_suggested_answer_button"%>
-				</div>	
-			</div>	
-		<%end%>	
+				</div>
+			</div>
+		<%end%>
 	<%end%>
 	<div class="div_clear"></div>
-</div>	
+</div>
 
-		
+
 <!--guidance block -->
 <%= render :partial => 'guidance_display', locals: {question: question}%>

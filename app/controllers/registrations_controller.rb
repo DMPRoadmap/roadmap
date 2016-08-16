@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    logger.debug "#{sign_up_params}"
   	if sign_up_params[:accept_terms] != "1" then
   	  redirect_to after_sign_up_error_path_for(resource), alert: I18n.t('helpers.you_must_accept')
   	else
