@@ -1,20 +1,13 @@
 class GuidancesController < ApplicationController
-
   # GET /guidances
   # GET /guidances.json
   def admin_index
-    if user_signed_in? && current_user.is_org_admin? then
-	    @guidances = Guidance.by_organisation(current_user.organisation_id)
-	    @guidance_groups = GuidanceGroup.where('organisation_id = ?', current_user.organisation_id )
-
-
-	    respond_to do |format|
-	      format.html # index.html.erb
-	      format.json { render json: @guidances }
-	    end
-    else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-		end
+    @guidances = authorize Guidance.by_organisation(current_user.organisation_id)
+    @guidance_groups = GuidanceGroup.where('organisation_id = ?', current_user.organisation_id )
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @guidances }
+    end
   end
 
   # GET /guidances/1
@@ -31,45 +24,43 @@ class GuidancesController < ApplicationController
   end
 
   def admin_new
-    if user_signed_in? && current_user.is_org_admin? then
-	    @guidance = Guidance.new
-			@dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
-			@phases = nil
-			@dmptemplates.each do |template|
-				if @phases.nil? then
-					@phases = template.phases.all.order('number')
-				else
-					@phases = @phases + template.phases.all.order('number')
-				end
+    @guidance = authorize Guidance.new
+		@dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
+		@phases = nil
+		@dmptemplates.each do |template|
+			if @phases.nil? then
+				@phases = template.phases.all.order('number')
+			else
+				@phases = @phases + template.phases.all.order('number')
 			end
-			@versions = nil
-			@phases.each do |phase|
-				if @versions.nil? then
-					@versions = phase.versions.all.order('title')
-				else
-					@versions = @versions + phase.versions.all.order('title')
-				end
+		end
+		@versions = nil
+		@phases.each do |phase|
+			if @versions.nil? then
+				@versions = phase.versions.all.order('title')
+			else
+				@versions = @versions + phase.versions.all.order('title')
 			end
-			@sections = nil
-			@versions.each do |version|
-				if @sections.nil? then
-					@sections = version.sections.all.order('number')
-				else
-					@sections = @sections + version.sections.all.order('number')
-				end
+		end
+		@sections = nil
+		@versions.each do |version|
+			if @sections.nil? then
+				@sections = version.sections.all.order('number')
+			else
+				@sections = @sections + version.sections.all.order('number')
 			end
-			@questions = nil
-			@sections.each do |section|
-				if @questions.nil? then
-					@questions = section.questions.all.order('number')
-				else
-					@questions = @questions + section.questions.all.order('number')
-				end
+		end
+		@questions = nil
+		@sections.each do |section|
+			if @questions.nil? then
+				@questions = section.questions.all.order('number')
+			else
+				@questions = @questions + section.questions.all.order('number')
 			end
-	    respond_to do |format|
-	      format.html
-	    end
-   	end
+		end
+    respond_to do |format|
+      format.html
+    end
 	end
 
 	#setup variables for use in the dynamic updating
@@ -110,119 +101,93 @@ class GuidancesController < ApplicationController
 
   # GET /guidances/1/edit
   def admin_edit
-  	if user_signed_in? && current_user.is_org_admin? then
-      @guidance = Guidance.find(params[:id])
-      @dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
-			@phases = nil
-			@dmptemplates.each do |template|
-				if @phases.nil? then
-					@phases = template.phases.all.order('number')
-				else
-					@phases = @phases + template.phases.all.order('number')
-				end
+    @guidance = authorize Guidance.find(params[:id])
+    @dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
+		@phases = nil
+		@dmptemplates.each do |template|
+			if @phases.nil? then
+				@phases = template.phases.all.order('number')
+			else
+				@phases = @phases + template.phases.all.order('number')
 			end
-			@versions = nil
-			@phases.each do |phase|
-				if @versions.nil? then
-					@versions = phase.versions.all.order('title')
-				else
-					@versions = @versions + phase.versions.all.order('title')
-				end
+		end
+		@versions = nil
+		@phases.each do |phase|
+			if @versions.nil? then
+				@versions = phase.versions.all.order('title')
+			else
+				@versions = @versions + phase.versions.all.order('title')
 			end
-			@sections = nil
-			@versions.each do |version|
-				if @sections.nil? then
-					@sections = version.sections.all.order('number')
-				else
-					@sections = @sections + version.sections.all.order('number')
-				end
+		end
+		@sections = nil
+		@versions.each do |version|
+			if @sections.nil? then
+				@sections = version.sections.all.order('number')
+			else
+				@sections = @sections + version.sections.all.order('number')
 			end
-			@questions = nil
-			@sections.each do |section|
-				if @questions.nil? then
-					@questions = section.questions.all.order('number')
-				else
-					@questions = @questions + section.questions.all.order('number')
-				end
+		end
+		@questions = nil
+		@sections.each do |section|
+			if @questions.nil? then
+				@questions = section.questions.all.order('number')
+			else
+				@questions = @questions + section.questions.all.order('number')
 			end
-    else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 		end
   end
 
   # POST /guidances
   # POST /guidances.json
   def admin_create
-    if user_signed_in? && current_user.is_org_admin? then
-	    @guidance = Guidance.new(params[:guidance])
-	    @guidance.text = params["guidance-text"]
-	    @guidance.question_id = params["question_id"]
-        if @guidance.published == true then
-            @gg = GuidanceGroup.find(@guidance.guidance_group_ids).first
-            
-            if @gg.published == false || @gg.published.nil? then
-                @gg.published = true
-                @gg.save
-            end
-
+    @guidance = authorize Guidance.new(params[:guidance])
+    @guidance.text = params["guidance-text"]
+    @guidance.question_id = params["question_id"]
+      if @guidance.published == true then
+        @gg = GuidanceGroup.find(@guidance.guidance_group_ids).first
+        if @gg.published == false || @gg.published.nil? then
+          @gg.published = true
+          @gg.save
         end
-
-	    respond_to do |format|
-	      if @guidance.save
-	        format.html { redirect_to admin_show_guidance_path(@guidance), notice: I18n.t('org_admin.guidance.created_message') }
-	        format.json { render json: @guidance, status: :created, location: @guidance }
-	      else
-	        format.html { render action: "new" }
-	        format.json { render json: @guidance.errors, status: :unprocessable_entity }
-	      end
-	    end
-    else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-		end
+      end
+    respond_to do |format|
+      if @guidance.save
+        format.html { redirect_to admin_show_guidance_path(@guidance), notice: I18n.t('org_admin.guidance.created_message') }
+        format.json { render json: @guidance, status: :created, location: @guidance }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @guidance.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PUT /guidances/1
   # PUT /guidances/1.json
   def admin_update
- 		if user_signed_in? && current_user.is_org_admin? then
-   		@guidance = Guidance.find(params[:id])
-
-			@guidance.text = params["guidance-text"]
-
-			@guidance.question_id = params["question_id"]
-
-	    respond_to do |format|
-	      if @guidance.update_attributes(params[:guidance])
-	        format.html { redirect_to admin_show_guidance_path(params[:guidance]), notice: I18n.t('org_admin.guidance.updated_message') }
-	        format.json { head :no_content }
-	      else
-	        format.html { render action: "edit" }
-	        format.json { render json: @guidance.errors, status: :unprocessable_entity }
-	      end
-	    end
-    else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-		end
+ 		@guidance = authorize Guidance.find(params[:id])
+		@guidance.text = params["guidance-text"]
+		@guidance.question_id = params["question_id"]
+    respond_to do |format|
+      if @guidance.update_attributes(params[:guidance])
+        format.html { redirect_to admin_show_guidance_path(params[:guidance]), notice: I18n.t('org_admin.guidance.updated_message') }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @guidance.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
 
   # DELETE /guidances/1
   # DELETE /guidances/1.json
   def admin_destroy
-  	if user_signed_in? && current_user.is_org_admin? then
-	   	@guidance = Guidance.find(params[:id])
-	    @guidance.destroy
-
-	    respond_to do |format|
-	      format.html { redirect_to admin_index_guidance_path }
-	      format.json { head :no_content }
-	    end
-	 	else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-		end
-
+   	@guidance = authorize Guidance.find(params[:id])
+    @guidance.destroy
+    respond_to do |format|
+      format.html { redirect_to admin_index_guidance_path }
+      format.json { head :no_content }
+    end
 	end
-
-
 
 end
