@@ -2,7 +2,8 @@ class GuidancesController < ApplicationController
   # GET /guidances
   # GET /guidances.json
   def admin_index
-    @guidances = authorize Guidance.by_organisation(current_user.organisation_id)
+    authorize Guidance
+    @guidances = policy_scope(Guidance)
     @guidance_groups = GuidanceGroup.where('organisation_id = ?', current_user.organisation_id )
     respond_to do |format|
       format.html # index.html.erb
@@ -13,18 +14,17 @@ class GuidancesController < ApplicationController
   # GET /guidances/1
   # GET /guidances/1.json
   def admin_show
-    if user_signed_in? && current_user.is_org_admin? then
-	    @guidance = Guidance.find(params[:id])
-
-	    respond_to do |format|
-	      format.html # show.html.erb
-	      format.json { render json: @guidance }
-	    end
-   end
+    @guidance = Guidance.find(params[:id])
+    authorize @guidance
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @guidance }
+    end
   end
 
   def admin_new
-    @guidance = authorize Guidance.new
+    @guidance = Guidance.new
+    authorize @guidance
 		@dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
 		@phases = nil
 		@dmptemplates.each do |template|
@@ -101,7 +101,8 @@ class GuidancesController < ApplicationController
 
   # GET /guidances/1/edit
   def admin_edit
-    @guidance = authorize Guidance.find(params[:id])
+    @guidance = Guidance.find(params[:id])
+    authorize @guidance
     @dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
 		@phases = nil
 		@dmptemplates.each do |template|
@@ -140,7 +141,8 @@ class GuidancesController < ApplicationController
   # POST /guidances
   # POST /guidances.json
   def admin_create
-    @guidance = authorize Guidance.new(params[:guidance])
+    @guidance = Guidance.new(params[:guidance])
+    authorize @guidance
     @guidance.text = params["guidance-text"]
     @guidance.question_id = params["question_id"]
       if @guidance.published == true then
@@ -164,7 +166,8 @@ class GuidancesController < ApplicationController
   # PUT /guidances/1
   # PUT /guidances/1.json
   def admin_update
- 		@guidance = authorize Guidance.find(params[:id])
+ 		@guidance = Guidance.find(params[:id])
+    authorize @guidance
 		@guidance.text = params["guidance-text"]
 		@guidance.question_id = params["question_id"]
     respond_to do |format|
@@ -182,7 +185,8 @@ class GuidancesController < ApplicationController
   # DELETE /guidances/1
   # DELETE /guidances/1.json
   def admin_destroy
-   	@guidance = authorize Guidance.find(params[:id])
+   	@guidance = Guidance.find(params[:id])
+    authorize @guidance
     @guidance.destroy
     respond_to do |format|
       format.html { redirect_to admin_index_guidance_path }

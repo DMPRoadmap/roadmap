@@ -1,4 +1,4 @@
-class TokenPermissionTypePolicy
+class TokenPermissionTypePolicy < ApplicationPolicy
   attr_reader :user, :token_permission_type
 
   def initialize(user, token_permission_type)
