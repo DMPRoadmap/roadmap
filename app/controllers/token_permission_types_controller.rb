@@ -2,8 +2,7 @@ class TokenPermissionTypesController < ApplicationController
 
 
     def index
-      logger.debug "#{current_user}"
-      authorize TokenPermissionType.first
+      authorize TokenPermissionType
       @user = current_user
       respond_to do |format|
         format.html

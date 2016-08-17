@@ -1,4 +1,4 @@
-class GuidancePolicy
+class GuidancePolicy < ApplicationPolicy
   attr_reader :user, :guidance
 
   def initialize(user, guidance)
@@ -7,15 +7,15 @@ class GuidancePolicy
   end
 
   def admin_show?
-    user.can_modify_guidance?
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
   end
 
   def admin_edit?
-    user.can_modify_guidance?
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
   end
 
   def admin_update?
-    user.can_modify_guidance?
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
   end
 
   def admin_index?
@@ -31,7 +31,12 @@ class GuidancePolicy
   end
 
   def admin_destroy?
-    user.can_modify_guidance?
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
   end
 
+  class Scope < Scope
+    def resolve
+      scope = Guidance.by_organisation(user.organisation_id)
+    end
+  end
 end
