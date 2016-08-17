@@ -67,7 +67,6 @@ module DMPRoadmap
     config.assets.precompile += %w(toolbar.js)
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
-    config.assets.precompile += %w(bootstrap_and_overrides.css)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
