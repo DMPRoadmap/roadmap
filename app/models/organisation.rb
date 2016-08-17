@@ -32,7 +32,8 @@ class Organisation < ActiveRecord::Base
 
   # allow validations for logo upload
   dragonfly_accessor :logo
-  validates_property :height, of: :logo, in: (0..100)
+  validates_property :height, of: :logo, in: (0..160)
+  validates_property :width, of: :logo, in: (0..160)
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
   validates_size_of :logo, maximum: 500.kilobytes
 
