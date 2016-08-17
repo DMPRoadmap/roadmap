@@ -56,6 +56,8 @@ gem 'ledermann-rails-settings'
 
 # ---------------------------------------------------------------------------------------------
 #    VIEWS
+gem 'sass-rails'
+gem 'less-rails'                                      # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                                   # WYSIWYG EDITOR
@@ -91,9 +93,6 @@ gem 'redcarpet'
 
 group :development, :test do
   gem "byebug"
-  
-  gem 'sass-rails'
-  gem 'less-rails'                                    # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
 end
 
 group :test do
