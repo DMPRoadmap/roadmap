@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
   # removes the api_token from the user
   # modifies the user model
   def remove_token!
-    unless api_token.empty?
+    unless api_token.blank?
       self.api_token = ""
       self.save!
     end
