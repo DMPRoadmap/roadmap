@@ -1,13 +1,6 @@
 <%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
-<% if @organisation.errors.any? %>
-  <ul>
-  <% @organisation.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
 <h1>
 	<%= t('org_admin.org_details_label') %>
 </h1>

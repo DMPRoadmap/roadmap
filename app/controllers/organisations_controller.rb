@@ -59,6 +59,8 @@ class OrganisationsController < ApplicationController
   	if user_signed_in? && current_user.is_org_admin? then
         @organisation = Organisation.find(params[:id])
     
+        @logo_max_height = Dragonfly::LOGO_MAX_HEIGHT
+        @logo_max_width = Dragonfly::LOGO_MAX_WIDTH
     else
 		render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 	end 
@@ -80,8 +82,9 @@ class OrganisationsController < ApplicationController
 	        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
 	        format.json { head :no_content }
 	      else
-               	flash[:alert] = I18n.t("org_admin.org_logo_failed_message")
-                format.html { render action: "admin_edit" }
+          flash[:alert] = @organisation.errors.full_messages.join("<br/>").html_safe if @organisation.errors.any?
+          
+          format.html { render action: "admin_edit" }
 	        format.json { render json: @organisation.errors, status: :unprocessable_entity }
 	      end
 	    end
