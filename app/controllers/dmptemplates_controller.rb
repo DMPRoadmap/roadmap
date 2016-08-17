@@ -1,6 +1,6 @@
-# [+Project:+] DMPonline v4
+# [+Project:+] DMPRoadmap
 # [+Description:+] This controller is responsible for all the actions in the admin interface under templates (e.g. phases, versions, sections, questions, suggested answer) (index; show; create; edit; delete)
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class DmptemplatesController < ApplicationController
 
@@ -295,11 +295,12 @@ class DmptemplatesController < ApplicationController
 		#clone a version of a template
 		def admin_cloneversion
 			if user_signed_in? && current_user.is_org_admin? then
-                @old_version = Version.find(params[:version_id])
+        @old_version = Version.find(params[:version_id])
 				@version = @old_version.amoeba_dup
 				@phase = @version.phase
 
 		    respond_to do |format|
+          
 		      if @version.save
 		        format.html { redirect_to admin_phase_dmptemplate_path(@phase, :version_id => @version.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
 		        format.json { head :no_content }
@@ -392,7 +393,6 @@ class DmptemplatesController < ApplicationController
 	    @question.guidance = params["new-question-guidance"]
 	    @question.default_value = params["new-question-default-value"]
 
-
 	    respond_to do |format|
 	      if @question.save
 	        format.html { redirect_to admin_phase_dmptemplate_path(:id => @question.section.version.phase_id, :version_id => @question.section.version_id, :section_id => @question.section_id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
@@ -416,6 +416,10 @@ class DmptemplatesController < ApplicationController
 				@phase = @version.phase
 
 				respond_to do |format|
+          
+          
+puts "PARAMS: #{params[:question]}"
+          
 		      if @question.update_attributes(params[:question])
 		        format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
 		        format.json { head :no_content }
@@ -500,7 +504,67 @@ class DmptemplatesController < ApplicationController
 	 	end
 	end
 
+#  GUIDANCES
 
+	#create a guidance
+	def admin_createguidance
+    if user_signed_in? && current_user.is_org_admin? then
+      @question = Question.find(params[:question][:id])
+      @guidance = Guidance.new(params[:guidance])
+      @guidance.question_id = @question.id
+	    #@question.guidance = params["new-question-guidance"]
+	    #@question.default_value = params["new-question-default-value"]
+
+
+	    respond_to do |format|
+	      if @guidance.save
+	        format.html { redirect_to admin_phase_dmptemplate_path(:id => @question.section.version.phase_id, :version_id => @question.section.version_id, :section_id => @question.section_id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
+         	format.json { head :no_content }
+	      else
+	        format.html { render action: "admin_phase" }
+	        format.json { render json: @guidance.errors, status: :unprocessable_entity }
+	      end
+			end
+		end
+  end
+
+	#update a guidance of a template
+	def admin_updateguidance
+		if user_signed_in? && current_user.is_org_admin? then
+	   		@question = Question.find(params[:id])
+				@question.guidance = params["question-guidance-#{params[:id]}"]
+				@question.default_value = params["question-default-value-#{params[:id]}"]
+	    	@section = @question.section
+				@version = @section.version
+				@phase = @version.phase
+
+				respond_to do |format|
+		      if @question.update_attributes(params[:question])
+		        format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
+		        format.json { head :no_content }
+		      else
+		        format.html { render action: "admin_phase" }
+		        format.json { render json: @question.errors, status: :unprocessable_entity }
+		      end
+		    end
+			end
+		end
+
+	#delete a version, sections and guidance
+	def admin_destroyguidance
+  	if user_signed_in? && current_user.is_org_admin? then
+	   	@question = Question.find(params[:question_id])
+	   	@section = @question.section
+			@version = @section.version
+	   	@phase = @version.phase
+	    @question.destroy
+
+	    respond_to do |format|
+	      format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
+	      format.json { head :no_content }
+	    end
+	 	end
+	end
 
 
 end

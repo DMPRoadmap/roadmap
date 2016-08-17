@@ -7,7 +7,7 @@
     <%= render :partial => "view_comment", locals: {comment: comment} %> 
     
     <% if current_user.id == comment.user_id then %>
-        <%= t("helpers.comments.archive_own_comment_question")%>
+        <%= t('helpers.comments.archive_own_comment_question')%>
         <% button_label = t("helpers.comments.archive_own_comment_button_label") %>
     <% else%>
         <%= t("helpers.comments.archive_comment_question")%>
@@ -24,5 +24,5 @@
         <%= hidden_field_tag :comment_id, comment.id, :class => "comment_id" %>
         <%= link_to t("helpers.submit.cancel"), "#", :class => "cancel_archive_comment btn cancel" %>
 	</div>
-    </br>
+    <br>
 <%end%>

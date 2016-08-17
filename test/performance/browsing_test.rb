@@ -1,4 +1,8 @@
 require 'test_helper'
+
+# The performance test helper is no longer a part of Rails 4.x. 
+# Just add the gem to the gemfile if you want use it in the future
+=begin
 require 'rails/performance_test_help'
 
 class BrowsingTest < ActionDispatch::PerformanceTest
@@ -10,3 +14,4 @@ class BrowsingTest < ActionDispatch::PerformanceTest
     get '/'
   end
 end
+=end

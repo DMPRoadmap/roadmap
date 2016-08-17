@@ -4,7 +4,7 @@
 		<%= devise_error_messages! %>
 	</li>
 	<li>
-		<%= f.email_field :email, placeholder: (t('helpers.email') + ' *'), :required => true, :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => "This must be a valid email address - a message will be sent to it for confirmation." %>
+		<%= f.email_field :email, placeholder: (t('helpers.email') + ' *'), :required => true, :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.email_must_valid_confirmation_message') %>
 		<div class="alert alert-error" style="display:none">
 			<strong><%= t('helpers.error')%></strong> <%= t('helpers.valid_email')%>
 		</div>
@@ -21,7 +21,7 @@
 		</li>
 	<% end %>
 	<li>
-		<%= collection_select(:user, :organisation_id, Organisation.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: t('helpers.org_type.organisation')}, { :class => 'typeahead org_sign_up' }) %>
+		<%= collection_select(:user, :organisation_id, Organisation.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: constant("organisation_types.organisation")}, { :class => 'typeahead org_sign_up' }) %>
 	</li>
   <div id="other-org-link"><a href="#"><%= t("helpers.org_not_listed") %></a></div>
 	<% other_organisations = Array.new %>
@@ -29,23 +29,23 @@
 		<% other_organisations << org.id %>
 	<% end %>
 	<li id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
-		<%= f.text_field :other_organisation, placeholder: (t('helpers.org_type.org_name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => "Please enter the name of your organisation." %>
+		<%= f.text_field :other_organisation, placeholder: (t('helpers.org_type.org_name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.org_type.other_org_help_text') %>
 	</li>
 	<li>
-		<%= f.password_field :password, placeholder: (t('helpers.password') + ' *'), :autocomplete => "off", :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => "This must be at least 8 characters long." %>
+		<%= f.password_field :password, placeholder: (t('helpers.password') + ' *'), :autocomplete => "off", :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.password_too_small') %>
 		<div class="alert alert-error" style="display:none">
 			<strong><%= t('helpers.error')%></strong> <%= t('helpers.password_too_small')%>
 		</div>
 	</li>
 	<li>
-		<%= f.password_field :password_confirmation, placeholder: (t('helpers.password_conf') + ' *'), :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => "This must match what you entered in the previous field." %>
+		<%= f.password_field :password_confirmation, placeholder: (t('helpers.password_conf') + ' *'), :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.password_too_small') %>
 		<div class="alert alert-error" style="display:none">
 			<strong><%= t('helpers.error')%></strong>&nbsp;<%= t('helpers.password_no_match')%>
 		</div>
 	</li>
 	<li class="remember_me_li">
 		<%= f.check_box :accept_terms, :required => true %> <%= f.label :accept_terms, :class => "remember_div"  do %>
-		  <%= raw t('helpers.accept_terms_html')%>
+		  <%= raw t('helpers.accept_terms_html', current_locale: I18n.locale)%>
 		<%end%>
 	</li>
 	<li>

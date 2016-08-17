@@ -3,7 +3,7 @@
 	  var hash = window.location.hash;
 	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 	
-	  $('.nav-tabs a').click(function (e) {
+	  $('#project-tabs .nav-tabs a').click(function (e) {
 	    $(this).tab('show');
 	    var scrollmem = $('body').scrollTop();
 	    window.location.hash = this.hash;
@@ -15,7 +15,7 @@
 
 
 <h1>
-	<%= t("about_page.title")%>
+	<%= t("about_page.title", application_name: Rails.configuration.branding[:application][:name])%>
 </h1>
 <div id="project-tabs" class="nav-project-tabs">
 	<ul class="nav nav-tabs" data-tabs="tabs">
@@ -28,10 +28,18 @@
 <div class="dmp_details_body">
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="Background">
-			<%= raw t("about_page.body_text_tab_1_html")%>
+			<%= raw t("about_page.body_text_tab_1_html", 
+								organisation_name: Rails.configuration.branding[:organisation][:name],
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								application_name: Rails.configuration.branding[:application][:name],
+								application_url: Rails.configuration.branding[:application][:url])%>
 		</div>	
 		<div class="tab-pane" id="News">
-			<%= raw t("about_page.body_text_tab_2_html")%>
+			<%= raw t("about_page.body_text_tab_2_html",
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								application_name: Rails.configuration.branding[:application][:name])%>
+			
             <% news_left = @dcc_news_feed.entries.count %>
             
             <% @dcc_news_feed.entries.each do |entry| %>
@@ -43,8 +51,8 @@
                 <% summary = summary.gsub(/\A.*div>/, "") %>
                 <% summary = summary.gsub(/<p>.*\z/, "") %>
                 <p><%= raw summary.strip %></p>
-                <p>By <%= entry.author %> on <%= entry.published.strftime("%d/%m/%Y") %></p>
-                <p>Read more on the <%= link_to "DCC Website", entry.url %></p>
+                <p><%= t('helpers.about.by') %><%= entry.author %><%= t('helpers.about.on') %><%= entry.published.strftime("%d/%m/%Y") %></p>
+                <p><%= t('helpers.about.read_more') %><%= link_to "DCC Website", entry.url %></p>
                 </br>
                 <!--verify how many news are left -->
                 <%if news_left.to_i > 1 then %>
@@ -57,4 +65,3 @@
 		</div>		
 	</div>
 </div>	
-

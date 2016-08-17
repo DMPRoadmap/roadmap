@@ -50,7 +50,7 @@
 
 <!-- view latest comment block -->
 <% comments_not_archived = comments.where("archived IS NULL") %>
-<% latest_comment = comments_not_archived.first(:order => "updated_at DESC") %>
+<% latest_comment = comments_not_archived.order("updated_at DESC").first %>
 <% if !latest_comment.nil? then%>
     <div id = "lastet_comment_div_<%= latest_comment.question_id %>" class ="view_comment_class">
         <%= render :partial => "view_comment", locals: {comment: latest_comment} %> 

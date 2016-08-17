@@ -4,9 +4,10 @@ class ProjectsController < ApplicationController
 	# GET /projects
 	# GET /projects.json
 	def index
+    ## TODO: Is this A magic String? the "Show_shib_link?" as we define it and users dont see cookies
 		if user_signed_in? then
 			if (current_user.shibboleth_id.nil? || current_user.shibboleth_id.length == 0) && !cookies[:show_shib_link].nil? && cookies[:show_shib_link] == "show_shib_link" then
-				flash.notice = "Would you like to #{view_context.link_to 'link your DMPonline account to your institutional credentials?', user_omniauth_shibboleth_path}".html_safe
+				flash.notice = "Would you like to #{view_context.link_to I18n.t('helpers.shibboleth_to_link_text'), user_omniauth_shibboleth_path}".html_safe
 			end
 
 			@projects = current_user.projects.filter(params[:filter])
@@ -38,7 +39,7 @@ class ProjectsController < ApplicationController
 			end
 		elsif user_signed_in? then
 			respond_to do |format|
-				format.html { redirect_to projects_url, notice: "This account does not have access to that plan." }
+				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
 			end
 		else
 			respond_to do |format|
@@ -53,8 +54,8 @@ class ProjectsController < ApplicationController
 		if user_signed_in? then
 			@project = Project.new
 			@project.organisation = current_user.organisation
-			@funders = orgs_of_type(t('helpers.org_type.funder'), true)
-			@institutions = orgs_of_type(t('helpers.org_type.institution'))
+			@funders = orgs_of_type(constant("organisation_types.funder"), true)
+			@institutions = orgs_of_type(constant("organisation_types.institution"))
 			respond_to do |format|
 			  format.html # new.html.erb
 			  format.json { render json: @project }
@@ -76,7 +77,7 @@ class ProjectsController < ApplicationController
 			end
 		elsif !@project.editable_by(current_user.id) then
 			respond_to do |format|
-				format.html { redirect_to projects_url, notice: "This account does not have access to that plan." }
+				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
 			end
 		end
 	end
@@ -89,7 +90,7 @@ class ProjectsController < ApplicationController
 			end
 		elsif !@project.editable_by(current_user.id) then
 			respond_to do |format|
-				format.html { redirect_to projects_url, notice: "This account does not have access to that plan." }
+				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
 			end
 		end
 	end
@@ -100,10 +101,10 @@ class ProjectsController < ApplicationController
                respond_to do |format|
 				format.html { redirect_to edit_user_registration_path }
 			end
-		else 
+		else
 			respond_to do |format|
 				format.html { render action: "export" }
-                
+
 			end
 		end
 	end
@@ -113,6 +114,7 @@ class ProjectsController < ApplicationController
 	def create
     	if user_signed_in? then
 			@project = Project.new(params[:project])
+
 			if @project.dmptemplate.nil? && params[:project][:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
 				funder = Organisation.find(params[:project][:funder_id])
 				if funder.dmptemplates.count == 1 then
@@ -126,6 +128,7 @@ class ProjectsController < ApplicationController
 				end
 			end
 			@project.principal_investigator = current_user.name(false)
+
 			@project.title = I18n.t('helpers.project.my_project_name')+' ('+@project.dmptemplate.title+')'
 			@project.assign_creator(current_user.id)
 			respond_to do |format|
@@ -147,11 +150,14 @@ class ProjectsController < ApplicationController
 	def update
 		@project = Project.find(params[:id])
 		if user_signed_in? && @project.editable_by(current_user.id) then
-			respond_to do |format|
-				if @project.update_attributes(params[:project])
-					format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-					format.json { head :no_content }
-				else
+      
+      if @project.update_attributes(params[:project])
+        respond_to do |format|
+				  format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
+				  format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
 					format.html { render action: "edit" }
 					format.json { render json: @project.errors, status: :unprocessable_entity }
 				end
@@ -221,21 +227,21 @@ class ProjectsController < ApplicationController
 		else
 			institution = nil
 		end
-		excluded_orgs = orgs_of_type(t('helpers.org_type.funder')) + orgs_of_type(t('helpers.org_type.institution')) + Organisation.orgs_with_parent_of_type(t('helpers.org_type.institution'))
+		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
 		guidance_groups = {}
 		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
-	
+
 		ggs.each do |gg|
 			guidance_groups[gg.id] = gg.name
 		end
-        
+
         #subset guidance that belong to the institution
 		unless institution.nil? then
 			optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id = ?", true, institution.id)
 			optional_gg.each do|optional|
 				guidance_groups[optional.id] = optional.name
 			end
-			
+
 			institution.children.each do |o|
 				o.guidance_groups.each do |gg|
 					include = false
@@ -251,21 +257,21 @@ class ProjectsController < ApplicationController
 				end
 			end
 		end
-        
+
         #If template belongs to a funder and that funder has subset guidance display then.
-        if !template.nil? && template.organisation.organisation_type.name == t('helpers.org_type.funder') then
+        if !template.nil? && template.organisation.organisation_type.name == constant("organisation_types.funder") then
             optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id = ?", true, template.organisation_id)
 			optional_gg.each do|optional|
 				guidance_groups[optional.id] = optional.name
 			end
         end
-        
-        
+
+
 		respond_to do |format|
 			format.json { render json: guidance_groups.to_json }
 		end
 	end
-	
+
 	private
 
 	def orgs_of_type(org_type_name, published_templates = false)

@@ -1,6 +1,13 @@
 <%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
+<% if @organisation.errors.any? %>
+  <ul>
+  <% @organisation.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 <h1>
 	<%= t('org_admin.org_details_label') %>
 </h1>
@@ -8,15 +15,7 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
-        
-		<%= form_for(@organisation, :url => admin_update_organisation_path(@organisation), :html => { :id => "edit_org_details",  :method => :put}) do |f| %>
-            <!-- organisation logo -->
-            <% if @organisation.logo_file_name.present? then%>
-                <div class="div_right">
-                    <%= image_tag("#{@organisation.logo_file_name}", class: "org_logo_admin_area" )%>
-                </div>
-            <%end%>
-            
+          <%= form_for(@organisation, :url => admin_update_organisation_path(@organisation), :html => { :multipart => true, :id => "edit_org_details",  :method => :put}) do |f| %> 
             <!-- table with org details-->
             <table class="dmp_details_table">
                 <tr>
@@ -39,6 +38,24 @@
                     </td>
                 
                 </tr>
+                <!-- organisation logo -->
+                <% if @organisation.logo.present? then%>
+                  <tr>
+                    <td class="first"><%= t('org_admin.org_logo') %></td>
+                    <td><%= image_tag @organisation.logo.url %> </td>
+                  </tr>
+                  <tr>
+                    <td class="first"></td>
+                    <td><%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= t('org_admin.remove_logo') %></td>
+                  </tr>
+                <%end%>
+              <tr class="blank_row"><td class="first"></td></tr>
+              <tr>
+                <td class="first"><%= t('org_admin.new_org_logo') %></td>
+               <td><%= f.file_field :logo %></td>
+              </tr>
+              <tr class="blank_row"><td class="first"></td></tr>
+ 
                 <tr>
                     <td class="first"><%= t('org_admin.org_desc') %></td>
                     <td><%= f.text_area :description, { 
@@ -79,3 +96,4 @@
 </div>	
 
 <%= tinymce :content_css => asset_path('application.css') %>	
+

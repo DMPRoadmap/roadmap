@@ -13,13 +13,6 @@
 	<!-- body -->
 	<div class="dmp_details" >
         
-        <!-- organisation logo -->
-		<% if @organisation.logo_file_name.present? then%>
-            <div class="div_right">
-                <%= image_tag("#{@organisation.logo_file_name}", class: "org_logo_admin_area" )%>
-            </div>
-        <%end%>
-        
         <!-- table with org details-->
 		<table class="dmp_details_table">
 			<% if @organisation.name.present? then%>
@@ -34,6 +27,12 @@
 				<td><%= @organisation.abbreviation %></td>
 			</tr>
 			<%end%>
+                        <% if @organisation.logo.present? then%>
+                          <tr>
+                            <td class="first"><%= t('org_admin.org_logo') %></td>
+                            <td><%= image_tag @organisation.logo.thumb('100x100%').url %></td>
+                          </tr>
+                        <%end%>
 			<% if @organisation.description.present? then%>
 			<tr>
 				<td class="first"><%= t('org_admin.org_desc') %></td>
@@ -78,3 +77,4 @@
 		<br />
 	</div>
 </div>	
+>>>>>>> d191694e1cedc43d310c37ca7ceae733e677fb03

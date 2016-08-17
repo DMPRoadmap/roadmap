@@ -15,11 +15,11 @@
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= t("helpers.unsaved") %></span>
   <div id="custom-export-title">
-    <h3><%= t("helpers.settings.plan.title") %></h3>
+    <h3><%= t("helpers.settings.plans.title") %></h3>
     <fieldset>
       <ol>
         <li>
-          <%= label_tag("export[title]", t("helpers.settings.plan.title")) %>
+          <%= label_tag("export[title]", t("helpers.settings.plans.title")) %>
           <div class="move_2_right">
             <%= text_field_tag("export[title]", plan.title) %>
           </div>
@@ -31,7 +31,7 @@
   <h3><%= t("helpers.settings.plans.included_elements") %></h3>
   <div class="div_clear"> </div>
   <fieldset class="check_select">
-    <legend><label for="admin_details_toggle">Admin details</label></legend>
+    <legend><label for="admin_details_toggle"><%= t('admin.details') %></label></legend>
     <ol>
     <% Settings::Dmptemplate::VALID_ADMIN_FIELDS.each do |field|
          name = "export[fields][admin][#{field}]"
@@ -44,7 +44,7 @@
     </ol>
   </fieldset>
   <fieldset class="check_select sections">
-    <legend><label for="sections_toggle">Sections</label></legend>
+    <legend><label for="sections_toggle"><%= t('admin.sections') %></label></legend>
     <ol>
     <% plan.sections.each do |section| %>
       <li>
@@ -84,7 +84,7 @@
     <fieldset class="margins">
       <legend><%= t("helpers.settings.plans.margin") -%> (mm)</legend>
 
-      <% %i( top bottom left right ).each do |pos| %>
+      <% ["top", "bottom", "left", "right"].each do |pos| %>
         <div>
           <%= label_tag("export[formatting][margin][#{pos}]", t("helpers.settings.plans.margins.#{pos}")) %>
           <%= select_tag("export[formatting][margin][#{pos}]", options_for_select(Settings::Dmptemplate::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][pos]), { "data-default" => plan.dmptemplate.settings(:export).formatting[:margin][pos] }) %>

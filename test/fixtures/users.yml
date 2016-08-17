@@ -1,31 +1,48 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-#one:
-#  firstname: MyString
-#  surname: MyString
-#  email: MyString
-#  password: MyString
-#  orcid_id: MyString
-#  shibboleth_id: MyString
-#  user_type_id: 1
-#  user_status_id: 1
-#  login_count: 1
-#  last_login: 2013-06-11 13:58:06
-#
-#two:
-#  firstname: MyString
-#  surname: MyString
-#  email: MyString
-#  password: MyString
-#  orcid_id: MyString
-#  shibboleth_id: MyString
-#  user_type_id: 1
-#  user_status_id: 1
-#  login_count: 1
-#  last_login: 2013-06-11 13:58:06
+user_one:
+ firstname: MyString
+ surname: MyString
+ email: MyString
+ orcid_id: MyString
+ shibboleth_id: MyString
+ user_type_id: 1
+ user_status_id: 1
+ api_token: "guidances_api_token"
+ #organisation: aru
+
+user_two:
+ firstname: MyString
+ surname: MyString
+ email: "me@example.net"
+ orcid_id: MyString
+ shibboleth_id: MyString
+ user_type_id: 1
+ user_status_id: 1
+ api_token: "plans_api_token"
+ #organisation: au
+
+user_three:
+  firstname: Mystring
+  surname: Mystring
+  email: "MyString@whousesyahoo.com"
+  orcid_id: MyString
+  shibboleth_id: MyString
+  user_type_id: 1
+  user_status_id: 1
+  api_token: "plans_api_token"
+  #organisation: bu
+
 
 with_many_projects:
   firstname: Many
   surname: Projects
   email: many.projects@example.com
-  password: password
+
+user_dcc:
+  firstname: "john"
+  surname: "doe"
+  email: "me@dcc.net"
+  user_type_id: 1
+  user_status_id: 1
+  api_token: "wasd"

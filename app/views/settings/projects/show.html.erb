@@ -1,4 +1,4 @@
-<h1><%= t("helpers.settings.projects.title") -%></h1>
+<h1><%= t('helpers.settings.projects.title') -%></h1>
 <p><%= t("helpers.settings.projects.desc") -%></p>
 
 <% @settings.errors.full_messages.each do |error| %>
@@ -35,10 +35,9 @@
     </tbody>
     <tfoot>
       <tr>
-        <td><%= submit_tag(t("helpers.save"), class: "btn btn-primary") -%></td>
-        <td><%= link_to(t("helpers.cancel"), projects_path, class: "btn btn-primary") -%></td>
+        <td><%= submit_tag(t("helpers.submit.save"), class: "btn btn-primary") -%></td>
+        <td><%= link_to(t('helpers.submit.cancel'), projects_path, class: "btn btn-primary") -%></td>
         </tr>
     </tfoot>
   </table>
-
 <% end %>

@@ -36,10 +36,10 @@
     <div id="add_guidance_button_<%= question.id%>">
         <div class="move_2_right">
             <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
-            <%= link_to t("org_admin.questions.guidance_button"), "# ", :class => "btn btn-primary add_guidance_button"%>
+            <%= link_to t("org_admin.questions.quidance_button"), "# ", :class => "btn btn-primary add_guidance_button"%>
         </div>	
     </div>
-    
+
     <div id="add_guidance_block_<%= question.id%>" style="display: none">
 		<%= render :partial => "add_guidance", locals: {question: question} %>
 	</div>

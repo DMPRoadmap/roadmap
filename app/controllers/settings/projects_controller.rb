@@ -12,7 +12,7 @@ module Settings
     end
 
     def update
-      columns = (params[:columns] || {}).keys.map(&:intern)
+      columns = (params[:columns] || {})
 
       if @settings.update_attributes(columns: columns)
         respond_to do |format|

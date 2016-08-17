@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 #require 'devise'
+require 'recaptcha/rails'
 require 'csv'
 
 # Require the gems listed in Gemfile, including any gems
@@ -16,7 +17,7 @@ require 'csv'
 #Changed when migrated to rails 4.0.0
 Bundler.require(*Rails.groups)
 
-module DMPonline4
+module DMPRoadmap
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -68,6 +69,7 @@ module DMPonline4
     config.assets.precompile += %w(admin.css)
     
     config.autoload_paths += %W(#{config.root}/lib)
+    config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { :host => 'example@dcc.ac.uk' }
@@ -82,8 +84,12 @@ module DMPonline4
     #config.shibboleth_login = 'https://localhost/Shibboleth.sso/Login'
 
     WickedPdf.config = {
-	  :exe_path => '/usr/local/bin/wkhtmltopdf'
-	}
-	
+	    :exe_path => '/usr/local/bin/wkhtmltopdf'
+	  }
+    
+    # Active Record will no longer suppress errors raised in after_rollback or after_commit
+    # in the next version. Devise appears to be using those callbacks.
+    # To accept the new behaviour use 'true' otherwise use 'false'
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

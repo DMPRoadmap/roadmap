@@ -1,8 +1,8 @@
 //= require tinymce
 /* 
-**Project: DMPonline v4
+**Project: DMPRoadmap
 **Description: This file include all javascript regarding admin interface
-**Copyright: Digital Curation Centre
+**Copyright: Digital Curation Centre and University of California Curation Center
 */
 
 
@@ -179,20 +179,24 @@ $( document ).ready(function() {
 
 
 	 //action for show or hide template editing display
-	 $('#edit_template_button').click(function(){
+	 $('#edit_template_button').click(function(e){
+		 e.preventDefault();
+		 
 		 $('#edit_template_div').show();
 		 $('#show_template_div').hide();
 	 });
 
 
 	 //action for show or hide phase display
-	 $('#edit_phase_button').click(function(){
+	 $('#edit_phase_button').click(function(e){
+		 e.preventDefault();
 		 $('#edit_phase_div').show();
 		 $('#show_phase_div').hide();
 	 });
 
 	 //action to hide the alert to edit a version
-	 $("#edit-version-confirmed").click(function (){
+	 $("#edit-version-confirmed").click(function (e){
+		 e.preventDefault();
 		$("#version_edit_alert").modal("hide");
 	 });
 
@@ -230,7 +234,7 @@ $( document ).ready(function() {
     $('.new_question_save_button').click(function(e){   
         var s_id = $(this).prev(".section_id").val();
         if ($('#new_question_text_'+ s_id).val() == ''){
-            alert('Question text is empty, please enter your question.');
+            alert(I18n.t("js.question_text_empty"));
             return false;
         }
     });
@@ -323,24 +327,24 @@ $( document ).ready(function() {
         //verify if text area is not nil
         var editorContent = tinyMCE.get('guidance-text').getContent();
         if (editorContent == ''){
-            alert_message.push("add guidance text");
+            alert_message.push(I18n.t("js.add_guidance_text"));
         }  
         //verify dropdown with questions has a selected option if guidance for a question being used 
         if ($('#g_options').val() == '2') {
             if ($('#questions_select').val() == '' || isNaN($('#questions_select').val())){
-                alert_message.push("select a question");
+                alert_message.push(I18n.t("js.select_question"));
             }
         }
 
         //verify dropdown with questions has a selected option if guidance for a question being used 
         if ($('#g_options').val() == '1' ){
             if($('#guidance_theme_ids').val() == undefined || $('#guidance_theme_ids').val() == ''){
-                alert_message.push("select at least one theme");
+                alert_message.push(I18n.t("js.select_at_least_one_theme"));
             }
         }
         //verify if guidance group is selected 
         if ( ($('#guidance_guidance_group_ids').val() == '') || $('#guidance_guidance_group_ids').val() == undefined ) {
-            alert_message.push("select a guidance group");
+            alert_message.push(I18n.t("js.select_guidance_group"));
         }
         if(alert_message.length == 0){
             //clear dropdowns before submission
@@ -385,23 +389,23 @@ $( document ).ready(function() {
         //verify if text area is not nil
         var editorContent = tinyMCE.get('guidance-text').getContent();
         if (editorContent == ''){
-            alert_message.push("add guidance text");
+            alert_message.push(I18n.t("js.add_guidance_text"));
         }  
         //verify dropdown with questions has a selected option if guidance for a question being used 
         if ($('#g_options').val() == '2') {
             if ($('#questions_select').val() == '' || isNaN($('#questions_select').val())){
-                alert_message.push("select a question");
+                alert_message.push(I18n.t("js.select_question"));
             }
         }
         //verify dropdown with questions has a selected option if guidance for a question being used 
         if ($('#g_options').val() == '1' ){
             if($('#guidance_theme_ids').val() == undefined || $('#guidance_theme_ids').val() == ''){
-                alert_message.push("select at least one theme");
+                alert_message.push(I18n.t("js.select_at_least_one_theme"));
             }
         }
         //verify if guidance group is selected 
         if ( ($('#guidance_guidance_group_ids').val() == '') || $('#guidance_guidance_group_ids').val() == undefined  ) {
-            alert_message.push("select a guidance group");
+            alert_message.push(I18n.t("js.select_guidance_group"));
         }
         
         if(alert_message.length == 0){
@@ -432,12 +436,10 @@ $( document ).ready(function() {
     
     //Validate banner_text area for less than 165 character
     $("form#edit_org_details").submit(function(){
-           
         if (getStats('org_banner_text').chars > 165) {
-            alert("Please only enter up to 165 characters, you have used "+getStats('org_banner_text').chars+". If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller.");
+            alert(I18n.t("js.enter_up_to") + " " + getStats('org_banner_text').chars + ". " + I18n.t("js.if_using_url_try"));
             return false;
         }
-
     });
     
     
@@ -452,17 +454,14 @@ function remove_object(link){
 	$(link).closest(".options_content").hide();
 
 }
-
-
 function add_object(link, association, content) {
     var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g")
+    var regexp = new RegExp("new_" + association, "g");
 
     if (association == 'options') {
         $(link).parent().children('.options_table').children('.options_tbody').children('.new_option_before').before(content.replace(regexp, new_id));
     }
 }
-
 
 // Returns text statistics for the specified editor by id
 function getStats(id) {

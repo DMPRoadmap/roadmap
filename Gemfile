@@ -1,54 +1,45 @@
 source 'https://rubygems.org'
-#
-#      RAILS
-#
-gem 'rails', '4.0.0'
 
-# additional gems for rails 4
-gem 'turbolinks'
-gem 'railties', '= 4.0.0'
-# add these gems to help with the transition:
-gem 'protected_attributes'
-gem 'rails-observers'
-gem 'actionpack-page_caching'
-gem 'actionpack-action_caching'
+ruby '>= 2.2.2'
 
-gem 'uglifier', '>= 1.3.0'
+# ---------------------------------------------------------------------------------------------
+#    RAILS
+gem 'rails', '4.2.7'
+gem 'railties'
 
-# Gems used only for assets and not required in production environments by default.
-#group :assets do
- # gem 'coffee-rails'
-#end
-# Use SCSS for stylesheets
-gem 'sass-rails'
-#gem 'sass' 
+#    GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
+#    THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN FUTURE VERSIONS
+#    WE SHOULD CONSIDER BRINGING THE CODE UP TO DATE INSTEAD
+gem 'protected_attributes'                 # Provides attr_accessor functions
+gem 'responders', '~> 2.0'                 # Allows use of respond_with and respond_to in controllers
 
+# ---------------------------------------------------------------------------------------------
+#    DATABASE/SERVER
+gem 'mysql2', '~> 0.3.18'
 
-# Use SCSS for stylesheets
-gem 'less-rails'
-gem 'twitter-bootstrap-rails', '2.2.8'
-gem 'therubyracer', '0.11.4', platforms: :ruby
-
+# ---------------------------------------------------------------------------------------------
+#    JS <-> RUBY BRIDGE
 gem 'libv8'
+gem 'therubyracer', '>=0.11.4', platforms: :ruby
 
-# To use debugger
-gem 'ledermann-rails-settings'
+# ---------------------------------------------------------------------------------------------
+#    JSON DSL - USED BY API
 gem 'jbuilder'
-#to notify admin of errors
-gem 'exception_notification'
 
-#to allow cloning of objects
+# ---------------------------------------------------------------------------------------------
+#    CLONE ACTIVERECORD MODELS AND ASSOCIATIONS
 gem 'amoeba'
 
-group :development do
-  gem 'web-console', '~>2.0'
-  gem "better_errors"
-  gem "binding_of_caller"
-end
+# ---------------------------------------------------------------------------------------------
+#    SLUGS/PERMALINKS
+gem 'friendly_id'
 
-#
-#      USERS
-#
+# ---------------------------------------------------------------------------------------------
+#    SUPER ADMIN SECTION
+gem 'activeadmin', github: 'activeadmin'
+
+# ---------------------------------------------------------------------------------------------
+#    USERS
 # devise for user authentication
 gem 'devise'
 gem 'devise_invitable'
@@ -57,39 +48,75 @@ gem 'omniauth-shibboleth'
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration
-gem 'email_validator'
-gem 'validate_url'
-
-#
-#    DATABASE/SERVER
-#
-gem 'mysql2', '~> 0.3.10'
-# Use unicorn as the app server
-# gem 'unicorn'
-#cancan for usergroups
 gem 'cancancan'
 
-#
-#    VIEWS
-#
-gem 'jquery-rails'
-gem 'tinymce-rails'
-gem 'friendly_id', '~> 5.0.1'
-gem 'contact_us'
-gem 'recaptcha'
-gem 'turbolinks'
-#implementation of forms
-gem 'activeadmin', github: 'activeadmin'
+# ---------------------------------------------------------------------------------------------
+#    SETTINGS FOR TEMPLATES AND PLANS (FONTS, COLUMN LAYOUTS, ETC)
+gem 'ledermann-rails-settings'
 
-#
-#     EXPORTING PLANS
-#
+# ---------------------------------------------------------------------------------------------
+#    VIEWS
+gem 'sass-rails'
+gem 'less-rails'                                      # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
+gem 'jquery-rails'
+gem 'twitter-bootstrap-rails', '2.2.8'
+gem 'tinymce-rails'                                   # WYSIWYG EDITOR
+gem 'contact_us', '>= 1.2.0'                          # COULD BE EASILY REPLACED WITH OUR OWN CODE
+gem 'recaptcha'
+gem 'dragonfly'                                       # LOGO UPLOAD
+
+# ---------------------------------------------------------------------------------------------
+#     EXPORTING
 gem 'thin'
 gem 'wicked_pdf'
 gem 'htmltoword'
 gem 'feedjira'
-# WORD DOC EXPORTING
-gem 'caracal'
+gem 'caracal'                                         # WORD DOC EXPORTING
 gem 'caracal-rails'
 
+# ---------------------------------------------------------------------------------------------
+#     INTERNATIONALIZATION
+gem "i18n-js", ">= 3.0.0.rc11"      #damodar added TODO: explain
 
+# ---------------------------------------------------------------------------------------------
+#     API
+gem 'swagger-docs'
+
+# ---------------------------------------------------------------------------------------------
+#    CODE DOCUMENTATION
+gem 'yard'
+gem 'redcarpet'
+
+
+# ---------------------------------------------------------------------------------------------
+#     ENVIRONMENT SPECIFIC DEPENDENCIES
+
+group :development, :test do
+  gem "byebug"
+end
+
+group :test do
+  gem 'minitest-rails-capybara'
+  gem 'minitest-reporters'
+  gem 'rack-test'
+end
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'web-console', '~>2.0'
+end
+
+group :production do
+  gem 'uglifier'    # JS minifier
+end
+
+# ---------------------------------------------------------------------------------------------
+#    GEMS THAT ARE NO LONGER IN USE
+# gem 'rails-observers'            # UNUSED OBSERVERS FOR ACTIVERECORD ... PHASED OUT IN RAILS 5.0
+# gem 'actionpack-page_caching'    # UNUSED BUT LOOKS PROMISING FOR STATIC PAGES
+# gem 'actionpack-action_caching'  # UNUSED BUT LOOKS PROMISING FOR FAIRLY STATIC PAGES BEHIND AUTH
+# gem 'exception_notification'     # UNUSED BUT COULD BE USEFUL FOR ERROR MSG BEING SENT TO ADMINS FROM PROD SYS
+# gem 'email_validator'            # UNUSED ACTIVERECORD VALIDATOR
+# gem 'validate_url'               # UNUSED ACTIVERECORD VALIDATOR
+# gem 'turbolinks'                 # IS NOW A CORE PART OF RAILS >= 4.0

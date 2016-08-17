@@ -3,7 +3,7 @@
 	  var hash = window.location.hash;
 	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 	
-	  $('.nav-tabs a').click(function (e) {
+	  $('#project-tabs .nav-tabs a').click(function (e) {
 	    $(this).tab('show');
 	    var scrollmem = $('body').scrollTop();
 	    window.location.hash = this.hash;
@@ -19,14 +19,15 @@
 
 <div id="project-tabs" class="nav-project-tabs">
 	<ul class="nav nav-tabs" data-tabs="tabs">
-		<li class="active"><%= link_to t('help_page.tab_1'), "#ToolHelp", :data => { :toggle => "tab"} %></li>
+		<li class="active"><%= link_to t('help_page.tab_1', application_name: Rails.configuration.branding[:application][:name]), "#ToolHelp", :data => { :toggle => "tab"} %></li>
         <li><%= link_to t('help_page.tab_2'), "#PlanningHelp", :data => { :toggle => "tab"} %></li>
 	</ul>
 </div>
 <div class="dmp_details_body">
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="ToolHelp">
-			<%= raw t('help_page.body_text_tab_1_html')%>
+			<%= raw t('help_page.body_text_tab_1_html',
+								application_name: Rails.configuration.branding[:application][:name])%>
 		</div>	
 		<div class="tab-pane" id="PlanningHelp">
 			<%= raw t('help_page.body_text_tab_2_html')%>

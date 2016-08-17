@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UserStatusesControllerTest < ActionController::TestCase
+=begin
   setup do
     @user_status = user_statuses(:one)
   end
@@ -46,4 +47,5 @@ class UserStatusesControllerTest < ActionController::TestCase
 
     assert_redirected_to user_statuses_path
   end
+=end
 end

@@ -1,8 +1,8 @@
-# [+Project:+] DMPonline
+# [+Project:+] DMPRoadmap
 # [+Description:+] 
 #   
 # [+Created:+] 03/09/2014
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Dmptemplate do
 	permit_params :title, :description, :organisation_id, :published, :is_default
@@ -30,7 +30,7 @@ ActiveAdmin.register Dmptemplate do
         end
 
         if settings.save
-            redirect_to(action: :show, flash: { notice: 'Settings updated successfully' })
+            redirect_to(action: :show, flash: { notice: I18n.t('admin.settings_updated') })
         else
             settings.formatting = nil
             @template = resource
@@ -39,7 +39,7 @@ ActiveAdmin.register Dmptemplate do
         end
     end
 
-    action_item only: %i( show edit ) do
+    action_item(:edit) do
         link_to(I18n.t('helpers.settings.title'), settings_admin_dmptemplate_path(resource.id))
     end
 

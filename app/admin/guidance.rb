@@ -1,8 +1,8 @@
-# [+Project:+] DMPonline
+# [+Project:+] DMPRoadmap
 # [+Description:+] 
 #   
 # [+Created:+] 03/09/2014
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Guidance do
 	permit_params :text, :guidance_group_id,  :question_id
@@ -61,12 +61,12 @@ ActiveAdmin.register Guidance do
             
         end
         f.inputs "Themes" do
-            f.input :theme_ids, :label => "Selected themes",
+            f.input :theme_ids, :label => I18n.t('admin.selected_themes'),
                     :as => :select, 
-                    :include_blank => "All themes", 
+                    :include_blank => I18n.t('admin.all_themes'),
                     :multiple => true,
                     :collection => Theme.order('title').map{|the| [the.title, the.id]},
-                    :hint => 'Choose all themes that apply.'	
+                    :hint => I18n.t('admin.choose_themes')
         end
         
         f.actions  
