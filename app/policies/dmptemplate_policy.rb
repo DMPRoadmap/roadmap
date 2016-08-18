@@ -31,87 +31,87 @@ class DmptemplatePolicy < ApplicationPolicy
   end
 
   def admin_phase?
-    user.can_modify_templates?  && (dmptemplate.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_previewphase?
-    user.can_modify_templates?  && (dmptemplate.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_addphase?
-    user.can_modify_templates?  && (dmptemplate.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_createphase?
-    user.can_modify_templates?  && (dmptemplate.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_updatephase?
-    user.can_modify_templates?  && (dmptemplate.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_destroyphase?
-    user.can_modify_templates?  && (dmptemplate.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_updateversion?
-    user.can_modify_templates?  && (dmptemplate.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_cloneversion?
-    user.can_modify_templates?  && (dmptemplate.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_destroyversion?
-    user.can_modify_templates?  && (dmptemplate.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_createsection?
-    user.can_modify_templates?  && (dmptemplate.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_updatesection?
-    user.can_modify_templates?  && (dmptemplate.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_destroysection?
-    user.can_modify_templates?  && (dmptemplate.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_createquestion?
-    user.can_modify_templates?  && (dmptemplate.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_updatequestion?
-    user.can_modify_templates?  && (dmptemplate.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_destroyquestion?
-    user.can_modify_templates?  && (dmptemplate.section.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_createsuggestedanswer?
-    user.can_modify_templates?  && (dmptemplate.question.section.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_updatesuggestedanswer?
-    user.can_modify_templates?  && (dmptemplate.question.section.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_destroysuggestedanswer?
-    user.can_modify_templates?  && (dmptemplate.question.section.version.phase.dmptemplate.organisation_id == user.organisation_id)
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_createguidance?
-    user.can_modify_templates?
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_updateguidance?
-    user.can_modify_templates?
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   def admin_destroyguidance?
-    user.can_modify_templates?
+    user.can_modify_templates?  &&  (dmptemplate.organisation_id == user.organisation_id)
   end
 
   class Scope < Scope
