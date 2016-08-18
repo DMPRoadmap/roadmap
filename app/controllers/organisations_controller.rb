@@ -41,7 +41,8 @@ class OrganisationsController < ApplicationController
   # GET /organisations/1
   # GET /organisations/1.json
   def admin_show
-    @organisation = authorize Organisation.find(params[:id])
+    @organisation = Organisation.find(params[:id])
+    authorize @organisation
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @organisation }

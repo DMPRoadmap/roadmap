@@ -2,6 +2,7 @@ class OrganisationPolicy < ApplicationPolicy
   attr_reader :user, :organisation
 
   def initialize(user, organisation)
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @organisation = organisation
   end

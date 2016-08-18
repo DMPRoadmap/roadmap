@@ -2,6 +2,7 @@ class GuidanceGroupPolicy < ApplicationPolicy
   attr_reader :user, :guidance_group
 
   def initialize(user, guidance_group)
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @guidance_group = guidance_group
   end

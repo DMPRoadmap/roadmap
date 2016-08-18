@@ -2,6 +2,7 @@ class DmptemplatePolicy < ApplicationPolicy
   attr_reader :user, :dmptemplate
 
   def initialize(user, dmptemplate)
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @dmptemplate = dmptemplate
   end
