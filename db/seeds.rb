@@ -241,7 +241,7 @@ users = {
         password_confirmation: "password123",
         organisation: "RCC",
         language: 'English(UK)',
-        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api'],
+        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_detials'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -253,7 +253,7 @@ users = {
         surname: "Admin",
         organisation: "RegSciFed",
         language: 'English(UK)',
-        roles: ['org_admin'],
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -265,7 +265,7 @@ users = {
         surname: "Admin",
         organisation: "CapColl",
         language: 'English(UK)',
-        roles: ['org_admin'],
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
