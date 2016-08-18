@@ -97,8 +97,8 @@ class DmptemplatesController < ApplicationController
 
 	#show and edit a phase of the template
 	def admin_phase
-    authorize Dmptemplate
 		@phase = Phase.find(params[:id])
+    authorize @phase.dmptemplate
 		if !params.has_key?(:version_id) then
 			@edit = 'false'
 			#check for the most recent published version, if none is available then return the most recent one
@@ -141,8 +141,8 @@ class DmptemplatesController < ApplicationController
 
 	#preview a phase
 	def admin_previewphase
-    authorize Dmptemplate
 		@version = Version.find(params[:id])
+    authorize @version.phase.dmptemplate
 		respond_to do |format|
 			format.html
 		end
@@ -151,9 +151,9 @@ class DmptemplatesController < ApplicationController
 
 	#add a new phase to a template
 	def admin_addphase
-    authorize Dmptemplate
 		@dmptemplate = Dmptemplate.find(params[:id])
 		@phase = Phase.new
+    authorize @dmptemplate
 		if @dmptemplate.phases.count == 0 then
 			@phase.number = '1'
 		else
@@ -167,8 +167,8 @@ class DmptemplatesController < ApplicationController
 
 	#create a phase
 	def admin_createphase
-    authorize Dmptemplate
 	 	@phase = Phase.new(params[:phase])
+    authorize @phase.dmptemplate
     @phase.description = params["phase-desc"]
     @version = @phase.versions.build
     @version.title = "#{@phase.title} v.1"
@@ -189,8 +189,8 @@ class DmptemplatesController < ApplicationController
 
 	#update a phase of a template
 	def admin_updatephase
-    authorize Dmptemplate
  		@phase = Phase.find(params[:id])
+    authorize @phase.dmptemplate
 		@phase.description = params["phase-desc"]
     respond_to do |format|
       if @phase.update_attributes(params[:phase])
@@ -205,8 +205,8 @@ class DmptemplatesController < ApplicationController
 
 	#delete a version, sections and questions
 	def admin_destroyphase
-    authorize Dmptemplate
    	@phase = Phase.find(params[:phase_id])
+    authorize @phase.dmptemplate
    	@dmptemplate = @phase.dmptemplate
     @phase.destroy
     respond_to do |format|
@@ -219,7 +219,8 @@ class DmptemplatesController < ApplicationController
 
 	#update a version of a template
 	def admin_updateversion
- 		@version = authorize Version.find(params[:id])
+ 		@version = Version.find(params[:id])
+    authorize @version.phase.dmptemplate
     @version.description = params["version-desc"]
     @phase = @version.phase
     if @version.published && !@phase.dmptemplate.published then
@@ -247,8 +248,8 @@ class DmptemplatesController < ApplicationController
 
 	#clone a version of a template
 	def admin_cloneversion
-    authorize Dmptemplate
     @old_version = Version.find(params[:version_id])
+    authorize @version.phase.dmptemplate
 		@version = @old_version.amoeba_dup
 		@phase = @version.phase
     respond_to do |format|
@@ -264,8 +265,8 @@ class DmptemplatesController < ApplicationController
 
 	#delete a version, sections and questions
 	def admin_destroyversion
-    authorize Dmptemplate
    	@version = Version.find(params[:version_id])
+    authorize @version.phase.dmptemplate
    	@phase = @version.phase
     @version.destroy
     respond_to do |format|
@@ -279,8 +280,8 @@ class DmptemplatesController < ApplicationController
 
 	#create a section
 	def admin_createsection
-    authorize Dmptemplate
     @section = Section.new(params[:section])
+    authorize @section.version.phase.dmptemplate
     @section.description = params["section-desc"]
     respond_to do |format|
       if @section.save
@@ -296,8 +297,8 @@ class DmptemplatesController < ApplicationController
 
 	#update a section of a template
 	def admin_updatesection
-    authorize Dmptemplate
  		@section = Section.find(params[:id])
+    authorize @section.version.phase.dmptemplate
  		@section.description = params["section-desc-#{params[:id]}"]
   	@version = @section.version
 		@phase = @version.phase
@@ -315,8 +316,8 @@ class DmptemplatesController < ApplicationController
 
 	#delete a section and questions
 	def admin_destroysection
-    authorize Dmptemplate
    	@section = Section.find(params[:section_id])
+    authorize @section.version.phase.dmptemplate
    	@version = @section.version
    	@phase = @version.phase
     @section.destroy
@@ -331,8 +332,8 @@ class DmptemplatesController < ApplicationController
 
 	#create a question
 	def admin_createquestion
-    authorize Dmptemplate
 	 	@question = Question.new(params[:question])
+    authorize @question.section.version.phase.dmptemplate
     @question.guidance = params["new-question-guidance"]
     @question.default_value = params["new-question-default-value"]
     respond_to do |format|
@@ -348,8 +349,8 @@ class DmptemplatesController < ApplicationController
 
 	#update a question of a template
 	def admin_updatequestion
-    authorize Dmptemplate
  		@question = Question.find(params[:id])
+    authorize @question.section.version.phase.dmptemplate
 		@question.guidance = params["question-guidance-#{params[:id]}"]
 		@question.default_value = params["question-default-value-#{params[:id]}"]
   	@section = @question.section
@@ -368,8 +369,8 @@ class DmptemplatesController < ApplicationController
 
 	#delete a version, sections and questions
 	def admin_destroyquestion
-    authorize Dmptemplate
    	@question = Question.find(params[:question_id])
+    authorize @question.section.version.phase.dmptemplate
    	@section = @question.section
 		@version = @section.version
    	@phase = @version.phase
@@ -384,8 +385,8 @@ class DmptemplatesController < ApplicationController
 	#SUGGESTED ANSWERS
 	#create suggested answers
 	def admin_createsuggestedanswer
-    authorize Dmptemplate
     @suggested_answer = SuggestedAnswer.new(params[:suggested_answer])
+    authorize @suggested_answer.question.section.version.phase.dmptemplate
     respond_to do |format|
       if @suggested_answer.save
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @suggested_answer.question.section.version.phase_id, :version_id => @suggested_answer.question.section.version_id, :section_id => @suggested_answer.question.section_id, :question_id => @suggested_answer.question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
@@ -400,8 +401,8 @@ class DmptemplatesController < ApplicationController
 
 	#update a suggested answer of a template
 	def admin_updatesuggestedanswer
-    authorize Dmptemplate
  		@suggested_answer = SuggestedAnswer.find(params[:id])
+    authorize @suggested_answer.question.section.version.phase.dmptemplate
     @question = @suggested_answer.question
     @section = @question.section
     @version = @section.version
@@ -420,8 +421,8 @@ class DmptemplatesController < ApplicationController
 
 	#delete a suggested answer
 	def admin_destroysuggestedanswer
-    authorize Dmptemplate
    	@suggested_answer = SuggestedAnswer.find(params[:suggested_answer])
+    authorize @suggested_answer.question.section.version.phase.dmptemplate
    	@question = @suggested_answer.question
    	@section = @question.section
 		@version = @section.version
@@ -437,8 +438,8 @@ class DmptemplatesController < ApplicationController
 
 	#create a guidance
 	def admin_createguidance
-    authorize Dmptemplate
     @question = Question.find(params[:question][:id])
+    authorize @question.section.version.phase.dmptemplate
     @guidance = Guidance.new(params[:guidance])
     @guidance.question_id = @question.id
     #@question.guidance = params["new-question-guidance"]
@@ -456,8 +457,8 @@ class DmptemplatesController < ApplicationController
 
 	#update a guidance of a template
 	def admin_updateguidance
-    authorize Dmptemplate
  		@question = Question.find(params[:id])
+    authorize @question.section.version.phase.dmptemplate
 		@question.guidance = params["question-guidance-#{params[:id]}"]
 		@question.default_value = params["question-default-value-#{params[:id]}"]
   	@section = @question.section
@@ -476,8 +477,8 @@ class DmptemplatesController < ApplicationController
 
 	#delete a version, sections and guidance
 	def admin_destroyguidance
-    authorize Dmptemplate
    	@question = Question.find(params[:question_id])
+    authorize @question.section.version.phase.dmptemplate
    	@section = @question.section
 		@version = @section.version
    	@phase = @version.phase
