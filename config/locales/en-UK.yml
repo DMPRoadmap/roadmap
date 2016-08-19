@@ -956,6 +956,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       modify_guidance: 'modify_guidance'
       use_api: 'use_api'
       change_org_details: 'change_org_detials'
+      grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'
       plans: 'plans'
