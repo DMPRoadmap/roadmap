@@ -203,6 +203,9 @@ roles = {
   },
   'change_org_detials' => {
     name: 'change_org_detials'
+  },
+  'grant_api_to_orgs' => {
+    name: 'grant_api_to_orgs'
   }
 }
 
@@ -241,7 +244,7 @@ users = {
         password_confirmation: "password123",
         organisation: "RCC",
         language: 'English(UK)',
-        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_detials'],
+        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_detials','grant_api_to_orgs'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -286,20 +289,20 @@ users = {
 users.each do |user, details|
   if User.where(email: details[:email]).empty?
     usr = User.new
+  else
+    usr = User.where(email: details[:email])
+  end
     usr.email = details[:email]
     usr.password = details[:password]
     usr.password_confirmation = details[:password_confirmation]
     usr.confirmed_at = details[:confirmed_at]
     usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
-#    usr.user_org_roles << UserOrgRole.create(organisation: Organisation.find_by_abbreviation(details[:organisation]),
-#                                             user_role_type: UserRoleType.find_by_name('admin'))
     usr.language_id = Language.find_by_name(details[:language]).id
     details[:roles].each do |role|
      usr.roles << Role.find_by_name(role)
     end
     usr.accept_terms = details[:accept_terms]
     usr.save!
-  end
 end
 
  themes = {

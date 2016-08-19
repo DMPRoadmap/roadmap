@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user is an admin
 	def can_super_admin?
-		return self.can_add_orgs?
+		return self.can_add_orgs? || self.can_grant_api_to_orgs? || can_change_org?
 	end
 
   ##
@@ -228,15 +228,24 @@ class User < ActiveRecord::Base
     return !use_api.nil?
   end
 
-  #
+  ##
   # checks if the user can modify their org's details
-  # 
+  #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
     modify_org_details = roles.find_by(name: constant("user_role_types.change_org_details"))
     return !modify_org_details.nil?
   end
-  
+
+  ##
+  # checks if the user can grant the api to organisations
+  #
+  # @return [Boolean] true if the user can grant api permissions to organisations
+  def can_grant_api_to_orgs?
+    grant_api = roles.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    return !modify_org_details.nil?
+  end
+
   ##
   # checks what type the user's organisation is
   #
