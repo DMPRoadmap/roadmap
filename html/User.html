@@ -74,9 +74,9 @@
     
     <li><a href="#method-i-filter">#filter</a>
     
-    <li><a href="#method-i-is_admin-3F">#is_admin?</a>
+    <li><a href="#method-i-is_admin-3F">#can_super_admin?</a>
     
-    <li><a href="#method-i-is_org_admin-3F">#is_org_admin?</a>
+    <li><a href="#method-i-is_org_admin-3F">#can_org_admin?</a>
     
     <li><a href="#method-i-name">#name</a>
     
@@ -378,7 +378,7 @@
       <div id="method-i-is_admin-3F" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">is_admin?</span><span
+          <span class="method-name">can_super_admin?</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -392,7 +392,7 @@
           
           <div class="method-source-code" id="is_admin-3F-source">
             <pre><span class="ruby-comment"># File app/models/user.rb, line 110</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_admin?</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">can_super_admin?</span>
         <span class="ruby-identifier">admin</span> = <span class="ruby-identifier">roles</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-string">&quot;admin&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-operator">!</span><span class="ruby-identifier">admin</span>.<span class="ruby-identifier">nil?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -409,7 +409,7 @@
       <div id="method-i-is_org_admin-3F" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">is_org_admin?</span><span
+          <span class="method-name">can_org_admin?</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -423,7 +423,7 @@
           
           <div class="method-source-code" id="is_org_admin-3F-source">
             <pre><span class="ruby-comment"># File app/models/user.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_org_admin?</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">can_org_admin?</span>
         <span class="ruby-identifier">org_admin</span> = <span class="ruby-identifier">roles</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-string">&quot;org_admin&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-operator">!</span><span class="ruby-identifier">org_admin</span>.<span class="ruby-identifier">nil?</span>
 <span class="ruby-keyword">end</span></pre>

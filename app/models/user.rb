@@ -155,21 +155,23 @@ class User < ActiveRecord::Base
 	end
 
   ##
-  # checks if the user is an admin
+  # checks if the user is a super admin
+  # if the user has any privelege which requires them to see the super admin page
+  # then they are a super admin
   #
   # @return [Boolean] true if the user is an admin
-	def is_admin?
-		admin = roles.find_by( name: constant("user_role_types.super_admin"))
-		return !admin.nil?
+	def can_super_admin?
+		return self.can_add_orgs?
 	end
 
   ##
   # checks if the user is an organisation admin
+  # if the user has any privlege which requires them to see the org-admin pages
+  # then they are an org admin
   #
   # @return [Boolean] true if the user is an organisation admin
-	def is_org_admin?
-		org_admin = roles.find_by(name: constant("user_role_types.organisational_admin"))
-		return !org_admin.nil?
+	def can_org_admin?
+		return self.can_grant_permissions? || self.can_modify_guidance? || self.can_modify_templates? || self.can_modify_org_details?
 	end
 
   ##
