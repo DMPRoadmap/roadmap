@@ -44,7 +44,7 @@
                     <% end %>
                 </td>
                 <td class="dmp_td_small">
-                    <%= check_box_tag "org_admin_ids[]", user.id, user.is_org_admin? %>
+                    <%= check_box_tag "org_admin_ids[]", user.id, user.can_org_admin? %>
                 </td>
                 <% if current_user.organisation.token_permission_types.count > 0 %>
                 <td class="dmp_td_small">

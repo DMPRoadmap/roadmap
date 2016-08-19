@@ -96,12 +96,12 @@ class UsersController < ApplicationController
         user.remove_token!
       end
       # ORG_ADMINS
-      if admin_user_ids.include?( user.id) && !user.is_org_admin?
+      if admin_user_ids.include?( user.id) && !user.can_org_admin?
         # add admin privleges
         # MAGIC_STRING
         user.roles << Role.find_by(name: constant("user_role_types.organisational_admin"))
       # if user_id not in passed, but user is an admin
-      elsif !admin_user_ids.include?(user.id) && user.is_org_admin?
+      elsif !admin_user_ids.include?(user.id) && user.can_org_admin?
         # strip admin privleges
         user.roles.delete(Role.find_by(name: constant("user_role_types.organisational_admin")))
       end
