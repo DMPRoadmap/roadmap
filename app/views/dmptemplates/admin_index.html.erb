@@ -60,7 +60,7 @@
                                 <%= l last_temp_updated.to_date, :formats => :short %>
 		        </td>
 		        <td class="dmp_td_small">
-		        	<%if current_user.is_org_admin? then%>
+		        	<%if current_user.can_org_admin? then%>
 						<% b_label = t('helpers.submit.edit')%>
 					<%else%>
 						<% b_label = t('helpers.view')%>
@@ -129,7 +129,7 @@
 
                             </td>
                             <td class="dmp_td_small">
-                                <%if current_user.is_org_admin? then%>
+                                <%if current_user.can_org_admin? then%>
                                     <% if org_template.org_type == constant("organisation_types.funder") then %>
                                         <%if org_template.has_customisations?(current_user.organisation_id, org_template) then%>
                                             <% b_label = t("org_admin.templates.edit_customisation")%>
