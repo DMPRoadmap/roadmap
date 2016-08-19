@@ -316,7 +316,7 @@
           <div class="method-source-code" id="admin_edit-source">
             <pre><span class="ruby-comment"># File app/controllers/organisations_controller.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_edit</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
       <span class="ruby-ivar">@organisation</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   
   <span class="ruby-keyword">else</span>
@@ -351,11 +351,12 @@
           <div class="method-source-code" id="admin_show-source">
             <pre><span class="ruby-comment"># File app/controllers/organisations_controller.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_show</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
           <span class="ruby-ivar">@organisation</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
       
           <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb
+</span>
             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@organisation</span> }
           <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
@@ -391,7 +392,7 @@
           <div class="method-source-code" id="admin_update-source">
             <pre><span class="ruby-comment"># File app/controllers/organisations_controller.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_update</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
       <span class="ruby-ivar">@organisation</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
       <span class="ruby-ivar">@organisation</span>.<span class="ruby-identifier">banner_text</span> = <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;org_banner_text&quot;</span>]
               
@@ -438,7 +439,8 @@
             <pre><span class="ruby-comment"># File app/controllers/organisations_controller.rb, line 108</span>
         <span class="ruby-keyword">def</span> <span class="ruby-identifier">children</span>
                 <span class="ruby-ivar">@organisation</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-                <span class="ruby-comment">#if user_signed_in? then</span>
+                <span class="ruby-comment">#if user_signed_in? then
+</span>
                 <span class="ruby-identifier">children</span> = {}
                 <span class="ruby-ivar">@organisation</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span>
                         <span class="ruby-identifier">children</span>[<span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">child</span>.<span class="ruby-identifier">name</span>
@@ -446,9 +448,12 @@
                 <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
                         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">children</span>.<span class="ruby-identifier">to_json</span> }
                 <span class="ruby-keyword">end</span>
-<span class="ruby-comment">#               else</span>
-<span class="ruby-comment">#                       render(:file =&gt; File.join(Rails.root, &#39;public/403.html&#39;), :status =&gt; 403, :layout =&gt; false)</span>
-<span class="ruby-comment">#               end</span>
+<span class="ruby-comment">#               else
+</span>
+<span class="ruby-comment">#                       render(:file =&gt; File.join(Rails.root, &#39;public/403.html&#39;), :status =&gt; 403, :layout =&gt; false)
+</span>
+<span class="ruby-comment">#               end
+</span>
         <span class="ruby-keyword">end</span></pre>
           </div><!-- children-source -->
           
@@ -557,7 +562,8 @@
   <span class="ruby-ivar">@organisations</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">all</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb
+</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@organisations</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -592,7 +598,8 @@
   <span class="ruby-ivar">@organisation</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb
+</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@organisation</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -657,7 +664,8 @@
             <pre><span class="ruby-comment"># File app/controllers/organisations_controller.rb, line 123</span>
         <span class="ruby-keyword">def</span> <span class="ruby-identifier">templates</span>
                 <span class="ruby-ivar">@organisation</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-                <span class="ruby-comment">#if user_signed_in? then</span>
+                <span class="ruby-comment">#if user_signed_in? then
+</span>
                 <span class="ruby-identifier">templates</span> = {}
                 <span class="ruby-ivar">@organisation</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">template</span><span class="ruby-operator">|</span>
                         <span class="ruby-keyword">if</span> <span class="ruby-identifier">template</span>.<span class="ruby-identifier">is_published?</span> <span class="ruby-keyword">then</span>
@@ -667,9 +675,12 @@
                 <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
                         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">templates</span>.<span class="ruby-identifier">to_json</span> }
                 <span class="ruby-keyword">end</span>
-<span class="ruby-comment">#               else</span>
-<span class="ruby-comment">#                       render(:file =&gt; File.join(Rails.root, &#39;public/403.html&#39;), :status =&gt; 403, :layout =&gt; false)</span>
-<span class="ruby-comment">#               end</span>
+<span class="ruby-comment">#               else
+</span>
+<span class="ruby-comment">#                       render(:file =&gt; File.join(Rails.root, &#39;public/403.html&#39;), :status =&gt; 403, :layout =&gt; false)
+</span>
+<span class="ruby-comment">#               end
+</span>
         <span class="ruby-keyword">end</span></pre>
           </div><!-- templates-source -->
           
