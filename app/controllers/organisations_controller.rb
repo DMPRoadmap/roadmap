@@ -58,7 +58,6 @@ class OrganisationsController < ApplicationController
   def admin_edit
   	if user_signed_in? && current_user.is_org_admin? then
         @organisation = Organisation.find(params[:id])
-    
     else
 		render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 	end 
@@ -69,19 +68,20 @@ class OrganisationsController < ApplicationController
   # PUT /organisations/1.json
   def admin_update
     if user_signed_in? && current_user.is_org_admin? then
-        @organisation = Organisation.find(params[:id])
-        @organisation.banner_text = params["org_banner_text"]
-        @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
-	assign_params = params[:organisation].dup
-	assign_params.delete(:logo)			
+      @organisation = Organisation.find(params[:id])
+      @organisation.banner_text = params["org_banner_text"]
+      @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
+	    assign_params = params[:organisation].dup
+	    assign_params.delete(:logo)
 		
 	    respond_to do |format|
 	      if @organisation.update_attributes(assign_params)
 	        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
 	        format.json { head :no_content }
 	      else
-               	flash[:alert] = I18n.t("org_admin.org_logo_failed_message")
-                format.html { render action: "admin_edit" }
+          flash[:alert] = @organisation.errors.full_messages.join("<br/>").html_safe if @organisation.errors.any?
+          
+          format.html { render action: "admin_edit" }
 	        format.json { render json: @organisation.errors, status: :unprocessable_entity }
 	      end
 	    end

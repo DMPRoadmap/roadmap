@@ -1,13 +1,6 @@
 <%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
-<% if @organisation.errors.any? %>
-  <ul>
-  <% @organisation.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
 <h1>
 	<%= t('org_admin.org_details_label') %>
 </h1>
@@ -56,12 +49,7 @@
               </tr>
               <tr class="blank_row"><td class="first"></td></tr>
  
-                <tr>
-                    <td class="first"><%= t('org_admin.org_desc') %></td>
-                    <td><%= f.text_area :description, { 
-                            :rows => 5, 
-                            :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> t('org_admin.desc_help_text_html')} %></td>
-                </tr>
+
                 <tr>
                     <td class="first"><%= t('org_admin.org_banner_text') %></td>
                     <td>
@@ -74,6 +62,14 @@
                             :as => :string, 
                             :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('org_admin.target_url_help_text') %></td>
                 </tr>
+								
+                <tr>
+                    <td class="first"><%= t('org_admin.org_contact_email') %></td>
+                    <td><%= f.text_field :contact_email,
+                            :as => :string, 
+                            :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('org_admin.org_contact_email_help_text') %></td>
+                </tr>
+								
                 <tr>
                     <td class="first"><%= t('org_admin.org_type') %></td>
                     <td><%= @organisation.organisation_type.name %></td>

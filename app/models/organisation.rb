@@ -1,6 +1,8 @@
+#require 'validators/email_validator'
+
 class Organisation < ActiveRecord::Base
   include GlobalHelpers
-
+  
   extend Dragonfly::Model::Validations
 
   #associations between tables
@@ -21,17 +23,21 @@ class Organisation < ActiveRecord::Base
 
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
-#	accepts_nested_attributes_for :organisation_type
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :description, :domain, 
+	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :domain, 
                   :logo_file_name, :name, :stylesheet_file_id, :target_url, 
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id
+                  :token_permission_type_ids, :language_id, :contact_email
+
+  validates :contact_email, email: true
 
   # allow validations for logo upload
-  dragonfly_accessor :logo
+  dragonfly_accessor :logo do
+    after_assign :resize_image
+  end
+  
   validates_property :height, of: :logo, in: (0..100)
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
   validates_size_of :logo, maximum: 500.kilobytes
@@ -180,4 +186,16 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+  
+  private
+    ##
+    # checks size of logo and resizes if necessary
+    #
+    def resize_image
+      unless logo.nil?
+        if logo.height != 100
+          self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
+        end
+      end
+    end 
 end
