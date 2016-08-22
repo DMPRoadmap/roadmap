@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
 
-	rolify
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
@@ -40,8 +39,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    # Commented out due to warning in Rails 4. This line is redundant due to use of the rolify gem
-    #has_and_belongs_to_many :roles, :join_table => :users_roles
+    has_and_belongs_to_many :roles, :join_table => :users_roles
 
     has_many :plan_sections
 
@@ -149,7 +147,7 @@ class User < ActiveRecord::Base
   ##
   # sets a new organisation for the user
   #
-  # @params new_organisation [Organisation] the new organisation for the user
+  # @param new_organisation [Organisation] the new organisation for the user
 	def organisation=(new_organisation)
 		organisation_id = organisation.id
 	end
