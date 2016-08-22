@@ -51,7 +51,7 @@ class Organisation < ActiveRecord::Base
   ##
   # finds all organisations who have a parent of the passed organisation type
   #
-  # @params [String] the name of an organisation type
+  # @param [String] the name of an organisation type
   # @return [Array<Organisation>]
   def self.orgs_with_parent_of_type(org_type)
     parents = OrganisationType.find_by_name(org_type).organisations
@@ -100,7 +100,7 @@ class Organisation < ActiveRecord::Base
   ##
   # returns a list of all sections of a given version from this organisation and it's parents
   #
-  # @params version_id [Integer] version number of the section
+  # @param version_id [Integer] version number of the section
   # @return [Array<Section>] list of sections
 	def all_sections(version_id)
 		if parent.nil?
@@ -141,7 +141,7 @@ class Organisation < ActiveRecord::Base
   ##
   # takes in the id of, and returns an OptionWarning
   #
-  # @params option_id [number] the id of the desired warning
+  # @param option_id [number] the id of the desired warning
   # @return [OptionWarning] the specified warning
 	def warning(option_id)
 		warning = option_warnings.find_by_option_id(option_id)
