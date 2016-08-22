@@ -1,34 +1,24 @@
 <!-- Org branding info -->
 <div class="branding_container">
-    <% if user_signed_in? then%>
-        <% if current_user.organisation.present? then%>
-            <!-- Logo -->
-            <% if current_user.organisation.logo_file_name.present? then%>
-                <div class="header_org_logo">
-                    <%= image_tag("#{current_user.organisation.logo_file_name}", class: "header_org_logo_img" )%>
-                </div>
-            <%end%>
+	<% if user_signed_in? %>
+		<% if !current_user.organisation.nil? %>
+		
+			<!-- Organisation Logo -->
+      <% if current_user.organisation.logo.present? %>
+				<div class="header_org_logo">
+        	<%= link_to(image_tag(current_user.organisation.logo.thumb('100x100%').url), current_user.organisation.target_url) %>
+				</div>
+      <% end %>
 
-            <!-- Banner text -->
-            <% if current_user.organisation.banner_text.present? then%>
-                <div class="header_org_banner_text">
-                    <span class="header_org_banner_text_vertical_align">
-                        <%= raw current_user.organisation.banner_text %>
-                    </span>
-                </div>
-            <!--% else%>
-                <div class="header_org_banner_text">
-                    <span class="header_org_banner_text_vertical_align" style="padding: 10px 0 0 40px;">
-                        Upcoming DCC workshop - <strong><a href = 'http://www.dcc.ac.uk/events/workshops/advanced-dmponline-how-customise-tool-your-institution' target='blank'>'Advanced DMPonline: how to customise the tool for your institution'</a></strong>,<br> 23 November 2015, Glasgow
-                    </span>
-                </div-->
-            <%end%>
-        <%end%>
-    <!--%else%>
-        <div class="header_org_banner_text">
-            <span class="header_org_banner_text_vertical_align" style="padding: 10px 0 0 40px;">
-                Upcoming DCC workshop - <strong><a href = 'http://www.dcc.ac.uk/events/workshops/advanced-dmponline-how-customise-tool-your-institution' target='blank'>'Advanced DMPonline: how to customise the tool for your institution'</a></strong>,<br> 23 November 2015, Glasgow
-            </span>
-        </div-->
+			<!-- Banner text -->
+			<% if current_user.organisation.banner_text.present? %>
+				<div class="header_org_banner_text">
+					<span class="header_org_banner_text_vertical_align">
+						<%= raw current_user.organisation.banner_text %>
+					</span>
+				</div>
+			<%end%>
+			
+		<%end%>
 	<%end%>
 </div>

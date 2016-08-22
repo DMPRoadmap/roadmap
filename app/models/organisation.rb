@@ -35,7 +35,7 @@ class Organisation < ActiveRecord::Base
     after_assign :resize_image
   end
   
-  validates_property :width, of: :logo, in: (0..160)
+  validates_property :height, of: :logo, in: (0..100)
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
   validates_size_of :logo, maximum: 500.kilobytes
 
@@ -190,8 +190,8 @@ class Organisation < ActiveRecord::Base
     #
     def resize_image
       unless logo.nil?
-        if logo.height != 160 && logo.width != 160
-          self.logo = logo.thumb('160x')  # resize width and maintain aspect ratio
+        if logo.height != 100
+          self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
         end
       end
     end 
