@@ -141,6 +141,8 @@ en-UK:
     org_details_label:  "Organisation details"
     org_text: "These are the basic details for your organisation."
     org_abbr_help_text_html: "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
+    org_contact_email: "Contact Email"
+    org_contact_email_help_text: "The email address of an administrator at your organisation. Your users will use this address if they have questions."
     users_list: "List of users"
     user_full_name: "Name"
     user_name: "Email address"

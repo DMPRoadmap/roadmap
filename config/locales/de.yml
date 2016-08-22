@@ -109,6 +109,8 @@ de:
     org_abbr: "Abkürzung"
     org_logo_failed_message: "Logo Upload fehlgeschlagen."
     org_logo: "Logo"
+    org_contact_email: "Kontakt Email"
+    org_contact_email_help_text: "Die E-Mail -Adresse des Administrators in Ihrer Organisation. Ihre Benutzer werden diese Adresse verwenden, wenn sie Fragen haben."
     new_org_logo: "Laden Sie ein neues Logo-Datei"
     remove_logo: "Wenn Sie die Standard DMPRoadmap Logo verwenden entscheiden , prüfen Sie bitte dieses Feld Ihre aktuelle Logo zu entfernen."
     org_desc: "Beschreibung"

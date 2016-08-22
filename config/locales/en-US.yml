@@ -143,6 +143,8 @@ en-US:
     org_abbr: "Abbreviation"
     org_logo_failed_message: "Logo Upload Failed."
     org_logo: "Logo"
+    org_contact_email: "Contact Email"
+    org_contact_email_help_text: "The email address of an administrator at your organization. Your users will use this address if they have questions."
     new_org_logo: "Upload a new logo file"
     remove_logo: "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
     org_desc: "Description"

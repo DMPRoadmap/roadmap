@@ -1,6 +1,8 @@
+#require 'validators/email_validator'
+
 class Organisation < ActiveRecord::Base
   include GlobalHelpers
-
+  
   extend Dragonfly::Model::Validations
 
   #associations between tables
@@ -21,14 +23,15 @@ class Organisation < ActiveRecord::Base
 
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
-#	accepts_nested_attributes_for :organisation_type
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :description, :domain, 
+	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :domain, 
                   :logo_file_name, :name, :stylesheet_file_id, :target_url, 
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id
+                  :token_permission_type_ids, :language_id, :contact_email
+
+  validates :contact_email, email: true
 
   # allow validations for logo upload
   dragonfly_accessor :logo do

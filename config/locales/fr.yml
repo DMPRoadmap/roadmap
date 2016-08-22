@@ -116,6 +116,8 @@ fr:
     org_abbr: "Abréviation"
     org_logo_failed_message: "Logo Échec de l'envoi."
     org_logo: "Logo"
+    org_contact_email: "Contact Email"
+    org_contact_email_help_text: "L' adresse e-mail d'un administrateur dans votre organisation. Vos utilisateurs utiliseront cette adresse si elles ont des questions."
     new_org_logo: "Ajouter un nouveau fichier de logo"
     remove_logo: "Si vous décidez d'utiliser le logo de DMPRoadmap par défaut , s'il vous plaît cocher cette case pour supprimer votre logo actuel."
     org_desc: "Description"
