@@ -55,8 +55,6 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
-#rolify for roles
-gem 'rolify'
 # Gems for repository integration
 gem 'email_validator'
 gem 'validate_url'
@@ -67,9 +65,6 @@ gem 'pundit'
 #    DATABASE/SERVER
 #
 gem 'mysql2', '~> 0.3.18'
-
-#cancan for usergroups
-gem 'cancancan'
 
 #
 #    VIEWS

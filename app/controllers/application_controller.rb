@@ -9,9 +9,6 @@ class ApplicationController < ActionController::Base
   # Override build_footer method in ActiveAdmin::Views::Pages
   require 'active_admin_views_pages_base.rb'
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
-  end
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
