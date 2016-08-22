@@ -58,9 +58,6 @@ class OrganisationsController < ApplicationController
   def admin_edit
   	if user_signed_in? && current_user.is_org_admin? then
         @organisation = Organisation.find(params[:id])
-    
-        @logo_max_height = Dragonfly::LOGO_MAX_HEIGHT
-        @logo_max_width = Dragonfly::LOGO_MAX_WIDTH
     else
 		render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 	end 
@@ -71,11 +68,11 @@ class OrganisationsController < ApplicationController
   # PUT /organisations/1.json
   def admin_update
     if user_signed_in? && current_user.is_org_admin? then
-        @organisation = Organisation.find(params[:id])
-        @organisation.banner_text = params["org_banner_text"]
-        @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
-	assign_params = params[:organisation].dup
-	assign_params.delete(:logo)			
+      @organisation = Organisation.find(params[:id])
+      @organisation.banner_text = params["org_banner_text"]
+      @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
+	    assign_params = params[:organisation].dup
+	    assign_params.delete(:logo)
 		
 	    respond_to do |format|
 	      if @organisation.update_attributes(assign_params)

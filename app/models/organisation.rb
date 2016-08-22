@@ -31,8 +31,10 @@ class Organisation < ActiveRecord::Base
                   :token_permission_type_ids, :language_id
 
   # allow validations for logo upload
-  dragonfly_accessor :logo
-  validates_property :height, of: :logo, in: (0..160)
+  dragonfly_accessor :logo do
+    after_assign :resize_image
+  end
+  
   validates_property :width, of: :logo, in: (0..160)
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
   validates_size_of :logo, maximum: 500.kilobytes
@@ -181,4 +183,16 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+  
+  private
+    ##
+    # checks size of logo and resizes if necessary
+    #
+    def resize_image
+      unless logo.nil?
+        if logo.height != 160 && logo.width != 160
+          self.logo = logo.thumb('160x')  # resize width and maintain aspect ratio
+        end
+      end
+    end 
 end
