@@ -175,13 +175,13 @@ organisation_types = {
 
 roles = {
   'admin' => {
-    name: "admin"
+    name: "admin" #depricated
   },
   'org_admin' => {
-    name: "org_admin"
+    name: "org_admin" #depricated
   },
   'user' => {
-    name: "user"
+    name: "user" #depricated
   },
   'add_organisations' => {
     name: 'add_organisations'

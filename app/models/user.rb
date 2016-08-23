@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
         conditions = t[:title].matches(q)
 
         columns = %i(
-          grant_number identifier description principal_investigator data_contact
+          grant_number identifier description principal_investigator data_contact 
         )
         columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
 
@@ -81,26 +81,10 @@ class User < ActiveRecord::Base
         # if the user is not part of the new organisation
         if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
             # if the user has more than one role
-      		if self.user_org_roles.count != 1 then
-      			new_user_org_role = UserOrgRole.new
-      			new_user_org_role.organisation_id = new_organisation_id
-      			new_user_org_role.user_role_type = UserRoleType.find_by(name: constant("user_role_types.user"));
-      			self.user_org_roles << new_user_org_role
-                #
-            # if the user has roles other than one(0/2/3?)
-      		else
-                # set role to first role
-      			user_org_role = self.user_org_roles.first
-                # change org_id to new org_id
-      			user_org_role.organisation_id = new_organisation_id
-                # save modified role
-                user_org_role.save
-                # if user has an "org_admin" role
-      			org_admin_role = roles.find_by(name: constant("user_role_types.org_admin"))
-      			unless org_admin_role.nil? then
-                    # delete it
-      				roles.delete(org_admin_role)
-      			end
+      		unless user.can_change_org?
+            # rip all permissions from user
+            self.roles.delete_all
+            self.save!
       		end
         end
         # rip api_token from user
