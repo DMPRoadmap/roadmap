@@ -275,17 +275,17 @@ class User < ActiveRecord::Base
       if role.blank?
       elsif role.name == 'admin'
         #add admin roles
-        user.roles << add_orgs
-        user.roles << change_org_affiliation
-        user.roles << grant_api_to_orgs
-        user.roles << grant_permissions
+        user.roles << add_orgs unless user.can_add_orgs?
+        user.roles << change_org_affiliation unless user.can_change_org?
+        user.roles << grant_api_to_orgs unless user.can_grant_api_to_orgs?
+        user.roles << grant_permissions unless user.can_grant_permissions?
         role.delete
       elsif role.name == 'org_admin'
         #add org-admin roles
-        user.roles << grant_permissions
-        user.roles << modify_templates
-        user.roles << modify_guidance
-        user.roles << change_org_details
+        user.roles << grant_permissions unless user.can_grant_permissions?
+        user.roles << modify_templates unless user.can_modify_templates?
+        user.roles << modify_guidance unless user.can_modify_guidance?
+        user.roles << change_org_details unless user.can_modify_org_details?
         role.delete
       elsif role.name == 'user'
         role.delete
