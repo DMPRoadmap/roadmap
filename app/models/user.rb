@@ -78,6 +78,22 @@ class User < ActiveRecord::Base
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
 	def organisation_id=(new_organisation_id)
+    # DEPRICATED STRUCTURE ONLY USED HERE
+    if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
+      # if the user has more than one role
+      if self.user_org_roles.count != 1 then
+        new_user_org_role = UserOrgRole.new
+        new_user_org_role.organisation_id = new_organisation_id
+        new_user_org_role.user_role_type = UserRoleType.find_by(name: constant("user_role_types.user"));
+        self.user_org_roles << new_user_org_role
+      # if the user has roles other than one(0/2/3?)
+      else
+        # set role to first role 
+        user_org_role = self.user_org_roles.first
+        # change org_id to new org_id
+        user_org_role.organisation_id = new_organisation_id
+        # save modified role
+        user_org_role.save
         # if the user is not part of the new organisation
         if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
       		unless self.can_change_org?
@@ -86,8 +102,10 @@ class User < ActiveRecord::Base
             self.save!
       		end
         end
-        # rip api_token from user
-        self.remove_token!
+      end
+    end
+    # rip api_token from user
+    self.remove_token!
 	end
 
   ##
