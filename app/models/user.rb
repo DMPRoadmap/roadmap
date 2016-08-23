@@ -80,7 +80,6 @@ class User < ActiveRecord::Base
 	def organisation_id=(new_organisation_id)
         # if the user is not part of the new organisation
         if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
-            # if the user has more than one role
       		unless user.can_change_org?
             # rip all permissions from user
             self.roles.delete_all
@@ -261,5 +260,39 @@ class User < ActiveRecord::Base
       UserMailer.api_token_granted_notification(self)
     end
   end
+
+
+  def self.update_user_permissions
+  add_orgs                = Role.find_by(name: 'add_organisations')
+  change_org_affiliation  = Role.find_by(name: 'change_org_affiliation')
+  grant_api_to_orgs       = Role.find_by(name: 'grant_api_to_orgs')
+  grant_permissions       = Role.find_by(name: 'grant_permissions')
+  modify_templates        = Role.find_by(name: 'modify_templates')
+  modify_guidance         = Role.find_by(name: 'modify_guidance')
+  change_org_details      = Role.find_by(name: 'change_org_detials')
+  User.all.each do |user|
+    user.roles.each do |role|
+      if role.blank?
+      elsif role.name == 'admin'
+        #add admin roles
+        user.roles << add_orgs
+        user.roles << change_org_affiliation
+        user.roles << grant_api_to_orgs
+        user.roles << grant_permissions
+        role.delete
+      elsif role.name == 'org_admin'
+        #add org-admin roles
+        user.roles << grant_permissions
+        user.roles << modify_templates
+        user.roles << modify_guidance
+        user.roles << change_org_details
+        role.delete
+      elsif role.name == 'user'
+        role.delete
+      end
+    end
+    user.save!
+  end
+end
 
 end
