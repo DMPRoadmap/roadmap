@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
 	def organisation_id=(new_organisation_id)
         # if the user is not part of the new organisation
         if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
-      		unless user.can_change_org?
+      		unless self.can_change_org?
             # rip all permissions from user
             self.roles.delete_all
             self.save!
