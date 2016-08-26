@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  #
+  ##
   # generates a new token for the user unless the user already has a token.
   # modifies the user's model.
   def keep_or_generate_token!
@@ -279,7 +279,10 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  ##
+  # updates the user permissions to the new system.
+  # the old system only had admin and org-admin roles, which loosely map to the
+  # new permissions system.
   def self.update_user_permissions
     admin                   = Role.find_by(name: 'admin')
     org_admin               = Role.find_by(name: 'org_admin')
@@ -315,6 +318,7 @@ class User < ActiveRecord::Base
       if user.roles.include?(org_admin)
         user.roles.delete(org_admin)
       end
+      # save the user
       user.save!
     end
   end
