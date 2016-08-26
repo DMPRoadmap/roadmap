@@ -296,20 +296,21 @@ class User < ActiveRecord::Base
       elsif role.name == 'admin'
         logger.debug "we found an admin"
         #add admin roles
-        roles << add_orgs# unless user.can_add_orgs?
-        roles << change_org_affiliation# unless user.can_change_org?
-        roles << grant_api_to_orgs# unless user.can_grant_api_to_orgs?
-        roles << grant_permissions# unless user.can_grant_permissions?
+        user.roles << add_orgs# unless user.can_add_orgs?
+        user.roles << change_org_affiliation# unless user.can_change_org?
+        #user.roles << grant_api_to_orgs# unless user.can_grant_api_to_orgs?
+        user.roles << grant_permissions# unless user.can_grant_permissions?
+        logger.debug "#{roles}"
       elsif role.name == 'org_admin'
         logger.debug "we found an org-admin"
         #add org-admin roles
-        roles << grant_permissions# unless user.can_grant_permissions?
-        roles << modify_templates# unless user.can_modify_templates?
-        roles << modify_guidance# unless user.can_modify_guidance?
-        roles << change_org_details# unless user.can_modify_org_details?
+        user.roles << grant_permissions# unless user.can_grant_permissions?
+        user.roles << modify_templates# unless user.can_modify_templates?
+        user.roles << modify_guidance# unless user.can_modify_guidance?
+        user.roles << change_org_details# unless user.can_modify_org_details?
+        logger.debug "#{roles}"
       end
     end
-    user.roles = roles
     user.save!
   end
 end
