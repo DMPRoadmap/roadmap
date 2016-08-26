@@ -289,6 +289,7 @@ class User < ActiveRecord::Base
   modify_guidance         = Role.find_by(name: 'modify_guidance')
   change_org_details      = Role.find_by(name: 'change_org_detials')
   User.all.each do |user|
+    logger.debug "#{user.email}"
     roles = []
     user.roles.each do |role|
       if role.blank?
