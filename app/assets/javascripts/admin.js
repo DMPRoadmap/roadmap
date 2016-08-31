@@ -129,9 +129,10 @@ $( document ).ready(function() {
  			}
 	 	});
 	 	$('#phases_select').show();
-	 	$('#versions_select').hide();
-	 	$('#sections_select').hide();
-	 	$('#questions_select').hide();
+	 	//$('#versions_select').hide();
+	 	//$('#sections_select').hide();
+	 	//$('#questions_select').hide();
+        return false;
 
 	 });
 	 $('#phases_select').change(function() {
@@ -143,10 +144,11 @@ $( document ).ready(function() {
 	 				phase_id : $('#phases_select').val()
 	 			}
 		 	});
-		 	$('#phases_select').show();
+		 	//$('#phases_select').show();
 		 	$('#versions_select').show();
-		 	$('#sections_select').hide();
-		 	$('#questions_select').hide();
+		 	//$('#sections_select').hide();
+		 	//$('#questions_select').hide();
+            return false;
 		 });
 	 $('#versions_select').change(function() {
 		 $.ajax({
@@ -157,10 +159,11 @@ $( document ).ready(function() {
 	 				version_id : $('#versions_select').val()
 	 			}
 		 	});
-		 	$('#phases_select').show();
-		 	$('#versions_select').show();
+		 	//$('#phases_select').show();
+		 	//$('#versions_select').show();
 		 	$('#sections_select').show();
-		 	$('#questions_select').hide();
+		 	//$('#questions_select').show();
+            return false;
 		 });
 	 $('#sections_select').change(function() {
 		 	$.ajax({
@@ -171,9 +174,9 @@ $( document ).ready(function() {
 	 				section_id : $('#sections_select').val()
 	 			}
 		 	});
-		 	$('#phases_select').show();
-		 	$('#versions_select').show();
-		 	$('#sections_select').show();
+		 	//$('#phases_select').show();
+		 	//$('#versions_select').show();
+		 	//$('#sections_select').show();
 		 	$('#questions_select').show();
 		 });
 
