@@ -84,7 +84,7 @@ class ExportedPlan < ActiveRecord::Base
           answer = self.plan.answer(question.id)
           options_string = answer.options.collect {|o| o.text}.join('; ')
 
-          csv << [section.title, question.text, sanitize_text(answer.text), options_string, answer.try(:user).try(:name), answer.created_at]
+          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, answer.try(:user).try(:name), answer.created_at]
         end
       end
     end
@@ -97,7 +97,8 @@ class ExportedPlan < ActiveRecord::Base
       output += "\n#{section.title}\n"
 
       self.questions_for_section(section).each do |question|
-        output += "\n#{question.text}\n"
+        qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
+        output += "\n#{qtext}\n"
         answer = self.plan.answer(question.id, false)
 
         if answer.nil? || answer.text.nil? then
