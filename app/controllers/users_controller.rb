@@ -74,6 +74,7 @@ class UsersController < ApplicationController
 
   def admin_index
     authorize User
+    @users = current_user.organisation.users.includes(:roles, :project_groups)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organisation_users }
@@ -82,6 +83,7 @@ class UsersController < ApplicationController
 
   def admin_api_update
     authorize User
+    @users = current_user.organisation.users.includes(:roles, :project_groups)
     #iterate through all org users
     user_ids = params[:api_user_ids].blank? ? [] : params[:api_user_ids].map(&:to_i)
     admin_user_ids = params[:org_admin_ids].blank? ? [] : params[:org_admin_ids].map(&:to_i)

@@ -178,8 +178,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can add new organisations
   def can_add_orgs?
-    add_orgs = roles.find_by(name: constant("user_role_types.add_organisations"))
-    return !add_orgs.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.add_organisations"))
   end
 
   ##
@@ -187,8 +186,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can change their organisation affiliations
   def can_change_org?
-    change_org = roles.find_by(name: constant("user_role_types.change_org_affiliation"))
-    return !change_org.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.change_org_affiliation"))
   end
 
   ##
@@ -196,8 +194,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant their permissions to others
   def can_grant_permissions?
-    grant_perms = roles.find_by(name: constant("user_role_types.grant_permissions"))
-    return !grant_perms.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.grant_permissions"))
   end
 
   ##
@@ -205,8 +202,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
-    modify_temp = roles.find_by(name: constant("user_role_types.modify_templates"))
-    return !modify_temp.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.modify_templates"))
   end
 
   ##
@@ -214,8 +210,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organistion guidance
   def can_modify_guidance?
-    modify_guidance = roles.find_by(name: constant("user_role_types.modify_guidance"))
-    return !modify_guidance.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.modify_guidance"))
   end
 
   ##
@@ -223,8 +218,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can use the api
   def can_use_api?
-    use_api = roles.find_by(name: constant("user_role_types.use_api"))
-    return !use_api.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.use_api"))
   end
 
   ##
@@ -232,8 +226,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
-    modify_org_details = roles.find_by(name: constant("user_role_types.change_org_details"))
-    return !modify_org_details.nil?
+    roles.include? Role.find_by(name: constant("user_role_types.change_org_details"))
   end
 
   ##
@@ -241,8 +234,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    grant_api = roles.find_by(name: constant('user_role_types.grant_api_to_orgs'))
-    return !grant_api.nil?
+    roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
   ##
