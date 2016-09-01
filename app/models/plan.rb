@@ -104,7 +104,7 @@ class Plan < ActiveRecord::Base
   ##
   # returns the guidances associated with the project's organisation, for a specified question
   #
-  # @params question [Question] the question to find guidance for
+  # @param question [Question] the question to find guidance for
   # @return [Array<Guidance>] the list of guidances which pretain to the specified question
 	def guidance_for_question(question)
 		guidances = {}
@@ -435,7 +435,7 @@ class Plan < ActiveRecord::Base
   # returns an array of hashes.  Each hash contains the question's id, the answer_id,
   # the answer_text, the answer_timestamp, and the answer_options
   #
-  # @params section_id [Integer] the section to find answers of
+  # @param section_id [Integer] the section to find answers of
   # @return [Array<Hash{String => nil,String,Integer,DateTime}]
 	def section_answers(section_id)
 		section = Section.find(section_id)
@@ -477,7 +477,7 @@ private
 	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
 	# for guidance when editing plan data, not to be 100% accurate.
   #
-  # @params used_height [Integer] an estimate of the height used so far
+  # @param used_height [Integer] an estimate of the height used so far
   # @return [Integer] the estimate of space used of an A4 portrain
 	def estimate_space_used(used_height)
 		@formatting ||= self.settings(:export).formatting
@@ -501,9 +501,9 @@ private
 	# Allows for hinting different font sizes (offset from base via font_size_inc)
 	# and vertical margins (i.e. for heading text)
   #
-  # @params text [String] the text to estimate size of
-  # @params font_size_inc [Integer] the size of the font of the text, defaults to 0
-  # @params vertical_margin [Integer] the top margin above the text, defaults to 0
+  # @param text [String] the text to estimate size of
+  # @param font_size_inc [Integer] the size of the font of the text, defaults to 0
+  # @param vertical_margin [Integer] the top margin above the text, defaults to 0
 	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
 		@formatting     ||= self.settings(:export).formatting
 		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i

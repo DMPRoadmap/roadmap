@@ -30,6 +30,14 @@ class Question < ActiveRecord::Base
     "#{text}"
   end
 
+  def select_text
+    cleantext = text.gsub(/<[^<]+>/, '')
+    if cleantext.length > 120
+      cleantext = cleantext.slice(0,120)
+    end
+    cleantext
+  end
+
   amoeba do
     include_association :options
     include_association :suggested_answers

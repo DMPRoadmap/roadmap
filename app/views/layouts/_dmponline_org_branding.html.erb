@@ -1,8 +1,7 @@
 <!-- Org branding info -->
 <div class="branding_container">
 	<% if user_signed_in? %>
-		<% if !current_user.organisation.nil? %>
-		
+		<% if !current_user.organisation.present? %>
 			<!-- Organisation Logo -->
       <% if current_user.organisation.logo.present? %>
 				<div class="header_org_logo">

@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+    <%= t('org_admin.edit_user_privleges') %>
+</h1>
+
+<div class="white_background">
+  <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
+    <table id="dmp_table" class="dmp_table tablesorter">
+      <thead>
+        <tr>
+          <% @roles.each do |role| %>
+          <th class="dmp_th_medium"> <%= role.name %> </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% @roles.each do |role| %>
+            <td class="dmp_td_medium">
+              <%= check_box_tag "role_ids[]", role.id, @user.roles.include?(role) %>
+            </td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+    <%= submit_tag t('helpers.submit.save') %>
+  <% end %>
+</div>

@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
 
-	rolify
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
@@ -30,7 +29,7 @@ class User < ActiveRecord::Base
         conditions = t[:title].matches(q)
 
         columns = %i(
-          grant_number identifier description principal_investigator data_contact
+          grant_number identifier description principal_investigator data_contact 
         )
         columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
 
@@ -40,8 +39,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    # Commented out due to warning in Rails 4. This line is redundant due to use of the rolify gem
-    #has_and_belongs_to_many :roles, :join_table => :users_roles
+    has_and_belongs_to_many :roles, :join_table => :users_roles
 
     has_many :plan_sections
 
@@ -80,33 +78,34 @@ class User < ActiveRecord::Base
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
 	def organisation_id=(new_organisation_id)
+    # DEPRICATED STRUCTURE ONLY USED HERE
+    if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
+      # if the user has more than one role
+      if self.user_org_roles.count != 1 then
+        new_user_org_role = UserOrgRole.new
+        new_user_org_role.organisation_id = new_organisation_id
+        new_user_org_role.user_role_type = UserRoleType.find_by(name: constant("user_role_types.user"));
+        self.user_org_roles << new_user_org_role
+      # if the user has roles other than one(0/2/3?)
+      else
+        # set role to first role 
+        user_org_role = self.user_org_roles.first
+        # change org_id to new org_id
+        user_org_role.organisation_id = new_organisation_id
+        # save modified role
+        user_org_role.save
         # if the user is not part of the new organisation
         if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
-            # if the user has more than one role
-      		if self.user_org_roles.count != 1 then
-      			new_user_org_role = UserOrgRole.new
-      			new_user_org_role.organisation_id = new_organisation_id
-      			new_user_org_role.user_role_type = UserRoleType.find_by(name: constant("user_role_types.user"));
-      			self.user_org_roles << new_user_org_role
-                #
-            # if the user has roles other than one(0/2/3?)
-      		else
-                # set role to first role
-      			user_org_role = self.user_org_roles.first
-                # change org_id to new org_id
-      			user_org_role.organisation_id = new_organisation_id
-                # save modified role
-                user_org_role.save
-                # if user has an "org_admin" role
-      			org_admin_role = roles.find_by(name: constant("user_role_types.org_admin"))
-      			unless org_admin_role.nil? then
-                    # delete it
-      				roles.delete(org_admin_role)
-      			end
+      		unless self.can_change_org?
+            # rip all permissions from user
+            self.roles.delete_all
+            self.save!
       		end
         end
-        # rip api_token from user
-        self.remove_token!
+      end
+    end
+    # rip api_token from user
+    self.remove_token!
 	end
 
   ##
@@ -149,28 +148,103 @@ class User < ActiveRecord::Base
   ##
   # sets a new organisation for the user
   #
-  # @params new_organisation [Organisation] the new organisation for the user
+  # @param new_organisation [Organisation] the new organisation for the user
 	def organisation=(new_organisation)
 		organisation_id = organisation.id
 	end
 
   ##
-  # checks if the user is an admin
+  # checks if the user is a super admin
+  # if the user has any privelege which requires them to see the super admin page
+  # then they are a super admin
   #
   # @return [Boolean] true if the user is an admin
-	def is_admin?
-		admin = roles.find_by( name: constant("user_role_types.super_admin"))
-		return !admin.nil?
+	def can_super_admin?
+		return self.can_add_orgs? || self.can_grant_api_to_orgs? || can_change_org?
 	end
 
   ##
   # checks if the user is an organisation admin
+  # if the user has any privlege which requires them to see the org-admin pages
+  # then they are an org admin
   #
   # @return [Boolean] true if the user is an organisation admin
-	def is_org_admin?
-		org_admin = roles.find_by(name: constant("user_role_types.organisational_admin"))
-		return !org_admin.nil?
+	def can_org_admin?
+		return self.can_grant_permissions? || self.can_modify_guidance? || self.can_modify_templates? || self.can_modify_org_details?
 	end
+
+  ##
+  # checks if the user can add new organisations
+  #
+  # @return [Boolean] true if the user can add new organisations
+  def can_add_orgs?
+    roles.include? Role.find_by(name: constant("user_role_types.add_organisations"))
+  end
+
+  ##
+  # checks if the user can change their organisation affiliations
+  #
+  # @return [Boolean] true if the user can change their organisation affiliations
+  def can_change_org?
+    roles.include? Role.find_by(name: constant("user_role_types.change_org_affiliation"))
+  end
+
+  ##
+  # checks if the user can grant their permissions to others
+  #
+  # @return [Boolean] true if the user can grant their permissions to others
+  def can_grant_permissions?
+    roles.include? Role.find_by(name: constant("user_role_types.grant_permissions"))
+  end
+
+  ##
+  # checks if the user can modify organisation templates
+  #
+  # @return [Boolean] true if the user can modify organisation templates
+  def can_modify_templates?
+    roles.include? Role.find_by(name: constant("user_role_types.modify_templates"))
+  end
+
+  ##
+  # checks if the user can modify organisation guidance
+  #
+  # @return [Boolean] true if the user can modify organistion guidance
+  def can_modify_guidance?
+    roles.include? Role.find_by(name: constant("user_role_types.modify_guidance"))
+  end
+
+  ##
+  # checks if the user can use the api
+  #
+  # @return [Boolean] true if the user can use the api
+  def can_use_api?
+    roles.include? Role.find_by(name: constant("user_role_types.use_api"))
+  end
+
+  ##
+  # checks if the user can modify their org's details
+  #
+  # @return [Boolean] true if the user can modify the org's details
+  def can_modify_org_details?
+    roles.include? Role.find_by(name: constant("user_role_types.change_org_details"))
+  end
+
+  ##
+  # checks if the user can grant the api to organisations
+  #
+  # @return [Boolean] true if the user can grant api permissions to organisations
+  def can_grant_api_to_orgs?
+    roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+  end
+
+
+  ##
+  # checks if the user can grant the api to organisations
+  #
+  # @return [Boolean] true if the user can grant api permissions to organisations
+  def can_grant_api_to_orgs?
+    roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+  end
 
   ##
   # checks what type the user's organisation is
@@ -185,13 +259,13 @@ class User < ActiveRecord::Base
   # removes the api_token from the user
   # modifies the user model
   def remove_token!
-    unless api_token.empty?
+    unless api_token.blank?
       self.api_token = ""
       self.save!
     end
   end
 
-  #
+  ##
   # generates a new token for the user unless the user already has a token.
   # modifies the user's model.
   def keep_or_generate_token!
@@ -203,6 +277,50 @@ class User < ActiveRecord::Base
       self.save!
       # send an email to the user to notify them of their new api token
       UserMailer.api_token_granted_notification(self)
+    end
+  end
+
+  ##
+  # updates the user permissions to the new system.
+  # the old system only had admin and org-admin roles, which loosely map to the
+  # new permissions system.
+  def self.update_user_permissions
+    admin                   = Role.find_by(name: 'admin')
+    org_admin               = Role.find_by(name: 'org_admin')
+    add_orgs                = Role.find_by(name: 'add_organisations')
+    change_org_affiliation  = Role.find_by(name: 'change_org_affiliation')
+    grant_api_to_orgs       = Role.find_by(name: 'grant_api_to_orgs')
+    grant_permissions       = Role.find_by(name: 'grant_permissions')
+    modify_templates        = Role.find_by(name: 'modify_templates')
+    modify_guidance         = Role.find_by(name: 'modify_guidance')
+    change_org_details      = Role.find_by(name: 'change_org_detials')
+    User.includes(:roles).all.each do |user|
+      roles = user.roles
+      roles.each do |role|
+        if role.blank?
+        elsif role.name == 'admin'
+          #add admin roles
+          user.roles << add_orgs unless user.can_add_orgs?
+          user.roles << change_org_affiliation unless user.can_change_org?
+          user.roles << grant_api_to_orgs unless user.can_grant_api_to_orgs?
+          user.roles << grant_permissions unless user.can_grant_permissions?
+        elsif role.name == 'org_admin'
+          #add org-admin roles
+          user.roles << grant_permissions unless user.can_grant_permissions?
+          user.roles << modify_templates unless user.can_modify_templates?
+          user.roles << modify_guidance unless user.can_modify_guidance?
+          user.roles << change_org_details unless user.can_modify_org_details?
+        end
+      end
+      #rip roles from user
+      if user.roles.include?(admin)
+        user.roles.delete(admin)
+      end
+      if user.roles.include?(org_admin)
+        user.roles.delete(org_admin)
+      end
+      # save the user
+      user.save!
     end
   end
 

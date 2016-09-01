@@ -46,7 +46,7 @@ end
     docx.h3 section.title.upcase, italic: false, font: 'Arial', color: '000000' 
     
     @exported_plan.questions_for_section(section.id).each do |question|
-        docx.p question.text, bold: true
+        docx.p strip_tags(question.text.gsub(/<li>/, '  * ')), bold: true
         
         answer = @exported_plan.plan.answer(question.id, false)
         if answer.nil?
@@ -249,4 +249,3 @@ end
         docx.p
     end
 end
-
