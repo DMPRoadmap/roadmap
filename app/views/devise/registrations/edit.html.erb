@@ -65,7 +65,7 @@
 						:autocomplete => "off" ,
 						:class => "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
 			</tr>
-			<% unless @user.api_token.nil? %>
+			<% unless @user.api_token.blank? %>
 			<tr>
 				<td class="first"><%= t("helpers.api_token") %></td>
 				<td><%= @user.api_token %></td>

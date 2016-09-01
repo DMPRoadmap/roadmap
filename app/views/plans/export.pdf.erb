@@ -37,7 +37,7 @@
             <% questions.each_with_index do |question, idx| %>
                 <div class="question">
                     <% unless idx == 0 && question.text == section.title %>
-                        <h3><%= question.text %></h3>
+                        <h3><%= raw question.text %></h3>
                     <% end %>
                     <% answer = @plan.answer(question.id, false) %>
                         <% if answer.nil? then %>

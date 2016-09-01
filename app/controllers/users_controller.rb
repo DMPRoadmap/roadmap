@@ -73,46 +73,48 @@ class UsersController < ApplicationController
   end
 
   def admin_index
-        if user_signed_in? && current_user.is_org_admin? then
-            respond_to do |format|
-                format.html # index.html.erb
-                format.json { render json: @organisation_users }
-            end
-        else
-            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-        end
+    authorize User
+    @users = current_user.organisation.users.includes(:roles, :project_groups)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @organisation_users }
+    end
   end
 
-    def admin_api_update
-        if user_signed_in? && current_user.is_org_admin? then
-          #iterate through all org users
-          user_ids = params[:api_user_ids].blank? ? [] : params[:api_user_ids].map(&:to_i)
-          admin_user_ids = params[:org_admin_ids].blank? ? [] : params[:org_admin_ids].map(&:to_i)
-          current_user.organisation.users.each do |user|
-            # if user_id in passed params
-            if user_ids.include? user.id
-              # run generate_or_keep
-              user.keep_or_generate_token!
-            # if not in passed params
-            else
-              # remove the token
-              user.remove_token!
-            end
-            # ORG_ADMINS
-            if admin_user_ids.include?( user.id) && !user.is_org_admin?
-              # add admin privleges
-              # MAGIC_STRING
-              user.roles << Role.find_by(name: constant("user_role_types.organisational_admin"))
-            # if user_id not in passed, but user is an admin
-            elsif !admin_user_ids.include?(user.id) && user.is_org_admin?
-              # strip admin privleges
-              user.roles.delete(Role.find_by(name: constant("user_role_types.organisational_admin")))
-            end
+  def admin_grant_permissions
+    @user = User.includes(:roles).find(params[:id])
+    authorize @user
+    user_roles = current_user.roles
+    @roles = user_roles & Role.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
+  end
+
+  def admin_update_permissions
+    @user = User.includes(:roles).find(params[:id])
+    authorize @user
+    roles_ids = params[:role_ids].blank? ? [] : params[:role_ids].map(&:to_i)
+    roles = Role.where( id: roles_ids)
+    current_user.roles.each do |role|
+      if @user.roles.include? role
+        if ! roles.include? role
+          @user.roles.delete(role)
+          if role.name == constant("user_role_types.use_api")
+            @user.remove_token!
           end
-            #redirect_to admin_index
-        else
-            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
         end
+      else
+        if roles.include? role
+          @user.roles << role
+          if role.name == constant("user_role_types.use_api")
+            @user.keep_or_generate_token!
+          end
+        end
+      end
     end
+    @user.save!
+    respond_to do |format|
+      format.html { redirect_to({controller: 'users', action: 'admin_index'}, {notice: I18n.t('helpers.success')})}
+      format.json { head :no_content }
+    end
+  end
 
 end

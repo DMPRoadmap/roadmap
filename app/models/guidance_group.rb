@@ -40,7 +40,7 @@ class GuidanceGroup < ActiveRecord::Base
   ##
   # Returns the list of all guidance groups not coming from the given organisations
   #
-  # @params excluded_orgs [Array<Organisation>] a list of organisations to exclude in the result
+  # @param excluded_orgs [Array<Organisation>] a list of organisations to exclude in the result
   # @return [Array<GuidanceGroup>] a list of guidance groups
 	def self.guidance_groups_excluding(excluded_orgs)
 		excluded_org_ids = Array.new

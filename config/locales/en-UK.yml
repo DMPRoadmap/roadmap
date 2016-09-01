@@ -149,10 +149,6 @@ en-UK:
     user_text_html: "Below is a list of users registered for your organisation. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
-    org_logo_failed_message: "Logo Upload Failed. "
-    org_logo: "Logo"
-    new_org_logo: "Upload a new logo file"
-    remove_logo: "If you decide to use the default DCC logo, please check this box to remove your current logo."
     org_desc: "Description"
     org_banner_text: "Top banner text"
     org_target_url: "Website"
@@ -177,6 +173,7 @@ en-UK:
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
     api_privleges: 'API Privleges?'
+    edit_user_privleges: 'Edit User Privleges'
 
     guidance:
       guidance_list: "Guidance list"
@@ -366,7 +363,7 @@ en-UK:
     no_unlock_instructions: "Didn't receive unlock instructions?"
     send_password_info: "Reset password instructions"
     edit_password_info: "If you would like to change your password please complete the following fields."
-    accept_terms_html: " I accept the <a href='/%{current_locale}/terms'>terms and conditions</a> *"
+    accept_terms_html: " I accept the <a href='/terms'>terms and conditions</a> *"
     you_must_accept: 'You must accept the terms and conditions to register.'
     email_already_registered: 'That email address is already registered.'
     email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."
@@ -953,6 +950,14 @@ Select what format you wish to use and click to 'Export'.</p>"
       super_admin: 'admin'
       organisational_admin: 'org_admin'
       user: 'user'
+      add_organisations: 'add_organisations'
+      change_org_affiliation: 'change_org_affiliation'
+      grant_permissions: 'grant_permissions'
+      modify_templates: 'modify_templates'
+      modify_guidance: 'modify_guidance'
+      use_api: 'use_api'
+      change_org_details: 'change_org_detials'
+      grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'
       plans: 'plans'
