@@ -1,10 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-<<<<<<< HEAD
-  revision: cc178ad0ebe1b74729eeaa59d5c7ad9b82ed7837
-=======
   revision: 0a5a15b88bffbe5efad7ff2a072ec4fe6eb09511
->>>>>>> master
   specs:
     activeadmin (1.0.0.pre4)
       arbre (~> 1.0, >= 1.0.2)
@@ -78,12 +74,7 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (9.0.5)
-<<<<<<< HEAD
-    cancancan (1.15.0)
-    capybara (2.8.0)
-=======
     capybara (2.8.1)
->>>>>>> master
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
