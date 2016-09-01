@@ -141,6 +141,8 @@ en-UK:
     org_details_label:  "Organisation details"
     org_text: "These are the basic details for your organisation."
     org_abbr_help_text_html: "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
+    org_contact_email: "Contact Email"
+    org_contact_email_help_text: "The email address of an administrator at your organisation. Your users will use this address if they have questions."
     users_list: "List of users"
     user_full_name: "Name"
     user_name: "Email address"
@@ -149,6 +151,10 @@ en-UK:
     user_text_html: "Below is a list of users registered for your organisation. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
+    org_logo_failed_message: "Logo Upload Failed."
+    org_logo: "Logo"
+    new_org_logo: "Upload a new logo file"
+    remove_logo: "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
     org_desc: "Description"
     org_banner_text: "Top banner text"
     org_target_url: "Website"
@@ -363,7 +369,7 @@ en-UK:
     no_unlock_instructions: "Didn't receive unlock instructions?"
     send_password_info: "Reset password instructions"
     edit_password_info: "If you would like to change your password please complete the following fields."
-    accept_terms_html: " I accept the <a href='/terms'>terms and conditions</a> *"
+    accept_terms_html: " I accept the <a href='/%{current_locale}/terms'>terms and conditions</a> *"
     you_must_accept: 'You must accept the terms and conditions to register.'
     email_already_registered: 'That email address is already registered.'
     email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."

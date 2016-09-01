@@ -778,6 +778,3 @@ token_permission_types.each do |title,settings|
     token_permission_type.save!
   end
 end
-
-
-

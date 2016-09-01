@@ -60,8 +60,12 @@ class OrganisationsController < ApplicationController
   def admin_update
     @organisation = authorize Organisation.find(params[:id])
     @organisation.banner_text = params["org_banner_text"]
+    @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
+    assign_params = params[:organisation].dup
+    assign_params.delete(:logo)
+    
     respond_to do |format|
-      if @organisation.update_attributes(params[:organisation])
+      if @organisation.update_attributes(assign_params)
         format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
         format.json { head :no_content }
       else

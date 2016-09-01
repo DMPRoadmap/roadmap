@@ -1,31 +1,44 @@
+#require 'validators/email_validator'
+
 class Organisation < ActiveRecord::Base
   include GlobalHelpers
-    #associations between tables
-    belongs_to :organisation_type
-    has_many :guidance_groups
-    has_many :dmptemplates
-    has_many :sections
-    has_many :users, through: :user_org_roles
-    has_many :option_warnings
-    has_many :suggested_answers
-    has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
+  
+  extend Dragonfly::Model::Validations
 
-    has_many :user_org_roles
+  #associations between tables
+  belongs_to :organisation_type
+  has_many :guidance_groups
+  has_many :dmptemplates
+  has_many :sections
+  has_many :users, through: :user_org_roles
+  has_many :option_warnings
+  has_many :suggested_answers
+  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
-    belongs_to :parent, :class_name => 'Organisation'
+  belongs_to :parent, :class_name => 'Organisation'
 
-		has_one :language
+	has_one :language
 
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
-#	accepts_nested_attributes_for :organisation_type
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :description, :domain,
-                  :logo_file_name, :name, :stylesheet_file_id, :target_url,
+	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :domain, 
+                  :logo_file_name, :name, :stylesheet_file_id, :target_url, 
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id
+                  :token_permission_type_ids, :language_id, :contact_email
+
+  validates :contact_email, email: true, allow_nil: true
+
+  # allow validations for logo upload
+  dragonfly_accessor :logo do
+    after_assign :resize_image
+  end
+  
+  validates_property :height, of: :logo, in: (0..100)
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
+  validates_size_of :logo, maximum: 500.kilobytes
 
   ##
   # returns the name of the organisation
@@ -167,4 +180,16 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+  
+  private
+    ##
+    # checks size of logo and resizes if necessary
+    #
+    def resize_image
+      unless logo.nil?
+        if logo.height != 100
+          self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
+        end
+      end
+    end 
 end
