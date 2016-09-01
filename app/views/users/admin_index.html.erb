@@ -13,14 +13,10 @@
           <th class="dmp_th_small"><%= t('org_admin.last_logged_in') %></th>
           <th class="dmp_th_small"><%= t('org_admin.how_many_plans') %></th>
           <th class="dmp_th_small"><%= t('org_admin.is_org_admin') %></th>
-          <% if current_user.organisation.token_permission_types.count > 0 %>
-          <th class="dmp_th_small"><%= t('org_admin.api_privleges') %></th>
-          <% end %>
       </tr>
     </thead>
 
     <tbody>
-    <%= form_tag( admin_api_update_users_path, method: :put) do %>
       <% @users.each do |user| %>
           <% if !user.nil? then%>
             <tr>
@@ -43,17 +39,11 @@
                   <% end %>
               </td>
               <td class="dmp_td_small">
-                  <%= check_box_tag "org_admin_ids[]", user.id, user.can_org_admin? %>
+                <% b_label = t('helpers.submit.edit')%>
+                <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
               </td>
-              <% if current_user.organisation.token_permission_types.count > 0 %>
-              <td class="dmp_td_small">
-                  <%= check_box_tag "api_user_ids[]", user.id, user.api_token !="" %>
-              </td>
-              <% end %>
             </tr>
           <% end %>
       <% end %>
     </tbody>
-    <%= submit_tag "Update Users" %>
-    <% end %>
   </table>

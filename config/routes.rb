@@ -20,7 +20,10 @@ Rails.application.routes.draw do
   resources :users, :path => 'org/admin/users', only: [] do
     collection do
       get 'admin_index'
-      put 'admin_api_update'
+    end
+    member do
+      get 'admin_grant_permissions'
+      put 'admin_update_permissions'
     end
   end
 

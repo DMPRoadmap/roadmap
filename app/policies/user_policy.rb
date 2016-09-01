@@ -4,14 +4,19 @@ class UserPolicy < ApplicationPolicy
   def initialize(user, users)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
+    @users = users
   end
 
   def admin_index?
-    user.can_use_api? && user.can_grant_permissions?
+    @user.can_grant_permissions?
   end
 
-  def admin_api_update?
-    user.can_use_api? && user.can_grant_permissions?
+  def admin_grant_permissions?
+    @user.can_grant_permissions? && (@users.organisation_id == @user.organisation_id)
+  end
+
+  def admin_update_permissions?
+    @user.can_grant_permissions?  && (@users.organisation_id == @user.organisation_id)
   end
 
   class Scope < Scope
