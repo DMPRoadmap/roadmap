@@ -430,7 +430,7 @@
           <div class="method-source-code" id="authenticate_admin-21-source">
             <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">authenticate_admin!</span>
-        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_path</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_admin?</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_path</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_super_admin?</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- authenticate_admin-21-source -->
           
@@ -493,12 +493,14 @@
           <div class="method-source-code" id="store_location-source">
             <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">store_location</span>
- <span class="ruby-comment"># store last url - this is needed for post-login redirect to whatever the user last visited.</span>
+ <span class="ruby-comment"># store last url - this is needed for post-login redirect to whatever the user last visited.
+</span>
         <span class="ruby-keyword">if</span> (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;/users/sign_in&quot;</span> <span class="ruby-operator">&amp;&amp;</span> \
                 <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;/users/sign_up&quot;</span> <span class="ruby-operator">&amp;&amp;</span> \
                 <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;/users/password&quot;</span> <span class="ruby-operator">&amp;&amp;</span> \
     <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;/users/sign_up?nosplash=true&quot;</span> <span class="ruby-operator">&amp;&amp;</span> \
-                <span class="ruby-operator">!</span><span class="ruby-identifier">request</span>.<span class="ruby-identifier">xhr?</span>) <span class="ruby-comment"># don&#39;t store ajax calls</span>
+                <span class="ruby-operator">!</span><span class="ruby-identifier">request</span>.<span class="ruby-identifier">xhr?</span>) <span class="ruby-comment"># don&#39;t store ajax calls
+</span>
           <span class="ruby-identifier">session</span>[<span class="ruby-value">:previous_url</span>] = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> 
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
