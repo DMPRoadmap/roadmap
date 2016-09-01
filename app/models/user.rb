@@ -237,6 +237,15 @@ class User < ActiveRecord::Base
     roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
+
+  ##
+  # checks if the user can grant the api to organisations
+  #
+  # @return [Boolean] true if the user can grant api permissions to organisations
+  def can_grant_api_to_orgs?
+    roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+  end
+
   ##
   # checks what type the user's organisation is
   #
