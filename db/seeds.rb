@@ -28,12 +28,14 @@ languages = {
 }
 
 languages.each do |l, details|
-  language = Language.new
-  language.abbreviation = details[:abbreviation]
-  language.description = details[:description]
-  language.name = details[:name]
-  language.default_language = details[:default_language]
-  language.save!
+  if Language.where(name: details[:name]).empty?
+    language = Language.new
+    language.abbreviation = details[:abbreviation]
+    language.description = details[:description]
+    language.name = details[:name]
+    language.default_language = details[:default_language]
+    language.save!
+  end
 end
 
 regions = {
@@ -55,11 +57,13 @@ regions = {
 }
 
 regions.each do |l, details|
-  region = Region.new
-  region.abbreviation = details[:abbreviation]
-  region.description = details[:description]
-  region.name = details[:name]
-  region.save!
+  if Region.where(name: details[:name]).empty?
+    region = Region.new
+    region.abbreviation = details[:abbreviation]
+    region.description = details[:description]
+    region.name = details[:name]
+    region.save!
+  end
 end
 
 region_groups = {
@@ -74,10 +78,12 @@ region_groups = {
 }
 
 region_groups.each do |l, details|
-  region_group = RegionGroup.new
-  region_group.super_region_id = Region.find_by_name(details[:super_region_name]).id
-  region_group.region_id = Region.find_by_name(details[:region_name]).id
-  region_group.save!
+  if RegionGroup.find_by(region_id: details[:region_name]).blank?
+    region_group = RegionGroup.new
+    region_group.super_region_id = Region.find_by_name(details[:super_region_name]).id
+    region_group.region_id = Region.find_by_name(details[:region_name]).id
+    region_group.save!
+  end
 end
 
 organisation_types = {
@@ -169,13 +175,37 @@ organisation_types = {
 
 roles = {
   'admin' => {
-    name: "admin"
+    name: "admin" #depricated
   },
   'org_admin' => {
-    name: "org_admin"
+    name: "org_admin" #depricated
   },
   'user' => {
-    name: "user"
+    name: "user" #depricated
+  },
+  'add_organisations' => {
+    name: 'add_organisations'
+  },
+  'change_org_affiliation' => {
+    name: 'change_org_affiliation'
+  },
+  'grant_permissions' => {
+    name: 'grant_permissions'
+  },
+  'modify_templates' => {
+    name: 'modify_templates'
+  },
+  'modify_guidance' => {
+    name: 'modify_guidance'
+  },
+  'use_api' => {
+    name: 'use_api'
+  },
+  'change_org_detials' => {
+    name: 'change_org_detials'
+  },
+  'grant_api_to_orgs' => {
+    name: 'grant_api_to_orgs'
   }
 }
 
@@ -214,7 +244,7 @@ users = {
         password_confirmation: "password123",
         organisation: "RCC",
         language: 'English(UK)',
-        roles: ['admin','org_admin'],
+        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_detials','grant_api_to_orgs'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -226,7 +256,7 @@ users = {
         surname: "Admin",
         organisation: "RegSciFed",
         language: 'English(UK)',
-        roles: ['org_admin'],
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -238,7 +268,19 @@ users = {
         surname: "Admin",
         organisation: "CapColl",
         language: 'English(UK)',
-        roles: ['org_admin'],
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
+        accept_terms: true,
+        confirmed_at: Time.zone.now
+    },
+    'Organizational user' => {
+        email: "org_user@example.com",
+        password: "password123",
+        password_confirmation: "password123",
+        firstname: "Jane",
+        surname: "Researcher",
+        organisation: "CapColl",
+        language: 'English(UK)',
+        roles: ['user'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -259,21 +301,20 @@ users = {
 users.each do |user, details|
   if User.where(email: details[:email]).empty?
     usr = User.new
+  else
+    usr = User.where(email: details[:email])
+  end
     usr.email = details[:email]
     usr.password = details[:password]
     usr.password_confirmation = details[:password_confirmation]
     usr.confirmed_at = details[:confirmed_at]
     usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
-#    usr.user_org_roles << UserOrgRole.create(organisation: Organisation.find_by_abbreviation(details[:organisation]),
-#                                             user_role_type: UserRoleType.find_by_name('admin'))
     usr.language_id = Language.find_by_name(details[:language]).id
     details[:roles].each do |role|
      usr.roles << Role.find_by_name(role)
     end
     usr.accept_terms = details[:accept_terms]
-    
     usr.save!
-  end
 end
 
  themes = {
@@ -637,6 +678,13 @@ end
      guidance: "<p class='guidance_header'>Things to consider:</p> <ul> <li>What type(s) of data will you collect?</li> <li>Will you need special software/tools to access the data?</li><li>How do you plan to store your data?</li></p>",
      themes: ["Theme 4"]
    },
+   "Data Overview" => {
+     text: "Overview of the Data",
+     section: "Data Overview",
+     number: 1,
+     guidance: "<p class='guidance_header'>Things to consider:</p> <ul> <li>What type(s) of data will you collect?</li> <li>Will you need special software/tools to access the data?</li><li>How do you plan to store your data?</li></p>",
+     themes: ["Theme 4"]
+   },
    "How will you manage any ethical issues?" => {
      text: "How will you manage any ethical issues?",
      section: "Ethics and Legal Compliance",
@@ -723,27 +771,10 @@ token_permission_types = {
 }
 
 token_permission_types.each do |title,settings|
-  token_permission_type = TokenPermissionType.new
-  token_permission_type.token_type = title
-  token_permission_type.text_desription = settings[:description]
-  token_permission_type.save!
-end
-
-languages = {
-  'en-UK': {
-    abbreviation: 'en-UK', name: 'en-UK', description: 'English - UK', default_language: 0
-  },
-  'en-US': {
-    abbreviation: 'en-US', name: 'en-US', description: 'English - US', default_language: 1
-  },
-  'fr': {
-    abbreviation: 'fr', name: 'fr', description: 'French', default_language: 0
-  },
-  'de': {
-    abbreviation: 'de', name: 'de', description: 'German', default_language: 0
-  }
-}
-
-languages.each do |title,settings|
-  Language.new(settings).save!
+  if TokenPermissionType.where(token_type: title).empty?
+    token_permission_type = TokenPermissionType.new
+    token_permission_type.token_type = title
+    token_permission_type.text_desription = settings[:description]
+    token_permission_type.save!
+  end
 end
