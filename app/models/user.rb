@@ -237,6 +237,18 @@ class User < ActiveRecord::Base
     roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
+<<<<<<< HEAD
+=======
+  ##
+  # checks if the user can grant the api to organisations
+  #
+  # @return [Boolean] true if the user can grant api permissions to organisations
+  def can_grant_api_to_orgs?
+    grant_api = roles.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    return !grant_api.nil?
+  end
+
+>>>>>>> eefba90cb7d91e65f756f9c14fcacc628f6508d5
   ##
   # checks what type the user's organisation is
   #
@@ -256,7 +268,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  #
+  ##
   # generates a new token for the user unless the user already has a token.
   # modifies the user's model.
   def keep_or_generate_token!
@@ -271,39 +283,48 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  ##
+  # updates the user permissions to the new system.
+  # the old system only had admin and org-admin roles, which loosely map to the
+  # new permissions system.
   def self.update_user_permissions
-  add_orgs                = Role.find_by(name: 'add_organisations')
-  change_org_affiliation  = Role.find_by(name: 'change_org_affiliation')
-  grant_api_to_orgs       = Role.find_by(name: 'grant_api_to_orgs')
-  grant_permissions       = Role.find_by(name: 'grant_permissions')
-  modify_templates        = Role.find_by(name: 'modify_templates')
-  modify_guidance         = Role.find_by(name: 'modify_guidance')
-  change_org_details      = Role.find_by(name: 'change_org_detials')
-  User.all.each do |user|
-    logger.debug "#{user.email}"
-    roles = []
-    user.roles.each do |role|
-      if role.blank?
-      elsif role.name == 'admin'
-        logger.debug "we found an admin"
-        #add admin roles
-        roles << add_orgs# unless user.can_add_orgs?
-        roles << change_org_affiliation# unless user.can_change_org?
-        roles << grant_api_to_orgs# unless user.can_grant_api_to_orgs?
-        roles << grant_permissions# unless user.can_grant_permissions?
-      elsif role.name == 'org_admin'
-        logger.debug "we found an org-admin"
-        #add org-admin roles
-        roles << grant_permissions# unless user.can_grant_permissions?
-        roles << modify_templates# unless user.can_modify_templates?
-        roles << modify_guidance# unless user.can_modify_guidance?
-        roles << change_org_details# unless user.can_modify_org_details?
+    admin                   = Role.find_by(name: 'admin')
+    org_admin               = Role.find_by(name: 'org_admin')
+    add_orgs                = Role.find_by(name: 'add_organisations')
+    change_org_affiliation  = Role.find_by(name: 'change_org_affiliation')
+    grant_api_to_orgs       = Role.find_by(name: 'grant_api_to_orgs')
+    grant_permissions       = Role.find_by(name: 'grant_permissions')
+    modify_templates        = Role.find_by(name: 'modify_templates')
+    modify_guidance         = Role.find_by(name: 'modify_guidance')
+    change_org_details      = Role.find_by(name: 'change_org_detials')
+    User.all.each do |user|
+      roles = user.roles
+      roles.each do |role|
+        if role.blank?
+        elsif role.name == 'admin'
+          #add admin roles
+          user.roles << add_orgs unless user.can_add_orgs?
+          user.roles << change_org_affiliation unless user.can_change_org?
+          user.roles << grant_api_to_orgs unless user.can_grant_api_to_orgs?
+          user.roles << grant_permissions unless user.can_grant_permissions?
+        elsif role.name == 'org_admin'
+          #add org-admin roles
+          user.roles << grant_permissions unless user.can_grant_permissions?
+          user.roles << modify_templates unless user.can_modify_templates?
+          user.roles << modify_guidance unless user.can_modify_guidance?
+          user.roles << change_org_details unless user.can_modify_org_details?
+        end
       end
+      #rip roles from user
+      if user.roles.include?(admin)
+        user.roles.delete(admin)
+      end
+      if user.roles.include?(org_admin)
+        user.roles.delete(org_admin)
+      end
+      # save the user
+      user.save!
     end
-    user.roles = roles
-    user.save!
   end
-end
 
 end
