@@ -81,34 +81,40 @@ class UsersController < ApplicationController
     end
   end
 
-  def admin_api_update
-    authorize User
-    @users = current_user.organisation.users.includes(:roles, :project_groups)
-    #iterate through all org users
-    user_ids = params[:api_user_ids].blank? ? [] : params[:api_user_ids].map(&:to_i)
-    admin_user_ids = params[:org_admin_ids].blank? ? [] : params[:org_admin_ids].map(&:to_i)
-    current_user.organisation.users.each do |user|
-      # if user_id in passed params
-      if user_ids.include? user.id
-        # run generate_or_keep
-        user.keep_or_generate_token!
-      # if not in passed params
+  def admin_grant_permissions
+    @user = User.includes(:roles).find(params[:id])
+    authorize @user
+    user_roles = current_user.roles
+    @roles = user_roles & Role.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
+  end
+
+  def admin_update_permissions
+    @user = User.includes(:roles).find(params[:id])
+    authorize @user
+    roles_ids = params[:role_ids].blank? ? [] : params[:role_ids].map(&:to_i)
+    roles = Role.where( id: roles_ids)
+    current_user.roles.each do |role|
+      if @user.roles.include? role
+        if ! roles.include? role
+          @user.roles.delete(role)
+          if role.name == constant("user_role_types.use_api")
+            @user.remove_token!
+          end
+        end
       else
-        # remove the token
-        user.remove_token!
-      end
-      # ORG_ADMINS
-      if admin_user_ids.include?( user.id) && !user.can_org_admin?
-        # add admin privleges
-        # MAGIC_STRING
-        user.roles << Role.find_by(name: constant("user_role_types.organisational_admin"))
-      # if user_id not in passed, but user is an admin
-      elsif !admin_user_ids.include?(user.id) && user.can_org_admin?
-        # strip admin privleges
-        user.roles.delete(Role.find_by(name: constant("user_role_types.organisational_admin")))
+        if roles.include? role
+          @user.roles << role
+          if role.name == constant("user_role_types.use_api")
+            @user.keep_or_generate_token!
+          end
+        end
       end
     end
-      #redirect_to admin_index
+    @user.save!
+    respond_to do |format|
+      format.html { redirect_to({controller: 'users', action: 'admin_index'}, {notice: I18n.t('helpers.success')})}
+      format.json { head :no_content }
+    end
   end
 
 end
