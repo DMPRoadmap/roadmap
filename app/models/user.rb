@@ -294,7 +294,7 @@ class User < ActiveRecord::Base
     modify_templates        = Role.find_by(name: 'modify_templates')
     modify_guidance         = Role.find_by(name: 'modify_guidance')
     change_org_details      = Role.find_by(name: 'change_org_detials')
-    User.all.each do |user|
+    User.includes(:roles).all.each do |user|
       roles = user.roles
       roles.each do |role|
         if role.blank?
