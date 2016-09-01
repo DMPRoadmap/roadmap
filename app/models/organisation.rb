@@ -1,23 +1,20 @@
 class Organisation < ActiveRecord::Base
   include GlobalHelpers
+    #associations between tables
+    belongs_to :organisation_type
+    has_many :guidance_groups
+    has_many :dmptemplates
+    has_many :sections
+    has_many :users, through: :user_org_roles
+    has_many :option_warnings
+    has_many :suggested_answers
+    has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
-  extend Dragonfly::Model::Validations
+    has_many :user_org_roles
 
-  #associations between tables
-  belongs_to :organisation_type
-  has_many :guidance_groups
-  has_many :dmptemplates
-  has_many :sections
-  has_many :users, through: :user_org_roles
-  has_many :option_warnings
-  has_many :suggested_answers
-  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
+    belongs_to :parent, :class_name => 'Organisation'
 
-  has_many :user_org_roles
-
-  belongs_to :parent, :class_name => 'Organisation'
-
-	has_one :language
+		has_one :language
 
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
@@ -25,20 +22,10 @@ class Organisation < ActiveRecord::Base
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :description, :domain, 
-                  :logo_file_name, :name, :stylesheet_file_id, :target_url, 
+	attr_accessible :abbreviation, :banner_text, :description, :domain,
+                  :logo_file_name, :name, :stylesheet_file_id, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id
-
-  # allow validations for logo upload
-  dragonfly_accessor :logo
-  validates_property :height, of: :logo, in: (0..100)
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
-  validates_size_of :logo, maximum: 500.kilobytes
-
-	def to_s
-		name
-	end
 
   ##
   # returns the name of the organisation
@@ -63,7 +50,7 @@ class Organisation < ActiveRecord::Base
   ##
   # finds all organisations who have a parent of the passed organisation type
   #
-  # @params [String] the name of an organisation type
+  # @param [String] the name of an organisation type
   # @return [Array<Organisation>]
   def self.orgs_with_parent_of_type(org_type)
     parents = OrganisationType.find_by_name(org_type).organisations
@@ -112,7 +99,7 @@ class Organisation < ActiveRecord::Base
   ##
   # returns a list of all sections of a given version from this organisation and it's parents
   #
-  # @params version_id [Integer] version number of the section
+  # @param version_id [Integer] version number of the section
   # @return [Array<Section>] list of sections
 	def all_sections(version_id)
 		if parent.nil?
@@ -153,7 +140,7 @@ class Organisation < ActiveRecord::Base
   ##
   # takes in the id of, and returns an OptionWarning
   #
-  # @params option_id [number] the id of the desired warning
+  # @param option_id [number] the id of the desired warning
   # @return [OptionWarning] the specified warning
 	def warning(option_id)
 		warning = option_warnings.find_by_option_id(option_id)

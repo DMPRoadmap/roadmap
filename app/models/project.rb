@@ -106,7 +106,7 @@ class Project < ActiveRecord::Base
   ##
   # sets a new institution_id if there is no current organisation
   #
-  # @params new_institution_id [Integer] the id for the new institution
+  # @param new_institution_id [Integer] the id for the new institution
   # @return [Integer, Bool] false if an organisation exists, or the id of the set org if a new organisation is set
 	def institution_id=(new_institution_id)
 		if organisation.nil? then
@@ -130,7 +130,7 @@ class Project < ActiveRecord::Base
   # defines a new organisation_id for the project
   # but is confusingly labled unit_id
   #
-  # @params new_unit_id [Integer]
+  # @param new_unit_id [Integer]
   # @return [Integer, Boolean] the new organisation ID or false if no unit_id was passed
 	def unit_id=(new_unit_id)
 		unless new_unit_id.nil? ||new_unit_id == ""
@@ -252,7 +252,7 @@ class Project < ActiveRecord::Base
   # whether or not the specified user_id created this project
   # should be renamed to created_by?
   #
-  # @params user_id [Integer] the user to check the priveleges of
+  # @param user_id [Integer] the user to check the priveleges of
   # @return [Boolean] true if the user created the project
 	def created_by(user_id)
 		user = project_groups.find_by_user_id(user_id)

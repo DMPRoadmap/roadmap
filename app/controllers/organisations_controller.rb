@@ -37,57 +37,38 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  
+
   # GET /organisations/1
   # GET /organisations/1.json
   def admin_show
-  	if user_signed_in? && current_user.is_org_admin? then
-	    @organisation = Organisation.find(params[:id])
-	
-	    respond_to do |format|
-	      format.html # show.html.erb
-	      format.json { render json: @organisation }
-	    end
-    else
-			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-		end 
-		
+    @organisation = Organisation.find(params[:id])
+    authorize @organisation
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @organisation }
+    end
   end
-  
+
    # GET /organisations/1/edit
   def admin_edit
-  	if user_signed_in? && current_user.is_org_admin? then
-        @organisation = Organisation.find(params[:id])
-    
-    else
-		render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-	end 
+    @organisation = authorize Organisation.find(params[:id])
   end
-  
-  
+
+
   # PUT /organisations/1
   # PUT /organisations/1.json
   def admin_update
-    if user_signed_in? && current_user.is_org_admin? then
-        @organisation = Organisation.find(params[:id])
-        @organisation.banner_text = params["org_banner_text"]
-        @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
-	assign_params = params[:organisation].dup
-	assign_params.delete(:logo)			
-		
-	    respond_to do |format|
-	      if @organisation.update_attributes(assign_params)
-	        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
-	        format.json { head :no_content }
-	      else
-               	flash[:alert] = I18n.t("org_admin.org_logo_failed_message")
-                format.html { render action: "admin_edit" }
-	        format.json { render json: @organisation.errors, status: :unprocessable_entity }
-	      end
-	    end
-  	else
-  	  render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-    end  	
+    @organisation = authorize Organisation.find(params[:id])
+    @organisation.banner_text = params["org_banner_text"]
+    respond_to do |format|
+      if @organisation.update_attributes(params[:organisation])
+        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @organisation.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /organisations/1
@@ -101,13 +82,13 @@ class OrganisationsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def parent
   	@organisation = Organisation.find(params[:id])
   	parent_org = @organisation.find_by {|o| o.parent_id }
   	return parent_org
   end
-  
+
 	def children
 		@organisation = Organisation.find(params[:id])
 		#if user_signed_in? then
@@ -122,7 +103,7 @@ class OrganisationsController < ApplicationController
 # 			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 # 		end
 	end
-  
+
 	def templates
 		@organisation = Organisation.find(params[:id])
 		#if user_signed_in? then
