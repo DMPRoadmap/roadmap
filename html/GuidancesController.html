@@ -318,7 +318,7 @@
           <div class="method-source-code" id="admin_create-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_create</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
           <span class="ruby-ivar">@guidance</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:guidance</span>])
           <span class="ruby-ivar">@guidance</span>.<span class="ruby-identifier">text</span> = <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;guidance-text&quot;</span>]
           <span class="ruby-ivar">@guidance</span>.<span class="ruby-identifier">question_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;question_id&quot;</span>]
@@ -364,7 +364,7 @@
           <div class="method-source-code" id="admin_destroy-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 202</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_destroy</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
              <span class="ruby-ivar">@guidance</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
           <span class="ruby-ivar">@guidance</span>.<span class="ruby-identifier">destroy</span>
 
@@ -405,7 +405,7 @@
           <div class="method-source-code" id="admin_edit-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 112</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_edit</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
     <span class="ruby-ivar">@guidance</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-ivar">@dmptemplates</span> = <span class="ruby-constant">Dmptemplate</span>.<span class="ruby-identifier">funders_and_own_templates</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">organisation_id</span>)
                       <span class="ruby-ivar">@phases</span> = <span class="ruby-keyword">nil</span>
@@ -472,13 +472,14 @@
           <div class="method-source-code" id="admin_index-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_index</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
           <span class="ruby-ivar">@guidances</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">by_organisation</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">organisation_id</span>)
           <span class="ruby-ivar">@guidance_groups</span> = <span class="ruby-constant">GuidanceGroup</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;organisation_id = ?&#39;</span>, <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">organisation_id</span> )
 
 
           <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb</span>
+            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb
+</span>
             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@guidances</span> }
           <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
@@ -513,7 +514,7 @@
           <div class="method-source-code" id="admin_new-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_new</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
           <span class="ruby-ivar">@guidance</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">new</span>
                       <span class="ruby-ivar">@dmptemplates</span> = <span class="ruby-constant">Dmptemplate</span>.<span class="ruby-identifier">funders_and_own_templates</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">organisation_id</span>)
                       <span class="ruby-ivar">@phases</span> = <span class="ruby-keyword">nil</span>
@@ -581,11 +582,12 @@
           <div class="method-source-code" id="admin_show-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_show</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
           <span class="ruby-ivar">@guidance</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
           <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb
+</span>
             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@guidance</span> }
           <span class="ruby-keyword">end</span>
  <span class="ruby-keyword">end</span>
@@ -618,7 +620,7 @@
           <div class="method-source-code" id="admin_update-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">admin_update</span>
-              <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">is_org_admin?</span> <span class="ruby-keyword">then</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">can_org_admin?</span> <span class="ruby-keyword">then</span>
               <span class="ruby-ivar">@guidance</span> = <span class="ruby-constant">Guidance</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
                       <span class="ruby-ivar">@guidance</span>.<span class="ruby-identifier">text</span> = <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;guidance-text&quot;</span>]
@@ -666,9 +668,11 @@
           <div class="method-source-code" id="update_phases-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 76</span>
       <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_phases</span>
-  <span class="ruby-comment"># updates phases, versions, sections and questions based on template selected</span>
+  <span class="ruby-comment"># updates phases, versions, sections and questions based on template selected
+</span>
   <span class="ruby-identifier">dmptemplate</span> = <span class="ruby-constant">Dmptemplate</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:dmptemplate_id</span>])
-  <span class="ruby-comment"># map to title and id for use in our options_for_select</span>
+  <span class="ruby-comment"># map to title and id for use in our options_for_select
+</span>
   <span class="ruby-ivar">@phases</span> = <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">phases</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">a</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">a</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a phase&quot;</span>)
   <span class="ruby-ivar">@versions</span> = <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">versions</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a version&quot;</span>)
   <span class="ruby-ivar">@sections</span> = <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">sections</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a section&quot;</span>)
@@ -703,7 +707,8 @@
           <div class="method-source-code" id="update_questions-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_questions</span>
-  <span class="ruby-comment"># updates songs based on artist selected</span>
+  <span class="ruby-comment"># updates songs based on artist selected
+</span>
   <span class="ruby-identifier">section</span> = <span class="ruby-constant">Section</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:section_id</span>])
   <span class="ruby-ivar">@questions</span> = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a question&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -735,9 +740,11 @@
           <div class="method-source-code" id="update_sections-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_sections</span>
-  <span class="ruby-comment"># updates sections and questions based on version selected</span>
+  <span class="ruby-comment"># updates sections and questions based on version selected
+</span>
   <span class="ruby-identifier">version</span> = <span class="ruby-constant">Version</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:version_id</span>])
-  <span class="ruby-comment"># map to name and id for use in our options_for_select</span>
+  <span class="ruby-comment"># map to name and id for use in our options_for_select
+</span>
   <span class="ruby-ivar">@sections</span> = <span class="ruby-identifier">version</span>.<span class="ruby-identifier">sections</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a section&quot;</span>)
   <span class="ruby-ivar">@questions</span> = <span class="ruby-identifier">version</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a question&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -769,9 +776,11 @@
           <div class="method-source-code" id="update_versions-source">
             <pre><span class="ruby-comment"># File app/controllers/guidances_controller.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_versions</span>
-   <span class="ruby-comment"># updates versions, sections and questions based on phase selected</span>
+   <span class="ruby-comment"># updates versions, sections and questions based on phase selected
+</span>
    <span class="ruby-identifier">phase</span> = <span class="ruby-constant">Phase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:phase_id</span>])
-   <span class="ruby-comment"># map to name and id for use in our options_for_select</span>
+   <span class="ruby-comment"># map to name and id for use in our options_for_select
+</span>
    <span class="ruby-ivar">@versions</span> = <span class="ruby-identifier">phase</span>.<span class="ruby-identifier">versions</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a version&quot;</span>)
    <span class="ruby-ivar">@sections</span> = <span class="ruby-identifier">phase</span>.<span class="ruby-identifier">sections</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a section&quot;</span>)
    <span class="ruby-ivar">@questions</span> = <span class="ruby-identifier">phase</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">id</span>]}.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&quot;Select a question&quot;</span>)

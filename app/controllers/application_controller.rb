@@ -2,14 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include GlobalHelpers
+  include Pundit
   
   helper_method GlobalHelpers.instance_methods
 
   # Override build_footer method in ActiveAdmin::Views::Pages
   require 'active_admin_views_pages_base.rb'
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  def user_not_authorized
+    render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
   end
 
   before_filter :set_locale
@@ -25,6 +28,7 @@ class ApplicationController < ActionController::Base
     elsif user_signed_in? and !current_user[:language_id].nil?
       I18n.locale = Language.find_by_id(current_user[:language_id]).abbreviation
       # if user has set preferred language use it
+
     elsif user_signed_in? and current_user.organisation.present? and !current_user.organisation[:language_id].nil?
       I18n.locale = Language.find_by_id(current_user.organisation[:language_id]).abbreviation
       # use user's organization language, keep in mine the "OTHER ORG" edge case which should use default language
@@ -67,7 +71,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin!
-    redirect_to root_path unless user_signed_in? && current_user.is_admin?
+    # currently if admin has any super-admin task, they can view the super-admin
+    redirect_to root_path unless user_signed_in? && (current_user.can_add_orgs? || current_user.can_change_org? || current_user.can_super_admin?)
   end
 
   def get_plan_list_columns

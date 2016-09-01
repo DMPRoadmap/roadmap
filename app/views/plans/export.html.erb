@@ -44,7 +44,7 @@
 						<% questions.each do |question| %>
 							<tr>
 								<th class="dmp_th_border" >
-									<p>- <%= question.text %></p>
+									<p>- <%= raw question.text %></p>
 								</th>
 	        					<td class="dmp_td_border" >	
 									<% answer = @plan.answer(question.id, false) %>

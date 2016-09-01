@@ -92,7 +92,7 @@ module Api
         # takes in an array of active_reccords and restricts the range of dates
         # to those specified in the params
         #
-        # @params objects [Array<ActiveReccord>] any active_reccord reccords which
+        # @param objects [Array<ActiveReccord>] any active_reccord reccords which
         #   have the "created_at" field specified
         # @return [Array<ActiveReccord>] filtered list of objects
         def restrict_date_range( objects )

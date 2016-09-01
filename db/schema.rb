@@ -10,9 +10,7 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
 ActiveRecord::Schema.define(version: 20160822130701) do
-
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
     t.integer  "plan_id",     limit: 4
@@ -126,15 +124,15 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.string  "abbreviation",     limit: 255
     t.string  "description",      limit: 255
     t.string  "name",             limit: 255
-    t.boolean "default_language"
+    t.boolean "default_language", limit: 1
   end
 
   create_table "option_warnings", force: :cascade do |t|
     t.integer  "organisation_id", limit: 4
     t.integer  "option_id",       limit: 4
     t.text     "text",            limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "options", force: :cascade do |t|
@@ -187,8 +185,8 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.text     "description",    limit: 65535
     t.integer  "number",         limit: 4
     t.integer  "dmptemplate_id", limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug",           limit: 255
   end
 
@@ -232,8 +230,8 @@ ActiveRecord::Schema.define(version: 20160822130701) do
   create_table "projects", force: :cascade do |t|
     t.string   "title",                             limit: 255
     t.integer  "dmptemplate_id",                    limit: 4
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug",                              limit: 255
     t.integer  "organisation_id",                   limit: 4
     t.string   "grant_number",                      limit: 255
@@ -289,9 +287,9 @@ ActiveRecord::Schema.define(version: 20160822130701) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "role_in_plans"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "role_in_plans", limit: 1
     t.integer  "resource_id",   limit: 4
     t.string   "resource_type", limit: 255
   end
@@ -315,8 +313,8 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.text     "value",       limit: 65535
     t.integer  "target_id",   limit: 4,     null: false
     t.string   "target_type", limit: 255,   null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
@@ -360,8 +358,8 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.integer  "user_id",           limit: 4
     t.integer  "organisation_id",   limit: 4
     t.integer  "user_role_type_id", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_role_types", force: :cascade do |t|
@@ -393,8 +391,8 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.string   "shibboleth_id",          limit: 255
     t.integer  "user_type_id",           limit: 4
     t.integer  "user_status_id",         limit: 4
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "encrypted_password",     limit: 255, default: ""
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
