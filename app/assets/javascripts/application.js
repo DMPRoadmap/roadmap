@@ -195,3 +195,25 @@ function validateEmail(sEmail) {
     return false;
   }
 }
+
+/* --------------------------------------------------------------------------- */
+function selectItemsFromJsonArray(array, selector, array_of_values, callback){
+	var out = [];
+	
+	if(!Array.isArray(array_of_values)){
+		array_of_values = [array_of_values];
+	}
+
+	for(var i = 0; i < array.length; i++){
+		if(array_of_values.indexOf('' + array[i][selector]) >= 0){
+			out.push(array[i]);
+		}
+	}
+	
+	var selectionInterval = setInterval(function(){
+		if(i >= array.length){
+			clearInterval(selectionInterval);
+			callback(out);
+		}
+	}, 50);
+}

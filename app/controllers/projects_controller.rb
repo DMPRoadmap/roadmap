@@ -52,10 +52,13 @@ class ProjectsController < ApplicationController
 	# GET /projects/new.json
 	def new
 		if user_signed_in? then
-			@project = Project.new
+      @project = Project.new
 			@project.organisation = current_user.organisation
 			@funders = orgs_of_type(constant("organisation_types.funder"), true)
-			@institutions = orgs_of_type(constant("organisation_types.institution"))
+      @templates = Dmptemplate.where(published: true)
+      @guidance_groups = GuidanceGroup.where(published: true)
+      @institutions = orgs_of_type(constant("organisation_types.institution"))
+      
 			respond_to do |format|
 			  format.html # new.html.erb
 			  format.json { render json: @project }
