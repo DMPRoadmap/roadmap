@@ -112,6 +112,7 @@ class User < ActiveRecord::Base
   # returns the first organisation id of the user or nil
   #
   # @return [Integer, nil] the id of the user's organisation
+=begin
 	def organisation_id
 		if self.organisations.count > 0 then
 			return self.organisations.first.id
@@ -119,7 +120,8 @@ class User < ActiveRecord::Base
 			return nil
 		end
 	end
-
+=end
+  
   ##
   # returns the organisation of the user or nil
   #
