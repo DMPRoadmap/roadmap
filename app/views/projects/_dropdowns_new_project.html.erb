@@ -61,6 +61,13 @@
 			</div>
 		</div>
 		
+		<% # 
+		   # The following JSON arrays are used to build/filter the contents of
+			 # the select2 dropdown box for dmptemplates and the checkboxes for
+			 # the guidance group selections 
+			 #    (they are referenced in /app/assets/javascripts/projects.js)
+		   # %>
+		
 		<%= hash_to_json_object('funders', 
 			@funders.collect{ |inst| 
 				{'id': inst.id, 

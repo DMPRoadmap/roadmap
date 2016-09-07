@@ -1,5 +1,3 @@
-#require 'validators/email_validator'
-
 class Organisation < ActiveRecord::Base
   include GlobalHelpers
   

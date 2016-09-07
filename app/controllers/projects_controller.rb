@@ -300,6 +300,12 @@ class ProjectsController < ApplicationController
   end
   
   # -----------------------------------------------------------
+  # Some guidance is always available to the user regardless of 
+  # the template or institution. 
+  #
+  # TODO: Reevaluate this. We should probably only do this for 
+  #       guidance groups who have guidance attached to themes 
+  # -----------------------------------------------------------
   def get_always_available_guidance
     # Exclude Funders, Institutions, or children of Institutions
 		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
@@ -309,6 +315,14 @@ class ProjectsController < ApplicationController
     GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
   end
   
+  # -----------------------------------------------------------
+  # This is a simplified version of the old possible_guidance method
+  # above. It sends all possible guidance to the client instead of
+  # forcing the client to make ajax calls to change the available
+  # guidance list (that is now handled via JS clientside)
+  #
+  # TODO: Reevaluate whether or not this logic makes sense once the 
+  #       DB has been cleaned up
   # -----------------------------------------------------------
   def get_available_guidance
     guidance_groups = []
