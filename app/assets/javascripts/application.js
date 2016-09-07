@@ -210,9 +210,40 @@ function selectItemsFromJsonArray(array, selector, array_of_values, callback){
 		}
 	}
 	
-	var selectionInterval = setInterval(function(){
+	var selectItemsFromJsonArrayInterval = setInterval(function(){
 		if(i >= array.length){
-			clearInterval(selectionInterval);
+			clearInterval(selectItemsFromJsonArrayInterval);
+			callback(out);
+		}
+	}, 50);
+}
+
+/* --------------------------------------------------------------------------- */
+function selectItemFromJsonArray(array, selector, value){
+	var out = null;
+	
+	for(var i = 0; i < array.length; i++){
+		
+console.log(i + ') ' + array[i][selector]);
+		
+		if(Array.isArray(array[i][selector])){
+			
+console.log(selector + ' == ' + value + ' found? ' + (array[i][selector].indexOf(value) >= 0));
+			
+			if(array[i][selector].indexOf(value) >= 0){
+				out = array[i][selector];
+			}
+			
+		}else{
+			if(array[i][selector].toString() == value.toString()){
+				out = array[i][selector];
+			}
+		}
+	}
+	
+	var selectItemFromJsonArrayInterval = setInterval(function(){
+		if(i >= array.length || out != null){
+			clearInterval(selectItemFromJsonArrayInterval);
 			callback(out);
 		}
 	}, 50);

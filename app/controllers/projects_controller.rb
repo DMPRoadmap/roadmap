@@ -57,6 +57,7 @@ class ProjectsController < ApplicationController
 			@funders = orgs_of_type(constant("organisation_types.funder"), true)
       @templates = get_available_templates
       @guidance_groups = get_available_guidance
+      @always_guidance = get_always_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
       
 			respond_to do |format|
@@ -299,18 +300,38 @@ class ProjectsController < ApplicationController
   end
   
   # -----------------------------------------------------------
-  def get_available_guidance
+  def get_always_available_guidance
     # Exclude Funders, Institutions, or children of Institutions
 		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
                     orgs_of_type(constant("organisation_types.institution")) + 
                     Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
 
-    # Get all guidance that does not belong to a funder or institution
-    guidance_groups = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
+    GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
+  end
+  
+  # -----------------------------------------------------------
+  def get_available_guidance
+    guidance_groups = []
 
-    (guidance_groups + GuidanceGroup.where(optional_subset: true)).uniq
+    #subset guidance that belong to an institution
+    optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IS NOT NULL", true)
+    optional_gg.each do|optional|
+      guidance_groups << optional.id
+      
+      optional.organisation.children.each do |o|
+        o.guidance_groups.each do |gg|
+          guidance_groups << gg.id
+        end
+      end
+    end
+
+    #If template belongs to a funder and that funder has subset guidance display then.
+    optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IN (?)", true, orgs_of_type(constant("organisation_types.funder")))
+    optional_gg.each do|optional|
+      guidance_groups << optional.id
+    end
     
-#    (GuidanceGroup.where("guidance_groups.published = ? OR guidance_groups.optional_subset = ?", true, true) + GuidanceGroup.joins(:dmptemplates).where('dmptemplates.id': @templates.collect{|t| t.id})).uniq
+    GuidanceGroup.where(id: guidance_groups)
   end
   
 end

@@ -1,17 +1,9 @@
 $( document ).ready(function() {
-
 	$(".select2-container").select2();
 
-/*  
-  $("#project_funder_id").select2({
-    placeholder: "Select a funder"
-  });
-*/
-	/* ------------------------------------------------- */
-  $("#project_funder_id").change(function () {
-		// filter the template and guidance options based on the selected funder
-    update_template_options();
-    update_guidance_options();
+	// ----------------------------------------------------------
+	$("#project_funder_id").change(function(){
+		reloadTemplateData();
 		
     if($(this).val().length > 0){
       $("#other-funder-name").hide();
@@ -24,47 +16,42 @@ $( document ).ready(function() {
     $("#institution-control-group").show();
     $("#create-plan-button").show();
     $("#confirm-funder").text($(this).val());
-  });
-
-	/* ------------------------------------------------- */
+	});
+	
+	// ----------------------------------------------------------
+	$("#project_institution_id").change(function(){
+		reloadTemplateData();
+		
+		$("#confirm-institution").text($("#project_institution_id").select2('data').text);
+	});
+	
+	// ----------------------------------------------------------
+	$("#project_dmptemplate_id").change(function(){
+		reloadGuidanceOptions();
+	});
+	
+	// ----------------------------------------------------------
   $("#no-funder").click(function(e) {
     e.preventDefault();
     $("#project_funder_id").select2("val", "");
-    update_template_options();
-    update_guidance_options();
     $("#institution-control-group").show();
     $("#create-plan-button").show();
     $("#other-funder-name").show();
     $("#confirm-funder").text(I18n.t("helpers.none"));
   });
 
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   $("#project_funder_name").change(function(){
     $("#confirm-funder").text($(this).val());
   });
 
-	/* ------------------------------------------------- */
-  $("#project_institution_id").change(function () {
-    update_template_options();
-    update_guidance_options();
-    $("#confirm-institution").text($("#project_institution_id").select2('data').text);
-  });
-
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   $("#no-institution").click(function() {
     $("#project_institution_id").select2("val", "");
-    update_template_options();
-    update_guidance_options();
     $("#confirm-institution").text(I18n.t("helpers.none"));
   });
-
-	/* ------------------------------------------------- */
-  $("#project_dmptemplate_id").change(function (f) {
-    //update_guidance_options();
-    $("#confirm-template").text($("#project_dmptemplate_id :selected").text());
-  });
-
-	/* ------------------------------------------------- */
+	
+	// ----------------------------------------------------------
   $("#project-confirmation-dialog").on("show", function(){
     if ($("#confirm-institution").text() == "") {
       $("#confirm-institution").text(I18n.t("helpers.none"));
@@ -85,73 +72,86 @@ $( document ).ready(function() {
     $('.select2-choice').hide();
   });
 
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   $("#new-project-cancelled").click(function (){
     $("#project-confirmation-dialog").modal("hide");
     $('.select2-choice').show();
   });
 
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   $("#new-project-confirmed").click(function (){
     $("#new_project").submit();
   });
 
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   //for the default template alert
   $("#default-template-confirmation-dialog").on("show", function(){
     $('.select2-choice').hide();
   });
 
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   $("#default-template-cancelled").click(function (){
     $("#default-template-confirmation-dialog").modal("hide");
     $('.select2-choice').show();
   });
 
-	/* ------------------------------------------------- */
+	// ----------------------------------------------------------
   $("#default-template-confirmed").click(function (){
     $("#default_tag").val('true');
     $("#new_project").submit();
   });
-
-	/* ------------------------------------------------- */
-  function update_template_options() {
-    select_element = $("#project_dmptemplate_id");
-    select_element.find("option").remove();
-    
+	
+	// ----------------------------------------------------------
+	function reloadTemplateData(){
 		var orgs = [$("#project_funder_id").val(),
 								$("#project_institution_id").val()];
-		
-		// select all of the templates available to the funder and/or institution
+								
+		var template = $("#project_dmptemplate_id :selected").val();
+						
+console.log('reloading templates');
+						
 		selectItemsFromJsonArray(templates, 'organisation', orgs, function(array){
-	    for(var i = 0; i < array.length; i++){
-	      var selected = false
-	      if($("#project_dmptemplate_id").val() == array[i]['id']){
-	        selected = true; 
-	      }
+			// Clear and reload the contents of the dropdown
+			$("#project_dmptemplate_id").html("").select2( {data: array} ).val();
 
-	      select_element.append("<option value='" + array[i]['id'] + "'" +
-	                              (selected ? " selected='selected'" : "") +
-	                            ">" + array[i]['title'] + "</option>");
-	    }
-	    
-			if(array.length > 2){
-	      $("#template-control-group").show();
-	    }else{
-	      $("#template-control-group").hide();
+			// If there are no templates, hide the dropdown
+			if(array.length <= 0){
+				$("#template-control-group").hide();
+				reloadGuidanceOptions();
+				
+			}else{
+				// Select the first item in the list if there was none selected
+				if(template == undefined){
+					$("#project_dmptemplate_id").val(array[0]['id']).trigger('change');
+				
+				}else{
+					reloadGuidanceOptions();
+				}
+				
+				$("#template-control-group").show();
+
+				// if there is only one template disable the dropdown
+				if(array.length > 1){
+		      $("#project_dmptemplate_id").prop('disabled', false);
+		    }else{
+		      $("#project_dmptemplate_id").prop('disabled', true);
+				}
 	    }
 		});
-    
-    $("#confirm-template").text("");
-    $("#project_dmptemplate_id").change();
-  }
+	}
 
-	/* ------------------------------------------------- */
-  function update_guidance_options() {
+	// ----------------------------------------------------------
+  function reloadGuidanceOptions() {
     var institution = $("#project_institution_id").select2('val');
     var template = $("#project_dmptemplate_id :selected").val();
-    var options = null;
+		var options = null;
     
+console.log('reloading guidance');
+		
+		if(!template){
+			template = $("#project_dmptemplate_id :selected").children().first().val();
+		}
+		
     options_container = $("#guidance-control-group");
     options_container = options_container.find(".choices-group");
     options_container.empty();
@@ -159,22 +159,25 @@ $( document ).ready(function() {
 		var orgs = [$("#project_funder_id").val(),
 								$("#project_institution_id").val()];
 
-		// select all of the templates available to the funder and/or institution
-		selectItemsFromJsonArray(guidance_groups, 'organisation', orgs, function(array){
+		// select all of the guidance groups available to the funder and/or institution
+		selectItemsFromJsonArray(guidance_for_template_or_organisation, 'organisation', 
+																													institution, function(array){
+			array = guidance_always_available.concat(array);
+			
 			for(var i = 0; i < array.length; i++){
 				var selected = false
-    
+  
 	      options_container.append(
 						"<li class=\"choice\">" +
 	              "<label for=\"project_guidance_group_ids_" + array[i]['id'] + "\">" +
 	              "<input id=\"project_guidance_group_ids_" + array[i]['id'] + "\" " +
 	                     "name=\"project_guidance_group_ids_" + array[i]['id'] + "\" " +
 	                     "value=\"" + array[i]['id'] + "\" type=\"checkbox\" />" +
-	              array[i]['name'] + "</label>" +
+	              array[i]['text'] + "</label>" +
 	          "</li>"
 				);
 			}
-			
+		
 	    if(array.length > 0){
 	      $("#guidance-control-group").show();
 	    }else{
