@@ -187,6 +187,7 @@ class ProjectsController < ApplicationController
 		end
 	end
 
+=begin
 	# GET /projects/possible_templates.json
 	def possible_templates
 		if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
@@ -275,77 +276,76 @@ class ProjectsController < ApplicationController
 			format.json { render json: guidance_groups.to_json }
 		end
 	end
-
+=end
+  
 	private
-
-	def orgs_of_type(org_type_name, published_templates = false)
-		org_type = OrganisationType.find_by_name(org_type_name)
-		all_such_orgs = org_type.organisations
-		if published_templates then
-			with_published = Array.new
-			all_such_orgs.each do |o|
-				if o.published_templates.count > 0 then
-					with_published << o
-				end
-			end
-			return with_published.sort_by {|o| [o.sort_name, o.name] }
-		else
-			return all_such_orgs.sort_by {|o| [o.sort_name, o.name] }
-		end
-	end
+  	def orgs_of_type(org_type_name, published_templates = false)
+  		org_type = OrganisationType.find_by_name(org_type_name)
+  		all_such_orgs = org_type.organisations
+  		if published_templates then
+  			with_published = Array.new
+  			all_such_orgs.each do |o|
+  				if o.published_templates.count > 0 then
+  					with_published << o
+  				end
+  			end
+  			return with_published.sort_by {|o| [o.sort_name, o.name] }
+  		else
+  			return all_such_orgs.sort_by {|o| [o.sort_name, o.name] }
+  		end
+  	end
   
-  # -----------------------------------------------------------
-  def get_available_templates
-    Dmptemplate.where(published: true)
-  end
+    # -----------------------------------------------------------
+    def get_available_templates
+      Dmptemplate.where(published: true)
+    end
   
-  # -----------------------------------------------------------
-  # Some guidance is always available to the user regardless of 
-  # the template or institution. 
-  #
-  # TODO: Reevaluate this. We should probably only do this for 
-  #       guidance groups who have guidance attached to themes 
-  # -----------------------------------------------------------
-  def get_always_available_guidance
-    # Exclude Funders, Institutions, or children of Institutions
-		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
-                    orgs_of_type(constant("organisation_types.institution")) + 
-                    Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
+    # -----------------------------------------------------------
+    # Some guidance is always available to the user regardless of 
+    # the template or institution. 
+    #
+    # TODO: Reevaluate this. We should probably only do this for 
+    #       guidance groups who have guidance attached to themes 
+    # -----------------------------------------------------------
+    def get_always_available_guidance
+      # Exclude Funders, Institutions, or children of Institutions
+  		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
+                      orgs_of_type(constant("organisation_types.institution")) + 
+                      Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
 
-    GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
-  end
+      GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
+    end
   
-  # -----------------------------------------------------------
-  # This is a simplified version of the old possible_guidance method
-  # above. It sends all possible guidance to the client instead of
-  # forcing the client to make ajax calls to change the available
-  # guidance list (that is now handled via JS clientside)
-  #
-  # TODO: Reevaluate whether or not this logic makes sense once the 
-  #       DB has been cleaned up
-  # -----------------------------------------------------------
-  def get_available_guidance
-    guidance_groups = []
+    # -----------------------------------------------------------
+    # This is a simplified version of the old possible_guidance method
+    # above. It sends all possible guidance to the client instead of
+    # forcing the client to make ajax calls to change the available
+    # guidance list (that is now handled via JS clientside)
+    #
+    # TODO: Reevaluate whether or not this logic makes sense once the 
+    #       DB has been cleaned up
+    # -----------------------------------------------------------
+    def get_available_guidance
+      guidance_groups = []
 
-    #subset guidance that belong to an institution
-    optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IS NOT NULL", true)
-    optional_gg.each do|optional|
-      guidance_groups << optional.id
+      #subset guidance that belong to an institution
+      optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IS NOT NULL", true)
+      optional_gg.each do|optional|
+        guidance_groups << optional.id
       
-      optional.organisation.children.each do |o|
-        o.guidance_groups.each do |gg|
-          guidance_groups << gg.id
+        optional.organisation.children.each do |o|
+          o.guidance_groups.each do |gg|
+            guidance_groups << gg.id
+          end
         end
       end
-    end
 
-    #If template belongs to a funder and that funder has subset guidance display then.
-    optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IN (?)", true, orgs_of_type(constant("organisation_types.funder")))
-    optional_gg.each do|optional|
-      guidance_groups << optional.id
-    end
+      # If template belongs to a funder and is an optional_subset
+      optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IN (?)", true, orgs_of_type(constant("organisation_types.funder")))
+      optional_gg.each do|optional|
+        guidance_groups << optional.id
+      end
     
-    GuidanceGroup.where(id: guidance_groups)
-  end
-  
+      GuidanceGroup.where(id: guidance_groups)
+    end  
 end
