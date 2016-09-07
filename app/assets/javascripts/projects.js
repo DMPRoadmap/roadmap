@@ -135,7 +135,7 @@ $( document ).ready(function() {
 	                            ">" + array[i]['title'] + "</option>");
 	    }
 	    
-			if(array.length >= 2){
+			if(array.length > 2){
 	      $("#template-control-group").show();
 	    }else{
 	      $("#template-control-group").hide();
