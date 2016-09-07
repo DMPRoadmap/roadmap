@@ -36,10 +36,6 @@ module ApplicationHelper
   end
   
   def hash_to_json_object(obj_name, hash)
-    
-puts hash
-puts hash.to_json
-    
     "<script type=\"text/javascript\">var #{obj_name} = #{hash.to_json};</script>".html_safe
   end
 end
