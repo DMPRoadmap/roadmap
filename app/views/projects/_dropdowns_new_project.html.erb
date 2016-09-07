@@ -59,7 +59,7 @@
 		
 		<%= hash_to_json_object('templates', @templates.collect{ |tmplt| {'organisation': tmplt.organisation_id, 'id': tmplt.id, 'title': tmplt.title} }) %>
 			
-		<%= hash_to_json_object('guidance_groups', @guidance_groups.collect{ |grp| {'organisation': grp.organisation_id, 'id': grp.id, 'name': grp.name} }) %>
+		<%= hash_to_json_object('guidance_groups', @guidance_groups.collect{ |grp| {'organisation': grp.organisation_id, 'templates': grp.dmptemplates.collect{ |t| t.id }, 'id': grp.id, 'name': grp.name} }) %>
 		
 	<% end %>
 	<!-- submit buttons -->

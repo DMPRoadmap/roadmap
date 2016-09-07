@@ -55,8 +55,8 @@ class ProjectsController < ApplicationController
       @project = Project.new
 			@project.organisation = current_user.organisation
 			@funders = orgs_of_type(constant("organisation_types.funder"), true)
-      @templates = Dmptemplate.where(published: true)
-      @guidance_groups = GuidanceGroup.where(published: true)
+      @templates = get_available_templates
+      @guidance_groups = get_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
       
 			respond_to do |format|
@@ -292,4 +292,25 @@ class ProjectsController < ApplicationController
 			return all_such_orgs.sort_by {|o| [o.sort_name, o.name] }
 		end
 	end
+  
+  # -----------------------------------------------------------
+  def get_available_templates
+    Dmptemplate.where(published: true)
+  end
+  
+  # -----------------------------------------------------------
+  def get_available_guidance
+    # Exclude Funders, Institutions, or children of Institutions
+		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
+                    orgs_of_type(constant("organisation_types.institution")) + 
+                    Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
+
+    # Get all guidance that does not belong to a funder or institution
+    guidance_groups = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
+
+    (guidance_groups + GuidanceGroup.where(optional_subset: true)).uniq
+    
+#    (GuidanceGroup.where("guidance_groups.published = ? OR guidance_groups.optional_subset = ?", true, true) + GuidanceGroup.joins(:dmptemplates).where('dmptemplates.id': @templates.collect{|t| t.id})).uniq
+  end
+  
 end
