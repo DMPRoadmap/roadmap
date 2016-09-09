@@ -77,7 +77,6 @@ class User < ActiveRecord::Base
   #
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
-=begin
 	def organisation_id=(new_organisation_id)
     # DEPRICATED STRUCTURE ONLY USED HERE
     if !self.user_org_roles.pluck(:organisation_id).include?(new_organisation_id.to_i) then
@@ -108,13 +107,11 @@ class User < ActiveRecord::Base
     # rip api_token from user
     self.remove_token!
 	end
-=end
-  
+
   ##
   # returns the first organisation id of the user or nil
   #
   # @return [Integer, nil] the id of the user's organisation
-=begin
 	def organisation_id
 		if self.organisations.count > 0 then
 			return self.organisations.first.id
@@ -122,19 +119,17 @@ class User < ActiveRecord::Base
 			return nil
 		end
 	end
-=end
   
   ##
   # returns the organisation of the user or nil
   #
   # @return [Organisation, nil] the organisation of the user
 	def organisation
-    Organisation.find(organisation_id)
-		#if self.organisations.count > 0 then
-		#	return self.organisations.first
-		#else
-		#	return nil
-		#end
+		if self.organisations.count > 0 then
+			return self.organisations.first
+		else
+			return nil
+		end
 	end
 
   ##
@@ -143,12 +138,11 @@ class User < ActiveRecord::Base
   #
   # @return [Organisation, nil] the organisation for the user
 	def current_organisation
-    Organisation.find(organisation_id)
-		#if self.organisations.count > 0 then
-		#	return self.organisations.last
-		#else
-		#	return nil
-		#end
+		if self.organisations.count > 0 then
+			return self.organisations.last
+		else
+			return nil
+		end
 	end
 
   ##
