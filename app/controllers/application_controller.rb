@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   include GlobalHelpers
   include Pundit
-  
+  after_action :verify_authorized
   helper_method GlobalHelpers.instance_methods
 
   # Override build_footer method in ActiveAdmin::Views::Pages
