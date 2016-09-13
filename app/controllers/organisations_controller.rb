@@ -1,7 +1,10 @@
 class OrganisationsController < ApplicationController
+  #after_action :verify_authorized
+
   # GET /organisations
   # GET /organisations.json
   def index
+    #authorize Organisation
     @organisations = Organisation.all
 
     respond_to do |format|
@@ -14,6 +17,7 @@ class OrganisationsController < ApplicationController
   # GET /organisations/new.json
   def new
     @organisation = Organisation.new
+    #authorize @organisation
 
     respond_to do |format|
       format.html # new.html.erb
