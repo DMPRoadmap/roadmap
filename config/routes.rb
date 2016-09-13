@@ -162,7 +162,6 @@ Rails.application.routes.draw do
     resources :project_partners
     resources :project_groups
 
-    resources :users
     resources :user_statuses
     resources :user_types
 
