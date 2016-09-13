@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  after_action :verify_authorized
 
   def admin_index
     authorize User
