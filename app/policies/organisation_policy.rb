@@ -19,4 +19,16 @@ class OrganisationPolicy < ApplicationPolicy
     user.can_modify_org_details? && (user.organisaiton_id == organisation.id)
   end
 
+  def parent?
+    true
+  end
+
+  def children?
+    true
+  end
+
+  def templates?
+    true
+  end
+
 end
