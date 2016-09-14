@@ -1,4 +1,5 @@
 class OrganisationsController < ApplicationController
+<<<<<<< 38417884f7c8dfce6cb3b255ddd4410f0fba2157
   #after_action :verify_authorized
 
   # GET /organisations
@@ -41,28 +42,30 @@ class OrganisationsController < ApplicationController
     end
   end
 
+=======
+  after_action :verify_authorized
+>>>>>>> forced auth on organisations_controller.  TODO: re-check parent, children, and templates after AJAX removed
 
   # GET /organisations/1
-  # GET /organisations/1.json
   def admin_show
     @organisation = Organisation.find(params[:id])
     authorize @organisation
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @organisation }
     end
   end
 
    # GET /organisations/1/edit
   def admin_edit
-    @organisation = authorize Organisation.find(params[:id])
+    @organisation = Organisation.find(params[:id])
+    authorize @organisation
   end
 
 
   # PUT /organisations/1
-  # PUT /organisations/1.json
   def admin_update
-    @organisation = authorize Organisation.find(params[:id])
+    @organisation = Organisation.find(params[:id])
+    authorize @organisation
     @organisation.banner_text = params["org_banner_text"]
     @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
     assign_params = params[:organisation].dup
@@ -71,34 +74,24 @@ class OrganisationsController < ApplicationController
     respond_to do |format|
       if @organisation.update_attributes(assign_params)
         format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @organisation.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /organisations/1
-  # DELETE /organisations/1.json
-  def destroy
-    @organisation = Organisation.find(params[:id])
-    @organisation.destroy
-
-    respond_to do |format|
-      format.html { redirect_to organisations_url }
-      format.json { head :no_content }
-    end
-  end
-
+  #TODO: see if this is used by the ajax... otherwise lock it down
   def parent
   	@organisation = Organisation.find(params[:id])
+    authorize @organisation
   	parent_org = @organisation.find_by {|o| o.parent_id }
   	return parent_org
   end
 
+  #TODO: see is this is used by the ajax... otherwise lock it down
 	def children
 		@organisation = Organisation.find(params[:id])
+    authorize @organisation
 		#if user_signed_in? then
 		children = {}
 		@organisation.children.each do |child|
@@ -112,8 +105,10 @@ class OrganisationsController < ApplicationController
 # 		end
 	end
 
+  #TODO: see if this is used by the ajax... otherwise lock it down
 	def templates
 		@organisation = Organisation.find(params[:id])
+    authorize @organisation
 		#if user_signed_in? then
 		templates = {}
 		@organisation.dmptemplates.each do |template|
