@@ -1,50 +1,5 @@
 class OrganisationsController < ApplicationController
-<<<<<<< 38417884f7c8dfce6cb3b255ddd4410f0fba2157
-  #after_action :verify_authorized
-
-  # GET /organisations
-  # GET /organisations.json
-  def index
-    #authorize Organisation
-    @organisations = Organisation.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @organisations }
-    end
-  end
-
-  # GET /organisations/new
-  # GET /organisations/new.json
-  def new
-    @organisation = Organisation.new
-    #authorize @organisation
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @organisation }
-    end
-  end
-
-  # POST /organisations
-  # POST /organisations.json
-  def create
-    @organisation = Organisation.new(params[:organisation])
-    @organisation.logo = param[:organisation][:logo]
-    respond_to do |format|
-      if @organisation.save
-        format.html { redirect_to @organisation, notice: I18n.t("admin.org_created_message") }
-        format.json { render json: @organisation, status: :created, location: @organisation }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @organisation.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-=======
   after_action :verify_authorized
->>>>>>> forced auth on organisations_controller.  TODO: re-check parent, children, and templates after AJAX removed
 
   # GET /organisations/1
   def admin_show
