@@ -1,14 +1,12 @@
 class GuidanceGroupsController < ApplicationController
-
+  after_action :verify_authorized
 
   # GET /guidance_groups/1
-  # GET /guidance_groups/1.json
   def admin_show
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     respond_to do |format|
       format.html
-      format.json { render json: @guidance_group }
     end
   end
 
@@ -19,7 +17,6 @@ class GuidanceGroupsController < ApplicationController
     authorize @guidance_group
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @guidance }
     end
 	end
 
@@ -37,10 +34,8 @@ class GuidanceGroupsController < ApplicationController
     respond_to do |format|
       if @guidance_group.save
         format.html { redirect_to admin_index_guidance_path, notice: I18n.t('org_admin.guidance_group.created_message') }
-        format.json { render json: @guidance_group, status: :created, location: @guidance_group }
       else
         format.html { render action: "new" }
-        format.json { render json: @guidance_group.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,7 +49,6 @@ class GuidanceGroupsController < ApplicationController
 
 
   # PUT /guidance_groups/1
-  # PUT /guidance_groups/1.json
   def admin_update
  		@guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
@@ -62,10 +56,8 @@ class GuidanceGroupsController < ApplicationController
     respond_to do |format|
       if @guidance_group.update_attributes(params[:guidance_group])
         format.html { redirect_to admin_index_guidance_path(params[:guidance_group]), notice: I18n.t('org_admin.guidance_group.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @guidance_group.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -81,10 +73,8 @@ class GuidanceGroupsController < ApplicationController
     respond_to do |format|
       if @guidance_group.update_attributes(params[:guidance_group])
         format.html { redirect_to admin_index_guidance_path(params[:guidance_group]), notice: I18n.t('org_admin.guidance_group.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @guidance_group.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -98,7 +88,6 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.destroy
     respond_to do |format|
       format.html { redirect_to admin_index_guidance_path, notice: I18n.t('org_admin.guidance_group.destroyed_message') }
-      format.json { head :no_content }
     end
 	end
 
