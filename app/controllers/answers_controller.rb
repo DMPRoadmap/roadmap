@@ -1,9 +1,10 @@
 class AnswersController < ApplicationController
+  after_action :verify_authorized
 
 	# POST /answers
-	# POST /answers.json
 	def create
 		@answer = Answer.new(params[:answer])
+    authorize @answer
 		if (user_signed_in?) && @answer.plan.editable_by(current_user.id) then
 			old_answer = @answer.plan.answer(@answer.question_id, false)
 			proceed = false
@@ -24,16 +25,13 @@ class AnswersController < ApplicationController
 				respond_to do |format|
 					if @answer.save
 						format.html { redirect_to :back, status: :found, notice: I18n.t('helpers.project.answer_recorded') }
-						format.json { render json: @answer, status: :created, location: @answer }
 					else
 						format.html { redirect_to :back, notice: I18n.t('helpers.project.answer_error') }
-						format.json { render json: @answer.errors, status: :unprocessable_entity }
 					end
 				end
 			else
 				respond_to do |format|
 					format.html { redirect_to :back, notice: I18n.t('helpers.project.answer_no_change') }
-					format.json { render json: @answer.errors, status: :unprocessable_entity }
 				end
 			end
 		else
