@@ -3,9 +3,9 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class DmptemplatesController < ApplicationController
+  after_action :verify_authorized
 
   # GET /dmptemplates
-  # GET /dmptemplates.json
   def admin_index
     authorize Dmptemplate
   	#institutional templates
@@ -18,20 +18,17 @@ class DmptemplatesController < ApplicationController
   end
 
   # GET /dmptemplates/1
-  # GET /dmptemplates/1.json
   def admin_template
     @dmptemplate = Dmptemplate.find(params[:id])
     authorize @dmptemplate
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @dmptemplate }
     end
   end
 
 
 
   # PUT /dmptemplates/1
-  # PUT /dmptemplates/1.json
   def admin_update
  		@dmptemplate = Dmptemplate.find(params[:id])
     authorize @dmptemplate
@@ -39,28 +36,23 @@ class DmptemplatesController < ApplicationController
 		  respond_to do |format|
       if @dmptemplate.update_attributes(params[:dmptemplate])
         format.html { redirect_to admin_template_dmptemplate_path(params[:dmptemplate]), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @dmptemplate.errors, status: :unprocessable_entity }
       end
   	end
   end
 
 
   # GET /dmptemplates/new
-  # GET /dmptemplates/new.json
   def admin_new
     @dmptemplate = Dmptemplate.new
     authorize @dmptemplate
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @dmptemplate }
     end
   end
 
   # POST /dmptemplates
-  # POST /dmptemplates.json
   def admin_create
     @dmptemplate = Dmptemplate.new(params[:dmptemplate])
     @dmptemplate.organisation_id = current_user.organisation.id
@@ -69,10 +61,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @dmptemplate.save
         format.html { redirect_to admin_template_dmptemplate_path(@dmptemplate), notice: I18n.t('org_admin.templates.created_message') }
-        format.json { render json: @dmptemplate, status: :created, location: @dmptemplate }
       else
         format.html { render action: "admin_new" }
-        format.json { render json: @dmptemplate.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -80,14 +70,12 @@ class DmptemplatesController < ApplicationController
 
 
   # DELETE /dmptemplates/1
-  # DELETE /dmptemplates/1.json
   def admin_destroy
    	@dmptemplate = Dmptemplate.find(params[:id])
     authorize @dmptemplate
     @dmptemplate.destroy
     respond_to do |format|
       format.html { redirect_to admin_index_dmptemplate_path }
-      format.json { head :no_content }
     end
 	end
 
@@ -178,10 +166,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @phase.save
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-       	format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @phase.errors, status: :unprocessable_entity }
       end
 		end
   end
@@ -195,10 +181,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @phase.update_attributes(params[:phase])
         format.html { redirect_to admin_phase_dmptemplate_path(@phase), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @phase.errors, status: :unprocessable_entity }
       end
     end
 	end
@@ -211,7 +195,6 @@ class DmptemplatesController < ApplicationController
     @phase.destroy
     respond_to do |format|
       format.html { redirect_to admin_template_dmptemplate_path(@dmptemplate), notice: I18n.t('org_admin.templates.destroyed_message') }
-      format.json { head :no_content }
     end
 	end
 
@@ -238,10 +221,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @version.update_attributes(params[:version])
         format.html { redirect_to admin_phase_dmptemplate_path(@phase, :version_id =>  @version.id, :edit => 'false'), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @version.errors, status: :unprocessable_entity }
       end
     end
 	end
@@ -255,10 +236,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @version.save
         format.html { redirect_to admin_phase_dmptemplate_path(@phase, :version_id => @version.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @version.errors, status: :unprocessable_entity }
       end
     end
 	end
@@ -271,7 +250,6 @@ class DmptemplatesController < ApplicationController
     @version.destroy
     respond_to do |format|
       format.html { redirect_to admin_phase_dmptemplate_path(@phase), notice: I18n.t('org_admin.templates.destroyed_message') }
-      format.json { head :no_content }
     end
 	end
 
@@ -286,10 +264,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @section.save
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @section.version.phase_id, :version_id => @section.version_id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-       	format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @section.errors, status: :unprocessable_entity }
       end
 		end
   end
@@ -305,10 +281,8 @@ class DmptemplatesController < ApplicationController
 		respond_to do |format|
       if @section.update_attributes(params[:section])
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id , :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @section.errors, status: :unprocessable_entity }
       end
     end
 	end
@@ -323,7 +297,6 @@ class DmptemplatesController < ApplicationController
     @section.destroy
     respond_to do |format|
       format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id,  :edit => 'true' ), notice: I18n.t('org_admin.templates.destroyed_message') }
-      format.json { head :no_content }
     end
  	end
 
@@ -339,10 +312,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @question.save
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @question.section.version.phase_id, :version_id => @question.section.version_id, :section_id => @question.section_id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-       	format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
 		end
 	end
@@ -359,10 +330,8 @@ class DmptemplatesController < ApplicationController
 		respond_to do |format|
       if @question.update_attributes(params[:question])
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
 	end
@@ -377,7 +346,6 @@ class DmptemplatesController < ApplicationController
     @question.destroy
     respond_to do |format|
       format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
-      format.json { head :no_content }
     end
 	end
 
@@ -390,10 +358,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @suggested_answer.save
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @suggested_answer.question.section.version.phase_id, :version_id => @suggested_answer.question.section.version_id, :section_id => @suggested_answer.question.section_id, :question_id => @suggested_answer.question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @suggested_answer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -411,10 +377,8 @@ class DmptemplatesController < ApplicationController
 		respond_to do |format|
       if @suggested_answer.update_attributes(params[:suggested_answer])
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @suggested_answer.errors, status: :unprocessable_entity }
       end
     end
 	end
@@ -430,7 +394,6 @@ class DmptemplatesController < ApplicationController
     @suggested_answer.destroy
     respond_to do |format|
       format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
-      format.json { head :no_content }
     end
  	end
 
@@ -447,10 +410,8 @@ class DmptemplatesController < ApplicationController
     respond_to do |format|
       if @guidance.save
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @question.section.version.phase_id, :version_id => @question.section.version_id, :section_id => @question.section_id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-       	format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @guidance.errors, status: :unprocessable_entity }
       end
 		end
 	end
@@ -467,10 +428,8 @@ class DmptemplatesController < ApplicationController
 		respond_to do |format|
       if @question.update_attributes(params[:question])
         format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "admin_phase" }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -485,7 +444,6 @@ class DmptemplatesController < ApplicationController
     @question.destroy
     respond_to do |format|
       format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
-      format.json { head :no_content }
     end
  	end
 
