@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
 	before_filter :get_plan_list_columns, only: %i( index )
+  after_action :verify_authorized
 
 	# GET /projects
 	# GET /projects.json
