@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
 	# GET /projects
 	# GET /projects.json
 	def index
+    authorize Project
     ## TODO: Is this A magic String? the "Show_shib_link?" as we define it and users dont see cookies
 		if user_signed_in? then
 			if (current_user.shibboleth_id.nil? || current_user.shibboleth_id.length == 0) && !cookies[:show_shib_link].nil? && cookies[:show_shib_link] == "show_shib_link" then
@@ -15,7 +16,6 @@ class ProjectsController < ApplicationController
 
 			respond_to do |format|
 				format.html # index.html.erb
-				format.json { render json: @projects }
 			end
 		else
 			respond_to do |format|
@@ -28,6 +28,7 @@ class ProjectsController < ApplicationController
 	# GET /projects/1.json
 	def show
 		@project = Project.find(params[:id])
+    authorize @project
 		@show_form = false
 		if params[:show_form] == "yes" then
 			@show_form = true
@@ -35,7 +36,6 @@ class ProjectsController < ApplicationController
 		if user_signed_in? && @project.readable_by(current_user.id) then
 			respond_to do |format|
 				format.html # show.html.erb
-				format.json { render json: @project }
 			end
 		elsif user_signed_in? then
 			respond_to do |format|
@@ -53,12 +53,12 @@ class ProjectsController < ApplicationController
 	def new
 		if user_signed_in? then
 			@project = Project.new
+      authorize @project
 			@project.organisation = current_user.organisation
 			@funders = orgs_of_type(constant("organisation_types.funder"), true)
 			@institutions = orgs_of_type(constant("organisation_types.institution"))
 			respond_to do |format|
 			  format.html # new.html.erb
-			  format.json { render json: @project }
 			end
 		else
 			respond_to do |format|
@@ -71,6 +71,7 @@ class ProjectsController < ApplicationController
      # Should this be removed?
 	def edit
 		@project = Project.find(params[:id])
+    authorize @project
 		if !user_signed_in? then
                respond_to do |format|
 				format.html { redirect_to edit_user_registration_path }
@@ -84,6 +85,7 @@ class ProjectsController < ApplicationController
 
 	def share
 		@project = Project.find(params[:id])
+    authorize @project
 		if !user_signed_in? then
                respond_to do |format|
 				format.html { redirect_to edit_user_registration_path }
@@ -97,6 +99,7 @@ class ProjectsController < ApplicationController
 
 	def export
 		@project = Project.find(params[:id])
+    authorize @project
 		if !user_signed_in? then
                respond_to do |format|
 				format.html { redirect_to edit_user_registration_path }
@@ -114,7 +117,7 @@ class ProjectsController < ApplicationController
 	def create
     	if user_signed_in? then
 			@project = Project.new(params[:project])
-
+      authorize @project
 			if @project.dmptemplate.nil? && params[:project][:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
 				funder = Organisation.find(params[:project][:funder_id])
 				if funder.dmptemplates.count == 1 then
@@ -134,10 +137,8 @@ class ProjectsController < ApplicationController
 			respond_to do |format|
 				if @project.save
 					format.html { redirect_to({:action => "show", :id => @project.slug, :show_form => "yes"}, {:notice => I18n.t('helpers.project.success')}) }
-					format.json { render json: @project, status: :created, location: @project }
 				else
 					format.html { render action: "new" }
-					format.json { render json: @project.errors, status: :unprocessable_entity }
 				end
 			end
 		else
@@ -149,17 +150,15 @@ class ProjectsController < ApplicationController
 	# PUT /projects/1.json
 	def update
 		@project = Project.find(params[:id])
+    authorize @project
 		if user_signed_in? && @project.editable_by(current_user.id) then
-      
       if @project.update_attributes(params[:project])
         respond_to do |format|
 				  format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
-				  format.json { head :no_content }
         end
       else
         respond_to do |format|
 					format.html { render action: "edit" }
-					format.json { render json: @project.errors, status: :unprocessable_entity }
 				end
 			end
 		else
@@ -171,18 +170,21 @@ class ProjectsController < ApplicationController
 	# DELETE /projects/1.json
 	def destroy
 		@project = Project.find(params[:id])
+    authorize @project
 		if user_signed_in? && @project.editable_by(current_user.id) then
 			@project.destroy
 
 			respond_to do |format|
 				format.html { redirect_to projects_url }
-				format.json { head :no_content }
 			end
 		else
 			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
 		end
 	end
 
+  # returns to AJAX call from frontend 
+  # difficult to secure as it passes through params, and dosent curate data based
+  # on what the user can "view" or is public
 	# GET /projects/possible_templates.json
 	def possible_templates
 		if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
@@ -216,7 +218,11 @@ class ProjectsController < ApplicationController
 		end
 	end
 
-	def possible_guidance
+  # returns to AJAX call from frontend 
+	# difficult to secure as it passes through params, and dosent curate data based
+  # on what the user can "view" or is public
+  def possible_guidance
+    authorize @project
 		if !params[:template].nil? && params[:template] != "" && params[:template] != "undefined" then
 			template = Dmptemplate.find(params[:template])
 		else
@@ -237,6 +243,7 @@ class ProjectsController < ApplicationController
 
         #subset guidance that belong to the institution
 		unless institution.nil? then
+      authorize Project
 			optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id = ?", true, institution.id)
 			optional_gg.each do|optional|
 				guidance_groups[optional.id] = optional.name
