@@ -111,14 +111,14 @@ Rails.application.routes.draw do
 
     resources :answers, only: :create
 
-    resources :comments, only: [:edit, :create, :update] do
+    resources :comments, only: [:create, :update] do
       member do
         put 'archive'
       end
     end
 
     resources :projects do
-      resources :plans do
+      resources :plans , only: [:edit, :update] do
         member do
           get 'status'
           get 'locked'
@@ -138,7 +138,6 @@ Rails.application.routes.draw do
         get 'share'
         get 'export'
         post 'invite'
-        #post 'create'
       end
       collection do
         get 'possible_templates'
@@ -146,21 +145,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :project_partners
-    resources :project_groups
-
-    resources :user_statuses
-    resources :user_types
-
-    resources :user_role_types
-    resources :user_org_roles
-
-
-    resources :organisation_types
-    resources :pages
-
-    resources :file_types
-    resources :file_uploads
+    resources :project_groups, only: [:create, :update, :destroy]
 
     namespace :settings do
       resource :projects
