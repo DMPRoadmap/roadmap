@@ -1,4 +1,5 @@
 class ProjectGroupsController < ApplicationController
+  after_action :verify_authorized
 
 	def create
 		@project_group = ProjectGroup.new(params[:project_group])
