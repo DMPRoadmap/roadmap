@@ -2,6 +2,7 @@ class ProjectGroupsController < ApplicationController
 
 	def create
 		@project_group = ProjectGroup.new(params[:project_group])
+    authorize @project_group
 		access_level = params[:project_group][:access_level].to_i
 		if access_level >= 3 then
   			@project_group.project_administrator = true
@@ -30,15 +31,12 @@ class ProjectGroupsController < ApplicationController
 						end
 						flash[:notice] = message
 						format.html { redirect_to :controller => 'projects', :action => 'share', :id => @project_group.project.slug }
-						format.json { render json: @project_group, status: :created, location: @project_group }
 					else
 						format.html { render action: "new" }
-						format.json { render json: @project_group.errors, status: :unprocessable_entity }
 					end
 				else
 					flash[:notice] = I18n.t('helpers.project.enter_email')
 					format.html { redirect_to :controller => 'projects', :action => 'share', :id => @project_group.project.slug }
-					format.json { render json: @project_group, status: :created, location: @project_group }
 				end
 			end
 		else
@@ -49,6 +47,7 @@ class ProjectGroupsController < ApplicationController
 
 	def update
     	@project_group = ProjectGroup.find(params[:id])
+      authorize @project_group
     	access_level = params[:project_group][:access_level].to_i
 		if access_level >= 3 then
   			@project_group.project_administrator = true
@@ -66,10 +65,8 @@ class ProjectGroupsController < ApplicationController
 					flash[:notice] = I18n.t('helpers.project.sharing_updated')
 					UserMailer.permissions_change_notification(@project_group).deliver
 					format.html { redirect_to :controller => 'projects', :action => 'share', :id => @project_group.project.slug }
-					format.json { head :no_content }
 				else
 					format.html { render action: "edit" }
-					format.json { render json: @project_group.errors, status: :unprocessable_entity }
 				 end
 			end
     	else
@@ -79,6 +76,7 @@ class ProjectGroupsController < ApplicationController
 
 	def destroy
 		@project_group = ProjectGroup.find(params[:id])
+    authorize @project_group
 		if (user_signed_in?) && @project_group.project.administerable_by(current_user.id) then
 			user = @project_group.user
 			project = @project_group.project
@@ -87,7 +85,6 @@ class ProjectGroupsController < ApplicationController
 				flash[:notice] = I18n.t('helpers.project.access_removed')
 				UserMailer.project_access_removed_notification(user, project).deliver
 				format.html { redirect_to :controller => 'projects', :action => 'share', :id => @project_group.project.slug }
-				format.json { head :no_content }
 			end
 		else
 			render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
