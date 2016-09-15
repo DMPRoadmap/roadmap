@@ -5,8 +5,7 @@ class PlansController < ApplicationController
 	# GET /plans/1/edit
 	def edit
 		@plan = Plan.find(params[:id])
-        
-       
+    authorize @plan
     if !user_signed_in? then
       respond_to do |format|
 				format.html { redirect_to edit_user_registration_path }
@@ -22,6 +21,7 @@ class PlansController < ApplicationController
 	# PUT /plans/1.json
 	def update
 		@plan = Plan.find(params[:id])
+    authorize @plan
 		if user_signed_in? && @plan.editable_by(current_user.id) then
 			respond_to do |format|
 			if @plan.update_attributes(params[:plan])
@@ -29,7 +29,6 @@ class PlansController < ApplicationController
 				format.json { head :no_content }
 			else
 				format.html { render action: "edit" }
-				format.json { render json: @plan.errors, status: :unprocessablne_entity }
 			end
 		end
     	else
@@ -37,9 +36,11 @@ class PlansController < ApplicationController
     	end
   	end
 
-  	# GET /status/1.json
-	def status
+  # GET /status/1.json
+	# only returns json, why is this here?
+  def status
   		@plan = Plan.find(params[:id])
+      authorize @plan
   		if user_signed_in? && @plan.readable_by(current_user.id) then
 			respond_to do |format|
 				format.json { render json: @plan.status }
@@ -51,6 +52,7 @@ class PlansController < ApplicationController
 
 	def section_answers
   		@plan = Plan.find(params[:id])
+      authorize @plan
   		if user_signed_in? && @plan.readable_by(current_user.id) then
 			respond_to do |format|
 				format.json { render json: @plan.section_answers(params[:section_id]) }
@@ -62,6 +64,7 @@ class PlansController < ApplicationController
 
 	def locked
   		@plan = Plan.find(params[:id])
+      authorize @plan
   		if !@plan.nil? && user_signed_in? && @plan.readable_by(current_user.id) then
 			respond_to do |format|
 				format.json { render json: @plan.locked(params[:section_id],current_user.id) }
@@ -73,14 +76,13 @@ class PlansController < ApplicationController
 
 	def delete_recent_locks
 		@plan = Plan.find(params[:id])
+    authorize @plan
 		if user_signed_in? && @plan.editable_by(current_user.id) then
 			respond_to do |format|
 				if @plan.delete_recent_locks(current_user.id)
 					format.html { render action: "edit" }
-					format.json { head :no_content }
 				else
 					format.html { render action: "edit" }
-					format.json { render json: @plan.errors, status: :unprocessable_entity }
 				end
 			end
 		else
@@ -90,14 +92,13 @@ class PlansController < ApplicationController
 
 	def unlock_all_sections
 		@plan = Plan.find(params[:id])
+    authorize @plan
 		if user_signed_in? && @plan.editable_by(current_user.id) then
 			respond_to do |format|
 				if @plan.unlock_all_sections(current_user.id)
 					format.html { render action: "edit" }
-					format.json { head :no_content }
 				else
 					format.html { render action: "edit" }
-					format.json { render json: @plan.errors, status: :unprocessable_entity }
 				end
 			end
 		else
@@ -107,11 +108,11 @@ class PlansController < ApplicationController
 
 	def lock_section
 		@plan = Plan.find(params[:id])
+    authorize @plan
 		if user_signed_in? && @plan.editable_by(current_user.id) then
 			respond_to do |format|
 				if @plan.lock_section(params[:section_id], current_user.id)
 					format.html { render action: "edit" }
-					format.json { head :no_content }
 				else
 					format.html { render action: "edit" }
 					format.json { render json: @plan.errors, status: :unprocessable_entity }
@@ -124,14 +125,14 @@ class PlansController < ApplicationController
 
 	def unlock_section
 		@plan = Plan.find(params[:id])
+    authorize @plan
 		if user_signed_in? && @plan.editable_by(current_user.id) then
 			respond_to do |format|
 				if @plan.unlock_section(params[:section_id], current_user.id)
 					format.html { render action: "edit" }
-					format.json { head :no_content }
+
 				else
-					format.html { render action: "edit" }
-					format.json { render json: @plan.errors, status: :unprocessable_entity }
+					format.html { render action: "edit" }]
 				end
 			end
 		else
@@ -141,6 +142,7 @@ class PlansController < ApplicationController
 
 	def answer
   		@plan = Plan.find(params[:id])
+      authorize @plan
   		if user_signed_in? && @plan.readable_by(current_user.id) then
 			respond_to do |format|
 				format.json { render json: @plan.answer(params[:q_id], false).to_json(:include => :options) }
@@ -152,6 +154,7 @@ class PlansController < ApplicationController
 
 	def warning
   		@plan = Plan.find(params[:id])
+      authorize @plan
   		if user_signed_in? && @plan.readable_by(current_user.id) then
 			respond_to do |format|
 				format.json { render json: @plan.warning(params[:option_id]) }
@@ -163,6 +166,7 @@ class PlansController < ApplicationController
 
 	def export
 		@plan = Plan.find(params[:id])
+    authorize @plan
 
 		if user_signed_in? && @plan.readable_by(current_user.id) then
 			@exported_plan = ExportedPlan.new.tap do |ep|
