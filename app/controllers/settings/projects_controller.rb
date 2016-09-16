@@ -4,13 +4,17 @@ module Settings
     before_filter :get_plan_list_columns
     before_filter :get_settings
 
+    after_action :verify_authorized
+
     def show
+      authorize [:settings, Project]
       respond_to do |format|
         format.html
       end
     end
 
     def update
+      authorize [:settings, Project]
       columns = (params[:columns] || {})
 
       if @settings.update_attributes(columns: columns)
