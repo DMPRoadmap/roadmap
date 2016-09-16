@@ -7,7 +7,6 @@ module Settings
     def show
       respond_to do |format|
         format.html
-        format.json { render json: settings_json }
       end
     end
 
@@ -17,7 +16,6 @@ module Settings
       if @settings.update_attributes(columns: columns)
         respond_to do |format|
           format.html { redirect_to(projects_path) }
-          format.json { render json: settings_json }
         end
       else
         render(action: :show) # Expect #show to display errors etc

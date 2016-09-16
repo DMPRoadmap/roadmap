@@ -7,7 +7,6 @@ module Settings
       respond_to do |format|
         format.html
         format.partial
-        format.json { render json: settings_json }
       end
     end
 
@@ -29,7 +28,6 @@ module Settings
       if settings.save
         respond_to do |format|
           format.html { redirect_to(export_project_path(plan.project)) }
-          format.json { render json: settings_json }
         end
       else
         settings.formatting = nil
