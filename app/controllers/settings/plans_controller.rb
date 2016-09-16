@@ -2,8 +2,10 @@ module Settings
   class PlansController < SettingsController
 
     before_filter :get_settings
+    after_action :verify_authorized
 
     def show
+      authorize [:settings, plan]
       respond_to do |format|
         format.html
         format.partial
@@ -11,7 +13,7 @@ module Settings
     end
 
     def update
-
+      authorize [:settings, plan]
       export_params = params[:export].try(:deep_symbolize_keys)
 
       settings = plan.super_settings(:export).tap do |s|
