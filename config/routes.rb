@@ -148,8 +148,8 @@ Rails.application.routes.draw do
     resources :project_groups, only: [:create, :update, :destroy]
 
     namespace :settings do
-      resource :projects
-      resources :plans
+      resource :projects, only: [:show, :update]
+      resources :plans, only: [:show, :update]
     end
 
     resources :token_permission_types, only: [:index]
@@ -169,8 +169,6 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
 
     # The priority is based upon order of creation:
     # first created -> highest priority.
