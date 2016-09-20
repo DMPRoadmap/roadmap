@@ -283,7 +283,6 @@ class ProjectsController < ApplicationController
 			format.json { render json: guidance_groups.to_json }
 		end
 	end
-=end
   
 	private
   	def orgs_of_type(org_type_name, published_templates = false)
