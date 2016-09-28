@@ -1,24 +1,22 @@
 class GuidancesController < ApplicationController
+  after_action :verify_authorized
+  
   # GET /guidances
-  # GET /guidances.json
   def admin_index
     authorize Guidance
     @guidances = policy_scope(Guidance)
     @guidance_groups = GuidanceGroup.where('organisation_id = ?', current_user.organisation_id )
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @guidances }
     end
   end
 
   # GET /guidances/1
-  # GET /guidances/1.json
   def admin_show
     @guidance = Guidance.find(params[:id])
     authorize @guidance
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @guidance }
     end
   end
 
@@ -139,7 +137,6 @@ class GuidancesController < ApplicationController
   end
 
   # POST /guidances
-  # POST /guidances.json
   def admin_create
     @guidance = Guidance.new(params[:guidance])
     authorize @guidance
@@ -155,16 +152,13 @@ class GuidancesController < ApplicationController
     respond_to do |format|
       if @guidance.save
         format.html { redirect_to admin_show_guidance_path(@guidance), notice: I18n.t('org_admin.guidance.created_message') }
-        format.json { render json: @guidance, status: :created, location: @guidance }
       else
         format.html { render action: "new" }
-        format.json { render json: @guidance.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /guidances/1
-  # PUT /guidances/1.json
   def admin_update
  		@guidance = Guidance.find(params[:id])
     authorize @guidance
@@ -173,24 +167,20 @@ class GuidancesController < ApplicationController
     respond_to do |format|
       if @guidance.update_attributes(params[:guidance])
         format.html { redirect_to admin_show_guidance_path(params[:guidance]), notice: I18n.t('org_admin.guidance.updated_message') }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @guidance.errors, status: :unprocessable_entity }
       end
     end
   end
 
 
   # DELETE /guidances/1
-  # DELETE /guidances/1.json
   def admin_destroy
    	@guidance = Guidance.find(params[:id])
     authorize @guidance
     @guidance.destroy
     respond_to do |format|
       format.html { redirect_to admin_index_guidance_path }
-      format.json { head :no_content }
     end
 	end
 

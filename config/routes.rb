@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
     
-    resources :organisations, :path => 'org/admin' do
+    resources :organisations, :path => 'org/admin', only: [] do
       member do
         get 'children'
         get 'templates'
@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :guidances, :path => 'org/admin/guidance' do
+    resources :guidances, :path => 'org/admin/guidance', only: [] do
       member do
         get 'admin_show'
         get 'admin_index'
@@ -62,14 +62,14 @@ Rails.application.routes.draw do
         post 'admin_create'
         put 'admin_update'
 
-        get 'update_phases', :as => 'update_phases'
-        get 'update_versions', :as => 'update_versions'
-        get 'update_sections', :as => 'update_sections'
-        get 'update_questions', :as => 'update_questions'
+        get 'update_phases'
+        get 'update_versions'
+        get 'update_sections'
+        get 'update_questions'
       end
     end
 
-    resources :guidance_groups, :path => 'org/admin/guidancegroup' do
+    resources :guidance_groups, :path => 'org/admin/guidancegroup', only: [] do
       member do
         get 'admin_show'
         get 'admin_new'
@@ -80,11 +80,7 @@ Rails.application.routes.draw do
       end
     end
 
-    #resource :organisation
-
-    #resources :splash_logs
-
-    resources :dmptemplates, :path => 'org/admin/templates' do
+    resources :dmptemplates, :path => 'org/admin/templates', only: [] do
       member do
         get 'admin_index'
         get 'admin_template'
@@ -113,25 +109,16 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :phases
-    resources :versions
-    resources :sections
-    resources :questions
-    resources :question_themes
+    resources :answers, only: :create
 
-
-    resources :themes
-
-    resources :answers
-    resources :plan_sections
-    resources :comments do
+    resources :comments, only: [:create, :update] do
       member do
         put 'archive'
       end
     end
 
     resources :projects do
-      resources :plans do
+      resources :plans , only: [:edit, :update] do
         member do
           get 'status'
           get 'locked'
@@ -151,7 +138,6 @@ Rails.application.routes.draw do
         get 'share'
         get 'export'
         post 'invite'
-        #post 'create'
       end
       collection do
         get 'possible_templates'
@@ -159,26 +145,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :project_partners
-    resources :project_groups
-
-    resources :users
-    resources :user_statuses
-    resources :user_types
-
-    resources :user_role_types
-    resources :user_org_roles
-
-
-    resources :organisation_types
-    resources :pages
-
-    resources :file_types
-    resources :file_uploads
+    resources :project_groups, only: [:create, :update, :destroy]
 
     namespace :settings do
-      resource :projects
-      resources :plans
+      resource :projects, only: [:show, :update]
+      resources :plans, only: [:show, :update]
     end
 
     resources :token_permission_types, only: [:index]
@@ -198,8 +169,6 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
 
     # The priority is based upon order of creation:
     # first created -> highest priority.

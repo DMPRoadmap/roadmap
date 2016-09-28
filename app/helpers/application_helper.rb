@@ -34,4 +34,8 @@ module ApplicationHelper
 
     content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))
   end
+  
+  def hash_to_json_object(obj_name, hash)
+    "<script type=\"text/javascript\">var #{obj_name} = #{hash.to_json};</script>".html_safe
+  end
 end

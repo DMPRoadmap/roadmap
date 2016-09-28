@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
 			return nil
 		end
 	end
-
+  
   ##
   # returns the organisation of the user or nil
   #
