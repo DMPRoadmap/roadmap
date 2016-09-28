@@ -526,7 +526,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
       confirmation_text_desc: "Vous utilisez le modèle générique de plan de gestion des données Portage. Si vous avez des suggestions pour améliorer ce modèle, ou si vous souhaiteriez ajouter de nouveaux modèles basés sur les exigences d'un organisme subventionnaire ou sur les besoins d'une discipline, communiquez avec nous à l'adresse suivante : <a href='mailto:portage@carl-abrc.ca?Subject=requete%20Assistant%20PGD'>portage@carl-abrc.ca</a>."
       
       confirmation_button_text: "Oui, créer un plan"
-      default_confirmation_text_desc: "Vous avez sélectionné le plan de gestion des données par défaut, qui est établi en fonction de la liste de vérification du Digital Curation Center (UK). Vous avez ainsi accès à une série générale de questions et de directives sur le plan de gestion des données. Pour de plus amples renseignements, consultez la : <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013 (Liste de vérification 2013 pour un plan de gestion des données)</a>."
+      default_confirmation_text_desc: "Vous avez sélectionné le plan de gestion des données par défaut, qui est établi en fonction de la liste de vérification du Digital Curation Centre (UK). Vous avez ainsi accès à une série générale de questions et de directives sur le plan de gestion des données. Pour de plus amples renseignements, consultez la : <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013 (Liste de vérification 2013 pour un plan de gestion des données)</a>."
       default_confirmation_button_text: "Créer un plan"
       alert_default_template_text_html: " Veuillez noter que %{org_name} fournit un modèle de plan de gestion des données. Si vous désirez l'utiliser, sélectionnez « Annuler », autrement cliquez sur « Créer un plan »."
       share:
@@ -842,7 +842,7 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'

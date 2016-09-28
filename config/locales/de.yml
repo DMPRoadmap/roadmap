@@ -856,7 +856,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'

@@ -1,6 +1,6 @@
 # [+Project:+] DMPRoadmap
 # [+Description:+] This file contains all the text present on DMPRoadmap that is not being retrieve from the database.
-# [+Copyright:+] Digital Curation Centre and University of California Curation Center
+# [+Copyright:+] Digital Curation Centre and University of California Curation Centre
 
 en-UK:
   date:
@@ -952,7 +952,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
