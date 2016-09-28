@@ -1,16 +1,26 @@
-module PlansHelper
+module ProjectsHelper
 
-  def project_list_head(column)
-    klass = case column
-      when 'name'  then :dmp_th_big
-      when 'description' then :dmp_th_big
-      else :dmp_th_small
+  # Build variable column headings for the project list
+  # --------------------------------------------------------
+  def project_list_column_heading(column)
+    if column.kind_of?(Array)
+      heading = (column.first.kind_of?(String) ? column.first : t("helpers.project.columns.unknown"))
+    
+    elsif column.kind_of?(String)
+      heading = column
+
+    else
+      heading = t("helpers.project.columns.unknown")
     end
+    
+    klass = (['name', 'description'].include?(heading) ? :dmp_th_big : :dmp_th_small)
 
-    content_tag(:th, t("helpers.project.columns.#{column}"), class: klass)
+    content_tag(:th, t("helpers.project.columns.#{heading}"), class: klass)
   end
 
-  def project_list_body(column, project)
+  # Populate a variable column for the project list
+  # --------------------------------------------------------
+  def project_list_column_body(column, project)
     klass, content = case column[0]
       when 'name'
         [ "dmp_td_big", link_to(project.title, project_path(project), class: "dmp_table_link") ]
@@ -44,6 +54,7 @@ module PlansHelper
 
   # Shows whether the user has default, template-default or custom settings
   # for the given plan.
+  # --------------------------------------------------------
   def plan_settings_indicator(plan)
     plan_settings     = plan.super_settings(:export)
     template_settings = plan.project.dmptemplate.try(:settings, :export)

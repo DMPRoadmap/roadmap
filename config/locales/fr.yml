@@ -575,6 +575,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
         principal_investigator: "Chercheur principal/chercheur"
         data_contact: "Personne-ressource pour les données du plan"
         description: "Description"
+        unknown: " - "
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"

@@ -18,6 +18,9 @@ public/apidocs/*
 # Ignore db schema.rb
 # db/schema.rb
 
+# Ignore the test DB
+db/test.sqlite3
+
 # Ignore database configuration and token secrets
 config/database.yml
 config/secrets.yml

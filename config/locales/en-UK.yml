@@ -613,6 +613,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         principal_investigator: "Principal Investigator / Researcher"
         data_contact: "Plan data contact"
         description: "Description"
+        unknown: " - "
       filter:
         placeholder: "Filter plans"
         submit: "Filter"

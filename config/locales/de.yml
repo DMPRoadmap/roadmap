@@ -564,6 +564,7 @@ de:
         principal_investigator: "Principal Investigator / Researcher"
         data_contact: "Plandatenkontakt"
         description: "Beschreibung"
+        unknown: " - "
       filter:
         placeholder: "Filter Pläne"
         submit: "Filter"

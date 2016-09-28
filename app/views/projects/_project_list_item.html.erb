@@ -1,6 +1,6 @@
 <tr>
   <% @selected_columns.each do |column| %>
-    <%= project_list_body(column, project) %>
+    <%= project_list_column_body(column, project) %>
   <% end %>
   <td class="dmp_td_medium">
     <% if project.editable_by(current_user.id) then %>
