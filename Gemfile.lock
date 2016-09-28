@@ -221,8 +221,6 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
-    rack-mini-profiler (0.10.1)
-      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7)
@@ -347,7 +345,6 @@ DEPENDENCIES
   omniauth-shibboleth
   protected_attributes
   pundit
-  rack-mini-profiler
   rack-test
   rails (= 4.2.7)
   railties
