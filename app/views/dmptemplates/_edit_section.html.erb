@@ -12,7 +12,7 @@
 		<%else%>
 			<% toggle = 'accordion-body collapse section-collapse' %>
 		<%end%>
-        
+
      <%if @new_sec then%>
         <% toggle = 'accordion-body  section-collapse in collapse'%>
      <%end%>
@@ -22,7 +22,7 @@
 			<div class="div_left make_div_smaller">
 				<div class="accordion_heading_text">
 					<%= s.text_field :title, :as => :string, :class => 'text_field', :placeholder => t('org_admin.templates.section_title_placeholder') %>
-                    
+
 				</div>
 			</div>
 			<div class="div_right make_div_longer">
@@ -56,7 +56,7 @@
 				<!-- save buttons-->
 				<div class="move_2_right">
 					<%= s.submit t('helpers.submit.save'), :class => 'btn btn-primary' %>
-					<% if !section.version.published? || phase.dmptemplate.org_type == t("helpers.org_type.funder")  then%>
+					<% if !section.version.published? || phase.dmptemplate.org_type == constant("organisation_types.funder") then%>
 						<%= link_to t("helpers.submit.delete"), admin_destroysection_dmptemplate_path(:section_id => section.id),
 						:confirm => t("org_admin.templates.section_delete_message", :section_title => section.title ), :method => :delete, :class => "btn btn-primary"%>
 					<%end%>
@@ -86,13 +86,13 @@
                             <div class="two-column-clear"></div>
                         <%end%>
                         <% question_left = question_left - 1 %>
-                        
+
 					<%end%>
 				<%end%>
 
 				<!-- Add a new question if the version is not published-->
-				<% if !section.version.published? || phase.dmptemplate.org_type == t("helpers.org_type.funder")  then%>
-				
+				<% if !section.version.published? || phase.dmptemplate.org_type == constant("organisation_types.funder")  then%>
+
 					<%if @questions.count != 0 %>
 						<div class="two-column-clear question-divider"></div>
 					<%end%>

@@ -21,7 +21,7 @@
 		</li>
 	<% end %>
 	<li>
-		<%= collection_select(:user, :organisation_id, Organisation.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: t('helpers.org_type.organisation')}, { :class => 'typeahead org_sign_up' }) %>
+		<%= collection_select(:user, :organisation_id, Organisation.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: constant("organisation_types.organisation")}, { :class => 'typeahead org_sign_up' }) %>
 	</li>
   <div id="other-org-link"><a href="#"><%= t("helpers.org_not_listed") %></a></div>
 	<% other_organisations = Array.new %>
@@ -45,7 +45,7 @@
 	</li>
 	<li class="remember_me_li">
 		<%= f.check_box :accept_terms, :required => true %> <%= f.label :accept_terms, :class => "remember_div"  do %>
-		  <%= raw t('helpers.accept_terms_html')%>
+		  <%= raw t('helpers.accept_terms_html', current_locale: I18n.locale)%>
 		<%end%>
 	</li>
 	<li>

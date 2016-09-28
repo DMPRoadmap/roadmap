@@ -8,6 +8,7 @@
 
 
 class Guidance < ActiveRecord::Base
+  include GlobalHelpers
   #associations between tables
 	attr_accessible :text, :question_id, :published, :as => [:default, :admin]
 
@@ -72,7 +73,7 @@ class Guidance < ActiveRecord::Base
   ##
   # Returns whether or not a given user can view a given guidance
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   owned by the DCC
+  #   owned by the managing curation center
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
@@ -88,20 +89,19 @@ class Guidance < ActiveRecord::Base
 
       # guidances are viewable if they are owned by any of the user's organisations
       user.organisations.each do |organisation|
-        logger.debug "#{organisation.name}"
         
         if guidance_group.organisation.id == organisation.id
           viewable = true
         end
       end
 
-      # guidance groups are viewable if they are owned by the DCC
-      if guidance_group.organisation.id == Organisation.find_by( name: "Digital Curation Centre").id
+      # guidance groups are viewable if they are owned by the Managing Curation Center
+      if guidance_group.organisation.id == Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation")).id
         viewable = true
       end
 
       # guidance groups are viewable if they are owned by a funder
-      if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: "Funder")
+      if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
         viewable = true
       end
     end
@@ -112,17 +112,17 @@ class Guidance < ActiveRecord::Base
   ##
   # Returns a list of all guidances which a specified user can view
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   owned by the DCC
+  #   owned by the Managing Curation Center
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    dcc_groups = (Organisation.find_by name: "Digital Curation Centre").guidance_groups
+    managing_groups = (Organisation.find_by name: GlobalHelpers.constant("organisation_types.managing_organisation")).guidance_groups
     # find all groups owned by a Funder organisation
     funder_groups = []
-    funders = OrganisationType.find_by( name: "Funder")
+    funders = OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
     funders.organisations.each do |funder|
       funder_groups += funder.guidance_groups
     end
@@ -133,7 +133,7 @@ class Guidance < ActiveRecord::Base
     end
     # find all guidances belonging to any of the viewable groups
     all_viewable_guidances = []
-    all_viewable_groups = dcc_groups + funder_groups + organisation_groups
+    all_viewable_groups = managing_groups + funder_groups + organisation_groups
     all_viewable_groups.each do |group|
       all_viewable_guidances += group.guidances
     end

@@ -1,4 +1,7 @@
-class ContactsController < ContactUs::ContactsController	
+class ContactsController < ContactUs::ContactsController
+
+  # in order to i18 this file recaptcha gem has to be updated
+
 	def create
 		@contact = ContactUs::Contact.new(params[:contact_us_contact])
 		if (!user_signed_in?)

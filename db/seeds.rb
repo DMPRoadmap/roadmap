@@ -6,6 +6,86 @@
 
 d1 = DateTime.new(2015, 6, 22)
 
+languages = {
+    'English(UK)' => {
+        abbreviation: 'en-UK',
+        description: 'UK English language used as default',
+        name: 'English(UK)',
+        default_language: true
+    },
+    'FR' => {
+        abbreviation: 'fr',
+        description: '',
+        name: 'fr',
+        default_language: false
+    },
+    'DE' => {
+        abbreviation: 'de',
+        description: '',
+        name: 'de',
+        default_language: false
+    }
+}
+
+languages.each do |l, details|
+  if Language.where(name: details[:name]).empty?
+    language = Language.new
+    language.abbreviation = details[:abbreviation]
+    language.description = details[:description]
+    language.name = details[:name]
+    language.default_language = details[:default_language]
+    language.save!
+  end
+end
+
+regions = {
+    'UK' => {
+        abbreviation: 'uk',
+        description: 'default region',
+        name: 'UK',
+    },
+    'DE' => {
+        abbreviation: 'de',
+        description: '',
+        name: 'DE',
+    },
+    'Horizon2020' => {
+        abbreviation: 'horizon',
+        description: 'European super region',
+        name: 'Horizon2020',
+    }
+}
+
+regions.each do |l, details|
+  if Region.where(name: details[:name]).empty?
+    region = Region.new
+    region.abbreviation = details[:abbreviation]
+    region.description = details[:description]
+    region.name = details[:name]
+    region.save!
+  end
+end
+
+region_groups = {
+    'UK' => {
+        super_region_name: 'Horizon2020',
+        region_name: 'UK',
+    },
+    'DE' => {
+        super_region_name: 'Horizon2020',
+        region_name: 'DE',
+    }
+}
+
+region_groups.each do |l, details|
+  if RegionGroup.find_by(region_id: details[:region_name]).blank?
+    region_group = RegionGroup.new
+    region_group.super_region_id = Region.find_by_name(details[:super_region_name]).id
+    region_group.region_id = Region.find_by_name(details[:region_name]).id
+    region_group.save!
+  end
+end
+
 organisation_types = {
  'Organisation' => {
      name: "Organisation"
@@ -40,7 +120,9 @@ organisation_types = {
      organisation_type: "Organisation",
      description: "An example: Regional Curation Center concerned with research data management (typically the organization hosting this website)",
      banner_text: "Example: Your Regional Curation Center",
-     domain: "example.regionalcurationcenter.org"
+     domain: "example.regionalcurationcenter.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Global Funding Organization' => {
      name: "Global Research Center",
@@ -49,7 +131,9 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Research funding agency",
      banner_text: "Example: Global Research Center",
-     domain: "example.globalresearchcenter.org"
+     domain: "example.globalresearchcenter.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Regional Funding Organization' => {
      name: "Regional Science Federation",
@@ -58,7 +142,9 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Regional funding agency for scientific research",
      banner_text: "Example: Regional Science Federation",
-     domain: "example.regionalsciencefederation.org"
+     domain: "example.regionalsciencefederation.org",
+     region: 'UK',
+     language: 'English(UK)'
    },
    'Example Institution'=> {
      name: "Capital City College",
@@ -67,7 +153,9 @@ organisation_types = {
      sort_name: "CapitalCityCollege",
      organisation_type: "Institution",
      description: "An example: Academic institution",
-     banner_text: "Example: Capital City College ... go mascots!!"
+     banner_text: "Example: Capital City College ... go mascots!!",
+     region: 'UK',
+     language: 'English(UK)'
    }
  }
 
@@ -79,19 +167,45 @@ organisation_types = {
      organisation.domain = details[:domain]
      organisation.sort_name = details[:sort_name]
      organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
+     organisation.region_id = Region.find_by_name(details[:region]).id
+     organisation.language_id = Language.find_by_name(details[:language]).id
      organisation.save!
    end
  end
 
 roles = {
   'admin' => {
-    name: "admin"
+    name: "admin" #depricated
   },
   'org_admin' => {
-    name: "org_admin"
+    name: "org_admin" #depricated
   },
   'user' => {
-    name: "user"
+    name: "user" #depricated
+  },
+  'add_organisations' => {
+    name: 'add_organisations'
+  },
+  'change_org_affiliation' => {
+    name: 'change_org_affiliation'
+  },
+  'grant_permissions' => {
+    name: 'grant_permissions'
+  },
+  'modify_templates' => {
+    name: 'modify_templates'
+  },
+  'modify_guidance' => {
+    name: 'modify_guidance'
+  },
+  'use_api' => {
+    name: 'use_api'
+  },
+  'change_org_detials' => {
+    name: 'change_org_detials'
+  },
+  'grant_api_to_orgs' => {
+    name: 'grant_api_to_orgs'
   }
 }
 
@@ -129,7 +243,8 @@ users = {
         surname: "Admin",
         password_confirmation: "password123",
         organisation: "RCC",
-        roles: ['admin','org_admin'],
+        language: 'English(UK)',
+        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_detials','grant_api_to_orgs'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -140,7 +255,8 @@ users = {
         firstname: "Funder",
         surname: "Admin",
         organisation: "RegSciFed",
-        roles: ['org_admin'],
+        language: 'English(UK)',
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -151,7 +267,8 @@ users = {
         firstname: "Organization",
         surname: "Admin",
         organisation: "CapColl",
-        roles: ['org_admin'],
+        language: 'English(UK)',
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -162,6 +279,19 @@ users = {
         firstname: "Jane",
         surname: "Researcher",
         organisation: "CapColl",
+        language: 'English(UK)',
+        roles: ['user'],
+        accept_terms: true,
+        confirmed_at: Time.zone.now
+    },
+    'Organizational user' => {
+        email: "org_user@example.com",
+        password: "password123",
+        password_confirmation: "password123",
+        firstname: "Jane",
+        surname: "Researcher",
+        organisation: "CapColl",
+        language: 'English(UK)',
         roles: ['user'],
         accept_terms: true,
         confirmed_at: Time.zone.now
@@ -171,20 +301,20 @@ users = {
 users.each do |user, details|
   if User.where(email: details[:email]).empty?
     usr = User.new
+  else
+    usr = User.where(email: details[:email])
+  end
     usr.email = details[:email]
     usr.password = details[:password]
     usr.password_confirmation = details[:password_confirmation]
     usr.confirmed_at = details[:confirmed_at]
     usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
-#    usr.user_org_roles << UserOrgRole.create(organisation: Organisation.find_by_abbreviation(details[:organisation]),
-#                                             user_role_type: UserRoleType.find_by_name('admin'))
+    usr.language_id = Language.find_by_name(details[:language]).id
     details[:roles].each do |role|
      usr.roles << Role.find_by_name(role)
     end
     usr.accept_terms = details[:accept_terms]
-    
     usr.save!
-  end
 end
 
  themes = {
@@ -525,7 +655,7 @@ end
      section: "Data Collection",
      number: 1,
      guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What type, format and volume of data?</li> <li>Do your chosen formats and software enable sharing and long-term access to the data?</li> <li>Are there any existing data that you can reuse?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Give a brief description of the data, including any existing data or third-party sources that will be used, in each case noting its content, type and coverage. Outline and justify your choice of format and consider the implications of data format and data volumes in terms of storage, backup and access.</p>",
-     themes: ["Theme 1", "Theme 2"]
+     themes: ["Theme 2"]
    },
    "How will the data be collected or created?" => {
      text: "How will the data be collected or created?",
@@ -539,7 +669,14 @@ end
      section: "Documentation and Metadata",
      number: 1,
      guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What information is needed for the data to be to be read and interpreted in the future?</li> <li>How will you capture / create this documentation and metadata?</li> <li>What metadata standards will you use and why?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Describe the types of documentation that will accompany the data to help secondary users to understand and reuse it. This should at least include basic details that will help people to find the data, including who created or contributed to the data, its title, date of creation and under what conditions it can be accessed.</p> <p>Documentation may also include details on the methodology used, analytical and procedural information, definitions of variables, vocabularies, units of measurement, any assumptions made, and the format and file type of the data. Consider how you will capture this information and where it will be recorded. Wherever possible you should identify and use existing community standards.</p>",
-     themes: ["Theme 1", "Theme 4"]
+     themes: ["Theme 1"]
+   },
+   "Data Overview" => {
+     text: "Overview of the Data",
+     section: "Data Overview",
+     number: 1,
+     guidance: "<p class='guidance_header'>Things to consider:</p> <ul> <li>What type(s) of data will you collect?</li> <li>Will you need special software/tools to access the data?</li><li>How do you plan to store your data?</li></p>",
+     themes: ["Theme 4"]
    },
    "Data Overview" => {
      text: "Overview of the Data",
@@ -613,9 +750,9 @@ formatting = {
 }
 
 formatting.each do |org, settings|
-  template = Dmptemplate.find_by_title("#{org} Template")
-  template.settings(:export).formatting = settings
-  template.save!
+  #template = Dmptemplate.find_by_title("#{org} Template") # this is bugged, there is no Funder Template nor DCC template
+  #template.settings(:export).formatting = settings
+  #template.save!
 end
 
 token_permission_types = {
@@ -624,40 +761,20 @@ token_permission_types = {
     },
     'plans' => {
         description: "allows a user access to the plans api endpoint"
+    },
+    'templates' => {
+        description: "allows a user access to the templates api endpoint"
+    },
+    'statistics' => {
+        description: "allows a user access to the statistics api endpoint"
     }
 }
 
 token_permission_types.each do |title,settings|
-  token_permission_type = TokenPermissionType.new
-  token_permission_type.token_type = title
-  token_permission_type.text_desription = settings[:description]
-  token_permission_type.save!
+  if TokenPermissionType.where(token_type: title).empty?
+    token_permission_type = TokenPermissionType.new
+    token_permission_type.token_type = title
+    token_permission_type.text_desription = settings[:description]
+    token_permission_type.save!
+  end
 end
-
-languages = {
-    'EN-UK' => {
-        abbreviation: "en-UK",
-        description: "",
-        name: "en-UK"
-    },
-    'FR' => {
-        abbreviation: "fr",
-        description: "",
-        name: "fr"
-    },
-    'DE' => {
-        abbreviation: "de",
-        description: "",
-        name: "de"
-    }
-}
-
-languages.each do |l, details|
-  language = Language.new
-  language.abbreviation = details[:abbreviation]
-  language.description = details[:description]
-  language.name = details[:name]
-  language.save!
-end
-
-

@@ -8,18 +8,16 @@
                 </a>
                 <ul class="dropdown-menu" id="signIn_dropdown">
                     <li><%= link_to t("helpers.edit_profile"), edit_user_registration_path, :class => "signIn_dropdown_link" %></li>
-                    <% if current_user.is_admin? %>
+                    <% if current_user.can_super_admin? %>
                         <li><%= link_to t("helpers.admin_area"), "/admin", :class => "signIn_dropdown_link" %></li>
                     <%end%>	
-                    <% if current_user.is_org_admin? %>
-                        <li><%= link_to t("org_admin.admin_area"), admin_index_dmptemplate_path(current_user.organisation_id), :class => "signIn_dropdown_link" %></li>
+                    <% if current_user.can_org_admin? %>
+<li><%= link_to t("org_admin.admin_area"), admin_index_dmptemplate_path(current_user.organisation_id), :class => "signIn_dropdown_link" %></li>
                     <%end%>	
                     <li><%= link_to t("helpers.sign_out"), destroy_user_session_path, method: :delete, :class => "signIn_dropdown_link" %></li>
-                    
                 </ul>
             </li>
         <% else %>
-            
             <li>
             <% unless controller_name == "home" && action_name == "index" then %>
                 <a href="#header-login-form" data-toggle="modal"><%= t("helpers.sign_in")%></a> / 

@@ -1,11 +1,12 @@
 class ExportedPlan < ActiveRecord::Base
-  
+  include GlobalHelpers
+
   attr_accessible :plan_id, :user_id, :format, :as => [:default, :admin]
 
   #associations between tables
   belongs_to :plan
   belongs_to :user
-  
+
   VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
   validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
@@ -46,7 +47,7 @@ class ExportedPlan < ActiveRecord::Base
 
   def funder
     org = self.plan.project.dmptemplate.try(:organisation)
-    org.name if org.present? && org.organisation_type.try(:name) == I18n.t('helpers.org_type.funder')
+    org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder")
   end
 
   def institution
@@ -83,7 +84,7 @@ class ExportedPlan < ActiveRecord::Base
           answer = self.plan.answer(question.id)
           options_string = answer.options.collect {|o| o.text}.join('; ')
 
-          csv << [section.title, question.text, sanitize_text(answer.text), options_string, answer.try(:user).try(:name), answer.created_at]
+          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, answer.try(:user).try(:name), answer.created_at]
         end
       end
     end
@@ -96,7 +97,8 @@ class ExportedPlan < ActiveRecord::Base
       output += "\n#{section.title}\n"
 
       self.questions_for_section(section).each do |question|
-        output += "\n#{question.text}\n"
+        qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
+        output += "\n#{qtext}\n"
         answer = self.plan.answer(question.id, false)
 
         if answer.nil? || answer.text.nil? then
@@ -107,7 +109,7 @@ class ExportedPlan < ActiveRecord::Base
             output += "\n#{sanitize_text(answer.text)}\n"
           else
             output += "\n"
-          end  
+          end
         end
       end
     end

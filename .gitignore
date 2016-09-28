@@ -1,3 +1,4 @@
+
 # Ignore rbenv files
 .ruby-version
 
@@ -7,6 +8,7 @@
 # Ignore all logfiles, tempfiles, public assets,
 /log/*.log
 /tmp
+public/system/*
 public/assets/*
 public/apidocs/*
 
