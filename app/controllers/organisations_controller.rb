@@ -14,6 +14,8 @@ class OrganisationsController < ApplicationController
   def admin_edit
     @organisation = Organisation.find(params[:id])
     authorize @organisation
+    
+    @languages = Language.all.order("name")
   end
 
 
