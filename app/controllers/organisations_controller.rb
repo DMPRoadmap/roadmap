@@ -33,7 +33,7 @@ class OrganisationsController < ApplicationController
         if @organisation.update_attributes(assign_params)
           format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
         else
-          format.html { render action: "edit" }
+          format.html { render action: "admin_edit" }
         end
         
       rescue Dragonfly::Job::Fetch::NotFound => dflye
