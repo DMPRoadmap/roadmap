@@ -33,6 +33,7 @@ class OrganisationsController < ApplicationController
         if @organisation.update_attributes(assign_params)
           format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
         else
+          flash[:noice] = @organisation.errors.collect{|e| e.message}.join('<br />').html_safe
           format.html { render action: "admin_edit" }
         end
         
