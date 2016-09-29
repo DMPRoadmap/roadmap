@@ -867,7 +867,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       modify_templates: 'modify_templates'
       modify_guidance: 'modify_guidance'
       use_api: 'use_api'
-      change_org_details: 'change_org_detials'
+      change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'
