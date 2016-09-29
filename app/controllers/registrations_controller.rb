@@ -86,11 +86,11 @@ class RegistrationsController < Devise::RegistrationsController
         # Sign in the user bypassing validation in case his password changed
         sign_in @user, :bypass => true
         
-        if params[:unlink_flag] == 'true' then
+        #if params[:unlink_flag] == 'true' then
             redirect_to({:controller => "registrations", :action => "edit"}, {:notice => I18n.t('helpers.project.details_update_success')})
-        else
-            redirect_to({:controller => "projects", :action => "index"}, {:notice => I18n.t('helpers.project.details_update_success')})
-        end
+        #else
+        #    redirect_to({:controller => "projects", :action => "index"}, {:notice => I18n.t('helpers.project.details_update_success')})
+        #end
 
     else
       render "edit"
