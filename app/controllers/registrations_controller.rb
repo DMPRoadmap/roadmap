@@ -1,6 +1,10 @@
 # app/controllers/registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
+  def edit
+    @languages = Language.all.order("name")
+  end
+
   # POST /resource
   def create
     logger.debug "#{sign_up_params}"
@@ -57,7 +61,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def do_update(require_password = true, confirm = false)
-
 	  if require_password then
 		  successfully_updated = if needs_password?(@user, params)
       @user.update_with_password(params[:user])
