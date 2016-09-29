@@ -54,6 +54,7 @@ fr:
     org_parent: "Organisme d'attache"
     org_created_message: " L'organisme a été créé avec succès."
     org_updated_message: " L'organisme a bien été mis à jour."
+    org_bad_logo: "Il semble y avoir un problème avec notre logo. S'il vous plaît télécharger à nouveau."
     plans: "Plans"
     title: "Titre"
     desc: "Description"

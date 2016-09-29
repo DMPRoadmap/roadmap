@@ -55,6 +55,7 @@ en-UK:
     org_parent: "Parent organisation"
     org_created_message: "Organisation was successfully created."
     org_updated_message: "Organisation was successfully updated."
+    org_bad_logo: "There seems to be a problem with your logo. Please upload it again."
     plans: "Plans"
     title: "Title"
     desc: "Description"

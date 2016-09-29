@@ -47,6 +47,7 @@ de:
     org_parent: "Übergeordnete Organisation"
     org_created_message: "Organisation wurde erfolgreich angelegt."
     org_updated_message: "Organisation wurde erfolgreich aktualisiert."
+    org_bad_logo: "Es scheint ein Problem mit unserem Logo zu sein. Bitte laden Sie es erneut."
     plans: "Pläne"
     title: "Titel"
     desc: "Beschreibung"

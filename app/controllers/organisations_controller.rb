@@ -29,10 +29,16 @@ class OrganisationsController < ApplicationController
     assign_params.delete(:logo)
     
     respond_to do |format|
-      if @organisation.update_attributes(assign_params)
-        format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
-      else
-        format.html { render action: "edit" }
+      begin
+        if @organisation.update_attributes(assign_params)
+          format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
+        else
+          format.html { render action: "edit" }
+        end
+        
+      rescue Dragonfly::Job::Fetch::NotFound => dflye
+        flash[:notice] = I18n.t("admin.org_bad_logo")
+        format.html {render action: "admin_edit"}
       end
     end
   end
