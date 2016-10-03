@@ -18,6 +18,9 @@ public/apidocs/*
 # Ignore db schema.rb
 # db/schema.rb
 
+# Ignore seed DBs
+db/data.yml
+
 # Ignore the test DB
 db/test.sqlite3
 
