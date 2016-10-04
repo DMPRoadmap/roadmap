@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.string  "abbreviation",     limit: 255
     t.string  "description",      limit: 255
     t.string  "name",             limit: 255
-    t.boolean "default_language", limit: 1
+    t.boolean "default_language"
   end
 
   create_table "option_warnings", force: :cascade do |t|
@@ -289,7 +289,7 @@ ActiveRecord::Schema.define(version: 20160822130701) do
     t.string   "name",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "role_in_plans", limit: 1
+    t.boolean  "role_in_plans"
     t.integer  "resource_id",   limit: 4
     t.string   "resource_type", limit: 255
   end
