@@ -349,6 +349,13 @@ de:
     removing: "Entferne..."
     unsaved: "Ungesicherte Änderungen"
     unlink_account: "Trenne Zugang"
+
+    links:
+      edit: "Bearbeiten"
+      share: "Teilen"
+      export: "Export"
+      destroy: "Löschen"
+
     submit:
       edit: "Bearbeiten"
       create: "Erstellen"

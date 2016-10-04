@@ -356,6 +356,13 @@ fr:
     removing: "Suppression..."
     unsaved: "Modifications non enregistrées"
     unlink_account: "Dissocier le compte"
+
+    links:
+      edit: "Modifier"
+      share: "Partager"
+      export: "Exporter"
+      destroy: "Supprimer"
+
     submit:
       edit: "Modifier"
       create: "Créer"

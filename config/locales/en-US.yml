@@ -416,6 +416,13 @@ en-US:
     removing: "Removing..."
     unsaved: "Unsaved changes"
     unlink_account: "Unlink account"
+
+    links:
+      edit: "Edit"
+      share: "Share"
+      export: "Export"
+      destroy: "Delete"
+
     submit:
       edit: "Edit"
       create: "Create"
