@@ -8,7 +8,8 @@
 <div class="dmp_details_body">
 	
 	<!--Text describing page content-->
-	<%= raw t('helpers.project.share.share_text_html')%>
+	<%= raw t('helpers.project.share.share_text_html',
+						application_name: Rails.configuration.branding[:application][:name])%>
 	
 	<div class="dmp_details">
 		<h3><%= t('helpers.project.share.collaborators')%></h3>
