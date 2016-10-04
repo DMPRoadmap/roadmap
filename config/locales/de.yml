@@ -598,7 +598,7 @@ de:
           duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
           unknown: "Unbekannter Spaltenname."
       plans:
-        title: "Plantitel"
+        title: "Dateiname"
         reset: "Zurücksetzen"
         custom_formatting: "(Verwende eigene Werte bei PDF-Formatierung)"
         template_formatting: "(Verwende Vorlagenwerte bei PDF-Formatting)"

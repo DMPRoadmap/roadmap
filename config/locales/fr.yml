@@ -616,7 +616,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
       plans:
         admin_details: "Renseignements administratifs"
         sections: "Sections"
-        title: "Titre du plan"
+        title: "Nom de fichier"
         reset: "Réinitialiser"
         custom_formatting: "(À l'aide des valeurs de mise en forme de PDF personnalisées)"
         template_formatting: "(À l'aide des valeurs de mise en forme de PDF modèles)"
