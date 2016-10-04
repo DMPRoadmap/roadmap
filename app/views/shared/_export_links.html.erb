@@ -1,22 +1,11 @@
 <% javascript("export_configure") %>
 <form method="get" action="<%= export_project_plan_path(plan.project, plan) -%>" target="_blank" id="select-form-format">
   <%= label_tag(:format, t("helpers.format")) %>
-  <%= select_tag(:format, options_for_select(ExportedPlan::VALID_FORMATS, :pdf)) %>
+  <%= select_tag(:format, options_for_select(ExportedPlan::VALID_FORMATS, :pdf), class: 'export-format-selection') %>
   <input type="submit" value="<%= t("helpers.export") -%>" class="btn btn-primary" />
 </form>
 
-<div class="accordion settings-accordion" id="settings-accordion-<%= plan.id -%>">
-	<div class="accordion-group">
-		<div class="accordion-heading">
-			<a id= "settings-toggle" class="accordion-toggle" data-toggle="collapse" data-parent="#settings-accordion-<%= plan.id -%>" href="#settings-accordion-plan-<%= plan.version.phase.id %>">
-				Settings <%= plan_settings_indicator(plan) -%> <span class="plus-laranja"> </span>
-			</a>
-		</div>
-		<div id="settings-accordion-plan-<%= plan.version.phase.id %>" class="accordion-body collapse">
-			<div class="accordion-inner">
-				<%= render(partial: "settings/plans/export_formatting_form", locals: { plan: plan }) %>
-			</div>
-		</div>
-	</div>
+<div class="plan-export-settings">
+	<h4>Settings <%= plan_settings_indicator(plan) -%></h4>
+	<%= render(partial: "settings/plans/export_formatting_form", locals: { plan: plan }) %>
 </div>
-

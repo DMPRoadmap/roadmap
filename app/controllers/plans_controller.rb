@@ -134,7 +134,7 @@ class PlansController < ApplicationController
 					format.html { render action: "edit" }
 
 				else
-					format.html { render action: "edit" }]
+					format.html { render action: "edit" }
 				end
 			end
 		else
