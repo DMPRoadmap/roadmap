@@ -21,7 +21,10 @@ module ProjectsHelper
   # Populate a variable column for the project list
   # --------------------------------------------------------
   def project_list_column_body(column, project)
-    klass, content = case column[0]
+    
+    col = (column.kind_of?(Array) ? column[0] : column)
+    
+    klass, content = case col
       when 'name'
         [ "dmp_td_big", link_to(project.title, project_path(project), class: "dmp_table_link") ]
         
@@ -44,9 +47,9 @@ module ProjectsHelper
       when 'last_edited'
         [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
       when 'description'
-        [ "dmp_td_medium", (project.try(column[0]) || "Unknown") ]
+        [ "dmp_td_medium", (project.try(col) || "Unknown") ]
       else
-        [ "dmp_td_small", (project.try(column[0]) || "Unknown") ]
+        [ "dmp_td_small", (project.try(col) || "Unknown") ]
     end
 
     content_tag(:td, content, class: klass)
