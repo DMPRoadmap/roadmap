@@ -298,7 +298,7 @@ class User < ActiveRecord::Base
     grant_permissions       = Role.find_by(name: 'grant_permissions')
     modify_templates        = Role.find_by(name: 'modify_templates')
     modify_guidance         = Role.find_by(name: 'modify_guidance')
-    change_org_details      = Role.find_by(name: 'change_org_detials')
+    change_org_details      = Role.find_by(name: 'change_org_details')
     User.includes(:roles).all.each do |user|
       roles = user.roles
       roles.each do |role|
