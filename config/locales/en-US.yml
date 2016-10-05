@@ -158,7 +158,7 @@ en-US:
     top_banner_help_text_html: "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
     template_desc_help_text_html: "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
     abbre_help_text: "Please enter an abbreviation to your organization's name."
-    target_url_help_text: "Please enter a web address valid."
+    target_url_help_text: "Please enter a valid web address."
     name_help_text: "Please enter your organization's name."
     guidance_label: "Guidance"
     templates_label: "Templates"
