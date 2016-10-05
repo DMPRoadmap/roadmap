@@ -3,7 +3,7 @@
 <!-- if there are comments then list of comments and view last comment
     else display display add comment form -->
  
-<% @comments = Comment.where("question_id = ? && plan_id = ?", questionId, plan_id) %> 
+<% @comments = Comment.where("question_id = ? AND plan_id = ?", questionId, plan_id) %> 
 <%= hidden_field_tag :question_id, questionId, :class => "question_id" %>
   
 <% if @comments.count  >  0 then%>
