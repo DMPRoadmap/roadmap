@@ -23,9 +23,6 @@
 						<div class="div_left_icon_g">
 							<%= f.text_field :abbreviation, :as => :string, :class => 'text_field' %>
 						</div>
-            <div class="div_right_icon_g">
-							<%= link_to( image_tag('help_button.png'), '#', :class => 'org_abbr_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.templates.desc_help_text_html'))%>
-						</div>
 						<div class="clearfix"></div>
 					</td>
 				</tr>
@@ -66,7 +63,9 @@
 				
 				<tr>
 					<td class="first"><%= t('org_admin.org_type') %></td>
-					<td><%= @organisation.organisation_type.name %></td>
+					<td>
+						<%= @organisation.organisation_type.name %>
+					</td>
 				</tr>
 			</table>
 			
