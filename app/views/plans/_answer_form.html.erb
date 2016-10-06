@@ -165,7 +165,7 @@
 <div class="question-area-right-column">
     
     <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
-        <% @comments = Comment.where("question_id = ? && plan_id = ?", question.id, answer.plan_id ) %>
+        <% @comments = Comment.where("question_id = ? AND plan_id = ?", question.id, answer.plan_id ) %>
         <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
         <ul class="question_right_column_ul">
             <% if (!question.guidance.nil? && question.guidance != "") || @plan.guidance_for_question(question).count > 0  then %>
