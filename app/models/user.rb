@@ -274,7 +274,7 @@ class User < ActiveRecord::Base
   # generates a new token for the user unless the user already has a token.
   # modifies the user's model.
   def keep_or_generate_token!
-    if api_token.empty?
+    if api_token.nil? || api_token.empty?
       self.api_token = loop do
         random_token = SecureRandom.urlsafe_base64(nil, false)
         break random_token unless User.exists?(api_token: random_token)
