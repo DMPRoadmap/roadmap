@@ -1,14 +1,13 @@
 ## DMP Roadmap
 
-DMP Roadmap is a Data Management Planning tool. It allows users to create data management plans using funder-specific templates and institutional guidance. Once a user completes a plan he/she can download and insert it into a grant proposal.
+DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/
 
-Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/
+The tool has four main functions:  
 
-The tool has four main functions
-1. To help create and maintain different versions of Data Management Plans;
-2. To provide useful guidance on data management issues and how to meet research funders' requirements;
-3. To export attractive and useful plans in a variety of formats;
-4. To allow collaborative work when creating Data Management Plans.
+1. To help create and maintain different versions of Data Management Plans;  
+2. To provide useful guidance on data management issues and how to meet research funders' requirements;  
+3. To export attractive and useful plans in a variety of formats;  
+4. To allow collaborative work when creating Data Management Plans.  
 
 #### Current Release
 v.0.1.0
@@ -90,7 +89,7 @@ If you are installing on a system that already has v8 installed then you may nee
 >     > bundle install
 
 #### Support
-Issues should be reported here on Github https://github.com/DMPRoadmap/roadmap/issues
+Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
 Please be advised though that we can only provide limited support for your local installations.
 
 #### Become a contributor
