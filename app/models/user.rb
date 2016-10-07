@@ -295,32 +295,23 @@ class User < ActiveRecord::Base
     modify_guidance         = Role.find_by(name: 'modify_guidance')
     change_org_details      = Role.find_by(name: 'change_org_detials')
     User.includes(:roles).all.each do |user|
-      roles = user.roles
-      roles.each do |role|
-        if role.blank?
-        elsif role.name == 'admin'
-          #add admin roles
-          user.roles << add_orgs unless user.can_add_orgs?
-          user.roles << change_org_affiliation unless user.can_change_org?
-          user.roles << grant_api_to_orgs unless user.can_grant_api_to_orgs?
-          user.roles << grant_permissions unless user.can_grant_permissions?
-        elsif role.name == 'org_admin'
-          #add org-admin roles
-          user.roles << grant_permissions unless user.can_grant_permissions?
-          user.roles << modify_templates unless user.can_modify_templates?
-          user.roles << modify_guidance unless user.can_modify_guidance?
-          user.roles << change_org_details unless user.can_modify_org_details?
-        end
-      end
-      #rip roles from user
-      if user.roles.include?(admin)
+      if user.roles.include? admin
+        #add admin roles
+        user.roles << add_orgs unless user.roles.include? add_orgs
+        user.roles << change_org_affiliation unless user.roles.include? change_org_affiliation
+        user.roles << grant_api_to_orgs unless user.roles.include? grant_api_to_orgs
+        user.roles << grant_permissions unless user.roles.include? grant_permissions
         user.roles.delete(admin)
-      end
-      if user.roles.include?(org_admin)
+      elsif user.roles.include? 'org_admin'
+        #add org-admin roles
+        user.roles << grant_permissions unless user.roles.include? grant_permissions
+        user.roles << modify_templates unless user.roles.include? modify_templates
+        user.roles << modify_guidance unless user.roles.include? modify_guidance
+        user.roles << change_org_details unless user.roles.include? change_org_details
         user.roles.delete(org_admin)
       end
-      # save the user
-      user.save!
+    # save the user
+    user.save!
     end
   end
 
