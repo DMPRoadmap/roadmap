@@ -158,6 +158,7 @@ de:
       by_themes_help_text_html: "Wählen Sie die Themen aus, für die diese Hilfestellung relevant ist."
       by_question_help_text_html: "Wählen Sie die Vorlage, die Phase, die Version, den Abschnitt und die Frage aus den folgenden Auswahllisten aus, um die Frage zu bestimmen, für die diese Hilfestellung angezeigt werden soll."
       guidance_group_select_help_text_html: "Wählen Sie die Gruppe aus, für die diese Hilfestellung relevant ist."
+      guidance_group_published_help_text_html: "Markieren Sie dieses Kästchen, wenn Sie bereit sind, für diese Anleitung für Benutzer-Pläne zu erscheinen."
       guidance_text_html: "<p>Sie können eine Hilfestellungtexte erstellen, die im Zusammenhang mit bestimmten Themen angezeigt werden, oder die sich auf eine spezifische Frage beziehen. Generische Hilfestellungen für Themen helfen Zeit und Arbeit zu sparen, da Ihre Hilfestellungen automatisch für alle Vorlagen angezeigt werden; sie müssen andernfalls für jede Vorlage neu erstellt werden.</p>
       <p>Im Normalfall werden Sie wollen, dass Ihre Orinetierungshilfen in allen Vorlagen angezeigt wird. Ausnahmen sind z.B. Hilfestellungen die spezielle Hinweise für einen Förderer geben.</p>"
       delete_message: "Sie sind dabei '%{guidance_summary}' zu löschen. Sind Sie sicher?"
