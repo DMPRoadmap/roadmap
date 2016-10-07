@@ -43,6 +43,9 @@ config/initializers/recaptcha.rb
 # ignore IDE files
 .idea/*
 
+# Ignore MAC files
+.DS_Store
+
 # ignore yard doc files
 .yardoc/*
 
