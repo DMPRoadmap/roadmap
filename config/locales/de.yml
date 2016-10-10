@@ -133,6 +133,9 @@ de:
     option_order_label: "Reihenfolge"
     option_text_label: "Text"
     option_default_label: "Vorgabe"
+    api_privileges: 'API Berechtigungen?'
+    edit_user_privileges: 'Bearbeiten Benutzerberechtigungen'
+
     guidance:
       guidance_list: "Liste der Hilfestellungen"
       text_label: "Text"
@@ -296,7 +299,6 @@ de:
     signed_in: "Angemeldet als "
     institution_sign_in_link: "Oder melden Sie sich mit den Zugangsdaten Ihres Instituts an"
     institution_sign_in: ""
-
 
     user_name: "E-Mail-Adresse"
     email: "E-Mail"

@@ -140,6 +140,9 @@ fr:
     option_order_label: "Classer"
     option_text_label: "Texte"
     option_default_label: "Défaut"
+    api_privileges: 'Privilèges de l'API?'
+    edit_user_privileges: 'Privilèges Modifier l'utilisateur'
+
     guidance:
       guidance_list: "Liste des directives"
       text_label: "Texte"
@@ -300,7 +303,6 @@ fr:
     signed_in: "Connecté en tant que "
     institution_sign_in_link: "Ou encore, connectez-vous avec l'authentifiant de votre établissement"
     institution_sign_in: "Authentification à l'aide du compte institutionnel bientôt disponible!"
-        
 
     user_name: "Adresse électronique"
     email: "Courriel"
