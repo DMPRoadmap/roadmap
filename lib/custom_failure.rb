@@ -1,4 +1,4 @@
-class CustomFailure < Devise::FailureApp
+class CustomFailureApp < Devise::FailureApp
   def redirect
     store_location!
     message = warden.message || warden_options[:message]
