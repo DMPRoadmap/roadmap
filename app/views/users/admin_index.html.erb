@@ -38,8 +38,10 @@
                   <% end %>
               </td>
               <td class="dmp_td_small">
-                <% b_label = t('helpers.submit.edit')%>
-                <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
+                <% unless current_user == user %>
+                  <% b_label = t('helpers.submit.edit')%>
+                  <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
+                <% end %>
               </td>
             </tr>
           <% end %>
