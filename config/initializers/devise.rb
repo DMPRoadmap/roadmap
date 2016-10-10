@@ -1,3 +1,5 @@
+require "custom_failure"
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -264,9 +266,7 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   
   # Configure the system to redirect to the home page after a session timeout
-  require "custom_failure_app"
-  
   config.warden do |manager|
-    manager.failure_app = CustomFailureApp
+    manager.failure_app = CustomFailure
   end
 end
