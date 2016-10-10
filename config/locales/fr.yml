@@ -54,6 +54,7 @@ fr:
     org_parent: "Organisme d'attache"
     org_created_message: " L'organisme a été créé avec succès."
     org_updated_message: " L'organisme a bien été mis à jour."
+    org_bad_logo: "Il semble y avoir un problème avec notre logo. S'il vous plaît télécharger à nouveau."
     plans: "Plans"
     title: "Titre"
     desc: "Description"
@@ -98,7 +99,6 @@ fr:
     old_temp_field: "Ancien champ de modèle"
     old_theme_field: "Ancien champ de thème"
 
-
   org_admin:
     admin_area: "Section de l'administration"
     template_label: "Modèles"
@@ -139,6 +139,9 @@ fr:
     option_order_label: "Classer"
     option_text_label: "Texte"
     option_default_label: "Défaut"
+    api_privileges: "Privilèges de l'API?"
+    edit_user_privileges: "Privilèges Modifier l'utilisateur"
+
     guidance:
       guidance_list: "Liste des directives"
       text_label: "Texte"
@@ -164,6 +167,7 @@ fr:
       by_themes_help_text_html: "Sélectionnez le ou les thèmes auxquels ces directives se rapportent."
       by_question_help_text_html: "Sélectionnez le modèle, la phase, la version, la section et la question appropriés dans les options de la liste déroulante suivante pour déterminer la question précise pour laquelle ces directives devraient être affichées."
       guidance_group_select_help_text_html: "Sélectionnez le groupe auquel ces directives se rapportent."
+      guidance_group_published_help_text_html: "Cochez cette case lorsque vous êtes prêt pour cette orientation à apparaître sur les plans de l'utilisateur."
       guidance_text_html: "<p>Vous pouvez rédiger des directives à afficher par thème (p. ex. des directives générales sur l'entreposage et la sauvegarde qui devraient être présentées à tous les échelons) ou vous pouvez rédiger des directives pour des questions précises. La rédaction de directives générales par thème vous permet d'économiser du temps et des efforts, car vos conseils seront automatiquement affichés dans tous les modèles au lieu d'avoir à rédiger des directives qui accompagneraient chaque modèle.</p>
       <p>De manière générale, vous voudrez que vos directives soient affichées dans tous les modèles. Vous voudrez toutefois, dans certains cas, que les directives soient seulement affichées pour des bailleurs de fonds précis, par exemple, si vous avez des consignes précises pour les candidats qui présentent une demande au Biotechnology and Biological Sciences Research Council (BBSRC). Vous pouvez également le préciser, au besoin.</p>"
       delete_message_html: "Vous êtes sur le point de supprimer '%{guidance_summary}'. Êtes-vous sûr de vouloir le supprimer?"
@@ -274,8 +278,6 @@ fr:
       question_options_help_text_html: "Indiquez toute option que vous souhaitez afficher. Si vous désirez qu'une option soit sélectionnée au préalable, cochez la case par défaut."
 
 
-
-
   helpers:
     home: "Accueil"
     return_home: "Revenir à la page d'accueil"
@@ -298,7 +300,6 @@ fr:
     signed_in: "Connecté en tant que "
     institution_sign_in_link: "Ou encore, connectez-vous avec l'authentifiant de votre établissement"
     institution_sign_in: "Authentification à l'aide du compte institutionnel bientôt disponible!"
-        
 
     user_name: "Adresse électronique"
     email: "Courriel"
@@ -325,7 +326,7 @@ fr:
     no_unlock_instructions: "Vous n'avez pas reçu les directives de déverrouillage?"
     send_password_info: "Directives pour réinitialiser le mot de passe"
     edit_password_info: "Si vous souhaitez modifier votre mot de passe, veuillez remplir les champs suivants."
-    accept_terms_html: "J'accepte les <a href='/%{current_locale}/terms'>conditions</a> *"
+    accept_terms_html: "J'accepte les <a href='/%{current_locale}/terms' target='_blank'>conditions</a> *"
 
     text_area: "Zone de texte"
     text_field: "Case de saisie simple"
@@ -355,6 +356,13 @@ fr:
     removing: "Suppression..."
     unsaved: "Modifications non enregistrées"
     unlink_account: "Dissocier le compte"
+
+    links:
+      edit: "Modifier"
+      share: "Partager"
+      export: "Exporter"
+      destroy: "Supprimer"
+
     submit:
       edit: "Modifier"
       create: "Créer"
@@ -526,7 +534,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
       confirmation_text_desc: "Vous utilisez le modèle générique de plan de gestion des données Portage. Si vous avez des suggestions pour améliorer ce modèle, ou si vous souhaiteriez ajouter de nouveaux modèles basés sur les exigences d'un organisme subventionnaire ou sur les besoins d'une discipline, communiquez avec nous à l'adresse suivante : <a href='mailto:portage@carl-abrc.ca?Subject=requete%20Assistant%20PGD'>portage@carl-abrc.ca</a>."
       
       confirmation_button_text: "Oui, créer un plan"
-      default_confirmation_text_desc: "Vous avez sélectionné le plan de gestion des données par défaut, qui est établi en fonction de la liste de vérification du Digital Curation Center (UK). Vous avez ainsi accès à une série générale de questions et de directives sur le plan de gestion des données. Pour de plus amples renseignements, consultez la : <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013 (Liste de vérification 2013 pour un plan de gestion des données)</a>."
+      default_confirmation_text_desc: "Vous avez sélectionné le plan de gestion des données par défaut, qui est établi en fonction de la liste de vérification du Digital Curation Centre (UK). Vous avez ainsi accès à une série générale de questions et de directives sur le plan de gestion des données. Pour de plus amples renseignements, consultez la : <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013 (Liste de vérification 2013 pour un plan de gestion des données)</a>."
       default_confirmation_button_text: "Créer un plan"
       alert_default_template_text_html: " Veuillez noter que %{org_name} fournit un modèle de plan de gestion des données. Si vous désirez l'utiliser, sélectionnez « Annuler », autrement cliquez sur « Créer un plan »."
       share:
@@ -575,6 +583,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
         principal_investigator: "Chercheur principal/chercheur"
         data_contact: "Personne-ressource pour les données du plan"
         description: "Description"
+        unknown: " - "
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"
@@ -614,7 +623,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
       plans:
         admin_details: "Renseignements administratifs"
         sections: "Sections"
-        title: "Titre du plan"
+        title: "Nom de fichier"
         reset: "Réinitialiser"
         custom_formatting: "(À l'aide des valeurs de mise en forme de PDF personnalisées)"
         template_formatting: "(À l'aide des valeurs de mise en forme de PDF modèles)"
@@ -841,7 +850,7 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
@@ -852,7 +861,7 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
       modify_templates: 'modify_templates'
       modify_guidance: 'modify_guidance'
       use_api: 'use_api'
-      change_org_details: 'change_org_detials'
+      change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'

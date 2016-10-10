@@ -12,7 +12,7 @@
           <th class="dmp_th_medium"><%= t('org_admin.user_name') %></th>
           <th class="dmp_th_small"><%= t('org_admin.last_logged_in') %></th>
           <th class="dmp_th_small"><%= t('org_admin.how_many_plans') %></th>
-          <th class="dmp_th_small"><%= t('org_admin.is_org_admin') %></th>
+          <th class="dmp_th_small"><%= t('org_admin.privileges') %></th>
       </tr>
     </thead>
     <tbody>
@@ -38,8 +38,10 @@
                   <% end %>
               </td>
               <td class="dmp_td_small">
-                <% b_label = t('helpers.submit.edit')%>
-                <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
+                <% unless current_user == user %>
+                  <% b_label = t('helpers.submit.edit')%>
+                  <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
+                <% end %>
               </td>
             </tr>
           <% end %>

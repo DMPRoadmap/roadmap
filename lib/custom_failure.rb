@@ -1,13 +1,12 @@
 class CustomFailure < Devise::FailureApp
-  def redirect_url
-    root_path
-  end
-
-  def respond
-    if http_auth?
-      http_auth
+  def redirect
+    store_location!
+    message = warden.message || warden_options[:message]
+    
+    if message == :timeout
+      redirect_to root_path
     else
-      redirect
+      super
     end
   end
 end

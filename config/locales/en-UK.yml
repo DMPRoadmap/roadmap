@@ -1,6 +1,6 @@
 # [+Project:+] DMPRoadmap
 # [+Description:+] This file contains all the text present on DMPRoadmap that is not being retrieve from the database.
-# [+Copyright:+] Digital Curation Centre and University of California Curation Center
+# [+Copyright:+] Digital Curation Centre and University of California Curation Centre
 
 en-UK:
   date:
@@ -55,6 +55,7 @@ en-UK:
     org_parent: "Parent organisation"
     org_created_message: "Organisation was successfully created."
     org_updated_message: "Organisation was successfully updated."
+    org_bad_logo: "There seems to be a problem with your logo. Please upload it again."
     plans: "Plans"
     title: "Title"
     desc: "Description"
@@ -148,6 +149,7 @@ en-UK:
     user_name: "Email address"
     last_logged_in: "Last logged in"
     how_many_plans: "How many plans?"
+    privileges: "Privileges"
     user_text_html: "Below is a list of users registered for your organisation. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
@@ -165,7 +167,7 @@ en-UK:
     top_banner_help_text_html: "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
     template_desc_help_text_html: "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
     abbre_help_text: "Please enter an abbreviation to your organisation's name."
-    target_url_help_text: "Please enter a web address valid."
+    target_url_help_text: "Please enter a valid web address."
     name_help_text: "Please enter your organisation's name."
     guidance_label: "Guidance"
     templates_label: "Templates"
@@ -178,8 +180,8 @@ en-UK:
     option_default_label: "Default"
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
-    api_privleges: 'API Privleges?'
-    edit_user_privleges: 'Edit User Privleges'
+    api_privileges: 'API Privleges?'
+    edit_user_privileges: 'Edit User Privileges'
 
     guidance:
       guidance_list: "Guidance list"
@@ -207,6 +209,7 @@ en-UK:
       by_themes_help_text_html: "Select which theme(s) this guidance relates to."
       by_question_help_text_html: "Select the relevant template, phase, version, section and question from the following dropdown options to define which specific question this guidance should display on."
       guidance_group_select_help_text_html: "Select which group this guidance relates to."
+      guidance_group_published_help_text_html: "Check this box when you are ready for this guidance to appear on user's plans."
       guidance_text_html: "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board) or you can write guidance for specific questions. Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p>
       <p>You will usually want your guidance to display on all templates, however there may be cases where you only want it to show for specific funders e.g. if you have specific instructions for applicants to BBSRC for example. This can be set too if needed.</p>"
       delete_message_html: "You are about to delete '%{guidance_summary}'. Are you sure?"
@@ -369,7 +372,7 @@ en-UK:
     no_unlock_instructions: "Didn't receive unlock instructions?"
     send_password_info: "Reset password instructions"
     edit_password_info: "If you would like to change your password please complete the following fields."
-    accept_terms_html: " I accept the <a href='/%{current_locale}/terms'>terms and conditions</a> *"
+    accept_terms_html: " I accept the <a href='/%{current_locale}/terms' target='_blank'>terms and conditions</a> *"
     you_must_accept: 'You must accept the terms and conditions to register.'
     email_already_registered: 'That email address is already registered.'
     email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."
@@ -426,6 +429,13 @@ en-UK:
     removing: "Removing..."
     unsaved: "Unsaved changes"
     unlink_account: "Unlink account"
+
+    links:
+      edit: "Edit"
+      share: "Share"
+      export: "Export"
+      destroy: "Delete"
+
     submit:
       edit: "Edit"
       create: "Create"
@@ -613,6 +623,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         principal_investigator: "Principal Investigator / Researcher"
         data_contact: "Plan data contact"
         description: "Description"
+        unknown: " - "
       filter:
         placeholder: "Filter plans"
         submit: "Filter"
@@ -656,7 +667,7 @@ Select what format you wish to use and click to 'Export'.</p>"
           duplicate: "Duplicate column name. Please only include each column once."
           unknown: "Unknown column name."
       plans:
-        title: "Plan title"
+        title: "File Name"
         reset: "Reset"
         description: "Description"
         custom_formatting: "(Using custom PDF formatting values)"
@@ -704,7 +715,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     <h3>Additional Information</h3>
     <p>We are constantly improving the user interface and functionality of %{application_name}.
     If you would like to contribute with feedback and suggestions, please contact us by emailing
-    <a href='mailto:%{organisation_email}?Subject=%{application_name}%20inquiry' target='_top'>%{organisation_email}</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
+    <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
 
     body_text_tab_2_html: "<p>%{application_name} stories from the %{organisation_abbreviation} website</p></br>"
 
@@ -715,7 +726,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     body_text_tab_2_html: "<h3>Useful resources on Data Management Planning</h3>
       <ul class='help_ul'>
         <li>
-          <a target='_blank' href='%{organisation_url}resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [webpage]<br />
+          <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [webpage]<br />
   A summary of requirements from UK Research Councils and other charitable or health funders.
         </li>
         <li>
@@ -723,11 +734,11 @@ Select what format you wish to use and click to 'Export'.</p>"
   A summary of requirements from the NSF, NIH and other key funders in the USA.
         </li>
         <li>
-          <a target='_blank' href='%{organisation_url}sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>%{organisation_abbreviation} Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
+          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
   A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in %{application_name}, and is presented when no funder or organsiational requirements are applicable for the user.
         </li>
         <li>
-          <a target='_blank' href='%{organisation_url}sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the %{organisation_name} that outlines typical funder requirements for DMPs and the types of considerations to make when responding.
+          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the Digital Curation Centre that outlines typical funder requirements for DMPs and the types of considerations to make when responding.
         </li>
      </ul>
     <h3>Example Data Management Plans</h3>
@@ -737,7 +748,7 @@ Select what format you wish to use and click to 'Export'.</p>"
   A DMP submitted by a researcher from the University of Bristol, also including comments from the reviewers
       </li>
       <li>
-        <a target='_blank' href='%{organisation_url}sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Two social science DMPs</a> [PDF, 7 pages]<br />
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Two social science DMPs</a> [PDF, 7 pages]<br />
   Example plans from researchers at the University of Leeds, shared as part of the Leeds RoaDMaP training materials
       </li>
       <li>
@@ -745,7 +756,7 @@ Select what format you wish to use and click to 'Export'.</p>"
   Example DMP produced by the DATUM for Health RDM training project
       </li>
       <li>
-        <a target='_blank' href='%{organisation_url}sites/default/files/documents/adocs/DMTpsych-example-DMP.pdf'>Psychology DMP</a> [PDF, 11 pages]<br />
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/DMTpsych-example-DMP.pdf'>Psychology DMP</a> [PDF, 11 pages]<br />
   A very detailed, fictional psychology DMP produced by the DMTpsych RDM training project, based on a seminal psychology experiment
       </li>
       <li>
@@ -772,16 +783,16 @@ Select what format you wish to use and click to 'Export'.</p>"
   A guide by the UK Data Service covering a range of topics including data formats, documentaion, ethics, copyright and data sharing.
       </li>
       <li>
-        <a target='_blank' href='%{organisation_url}sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br />
-  A guide by the %{organisation_name} giving practical guidelines on how to cite data and the different tools and infrastructure that can be used to support data citation.
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br />
+  A guide by the Digital Curation Centre giving practical guidelines on how to cite data and the different tools and infrastructure that can be used to support data citation.
       </li>
       <li>
-        <a target='_blank' href='%{organisation_url}sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br />
-  A guide by the %{organisation_name} that outlines different types of licenses, the pros and cons of each and how they can be applied.
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br />
+  A guide by the Digital Curation Centre that outlines different types of licenses, the pros and cons of each and how they can be applied.
       </li>
       <li>
-        <a target='_blank' href='%{organisation_url}sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br />
-  A guide by ANDS and the %{organisation_abbreviation} on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions.
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br />
+  A guide by ANDS and the Digital Curation Centre on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions.
       </li>
       <li>
         <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br />
@@ -809,7 +820,7 @@ Select what format you wish to use and click to 'Export'.</p>"
 
   contact_page:
     title: "Contact us"
-    intro_text_html: "<p>%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href='%{organisation_url}' target='_blank'>website</a>. If you would like to contact us about %{application_name}, please enter your query in the form below or email <a href='mailto:%{organisation_email}?Subject=%{application_name}%20inquiry' target='_top'>%{organisation_email}</a>.</p>"
+    intro_text_html: "<p>%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href='%{organisation_url}' target='_blank'>website</a>. If you would like to contact us about %{application_name}, please enter your query in the form below or email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
     github_text_html: "<p>If you have a feature request or think you have found a bug, please check out the <a href='%{application_issue_list_url}'>list of issues on GitHub</a>. If your issue isn't listed there, please add it; if it is, please add a comment if you have more information or just to let us know how important it is to you. This will help us to help us prioritise future developments.</p>"
     address_text_html: "<ul>
       <li>%{organisation_name}</li>
@@ -820,13 +831,13 @@ Select what format you wish to use and click to 'Export'.</p>"
       <li>UK</li>
      </ul>
      <p>Tel. +44 (0) 131 651 1239</p>
-     <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name}%20inquiry' target='_top'>%{organisation_email}</a></p>"
+     <p>Email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
 
   roadmap_page:
     title: "Future plans"
     tab_1: "Releases"
     tab_2: "Get involved"
-    body_text_tab_1_html: "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank	'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
+    body_text_tab_1_html: "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
     <ul>
         <li>- APIs to create plans, extract guidance and generate statistics from %{application_name}</li>
         <li>- Multi-lingual support so foreign language versions can be presented</li>
@@ -834,7 +845,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         <li>- A lifecycle to indicate the status of DMPs and allow institutional access to plans</li>
         <li>- Support for reviewing Data Management Plans</li>
     </ul>
-    <p>%{application_name} has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='%{organisation_email}' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p>
+    <p>%{application_name} has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p>
     </br>
     <h3>Current release</h3>
     <p>The current version of %{application_name} is %{application_version}.</p>
@@ -847,24 +858,24 @@ Select what format you wish to use and click to 'Export'.</p>"
 
     body_text_tab_2_html: "<p>%{application_name} is developed and maintained by the UK %{organisation_name}. We’re a small team, and are happy to collaborate with others. There are various ways you can get involved:</p>
     <h3>Join the user group</h3>
-    <p>We run a <a target='_blank' href='%{application_user_group_subscription_url}'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
+    <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
     <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p>
-	<p>Notes from previous user group sessions are provided below:</p>
-	<ul>
+    <p>Notes from previous user group sessions are provided below:</p>
+    <ul>
       <li>- <a href='/files/DMPonline-user-group-IDCC-2016.pdf' target='_blank'>Meeting notes covering internationalisation and locales, 23 February 2016</a></li>
       <li>- <a href='/files/DMPonline-user-group-notes-29Jan2015' target='_blank'>Meeting notes covering plan lifecycle and review, 29 January 2015</a></li>
     </ul>
     <p>Please let us know your interests and share your ideas for future developments via the mailing list so the community as a whole can feedback on them.</p>
     </br>
     <h3>Customise %{application_name}</h3>
-    <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:%{organisation_email}?Subject=%{application_name}%20Admin%20access' target='_top'>%{organisation_email}</a>.</p>
-    <p>Futher guidance on customising %{application_name} is available on the <a href='%{organisation_url}dmponline' target='_blank'>%{organisation_abbreviation} website</a>.</p>
+    <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
+    <p>Futher guidance on customising %{application_name} is available on the <a href='%{organisation_url}' target='_blank'>%{application_name} website</a>.</p>
     </br>
     <h3>Contribute to the code</h3>
-    <p>%{application_name} is a Ruby on Rails application. The source code is made available under a GNU Affero General Public License. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of %{application_name} and offer your contributions back to the community.</p>
+    <p>%{application_name} is a Ruby on Rails application. The <a href='https://github.com/DMPRoadmap/roadmap'>source code</a> is made available under an <a href='https://github.com/DMPRoadmap/roadmap/blob/master/LICENSE.md'>MIT License</a>. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of %{application_name} and offer your contributions back to the community.</p>
     <p>If you install an instance of %{application_name} we require that you credit the %{organisation_abbreviation} as originators of the tool. We recommend that the acknowledgement takes the form of the %{application_name} logo with a link back to the %{organisation_abbreviation}-hosted version of the tool.</p>
-    <p>We are willing to work with external developers to add new features to the tool. We are also open to delivering new features on a chargeable basis. If there are extensions you would like to see prioritised and have resource to support additional developer effort, please contact us on %{organisation_email} to negotiate terms.</p>
-		<p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p>
+    <p>We are willing to work with external developers to add new features to the tool. We are also open to delivering new features on a chargeable basis. If there are extensions you would like to see prioritised and have resource to support additional developer effort, please contact us on dmponline@dcc.ac.uk to negotiate terms.</p>
+    <p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p>
     <h3>Support our work</h3>
     <p>We are impressed by the uptake of %{application_name} both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p>
     <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of %{application_name}. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
@@ -951,7 +962,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
@@ -962,7 +973,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       modify_templates: 'modify_templates'
       modify_guidance: 'modify_guidance'
       use_api: 'use_api'
-      change_org_details: 'change_org_detials'
+      change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'

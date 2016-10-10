@@ -1,6 +1,10 @@
 # app/controllers/registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
+  def edit
+    @languages = Language.all.order("name")
+  end
+
   # POST /resource
   def create
     logger.debug "#{sign_up_params}"
@@ -57,7 +61,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def do_update(require_password = true, confirm = false)
-
 	  if require_password then
 		  successfully_updated = if needs_password?(@user, params)
       @user.update_with_password(params[:user])
@@ -72,6 +75,17 @@ class RegistrationsController < Devise::RegistrationsController
     	successfully_updated = @user.update_without_password(params[:user])
     end
 
+    # If the user selected a new language setting, go ahead and reset the locale
+    
+puts "PARAMS: #{params.inspect}"
+    
+    if params[:user][:language_id]
+      if @user.language_id != params[:user][:language_id]
+        params[:locale] = Language.find(params[:user][:language_id]).abbreviation
+        set_locale 
+      end
+    end
+    
     #unlink shibboleth from user's details
     if params[:unlink_flag] == 'true' then
       @user.update_attributes(:shibboleth_id => "")
@@ -86,11 +100,11 @@ class RegistrationsController < Devise::RegistrationsController
         # Sign in the user bypassing validation in case his password changed
         sign_in @user, :bypass => true
         
-        if params[:unlink_flag] == 'true' then
+        #if params[:unlink_flag] == 'true' then
             redirect_to({:controller => "registrations", :action => "edit"}, {:notice => I18n.t('helpers.project.details_update_success')})
-        else
-            redirect_to({:controller => "projects", :action => "index"}, {:notice => I18n.t('helpers.project.details_update_success')})
-        end
+        #else
+        #    redirect_to({:controller => "projects", :action => "index"}, {:notice => I18n.t('helpers.project.details_update_success')})
+        #end
 
     else
       render "edit"

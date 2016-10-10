@@ -47,6 +47,7 @@ de:
     org_parent: "Übergeordnete Organisation"
     org_created_message: "Organisation wurde erfolgreich angelegt."
     org_updated_message: "Organisation wurde erfolgreich aktualisiert."
+    org_bad_logo: "Es scheint ein Problem mit unserem Logo zu sein. Bitte laden Sie es erneut."
     plans: "Pläne"
     title: "Titel"
     desc: "Beschreibung"
@@ -132,6 +133,9 @@ de:
     option_order_label: "Reihenfolge"
     option_text_label: "Text"
     option_default_label: "Vorgabe"
+    api_privileges: 'API Berechtigungen?'
+    edit_user_privileges: 'Bearbeiten Benutzerberechtigungen'
+
     guidance:
       guidance_list: "Liste der Hilfestellungen"
       text_label: "Text"
@@ -157,6 +161,7 @@ de:
       by_themes_help_text_html: "Wählen Sie die Themen aus, für die diese Hilfestellung relevant ist."
       by_question_help_text_html: "Wählen Sie die Vorlage, die Phase, die Version, den Abschnitt und die Frage aus den folgenden Auswahllisten aus, um die Frage zu bestimmen, für die diese Hilfestellung angezeigt werden soll."
       guidance_group_select_help_text_html: "Wählen Sie die Gruppe aus, für die diese Hilfestellung relevant ist."
+      guidance_group_published_help_text_html: "Markieren Sie dieses Kästchen, wenn Sie bereit sind, für diese Anleitung für Benutzer-Pläne zu erscheinen."
       guidance_text_html: "<p>Sie können eine Hilfestellungtexte erstellen, die im Zusammenhang mit bestimmten Themen angezeigt werden, oder die sich auf eine spezifische Frage beziehen. Generische Hilfestellungen für Themen helfen Zeit und Arbeit zu sparen, da Ihre Hilfestellungen automatisch für alle Vorlagen angezeigt werden; sie müssen andernfalls für jede Vorlage neu erstellt werden.</p>
       <p>Im Normalfall werden Sie wollen, dass Ihre Orinetierungshilfen in allen Vorlagen angezeigt wird. Ausnahmen sind z.B. Hilfestellungen die spezielle Hinweise für einen Förderer geben.</p>"
       delete_message: "Sie sind dabei '%{guidance_summary}' zu löschen. Sind Sie sicher?"
@@ -295,7 +300,6 @@ de:
     institution_sign_in_link: "Oder melden Sie sich mit den Zugangsdaten Ihres Instituts an"
     institution_sign_in: ""
 
-
     user_name: "E-Mail-Adresse"
     email: "E-Mail"
     org_not_listed: "Meine Organisation ist nicht in der Auflistung."
@@ -321,7 +325,7 @@ de:
     no_unlock_instructions: "Entsperrungsanleitungen nicht erhalten?"
     send_password_info: "Anleitung zum Zurücksetzen des Passworts"
     edit_password_info: "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
-    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms'>Nutzungsbedingungen</a> *"
+    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms' target='_blank'>Nutzungsbedingungen</a> *"
 
     text_area: "Text area"
     text_field: "Textfeld"
@@ -348,6 +352,13 @@ de:
     removing: "Entferne..."
     unsaved: "Ungesicherte Änderungen"
     unlink_account: "Trenne Zugang"
+
+    links:
+      edit: "Bearbeiten"
+      share: "Teilen"
+      export: "Export"
+      destroy: "Löschen"
+
     submit:
       edit: "Bearbeiten"
       create: "Erstellen"
@@ -564,6 +575,7 @@ de:
         principal_investigator: "Principal Investigator / Researcher"
         data_contact: "Plandatenkontakt"
         description: "Beschreibung"
+        unknown: " - "
       filter:
         placeholder: "Filter Pläne"
         submit: "Filter"
@@ -596,7 +608,7 @@ de:
           duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
           unknown: "Unbekannter Spaltenname."
       plans:
-        title: "Plantitel"
+        title: "Dateiname"
         reset: "Zurücksetzen"
         custom_formatting: "(Verwende eigene Werte bei PDF-Formatierung)"
         template_formatting: "(Verwende Vorlagenwerte bei PDF-Formatting)"
@@ -855,7 +867,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
@@ -866,7 +878,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       modify_templates: 'modify_templates'
       modify_guidance: 'modify_guidance'
       use_api: 'use_api'
-      change_org_details: 'change_org_detials'
+      change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'
