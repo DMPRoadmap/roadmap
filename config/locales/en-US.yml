@@ -139,6 +139,7 @@ en-US:
     user_name: "Email address"
     last_logged_in: "Last logged in"
     how_many_plans: "How many plans?"
+    privileges: "Permissions"
     user_text_html: "Below is a list of users registered for your organization. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
@@ -171,7 +172,8 @@ en-US:
     option_default_label: "Default"
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
-    api_privleges: 'API Privleges?'
+    api_privileges: 'API Permissions?'
+    edit_user_privileges: 'Edit User Permissions'
 
     guidance:
       guidance_list: "Guidance list"

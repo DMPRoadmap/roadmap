@@ -149,6 +149,7 @@ en-UK:
     user_name: "Email address"
     last_logged_in: "Last logged in"
     how_many_plans: "How many plans?"
+    privileges: "Privileges"
     user_text_html: "Below is a list of users registered for your organisation. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
@@ -179,8 +180,8 @@ en-UK:
     option_default_label: "Default"
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
-    api_privleges: 'API Privleges?'
-    edit_user_privleges: 'Edit User Privleges'
+    api_privileges: 'API Privleges?'
+    edit_user_privileges: 'Edit User Privileges'
 
     guidance:
       guidance_list: "Guidance list"

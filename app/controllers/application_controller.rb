@@ -84,4 +84,5 @@ class ApplicationController < ActionController::Base
       @all_columns = Settings::PlanList::ALL_COLUMNS
     end
   end
+
 end
