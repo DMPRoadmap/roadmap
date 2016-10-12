@@ -76,9 +76,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     # If the user selected a new language setting, go ahead and reset the locale
-    
-puts "PARAMS: #{params.inspect}"
-    
     if params[:user][:language_id]
       if @user.language_id != params[:user][:language_id]
         params[:locale] = Language.find(params[:user][:language_id]).abbreviation
