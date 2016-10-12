@@ -897,7 +897,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     </div>
     <h3>Cookies</h3>
     <div class='white_background'>
-      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='%{organisation_url}about-us/about-site/website-terms-use/cookies'>main %{organisation_abbreviation} website</a>.</p>
+      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p>
     </div>
     <br />
     <div class='white_background'>
