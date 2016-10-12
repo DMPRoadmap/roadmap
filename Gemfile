@@ -73,7 +73,7 @@ gem 'htmltoword'
 gem 'feedjira'
 gem 'caracal'                           # WORD DOC EXPORTING
 gem 'caracal-rails'
-gem 'yaml_db', :git => 'https://github.com/xsrust/yaml_db.git'
+gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
 # ------------------------------------------------
 #     INTERNATIONALIZATION
