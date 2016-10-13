@@ -67,6 +67,7 @@ gem 'dragonfly'                         # LOGO UPLOAD
 
 # ------------------------------------------------
 #     EXPORTING
+gem 'wkhtmltopdf-binary'
 gem 'thin'
 gem 'wicked_pdf'
 gem 'htmltoword'
