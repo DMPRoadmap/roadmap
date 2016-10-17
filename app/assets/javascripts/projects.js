@@ -180,7 +180,7 @@ $( document ).ready(function() {
             "<li class=\"choice\">" +
                 "<label for=\"project_guidance_group_ids_" + array[i]['id'] + "\">" +
                 "<input id=\"project_guidance_group_ids_" + array[i]['id'] + "\" " +
-                       "name=\"project_guidance_group_ids_" + array[i]['id'] + "\" " +
+                       "name=\"project[guidance_group_ids][]\" " +
                        "value=\"" + array[i]['id'] + "\" type=\"checkbox\" />" +
                 array[i]['text'] + "</label>" +
             "</li>"
