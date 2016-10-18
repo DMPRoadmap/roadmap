@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
     if params[:locale] # and I18n.available_locales.include? params[:locale] # throw an error if not available
       # if locales data is present in the parameter from url use it
       I18n.locale = params[:locale]
+      
     elsif user_signed_in? and !current_user[:language_id].nil?
       I18n.locale = Language.find_by_id(current_user[:language_id]).abbreviation
       # if user has set preferred language use it
@@ -31,6 +32,7 @@ class ApplicationController < ActionController::Base
     elsif user_signed_in? and current_user.organisation.present? and !current_user.organisation[:language_id].nil?
       I18n.locale = Language.find_by_id(current_user.organisation[:language_id]).abbreviation
       # use user's organization language, keep in mine the "OTHER ORG" edge case which should use default language
+      
     else
       # just use the default language, line can be commented out, included just for clarity
       I18n.locale = I18n.default_locale
@@ -77,7 +79,10 @@ class ApplicationController < ActionController::Base
   def get_plan_list_columns
     if user_signed_in?
       @selected_columns = current_user.settings(:plan_list).columns
+      @selected_columns = Settings::PlanList::DEFAULT_COLUMNS if @selected_columns.empty?
+      
       @all_columns = Settings::PlanList::ALL_COLUMNS
     end
   end
+
 end

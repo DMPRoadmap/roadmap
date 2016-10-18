@@ -42,10 +42,19 @@ $( document ).ready(function() {
 
   //accordion project details page when project has more than 1 plan
   $('.accordion-project').on('show', function() {
-    var plus = $(this).parent().find(".plus-laranja").removeClass("plus-laranja").addClass("minus-laranja");
+    var plus = $(this).parent().children(".accordion-heading").find(".plus-laranja").removeClass("plus-laranja").addClass("minus-laranja");
   }).on('hide', function(){
-    var minus = $(this).parent().find(".minus-laranja").removeClass("minus-laranja").addClass("plus-laranja");
+    var minus = $(this).parent().children(".accordion-heading").find(".minus-laranja").removeClass("minus-laranja").addClass("plus-laranja");
   });
+
+	$('.export-format-selection').click(function(e){
+		e.preventDefault();
+		if($(this).val() == 'pdf'){
+			$('#pdf-format-options').show();
+		}else{
+			$('#pdf-format-options').hide();
+		}
+	});
 
   //$('#3-or-4-splash').modal();
 
