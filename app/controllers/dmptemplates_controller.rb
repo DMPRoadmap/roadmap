@@ -255,7 +255,6 @@ class DmptemplatesController < ApplicationController
 
 
 # SECTIONS
-
 	#create a section
 	def admin_createsection
     @section = Section.new(params[:section])
