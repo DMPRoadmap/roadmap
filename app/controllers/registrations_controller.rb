@@ -2,7 +2,8 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
-    @languages = Language.all.order("name")
+    @languages = Language.order("name")
+    @identifier_schemes = IdentifierScheme.order(:name)
   end
 
   # POST /resource

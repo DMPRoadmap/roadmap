@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
     has_many :project_groups, :dependent => :destroy
     #has_many :organisations , through: :user_org_roles
     has_many :user_role_types, through: :user_org_roles
+    has_many :user_identifiers
 		has_one :language
 
     belongs_to :organisation
@@ -69,6 +70,11 @@ class User < ActiveRecord::Base
 			return name.strip
 		end
 	end
+
+  def identifier_for(scheme)
+    user_identifier = user_identifiers.where(identifier_scheme: scheme).first
+    (user_identifier.nil? ? '' : user_identifier.identifier)
+  end
 
   ##
   # sets a new organisation id for the user

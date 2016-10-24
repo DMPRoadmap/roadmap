@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td class="first"><%= t("helpers.org_type.organisation") %></td>
-				<td><%= collection_select(:user,
+				<td class="force-left"><%= collection_select(:user,
 						:organisation_id, Organisation.where("parent_id IS NULL").order("name"),
 						:id, :name, {include_blank: constant("organisation_types.organisation")},
 						{ :class => "typeahead org_sign_up" }) %></td>
@@ -53,7 +53,7 @@
 			</tr>
       <tr>
         <td class="first"><%= t('helpers.user_details_language') %></td>
-        <td>
+        <td class="force-left">
 					<!-- For some reason the rails collection_select and f.select would not 'select' the current language, so reverting to HTML -->
 					<select id="user_language_id" name="user[language_id]" class="typeahead org_sign_up">
 						<%= @languages.each do |l| %>
@@ -63,13 +63,19 @@
 					
 				</td>
       </tr>
-			<tr>
-				<td class="first"><%= t("helpers.orcid_id") %></td>
-				<td><%= f.text_field :orcid_id ,
-						:as => :string,
-						:autocomplete => "off" ,
-						:class => "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
-			</tr>
+			
+			<% @identifier_schemes.each do |scheme| %>
+				<tr>
+					<td class="first"><%= scheme.name %></td>
+					<td>
+						<%= render partial: 'external_identifier', 
+											 locals: {scheme: scheme, 
+													 			id: current_user.identifier_for(scheme)} %>
+					</td>
+				</tr>
+			<% end %>
+			
+			
 			<% unless @user.api_token.blank? %>
 			<tr>
 				<td class="first"><%= t("helpers.api_token") %></td>

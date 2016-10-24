@@ -868,4 +868,8 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
       plans: 'plans'
       templates: 'templates'
       statistics: 'statistics'
+    identifier_schemes:
+      ORCID:
+        connect_icon: '/assets/orcid.png'
+        tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs.'
     languages:

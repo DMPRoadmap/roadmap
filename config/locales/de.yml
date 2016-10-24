@@ -885,4 +885,8 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       plans: 'plans'
       templates: 'templates'
       statistics: 'statistics'
+    identifier_schemes:
+      ORCID:
+        connect_icon: '/assets/orcid.png'
+        tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet.'
     languages:

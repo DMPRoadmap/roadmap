@@ -980,4 +980,8 @@ Select what format you wish to use and click to 'Export'.</p>"
       plans: 'plans'
       templates: 'templates'
       statistics: 'statistics'
+    identifier_schemes:
+      ORCID:
+        connect_icon: '/assets/orcid.png'
+        tooltip: 'ORCID provides a persistent digital identifier that distinguishes you from other researchers.'
     languages:

@@ -86,6 +86,25 @@ region_groups.each do |l, details|
   end
 end
 
+identifier_schemes = {
+    'orcid' => {
+        name: 'ORCID',
+        auth_uri: '/roadmap/auth/orcid?resource_id=123',
+        user_uri: 'https://sandbox.orcid.org/{id}/'
+    }
+}
+
+identifier_schemes.each do |l, details|
+  if IdentifierScheme.where(name: details[:name]).empty?
+    scheme = IdentifierScheme.new({
+      name: details[:name],
+      auth_uri: details[:auth_uri],
+      user_uri: details[:user_uri]
+    })
+    scheme.save!
+  end
+end
+
 organisation_types = {
  'Organisation' => {
      name: "Organisation"
