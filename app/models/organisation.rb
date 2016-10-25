@@ -8,7 +8,8 @@ class Organisation < ActiveRecord::Base
   has_many :guidance_groups
   has_many :dmptemplates
   has_many :sections
-  has_many :users, through: :user_org_roles
+  has_many :user_org_roles
+  has_many :users
   has_many :option_warnings
   has_many :suggested_answers
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
