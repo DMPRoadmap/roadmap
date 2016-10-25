@@ -18,6 +18,12 @@ public/apidocs/*
 # Ignore db schema.rb
 # db/schema.rb
 
+# Ignore seed DBs
+db/data.yml
+
+# Ignore the test DB
+db/test.sqlite3
+
 # Ignore database configuration and token secrets
 config/database.yml
 config/secrets.yml
@@ -36,6 +42,9 @@ config/initializers/recaptcha.rb
 
 # ignore IDE files
 .idea/*
+
+# Ignore MAC files
+.DS_Store
 
 # ignore yard doc files
 .yardoc/*

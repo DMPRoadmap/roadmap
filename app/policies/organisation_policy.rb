@@ -8,15 +8,27 @@ class OrganisationPolicy < ApplicationPolicy
   end
 
   def admin_show?
-    user.can_modify_org_details? && (user.organisation_id == organisation.id)
+    user.can_modify_org_details? && (user.organisation.id == organisation.id)
   end
 
   def admin_edit?
-    user.can_modify_org_details? && (user.organisaiton_id == organisation.id)
+    user.can_modify_org_details? && (user.organisation.id == organisation.id)
   end
 
   def admin_update?
-    user.can_modify_org_details? && (user.organisaiton_id == organisation.id)
+    user.can_modify_org_details? && (user.organisation.id == organisation.id)
+  end
+
+  def parent?
+    true
+  end
+
+  def children?
+    true
+  end
+
+  def templates?
+    true
   end
 
 end

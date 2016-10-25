@@ -6,7 +6,7 @@ defaults: &defaults
     abbreviation: 'DCC and UC3'
     url: 'https://github.com/DMPRoadmap/roadmap/wiki'
     copywrite_name: 'DCC and UC3'
-    email: 'ROADMAP-L@listserv.ucop.edu'
+    email: 'dmponline@dcc.ac.uk'
 
   application:
     name: 'DMPRoadmap'
