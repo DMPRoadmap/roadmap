@@ -89,8 +89,11 @@ end
 identifier_schemes = {
     'orcid' => {
         name: 'ORCID',
-        auth_uri: '/roadmap/auth/orcid?resource_id=123',
-        user_uri: 'https://sandbox.orcid.org/{id}/'
+        landing_page_uri: 'https://sandbox.orcid.org/{id}',
+        logo: '/assets/orcid.png',
+        api_key: 'ABCD1234',
+        api_secret: 'secret',
+        params: '{"member": "false", "sandbox": "false"}'
     }
 }
 

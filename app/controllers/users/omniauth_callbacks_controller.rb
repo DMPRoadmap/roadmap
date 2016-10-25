@@ -1,5 +1,20 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
+  # -------------------------------------------------------------
+  def orcid
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    
+    if @user.persisted?
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: 'Orcid') if is_navigational_format?
+      
+    else
+      session["devise.orcid_data"] = request.env["omniauth.auth"]
+      redirect_to new_user_registration_url
+    end
+  end
+
+  # -------------------------------------------------------------
   def shibboleth
     if user_signed_in? && current_user.shibboleth_id.present? && current_user.shibboleth_id.length > 0 then
       flash[:warning] = I18n.t('devise.failure.already_authenticated')
@@ -49,5 +64,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to root_path
       end
     end
+  end
+
+  # -------------------------------------------------------------
+  def failure
+    redirect_to root_path
   end
 end

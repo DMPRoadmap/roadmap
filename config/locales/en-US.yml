@@ -944,6 +944,11 @@ Select what format you wish to use and click to 'Export'.</p>"
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
+  identifier_schemes:
+    ORCID:
+      connect: 'Connect your ORCID'
+      tooltip: 'ORCID provides a persistent digital identifier that distinguishes you from other researchers.'
+
   magic_strings:
     organisation_types:
       funder: 'Funder'
@@ -970,9 +975,4 @@ Select what format you wish to use and click to 'Export'.</p>"
       plans: 'plans'
       templates: 'templates'
       statistics: 'statistics'
-    identifier_schemes:
-      ORCID:
-        connect_icon: '/assets/orcid.png'
-        connect: 'Connect your ORCID'
-        tooltip: 'ORCID provides a persistent digital identifier that distinguishes you from other researchers.'
     languages:

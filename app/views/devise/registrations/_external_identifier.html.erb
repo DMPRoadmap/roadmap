@@ -1,25 +1,19 @@
-<div class="user-identifier" 
-		 style="background-image: url(<%= constant("identifier_schemes.#{scheme.name}.connect_icon") %>)">
-		 
-	<% if id.nil? || id == '' %>
-	
-		<%= link_to "#{constant("identifier_schemes.#{scheme.name}.connect")}", 
-								"#{scheme.auth_uri}",
-								title: constant("identifier_schemes.#{scheme.name}.tooltip") %>
-								
-	<% else %>
-		<% uri = "#{scheme.user_uri.gsub(/\{id\}/, id)}" %>
-		<%= link_to uri, uri, target: '_blank', 
-								title: constant("identifier_schemes.#{scheme.name}.tooltip") %>
-	<% end %>
-</div>
+<% api_key = scheme.api_key ||= '' %>
 
-<script type="text/javascript">
-$('.js-add_my_Orcid_ID').bind('click', function(){
-    // remove all event handlers with unbind()
-    // add a new function that prevents click from working
-    $(this).unbind().bind('click', function(){
-      return false;
-    });
-});
-</script>
+<div class="user-identifier" 
+     style="background-image: url(<%= scheme.logo %>)">
+     
+  <% if id.nil? || id == '' %>
+  
+    <%= link_to "#{t("identifier_schemes.#{scheme.name}.connect")}", 
+                Rails.application.routes.url_helpers.send(
+                  "user_#{scheme.name.downcase}_omniauth_authorize_path"
+                ),
+                title: t("identifier_schemes.#{scheme.name}.tooltip") %>
+                
+  <% else %>
+    <% uri = "#{scheme.landing_page_uri.gsub(/\{id\}/, id)}" %>
+    <%= link_to uri, uri, target: '_blank', 
+                title: t("identifier_schemes.#{scheme.name}.tooltip") %>
+  <% end %>
+</div>

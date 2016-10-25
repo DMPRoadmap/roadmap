@@ -842,6 +842,11 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
+  identifier_schemes:
+    ORCID:
+      connect: 'Connectez votre compte pour ORCID'
+      tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs.'
+
   magic_strings:
     organisation_types:
       funder: 'Funder'
@@ -868,8 +873,4 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
       plans: 'plans'
       templates: 'templates'
       statistics: 'statistics'
-    identifier_schemes:
-      ORCID:
-        connect_icon: '/assets/orcid.png'
-        tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs.'
     languages:

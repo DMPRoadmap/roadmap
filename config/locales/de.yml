@@ -859,6 +859,11 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
+  identifier_schemes:
+    ORCID:
+      connect: 'Schließen sie ihr konto ORCID'
+      tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet.'
+
   magic_strings:
     organisation_types:
       funder: 'Funder'
@@ -885,8 +890,4 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       plans: 'plans'
       templates: 'templates'
       statistics: 'statistics'
-    identifier_schemes:
-      ORCID:
-        connect_icon: '/assets/orcid.png'
-        tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet.'
     languages:

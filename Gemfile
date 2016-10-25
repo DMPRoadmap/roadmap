@@ -45,6 +45,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
+gem 'omniauth-orcid'
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration

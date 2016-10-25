@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "plan_id",     limit: 4
     t.integer  "user_id",     limit: 4
     t.integer  "question_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "answers_options", id: false, force: :cascade do |t|
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "user_id",     limit: 4
     t.integer  "question_id", limit: 4
     t.text     "text",        limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.boolean  "archived"
     t.integer  "plan_id",     limit: 4
     t.integer  "archived_by", limit: 4
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.boolean  "published"
     t.integer  "user_id",         limit: 4
     t.integer  "organisation_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "locale",          limit: 255
     t.boolean  "is_default"
   end
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "plan_id",    limit: 4
     t.integer  "user_id",    limit: 4
     t.string   "format",     limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "file_types", force: :cascade do |t|
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.string   "icon_name",     limit: 255
     t.integer  "icon_size",     limit: 4
     t.string   "icon_location", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "file_uploads", force: :cascade do |t|
@@ -82,12 +82,12 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.boolean  "published"
     t.string   "location",     limit: 255
     t.integer  "file_type_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",           limit: 191, null: false
+    t.string   "slug",           limit: 255, null: false
     t.integer  "sluggable_id",   limit: 4,   null: false
     t.string   "sluggable_type", limit: 40
     t.datetime "created_at"
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name",            limit: 255
     t.integer  "organisation_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.boolean  "optional_subset"
     t.boolean  "published"
   end
@@ -116,16 +116,20 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   create_table "guidances", force: :cascade do |t|
     t.text     "text",              limit: 65535
     t.integer  "guidance_group_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "question_id",       limit: 4
     t.boolean  "published"
   end
 
   create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "auth_uri",   limit: 255
-    t.string   "user_uri",   limit: 255
+    t.string   "name",              limit: 255
+    t.string   "logo",              limit: 255
+    t.string   "api_key",           limit: 255
+    t.string   "api_secret",        limit: 255
+    t.string   "authorization_uri", limit: 255
+    t.string   "landing_page_uri",  limit: 255
+    t.string   "params",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -141,8 +145,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "organisation_id", limit: 4
     t.integer  "option_id",       limit: 4
     t.text     "text",            limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "options", force: :cascade do |t|
@@ -150,8 +154,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.string   "text",        limit: 255
     t.integer  "number",      limit: 4
     t.boolean  "is_default"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "org_token_permissions", force: :cascade do |t|
@@ -164,8 +168,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   create_table "organisation_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -176,13 +180,12 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.string   "domain",               limit: 255
     t.string   "wayfless_entity",      limit: 255
     t.integer  "stylesheet_file_id",   limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "parent_id",            limit: 4
     t.boolean  "is_other"
     t.string   "sort_name",            limit: 255
     t.text     "banner_text",          limit: 65535
-    t.string   "logo_file_name",       limit: 255
     t.integer  "region_id",            limit: 4
     t.integer  "language_id",          limit: 4
     t.string   "logo_uid",             limit: 255
@@ -195,9 +198,9 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.text     "description",    limit: 65535
     t.integer  "number",         limit: 4
     t.integer  "dmptemplate_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug",           limit: 191
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "slug",           limit: 255
   end
 
   add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id", using: :btree
@@ -207,8 +210,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "user_id",      limit: 4
     t.integer  "section_id",   limit: 4
     t.integer  "plan_id",      limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.datetime "release_time"
   end
 
@@ -216,8 +219,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.boolean  "locked"
     t.integer  "project_id", limit: 4
     t.integer  "version_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "project_groups", force: :cascade do |t|
@@ -225,8 +228,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.boolean  "project_editor"
     t.integer  "user_id",               limit: 4
     t.integer  "project_id",            limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.boolean  "project_administrator"
   end
 
@@ -240,9 +243,9 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   create_table "projects", force: :cascade do |t|
     t.string   "title",                             limit: 255
     t.integer  "dmptemplate_id",                    limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug",                              limit: 191
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "slug",                              limit: 255
     t.integer  "organisation_id",                   limit: 4
     t.string   "grant_number",                      limit: 255
     t.string   "identifier",                        limit: 255
@@ -258,8 +261,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   create_table "question_formats", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -271,8 +274,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "dependency_id",          limit: 4
     t.text     "dependency_text",        limit: 65535
     t.integer  "section_id",             limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "question_format_id",     limit: 4
     t.boolean  "option_comment_display",               default: true
   end
@@ -296,9 +299,9 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name",          limit: 191
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "name",          limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.boolean  "role_in_plans"
     t.integer  "resource_id",   limit: 4
     t.string   "resource_type", limit: 255
@@ -313,42 +316,42 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "number",          limit: 4
     t.integer  "version_id",      limit: 4
     t.integer  "organisation_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.boolean  "published"
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string   "var",         limit: 191,   null: false
+    t.string   "var",         limit: 255,   null: false
     t.text     "value",       limit: 65535
     t.integer  "target_id",   limit: 4,     null: false
-    t.string   "target_type", limit: 191,   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "target_type", limit: 255,   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "suggested_answers", force: :cascade do |t|
     t.integer  "question_id",     limit: 4
     t.integer  "organisation_id", limit: 4
     t.text     "text",            limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.boolean  "is_example"
   end
 
   create_table "themes", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "locale",      limit: 255
   end
 
@@ -358,8 +361,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   end
 
   create_table "token_permission_types", force: :cascade do |t|
-    t.string   "token_type",      limit: 255
-    t.text     "text_desription", limit: 65535
+    t.string   "token_type",       limit: 255
+    t.text     "text_description", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -379,43 +382,43 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.integer  "user_id",           limit: 4
     t.integer  "organisation_id",   limit: 4
     t.integer  "user_role_type_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "user_role_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "user_statuses", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "user_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname",              limit: 255
     t.string   "surname",                limit: 255
-    t.string   "email",                  limit: 191, default: "", null: false
+    t.string   "email",                  limit: 255, default: "", null: false
     t.string   "orcid_id",               limit: 255
     t.string   "shibboleth_id",          limit: 255
     t.integer  "user_type_id",           limit: 4
     t.integer  "user_status_id",         limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "encrypted_password",     limit: 255, default: ""
-    t.string   "reset_password_token",   limit: 191
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",          limit: 4,   default: 0
@@ -423,15 +426,14 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 191
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "invitation_token",       limit: 191
+    t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation",     limit: 255
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "organisation_id",        limit: 4
     t.string   "api_token",              limit: 255
@@ -458,8 +460,8 @@ ActiveRecord::Schema.define(version: 20161024163920) do
     t.boolean  "published"
     t.integer  "number",      limit: 4
     t.integer  "phase_id",    limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "versions", ["phase_id"], name: "index_versions_on_phase_id", using: :btree
