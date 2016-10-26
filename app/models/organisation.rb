@@ -8,6 +8,7 @@ class Organisation < ActiveRecord::Base
   has_many :guidance_groups
   has_many :dmptemplates
   has_many :sections
+  has_many :user_org_roles
   has_many :users
   has_many :option_warnings
   has_many :suggested_answers
@@ -167,7 +168,7 @@ class Organisation < ActiveRecord::Base
   #
   # @return [Array<Dmptemplate>] published dmptemplates
 	def published_templates
-		return dmptemplates.where("published = ?", 1)
+		return dmptemplates.where("published = ?", true)
 	end
 
   def check_api_credentials
