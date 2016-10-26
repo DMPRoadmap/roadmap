@@ -203,6 +203,7 @@ GEM
       ruby-progressbar
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    mysql2 (0.3.21)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -343,6 +344,7 @@ DEPENDENCIES
   libv8
   minitest-rails-capybara
   minitest-reporters
+  mysql2 (~> 0.3.18)
   omniauth
   omniauth-shibboleth
   pg
