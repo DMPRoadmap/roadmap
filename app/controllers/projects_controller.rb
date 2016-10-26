@@ -249,7 +249,7 @@ class ProjectsController < ApplicationController
         #subset guidance that belong to the institution
 		unless institution.nil? then
       authorize Project
-			optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id = ?", true, institution.id)
+			optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id = ?", true, institution.id)
 			optional_gg.each do|optional|
 				guidance_groups[optional.id] = optional.name
 			end
@@ -272,7 +272,7 @@ class ProjectsController < ApplicationController
 
         #If template belongs to a funder and that funder has subset guidance display then.
         if !template.nil? && template.organisation.organisation_type.name == constant("organisation_types.funder") then
-            optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id = ?", true, template.organisation_id)
+            optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id = ?", true, template.organisation_id)
 			optional_gg.each do|optional|
 				guidance_groups[optional.id] = optional.name
 			end
@@ -335,7 +335,7 @@ class ProjectsController < ApplicationController
       guidance_groups = []
 
       #subset guidance that belong to an institution
-      optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IS NOT NULL", true)
+      optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id IS NOT NULL", true)
       optional_gg.each do|optional|
         guidance_groups << optional.id
       
@@ -347,7 +347,7 @@ class ProjectsController < ApplicationController
       end
 
       # If template belongs to a funder and is an optional_subset
-      optional_gg = GuidanceGroup.where("optional_subset =  ? && organisation_id IN (?)", true, orgs_of_type(constant("organisation_types.funder")))
+      optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id IN (?)", true, orgs_of_type(constant("organisation_types.funder")))
       optional_gg.each do|optional|
         guidance_groups << optional.id
       end

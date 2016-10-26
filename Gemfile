@@ -15,6 +15,7 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
+gem 'pg'
 gem 'mysql2', '~> 0.3.18'
 
 # ------------------------------------------------
@@ -75,6 +76,7 @@ gem 'htmltoword'
 gem 'feedjira'
 gem 'caracal'                           # WORD DOC EXPORTING
 gem 'caracal-rails'
+gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
 # ------------------------------------------------
 #     INTERNATIONALIZATION
@@ -123,3 +125,4 @@ end
 # gem 'email_validator'            # UNUSED ACTIVERECORD VALIDATOR
 # gem 'validate_url'               # UNUSED ACTIVERECORD VALIDATOR
 # gem 'turbolinks'                 # IS NOW A CORE PART OF RAILS >= 4.0
+

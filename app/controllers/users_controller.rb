@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def admin_index
     authorize User
     
-    @users = User.where(organisation: current_user.organisation).includes(:project_groups)
+    @users = current_user.organisation.users.includes(:project_groups)
     
     respond_to do |format|
       format.html # index.html.erb

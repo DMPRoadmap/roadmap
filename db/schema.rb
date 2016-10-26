@@ -378,14 +378,6 @@ ActiveRecord::Schema.define(version: 20161024163920) do
   add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0", using: :btree
   add_index "user_identifiers", ["user_id"], name: "fk_rails_65c9a98cdb", using: :btree
 
-  create_table "user_org_roles", force: :cascade do |t|
-    t.integer  "user_id",           limit: 4
-    t.integer  "organisation_id",   limit: 4
-    t.integer  "user_role_type_id", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
   create_table "user_role_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
