@@ -27,9 +27,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       
       unless current_user.user_identifiers.include?(id)
         current_user.user_identifiers << id
+        current_user.save!
       end
       
-      render edit_user_registration_path
+      redirect_to edit_user_registration_path
     end
   end
 
