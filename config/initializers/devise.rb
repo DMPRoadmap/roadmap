@@ -242,6 +242,16 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  ActiveSupport.on_load(:active_record) do
+    IdentifierScheme.all.each do |scheme|
+      puts "Registering Omniauth Provider - #{scheme.name}"
+      config.omniauth scheme.name.downcase.to_sym,
+                      scheme.api_key ||= '',
+                      scheme.api_secret ||= '',
+                      scope: (scheme.params.empty? ? {} : JSON.parse(scheme.params))
+    end
+  end
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
@@ -263,7 +273,7 @@ Devise.setup do |config|
   #
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
-  # config.omniauth_path_prefix = '/my_engine/users/auth'
+  config.omniauth_path_prefix = '/my_engine/users/auth'
   
   # Configure the system to redirect to the home page after a session timeout
   config.warden do |manager|
