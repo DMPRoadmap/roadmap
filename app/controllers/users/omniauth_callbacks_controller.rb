@@ -26,7 +26,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                 identifier: request.env["omniauth.auth"].uid)
       
       unless current_user.user_identifiers.include?(id)
-        current_user.user_identifiers << id unless 
+        current_user.user_identifiers << id
       end
       
       render edit_user_registration_path
