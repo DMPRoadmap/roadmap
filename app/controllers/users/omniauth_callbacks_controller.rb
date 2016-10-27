@@ -23,7 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # The user is just registering the uid with us
     else
       # If the user could not be found by that uid then attach it to their record
-      if user.email.nil?
+      if user.email.nil? || user.email.empty?
         UserIdentifier.create!(identifier_scheme: scheme, 
                                identifier: request.env["omniauth.auth"].uid,
                                user: current_user)
