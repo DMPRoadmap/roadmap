@@ -284,8 +284,8 @@ puts "USER.FROM_OMNIAUTH: #{auth.inspect}"
     if scheme.nil?
       throw Exception.new('Unknown OAuth provider: ' + auth.provider)
     else
-      joins(:user_identifiers).where(identifier: auth.uid, 
-                                     identifier_scheme: scheme).first_or_create do |user|
+      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
+           'user_identifiers.identifier_scheme_id': scheme.id).first_or_create do |user|
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
       end
