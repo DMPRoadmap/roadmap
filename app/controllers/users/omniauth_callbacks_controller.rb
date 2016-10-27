@@ -22,12 +22,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       
     # The user is just registering the uid with us
     else
-      id = UserIdentifier.where(identifier_scheme: scheme, 
-                                identifier: request.env["omniauth.auth"].uid)
-      
-      unless current_user.user_identifiers.include?(id)
-        current_user.user_identifiers << id
-        current_user.save!
+      # If the user could not be found by that uid then attach it to their record
+      if user.email.nil?
+        UserIdentifier.create!(identifier_scheme: scheme, 
+                               identifier: request.env["omniauth.auth"].uid,
+                               user: current_user)
       end
       
       redirect_to edit_user_registration_path
