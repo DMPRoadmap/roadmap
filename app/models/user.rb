@@ -11,14 +11,15 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :confirmable, 
          :omniauthable, :omniauth_providers => omniauth_schemes
 
-    #associations between tables
-    belongs_to :user_type
-    belongs_to :user_status
-    has_many :answers
-    has_many :user_org_roles
-    has_many :project_groups, :dependent => :destroy
-    has_many :user_role_types, through: :user_org_roles
-		has_one :language
+  #associations between tables
+  belongs_to :user_type
+  belongs_to :user_status
+  has_many :answers
+  has_many :user_org_roles
+  has_many :user_identifiers
+  has_many :project_groups, :dependent => :destroy
+  has_many :user_role_types, through: :user_org_roles
+	has_one :language
 
   belongs_to :organisation
 
@@ -73,6 +74,11 @@ class User < ActiveRecord::Base
 		end
 	end
 
+  ##
+  # Returns the user's identifier for the specified scheme name
+  #
+  # @param the identifier scheme name (e.g. ORCID)
+  # @return [String] the user's identifier for that scheme
   def identifier_for(scheme)
     user_identifier = user_identifiers.where(identifier_scheme: scheme).first
     (user_identifier.nil? ? '' : user_identifier.identifier)
