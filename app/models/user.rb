@@ -277,18 +277,13 @@ class User < ActiveRecord::Base
   # Load the user based on the scheme and id provided by the Omniauth call
   # --------------------------------------------------------------
   def self.from_omniauth(auth)
-puts "USER.FROM_OMNIAUTH: #{auth.inspect}"
-
-    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
+    scheme = IdentifierScheme.find_by(name: auth.provider.upcase)
     
     if scheme.nil?
       throw Exception.new('Unknown OAuth provider: ' + auth.provider)
     else
       joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
-           'user_identifiers.identifier_scheme_id': scheme.id).first_or_create do |user|
-        user.email = auth.info.email
-        user.password = Devise.friendly_token[0, 20]
-      end
+                   'user_identifiers.identifier_scheme_id': scheme.id).first_or_create
     end
   end
 

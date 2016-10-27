@@ -1,16 +1,35 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
+  # We could consider combining these callbacks into a shared generic version
   # -------------------------------------------------------------
   def orcid
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    scheme = IdentifierScheme.find_by(name: request.env["omniauth.auth"].provider.upcase)
+    user = User.from_omniauth(request.env["omniauth.auth"])
     
-    if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication
-      set_flash_message(:notice, :success, kind: 'Orcid') if is_navigational_format?
-      
-    else
+    # If the user isn't logged in
+    if current_user.nil? 
       session["devise.orcid_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      
+      # If the uid didn't have a match in the system send them to register
+      if user.email.nil?
+        redirect_to new_user_registration_url
+        
+      # Otherwise sign them in
+      else
+        sign_in_and_redirect @user, event: :authentication
+        set_flash_message(:notice, :success, kind: 'Orcid') if is_navigational_format?
+      end
+      
+    # The user is just registering the uid with us
+    else
+      id = UserIdentifier.where(identifier_scheme: scheme, 
+                                identifier: request.env["omniauth.auth"].uid)
+      
+      unless current_user.user_identifiers.include?(id)
+        current_user.user_identifiers << id unless 
+      end
+      
+      render edit_user_registration_path
     end
   end
 
