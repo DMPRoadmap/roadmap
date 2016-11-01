@@ -89,11 +89,11 @@ end
 identifier_schemes = {
     'orcid' => {
         name: 'ORCID',
-        landing_page_uri: 'https://sandbox.orcid.org/{id}',
+        landing_page_uri: 'https://orcid.org/{id}',
         logo: '/assets/orcid.png',
         api_key: 'ABCD1234',
         api_secret: 'secret',
-        params: '{"member": "false", "sandbox": "false"}'
+        params: '{"scope": "/authenticate"}'
     }
 }
 
