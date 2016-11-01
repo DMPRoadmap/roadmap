@@ -38,6 +38,7 @@ de:
   welcome_links: "<p></p>"
   ccid_message: ""
 
+  unauthorized: "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
 
   admin:
     org_title: "Name der Organisation"

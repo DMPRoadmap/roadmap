@@ -41,6 +41,8 @@ en-UK:
   screencast_text: "Screencast on how to use %{application_name}"
   screencast_error_text: "Your browser does not support the video tag."
 
+  unauthorized: "You need to sign in or sign up before continuing."
+
   admin:
     language: "Language"
     language_name: "Language name"

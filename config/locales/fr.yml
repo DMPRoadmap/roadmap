@@ -44,6 +44,8 @@ fr:
   welcome_links: "Le modèle de plan de gestion des données Portage s'appuie sur des normes internationales et sur les meilleures pratiques. Il a été préparé et est gardé à jour par un groupe d'experts en gestion des données de recherche travaillant au sein de bibliothèques de recherche à travers le Canada. "
   ccid_message: "Veuillez noter que nous travaillons actuellement à un système d'authentification unique. Pour le moment, veuillez créer un nouveau compte dans l'Assistant PGD. Vous pourrez associer votre compte existant à votre identifiant campus dès que la fonction sera disponible."
   
+  unauthorized: "S'il vous plaît vous connecter ou vous inscrire pour continuer."
+
   screencast_error_text: "Votre navigateur ne permet pas la balise vidéo."
   none: "Aucun"
   admin:
