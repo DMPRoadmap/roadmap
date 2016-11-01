@@ -255,7 +255,7 @@ Devise.setup do |config|
       config.omniauth scheme.name.downcase.to_sym,
                       scheme.api_key ||= '',
                       scheme.api_secret ||= '',
-                      scope: (scheme.params.empty? ? {} : JSON.parse(scheme.params))
+                      (scheme.params.empty? ? {} : JSON.parse(scheme.params))
     end
   end
   
