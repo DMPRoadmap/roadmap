@@ -15,7 +15,7 @@ $( document ).ready(function() {
     
     $("#institution-control-group").show();
     $("#create-plan-button").show();
-    $("#confirm-funder").text($(this).val());
+    $("#confirm-funder").text($("#project_funder_id :selected").text());
   });
   
   // ----------------------------------------------------------
@@ -42,7 +42,7 @@ $( document ).ready(function() {
 
   // ----------------------------------------------------------
   $("#project_funder_name").change(function(){
-    $("#confirm-funder").text($(this).val());
+    $("#confirm-funder").text($("#project_funder_id :selected").text());
   });
 
   // ----------------------------------------------------------
