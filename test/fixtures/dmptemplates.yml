@@ -29,7 +29,6 @@ cc_template:
   organisation: curation_center
   locale: en-UK
   is_default: true
-  user: cc_admin
 
 cc_template_unpublished:
   title: "Curation Centre Default Template"
@@ -38,7 +37,6 @@ cc_template_unpublished:
   organisation: curation_center
   locale: en-UK
   is_default: true
-  user: cc_admin
 
 <% 3.times do |n| %>
 funder_template_<%= (n == 1 ? 'unpublished' : n + 1) %>:
@@ -46,7 +44,6 @@ funder_template_<%= (n == 1 ? 'unpublished' : n + 1) %>:
   published: <%= (n != 1) %>
   organisation: funder
   locale: en-UK
-  user: funder_admin
 <% end %>
 
 complete_template:
@@ -55,7 +52,6 @@ complete_template:
   published: true
   organisation: complete
   locale: en-UK
-  user: complete_admin
 
 <% organisation_types.each do |lbl, obj| %>
   <% unless ['funder', 'organisation'].include?(lbl) %>
@@ -67,7 +63,6 @@ complete_template:
   published: <%= (y == 0) %>
   organisation: <%= lbl %>_<%= x + 1 %>
   locale: en-UK
-  user: institution_<%= x %>_admin
 
       <% end %>
     <% end %>

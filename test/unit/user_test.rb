@@ -148,12 +148,6 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with Dmptemplates" do
-    tmplt = Dmptemplate.new(title: 'Added through test')
-    verify_has_many_relationship(@funder, tmplt, @funder.dmptemplates.count)
-  end
-  
-  # ---------------------------------------------------
   test "can manage has_many relationship with Roles" do
     role = Role.new(name: 'Added through test')
     verify_has_many_relationship(@super, role, @super.roles.count)
