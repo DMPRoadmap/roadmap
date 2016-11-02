@@ -81,10 +81,6 @@ module DMPRoadmap
 
     # Absolute path to Shibboleth SSO Login
     #config.shibboleth_login = 'https://localhost/Shibboleth.sso/Login'
-
-    WickedPdf.config = {
-	    :exe_path => '/usr/local/bin/wkhtmltopdf'
-	  }
     
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
