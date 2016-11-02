@@ -1,48 +1,119 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# Produces:
+# -----------------------------
+#  cc_super
+#  cc_admin
+#
+#  funder_admin
+#
+#  complete_admin
+#  complete_user
+#
+#  institution_[1..2]_admin
+#  institution_[1..2]_user
+#
+#  school_[1..2]_admin
+#  school_[1..2]_user
+#
+#  project_[1..2]_admin
+#  project_[1..2]_user
+#
 
-user_one:
- firstname: MyString
- surname: MyString
- email: MyString
- orcid_id: MyString
- shibboleth_id: MyString
- user_type_id: 1
- user_status_id: 1
- api_token: "guidances_api_token"
- #organisation: aru
+# Import organisation_types.yml and roles.yml
+<% organisation_types = YAML::load(ERB.new(File.read('./test/fixtures/organisation_types.yml')).result) %>
 
-user_two:
- firstname: MyString
- surname: MyString
- email: "me@example.net"
- orcid_id: MyString
- shibboleth_id: MyString
- user_type_id: 1
- user_status_id: 1
- api_token: "plans_api_token"
- #organisation: au
+cc_super:
+  firstname: 'Curation Centre'
+  surname: 'Super Admin'
+  email: 'super-admin@example-cc.org'
+  accept_terms: true
+  organisation: curation_center
+  roles: [add_organisations, change_org_affiliation, grant_api_to_orgs, grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
+  api_token: "ABCD1234ZYX987supercc"
+  language: en-UK
+  confirmed_at: '2016-09-09 10:10:10'
 
-user_three:
-  firstname: Mystring
-  surname: Mystring
-  email: "MyString@whousesyahoo.com"
-  orcid_id: MyString
-  shibboleth_id: MyString
-  user_type_id: 1
-  user_status_id: 1
-  api_token: "plans_api_token"
-  #organisation: bu
+cc_admin:
+  firstname: 'Curation Centre'
+  surname: 'Administrator'
+  email: 'admin@example-cc.org'
+  accept_terms: true
+  organisation: curation_center
+  roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
+  api_token: "ABCD1234ZYX987admincc"
+  language: en-UK
+  confirmed_at: '2016-09-09 10:10:10'
 
+funder_admin:
+  firstname: 'Funder'
+  surname: 'Administrator'
+  email: 'admin@example-funder.org'
+  accept_terms: true
+  organisation: funder
+  roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
+  api_token: "ABCD1234ZYX987adminfunder"
+  language: en-UK
+  confirmed_at: '2016-09-09 10:10:10'
 
-with_many_projects:
-  firstname: Many
-  surname: Projects
-  email: many.projects@example.com
+# We unfortunatley cannot tab this out nicely because YAML is expecting the values in 
+# the first column
+<% organisation_types.each do |lbl, obj| %>
+  <% unless ['funder', 'organisation'].include?(lbl) %>
+    <% 2.times do |x| %>
 
-user_dcc:
-  firstname: "john"
-  surname: "doe"
-  email: "me@dcc.net"
-  user_type_id: 1
-  user_status_id: 1
-  api_token: "wasd"
+<%= lbl %>_<%= x + 1 %>_admin:
+  firstname: <%= "#{obj['name']} #{x + 1}" %>
+  surname: "Admin"
+  email: <%= "admin@example-#{lbl}-#{x + 1}.org" %>
+  orcid_id: <%= "orcid-#{lbl}-#{x + 1}-admin12345" %>
+  shibboleth_id: <%= "shib-#{lbl}-#{x + 1}-admin12345" %>
+  accept_terms: true
+  organisation: <%= lbl %>_<%= x + 1 %>
+  roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
+  api_token: "ABCD1234ZYX987admin#{lbl}#{x + 1}"
+  language: en-UK
+  confirmed_at: '2016-09-09 10:10:10'
+
+<%= lbl %>_<%= x + 1 %>_user:
+  firstname: <%= "#{obj['name']} #{x + 1}" %>
+  surname: "User"
+  email: <%= "user@example-#{lbl}-#{x + 1}.org" %>
+  orcid_id: <%= "orcid-#{lbl}-#{x + 1}-user12345" %>
+  shibboleth_id: <%= "shib-#{lbl}-#{x + 1}-user12345" %>
+  accept_terms: true
+  organisation: <%= lbl %>_<%= x + 1 %>
+  api_token: "ABCD1234ZYX987user#{lbl}#{x + 1}"
+  language: en-UK
+  confirmed_at: '2016-09-09 10:10:10'
+
+    <% end %>
+  <% end %>
+<% end %>
+
+complete_admin:
+  firstname: "Complete"
+  surname: "Admin"
+  email: <%= "admin@example-complete.org" %>
+  orcid_id: <%= "orcid-complete-admin12345" %>
+  shibboleth_id: <%= "shib-complete-admin12345" %>
+  accept_terms: true
+  organisation: complete
+  roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
+  api_token: "ABCD1234ZYX987admincomplete"
+  language: en-UK
+  user_type: org_admin
+  user_status: active
+  confirmed_at: '2016-09-09 10:10:10'
+
+complete_user:
+  firstname: "Complete"
+  surname: "User"
+  email: <%= "user@example-complete.org" %>
+  orcid_id: <%= "orcid-complete-user12345" %>
+  shibboleth_id: <%= "shib-complete-user12345" %>
+  accept_terms: true
+  organisation: complete
+  api_token: "ABCD1234ZYX987usercomplete"
+  language: en-UK
+  user_type: org_user
+  user_status: active
+  confirmed_at: '2016-09-09 10:10:10'
