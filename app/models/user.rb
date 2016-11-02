@@ -245,16 +245,18 @@ class User < ActiveRecord::Base
         user.roles << grant_api_to_orgs unless user.roles.include? grant_api_to_orgs
         user.roles << grant_permissions unless user.roles.include? grant_permissions
         user.roles.delete(admin)
-      elsif user.roles.include? 'org_admin'
+        user.save!
+      end
+      if user.roles.include? org_admin
         #add org-admin roles
         user.roles << grant_permissions unless user.roles.include? grant_permissions
         user.roles << modify_templates unless user.roles.include? modify_templates
         user.roles << modify_guidance unless user.roles.include? modify_guidance
         user.roles << change_org_details unless user.roles.include? change_org_details
         user.roles.delete(org_admin)
+        # save the user
+        user.save!
       end
-    # save the user
-    user.save!
     end
   end
 end

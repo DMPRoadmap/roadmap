@@ -46,7 +46,7 @@ $( document ).ready(function() {
 
   // ----------------------------------------------------------
   $("#project_funder_name").change(function(){
-    $("#confirm-funder").text($(this).val());
+    $("#confirm-funder").text($("#project_funder_id :selected").text());
   });
 
   // ----------------------------------------------------------
