@@ -1,85 +1,146 @@
 require 'test_helper'
 
 class OrganisationTest < ActiveSupport::TestCase
-
+  setup do
+    @org = organisations(:curation_center)
+    
+    @org_type = OrganisationType.last
+    @language = languages(I18n.default_locale)
+  end
+  
+  # ---------- required fields are required ------------
+  test "required fields should be required" do
+    org = Organisation.new
+    assert_not(org.valid?)
+    
+    org.name = 'ABCD'
+    assert(org.valid?)
+  end
+  
   # ---------- short_name ----------
   test "short_name should return the abbreviation if it exists" do
-    assert_equal(organisations(:dcc).short_name, organisations(:dcc).abbreviation, "Org: DCC has an abreviation and should return it")
+    assert_equal(@org.abbreviation, @org.short_name)
   end
 
   test "short_name should return the name if no abbreviation exists" do
-    assert_equal(organisations(:aru).short_name, organisations(:aru).name, "Org: ARU has no abbreviation and should return it's full name")
+    @org.abbreviation = nil
+    assert_equal(@org.name, @org.short_name)
   end
 
-  # ---------- self.orgs_with_parent_of_type ----------
-  test "self.orgs_with_parent_of_type correctly identifies organisation trees" do
-    children = Organisation.orgs_with_parent_of_type("institution")
-    assert_includes(children, organisations(:institution_child_one), "Org: institution_child_one is a child of an institution")
+  # ---------------------------------------------------
+  test "to_s returns the name" do
+    assert_equal @org.name, @org.to_s
   end
 
-  # ---------- self.other_organisations ----------
-  test "self.other_organisations correctly returns ___" do
-
+  # ---------------------------------------------------
+  test "only accepts valid contact_email addresses" do
+    assert @org.valid?
+    
+    @org.contact_email = 'testing'
+    assert_not @org.valid?
+    @org.contact_email = 'testing.tester.org'
+    assert_not @org.valid?
+    @org.contact_email = 'testing@tester'
+    assert_not @org.valid?
+    
+    @org.contact_email = 'testing@tester.org'
+    assert @org.valid?
   end
-
-  # ---------- all_sections ----------
-  test "all_sections returns correct sections" do
-    sections = organisations(:dcc).all_sections(versions(:DCC_phase_1_version_1).id)
-    org_sections = Section.find_by(organisation: organisations(:dcc))
-    org_sections.each do |section|
-      if section.version_id == versions(:DCC_phase_1_version_1).id
-        assert_includes(sections, section, "Section: #{section.title} should be included")
-      end
+  
+  # ---------------------------------------------------
+  test "should resize logo to a height of 100" do
+    ['uc_seal_full_size.jpg', 
+     'uc_seal_160x160.jpg', 
+     'uc_seal_100x100.jpg'].each do |file|
+       
+       path = File.expand_path("../../assets/#{file}", __FILE__)
+       @org.logo = Dragonfly.app.fetch_file("#{path}")
+       
+       assert @org.valid?, "expected the logo to have been attached to the organisation"
+       assert_equal 100, @org.logo.height, "expected the logo to have been resized properly"
     end
   end
+  
+  # ---------------------------------------------------
+  test "should remove all associated User's api tokens if no TokenPermissionTypes are present" do
+    @org.token_permission_types << token_permission_types(:plans_token_type)
+    usr = User.new(email: 'tester@testing.org', password: 'testing123')
+    usr.keep_or_generate_token!
+    
+    original = usr.api_token
+    @org.users << usr
+    
+    # Make sure that the user's API token was saved
+    @org.save!
+    usr = @org.reload.users.find_by(email: 'tester@testing.org')
+    assert_equal original, usr.api_token
+    
+    # Make sure that the user's API token is cleared out when all API permissions
+    # for the organisation have been removed
+    @org.token_permission_types.clear
+    @org.save!
+    usr = @org.reload.users.find_by(email: 'tester@testing.org')
+    assert_equal nil, usr.api_token
+  end
+  
+  # ---------------------------------------------------
+  test "can CRUD" do
+    org = Organisation.create(name: 'testing')
+    assert_not org.id.nil?, "was expecting to be able to create a new Organisation: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
-  test "all_sections returns a parents sections" do
-    sections = organisations(:institution_child_one).all_sections(versions(:institution_child_version_1).id)
-    assert_includes( sections, sections(:institution_parent_1), "all_sections should return it's parent's sections")
-    assert_includes( sections, sections(:institution_parent_2), "all_sections should return it's parent's sections")
+    org.abbreviation = 'TEST'
+    org.save!
+    org.reload
+    assert_equal 'TEST', org.abbreviation, "Was expecting to be able to update the abbreviation of the Organisation!"
+    
+    assert org.destroy!, "Was unable to delete the Organisation!"
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Users" do
+    usr = User.create(email: 'test@testing.org', password: 'testing1234')
+    verify_has_many_relationship(@org, usr, @org.users.count)
   end
 
-  test "all_sections returns [] if no sections are found" do
-    sections = organisations(:dcc).all_sections(versions(:institution_child_version_1).id)
-    assert_empty( sections, "no sections of that version exist")
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Dmptemplates" do
+    tmplt = Dmptemplate.new(title: 'Added through test')
+    verify_has_many_relationship(@org, tmplt, @org.dmptemplates.count)
   end
-
-  # ---------- all_guidance_groups ----------
-  test "all_guidance_groups returns all of the organisations guidance groups" do
-    all_groups = organisations(:dcc).all_guidance_groups
-    organisations(:dcc).guidance_groups.each do |group|
-      assert_includes(all_groups, group, "group: #{group.name} belongs to the specified org")
-    end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Customisations" do
+    
   end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with GuidanceGroups" do
 
-  test "all_guidance_groups returns all of the organisations children's guidance groups" do
-    all_groups = organisations(:institution_parent).all_guidance_groups
-    organisations(:institution_child_one).guidance_groups.each do |group|
-      assert_includes(all_groups, group, "group: #{group.name} belongs to the specified org")
-    end
   end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with OptionWarnings" do
 
-  # ---------- root ----------
-  test "root correctly identifies the parent organisation" do
-    assert_equal(organisations(:institution_child_one).root, organizations(:institution_parent), "institution parent is the parent of institution child one")
   end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with SuggestedAnswers" do
 
-  test "root returns self if an organisation has no parents" do
-    assert_equal(organisations(:dcc).root, organisations(:dcc), "dcc has no parent, so is root")
   end
-
-  # ---------- warning ----------
-  test "warning returns specified warning if not nil" do
-    flunk
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with TokenPermissionTypes" do
+    tpt = TokenPermissionType.new(token_type: 'testing')
+    verify_has_many_relationship(@org, tpt, @org.token_permission_types.count)
   end
-
-  test "warning returns the parent's warning if nil" do
-    flunk
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with OrganisationType" do
+    verify_belongs_to_relationship(@org, @org_type)
   end
-
-  # ---------- published_templates ----------
-  test "published_templates returns all owned and published templates" do
-    flunk
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Language" do
+    verify_belongs_to_relationship(@org, @language)
   end
-
 end
