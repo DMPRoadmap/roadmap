@@ -41,6 +41,8 @@ en-US:
   screencast_text: "Screencast on how to use %{application_name}"
   screencast_error_text: "Your browser does not support the video tag."
 
+  unauthorized: "You need to sign in or sign up before continuing."
+
   admin:
     org_title: "Organization name"
     org: "Organization"
@@ -569,9 +571,9 @@ Select what format you wish to use and click to 'Export'.</p>"
       project_details_editing_text_html: "Please fill in the basic project details below and click 'Update' to save"
       confirm_delete_text: "Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well"
       confirmation_text: "Confirm plan details"
-      confirmation_text_desc: "Where your funder or institution doesn't have specific requirements (or if you left these options blank), you will see the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='%{organisation_url}sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      confirmation_text_desc: "Where your funder or institution doesn't have specific requirements (or if you left these options blank), you will see the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
       confirmation_button_text: "Yes, create plan"
-      default_confirmation_text_desc: "You have selected the Default DMP, which is based on the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='%{organisation_url}sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      default_confirmation_text_desc: "You have selected the Default DMP, which is based on the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
       default_confirmation_button_text: "Create plan"
       alert_default_template_text_html: "Please note: %{org_name} provides a DMP template. If you wish to use it select 'Cancel', otherwise select 'Create plan'"
       share:
@@ -724,7 +726,7 @@ Select what format you wish to use and click to 'Export'.</p>"
   A summary of requirements from the NSF, NIH and other key funders in the USA.
         </li>
         <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>Digital Curation Centre Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
+          <a target='_blank' href='/files/DMP_Checklist_2013.pdf'>Digital Curation Centre Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
   A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in %{application_name}, and is presented when no funder or organsiational requirements are applicable for the user.
         </li>
         <li>
@@ -811,7 +813,7 @@ Select what format you wish to use and click to 'Export'.</p>"
   contact_page:
     title: "Contact us"
     intro_text_html: "<p>%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href='%{organisation_url}' target='_blank'>website</a>. If you would like to contact us about %{application_name}, please enter your query in the form below or email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
-    github_text_html: "<p>If you have a feature request or think you have found a bug, please check out the <a href='%{application_issue_list_url}'>list of issues on GitHub</a>. If your issue isn't listed there, please add it; if it is, please add a comment if you have more information or just to let us know how important it is to you. This will help us to help us prioritise future developments.</p>"
+    github_text_html: "<p>If you have a feature request or think you have found a bug, please check out the <a href='https://github.com/DMPRoadmap/roadmap/issues'>list of issues on GitHub</a>. If your issue isn't listed there, please add it; if it is, please add a comment if you have more information or just to let us know how important it is to you. This will help us to prioritise future developments.</p>"
     address_text_html: "<ul>
       <li>%{organisation_name}</li>
       <li>Level 7, Appleton Tower</li>
@@ -897,7 +899,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     </div>
     <h3>Cookies</h3>
     <div class='white_background'>
-      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='%{organisation_url}about-us/about-site/website-terms-use/cookies'>main %{organisation_abbreviation} website</a>.</p>
+      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p>
     </div>
     <br />
     <div class='white_background'>

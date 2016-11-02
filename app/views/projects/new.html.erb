@@ -9,7 +9,6 @@
 	<div class="modal-header">
 		<h3><%= t("helpers.project.confirmation_text")%></h3>
 		<p><%= raw t("helpers.project.confirmation_text_desc", 
-			organisation_url: Rails.configuration.branding[:organisation][:url],
 			organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation])%></p>
 	</div>
 	<div class="modal-body">
@@ -31,7 +30,6 @@
 	</div>
 	<div class="modal-body">
 		<div><p><%= raw t("helpers.project.default_confirmation_text_desc", 
-			organisation_url: Rails.configuration.branding[:organisation][:url],
 			organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) %></p></div>
 		<!-- verify if the current user organisation has or a template or guidance. if true display alert text-->
 		<%if !Dmptemplate.own_institutional_templates(current_user.organisation_id).empty? then %>

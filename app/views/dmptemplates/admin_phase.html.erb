@@ -2,6 +2,8 @@
 <%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
+<%= tinymce :content_css => asset_path('application.css') %>
+
 <h1>
 	<%= @phase.dmptemplate.title %>
 	<!-- link button to add new guidance -->
