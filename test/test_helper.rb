@@ -8,7 +8,7 @@ require 'active_support/inflector' # For pluralization utility
 class ActiveSupport::TestCase
   include GlobalHelpers
   
-  ActiveRecord::Base.logger.silence
+  ActiveRecord::Base.logger.level = :info
   
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
