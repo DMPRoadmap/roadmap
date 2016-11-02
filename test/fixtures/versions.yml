@@ -1,67 +1,40 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# Produces:
+# -----------------------------
+#   Generates 1 Version for each Phase of a published template and 2 Versions for 
+#   each Phase of an unpublished template 
+#   (see dmptemplates.yml for template list and phases.yml for phase list)
+#
+# [template]_phase_1_version_1
+# [template]_unpublished_phase_[1..2]_version_[1..2]
+#
+#   A copy of Funder Template 1 Phase 1 that contains customisations
+#
+# complete_template_customised_phase
+#
 
-DCC_phase_1_version_1:
-  title: DCC Phase 1 Version 1
-  published: 1
-  number: 1
-  phase: DCC_phase_1
+# Import phases.yml so that we can dynamically generate versions
+<% phases = YAML::load(ERB.new(File.read('./test/fixtures/phases.yml')).result) %>
 
-ahrc_template_1_version_1:
-  title: "AHRC Data Management Questions (Version 1)"
-  published: 1
-  number: 1
-  phase: ahrc_template_1
+<% phases.each do |lbl, hash| %>
 
-bbsrc_template_1_version_1:
-  title: "BBSRC Data Management Questions (Version 1)"
-  published: 1
+<%= lbl %>_version_1:
+  title: <%= "hash['title'] - Version 1" %>
   number: 1
-  phase: bbsrc_template_1
+  published: true
+  phase: <%= lbl %>
 
-cruk_template_1_version_1:
-  title: "CRUK Data Management Questions (Version 1)"
-  published: 1
-  number: 1
-  phase: cruk_template_1
+  <% if lbl.include?('_unpublished') %>
+<%= lbl %>_version_2:
+  title: <%= "hash['title'] - Version 2" %>
+  number: 2
+  published: false
+  phase: <%= lbl %>
+  <% end %>
 
-esrc_template_1_version_1:
-  title: "ESRC Data Management Questions (Version 1)"
-  published: 1
-  number: 1
-  phase: esrc_template_1
+<% end %>
 
-nerc_template_1_version_1:
-  title: "Outline for application (Version 1)"
-  published: 1
+complete_customised_template_phase_1_version_1:
+  title: "Customisation of Funder Template 1, Phase 1, Version 1"
   number: 1
-  phase: nerc_template_1
-
-nerc_template_2_version_1:
-  title: "Detail following award (Version 1)"
-  published: 1
-  number: 1
-  phase: nerc_template_2
-
-mrc_template_1_version_1:
-  title: "MRC Data Management Questions (Version 1)"
-  published: 1
-  number: 1
-  phase: mrc_template_1
-
-stfc_template_1_version_1:
-  title: "STFC Data Management Questions (Version 1)"
-  published: 1
-  number: 1
-  phase: stfc_template_1
-
-wellcome_template_1_version_1:
-  title: "Wellcome Trust Data Management Questions (Version 1)"
-  published: 1
-  number: 1
-  phase: wellcome_template_1
-
-institution_child_version_1:
-  title: DCC Phase 1 Version 1
-  published: 1
-  number: 1
-  phase: DCC_phase_1
+  published: false
+  phase: funder_template_1_phase_1

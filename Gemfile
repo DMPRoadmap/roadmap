@@ -103,6 +103,7 @@ group :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
   gem 'rack-test'
+  gem 'sqlite3'
 end
 
 group :development do

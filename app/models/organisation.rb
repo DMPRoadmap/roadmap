@@ -29,6 +29,7 @@ class Organisation < ActiveRecord::Base
                   :token_permission_type_ids, :language_id, :contact_email
 
   validates :contact_email, email: true, allow_nil: true
+  validates :name, presence: true, uniqueness: true
 
   # allow validations for logo upload
   dragonfly_accessor :logo do

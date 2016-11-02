@@ -38,6 +38,7 @@ de:
   welcome_links: "<p></p>"
   ccid_message: ""
 
+  unauthorized: "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
 
   admin:
     org_title: "Name der Organisation"
@@ -588,11 +589,11 @@ de:
           question_not_answered: "Frage nicht beantwortet."
           generated_by: "Dieses Dokument wurde von DMPonline (http://dmponline.dcc.ac.uk) erzeugt."
         space_used: "annährend %{space_used}% des verfügbaren Platzes wird verwendet (max. %{num_pages} Seiten)"
-        project_name: "Projektname"
-        project_identifier: "Projektbezeichner"
-        grant_title: "Grant Title"
+        project_name: "Planenname"
+        project_identifier: "Planenbezeichner"
+        grant_title: "Grantnummer"
         principal_investigator: "Principal Investigator / Forscher"
-        project_data_contact: "Kontakt für Projektdaten"
+        project_data_contact: "Kontakt für Planen"
         project_description: "Beschreibung"
         funder: "Geldgeber"
         institution: "Institution"

@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :user_identifiers
   has_many :project_groups, :dependent => :destroy
   has_many :user_role_types, through: :user_org_roles
-	has_one :language
+	belongs_to :language
 
   belongs_to :organisation
 
@@ -52,7 +52,9 @@ class User < ActiveRecord::Base
                   :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                   :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
                   :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-									:language_id, :organisation
+                  :organisation, :language
+
+  validates :email, email: true, allow_nil: true, uniqueness: true
 
   # FIXME: The duplication in the block is to set defaults. It might be better if
   #        they could be set in Settings::PlanList itself, if possible.
@@ -65,14 +67,14 @@ class User < ActiveRecord::Base
   #
   # @param user_email [Boolean] defaults to true, allows the use of email if there is no firstname or surname
   # @return [String] the email or the firstname and surname of the user
-	def name(use_email = true)
-		if ((firstname.nil? && surname.nil?) || (firstname.strip == "" && surname.strip == "")) && use_email then
-			return email
-		else
-			name = "#{firstname} #{surname}"
-			return name.strip
-		end
-	end
+  def name(use_email = true)
+    if ((firstname.nil? && surname.nil?) || (firstname.strip == "" && surname.strip == "")) && use_email then
+      return email
+    else
+      name = "#{firstname} #{surname}"
+      return name.strip
+    end
+  end
 
   ##
   # Returns the user's identifier for the specified scheme name
@@ -91,7 +93,7 @@ class User < ActiveRecord::Base
   #
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
-	def organisation_id=(new_organisation_id)
+  def organisation_id=(new_organisation_id)
     unless self.can_change_org? || new_organisation_id.nil? || self.organisation.nil?
       # rip all permissions from the user
       self.roles.delete_all
@@ -101,15 +103,15 @@ class User < ActiveRecord::Base
     self.save!
     # rip api permissions from the user
     self.remove_token!
-	end
+  end
 
   ##
   # sets a new organisation for the user
   #
   # @param new_organisation [Organisation] the new organisation for the user
-	def organisation=(new_organisation)
+  def organisation=(new_organisation)
     organisation_id = new_organisation.id unless new_organisation.nil?
-	end
+  end
 
   ##
   # checks if the user is a super admin
@@ -117,9 +119,9 @@ class User < ActiveRecord::Base
   # then they are a super admin
   #
   # @return [Boolean] true if the user is an admin
-	def can_super_admin?
-		return self.can_add_orgs? || self.can_grant_api_to_orgs? || can_change_org?
-	end
+  def can_super_admin?
+    return self.can_add_orgs? || self.can_grant_api_to_orgs? || can_change_org?
+  end
 
   ##
   # checks if the user is an organisation admin
@@ -127,9 +129,9 @@ class User < ActiveRecord::Base
   # then they are an org admin
   #
   # @return [Boolean] true if the user is an organisation admin
-	def can_org_admin?
-		return self.can_grant_permissions? || self.can_modify_guidance? || self.can_modify_templates? || self.can_modify_org_details?
-	end
+  def can_org_admin?
+    return self.can_grant_permissions? || self.can_modify_guidance? || self.can_modify_templates? || self.can_modify_org_details?
+  end
 
   ##
   # checks if the user can add new organisations
@@ -260,16 +262,18 @@ class User < ActiveRecord::Base
         user.roles << grant_api_to_orgs unless user.roles.include? grant_api_to_orgs
         user.roles << grant_permissions unless user.roles.include? grant_permissions
         user.roles.delete(admin)
-      elsif user.roles.include? 'org_admin'
+        user.save!
+      end
+      if user.roles.include? org_admin
         #add org-admin roles
         user.roles << grant_permissions unless user.roles.include? grant_permissions
         user.roles << modify_templates unless user.roles.include? modify_templates
         user.roles << modify_guidance unless user.roles.include? modify_guidance
         user.roles << change_org_details unless user.roles.include? change_org_details
         user.roles.delete(org_admin)
+        # save the user
+        user.save!
       end
-    # save the user
-    user.save!
     end
   end
 
