@@ -250,12 +250,14 @@ Devise.setup do |config|
   
   # Dynamically register the Omniauth Providers
   ActiveSupport.on_load(:active_record) do
-    IdentifierScheme.all.each do |scheme|
-      puts "Registering Omniauth Provider - #{scheme.name}"
-      config.omniauth scheme.name.downcase.to_sym,
-                      scheme.api_key ||= '',
-                      scheme.api_secret ||= '',
-                      (scheme.params.empty? ? {} : JSON.parse(scheme.params))
+    if IdentifierScheme.count > 0
+      IdentifierScheme.all.each do |scheme|
+        puts "Registering Omniauth Provider - #{scheme.name}"
+        config.omniauth scheme.name.downcase.to_sym,
+                        scheme.api_key ||= '',
+                        scheme.api_secret ||= '',
+                        (scheme.params.empty? ? {} : JSON.parse(scheme.params))
+      end
     end
   end
   
