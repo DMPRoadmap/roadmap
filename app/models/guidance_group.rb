@@ -66,10 +66,8 @@ class GuidanceGroup < ActiveRecord::Base
     viewable = false
 
     # groups are viewable if they are owned by any of the user's organisations
-    user.organisations.each do |organisation|
-      if guidance_group.organisation.id == organisation.id
-        viewable = true
-      end
+    if guidance_group.organisation == user.organisation
+      viewable = true
     end
     # groups are viewable if they are owned by the managing curation center
     Organisation.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_group|
@@ -109,7 +107,7 @@ class GuidanceGroup < ActiveRecord::Base
     end
     organisation_groups = [user.organisation.guidance_groups]
     
-    # pass this organisation to the view with respond_with @all_viewable_groups
+    # pass this organisation guidance groups to the view with respond_with @all_viewable_groups
     all_viewable_groups = managing_org_groups + funder_groups + organisation_groups
     all_viewable_groups = all_viewable_groups.uniq{|x| x.id}
     return all_viewable_groups
