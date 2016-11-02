@@ -8,8 +8,7 @@ services:
 before_script:
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
-  - "rake db:migrate RAILS_ENV=test"
+  - bundle exec rake db:migrate RAILS_ENV=test
 
 script:
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
+  - bundle exec rake test
