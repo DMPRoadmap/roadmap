@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 language: ruby
 rvm:
   - 2.2.2
@@ -14,20 +13,3 @@ before_script:
 script:
   - bundle exec rake db:test:prepare
   - bundle exec rake
-=======
-language: ruby
-rvm:
-  - 2.1.10
-
-services:
-  - mysql
-
-before_script:
-  - cp config/database_example.yml config/database.yml
-  - cp config/secrets_example.yml config/secrets.yml
-  - mysql -e 'create database IF NOT EXISTS roadmap_test;' -uroot
-
-script:
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
->>>>>>> bea115faeb6f8344ca4e7e582a78f78dcc091c2c
