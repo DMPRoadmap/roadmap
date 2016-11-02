@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
                     :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                     :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
                     :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                    :language_id, :organisation
+                    :organisation, :language
 
     validates :email, email: true, allow_nil: true, uniqueness: true
 

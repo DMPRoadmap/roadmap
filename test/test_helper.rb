@@ -8,7 +8,8 @@ require 'active_support/inflector' # For pluralization utility
 class ActiveSupport::TestCase
   include GlobalHelpers
   
-  ActiveRecord::Base.logger.level = :info
+  # Suppress noisy ActiveRecord logs because fixtures load for each test
+  ActiveRecord::Base.logger.level = Logger::INFO
   
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #

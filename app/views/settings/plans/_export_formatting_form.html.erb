@@ -58,7 +58,7 @@
                name = "export[fields][questions][#{question.id}]"
           %>
             <li>
-              <%= label_tag(name, question.text.html_safe, title: question.text.html_safe) %>
+              <%= label_tag(name, strip_tags(question.text).html_safe, title: strip_tags(question.text).html_safe) %>
               <%= check_box_tag(name, true, selected) %>
             </li>
           <% end %>
