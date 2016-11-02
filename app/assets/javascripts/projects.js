@@ -5,7 +5,7 @@ $( document ).ready(function() {
   $("#project_funder_id").change(function(){
     reloadTemplateData();
     
-    if($(this).val().length > 0){
+    if($(this).select2().val().length > 0){
       $("#other-funder-name").hide();
       $("#project_funder_name").val("");
       
@@ -15,14 +15,14 @@ $( document ).ready(function() {
     
     $("#institution-control-group").show();
     $("#create-plan-button").show();
-    $("#confirm-funder").text($("#project_funder_id :selected").text());
+    $("#confirm-funder").text($("#project_funder_id option:selected").text());
   });
   
   // ----------------------------------------------------------
   $("#project_institution_id").change(function(){
     reloadTemplateData();
     
-    $("#confirm-institution").text($("#project_institution_id").select2('data').text);
+    $("#confirm-institution").text($("#project_institution_id option:selected").text());
   });
   
   // ----------------------------------------------------------
@@ -33,7 +33,11 @@ $( document ).ready(function() {
   // ----------------------------------------------------------
   $("#no-funder").click(function(e) {
     e.preventDefault();
-    $("#project_funder_id").select2("val", "");
+    // For some reason we need to access the select2 box's value again to get the
+    // UI to update correctly
+    $("#project_funder_id").select2().val("");
+    $("#project_funder_id").select2().val();
+    
     $("#institution-control-group").show();
     $("#create-plan-button").show();
     $("#other-funder-name").show();
@@ -47,7 +51,11 @@ $( document ).ready(function() {
 
   // ----------------------------------------------------------
   $("#no-institution").click(function() {
-    $("#project_institution_id").select2("val", "");
+    // For some reason we need to access the select2 box's value again to get the
+    // UI to update correctly
+    $("#project_institution_id").select2().val("");
+    $("#project_institution_id").select2().val();
+    
     $("#confirm-institution").text(I18n.t("helpers.none"));
   });
   
@@ -172,7 +180,7 @@ $( document ).ready(function() {
             "<li class=\"choice\">" +
                 "<label for=\"project_guidance_group_ids_" + array[i]['id'] + "\">" +
                 "<input id=\"project_guidance_group_ids_" + array[i]['id'] + "\" " +
-                       "name=\"project_guidance_group_ids_" + array[i]['id'] + "\" " +
+                       "name=\"project[guidance_group_ids][]\" " +
                        "value=\"" + array[i]['id'] + "\" type=\"checkbox\" />" +
                 array[i]['text'] + "</label>" +
             "</li>"

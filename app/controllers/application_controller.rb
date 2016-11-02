@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
+    redirect_to root_url, alert: I18n.t('unauthorized')
   end
 
   before_filter :set_locale

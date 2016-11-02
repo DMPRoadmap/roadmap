@@ -38,6 +38,7 @@ de:
   welcome_links: "<p></p>"
   ccid_message: ""
 
+  unauthorized: "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
 
   admin:
     org_title: "Name der Organisation"
@@ -514,12 +515,12 @@ de:
       project_text_when_no_project: "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
       project_text_when_project: "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
       confirmation_text: "Plandetails bestätigen"
-      confirmation_text_desc: "An Stellen, an denen Förderer oder Institutionen keine spezifischen Anforderung definiert haben (oder Sie entsprechende Angaben nicht gemacht haben), wird Ihnen die DCC Checkliste angezeigt. Diese bietet eine generische Fragen und Hilfestellungen; Mehr Informationen unter: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP Check-Liste 2013</a>."
+      confirmation_text_desc: "An Stellen, an denen Förderer oder Institutionen keine spezifischen Anforderung definiert haben (oder Sie entsprechende Angaben nicht gemacht haben), wird Ihnen die DCC Checkliste angezeigt. Diese bietet eine generische Fragen und Hilfestellungen; Mehr Informationen unter: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP Check-Liste 2013</a>."
       confirmation_button_text: "Ja, Plan erstellen"
       project_details_text_html: "Diese Seite bietet Ihnen einen Überblick über Ihren Plan. Sie gibt an, worauf dieser Plan basiert und gibt eine Übersicht über die Fragen, die gestellt werden."
       project_details_editing_text_html: "Bitte geben Sie im Folgenden die Projektdetails an und wählen 'Aktualisieren' aus, um die Änderungen zu speichern."
       confirm_delete_text: "Sind Sie sicher, dass sie diesen Plan löschen wollen?"
-      default_confirmation_text_desc: "Sie haben den Standardplan gewählt, der auf dem Katalog der DCC basiert. Dies bietet eine generische Menge von DMP-Fragen and Hilfestellung. Für mehr Einzelheiten: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      default_confirmation_text_desc: "Sie haben den Standardplan gewählt, der auf dem Katalog der DCC basiert. Dies bietet eine generische Menge von DMP-Fragen and Hilfestellung. Für mehr Einzelheiten: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
       default_confirmation_button_text: "Erstelle Plan"
       alert_default_template_text_html: "Bitte beachten: %{org_name} stellt eine DMP-Vorlage zur Verfügung. Wenn Sie sie benutzen möchten, wähle 'Abbrechen', ansonsten wähle 'Erstelle Plan'"
       share:
@@ -693,7 +694,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
   A summary of requirements from the NSF, NIH and other key funders in the USA.
         </li>
         <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
+          <a target='_blank' href='/'>/files/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
   A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in DMPonline, and is presented when no funder or organsiational requirements are applicable for the user.
         </li>
         <li>
