@@ -199,8 +199,7 @@ $( document ).ready(function() {
 
 	 //action to hide the alert to edit a version
 	 $("#edit-version-confirmed").click(function (e){
-		 e.preventDefault();
-		$("#version_edit_alert").modal("hide");
+		 $("#version_edit_alert").modal("hide");
 	 });
 
 	 //action to clone/add a version

@@ -230,7 +230,7 @@ class DmptemplatesController < ApplicationController
 	#clone a version of a template
 	def admin_cloneversion
     @old_version = Version.find(params[:version_id])
-    authorize @version.phase.dmptemplate
+    authorize @old_version.phase.dmptemplate
 		@version = @old_version.amoeba_dup
 		@phase = @version.phase
     respond_to do |format|
@@ -255,7 +255,6 @@ class DmptemplatesController < ApplicationController
 
 
 # SECTIONS
-
 	#create a section
 	def admin_createsection
     @section = Section.new(params[:section])
