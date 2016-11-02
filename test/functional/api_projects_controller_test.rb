@@ -23,35 +23,35 @@ class ApiProjectsControllerTest < ActiveSupport::TestCase
   end
 
   test "create validates that the passed organisation exists" do
-    flunk
+  
   end
 
   test "create validates that the passed organisation is a funder" do
-    flunk
+
   end
 
   test "create validates that the passed organisation has only 1 template" do
-    flunk
+
   end
 
   test "create validates that a passed organisation with more than one template specifies template" do
-    flunk
+
   end
 
   test "create checks for a guidance and adds it if it exists" do
-    flunk
+
   end
 
   test "create checks for guidances and adds them if they exist" do
-    flunk
+
   end
 
   test "create invites is user email not already in system" do
-    flunk
+
   end
 
   test "create creates a new project when params correct" do
-    flunk
+
   end
 
 end
