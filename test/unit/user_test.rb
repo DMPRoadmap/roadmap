@@ -9,8 +9,6 @@ class UserTest < ActiveSupport::TestCase
     
     @organisation = organisations(:curation_center)
     @language = languages(I18n.default_locale)
-    @user_status = user_statuses(:active)
-    @user_type = user_types(:admin)
     
     @dmptemplate = dmptemplates(:cc_template)
     
@@ -23,9 +21,7 @@ class UserTest < ActiveSupport::TestCase
                          accept_terms: 'true',
                          organisation: @organisation,
                          api_token: 'ABC123',
-                         language: @language,
-                         user_type: @user_type,
-                         user_status: @user_status)
+                         language: @language)
   end
 
   # ---------------------------------------------------
@@ -188,16 +184,6 @@ class UserTest < ActiveSupport::TestCase
     section = Section.new()
     ps = PlanSection.new(plan: plan, section: section)
     verify_has_many_relationship(@super, ps, @super.plan_sections.count)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with UserType" do
-    verify_belongs_to_relationship(@super, @user_type)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with UserStatus" do
-    verify_belongs_to_relationship(@super, @user_status)
   end
   
   # ---------------------------------------------------

@@ -100,8 +100,6 @@ complete_admin:
   roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
   api_token: "ABCD1234ZYX987admincomplete"
   language: en-UK
-  user_type: org_admin
-  user_status: active
   confirmed_at: '2016-09-09 10:10:10'
 
 complete_user:
@@ -114,6 +112,4 @@ complete_user:
   organisation: complete
   api_token: "ABCD1234ZYX987usercomplete"
   language: en-UK
-  user_type: org_user
-  user_status: active
   confirmed_at: '2016-09-09 10:10:10'
