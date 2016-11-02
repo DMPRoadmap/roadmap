@@ -12,8 +12,10 @@ class ApiProjectsControllerTest < ActiveSupport::TestCase
 
   test "create validates that a user has plans auth" do
     # has auth for projects
-    @user = users(:user_dcc)
-    post :create, params: {template:{organisation: "Arts and Humanities Research Council"},project:{title:"my project", email:"org_admin@example.com"}}
+    @user = users.first
+    post :create, params: {template:{
+                            organisation: "Arts and Humanities Research Council"},
+                            project:{title:"my project", email:"org_admin@example.com"}}
     assert_response :success
 
     # has no auth for projects
