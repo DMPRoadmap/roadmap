@@ -114,8 +114,9 @@ $( document ).ready(function() {
   // constructed in app/view/projects/_dropdown_new_project.html.erb
   // ----------------------------------------------------------
   function reloadTemplateData(){
-    var orgs = [$("#project_funder_id").val(),
-                $("#project_institution_id").val()];
+    // decide whether to filter by funder templates or institution templates
+    // if the #other_funder_name is hidden, then do not include institutional templates
+    var orgs = $("#other_funder_name").is(":visible") ? [$("#project_institution_id").val]: [$("#project_funder_id").val];
                 
     var template = $("#project_dmptemplate_id :selected").val();
             
@@ -123,8 +124,8 @@ $( document ).ready(function() {
       // Clear and reload the contents of the dropdown
       $("#project_dmptemplate_id").html("").select2( {data: array} ).val();
 
-      // If there are no templates, hide the dropdown
-      if(array.length <= 0){
+      // If there are less than 2 templates, hide the dropdown
+      if(array.length < 2){
         $("#template-control-group").hide();
         reloadGuidanceOptions();
         
