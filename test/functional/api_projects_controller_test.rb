@@ -4,10 +4,6 @@ require "rack/test"
 class ApiProjectsControllerTest < ActiveSupport::TestCase
   include Rack::Test::Methods
 
-  def app
-    MyApp.new
-  end
-
   @controller = Api::V0::ProjectsController.new
 
   test "create validates that a user has plans auth" do

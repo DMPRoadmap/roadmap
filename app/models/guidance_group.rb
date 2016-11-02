@@ -107,12 +107,9 @@ class GuidanceGroup < ActiveRecord::Base
     funders.organisations.each do |funder|
       funder_groups = funder_groups + funder.guidance_groups
     end
-    # find all groups owned by any of the user's organisations
-    organisation_groups = []
-    user.organisations.each do |organisation|
-      organisation_groups = organisation_groups + organisation.guidance_groups
-    end
-    # pass this list to the view with respond_with @all_viewable_groups
+    organisation_groups = [user.organisation.guidance_groups]
+    
+    # pass this organisation to the view with respond_with @all_viewable_groups
     all_viewable_groups = managing_org_groups + funder_groups + organisation_groups
     all_viewable_groups = all_viewable_groups.uniq{|x| x.id}
     return all_viewable_groups
