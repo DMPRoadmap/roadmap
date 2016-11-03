@@ -81,8 +81,10 @@ class ApplicationController < ActionController::Base
       @selected_columns = current_user.settings(:plan_list).columns
 
       # handle settings saved and stored using an older version of the settings gem
-      unless @selected_columns['elements'].nil?
-        @selected_columns = @selected_columns['elements'].collect{|k,v| puts "#{k} - #{v}"; k}
+      if @selected_columns.kind_of? Hash
+        unless @selected_columns['elements'].nil?
+          @selected_columns = @selected_columns['elements'].collect{|k,v| puts "#{k} - #{v}"; k}
+        end
       end
       
       # If the settings are missing or stored in the wrong format for some reason 
