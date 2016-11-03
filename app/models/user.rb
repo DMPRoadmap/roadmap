@@ -80,10 +80,9 @@ class User < ActiveRecord::Base
   # Returns the user's identifier for the specified scheme name
   #
   # @param the identifier scheme name (e.g. ORCID)
-  # @return [String] the user's identifier for that scheme
+  # @return [UserIdentifier] the user's identifier for that scheme
   def identifier_for(scheme)
-    user_identifier = user_identifiers.where(identifier_scheme: scheme).first
-    (user_identifier.nil? ? '' : user_identifier.identifier)
+    user_identifiers.where(identifier_scheme: scheme).first
   end
 
   ##

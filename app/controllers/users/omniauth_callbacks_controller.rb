@@ -40,50 +40,22 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       # If the user could not be found by that uid then attach it to their record
       if user.email.nil? || user.email.empty?
-        UserIdentifier.create!(identifier_scheme: scheme, 
-                               identifier: request.env["omniauth.auth"].uid,
-                               user: current_user)
+        if UserIdentifier.create(identifier_scheme: scheme, 
+                                 identifier: request.env["omniauth.auth"].uid,
+                                 user: current_user)
+                               
+          flash[:notice] = t('identifier_schemes.connect_success', scheme: scheme.name)
+        else
+          flash[:notice] = t('identifier_schemes.connect_failure', scheme: scheme.name)
+        end
       end
       
       redirect_to edit_user_registration_path
     end
   end
 
-=begin
-  # We could consider combining these callbacks into a shared generic version
-  # -------------------------------------------------------------
-  def orcid
-    scheme = IdentifierScheme.find_by(name: request.env["omniauth.auth"].provider.upcase)
-    user = User.from_omniauth(request.env["omniauth.auth"])
-    
-    # If the user isn't logged in
-    if current_user.nil? 
-      session["devise.orcid_data"] = request.env["omniauth.auth"]
-      
-      # If the uid didn't have a match in the system send them to register
-      if user.email.nil?
-        redirect_to new_user_registration_url
-        
-      # Otherwise sign them in
-      else
-        sign_in_and_redirect @user, event: :authentication
-        set_flash_message(:notice, :success, kind: 'Orcid') if is_navigational_format?
-      end
-      
-    # The user is just registering the uid with us
-    else
-      # If the user could not be found by that uid then attach it to their record
-      if user.email.nil? || user.email.empty?
-        UserIdentifier.create!(identifier_scheme: scheme, 
-                               identifier: request.env["omniauth.auth"].uid,
-                               user: current_user)
-      end
-      
-      redirect_to edit_user_registration_path
-    end
-  end
-=end
-  
+
+
   # -------------------------------------------------------------
   def shibboleth
     if user_signed_in? && current_user.shibboleth_id.present? && current_user.shibboleth_id.length > 0 then

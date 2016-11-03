@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         passwords: 'passwords', 
         sessions: 'sessions', 
         omniauth_callbacks: 'users/omniauth_callbacks'} do
+          
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
@@ -14,12 +15,14 @@ Rails.application.routes.draw do
   get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
 
   post '/auth/:provider/callback' => 'sessions#oauth_create'
-
+  
   # fix for activeadmin signout bug
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
+  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  
   ActiveAdmin.routes(self)
 
   #organisation admin area
