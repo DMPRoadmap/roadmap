@@ -5,9 +5,9 @@ rvm:
 before_script:
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
-  - cp config/devise.rb.example config/devise.rb
-  - cp config/recaptcha.rb.example config/recaptcha.rb
-  - cp config/wicked_pdf.eb.example config/wicked_pdf.rb
+  - cp config/initializers/devise.rb.example config/initializers/devise.rb
+  - cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+  - cp config/initializers/wicked_pdf.eb.example config/initializers/wicked_pdf.rb
   - bundle exec rake db:migrate RAILS_ENV=test
 
 script:
