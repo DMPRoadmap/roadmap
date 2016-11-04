@@ -79,6 +79,16 @@ class ApplicationController < ActionController::Base
   def get_plan_list_columns
     if user_signed_in?
       @selected_columns = current_user.settings(:plan_list).columns
+
+      # handle settings saved and stored using an older version of the settings gem
+      if @selected_columns.kind_of? Hash
+        unless @selected_columns['elements'].nil?
+          @selected_columns = @selected_columns['elements'].collect{|k,v| puts "#{k} - #{v}"; k}
+        end
+      end
+      
+      # If the settings are missing or stored in the wrong format for some reason 
+      # then use the defaults columns
       @selected_columns = Settings::PlanList::DEFAULT_COLUMNS if @selected_columns.empty?
       
       @all_columns = Settings::PlanList::ALL_COLUMNS
