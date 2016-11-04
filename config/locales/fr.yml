@@ -849,15 +849,15 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
     connect_failure: 'Nous ne pouvions pas connecter votre compte %{scheme}'
     disconnect_success: 'Votre compte a été déconnecté de %{scheme}'
     disconnect_failure: 'Nous avons été incapables de déconnecter votre compte %{scheme}'
-    new_login_success: 'Vous ne l'avez pas configurer un compte avec nous. S'il vous plaît remplir les informations ci-dessous pour terminer votre inscription.'
-    new_login_failure: 'Nous avons été en mesure de vérifier votre compte. S'il vous plaît utiliser le formulaire ci-dessous pour créer un nouveau compte. Vous serez en mesure de lier votre nouveau compte par la suite.'
+    new_login_success: "Vous ne l'avez pas configurer un compte avec nous. S'il vous plaît remplir les informations ci-dessous pour terminer votre inscription."
+    new_login_failure: "Nous avons été en mesure de vérifier votre compte. S'il vous plaît utiliser le formulaire ci-dessous pour créer un nouveau compte. Vous serez en mesure de lier votre nouveau compte par la suite."
     ORCID:
       logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
       connect: 'Créer ou Connectez votre ID ORCID'
       connect_tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs. En savoir plus sur orcid.org'
       disconnect_tooltip: 'Déconnectez votre ID ORCID'
       disconnect_confirmation: 'Etes-vous sûr que vous voulez déconnecter votre ID ORCID?'
-
+      
   magic_strings:
     organisation_types:
       funder: 'Funder'
