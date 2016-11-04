@@ -3,7 +3,6 @@ $( document ).ready(function() {
 
   // ----------------------------------------------------------
   $("#project_funder_id").change(function(){
-    reloadTemplateData();
     
     if($(this).select2().val().length > 0){
       $("#other-funder-name").hide();
@@ -16,6 +15,7 @@ $( document ).ready(function() {
     $("#institution-control-group").show();
     $("#create-plan-button").show();
     $("#confirm-funder").text($("#project_funder_id option:selected").text());
+    reloadTemplateData();
   });
   
   // ----------------------------------------------------------
@@ -42,11 +42,13 @@ $( document ).ready(function() {
     $("#create-plan-button").show();
     $("#other-funder-name").show();
     $("#confirm-funder").text(I18n.t("helpers.none"));
+    reloadTemplateData();
   });
 
   // ----------------------------------------------------------
   $("#project_funder_name").change(function(){
     $("#confirm-funder").text($("#project_funder_id :selected").text());
+    reloadTemplateData();
   });
 
   // ----------------------------------------------------------
@@ -116,8 +118,13 @@ $( document ).ready(function() {
   function reloadTemplateData(){
     // decide whether to filter by funder templates or institution templates
     // if the #other_funder_name is hidden, then do not include institutional templates
-    var orgs = $("#other_funder_name").is(":visible") ? [$("#project_institution_id").val]: [$("#project_funder_id").val];
-                
+    // by default use the funder's templates
+    var orgs = [$("#project_funder_id").val()];
+    // if the "not applicable/listed" option ticked, use selected institution's templates
+    if($("#other-funder-name").is(":visible")) {
+        orgs = [$("#project_institution_id").val()];
+    }
+
     var template = $("#project_dmptemplate_id :selected").val();
             
     selectItemsFromJsonArray(templates, 'organisation', orgs, function(array){
@@ -133,7 +140,6 @@ $( document ).ready(function() {
         // Select the first item in the list if there was none selected
         if(template == undefined){
           $("#project_dmptemplate_id").val(array[0]['id']).trigger('change');
-        
         }else{
           reloadGuidanceOptions();
         }
