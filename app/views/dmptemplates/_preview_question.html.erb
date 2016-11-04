@@ -107,7 +107,7 @@
 				<input type ="text" style="width: 97%;"/>
 			<!--text area display-->
 			<%elsif q_format.title == t("helpers.text_area") then%>
-				<textarea rows="4" style="width: 97%;" ><%= question.default_value %></textarea>
+				<textarea rows="4" style="width: 97%;" ><%= question.default_value[3..-5] unless question.default_value.nil? %></textarea>
 			<%end%>
 			<br/>
 			<!-- button without action-->
