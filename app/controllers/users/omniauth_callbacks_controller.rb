@@ -20,25 +20,32 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # @scheme [IdentifierScheme] The IdentifierScheme for the provider
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
+    
+puts "GOT IN"
+    
     user = User.from_omniauth(request.env["omniauth.auth"])
     
     # If the user isn't logged in
     if current_user.nil? 
       # If the uid didn't have a match in the system send them to register
       if user.nil?
+puts "A"
         session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
         redirect_to new_user_registration_url
         
       # Otherwise sign them in
       else
+puts "B"
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: scheme.name) if is_navigational_format?
       end
       
     # The user is already logged in and just registering the uid with us
     else
+puts "C"
       # If the user could not be found by that uid then attach it to their record
       if user.nil?
+puts "D"
         if UserIdentifier.create(identifier_scheme: scheme, 
                                  identifier: request.env["omniauth.auth"].uid,
                                  user: current_user)
@@ -55,7 +62,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
 
-
+  # TODO: We should consider rolling the below function up into the 
+  #       generic handler above
   # -------------------------------------------------------------
   def shibboleth
     if user_signed_in? && current_user.shibboleth_id.present? && current_user.shibboleth_id.length > 0 then

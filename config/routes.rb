@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
 
-  post '/auth/:provider/callback' => 'sessions#oauth_create'
+  #post '/auth/:provider/callback' => 'sessions#oauth_create'
   
   # fix for activeadmin signout bug
   devise_scope :user do
