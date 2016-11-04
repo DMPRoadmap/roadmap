@@ -5,7 +5,7 @@ module ProjectsHelper
   def project_list_column_heading(column)
     if column.kind_of?(Array)
       heading = (column.first.kind_of?(String) ? column.first : t("helpers.project.columns.unknown"))
-    
+      
     elsif column.kind_of?(String)
       heading = column
 

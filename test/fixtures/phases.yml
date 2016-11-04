@@ -1,57 +1,28 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# Produces:
+# -----------------------------
+#   Generates 1 Phase for each published template and 2 Phases for each one that 
+#   is unpublished (see dmptemplates.yml for template list)
+#
+# [template]_phase_1
+# [template]_unpublished_phase_[1..2]
+#
+#
 
-DCC_phase_1:
-  title: "DCC Data Management Questions"
+# Import dmptemplates.yml so that we can dynamically generate phases
+<% templates = YAML::load(ERB.new(File.read('./test/fixtures/dmptemplates.yml')).result) %>
+
+<% templates.each do |lbl, hash| %>
+
+<%= lbl %>_phase_1:
+  title: <%= "hash['title'] - Phase 1" %>
   number: 1
-  dmptemplate: dcc_template
+  dmptemplate: <%= lbl %>
 
-ahrc_template_1:
-  title: "AHRC Data Management Questions"
-  number: 1
-  description: "<p>A Technical Plan should be no more than four pages long and provided for all applications where digital outputs or digital technologies are an essential part to the planned research outcomes.</p>"
-  dmptemplate: ahrc_template
-
-bbsrc_template_1:
-  title: "BBSRC Data Management Questions"
-  number: 1
-  description: "<p>All applications seeking research grant funding from BBSRC must submit a statement on data sharing. This should include concise plans for data management and sharing as part of research grant proposal or provide explicit reasons why data sharing is not possible or appropriate. The “statement on data sharing” will be included as an additional page in the case for support.</p>"
-  dmptemplate: bbsrc_template
-
-cruk_template_1:
-  title: "CRUK Data Management Questions"
-  number: 1
-  description: "<p>All applicants seeking funding from Cancer Research UK will be required to submit a data sharing plan as part of their research grant proposal. If data sharing is not appropriate, applicants must include a clear explanation why. The data sharing plan will be reviewed as part of the funding decision.</p>"
-  dmptemplate: cruk_template
-
-esrc_template_1:
-  title: "ESRC Data Management Questions"
-  number: 1
-  description: "<p>The ESRC requires that all applicants seeking ESRC funding include a statement on data sharing in the relevant section of the Je-S application form. If data sharing is not possible, the applicant must present a strong argument to justify their case.</p>"
-  dmptemplate: esrc_template
-
-nerc_template_1:
-  title: "Outline for application"
-  number: 1
-  description: "<p>NERC proposals should normally be accompanied by a Case for Support, and the length of these is specific to each scheme. In all cases this length should be increased by one page to be used for the Outline Data Management Plan.</p>"
-  dmptemplate: nerc_template
-
-nerc_template_2:
-  title: "Detail following award"
+  <% if lbl.include?('_unpublished') %>
+<%= lbl %>_phase_2:
+  title: <%= "hash['title'] - Phase 2" %>
   number: 2
-  description: "<p>The Case for Support for successful proposals will be made available to the NERC <a href='http://www.nerc.ac.uk/research/sites/data/index.asp?cookieConsent=A'>Environmental Data Centres</a> and, where appropriate, used to draft, in collaboration with the Principal Investigator, a full Data Management Plan (DMP). This full DMP should be mutually agreed between the Data Centre and the Principal Investigator within three months of the start date of the grant.</p>"
-  dmptemplate: nerc_template
+  dmptemplate: <%= lbl %>
+  <% end %>
 
-mrc_template_1:
-  title: "MRC Data Management Questions"
-  number: 1
-  dmptemplate: mrc_template
-
-stfc_template_1:
-  title: "STFC Data Management Questions"
-  number: 1
-  dmptemplate: stfc_template
-
-wellcome_template_1:
-  title: "Wellcome Trust Data Management Questions"
-  number: 1
-  dmptemplate: wellcome_template
+<% end %>

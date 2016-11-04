@@ -71,7 +71,7 @@ namespace :migrate do
       if TokenPermissionType.where(token_type: title).empty?
         token_permission_type = TokenPermissionType.new
         token_permission_type.token_type = title
-        token_permission_type.text_desription = settings[:description]
+        token_permission_type.text_description = settings[:description]
         token_permission_type.save!
       end
     end
