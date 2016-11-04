@@ -24,10 +24,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     # If the user isn't logged in
     if current_user.nil? 
-      session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
-      
       # If the uid didn't have a match in the system send them to register
-      if user.email.nil?
+      if user.nil?
+        session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
         redirect_to new_user_registration_url
         
       # Otherwise sign them in
@@ -36,10 +35,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         set_flash_message(:notice, :success, kind: scheme.name) if is_navigational_format?
       end
       
-    # The user is just registering the uid with us
+    # The user is already logged in and just registering the uid with us
     else
       # If the user could not be found by that uid then attach it to their record
-      if user.email.nil? || user.email.empty?
+      if user.nil?
         if UserIdentifier.create(identifier_scheme: scheme, 
                                  identifier: request.env["omniauth.auth"].uid,
                                  user: current_user)
@@ -50,6 +49,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         end
       end
       
+      # Redirect to the User Profile page
       redirect_to edit_user_registration_path
     end
   end

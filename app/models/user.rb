@@ -2,8 +2,15 @@ class User < ActiveRecord::Base
   include GlobalHelpers
 
   # Collect all the available Omniauth Schemes
-  omniauth_schemes = IdentifierScheme.all.collect{ |scheme| scheme.name.downcase.to_sym }
-
+  # First check for existence of IdentifierSchemes underlying table. Rake will
+  #   attempt to compile this code during the DB migrations because it is a scope
+  #   used by devise in the config/routes.rb file
+  if ActiveRecord::Base.connection.table_exists?('identifier_schemes')
+    omniauth_schemes = IdentifierScheme.all.collect{ |scheme| scheme.name.downcase.to_sym }
+  else
+    omniauth_schemes = []
+  end
+  
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
@@ -286,7 +293,7 @@ class User < ActiveRecord::Base
       throw Exception.new('Unknown OAuth provider: ' + auth.provider)
     else
       joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
-                   'user_identifiers.identifier_scheme_id': scheme.id).first_or_create
+                   'user_identifiers.identifier_scheme_id': scheme.id).first
     end
   end
 

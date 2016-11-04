@@ -865,11 +865,14 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
     connect_failure: 'Wir konnten nicht auf Ihr Konto %{scheme} verbinden'
     disconnect_success: 'Ihr Konto wurde von %{scheme} getrennt'
     disconnect_failure: 'Wir waren nicht in der Lage, Ihr Konto zu trennen von %{scheme}'
+    new_login_success: 'Sie haben nicht Setup ein Konto bei uns. Bitte füllen Sie das folgende Informationen, um Ihre Registrierung abzuschließen.'
+    new_login_failure: 'Wir waren nicht in der Lage, Ihr Konto zu überprüfen. Bitte benutzen Sie das folgende Formular ein neues Konto zu erstellen. Sie können danach Ihr neues Konto zu verknüpfen.'
     ORCID:
       logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
       connect: 'Erstellen oder Verbinden Sie Ihren ORCID ID'
-      disconnect: 'Trennen Sie Ihren ORCID ID'
-      tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet. Erfahren Sie mehr unter orcid.org'
+      connect_tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet. Erfahren Sie mehr unter orcid.org'
+      disconnect_tooltip: 'Trennen Sie Ihren ORCID ID'
+      disconnect_confirmation: 'Sind Sie sicher, dass Sie Ihre ORCID ID trennen möchten?'
 
   magic_strings:
     organisation_types:

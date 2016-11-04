@@ -9,15 +9,16 @@
                 Rails.application.routes.url_helpers.send(
                   "user_#{scheme.name.downcase}_omniauth_authorize_path"
                 ),
-                title: t("identifier_schemes.#{scheme.name}.tooltip") %>
+                title: t("identifier_schemes.#{scheme.name}.connect_tooltip") %>
                 
   <% else %>
     <% uri = "#{scheme.landing_page_uri.gsub(/\{id\}/, id.identifier)}" %>
     <%= link_to uri, uri, target: '_blank', 
-                title: t("identifier_schemes.#{scheme.name}.tooltip") %>
+                title: t("identifier_schemes.#{scheme.name}.connect_tooltip") %>
     
-    <%= link_to '', destroy_user_identifier_path(id), method: :delete,
-                title: t("identifier_schemes.#{scheme.name}.disconnect"),
-                class: 'remove' %>
+    <%= link_to image_tag('remove.png', height: '16px', width: '16px'), 
+                destroy_user_identifier_path(id), method: :delete,
+                title: t("identifier_schemes.#{scheme.name}.disconnect_tooltip"),
+                data: {confirm: t("identifier_schemes.#{scheme.name}.disconnect_confirmation")} %>
   <% end %>
 </div>
