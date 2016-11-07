@@ -10,19 +10,6 @@ defaults: &defaults
     name: 'DMPRoadmap'
     url: 'https://github.com/DMPRoadmap/roadmap'
   
-  # You can override the generic DMPRoadmap versions of several types of files
-  # by simply adding your own override directory to the ./app/views, ./app/assets,
-  # and ./config/locales directories.
-  #
-  # For example, ./app/views/overrides/_dmponline_header.html.erb would be used by
-  # the system instead of the one at ./app/views/layouts/_dmponline_header.html.erb
-  # and ./app/assets/overrides/admin.css would override the one at 
-  # ./app/assets/stylesheets/admin.css.
-  #
-  # NOTE: that file names must match 
-  #
-  branding_override_directory: 'overrides'
-  
   
 development:
   <<: *defaults

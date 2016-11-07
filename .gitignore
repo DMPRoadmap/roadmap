@@ -12,6 +12,10 @@ public/system/*
 public/assets/*
 public/apidocs/*
 
+# Ignore branded content
+app/views/branded/*
+app/assets/**/*
+
 # Ignore gemfile.lock
 #Gemfile.lock
 
