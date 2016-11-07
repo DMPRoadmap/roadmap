@@ -1,29 +1,40 @@
 defaults: &defaults
-  legal_entity: 'the University of Edinburgh, University of Glasgow and the University of California'
-
+  
   organisation:
-    name: 'Digital Curation Center and University of California Curation Center'
-    abbreviation: 'DCC and UC3'
-    url: 'https://github.com/DMPRoadmap/roadmap/wiki'
-    copywrite_name: 'DCC and UC3'
-    email: 'dmponline@dcc.ac.uk'
+    name: 'My Organisation'
+    abbreviation: 'MORG'
+    url: 'http://your.organisation.edu/morg/'
+    email: 'your.organisation@example.edu'
 
   application:
     name: 'DMPRoadmap'
     url: 'https://github.com/DMPRoadmap/roadmap'
-    version: '0.1.0'
-    release_notes_url: 'https://github.com/DMPRoadmap/roadmap/wiki/Releases'
-    issue_list_url: 'https://github.com/DMPRoadmap/roadmap/issues'
-    user_group_subscription_url: 'http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1'
-
+  
+  # You can override the generic DMPRoadmap versions of several types of files
+  # by simply adding your own override directory to the ./app/views, ./app/assets,
+  # and ./config/locales directories.
+  #
+  # For example, ./app/views/overrides/_dmponline_header.html.erb would be used by
+  # the system instead of the one at ./app/views/layouts/_dmponline_header.html.erb
+  # and ./app/assets/overrides/admin.css would override the one at 
+  # ./app/assets/stylesheets/admin.css.
+  #
+  # NOTE: that file names must match 
+  #
+  branding_override_directory: 'overrides'
+  
+  
 development:
   <<: *defaults
+  
+  application:
+    name: 'DMPRoadmap - DEV'
     
 test:
   <<: *defaults
-
-staging:
-  <<: *defaults
+  
+  application:
+    name: 'DMPRoadmap - TEST'
     
 production:
   <<: *defaults

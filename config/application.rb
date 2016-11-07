@@ -86,5 +86,9 @@ module DMPRoadmap
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
     config.active_record.raise_in_transactional_callbacks = true
+    
+    # Load Branded terminology (e.g. organization name, application name, etc.)
+    config.branding = config_for(:branding).deep_symbolize_keys
+    
   end
 end
