@@ -107,6 +107,6 @@ class ApplicationController < ActionController::Base
     # replacing. For example:
     #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
     def prepend_view_paths
-      prepend_view_path "app/views/branded" unless branded.nil?
+      prepend_view_path "app/views/branded"# unless branded.nil?
     end
 end

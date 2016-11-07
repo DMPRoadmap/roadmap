@@ -59,6 +59,15 @@ module DMPRoadmap
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Even though the Rails docs state that it looks in lib/assets/images, the
+    # site errors out with messages saying '[image].[extension] not precompiled'
+    # This forces Rails to add the lib/assets/images dir to precompilation
+    config.assets.paths << Rails.root.join("lib", "assets", "images")
+    config.assets.paths << Rails.root.join("lib", "assets", "videos")
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
+    config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
+
     config.assets.precompile += %w(plans.js)
     config.assets.precompile += %w(projects.js)    
     config.assets.precompile += %w(jquery.placeholder.js)
