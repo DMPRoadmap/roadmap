@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: {
-        registrations: "registrations", 
-        confirmations: 'confirmations', 
-        passwords: 'passwords', 
-        sessions: 'sessions', 
-        omniauth_callbacks: 'users/omniauth_callbacks'} do
+  # Table check to prevent conflicts running 'rake db:migrate' which initializes
+  # the Rails app before the migrations have actually run which in turn causes
+  # an error to be thrown because the identifier_schemes table does not yet exist
+  if ActiveRecord::Base.connection.table_exists?('identifier_schemes')
+    devise_for :users, controllers: {
+          registrations: "registrations", 
+          confirmations: 'confirmations', 
+          passwords: 'passwords', 
+          sessions: 'sessions', 
+          omniauth_callbacks: 'users/omniauth_callbacks'} do
           
-    get "/users/sign_out", :to => "devise/sessions#destroy"
+      get "/users/sign_out", :to => "devise/sessions#destroy"
+    end
   end
-
+  
   # WAYFless access point - use query param idp
   get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'

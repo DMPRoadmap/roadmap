@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   # Collect all the available Omniauth Schemes
   omniauth_schemes = IdentifierScheme.all.collect{ |scheme| scheme.name.downcase.to_sym }
-
+  
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable

@@ -114,26 +114,23 @@ ActiveRecord::Schema.define(version: 20161102221313) do
   add_index "guidance_in_group", ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
 
   create_table "guidances", force: :cascade do |t|
-    t.text     "text",              limit: 65535
-    t.integer  "guidance_group_id", limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "question_id",       limit: 4
-    t.boolean  "published"
-  end
-
-  create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.string   "logo",              limit: 255
-    t.string   "api_key",           limit: 255
-    t.string   "api_secret",        limit: 255
-    t.string   "authorization_uri", limit: 255
-    t.string   "landing_page_uri",  limit: 255
-    t.string   "params",            limit: 255
+    t.text     "text"
+    t.integer  "guidance_group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_id"
     t.boolean  "published"
+  end
+
+  create_table "identifier_schemes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "logo"
+    t.string   "api_key"
+    t.string   "api_secret"
+    t.string   "landing_page_uri"
+    t.string   "params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -367,6 +364,14 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.text     "text_description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "user_identifiers", force: :cascade do |t|
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "identifier_scheme_id"
   end
 
   create_table "user_statuses", force: :cascade do |t|

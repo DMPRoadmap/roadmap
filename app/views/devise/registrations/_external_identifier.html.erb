@@ -17,7 +17,7 @@
                 title: t("identifier_schemes.#{scheme.name}.tooltip") %>
     
     <%= link_to '', destroy_user_identifier_path(id), method: :delete,
-                title: t("identifier_schemes.#{scheme.name}.disconnect"),
-                class: 'remove' %>
+                title: t("identifier_schemes.#{scheme.name}.disconnect") %>
+    <% end %>
   <% end %>
 </div>
