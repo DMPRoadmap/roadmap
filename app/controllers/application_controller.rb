@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  # Look for template overrides before rendering
+  before_filter :prepend_view_paths
+
   include GlobalHelpers
   include Pundit
   helper_method GlobalHelpers.instance_methods
@@ -95,4 +98,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private
+    # Override rails default render action to look for a branded version of a
+    # template instead of using the default one. If no override exists, the 
+    # default version in ./app/views/[:controller]/[:action] will be used
+    #
+    # The path in the app/views/branded/ directory must match the the file it is
+    # replacing. For example:
+    #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
+    def prepend_view_paths
+      prepend_view_path "app/views/branded"
+    end
 end
