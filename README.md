@@ -46,6 +46,12 @@ You may also find the following resources handy:
 >     > cp config/database_example.yml config/database.yml
 >     > cp config/secrets_example.yml config/secrets.yml
 
+* Make copies of the example gem initializer files and update the values for your installation
+
+>     > cp config/initializers/devise.rb.example config/initializers/devise.rb
+>     > cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+>     > cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+
 * Create an environment variable for your instance's secret (as defined in config/secrets.yml). You should use the following command to generate secrets for each of your environments, storing the production one in the environment variable:
 
 >     > rake secret
@@ -58,11 +64,7 @@ You may also find the following resources handy:
 
 >     > rake db:migrate
 
->     > rake db:seed
-
-* Setup the devise authentication gem
-
->     > rails generate devise:install     (Is this really necessary?)
+>     > rake db:seed    (Unless you are migrating data from an old DMPOnline system)
 
 * Start the application
 
@@ -70,6 +72,10 @@ You may also find the following resources handy:
 
 * Verify that the site is running properly by going to http://localhost:3000
 * Login as the default administrator: 'super_admin@example.com' - 'password1'
+
+#### Migrating data from a running instance of DMPOnline_v4 into DMPRoadmap
+
+TODO: Add instructions on exporting data from the old DB and migrating it into the Roadmap DB
 
 #### Troubleshooting
 ##### Installation - OSX:
@@ -87,6 +93,12 @@ If you are installing on a system that already has v8 installed then you may nee
 >     > gem install libv8 -v '<<VERSION>>' -- --with-system-v8
 
 >     > bundle install
+
+##### Post Installation Issues
+
+I installed the system and migrated my legacy DMPOnline data into the database but none of my users are able to login!
+
+This happens when the 'pepper' key defined in config/initializers/devise.rb does not match the one on your old server. Simply update the pepper and restart the application.
 
 #### Support
 Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)

@@ -6,6 +6,26 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.order(:name)
   end
 
+  # GET /resource
+  def new
+    oauth = session["devise.#{scheme.name.downcase}_data"]
+    @user = User.new
+    
+    unless oauth.nil?
+      # The OAuth provider could not be determined or there was no unique UID!
+      if oauth.provider.nil? || oauth.uid.nil?
+        flash[:notice] = t('identifier_schemes.new_login_failure')
+
+      else
+        # Connect the new user with the identifier sent back by the OAuth provider
+        flash[:notice] = t('identifier_schemes.new_login_success')
+        UserIdentifier.create(identifier_scheme: oauth.provider.upcase, 
+                              identifier: oauth.uid,
+                              user: @user)
+      end
+    end
+  end
+
   # POST /resource
   def create
     logger.debug "#{sign_up_params}"

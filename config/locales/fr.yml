@@ -702,6 +702,8 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
     connect_failure: 'Nous ne pouvions pas connecter votre compte %{scheme}'
     disconnect_success: 'Votre compte a été déconnecté de %{scheme}'
     disconnect_failure: 'Nous avons été incapables de déconnecter votre compte %{scheme}'
+    new_login_success: "Vous ne l'avez pas configurer un compte avec nous. S'il vous plaît remplir les informations ci-dessous pour terminer votre inscription."
+    new_login_failure: "Nous avons été en mesure de vérifier votre compte. S'il vous plaît utiliser le formulaire ci-dessous pour créer un nouveau compte. Vous serez en mesure de lier votre nouveau compte par la suite."
 
     schemes:
       ORCID:

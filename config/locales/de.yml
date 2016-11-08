@@ -689,6 +689,8 @@ de:
     connect_failure: 'Wir konnten nicht auf Ihr Konto %{scheme} verbinden'
     disconnect_success: 'Ihr Konto wurde von %{scheme} getrennt'
     disconnect_failure: 'Wir waren nicht in der Lage, Ihr Konto zu trennen von %{scheme}'
+    new_login_success: 'Sie haben nicht Setup ein Konto bei uns. Bitte füllen Sie das folgende Informationen, um Ihre Registrierung abzuschließen.'
+    new_login_failure: 'Wir waren nicht in der Lage, Ihr Konto zu überprüfen. Bitte benutzen Sie das folgende Formular ein neues Konto zu erstellen. Sie können danach Ihr neues Konto zu verknüpfen.'
 
     schemes:
       ORCID:

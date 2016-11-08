@@ -730,7 +730,9 @@ Select what format you wish to use and click to 'Export'.</p>"
     connect_failure: 'We could not connect your account to %{scheme}'
     disconnect_success: 'Your account has been disconnected from %{scheme}'
     disconnect_failure: 'We were unable to disconnect your account from %{scheme}'
-
+    new_login_success: 'It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.'
+    new_login_failure: 'We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.'
+    
     schemes:
       ORCID:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102221313) do
+ActiveRecord::Schema.define(version: 20161104161345) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -124,7 +124,6 @@ ActiveRecord::Schema.define(version: 20161102221313) do
 
   create_table "identifier_schemes", force: :cascade do |t|
     t.string   "name"
-    t.string   "logo"
     t.string   "api_key"
     t.string   "api_secret"
     t.string   "landing_page_uri"
@@ -185,6 +184,7 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.boolean  "is_other"
     t.string   "sort_name"
     t.text     "banner_text"
+    t.string   "logo_file_name"
     t.integer  "region_id"
     t.integer  "language_id"
     t.string   "logo_uid"
@@ -372,6 +372,13 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "identifier_scheme_id"
+  end
+
+  create_table "user_role_types", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_statuses", force: :cascade do |t|

@@ -286,7 +286,7 @@ class User < ActiveRecord::Base
       throw Exception.new('Unknown OAuth provider: ' + auth.provider)
     else
       joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
-                   'user_identifiers.identifier_scheme_id': scheme.id).first_or_create
+                   'user_identifiers.identifier_scheme_id': scheme.id).first
     end
   end
 
