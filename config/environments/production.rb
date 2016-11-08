@@ -76,9 +76,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  
-  # Load Branded terminology (e.g. organization name, application name, etc.)
-  #config.branding = YAML.load_file(File.join(Rails.root, 'config', 'branding.yml')) 
-  config.branding = config_for(:branding).deep_symbolize_keys
-  #config.branding = YAML.load_file(Rails.root.join('config/branding.yml'))[Rails.env]
 end
