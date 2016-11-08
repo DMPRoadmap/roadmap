@@ -1,8 +1,14 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
 
-  # Collect all the available Omniauth Schemes
-  omniauth_schemes = IdentifierScheme.all.collect{ |scheme| scheme.name.downcase.to_sym }
+  # First check for existence of the IdentifierSchemes table. Rake will attempt to 
+  # compile this code during the DB migrations because both Devise and ActiveAdmin
+  # need to initialize this object when Rails initializes its routes.rb 
+  if ActiveRecord::Base.connection.table_exists?('identifier_schemes')
+    omniauth_schemes = IdentifierScheme.all.collect{ |scheme| scheme.name.downcase.to_sym }
+  else
+    omniauth_schemes = []
+  end
   
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,

@@ -184,7 +184,6 @@ ActiveRecord::Schema.define(version: 20161104161345) do
     t.boolean  "is_other"
     t.string   "sort_name"
     t.text     "banner_text"
-    t.string   "logo_file_name"
     t.integer  "region_id"
     t.integer  "language_id"
     t.string   "logo_uid"
@@ -372,13 +371,6 @@ ActiveRecord::Schema.define(version: 20161104161345) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "identifier_scheme_id"
-  end
-
-  create_table "user_role_types", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "user_statuses", force: :cascade do |t|

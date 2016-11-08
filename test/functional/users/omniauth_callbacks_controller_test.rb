@@ -29,13 +29,14 @@ class OmniauthCallbacksController < ActionDispatch::IntegrationTest
         "extra": {}
         }}
 
+=begin
       # Not yet logged in, valid responses from provider
       # --------------------------------------------------------------
-=begin
       post "#{uri}/callback", headers: headers
 
       assert_equal I18n.t('identifier_schemes.new_login_success'), flash[:notice], "Expected a success message when simulating a valid callback from #{scheme.name}"
       assert_redirected_to new_user_registration_url, "Expected a redirect to the registration page when the user is not logged in and we received a valid callback from #{scheme.name}"
+
 
       # Not yet logged in, invalid responses from provider
       # --------------------------------------------------------------
