@@ -2,8 +2,9 @@
 <% I18n.t("identifier_schemes.schemes").each do |k,v| %>
 <%= k.downcase %>:
   name: <%= "#{k}" %>
+  domain: <%= "#{k.downcase}.org" %>
   api_key: 'ABCDEFG'
   api_secret: '123456'
-  landing_page_uri: 'http://example-site.edu'
+  landing_page_uri: <%= "http://#{k.downcase}.org/landing_page/{id}" %>
   params: '{"scope":"/do_something"}'
 <% end %>

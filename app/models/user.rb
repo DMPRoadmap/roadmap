@@ -22,11 +22,13 @@ class User < ActiveRecord::Base
   belongs_to :user_status
   has_many :answers
   has_many :user_org_roles
-  has_many :user_identifiers
   has_many :project_groups, :dependent => :destroy
   has_many :user_role_types, through: :user_org_roles
+  
+  has_many :user_identifiers
+  has_many :identifier_schemes, through: :user_identifiers
+  
 	belongs_to :language
-
   belongs_to :organisation
 
   has_many :projects, through: :project_groups do

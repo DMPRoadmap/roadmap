@@ -108,6 +108,8 @@ GEM
     concurrent-ruby (1.0.2)
     contact_us (1.2.0)
       rails (>= 4.2.0)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     daemons (1.2.4)
     debug_inspector (0.0.2)
     devise (4.2.0)
@@ -145,6 +147,7 @@ GEM
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
+    hashdiff (0.3.0)
     hashie (3.4.6)
     htmltoword (0.5.1)
       actionpack
@@ -285,6 +288,7 @@ GEM
     rolify (5.1.0)
     ruby-progressbar (1.8.1)
     rubyzip (1.2.0)
+    safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -332,6 +336,10 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webmock (2.1.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.3)
     xpath (2.0.0)
@@ -387,6 +395,7 @@ DEPENDENCIES
   twitter-bootstrap-rails (= 2.2.8)
   uglifier
   web-console (~> 2.0)
+  webmock
   wicked_pdf
   wkhtmltopdf-binary
   yaml_db!

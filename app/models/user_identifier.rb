@@ -1,4 +1,7 @@
 class UserIdentifier < ActiveRecord::Base
   belongs_to :user
   belongs_to :identifier_scheme
+  
+  # Should only be able to have one identifier per scheme!
+  validates_uniqueness_of :identifier_scheme, scope: :user
 end
