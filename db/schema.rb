@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102221313) do
+ActiveRecord::Schema.define(version: 20161108214240) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -120,6 +120,17 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.datetime "updated_at"
     t.integer  "question_id"
     t.boolean  "published"
+  end
+
+  create_table "identifier_schemes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "api_key"
+    t.string   "api_secret"
+    t.string   "landing_page_uri"
+    t.string   "params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "domain"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -353,6 +364,14 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.text     "text_description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "user_identifiers", force: :cascade do |t|
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "identifier_scheme_id"
   end
 
   create_table "user_statuses", force: :cascade do |t|

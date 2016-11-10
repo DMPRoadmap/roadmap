@@ -46,6 +46,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
+gem 'omniauth-orcid'
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration
@@ -102,6 +103,7 @@ group :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
   gem 'rack-test'
+  gem 'webmock'
   gem 'sqlite3'
 end
 

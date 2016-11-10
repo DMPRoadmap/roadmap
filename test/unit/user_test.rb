@@ -135,6 +135,22 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "can only have one identifier per IdentifierScheme" do
+    @scheme = IdentifierScheme.first
+    
+    count = @super.user_identifiers.count
+    @super.user_identifiers << UserIdentifier.new(identifier_scheme: @scheme, identifier: 'abc')
+    @super.save!
+    @super.reload
+    
+    assert_equal (count + 1), @super.user_identifiers.count, "Expected the initial identifier to be saved"
+    
+    @super.user_identifiers << UserIdentifier.new(identifier_scheme: @scheme, identifier: 'abc')
+    assert_not @super.valid?, "Expected to NOT be able to add more than one identifier for the same scheme"
+    assert_equal (count + 1), @super.user_identifiers.count, "Expected the initial identifier to be saved"
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
     usr = User.create(email: 'test@testing.org', password: 'testing1234')
     assert_not usr.id.nil?, "was expecting to be able to create a new User: #{usr.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
@@ -151,6 +167,18 @@ class UserTest < ActiveSupport::TestCase
   test "can manage has_many relationship with Roles" do
     role = Role.new(name: 'Added through test')
     verify_has_many_relationship(@super, role, @super.roles.count)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with IdentifierSchemes" do
+    scheme = IdentifierScheme.new(name: 'testing')
+    verify_has_many_relationship(@super, scheme, @super.identifier_schemes.count)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with UserIdentifiers" do
+    id = UserIdentifier.new(identifier_scheme: IdentifierScheme.first, identifier: 'tester')
+    verify_has_many_relationship(@super, id, @super.user_identifiers.count)
   end
   
   # ---------------------------------------------------

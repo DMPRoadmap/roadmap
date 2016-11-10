@@ -684,6 +684,22 @@ de:
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
+  identifier_schemes:
+    connect_success: 'Ihr Konto wurde mit %{scheme}'
+    connect_failure: 'Wir konnten nicht auf Ihr Konto %{scheme} verbinden'
+    disconnect_success: 'Ihr Konto wurde von %{scheme} getrennt'
+    disconnect_failure: 'Wir waren nicht in der Lage, Ihr Konto zu trennen von %{scheme}'
+    new_login_success: 'Sie haben nicht Setup ein Konto bei uns. Bitte füllen Sie das folgende Informationen, um Ihre Registrierung abzuschließen.'
+    new_login_failure: 'Wir waren nicht in der Lage, Ihr Konto zu überprüfen. Bitte benutzen Sie das folgende Formular ein neues Konto zu erstellen. Sie können danach Ihr neues Konto zu verknüpfen.'
+
+    schemes:
+      ORCID:
+        logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
+        connect: 'Erstellen oder Verbinden Sie Ihren ORCID ID'
+        connect_tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet. Erfahren Sie mehr unter orcid.org'
+        disconnect_confirmation: 'Sind Sie sicher, dass Sie Ihre ORCID ID trennen möchten?'
+        disconnect_tooltip: 'Trennen Sie Ihr Konto von ORCID. Sie können jederzeit wieder an.'
+
   magic_strings:
     organisation_types:
       funder: 'Funder'

@@ -1,61 +1,74 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
+  # First check for existence of the IdentifierSchemes table. Rake will attempt to 
+  # compile this code during the DB migrations because both Devise and ActiveAdmin
+  # need to initialize this object when Rails initializes its routes.rb 
+  if ActiveRecord::Base.connection.table_exists?('identifier_schemes')
+    omniauth_schemes = IdentifierScheme.all.collect{ |scheme| scheme.name.downcase.to_sym }
+  else
+    omniauth_schemes = []
+  end
+  
+	# Include default devise modules. Others available are:
+	# :token_authenticatable, :confirmable,
+	# :lockable, :timeoutable and :omniauthable
+	devise :invitable, :database_authenticatable, :registerable, :recoverable, 
+         :rememberable, :trackable, :validatable, :confirmable, 
+         :omniauthable, :omniauth_providers => omniauth_schemes
 
-    #associations between tables
-    belongs_to :user_type
-    belongs_to :user_status
-    has_many :answers
-    has_many :user_org_roles
-    has_many :project_groups, :dependent => :destroy
-    has_many :user_role_types, through: :user_org_roles
-    belongs_to :language
+  #associations between tables
+  belongs_to :user_type
+  belongs_to :user_status
+  has_many :answers
+  has_many :user_org_roles
+  has_many :project_groups, :dependent => :destroy
+  has_many :user_role_types, through: :user_org_roles
+  
+  has_many :user_identifiers
+  has_many :identifier_schemes, through: :user_identifiers
+  
+	belongs_to :language
+  belongs_to :organisation
 
-    belongs_to :organisation
+  has_many :projects, through: :project_groups do
+    def filter(query)
+      return self unless query.present?
 
-    has_many :projects, through: :project_groups do
-      def filter(query)
-        return self unless query.present?
+      t = self.arel_table
+      q = "%#{query}%"
 
-        t = self.arel_table
-        q = "%#{query}%"
+      conditions = t[:title].matches(q)
 
-        conditions = t[:title].matches(q)
+      columns = %i(
+        grant_number identifier description principal_investigator data_contact 
+      )
+      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
 
-        columns = %i(
-          grant_number identifier description principal_investigator data_contact 
-        )
-        columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
+      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
 
-        columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
-
-        self.where(conditions)
-      end
+      self.where(conditions)
     end
+  end
 
-    has_and_belongs_to_many :roles, :join_table => :users_roles
+  has_and_belongs_to_many :roles, :join_table => :users_roles
 
-    has_many :plan_sections
+  has_many :plan_sections
 
-    accepts_nested_attributes_for :roles
-    attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email,
-                    :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
-                    :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
-                    :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                    :organisation, :language
+  accepts_nested_attributes_for :roles
+  attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email,
+                  :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
+                  :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
+                  :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
+                  :organisation, :language
 
-    validates :email, email: true, allow_nil: true, uniqueness: true
+  validates :email, email: true, allow_nil: true, uniqueness: true
 
-    # FIXME: The duplication in the block is to set defaults. It might be better if
-    #        they could be set in Settings::PlanList itself, if possible.
-    has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
-      s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
-    end
+  # FIXME: The duplication in the block is to set defaults. It might be better if
+  #        they could be set in Settings::PlanList itself, if possible.
+  has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
+    s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
+  end
 
   ##
   # gives either the name of the user, or the email if name unspecified
@@ -69,6 +82,15 @@ class User < ActiveRecord::Base
       name = "#{firstname} #{surname}"
       return name.strip
     end
+  end
+
+  ##
+  # Returns the user's identifier for the specified scheme name
+  #
+  # @param the identifier scheme name (e.g. ORCID)
+  # @return [UserIdentifier] the user's identifier for that scheme
+  def identifier_for(scheme)
+    user_identifiers.where(identifier_scheme: scheme).first
   end
 
   ##
@@ -261,4 +283,19 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  # --------------------------------------------------------------
+  def self.from_omniauth(auth)
+    scheme = IdentifierScheme.find_by(name: auth.provider.upcase)
+    
+    if scheme.nil?
+      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
+    else
+      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
+                   'user_identifiers.identifier_scheme_id': scheme.id).first
+    end
+  end
+
 end

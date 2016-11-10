@@ -86,6 +86,28 @@ region_groups.each do |l, details|
   end
 end
 
+identifier_schemes = {
+    'orcid' => {
+        name: 'ORCID',
+        domain: 'orcid.org',
+        landing_page_uri: 'https://orcid.org/{id}',
+        api_key: 'ABCD1234',
+        api_secret: 'secret',
+        params: '{"scope": "/authenticate"}'
+    }
+}
+
+identifier_schemes.each do |l, details|
+  if IdentifierScheme.where(name: details[:name]).empty?
+    scheme = IdentifierScheme.new({
+      name: details[:name],
+      auth_uri: details[:auth_uri],
+      user_uri: details[:user_uri]
+    })
+    scheme.save!
+  end
+end
+
 organisation_types = {
  'Organisation' => {
      name: "Organisation"
