@@ -5,7 +5,7 @@ module Settings
     after_action :verify_authorized
 
     def show
-      authorize [:settings, plan]
+      authorize @plan
       respond_to do |format|
         format.html
         format.partial
@@ -13,10 +13,10 @@ module Settings
     end
 
     def update
-      authorize [:settings, plan]
+      authorize @plan
       export_params = params[:export].try(:deep_symbolize_keys)
 
-      settings = plan.super_settings(:export).tap do |s|
+      settings = @plan.super_settings(:export).tap do |s|
         if params[:commit] == 'Reset'
           s.formatting = nil
           s.fields = nil
@@ -29,7 +29,7 @@ module Settings
 
       if settings.save
         respond_to do |format|
-          format.html { redirect_to(export_project_path(plan.project)) }
+          format.html { redirect_to(export_project_path(@plan.project)) }
         end
       else
         settings.formatting = nil
@@ -41,6 +41,8 @@ module Settings
   private
 
     def get_settings
+      @plan = Plan.find(params[:id])
+      
       @export_settings = plan.settings(:export)
     end
 

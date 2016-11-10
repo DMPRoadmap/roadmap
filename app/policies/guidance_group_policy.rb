@@ -24,11 +24,11 @@ class GuidanceGroupPolicy < ApplicationPolicy
   end
 
   def admin_new?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance?
   end
 
   def admin_create?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance?
   end
 
   def admin_destroy?

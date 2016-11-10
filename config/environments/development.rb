@@ -47,8 +47,5 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = false
 
-  # Load Branded terminology (e.g. organization name, application name, etc.)
-  config.branding = config_for(:branding).deep_symbolize_keys
-
   BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
 end

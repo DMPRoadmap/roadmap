@@ -54,6 +54,12 @@ class ExportedPlan < ActiveRecord::Base
     plan.project.organisation.try(:name)
   end
 
+  def orcid
+      scheme = IdentifierScheme.find_by(name: 'orcid')
+      orcid = self.user.user_identifiers.where(identifier_scheme: scheme).first
+      (orcid.nil? ? '' : orcid.identifier)
+  end
+
   # sections taken from fields settings
   def sections
     sections = self.plan.sections
@@ -92,6 +98,11 @@ class ExportedPlan < ActiveRecord::Base
 
   def as_txt
     output = "#{self.plan.project.title}\n\n#{self.plan.version.phase.title}\n"
+
+
+puts "SETTINGS: #{self.plan.inspect}"
+
+    output += "\nDetails:\n#{self.plan.settings[:export][:fields][:admin].collect{|f| f.to_s}.join('\n')}\n"
 
     self.sections.each do |section|
       output += "\n#{section.title}\n"

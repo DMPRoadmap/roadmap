@@ -72,16 +72,16 @@
 							</div>	
 						</td>
 					</tr>
-                    <tr>
-                        <td class="first"><%= t('org_admin.guidance.published') %></td>
-                        <td><div class="div_left_icon_g">
-                                <%= f.check_box :published , :as => :check_boxes%> 
-                            </div>
-                            <div class="div_right_icon_g">
-                                <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%-->
-                            </div>
-                        </td>
-                    </tr>
+          <tr>
+              <td class="first"><%= t('org_admin.guidance.published') %></td>
+              <td><div class="div_left_icon_g">
+                      <%= f.check_box :published , :as => :check_boxes%> 
+                  </div>
+                  <div class="div_right_icon_g">
+                    <%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.guidance_group_published_help_text_html'))%>
+                  </div>
+              </td>
+          </tr>
 					<tr>
 						<td class="first"><%= t('org_admin.guidance.guidance_group_label') %></td>
 						<td><div class="div_left_icon_g">
