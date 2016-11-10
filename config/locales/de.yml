@@ -38,6 +38,7 @@ de:
   welcome_links: "<p></p>"
   ccid_message: ""
 
+  unauthorized: "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
 
   admin:
     org_title: "Name der Organisation"
@@ -47,6 +48,7 @@ de:
     org_parent: "Übergeordnete Organisation"
     org_created_message: "Organisation wurde erfolgreich angelegt."
     org_updated_message: "Organisation wurde erfolgreich aktualisiert."
+    org_bad_logo: "Es scheint ein Problem mit unserem Logo zu sein. Bitte laden Sie es erneut."
     plans: "Pläne"
     title: "Titel"
     desc: "Beschreibung"
@@ -132,6 +134,9 @@ de:
     option_order_label: "Reihenfolge"
     option_text_label: "Text"
     option_default_label: "Vorgabe"
+    api_privileges: 'API Berechtigungen?'
+    edit_user_privileges: 'Bearbeiten Benutzerberechtigungen'
+
     guidance:
       guidance_list: "Liste der Hilfestellungen"
       text_label: "Text"
@@ -157,6 +162,7 @@ de:
       by_themes_help_text_html: "Wählen Sie die Themen aus, für die diese Hilfestellung relevant ist."
       by_question_help_text_html: "Wählen Sie die Vorlage, die Phase, die Version, den Abschnitt und die Frage aus den folgenden Auswahllisten aus, um die Frage zu bestimmen, für die diese Hilfestellung angezeigt werden soll."
       guidance_group_select_help_text_html: "Wählen Sie die Gruppe aus, für die diese Hilfestellung relevant ist."
+      guidance_group_published_help_text_html: "Markieren Sie dieses Kästchen, wenn Sie bereit sind, für diese Anleitung für Benutzer-Pläne zu erscheinen."
       guidance_text_html: "<p>Sie können eine Hilfestellungtexte erstellen, die im Zusammenhang mit bestimmten Themen angezeigt werden, oder die sich auf eine spezifische Frage beziehen. Generische Hilfestellungen für Themen helfen Zeit und Arbeit zu sparen, da Ihre Hilfestellungen automatisch für alle Vorlagen angezeigt werden; sie müssen andernfalls für jede Vorlage neu erstellt werden.</p>
       <p>Im Normalfall werden Sie wollen, dass Ihre Orinetierungshilfen in allen Vorlagen angezeigt wird. Ausnahmen sind z.B. Hilfestellungen die spezielle Hinweise für einen Förderer geben.</p>"
       delete_message: "Sie sind dabei '%{guidance_summary}' zu löschen. Sind Sie sicher?"
@@ -295,7 +301,6 @@ de:
     institution_sign_in_link: "Oder melden Sie sich mit den Zugangsdaten Ihres Instituts an"
     institution_sign_in: ""
 
-
     user_name: "E-Mail-Adresse"
     email: "E-Mail"
     org_not_listed: "Meine Organisation ist nicht in der Auflistung."
@@ -321,7 +326,7 @@ de:
     no_unlock_instructions: "Entsperrungsanleitungen nicht erhalten?"
     send_password_info: "Anleitung zum Zurücksetzen des Passworts"
     edit_password_info: "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
-    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms'>Nutzungsbedingungen</a> *"
+    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms' target='_blank'>Nutzungsbedingungen</a> *"
 
     text_area: "Text area"
     text_field: "Textfeld"
@@ -348,6 +353,13 @@ de:
     removing: "Entferne..."
     unsaved: "Ungesicherte Änderungen"
     unlink_account: "Trenne Zugang"
+
+    links:
+      edit: "Bearbeiten"
+      share: "Teilen"
+      export: "Export"
+      destroy: "Löschen"
+
     submit:
       edit: "Bearbeiten"
       create: "Erstellen"
@@ -503,12 +515,12 @@ de:
       project_text_when_no_project: "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
       project_text_when_project: "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
       confirmation_text: "Plandetails bestätigen"
-      confirmation_text_desc: "An Stellen, an denen Förderer oder Institutionen keine spezifischen Anforderung definiert haben (oder Sie entsprechende Angaben nicht gemacht haben), wird Ihnen die DCC Checkliste angezeigt. Diese bietet eine generische Fragen und Hilfestellungen; Mehr Informationen unter: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP Check-Liste 2013</a>."
+      confirmation_text_desc: "An Stellen, an denen Förderer oder Institutionen keine spezifischen Anforderung definiert haben (oder Sie entsprechende Angaben nicht gemacht haben), wird Ihnen die DCC Checkliste angezeigt. Diese bietet eine generische Fragen und Hilfestellungen; Mehr Informationen unter: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP Check-Liste 2013</a>."
       confirmation_button_text: "Ja, Plan erstellen"
       project_details_text_html: "Diese Seite bietet Ihnen einen Überblick über Ihren Plan. Sie gibt an, worauf dieser Plan basiert und gibt eine Übersicht über die Fragen, die gestellt werden."
       project_details_editing_text_html: "Bitte geben Sie im Folgenden die Projektdetails an und wählen 'Aktualisieren' aus, um die Änderungen zu speichern."
       confirm_delete_text: "Sind Sie sicher, dass sie diesen Plan löschen wollen?"
-      default_confirmation_text_desc: "Sie haben den Standardplan gewählt, der auf dem Katalog der DCC basiert. Dies bietet eine generische Menge von DMP-Fragen and Hilfestellung. Für mehr Einzelheiten: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      default_confirmation_text_desc: "Sie haben den Standardplan gewählt, der auf dem Katalog der DCC basiert. Dies bietet eine generische Menge von DMP-Fragen and Hilfestellung. Für mehr Einzelheiten: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
       default_confirmation_button_text: "Erstelle Plan"
       alert_default_template_text_html: "Bitte beachten: %{org_name} stellt eine DMP-Vorlage zur Verfügung. Wenn Sie sie benutzen möchten, wähle 'Abbrechen', ansonsten wähle 'Erstelle Plan'"
       share:
@@ -564,6 +576,7 @@ de:
         principal_investigator: "Principal Investigator / Researcher"
         data_contact: "Plandatenkontakt"
         description: "Beschreibung"
+        unknown: " - "
       filter:
         placeholder: "Filter Pläne"
         submit: "Filter"
@@ -576,11 +589,11 @@ de:
           question_not_answered: "Frage nicht beantwortet."
           generated_by: "Dieses Dokument wurde von DMPonline (http://dmponline.dcc.ac.uk) erzeugt."
         space_used: "annährend %{space_used}% des verfügbaren Platzes wird verwendet (max. %{num_pages} Seiten)"
-        project_name: "Projektname"
-        project_identifier: "Projektbezeichner"
-        grant_title: "Grant Title"
+        project_name: "Planenname"
+        project_identifier: "Planenbezeichner"
+        grant_title: "Grantnummer"
         principal_investigator: "Principal Investigator / Forscher"
-        project_data_contact: "Kontakt für Projektdaten"
+        project_data_contact: "Kontakt für Planen"
         project_description: "Beschreibung"
         funder: "Geldgeber"
         institution: "Institution"
@@ -596,7 +609,7 @@ de:
           duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
           unknown: "Unbekannter Spaltenname."
       plans:
-        title: "Plantitel"
+        title: "Dateiname"
         reset: "Zurücksetzen"
         custom_formatting: "(Verwende eigene Werte bei PDF-Formatierung)"
         template_formatting: "(Verwende Vorlagenwerte bei PDF-Formatting)"
@@ -626,182 +639,6 @@ de:
       sharing_notification: "Ihnen wurde Zugang zu einem Datenmanagementplan gewährt"
       permissions_change: "DMP-Zulassungen geändert"
       access_removed: "DMP-Zugriff entfernt"
-
-  about_page:
-    title: "Über DMPonline"
-    tab_1: "Hintergrund"
-    tab_2: "Neuigkeiten"
-    body_text_tab_1_html: "<div class='white_background'>
-    <p>
-      Fördergeber verlangen zunehmend die Erstellung von Datenmanagementplänen von den Antragstellern, bzw. Förderempfängern, sowohl in der Antragsphase als auch während der Durchführung. DMPonline wurde vom Digital Curation Centre (UK) erstellt, um es Forschenden zu ermöglichen, auf diese Anforderungen zu reagieren und dabei auch die Vorgaben ihrer Institutionen oder anderen Beteiligten zu erfüllen. 
-    </p>
-    <p>
-       Die Entwicklung fand in Kooperation mit Forschungsförderern und Universitäten statt, um ein Werkzeug für die Erstellung von probaten Datenmanagementplänen während des gesamten Projektverlaufs anbieten zu können. 
-    </p>
-    </div>
-    <h3>Konzept</h3>
-    <div class='white_background'>
-    <p>
-      Es gibt eine Reihe von Vorlagen innerhalb der Applikation, die den Anforderungen der verschiedenen Förderer oder Institutionen entsprechen. Die Nutzer beantworten zu Begin der Erstellung eines Plans drei Fragen, um die Anzeige der geeigneten Vorlage zu erlauben (z.B. die ESRC-Vorlage bei einer ESRC-Förderung). Die Applikation gibt Hilfestellungen zum Verstehen und Beantworten der Fragen; diese werden von Forschenden, Förderern, Universitäten und den verschiedenen Disziplinen bereitgestellt.
-    </p>
-    </div>
-    <h3>Erste Schritte</h3>
-    <div class='white_background'>
-      <p>Falls sie einen Zugang haben, melden sie sich an und beginnen ihren Datenmanagementplan zu erstellen.</p>
-      <p>Falls sie keinen Zugang zu DMPonline haben, wählen sie 'Registrieren' auf der <a href='/'>Startseite</a> aus.</p>
-      <p>Besuchen sie die <a href='/help'>'Hilfe'-Seite</a> für eine Anleitung.</p>
-    </div>
-    <h3>Weitere Informationen</h3>
-    <div class='white_background'>
-<p>Die deutsche Version von DMPonline wird in Kooperation mit dem Digital Curation Centre (UK) und der Bibliothek der Universität von Alberta (CA) im Rechenzentrum der Christian-Albrechts-Universität gepflegt.</p>
-<p>Die Benutzungsschnittstelle und die Funktionalität von DMPonline wird kontinuierlich verbessert. Falls sie gerne Rückmeldung geben oder Verbesserungsvorschläge machen möchten, freuen wir uns, wenn sie uns eine Nachricht an 
-<a href='mailto:vfu@rz.uni-kiel.de?Subject=DMP%20online%20feedback'>vfu@rz.uni-kiel.de</a> schicken.</p>
-    </div>"
-    body_text_tab_2_html: "<p>Geschichten zu DMPonline auf der DCC-Seite</p></br>" 
-    
-  help_page:
-    title: "Hilfe"
-    tab_1: "DMPonline"
-    tab_2: "Datenmanagement-Planung"
-    body_text_tab_2_html: "
-      <h3>Datenmanagementplan-Anleitung am Beispiel von Horizon 2020</h3>
-      <ul class='help_ul'>
-        <li>
-        <a href='https://www.cms.hu-berlin.de/de/ueberblick/projekte/dataman/dmp-anleitung/at_download/file'>Datenmanagementplan-Anleitung (PDF)</a><br/>
-Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anleitung zur Erstellung eines Datenmanagementplans (DMP) in Horizon 2020 mit DMPonline bereit gestellt.</li>
-      </ul>
-      <h3>Useful resources on Data Management Planning</h3>
-      <ul class='help_ul'>
-        <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [webpage]<br />
-  A summary of requirements from UK Research Councils and other charitable or health funders.
-        </li>
-        <li>
-          <a target='_blank' href='https://dmp.cdlib.org/pages/funder_requirement'>US funder requirements for Data Management Plans</a> [webpage]<br />
-  A summary of requirements from the NSF, NIH and other key funders in the USA.
-        </li>
-        <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
-  A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in DMPonline, and is presented when no funder or organsiational requirements are applicable for the user.
-        </li>
-        <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the Digital Curation Centre that outlines typical funder requirements for DMPs and the types of considerations to make when responding.
-        </li>
-     </ul>
-    <h3>Example Data Management Plans</h3>
-    <ul class='help_ul'>
-      <li>
-        <a target='_blank' href='http://data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf'>Technical plan submitted to the AHRC</a> [PDF, 7 pages]<br />
-  A DMP submitted by a researcher from the University of Bristol, also including comments from the reviewers
-      </li>
-      <li>
-        <a target='_blank' href='/webfm_send/1392'>Two social science DMPs</a> [PDF, 7 pages]<br />
-  Example plans from researchers at the University of Leeds, shared as part of the Leeds RoaDMaP training materials
-      </li>
-      <li>
-        <a target='_blank' href='http://relu.data-archive.ac.uk/data-sharing/planning/examples'>Rural Economy & Land Use (RELU) programme examples</a> [webpage]<br />
-  Two examples from a joint ESRC, BBSRC and NERC programme
-      </li>
-      <li>
-        <a target='_blank' href='http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf'>Health sciences DMP</a> [PDF, 11 pages]<br />
-  Example DMP produced by the DATUM for Health RDM training project
-      </li>
-      <li>
-        <a target='_blank' href='/webfm_send/1393'>Psychology DMP</a> [PDF, 11 pages]<br />
-  A very detailed, fictional psychology DMP produced by the DMTpsych RDM training project, based on a seminal psychology experiment
-      </li>
-      <li>
-        <a target='_blank' href='http://rci.ucsd.edu/dmp/examples.html'>UCSD Example Data Management Plans</a> [webpage]<br />
-  Over 20 example plans submitted to the National Science Foundation (NSF) in the United States by academics at UC San Diego
-      </li>
-      <li>
-        <a target='_blank' href='http://inside.mines.edu/RDS-example-plans'>Colorado School of Mines examples</a> [webpage]<br />
-  A variety of US example DMPs from Mines and elsewhere
-      </li>
-      <li>
-        <a target='_blank' href='https://www.dataone.org/data-management-planning'>NSF data management plans</a> [webpage]<br />
-  5 DMPs submitted to the NSF, shared by the DataOne initiative
-      </li>
-      <li>
-        <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [webpage]<br />
-  Three example DMPs from the USA shared by NECDMC, an instructional tool for teaching RDM to undergraduates, graduate students, and researchers in the health sciences, sciences and engineering.
-      </li>
-    </ul>
-    <h3>Useful guides on Research Data Management in general</h3>
-    <ul class='help_ul'>
-      <li>
-        <a target='_blank' href='http://www.data-archive.ac.uk/media/2894/managingsharing.pdf'>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 pages]<br />
-  A guide by the UK Data Service covering a range of topics including data formats, documentaion, ethics, copyright and data sharing.
-      </li>
-      <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br />
-  A guide by the Digital Curation Centre giving practical guidelines on how to cite data and the different tools and infrastructure that can be used to support data citation.
-      </li>
-      <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br />
-  A guide by the Digital Curation Centre that outlines different types of licenses, the pros and cons of each and how they can be applied.
-      </li>
-      <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br />
-  A guide by ANDS and the DCC on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions.
-      </li>
-      <li>
-        <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br />
-  An online training course designed for researchers or others planning to manage digital data as part of the research process. The course includes a number of software practicals on using SPSS, R, ArcGIS and NVivo.
-      </li>
-    </ul>"
-    body_text_tab_1_html: "<p>Nach der Anmeldung in DMPonline werden sie zur 'Meine Pläne'-Seite weitergeleitet. Dies ist der Startpunkt, um ihre Pläne zu Edieren, zu Teilen oder zu löschen. Sie sehen außerdem, welche Pläne sie mit anderen geteilt haben.</p>
-<h3>Pläne erstellen</h3>
-<p>Um einen Plan zu erstellen, klicken sie auf den 'Plan erstellen'-Knopf auf der 'Meine Pläne'-Seite, oder im Hauptmenü. Wählen sie die passenden Optionen in den Ausklappmenüs und Auswahlboxen aus, um zu bestimmen, welche Fragen und Hilfestellungen ihnen angezeigt werden sollen. Bestätigen sie ihre Auswahl durch das Klicken von 'Ja, Plan erstellen'.</p>
-<h3>Pläne schreiben</h3>
-<p>Die Reiter der Benutzerschnittstelle erlauben ihnen durch die verschiedenen Bereiche zu navigieren wenn sie ihren Plan bearbeiten.</p>
-<ul>
-<li>- 'Plandetails' enthält die grundliegenden administrativen Details, listet die Fragen und Hilfestellungen, auf denen ihr Plan basiert und gibt eine Übersicht über die zu beantwortenden Fragen</li>
-<li>- die folgenden Reiter repräsentieren die zu beantwortenden Fragen. Sollten ihr Förderer oder ihre Institution verschiedene Fragen zu verschiedenen Stufen des Plans beantwortet wissen möchten, können hier mehrere Reiter auftauchen</li>
-<li>- 'Teilen' enthält Details zum Einladen von anderen Personen zum Lesen oder zur aktiven Mitabeit am Plan</li>
-<li>- 'Export' enthält Möglichkeiten zum Export des Plans in verschiedene Dateiformate. Dies kann nützlich sein, wenn sie ihren Plan im Rahmen eines Antrags einreichen müssen</li>
-</ul>
-<p>In den Fragereitern sind die verschiedenen Abschnitte ihres Plans dargestellt, die sich durch anklicken zur Bearbeitung auswählen lassen. Die Antworttexte können mit den Textbearbeitungsknöpfen formatiert werden.</p>
-<p>Hilfestellungen werden rechts von den Fragen durch klicken des '+'-Symbols angezeigt.</p>
-<p>Bitte vergessen sie nicht ihre Antworten zu speichern, bevor sie die Seite verlassen.</p>
-<h3>Pläne teilen</h3>
-<p>Geben sie die E-Mail-Adresse der Person an, die ihren Plan lesen oder bearbeiten können sollen. Mithilfe des Ausklappmenüs können sie die Befugnisse, die die Person im Bezug auf den Plan haben soll, auswählen. Klicken sie abschließend auf 'Mitarbeitende(n) hinzufügen'.</p>
-<h3>Pläne exportieren</h3>
-<p>Wählen sie das Dateiformat aus, in das sie ihren Plan exportieren möchten und klicken sie 'Export'. Unterhalb des Dialogs können sie durch klicken auf das '+'-Symbol detaillierte Einstellungen zum Export vornehmen.</p>"
-
-
-
-  contact_page:
-    title: "Kontakt"
-    intro_text_html: "<p>DMP Builder is provided by the University of Alberta Libraries. You can find out more about us on our <a href='http://library.ualberta.ca/researchdata/' target='_blank'>Research Data Management page</a>. If you would like to contact us about DMP Builder, please insert your query into the webform below or email <a href='mailto:data@ualberta.ca?Subject=DMP%20Builder%20inquiry' target='_top'>data@ualberta.ca</a>.</p>
-     <p><a href='http://library.ualberta.ca/askus/' target='_blank'>Contact Us</a></p>"
-
-  terms_page:
-    title: "Nutzungsbedingungen"
-    body_text_html: "<div class='white_background'>
-    <p>
-        Dies ist eine Testinstallation von DMPonline. DMPonline wird vom Digital Curation Centre (DCC) entwickelt und gepflegt und steht unter einer <a href='http://www.gnu.org/licenses/agpl-3.0.html'>AGPL Lizenz</a> als Open Source Software zur Verfügung.
-    </p>
-    <p>
-        Die Testinstallation dient lediglich der Weiterentwicklung und Evaluation der Software und ist nicht für den Produktiveinsatz gedacht.
-   </p>
-    </div>
-    <h3>Zu Ihrer persönlichen Information</h3>
-    <div class='white_background'>
-      <p>
-        Diese Testinstallation wird in absehbarer Zeit wieder abgeschaltet werden. Die Daten, die in dieser Installation erstellt wurden, werden bei der Abschaltung verloren gehen. Wichtige Daten sollten nicht ausschließlich in der Testinstallation gespeichert werden.
-     </p>
-    </div>
-
-    <h3>Passwörter</h3>
-    <div class='white_background'>
-      <p>Ihr Passwort wird in verschlüsselter Form gespeichert und kann nicht wieder hergestellt werden. Falls Sie es verlieren, muss es neu gesetzt werden.</p>
-    </div>
-    
-    <br />
-    <div class='white_background'>
-        <p>Bei Benutzung dieser Anwendung stimmen Sie den Nutzungsbedingungen zu.</p>
-    </div>"
 
   footer:
     terms_of_use: "<p><a href='http://www.uni-kiel.de'>Universität Kiel</a>, Kiel, SH, Deutschland <br/><a href='/terms'>Nutzungsbedingungen</a></p>"
@@ -855,7 +692,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       institution: 'Institution'
       research_institute: 'Research Institute'
       template: 'Template'
-      managing_organisation: 'Digital Curation Center'
+      managing_organisation: 'Digital Curation Centre'
     user_role_types:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
@@ -866,7 +703,7 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
       modify_templates: 'modify_templates'
       modify_guidance: 'modify_guidance'
       use_api: 'use_api'
-      change_org_details: 'change_org_detials'
+      change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
     api_endpoint_types:
       guidances: 'guidances'

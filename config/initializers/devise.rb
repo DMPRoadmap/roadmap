@@ -1,3 +1,5 @@
+require "custom_failure"
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -99,7 +101,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'fce14df8477896bd9cc8ea3724d97270a5f19cb6544173d17b7e148cf360bf16449d96318275bfb3efde7b3b377db06cede2b64efb0a6d07dd02dd5076f639c9'
+  config.pepper = 'fce14df8477896bd9cc8ea3724d97270a5f19cb6544173d17b7e148cf360bf16449d96318275bfb3efde7b3b377db06cede2b64efb0a6d07dd02dd5076f639c9'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -124,7 +126,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -155,7 +157,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 1.minutes
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
@@ -262,4 +264,9 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+  
+  # Configure the system to redirect to the home page after a session timeout
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
 end

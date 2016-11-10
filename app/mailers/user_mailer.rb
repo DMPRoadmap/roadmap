@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
 	default from: I18n.t('helpers.main_email.from')
 	
 	def sharing_notification(project_group)
-		@project_group = project_group
+    @project_group = project_group
 		mail(to: @project_group.user.email, subject: I18n.t('helpers.main_email.access_given'))
 	end
 	

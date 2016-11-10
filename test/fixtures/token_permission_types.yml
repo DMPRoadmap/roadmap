@@ -1,0 +1,7 @@
+plans_token_type:
+  token_type: 'plans'
+  text_description: 'allows a user access to the plans api endpoint'
+
+guidances_token_type:
+  token_type: 'guidances'
+  text_description: 'allows a user access to the guidances api endpoint'

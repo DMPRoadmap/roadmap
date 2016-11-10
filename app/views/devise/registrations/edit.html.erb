@@ -42,7 +42,7 @@
 						{ :class => "typeahead org_sign_up" }) %></td>
 			</tr>
 			<% other_organisations = Array.new %>
-			<% Organisation.where("parent_id IS ? AND is_other = ?", nil, 1).each do |org| %>
+			<% Organisation.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
 				<% other_organisations << org.id %>
 			<% end %>
 			<tr id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(",") %>">
@@ -53,10 +53,15 @@
 			</tr>
       <tr>
         <td class="first"><%= t('helpers.user_details_language') %></td>
-        <td><%= collection_select(:user,
-                                  :language_id, Language.all.order("name"),
-                                  :id, :name, {:selected => Language.where(default_language: true).first.id},
-                                  {:class => "typeahead org_sign_up"}) %></td>
+        <td>
+					<!-- For some reason the rails collection_select and f.select would not 'select' the current language, so reverting to HTML -->
+					<select id="user_language_id" name="user[language_id]" class="typeahead org_sign_up">
+						<%= @languages.each do |l| %>
+							<option value="<%= l.id %>"<%= (current_user.language_id == l.id || (current_user.language_id.nil? && l.default_language) ? ' selected="selected"' : '') %>><%= l.name %></option>
+						<% end %>
+					</select>
+					
+				</td>
       </tr>
 			<tr>
 				<td class="first"><%= t("helpers.orcid_id") %></td>

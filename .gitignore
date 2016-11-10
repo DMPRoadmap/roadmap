@@ -12,11 +12,22 @@ public/system/*
 public/assets/*
 public/apidocs/*
 
+# Ignore branded content
+app/views/branded/*
+app/assets/**/*
+config/locales/static_pages/*.yml
+
 # Ignore gemfile.lock
 #Gemfile.lock
 
 # Ignore db schema.rb
 # db/schema.rb
+
+# Ignore seed DBs
+db/data.yml
+
+# Ignore the test DB
+db/test.sqlite3
 
 # Ignore database configuration and token secrets
 config/database.yml
@@ -24,8 +35,8 @@ config/secrets.yml
 
 # Ignore some of the initializers
 config/initializers/recaptcha.rb
-#config/initializers/devise.rb
-#config/initializers/contact_us.rb
+config/initializers/devise.rb
+config/initializers/wicked_pdf.rb
 
 # Ignore enviroments settings
 #config/environments/development.rb
@@ -36,6 +47,9 @@ config/initializers/recaptcha.rb
 
 # ignore IDE files
 .idea/*
+
+# Ignore MAC files
+.DS_Store
 
 # ignore yard doc files
 .yardoc/*

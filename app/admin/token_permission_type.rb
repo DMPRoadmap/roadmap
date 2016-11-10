@@ -1,5 +1,5 @@
 ActiveAdmin.register TokenPermissionType do
-  permit_params :token_type, :text_desription
+  permit_params :token_type, :text_description
 
   menu priority: 40, label: proc{ I18n.t('admin.token_permission_type')}, parent: "Api"
 
@@ -11,7 +11,7 @@ ActiveAdmin.register TokenPermissionType do
       link_to n.token_type, [:admin, n]
     end
     column I18n.t('admin.permission_description') do |n|
-      link_to n.text_desription, [:admin, n]
+      link_to n.text_description, [:admin, n]
     end
 
     actions
@@ -20,7 +20,7 @@ ActiveAdmin.register TokenPermissionType do
   show do
     attributes_table do
       row :token_type
-      row :text_desription
+      row :text_description
     end
   end
 

@@ -1,65 +1,70 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# Produces:
+# -----------------------------
+#  cc_template                               <-- belongs to organisation: cc
+#  cc_template_unpublished                   <-- belongs to organisation: cc
+#
+#  funder_template_1                         <-- belongs to organisation: funder
+#  funder_template_2                         <-- belongs to organisation: funder
+#  funder_template_unpublished               <-- belongs to organisation: funder
+#
+#  complete_template                         <-- belongs to organisation: complete
+#
+#  institution_[1..2]_template               <-- belongs to organisation: institution_X
+#  institution_[1..2]_template_unpublished   <-- belongs to organisation: institution_X
+#
+#  school_[1..2]_template                    <-- belongs to organisation: school_X
+#  school_[1..2]_template_unpublished        <-- belongs to organisation: school_X
+#
+#  project_[1..2]_template                   <-- belongs to organisation: project_X
+#  project_[1..2]_template_unpublished       <-- belongs to organisation: project_X
+#
 
-dcc_template:
-  title: "DMP Template"
-  description: "The default DCC template"
+# Import organisation_types.yml so that we can dynamically generate organisations
+<% organisation_types = YAML::load(ERB.new(File.read('./test/fixtures/organisation_types.yml')).result) %>
+
+cc_template:
+  title: "Curation Centre Default Template"
+  description: "The default template"
   published: true
-  organisation: dcc
-  locale: en
+  organisation: curation_center
+  locale: en-UK
   is_default: true
 
-ahrc_template:
-  title: "AHRC Template"
-  description: "AHRC template"
-  published: true
-  organisation: ahrc
-  locale: en
+cc_template_unpublished:
+  title: "Curation Centre Default Template"
+  description: "The default template"
+  published: false
+  organisation: curation_center
+  locale: en-UK
+  is_default: true
 
-bbsrc_template:
-  title: "BBSRC Template"
-  description: "BBSRC template"
-  published: true
-  organisation: bbsrc
-  locale: en
+<% 3.times do |n| %>
+funder_template_<%= (n == 1 ? 'unpublished' : n + 1) %>:
+  title: <%= "Funder Template #{(n == 1 ? 'unpublished' : n + 1)}" %>
+  published: <%= (n != 1) %>
+  organisation: funder
+  locale: en-UK
+<% end %>
 
-cruk_template:
-  title: "CRUK Template"
-  description: "CRUK template"
+complete_template:
+  title: "Complete Organisation's Template"
+  description: "The template for the complete organisation"
   published: true
-  organisation: cruk
-  locale: en
+  organisation: complete
+  locale: en-UK
 
-esrc_template:
-  title: "ESRC Template"
-  description: "ESRC template"
-  published: true
-  organisation: esrc
-  locale: en
+<% organisation_types.each do |lbl, obj| %>
+  <% unless ['funder', 'organisation'].include?(lbl) %>
+    <% 2.times do |x| %>
+      <% 2.times do |y| %>
 
-nerc_template:
-  title: "NERC Template"
-  description: "NERC template"
-  published: true
-  organisation: nerc
-  locale: en
+<%= lbl %>_<%= x + 1 %>_template<%= (y == 0 ? '' : '_unpublished') %>:
+  title: <%= "#{obj['name']} #{x + 1} Template #{(y == 0 ? '' : 'Unpublished')}" %>
+  published: <%= (y == 0) %>
+  organisation: <%= lbl %>_<%= x + 1 %>
+  locale: en-UK
 
-mrc_template:
-  title: "MRC Template"
-  description: "MRC template"
-  published: true
-  organisation: mrc
-  locale: en
-
-stfc_template:
-  title: "STFC Template"
-  description: "STFC template"
-  published: true
-  organisation: stfc
-  locale: en
-
-wellcome_template:
-  title: "Wellcome Trust Template"
-  description: "Wellcome Trust template"
-  published: true
-  organisation: wellcome
-  locale: en
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

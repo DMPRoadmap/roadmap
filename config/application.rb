@@ -59,6 +59,15 @@ module DMPRoadmap
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Even though the Rails docs state that it looks in lib/assets/images, the
+    # site errors out with messages saying '[image].[extension] not precompiled'
+    # This forces Rails to add the lib/assets/images dir to precompilation
+    config.assets.paths << Rails.root.join("lib", "assets", "images")
+    config.assets.paths << Rails.root.join("lib", "assets", "videos")
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
+    config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
+
     config.assets.precompile += %w(plans.js)
     config.assets.precompile += %w(projects.js)    
     config.assets.precompile += %w(jquery.placeholder.js)
@@ -72,8 +81,7 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { :host => 'example@dcc.ac.uk' }
-	
+    config.action_mailer.default_url_options = { :host => "#{Socket.gethostname}" }
 
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
@@ -82,14 +90,14 @@ module DMPRoadmap
 
     # Absolute path to Shibboleth SSO Login
     #config.shibboleth_login = 'https://localhost/Shibboleth.sso/Login'
-
-    WickedPdf.config = {
-	    :exe_path => '/usr/local/bin/wkhtmltopdf'
-	  }
     
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
     config.active_record.raise_in_transactional_callbacks = true
+    
+    # Load Branded terminology (e.g. organization name, application name, etc.)
+    config.branding = config_for(:branding).deep_symbolize_keys
+    
   end
 end

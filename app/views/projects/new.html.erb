@@ -8,7 +8,8 @@
 <div id="project-confirmation-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
 	<div class="modal-header">
 		<h3><%= t("helpers.project.confirmation_text")%></h3>
-		<p><%= raw t("helpers.project.confirmation_text_desc")%></p>
+		<p><%= raw t("helpers.project.confirmation_text_desc", 
+			organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation])%></p>
 	</div>
 	<div class="modal-body">
 		<div><p><%= constant("organisation_types.funder")%>: <span id="confirm-funder"><%= t("helpers.none")%></span></p></div>
@@ -28,7 +29,8 @@
 		<h3><%= t("helpers.project.confirmation_text")%></h3>
 	</div>
 	<div class="modal-body">
-		<div><p><%= raw t("helpers.project.default_confirmation_text_desc")%></p></div>
+		<div><p><%= raw t("helpers.project.default_confirmation_text_desc", 
+			organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) %></p></div>
 		<!-- verify if the current user organisation has or a template or guidance. if true display alert text-->
 		<%if !Dmptemplate.own_institutional_templates(current_user.organisation_id).empty? then %>
 			<div><p><strong><%= raw t("helpers.project.alert_default_template_text_html", :org_name => current_user.organisation.name )%></strong></p></div>

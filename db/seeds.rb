@@ -201,8 +201,8 @@ roles = {
   'use_api' => {
     name: 'use_api'
   },
-  'change_org_detials' => {
-    name: 'change_org_detials'
+  'change_org_details' => {
+    name: 'change_org_details'
   },
   'grant_api_to_orgs' => {
     name: 'grant_api_to_orgs'
@@ -244,7 +244,7 @@ users = {
         password_confirmation: "password123",
         organisation: "RCC",
         language: 'English(UK)',
-        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_detials','grant_api_to_orgs'],
+        roles: ['admin','org_admin','add_organisations','change_org_affiliation','grant_permissions','modify_templates','modify_guidance','use_api','change_org_details','grant_api_to_orgs'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -256,7 +256,7 @@ users = {
         surname: "Admin",
         organisation: "RegSciFed",
         language: 'English(UK)',
-        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_details'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -268,7 +268,7 @@ users = {
         surname: "Admin",
         organisation: "CapColl",
         language: 'English(UK)',
-        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_detials'],
+        roles: ['org_admin','grant_permissions','modify_templates','modify_guidance','change_org_details'],
         accept_terms: true,
         confirmed_at: Time.zone.now
     },
@@ -774,7 +774,7 @@ token_permission_types.each do |title,settings|
   if TokenPermissionType.where(token_type: title).empty?
     token_permission_type = TokenPermissionType.new
     token_permission_type.token_type = title
-    token_permission_type.text_desription = settings[:description]
+    token_permission_type.text_description = settings[:description]
     token_permission_type.save!
   end
 end
