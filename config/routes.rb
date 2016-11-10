@@ -1,18 +1,13 @@
 Rails.application.routes.draw do
 
-  # Table check to prevent conflicts running 'rake db:migrate' which initializes
-  # the Rails app before the migrations have actually run which in turn causes
-  # an error to be thrown because the identifier_schemes table does not yet exist
-  if ActiveRecord::Base.connection.table_exists?('identifier_schemes')
-    devise_for :users, controllers: {
-          registrations: "registrations", 
-          confirmations: 'confirmations', 
-          passwords: 'passwords', 
-          sessions: 'sessions', 
-          omniauth_callbacks: 'users/omniauth_callbacks'} do
-          
-      get "/users/sign_out", :to => "devise/sessions#destroy"
-    end
+  devise_for :users, controllers: {
+        registrations: "registrations", 
+        confirmations: 'confirmations', 
+        passwords: 'passwords', 
+        sessions: 'sessions', 
+        omniauth_callbacks: 'users/omniauth_callbacks'} do
+        
+    get "/users/sign_out", :to => "devise/sessions#destroy"
   end
   
   # WAYFless access point - use query param idp

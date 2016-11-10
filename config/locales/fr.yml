@@ -706,8 +706,9 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
     new_login_failure: "Nous avons été en mesure de vérifier votre compte. S'il vous plaît utiliser le formulaire ci-dessous pour créer un nouveau compte. Vous serez en mesure de lier votre nouveau compte par la suite."
 
     schemes:
-      ORCID:
+      orcid:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
+        user_landing_page: 'https://orcid.org/{id}'
         connect: 'Créer ou Connectez votre ID ORCID'
         connect_tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs. En savoir plus sur orcid.org'
         disconnect_confirmation: 'Êtes-vous certain que vous voulez déconnecter votre ID orcid?'

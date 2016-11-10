@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @languages = Language.order("name")
-    @identifier_schemes = IdentifierScheme.order(:name)
+    @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
   end
 
   # GET /resource

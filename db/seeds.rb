@@ -88,12 +88,9 @@ end
 
 identifier_schemes = {
     'orcid' => {
-        name: 'ORCID',
-        domain: 'orcid.org',
-        landing_page_uri: 'https://orcid.org/{id}',
-        api_key: 'ABCD1234',
-        api_secret: 'secret',
-        params: '{"scope": "/authenticate"}'
+        name: 'orcid',
+        description: 'ORCID provides a persistent digital identifier for researchers',
+        active: true
     }
 }
 

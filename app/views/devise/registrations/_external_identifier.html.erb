@@ -1,5 +1,3 @@
-<% api_key = scheme.api_key ||= '' %>
-
 <div class="user-identifier" 
      style="background-image: url(<%= t("identifier_schemes.schemes.#{scheme.name}.logo") %>); background-size: 16px 16px;">
      
@@ -12,7 +10,7 @@
                 title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip") %>
                 
   <% else %>
-    <% uri = "#{scheme.landing_page_uri.gsub(/\{id\}/, id.identifier)}" %>
+    <% uri = t("identifier_schemes.schemes.#{scheme.name}.user_landing_page").gsub(/\{id\}/, id.identifier) %>
     <%= link_to uri, uri, target: '_blank', 
                 title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip") %>
     
