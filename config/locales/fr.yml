@@ -607,6 +607,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
         project_description: "Description"
         funder: "Bailleur de fonds"
         institution: "Établissement"
+        orcid: "Votre ORCID"
         section: "Section"
         question: "Question"
         answer: "Réponse"

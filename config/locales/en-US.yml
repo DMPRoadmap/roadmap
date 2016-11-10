@@ -643,6 +643,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         project_description: "Description"
         funder: "Funder"
         institution: "Institution"
+        orcid: "Your ORCID"
         not_valid_format: '%{value}% is not a valid format'
 
     settings:

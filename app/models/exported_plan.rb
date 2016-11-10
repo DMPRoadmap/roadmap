@@ -54,6 +54,12 @@ class ExportedPlan < ActiveRecord::Base
     plan.project.organisation.try(:name)
   end
 
+  def orcid
+      scheme = IdentifierScheme.find_by(name: 'orcid')
+      orcid = self.user.user_identifiers.where(identifier_scheme: scheme).first
+      (orcid.nil? ? '' : orcid.identifier)
+  end
+
   # sections taken from fields settings
   def sections
     sections = self.plan.sections

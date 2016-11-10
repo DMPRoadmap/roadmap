@@ -12,7 +12,7 @@ module Settings
     VALID_MARGIN_RANGE = (5..25)
 
     VALID_ADMIN_FIELDS = ['project_name', 'project_identifier', 'grant_title', 'principal_investigator',
-                          'project_data_contact', 'project_description', 'funder', 'institution']
+                          'project_data_contact', 'project_description', 'funder', 'institution', 'orcid']
 
     DEFAULT_SETTINGS = {
       formatting: {
