@@ -51,7 +51,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
     end
   end
   
-                                    
+  
   # Routing for Users (Some resolve to UsersController and others to Devise's 
   # RegistrationController)
   # ------------------------------------------------------------------- 
