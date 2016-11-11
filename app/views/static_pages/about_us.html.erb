@@ -22,7 +22,9 @@
 		<li class="active">
             <%= link_to t("about_page.tab_1"), "#Background", :data => { :toggle => "tab"} %>
         </li>
-        <li><%= link_to t("about_page.tab_2"), "#News", :data => { :toggle => "tab"} %></li>
+        <%if t("about_page.tab_2") != "" %>
+            <li><%= link_to t("about_page.tab_2"), "#News", data => { :toggle => "tab"} %></li>
+        <%end%>
 	</ul>
 </div>
 <div class="dmp_details_body">
@@ -32,6 +34,7 @@
 								organisation_name: Rails.configuration.branding[:organisation][:name],
 								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
 								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_url: Rails.configuration.branding[:organisation][:url],
 								application_name: Rails.configuration.branding[:application][:name],
 								application_url: Rails.configuration.branding[:application][:url])%>
 		</div>	
