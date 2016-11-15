@@ -5,7 +5,7 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Question do
-	permit_params :default_value, :dependency_id, :dependency_text, :guidance, :number, :parent_id, :suggested_answer, :text, :question_type, :section_id
+	permit_params :default_value, :dependency_id, :dependency_text, :guidance, :number, :suggested_answer, :text, :question_type, :section_id
 	
 	menu :priority => 7, :label => proc{I18n.t('admin.question')}, :parent =>  "Templates management"
 
@@ -54,28 +54,6 @@ ActiveAdmin.register Question do
 	 		row I18n.t('admin.question_format') do |format|
 	 			link_to format.question_format.title, [:admin, format.question_format]
 	 		end
-	 		#row :guidance do |qguidance|
-             #   if !qguidance.guidance.nil? then
-              #      qguidance.guidance.html_safe
-              #  end
-            #end	
-            #row :parent_id do |qparent|
-             #   if !qparent.parent_id.nil? then
-              #      parent_q = Question.where('id = ?', qparent.parent_id)
-               #     link_to parent_q.text, [:admin, parent_q]
-            #    end
-            #end
-            #row :dependency_id do |qdepend|
-             #   if !qdepend.dependency_id.nil? then
-              #      qdep = Question.where('id = ?', qparent.dependency_id)
-               #     link_to qdep.text, [:admin, qdep]
-               # end
-            #end
-            #row :dependency_text do |dep_text|
-             #   if !dep_text.dependency_text.nil? then
-              #      dep_text.dependency_text.html_safe
-               # end
-            #end	
             row I18n.t('admin.themes') do
 	 		 	(question.themes.map{|t_q| link_to t_q.title, [:admin, t_q]}).join(', ').html_safe
 	 		end	
@@ -95,14 +73,6 @@ ActiveAdmin.register Question do
   					:as => :select, 
   					:collection => Section.order('title').map{ |sec| ["#{sec.version.phase.dmptemplate.title} - #{sec.title}", sec.id] }
             f.input :default_value
-           # f.input :guidance 
-           # f.input :parent_id, :label => "Parent", 
-  			#		:as => :select, 
-  			#		:collection => Question.find(:all, :order => 'text ASC').map{|que|[que.text, que.id]}
-            #f.input :dependency_id, :label => "Dependency question", 
-  			#		:as => :select, 
-  		#			:collection => Question.find(:all, :order => 'text ASC').map{|que|[que.text, que.id]}
-         #   f.input :dependency_text
             
         end
         f.inputs "Question Format" do
