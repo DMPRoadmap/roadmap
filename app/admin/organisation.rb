@@ -5,7 +5,7 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Organisation do
-	permit_params :abbreviation, :banner_file_id, :description, :domain, :logo_file_id, :name, :stylesheet_file_id, :target_url, :organisation_type_id, :wayfless_entity, :parent_id
+	permit_params :abbreviation, :banner_file_id, :description, :logo_file_id, :name, :target_url, :organisation_type_id, :wayfless_entity, :parent_id
 
 	 menu :priority => 14, :label => proc{I18n.t('admin.org')}, :parent => "Organisations management"
 
@@ -59,7 +59,6 @@ ActiveAdmin.register Organisation do
             end
         #    row :target_url
             row :logo_file_name
-            row :domain
             row :wayfless_entity
             row I18n.t('admin.token_permission_type') do
                 (organisation.token_permission_types.map{|tpt| link_to tpt.token_type, [:admin, tpt]}).join(', ').html_safe
@@ -89,7 +88,6 @@ ActiveAdmin.register Organisation do
         #    f.input :target_url
             f.input :banner_text
             f.input :logo_file_name
-            f.input :domain
             f.input :wayfless_entity
             f.input :token_permission_types, label: I18n.t('admin.token_permission_type'),
                     as: :select, multiple: true, include_blank: I18n.t('helpers.none'),
