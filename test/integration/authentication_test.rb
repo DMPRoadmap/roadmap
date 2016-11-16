@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class AuthenticationFlowTest < ActionDispatch::IntegrationTest
-  
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @user = User.first
   end
@@ -11,7 +12,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
     
-    sign_in
+    sign_in @user
     
     # Make sure that the user is sent to the page that lists their plans
     assert_response :success
@@ -28,7 +29,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
     
-    sign_in
+    sign_in @user
     
     delete destroy_user_session_path
     
@@ -63,6 +64,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
 
   private
     # ----------------------------------------------------------
+=begin
     def sign_in
       post user_session_path, user: {
         email: @user.email, 
@@ -77,4 +79,5 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
         follow_redirect!
       end
     end
+=end
 end
