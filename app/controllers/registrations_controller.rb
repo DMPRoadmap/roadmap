@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   def new
     oauth = {provider: nil, uid: nil}
     IdentifierScheme.all.each do |scheme|
-      oauth = session["devise.#{scheme.name.downcase}_data"]
+      oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
     end
     
     @user = User.new
