@@ -42,12 +42,11 @@ class ActiveSupport::TestCase
     assert_response :redirect
     assert_match "#{root_url}", @response.redirect_url
     
-    # Devise intermediary step prior to sending the user to the final destination
-    follow_redirect!
-    assert_response :redirect
-    assert_redirected_to "#{projects_url}"
+    # Sometimes Devise has an intermediary step prior to sending the user to the final destination
+    while @response.status >= 300 && @response.status < 400
+      follow_redirect!
+    end
     
-    follow_redirect!
     assert_response :success
     assert_select '.main_page_content h1', I18n.t('helpers.project.projects_title')
   end

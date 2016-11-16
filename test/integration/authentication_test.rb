@@ -9,14 +9,11 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
   
   # ----------------------------------------------------------
   test 'can sign in with valid email and password' do
-    get root_path
-    assert_response :success
-    
     sign_in @user
     
-    # Make sure that the user is sent to the page that lists their plans
-    assert_response :success
-    assert_select '.main_page_content h1', I18n.t('helpers.project.projects_title')
+    get root_path
+    
+    assert_authorized_redirect_to_plans_page
   end
   
   # ----------------------------------------------------------
