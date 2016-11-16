@@ -114,7 +114,17 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
     title: "Communiquez avec nous"
     intro_text_html: "<p>L'Assistant PGD est rendu disponible par les Bibliothèques de l'Université d'Alberta. Pour en savoir plus sur les services offerts par ces bibliothèques, consulter la page suivante : <a href='http://library.ualberta.ca/researchdata/' target='_blank'>Research Data Management page</a>.  Si vous désirez communiquer avec nous concernant l'Assistant PGD, merci de saisir votre message dans le formulaire Web ci-dessous ou nous écrire à <a href='mailto:portage@carl-abrc.ca?Subject=Requete%200Assistant%20PGD' target='_top'>portage@carl-abrc.ca</a>.</p>
 <p><a href='http://library.ualberta.ca/askus/' target='_blank'>Nous joindre </a></p>"
-  
+    address_text_html: "<ul>
+          <li>%{organisation_name}</li>
+          <li>%{organisation_address_line1}</li>
+          <li>%{organisation_address_line2}</li>
+          <li>%{organisation_address_line3}</li>
+          <li>%{organisation_address_line4}</li>
+          <li>%{organisation_address_country}</li>
+         </ul>
+         <p>CDL Helpline: %{organisation_telephone}</p>
+         <p>Email <a href='mailto:%{organisation_email}?Subject=DMPTool%20inquiry' target='_top'>%{organisation_email}</a></p>"
+
   terms_page:
     title: "Exploitation sous licence et conditions d'utilisation"
     body_text_html: "

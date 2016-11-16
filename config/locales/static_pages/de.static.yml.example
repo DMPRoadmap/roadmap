@@ -147,6 +147,16 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
     title: "Kontakt"
     intro_text_html: "<p>DMP Builder is provided by the University of Alberta Libraries. You can find out more about us on our <a href='http://library.ualberta.ca/researchdata/' target='_blank'>Research Data Management page</a>. If you would like to contact us about DMP Builder, please insert your query into the webform below or email <a href='mailto:data@ualberta.ca?Subject=DMP%20Builder%20inquiry' target='_top'>data@ualberta.ca</a>.</p>
      <p><a href='http://library.ualberta.ca/askus/' target='_blank'>Contact Us</a></p>"
+    address_text_html: "<ul>
+          <li>%{organisation_name}</li>
+          <li>%{organisation_address_line1}</li>
+          <li>%{organisation_address_line2}</li>
+          <li>%{organisation_address_line3}</li>
+          <li>%{organisation_address_line4}</li>
+          <li>%{organisation_address_country}</li>
+         </ul>
+         <p>CDL Helpline: %{organisation_telephone}</p>
+         <p>Email <a href='mailto:%{organisation_email}?Subject=DMPTool%20inquiry' target='_top'>%{organisation_email}</a></p>"
 
   terms_page:
     title: "Nutzungsbedingungen"

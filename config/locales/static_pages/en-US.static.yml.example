@@ -126,15 +126,15 @@ en-US:
     intro_text_html: "<p>%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href='%{organisation_url}' target='_blank'>website</a>. If you would like to contact us about %{application_name}, please enter your query in the form below or email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
     github_text_html: "<p>If you have a feature request or think you have found a bug, please check out the <a href='https://github.com/DMPRoadmap/roadmap/issues'>list of issues on GitHub</a>. If your issue isn't listed there, please add it; if it is, please add a comment if you have more information or just to let us know how important it is to you. This will help us to prioritise future developments.</p>"
     address_text_html: "<ul>
-      <li>%{organisation_name}</li>
-      <li>Level 7, Appleton Tower</li>
-      <li>Crichton Street</li>
-      <li>Edinburgh</li>
-      <li>EH8 9LE</li>
-      <li>UK</li>
-     </ul>
-     <p>Tel. +44 (0) 131 651 1239</p>
-     <p>Email <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name}%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
+          <li>%{organisation_name}</li>
+          <li>%{organisation_address_line1}</li>
+          <li>%{organisation_address_line2}</li>
+          <li>%{organisation_address_line3}</li>
+          <li>%{organisation_address_line4}</li>
+          <li>%{organisation_address_country}</li>
+         </ul>
+         <p>CDL Helpline: %{organisation_telephone}</p>
+         <p>Email <a href='mailto:%{organisation_email}?Subject=DMPTool%20inquiry' target='_top'>%{organisation_email}</a></p>"
 
   roadmap_page:
     title: "Future plans"
