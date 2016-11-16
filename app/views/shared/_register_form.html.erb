@@ -20,6 +20,10 @@
 			<%= f.text_field :surname, placeholder: t('helpers.last_name'), :as => :string, :class => 'text_field' %>
 		</li>
 	<% end %>
+	<% if resource.user_identifiers.count > 0 %>
+		<% scheme = resource.user_identifiers.identifier_scheme.name %>
+		<%= f.hidden_field "user_identifiers[#{scheme}]" value: resource.user_identifiers.first.identifier%>
+	<% end %>
 	<li>
 		<%= collection_select(:user, :organisation_id, Organisation.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: constant("organisation_types.organisation")}, { :class => 'typeahead org_sign_up' }) %>
 	</li>

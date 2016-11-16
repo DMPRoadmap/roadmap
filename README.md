@@ -100,6 +100,13 @@ I installed the system and migrated my legacy DMPOnline data into the database b
 
 This happens when the 'pepper' key defined in config/initializers/devise.rb does not match the one on your old server. Simply update the pepper and restart the application.
 
+___
+
+I am getting an undefined method 'devise' on the app/modles/user.rb object when running tests or trying to start the service.
+
+This happens when you have not created a copy of the devise.rb.example initializer file. To correct it copy the file and update its parameters accordingly:
+>     > cp config/initializers/devise.rb.example config/initializers/devise.rb
+
 #### Support
 Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
 Please be advised though that we can only provide limited support for your local installations.
