@@ -26,6 +26,32 @@ class ActiveSupport::TestCase
     name.gsub(/([a-z]+)([A-Z])/, '\1_\2').gsub('-', '_').downcase
   end
   
+# FUNCTIONAL/INTEGRATION TEST HELPERS
+  # ----------------------------------------------------------------------
+  def assert_unauthorized_redirect_to_root_path
+    assert_response :redirect
+    assert_match "#{root_url}", @response.redirect_url
+    
+    follow_redirect!
+    assert_response :success
+    assert_select '.welcome-message h2', I18n.t('welcome_title')
+  end
+  
+  # ----------------------------------------------------------------------
+  def assert_authorized_redirect_to_plans_page
+    assert_response :redirect
+    assert_match "#{root_url}", @response.redirect_url
+    
+    # Devise intermediary step prior to sending the user to the final destination
+    follow_redirect!
+    assert_response :redirect
+    assert_redirected_to "#{projects_url}"
+    
+    follow_redirect!
+    assert_response :success
+    assert_select '.main_page_content h1', I18n.t('helpers.project.projects_title')
+  end
+  
   
 # UNIT TEST HELPERS
   # ----------------------------------------------------------------------

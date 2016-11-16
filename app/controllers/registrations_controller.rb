@@ -8,7 +8,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   # GET /resource
   def new
-    oauth = session["devise.#{scheme.name.downcase}_data"]
+    oauth = {provider: nil, uid: nil}
+    IdentifierScheme.all.each do |scheme|
+      oauth = session["devise.#{scheme.name.downcase}_data"]
+    end
+    
     @user = User.new
     
     unless oauth.nil?
@@ -61,13 +65,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 
- def update
- 	if user_signed_in? then
-		@user = User.find(current_user.id)
-
-        do_update
+  def update
+    if user_signed_in? then
+      @user = User.find(current_user.id)
+      @languages = Language.order("name")
+      @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+      
+      do_update
     else
-    	render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
   end
 
@@ -116,7 +122,8 @@ class RegistrationsController < Devise::RegistrationsController
   		end
         set_flash_message :notice, :updated
         # Sign in the user bypassing validation in case his password changed
-        sign_in @user, :bypass => true
+        sign_in @user, bypass_sign_in: true
+        #sign_in @user, :bypass => true
         
         #if params[:unlink_flag] == 'true' then
             redirect_to({:controller => "registrations", :action => "edit"}, {:notice => I18n.t('helpers.project.details_update_success')})
