@@ -165,10 +165,11 @@
 <div class="question-area-right-column">
     
     <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
-        <% @comments = Comment.where("question_id = ? && plan_id = ?", question.id, answer.plan_id ) %>
+        <% @comments = Comment.where("question_id = ? AND plan_id = ?", question.id, answer.plan_id ) %>
         <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
+        <% @question_guidances = @plan.guidance_for_question(question) %>
         <ul class="question_right_column_ul">
-            <% if (!question.guidance.nil? && question.guidance != "") || @plan.guidance_for_question(question).count > 0  then %>
+            <% if (!question.guidance.nil? && question.guidance != "") || @question_guidances.count > 0  then %>
                 <!-- add css to comment div-->
                 <% css_style_comment_div = "display: none;"%>
                 <% css_style_guidance_div = ""%>
@@ -224,7 +225,7 @@
                 </div>
             <% end %>
             <!--guidance from themes, institution themes and/or direct to the question-->
-            <% @plan.guidance_for_question(question).each_pair do |group,themes| %>
+            <% @question_guidances.each_pair do |group,themes| %>
                 <% themes.each_pair do |theme,guidances| %>
                     <% guidances.each do |guidance| %>
                         <div class="accordion-group">

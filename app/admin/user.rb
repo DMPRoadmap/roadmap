@@ -12,8 +12,7 @@ ActiveAdmin.register User do
 	filter :firstname
 	filter :surname
 	filter :email
-	filter :organisations
-  filter :other_organisation
+	filter :organisation
 	filter :created_at
 	filter :updated_at
 
@@ -31,14 +30,10 @@ ActiveAdmin.register User do
         link_to user.surname, [:admin, user]
     end
    	column I18n.t('admin.last_logged_in'), :last_sign_in_at
-   	column I18n.t('admin.org_title'), :sortable => 'organisations.name' do |org_title|
+    
+   	column I18n.t('admin.org_title'), :sortable => 'organisation.name' do |org_title|
       if !org_title.organisation.nil? then
-      	if org_title.other_organisation.nil? || org_title.other_organisation == "" then
-      		link_to org_title.organisation.name, [:admin, org_title.organisation]
-      	else
-      		I18n.t('helpers.org_type.org_name') + ' - ' + org_title.other_organisation
-
-        end
+      	link_to org_title.organisation.name, [:admin, org_title.organisation]
       end
    	end
 
@@ -89,9 +84,9 @@ ActiveAdmin.register User do
   			f.input :orcid_id
         f.input :api_token
   		#	f.input :shibboleth_id
-  			f.input :organisation_id ,:label => I18n.t('admin.org_title'),
-  						:as => :select,
-  						:collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
+  			f.input :organisation_id, :label => I18n.t('admin.org_title'), 
+                    :as => :select, 
+                    :collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
   			f.input :other_organisation
   		#	f.input :user_status_id, :label => I18n.t('admin.user_status'),
   		#				:as => :select,
@@ -104,8 +99,6 @@ ActiveAdmin.register User do
   							:multiple => true,
                             :include_blank => I18n.t('helpers.none'),
   							:collection => Role.order('name').map{|ro| [ro.name, ro.id]}
-
-        f.input :api_token
     end
 
     f.actions
@@ -114,9 +107,6 @@ ActiveAdmin.register User do
 
 
   controller do
-    def scoped_collection
-      resource_class.includes(:organisations) # prevents N+1 queries to your database
-    end
 
 	def permitted_params
 	  params.permit!

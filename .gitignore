@@ -12,6 +12,11 @@ public/system/*
 public/assets/*
 public/apidocs/*
 
+# Ignore branded content
+app/views/branded/*
+app/assets/**/*
+config/locales/static_pages/*.yml
+
 # Ignore gemfile.lock
 #Gemfile.lock
 
@@ -30,8 +35,8 @@ config/secrets.yml
 
 # Ignore some of the initializers
 config/initializers/recaptcha.rb
-#config/initializers/devise.rb
-#config/initializers/contact_us.rb
+config/initializers/devise.rb
+config/initializers/wicked_pdf.rb
 
 # Ignore enviroments settings
 #config/environments/development.rb
