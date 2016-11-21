@@ -45,12 +45,12 @@ class Phase < ActiveRecord::Base
   #
   # @return [Version, nil]
 	def latest_published_version
-		versions.order("number DESC").each do |version|
-			if version.published then
-				return version
-			end
-		end
-		return nil
+		pub_vers = versions.where('published = ?', true).order('updated_at DESC')
+    if pub_vers.any?() then
+      return pub_vers.first
+    else
+      return nil
+    end
 	end
 
   ##

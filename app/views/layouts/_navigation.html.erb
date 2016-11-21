@@ -41,7 +41,7 @@
         <% else %>
           <li>
         <% end %>
-          <%= link_to t("org_admin.user_list_label"), "/org/admin/users/admin_index", :class => "main_nav_last_li"%>
+          <%= link_to t("org_admin.user_list_label"), admin_index_users_path, :class => "main_nav_last_li"%>
           </li>
       <% end %>
     <% else %>
