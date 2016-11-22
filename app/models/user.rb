@@ -261,4 +261,21 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+
+
+
+  # this generates a reset password link for a given user
+  # which can then be sent to them with the appropriate host
+  # prepended.
+  def reset_password_link
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token   = enc 
+    self.reset_password_sent_at = Time.now.utc
+    save(validate: false)
+
+    edit_user_password_path  + '?reset_password_token=' + raw
+  end
+
+
 end
