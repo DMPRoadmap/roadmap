@@ -24,6 +24,12 @@ languages = {
         description: '',
         name: 'de',
         default_language: false
+    },
+    'ES' => {
+        abbreviation: 'es',
+        description: '',
+        name: 'es',
+        default_language: false
     }
 }
 

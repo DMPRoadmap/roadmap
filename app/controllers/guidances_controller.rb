@@ -63,6 +63,7 @@ class GuidancesController < ApplicationController
 
 	#setup variables for use in the dynamic updating
 	def update_phases
+    authorize Guidance
     # updates phases, versions, sections and questions based on template selected
     dmptemplate = Dmptemplate.find(params[:dmptemplate_id])
     # map to title and id for use in our options_for_select
@@ -70,10 +71,10 @@ class GuidancesController < ApplicationController
     @versions = dmptemplate.versions.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_version'))
     @sections = dmptemplate.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
     @questions = dmptemplate.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
-
   end
 
  def update_versions
+    authorize Guidance
     # updates versions, sections and questions based on phase selected
     phase = Phase.find(params[:phase_id])
     # map to name and id for use in our options_for_select
@@ -83,6 +84,7 @@ class GuidancesController < ApplicationController
   end
 
   def update_sections
+    authorize Guidance
     # updates sections and questions based on version selected
     version = Version.find(params[:version_id])
     # map to name and id for use in our options_for_select
@@ -91,6 +93,7 @@ class GuidancesController < ApplicationController
   end
 
   def update_questions
+    authorize Guidance
     # updates songs based on artist selected
     section = Section.find(params[:section_id])
     @questions = section.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
