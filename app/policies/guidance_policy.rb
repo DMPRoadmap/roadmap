@@ -35,6 +35,22 @@ class GuidancePolicy < ApplicationPolicy
     user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
   end
 
+  def update_phases?
+    user.can_modify_guidance?
+  end
+
+  def update_versions?
+    user.can_modify_guidance?
+  end
+
+  def update_sections?
+    user.can_modify_guidance?
+  end
+
+  def update_questions?
+    user.can_modify_guidance?
+  end
+
   class Scope < Scope
     def resolve
       scope = Guidance.by_organisation(user.organisation_id)

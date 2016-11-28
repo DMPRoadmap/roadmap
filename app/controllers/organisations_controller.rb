@@ -27,6 +27,7 @@ class OrganisationsController < ApplicationController
     @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
     assign_params = params[:organisation].dup
     assign_params.delete(:logo)
+    assign_params.delete(:contact_email) unless params[:organisation][:contact_email].present?
     
     respond_to do |format|
       begin

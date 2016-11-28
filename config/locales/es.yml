@@ -1,0 +1,791 @@
+# [+Project:+] DMPonline v4
+# [+Description:+] This file contains all the text present on DMPonline that is not being retrieve from the database.
+# [+Copyright:+] Digital Curation Centre
+
+es:
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%d-%m-%Y"
+      short: "%d/%m/%Y"
+      long: "%d %B, %Y"
+
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+    # Used in date_select and datetime_select.
+    order:
+      - day
+      - month
+      - year
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      custom: "%d/%m/%Y %H:%M"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"
+
+  tool_title: "DMPonline"
+  dmponline3_text: "Versión anterior de DMPonline" 
+  dcc_name: "Digital Curation Centre"
+  welcome_title: "Bienvenido/a."
+  welcome_text: "<p>DMPonline ha sido desarrollado por el <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> como una herramienta para elaborar planes de gestión de datos.</p>"
+  screencast_text: "Video sobre cómo usar DMPonline"
+  screencast_error_text: "El navegador no soporta la etiqueta video."
+
+  admin:
+    org_title: "Nombre de la organización"
+    org: "Organización"
+    orgs: "Organizaciones"
+    org_type: "Tipo de organización"
+    org_parent: "Organización superior"
+    org_created_message: "Se ha creado correctamente la organización."
+    org_updated_message: "Se ha actualizado correctamente la actualización."
+    plans: "Planes"
+    title: "Título"
+    desc: "Descripción"
+    guidance_group: "Grupo de orientación"
+    no_guidance_group: "Sin grupo de orientación"
+    guidance: "Orientación"
+    name: "Nombre"
+    abbrev: "Abreviatura"
+    question: "Pregunta"
+    question_format: "Formato de la Pregunta"
+    questions: "Preguntas"
+    template_title: "Título de la plantilla"
+    section_title: "Título de la sección"
+    phase_title: "Título de la fase"
+    version_title: "Título de la versión"
+    user_name: "Nombre de usuario"
+    firstname: "Nombre"
+    surname: "Apellidos"
+    user: "Usuario"
+    user_org_role: "Función del usuario en una Organización"
+    user_role_type: "Tipo de función de usuario"
+    user_role: "Función del usuario"
+    role: "Función"
+    user_status: "Estado del usuario"
+    user_type: "Tipo de usuario"
+    last_logged_in: "Último acceso"
+    version_numb: "Número de versión"
+    details: "Detalles"
+    phases: "Fases"
+    phase: "Fase"
+    version: "Versión"
+    versions: "Versiones"
+    sections: "Secciones"
+    section: "Sección"
+    multi_options: "Opciones de preguntas múltiples"
+    templates: "Plantillas"
+    template: "Plantilla"
+    themes: "Temas"
+    theme: "Tema"
+    sug_answer: "Respuesta sugerida"
+    sug_answers: "Respuestas sugeridas"
+    old_temp_field: "campo de la plantilla antigua"
+    old_theme_field: "campo del tema antiguo"
+
+
+  org_admin:
+    admin_area: "Área de administración"
+    template_label: "Plantillas"
+    user_list_label: "Usuarios"
+    org_details_label:  "Detalles de la entidad"
+    org_text: "Estos son los detalles básicos de su entidad."
+    org_abbr_help_text_html: "Esto es lo que se muestra como etiqueta para guiarle, ej: 'Guía de Glasgow sobre Metadatos'. Es preferible usar una abreviación o un nombre corto."
+    users_list: "Listado de usuarios"
+    user_full_name: "Nombre"
+    user_name: "Dirección de correo electrónico"
+    last_logged_in: "Último acceso"
+    how_many_plans: "¿Cuántos planes?"
+    user_text_html: "Debajo tiene la lista de usuarios registrados en su entidad. Puede ordenar los datos por campo."
+    org_name: "Nombre"
+    org_abbr: "Abreviatura"
+    org_desc: "Descripción"
+    org_banner_text: "Texto del banner superior"
+    org_target_url: "Sitio web"
+    org_type: "Tipo de entidad"
+    parent_org: "Entidad principal"
+    last_updated: "Última actualización"
+    desc_help_text_html: "<div class='tooltip_box'>Por favor, introduzca la información que describe su entidad.</div>"
+    top_banner_help_text_html: "<div class='tooltip_box'>Por favor, introduzca la información que le gustaría que vieran sus usuarios al identificarse. No introduzca más de 165 caracteres.</div>"
+    template_desc_help_text_html: "<div class='tooltip_box'>Introduzca una descripción que ayude a distinguir las plantillas. Ej: Si van dirigidas a audiencias distintas.</div>"
+    abbre_help_text: "Por favor, introduzca una abreviatura del nombre de su entidad."
+    target_url_help_text: "Por favor, introduzca una dirección web válida."
+    name_help_text: "Por favor, introduzca el nombre de su entidad."
+    guidance_label: "Orientación"
+    templates_label: "Plantillas"
+    add_option_label: "Añadir opción"
+    add_question_label: "Añadir pregunta"
+    add_section_label: "Añadir sección"
+    remove_option_label: "Borrar"
+    option_order_label: "Orden"
+    option_text_label: "Texto"
+    option_default_label: "Por defecto"
+    guidance:
+      guidance_list: "Listado de orientaciones"
+      text_label: "Texto"
+      themes_label: "Tema"
+      question_label: "Pregunta"
+      by_theme_or_by_question: "Esta guía se refiere a:"
+      by_themes_label: "por tema"
+      by_question_label: "por pregunta"
+      template: "Plantilla"
+      templates: "Plantillas"
+      guidance_group_label: "Grupo de orientación"
+      created: "Creación"
+      last_updated: "Última actualización"
+      actions: "Acciones"
+      add_guidance: "Añadir orientación"
+      created_message: "La orientación se creó correctamente."
+      updated_message: "La orientación se actualizó correctamente."
+      help_text_html: "<div class='tooltip_box'>Por favor, introduzca un texto de orientación para este tema.</div>"
+      new_label: "Nueva orientación"
+      view_all_guidance: "Ver todas las orientaciones"
+      text_help_text_html: "Introduzca sus orientaciones aquí. Puede incluir enlaces si lo cree necesario."
+      apply_to_help_text_html: "Decida si su orientación debe ordenarse por temas (opción por defecto) o si sólo pertenece a una pregunta concreta de una plantilla de una agencia de financiación."
+      by_themes_help_text_html: "Seleccione a el/los tema(s) relacionados con esta orientación."
+      by_question_help_text_html: "Seleccione la plantilla, fase, versión, sección y pregunta de la siguiente lista desplegable para definir las preguntas que esta guía debe mostrar."
+      guidance_group_select_help_text_html: "Seleccione a que grupo pertenece esta guía."
+      guidance_text_html: "<p>Puede escribir las porciones de la guía que se mostraran por tema (ej: una guía genérica sobre almacenamiento y copias de seguridad que debe presentarse en la página principal) o puede escribir guías para preguntas en concreto. Escribir una guía genérica por tema le ahorra tiempo y esfuerzo porque ésta será mostrada automáticamente en todas sus plantillas.</p>
+      <p>Probablemente querrá que su guía se muestre en todas sus plantillas, aunque puede haber casos en los que quiera que se muestre sólo para algunas agencias de financiación. Ej: Si tiene instrucciones particulares para BBSRC. Éstas también pueden detallarse si fuera necesario.</p>"
+      delete_message_html: "Está a punto de borrar '%{guidance_summary}'. ¿Está seguro?"
+    guidance_group:
+      add_guidance_group: "Añadir grupo de orientación"
+      guidance_group_list: "Listado de grupos de orientación"
+      name_label: "Nombre"
+      subset: "Subconjunto opcional"
+      subset_eg: "ej: Escuela / Departmento"
+      all_temp: "Todas las plantillas"
+      help_text_add: "Por favor, introduzca el título del grupo"
+      subset_option_help_text: "Si la guía está dirigida a un subconjunto de los usuarios (ej: los pertenecientes a un colegio o instituto), seleccione esta opción. Los usuarios serán capaces de seleccionar esta guía cuando respondan sus preguntas durante la creación del plan."
+      template_help_text_html: "Selecciones que plantillas debe de mostrar la guía. Normalmente serán todas las plantillas."
+      title_help_text_html: "Añada un nombre adecuado para el grupo de su guía (Ej: Guía de Glasgow). Este nombre se usará para indicar a los usuarios finales la procedencia de la guía (Ej: 'Guía de metadatos de Glasgow')"
+      guidance_group_text_html: "<p>Primero cree un grupo de guías. Este podrá abarcar toda la institución o un subconjunto de la misma (ej: una escuela, colegio o departamento en particular). Cuando cree una guía, necesitará asignarla a un grupo de guías.</p>"
+      delete_message: "Está a punto de borrar el grupo '%{guidance_group_name}'. Esto afectará a la orientación. ¿Está seguro?"
+      created_message: "El grupo de orientación se creó correctamente."
+      updated_message: "El grupo de orientación se actualizó correctamente."
+      destroyed_message: "El grupo de orientación se borró correctamente."
+    templates:
+      create_template: "Crear una plantilla"
+      new_label: "Nueva plantilla"
+      template_details: "Detalles de la plantilla"
+      edit_details: "Editar plantilla"
+      view_all_templates: "Ver todas las plantillas"
+      funders_temp: "Plantillas de financiador"
+      title_help_text: "Por favor, introduzca un título para la plantilla."
+      section_title_help_text: "Por favor, introduzca el título de la sección"
+      help_text_html: "<div class='tooltip_box'>Por favor, introduzca la descripción de la plantilla para este tema.</div>"
+      create_own_template_text_html: "<p>Si desea añadir una plantilla institucional para un Plan de Gestión de Datos, use el botón 'crear plantilla'. Podrá crear más de una plantilla si lo cree conveniente. Ej: para investigadores y otro para estudiantes de postgrado.</p>
+              <p>Su plantilla se presentará a los usuarios de su institución cuando no sean aplicables plantillas de agencias de financiación. Si quiere aññadir preguntas a las plantillas de las agencias de financiación, use las siguientes opciones de 'personalizar plantilla'</p>"
+      create_new_template_text_html: "<p>Para crear una plantilla nueva, en primer lugar introduzca un título y una descripción. Tras grabar se le dará la opción de añadir una o más fases. </p>"
+      desc_help_text_html: "Introduzca una descripción que le ayude a diferenciar las plantillas. Ej: Si tiene varias para diferentes audiencias"
+      own_temp: "Sus plantillas"
+      add_phase_label: "Añadir fase nueva +"
+      view_phase_label: "Ver fase"
+      edit_phase_label: "Editar fase"
+      back_to_edit_phase_label: "Volver a editar la vista"
+      edit_phase_details_label: "Editar los detalles de las fase"
+      phase_details_label: "Detalles de la fase"
+      phase_order_label: "Orden de presentación"
+      phase_details_text_html: "<p>Aquí indicará el título mostrado a los usuarios. Si piensa tener varias fases en su PGD, esto debería quedar claro en el título y la descripción.<p/>"
+      phase_title_help_text: "Por favor, introduzca un título para la fase"
+      phase_number_help_text: "Esto le permite ordenar las fases de su plantilla."
+      phase_desc_help_text_html: "Teclee una descripción básica. Se les presentará a los usuarios bajo el resumen de secciones y preguntas solicitadas."
+      phase_delete_message: "Va a eliminar '%{phase_title}'. Esto afectará a versiones, secciones y preguntas enlazadas con esta fase. ¿Está seguro?"
+      phase_new_text_html: "Cuando crea una fase nueva para su plantilla, se creará automáticamente una versión. Una vez complete el siguiente formulario se le darán las opciones para crear secciones y preguntas."
+      versions_label: "Versiones"
+      version_details_label: "Detalles de la versión"
+      add_section: "Añadir sección"
+      new_section: "Título de la nueva sección"
+      section_title_placeholder: "Título de la nueva sección"
+      section_desc_help_text_html: "<div class='tooltip_box'>Teclee una descripción básica. Puede ser un resumen sobre que cubre esta sección o instrucciones sobre como responder las preguntas. Este texto se mostrará en un banner cada vez que se edite esta sección.</div>"
+      section_number_help_text: "Le permite ordenar las secciones."
+      add_question: "Añadir pregunta"
+      created: "Creado el"
+      last_updated: "Última actualización"
+      published_label: "Publicado"
+      cannot_publish: "Por favor, asegúrese de que ha creado al menos una fase con una versión publicada."
+      title_label: "Título"
+      desc_label: "Descripción"
+      actions: "Acciones"
+      customise: "Personalizar"
+      edit_customisation: "Editar la personalización"
+      created_message: "La información se creó correctamente."
+      updated_message: "La información se actualizó correctamente."
+      destroyed_message: "Information se destruyó correctamente"
+      section_delete_message: "Va a borrar '%{section_title}'. Esta acción afectará las preguntas enlazadas con esta sección. ¿Está seguro?"
+    versions:
+      clone_versions_label: "Make big changes"
+      edit_versions_label: "Make small changes"
+      edit_label: "Edit"
+      versions_text_html: "A first version is created automatically. If you want to make major changes to published versions later (e.g. add section or questions) please create a new version. If you only want to fix typos or make sma    ll changes that do not alter meanings, edit the current version."
+      desc_help_text_html: "Enter a basic description."
+      delete_message: "You are about to delete '%{version_title}'. This will affect sections and questions linked to this version. Are you sure?"
+      edit_alert_label: "Edit alert"
+      edit_alert_text: "Please consider the kind of changes you are about to make as this plan is already published and might be in use"
+    questions:
+      question_text_label: "Texto de la pregunta"
+      question_number_label: "Número de la pregunta"
+      question_edit_button: "Editar la pregunta"
+      question_delete_button: "Borrar la pregunta"
+      answer_format_label: "Formato de la respuesta"
+      option_comment_display_checkbox: "Mostrar un área de comentarios adicional."
+      option_comment_display: "Se mostrará un área adicional para comentarios."
+      option_comment_hide: "No se mostrará un área adicional para comentarios."
+      example_answer_label: "Respuesta de ejemplo"
+      suggested_answer_label: "Respuesta sugeridada"
+      suggested_answer_help_text_html: "Puede añadir un ejemplo o respuesta sugerida para ayudar a responder a sus usuarios. Se presentará bajo la caja de respuestas y pueden ser copiada y pegada."
+      suggested_or_example_answer_label: "Respuesta sugerida / ejemplo"
+      suggested_or_example_answer_button: "Añadir respuesta sugerida / ejemplo"
+      edit_suggested_answer_button: "Editar respuesta sugerida / ejemplo"
+      delete_suggested_answer_message: "Va a eliminar una respuesta sugerida / ejemplo de '%{question_text}'. ¿Está seguro?"
+      default_value_label: "Valor por defecto"
+      number_help_text: "Le permite ordenar las preguntas de una sección."
+      question_format_help_text_html: "Puede elegir entre:<ul><li>- área de texto (caja grande para párrafos);</li> <li>- campo de texto (para una respuesta corta);</li>
+      <li>- checkboxes donde las opciones se presentan como una lista y pueden seleccionarse varios valores;</li>
+      <li>- botones de radio, donde se presenta una lista de opciones para elegir sólo una de ellas;</li>
+      <li>- lista despegable - sólo puede seleccionarse una opción;</li>
+      <li>- lista de selección múltiple que permite a los usuarios seleccionar varias opciones de una lista desplazable usando la tecla CTRL;</li></ul>"
+      default_answer_help_text_html: "Cualquier texto que introduzca aquí se mostrará en la caja de respuesta. Si quiere una respuesta en un formato concreto (ej: tablas), puede crear ese estilo aquí."
+      themes_label: "Temas"
+      question_themes_help_text_html: "<p>Seleccione los temas relevantes para esta pregunta.</p>
+      <p>Le permite crear guías genéricas a nivel de institución o de otras fuentes. Ej. para el DCC o cualquier escuela o departamento a la que se dirija la guía. </p>
+      <p>Puede seleccionar varios temas usando el botón CTRL.</p>"
+      default_answer_label: "Respuesta por defecto"
+      guidance_label: "Guía"
+      question_guidance_help_text_html: "Introduzca la guía concreta para esta pregunta. Si también tiene guías temáticas, se eligirán en función de su slección, por lo que es preferible no duplicar mucho texto."
+      delete_message: "Va a eliminar '%{question_text}'. ¿Está seguro?"
+      question_options_help_text_html: "Introduzca las opciones que quiere mostrar. Si quiere que una opción esté seleccionada por defecto, marque la casilla correspondiente."
+
+ 
+
+
+  helpers:
+    home: "Inicio"
+    return_home: "Volver a la página inicial"
+    admin_area: "Área de super administrador"
+    edit_profile: "Editar perfil"
+    view_plans_label: "Ver planes"
+    create_plan_label: "Crear un plan"
+    about_us_label: "Acerca de"
+    roadmap_label: "Hoja de ruta"
+    help_label: "Ayuda"
+    contact_label: "Contacto"
+    jisc: "El DCC está financiado por"
+
+    sign_in: "Conectar"
+    sign_out: "Desconectar"
+    sign_up: "Registrarse"
+    sign_up_text: "¿Nuevo en DMPonline? Regístrese ya."
+    signed_in: "Registrado como "
+    institution_sign_in_link: "O conectar con sus credenciales institucionales"
+    institution_sign_in: " (sólo usuarios del Reino Unido)"
+
+    user_name: "Dirección de correo electrónico"
+    email: "Correo electrónico"
+    valid_email: "Debe introducir una dirección de correo electrónico válida."
+    user_details_text_html: "<p>Por favor, tenga en cuenta que su dirección de correo electrónico se usa como su nombre de usuario. Si cambia esto, recuerde usar su nueva dirección de correo electrónico al conectar.</p>"
+    user_details_paragraph_html: "Puede editar cualquiera de los siguientes datos."
+    remember_me: "Recordarme"
+    org_not_listed: "No se muestra mi organización."
+
+    password: "Clave"
+    current_password: "Clave actual"
+    new_password: "Nueva clave"
+    password_conf: "Confirmación de clave"
+    change_password: "Cambiar su clave"
+    forgot_password: "¿Olvidó su clave?"
+    password_too_small: "Su clave ha de tener al menos 8 caracteres."
+    password_no_match: "Ha de coincidir con lo que introdujo en el campo anterior."
+    no_pass_instructions: "¿No recibió instrucciones de confirmación?"
+    no_unlock_instructions: "¿No recibió instrucciones para el desbloqueo?"
+    send_password_info: "Reiniciar las instrucciones de la clave"
+    edit_password_info: "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
+    accept_terms_html: " Acepto los <a href='/terms'>términos y condiciones</a> *"
+ 
+    text_area: "Text area"
+    text_field: "Text field"
+    radio_buttons: "Radio buttons"
+    checkbox: "Check box"
+    dropdown: "Dropdown"
+    multi_select_box: "Multi select box"
+
+    error: "¡Error!"
+    comment: "Comentario"
+    send: "Enviar"
+    yes: "Si"
+    no: "No"
+    none: "Ninguno/a"
+    false_lowercase: "falso"
+    title: "Título"
+    note: "Nota"
+    me: "Yo"
+    view: "Ver"
+    desc: "Descripción"
+    save: "Guardar"
+    preview: "Previsualización"
+    saving: "Guardando..."
+    loading: "Cargando..."
+    removing: "Borrando..."
+    unsaved: "Deshaciendo cambios"
+    unlink_account: "Desvincular cuenta"
+    submit:
+      edit: "Editar"
+      create: "Crear"
+      update: "Actualizar"
+      cancel: "Cancelar"
+      save: "Guardar"
+      delete: "Borrar"
+      back: "Volver"
+      discard: "Descartar"
+
+    name: "Nombre"
+    first_name: "Nombre"
+    last_name: "Apellidos"
+    first_name_help_text: "Por favor, introduzca su nombre."
+    surname_help_text: "Por favor, introduzca sus apellidos."
+    owner: "Propietario"
+    orcid_id: "Número ORCID"
+    orcid_html: "El número ORCID es un identificador digital persistente que identifica a cada investigador, <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>más información</a>."
+    sign_up_shibboleth_alert_text_html: "DMPonline no reconoce las credenciales de su institución - o usted no ha creado una cuenta con con nosotros o no ha vinculado los detalles de la cuenta en DMPonline con la cuenta de su institución. </br>
+     --> Si usted <strong>no tiene</strong> una cuenta en DMPonline, por favor, rellene el siguiente formulario.</br>
+     --> Si usted <strong>tiene</strong> una cuenta en DMPonline, por favor <a href='#header-login-form' data-toggle='modal' class='a_orange'>Identifíquese</a> de forma que podamos vincular su cuenta con las credenciales de su institución.</br>
+    Una vez ha creado y/o vinculado su cuenta, podrá identificarse con las credenciales de su institución directamente."
+    shibboleth_linked_text: "Su cuenta enstá vinculada con las credenciales de su institución."
+    shibboleth_to_link_text: "Vincule su cuenta de DMPonline con las credenciales de su institución (Sólo para usuarios del Reino Unido)"
+    shibboleth_unlink_label: "Desvincule las credenciales de su institución"
+    shibboleth_unlink_alert: "Desvincule las alertas relacionadas con las credenciales de su institución"
+    shibboleth_unlink_dialog_text: "<p>Va a desvincular DMPonline de las credenciales de su institución, ¿Quiere continuar?</p>"
+
+
+    section_label: "Sección"
+    sections_label: "Secciones"
+    questions_label: "Preguntas"
+    answers_label: "Respuestas"
+    answer_questions: "Responder"
+    last_edit: "Última edición"
+    select_action: "Seleccionar una acción"
+    answered_by: "Contestado "
+    answered_by_part2: " por "
+    suggested_answer: "Respuesta sugerida"
+    suggested_example: "Respuesta de ejemplo"
+    notanswered: "Aún no respondido/a"
+    noquestionanswered: "No se ha respondido a las preguntas"
+    guidance: "Orientación"
+    policy_expectations: "Política esperada"
+    export: "Exportar"
+    guidance_accordion_label: "Guía"
+    add_comment_accordion_label: "Compartir nota"
+    comment_accordion_label: "Notas"
+
+    comments:
+      add_comment_label: "Añadir nota"
+      add_comment_text: "Compartir nota con colaboradores"
+      comment_label: "Nota"
+      comments_label: "Notas"
+      view_label: "Ver"
+      edit_label: "Editar"
+      retract_label: "Borrar"
+      clear_label: "Borrar"
+      commented_by: "Anotado por:"
+      archive_own_comment_question: "¿Seguro que quiere eliminar esta nota?"
+      archive_own_comment_button_label: "Borrar"
+      archive_comment_question: "¿Seguro que quiere eliminar esta nota?"
+      archive_comment_button_label: "Borrar"
+      clear_by: "Nota borrada por"
+      retracted: "Nota borrada por usted"
+
+
+    org_type:
+      funder: "Agencia de financiación"
+      institution: "Institution"
+      project: "Proyecto"
+      organisation: "Entidad"
+      org_name: "Nombre de la entidad"
+      school: "Facultad"
+      publisher: "Editor"
+      other_guidance: "Otra orientación"
+      template: "Plantilla"
+      templates: "Plantillas"
+      child: "Unidad"
+      other_org_help_text: "Por favor, introduzca el nombre de su entidad."
+
+
+    project:
+      create: "Crear un plan"
+      edit: "Editar los detalles del plan"
+      grant_title: "Número de la subvención"
+      grant_help_text: "Número de referencia de la subvención si es aplicable [SÓLO PGDs YA ADJUDICADOS]"
+      not_applicable: "No aplicable / no listado/a."
+      multi_templates: "Hay varias plantillas que podría usar. Por favor, elija una."
+      project_name: "Nombre de proyecto"
+      my_project_name: "Mi proyecto"
+      success: "Plan creado con éxito"
+      principal_investigator: "Investigador principal"
+      principal_investigator_help_text: "Nombre del/de los Investigador/es Principal/es o investigador/es principal/es del proyecto."
+      principal_investigator_id: "ID del Investigador Principal"
+      principal_investigator_id_help_text: "P.e. ORCID http://orcid.org/."
+      funder_help_text: "Financiador del proyecto si es apropiado"
+      funder_name: "Nombre del financiador del proyecto"
+      project_question_desc_label: "Resumen sobre las preguntas"
+      tab_plan: "Detalles"
+      tab_export: "Exportar"
+      export_text_html: "<p>Desde aquí puede descargar su plan en varios formatos. Esto puede ser útil si necesita enviar su plan para solicitar una subvención.</br>
+Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
+      questions_answered: "preguntas respondidas"
+      not_saved_answers_text_alert: "Ha modificado las respuestas, pero todavía no las ha grabado:"
+      not_saved_answers_confirmation_alert: "¿Quere grabar los cambios ahora?"
+      not_saved_answers_header: "Preguntas sin contestar"
+      project_data_contact: "Datos del contacto del proyecto"
+      project_data_contact_help_text: "Nombre (si es diferente del de más arriba), teléfono y dirección de correo electrónico"
+      project_name_help_text: "Si se solicita financiación, indique el nombre exactamente como en la propuesta de subvención."
+      project_desc_help_text_html: "<div class='tooltip_box'><h4>Preguntas a considerar:</h4><ul><li>- ¿Cual es la naturaleza de su proyecto de investigación?</li><li>- ¿Qué temas de investigación está tratando? </li><li>- ¿Para qué propósito se están recogiendo o creando los datos? </li></ul><h4>Orientación:</h4><p>Resuma brevemente el tipo de estudio (o estudios) para ayudar a otros a comprender los propósitos para los cuales se están recogiendo o crendo los datos.</p></div>"
+      project_identifier: "ID"
+      project_identifier_help_text: "El ID tal como lo determinó la institución u organismo financiador."
+      project_static_info: "Este plan está basado en:"
+      projects_title: "Mis planes"
+      project_settings_text: "Los items que seleccione se mostarán en la siguiente tabla. Puede ordenar los datos según sus encabezados o filtrar tecleando textos en la caja de búsqueda."
+      project_text_when_no_project: "<p><strong>Bienvenido.</strong></br> Ya está listo para crear su primer PGD.</br>Haga clic en el botón 'Crear un plan' para comenzar.</p>"
+      project_text_when_project: "<p>La siguiente tabla lista los planes que usted ha creado, así como los que otros investigadores hayan compartido con usted.</br>Se pueden editar, compartir, exportar o borrar en cualquier momento.</p>"
+      project_details_text_html: "Esta página le proporciona una visión general de su plan. Le dice en qué está basado su plan y le da una visión general de las preguntas que se le harán."
+      project_details_editing_text_html: "Por favor, rellene los detalles básicos del proyecto y haga clic en 'Actualizar' para guardarlos"
+      confirm_delete_text: "¿Está seguro de que quiere borrar este plan?"
+      confirmation_text: "Confirmar los detalles del plan"
+      confirmation_text_desc: "Donde su financiador o institución no tenga requisitos específicos (o si dejó estas opciones en blanco), verá la lista de verificación del <abbr title='Digital Curation Centre'>DCC</abbr>. Esto proporciona un conjunto genérico de preguntas y orientación para el <abbr title='Plan de Gestión de Datos'>PGD</abbr>. Para más detalles ver: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a> [en inglés]."
+      confirmation_button_text: "Si, crear el plan"
+      default_confirmation_text_desc: "Ha seleccionado el PGD por Defecto, que está basado en la lista de comprobación del DCC. Ofrece un conjunto genérico de preguntas y guías relacionadas con los PGDs. Para más información, puede ver: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      default_confirmation_button_text: "Crear un plan"
+      alert_default_template_text_html: "Tenga en cuenta que %{org_name} provee una plantilla para PGDs. Si quiere usar esta plantilla, seleccione 'Cancelar', si no, seleccione 'Crear un plan'"
+      share:
+        tab_share: "Compartir"
+        shared_label: "Compartido?"
+        share_text_html: "<p>Aquí puede dar a otras personas acceso a su plan. Hay tres niveles de permiso.<ul><li>Los usuarios con acceso de \"sólo lectura\" sólo pueden leer el plan.</li><li>Los Editores pueden contribuir al plan.</li><li>Los Co-propietarios pueden también contribuir, editar los detalles y controlar el acceso al plan.</li></ul></p><p>Añada cada colaborador individualmente introduciendo su dirección de correo electrónico, seleccionando un nivel de permiso y haciendo clic en \"Añadir colaborador\".</p><p>Aquellos a quienes invite recibirán un aviso por correo electrónico indicando que tienen acceso al plan e invitándoles a registrarse en DMPonline si no tienen ya una cuenta. También se envia un aviso si se cambia el nivel de permiso de un usuario.</p>"
+        collaborators: "Colaboradores"
+        add_collaborator: "Añadir colaborador"
+        add: "Añadir"
+        permissions: "Permisos"
+        permissions_desc: "Los editores pueden contribuir a los planes. Los co-propietarios tienen derechos adicionales para editar los detalles del plan y controlar el acceso al mismo."
+        remove: "Eliminar acceso de usuario"
+        confirmation_question: "¿Está seguro?"
+        owner: "Propietario"
+        co_owner: "Co-propietario"
+        edit: "Editar"
+        read_only: "Sólo lectura"
+        locked_section_text: "Esta sección está bloqueda para su edición por "
+      create_page:
+        title: "Crear un nuevo plan"
+        desc_html: "<p>Por favor, seleccione la información de los siguientes desplegables, de forma que podamos determinar qué preguntas y orientación han de ser mostrados en su plan.</p>
+        <p>Si no responde a los requisitos específicos de un financiador o institución, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>seleccione aquí para crear un PGD genérico</a> basado en los temas más comunes.</p>"
+        default_template: "PGD por defecto"
+        funders_question: "Si se solicita financiación, seleccione el organismo financiador de su investigación."
+        funders_question_description: "Si no, déjelo en blanco."
+        other_funder_name_label: "Nombre del financiador, si corresponde."
+        institution_question: "Para ver preguntas y/u orientación relativas a su institución, seleccione su entidad."
+        institution_question_description: "Puede dejar en blanco o seleccionar una entidad distinta a la suya."
+        other_guidance_question: "Marque para seleccionar cualquier otra fuente de orientación que quiera ver."
+      configure: "Configuración"
+      columns:
+        name: "Nombre"
+        owner: "Propietario"
+        shared: "¿Compartido?"
+        template_owner: "Propietario de la plantilla"
+        last_edited: "Última edición"
+        identifier: "Identificador"
+        grant_number: "Identificador de subvenciaón"
+        principal_investigator: "Principal Investigador / Científico"
+        data_contact: "Datos de contacto del plan"
+        description: "Descripción"
+      filter:
+        placeholder: "Filtro de planes"
+        submit: "Filtrar"
+        cancel: "Cancelar"
+        no_matches: "Ningún plan coincide con '%{filter}'"
+
+    plan:
+      export:
+        pdf:
+          question_not_answered: Pregunta no respondida.
+          generated_by: Este documento fue generado por DMPonline (http://dmponline.dcc.ac.uk)
+        space_used: "aprox. %{space_used}% de disponibilidad del espacio usado (máx. %{num_pages} páginas)"
+        project_name: "Nombre del Proyecto"
+        project_identifier: "Identificador del Proyecto"
+        grant_title: "Título de subvención"
+        principal_investigator: "Principal Investigador / Científico"
+        project_data_contact: "Datos de contacto del proyecto"
+        project_description: "Descripción"
+        funder: "Financiador"
+        institution: "Institución"
+
+    settings:
+      title: "Preferencias"
+      projects:
+        title: "Preferencias - Mis planes"
+        desc: "La siguiente tabla muestra las columnas que pueden mostrarse en la lista 'Mis planes'. Elija cuales quiere que se muestren."
+        errors:
+          no_name: "'nombre' tiene que estar en la lista de columnas."
+          duplicate: "Nombre de columna duplicado. Por favor, indique cada columna sólo una vez."
+          unknown: "Nombre de columna desconocido."
+      plans:
+        title: Título del plan
+        reset: "Reiniciar"
+        custom_formatting: "(Usando valores personalizados para el formato del PDF)"
+        template_formatting: "(Usando valores de la plantilla para el formato del template PDF)"
+        default_formatting: "(Usando valores por defecto para el formato del template PDF)"
+        included_elements: "Elementos incluídos"
+        pdf_formatting: "Dando formato al PDF"
+        font_face: "Estilo"
+        font_size: "Tamaño"
+        margin: "Margen"
+        margins:
+          top: "Superior"
+          bottom: "Inferior"
+          left: "Izquierdo"
+          right: "Derecho"
+        max_pages: "Máximo número de páginas"
+        errors:
+          missing_key: "No se ha indicado un valor obligatorio"
+          invalid_margin: "El valor del margen no es válido"
+          negative_margin: "El margen no puede ser negativo"
+          unknown_margin: "Margen desconocido. Sólo puede ser 'superior', 'inferior', 'izquierdo' or 'derecho'"
+          invalid_font_size: "Tamaño de fuente inválido"
+          invalid_font_face: "Estilo de fuente inválido"
+          unknown_key: "Valores de formato desconocidos"
+          invalid_max_pages: "Número de páginas inválido"
+
+  about_page:
+    title: "Sobre DMPonline"
+    tab_1: "Antecedentes"
+    tab_2: "Últimas noticias"
+
+    body_text_tab_1_html: "
+    <p>Los organismos de financiación exigen, cada vez con más frecuencia, que sus beneficiarios produzcan Planes de Gestión de Datos que abarquen desde la fase inicial de preparación de la propuesta hasta después de  la obtención de la financiación. El Digital Curation Centre en el Reino Unido creó DMPonline para ayudar a los equipos de investigación a responder a este requisito.</p>
+    <p>El <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> [en inglés] ha trabajado de cerca con organismos financiadores y universidades para desarrollar una herramienta que ayude a los investigadores a generar un plan de gestión de datos (PGD) eficaz que responda al ciclo de vida completo del proyecto, desde la etapa de preparación de la propuesta hasta su terminación.</p>
+    </div>
+    <h3>Cómo empezar</h3>
+    <div class='white_background'>
+    <p>Si tiene una cuenta, por favor, identifíquese y comience a crear o editar su PGD.</p>
+    <p>Si no tiene una cuenta DMPonline, haga clic en <a href='/'>'Registrarse'</a> en la página principal.</p>
+    <p>Por favor, visite la página de <a href='/help'>'Ayuda'</a> para orientarse.</p>
+    </div>
+    <h3>Información adicional</h3>
+    <div class='white_background'>
+    <p>Estamos mejorando constantemente la interfaz de usuario y las funcionalidades de DMPonline.
+    Si quiere contribuir con comentarios y sugerencias, por favor contacte con nosotros por correo electrónico en
+    <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>
+    <p>Si quisiera acceder a la versión original de DMPonline, por favor visite <a href='https://dmponline.dcc.ac.uk' target='_top'>DMPonline</a> [en inglés].</p>"
+
+  body_text_tab_2_html: "<p>Noticias de DMPonline desde el portal web del DCC</p></br>"
+
+  help_page:
+    title: "Ayuda"
+    tab_1: "Sobre DMPonline"
+    tab_2: "Sobre la planificación de la gestión de datos"
+    body_text_tab_2_html: "<h3>Recursos útiles sobre Planificación de Gestión de Datos</h3>
+      <ul class='help_ul'>
+        <li>
+          <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [página web, en inglés]<br />
+  Un resumen de los requisitos de los UK Research Councils y otros organismos financiadores de sanidad o benéficos.
+        </li>
+        <li>
+          <a target='_blank' href='https://dmp.cdlib.org/pages/funder_requirement'>US funder requirements for Data Management Plans</a> [página web, en inglés]<br />
+  Un resumen de los requisitos del NSF, NIH y otros organismos financiadores básicos en los Estados Unidos.
+        </li>
+        <li>
+          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 páginas, en inglés]<br />
+  Un listado de 13 preguntas y documentación orientativa relacionada que representan los temas principales que surgen en los Planes de Gestión y Compartición de Datos. Esta lista de comprobación se usa como plantilla genérica en DMPonline y se presenta cuando no se pueden aplicar requisitos de un organismo financiador concreto al usuario.
+        </li>
+        <li>
+          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 páginas, en inglés]<br />Una guía del Digital Curation Centre que resume los requerimientos típicos de los organismos financiadores para PGDs y los tipos de consideraciones que realizar al responder.
+        </li>
+     </ul>
+    <h3>Ejemplo de Planes de Gestión de Datos</h3>
+    <ul class='help_ul'>
+      <li>
+        <a target='_blank' href='http://data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf'>Technical plan submitted to the AHRC</a> [PDF, 7 páginas, en inglés]<br />
+  Un PGD enviado por un investigador de la Universidad de Bristol que también incluye comentarios de los revisores
+      </li>
+      <li>
+        <a target='_blank' href='/webfm_send/1392'>Two social science DMPs</a> [PDF, 7 páginas, en inglés]<br />
+  Planes de ejemplo de investigadores de la Universidad de Leeds, compartidos como parte del material de formación del Leeds RoaDMaP
+      </li>
+      <li>
+        <a target='_blank' href='http://relu.data-archive.ac.uk/data-sharing/planning/examples'>Rural Economy & Land Use (RELU) programme examples</a> [página web, en inglés]<br />
+  Dos ejemplos de un programa conjunto entre ESRC, BBSRC y NERC
+      </li>
+      <li>
+        <a target='_blank' href='http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf'>Health sciences DMP</a> [PDF, 11 páginas, en inglés]<br />
+  Ejemplo de PGD generado por el proyecto de formación DATUM for Health RDM
+      </li>
+      <li>
+        <a target='_blank' href='/webfm_send/1393'>Psychology DMP</a> [PDF, 11 páginas, en inglés]<br />
+  Un PGD ficticio de psicología muy detallado, creado por el proyecto de formación DMTpsych RDM, basado en un importante experimento psicológico
+      </li>
+      <li>
+        <a target='_blank' href='http://rci.ucsd.edu/dmp/examples.html'>UCSD Example Data Management Plans</a> [página web, en inglés]<br />
+  Más de 20 planes de ejemplo enviados a la National Science Foundation (NSF) de los Estados Unidos por académicos de la UC en San Diego
+      </li>
+      <li>
+        <a target='_blank' href='http://inside.mines.edu/RDS-example-plans'>Colorado School of Mines examples</a> [página web, en inglés]<br />
+  Varios PGDs estadounidenses
+      </li>
+      <li>
+        <a target='_blank' href='https://www.dataone.org/data-management-planning'>NSF data management plans</a> [página web, en inglés]<br />
+  5 PGDs enviados a la NSF compartidos por la iniciativa DataOne
+      </li>
+      <li>
+        <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [página web, en inglés]<br />
+  Tres PGDs de ejemplo estadounidenses compartidos por el NECDMC, una herramienta educativa para enseñar gestión de datos de investigación a los estudiantes universitarios, graduados e investigadores de ciencias de la salud, ingeniería y ciencias en general.
+      </li>
+    </ul>
+    <h3>Guías útiles sobre Gestión de Datos de Investigación en general</h3>
+    <ul class='help_ul'>
+      <li>
+        <a target='_blank' href='http://www.data-archive.ac.uk/media/2894/managingsharing.pdf'>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 páginas, en inglés]<br />
+  Una guía del UK Data Service que cubre varias materias, incluyendo formatos de datos, documentación, ética, derechos de autor y compartición de datos.
+      </li>
+      <li>
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 páginas, en inglés]<br />
+  Una guía del Digital Curation Centre que proporciona pautas sobre cómo citar datos y las diferentes herramientas e infraestructura que se pueden usar para mantener la cita de datos.
+      </li>
+      <li>
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 páginas, en inglés]<br />
+  Una guía del Digital Curation Centre que resume distintos típos de licencias, los pros y contras de cada una y cómo se pueden aplicar.
+      </li>
+      <li>
+        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 páginas]<br />
+  Una guía por el ANDS y el DCC sobre cómo seleccionar qué datos almacenar para su preservación a largo plazo, compartición y reutilización. La guía ofrece varios criterios para ayudar a decidir en el proceso de selección.
+      </li>
+      <li>
+        <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [recurso en línea, en inglés]<br />
+  Un curso de formación en línea diseñado para investigadores y otras personas que pretendan gestionar datos digitales como parte del proceso de investigación. El curso incluye varias prácticas en el uso de software SPSS, R, ArcGIS y NVivo.
+      </li>
+    </ul>"
+    body_text_tab_1_html: "<p>Cuando se identifique en DMPonline será redirigido a la página 'Mis Planes'. Desde ahí puede editar, compartir, exportar o borrar cualquiera de sus planes. También verá los planes que otros hayan compartido con usted.</p>
+    <h3>Crear un plan</h3>
+    <p>Para crear un plan, haga clic en el botón 'Crear un plan' desde la página 'Mis planes' o desde el menú superior.</p>
+    <h3>Escribir su plan</h3>
+    <p>La interfaz de pestañas permite navegar a través de las diferentes funciones al editar el plan.</p>
+    <ul>
+      <li>- 'Detalles del plan' incluye los detalles administrativos básicos, informa de los conjuntos de preguntas y consejos en los que se basa el plan y proporciona una visión general de las preguntas que se realizarán.</li>
+      <li>- Las siguientes pestañas presentan las preguntas a contestar. Hay una pestaña por cada fase del PGD definida en el H2020.</li>
+      <li>- La pestaña 'Compartir' permite invitar a otros a leer o contribuir al plan.</li>
+      <li>- La pestaña 'Exportar' permite descargar el plan en varios formatos. Ésto puede ser útil si necesita enviar el plan como parte de la solicitud de subvención.</li>
+    </ul>
+    <p>Cuando se visualice cualquiera de las pestañas de preguntas, verá las diferentes secciones del plan mostrado. Haga clic en ellas una a una para contestar las preguntas. Puede formatear las respuestas usando los botones de edición de texto.</p>
+    <p>La parte derecha del panel mostrará la información orientativa. Haga clic en el símbolo '+' para verla.</p>
+    <p>Recuerde 'guardar' las respuestas antes de avanzar al siguiente paso.</p>
+    <h3>Compartir planes</h3>
+    <p>Añada la dirección de correo electrónico de cualquier colaborador al que quiera invitar a leer o editar su plan. Configure el nivel de permisos que quiera proporcionarles a través de las opciones desplegables y haga clic en 'Añadir colaborador'</p>
+    <p>Si lo desea puede dejar una nota con comentarios para sus colaboradores. En cualquier momento podrá eliminar el acceso o actualizar el nivel de permisos proporcionados previamente.</p>
+    <h3>Exportar planes</h3>
+    <p>Desde aquí puede descargar el plan en varios formatos. Esto puede ser útil si necesita enviar el plan como parte de una solicitud de subvención. Elija el formato en el que quiera ver/descargar el plan y haga clic en exportar. Cuando se identifique en DMPonline se le enviará a la página 'Mis planes'. Desde allí puede editar, compartir, exportar o borrar cualquiera de sus planes. También verá los planes que otros hayan compartido con usted.</p>"
+
+
+  contact_page:
+    title: "Contactar con nosotros"
+    intro_text_html: "<p>DMPonline es una herramienta desarrollada por el Digital Curation Centre. Tiene más einformación sobre nosotros en nuestro <a href='http://www.dcc.ac.uk/' target='_blank'>portal web</a . Si quiere realizar alguna consulta sobre DMPonline, por favor, incluya su pregunta en el formulario siguiente o envíe un mensaje de correo electrónico a <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
+    github_text_html: "<p>Si quiere pedir nuevas funcionalidades o encuentra algún bug, puede mirar la <a href='https://github.com/DigitalCurationCentre/DMPonline_v4/issues?state=open'>lista de incidencias en GitHub</a>. Si su incidencia no se encuentra aquí, puede añadirla. En este caso, añada un comentario si tiene más información o díganos la importancia que tiene para usted. Sus comentarios nos ayudaran a establecer las prioridades de futuros desarrollos.</p>"
+    address_text_html: "<ul>
+      <li>Digital Curation Centre</li>
+      <li>Level 7, Appleton Tower</li>
+      <li>Crichton Street</li>
+      <li>Edinburgh</li>
+      <li>EH8 9LE</li>
+      <li>UK</li>
+     </ul>
+     <p>Tel. +44 (0) 131 651 1239</p>
+     <p>Email <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
+
+  roadmap_page:
+    title: "Hoja de ruta"
+    tab_1: "Planes para el futuro"
+    tab_2: "Colabore con nosotros"
+    body_text_tab_1_html: "<p>DMPonline tiene una activa y crecciente base de usuarios y, estamos agradecidos a todos los que sugieren ideas de mejoras y nuevos desarrollos. Regularmente pensamos como expandir nuestros serivcios y examinamos estas necesidades.</p>
+    <p>Tenemos algunas mejoras y nuevos desarrollos planificados, entre los que se encuentran:</p>
+    <ul>
+        <li>- APIs para crear planes, extraet guías y generar estadísticas de DMPonline</li>
+        <li>- Soporte multilingue para poder presentar versiones en otros idiomas</li>
+        <li>- Soporte para localización de forma que se pueden crear instancias para países en concreto u otros contextos</li>
+        <li>- Crear un cliclo de vida que indique el estado de los PGDs y permita acceso institucional a los planes</li>
+        <li>- Soporte para la revisión de Planes de Gestión de Datos</li>
+    </ul>
+    <p>Estamos revisando los tiempos de desarrollo debido a cambios de personal y contrataciones pendientes. Experamos lanzar una nueva versión a principios de 2016.</p>
+    <p>Para asegurarnos de que estamos en el camino correcto, desarrollamos nuestras planificaciones con nuestro grupo de usuarios de DMPonline. Si desea contribuir a dar forma a nuestros planes futuros, puede unirse a este grupo. Tiene más información sobre como colaborar con nosotros en la pestaña 'Colabore con nosotros'.</p>
+    </br>
+    <h3>Versión actual</h3>
+    <p>La versión actual de DMPonline es la 4.2. Se lanzó en agosto de 2015 e incluye personalizaciones a nivel de institución, guías opcionales para financiadores, mejoras en el área de preguntas, mejoras en el interfaz de administración, peticiones para GitHub, una nueva semilla de números aleatorios y una actualización de las librerías de Ruby.</p>
+    <ul>
+      <li>- <a href='/files/DMPonline-ReleaseNote-August2015.pdf' target='_blank'>Notas de esta Release</a></li>
+      <li>- <a href='/files/DMPonline-v4-InstitutionalBranding.pdf' target='_blank'>Personalizar la herramienta DMPonline a nivel de institución</a></li>
+    </ul>
+    <p>El código está disponible en <a target='_blank' href='https://github.com/DigitalCurationCentre/DMPonline_v4'>GitHub</a></p>
+    </br>
+    <h3>Versión anterior</h3>
+    <p>La versión anterior de DMPonline es la 4.1. Fue lanzada en mayo de 2015 e incluye la posibilidad de comentarios, mejoras en la guía para firmar con las credenciales de una institución, mejora en la guía de desarrollo y métodos propuestos para internacionalización. Los detalles completos se encuentran en la nota de lanzamiento y en sus documentos asociados.</p>
+    <ul>
+      <li>- <a href='/files/DMPonline-DeliveryNote-May2015.pdf' target='_blank'>Nota de lanzamiento</a></li>
+      <li>- <a href='/files/DMPonline-v4-InstitutionalLogin.pdf' target='_blank'>Entrar en DMPonline versión 4 con credenciales institucionales del Reino Unido</a></li>
+      <li>- <a href='/files/DMPonline-v4-LocaleSupport.pdf' target='_blank'>Desarrollando soporte de localización en DMPonline versión 4</a></li>
+    </ul>
+    </br>"
+
+    body_text_tab_2_html: "<p>El <em>UK Digital Curation Centre</em> mantiene y desarrolla DMPonline. Somos un equipo pequeño y, colaboramos gustosamente con otros. Hay varias formas en las que puede involucrarse:</p>
+    <h3>Únase a nuestro grupo de usuarios</h3>
+    <p>Queremos animarle a que se una a nuestros usuarios más activos, por lo que le invitamos a nuestro grupo de usuarios. Tenemos una <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>lista de correo</a> para el grupo a la que se puede unir. También albergamos encuentros periódicos para consultar nuestros planes</p>
+    <p>Normalmente nuestras reuniones de usuarios se centran en un tema (e.j: obtener casos de uso para un API) y las invitaciones se envían basándose en sus áreas de experiencia. Por esta razón es útil para nosotros saber que clase de usuario es usted - investigador, administrador de institución, bibliotecario, desarrollador, financiador, etc.</p>
+    <p>Por favor, comunícanos sus intereses y comparta sus ideas para futuros desarrollos usando la lista de correo para que toda la comunidad pueda ofrecer feedback.</p>
+    </br>
+    <h3>Personalice DMPonline</h3>
+    <p>DMPonline puede ser personalizado por instittución y disciplina. Puede añadir plantillas para los usuarios de su organización y crear guías personalizadas que expliquen sus apoyos y servicios locales. Puede también ofrecer respuestas de ejemplo para ayudar a los usuarios que quieran escribir un Plan de Gestión de Datos. Para hacer esto, necesita solicitar derechos de administración. Puede escribirnos a <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
+    <p>Tiene información adicional sobre como personalizar DMPonline en el <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>sitio web del DCC</a>.</p>
+    </br>
+    <h3>Contribuyendo con el código</h3>
+    <p>DMPonline es una aplicación escrita en Ruby on Rails. El código fuente está disponible con la licencia GNU Affero General Public License, que permite reutilizar el código con libertad, pero obliga a compartir las extensiones del mismo de la misma forma. Le solicitamos que nos informe si instala una implementación de DMPonline y que devuelva sus contribuciones a la comunidad.</p>
+    <p>Si instala una instancia de DMPonline, requerimos que indique que el creador original de la herramienta ha sido el DCC. Recomendamos que este reconocimiento se haga incluyendo el logo de DMPonline cou un enlace a la instancia del DMPonline en el DCC.</p>
+    <p>Estamos deseando trabajar con desarrolladores externos para añadir nuevas funcionalidades a la herramienta. También estamos dispuestos a desarrollar nuevas características a cambio de un precio. Si encuentra extensiones que cree que deben ser priorizadas y, tiene recursos para apoyar el esfuerzo adicional de su desarrollo, puede contactar con nosotros en la dirección de e-mail dmponline@dcc.ac.uk para negociar los condiciones.</p>
+    </br>
+    <h3>Apoye a nuestro trabajo</h3>
+    <p>Estamos impresionados por la rapidez de la acogida de DMPonline en el Reino Unido y el resto del mundo. Nos encantaría oir como usa esta herramienta y la promociona. Estamos seguros de que otros también están ofreciendo cursos, creando guías y defendiendo esta herramienta. Le pedimos que nos informe sobre estos temas, ya que nos ayudan a mostrar su impacto.</p>
+    <p>Estamos buscando formas de recuperar nuestra inversión, de forma que podamos incrementar la demanda de uso de forma efectiva mientras aseguramos el mantenimiento y la sotenibilidad a largo plazo de DMPonline. Pronto publicaremos nuestros palanes para que puedan consultarlos, pero agradecemos sugerencias sobre cual sería la mejor forma de dar soporte a nuestro trabajo.</p> "
+
+  terms_page:
+    title: "Condiciones de uso"
+    body_text_html: "<div class='white_background'>
+<p>El Digital Curation Centre ('DCC') es un consorcio mantenido por el Jisc que comprende a las Universidades of Edinburgh, Glasgow y Bath. Nuestra circunscripción principal es la comunidad de investigación del Reino Unido, en particular, el sector de la educación superior.</p>
+</div>
+    <h3>DMPonline</h3>
+    <div class='white_background'>
+      <p>DMPonline ('la herramienta', 'el sistema') es una herramienta desarrollada por el DCC con el fin de convertirse en un recurso compartido para la comunidad investigadora.</p>
+    </div>
+    <h3>Su información personal</h3>
+    <div class='white_background'>
+      <p>Para su identificación y administración de su cuenta en DMPonline, necesitamos archivar su dirección de correo electrónico. También podríamos usarla para contactar con usted con el fin de obtener información sobre su experiencia en el uso de la herramienta o para informarle de los últimos desarrollos o versiones. Esta información podría ser compartida con instituciones asociadas al DCC, únicamente con fines  legítimos. No venderemos, alquilaremos ni comerciaremos con ninguna información que usted nos proporcione.</p>
+    </div>
+    <h3>Política de privacidad de datos</h3>
+    <div class='white_background'>
+      <p>La información que introduzca en este sistema podrán verla además de usted, las personas con las que usted haya elegido compartir el acceso y - solamente de cara al mantenimiento del servicio - los administradores de la Universidad de Edimburgo. Recopilamos información anónima, automatizada y colectiva de los planes, pero no accederemos directamente, ni haremos uso, ni compartiremos su contenido con nadie sin su permiso. Los agentes autorizados de su institución de origen podrán acceder a sus planes con propósitos específicos - como por ejemplo, hacer un seguimiento del cumplimiento de los requisitos de la institución o el organismo financiador, o bien calcular las necesidades de almacenamiento.</p>
+    </div>
+    <h3>Libertad de Información</h3>
+    <div class='white_background'>
+      <p>La Universidad de Edimburgo mantiene sus planes en su nombre. No obstante usted es el propietario y único responsable de los mismos. Cualquier solicitud de Libertad de Información será enviada a su institución de origen.</p>
+    </div>
+    <h3>Claves</h3>
+    <div class='white_background'>
+      <p>Su clave está almacenada en formato cifrado y no puede ser recuperada. Si la olvida tendrá que regenerarla.</p>
+    </div>
+    <h3>Cookies</h3>
+    <div class='white_background'>
+      <p>Por favor, tenga en cuenta que DMPonline usa cookies.</p>
+    </div>
+    <br />
+    <div class='white_background'>
+    <p>El uso de la herramienta indica que usted entiende y está de acuerdo con estos términos y condiciones.</p></div>"
