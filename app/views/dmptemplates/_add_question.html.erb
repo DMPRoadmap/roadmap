@@ -38,7 +38,11 @@ in the admin interface.
 					<div id="new-ques-format" class="ques_format">
 						<div class="div_left_icon">
 							<%= f.select :question_format_id, 
-								options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id), 
+								#options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id), 
+                                # the above was the line but it doesn't work because in the DB
+                                # the QuestionFormat title is in English (Text area)
+                                # but the above uses the Fr translation and so gets a nil
+								options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title("Text area").id), 
 								{},	:id => "new-select-format-#{section.id}"%>
 						</div>
 						<div class="div_right_icon">

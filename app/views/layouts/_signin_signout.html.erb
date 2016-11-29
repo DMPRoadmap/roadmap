@@ -9,7 +9,7 @@
                 <ul class="dropdown-menu" id="signIn_dropdown">
                     <li><%= link_to t("helpers.edit_profile"), edit_user_registration_path, :class => "signIn_dropdown_link" %></li>
                     <% if current_user.can_super_admin? %>
-                        <li><%= link_to t("helpers.admin_area"), "/admin", :class => "signIn_dropdown_link" %></li>
+                        <li><%= link_to t("helpers.admin_area"), admin_root_path, :class => "signIn_dropdown_link" %></li>
                     <%end%>	
                     <% if current_user.can_org_admin? && !current_user.organisation_id.nil? %>
 <li><%= link_to t("org_admin.admin_area"), admin_index_dmptemplate_path(current_user.organisation_id), :class => "signIn_dropdown_link" %></li>
