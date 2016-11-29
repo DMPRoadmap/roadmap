@@ -142,9 +142,13 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     # migrate most current template into templates (org facing)
     proj_number = 0
     # migrating uncustomised plans
-    Project.where(organisation_id: nil).find_each(batch_size: 10) do |project|
-      puts proj_number
+    Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: :version}).find_each(batch_size: 10) do |project|
+      puts ""
+      puts "beginning number #{proj_number}"
       proj_number +=1
+      if project.dmptemplate.nil?               # one of the templates dosent exist
+        next
+      end
       new_plan = initNewPlan(project)           # copy data from project to NewPlan object
       plans = project.plans                     # select plans for project
       version_ids = []
@@ -157,36 +161,64 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       phases = dmptemplate.phases               # select phases for project
       temp_match = false                        # flag for if we found a matching template
 
-      if project.organisation_id.nil?
-        # see if we have already ported the data over
-        # SELECT ___
-        # From Templates t, new_phases np, phases p
-        # WHERE np.template_id = t.id, __express_constraint_that_all_phases_there_with_correct_version__
-        Template.where(dmptemplate_id: dmptemplate.id).find_each(:batch_size => 10) do |t|  # for templates with same id
-          phase_matches = Array.new(phases.length, false)
-          i = 0                                               # iterator for matches arr
-          phases.each do |phase|                              # for each phase in the original dmptemplate
-            # see if the version for this phase is already in one of the phases for the dmptemplate
-            new_phase = t.new_phases.find_by(title: phase.title)# find corresponding phase in new template
-            unless new_phase.nil?
-              if version_ids.include? new_phase.vid     # if the version is correct
-                phase_matches[i] = true                         # success case for this phase
-              end
+      puts "checking for matching templates"
+      Template.includes(new_phases:(:new_sections)).where(dmptemplate_id: dmptemplate.id).find_each(:batch_size => 10) do |t|  # for templates with same id
+        phase_matches = Array.new(phases.length, false)
+        i = 0                                               # iterator for matches arr
+        phases.each do |phase|                              # for each phase in the original dmptemplate
+          # see if the version for this phase is already in one of the phases for the dmptemplate
+          new_phase = t.new_phases.find_by(title: phase.title)# find corresponding phase in new template
+          unless new_phase.nil?
+            if version_ids.include? new_phase.vid     # if the version is correct
+              phase_matches[i] = true                         # success case for this phase
             end
-            i+=1
           end
-          # we need matching phases AND matching org id for customisations
-          unless phase_matches.include? false || t.organisation_id != project.organisation_id
+          i+=1
+        end
+        # we need matching phases AND matching org id for customisations
+        unless phase_matches.include? false
+          if project.organisation_id.nil? # phase level match is  good enough for organisations
             temp_match = true                                 # flag that we found match
                                                       # we can point the new_plan to this template and init all data
             new_plan.template_id = t.id
             new_plan.save!
             puts "found a match"
+            break
+          else  # need to match sections for customised plans
+            sections = []
+            new_sections = []
+            versions.each do |v|        # init sections in old plan
+              v.sections.each do |sec|
+                sections << sec
+              end
+                Section.where(organisation_id: project.organisation_id, version_id: v.id).each do |sec|
+                sections << sec
+              end
+            end
+            t.new_phases.includes(:new_sections).each do |np|
+              np.new_sections.each do |ns|
+                new_sections << ns.id
+              end
+            end
+            ii = 0
+            section_matches = Array.new(sections.length, false)
+            sections.each do |section|
+              if new_sections.include? section.id
+                section_matches[ii] = true
+              end
+              ii+=1
+            end
+            unless section_matches.include? false
+              temp_match = true
+              new_plan.template_id = t.id
+              new_plan.save!
+              puts "found a customised match"
+              break
+            end
           end
         end
-      else        # it is a customised template
-        new_plan.organisation_id = project.organisation_id
       end
+      
 
       # this section handles for customisations
       unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
@@ -200,13 +232,18 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         # since template was not a match, need to gen/copy all data below the template level
         versions.each do |version|
           new_phase = initNewPhase(version.phase, version, template, true)
-          sections = version.phase.sections
+          sections = []
+          version.phase.sections do |sec|
+            sections << sec
+          end
           unless project.organisation_id.nil?
-            sections << Sections.where(organisation_id: project.organisation_id, version_id: version.id)
+            Section.where(organisation_id: project.organisation_id, version_id: version.id).each do |sec|
+              sections << sec
+            end
           end
             sections.each do |section|
               new_section = initNewSection(section, new_phase, true)
-              section.questions.each do |question|
+              section.questions.includes(:themes, :options, :suggested_answers).each do |question|
                 new_question = initNewQuestion(question, new_section, true)
                 question.themes.each do |theme|
                   new_question.themes << theme
@@ -239,7 +276,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         role = initRole(group, new_plan)
         role.save!
       end
-      NewPhase.where(template_id: new_plan.template_id).find_each(:batch_size => 10) do |new_phase|
+      NewPhase.includes(new_sections: :new_questions).where(template_id: new_plan.template_id).find_each do |new_phase|
         old_plan = project.plans.where(version_id: new_phase.vid)
         new_phase.new_sections.each do |new_section|
           new_section.new_questions.each do |new_question|
@@ -248,7 +285,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
             new_ans = initNewAnswer(old_ans, new_plan, new_question)
             new_ans.save!
             # init comments on answer
-            Comment.where(question_id: new_question.question_id, plan_id: old_plan.id).find_each(:batch_size => 10) do |comment|
+            Comment.where(question_id: new_question.question_id, plan_id: old_plan.id).find_each do |comment|
               note = initNote(comment, new_ans)
               note.save!
             end
@@ -288,7 +325,7 @@ def initNewPhase(phase, version, temp, modifiable)
   new_phase.created_at      = phase.created_at
   new_phase.updated_at      = phase.updated_at
   new_phase.slug            = phase.slug
-  new_phase.vid         = version.id
+  new_phase.vid             = version.id
   new_phase.modifiable      = modifiable
   return new_phase
 end
@@ -310,7 +347,7 @@ def initNewQuestion(question, new_section, modifiable)
   new_question                        = NewQuestion.new
   new_question.text                   = question.text
   new_question.default_value          = question.default_value
-  new_question.guidance               = question.guidance
+  new_question.guidance               = question.guidance.nil? ? "" : question.guidance
   Guidance.where(question_id: question.id).each do |guidance|
     new_question.guidance             += guidance.text
   end
