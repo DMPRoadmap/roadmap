@@ -3,6 +3,7 @@ class Theme < ActiveRecord::Base
   #associations between tables
   has_and_belongs_to_many :questions, join_table: "questions_themes"
   has_and_belongs_to_many :guidances, join_table: "themes_in_guidance"
+  has_and_belongs_to_many :new_questions, join_table: "new_questions_themes"
 
 
 #  accepts_nested_attributes_for :guidances
