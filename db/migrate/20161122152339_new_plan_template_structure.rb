@@ -1,0 +1,403 @@
+class NewPlanTemplateStructure < ActiveRecord::Migration
+  def change
+    # new template tables
+    create_table :templates do |t|
+      t.string  :title
+      t.text    :description
+      t.boolean :published
+      t.integer :organisation_id
+      t.string  :locale
+      t.boolean :is_default
+      t.timestamps
+      # new fields
+      t.integer :version
+      t.integer :visibility
+      t.integer :customization_of
+      t.integer :dmptemplate_id     # remove on next migration
+    end
+
+    create_table :new_phases do |t|
+      t.string   :title
+      t.text     :description
+      t.integer  :number
+      t.integer  :template_id
+      t.timestamps
+      t.string   :slug
+      t.integer  :vid        # remove on next migration
+      # new fields
+      t.boolean :modifiable
+    end
+
+    create_table :new_sections do |t|
+      t.string   :title
+      t.text     :description
+      t.integer  :number
+      t.timestamps
+      t.boolean  :published
+      # new fields
+      t.integer :new_phase_id
+      t.boolean :modifiable
+    end
+
+    create_table :new_questions do |t|
+      t.text     :text
+      t.text     :default_value
+      t.text     :guidance
+      t.integer  :number
+      t.integer  :new_section_id
+      t.timestamps
+      t.integer  :question_format_id
+      t.boolean  :option_comment_display, default: true
+      # new fields
+      t.boolean  :modifiable
+      t.integer  :question_id         # remove on next migration
+    end
+
+    create_join_table :new_questions, :themes do |t|
+      t.index [:new_question_id, :theme_id]
+      t.index [:theme_id, :new_question_id]
+    end
+
+    create_table :new_answers do |t|
+      t.text     :text
+      t.integer  :new_plan_id
+      t.integer  :user_id
+      t.integer  :new_question_id
+      t.timestamps
+    end
+
+    create_table :question_options do |t|
+      t.integer  :new_question_id
+      t.integer  :option_id       # remove on next migration
+      t.string   :text
+      t.integer  :number
+      t.boolean  :is_default
+      t.timestamps
+    end
+
+    create_join_table :new_answers, :question_options do |t|
+      t.index [:new_answer_id, :question_option_id], name: 'answer_question_option_index'
+      t.index [:question_option_id, :new_answer_id], name: 'question_option_answer_index'
+    end
+
+    create_table :notes do |t|
+      t.integer  :user_id
+      t.text     :text
+      t.boolean  :archived          # do we need this?
+      t.integer  :new_answer_id
+      t.integer  :archived_by       # do we need this?
+      t.timestamps
+    end
+
+    create_table :new_suggested_answers do |t|
+      t.integer  :new_question_id
+      t.integer  :organisation_id
+      t.text     :text
+      t.boolean  :is_example
+      t.timestamps
+    end
+
+    # new plans table
+    create_table :new_plans do |t|
+      t.string   :title
+      t.integer  :template_id
+      t.timestamps
+      t.string   :slug
+      t.string   :grant_number
+      t.string   :identifier
+      t.text     :description
+      t.string   :principal_investigator
+      t.string   :principal_investigator_identifier
+      t.string   :data_contact
+      t.string   :funder_name
+    end
+
+    create_table :roles do |t|
+      t.boolean :creator
+      t.boolean :editor
+      t.boolean :administrator
+      t.integer :user_id
+      t.integer :new_plan_id
+      t.timestamps
+    end
+
+    # migrate all of the data from plans into templates (user facing)
+    #   first migrate all "pure"(uncustomised) plans
+    #     find template for plan
+    #     find versions for plan
+    #       find phases for template
+    #         find sections for version
+    #           find questions for section
+    #             find question_options for question
+    #             find answers for question
+    #               find notes from question & link to answer
+    #             find guidance_by_question for question
+    #             find themes for question
+    #     IF EXISTS Template SUCH THAT:
+    #     dmptemplate.name = template.name,
+    #       phase.title = new_phase.title,
+    #         new_phase.version_id in versions.id
+    #           SUCCESSFUL MATCH, copy over all data
+    #   Then migrate all customised plans
+    # migrate most current template into templates (org facing)
+    proj_number = 0
+    # migrating uncustomised plans
+    Project.where(organisation_id: nil).find_each(batch_size: 10) do |project|
+      puts proj_number
+      proj_number +=1
+      new_plan = initNewPlan(project)           # copy data from project to NewPlan object
+      plans = project.plans                     # select plans for project
+      version_ids = []
+      versions = []
+      plans.each do |plan|                      # select version ids from plans list
+        version_ids << plan.version.id
+        versions << plan.version
+      end
+      dmptemplate = project.dmptemplate         # select template for project
+      phases = dmptemplate.phases               # select phases for project
+      temp_match = false                        # flag for if we found a matching template
+
+      if project.organisation_id.nil?
+        # see if we have already ported the data over
+        # SELECT ___
+        # From Templates t, new_phases np, phases p
+        # WHERE np.template_id = t.id, __express_constraint_that_all_phases_there_with_correct_version__
+        Template.where(dmptemplate_id: dmptemplate.id).find_each(:batch_size => 10) do |t|  # for templates with same id
+          phase_matches = Array.new(phases.length, false)
+          i = 0                                               # iterator for matches arr
+          phases.each do |phase|                              # for each phase in the original dmptemplate
+            # see if the version for this phase is already in one of the phases for the dmptemplate
+            new_phase = t.new_phases.find_by(title: phase.title)# find corresponding phase in new template
+            unless new_phase.nil?
+              if version_ids.include? new_phase.vid     # if the version is correct
+                phase_matches[i] = true                         # success case for this phase
+              end
+            end
+            i+=1
+          end
+          # we need matching phases AND matching org id for customisations
+          unless phase_matches.include? false || t.organisation_id != project.organisation_id
+            temp_match = true                                 # flag that we found match
+                                                      # we can point the new_plan to this template and init all data
+            new_plan.template_id = t.id
+            new_plan.save!
+            puts "found a match"
+          end
+        end
+      else        # it is a customised template
+        new_plan.organisation_id = project.organisation_id
+      end
+
+      # this section handles for customisations
+      unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
+        puts "creating new template"
+        template = initTemplate(dmptemplate)      # needs to select next version of temp based on old_temp_id
+        # some differences between a customised and un-customised template
+        # customised templates need a different organisation_id
+        template.organisation_id = project.organisation_id
+        # customised templates follow different version rules
+        template.save!
+        # since template was not a match, need to gen/copy all data below the template level
+        versions.each do |version|
+          new_phase = initNewPhase(version.phase, version, template, true)
+          sections = version.phase.sections
+          unless project.organisation_id.nil?
+            sections << Sections.where(organisation_id: project.organisation_id, version_id: version.id)
+          end
+            sections.each do |section|
+              new_section = initNewSection(section, new_phase, true)
+              section.questions.each do |question|
+                new_question = initNewQuestion(question, new_section, true)
+                question.themes.each do |theme|
+                  new_question.themes << theme
+                end
+                question.options.each do |option|
+                  question_option = initQuestionOption(option, new_question)
+                  question_option.save!
+                end
+                question.suggested_answers.each do |suggested_answer|
+                  new_suggested_answer = initNewSuggestedAnswers(suggested_answer, new_question)
+                  new_suggested_answer.save!
+                end
+                new_question.save!
+              end
+              new_section.save!
+            end
+          new_phase.save!
+        end
+        new_plan.template_id = template.id
+        new_plan.save!
+      end
+
+      # up to this point, we have either found a matching template and pointed the
+      # new_plan obj at it, or we have generated a new:
+      # template/phases/sections/questions/question_options/question_themes
+      # now need to init answers, notes, answers_options
+      #new_plan.template.new_phases.each do |new_phase|
+      puts "transfering plan data"
+      project.project_groups.each do |group|
+        role = initRole(group, new_plan)
+        role.save!
+      end
+      NewPhase.where(template_id: new_plan.template_id).find_each(:batch_size => 10) do |new_phase|
+        old_plan = project.plans.where(version_id: new_phase.vid)
+        new_phase.new_sections.each do |new_section|
+          new_section.new_questions.each do |new_question|
+            # init new answer
+            old_ans = old_plan.answers.where(question_id: new_question.question_id).order("created_at DESC").first
+            new_ans = initNewAnswer(old_ans, new_plan, new_question)
+            new_ans.save!
+            # init comments on answer
+            Comment.where(question_id: new_question.question_id, plan_id: old_plan.id).find_each(:batch_size => 10) do |comment|
+              note = initNote(comment, new_ans)
+              note.save!
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+
+
+def initTemplate(dmptemp)
+  template                  = Template.new
+  template.title            = dmptemp.title
+  template.description      = dmptemp.description
+  template.published        = dmptemp.published
+  template.organisation_id  = dmptemp.organisation_id
+  template.locale           = dmptemp.locale
+  template.is_default       = dmptemp.is_default
+  template.created_at       = dmptemp.created_at
+  template.updated_at       = dmptemp.updated_at
+  template.visibility       = 0                   # dummy value for private
+  template.customization_of = nil
+  template.dmptemplate_id   = dmptemp.id
+  template.version          = Template.where(dmptemplate_id: dmptemp.id).nil? ?
+    Template.where(dmptemplate_id: dmptemp.id).pluck(:version).max + 1 : 0
+  return template
+end
+
+def initNewPhase(phase, version, temp, modifiable)
+  new_phase                 = NewPhase.new
+  new_phase.title           = phase.title
+  new_phase.description     = phase.description
+  new_phase.number          = phase.number
+  new_phase.template_id     = temp.id
+  new_phase.created_at      = phase.created_at
+  new_phase.updated_at      = phase.updated_at
+  new_phase.slug            = phase.slug
+  new_phase.vid         = version.id
+  new_phase.modifiable      = modifiable
+  return new_phase
+end
+
+def initNewSection(section, new_phase, modifiable)
+  new_section               = NewSection.new
+  new_section.title         = section.title
+  new_section.description   = section.description
+  new_section.number        = section.number
+  new_section.published     = section.published
+  new_section.new_phase_id  = new_phase.id
+  new_section.modifiable    = modifiable
+  new_section.created_at    = section.created_at
+  new_section.updated_at    = section.updated_at
+  return new_section
+end
+
+def initNewQuestion(question, new_section, modifiable)
+  new_question                        = NewQuestion.new
+  new_question.text                   = question.text
+  new_question.default_value          = question.default_value
+  new_question.guidance               = question.guidance
+  Guidance.where(question_id: question.id).each do |guidance|
+    new_question.guidance             += guidance.text
+  end
+  new_question.number                 = question.number
+  new_question.new_section_id         = new_section.id
+  new_question.question_format_id     = question.question_format_id
+  new_question.option_comment_display = question.option_comment_display
+  new_question.modifiable             = modifiable
+  new_question.question_id            = question.id
+  new_question.updated_at             = question.updated_at
+  new_question.created_at             = question.created_at
+  return new_question
+end
+
+def initNewAnswer(answer, new_plan, new_question)
+  new_answer                  = NewAnswer.new
+  new_answer.text             = answer.text
+  new_answer.new_plan_id      = new_plan.id
+  new_answer.new_question_id  = new_question.id
+  new_answer.user_id          = answer.user_id
+  new_answer.created_at       = answer.created_at
+  new_answer.updated_at       = answer.updated_at
+  answer.options.each do |option|
+    new_answer.question_options << QuestionOptions.find_by(option_id: option.id)
+  end
+  return new_answer
+end
+
+def initQuestionOption(option, new_question)
+  question_option                 = QuestionOption.new
+  question_option.new_question_id = new_question.id
+  question_option.option_id       = option.id
+  question_option.text            = option.text
+  question_option.number          = option.number
+  question_option.is_default      = option.is_default
+  question_option.created_at      = option.created_at
+  question_option.updated_at      = option.updated_at
+  return question_option
+end
+
+def initNote(comment, new_answer)
+  note                  = Note.new
+  note.user_id          = comment.user_id
+  note.text             = comment.text
+  note.archived         = comment.archived
+  note.archived_by      = comment.archived_by
+  note.new_answer_id    = new_answer.id
+  note.created_at       = comment.created_at
+  note.updated_at       = comment.updated_at
+  return note
+end
+
+def initNewPlan(project)
+  new_plan              = NewPlan.new
+  new_plan.title        = project.title
+  new_plan.slug         = project.slug
+  new_plan.grant_number = project.grant_number
+  new_plan.identifier   = project.identifier
+  new_plan.description  = project.description
+  new_plan.principal_investigator             = project.principal_investigator
+  new_plan.principal_investigator_identifier  = project.principal_investigator_identifier
+  new_plan.data_contact = project.data_contact
+  new_plan.funder_name  = project.funder_name
+  new_plan.created_at   = project.created_at
+  new_plan.updated_at   = project.updated_at
+  return new_plan
+end
+
+def initNewSuggestedAnswers(suggested_answer, new_question)
+  new_suggested_answer                  = NewSuggestedAnswer.new
+  new_suggested_answer.text             = suggested_answer.text
+  new_suggested_answer.organisation_id  = suggested_answer.organisation_id
+  new_suggested_answer.new_question_id  = new_question.id
+  new_suggested_answer.is_example       = suggested_answer.is_example
+  new_suggested_answer.created_at       = suggested_answer.created_at
+  new_suggested_answer.updated_at       = suggested_answer.updated_at
+  return new_suggested_answer
+end
+
+def initRole(project_group, new_plan)
+  role                = Role.new
+  role.creator        = project_group.project_creator
+  role.administrator  = project_group.project_administrator
+  role.editor         = project_group.project_editor
+  role.created_at     = project_group.created_at
+  role.updated_at     = project_group.updated_at
+  role.user_id        = project_group.user_id
+  role.new_plan_id    = new_plan.id
+  return role
+end
