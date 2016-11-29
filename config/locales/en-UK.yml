@@ -751,7 +751,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     schemes:
       orcid:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
-        user_landing_page: 'https://orcid.org/{id}'
+        user_landing_page: 'https://orcid.org/%{id}'
         connect: 'Create or Connect your ORCID ID'
         connect_tooltip: 'ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org'
         disconnect_confirmation: 'Are you sure you want to disconnect your ORCID ID?'

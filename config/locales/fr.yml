@@ -709,7 +709,7 @@ Sélectionnez le format que vous souhaitez utiliser et cliquez sur « Exporter �
     schemes:
       orcid:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
-        user_landing_page: 'https://orcid.org/{id}'
+        user_landing_page: 'https://orcid.org/%{id}'
         connect: 'Créer ou Connectez votre ID ORCID'
         connect_tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs. En savoir plus sur orcid.org'
         disconnect_confirmation: 'Êtes-vous certain que vous voulez déconnecter votre ID orcid?'

@@ -696,7 +696,7 @@ de:
     schemes:
       orcid:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
-        user_landing_page: 'https://orcid.org/{id}'
+        user_landing_page: 'https://orcid.org/%{id}'
         connect: 'Erstellen oder Verbinden Sie Ihren ORCID ID'
         connect_tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet. Erfahren Sie mehr unter orcid.org'
         disconnect_confirmation: 'Sind Sie sicher, dass Sie Ihre ORCID ID trennen möchten?'

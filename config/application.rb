@@ -98,6 +98,5 @@ module DMPRoadmap
     
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
-    
   end
 end
