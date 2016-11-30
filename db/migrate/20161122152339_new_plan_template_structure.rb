@@ -163,12 +163,15 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
 
       puts "checking for matching templates for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
       puts "checking for matching templates for #{dmptemplate.title} uncustomised" unless project.organisation.present?
-      Template.includes(new_phases:(:new_sections)).where(dmptemplate_id: dmptemplate.id).find_each(:batch_size => 20) do |t|  # for templates with same id
-        if project.organisation_id.present? && project.organisation_id != t.organisation_id
-          next          # ensure the template is customised by the same organisation
-        elsif project.organisation_id.nil? && t.organisation_id != dmptemplate.organisation_id
-          next          # ensure that uncustomised templates have the same organisation as their dmptemplate
+      possible_templates = project.organisation.nil? ?
+        Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: dmptemplate.organisation_id) :
+        Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: project.organisation_id)
+      possible_templates.find_each(:batch_size => 50) do |t|  # for templates with same id
+        # early cut for un-even number of phases
+        if phases.length != t.new_phases.length
+          next
         end
+
         phase_matches = Array.new(phases.length, false)
         i = 0                                               # iterator for matches arr
         phases.each do |phase|                              # for each phase in the original dmptemplate
