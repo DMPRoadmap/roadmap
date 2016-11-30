@@ -142,7 +142,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     # migrate most current template into templates (org facing)
     proj_number = 0
     # migrating uncustomised plans
-    Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: :version}, :organisation).find_each(batch_size: 10) do |project|
+    Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: :version}, :organisation).find_each(batch_size: 20) do |project|
       puts ""
       puts "beginning number #{proj_number}"
       proj_number +=1
@@ -166,26 +166,10 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       possible_templates = project.organisation.nil? ?
         Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: dmptemplate.organisation_id) :
         Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: project.organisation_id)
-      possible_templates.find_each(:batch_size => 50) do |t|  # for templates with same id
+      possible_templates.find_each do |t|  # for templates with same id
         # early cut for un-even number of phases
-        if phases.length != t.new_phases.length
-          next
-        end
-
-        phase_matches = Array.new(phases.length, false)
-        i = 0                                               # iterator for matches arr
-        phases.each do |phase|                              # for each phase in the original dmptemplate
-          # see if the version for this phase is already in one of the phases for the dmptemplate
-          new_phase = t.new_phases.find_by(title: phase.title)# find corresponding phase in new template
-          unless new_phase.nil?
-            if version_ids.include? new_phase.vid     # if the version is correct
-              phase_matches[i] = true                         # success case for this phase
-            end
-          end
-          i+=1
-        end
-        # we need matching phases AND matching org id for customisations
-        unless phase_matches.include? false
+        new_phase_versions = t.new_phases.pluck(:vid)
+        if new_phase_versions.sort == version_ids.sort
           temp_match = true                                 # flag that we found match
                                                     # we can point the new_plan to this template and init all data
           new_plan.template_id = t.id
@@ -207,10 +191,12 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         # customised templates follow different version rules
         template.save!
         # since template was not a match, need to gen/copy all data below the template level
+        puts " #{versions.length} versions"
         versions.each do |version|
           new_phase = initNewPhase(version.phase, version, template, true)
+          new_phase.save!
           sections = []
-          version.phase.sections do |sec|
+          version.sections.where("organisation_id = ? ", dmptemplate.organisation_id).each do |sec|
             sections << sec
           end
           unless project.organisation_id.nil?
@@ -218,26 +204,26 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
               sections << sec
             end
           end
-            sections.each do |section|
-              new_section = initNewSection(section, new_phase, true)
-              section.questions.includes(:themes, :options, :suggested_answers).each do |question|
-                new_question = initNewQuestion(question, new_section, true)
-                question.themes.each do |theme|
-                  new_question.themes << theme
-                end
-                question.options.each do |option|
-                  question_option = initQuestionOption(option, new_question)
-                  question_option.save!
-                end
-                question.suggested_answers.each do |suggested_answer|
-                  new_suggested_answer = initNewSuggestedAnswers(suggested_answer, new_question)
-                  new_suggested_answer.save!
-                end
-                new_question.save!
+          puts "  #{sections.length} sections"
+          sections.each do |section|
+            new_section = initNewSection(section, new_phase, true)
+            new_section.save!
+            section.questions.includes(:themes, :options, :suggested_answers).each do |question|
+              new_question = initNewQuestion(question, new_section, true)
+              new_question.save!
+              question.themes.each do |theme|
+                new_question.themes << theme
               end
-              new_section.save!
+              question.options.each do |option|
+                question_option = initQuestionOption(option, new_question)
+                question_option.save!
+              end
+              question.suggested_answers.each do |suggested_answer|
+                new_suggested_answer = initNewSuggestedAnswers(suggested_answer, new_question)
+                new_suggested_answer.save!
+              end
             end
-          new_phase.save!
+          end
         end
         new_plan.template_id = template.id
         new_plan.save!
@@ -253,9 +239,13 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         role = initRole(group, new_plan)
         role.save!
       end
-      NewPhase.includes(new_sections: :new_questions).where(template_id: new_plan.template_id).find_each do |new_phase|
-        old_plan = project.plans.where(version_id: new_phase.vid)
+      template = Template.includes(new_phases: {new_sections: :new_questions}).find(new_plan.template_id)
+      puts " #{template.new_phases.length} phases"
+      template.new_phases.each do |new_phase|
+        old_plan = project.plans.where(version_id: new_phase.vid).first
+        puts "  #{new_phase.new_sections.length} sections"
         new_phase.new_sections.each do |new_section|
+          puts "   #{new_section.new_questions.length} questions"
           new_section.new_questions.each do |new_question|
             # init new answer
             old_ans = old_plan.answers.where(question_id: new_question.question_id).order("created_at DESC").first
@@ -357,14 +347,16 @@ end
 
 def initNewAnswer(answer, new_plan, new_question)
   new_answer                  = NewAnswer.new
-  new_answer.text             = answer.text
-  new_answer.new_plan_id      = new_plan.id
-  new_answer.new_question_id  = new_question.id
-  new_answer.user_id          = answer.user_id
-  new_answer.created_at       = answer.created_at
-  new_answer.updated_at       = answer.updated_at
-  answer.options.each do |option|
-    new_answer.question_options << QuestionOptions.find_by(option_id: option.id)
+  unless answer.nil?
+    new_answer.text             = answer.text
+    new_answer.new_plan_id      = new_plan.id
+    new_answer.new_question_id  = new_question.id
+    new_answer.user_id          = answer.user_id
+    new_answer.created_at       = answer.created_at
+    new_answer.updated_at       = answer.updated_at
+    answer.options.each do |option|
+      new_answer.question_options << QuestionOption.find_by(option_id: option.id)
+    end
   end
   return new_answer
 end
