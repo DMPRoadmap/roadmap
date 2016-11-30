@@ -1,5 +1,5 @@
 class NewPlanTemplateStructure < ActiveRecord::Migration
-  def change
+  def up
     # new template tables
     create_table :templates do |t|
       t.string  :title
@@ -142,7 +142,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     # migrate most current template into templates (org facing)
     proj_number = 0
     # migrating uncustomised plans
-    Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: :version}).find_each(batch_size: 10) do |project|
+    Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: :version}, :organisation).find_each(batch_size: 10) do |project|
       puts ""
       puts "beginning number #{proj_number}"
       proj_number +=1
@@ -161,8 +161,14 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       phases = dmptemplate.phases               # select phases for project
       temp_match = false                        # flag for if we found a matching template
 
-      puts "checking for matching templates"
-      Template.includes(new_phases:(:new_sections)).where(dmptemplate_id: dmptemplate.id).find_each(:batch_size => 10) do |t|  # for templates with same id
+      puts "checking for matching templates for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
+      puts "checking for matching templates for #{dmptemplate.title} uncustomised" unless project.organisation.present?
+      Template.includes(new_phases:(:new_sections)).where(dmptemplate_id: dmptemplate.id).find_each(:batch_size => 20) do |t|  # for templates with same id
+        if project.organisation_id.present? && project.organisation_id != t.organisation_id
+          next          # ensure the template is customised by the same organisation
+        elsif project.organisation_id.nil? && t.organisation_id != dmptemplate.organisation_id
+          next          # ensure that uncustomised templates have the same organisation as their dmptemplate
+        end
         phase_matches = Array.new(phases.length, false)
         i = 0                                               # iterator for matches arr
         phases.each do |phase|                              # for each phase in the original dmptemplate
@@ -177,52 +183,20 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         end
         # we need matching phases AND matching org id for customisations
         unless phase_matches.include? false
-          if project.organisation_id.nil? # phase level match is  good enough for organisations
-            temp_match = true                                 # flag that we found match
-                                                      # we can point the new_plan to this template and init all data
-            new_plan.template_id = t.id
-            new_plan.save!
-            puts "found a match"
-            break
-          else  # need to match sections for customised plans
-            sections = []
-            new_sections = []
-            versions.each do |v|        # init sections in old plan
-              v.sections.each do |sec|
-                sections << sec
-              end
-                Section.where(organisation_id: project.organisation_id, version_id: v.id).each do |sec|
-                sections << sec
-              end
-            end
-            t.new_phases.includes(:new_sections).each do |np|
-              np.new_sections.each do |ns|
-                new_sections << ns.id
-              end
-            end
-            ii = 0
-            section_matches = Array.new(sections.length, false)
-            sections.each do |section|
-              if new_sections.include? section.id
-                section_matches[ii] = true
-              end
-              ii+=1
-            end
-            unless section_matches.include? false
-              temp_match = true
-              new_plan.template_id = t.id
-              new_plan.save!
-              puts "found a customised match"
-              break
-            end
-          end
+          temp_match = true                                 # flag that we found match
+                                                    # we can point the new_plan to this template and init all data
+          new_plan.template_id = t.id
+          new_plan.save!
+          puts "found a match: #{t.title} version #{t.version}"
+          break
         end
       end
-      
+
 
       # this section handles for customisations
       unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
-        puts "creating new template"
+        puts "creating new template for #{dmptemplate.title}" unless project.organisation.present?
+        puts "creating new template for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
         template = initTemplate(dmptemplate)      # needs to select next version of temp based on old_temp_id
         # some differences between a customised and un-customised template
         # customised templates need a different organisation_id
@@ -294,6 +268,21 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       end
     end
   end
+
+  def down
+    drop_table :templates
+    drop_table :new_phases
+    drop_table :new_sections
+    drop_table :new_questions
+    drop_join_table :new_questions, :themes
+    drop_table :new_answers
+    drop_table :question_options
+    drop_join_table :new_answers, :question_options
+    drop_table :notes
+    drop_table :new_suggested_answers
+    drop_table :new_plans
+    drop_table :roles
+  end
 end
 
 
@@ -310,9 +299,10 @@ def initTemplate(dmptemp)
   template.updated_at       = dmptemp.updated_at
   template.visibility       = 0                   # dummy value for private
   template.customization_of = nil
+  template.version          = Template.where(dmptemplate_id: dmptemp.id).blank? ?
+    0 : Template.where(dmptemplate_id: dmptemp.id).pluck(:version).max + 1
+  puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
   template.dmptemplate_id   = dmptemp.id
-  template.version          = Template.where(dmptemplate_id: dmptemp.id).nil? ?
-    Template.where(dmptemplate_id: dmptemp.id).pluck(:version).max + 1 : 0
   return template
 end
 
