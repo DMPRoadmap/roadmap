@@ -10,7 +10,7 @@
 			<%= link_to t('org_admin.templates.template_details'), admin_template_dmptemplate_path(dmptemplate) %>
 	   	</li>
     <!-- Phases -->
-    <% dmptemplate.phases.each do |phase| %>
+    <% dmptemplate.phases.order(:number).each do |phase| %>
 		<% if active == phase.id then %>
 			<li class="active">
 		<% else %>
