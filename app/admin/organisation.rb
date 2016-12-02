@@ -52,11 +52,6 @@ ActiveAdmin.register Organisation do
                     link_to org_type.organisation_type.name, [:admin, org_type]
                 end
             end
-            row :description do |descr|
-                if !descr.description.nil? then
-                    descr.description.html_safe
-                end
-            end
             row :banner_text do |banner|
                 if !banner.banner_text.nil? then
                     banner.banner_text.html_safe
@@ -69,13 +64,6 @@ ActiveAdmin.register Organisation do
             row I18n.t('admin.token_permission_type') do
                 (organisation.token_permission_types.map{|tpt| link_to tpt.token_type, [:admin, tpt]}).join(', ').html_safe
             end
-        #    row I18n.t('admin.org_parent'), :parent_id do |org_parent|
-        #        if !org_parent.parent_id.nil? then
-        #            parent_org = Organisation.find(org_parent.parent_id)
-        #            link_to parent_org.name, [:admin, parent_org]
-        #        end
-        #    end
-        #    row :stylesheet_file_id
             row :created_at
             row :updated_at
 		end
@@ -97,7 +85,6 @@ ActiveAdmin.register Organisation do
             f.input :name
             f.input :abbreviation
             f.input :sort_name
-            f.input :description
             f.input :organisation_type_id, :label => I18n.t('admin.org_type'), :as => :select, :collection => OrganisationType.order('name').map{|orgt|[orgt.name, orgt.id]}
         #    f.input :target_url
             f.input :banner_text
