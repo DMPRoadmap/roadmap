@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
                   :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                   :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
                   :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language
+                  :organisation, :language, :language_id
 
   validates :email, email: true, allow_nil: true, uniqueness: true
 
@@ -287,6 +287,18 @@ class User < ActiveRecord::Base
       joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
                    'user_identifiers.identifier_scheme_id': scheme.id).first
     end
+  end
+
+  # this generates a reset password link for a given user
+  # which can then be sent to them with the appropriate host
+  # prepended.
+  def reset_password_link
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token   = enc 
+    self.reset_password_sent_at = Time.now.utc
+    save(validate: false)
+
+    edit_user_password_path  + '?reset_password_token=' + raw
   end
 
 end

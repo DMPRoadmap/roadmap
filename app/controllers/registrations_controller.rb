@@ -34,12 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
   	else
   		existing_user = User.find_by_email(sign_up_params[:email])
   		if !existing_user.nil? then
-  			if (existing_user.password == "" || existing_user.password.nil?) && existing_user.confirmed_at.nil? then
-  				@user = existing_user
-  				do_update(false, true)
-  			else
-  			    redirect_to after_sign_up_error_path_for(resource), alert: I18n.t('helpers.email_already_registered')
-  			end
+            redirect_to after_sign_up_error_path_for(resource), alert: I18n.t('helpers.email_already_registered')
   		else
 			build_resource(sign_up_params)
 			if resource.save
