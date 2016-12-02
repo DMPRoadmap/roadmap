@@ -579,20 +579,20 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     tab_2: "Dernières nouvelles"
     
     body_text_tab_1_html: "<p>De plus en plus, les agences de financement exigent que leurs bénéficiaires proposent des DMP (des plans de gestion de données), tant pendant la préparation de leur soumission qu’après l’attribution de la subvention. Le Digital Curation Centre (Centre de curation numérique britannique - DCC) a élaboré DMPonline pour satisfaire cette exigence, ainsi que leur établissement ou tout autre acteur.</p>
-    <p>Le DCC <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> a coopéré étroitement avec des agences de financement de la recherche et des universités pour réaliser au profit des chercheurs un outil les assistant dans l’élaboration d'un DMP (un plan de gestion de données) efficace qui couvre le cycle de vie complet d’un projet de recherche, de l’étape de préparation de sa soumission jusqu’à son achèvement.</p>
-    </br>
-    <h3>Fonctionnement de l'outil</h3>
-    <p>L'outil comprend un certain nombre de modèles qui sont représentatifs des prescriptions de différents organismes financeurs et établissements. Au départ, les utilisateurs doivent répondre à trois questions pour que nous puissions déterminer le modèle qu'il convient d'afficher(par ex. : le modèle ESRC pour une soumission dans le cadre d'un appel à projet de l'ESRC). Des conseils vous sont fournis pour vous permettre d'interpréter les questions posées et y répondre. Ces conseils sont fournis selon les agences de financement, universités et disciplines.</p>
-    </br>
-    <h3>Pour commencer.../h3>
-    <p>Si vous possédez un compte, veuillez vous connecter, puis commencez à créer ou modifier votre DMP.</p>
-    <p>En l'absence de compte DMPonline , cliquez sur <a href='/'>'S'enregistrer'</a> en page d'accueil.</p>
-    <p>Visitez la page d'<a href='/help'>'Aide'</a> pour quelques conseils.</p>
-    </br>
-    <h3>Autres informations</h3>
-    <p>NOus améliorons constamment l'interface utilisateur de DMPonline et ses fonctionnalités.
-    Si vous souhaitez apporter une contribution par un retour ou des suggestions, veuillez nous contacter par courriel :    <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>. Vous pouvez aussi signaler des dysfonctionnements ou demander d'autres fonctionnalités directement sur <a href='https://github.com/DigitalCurationCentre/DMPonline_v4' target='_top'>GitHub</a></p>
-    <p>Si vous voulez consulter des DMP issus d'une version antérieure de cette outil, visitez <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
+      <p>Le DCC <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> a coopéré étroitement avec des agences de financement de la recherche et des universités pour réaliser au profit des chercheurs un outil les assistant dans l’élaboration d'un DMP (un plan de gestion de données) efficace qui couvre le cycle de vie complet d’un projet de recherche, de l’étape de préparation de sa soumission jusqu’à son achèvement.</p>
+      </br>
+      <h3>Fonctionnement de l'outil</h3>
+      <p>L'outil comprend un certain nombre de modèles qui sont représentatifs des prescriptions de différents organismes financeurs et établissements. Au départ, les utilisateurs doivent répondre à trois questions pour que nous puissions déterminer le modèle qu'il convient d'afficher(par ex. : le modèle ESRC pour une soumission dans le cadre d'un appel à projet de l'ESRC). Des conseils vous sont fournis pour vous permettre d'interpréter les questions posées et y répondre. Ces conseils sont fournis selon les agences de financement, universités et disciplines.</p>
+      </br>
+      <h3>Pour commencer.../h3>
+      <p>Si vous possédez un compte, veuillez vous connecter, puis commencez à créer ou modifier votre DMP.</p>
+      <p>En l'absence de compte DMPonline , cliquez sur <a href='/'>'S'enregistrer'</a> en page d'accueil.</p>
+      <p>Visitez la page d'<a href='/help'>'Aide'</a> pour quelques conseils.</p>
+      </br>
+      <h3>Autres informations</h3>
+      <p>NOus améliorons constamment l'interface utilisateur de DMPonline et ses fonctionnalités.
+      Si vous souhaitez apporter une contribution par un retour ou des suggestions, veuillez nous contacter par courriel :    <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>. Vous pouvez aussi signaler des dysfonctionnements ou demander d'autres fonctionnalités directement sur <a href='https://github.com/DigitalCurationCentre/DMPonline_v4' target='_top'>GitHub</a></p>
+      <p>Si vous voulez consulter des DMP issus d'une version antérieure de cette outil, visitez <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
 
     body_text_tab_2_html: "<p>Témoignages sur DMPonline depuis le site web du DCC</p></br>"
 
@@ -675,25 +675,25 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       </li>
     </ul>"
     body_text_tab_1_html: "<p>Quand vous vous connectez à DMPonline, vous êtes redirigé vers la page intitulées 'Mes plans'. À partir de là, vous pouvez éditer, partager, exporter ou supprimer l'un de vos plans. Vous verrez à cet endroit aussi les plans que d'autres ont partagé avec vous.</p>
-    <h3>Créer un plan</h3>
-    <p>Pour créer un plan, cliquez sur le bouton 'Créer un plan' depuis votre page 'Mes plans' ou depuis le menu du haut. Sélectionnez les options des menus déroulants et parmi les cases à cocher pour définir les questions et les conseils qui devront vous être proposés. Confirmez vos choix en cliquant sur 'Oui, créer un plan'.</p>
-    <h3>Rédigez votre plan</h3>
-    <p>L'interface sous forme d'onglets vous permet de naviguer d'une fonction à l'autre quand vous écrivez et mettez à jour votre plan.</p>
-    <ul>
-      <li>- L'onglet 'Détails du plan' donne quelques informations administratives élémentaires, indique sur quel ensemble de questions et de conseils il s'appuie et des indications générales sur les questions qui vous seront posées.</li>
-      <li>- Le ou les onglets suivants affiche les questions auxquelles il faudra répondre. Cet écran peut afficher plusieurs onglets si votre agence de financement ou votre université vous demande plusieurs séries de questions selon différentes étapes, par ex. :au moment d'une demande de subvention ou après son attribution.</li>
-      <li>- L'onglet 'Partager' vous sert à inviter d'autres personnes à lire ou contribuer à votre plan.</li>
-      <li>- L'onglet 'Exporter' vous permet de décharger votre plan sous différents formats. Cela peut vous être utile pour présenter votre plan dans le cadre d'une demande de subvention.</li>
-    </ul>
-    <p>Quand les différents onglets s'affichent, ils montrent les différentes parties de votre plan à l'écran. Cliquez pour répondre aux différentes questions. Vous pouvez mettre en forme vos réponses en utilisant les boutons de mise à jour.</p>
-    <p>Des conseils peuvent s'afficher dans le panneau de droite. Cliquez sur le symbole '+' pour qu'ils apparaissent.</p>
-    <p>Pensez à 'enregistrer' vos réponses avant de poursuivre.</p>
-    <h3>Partager des plans</h3>
-    <p>Insérez les courriels des collaborateurs que vous souhaitez inviter à lire ou modifier votre plan. Utilisez les options du menu déroulant pour leur attribuer les droits souhaités et cliquez sur 'Ajouter le collaborateur'</p>
-    <h3>Exporter des plans</h3>
-    <p>À cet endroit vous pouvez décharger votre plans dans différents formats. Cela peut vous servir pour présenter votre plan dans le cadre d'une demande de subvention. Choisissez le format de visualisation ou de déchargement souhaité puis cliquer pour lancer l'export. Quand vous vous connecterez à DMPonline, celui-ci vous dirigera vers votre page 'Mes plans'. Vous pourrez modifier, partager, exporter ou supprimer l'un ou l'autre de vos plans. Vous verrez aussi les plans que d'autres ont partagé avec vous.</p>
-    <h3>Données d'héritage</h3>
-    <p>S'il vous faut accéder à des plans provenant de la version antérieure de cet outil, veuillez aller sur <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
+      <h3>Créer un plan</h3>
+      <p>Pour créer un plan, cliquez sur le bouton 'Créer un plan' depuis votre page 'Mes plans' ou depuis le menu du haut. Sélectionnez les options des menus déroulants et parmi les cases à cocher pour définir les questions et les conseils qui devront vous être proposés. Confirmez vos choix en cliquant sur 'Oui, créer un plan'.</p>
+      <h3>Rédigez votre plan</h3>
+      <p>L'interface sous forme d'onglets vous permet de naviguer d'une fonction à l'autre quand vous écrivez et mettez à jour votre plan.</p>
+      <ul>
+        <li>- L'onglet 'Détails du plan' donne quelques informations administratives élémentaires, indique sur quel ensemble de questions et de conseils il s'appuie et des indications générales sur les questions qui vous seront posées.</li>
+        <li>- Le ou les onglets suivants affiche les questions auxquelles il faudra répondre. Cet écran peut afficher plusieurs onglets si votre agence de financement ou votre université vous demande plusieurs séries de questions selon différentes étapes, par ex. :au moment d'une demande de subvention ou après son attribution.</li>
+        <li>- L'onglet 'Partager' vous sert à inviter d'autres personnes à lire ou contribuer à votre plan.</li>
+        <li>- L'onglet 'Exporter' vous permet de décharger votre plan sous différents formats. Cela peut vous être utile pour présenter votre plan dans le cadre d'une demande de subvention.</li>
+      </ul>
+      <p>Quand les différents onglets s'affichent, ils montrent les différentes parties de votre plan à l'écran. Cliquez pour répondre aux différentes questions. Vous pouvez mettre en forme vos réponses en utilisant les boutons de mise à jour.</p>
+      <p>Des conseils peuvent s'afficher dans le panneau de droite. Cliquez sur le symbole '+' pour qu'ils apparaissent.</p>
+      <p>Pensez à 'enregistrer' vos réponses avant de poursuivre.</p>
+      <h3>Partager des plans</h3>
+      <p>Insérez les courriels des collaborateurs que vous souhaitez inviter à lire ou modifier votre plan. Utilisez les options du menu déroulant pour leur attribuer les droits souhaités et cliquez sur 'Ajouter le collaborateur'</p>
+      <h3>Exporter des plans</h3>
+      <p>À cet endroit vous pouvez décharger votre plans dans différents formats. Cela peut vous servir pour présenter votre plan dans le cadre d'une demande de subvention. Choisissez le format de visualisation ou de déchargement souhaité puis cliquer pour lancer l'export. Quand vous vous connecterez à DMPonline, celui-ci vous dirigera vers votre page 'Mes plans'. Vous pourrez modifier, partager, exporter ou supprimer l'un ou l'autre de vos plans. Vous verrez aussi les plans que d'autres ont partagé avec vous.</p>
+      <h3>Données d'héritage</h3>
+      <p>S'il vous faut accéder à des plans provenant de la version antérieure de cet outil, veuillez aller sur <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
 
   contact_page:
     title: "Contatez-nous"
@@ -715,80 +715,80 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     tab_1: "Nos futurs projets"
     tab_2: "Impliquez-vous"
     body_text_tab_1_html: "<p>La communauté des utilisateurs de DMPonline est active et s'agrandit, et nous remercions ses membres qui nous proposent des idées pour améliorer ses fonctionnalités ou en créer de nouvelles. Nous faisons des bilans réguliers et décidons comment développer le service en répondant à ces besoins en évolution. Pour que tout le monde puisse rester dans la boucle, nous publions nos futurs projets dans la Feuille de route de DMPonline.</p>
-    <p>Notre <a href='http://www.dcc.ac.uk/webfm_send/1956' target='_blank'>feuille de route pour 2015</a> est organisée en cycles de 2 mois, et détaille un éventail de nouvelles fonctionnalités et d'améliorations à des fonctionnalités existantes.</p>
-    <p><a href='http://www.dcc.ac.uk/sites/default/files/documents/tools/dmpOnline/DMPonline-roadmap.png' target='_blank'><img alt='' src='http://www.dcc.ac.uk/webfm_send/1957' style='font-size: 14px; width: 600px; height: 266px;'/></a></p>
-    <p>Pour nous assurer d'aller dans le bon sens, nous nous efforçons d'élaborer notre feuille de route en concertation avec notre groupe d'utilisateurs de DMPonline.</p>
-    </br>
-    <h3>Version actuelle</h3>
-    <p>À ce jour, DMPonline en est à sa version 4.1, publiée en mai 2015. Elle comporte une fonctionnalité de commentaires, des conseils plus précis sur comment s'enregistrer avec des authentifiants d'établissement, des conseils pour le déploiement, ainsi que des propositions méthodologiques pour l'internationalisation. La note de version et les documents détaillent plus complètement ces évolutions.</p>
-    <ul>
-      <li>- <a href='/files/DMPonline-DeliveryNote-May2015.pdf' target='_blank'>Note de version</a></li>
-      <li>- <a href='/files/DMPonline-v4-InstitutionalLogin.pdf' target='_blank'>Comment s'enregistrer dans la version 4 de DMPonline avec l'authentifiant d'un établissement britannique</a></li>
-      <li>- <a href='/files/DMPonline-v4-LocaleSupport.pdf' target='_blank'>Comment mettre en place une localisation d'assistance pour DMPonline version 4</a></li>
-    </ul>
-    <p>Vous trouverez la code correspondant sur <a target='_blank' href='https://github.com/DigitalCurationCentre/DMPonline_v4'>GitHub</a></p>
-    </br>
-    <h3>Projets de développements</h3>
-    <p>Plusieurs fonctionnalités nouvelles sont programmées pour la version suivante : </p>
-    <ul>
-        <li>- Identification institutionnelle</li>
-        <li>- Fonctionnalité d'examen de DMP</li>
-        <li>- Alerte de notifications de demande d'assistance aux établissements</li>
-        <li>- Statistiques et analyses pour administrateurs</li>
-        <li>- Mise en place d'une gestion de cycle de vie (par ex. :état \"projet\", \"terminé\", \"publié\")</li>
-        <li>- Développement d'API</li>
-        <li>- Assistance localisée</li>
-    </ul>
-    <p>Si vous souhaitez contribuer à l'élaboration de nos projets de développements, vous pouvez vous joindre à notre groupe d'utilisateurs. Rendez-vous sur l'onglet \"Impliquez-vous\" pour plus d'informations sur la façon de vous joindre à nous.</p>"
+      <p>Notre <a href='http://www.dcc.ac.uk/webfm_send/1956' target='_blank'>feuille de route pour 2015</a> est organisée en cycles de 2 mois, et détaille un éventail de nouvelles fonctionnalités et d'améliorations à des fonctionnalités existantes.</p>
+      <p><a href='http://www.dcc.ac.uk/sites/default/files/documents/tools/dmpOnline/DMPonline-roadmap.png' target='_blank'><img alt='' src='http://www.dcc.ac.uk/webfm_send/1957' style='font-size: 14px; width: 600px; height: 266px;'/></a></p>
+      <p>Pour nous assurer d'aller dans le bon sens, nous nous efforçons d'élaborer notre feuille de route en concertation avec notre groupe d'utilisateurs de DMPonline.</p>
+      </br>
+      <h3>Version actuelle</h3>
+      <p>À ce jour, DMPonline en est à sa version 4.1, publiée en mai 2015. Elle comporte une fonctionnalité de commentaires, des conseils plus précis sur comment s'enregistrer avec des authentifiants d'établissement, des conseils pour le déploiement, ainsi que des propositions méthodologiques pour l'internationalisation. La note de version et les documents détaillent plus complètement ces évolutions.</p>
+      <ul>
+        <li>- <a href='/files/DMPonline-DeliveryNote-May2015.pdf' target='_blank'>Note de version</a></li>
+        <li>- <a href='/files/DMPonline-v4-InstitutionalLogin.pdf' target='_blank'>Comment s'enregistrer dans la version 4 de DMPonline avec l'authentifiant d'un établissement britannique</a></li>
+        <li>- <a href='/files/DMPonline-v4-LocaleSupport.pdf' target='_blank'>Comment mettre en place une localisation d'assistance pour DMPonline version 4</a></li>
+      </ul>
+      <p>Vous trouverez la code correspondant sur <a target='_blank' href='https://github.com/DigitalCurationCentre/DMPonline_v4'>GitHub</a></p>
+      </br>
+      <h3>Projets de développements</h3>
+      <p>Plusieurs fonctionnalités nouvelles sont programmées pour la version suivante : </p>
+      <ul>
+          <li>- Identification institutionnelle</li>
+          <li>- Fonctionnalité d'examen de DMP</li>
+          <li>- Alerte de notifications de demande d'assistance aux établissements</li>
+          <li>- Statistiques et analyses pour administrateurs</li>
+          <li>- Mise en place d'une gestion de cycle de vie (par ex. :état \"projet\", \"terminé\", \"publié\")</li>
+          <li>- Développement d'API</li>
+          <li>- Assistance localisée</li>
+      </ul>
+      <p>Si vous souhaitez contribuer à l'élaboration de nos projets de développements, vous pouvez vous joindre à notre groupe d'utilisateurs. Rendez-vous sur l'onglet \"Impliquez-vous\" pour plus d'informations sur la façon de vous joindre à nous.</p>"
      
     body_text_tab_2_html: "<p>Le développement et la maintenance de DMPonline sont assurés par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC). Nous formons une petite équipe et nous nous sommes volontiers ouverts à des collaborations. Plusieurs possibilités vous sont offertes dans ce but :</p>
-    <h3>Rejoindre le groupe d'utilisateurs</h3>
-    <p>Nous souhaitons nouer des liens plus actifs avec nos utilisateurs, et nous vous invitons donc à faire partie de notre groupe d'utilisateurs. Nous avons mis en place une <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>liste de diffusion</a> pour ce groupe à laquelle vous pouvez vous abonner. Nous organisons aussi des réunions de consultation sur nos projets.</p>
-    <p>Nos réunions du groupe d'utilisateurs sont en général organisées sur un sujet précis (par ex. :étoffer une API par des cas d'utilisations). Aussi nos invitations sont lancées en fonction de vos domaines de compétence. Il est aussi utile pour nous de savoir à quelle catégorie d'utilisateur vous appartenez : chercheur, administrateur d'un établissement, bibliothécaire ou documentaliste, développeur informatique, personnel financier,  etc.</p>
-    <p>Merci de nous indiquer vos centres d'intérêts et de faire partager vos suggestions de développements souhaités via la liste de diffusion pour que toute la communauté faire part de ses réactions.</p>
-    </br>
-    <h3>Personnaliser DMPonline</h3>
-    <p>DMPonline peut être personnalisé en fonctions des institutions et des disciplines. Vous pouvez y ajouter des modèles destinés aux utilisateurs de votre établissement et ajouter des conseils qui expliquent comment trouver localement de l'assistance et des services. Des réponses types peuvent être ajoutées pour aider les utilisateurs à comprendre les informations qu'ils doivent rédiger dans un plan de gestion de données (DMP). Pour cela, vous devrez demander des droits d'accès administrateur, merci de nous envoyer un courriel à <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
-    <p>D'autres conseils sont également sur le <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>site web du DCC</a>.</p> 
-    </br>
-    <h3>Contribuer au code</h3>
-    <p>DMPonline est une application Ruby on Rails. Le code source est disponible sous licence GNU AGPL (<i>Affero General Public License</i>). Elle autorise tout un chacun à réutiliser le code librement, mais vous oblige à partager le code source de toute extensions de la même manière. Veuillez-nous informer si vous installez une instance de DMPonline et offrez à votre tour vos contributions à la communauté.</p>
-    <p>Si vous installez une instance de DMPonline, nous vous demandons de créditer DMPonline au DCC comme étant à l'origine de cet outil. Nous recommandons que la mention de crédit se fasse sous la forme du logo de DMPonline renvoyant par un lien vers la version hébergée par le DCC.</p>
-    <p>Nous sommes désireux de travailler avec des développeurs extérieurs pour ajouter de nouvelles fonctionnalité à cet outil.Nous sommes également ouverts à fournir de nouvelles fonctionnalités à titre onéreux. Si vous souhaitez que priorité soit donnée à certaines extensions ou si vous disposez de moyens pour soutenir des travaux de développement supplémentaires, veuillez nous contacter sur dmponline@dcc.ac.uk pour en négocier les conditions.</p>
-    </br>
-    <h3>Soutenir nos travaux</h3>
-    <p>Nous sommes impressionné par la montée en l'utilisation de DMPonline au Royaume-Uni comme à m'international et nous souhaitons vivement savoir comment vous utilisez cet outil, comment vous promouvez son utilisation dans votre environnement. Nous savons que d'autres que nous ont mis en place des programmes de formation, créé des supports d'assistance et de conseils et militent pour son utilisation. Veuillez nous le faire savoir, car cela nous permet d'en montrer l'impact.</p>
-    <p>Nous réfléchissons actuellement sur des solutions pour créer des moyens de financement. Cela nous permettra de répondre plus efficacement à une demande montante et de garantir la pérennité de DMPonline. Des projets seront bientôt rendus publics en consultation, mais nous accueillons volontiers vos suggestions pour soutenir au mieux nos travaux.</p> "
+      <h3>Rejoindre le groupe d'utilisateurs</h3>
+      <p>Nous souhaitons nouer des liens plus actifs avec nos utilisateurs, et nous vous invitons donc à faire partie de notre groupe d'utilisateurs. Nous avons mis en place une <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>liste de diffusion</a> pour ce groupe à laquelle vous pouvez vous abonner. Nous organisons aussi des réunions de consultation sur nos projets.</p>
+      <p>Nos réunions du groupe d'utilisateurs sont en général organisées sur un sujet précis (par ex. :étoffer une API par des cas d'utilisations). Aussi nos invitations sont lancées en fonction de vos domaines de compétence. Il est aussi utile pour nous de savoir à quelle catégorie d'utilisateur vous appartenez : chercheur, administrateur d'un établissement, bibliothécaire ou documentaliste, développeur informatique, personnel financier,  etc.</p>
+      <p>Merci de nous indiquer vos centres d'intérêts et de faire partager vos suggestions de développements souhaités via la liste de diffusion pour que toute la communauté faire part de ses réactions.</p>
+      </br>
+      <h3>Personnaliser DMPonline</h3>
+      <p>DMPonline peut être personnalisé en fonctions des institutions et des disciplines. Vous pouvez y ajouter des modèles destinés aux utilisateurs de votre établissement et ajouter des conseils qui expliquent comment trouver localement de l'assistance et des services. Des réponses types peuvent être ajoutées pour aider les utilisateurs à comprendre les informations qu'ils doivent rédiger dans un plan de gestion de données (DMP). Pour cela, vous devrez demander des droits d'accès administrateur, merci de nous envoyer un courriel à <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
+      <p>D'autres conseils sont également sur le <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>site web du DCC</a>.</p> 
+      </br>
+      <h3>Contribuer au code</h3>
+      <p>DMPonline est une application Ruby on Rails. Le code source est disponible sous licence GNU AGPL (<i>Affero General Public License</i>). Elle autorise tout un chacun à réutiliser le code librement, mais vous oblige à partager le code source de toute extensions de la même manière. Veuillez-nous informer si vous installez une instance de DMPonline et offrez à votre tour vos contributions à la communauté.</p>
+      <p>Si vous installez une instance de DMPonline, nous vous demandons de créditer DMPonline au DCC comme étant à l'origine de cet outil. Nous recommandons que la mention de crédit se fasse sous la forme du logo de DMPonline renvoyant par un lien vers la version hébergée par le DCC.</p>
+      <p>Nous sommes désireux de travailler avec des développeurs extérieurs pour ajouter de nouvelles fonctionnalité à cet outil.Nous sommes également ouverts à fournir de nouvelles fonctionnalités à titre onéreux. Si vous souhaitez que priorité soit donnée à certaines extensions ou si vous disposez de moyens pour soutenir des travaux de développement supplémentaires, veuillez nous contacter sur dmponline@dcc.ac.uk pour en négocier les conditions.</p>
+      </br>
+      <h3>Soutenir nos travaux</h3>
+      <p>Nous sommes impressionné par la montée en l'utilisation de DMPonline au Royaume-Uni comme à m'international et nous souhaitons vivement savoir comment vous utilisez cet outil, comment vous promouvez son utilisation dans votre environnement. Nous savons que d'autres que nous ont mis en place des programmes de formation, créé des supports d'assistance et de conseils et militent pour son utilisation. Veuillez nous le faire savoir, car cela nous permet d'en montrer l'impact.</p>
+      <p>Nous réfléchissons actuellement sur des solutions pour créer des moyens de financement. Cela nous permettra de répondre plus efficacement à une demande montante et de garantir la pérennité de DMPonline. Des projets seront bientôt rendus publics en consultation, mais nous accueillons volontiers vos suggestions pour soutenir au mieux nos travaux.</p> "
     
   terms_page:
     title: "Conditions d'utilisation"
     body_text_html: "<div class='white_background'>
-    <p>Le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC) est un consortium porté par le Jisc et installé dans les université d'Édimbourg, de Glasgow et de Bath. Nos missions concernent au premier chef la communauté de recherche britannique, en particulier le secteur de l'enseignement supérieur et de la formation tout au long de la vie.</p>
-    </div>
-    <h3>DMPonline</h3>
-    <div class='white_background'>
-      <p>DMPonline ('l'outil', 'le système') est une ressource partagée pour la communauté de recherche développée par le DCC. Elle est hébergée par l'université d'Édimbourg.</p>
-    </div>
-    <h3>Vos informations personnelles</h3>
-    <div class='white_background'>
-      <p>Pour pouvoir identifier et administrer votre compte dans DMPonline, nous avons besoin d'enregistrer votre adresse de courriel. Il se peut que nous l'utilisions aussi pour recueillir votre avis sur l'utilisation de cet outil, ou de vous informer des dernières évolutions ou versions. Ces informations pourront être échangées entre institutions partenaires du DCC mais uniquement à des fins légitimes pour le DCC. Nous ne vendrons, ni ne louerons ni n'échangerons les informations personnelles que vous nous fournirez.</p>
-    </div>
-    <h3>Protections des données à caractère personnel</h3>
-    <div class='white_background'>
-      <p>Les informations que vous enregistrez dans le système ne peuvent être visualisées que par vous-même, par les personnes avec lesquelles vous avez décidé d'en partager l'accès, et - uniquement pour la maintenance du service - pour les administrateurs du système de l'université d'Édimbourg.  Nous extrayons des informations anonymisées, automatiquement et sous forme agrégée à partir des DMP, mais nous n'accédons pas à votre contenu directement, ni ne l'utilisons ni le partageons avec des tiers sans autorisation de votre part. Des agents habilités de votre établissement d'affiliation pourront avoir accès à vos DMP dans des conditions précises, par ex. :pour vérifier le respect des prescriptions de l'établissement ou d'agences de financement ou pour calculer les besoins de stockage.</p>
-    </div>
-    <h3>Liberté d'information</h3>
-    <div class='white_background'>
-      <p>L'université d'Édimbourg assure le stockage de vos DMP pour votre compte, mais ceux-ci restent votre propriété et sous votre responsabilité. Toute demande au titre de la législation sur la liberté d'information se verra redirigée vers votre établissement d'affiliation.</p>
-    </div>
-    <h3>Mots de passe</h3>
-    <div class='white_background'>
-      <p>Votre mot de passe est enregistré sous forme chiffrée et ne peut être récupéré. En cas d'oubli, celui-ci devra être réinitialisé.</p>
-    </div>
-    <h3>Cookies</h3>
-    <div class='white_background'>
-      <p>Veuillez noter que DMPonline utilise des cookies. Vous pourrez en savoir plus sur les cookies et la manière dont nous les utilisons sur le <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>site web principal du DCC</a>.</p>
-    </div>
+      <p>Le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC) est un consortium porté par le Jisc et installé dans les université d'Édimbourg, de Glasgow et de Bath. Nos missions concernent au premier chef la communauté de recherche britannique, en particulier le secteur de l'enseignement supérieur et de la formation tout au long de la vie.</p>
+      </div>
+      <h3>DMPonline</h3>
+      <div class='white_background'>
+        <p>DMPonline ('l'outil', 'le système') est une ressource partagée pour la communauté de recherche développée par le DCC. Elle est hébergée par l'université d'Édimbourg.</p>
+      </div>
+      <h3>Vos informations personnelles</h3>
+      <div class='white_background'>
+        <p>Pour pouvoir identifier et administrer votre compte dans DMPonline, nous avons besoin d'enregistrer votre adresse de courriel. Il se peut que nous l'utilisions aussi pour recueillir votre avis sur l'utilisation de cet outil, ou de vous informer des dernières évolutions ou versions. Ces informations pourront être échangées entre institutions partenaires du DCC mais uniquement à des fins légitimes pour le DCC. Nous ne vendrons, ni ne louerons ni n'échangerons les informations personnelles que vous nous fournirez.</p>
+      </div>
+      <h3>Protections des données à caractère personnel</h3>
+      <div class='white_background'>
+        <p>Les informations que vous enregistrez dans le système ne peuvent être visualisées que par vous-même, par les personnes avec lesquelles vous avez décidé d'en partager l'accès, et - uniquement pour la maintenance du service - pour les administrateurs du système de l'université d'Édimbourg.  Nous extrayons des informations anonymisées, automatiquement et sous forme agrégée à partir des DMP, mais nous n'accédons pas à votre contenu directement, ni ne l'utilisons ni le partageons avec des tiers sans autorisation de votre part. Des agents habilités de votre établissement d'affiliation pourront avoir accès à vos DMP dans des conditions précises, par ex. :pour vérifier le respect des prescriptions de l'établissement ou d'agences de financement ou pour calculer les besoins de stockage.</p>
+      </div>
+      <h3>Liberté d'information</h3>
+      <div class='white_background'>
+        <p>L'université d'Édimbourg assure le stockage de vos DMP pour votre compte, mais ceux-ci restent votre propriété et sous votre responsabilité. Toute demande au titre de la législation sur la liberté d'information se verra redirigée vers votre établissement d'affiliation.</p>
+      </div>
+      <h3>Mots de passe</h3>
+      <div class='white_background'>
+        <p>Votre mot de passe est enregistré sous forme chiffrée et ne peut être récupéré. En cas d'oubli, celui-ci devra être réinitialisé.</p>
+      </div>
+      <h3>Cookies</h3>
+      <div class='white_background'>
+        <p>Veuillez noter que DMPonline utilise des cookies. Vous pourrez en savoir plus sur les cookies et la manière dont nous les utilisons sur le <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>site web principal du DCC</a>.</p>
+      </div>"
 
   identifier_schemes:
     connect_success: 'Votre compte a été connecté à %{scheme}'
