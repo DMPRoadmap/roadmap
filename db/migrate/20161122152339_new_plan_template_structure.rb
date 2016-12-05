@@ -54,8 +54,6 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     end
 
     create_join_table :new_questions, :themes do |t|
-      t.index [:new_question_id, :theme_id]
-      t.index [:theme_id, :new_question_id]
     end
 
     create_table :new_answers do |t|
@@ -76,8 +74,6 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     end
 
     create_join_table :new_answers, :question_options do |t|
-      t.index [:new_answer_id, :question_option_id], name: 'answer_question_option_index'
-      t.index [:question_option_id, :new_answer_id], name: 'question_option_answer_index'
     end
 
     create_table :notes do |t|
@@ -192,24 +188,18 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           # customised templates follow different version rules
           template.save!
           # since template was not a match, need to gen/copy all data below the template level
-          puts " #{versions.length} versions"
           versions.each do |version|
             new_phase = initNewPhase(version.phase, version, template, true)
             new_phase.save!
             sections = []
-            version.sections.where("organisation_id = ? ", dmptemplate.organisation_id).each do |sec|
-              sections << sec
-            end
+            sections += version.sections.where("organisation_id = ? ", dmptemplate.organisation_id).pluck(:id)
             unless project.organisation_id.nil?
-              Section.where(organisation_id: project.organisation_id, version_id: version.id).each do |sec|
-                sections << sec
-              end
+              sections += Section.where(organisation_id: project.organisation_id, version_id: version.id).pluck(:id)
             end
-            puts "  #{sections.length} sections"
-            sections.each do |section|
+            Section.includes(questions: [:themes, :options, :suggested_answers]).where(id: sections).each do |section|
               new_section = initNewSection(section, new_phase, true)
               new_section.save!
-              section.questions.includes(:themes, :options, :suggested_answers).each do |question|
+              section.questions.each do |question|
                 new_question = initNewQuestion(question, new_section, true)
                 new_question.save!
                 question.themes.each do |theme|
@@ -241,19 +231,21 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           role.save!
         end
         template = Template.includes(new_phases: {new_sections: :new_questions}).find(new_plan.template_id)
-        puts " #{template.new_phases.length} phases"
         template.new_phases.each do |new_phase|
           old_plan = project.plans.where(version_id: new_phase.vid).first
-          puts "  #{new_phase.new_sections.length} sections"
           new_phase.new_sections.each do |new_section|
-            puts "   #{new_section.new_questions.length} questions"
             new_section.new_questions.each do |new_question|
               # init new answer
               old_ans = old_plan.answers.where(question_id: new_question.question_id).order("created_at DESC").first
-              new_ans = initNewAnswer(old_ans, new_plan, new_question)
-              new_ans.save!
               # init comments on answer
-              Comment.where(question_id: new_question.question_id, plan_id: old_plan.id).find_each do |comment|
+              new_ans = nil
+              comments = Comment.where(question_id: new_question.question_id, plan_id: old_plan.id)
+              # unless there is no old answer, and no comments, create an answer
+              unless old_ans.nil? && comments.length < 1
+                new_ans = initNewAnswer(old_ans, new_plan, new_question)
+                new_ans.save!
+              end
+              comments.find_each do |comment|
                 note = initNote(comment, new_ans)
                 note.save!
               end
@@ -262,6 +254,18 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         end
       end
     end
+    
+    # indexes on join tables at the end
+    change_table :new_answers_question_options do |t|
+      t.index [:new_answer_id, :question_option_id], name: 'answer_question_option_index'
+      t.index [:question_option_id, :new_answer_id], name: 'question_option_answer_index'
+    end
+
+    change_table :new_questions_themes do |t|
+      t.index [:new_question_id, :theme_id], name: 'question_theme_index'
+      t.index [:theme_id, :new_question_id], name: 'theme_question_index'
+    end
+
   end
 
   def down
@@ -356,6 +360,7 @@ def initNewAnswer(answer, new_plan, new_question)
     new_answer.user_id          = answer.user_id
     new_answer.created_at       = answer.created_at
     new_answer.updated_at       = answer.updated_at
+    # not sure if these get saved properly as new_answer has no id yet
     answer.options.each do |option|
       new_answer.question_options << QuestionOption.find_by(option_id: option.id)
     end
