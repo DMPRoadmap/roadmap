@@ -139,7 +139,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     proj_number = 0
     # migrating uncustomised plans
     Template.transaction do
-      Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: :version}, :organisation).find_each(batch_size: 20) do |project|
+      Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: [:version ]}, :organisation).find_each(batch_size: 20) do |project|
         puts ""
         puts "beginning number #{proj_number}"
         proj_number +=1
@@ -236,7 +236,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           new_phase.new_sections.each do |new_section|
             new_section.new_questions.each do |new_question|
               # init new answer
-              old_ans = old_plan.answers.where(question_id: new_question.question_id).order("created_at DESC").first
+              old_ans = Answer.where(question_id: new_question.question_id, plan_id: old_plan.id).order("created_at DESC").first
               # init comments on answer
               new_ans = nil
               comments = Comment.where(question_id: new_question.question_id, plan_id: old_plan.id)
