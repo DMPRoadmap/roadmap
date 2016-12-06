@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
     has_many :user_role_types, through: :user_org_roles
     belongs_to :language
 
-    belongs_to :organisation
+    belongs_to :org
 
     has_many :projects, through: :project_groups do
       def filter(query)

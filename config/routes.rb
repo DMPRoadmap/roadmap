@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
     
-    resources :organisations, :path => 'org/admin', only: [] do
+    resources :orgs, :path => 'org/admin', only: [] do
       member do
         get 'children'
         get 'templates'
