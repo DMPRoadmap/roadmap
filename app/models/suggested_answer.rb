@@ -1,6 +1,6 @@
 class SuggestedAnswer < ActiveRecord::Base
 
-	belongs_to :organisation
+	belongs_to :org
 	belongs_to :question
 
 #	accepts_nested_attributes_for :question

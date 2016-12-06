@@ -2,7 +2,7 @@ class GuidanceGroup < ActiveRecord::Base
   include GlobalHelpers
 
   #associations between tables
-  belongs_to :organisation
+  belongs_to :org
 
   has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
 

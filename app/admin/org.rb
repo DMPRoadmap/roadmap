@@ -4,7 +4,7 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-ActiveAdmin.register Organisation do
+ActiveAdmin.register Org do
 	permit_params :abbreviation, :banner_file_id, :description, :logo_file_id, :name, :target_url, :organisation_type_id, :wayfless_entity, :parent_id
 
 	 menu :priority => 14, :label => proc{I18n.t('admin.org')}, :parent => "Organisations management"

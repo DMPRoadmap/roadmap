@@ -1,4 +1,4 @@
-class Organisation < ActiveRecord::Base
+class Org < ActiveRecord::Base
   include GlobalHelpers
   
   extend Dragonfly::Model::Validations
@@ -6,19 +6,18 @@ class Organisation < ActiveRecord::Base
   #associations between tables
   belongs_to :organisation_type
   has_many :guidance_groups
-  has_many :dmptemplates
-  has_many :sections
+  has_many :templates
   has_many :users
   has_many :suggested_answers
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
   belongs_to :parent, :class_name => 'Organisation'
 
-	has_one :language
+	belongs_to :language
 
 	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
 
-	accepts_nested_attributes_for :dmptemplates
+	accepts_nested_attributes_for :templates
   accepts_nested_attributes_for :token_permission_types
 
 	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
