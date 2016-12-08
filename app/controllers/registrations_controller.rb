@@ -17,14 +17,14 @@ class RegistrationsController < Devise::RegistrationsController
     
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
-      if oauth.provider.nil? || oauth.uid.nil?
+      if oauth[:provider].nil? || oauth[:uid].nil?
         flash[:notice] = t('identifier_schemes.new_login_failure')
 
       else
         # Connect the new user with the identifier sent back by the OAuth provider
         flash[:notice] = t('identifier_schemes.new_login_success')
-        UserIdentifier.create(identifier_scheme: oauth.provider.upcase, 
-                              identifier: oauth.uid,
+        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase, 
+                              identifier: oauth[:uid],
                               user: @user)
       end
     end
