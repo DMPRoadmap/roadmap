@@ -1,9 +1,12 @@
 ENV["RAILS_ENV"] = "test"
 
+# Startup the simple coverage gem so that our test results are captured
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
-
 require 'active_support/inflector' # For pluralization utility
 
 class ActiveSupport::TestCase

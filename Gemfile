@@ -106,6 +106,7 @@ group :test do
   gem 'rack-test'
   gem 'webmock'
   gem 'sqlite3'
+  gem 'simplecov', require: false
 end
 
 group :development do
