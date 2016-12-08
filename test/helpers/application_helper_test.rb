@@ -51,17 +51,11 @@ class ApplicationHelperTest < ActionView::TestCase
   end
   
   # -----------------------------------------------------------------------
-  test "link_to_add_object should return an HTML anchor tag" do
+  test "hash_to_js_json_variable should return valid JSON markup for the specified Hash object" do
+    actual = hash_to_js_json_variable('hasher', {foo: 'bar', abc: '123'})
     
-  end
-  
-  # -----------------------------------------------------------------------
-  test "link_to_function" do
-    
-  end
-  
-  # -----------------------------------------------------------------------
-  test "hash_to_json_object should return valid JSON markup for the specified Hash object" do
-    
+    assert actual.include?('script'), "Expected the result to be contained within a script tag but got: #{actual}"
+    assert actual.include?('var hasher = '), "Expected the hash to appear as a variable but got: #{actual}"
+    assert actual.include?('{"foo":"bar","abc":"123"}'), "Expected the hash contents to appear but got: #{actual}"
   end
 end
