@@ -1,41 +1,46 @@
 class Org < ActiveRecord::Base
   include GlobalHelpers
-  
   extend Dragonfly::Model::Validations
-
-  #associations between tables
+  ##
+  # Associations
   belongs_to :organisation_type
+  belongs_to :language
   has_many :guidance_groups
   has_many :templates
   has_many :users
   has_many :suggested_answers
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
-  belongs_to :parent, :class_name => 'Organisation'
-
-	belongs_to :language
-
-	has_many :children, :class_name => 'Organisation', :foreign_key => 'parent_id'
-
-	accepts_nested_attributes_for :templates
-  accepts_nested_attributes_for :token_permission_types
-
+  ##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
 	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
                   :logo_file_name, :name, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id, :contact_email
 
+  ##
+  # Validators
   validates :contact_email, email: true, allow_nil: true
   validates :name, presence: true, uniqueness: true
-
   # allow validations for logo upload
   dragonfly_accessor :logo do
     after_assign :resize_image
   end
-  
   validates_property :height, of: :logo, in: (0..100)
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
   validates_size_of :logo, maximum: 500.kilobytes
+
+
+
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
+
 
   ##
   # returns the name of the organisation

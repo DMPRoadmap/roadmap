@@ -9,22 +9,22 @@
 
 class Guidance < ActiveRecord::Base
   include GlobalHelpers
-  #associations between tables
-	attr_accessible :text, :question_id, :published, :as => [:default, :admin]
 
-  attr_accessible :guidance_group_ids, :as => [:default, :admin]
-  attr_accessible :theme_ids, :as => [:default, :admin]
-
+  ##
+  # Associations
+  belongs_to :guidance_group
   belongs_to :question
-
-  #belongs_to :dmptemplate
-  #belongs_to :theme
-
-  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
+  # depricated, but required for migration "single_group_for_guidance"
+  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
 
-  accepts_nested_attributes_for :themes
-  accepts_nested_attributes_for :guidance_groups
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
 
 
   ##

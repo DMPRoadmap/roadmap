@@ -4,20 +4,37 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
-
 	extend FriendlyId
 
-	#associations between tables
-	belongs_to :template
-	has_many :sections, :dependent => :destroy
-  has_many :questions, :through => :sections, :dependent => :destroy
+	##
+  # Associations
+	belongs_to :template, dependant: :destroy
+	has_many :sections, dependant: :destroy
+  has_many :questions, :through => :sections, dependent: :destroy
 
-	#Link the child's data
-#	accepts_nested_attributes_for :dmptemplate
-
+	##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
 	attr_accessible :description, :number, :title, :dmptemplate_id, :as => [:default, :admin]
 
+  ##
+  # sluggable title
 	friendly_id :title, use: [:slugged, :history, :finders]
+
+
+
+
+
+
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
+
+
 
   ##
   # returns the title of the phase

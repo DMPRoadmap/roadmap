@@ -1,5 +1,5 @@
 module Settings
-  class Dmptemplate < RailsSettings::SettingObject
+  class Template < RailsSettings::SettingObject
   
   #attr_accessible :var, :target, :target_id, :target_type
 
