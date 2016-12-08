@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConfigurationHelper
+class ConfigurationHelper < ActionDispatch::IntegrationTest
   
   test "Make sure that all of the Oauth identifier schemes are registered in the appropriate places" do
     
