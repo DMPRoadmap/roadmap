@@ -20,7 +20,7 @@ module ApplicationHelper
   end
   
   # ---------------------------------------------------------------------------
-  def hash_to_json_object(obj_name, hash)
+  def hash_to_js_json_variable(obj_name, hash)
     "<script type=\"text/javascript\">var #{obj_name} = #{hash.to_json};</script>".html_safe
   end
 end
