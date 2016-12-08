@@ -95,6 +95,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
 
     # new plans table
     create_table :new_plans do |t|
+      t.integer  :project_id
       t.string   :title
       t.integer  :template_id
       t.timestamps
@@ -394,6 +395,7 @@ end
 
 def initNewPlan(project)
   new_plan              = NewPlan.new
+  new_plan.project_id   = project.id
   new_plan.title        = project.title
   new_plan.slug         = project.slug
   new_plan.grant_number = project.grant_number
