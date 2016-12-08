@@ -14,7 +14,7 @@ en-UK:
         email: "Email"
         message: "Message"
         name: "Name"
-        subject: "Subjecteee"
+        subject: "Subject"
         submit: "Submit"
       new_formtastic:
         <<: *new
