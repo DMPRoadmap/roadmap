@@ -55,7 +55,7 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
     drop_table :comments
 
     change_table :new_plans do |t|
-      t.remove :project_id
+      #t.remove :project_id
     end
     drop_table :plans
     rename_table :new_plans, :plans
@@ -80,8 +80,12 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
     rename_column :templates, :organisation_id, :org_id
     rename_column :users, :organisation_id, :org_id
 
-    #drop_table :projects
+    drop_table :projects
+    drop_table :project_groups
     #drop_table :project_guidance
+    drop_table :versions
+    drop_table :dmptemplates_guidance_groups
+    drop_table :plan_sections
 
   end
 
