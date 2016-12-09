@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
     has_many :answers
     has_many :project_groups, :dependent => :destroy
     has_many :user_role_types, through: :user_org_roles
+    has_many :roles
+    has_many :new_plans, through: :roles
     belongs_to :language
 
     belongs_to :organisation
