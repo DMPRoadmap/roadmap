@@ -185,7 +185,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           template = initTemplate(dmptemplate)      # needs to select next version of temp based on old_temp_id
           # some differences between a customised and un-customised template
           # customised templates need a different organisation_id
-          template.organisation_id = project.organisation_id
+          template.organisation_id = project.organisation_id unless project.organisation_id.nil?  # updated to not overwrite with nil
           # customised templates follow different version rules
           template.save!
           # since template was not a match, need to gen/copy all data below the template level
