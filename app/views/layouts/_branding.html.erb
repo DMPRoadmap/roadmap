@@ -1,19 +1,19 @@
 <!-- Org branding info -->
 <div class="branding_container">
 	<% if user_signed_in? %>
-		<% if !current_user.organisation.nil? %>
+		<% if !current_user.org.nil? %>
 			<!-- Organisation Logo -->
-      <% if current_user.organisation.logo.present? %>
+      <% if current_user.org.logo.present? %>
 				<div class="header_org_logo">
-        	<%= link_to(image_tag(current_user.organisation.logo.thumb('100x100%').url), current_user.organisation.target_url) %>
+        	<%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url), current_user.org.target_url) %>
 				</div>
       <% end %>
 
 			<!-- Banner text -->
-			<% if current_user.organisation.banner_text.present? %>
+			<% if current_user.org.banner_text.present? %>
 				<div class="header_org_banner_text">
 					<span class="header_org_banner_text_vertical_align">
-						<%= raw current_user.organisation.banner_text %>
+						<%= raw current_user.org.banner_text %>
 					</span>
 				</div>
 			<%end%>
