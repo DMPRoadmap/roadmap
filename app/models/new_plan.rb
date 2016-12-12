@@ -1,5 +1,5 @@
 class NewPlan < ActiveRecord::Base
-  has_one :template
+  belongs_to :template
   has_many :roles
   has_many :users, through: :roles
 end
