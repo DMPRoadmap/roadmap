@@ -817,6 +817,10 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       template: 'Template'
       managing_organisation: 'Digital Curation Centre'
     user_role_types:
+      admin: 'admin'
+      org_admin: 'org_admin'
+      user: 'user'
+    roles:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
       user: 'user'
@@ -828,7 +832,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       use_api: 'use_api'
       change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
-    api_endpoint_types:
+    token_permission_types:
       guidances: 'guidances'
       plans: 'plans'
       templates: 'templates'

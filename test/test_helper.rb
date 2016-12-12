@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
   def class_name_to_attribute_name(name)
     name.gsub(/([a-z]+)([A-Z])/, '\1_\2').gsub('-', '_').downcase
   end
-  
+
 # FUNCTIONAL/INTEGRATION TEST HELPERS
   # ----------------------------------------------------------------------
   def assert_unauthorized_redirect_to_root_path
