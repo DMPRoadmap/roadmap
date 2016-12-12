@@ -1,58 +1,66 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
-
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+  ##
+  # Devise
+  #   Include default devise modules. Others available are:
+  #   :token_authenticatable, :confirmable,
+  #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
 
-    #associations between tables
-    has_many :answers
-    has_many :project_groups, :dependent => :destroy
-    has_many :user_role_types, through: :user_org_roles
-    belongs_to :language
-
-    belongs_to :org
-
-    has_many :projects, through: :project_groups do
-      def filter(query)
-        return self unless query.present?
-
-        t = self.arel_table
-        q = "%#{query}%"
-
-        conditions = t[:title].matches(q)
-
-        columns = %i(
-          grant_number identifier description principal_investigator data_contact 
-        )
-        columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
-
-        columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
-
-        self.where(conditions)
-      end
+  ##
+  # Associations
+  has_and_belongs_to_many :perms, join_table: :users_perms
+  belongs_to :language
+  belongs_to :org
+  has_many :answers
+  has_many :notes
+  has_many :roles, dependent: :destroy
+  has_many :projects, through: :roles do
+    def filter(query)
+      return self unless query.present?
+      t = self.arel_table
+      q = "%#{query}%"
+      conditions = t[:title].matches(q)
+      columns = %i(
+        grant_number identifier description principal_investigator data_contact 
+      )
+      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
+      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
+      self.where(conditions)
     end
+  end
 
-    has_and_belongs_to_many :roles, :join_table => :users_roles
+  ##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
+  accepts_nested_attributes_for :roles
+  attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email,
+                  :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
+                  :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
+                  :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
+                  :organisation, :language, :language_id
 
-    has_many :plan_sections
+  validates :email, email: true, allow_nil: true, uniqueness: true
 
-    accepts_nested_attributes_for :roles
-    attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email,
-                    :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
-                    :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
-                    :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                    :organisation, :language, :language_id
+  ##
+  # Settings
+  # FIXME: The duplication in the block is to set defaults. It might be better if
+  #        they could be set in Settings::PlanList itself, if possible.
+  has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
+    s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
+  end
 
-    #validates :email, email: true, allow_nil: true, uniqueness: true
 
-    # FIXME: The duplication in the block is to set defaults. It might be better if
-    #        they could be set in Settings::PlanList itself, if possible.
-    has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
-      s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
-    end
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
+
+
 
   ##
   # gives either the name of the user, or the email if name unspecified
