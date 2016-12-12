@@ -1,6 +1,7 @@
 class Section < ActiveRecord::Base
 
-  #associations between tables
+  ##
+  # Associations
   belongs_to :version
   belongs_to :organisation
   has_many :questions, :dependent => :destroy
