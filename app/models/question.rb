@@ -1,26 +1,34 @@
 class Question < ActiveRecord::Base
 
-  #associations between tables
+  ##
+  # Associations
   has_many :answers, :dependent => :destroy
-  has_many :options, :dependent => :destroy
+  has_many :question_options, :dependent => :destroy
   has_many :suggested_answers, :dependent => :destroy
-  has_many :guidances
-  has_many :comments
-  
-  has_and_belongs_to_many :themes, join_table: "questions_themes"  
-  
-
+  has_and_belongs_to_many :themes, join_table: "questions_themes"
   belongs_to :section
   belongs_to :question_format
 
+  ##
+  # Nested Attributes
+  # TODO: evaluate if we need this
   accepts_nested_attributes_for :answers, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-#  accepts_nested_attributes_for :section
-#  accepts_nested_attributes_for :question_format
   accepts_nested_attributes_for :options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
   accepts_nested_attributes_for :suggested_answers,  :allow_destroy => true
   accepts_nested_attributes_for :themes
 
+  ##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :suggested_answer, :text, :section_id,:question_format_id,:options_attributes, :suggested_answers_attributes, :option_comment_display, :theme_ids, :as => [:default, :admin]
+
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
 
   ##
   # returns the text from the question
