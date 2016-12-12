@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can add new organisations
   def can_add_orgs?
-    roles.include? Role.find_by(name: constant("user_role_types.add_organisations"))
+    roles.include? Perm.find_by(name: constant("user_role_types.add_organisations"))
   end
 
   ##
@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can change their organisation affiliations
   def can_change_org?
-    roles.include? Role.find_by(name: constant("user_role_types.change_org_affiliation"))
+    roles.include? Perm.find_by(name: constant("user_role_types.change_org_affiliation"))
   end
 
   ##
@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant their permissions to others
   def can_grant_permissions?
-    roles.include? Role.find_by(name: constant("user_role_types.grant_permissions"))
+    roles.include? Perm.find_by(name: constant("user_role_types.grant_permissions"))
   end
 
   ##
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
-    roles.include? Role.find_by(name: constant("user_role_types.modify_templates"))
+    roles.include? Perm.find_by(name: constant("user_role_types.modify_templates"))
   end
 
   ##
@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organistion guidance
   def can_modify_guidance?
-    roles.include? Role.find_by(name: constant("user_role_types.modify_guidance"))
+    roles.include? Perm.find_by(name: constant("user_role_types.modify_guidance"))
   end
 
   ##
@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can use the api
   def can_use_api?
-    roles.include? Role.find_by(name: constant("user_role_types.use_api"))
+    roles.include? Perm.find_by(name: constant("user_role_types.use_api"))
   end
 
   ##
@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
-    roles.include? Role.find_by(name: constant("user_role_types.change_org_details"))
+    roles.include? Perm.find_by(name: constant("user_role_types.change_org_details"))
   end
 
   ##
@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    roles.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
 
@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    roles.include? Role.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    roles.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
   ##
@@ -227,43 +227,6 @@ class User < ActiveRecord::Base
       self.save!
       # send an email to the user to notify them of their new api token
       UserMailer.api_token_granted_notification(self)
-    end
-  end
-
-  ##
-  # updates the user permissions to the new system.
-  # the old system only had admin and org-admin roles, which loosely map to the
-  # new permissions system.
-  def self.update_user_permissions
-    admin                   = Role.find_by(name: 'admin')
-    org_admin               = Role.find_by(name: 'org_admin')
-    add_orgs                = Role.find_by(name: 'add_organisations')
-    change_org_affiliation  = Role.find_by(name: 'change_org_affiliation')
-    grant_api_to_orgs       = Role.find_by(name: 'grant_api_to_orgs')
-    grant_permissions       = Role.find_by(name: 'grant_permissions')
-    modify_templates        = Role.find_by(name: 'modify_templates')
-    modify_guidance         = Role.find_by(name: 'modify_guidance')
-    change_org_details      = Role.find_by(name: 'change_org_details')
-    User.includes(:roles).all.each do |user|
-      if user.roles.include? admin
-        #add admin roles
-        user.roles << add_orgs unless user.roles.include? add_orgs
-        user.roles << change_org_affiliation unless user.roles.include? change_org_affiliation
-        user.roles << grant_api_to_orgs unless user.roles.include? grant_api_to_orgs
-        user.roles << grant_permissions unless user.roles.include? grant_permissions
-        user.roles.delete(admin)
-        user.save!
-      end
-      if user.roles.include? org_admin
-        #add org-admin roles
-        user.roles << grant_permissions unless user.roles.include? grant_permissions
-        user.roles << modify_templates unless user.roles.include? modify_templates
-        user.roles << modify_guidance unless user.roles.include? modify_guidance
-        user.roles << change_org_details unless user.roles.include? change_org_details
-        user.roles.delete(org_admin)
-        # save the user
-        user.save!
-      end
     end
   end
 end
