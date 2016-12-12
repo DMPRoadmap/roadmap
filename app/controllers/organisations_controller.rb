@@ -3,7 +3,7 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1
   def admin_show
-    @organisation = Organisation.find(params[:id])
+    @organisation = Org.find(params[:id])
     authorize @organisation
     respond_to do |format|
       format.html # show.html.erb
@@ -12,7 +12,7 @@ class OrganisationsController < ApplicationController
 
    # GET /organisations/1/edit
   def admin_edit
-    @organisation = Organisation.find(params[:id])
+    @organisation = Org.find(params[:id])
     authorize @organisation
     
     @languages = Language.all.order("name")
@@ -21,7 +21,7 @@ class OrganisationsController < ApplicationController
 
   # PUT /organisations/1
   def admin_update
-    @organisation = Organisation.find(params[:id])
+    @organisation = Org.find(params[:id])
     authorize @organisation
     @organisation.banner_text = params["org_banner_text"]
     @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
@@ -47,7 +47,7 @@ class OrganisationsController < ApplicationController
 
   #TODO: see if this is used by the ajax... otherwise lock it down
   def parent
-  	@organisation = Organisation.find(params[:id])
+  	@organisation = Org.find(params[:id])
     authorize @organisation
   	parent_org = @organisation.find_by {|o| o.parent_id }
   	return parent_org
@@ -55,7 +55,7 @@ class OrganisationsController < ApplicationController
 
   #TODO: see is this is used by the ajax... otherwise lock it down
 	def children
-		@organisation = Organisation.find(params[:id])
+		@organisation = Org.find(params[:id])
     authorize @organisation
 		#if user_signed_in? then
 		children = {}
@@ -72,7 +72,7 @@ class OrganisationsController < ApplicationController
 
   #TODO: see if this is used by the ajax... otherwise lock it down
 	def templates
-		@organisation = Organisation.find(params[:id])
+		@organisation = Org.find(params[:id])
     authorize @organisation
 		#if user_signed_in? then
 		templates = {}

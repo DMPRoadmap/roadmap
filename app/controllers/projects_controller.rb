@@ -124,7 +124,7 @@ class ProjectsController < ApplicationController
 			@project = Project.new(params[:project])
       authorize @project
 			if @project.dmptemplate.nil? && params[:project][:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
-				funder = Organisation.find(params[:project][:funder_id])
+				funder = Org.find(params[:project][:funder_id])
 				if funder.dmptemplates.count == 1 then
 					@project.dmptemplate = funder.published_templates.first
 				end
@@ -193,12 +193,12 @@ class ProjectsController < ApplicationController
 	# GET /projects/possible_templates.json
 	def possible_templates
 		if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
-			funder = Organisation.find(params[:funder])
+			funder = Org.find(params[:funder])
 		else
 			funder = nil
 		end
 		if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
-			institution = Organisation.find(params[:institution])
+			institution = Org.find(params[:institution])
 		else
 			institution = nil
 		end
@@ -234,11 +234,11 @@ class ProjectsController < ApplicationController
 			template = nil
 		end
 		if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
-			institution = Organisation.find(params[:institution])
+			institution = Org.find(params[:institution])
 		else
 			institution = nil
 		end
-		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
+		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
 		guidance_groups = {}
 		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
 
@@ -317,7 +317,7 @@ class ProjectsController < ApplicationController
       # Exclude Funders, Institutions, or children of Institutions
   		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
                       orgs_of_type(constant("organisation_types.institution")) + 
-                      Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
+                      Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
 
       GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
     end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  ActiveAdmin.routes(self)
+  #ActiveAdmin.routes(self)
 
   #organisation admin area
   #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"

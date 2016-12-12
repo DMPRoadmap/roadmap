@@ -13,7 +13,6 @@ class Guidance < ActiveRecord::Base
   ##
   # Associations
   belongs_to :guidance_group
-  belongs_to :question
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
   # depricated, but required for migration "single_group_for_guidance"
   has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
@@ -48,7 +47,7 @@ class Guidance < ActiveRecord::Base
   # @return [Array<Guidance>] list of guidance
 	def self.by_organisation(org_id)
     org_guidance = []
-    Organisation.find_by(id: org_id).guidance_groups.each do |group|
+    Org.find_by(id: org_id).guidance_groups.each do |group|
       org_guidance += group.guidances
     end
 		return org_guidance
@@ -96,7 +95,7 @@ class Guidance < ActiveRecord::Base
       end
 
       # guidance groups are viewable if they are owned by the Managing Curation Center
-      if guidance_group.organisation.id == Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation")).id
+      if guidance_group.organisation.id == Org.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation")).id
         viewable = true
       end
 
@@ -119,7 +118,7 @@ class Guidance < ActiveRecord::Base
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    managing_groups = (Organisation.find_by name: GlobalHelpers.constant("organisation_types.managing_organisation")).guidance_groups
+    managing_groups = (Org.find_by name: GlobalHelpers.constant("organisation_types.managing_organisation")).guidance_groups
     # find all groups owned by a Funder organisation
     funder_groups = []
     funders = OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))

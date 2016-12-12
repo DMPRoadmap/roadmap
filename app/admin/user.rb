@@ -74,7 +74,7 @@ ActiveAdmin.register User do
   		#	f.input :shibboleth_id
   			f.input :organisation_id, :label => I18n.t('admin.org_title'), 
                     :as => :select, 
-                    :collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
+                    :collection => Org.order('name').map{|orgp|[orgp.name, orgp.id]}
   			f.input :other_organisation
   			f.input :role_ids, :label => I18n.t('admin.user_role'),
   							:as => :select,

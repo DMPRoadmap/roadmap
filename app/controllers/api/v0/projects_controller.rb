@@ -19,9 +19,9 @@ module Api
         # find the user's api_token permissions
         # then ensure that they have the permission associated with creating plans
         if has_auth(constant("api_endpoint_types.plans"))
-          #params[:organization_id] = Organisation.where(name: params[:template][:organization])
+          #params[:organization_id] = Org.where(name: params[:template][:organization])
           # find_by returns nil if none found, find_by! raises an ActiveRecord error
-          organization = Organisation.find_by name: params[:template][:organisation]
+          organization = Org.find_by name: params[:template][:organisation]
           
           # if organization exists
           if !organization.nil?

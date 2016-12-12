@@ -93,7 +93,7 @@ ActiveAdmin.register Org do
                     as: :select, multiple: true, include_blank: I18n.t('helpers.none'),
                     collection: TokenPermissionType.order(:token_type).map{|token| [token.token_type, token.id]},
                     hint: I18n.t('admin.choose_api_permissions')
-        #    f.input :parent_id, :label => I18n.t('admin.org_parent'), :as => :select, :collection => Organisation.find(:all, :order => 'name ASC').map{|orgp|[orgp.name, orgp.id]}
+        #    f.input :parent_id, :label => I18n.t('admin.org_parent'), :as => :select, :collection => Org.find(:all, :order => 'name ASC').map{|orgp|[orgp.name, orgp.id]}
         #    f.input :stylesheet_file_id
         end
         f.actions

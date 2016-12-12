@@ -33,11 +33,6 @@ ActiveRecord::Schema.define(version: 20161208122123) do
   add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index", using: :btree
   add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index", using: :btree
 
-  create_table "dmptemplates_guidance_groups", id: false, force: :cascade do |t|
-    t.integer "dmptemplate_id"
-    t.integer "guidance_group_id"
-  end
-
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
     t.integer  "user_id"
@@ -167,15 +162,6 @@ ActiveRecord::Schema.define(version: 20161208122123) do
     t.boolean  "modifiable"
   end
 
-  create_table "plan_sections", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "section_id"
-    t.integer  "plan_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.datetime "release_time"
-  end
-
   create_table "plans", force: :cascade do |t|
     t.string   "title"
     t.integer  "template_id"
@@ -191,40 +177,12 @@ ActiveRecord::Schema.define(version: 20161208122123) do
     t.string   "funder_name"
   end
 
-  create_table "project_groups", force: :cascade do |t|
-    t.boolean  "project_creator"
-    t.boolean  "project_editor"
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.boolean  "project_administrator"
-  end
-
   create_table "project_guidance", id: false, force: :cascade do |t|
     t.integer "project_id",        null: false
     t.integer "guidance_group_id", null: false
   end
 
   add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id", using: :btree
-
-  create_table "projects", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "dmptemplate_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "slug"
-    t.integer  "org_id"
-    t.string   "grant_number"
-    t.string   "identifier"
-    t.text     "description"
-    t.string   "principal_investigator"
-    t.string   "principal_investigator_identifier"
-    t.string   "data_contact"
-    t.string   "funder_name"
-  end
-
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
 
   create_table "question_formats", force: :cascade do |t|
     t.string   "title"
@@ -401,18 +359,6 @@ ActiveRecord::Schema.define(version: 20161208122123) do
   end
 
   add_index "users_perms", ["user_id", "perm_id"], name: "index_users_perms_on_user_id_and_perm_id", using: :btree
-
-  create_table "versions", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "published"
-    t.integer  "number"
-    t.integer  "phase_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "versions", ["phase_id"], name: "index_versions_on_phase_id", using: :btree
 
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"

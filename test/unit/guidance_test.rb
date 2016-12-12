@@ -9,7 +9,7 @@ class GuidanceTest < ActiveSupport::TestCase
     
     @org_type = OrganisationType.first
     
-    @organisations = Organisation.all
+    @organisations = Org.all
   end
 
   # ---------- can_view? ----------
@@ -168,7 +168,7 @@ class GuidanceTest < ActiveSupport::TestCase
   # ---------- by_organisation ----------
   test "by_organisation correctly returns all guidance belonging to a given org" do
 =begin
-    Organisation.all.each do |org|
+    Org.all.each do |org|
       org_guidance = Guidance.by_organisation(org)
       org.guidance_groups.each do |group|
         group.guidances.each do |guidance|

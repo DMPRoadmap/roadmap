@@ -37,12 +37,12 @@
 			<tr>
 				<td class="first"><%= t("helpers.org_type.organisation") %></td>
 				<td><%= collection_select(:user,
-						:organisation_id, Organisation.where("parent_id IS NULL").order("name"),
+						:organisation_id, Org.where("parent_id IS NULL").order("name"),
 						:id, :name, {include_blank: constant("organisation_types.organisation")},
 						{ :class => "typeahead org_sign_up" }) %></td>
 			</tr>
 			<% other_organisations = Array.new %>
-			<% Organisation.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
+			<% Org.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
 				<% other_organisations << org.id %>
 			<% end %>
 			<tr id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(",") %>">

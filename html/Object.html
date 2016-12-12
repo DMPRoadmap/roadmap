@@ -171,7 +171,7 @@
   
     <li><a href="./OptionWarning.html">OptionWarning</a>
   
-    <li><a href="./Organisation.html">Organisation</a>
+    <li><a href="./Org.html">Organisation</a>
   
     <li><a href="./OrganisationType.html">OrganisationType</a>
   
@@ -298,7 +298,8 @@
           <div class="method-source-code" id="scoped_collection-source">
             <pre><span class="ruby-comment"># File app/admin/user.rb, line 118</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">scoped_collection</span>
-  <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:organisations</span>) <span class="ruby-comment"># prevents N+1 queries to your database</span>
+  <span class="ruby-identifier">resource_class</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:organisations</span>) <span class="ruby-comment"># prevents N+1 queries to your database
+</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- scoped_collection-source -->
           

@@ -89,7 +89,7 @@ class Template < ActiveRecord::Base
     funders_templates = self.funders_templates
 
     #verify if org type is not a funder
-    current_org = Organisation.find(org_id)
+    current_org = Org.find(org_id)
     if current_org.organisation_type.name != GlobalHelpers.constant("organisation_types.funder") then
       own_institutional_templates = self.own_institutional_templates(org_id)
     else

@@ -548,7 +548,7 @@ private
   # @return [Organisation] the new funder
   def funder_id=(new_funder_id)
     if new_funder_id != "" then
-      new_funder = Organisation.find(new_funder_id);
+      new_funder = Org.find(new_funder_id);
       if new_funder.dmptemplates.count >= 1 && self.dmptemplate.nil? then
         self.dmptemplate = new_funder.dmptemplates.first
       end
@@ -606,10 +606,10 @@ private
   # @return [Integer, nil] the org_id of the new funder
   def funder_name=(new_funder_name)
     write_attribute(:funder_name, new_funder_name)
-    org_table = Organisation.arel_table
-    existing_org = Organisation.where(org_table[:name].matches(new_funder_name))
+    org_table = Org.arel_table
+    existing_org = Org.where(org_table[:name].matches(new_funder_name))
     if existing_org.nil?
-      existing_org = Organisation.where(org_table[:abbreviation].matches(new_funder_name))
+      existing_org = Org.where(org_table[:abbreviation].matches(new_funder_name))
     end
     unless existing_org.empty?
       self.funder_id=existing_org.id

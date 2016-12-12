@@ -22,7 +22,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can manage has_many relationship with Organisations" do
-    organisation = Organisation.new(name: 'test')
+    organisation = Org.new(name: 'test')
     verify_has_many_relationship(@organisation_type, organisation, 
                                  @organisation_type.organisations.count)
   end

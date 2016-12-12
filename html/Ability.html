@@ -183,7 +183,7 @@
   
     <li><a href="./OptionWarning.html">OptionWarning</a>
   
-    <li><a href="./Organisation.html">Organisation</a>
+    <li><a href="./Org.html">Organisation</a>
   
     <li><a href="./OrganisationType.html">OrganisationType</a>
   
@@ -310,9 +310,12 @@
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File app/models/ability.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>)
-  <span class="ruby-comment"># Define abilities for the passed in user here. For example:</span>
-  <span class="ruby-comment">#</span>
-    <span class="ruby-identifier">user</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment"># guest user (not logged in)</span>
+  <span class="ruby-comment"># Define abilities for the passed in user here. For example:
+</span>
+  <span class="ruby-comment">#
+</span>
+    <span class="ruby-identifier">user</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment"># guest user (not logged in)
+</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_role?</span> <span class="ruby-value">:admin</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:all</span>
     <span class="ruby-keyword">else</span>
@@ -322,24 +325,42 @@
   <span class="ruby-identifier">can</span> <span class="ruby-value">:manage_settings</span>, <span class="ruby-constant">User</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">viewed_user</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">viewed_user</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">viewed_user</span>.<span class="ruby-identifier">id</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment"># The first argument to `can` is the action you are giving the user </span>
-  <span class="ruby-comment"># permission to do.</span>
-  <span class="ruby-comment"># If you pass :manage it will apply to every action. Other common actions</span>
-  <span class="ruby-comment"># here are :read, :create, :update and :destroy.</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment"># The second argument is the resource the user can perform the action on. </span>
-  <span class="ruby-comment"># If you pass :all it will apply to every resource. Otherwise pass a Ruby</span>
-  <span class="ruby-comment"># class of the resource.</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment"># The third argument is an optional hash of conditions to further filter the</span>
-  <span class="ruby-comment"># objects.</span>
-  <span class="ruby-comment"># For example, here the user can only update published articles.</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#   can :update, Article, :published =&gt; true</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment"># See the wiki for details:</span>
-  <span class="ruby-comment"># https://github.com/ryanb/cancan/wiki/Defining-Abilities</span>
+  <span class="ruby-comment">#
+</span>
+  <span class="ruby-comment"># The first argument to `can` is the action you are giving the user 
+</span>
+  <span class="ruby-comment"># permission to do.
+</span>
+  <span class="ruby-comment"># If you pass :manage it will apply to every action. Other common actions
+</span>
+  <span class="ruby-comment"># here are :read, :create, :update and :destroy.
+</span>
+  <span class="ruby-comment">#
+</span>
+  <span class="ruby-comment"># The second argument is the resource the user can perform the action on. 
+</span>
+  <span class="ruby-comment"># If you pass :all it will apply to every resource. Otherwise pass a Ruby
+</span>
+  <span class="ruby-comment"># class of the resource.
+</span>
+  <span class="ruby-comment">#
+</span>
+  <span class="ruby-comment"># The third argument is an optional hash of conditions to further filter the
+</span>
+  <span class="ruby-comment"># objects.
+</span>
+  <span class="ruby-comment"># For example, here the user can only update published articles.
+</span>
+  <span class="ruby-comment">#
+</span>
+  <span class="ruby-comment">#   can :update, Article, :published =&gt; true
+</span>
+  <span class="ruby-comment">#
+</span>
+  <span class="ruby-comment"># See the wiki for details:
+</span>
+  <span class="ruby-comment"># https://github.com/ryanb/cancan/wiki/Defining-Abilities
+</span>
  
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->

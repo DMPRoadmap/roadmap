@@ -108,7 +108,7 @@ ActiveAdmin.register Dmptemplate do
             f.input :description
             f.input :organisation_id, :label => I18n.t('admin.org_title'), 
                             :as => :select, 
-                            :collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
+                            :collection => Org.order('name').map{|orgp|[orgp.name, orgp.id]}
             f.input :published
             f.input :is_default
         end
