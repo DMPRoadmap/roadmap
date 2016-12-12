@@ -8,8 +8,8 @@ class Phase < ActiveRecord::Base
 
 	##
   # Associations
-	belongs_to :template, dependant: :destroy
-	has_many :sections, dependant: :destroy
+	belongs_to :template, dependent: :destroy
+	has_many :sections, dependent: :destroy
   has_many :questions, :through => :sections, dependent: :destroy
 
 	##

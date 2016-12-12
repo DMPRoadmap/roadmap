@@ -4,7 +4,7 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-ActiveAdmin.register Dmptemplate do
+ActiveAdmin.register Template do
 	permit_params :title, :description, :organisation_id, :published, :is_default
 	
 	menu :priority => 11, :label => proc{ I18n.t('admin.template')}, :parent => "Templates management"
@@ -40,7 +40,7 @@ ActiveAdmin.register Dmptemplate do
     end
 
     action_item(:edit) do
-        link_to(I18n.t('helpers.settings.title'), settings_admin_dmptemplate_path(resource.id))
+        link_to(I18n.t('helpers.settings.title'), settings_admin_template_path(resource.id))
     end
 
     index do   
@@ -63,7 +63,7 @@ ActiveAdmin.register Dmptemplate do
         column :is_default
         
         actions defaults: true do |template|
-            link_to(I18n.t('helpers.settings.title'), settings_admin_dmptemplate_path(template.id))
+            link_to(I18n.t('helpers.settings.title'), settings_admin_template_path(template.id))
         end
     end
  
@@ -92,8 +92,8 @@ ActiveAdmin.register Dmptemplate do
 	end 
 		 
     #phases sidebar
-    sidebar I18n.t('admin.phases'), :only => :show, :if => proc { dmptemplate.phases.count >= 1} do
-        table_for dmptemplate.phases.order("number asc") do |temp_phases|
+    sidebar I18n.t('admin.phases'), :only => :show, :if => proc { template.phases.count >= 1} do
+        table_for template.phases.order("number asc") do |temp_phases|
             column :number
             column :title do |row|
                 link_to row.title, [:admin, row]

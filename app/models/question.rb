@@ -13,7 +13,7 @@ class Question < ActiveRecord::Base
   # Nested Attributes
   # TODO: evaluate if we need this
   accepts_nested_attributes_for :answers, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
+  accepts_nested_attributes_for :question_options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
   accepts_nested_attributes_for :suggested_answers,  :allow_destroy => true
   accepts_nested_attributes_for :themes
 

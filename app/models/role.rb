@@ -71,4 +71,3 @@ class Role < ActiveRecord::Base
     end
   end
 end
-end

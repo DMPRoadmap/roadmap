@@ -15,8 +15,8 @@ class Template < ActiveRecord::Base
   attr_accessible :id, :organisation_id, :description, :published, :title, :locale, :is_default, :guidance_group_ids, :as => [:default, :admin]
 
   # defines the export setting for a template object
-  has_settings :export, class_name: 'Settings::Dmptemplate' do |s|
-    s.key :export, defaults: Settings::template::DEFAULT_SETTINGS
+  has_settings :export, class_name: 'Settings::Template' do |s|
+    s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
 
