@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208122123) do
+ActiveRecord::Schema.define(version: 20161213101804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,21 +115,13 @@ ActiveRecord::Schema.define(version: 20161208122123) do
     t.datetime "updated_at"
   end
 
-  create_table "organisation_types", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "orgs", force: :cascade do |t|
     t.string   "name"
     t.string   "abbreviation"
     t.string   "target_url"
-    t.integer  "organisation_type_id"
     t.string   "wayfless_entity"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "parent_id"
     t.boolean  "is_other"
     t.string   "sort_name"
@@ -140,6 +132,7 @@ ActiveRecord::Schema.define(version: 20161208122123) do
     t.string   "logo_uid"
     t.string   "logo_name"
     t.string   "contact_email"
+    t.integer  "org_type",        default: 0, null: false
   end
 
   create_table "perms", force: :cascade do |t|
@@ -163,6 +156,7 @@ ActiveRecord::Schema.define(version: 20161208122123) do
   end
 
   create_table "plans", force: :cascade do |t|
+    t.integer  "project_id"
     t.string   "title"
     t.integer  "template_id"
     t.datetime "created_at"
@@ -233,13 +227,11 @@ ActiveRecord::Schema.define(version: 20161208122123) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.boolean  "creator"
-    t.boolean  "editor"
-    t.boolean  "administrator"
     t.integer  "user_id"
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "access",     default: 0, null: false
   end
 
   create_table "sections", force: :cascade do |t|

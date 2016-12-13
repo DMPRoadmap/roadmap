@@ -18,6 +18,7 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 gem 'pg'
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
+
 # ------------------------------------------------
 #    JS <-> RUBY BRIDGE
 gem 'libv8'

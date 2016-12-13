@@ -72,7 +72,7 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
 
     #drop_table :projects
 
-    #rename_table :organisations, :orgs
+    rename_table :organisations, :orgs
     rename_column :guidance_groups, :organisation_id, :org_id
     rename_column :suggested_answers, :organisation_id, :org_id
     rename_column :org_token_permissions, :organisation_id, :org_id
@@ -81,8 +81,9 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
     rename_column :users, :organisation_id, :org_id
 
     drop_table :projects
+    
     drop_table :project_groups
-    #drop_table :project_guidance
+    drop_table :project_guidance
     drop_table :versions
     drop_table :dmptemplates_guidance_groups
     drop_table :plan_sections
