@@ -135,6 +135,7 @@ GEM
       faraday_middleware (~> 0.9)
       loofah (~> 2.0)
       sax-machine (~> 1.0)
+    flag_shih_tzu (0.3.15)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -340,6 +341,7 @@ DEPENDENCIES
   devise_invitable
   dragonfly
   feedjira
+  flag_shih_tzu
   friendly_id
   htmltoword
   i18n-js (>= 3.0.0.rc11)
