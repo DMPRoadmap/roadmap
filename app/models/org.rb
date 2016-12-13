@@ -1,9 +1,11 @@
 class Org < ActiveRecord::Base
   include GlobalHelpers
+  include FlagShihTzu
   extend Dragonfly::Model::Validations
+
   ##
   # Associations
-  belongs_to :organisation_type
+  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
   belongs_to :language
   has_many :guidance_groups
   has_many :templates
@@ -31,7 +33,16 @@ class Org < ActiveRecord::Base
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
   validates_size_of :logo, maximum: 500.kilobytes
 
-
+  ##
+  # Define Bit Field values
+  # Column org_type
+  has_flags 1 => :institution,
+            2 => :funder,
+            3 => :organisation,
+            4 => :research_institute,
+            5 => :project,
+            6 => :school,
+            column: 'org_type'
 
 
 
