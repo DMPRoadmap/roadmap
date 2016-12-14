@@ -25,7 +25,7 @@ class Organisation < ActiveRecord::Base
 	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :domain, 
                   :logo_file_name, :name, :stylesheet_file_id, :target_url, 
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email
+                  :token_permission_type_ids, :language_id, :contact_email, :language
 
   validates :contact_email, email: true, allow_nil: true
   validates :name, presence: true, uniqueness: true
