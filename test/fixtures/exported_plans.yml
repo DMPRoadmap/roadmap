@@ -1,9 +1,14 @@
+# Specifying the id explicitly here is bad practice but we need to in order to test 
+# Settings::Dmptemplate.
+
 exported_test_plan_1:
+  id: 1
   plan: test_project_1_plan_1
   user: complete_user
   format: 'pdf'
 
 exported_test_plan_2:
+  id: 2
   plan: test_project_2_plan_2
   user: complete_user
   format: 'docx'
