@@ -9,3 +9,14 @@
 #  locked: false
 #  project_id: 1
 #  version_id: 1
+
+
+test_project_1_plan_1:
+  locked: false
+  project: test_project_1
+  version: funder_template_2_phase_1_version_1
+
+test_project_2_plan_2:
+  locked: false
+  project: test_project_2
+  version: funder_template_2_phase_1_version_1

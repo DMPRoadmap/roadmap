@@ -5,22 +5,19 @@
 #  locked: false
 #  dmptemplate_id: 1
 
-test_plan:
-  title: "AHRC Template project"
-  dmptemplate: ahrc_template
-  organisation: ahrc
+test_project_1:
+  title: 'Test Project 1'
+  dmptemplate: funder_template_2
+  organisation: complete 
+  grant_number: 'ABCD'
+  identifier: '1234567890'
+  description: 'The first test project'
+  principal_investigator_identifier: '1234-ABCD'
+  data_contact: 'someone@test.project.edu'
+  funder_name: 'Funder 2'
 
-test_plan_2:
-  title: "AHRC Template second project"
-  dmptemplate: ahrc_template_2
-  organisation: ahrc
-
-test_plan_3:
-  title: "DCC Template project"
-  dmptemplate: dcc_template
-  organisation: dcc
-  
-test_plan_4:
-  title: "DMP Template project"
-  dmptemplate: dmp_template
-  organisation: dcc
+test_project_2:
+  title: 'Test Project 2'
+  dmptemplate: funder_template_2
+  organisation: complete 
+  funder_name: 'Funder 2'

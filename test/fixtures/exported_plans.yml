@@ -1,0 +1,9 @@
+exported_test_plan_1:
+  plan: test_project_1_plan_1
+  user: complete_user
+  format: 'pdf'
+
+exported_test_plan_2:
+  plan: test_project_2_plan_2
+  user: complete_user
+  format: 'docx'

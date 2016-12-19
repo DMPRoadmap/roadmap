@@ -1,0 +1,129 @@
+plan_list_settings_cc_user:
+  var: 'plan_list'
+  value: "---
+columns: !ruby/hash-with-ivars:ActionController::Parameters
+  elements:
+    name: '1'
+    shared: '1'
+    last_edited: '1'
+    identifier: '1'
+    principal_investigator: '1'
+  ivars:
+    :@permitted: false
+"
+  target: cc_user
+  target_type: 'User'
+
+plan_list_settings_cc_super:
+  var: 'plan_list'
+  value: ''
+  target: cc_super
+  target_type: 'User'
+
+export_settings_cc_template:
+  var: 'export'
+  value: '---
+formatting:
+  :font_face: Arial, Helvetica, Sans-Serif
+  :font_size: 11
+  :margin:
+    :top: 20
+    :bottom: 20
+    :left: 20
+    :right: 20
+max_pages: 10
+'
+  target: cc_template
+  target_type: 'Dmptemplate'
+
+export_settings_test_project_1_plan_1:
+  var: 'export'
+  value: "---
+formatting:
+  :font_face: '\"Times New Roman\", Times, Serif'
+  :font_size: 10
+  :margin:
+    :top: 20
+    :bottom: 20
+    :left: 20
+    :right: 20
+fields:
+  :questions:
+  - 177
+  - 176
+  - 170
+  - 171
+  - 173
+  - 174
+  - 175
+  :admin: []
+title: DMP title
+"
+  target: test_project_1_plan_1
+  target_type: 'Plan'
+
+export_settings_test_project_2_plan_2:
+  var: 'export'
+  value: "---
+title: 'BIAS: Data Management Plan'
+formatting:
+  :font_face: Arial, Helvetica, Sans-Serif
+  :font_size: 12
+  :margin:
+    :top: 20
+    :bottom: 20
+    :left: 20
+    :right: 20
+fields:
+  :admin:
+  - :project_name
+  - :project_identifier
+  - :grant_title
+  - :principal_investigator
+  - :project_data_contact
+  - :project_description
+  - :funder
+  - :institution
+  :questions:
+  - 176
+  - 170
+  - 171
+  - 173
+  - 174
+  - 175
+"
+  target: test_project_2_plan_2
+  target_type: 'Plan'
+
+export_settings_test_project_3_plan_3:
+  var: 'export'
+  value: "{}"
+  target: test_project_3_plan_3
+  target_type: 'Plan'
+
+export_settings_exported_test_plan_1:
+  var: 'export'
+  value: '---
+formatting:
+  :font_face: Arial, Helvetica, Sans-Serif
+  :font_size: 12
+  :margin:
+    :top: 18
+    :bottom: 18
+    :left: 20
+    :right: 20
+max_pages: 3
+fields:
+  :questions:
+  - 176
+  - 170
+  - 171
+  - 173
+  - 174
+  - 175
+  :admin: []
+title: Data management plan for the Academy of Finland September 2016 call
+'
+  target: exported_test_plan_1
+  target_type: 'ExportedPlan'
+
