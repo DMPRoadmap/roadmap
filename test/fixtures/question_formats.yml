@@ -1,0 +1,23 @@
+question_format_text_area:
+  title: 'Text Area'
+  description: 'Text area'
+
+question_format_text_field:
+  title: 'Text Field'
+  description: 'Text field'
+
+question_format_radio_button:
+  title: 'Radio Button'
+  description: 'Radio buttons'
+
+question_format_check_box:
+  title: 'Check Box'
+  description: 'Check boxes'
+
+question_format_dropdown:
+  title: 'Dropdown'
+  description: 'Select box'
+
+question_format_multi_select:
+  title: 'Multi Select Box'
+  description: 'Multi Select box'
