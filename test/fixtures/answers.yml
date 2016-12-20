@@ -3,31 +3,35 @@
 test_project_1_plan_1_answer_for_text_area_question:
   text: "<p>Answer to the text area question for plan 1<br />Line 2<br />Line 3</p>"
   plan_id: test_project_1_plan_1
-  user_id: cc_user
+  user_id: complete_user
   question_id: funder_template_2_phase_1_version_1_section_1_question_text_area
 
 test_project_1_plan_1_answer_for_text_field_question:
   text: "Answer to the text field question for plan 1"
   plan_id: test_project_1_plan_1
-  user_id: cc_user
+  user_id: complete_user
   question_id: funder_template_2_phase_1_version_1_section_1_question_text_field
 
 test_project_1_plan_1_answer_for_radio_button_question:
   plan_id: test_project_1_plan_1
-  user_id: cc_user
+  user_id: complete_user
   question_id: funder_template_2_phase_1_version_1_section_1_question_radio_button
+  options: [funder_template_2_phase_1_version_1_section_1_question_radio_button_option_1, funder_template_2_phase_1_version_1_section_1_question_radio_button_option_2]
 
 test_project_1_plan_1_answer_for_check_box_question:
   plan_id: test_project_1_plan_1
-  user_id: cc_user
+  user_id: complete_user
   question_id: funder_template_2_phase_1_version_1_section_1_question_check_box
+  options: [funder_template_2_phase_1_version_1_section_1_question_check_box_option_2]
 
 test_project_1_plan_1_answer_for_dropdown_question:
   plan_id: test_project_1_plan_1
-  user_id: cc_user
+  user_id: complete_user
   question_id: funder_template_2_phase_1_version_1_section_1_question_dropdown
+  options: [funder_template_2_phase_1_version_1_section_1_question_dropdown_option_2]
 
 test_project_1_plan_1_answer_for_multi_select_box_question:
   plan_id: test_project_1_plan_1
-  user_id: cc_user
+  user_id: complete_user
   question_id: funder_template_2_phase_1_version_1_section_1_question_multi_select_box
+  options: [funder_template_2_phase_1_version_1_section_1_question_multi_select_box_option_1, funder_template_2_phase_1_version_1_section_1_question_multi_select_box_option_2]

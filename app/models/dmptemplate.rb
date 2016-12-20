@@ -2,6 +2,7 @@ class Dmptemplate < ActiveRecord::Base
     include GlobalHelpers
 
     attr_accessible :id, :organisation_id, :description, :published, :title, :user_id, :locale, 
+                    :phases, :projects, :organisation,
                     :is_default, :guidance_group_ids, :as => [:default, :admin] 
 
     #associations between tables
