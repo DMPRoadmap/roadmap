@@ -170,12 +170,6 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with IdentifierSchemes" do
-    scheme = IdentifierScheme.new(name: 'testing')
-    verify_has_many_relationship(@super, scheme, @super.identifier_schemes.count)
-  end
-  
-  # ---------------------------------------------------
   test "can manage has_many relationship with UserIdentifiers" do
     id = UserIdentifier.new(identifier_scheme: IdentifierScheme.first, identifier: 'tester')
     verify_has_many_relationship(@super, id, @super.user_identifiers.count)

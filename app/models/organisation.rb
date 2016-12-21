@@ -11,7 +11,8 @@ class Organisation < ActiveRecord::Base
   has_many :users
   has_many :option_warnings
   has_many :suggested_answers
-  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
+  
+  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
   belongs_to :parent, :class_name => 'Organisation'
 
