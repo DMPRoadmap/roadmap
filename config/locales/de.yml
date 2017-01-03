@@ -584,6 +584,7 @@ de:
         data_contact: "Plandatenkontakt"
         description: "Beschreibung"
         unknown: " - "
+        visibility: "Sichtweite"
       filter:
         placeholder: "Filter Pläne"
         submit: "Filter"

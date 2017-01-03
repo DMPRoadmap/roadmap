@@ -622,6 +622,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         data_contact: "Plan data contact"
         description: "Description"
         unknown: " - "
+        visibility: "Visibility"
       filter:
         placeholder: "Filter plans"
         submit: "Filter"

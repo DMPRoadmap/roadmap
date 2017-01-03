@@ -516,6 +516,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
         principal_investigator: "Directeur de recherche / chercheur"
         data_contact: "Interlocuteur pour les données du plan"
         description: "Description"
+        visibility: "Visibilité"
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"

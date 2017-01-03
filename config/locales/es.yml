@@ -511,6 +511,7 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
         principal_investigator: "Principal Investigador / Científico"
         data_contact: "Datos de contacto del plan"
         description: "Descripción"
+        visibility: 'Visibilidad'
       filter:
         placeholder: "Filtro de planes"
         submit: "Filtrar"
