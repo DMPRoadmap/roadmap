@@ -30,10 +30,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   # -----------------------------------------------------------
   def show
-    
-puts "True: #{I18n.t('helpers.yes')}"
-puts "False: #{I18n.t('helpers.no')}"
-    
     @project = Project.find(params[:id])
     authorize @project
     @show_form = false
