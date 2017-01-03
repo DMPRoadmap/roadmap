@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   # GET /projects.json
+  # -----------------------------------------------------------
   def index
     authorize Project
     ## TODO: Is this A magic String? the "Show_shib_link?" as we define it and users dont see cookies
@@ -27,6 +28,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   # GET /projects/1.json
+  # -----------------------------------------------------------
   def show
     @project = Project.find(params[:id])
     authorize @project
@@ -51,6 +53,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   # GET /projects/new.json
+  # -----------------------------------------------------------
   def new
     if user_signed_in? then
       @project = Project.new
@@ -73,7 +76,8 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-     # Should this be removed?
+  # Should this be removed?
+  # -----------------------------------------------------------
   def edit
     @project = Project.find(params[:id])
     authorize @project
@@ -88,6 +92,7 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # -----------------------------------------------------------
   def share
     @project = Project.find(params[:id])
     authorize @project
@@ -102,6 +107,7 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # -----------------------------------------------------------
   def export
     @project = Project.find(params[:id])
     authorize @project
@@ -119,18 +125,21 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   # POST /projects.json
+  # -----------------------------------------------------------
   def create
-      if user_signed_in? then
-      @project = Project.new(params[:project])
-      authorize @project
+    if user_signed_in? then
       
       attrs = project_params
+      
+      @project = Project.new(attrs)
+      authorize @project
       
       if @project.dmptemplate.nil? && attrs[:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
         funder = Organisation.find(attrs[:funder_id])
         if funder.dmptemplates.count == 1 then
           @project.dmptemplate = funder.published_templates.first
         end
+        
       elsif @project.dmptemplate.nil? || params[:default_tag] == 'true' then
         if @project.organisation.nil?  || params[:default_tag] == 'true'  || @project.organisation.published_templates.first.nil? then
           @project.dmptemplate = Dmptemplate.find_by_is_default(true)
@@ -149,6 +158,7 @@ class ProjectsController < ApplicationController
           format.html { render action: "new" }
         end
       end
+      
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
@@ -156,6 +166,7 @@ class ProjectsController < ApplicationController
 
   # PUT /projects/1
   # PUT /projects/1.json
+  # -----------------------------------------------------------
   def update
     @project = Project.find(params[:id])
     authorize @project
@@ -177,6 +188,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1
   # DELETE /projects/1.json
+  # -----------------------------------------------------------
   def destroy
     @project = Project.find(params[:id])
     authorize @project
@@ -195,6 +207,7 @@ class ProjectsController < ApplicationController
   # difficult to secure as it passes through params, and dosent curate data based
   # on what the user can "view" or is public
   # GET /projects/possible_templates.json
+  # -----------------------------------------------------------
   def possible_templates
     if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
       funder = Organisation.find(params[:funder])
@@ -230,6 +243,7 @@ class ProjectsController < ApplicationController
   # returns to AJAX call from frontend 
   # difficult to secure as it passes through params, and dosent curate data based
   # on what the user can "view" or is public
+  # -----------------------------------------------------------
   def possible_guidance
     authorize @project
     if !params[:template].nil? && params[:template] != "" && params[:template] != "undefined" then
@@ -291,7 +305,7 @@ class ProjectsController < ApplicationController
   # ============================================================
   private
     def project_params
-      params.requre(:project).permit(:title, :grant_number, :identifier, :description, 
+      params.require(:project).permit(:title, :grant_number, :identifier, :description, 
                                      :principal_investigator, :principal_investigator_identifier,
                                      :data_contact, :funder_name, :is_test, :is_public,
                                      :dmptemplate_id, :organisation_id, :funder_id, :institution_id,
