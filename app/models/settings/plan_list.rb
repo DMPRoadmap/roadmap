@@ -5,7 +5,7 @@ module Settings
     
     # TODO: can these be taken from somewhere else rather than hard-coded here?
     DEFAULT_COLUMNS = ['name', 'owner', 'shared', 'visibility', 'last_edited']
-    ALL_COLUMNS = DEFAULT_COLUMNS + ['template_owner', 'identifier', 'grant_number', 'visibility',
+    ALL_COLUMNS = DEFAULT_COLUMNS + ['template_owner', 'identifier', 'grant_number',
                                      'principal_investigator', 'data_contact', 'description']
 
     validate do
