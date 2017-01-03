@@ -15,9 +15,13 @@ test_project_1:
   principal_investigator_identifier: '1234-ABCD'
   data_contact: 'someone@test.project.edu'
   funder_name: 'Funder 2'
+  is_test: false
+  is_public: false
 
 test_project_2:
   title: 'Test Project 2'
   dmptemplate: funder_template_3
   organisation: complete 
   funder_name: 'Funder 2'
+  is_test: true
+  is_public: false

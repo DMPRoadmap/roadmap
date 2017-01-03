@@ -3,11 +3,6 @@ class Project < ActiveRecord::Base
 
 	extend FriendlyId
 
-	attr_accessible :dmptemplate_id, :title, :organisation_id, :unit_id, :guidance_group_ids, 
-                  :project_group_ids, :funder_id, :institution_id, :grant_number, :identifier, 
-                  :description, :principal_investigator, :principal_investigator_identifier, 
-                  :data_contact, :funder_name, :as => [:default, :admin]
-
 	#associations between tables
 	belongs_to :dmptemplate
 	belongs_to :organisation
@@ -16,6 +11,20 @@ class Project < ActiveRecord::Base
 	has_and_belongs_to_many :guidance_groups, join_table: "project_guidance"
 
 	friendly_id :title, use: [:slugged, :history, :finders]
+  
+  # Set the is_public flag to false if we are making this a test plan
+  # -----------------------------------------------------------------
+  def is_test=(val)
+    self[:is_public] = false if val && is_public?
+    self[:is_test] = val
+  end
+
+  # Set the is_test flag to false if we are making this plan public
+  # -----------------------------------------------------------------
+  def is_public=(val)
+    self[:is_test] = false if val && is_test?
+    self[:is_public] = val
+  end
 
   ##
   # returns the title of the project
