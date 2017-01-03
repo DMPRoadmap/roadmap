@@ -171,8 +171,6 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     authorize @project
     
-puts project_params
-    
     if user_signed_in? && @project.editable_by(current_user.id) then
       if @project.update_attributes(project_params)
         respond_to do |format|

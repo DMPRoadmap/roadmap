@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103171414) do
+ActiveRecord::Schema.define(version: 20170103221846) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 20170103171414) do
     t.boolean  "is_public",                                       default: false
   end
 
+  add_index "projects", ["id", "is_test", "is_public"], name: "index_projects_on_id_and_is_test_and_is_public", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
 
   create_table "question_formats", force: :cascade do |t|
