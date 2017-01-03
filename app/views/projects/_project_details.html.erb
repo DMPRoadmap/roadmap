@@ -75,6 +75,14 @@
 						<%end%>
 					</td>
 				</tr>
+				<tr>
+					<td class="first"><%= t('helpers.project.project_is_test') %></td>
+					<td><%= (@project.is_test? ? t('helpers.yes') : t('helpers.no')) %></td>
+				</tr>
+				<tr>
+					<td class="first"><%= t('helpers.project.project_is_public') %></td>
+					<td><%= (@project.is_public? ? t('helpers.yes') : t('helpers.no')) %></td>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -137,6 +145,14 @@
 							<td>
 								<%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> t('helpers.project.project_desc_help_text_html')} %>
 							</td>
+						</tr>
+						<tr>
+							<td class="first"><%= t('helpers.project.project_is_test') %></td>
+							<td><%= f.check_box :is_test, {class: 'check_box', title: t('helpers.project.project_is_test_help_text'), autocomplete: 'off'} %></td>
+						</tr>
+						<tr>
+							<td class="first"><%= t('helpers.project.project_is_public') %></td>
+							<td><%= f.check_box :is_public, {class: 'check_box', title: t('helpers.project.project_is_public_help_text'), autocomplete: 'off'} %></td>
 						</tr>
 					</table>
 				</div>

@@ -18,6 +18,12 @@
 				<%= f.text_area :note, :class => 'text_area', :rows => 10 %>
 			</div>
 		</div>
+		<div class="field-group">
+			<%= f.label t('helpers.is_test'), class: 'left-label' %>
+			<div class="left-field">
+				<%= f.check_box :is_test, class: 'check_box has-tooltip', 'data-toggle': 'tooltip' title: t('helpers.project.is_test_help_text') %>
+			</div>
+		</div>
 		<div class="form-actions">
 			<%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
 			<%= link_to t("helpers.links.cancel"),
