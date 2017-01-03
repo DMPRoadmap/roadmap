@@ -4,8 +4,8 @@ module Settings
     #attr_accessible :var, :target, :target_type, :target_id
     
     # TODO: can these be taken from somewhere else rather than hard-coded here?
-    DEFAULT_COLUMNS = ['name', 'owner', 'shared', 'last_edited']
-    ALL_COLUMNS = DEFAULT_COLUMNS + ['template_owner', 'identifier', 'grant_number', 
+    DEFAULT_COLUMNS = ['name', 'owner', 'shared', 'visibility', 'last_edited']
+    ALL_COLUMNS = DEFAULT_COLUMNS + ['template_owner', 'identifier', 'grant_number', 'visibility',
                                      'principal_investigator', 'data_contact', 'description']
 
     validate do
