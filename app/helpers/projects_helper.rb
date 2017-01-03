@@ -44,6 +44,8 @@ module ProjectsHelper
         shared_num = project.project_groups.count - 1
         text = shared_num > 0 ? (t("helpers.yes_label") + " (with #{shared_num} people) ") : t("helpers.no_label")
         [ "dmp_td_small", text ]
+      when 'visibility'
+        ["dmp_td_small", (project.is_public? ? t("helpers.project.public_visibility") : (project.is_test? ? t("helpers.project.test_visibility") : t("helpers.project.default_visibility")))]
       when 'last_edited'
         [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
       when 'description'
