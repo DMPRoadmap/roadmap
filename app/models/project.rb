@@ -15,14 +15,14 @@ class Project < ActiveRecord::Base
   # Set the is_public flag to false if we are making this a test plan
   # -----------------------------------------------------------------
   def is_test=(val)
-    self[:is_public] = false if (val == 1) && is_public?    # val comes in as 1 or 0
+    self[:is_public] = false if (val == 1 || val == true) && is_public?    # val comes in as 1 or 0
     self[:is_test] = val
   end
 
   # Set the is_test flag to false if we are making this plan public
   # -----------------------------------------------------------------
   def is_public=(val)
-    self[:is_test] = false if (val == 1) && is_test?      # val comes in as 1 or 0
+    self[:is_test] = false if (val == 1 || val == true) && is_test?      # val comes in as 1 or 0
     self[:is_public] = val
   end
 

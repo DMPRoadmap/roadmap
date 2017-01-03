@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "option_id", limit: 4, null: false
   end
 
-  add_index "answers_options", ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id", using: :btree
+  add_index "answers_options", ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id"
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "guidance_group_id", limit: 4, null: false
   end
 
-  add_index "guidance_in_group", ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id", using: :btree
+  add_index "guidance_in_group", ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
 
   create_table "guidances", force: :cascade do |t|
     t.text     "text",              limit: 65535
@@ -200,8 +200,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.string   "slug",           limit: 255
   end
 
-  add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id", using: :btree
-  add_index "phases", ["slug"], name: "index_phases_on_slug", unique: true, using: :btree
+  add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id"
+  add_index "phases", ["slug"], name: "index_phases_on_slug", unique: true
 
   create_table "plan_sections", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
@@ -235,7 +235,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "guidance_group_id", limit: 4, null: false
   end
 
-  add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id", using: :btree
+  add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id"
 
   create_table "projects", force: :cascade do |t|
     t.string   "title",                             limit: 255
@@ -255,8 +255,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "is_public",                                       default: false
   end
 
-  add_index "projects", ["id", "is_test", "is_public"], name: "index_projects_on_id_and_is_test_and_is_public", using: :btree
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
+  add_index "projects", ["id", "is_test", "is_public"], name: "index_projects_on_id_and_is_test_and_is_public"
+  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
 
   create_table "question_formats", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -285,7 +285,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "theme_id",    limit: 4, null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id", using: :btree
+  add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id"
 
   create_table "region_groups", force: :cascade do |t|
     t.integer "super_region_id", limit: 4
@@ -307,8 +307,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.string   "resource_type", limit: 255
   end
 
-  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
-  add_index "roles", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
 
   create_table "sections", force: :cascade do |t|
     t.string   "title",           limit: 255
@@ -330,7 +330,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.datetime "updated_at",                null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination", limit: 255
@@ -375,8 +375,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "identifier_scheme_id", limit: 4
   end
 
-  add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0", using: :btree
-  add_index "user_identifiers", ["user_id"], name: "fk_rails_65c9a98cdb", using: :btree
+  add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0"
+  add_index "user_identifiers", ["user_id"], name: "fk_rails_65c9a98cdb"
 
   create_table "user_role_types", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -434,17 +434,17 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "language_id",            limit: 4
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
     t.integer "role_id", limit: 4
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
 
   create_table "versions", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -456,8 +456,6 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.datetime "updated_at",                null: false
   end
 
-  add_index "versions", ["phase_id"], name: "index_versions_on_phase_id", using: :btree
+  add_index "versions", ["phase_id"], name: "index_versions_on_phase_id"
 
-  add_foreign_key "user_identifiers", "identifier_schemes"
-  add_foreign_key "user_identifiers", "users"
 end
