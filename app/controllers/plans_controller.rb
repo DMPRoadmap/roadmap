@@ -171,24 +171,6 @@ class PlansController < ApplicationController
     authorize @plan
 
 		if (user_signed_in? && @plan.readable_by(current_user.id)) then
-      generate_export
-      
-		elsif !user_signed_in? then
-               respond_to do |format|
-				format.html { redirect_to edit_user_registration_path }
-			end
-      
-		elsif !@plan.editable_by(current_user.id) then
-			respond_to do |format|
-				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
-			end
-		end
-	end
-
-
-  # ==============================================================
-  private 
-    def generate_export
 			@exported_plan = ExportedPlan.new.tap do |ep|
 				ep.plan = @plan
 				ep.user = current_user ||= nil
@@ -223,5 +205,16 @@ class PlansController < ApplicationController
 			  	            }
 			  end
 			end
-    end
+      
+		elsif !user_signed_in? then
+               respond_to do |format|
+				format.html { redirect_to edit_user_registration_path }
+			end
+      
+		elsif !@plan.editable_by(current_user.id) then
+			respond_to do |format|
+				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+			end
+		end
+	end
 end

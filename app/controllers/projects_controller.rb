@@ -123,6 +123,9 @@ class ProjectsController < ApplicationController
         format.html { redirect_to edit_user_registration_path }
       end
     else
+      # REPLACE THIS WITH CALL To LOCAL generate_export 
+      # AFTER DATA MODEL REFACTOR WHEN WE COLLAPSE Projects and Plans
+      
       respond_to do |format|
         format.html { render action: "export" }
 
@@ -135,18 +138,22 @@ class ProjectsController < ApplicationController
   def public_export
     @project = Project.find(params[:id])
     
+    # Force PDF response 
+    
+    request.format = :pdf
+    
+    # if the project is designated as public
     if @project.is_public?
-puts "ITS PUBLIC"
-      render action: "export"
+      generate_export
       
     else
-      authorize @project
       
-      if user_signed_in?
-puts "SIGNED IN"
-        render action: "export"
+      # If the user is signed in and this is their plan
+      if user_signed_in? && @project.readable_by(current_user)
+        generate_export
       else
-puts "NOT SIGNED IN"
+
+        # Otherwise redirect to the home page with an unauthorized message
         redirect_to root_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account')
       end
     end
@@ -411,4 +418,44 @@ puts "NOT SIGNED IN"
     
       GuidanceGroup.where(id: guidance_groups)
     end  
+
+    # -----------------------------------------------------------
+    def generate_export
+      plan = @project.plans.first
+      
+      @exported_plan = ExportedPlan.new.tap do |ep|
+        ep.plan = plan
+        ep.user = current_user ||= nil
+        #ep.format = request.format.try(:symbol)
+        ep.format = request.format.to_sym
+        plan_settings = plan.settings(:export)
+
+        Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
+          ep.settings(:export).send("#{key}=", plan_settings.send(key))
+        end
+      end
+
+      @exported_plan.save! # FIXME: handle invalid request types without erroring?
+      file_name = @exported_plan.project_name
+
+      respond_to do |format|
+                format.html
+                format.xml
+                format.json
+                format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
+                format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
+        format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
+                format.pdf do
+                    @formatting = plan.settings(:export).formatting
+                    render pdf: file_name,
+                      margin: @formatting[:margin],
+                      footer: {
+                        center:    t('helpers.plan.export.pdf.generated_by'),
+                        font_size: 8,
+                        spacing:   (@formatting[:margin][:bottom] / 2) - 4,
+                        right:     '[page] of [topage]'
+                      }
+        end
+      end
+    end
 end
