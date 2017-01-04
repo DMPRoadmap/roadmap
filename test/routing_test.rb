@@ -14,39 +14,33 @@ class RoutingTest < ActionDispatch::IntegrationTest
   # ------------------------------------------------------------------- 
   test 'GET /about_us should resolve to StaticPagesController#about_us' do
     target = {controller: "static_pages", action: "about_us", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/about_us", target
+    assert_routing about_us_path(locale: I18n.locale), target
   end
 
   test 'GET /help should resolve to StaticPagesController#help' do
     target = {controller: "static_pages", action: "help", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/help", target
+    assert_routing help_path(locale: I18n.locale), target
   end
   test 'GET /roadmap should resolve to StaticPagesController#roadmap' do
     target = {controller: "static_pages", action: "roadmap", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/roadmap", target
+    assert_routing roadmap_path(locale: I18n.locale), target
   end
   test 'GET /terms should resolve to StaticPagesController#terms' do
     target = {controller: "static_pages", action: "termsuse", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/terms", target
+    assert_routing terms_path(locale: I18n.locale), target
   end
   
   # Routing for Public DMPs 
   # ------------------------------------------------------------------- 
-  test 'GET /plans/publicly_available should resolve to ProjectsController#publicly_available' do
-    target = {controller: "projects", action: "publicly_available"}
-    assert_routing "#{plans_publicly_available_path}", target
+  test 'GET /public_plans should resolve to ProjectsController#public_plans' do
+    target = {controller: "projects", action: "public_plans", locale: "#{I18n.locale}"}
+    assert_routing public_plans_path(locale: I18n.locale), target
   end
   test 'GET /projects/[:project_id]/plans/[:id]/public_export should resolve to PlansController#public_export' do
     project = Project.includes(:plans).where.not(plans: {id: nil}).first
-    target = {controller: "plans", action: "public_export", locale: "#{I18n.locale}"}
+    target = {controller: "projects", action: "public_export", locale: "#{I18n.locale}", id: project.id.to_s}
     
-puts "PATH: /#{I18n.locale}/projects/#{project.id}/plans/#{project.plans.first.id}/public_export"
-    
-    assert_routing "/#{I18n.locale}/#{public_export_project_plan_path(project, project.plans.first)}", target
+    assert_routing public_export_project_path(locale: I18n.locale, id: project), target
   end
 
   # OAuth - Based on providers identified in the en-UK locale file

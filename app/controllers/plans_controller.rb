@@ -185,19 +185,6 @@ class PlansController < ApplicationController
 		end
 	end
 
-  # GET /projects/:project_id/plans/:id/public-export
-  # -------------------------------------------------------------
-  def public_export
-    @plan = Plan.find(params[:id])
-    
-    if @plan.project.is_public?
-      generate_export
-      
-    else
-      format.html { redirect_to root_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
-    end
-  end
-
 
   # ==============================================================
   private 

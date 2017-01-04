@@ -48,8 +48,7 @@ Rails.application.routes.draw do
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
     get "existing_users" => 'existing_users#index'
-    get "plans/publicly-available" => 'projects#publicly_available'
-#    get "plans/public-export"
+    get "public_plans" => 'projects#public_plans'
   
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
@@ -143,13 +142,13 @@ Rails.application.routes.draw do
           get 'export'
           get 'warning'
           get 'section_answers'
-          get 'public-export'
         end
       end
 
       member do
         get 'share'
         get 'export'
+        get 'public_export'
         post 'invite'
       end
       collection do

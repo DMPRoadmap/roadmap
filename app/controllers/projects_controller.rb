@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :get_plan_list_columns, only: %i( index )
-  after_action :verify_authorized, except: :publicly_available
+  after_action :verify_authorized, except: [:publicly_available, :public_export]
 
   respond_to :html
 
@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/publicly_available
   # -----------------------------------------------------------
-  def publicly_available
+  def public_plans
     @projects = Project.public_visibility.order(title: :asc)
   end
   
@@ -126,6 +126,28 @@ class ProjectsController < ApplicationController
       respond_to do |format|
         format.html { render action: "export" }
 
+      end
+    end
+  end
+
+  # GET /projects/[:project_slug]/public_export
+  # -------------------------------------------------------------
+  def public_export
+    @project = Project.find(params[:id])
+    
+    if @project.is_public?
+puts "ITS PUBLIC"
+      render action: "export"
+      
+    else
+      authorize @project
+      
+      if user_signed_in?
+puts "SIGNED IN"
+        render action: "export"
+      else
+puts "NOT SIGNED IN"
+        redirect_to root_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account')
       end
     end
   end

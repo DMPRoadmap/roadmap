@@ -1,11 +1,31 @@
 require 'test_helper'
 
-class ProjectsControllerTest < ActionController::TestCase
-=begin
+class ProjectsControllerTest < ActionDispatch::IntegrationTest
+
+  include Devise::Test::IntegrationHelpers
+  
   setup do
-    @project = projects(:one)
+    @project = Project.first
   end
 
+  # ----------------------------------------------------------
+  test "should export the publicly available plan" do
+    
+  end
+
+  # ----------------------------------------------------------
+  test "should NOT export a non-public plan to unauthorized users" do
+    @project.is_public = false
+    @project.save!
+
+    get public_export_project_path(locale: I18n.locale, id: @project)
+    
+    assert_redirected_to "#{root_path}?locale=#{I18n.locale}", "expected to be redirected to the home page!"
+    assert_equal I18n.t('helpers.settings.plans.errors.no_access_account'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
+  end
+  
+=begin
+  
   test "should get index" do
     get :index
     assert_response :success

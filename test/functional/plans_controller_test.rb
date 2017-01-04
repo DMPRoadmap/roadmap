@@ -2,10 +2,6 @@ require 'test_helper'
 
 class PlansControllerTest < ActionController::TestCase
 =begin
-  setup do
-    @plan = plans(:one)
-  end
-
   test "should get index" do
     get :index
     assert_response :success

@@ -26,7 +26,7 @@
 				  <% end %>
 
 				  <td class="dmp_td_medium">
-						<%= link_to t("helpers.project.tab_export"), "#{public_export_project_plan_path(project, project.plans.first)}", :class => "dmp_table_link" %>
+						<%= link_to t("helpers.project.tab_export"), "#{public_export_project_path(project)}", :class => "dmp_table_link" %>
 				  </td>
 				</tr>
       <% end %>
