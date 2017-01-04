@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
   before_filter :get_plan_list_columns, only: %i( index )
-  after_action :verify_authorized
+  after_action :verify_authorized, except: :publicly_available
+
+  respond_to :html
 
   # GET /projects
-  # GET /projects.json
   # -----------------------------------------------------------
   def index
     authorize Project
@@ -26,6 +27,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # GET /projects/publicly_available
+  # -----------------------------------------------------------
+  def publicly_available
+    @projects = Project.public_visibility.order(title: :asc)
+  end
+  
   # GET /projects/1
   # GET /projects/1.json
   # -----------------------------------------------------------

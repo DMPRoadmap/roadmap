@@ -50,6 +50,12 @@ module ProjectsHelper
         [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
       when 'description'
         [ "dmp_td_medium", (project.try(col) || "Unknown") ]
+      when 'non_link_name'
+        [ "dmp_td_big", project.title ]
+      when 'template'
+        ["dmp_td_big", project.dmptemplate.title]
+      when 'organisation'
+        ["dmp_td_medium", (project.organisation.nil? ? project.owner.organisation.name : project.organisation.name)]
       else
         [ "dmp_td_small", (project.try(col) || "Unknown") ]
     end

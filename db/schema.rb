@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "plan_id",     limit: 4
     t.integer  "user_id",     limit: 4
     t.integer  "question_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "answers_options", id: false, force: :cascade do |t|
@@ -27,14 +27,14 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "option_id", limit: 4, null: false
   end
 
-  add_index "answers_options", ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id"
+  add_index "answers_options", ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.integer  "question_id", limit: 4
     t.text     "text",        limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "archived"
     t.integer  "plan_id",     limit: 4
     t.integer  "archived_by", limit: 4
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "published"
     t.integer  "user_id",         limit: 4
     t.integer  "organisation_id", limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "locale",          limit: 255
     t.boolean  "is_default"
   end
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "plan_id",    limit: 4
     t.integer  "user_id",    limit: 4
     t.string   "format",     limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "file_types", force: :cascade do |t|
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.string   "icon_name",     limit: 255
     t.integer  "icon_size",     limit: 4
     t.string   "icon_location", limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "file_uploads", force: :cascade do |t|
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "published"
     t.string   "location",     limit: 255
     t.integer  "file_type_id", limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -93,15 +93,15 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name",            limit: 255
     t.integer  "organisation_id", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "optional_subset"
     t.boolean  "published"
   end
@@ -111,24 +111,23 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "guidance_group_id", limit: 4, null: false
   end
 
-  add_index "guidance_in_group", ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
+  add_index "guidance_in_group", ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id", using: :btree
 
   create_table "guidances", force: :cascade do |t|
     t.text     "text",              limit: 65535
     t.integer  "guidance_group_id", limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "question_id",       limit: 4
     t.boolean  "published"
   end
 
   create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "description",   limit: 255
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "use_for_login",             default: false
   end
 
   create_table "languages", force: :cascade do |t|
@@ -142,8 +141,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "organisation_id", limit: 4
     t.integer  "option_id",       limit: 4
     t.text     "text",            limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "options", force: :cascade do |t|
@@ -151,8 +150,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.string   "text",        limit: 255
     t.integer  "number",      limit: 4
     t.boolean  "is_default"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "org_token_permissions", force: :cascade do |t|
@@ -165,8 +164,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
   create_table "organisation_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -177,12 +176,13 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.string   "domain",               limit: 255
     t.string   "wayfless_entity",      limit: 255
     t.integer  "stylesheet_file_id",   limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "parent_id",            limit: 4
     t.boolean  "is_other"
     t.string   "sort_name",            limit: 255
     t.text     "banner_text",          limit: 65535
+    t.string   "logo_file_name",       limit: 255
     t.integer  "region_id",            limit: 4
     t.integer  "language_id",          limit: 4
     t.string   "logo_uid",             limit: 255
@@ -195,20 +195,20 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.text     "description",    limit: 65535
     t.integer  "number",         limit: 4
     t.integer  "dmptemplate_id", limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug",           limit: 255
   end
 
-  add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id"
-  add_index "phases", ["slug"], name: "index_phases_on_slug", unique: true
+  add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id", using: :btree
+  add_index "phases", ["slug"], name: "index_phases_on_slug", unique: true, using: :btree
 
   create_table "plan_sections", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
     t.integer  "section_id",   limit: 4
     t.integer  "plan_id",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "release_time"
   end
 
@@ -216,8 +216,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "locked"
     t.integer  "project_id", limit: 4
     t.integer  "version_id", limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "project_groups", force: :cascade do |t|
@@ -225,8 +225,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "project_editor"
     t.integer  "user_id",               limit: 4
     t.integer  "project_id",            limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "project_administrator"
   end
 
@@ -235,13 +235,13 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "guidance_group_id", limit: 4, null: false
   end
 
-  add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id"
+  add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "title",                             limit: 255
     t.integer  "dmptemplate_id",                    limit: 4
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug",                              limit: 255
     t.integer  "organisation_id",                   limit: 4
     t.string   "grant_number",                      limit: 255
@@ -255,14 +255,14 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "is_public",                                       default: false
   end
 
-  add_index "projects", ["id", "is_test", "is_public"], name: "index_projects_on_id_and_is_test_and_is_public"
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
+  add_index "projects", ["id", "is_test", "is_public"], name: "index_projects_on_id_and_is_test_and_is_public", using: :btree
+  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
 
   create_table "question_formats", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -274,8 +274,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "dependency_id",          limit: 4
     t.text     "dependency_text",        limit: 65535
     t.integer  "section_id",             limit: 4
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "question_format_id",     limit: 4
     t.boolean  "option_comment_display",               default: true
   end
@@ -285,7 +285,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer "theme_id",    limit: 4, null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id"
+  add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id", using: :btree
 
   create_table "region_groups", force: :cascade do |t|
     t.integer "super_region_id", limit: 4
@@ -300,15 +300,15 @@ ActiveRecord::Schema.define(version: 20170103221846) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "role_in_plans"
     t.integer  "resource_id",   limit: 4
     t.string   "resource_type", limit: 255
   end
 
-  add_index "roles", ["name"], name: "index_roles_on_name"
-  add_index "roles", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
     t.string   "title",           limit: 255
@@ -316,8 +316,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "number",          limit: 4
     t.integer  "version_id",      limit: 4
     t.integer  "organisation_id", limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "published"
   end
 
@@ -326,32 +326,32 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.text     "value",       limit: 65535
     t.integer  "target_id",   limit: 4,     null: false
     t.string   "target_type", limit: 255,   null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "suggested_answers", force: :cascade do |t|
     t.integer  "question_id",     limit: 4
     t.integer  "organisation_id", limit: 4
     t.text     "text",            limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_example"
   end
 
   create_table "themes", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "locale",      limit: 255
   end
 
@@ -375,28 +375,28 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "identifier_scheme_id", limit: 4
   end
 
-  add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0"
-  add_index "user_identifiers", ["user_id"], name: "fk_rails_65c9a98cdb"
+  add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0", using: :btree
+  add_index "user_identifiers", ["user_id"], name: "fk_rails_65c9a98cdb", using: :btree
 
   create_table "user_role_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_statuses", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -407,8 +407,8 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.string   "shibboleth_id",          limit: 255
     t.integer  "user_type_id",           limit: 4
     t.integer  "user_status_id",         limit: 4
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "encrypted_password",     limit: 255, default: ""
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -426,6 +426,7 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation",     limit: 255
+    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "organisation_id",        limit: 4
     t.string   "api_token",              limit: 255
@@ -434,17 +435,17 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.integer  "language_id",            limit: 4
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
     t.integer "role_id", limit: 4
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -452,10 +453,12 @@ ActiveRecord::Schema.define(version: 20170103221846) do
     t.boolean  "published"
     t.integer  "number",      limit: 4
     t.integer  "phase_id",    limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "versions", ["phase_id"], name: "index_versions_on_phase_id"
+  add_index "versions", ["phase_id"], name: "index_versions_on_phase_id", using: :btree
 
+  add_foreign_key "user_identifiers", "identifier_schemes"
+  add_foreign_key "user_identifiers", "users"
 end

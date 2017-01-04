@@ -12,6 +12,8 @@ class Project < ActiveRecord::Base
 
 	friendly_id :title, use: [:slugged, :history, :finders]
   
+  scope :public_visibility, -> { where(is_public: true) }
+  
   # Set the is_public flag to false if we are making this a test plan
   # -----------------------------------------------------------------
   def is_test=(val)

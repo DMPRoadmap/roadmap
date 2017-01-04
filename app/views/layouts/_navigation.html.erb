@@ -97,6 +97,16 @@
       <% end %>
           <a href="<%= help_path %>" class="main_nav"><%= t("helpers.help_label") %></a>
         </li>
+
+      <!-- plans/publicly_available page -->
+      <% if current_path == "/plans/publicly_available" then %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+          <a href="<%= plans_publicly_available_path %>"><%= t("helpers.publicly_available_label") %></a>
+        </li>
+
       <!-- language dropdown -->
       <li class="dropdown sign_in">
         <a class="dropdown-toggle main_nav" data-toggle="dropdown" href="#">
