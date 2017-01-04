@@ -33,6 +33,21 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
     assert_routing "/#{I18n.locale}/terms", target
   end
+  
+  # Routing for Public DMPs 
+  # ------------------------------------------------------------------- 
+  test 'GET /plans/publicly_available should resolve to ProjectsController#publicly_available' do
+    target = {controller: "projects", action: "publicly_available"}
+    assert_routing "#{plans_publicly_available_path}", target
+  end
+  test 'GET /projects/[:project_id]/plans/[:id]/public_export should resolve to PlansController#public_export' do
+    project = Project.includes(:plans).where.not(plans: {id: nil}).first
+    target = {controller: "plans", action: "public_export", locale: "#{I18n.locale}"}
+    
+puts "PATH: /#{I18n.locale}/projects/#{project.id}/plans/#{project.plans.first.id}/public_export"
+    
+    assert_routing "/#{I18n.locale}/#{public_export_project_plan_path(project, project.plans.first)}", target
+  end
 
   # OAuth - Based on providers identified in the en-UK locale file
   # ------------------------------------------------------------------- 
