@@ -55,9 +55,13 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def orcid
-      scheme = IdentifierScheme.find_by(name: 'orcid')
+    scheme = IdentifierScheme.find_by(name: 'orcid')
+    if self.user.nil?
+      ''
+    else
       orcid = self.user.user_identifiers.where(identifier_scheme: scheme).first
       (orcid.nil? ? '' : orcid.identifier)
+    end
   end
 
   # sections taken from fields settings

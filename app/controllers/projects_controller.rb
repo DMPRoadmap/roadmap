@@ -144,6 +144,8 @@ class ProjectsController < ApplicationController
     
     # if the project is designated as public
     if @project.is_public?
+      @plan = @project.plans.first
+      
       generate_export
       
     else
@@ -421,14 +423,12 @@ class ProjectsController < ApplicationController
 
     # -----------------------------------------------------------
     def generate_export
-      plan = @project.plans.first
-      
       @exported_plan = ExportedPlan.new.tap do |ep|
-        ep.plan = plan
+        ep.plan = @plan
         ep.user = current_user ||= nil
         #ep.format = request.format.try(:symbol)
         ep.format = request.format.to_sym
-        plan_settings = plan.settings(:export)
+        plan_settings = @plan.settings(:export)
 
         Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
           ep.settings(:export).send("#{key}=", plan_settings.send(key))
@@ -439,22 +439,22 @@ class ProjectsController < ApplicationController
       file_name = @exported_plan.project_name
 
       respond_to do |format|
-                format.html
-                format.xml
-                format.json
-                format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
-                format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
+        format.html
+        format.xml
+        format.json
+        format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
         format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
-                format.pdf do
-                    @formatting = plan.settings(:export).formatting
-                    render pdf: file_name,
-                      margin: @formatting[:margin],
-                      footer: {
-                        center:    t('helpers.plan.export.pdf.generated_by'),
-                        font_size: 8,
-                        spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-                        right:     '[page] of [topage]'
-                      }
+        format.pdf do
+          @formatting = @plan.settings(:export).formatting
+          render pdf: file_name,
+                 margin: @formatting[:margin],
+                 footer: {
+                   center: t('helpers.plan.export.pdf.generated_by'),
+                   font_size: 8,
+                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                   right: '[page] of [topage]'
+                 }
         end
       end
     end

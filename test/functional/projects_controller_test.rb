@@ -6,11 +6,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   
   setup do
     @project = Project.first
+    
+    @test_visibility = Visibility.find_by(name: 'test')
+    @public_visibility = Visibility.find_by(name: 'public')
   end
 
   # ----------------------------------------------------------
   test "should export the publicly available plan" do
-    @project.is_public = true
+    @project.visibility = @public_visibility
     @project.save!
 
     get public_export_project_path(locale: I18n.locale, id: @project)
@@ -27,7 +30,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "should NOT export a non-public plan to unauthorized users" do
     # Set the is_public flag to false and try to access it when not logged in
-    @project.is_public = false
+    @project.visibility = @test_visibility
     @project.save!
 
     get public_export_project_path(locale: I18n.locale, id: @project)
