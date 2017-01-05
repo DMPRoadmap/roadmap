@@ -111,7 +111,7 @@ Rails.application.routes.draw do
 
     resources :answers, only: :create
 
-    resources :comments, only: [:create, :update] do
+    resources :notes, only: [:create, :update] do
       member do
         put 'archive'
       end

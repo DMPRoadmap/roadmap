@@ -1,0 +1,18 @@
+<!--edit note to question. note passed as argument-->
+
+<%= form_for(note, :url => {:controller => :notes, :action => :update } , :html => { :method => :put, :class => "edit_note_form", :id=> "edit_note_form_#{note.id}"}) do |f| %>
+    <%= f.hidden_field :id, :value => note.id %>
+
+    <%= text_area_tag("#{note.id}_note_text".to_sym, note.text , class: "tinymce") %>
+	<br/>
+
+	<!-- submit buttons -->
+	<div class="move_2_right">
+        <% question = Question.find(note.question_id)%>
+        <%= hidden_field_tag :plan_id, note.plan_id, :class => "plan_id" %>
+        <%= hidden_field_tag :note_id, note.id, :class => "note_id" %>
+        <%= hidden_field_tag :section_id, question.section_id, :class => "section_id" %>
+		<%= f.submit t("helpers.submit.save"), :class => "btn btn-primary edit_note_submit_button" %>
+	</div>
+    <br>
+<%end%>
