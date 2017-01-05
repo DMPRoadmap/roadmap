@@ -143,7 +143,7 @@ class ProjectsController < ApplicationController
     request.format = :pdf
     
     # if the project is designated as public
-    if @project.is_public?
+    if @project.visibility == Visibility.find_by(name: 'public')
       @plan = @project.plans.first
       
       generate_export

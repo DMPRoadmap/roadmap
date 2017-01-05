@@ -13,24 +13,9 @@ class ProjectTest < ActiveSupport::TestCase
     })
   end
   
-  # ----------------------------------------------------------------------------
-  test "is_public flag should be false if is_test is true" do
-    @project.is_public = true
-    @project.save!
-    assert_equal true, @project.is_public?, "expected the is_public flag to initially be true"
-    
-    @project.is_test = true
-    assert_equal false, @project.is_public?, "expected the is_public flag to switch to false"
-  end
-  
-  # ----------------------------------------------------------------------------
-  test "is_test flag should be false if is_public is true" do
-    @project.is_test = true
-    @project.save!
-    assert_equal true, @project.is_test?, "expected the is_test flag to initially be true"
-    
-    @project.is_public = true
-    assert_equal false, @project.is_test?, "expected the is_test flag to switch to false"
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Visibility" do
+    verify_belongs_to_relationship(@project, Visibility.first)
   end
   
 end

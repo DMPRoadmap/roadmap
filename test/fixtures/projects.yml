@@ -5,5 +5,4 @@
   title: <%= "#{lbl} Project" %>
   dmptemplate: <%= lbl %>
   organisation: complete 
-  user: complete_user
 <% end %>

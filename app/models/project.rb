@@ -319,21 +319,6 @@ class Project < ActiveRecord::Base
 		self.dmptemplate.try(:organisation).try(:abbreviation)
 	end
 
-  # Visibility shortcuts
-  # ------------------------------------------------------------------
-  def is_test? 
-    visibility == Visibility.find_by(name: 'test') 
-  end
-  def is_private? 
-    visibility == Visibility.find_by(name: 'private') 
-  end
-  def is_organisational? 
-    visibility == Visibility.find_by(name: 'organisational') 
-  end
-  def is_public? 
-    visibility == Visibility.find_by(name: 'public')
-  end
-  
 
   # ==================================================================
 	private
