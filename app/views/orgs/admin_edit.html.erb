@@ -8,25 +8,25 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
-		<%= form_for(@organisation, :url => admin_update_organisation_path(@organisation), :html => { :multipart => true, :id => "edit_org_details",  :method => :put}) do |f| %> 
-			
+		<%= form_for(@organisation, url: admin_update_organisation_path(@organisation), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
+
 			<!-- table with org details-->
 			<table class="dmp_details_table">
 				<tr>
 					<td class="first"><%= t('org_admin.org_name') %></td>
-					<td><%= f.text_field :name, :as => :string, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('org_admin.name_help_text') %></td>
+					<td><%= f.text_field :name, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: t('org_admin.name_help_text') %></td>
 				</tr>
-				
+
 				<tr>
 					<td class="first"><%= t('org_admin.org_abbr') %></td>
 					<td>
 						<div class="div_left_icon_g">
-							<%= f.text_field :abbreviation, :as => :string, :class => 'text_field' %>
+							<%= f.text_field :abbreviation, as: :string, class: 'text_field' %>
 						</div>
 						<div class="clearfix"></div>
 					</td>
 				</tr>
-				
+
 				<!-- organisation logo -->
 				<% if @organisation.logo.present? %>
 					<tr>
@@ -43,43 +43,55 @@
 					<td class="first"><%= t('org_admin.new_org_logo') %></td>
 					<td><%= f.file_field :logo %></td>
 				</tr>
-				
+
 				<tr class="blank_row"><td class="first"></td></tr>
-				
+
 				<tr>
 					<td class="first"><%= t('org_admin.org_banner_text') %></td>
 					<td><%= text_area_tag("org_banner_text", @organisation.banner_text, class: "tinymce") %></td>
 				</tr>
-				
+
 				<tr>
 					<td class="first"><%= t('org_admin.org_target_url') %></td>
-					<td><%= f.text_field :target_url, :as => :string, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('org_admin.target_url_help_text') %></td>
+					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", :title t('org_admin.target_url_help_text') %></td>
 				</tr>
-				
+
 				<tr>
 					<td class="first"><%= t('org_admin.org_contact_email') %></td>
-					<td><%= f.text_field :contact_email, :as => :string, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('org_admin.org_contact_email_help_text') %></td>
+					<td><%= f.text_field :contact_email, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: t('org_admin.org_contact_email_help_text') %></td>
 				</tr>
-				
+
 				<tr>
 					<td class="first"><%= t('org_admin.org_type') %></td>
 					<td>
-						<%= @organisation.organisation_type.name %>
+						<% if @organisation.institution? %>
+              <td><%= "Institution" %></td>
+            <% elsif @organisation.funder? %>
+              <td><%= "Funder" %></td>
+            <% elsif @organisation.organisation? %>
+              <td><%= "Organisation" %></td>
+            <% elsif @organisation.research_institute? %>
+              <td><%= "Research Institute" %></td>
+            <% elsif @organisation.project? %>
+              <td><%= "Project" %></td>
+            <% elsif @organisation.school? %>
+              <td><%= "School" %></td>
+            <% end %>
 					</td>
 				</tr>
 			</table>
-			
+
 			<div class="div_clear"></div>
-            
+
 			<!-- submit buttons -->
 			<div class="move_2_right">
-				<%= f.submit t('helpers.submit.save'), :class => 'btn btn-primary' %>
-				<%= link_to t('helpers.submit.cancel'), :back, :class => 'btn btn-primary' %>
+				<%= f.submit t('helpers.submit.save'), class: 'btn btn-primary' %>
+				<%= link_to t('helpers.submit.cancel'), :back, class: 'btn btn-primary' %>
 			</div>
 		<% end %>
 
   </div>
 </div>
 
-<%= tinymce :content_css => asset_path('application.css') %>	
+<%= tinymce content_css: asset_path('application.css') %>
 
