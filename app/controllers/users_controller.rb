@@ -1,14 +1,21 @@
 class UsersController < ApplicationController
   after_action :verify_authorized
 
+  ##
+  # GET - List of all users for an organisation
+  # Displays number of roles[was project_group], name, email, and last sign in
   def admin_index
     authorize User
-    @users = current_user.org.users.includes(:project_groups)
+    @users = current_user.org.users.includes(:roles)
     respond_to do |format|
       format.html # index.html.erb
     end
   end
 
+  ##
+  # GET - Displays the permissions available to the selected user
+  # Permissions which the user already has are pre-selected
+  # Selecting new permissions and saving calls the admin_update_permissions action
   def admin_grant_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
@@ -16,6 +23,9 @@ class UsersController < ApplicationController
     @perms = user_perms & Perm.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
   end
 
+  ##
+  # POST - updates the permissions for a user
+  # redirects to the admin_index action
   def admin_update_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
