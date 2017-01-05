@@ -3,38 +3,36 @@ class UsersController < ApplicationController
 
   def admin_index
     authorize User
-    
-    @users = current_user.organisation.users.includes(:project_groups)
-    
+    @users = current_user.org.users.includes(:project_groups)
     respond_to do |format|
       format.html # index.html.erb
     end
   end
 
   def admin_grant_permissions
-    @user = User.includes(:roles).find(params[:id])
+    @user = User.includes(:perms).find(params[:id])
     authorize @user
-    user_roles = current_user.roles
-    @roles = user_roles & Role.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
+    user_permss = current_user.perms
+    @perms = user_perms & Perm.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
   end
 
   def admin_update_permissions
-    @user = User.includes(:roles).find(params[:id])
+    @user = User.includes(:perms).find(params[:id])
     authorize @user
-    roles_ids = params[:role_ids].blank? ? [] : params[:role_ids].map(&:to_i)
-    roles = Role.where( id: roles_ids)
-    current_user.roles.each do |role|
-      if @user.roles.include? role
-        if ! roles.include? role
-          @user.roles.delete(role)
-          if role.name == constant("user_role_types.use_api")
+    perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
+    perms = Perm.where( id: perms_ids)
+    current_user.perms.each do |perm|
+      if @user.perms.include? perm
+        if ! perms.include? perm
+          @user.perms.delete(perm)
+          if perm.name == constant("user_role_types.use_api")
             @user.remove_token!
           end
         end
       else
-        if roles.include? role
-          @user.roles << role
-          if role.name == constant("user_role_types.use_api")
+        if perms.include? perm
+          @user.perms << perm
+          if perm.name == constant("user_role_types.use_api")
             @user.keep_or_generate_token!
           end
         end

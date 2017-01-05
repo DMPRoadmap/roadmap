@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   #ActiveAdmin.routes(self)
 
   #organisation admin area
-  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
   resources :users, :path => 'org/admin/users', only: [] do
     collection do
       get 'admin_index'
