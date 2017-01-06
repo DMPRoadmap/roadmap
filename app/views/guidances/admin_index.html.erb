@@ -126,9 +126,7 @@
 			    <% end %>
 			    <% if guidance.guidance_group.present? then %>
             <td class="dmp_td_small">
-              <% guidance.guidance_group do |p|%>
-		            <%= p.name %>
-						  <% end %>
+		          <%= guidance.guidance_group.name %>
             </td>
 		      <% else %>
 			    	<td class="dmp_td_small">
