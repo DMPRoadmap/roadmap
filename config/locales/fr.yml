@@ -559,6 +559,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
           no_name: "'name' doit figurer dans la liste des colonnes."
           duplicate: "Nom de colonne en doublon. Merci de n'ajouter qu'une seule colonne."
           unknown: "Nom de colonne inconnu."
+          no_plan: "Le plan est incomplet."
       plans:
         title: Titre du plan
         reset: "Réinitialiser"

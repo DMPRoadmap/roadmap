@@ -671,6 +671,7 @@ Select what format you wish to use and click to 'Export'.</p>"
           no_name: "'name' must be included in column list."
           duplicate: "Duplicate column name. Please only include each column once."
           unknown: "Unknown column name."
+          no_plan: "The plan is incomplete."
       plans:
         title: "File Name"
         reset: "Reset"

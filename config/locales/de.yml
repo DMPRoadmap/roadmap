@@ -622,6 +622,7 @@ de:
           no_name: "'Name' muss in der Liste von Spalten enthalten sein."
           duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
           unknown: "Unbekannter Spaltenname."
+          no_plan: "Der Plan ist unvollständig."
       plans:
         title: "Dateiname"
         reset: "Zurücksetzen"

@@ -547,6 +547,7 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
           no_name: "'nombre' tiene que estar en la lista de columnas."
           duplicate: "Nombre de columna duplicado. Por favor, indique cada columna sólo una vez."
           unknown: "Nombre de columna desconocido."
+          no_plan: "El plan es incompleto."
       plans:
         title: Título del plan
         reset: "Reiniciar"

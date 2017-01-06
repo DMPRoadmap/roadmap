@@ -33,7 +33,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
     get public_export_path(locale: I18n.locale, id: @project)
     
-    assert_redirected_to "#{root_path}?locale=#{I18n.locale}", "expected to be redirected to the home page!"
+    assert_redirected_to "#{public_plans_path}", "expected to be redirected to the home page!"
     assert_equal I18n.t('helpers.settings.plans.errors.no_access_account'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
     
     # Set the is_public flag to false and assign ownership to a different user and then try to access it as a non-owner
@@ -42,9 +42,9 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     
     sign_in User.first
     
-    get public_export_project_path(locale: I18n.locale, id: @project)
+    get public_export_path(locale: I18n.locale, id: @project)
     
-    assert_redirected_to "#{root_path}?locale=#{I18n.locale}", "expected to be redirected to the home page!"
+    assert_redirected_to "#{public_plans_path}", "expected to be redirected to the home page!"
     assert_equal I18n.t('helpers.settings.plans.errors.no_access_account'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
   end
 end
