@@ -23,36 +23,6 @@
         <td><%= raw @guidance_group.name %></td>
       </tr>
       <tr>
-        <td class="first">
-          <% if @guidance_group.dmptemplates.count == 1 then %>
-              <%= t("org_admin.guidance.template") %>
-          <% else %>
-              <%= t("org_admin.guidance.templates") %>
-          <% end %>
-        </td>
-        <td>
-          <% i = 1 %>
-          <% if @guidance_group.dmptemplates.count == 0 then %>
-              <% list = Dmptemplate.funders_and_own_templates(current_user.organisation_id) %>
-              <% list.each do |tem| %>
-                  <%= tem.title %>
-                  <% if list.count > i then %>
-                      ,
-                      <% i +=1 %>
-                  <% end %>
-              <% end %>
-          <% else %>
-              <% @guidance_group.dmptemplates.each do |tem| %>
-                  <%= tem.title %>
-                  <% if @guidance_group.dmptemplates.count > i then %>
-                      ,
-                      <% i +=1 %>
-                  <% end %>
-              <% end %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
         <td class="first"><%= t('org_admin.templates.published_label') %></td>
         <td>
           <% if @guidance_group.published.nil? || @guidance_group.published == false then %>

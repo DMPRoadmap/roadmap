@@ -8,7 +8,7 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
-		<%= form_for(@organisation, url: admin_update_organisation_path(@organisation), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
+		<%= form_for(@organisation, url: admin_update_org_path(@organisation), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
 
 			<!-- table with org details-->
 			<table class="dmp_details_table">
@@ -53,7 +53,7 @@
 
 				<tr>
 					<td class="first"><%= t('org_admin.org_target_url') %></td>
-					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", :title t('org_admin.target_url_help_text') %></td>
+					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: t('org_admin.target_url_help_text') %></td>
 				</tr>
 
 				<tr>

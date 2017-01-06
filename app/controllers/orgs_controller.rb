@@ -25,15 +25,15 @@ class OrgsController < ApplicationController
     @organisation = Org.find(params[:id])
     authorize @organisation
     @organisation.banner_text = params["org_banner_text"]
-    @organisation.logo = params[:organisation][:logo] if params[:organisation][:logo]
-    assign_params = params[:organisation].dup
+    @organisation.logo = params[:org][:logo] if params[:org][:logo]
+    assign_params = params[:org].dup
     assign_params.delete(:logo)
-    assign_params.delete(:contact_email) unless params[:organisation][:contact_email].present?
+    assign_params.delete(:contact_email) unless params[:org][:contact_email].present?
 
     respond_to do |format|
       begin
         if @organisation.update_attributes(assign_params)
-          format.html { redirect_to admin_show_organisation_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
+          format.html { redirect_to admin_show_org_path(params[:id]), notice: I18n.t("admin.org_updated_message")  }
         else
           flash[:noice] = @organisation.errors.collect{|e| e.message}.join('<br />').html_safe
           format.html { render action: "admin_edit" }

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def admin_grant_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
-    user_permss = current_user.perms
+    user_perms = current_user.perms
     @perms = user_perms & Perm.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
   end
 
