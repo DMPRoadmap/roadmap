@@ -281,6 +281,7 @@ fr:
     roadmap_label: "Feuille de route"
     help_label: "Aide"
     contact_label: "Contact"
+    public_plans_label: "DMP Publics"
     jisc: "Le DCC est financé par"
 
     sign_in: "Connexion"
@@ -458,13 +459,14 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       project_identifier_help_text: "Un identifiant approprié conforme aux prescriptions de l'organisme financeur ou de l'établissement."
       project_static_info: "Ce plan s'inspire de :"
       projects_title: "Mes plans"
-      default_visibility: "Organisationnel"
-      test_visibility: "Tester"
-      public_visibility: "Public"
-      project_is_test: "Test ou un plan de pratique?"
-      project_is_test_help_text: "Ce plan est destiné aux essais ou à la pratique. Il ne sera pas visible par d'autres utilisateurs à moins que vous ne le partagiez explicitement avec eux (il sera cependant pris en compte dans les statistiques du site)."
-      project_is_public: "Publiquement disponible sur le web?"
-      project_is_public_help_text: "Votre plan apparaîtra sur la page Public DMPs de ce site."
+
+      visibility: "Visibilité"
+      visibilities:
+        test: "Test ou plan de pratique"
+        private: "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
+        organisational: "Avec d'autres membres de votre organisation"
+        public: "Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce site."
+        
       project_settings_text: "Les éléments que vous sélectionnez ici s'afficherontt dans le tableaiu ci-après. Vous pouvez trier les données à partir de chacune de ces en-tête ou les filtrer en tapant une chaîne de caractères dans la zone de recherche."
       project_text_when_no_project: "<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier DMP.</br>Cliquez sur le bouton 'Créer un plan' ci-dessous pour commencer.</p>"
       project_text_when_project: "<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi que ceux que vous partagez avec d'autres.</br>Vous pouvez à tout moment les modifier, les partager, les exporter, les effacer...</p>"
@@ -517,12 +519,15 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
         data_contact: "Interlocuteur pour les données du plan"
         description: "Description"
         visibility: "Visibilité"
+        name: 'Prénom'
+        template: 'Modèle'
+        organisation: 'Organisation'
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"
         cancel: "Annuler"
         no_matches: "Pas de plans pour '%{filter}'"
-
+        
     plan:
       export:
         pdf:

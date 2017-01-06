@@ -338,9 +338,7 @@ en-UK:
     about_us_label: "About"
     roadmap_label: "Future plans"
     help_label: "Help"
-
-#-----
-    publicly_available_label: "Public DMPs"
+    publicly_plans_label: "Public DMPs"
 
     contact_label: "Contact"
     jisc: "The %{organisation_abbreviation} is funded by"
@@ -581,17 +579,13 @@ Select what format you wish to use and click to 'Export'.</p>"
       project_identifier_help_text: "A pertinent ID as determined by the funder and/or institution."
       project_static_info: "This plan is based on:"
       projects_title: "My plans"
-      default_visibility: "Organizational"
-      test_visibility: "Test"
-      public_visibility: "Public"
-      project_is_test: "Test or practice plan?"
-      project_is_test_help_text: "This plan is for testing or practice puposes. It will not be viewable by other users unless you explicitly share it with them (it will however be factored into site statistics)."
-      project_is_public: "Publicly available on the web?"
-      project_is_public_help_text: "Your plan will appear on the Public DMPs page of this site."
 
-#-----
-      publicly_available_title: "Public DMPs"
-      publicly_available_text: "Public DMPs are plans created using %{app_name} and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+      visibility: "Visibility"
+      visibilities:
+        test: "Test or Practice Plan"
+        private: "Private (owners, co-owners, and admins only) See our Terms of Use."
+        organisational: "With others within your organization"
+        public: "Publicly on the web. Your DMP will appear on the Public DMPs page of this site."
 
       project_settings_text: "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
       project_text_when_no_project: "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
@@ -646,9 +640,9 @@ Select what format you wish to use and click to 'Export'.</p>"
         description: "Description"
         unknown: " - "
         visibility: "Visibility"
-#-----
-        template: "Template"
-        organisation: "Organisation"
+        name: 'Name'
+        template: 'Template'
+        organisation: 'Organization'
 
       filter:
         placeholder: "Filter plans"

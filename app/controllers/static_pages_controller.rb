@@ -15,4 +15,58 @@ class StaticPagesController < ApplicationController
   def roadmap
   end
   
+  # GET /projects/publicly_available
+  # -----------------------------------------------------------
+  def public_plans
+    public_visibility = Visibility.find_by(name: 'public')
+    @projects = Project.where(visibility: public_visibility).order(title: :asc)
+  end
+  
+  # GET /projects/[:project_slug]/public_export
+  # -------------------------------------------------------------
+  def public_export
+    @project = Project.find(params[:id])
+    
+    # Force PDF response 
+    request.format = :pdf
+    
+    # if the project is designated as public
+    if @project.visibility == Visibility.find_by(name: 'public')
+      @plan = @project.plans.first
+      
+      @exported_plan = ExportedPlan.new.tap do |ep|
+        ep.plan = @plan
+        ep.user = current_user ||= nil
+        #ep.format = request.format.try(:symbol)
+        ep.format = request.format.to_sym
+        plan_settings = @plan.settings(:export)
+
+        Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
+          ep.settings(:export).send("#{key}=", plan_settings.send(key))
+        end
+      end
+
+      @exported_plan.save! # FIXME: handle invalid request types without erroring?
+      file_name = @exported_plan.project_name
+
+      respond_to do |format|
+        format.pdf do
+          @formatting = @plan.settings(:export).formatting
+          render pdf: file_name,
+                 margin: @formatting[:margin],
+                 footer: {
+                   center: t('helpers.plan.export.pdf.generated_by'),
+                   font_size: 8,
+                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                   right: '[page] of [topage]'
+                 }
+        end
+      end
+      
+    else
+    
+      # Otherwise redirect to the home page with an unauthorized message
+      redirect_to root_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account')
+    end
+  end
 end

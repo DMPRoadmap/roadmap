@@ -29,18 +29,15 @@ class RoutingTest < ActionDispatch::IntegrationTest
     target = {controller: "static_pages", action: "termsuse", locale: "#{I18n.locale}"}
     assert_routing terms_path(locale: I18n.locale), target
   end
-  
-  # Routing for Public DMPs 
-  # ------------------------------------------------------------------- 
-  test 'GET /public_plans should resolve to ProjectsController#public_plans' do
-    target = {controller: "projects", action: "public_plans", locale: "#{I18n.locale}"}
+  test 'GET /public_plans should resolve to StaticPagesController#public_plans' do
+    target = {controller: "static_pages", action: "public_plans", locale: "#{I18n.locale}"}
     assert_routing public_plans_path(locale: I18n.locale), target
   end
-  test 'GET /projects/[:project_id]/plans/[:id]/public_export should resolve to PlansController#public_export' do
+  test 'GET /public_export should resolve to StaticPagesController#public_export' do
     project = Project.includes(:plans).where.not(plans: {id: nil}).first
-    target = {controller: "projects", action: "public_export", locale: "#{I18n.locale}", id: project.id.to_s}
+    target = {controller: "static_pages", action: "public_export", locale: "#{I18n.locale}", id: project.id.to_s}
     
-    assert_routing public_export_project_path(locale: I18n.locale, id: project), target
+    assert_routing public_export_path(locale: I18n.locale, id: project), target
   end
 
   # OAuth - Based on providers identified in the en-UK locale file

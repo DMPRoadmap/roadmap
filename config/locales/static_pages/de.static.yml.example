@@ -184,3 +184,8 @@ Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anl
     <div class='white_background'>
         <p>Bei Benutzung dieser Anwendung stimmen Sie den Nutzungsbedingungen zu.</p>
     </div>"
+
+  public_plans_page:
+    title: "Öffentliche DMPs"
+    no_plans_body_text_html: "Es wurden noch keine DMPs veröffentlicht."
+    body_text_html: "Öffentliche DMPs sind Pläne, die mit dem DMPTool erstellt und öffentlich von ihren Eigentümern veröffentlicht werden. Sie werden nicht auf Qualität, Vollständigkeit oder die Einhaltung der funder Richtlinien überprüft."

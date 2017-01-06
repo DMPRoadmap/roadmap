@@ -99,12 +99,12 @@
         </li>
 
       <!-- plans/publicly_available page -->
-      <% if current_path == "/plans/publicly_available" then %>
+      <% if current_path == "/plans/public_plans" then %>
         <li class="active">
       <% else %>
         <li>
       <% end %>
-          <a href="<%= public_plans_path %>"><%= t("helpers.publicly_available_label") %></a>
+          <a href="<%= public_plans_path %>"><%= t("helpers.public_plans_label") %></a>
         </li>
 
       <!-- language dropdown -->
