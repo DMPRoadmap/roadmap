@@ -1,4 +1,4 @@
-class OrganisationsController < ApplicationController
+class OrgsController < ApplicationController
   after_action :verify_authorized
 
   ##
