@@ -8,15 +8,15 @@ class GuidancePolicy < ApplicationPolicy
   end
 
   def admin_show?
-    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.org_id)
   end
 
   def admin_edit?
-    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.org_id)
   end
 
   def admin_update?
-    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.org_id)
   end
 
   def admin_index?
@@ -32,7 +32,7 @@ class GuidancePolicy < ApplicationPolicy
   end
 
   def admin_destroy?
-    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.organisation_id)
+    user.can_modify_guidance? && guidance.in_group_belonging_to?(user.org_id)
   end
 
   def update_phases?
@@ -53,7 +53,7 @@ class GuidancePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope = Guidance.by_organisation(user.organisation_id)
+      scope = Guidance.by_organisation(user.org_id)
     end
   end
 end

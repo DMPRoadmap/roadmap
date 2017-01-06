@@ -1,11 +1,11 @@
 class GuidancesController < ApplicationController
   after_action :verify_authorized
-  
+
   # GET /guidances
   def admin_index
     authorize Guidance
     @guidances = policy_scope(Guidance)
-    @guidance_groups = GuidanceGroup.where('organisation_id = ?', current_user.organisation_id )
+    @guidance_groups = GuidanceGroup.where('org_id = ?', current_user.org_id )
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -23,7 +23,7 @@ class GuidancesController < ApplicationController
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
-		@dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
+		@dmptemplates = Dmptemplate.funders_and_own_templates(current_user.org_id)
 		@phases = nil
 		@dmptemplates.each do |template|
 			if @phases.nil? then

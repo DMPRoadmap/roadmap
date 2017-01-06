@@ -31,11 +31,9 @@ class Guidance < ActiveRecord::Base
   #
   # @param org_id [Integer] the integer id for an organisation
   # @return [Boolean] true if this guidance is in a group belonging to the specified organisation, false otherwise
-	def in_group_belonging_to?(organisation_id)
-		guidance_groups.each do |guidance_group|
-			if guidance_group.organisation_id == organisation_id
-				return true
-			end
+	def in_group_belonging_to?(org_id)
+		if guidance_group.org_id == org_id
+			return true
 		end
 		return false
 	end
@@ -48,7 +46,7 @@ class Guidance < ActiveRecord::Base
 	def self.by_organisation(org_id)
     org_guidance = []
     Org.find_by(id: org_id).guidance_groups.each do |group|
-      org_guidance += group.guidances
+      org_guidance += Guidance.where(guidance_group_id: group.id)
     end
 		return org_guidance
 	end
@@ -87,9 +85,8 @@ class Guidance < ActiveRecord::Base
     guidance.guidance_groups.each do |guidance_group|
 
       # guidances are viewable if they are owned by any of the user's organisations
-      user.organisations.each do |organisation|
-        
-        if guidance_group.organisation.id == organisation.id
+      user.org do |org|
+        if guidance_group.org.id == org.id
           viewable = true
         end
       end
