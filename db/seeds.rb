@@ -2,10 +2,8 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-# Dmptemplate default formatting settings based on https://je-s.rcuk.ac.uk/Handbook/pages/GuidanceonCompletingaStandardG/CaseforSupportandAttachments/CaseforSupportandAttachments.htm
-
-d1 = DateTime.new(2015, 6, 22)
-
+# Plan Visibilities
+# -------------------------------------------------------
 visibilities = { 
   test: {name: 'test', default: false},
   private: {name: 'private', default: false},
@@ -14,6 +12,8 @@ visibilities = {
 }
 visibilities.map{ |v| Visibility.create!(v) }
 
+# Plan Visibilities
+# -------------------------------------------------------
 languages = {
     'English(UK)' => {
         abbreviation: 'en-UK',
