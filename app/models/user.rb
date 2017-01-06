@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
 
   ##
   # sets a new organisation id for the user
-  # if the user has any roles such as org_admin or admin, those are removed
+  # if the user has any perms such as org_admin or admin, those are removed
   # if the user had an api_token, that is removed
   #
   # @param new_organisation_id [Integer] the id for an organisation
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   def organisation_id=(new_organisation_id)
     unless self.can_change_org? || new_organisation_id.nil? || self.organisation.nil?
       # rip all permissions from the user
-      self.roles.delete_all
+      self.perms.delete_all
     end
     # set the user's new organisation
     super(new_organisation_id)
@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can add new organisations
   def can_add_orgs?
-    roles.include? Perm.find_by(name: constant("user_role_types.add_organisations"))
+    perms.include? Perm.find_by(name: constant("user_role_types.add_organisations"))
   end
 
   ##
@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can change their organisation affiliations
   def can_change_org?
-    roles.include? Perm.find_by(name: constant("user_role_types.change_org_affiliation"))
+    perms.include? Perm.find_by(name: constant("user_role_types.change_org_affiliation"))
   end
 
   ##
@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant their permissions to others
   def can_grant_permissions?
-    roles.include? Perm.find_by(name: constant("user_role_types.grant_permissions"))
+    perms.include? Perm.find_by(name: constant("user_role_types.grant_permissions"))
   end
 
   ##
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
-    roles.include? Perm.find_by(name: constant("user_role_types.modify_templates"))
+    perms.include? Perm.find_by(name: constant("user_role_types.modify_templates"))
   end
 
   ##
@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organistion guidance
   def can_modify_guidance?
-    roles.include? Perm.find_by(name: constant("user_role_types.modify_guidance"))
+    perms.include? Perm.find_by(name: constant("user_role_types.modify_guidance"))
   end
 
   ##
@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can use the api
   def can_use_api?
-    roles.include? Perm.find_by(name: constant("user_role_types.use_api"))
+    perms.include? Perm.find_by(name: constant("user_role_types.use_api"))
   end
 
   ##
@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
-    roles.include? Perm.find_by(name: constant("user_role_types.change_org_details"))
+    perms.include? Perm.find_by(name: constant("user_role_types.change_org_details"))
   end
 
   ##
@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    roles.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    perms.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
 
@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    roles.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    perms.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
   end
 
   ##
