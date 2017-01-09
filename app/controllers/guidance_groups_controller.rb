@@ -27,9 +27,9 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group = GuidanceGroup.new(params[:guidance_group])
     authorize @guidance_group
     @guidance_group.org_id = current_user.org_id
-      if params[:save_publish]
-          @guidance_group.published = true
-      end
+    if params[:save_publish]
+      @guidance_group.published = true
+    end
 
     respond_to do |format|
       if @guidance_group.save

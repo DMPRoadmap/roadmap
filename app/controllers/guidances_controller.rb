@@ -25,7 +25,7 @@ class GuidancesController < ApplicationController
     authorize @guidance
 		@templates = Template.funders_and_own_templates(current_user.org_id)
 		@phases = nil
-		@templates.each do |template|
+		@templates.includes(:phases).each do |template|
 			if @phases.nil? then
 				@phases = template.phases.all.order('number')
 			else
