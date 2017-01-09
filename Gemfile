@@ -110,6 +110,8 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'web-console', '~>2.0'
+  gem 'rack-mini-profiler'
+  #gem 'flamegraph'
 end
 
 group :production do
