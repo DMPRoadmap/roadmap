@@ -46,6 +46,7 @@ class Guidance < ActiveRecord::Base
   # @return [Array<Guidance>] list of guidance
 	def self.by_organisation(org_id)
     org_guidance = []
+    # TODO: re-write below querry when guidance_in_group removed from model
     Org.find_by(id: org_id).guidance_groups.each do |group|
       org_guidance += Guidance.where(guidance_group_id: group.id)
     end

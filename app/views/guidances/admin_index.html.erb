@@ -16,16 +16,15 @@
 </div>
 
 <!-- List of guidance groups -->
-<% if @guidance_groups.count > 0 then%>
+<% if @guidance_groups.length > 0 then%>
 	<table id="dmp_table_2" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
-	      	<th class="dmp_th_medium"><%= t("org_admin.guidance_group.name_label") %></th>
-			<th class="dmp_th_medium"><%= t("org_admin.guidance.template") %></th>
-            <th class="dmp_th_small"><%= t("org_admin.guidance.published") %></th>
-			<th class="dmp_th_small"><%= t("org_admin.guidance_group.subset") %></th>
-	      	<th class="dmp_th_small"><%= t("org_admin.guidance.last_updated") %></th>
-	      	<td class="dmp_th_medium"><%= t("org_admin.guidance.actions") %></td>
+	      <th class="dmp_th_medium"><%= t("org_admin.guidance_group.name_label") %></th>
+        <th class="dmp_th_small"><%= t("org_admin.guidance.published") %></th>
+        <th class="dmp_th_small"><%= t("org_admin.guidance_group.subset") %></th>
+      	<th class="dmp_th_small"><%= t("org_admin.guidance.last_updated") %></th>
+      	<td class="dmp_th_medium"><%= t("org_admin.guidance.actions") %></td>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -85,7 +84,7 @@
 <div class="div_clear"></div>
 
 <!-- List of guidance -->
-<% if @guidances.count > 0 then%>
+<% if @guidances.length > 0 then%>
 	<table id="dmp_table" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
@@ -104,7 +103,7 @@
 		        <td class="dmp_td_big">
 		        	<%= guidance.text.html_safe%>
 		        </td>
-		        <% if guidance.themes != [] then %>
+		        <% if guidance.themes.present? then %>
 			        <td class="dmp_td_small">
 			        	<% guidance.themes.each do |th| %>
 			        		<%= th.title %>

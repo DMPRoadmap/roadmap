@@ -53,7 +53,7 @@ class GuidancePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope = Guidance.by_organisation(user.org_id)
+      scope = Guidance.includes(:guidance_group, :question, :themes).by_organisation(user.org_id)
     end
   end
 end
