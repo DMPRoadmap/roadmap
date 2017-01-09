@@ -51,11 +51,11 @@ class Template < ActiveRecord::Base
   #
   # @return [Array<dmptemplates>] all templates from funder organisations
   def self.funders_templates
-    new_org_obejcts = OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")).organisations
+    funder_orgs = Org.funder
     org_templates = Array.new
 
-    new_org_obejcts.each do |neworg|
-        org_templates += neworg.dmptemplates
+    funder_orgs.each do |neworg|
+      org_templates += neworg.templates
     end
 
     return org_templates
@@ -74,7 +74,7 @@ class Template < ActiveRecord::Base
     # serching for templates for.
     # - A standardised behavior on querries, wether through active reccord or the
     # where, should maybe be thought of/decided upon
-    new_templates = self.where("organisation_id = ?", org_id)
+    new_templates = self.where("org_id = ?", org_id)
     return new_templates
   end
 
@@ -90,7 +90,7 @@ class Template < ActiveRecord::Base
 
     #verify if org type is not a funder
     current_org = Org.find(org_id)
-    if current_org.organisation_type.name != GlobalHelpers.constant("organisation_types.funder") then
+    if !current_org.funder? then
       own_institutional_templates = self.own_institutional_templates(org_id)
     else
       own_institutional_templates = []

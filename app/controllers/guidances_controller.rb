@@ -5,7 +5,7 @@ class GuidancesController < ApplicationController
   def admin_index
     authorize Guidance
     @guidances = policy_scope(Guidance)
-    @guidance_groups = GuidanceGroup.where('org_id = ?', current_user.org_id )
+    @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id)
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -13,7 +13,7 @@ class GuidancesController < ApplicationController
 
   # GET /guidances/1
   def admin_show
-    @guidance = Guidance.find(params[:id])
+    @guidance = Guidance.includes(:guidance_group, :question, :themes).find(params[:id])
     authorize @guidance
     respond_to do |format|
       format.html # show.html.erb
@@ -23,29 +23,21 @@ class GuidancesController < ApplicationController
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
-		@dmptemplates = Dmptemplate.funders_and_own_templates(current_user.org_id)
+		@templates = Template.funders_and_own_templates(current_user.org_id)
 		@phases = nil
-		@dmptemplates.each do |template|
+		@templates.each do |template|
 			if @phases.nil? then
 				@phases = template.phases.all.order('number')
 			else
 				@phases = @phases + template.phases.all.order('number')
 			end
 		end
-		@versions = nil
-		@phases.each do |phase|
-			if @versions.nil? then
-				@versions = phase.versions.all.order('title')
-			else
-				@versions = @versions + phase.versions.all.order('title')
-			end
-		end
 		@sections = nil
-		@versions.each do |version|
+		@phases.each do |phase|
 			if @sections.nil? then
-				@sections = version.sections.all.order('number')
+				@sections = phase.sections.all.order('number')
 			else
-				@sections = @sections + version.sections.all.order('number')
+				@sections = @sections + phase.sections.all.order('number')
 			end
 		end
 		@questions = nil
@@ -56,6 +48,8 @@ class GuidancesController < ApplicationController
 				@questions = @questions + section.questions.all.order('number')
 			end
 		end
+    @themes = Theme.all.order('title')
+    @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
     respond_to do |format|
       format.html
     end
@@ -65,7 +59,7 @@ class GuidancesController < ApplicationController
 	def update_phases
     authorize Guidance
     # updates phases, versions, sections and questions based on template selected
-    dmptemplate = Dmptemplate.find(params[:dmptemplate_id])
+    dmptemplate = Template.find(params[:dmptemplate_id])
     # map to title and id for use in our options_for_select
     @phases = dmptemplate.phases.map{|a| [a.title, a.id]}.insert(0, I18n.t('helpers.select_phase'))
     @versions = dmptemplate.versions.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_version'))
@@ -102,41 +96,10 @@ class GuidancesController < ApplicationController
 
   # GET /guidances/1/edit
   def admin_edit
-    @guidance = Guidance.find(params[:id])
+    @guidance = Guidance.includes(:themes, :guidance_group).find(params[:id])
     authorize @guidance
-    @dmptemplates = Dmptemplate.funders_and_own_templates(current_user.organisation_id)
-		@phases = nil
-		@dmptemplates.each do |template|
-			if @phases.nil? then
-				@phases = template.phases.all.order('number')
-			else
-				@phases = @phases + template.phases.all.order('number')
-			end
-		end
-		@versions = nil
-		@phases.each do |phase|
-			if @versions.nil? then
-				@versions = phase.versions.all.order('title')
-			else
-				@versions = @versions + phase.versions.all.order('title')
-			end
-		end
-		@sections = nil
-		@versions.each do |version|
-			if @sections.nil? then
-				@sections = version.sections.all.order('number')
-			else
-				@sections = @sections + version.sections.all.order('number')
-			end
-		end
-		@questions = nil
-		@sections.each do |section|
-			if @questions.nil? then
-				@questions = section.questions.all.order('number')
-			else
-				@questions = @questions + section.questions.all.order('number')
-			end
-		end
+    @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
+    @themes = Theme.all.order('title')
   end
 
   # POST /guidances
