@@ -28,7 +28,7 @@ class Role < ActiveRecord::Base
   #
   # @return [Boolean, String] false if no email exists, the email otherwise
   def email
-    unless user.nil? 
+    unless user.nil?
       return user.email
     end
   end

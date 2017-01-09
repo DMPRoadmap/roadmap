@@ -144,7 +144,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :project_groups, only: [:create, :update, :destroy]
+    resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
       resource :projects, only: [:show, :update]
