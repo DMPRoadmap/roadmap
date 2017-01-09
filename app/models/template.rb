@@ -51,7 +51,7 @@ class Template < ActiveRecord::Base
   #
   # @return [Array<dmptemplates>] all templates from funder organisations
   def self.funders_templates
-    funder_orgs = Org.funder
+    funder_orgs = Org.includes(:templates).funder
     org_templates = Array.new
 
     funder_orgs.each do |neworg|

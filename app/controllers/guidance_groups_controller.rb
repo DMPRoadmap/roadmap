@@ -26,7 +26,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_create
     @guidance_group = GuidanceGroup.new(params[:guidance_group])
     authorize @guidance_group
-    @guidance_group.organisation_id = current_user.organisation_id
+    @guidance_group.org_id = current_user.org_id
       if params[:save_publish]
           @guidance_group.published = true
       end
@@ -52,7 +52,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_update
  		@guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
-    @guidance_group.organisation_id = current_user.organisation_id
+    @guidance_group.org_id = current_user.org_id
     respond_to do |format|
       if @guidance_group.update_attributes(params[:guidance_group])
         format.html { redirect_to admin_index_guidance_path(params[:guidance_group]), notice: I18n.t('org_admin.guidance_group.updated_message') }
