@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :get_plan_list_columns, only: %i( index )
-  after_action :verify_authorized, except: [:publicly_available, :public_export]
+  after_action :verify_authorized
 
   respond_to :html
 
@@ -26,12 +26,6 @@ class ProjectsController < ApplicationController
       end
     end
   end
-
-  # GET /projects/publicly_available
-  # -----------------------------------------------------------
-  def public_plans
-    @projects = Project.public_visibility.order(title: :asc)
-  end
   
   # GET /projects/1
   # GET /projects/1.json
@@ -39,10 +33,15 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     authorize @project
+    
     @show_form = false
     if params[:show_form] == "yes" then
       @show_form = true
     end
+
+    @visibilities = Visibility.all
+    @default_visibility = @visibilities.select{ |v| v.default }.first
+
     if user_signed_in? && @project.readable_by(current_user.id) then
       respond_to do |format|
         format.html # show.html.erb
@@ -133,32 +132,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/[:project_slug]/public_export
-  # -------------------------------------------------------------
-  def public_export
-    @project = Project.find(params[:id])
-    
-    # Force PDF response 
-    
-    request.format = :pdf
-    
-    # if the project is designated as public
-    if @project.is_public?
-      generate_export
-      
-    else
-      
-      # If the user is signed in and this is their plan
-      if user_signed_in? && @project.readable_by(current_user)
-        generate_export
-      else
-
-        # Otherwise redirect to the home page with an unauthorized message
-        redirect_to root_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account')
-      end
-    end
-  end
-
   # POST /projects
   # POST /projects.json
   # -----------------------------------------------------------
@@ -206,9 +179,13 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     authorize @project
-    
+  
     if user_signed_in? && @project.editable_by(current_user.id) then
-      if @project.update_attributes(project_params)
+      attrs = project_params
+      
+      attrs[:visibility] = Visibility.find(attrs[:visibility]) unless attrs[:visibility].nil?
+      
+      if @project.update_attributes(attrs)
         respond_to do |format|
           format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
         end
@@ -343,7 +320,7 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:title, :grant_number, :identifier, :description, 
                                      :principal_investigator, :principal_investigator_identifier,
-                                     :data_contact, :funder_name, :is_test, :is_public,
+                                     :data_contact, :funder_name, :visibility,
                                      :dmptemplate_id, :organisation_id, :funder_id, :institution_id,
                                      :guidance_group_ids, :project_group_ids)
     end
@@ -421,14 +398,12 @@ class ProjectsController < ApplicationController
 
     # -----------------------------------------------------------
     def generate_export
-      plan = @project.plans.first
-      
       @exported_plan = ExportedPlan.new.tap do |ep|
-        ep.plan = plan
+        ep.plan = @plan
         ep.user = current_user ||= nil
         #ep.format = request.format.try(:symbol)
         ep.format = request.format.to_sym
-        plan_settings = plan.settings(:export)
+        plan_settings = @plan.settings(:export)
 
         Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
           ep.settings(:export).send("#{key}=", plan_settings.send(key))
@@ -439,22 +414,22 @@ class ProjectsController < ApplicationController
       file_name = @exported_plan.project_name
 
       respond_to do |format|
-                format.html
-                format.xml
-                format.json
-                format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
-                format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
+        format.html
+        format.xml
+        format.json
+        format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
         format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
-                format.pdf do
-                    @formatting = plan.settings(:export).formatting
-                    render pdf: file_name,
-                      margin: @formatting[:margin],
-                      footer: {
-                        center:    t('helpers.plan.export.pdf.generated_by'),
-                        font_size: 8,
-                        spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-                        right:     '[page] of [topage]'
-                      }
+        format.pdf do
+          @formatting = @plan.settings(:export).formatting
+          render pdf: file_name,
+                 margin: @formatting[:margin],
+                 footer: {
+                   center: t('helpers.plan.export.pdf.generated_by'),
+                   font_size: 8,
+                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                   right: '[page] of [topage]'
+                 }
         end
       end
     end

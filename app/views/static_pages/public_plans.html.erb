@@ -1,12 +1,12 @@
 <%- model_class = Project -%>
 <h1>
-	<%= t("helpers.project.publicly_available_title") %>
+	<%= raw t("public_plans_page.title") %>
 </h1>
 
 <!-- if the user has projects -->
 <% if @projects.count > 0 %>
 	<p>
-		<%= raw t("helpers.project.publicly_available_text", {app_name: Rails.configuration.branding[:application][:name]}) %>
+		<%= raw t("public_plans_page.body_text_html", {app_name: Rails.configuration.branding[:application][:name]}) %>
 	</p>
     
 	<table id="dmp_table" class="dmp_table tablesorter">
@@ -26,7 +26,7 @@
 				  <% end %>
 
 				  <td class="dmp_td_medium">
-						<%= link_to t("helpers.project.tab_export"), "#{public_export_project_path(project)}", :class => "dmp_table_link" %>
+						<%= link_to t("helpers.project.tab_export"), "#{public_export_path(project)}", :class => "dmp_table_link" %>
 				  </td>
 				</tr>
       <% end %>
@@ -36,6 +36,6 @@
 <!-- if the user does not have projects -->
 <% else %>
 	<p>
-		<%= raw t("helpers.project.project_text_when_no_project")%>
+		<%= raw t("public_plans_page.no_plans_body_text_html")%>
 	</p>
 <% end %>

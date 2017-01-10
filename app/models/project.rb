@@ -6,27 +6,14 @@ class Project < ActiveRecord::Base
 	#associations between tables
 	belongs_to :dmptemplate
 	belongs_to :organisation
+
+  belongs_to :visibility
+  
 	has_many :plans
 	has_many :project_groups, :dependent => :destroy
 	has_and_belongs_to_many :guidance_groups, join_table: "project_guidance"
 
 	friendly_id :title, use: [:slugged, :history, :finders]
-  
-  scope :public_visibility, -> { where(is_public: true) }
-  
-  # Set the is_public flag to false if we are making this a test plan
-  # -----------------------------------------------------------------
-  def is_test=(val)
-    self[:is_public] = false if (val == 1 || val == true) && is_public?    # val comes in as 1 or 0
-    self[:is_test] = val
-  end
-
-  # Set the is_test flag to false if we are making this plan public
-  # -----------------------------------------------------------------
-  def is_public=(val)
-    self[:is_test] = false if (val == 1 || val == true) && is_test?      # val comes in as 1 or 0
-    self[:is_public] = val
-  end
 
   ##
   # returns the title of the project
@@ -35,9 +22,9 @@ class Project < ActiveRecord::Base
 	def to_s
 		"#{title}"
 	end
-
+  
 	after_create :create_plans
-
+    
   ##
   # sets a new funder for the project
   # defaults to the first dmptemplate if the current template is nill and the funder has more than one dmptemplate
@@ -332,39 +319,41 @@ class Project < ActiveRecord::Base
 		self.dmptemplate.try(:organisation).try(:abbreviation)
 	end
 
+
+  # ==================================================================
 	private
+    ##
+    # adds a user to the project
+    # if no flags are specified, the user is given read privleges
+    #
+    # @param user_id [Integer] the user to be given privleges
+    # @param is_editor [Boolean] whether or not the user can edit the project
+    # @param is_administrator [Boolean] whether or not the user can administrate the project
+    # @param is_creator [Boolean] wheter or not the user created the project
+    # @return [Array<ProjectGroup>]
+  	def add_user(user_id, is_editor = false, is_administrator = false, is_creator = false)
+  		group = ProjectGroup.new
+  		group.user_id = user_id
+  		group.project_creator = is_creator
+  		group.project_editor = is_editor
+  		group.project_administrator = is_administrator
+  		project_groups << group
+  	end
 
-  ##
-  # adds a user to the project
-  # if no flags are specified, the user is given read privleges
-  #
-  # @param user_id [Integer] the user to be given privleges
-  # @param is_editor [Boolean] whether or not the user can edit the project
-  # @param is_administrator [Boolean] whether or not the user can administrate the project
-  # @param is_creator [Boolean] wheter or not the user created the project
-  # @return [Array<ProjectGroup>]
-	def add_user(user_id, is_editor = false, is_administrator = false, is_creator = false)
-		group = ProjectGroup.new
-		group.user_id = user_id
-		group.project_creator = is_creator
-		group.project_editor = is_editor
-		group.project_administrator = is_administrator
-		project_groups << group
-	end
-
-  ##
-  # creates a plan for each phase in the dmptemplate associated with this project
-  # unless the phase is unpublished, it creates a new plan, and a new version of the plan and adds them to the project's plans
-  #
-  # @return [Array<Plan>]
-	def create_plans
-		dmptemplate.phases.each do |phase|
-			latest_published_version = phase.latest_published_version
-			unless latest_published_version.nil?
-				new_plan = Plan.new
-				new_plan.version = latest_published_version
-				plans << new_plan
-			end
-		end
-	end
+    ##
+    # creates a plan for each phase in the dmptemplate associated with this project
+    # unless the phase is unpublished, it creates a new plan, and a new version of the plan and adds them to the project's plans
+    #
+    # @return [Array<Plan>]
+  	def create_plans
+  		dmptemplate.phases.each do |phase|
+  			latest_published_version = phase.latest_published_version
+  			unless latest_published_version.nil?
+  				new_plan = Plan.new
+  				new_plan.version = latest_published_version
+  				plans << new_plan
+  			end
+  		end
+  	end
+  
 end

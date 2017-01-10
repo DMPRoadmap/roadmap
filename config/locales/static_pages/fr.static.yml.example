@@ -156,3 +156,8 @@ L'Assistant PGD est un outil d'aide à la préparation d'un plan de gestion des 
     <br />
     <div class='white_background'>
     <p>En utilisant l'outil, vous comprenez et acceptez ces conditions.</p></div>"
+
+  public_plans_page:
+    title: "DMP publics"
+    no_plans_body_text_html: "Aucun DMP n'a été rendu public."
+    body_text_html: "Les DMP publics sont des plans créés à l'aide de DMPTool et partagés publiquement par leurs propriétaires. Ils ne sont pas vérifiés pour la qualité, l'exhaustivité ou l'adhésion aux lignes directrices des bailleurs de fonds."

@@ -215,3 +215,7 @@ en-US:
     <br />
     <div class='white_background'>
     <p>Use of the tool indicates that you understand and agree to these terms and conditions.</p></div>"
+
+  public_plans_page:
+    title: "Public DMPs"
+    body_text_html: "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."

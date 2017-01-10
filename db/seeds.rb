@@ -6,6 +6,14 @@
 
 d1 = DateTime.new(2015, 6, 22)
 
+visibilities = { 
+  test: {name: 'test', default: false},
+  private: {name: 'private', default: false},
+  organisational: {name: 'organisational', default: true},
+  public: {name: 'public', default: false} 
+}
+visibilities.map{ |v| Visibility.create!(v) }
+
 languages = {
     'English(UK)' => {
         abbreviation: 'en-UK',

@@ -280,6 +280,7 @@ es:
     roadmap_label: "Hoja de ruta"
     help_label: "Ayuda"
     contact_label: "Contacto"
+    public_plans_label: "DMP públicos"
     jisc: "El DCC está financiado por"
 
     sign_in: "Conectar"
@@ -453,13 +454,14 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
       project_identifier_help_text: "El ID tal como lo determinó la institución u organismo financiador."
       project_static_info: "Este plan está basado en:"
       projects_title: "Mis planes"
-      default_visibility: "Organizativo"
-      test_visibility: "Prueba"
-      public_visibility: "Público"
-      project_is_test: "¿Plan de prueba o práctica?"
-      project_is_test_help_text: "Este plan es para probar o hacer puposes. No será visible por otros usuarios a menos que explícitamente lo comparta con ellos (sin embargo, se tendrá en cuenta en las estadísticas del sitio)."
-      project_is_public: "¿Publicamente disponible en la web?"
-      project_is_public_help_text: "Su plan aparecerá en la página Public DMPs de este sitio."
+
+      visibility: "Visibilidad"
+      visibilities:
+        test: "Plan de prueba o práctica"
+        private: "Privado (propietarios, copropietarios y administradores solamente) Consulte nuestras Condiciones de uso."
+        organisational: "Con otros miembros de su organización"
+        public: "Publicamente en la web. Su DMP aparecerá en la página Public DMPs de este sitio."
+
       project_settings_text: "Los items que seleccione se mostarán en la siguiente tabla. Puede ordenar los datos según sus encabezados o filtrar tecleando textos en la caja de búsqueda."
       project_text_when_no_project: "<p><strong>Bienvenido.</strong></br> Ya está listo para crear su primer PGD.</br>Haga clic en el botón 'Crear un plan' para comenzar.</p>"
       project_text_when_project: "<p>La siguiente tabla lista los planes que usted ha creado, así como los que otros investigadores hayan compartido con usted.</br>Se pueden editar, compartir, exportar o borrar en cualquier momento.</p>"
@@ -512,6 +514,9 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
         data_contact: "Datos de contacto del plan"
         description: "Descripción"
         visibility: 'Visibilidad'
+        name: 'Nombre'
+        template: 'Plantilla'
+        organisation: 'Organización'
       filter:
         placeholder: "Filtro de planes"
         submit: "Filtrar"
@@ -542,6 +547,7 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
           no_name: "'nombre' tiene que estar en la lista de columnas."
           duplicate: "Nombre de columna duplicado. Por favor, indique cada columna sólo una vez."
           unknown: "Nombre de columna desconocido."
+          no_plan: "El plan es incompleto."
       plans:
         title: Título del plan
         reset: "Reiniciar"

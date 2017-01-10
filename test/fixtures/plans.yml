@@ -1,9 +1,9 @@
-test_project_1_plan_1:
-  locked: false
-  project: test_project_1
-  version: funder_template_2_phase_1_version_1
+<% projects = YAML::load(ERB.new(File.read('./test/fixtures/projects.yml')).result) %>
+<% versions = YAML::load(ERB.new(File.read('./test/fixtures/versions.yml')).result) %>
 
-test_project_2_plan_2:
+<% projects.each do |lbl, hash| %>
+<%= lbl %>_plan:
+  project: <%= lbl %>
+  version: version.first
   locked: false
-  project: test_project_2
-  version: funder_template_2_phase_1_version_1
+<% end %>

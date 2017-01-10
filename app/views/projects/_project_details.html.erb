@@ -76,13 +76,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="first"><%= t('helpers.project.project_is_test') %></td>
-					<td><%= (@project.is_test? ? t('helpers.yes') : t('helpers.no')) %></td>
+					<td class="first"><%= t('helpers.project.visibility') %></td>
+					<td><%= (@project.visibility.nil? ? t("helpers.project.visibilities.#{@default_visibility.name}") : t("helpers.project.visibilities.#{@project.visibility.name}")) %></td>
 				</tr>
-				<tr>
-					<td class="first"><%= t('helpers.project.project_is_public') %></td>
-					<td><%= (@project.is_public? ? t('helpers.yes') : t('helpers.no')) %></td>
-				</tr>
+
 			</table>
 		</div>
 	</div>
@@ -147,13 +144,19 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="first"><%= t('helpers.project.project_is_test') %></td>
-							<td><%= f.check_box :is_test, {class: 'check_box', title: t('helpers.project.project_is_test_help_text'), autocomplete: 'off'} %></td>
+							<td class="first"><%= t('helpers.project.visibility') %></td>
+							<td>
+								<% selected = (@project.visibility.nil? ? @default_visibility.id : @project.visibility.id) %>
+								
+								<% @visibilities.collect{ |v| {name: v.name, id: v.id} }.each do |visibility| %>
+									<div>
+										<input type="radio" id="project_visibility_id_<%= visibility[:id] %>" name="project[visibility]" value="<%= visibility[:id] %>" <%= (selected == visibility[:id] ? 'checked="checked"' : '') %> />
+										<span for="project_visibility_id_<%= visibility[:id] %>"><%= t("helpers.project.visibilities.#{visibility[:name]}") %></span>
+									</div>
+								<% end %>
+							</td>
 						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.project.project_is_public') %></td>
-							<td><%= f.check_box :is_public, {class: 'check_box', title: t('helpers.project.project_is_public_help_text'), autocomplete: 'off'} %></td>
-						</tr>
+							
 					</table>
 				</div>
 				<% end %>

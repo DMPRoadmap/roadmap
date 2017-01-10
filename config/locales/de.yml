@@ -289,6 +289,7 @@ de:
     news_label: "Aktuelles"
     help_label: "Hilfe"
     contact_label: "Kontakt"
+    public_plans_label: "Öffentliche DMPs"
     jisc: "Das DCC wird untertützt von"
 
     greeting: "Hallo"
@@ -511,13 +512,14 @@ de:
       project_identifier_help_text: "Eine Identifikationskürzel, wie es von Förderern oder Institutionen vergeben wird."
       project_static_info: "Dieser Plan basiert auf:"
       projects_title: "Meine Pläne"
-      default_visibility: "Organisatorische"
-      test_visibility: "Test"
-      public_visibility: "Öffentlichkeit"
-      project_is_test: "Test oder praxisplan?"
-      project_is_test_help_text: "Dieser Plan ist für die Prüfung oder Praxis puposes. Es wird von anderen Benutzern nicht angezeigt werden, es sei denn, Sie explizit freigeben sie mit ihnen (es wird jedoch in Website-Statistiken berücksichtigt werden)."
-      project_is_public: "Öffentlich im Internet verfügbar?"
-      project_is_public_help_text: "Ihr Plan erscheint auf der Seite Public DMPs dieser Website."
+
+      visibility: "Sichtweite"
+      visibilities:
+        test: "Test oder Praxis Plan"
+        private: "Private (Besitzer, Miteigentümer und Admins) Siehe unsere Nutzungsbedingungen."
+        organisational: "Mit anderen innerhalb Ihrer Organisation"
+        public: "Öffentlich im Internet. Ihr DMP erscheint auf der Public DMPs Seite dieser Seite."
+
       project_settings_text: "Die hier ausgewählten Einträge werden in der Tabelle unten angezeigt. Sie können die Daten durch jeden ihrer Tabellenköpfe sortieren oder filtern, indem Sie eine Zeichenkette in der Suchbox eingeben."
       project_text_when_no_project: "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
       project_text_when_project: "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
@@ -585,6 +587,9 @@ de:
         description: "Beschreibung"
         unknown: " - "
         visibility: "Sichtweite"
+        name: 'Name'
+        template: 'Vorlage'
+        organisation: 'Organisation'
       filter:
         placeholder: "Filter Pläne"
         submit: "Filter"
@@ -617,6 +622,7 @@ de:
           no_name: "'Name' muss in der Liste von Spalten enthalten sein."
           duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
           unknown: "Unbekannter Spaltenname."
+          no_plan: "Der Plan ist unvollständig."
       plans:
         title: "Dateiname"
         reset: "Zurücksetzen"
