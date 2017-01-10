@@ -128,7 +128,6 @@ class Dmptemplate < ActiveRecord::Base
 	end
 
 # TODO: Remove this! We should not be attempting to access an Org attribute through this class
-
   ##
   # Returns the string name of the organisation type of the organisation who
   # owns this dmptemplate
