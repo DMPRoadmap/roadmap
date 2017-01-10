@@ -3,6 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @languages = Language.all.order("name")
+    @orgs = Org.where(parent_id: nil).order("name")
+    @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
   end
 
   # POST /resource

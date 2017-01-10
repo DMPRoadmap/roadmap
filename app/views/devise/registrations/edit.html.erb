@@ -37,15 +37,11 @@
 			<tr>
 				<td class="first"><%= t("helpers.org_type.organisation") %></td>
 				<td><%= collection_select(:user,
-						:org_id, Org.where("parent_id IS NULL").order("name"),
+						:org_id, @orgs,
 						:id, :name, {include_blank: constant("organisation_types.organisation")},
 						{ class: "typeahead org_sign_up" }) %></td>
 			</tr>
-			<% other_organisations = Array.new %>
-			<% Org.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
-				<% other_organisations << org.id %>
-			<% end %>
-			<tr id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(",") %>">
+			<tr id="other-organisation-name" style="display:none" data-orgs="<%= @other_organisations.join(",") %>">
 				<td class="first"><%= t("helpers.org_type.org_name")%></td>
 				<td><%= f.text_field :other_organisation,
 						as: :string,
@@ -83,16 +79,16 @@
 		</table>
 		<br />
 		<p>
-            <% if Rails.application.config.shibboleth_enabled %>
-                <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
-                    <%= link_to t("helpers.shibboleth_to_link_text"), user_omniauth_shibboleth_path, class: "a-orange" %>
-                <% else %>
-                    <%= t("helpers.shibboleth_linked_text") %>
-                    <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
-                        <%= t("helpers.shibboleth_unlink_label")%>
-                    </a>
-                <% end %>
-            <% end %>
+    <% if Rails.application.config.shibboleth_enabled %>
+        <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
+            <%= link_to t("helpers.shibboleth_to_link_text"), user_omniauth_shibboleth_path, class: "a-orange" %>
+        <% else %>
+            <%= t("helpers.shibboleth_linked_text") %>
+            <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
+                <%= t("helpers.shibboleth_unlink_label")%>
+            </a>
+        <% end %>
+    <% end %>
 		</p>
 		<br />
 		<div class="div_clear">
@@ -102,7 +98,7 @@
 		</p>
 		<table class="dmp_details_table">
 			<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-					    <div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
+				<div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
 			<% end %>
 			<tr>
 				<td class="first"><%= t("helpers.current_password") %></td>
