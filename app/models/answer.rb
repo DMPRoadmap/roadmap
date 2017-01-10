@@ -7,7 +7,7 @@ class Answer < ActiveRecord::Base
   
   has_and_belongs_to_many :options, join_table: "answers_options"
   
-  # TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
+# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
   attr_accessible :text, :plan_id, :question_id, :user_id, :option_ids, :plan, :user, :question,
                   :as => [:default, :admin]
   
