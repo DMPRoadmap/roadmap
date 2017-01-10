@@ -42,6 +42,7 @@ class Role < ActiveRecord::Base
     unless User.find_by(email: email).nil? then
     user = User.find_by(email: email)
     end
+    self.save!
   end
 
   ##
@@ -52,13 +53,14 @@ class Role < ActiveRecord::Base
   #
   # @return [Integer]
   def access_level
-    if project_administrator then
+    if self.administrator? then
       return 3
-    elsif project_editor then
+    elsif self.editor? then
       return 2
     else
       return 1
     end
+    self.save!
   end
 
   ##
@@ -70,14 +72,15 @@ class Role < ActiveRecord::Base
   def access_level=(new_access_level)
     new_access_level = new_access_level.to_i
     if new_access_level >= 3 then
-      project_administrator = true
+      self.administrator = true
     else
-      project_administrator = false
+      self.administrator = false
     end
     if new_access_level >= 2 then
-      project_editor = true
+      self.editor = true
     else
-      project_editor = false
+      self.editor = false
     end
+    self.save!
   end
 end
