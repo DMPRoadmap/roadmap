@@ -12,74 +12,62 @@
 
         <!-- table with org details-->
 		<table class="dmp_details_table">
-			<% if @organisation.name.present? then %>
+			<% if @org.name.present? then %>
 			<tr>
 				<td class="first"><%= t('org_admin.org_name') %></td>
-				<td><%= @organisation.name %></td>
+				<td><%= @org.name %></td>
 
-				<% if @organisation.logo.present? then %>
-					<td rowspan="8" class="organisation-logo"><%= image_tag @organisation.logo.thumb('100x100%').url %></td>
+				<% if @org.logo.present? then %>
+					<td rowspan="8" class="organisation-logo"><%= image_tag @org.logo.thumb('100x100%').url %></td>
 				<% end %>
 			</tr>
 			<% end %>
 
-			<% if @organisation.abbreviation.present? then %>
+			<% if @org.abbreviation.present? then %>
 			<tr>
 				<td class="first"><%= t('org_admin.org_abbr') %></td>
-				<td><%= @organisation.abbreviation %></td>
+				<td><%= @org.abbreviation %></td>
 			</tr>
 			<% end %>
 
-      <% if @organisation.banner_text.present? then %>
+      <% if @org.banner_text.present? then %>
 			<tr>
 				<td class="first"><%= t('org_admin.org_banner_text') %></td>
-				<td><%= raw @organisation.banner_text %></td>
+				<td><%= raw @org.banner_text %></td>
 			</tr>
 			<% end %>
 
-			<% if @organisation.target_url.present? then %>
+			<% if @org.target_url.present? then %>
 			<tr>
 				<td class="first"><%= t('org_admin.org_target_url') %></td>
-				<td><%= @organisation.target_url %></td>
+				<td><%= @org.target_url %></td>
 			</tr>
 			<% end %>
 
-			<% if @organisation.contact_email.present? then %>
+			<% if @org.contact_email.present? then %>
 			<tr>
 				<td class="first"><%= t('org_admin.org_contact_email') %></td>
-				<td><%= @organisation.contact_email %></td>
+				<td><%= @org.contact_email %></td>
 			</tr>
 			<% end %>
 
-			<% if @organisation.org_type != 0 then %>
+			<% if @org.org_type != 0 then %>
 			<tr>
 				<td class="first"><%= t('org_admin.org_type') %></td>
-				<% if @organisation.institution? %>
-          <td><%= "Institution" %></td>
-        <% elsif @organisation.funder? %>
-          <td><%= "Funder" %></td>
-        <% elsif @organisation.organisation? %>
-          <td><%= "Organisation" %></td>
-        <% elsif @organisation.research_institute? %>
-          <td><%= "Research Institute" %></td>
-        <% elsif @organisation.project? %>
-          <td><%= "Project" %></td>
-        <% elsif @organisation.school? %>
-          <td><%= "School" %></td>
-        <% end %>
+				<td><%= @org.organisation_type %></td>
 			</tr>
 			<% end %>
 
-			<% if @organisation.parent_id.present? then %>
+			<% if @org.parent_id.present? then %>
 				<tr>
 					<td class="first"><%= t('org_admin.parent_org') %></td>
-					<td><%= @organisation.parent.name %></td>
+					<td><%= @org.parent.name %></td>
 				</tr>
 			<% end %>
 
 			<tr>
 				<td class="first"><%= t('org_admin.last_updated') %></td>
-				<td><%= l @organisation.updated_at.to_date, formats: :short %></td>
+				<td><%= l @org.updated_at.to_date, formats: :short %></td>
 			</tr>
 		</table>
 

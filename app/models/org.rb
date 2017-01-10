@@ -52,6 +52,28 @@ class Org < ActiveRecord::Base
 
 
 
+  ##
+  # returns the name of the type of the organisation as a string
+  # defaults to none if no org type present
+  #
+  # @return [String]
+  def organisation_type
+    if self.institution?
+      return "Institution"
+    elsif self.funder?
+      return "Funder"
+    elsif self.organisation?
+      return "Organisation"
+    elsif @org.research_institute?
+      return "Research Institute"
+    elsif self.project?
+      return "Project"
+    elsif self.school?
+      return "School"
+    end
+      return "None"
+  end
+
 
   ##
   # returns the name of the organisation

@@ -8,7 +8,7 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
-		<%= form_for(@organisation, url: admin_update_org_path(@organisation), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
+		<%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
 
 			<!-- table with org details-->
 			<table class="dmp_details_table">
@@ -28,10 +28,10 @@
 				</tr>
 
 				<!-- organisation logo -->
-				<% if @organisation.logo.present? %>
+				<% if @org.logo.present? %>
 					<tr>
 						<td class="first"><%= t('org_admin.org_logo') %></td>
-						<td><%= image_tag @organisation.logo.url %> </td>
+						<td><%= image_tag @org.logo.url %> </td>
 					</tr>
 					<tr>
 						<td class="first"></td>
@@ -48,7 +48,7 @@
 
 				<tr>
 					<td class="first"><%= t('org_admin.org_banner_text') %></td>
-					<td><%= text_area_tag("org_banner_text", @organisation.banner_text, class: "tinymce") %></td>
+					<td><%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce") %></td>
 				</tr>
 
 				<tr>
@@ -63,21 +63,7 @@
 
 				<tr>
 					<td class="first"><%= t('org_admin.org_type') %></td>
-					<td>
-						<% if @organisation.institution? %>
-              <td><%= "Institution" %></td>
-            <% elsif @organisation.funder? %>
-              <td><%= "Funder" %></td>
-            <% elsif @organisation.organisation? %>
-              <td><%= "Organisation" %></td>
-            <% elsif @organisation.research_institute? %>
-              <td><%= "Research Institute" %></td>
-            <% elsif @organisation.project? %>
-              <td><%= "Project" %></td>
-            <% elsif @organisation.school? %>
-              <td><%= "School" %></td>
-            <% end %>
-					</td>
+          <td><%= @org.organisation_type %></td>
 				</tr>
 			</table>
 
