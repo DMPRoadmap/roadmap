@@ -36,6 +36,10 @@ gem 'amoeba'
 gem 'friendly_id'
 
 # ------------------------------------------------
+#    BIT FIELDS
+gem 'flag_shih_tzu'
+
+# ------------------------------------------------
 #    SUPER ADMIN SECTION
 gem 'activeadmin', github: 'activeadmin'
 

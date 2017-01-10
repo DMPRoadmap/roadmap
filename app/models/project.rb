@@ -1,19 +1,23 @@
 class Project < ActiveRecord::Base
   include GlobalHelpers
-
+  include FlagShihTzu
+  
 	extend FriendlyId
 
 	#associations between tables
 	belongs_to :dmptemplate
 	belongs_to :organisation
-
-  belongs_to :visibility
   
 	has_many :plans
 	has_many :project_groups, :dependent => :destroy
 	has_and_belongs_to_many :guidance_groups, join_table: "project_guidance"
 
 	friendly_id :title, use: [:slugged, :history, :finders]
+            
+  has_flags 1 => :organisational_visibility,
+            2 => :public_visibility,
+            3 => :private_visibility,
+            column: 'visibility'
 
   ##
   # returns the title of the project

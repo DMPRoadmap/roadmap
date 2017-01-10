@@ -6,14 +6,6 @@
 
 d1 = DateTime.new(2015, 6, 22)
 
-visibilities = { 
-  test: {name: 'test', default: false},
-  private: {name: 'private', default: false},
-  organisational: {name: 'organisational', default: true},
-  public: {name: 'public', default: false} 
-}
-visibilities.map{ |v| Visibility.create!(v) }
-
 languages = {
     'English(UK)' => {
         abbreviation: 'en-UK',
@@ -112,8 +104,8 @@ identifier_schemes.each do |l, details|
   if IdentifierScheme.where(name: details[:name]).empty?
     scheme = IdentifierScheme.new({
       name: details[:name],
-      auth_uri: details[:auth_uri],
-      user_uri: details[:user_uri]
+      description: details[:description],
+      active: details[:active]
     })
     scheme.save!
   end

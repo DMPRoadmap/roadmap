@@ -5,4 +5,5 @@
   title: <%= "#{lbl} Project" %>
   dmptemplate: <%= lbl %>
   organisation: complete 
+  visibility: 1
 <% end %>
