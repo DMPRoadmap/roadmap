@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   after_action :verify_authorized
+  respond_to :html
 
   ##
   # GET - List of all users for an organisation
@@ -7,9 +8,6 @@ class UsersController < ApplicationController
   def admin_index
     authorize User
     @users = current_user.org.users.includes(:roles)
-    respond_to do |format|
-      format.html # index.html.erb
-    end
   end
 
   ##
@@ -49,9 +47,7 @@ class UsersController < ApplicationController
       end
     end
     @user.save!
-    respond_to do |format|
-      format.html { redirect_to({controller: 'users', action: 'admin_index'}, {notice: I18n.t('helpers.success')})}
-    end
+    redirect_to({controller: 'users', action: 'admin_index'}, {notice: I18n.t('helpers.success')})
   end
 
 end
