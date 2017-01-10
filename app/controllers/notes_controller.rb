@@ -1,6 +1,8 @@
 class NotesController < ApplicationController
   after_action :verify_authorized
+  respond_to :html
 
+  ##
   # POST /notes
   def create
     @note = Note.new(params[:new_note])
@@ -13,14 +15,13 @@ class NotesController < ApplicationController
     @plan = Plan.find(@note.plan_id)
     @project = Project.find(@plan.project_id)
 
-    respond_to do |format|
-      if @note.save
-        session[:question_id_notes] = @note.question_id
-        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_created") }
-      end
+    if @note.save
+      session[:question_id_notes] = @note.question_id
+      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_created")
     end
   end
 
+  ##
   # PUT /notes/1
   def update
     @note = Note.find(params[:note][:id])
@@ -30,14 +31,13 @@ class NotesController < ApplicationController
     @plan = Plan.find(@note.plan_id)
     @project = Project.find(@plan.project_id)
 
-    respond_to do |format|
-      if @note.update_attributes(params[:note])
-        session[:question_id_notes] = @note.question_id
-        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_updated") }
-      end
+    if @note.update_attributes(params[:note])
+      session[:question_id_notes] = @note.question_id
+      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_updated")
     end
   end
 
+  ##
   # ARCHIVE /notes/1
   def archive
     @note = Note.find(params[:note][:id])
@@ -48,13 +48,9 @@ class NotesController < ApplicationController
     @plan = Plan.find(@note.plan_id)
     @project = Project.find(@plan.project_id)
 
-    respond_to do |format|
-      if @note.update_attributes(params[:note])
-        session[:question_id_notes] = @note.question_id
-        format.html { redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_removed") }
-      end
+    if @note.update_attributes(params[:note])
+      session[:question_id_notes] = @note.question_id
+      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_removed")
     end
   end
-
-
 end

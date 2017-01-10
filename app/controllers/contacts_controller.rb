@@ -1,4 +1,5 @@
 class ContactsController < ContactUs::ContactsController
+  respond_to :html
 
   ##
   # create

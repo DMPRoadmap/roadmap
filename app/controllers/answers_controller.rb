@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   after_action :verify_authorized
+  respond_to :html
 
   ##
 	# POST /answers
@@ -30,18 +31,15 @@ class AnswersController < ApplicationController
 				proceed = true
 			end
 		end
+
 		if proceed
-			respond_to do |format|
-				if @answer.save
-					format.html { redirect_to :back, status: :found, notice: I18n.t('helpers.project.answer_recorded') }
-				else
-					format.html { redirect_to :back, notice: I18n.t('helpers.project.answer_error') }
-				end
+			if @answer.save
+				redirect_to :back, status: :found, notice: I18n.t('helpers.project.answer_recorded')
+			else
+				redirect_to :back, notice: I18n.t('helpers.project.answer_error')
 			end
 		else
-			respond_to do |format|
-				format.html { redirect_to :back, notice: I18n.t('helpers.project.answer_no_change') }
-			end
+			redirect_to :back, notice: I18n.t('helpers.project.answer_no_change')
 		end
   end
 end
