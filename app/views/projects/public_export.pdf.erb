@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>
+            <% if @plan.project.dmptemplate.phases.count > 1 then %>
+                <%= "#{@plan.project.title} - #{@plan.title}" %>
+            <% else %>
+                <%= @plan.project.title %>
+            <% end %>
+        </title>
+        <style>
+            html { font-family: <%= @formatting[:font_face].tr('"', '') -%>; font-size: <%= @formatting[:font_size] -%>pt; }
+            h1 { font-size: <%= @formatting[:font_size] + 2 -%>pt; font-face:bold; padding: 0;}
+            h2 { font-size: <%= @formatting[:font_size] + 1 -%>pt; font-face:bold; padding: 0; margin: 1em 0 0 0;}
+            h3 { font-size: <%= @formatting[:font_size] + 0 -%>pt; font-face:bold; padding: 0; margin: 1em 0 0 0;}
+            h2 + div.question > h3 { margin: 0; }
+            table, tr, td, th, tbody, thead, tfoot { page-break-inside: avoid !important; }
+            table { border-collapse: collapse; }
+            th, td { border: 1px solid black !important; padding: 2px; }
+            p { margin: 0.25em 0; }
+        </style>
+    </head>
+    <body>
+        <h1><%= @plan.title %></h1>
+        <% @exported_plan.admin_details.each do |field|
+             value = @exported_plan.send(field)
+             if value.present?
+        %>
+          <p><strong><%= t("helpers.plan.export.#{field}") -%></strong> <%= value -%></p>
+          <% end %>
+        <% end %>
+
+        <% @exported_plan.sections.each do |section| %>
+            <h2><%= section.title %></h2>
+            <% questions = @exported_plan.questions_for_section(section.id) %>
+            <% questions.each_with_index do |question, idx| %>
+                <div class="question">
+                    <% unless idx == 0 && question.text == section.title %>
+                        <h3><%= raw question.text %></h3>
+                    <% end %>
+                    <% answer = @plan.answer(question.id, false) %>
+                        <% if answer.nil? then %>
+                            <p><%= t('helpers.plan.export.pdf.question_not_answered') -%></p>
+                        <% else %>
+                            <% q_format = question.question_format%>
+                            <!-- display an answer for questions type 'checkbox','radio_buttons', 'multi_select_box' and 'dropdown'-->
+                            <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") ||
+                                        q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") then%>
+                                <ul>
+                                    <% answer.options.each do |option| %>
+                                        <li><%= option.text %></li>
+                                    <% end %>
+                                </ul>
+                                <!-- Validates if this question has comments-->
+                                <% if question.option_comment_display == true then%>
+                                    <% if !answer.text.nil? then %>
+                                        <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
+                                    <%end%>
+                                <%end%>
+                            <%else%>
+                                <!-- display an answer for questions type 'text area' and 'text field'-->
+                                <% if !answer.text.nil? then %>
+                                    <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
+                                <%end%>
+                            <% end %>
+                    <% end %>
+                </div>
+            <% end %>
+        <% end %>
+    </body>
+</html>
