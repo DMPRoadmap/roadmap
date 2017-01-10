@@ -15,7 +15,7 @@ curation_center:
   name: 'Curation Centre'
   abbreviation: 'cc'
   organisation_type: organisation
-  contact_email: 'admin@example-curation-centre.org'
+  contact_email: 'admin@example.org'
 
 funder:
   name: 'Grant Funder'
@@ -33,7 +33,6 @@ funder:
   name: <%= "#{obj['name']} #{n}" %>
   domain: <%= "www.#{lbl}-#{n + 1}.org" %>
   organisation_type: <%= "#{lbl}" %>
-  contact_email: "admin@example-#{lbl}-#{n + 1}.org"
 
     <% end %>
   <% end %>
@@ -54,4 +53,4 @@ complete:
   language_id: en-UK
   logo_uid: '2016/08/30/1234abcd-complete-org.gif'
   logo_name: 'complete-org.gif'
-  contact_email: 'admin@example-complete-org.org'
+  contact_email: 'admin@example.org'

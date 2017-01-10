@@ -71,6 +71,10 @@ class ProjectsController < ApplicationController
       @always_guidance = get_always_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
       
+# TODO: Would be better to determine if the user's org has templates here than in the view.
+#       Replace the if Dmptemplate.own_institutional_templates check in views/projects/new with:
+#          @own_org_has_templates = current_user.organisation.templates.empty?
+      
       respond_to do |format|
         format.html # new.html.erb
       end
