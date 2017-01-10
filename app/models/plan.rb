@@ -1,6 +1,7 @@
 class Plan < ActiveRecord::Base
 
-	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, :as => [:default, :admin]
+	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, 
+                  :Exported_plans, :as => [:default, :admin]
 
 	A4_PAGE_HEIGHT = 297 #(in mm)
 	A4_PAGE_WIDTH = 210 #(in mm)
@@ -13,6 +14,7 @@ class Plan < ActiveRecord::Base
 	belongs_to :version
 	has_many :answers
 	has_many :plan_sections
+  has_many :exported_plans
 
 #	accepts_nested_attributes_for :project
 	accepts_nested_attributes_for :answers

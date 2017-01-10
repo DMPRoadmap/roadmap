@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
 	devise :invitable, :database_authenticatable, :registerable, :recoverable, 
-         :rememberable, :trackable, :validatable, :confirmable, 
+         :rememberable, :trackable, :validatable, :confirmable, :exported_plans,
          :omniauthable, omniauth_providers: [:orcid]
 
   #associations between tables
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :user_org_roles
   has_many :project_groups, :dependent => :destroy
   has_many :user_role_types, through: :user_org_roles
-  
+  has_many :exported_plans
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
   

@@ -19,11 +19,6 @@ class CommentTest < ActiveSupport::TestCase
     
     qs = template.phases.first.versions.first.sections.first.questions
     @text_area_question = qs.select{ |q| q.question_format == QuestionFormat.find_by(title: 'Text Area' ) }.first
-    @text_field_question = qs.select{ |q| q.question_format == QuestionFormat.find_by(title: 'Text Field' ) }.first
-    @radio_button_question = qs.select{ |q| q.question_format == QuestionFormat.find_by(title: 'Radio Button' ) }.first
-    @check_box_question = qs.select{ |q| q.question_format == QuestionFormat.find_by(title: 'Check Box' ) }.first
-    @select_box_question = qs.select{ |q| q.question_format == QuestionFormat.find_by(title: 'Dropdown' ) }.first
-    @multi_select_box_question = qs.select{ |q| q.question_format == QuestionFormat.find_by(title: 'Multi Select Box' ) }.first
   end
 
   # ---------------------------------------------------
@@ -40,7 +35,7 @@ class CommentTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can CRUD answers for text based questions" do
+  test "can CRUD Comment" do
     [@text_area_question, @text_field_question].each do |q|
       cmnt = Comment.create(user: @user, plan: @plan, question: q, text: 'Tested ABC')
       assert_not cmnt.id.nil?, "was expecting to be able to create a new Comment for a #{q.question_format.title} question: #{cmnt.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"

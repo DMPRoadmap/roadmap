@@ -248,7 +248,7 @@ class DmptemplateTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "can CRUD answers for text based questions" do
+  test "can CRUD Template" do
     tmplt = Dmptemplate.create(organisation: @organisation, title: 'Testing tmeplate')
     assert_not tmplt.id.nil?, "was expecting to be able to create a new Dmptemplate!"
 
