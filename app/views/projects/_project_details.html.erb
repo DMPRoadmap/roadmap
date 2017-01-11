@@ -77,7 +77,7 @@
 				</tr>
 				<tr>
 					<td class="first"><%= t('helpers.project.visibility') %></td>
-					<td><%= (@project.visibility.nil? ? t("helpers.project.visibilities.#{@default_visibility.name}") : t("helpers.project.visibilities.#{@project.visibility.name}")) %></td>
+					<td><%= (@project.is_test? ? t("helpers.project.visibilities.help_texts.is_test") : (@project.organisationally_visible? ? t("helpers.project.visibilities.help_texts.organisationally_visible") : (@project.publicly_visible? ? t("helpers.project.visibilities.help_texts.publicly_visible") : (@project.privately_visible? ? t("helpers.project.visibilities.help_texts.privately_visible") : "Defaulting to: #{t("helpers.project.visibilities.help_texts.not_set")}")))) %></td>
 				</tr>
 
 			</table>
@@ -146,14 +146,18 @@
 						<tr>
 							<td class="first"><%= t('helpers.project.visibility') %></td>
 							<td>
-								<% selected = (@project.visibility.nil? ? @default_visibility.id : @project.visibility.id) %>
-								
-								<% @visibilities.collect{ |v| {name: v.name, id: v.id} }.each do |visibility| %>
-									<div>
-										<input type="radio" id="project_visibility_id_<%= visibility[:id] %>" name="project[visibility]" value="<%= visibility[:id] %>" <%= (selected == visibility[:id] ? 'checked="checked"' : '') %> />
-										<span for="project_visibility_id_<%= visibility[:id] %>"><%= t("helpers.project.visibilities.#{visibility[:name]}") %></span>
-									</div>
-								<% end %>
+								<div>
+									<input type="radio" id="project_publicly_visible" name="project[visibility]" value="publicly_visible"<%= @project.publicly_visible? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= t('helpers.project.visibilities.help_texts.publicly_visible') %></span>
+								</div>
+								<div>
+									<input type="radio" id="project_organisationally_visible" name="project[visibility]" value="organisationally_visible"<%= @project.organisationally_visible? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= t('helpers.project.visibilities.help_texts.organisationally_visible') %></span>
+								</div>
+								<div>
+									<input type="radio" id="project_is_test" name="project[visibility]" value="is_test"<%= @project.is_test? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= t('helpers.project.visibilities.help_texts.is_test') %></span>
+								</div>
+								<div>
+									<input type="radio" id="project_privately_visible" name="project[visibility]" value="privately_visible"<%= @project.privately_visible? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= t('helpers.project.visibilities.help_texts.privately_visible') %></span>
+								</div>
 							</td>
 						</tr>
 							

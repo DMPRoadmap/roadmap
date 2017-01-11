@@ -459,14 +459,21 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       project_identifier_help_text: "Un identifiant approprié conforme aux prescriptions de l'organisme financeur ou de l'établissement."
       project_static_info: "Ce plan s'inspire de :"
       projects_title: "Mes plans"
-
+      
       visibility: "Visibilité"
       visibilities:
-        test: "Test ou plan de pratique"
-        private: "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
-        organisational: "Avec d'autres membres de votre organisation"
-        public: "Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce site."
-        
+        labels:
+          privately_visible: "Privé"
+          organisationally_visible: "Organisationnel"
+          publicly_visible: "Public"
+          is_test: "Test/Pratique"
+        help_texts:
+          privately_visible: "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
+          organisationally_visible: "Avec d'autres membres de votre organisation"
+          publicly_visible: "Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce site."
+          is_test: "Test / Practice (votre plan n'est pas visible aux autres utilisateurs) Voir nos Conditions d'utilisation."
+          not_set: "Non spécifié (sera visible par d'autres personnes au sein de votre organisation par défaut)"
+
       project_settings_text: "Les éléments que vous sélectionnez ici s'afficherontt dans le tableaiu ci-après. Vous pouvez trier les données à partir de chacune de ces en-tête ou les filtrer en tapant une chaîne de caractères dans la zone de recherche."
       project_text_when_no_project: "<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier DMP.</br>Cliquez sur le bouton 'Créer un plan' ci-dessous pour commencer.</p>"
       project_text_when_project: "<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi que ceux que vous partagez avec d'autres.</br>Vous pouvez à tout moment les modifier, les partager, les exporter, les effacer...</p>"

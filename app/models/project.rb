@@ -1,6 +1,5 @@
 class Project < ActiveRecord::Base
   include GlobalHelpers
-  include FlagShihTzu
   
 	extend FriendlyId
 
@@ -13,11 +12,9 @@ class Project < ActiveRecord::Base
 	has_and_belongs_to_many :guidance_groups, join_table: "project_guidance"
 
 	friendly_id :title, use: [:slugged, :history, :finders]
-            
-  has_flags 1 => :organisational_visibility,
-            2 => :public_visibility,
-            3 => :private_visibility,
-            column: 'visibility'
+
+  # public is a Ruby keyword so using publicly
+  enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]  
 
   ##
   # returns the title of the project

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	# :token_authenticatable, :confirmable,
 	# :lockable, :timeoutable and :omniauthable
 	devise :invitable, :database_authenticatable, :registerable, :recoverable, 
-         :rememberable, :trackable, :validatable, :confirmable, :exported_plans,
+         :rememberable, :trackable, :validatable, :confirmable, 
          :omniauthable, omniauth_providers: [:orcid]
 
   #associations between tables
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
                   :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                   :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
                   :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language, :language_id
+                  :organisation, :language, :language_id, :exported_plans
 
   validates :email, email: true, allow_nil: true, uniqueness: true
 

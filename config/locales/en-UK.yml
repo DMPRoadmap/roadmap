@@ -338,7 +338,7 @@ en-UK:
     about_us_label: "About"
     roadmap_label: "Future plans"
     help_label: "Help"
-    publicly_plans_label: "Public DMPs"
+    public_plans_label: "Public DMPs"
 
     contact_label: "Contact"
     jisc: "The %{organisation_abbreviation} is funded by"
@@ -582,10 +582,17 @@ Select what format you wish to use and click to 'Export'.</p>"
 
       visibility: "Visibility"
       visibilities:
-        test: "Test or Practice Plan"
-        private: "Private (owners, co-owners, and admins only) See our Terms of Use."
-        organisational: "With others within your organization"
-        public: "Publicly on the web. Your DMP will appear on the Public DMPs page of this site."
+        labels:
+          privately_visible: "Private"
+          organisationally_visible: "Organisational"
+          publicly_visible: "Public"
+          is_test: "Test/Practice"
+        help_texts:
+          privately_visible: "Private (owners, co-owners, and administrators only) See our Terms of Use."
+          organisationally_visible: "Organisational (visibile to others within your organisation)"
+          publicly_visible: "Public (Your DMP will appear on the Public DMPs page of this site)"
+          is_test: "Test/Practice (your plan is not visible to other users) See our Terms of Use."
+          not_set: "Not specified (will be visible to others within your organisation by default)"
 
       project_settings_text: "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
       project_text_when_no_project: "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"

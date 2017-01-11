@@ -39,9 +39,6 @@ class ProjectsController < ApplicationController
       @show_form = true
     end
 
-    @visibilities = Visibility.all
-    @default_visibility = @visibilities.select{ |v| v.default }.first
-
     if user_signed_in? && @project.readable_by(current_user.id) then
       respond_to do |format|
         format.html # show.html.erb
@@ -143,7 +140,7 @@ class ProjectsController < ApplicationController
     if user_signed_in? then
       
       attrs = project_params
-      
+
       @project = Project.new(attrs)
       authorize @project
       
@@ -186,8 +183,6 @@ class ProjectsController < ApplicationController
   
     if user_signed_in? && @project.editable_by(current_user.id) then
       attrs = project_params
-      
-      attrs[:visibility] = Visibility.find(attrs[:visibility]) unless attrs[:visibility].nil?
       
       if @project.update_attributes(attrs)
         respond_to do |format|

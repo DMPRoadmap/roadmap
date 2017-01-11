@@ -23,12 +23,11 @@ class ExportedPlanTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "required fields are required" do
     assert_not ExportedPlan.new.valid?
-    assert_not ExportedPlan.new(user: @user, format: ExportedPlan::VALID_FORMATS.last).valid?, "expected the 'plan' field to be required"
-    assert_not ExportedPlan.new(plan: @plan, format: ExportedPlan::VALID_FORMATS.last).valid?, "expected the 'user' field to be required"
-    assert_not ExportedPlan.new(user: @user, plan: @plan).valid?, "expected the 'format' field to be required"
+    assert_not ExportedPlan.new(format: ExportedPlan::VALID_FORMATS.last).valid?, "expected the 'plan' field to be required"
+    assert_not ExportedPlan.new(plan: @plan).valid?, "expected the 'format' field to be required"
     
     # Ensure the bar minimum and complete versions are valid
-    a = ExportedPlan.new(user: @user, plan: @plan, format: ExportedPlan::VALID_FORMATS.last)
+    a = ExportedPlan.new(plan: @plan, format: ExportedPlan::VALID_FORMATS.last)
     assert a.valid?, "expected the 'plan', 'user' and 'format' fields to be enough to create an ExportedPlan! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
 

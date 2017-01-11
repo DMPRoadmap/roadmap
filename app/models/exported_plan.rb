@@ -11,7 +11,7 @@ class ExportedPlan < ActiveRecord::Base
   VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
   validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
-  validates :plan, :user, :format, presence: true
+  validates :plan, :format, presence: true
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a

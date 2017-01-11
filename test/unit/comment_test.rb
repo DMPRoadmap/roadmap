@@ -36,17 +36,15 @@ class CommentTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can CRUD Comment" do
-    [@text_area_question, @text_field_question].each do |q|
-      cmnt = Comment.create(user: @user, plan: @plan, question: q, text: 'Tested ABC')
-      assert_not cmnt.id.nil?, "was expecting to be able to create a new Comment for a #{q.question_format.title} question: #{cmnt.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    cmnt = Comment.create(user: @user, plan: @plan, question: @text_area_question, text: 'Tested ABC')
+    assert_not cmnt.id.nil?, "was expecting to be able to create a new Comment: #{cmnt.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
-      cmnt.text = 'Testing an update'
-      cmnt.save!
-      cmnt.reload
-      assert_equal 'Testing an update', cmnt.text, "Was expecting to be able to update the text of the Comment for a #{q.question_format.title} question!"
-    
-      assert cmnt.destroy!, "Was unable to delete the Comment for a #{q.question_format.title} question!"
-    end
+    cmnt.text = 'Testing an update'
+    cmnt.save!
+    cmnt.reload
+    assert_equal 'Testing an update', cmnt.text, "Was expecting to be able to update the text of the Comment!"
+  
+    assert cmnt.destroy!, "Was unable to delete the Comment!"
   end
     
 end

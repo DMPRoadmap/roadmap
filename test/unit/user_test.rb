@@ -188,7 +188,7 @@ class UserTest < ActiveSupport::TestCase
     project = Project.new(title: 'Test Project', dmptemplate_id: @dmptemplate.id)
     plan = Plan.new(project: project)
     question = Question.new(text: 'testing question')
-    answer = Answer.new(plan: plan, question: question)
+    answer = Answer.new(plan: plan, question: question, text: "Here's my answer")
     verify_has_many_relationship(@super, answer, @super.answers.count)
   end
   
