@@ -57,7 +57,7 @@ class Org < ActiveRecord::Base
   # defaults to none if no org type present
   #
   # @return [String]
-  def organisation_type
+  def type
     if self.institution?
       return "Institution"
     elsif self.funder?
