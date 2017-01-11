@@ -165,20 +165,20 @@ class AddForeignKeys < ActiveRecord::Migration
     # # plans
     # # new structure so it's fine
 
-    # # roles
-    # i = 0
-    # Role.includes(:user, :plan).find_each do |role|
-    #   if role.user.nil? && role.user_id.present?
-    #     role.delete!
-    #     i += 1
-    #     next
-    #   end
-    #   if role.plan.nil? && role.plan_id.present?
-    #     role.delete!
-    #     i += 1
-    #   end
-    # end
-    # puts "#{i} roles scrubbed"
+    # roles
+    i = 0
+    Role.includes(:user, :plan).find_each do |role|
+      if role.user.nil? && role.user_id.present?
+        role.delete!
+        i += 1
+        next
+      end
+      if role.plan.nil? && role.plan_id.present?
+        role.delete!
+        i += 1
+      end
+    end
+    puts "#{i} roles scrubbed"
 
     # # questions
 
