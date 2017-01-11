@@ -79,7 +79,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :dmptemplates, :path => 'org/admin/templates', only: [] do
+    resources :templates, :path => 'org/admin/templates', only: [] do
       member do
         get 'admin_index'
         get 'admin_template'

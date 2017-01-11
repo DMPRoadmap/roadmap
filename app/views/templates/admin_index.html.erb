@@ -15,7 +15,7 @@
 	<!-- link button to add new guidance -->
 	<div class="move_2_right">
 		<%= link_to t("org_admin.templates.create_template"),
-		            admin_new_dmptemplate_path,
+		            admin_new_template_path,
 		            :class => 'btn btn-primary' %>
 	</div>
 </div>
@@ -47,25 +47,21 @@
 			       	<%= org_template.published %>
 			    </td>
 			    <td class="dmp_td_small">
-		        	<% last_temp_updated = org_template.updated_at %>
-                                <% org_template.phases.each do |phase|%>
-                                    <% if phase.versions.any? then%>
-                                        <% phase.versions.each do |version| %>
-                                            <% if org_template.updated_at.to_date < version.updated_at.to_date then %>
-                                                 <% last_temp_updated = version.updated_at %>
-                                            <%end%>
-                                       <%end%>
-                                    <%end%>
-                                <%end%>
-                                <%= l last_temp_updated.to_date, :formats => :short %>
-		        </td>
+	        	<% last_temp_updated = org_template.updated_at %>
+            <% org_template.phases.each do |phase|%>
+              <% if org_template.updated_at.to_date < phase.updated_at.to_date then %>
+                <% last_temp_updated = phase.updated_at %>
+              <% end %>
+            <% end %>
+            <%= l last_temp_updated.to_date, :formats => :short %>
+		      </td>
 		        <td class="dmp_td_small">
 		        	<%if current_user.can_org_admin? then%>
 						<% b_label = t('helpers.submit.edit')%>
 					<%else%>
 						<% b_label = t('helpers.view')%>
 					<%end%>
-					<%= link_to b_label, admin_template_dmptemplate_path(org_template), :class => "dmp_table_link"%>
+					<%= link_to b_label, admin_template_template_path(org_template), :class => "dmp_table_link"%>
 		       	</td>
 		     </tr>
 	    	<%end%>
@@ -78,7 +74,7 @@
 <div class="div_clear"></div>
 
 <!-- display this only if the organisation is not a funder-->
-<% if current_user.org_type != constant("organisation_types.funder") then %>
+<% if !current_user.org.funder? then %>
     <h2 class="float-left">
         <%= t("org_admin.templates.funders_temp") %>
     </h2>
@@ -131,7 +127,7 @@
                             <td class="dmp_td_small">
                                 <%if current_user.can_org_admin? then%>
                                     <% if org_template.org_type == constant("organisation_types.funder") then %>
-                                        <%if org_template.has_customisations?(current_user.organisation_id, org_template) then%>
+                                        <%if org_template.has_customisations?(current_user.org_id, org_template) then%>
                                             <% b_label = t("org_admin.templates.edit_customisation")%>
                                         <%else%>
                                             <% b_label = t("org_admin.templates.customise")%>
@@ -142,7 +138,7 @@
                                 <%else%>
                                     <% b_label = t("helpers.view")%>
                                 <%end%>
-                                <%= link_to b_label, admin_template_dmptemplate_path(org_template), :class => "dmp_table_link"%>
+                                <%= link_to b_label, admin_template_template_path(org_template), :class => "dmp_table_link"%>
                             </td>
                         </tr>
                     <%end%>

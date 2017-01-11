@@ -110,7 +110,7 @@ class Template < ActiveRecord::Base
   #
   # @return [string] the string name of an organisation type
   def org_type
-    org_type = organisation.organisation_type.name
+    org_type = org.organisation_type
     return org_type
   end
 
@@ -121,18 +121,23 @@ class Template < ActiveRecord::Base
   # @param temp [dmptemplate] a template object
   # @return [Boolean] true if temp has customisation by the given organisation
   def has_customisations?(org_id, temp)
-    if temp.organisation_id != org_id then
-      temp.phases.each do |phase|
-        phase.versions.each do |version|
-          version.sections.each do |section|
-            return true if section.organisation_id == org_id
-          end
-        end
-        return false
-      end
-    else
-      return false
+    modifiable = true
+    phases.each do |phase|
+      modifiable = modifable && phase.modifiable
     end
+    return !modifiable
+    # if temp.org_id != org_id then
+    #   temp.phases.each do |phase|
+    #     phase.versions.each do |version|
+    #       version.sections.each do |section|
+    #         return true if section.organisation_id == org_id
+    #       end
+    #     end
+    #     return false
+    #   end
+    # else
+    #   return false
+    # end
   end
 
   ##

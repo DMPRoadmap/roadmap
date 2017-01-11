@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
       @guidance_groups = get_available_guidance
       @always_guidance = get_always_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
-      
+
 			respond_to do |format|
 			  format.html # new.html.erb
 			end

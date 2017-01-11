@@ -2,19 +2,16 @@
 # [+Description:+] This controller is responsible for all the actions in the admin interface under templates (e.g. phases, versions, sections, questions, suggested answer) (index; show; create; edit; delete)
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-class DmptemplatesController < ApplicationController
+class TemplatesController < ApplicationController
   after_action :verify_authorized
 
   # GET /dmptemplates
   def admin_index
-    authorize Dmptemplate
+    authorize Template
   	#institutional templates
-    @dmptemplates_own = Dmptemplate.own_institutional_templates(current_user.organisation_id)
+    @dmptemplates_own = Template.own_institutional_templates(current_user.org_id)
     #funders templates
-    @dmptemplates_funders = Dmptemplate.funders_templates
-   respond_to do |format|
-      format.html # index.html.erb
-   end
+    @dmptemplates_funders = Template.funders_templates
   end
 
   # GET /dmptemplates/1
