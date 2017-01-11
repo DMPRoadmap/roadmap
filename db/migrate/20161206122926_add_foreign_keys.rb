@@ -169,12 +169,12 @@ class AddForeignKeys < ActiveRecord::Migration
     i = 0
     Role.includes(:user, :plan).find_each do |role|
       if role.user.nil? && role.user_id.present?
-        role.delete!
+        Role.delete_all(user_id: role.user_id)
         i += 1
         next
       end
       if role.plan.nil? && role.plan_id.present?
-        role.delete!
+        Role.delete_all(plan_id: role.plan_id)
         i += 1
       end
     end
