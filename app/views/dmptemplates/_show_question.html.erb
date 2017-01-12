@@ -19,7 +19,7 @@
 			<td><%= raw question.text %>
 				</br>
 				<div class="answer-readonly">
-					<% q_format = question.question_format %>
+					<% q_format = question.question_format || QuestionFormat.first %>
 					<% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") then%>
 						<ul class='options'>
 						<% if question.options.is_a? Option then %>

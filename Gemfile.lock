@@ -28,7 +28,7 @@ GIT
 PATH
   remote: ../substance-rails
   specs:
-    substance-rails (1.0.1)
+    substance-rails (0.0.1)
       actionpack (>= 3.1)
       execjs (>= 2.2.2, >= 2.2)
       railties (>= 3.1)
