@@ -182,15 +182,15 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
           puts "creating new template for #{dmptemplate.title}" unless project.organisation.present?
           puts "creating new template for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
-          template = initTemplate(dmptemplate)      # needs to select next version of temp based on old_temp_id
+          modifiable = project.organisation.nil?
+          template = initTemplate(dmptemplate, modifiable, project.organisation_id)      # needs to select next version of temp based on old_temp_id
           # some differences between a customised and un-customised template
           # customised templates need a different organisation_id
-          template.organisation_id = project.organisation_id
           # customised templates follow different version rules
           template.save!
           # since template was not a match, need to gen/copy all data below the template level
           versions.each do |version|
-            new_phase = initNewPhase(version.phase, version, template, true)
+            new_phase = initNewPhase(version.phase, version, template, modifiable)
             new_phase.save!
             sections = []
             sections += version.sections.where("organisation_id = ? ", dmptemplate.organisation_id).pluck(:id)
@@ -198,10 +198,10 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
               sections += Section.where(organisation_id: project.organisation_id, version_id: version.id).pluck(:id)
             end
             Section.includes(questions: [:themes, :options, :suggested_answers]).where(id: sections).each do |section|
-              new_section = initNewSection(section, new_phase, true)
+              new_section = initNewSection(section, new_phase, modifiable)
               new_section.save!
               section.questions.each do |question|
-                new_question = initNewQuestion(question, new_section, true)
+                new_question = initNewQuestion(question, new_section, modifiable)
                 new_question.save!
                 question.themes.each do |theme|
                   new_question.themes << theme
@@ -287,22 +287,26 @@ end
 
 
 
-def initTemplate(dmptemp)
+def initTemplate(dmptemp, modifiable, organisation_id)
   template                  = Template.new
   template.title            = dmptemp.title
   template.description      = dmptemp.description
   template.published        = dmptemp.published
-  template.organisation_id  = dmptemp.organisation_id
+  template.organisation_id  = organisation_id.present? ? organisation_id : dmptemp.organisation_id
   template.locale           = dmptemp.locale
   template.is_default       = dmptemp.is_default
   template.created_at       = dmptemp.created_at
   template.updated_at       = dmptemp.updated_at
   template.visibility       = 0                   # dummy value for private
-  template.customization_of = nil
-  template.version          = Template.where(dmptemplate_id: dmptemp.id).blank? ?
-    0 : Template.where(dmptemplate_id: dmptemp.id).pluck(:version).max + 1
-  puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
+  template.customization_of = modifiable ? nil : dmptemp.id
   template.dmptemplate_id   = dmptemp.id
+  # if no templates with the same dmptemplate_id and organisation_id exist
+  #   0
+  # otherwise
+  #   take the maximum version from templates with the same dmptemplate_id and organisation_id and add 1
+  template.version          = Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).blank? ?
+    0 : Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).pluck(:version).max + 1
+  puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
   return template
 end
 
