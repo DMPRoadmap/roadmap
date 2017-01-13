@@ -1,32 +1,36 @@
 class Dmptemplate < ActiveRecord::Base
-    include GlobalHelpers
+  include GlobalHelpers
 
-    attr_accessible :id, :organisation_id, :description, :published, :title, :user_id, :locale, 
-                    :phases, :projects, :organisation,
-                    :is_default, :guidance_group_ids, :as => [:default, :admin] 
+# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
+  attr_accessible :id, :organisation_id, :description, :published, :title, :user_id, :locale, 
+                  :phases, :projects, :organisation,
+                  :is_default, :guidance_group_ids, :as => [:default, :admin] 
 
-    #associations between tables
-    has_many :phases
-    has_many :versions, through: :phases
-    has_many :sections, through: :versions
-    has_many :questions, through: :sections
-    has_many :projects
+  #associations between tables
+  has_many :phases
+  has_many :versions, through: :phases
+  has_many :sections, through: :versions
+  has_many :questions, through: :sections
+  has_many :projects
 
-    #has_many :guidances                needs to be removed and checked
+  #has_many :guidances                needs to be removed and checked
 
-    belongs_to :organisation
+  belongs_to :organisation
 
 	has_and_belongs_to_many :guidance_groups, join_table: "dmptemplates_guidance_groups"
 
-    accepts_nested_attributes_for :guidance_groups
-    accepts_nested_attributes_for :phases
-    accepts_nested_attributes_for :organisation
-    accepts_nested_attributes_for :projects
+# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
+  accepts_nested_attributes_for :guidance_groups
+  accepts_nested_attributes_for :phases
+  accepts_nested_attributes_for :organisation
+  accepts_nested_attributes_for :projects
 
 
   has_settings :export, class_name: 'Settings::Dmptemplate' do |s|
     s.key :export, defaults: Settings::Dmptemplate::DEFAULT_SETTINGS
   end
+
+  validates :organisation, :title, presence: true
 
   ##
   # Converts a DMPtemplate object into a string containing it's title
@@ -35,6 +39,13 @@ class Dmptemplate < ActiveRecord::Base
   def to_s
     "#{title}"
   end
+
+
+# TODO: Remove the following methods ... they are never called by anything and don't make sense here anyway:
+#    self.templates_org_type
+#    self.funders_templates
+#    self.own_institutional_templates
+#    self.funders_and_own_templates
 
   ##
   # takes a type or organisation and returns all published templates from
@@ -116,6 +127,7 @@ class Dmptemplate < ActiveRecord::Base
 		return templates_list
 	end
 
+# TODO: Remove this! We should not be attempting to access an Org attribute through this class
   ##
   # Returns the string name of the organisation type of the organisation who
   # owns this dmptemplate

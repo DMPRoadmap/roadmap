@@ -455,12 +455,20 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
       project_static_info: "Este plan está basado en:"
       projects_title: "Mis planes"
 
+      test: "Plan de prueba o práctica"
       visibility: "Visibilidad"
       visibilities:
-        test: "Plan de prueba o práctica"
-        private: "Privado (propietarios, copropietarios y administradores solamente) Consulte nuestras Condiciones de uso."
-        organisational: "Con otros miembros de su organización"
-        public: "Publicamente en la web. Su DMP aparecerá en la página Public DMPs de este sitio."
+        labels:
+          privatelt_visible: "Privado"
+          organisationally_visible: "Organizativo"
+          publicly_visible: "Público"
+          is_test: "Prueba/Práctica"
+        help_texts:
+          privately_visible: "Privado (propietarios, copropietarios y administradores solamente) Consulte nuestras Condiciones de uso."
+          organisationally_visible: "Con otros miembros de su organización"
+          publicly_visible: "Publicamente en la web. Su DMP aparecerá en la página Public DMPs de este sitio."
+          is_test: "Prueba / Práctica (su plan no es visible para otros usuarios) Vea nuestras Condiciones de uso."
+          not_set: "No especificado (será visible para otros dentro de su organización de forma predeterminada)"
 
       project_settings_text: "Los items que seleccione se mostarán en la siguiente tabla. Puede ordenar los datos según sus encabezados o filtrar tecleando textos en la caja de búsqueda."
       project_text_when_no_project: "<p><strong>Bienvenido.</strong></br> Ya está listo para crear su primer PGD.</br>Haga clic en el botón 'Crear un plan' para comenzar.</p>"

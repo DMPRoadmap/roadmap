@@ -39,9 +39,6 @@ class ProjectsController < ApplicationController
       @show_form = true
     end
 
-    @visibilities = Visibility.all
-    @default_visibility = @visibilities.select{ |v| v.default }.first
-
     if user_signed_in? && @project.readable_by(current_user.id) then
       respond_to do |format|
         format.html # show.html.erb
@@ -70,6 +67,10 @@ class ProjectsController < ApplicationController
       @guidance_groups = get_available_guidance
       @always_guidance = get_always_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
+      
+# TODO: Would be better to determine if the user's org has templates here than in the view.
+#       Replace the if Dmptemplate.own_institutional_templates check in views/projects/new with:
+#          @own_org_has_templates = current_user.organisation.templates.empty?
       
       respond_to do |format|
         format.html # new.html.erb
@@ -139,7 +140,7 @@ class ProjectsController < ApplicationController
     if user_signed_in? then
       
       attrs = project_params
-      
+
       @project = Project.new(attrs)
       authorize @project
       
@@ -182,8 +183,6 @@ class ProjectsController < ApplicationController
   
     if user_signed_in? && @project.editable_by(current_user.id) then
       attrs = project_params
-      
-      attrs[:visibility] = Visibility.find(attrs[:visibility]) unless attrs[:visibility].nil?
       
       if @project.update_attributes(attrs)
         respond_to do |format|

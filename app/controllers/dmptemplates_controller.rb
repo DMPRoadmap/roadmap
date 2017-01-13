@@ -8,10 +8,17 @@ class DmptemplatesController < ApplicationController
   # GET /dmptemplates
   def admin_index
     authorize Dmptemplate
-  	#institutional templates
+    
+# TODO: Wouldn't make more sense here to just do the following (using new model names here)?:
+#          @dmptemplates_own = current_user.org.templates
+    
     @dmptemplates_own = Dmptemplate.own_institutional_templates(current_user.organisation_id)
-    #funders templates
+
+# TODO: Wouldn't make more sense here to just do the following?:
+#          @@dmptemplates_funders = Org.where(org_type: :funder).templates
+    
     @dmptemplates_funders = Dmptemplate.funders_templates
+
    respond_to do |format|
       format.html # index.html.erb
    end

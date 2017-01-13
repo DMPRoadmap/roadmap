@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :user_org_roles
   has_many :project_groups, :dependent => :destroy
   has_many :user_role_types, through: :user_org_roles
-  
+  has_many :exported_plans
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
   
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
                   :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                   :user_status_id, :surname, :user_type_id, :organisation_id, :skip_invitation, 
                   :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language, :language_id
+                  :organisation, :language, :language_id, :exported_plans
 
   validates :email, email: true, allow_nil: true, uniqueness: true
 

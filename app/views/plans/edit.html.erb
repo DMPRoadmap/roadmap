@@ -1,7 +1,9 @@
 <%- model_class = Plan -%>
 <% javascript "plans.js" %>
 
-
+<script type="text/javascript">
+	<%= substance_javascript_handler_for_text_areas.html_safe %>
+</script>
 
 <!-- render the project title -->
 <%= render :partial => "/projects/project_title", locals: {project: @plan.project} %>

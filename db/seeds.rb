@@ -2,18 +2,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-# Plan Visibilities
-# -------------------------------------------------------
-visibilities = { 
-  test: {name: 'test', default: false},
-  private: {name: 'private', default: false},
-  organisational: {name: 'organisational', default: true},
-  public: {name: 'public', default: false} 
-}
-visibilities.map{ |v| Visibility.create!(v) }
-
-# Plan Visibilities
-# -------------------------------------------------------
 languages = {
     'English(UK)' => {
         abbreviation: 'en-UK',
@@ -112,8 +100,8 @@ identifier_schemes.each do |l, details|
   if IdentifierScheme.where(name: details[:name]).empty?
     scheme = IdentifierScheme.new({
       name: details[:name],
-      auth_uri: details[:auth_uri],
-      user_uri: details[:user_uri]
+      description: details[:description],
+      active: details[:active]
     })
     scheme.save!
   end

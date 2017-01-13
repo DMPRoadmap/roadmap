@@ -18,8 +18,7 @@ class StaticPagesController < ApplicationController
   # GET /projects/publicly_available
   # -----------------------------------------------------------
   def public_plans
-    public_visibility = Visibility.find_by(name: 'public')
-    @projects = Project.where(visibility: public_visibility).order(title: :asc)
+    @projects = Project.publicly_visible.order(title: :asc)
   end
   
   # GET /projects/[:project_slug]/public_export
@@ -31,7 +30,7 @@ class StaticPagesController < ApplicationController
     request.format = :pdf
     
     # if the project is designated as public
-    if @project.visibility == Visibility.find_by(name: 'public')
+    if @project.visibility == :publicly_visible
       @plan = @project.plans.first
       
       if !@plan.nil?

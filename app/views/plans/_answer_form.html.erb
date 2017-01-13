@@ -112,7 +112,8 @@
                     <%= text_field_tag("answer-text-#{question.id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
                 <!--text area display-->
                 <% elsif q_format.title == t("helpers.text_area") then%>
-                    <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
+             
+						 	 		<%= substance_text_area_tag(answer, 'text').html_safe %>
                 <% end %>
 
             <% end %>
@@ -122,7 +123,8 @@
                 <% if readonly then %>
                     <%= f.action :submit, :label => t("helpers.save"), :button_html => { :class => "btn btn-primary"}, :input_html => { :disabled => true } %>
                 <% else %>
-                    <%= f.action :submit, :label => t("helpers.save"), :button_html => { :class => "btn btn-primary"} %>
+										<input type="submit" class="btn btn-primary" value="<%= t('helpers.save') %>" />
+
                 <% end %>
                 <li id="saving-<%= question.id %>" class="saving-message" style="display:none;"><%= t("helpers.saving")%></li>
             <% end %>

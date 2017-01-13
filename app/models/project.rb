@@ -1,19 +1,20 @@
 class Project < ActiveRecord::Base
   include GlobalHelpers
-
+  
 	extend FriendlyId
 
 	#associations between tables
 	belongs_to :dmptemplate
 	belongs_to :organisation
-
-  belongs_to :visibility
   
 	has_many :plans
 	has_many :project_groups, :dependent => :destroy
 	has_and_belongs_to_many :guidance_groups, join_table: "project_guidance"
 
 	friendly_id :title, use: [:slugged, :history, :finders]
+
+  # public is a Ruby keyword so using publicly
+  enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]  
 
   ##
   # returns the title of the project

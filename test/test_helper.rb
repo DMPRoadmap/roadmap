@@ -60,12 +60,7 @@ class ActiveSupport::TestCase
         number: 1
       })]
     })
-    
-#    template.phases << Phase.new({
-#      title: 'Phase 1',
-#      number: 1
-#    })
-    
+
     template.phases.first.versions << Version.new({
       title: 'Version 1',
       number: 1,
