@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213101804) do
+ActiveRecord::Schema.define(version: 20161208122123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,13 +170,6 @@ ActiveRecord::Schema.define(version: 20161213101804) do
     t.string   "data_contact"
     t.string   "funder_name"
   end
-
-  create_table "project_guidance", id: false, force: :cascade do |t|
-    t.integer "project_id",        null: false
-    t.integer "guidance_group_id", null: false
-  end
-
-  add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id", using: :btree
 
   create_table "question_formats", force: :cascade do |t|
     t.string   "title"
