@@ -182,10 +182,11 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
           puts "creating new template for #{dmptemplate.title}" unless project.organisation.present?
           puts "creating new template for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
-          modifiable = project.organisation.nil?
+          modifiable = project.organisation.nil? || project.organisation_id == dmptemplate.organisation_id
           template = initTemplate(dmptemplate, modifiable, project.organisation_id)      # needs to select next version of temp based on old_temp_id
           # some differences between a customised and un-customised template
           # customised templates need a different organisation_id
+          template.organisation_id = project.organisation_id unless project.organisation_id.nil?  # updated to not overwrite with nil
           # customised templates follow different version rules
           template.save!
           # since template was not a match, need to gen/copy all data below the template level
@@ -255,7 +256,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         end
       end
     end
-    
+
     # indexes on join tables at the end
     change_table :new_answers_question_options do |t|
       t.index [:new_answer_id, :question_option_id], name: 'answer_question_option_index'

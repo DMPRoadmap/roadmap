@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
     has_many :answers
     has_many :project_groups, :dependent => :destroy
     has_many :user_role_types, through: :user_org_roles
+    has_many :roles
+    has_many :new_plans, through: :roles
     belongs_to :language
 
     belongs_to :organisation
@@ -35,7 +37,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    has_and_belongs_to_many :roles, :join_table => :users_roles
+    has_and_belongs_to_many :perms, :join_table => :users_perms
 
     has_many :plan_sections
 
