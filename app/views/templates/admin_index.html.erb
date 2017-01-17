@@ -16,13 +16,13 @@
 	<div class="move_2_right">
 		<%= link_to t("org_admin.templates.create_template"),
 		            admin_new_template_path,
-		            :class => 'btn btn-primary' %>
+		            class: 'btn btn-primary' %>
 	</div>
 </div>
 <div class="div_clear"></div>
 
 <!-- List of own templates -->
-<% if @dmptemplates_own.count > 0 then %>
+<% if @dmptemplates_own.length > 0 then %>
 	<table id="dmp_table" class="dmp_table tablesorter">
 		  <thead>
 		    <tr>
@@ -80,7 +80,7 @@
     </h2>
 
     <!-- List of funders templates -->
-    <% if @dmptemplates_funders.count > 0 then %>
+    <% if @dmptemplates_funders.length > 0 then %>
 
         <table id="dmp_table_2" class="dmp_table tablesorter">
             <thead>
@@ -112,15 +112,6 @@
                             </td>
                             <td class="dmp_td_small">
                                 <% last_updated = org_template.updated_at %>
-                                <% org_template.phases.each do |phase|%>
-                                    <% if phase.versions.any? then%>
-                                        <% phase.versions.each do |version| %>
-                                            <% if org_template.updated_at.to_date < version.updated_at.to_date then %>
-                                                 <% last_updated = version.updated_at %>
-                                            <%end%>
-                                       <%end%>
-                                    <%end%>
-                                <%end%>
                                 <%= l last_updated.to_date, :formats => :short %>
 
                             </td>

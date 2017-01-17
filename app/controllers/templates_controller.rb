@@ -9,7 +9,8 @@ class TemplatesController < ApplicationController
   def admin_index
     authorize Template
   	#institutional templates
-    @dmptemplates_own = Template.own_institutional_templates(current_user.org_id)
+    #@dmptemplates_own = Template.own_institutional_templates(current_user.org_id)
+    @dmptemplates_own = Template.where(org_id: current_user.org_id)
     #funders templates
     @dmptemplates_funders = Template.funders_templates
   end
