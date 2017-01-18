@@ -10,7 +10,14 @@ class TemplatesController < ApplicationController
     authorize Template
   	#institutional templates
     #@dmptemplates_own = Template.own_institutional_templates(current_user.org_id)
-    @dmptemplates_own = Template.where(org_id: current_user.org_id)
+    all_versions_own_templates = Template.where(org_id: current_user.org_id, customization_of: nil).order(:version)
+    current_templates = {}
+    all_versions_own_templates.each do |temp|
+      if current_templates[temp.dmptemplate_id].nil?
+        current_templates[temp.dmptemplate_id] = temp
+      end
+    end
+    @dmptemplates_own = current_templates.values
     #funders templates
     @dmptemplates_funders = Template.funders_templates
   end
