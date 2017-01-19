@@ -1,6 +1,6 @@
 <!-- show template details A template is passed as an argument-->
 
-<% if template.org.funder?  || current_user.org.funder? then %>
+<% if template.org.not_funder?  || current_user.org.funder? then %>
   <h3><!-- edit template button -->
     <div class="move_2_right">
       <%= link_to t("org_admin.templates.edit_details"), '# ', class: "btn btn-primary", id: "edit_template_button"%>

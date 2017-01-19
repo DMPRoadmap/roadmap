@@ -3,6 +3,7 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class TemplatesController < ApplicationController
+  respond_to :html
   after_action :verify_authorized
 
   # GET /dmptemplates
@@ -31,15 +32,13 @@ class TemplatesController < ApplicationController
 
   # PUT /dmptemplates/1
   def admin_update
-    @dmptemplate = Dmptemplate.find(params[:id])
-    authorize @dmptemplate
-    @dmptemplate.description = params["template-desc"]
-      respond_to do |format|
-      if @dmptemplate.update_attributes(params[:dmptemplate])
-        format.html { redirect_to admin_template_dmptemplate_path(params[:dmptemplate]), notice: I18n.t('org_admin.templates.updated_message') }
-      else
-        format.html { render action: "edit" }
-      end
+    @template = Template.find(params[:id])
+    authorize @template
+    @template.description = params["template-desc"]
+    if @template.update_attributes(params[:template])
+      redirect_to admin_template_template_path(params[:template]), notice: I18n.t('org_admin.templates.updated_message')
+    else
+      render action: "edit"
     end
   end
 

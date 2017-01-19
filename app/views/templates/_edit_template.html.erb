@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td class="first_template"><%= t('org_admin.templates.published_label') %></td>
-      <td><%if template.published? || template.has_published_versions? then%>
+      <td><%if template.published? then%>
           <%= f.check_box :published, as: :check_boxes  %>
         <%else%>
           <%= t('org_admin.templates.cannot_publish')%>
