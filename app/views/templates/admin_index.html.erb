@@ -22,7 +22,7 @@
 <div class="div_clear"></div>
 
 <!-- List of own templates -->
-<% if @dmptemplates_own.length > 0 then %>
+<% if @templates_own.length > 0 then %>
 	<table id="dmp_table" class="dmp_table tablesorter">
 		  <thead>
 		    <tr>
@@ -34,7 +34,7 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-			<% @dmptemplates_own.each do |org_template| %>
+			<% @templates_own.each do |org_template| %>
 
 		  	<tr>
 	  			<td class="dmp_td_small">
@@ -53,7 +53,7 @@
                 <% last_temp_updated = phase.updated_at %>
               <% end %>
             <% end %>
-            <%= l last_temp_updated.to_date, :formats => :short %>
+            <%= l last_temp_updated.to_date, formats: :short %>
 		      </td>
 		        <td class="dmp_td_small">
 		        	<%if current_user.can_org_admin? then%>
@@ -61,7 +61,7 @@
 					<%else%>
 						<% b_label = t('helpers.view')%>
 					<%end%>
-					<%= link_to b_label, admin_template_template_path(org_template), :class => "dmp_table_link"%>
+					<%= link_to b_label, admin_template_template_path(org_template), class: "dmp_table_link"%>
 		       	</td>
 		     </tr>
 	    	<%end%>
@@ -80,7 +80,7 @@
     </h2>
 
     <!-- List of funders templates -->
-    <% if @dmptemplates_funders.length > 0 then %>
+    <% if @templates_funders.length > 0 then %>
 
         <table id="dmp_table_2" class="dmp_table tablesorter">
             <thead>
@@ -94,7 +94,7 @@
             </thead>
             <tbody>
 
-                <% @dmptemplates_funders.each do |org_template| %>
+                <% @templates_funders.each do |org_template| %>
                     <% if org_template.published? ||org_template.has_customisations?(current_user.organisation_id, org_template) then %>
                        <tr>
                             <td class="dmp_td_small">
@@ -112,7 +112,7 @@
                             </td>
                             <td class="dmp_td_small">
                                 <% last_updated = org_template.updated_at %>
-                                <%= l last_updated.to_date, :formats => :short %>
+                                <%= l last_updated.to_date, formats: :short %>
 
                             </td>
                             <td class="dmp_td_small">
@@ -129,7 +129,7 @@
                                 <%else%>
                                     <% b_label = t("helpers.view")%>
                                 <%end%>
-                                <%= link_to b_label, admin_template_template_path(org_template), :class => "dmp_table_link"%>
+                                <%= link_to b_label, admin_template_template_path(org_template), class: "dmp_table_link"%>
                             </td>
                         </tr>
                     <%end%>
