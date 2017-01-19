@@ -65,12 +65,10 @@ class TemplatesController < ApplicationController
 
   # DELETE /dmptemplates/1
   def admin_destroy
-    @dmptemplate = Dmptemplate.find(params[:id])
-    authorize @dmptemplate
-    @dmptemplate.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_index_dmptemplate_path }
-    end
+    @template = Template.find(params[:id])
+    authorize @template
+    @template.destroy
+    redirect_to admin_index_dmptemplate_path
   end
 
 
