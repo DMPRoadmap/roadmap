@@ -45,11 +45,7 @@ class TemplatesController < ApplicationController
 
   # GET /dmptemplates/new
   def admin_new
-    @dmptemplate = Dmptemplate.new
-    authorize @dmptemplate
-    respond_to do |format|
-      format.html # new.html.erb
-    end
+    authorize Template
   end
 
   # POST /dmptemplates
