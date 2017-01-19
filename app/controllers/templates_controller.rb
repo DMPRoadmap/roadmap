@@ -131,17 +131,10 @@ class TemplatesController < ApplicationController
 
   #add a new phase to a template
   def admin_addphase
-    @dmptemplate = Dmptemplate.find(params[:id])
+    @template = Template.find(params[:id])
     @phase = Phase.new
-    authorize @dmptemplate
-    if @dmptemplate.phases.count == 0 then
-      @phase.number = '1'
-    else
-      @phase.number = @dmptemplate.phases.count + 1
-    end
-    respond_to do |format|
-      format.html
-    end
+    authorize @template
+    @phase.number = @template.phases.count + 1
   end
 
 
