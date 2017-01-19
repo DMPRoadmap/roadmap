@@ -50,16 +50,14 @@ class TemplatesController < ApplicationController
 
   # POST /dmptemplates
   def admin_create
-    @dmptemplate = Dmptemplate.new(params[:dmptemplate])
-    @dmptemplate.organisation_id = current_user.organisation.id
-    @dmptemplate.description = params['template-desc']
-    authorize @dmptemplate
-    respond_to do |format|
-      if @dmptemplate.save
-        format.html { redirect_to admin_template_dmptemplate_path(@dmptemplate), notice: I18n.t('org_admin.templates.created_message') }
-      else
-        format.html { render action: "admin_new" }
-      end
+    @template = Template.new(params[:template])
+    @template.org_id = current_user.org_id
+    @template.description = params['template-desc']
+    authorize @template
+    if @template.save
+      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.created_message')
+    else
+      render action: "admin_new"
     end
   end
 
