@@ -106,6 +106,8 @@ GEM
     coffee-script-source (1.10.0)
     commonjs (0.2.7)
     concurrent-ruby (1.0.2)
+    contact_us (1.2.0)
+      rails (>= 4.2.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     daemons (1.2.4)
@@ -362,6 +364,7 @@ DEPENDENCIES
   byebug
   caracal
   caracal-rails
+  contact_us (>= 1.2.0)
   devise
   devise_invitable
   dragonfly

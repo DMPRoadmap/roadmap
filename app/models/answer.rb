@@ -14,5 +14,5 @@ class Answer < ActiveRecord::Base
   validates :user, :plan, :question, :text, presence: true
   
   # Make sure there is only one answer per question!
-#  validates :question, uniqueness: {scope: [:user, :plan], message: I18n.t('helpers.errors.answer.only_one_per_question')}
+  validates :question, uniqueness: {scope: [:user, :plan], message: I18n.t('helpers.errors.answer.only_one_per_question')}
 end
