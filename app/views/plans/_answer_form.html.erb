@@ -112,8 +112,7 @@
                     <%= text_field_tag("answer-text-#{question.id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
                 <!--text area display-->
                 <% elsif q_format.title == t("helpers.text_area") then%>
-             
-						 	 		<%= substance_text_area_tag(answer, 'text').html_safe %>
+             	 		<%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
                 <% end %>
 
             <% end %>

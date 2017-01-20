@@ -68,7 +68,6 @@ gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NO
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
-gem 'substance-rails', path: '../substance-rails'   # SUBSTANCE EDITOR - WYSIWYG HTML EDITOR
 gem 'contact_us', '>= 1.2.0'            # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha'
 gem 'dragonfly'                         # LOGO UPLOAD
