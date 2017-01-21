@@ -22,8 +22,8 @@ class DmptemplateTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "required fields are required" do
     assert_not Dmptemplate.new.valid?
-    assert_not Dmptemplate.new(title: 'Testing tmeplate').valid?, "expected the 'title' field to be required"
-    assert_not Dmptemplate.new(organisation: @organisation).valid?, "expected the 'organisation' field to be required"
+    assert_not Dmptemplate.new(title: 'Testing tmeplate').valid?, "expected the 'organisation' field to be required"
+    assert_not Dmptemplate.new(organisation: @organisation).valid?, "expected the 'title' field to be required"
     
     # Ensure the bar minimum and complete versions are valid
     a = Dmptemplate.new(organisation: @organisation, title: 'Testing tmeplate')
