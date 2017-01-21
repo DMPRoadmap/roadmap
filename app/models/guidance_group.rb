@@ -9,10 +9,13 @@ class GuidanceGroup < ActiveRecord::Base
   has_and_belongs_to_many :projects, join_table: "project_guidance"
   has_and_belongs_to_many :dmptemplates, join_table: "dmptemplates_guidance_groups"
 
+# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
   accepts_nested_attributes_for :dmptemplates
-
-  attr_accessible :organisation_id, :name, :optional_subset, :published, :as => [:default, :admin]
+  attr_accessible :organisation_id, :name, :optional_subset, :published, 
+                  :organisation, :as => [:default, :admin]
   attr_accessible :dmptemplate_ids, :as => [:default, :admin]
+
+  validates :name, :organisation, presence: true
 
   ##
   # Converts a guidance group to a string containing the display name
@@ -109,7 +112,7 @@ class GuidanceGroup < ActiveRecord::Base
     
     # pass this organisation guidance groups to the view with respond_with @all_viewable_groups
     all_viewable_groups = managing_org_groups + funder_groups + organisation_groups
-    all_viewable_groups = all_viewable_groups.uniq{|x| x.id}
+    all_viewable_groups = all_viewable_groups.flatten.uniq{|x| x.id}
     return all_viewable_groups
   end
 end

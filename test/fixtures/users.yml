@@ -20,7 +20,6 @@
 
 # Import organisation_types.yml and roles.yml
 <% organisation_types = YAML::load(ERB.new(File.read('./test/fixtures/organisation_types.yml')).result) %>
-
 cc_super:
   firstname: 'Curation Centre'
   surname: 'Super Admin'

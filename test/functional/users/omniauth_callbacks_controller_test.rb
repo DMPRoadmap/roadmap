@@ -24,12 +24,14 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
   
   # -------------------------------------------------------------
   test "User is not signed in and valid OAuth2 response does not match a User record in DB: should redirect to registration page" do
-
     @schemes.each do |scheme|
       post @callback_uris[scheme.name]
 
       assert_equal I18n.t('identifier_schemes.new_login_success'), flash[:notice], "Expected a success message when simulating a valid callback from #{scheme.name}"
       assert_redirected_to "#{new_user_registration_url}?locale=#{I18n.locale}", "Expected a redirect to the registration page when the user is not logged in and we received a valid callback from #{scheme.name}"
+      
+      # make sure that the omniauth identifier is a hidden field on the registration page
+      assert_not "#user_identifiers[#{scheme.name}]".nil? 
     end
   end
 
@@ -58,6 +60,10 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
 
       assert_equal I18n.t('identifier_schemes.connect_success').gsub('%{scheme}', scheme.name), flash[:notice], "Expected a success message when simulating a valid callback from #{scheme.name}"
       assert_redirected_to "#{edit_user_registration_path}?locale=#{I18n.locale}", "Expected a redirect to the edit profile page, #{projects_url}, when omniauth returns with a valid identifier for a user that is already signed in!"
+      
+      # reload the user record and make sure the omniauth value was attached to their record
+      usr = User.find(@user)
+      assert_equal usr.user_identifiers.find_by(identifier_scheme: scheme).identifier, 'foo:bar'
     end
   end
 

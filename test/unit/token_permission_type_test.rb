@@ -31,7 +31,7 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "can manage has_many relationship with OrgTokenPermissions" do
+  test "can manage has_many relationship with Organisation" do
     org = Organisation.new(name: 'Testing')
     verify_has_many_relationship(@tpt, org, @tpt.organisations.count)
   end

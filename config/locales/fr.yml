@@ -281,6 +281,7 @@ fr:
     roadmap_label: "Feuille de route"
     help_label: "Aide"
     contact_label: "Contact"
+    public_plans_label: "DMP Publics"
     jisc: "Le DCC est financé par"
 
     sign_in: "Connexion"
@@ -324,8 +325,8 @@ fr:
     error: "Erreur!"
     comment: "Commentaire"
     send: "Envoi"
-    yes: "Oui"
-    no: "Non"
+    'yes': "Oui"
+    'no': "Non"
     none: "Aucun"
     false_lowercase: "faux"
     title: "Titre"
@@ -458,6 +459,21 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       project_identifier_help_text: "Un identifiant approprié conforme aux prescriptions de l'organisme financeur ou de l'établissement."
       project_static_info: "Ce plan s'inspire de :"
       projects_title: "Mes plans"
+      
+      visibility: "Visibilité"
+      visibilities:
+        labels:
+          privately_visible: "Privé"
+          organisationally_visible: "Organisationnel"
+          publicly_visible: "Public"
+          is_test: "Test/Pratique"
+        help_texts:
+          privately_visible: "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
+          organisationally_visible: "Avec d'autres membres de votre organisation"
+          publicly_visible: "Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce site."
+          is_test: "Test / Practice (votre plan n'est pas visible aux autres utilisateurs) Voir nos Conditions d'utilisation."
+          not_set: "Non spécifié (sera visible par d'autres personnes au sein de votre organisation par défaut)"
+
       project_settings_text: "Les éléments que vous sélectionnez ici s'afficherontt dans le tableaiu ci-après. Vous pouvez trier les données à partir de chacune de ces en-tête ou les filtrer en tapant une chaîne de caractères dans la zone de recherche."
       project_text_when_no_project: "<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier DMP.</br>Cliquez sur le bouton 'Créer un plan' ci-dessous pour commencer.</p>"
       project_text_when_project: "<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi que ceux que vous partagez avec d'autres.</br>Vous pouvez à tout moment les modifier, les partager, les exporter, les effacer...</p>"
@@ -509,12 +525,16 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
         principal_investigator: "Directeur de recherche / chercheur"
         data_contact: "Interlocuteur pour les données du plan"
         description: "Description"
+        visibility: "Visibilité"
+        name: 'Prénom'
+        template: 'Modèle'
+        organisation: 'Organisation'
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"
         cancel: "Annuler"
         no_matches: "Pas de plans pour '%{filter}'"
-
+        
     plan:
       export:
         pdf:
@@ -546,6 +566,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
           no_name: "'name' doit figurer dans la liste des colonnes."
           duplicate: "Nom de colonne en doublon. Merci de n'ajouter qu'une seule colonne."
           unknown: "Nom de colonne inconnu."
+          no_plan: "Le plan est incomplet."
       plans:
         title: Titre du plan
         reset: "Réinitialiser"
@@ -801,7 +822,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     schemes:
       orcid:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
-        user_landing_page: 'https://orcid.org/{id}'
+        user_landing_page: 'https://orcid.org/%{id}'
         connect: 'Créer ou Connectez votre ID ORCID'
         connect_tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs. En savoir plus sur orcid.org'
         disconnect_confirmation: 'Êtes-vous certain que vous voulez déconnecter votre ID orcid?'
@@ -817,6 +838,10 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       template: 'Template'
       managing_organisation: 'Digital Curation Centre'
     user_role_types:
+      admin: 'admin'
+      org_admin: 'org_admin'
+      user: 'user'
+    roles:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
       user: 'user'
@@ -828,7 +853,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       use_api: 'use_api'
       change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
-    api_endpoint_types:
+    token_permission_types:
       guidances: 'guidances'
       plans: 'plans'
       templates: 'templates'

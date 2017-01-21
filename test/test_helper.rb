@@ -1,9 +1,12 @@
 ENV["RAILS_ENV"] = "test"
 
+# Startup the simple coverage gem so that our test results are captured
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
-
 require 'active_support/inflector' # For pluralization utility
 
 class ActiveSupport::TestCase
@@ -24,6 +27,82 @@ class ActiveSupport::TestCase
   # ----------------------------------------------------------------------
   def class_name_to_attribute_name(name)
     name.gsub(/([a-z]+)([A-Z])/, '\1_\2').gsub('-', '_').downcase
+  end
+  
+  # Generate a template for testing
+  # ----------------------------------------------------------------------
+  def generate_complete_template
+    questions = []
+    QuestionFormat.all.each do |f| 
+      q = Question.new({
+        text: "(#{f.title}) Question",
+        default_value: "Default for #{f.title} questions",
+        guidance: "Guidance for #{f.title} questions",
+        number: 1,
+        option_comment_display: true,
+        options: (['Radio Button', 'Check Box', 'Dropdown', 'Multi Select Box'].include?(f.title) ? 
+                    2.times.collect{ |n| 
+                      Option.new(text: "Option #{n}", number: n, is_default: (n == 1 ? true : false)) 
+                    } : [])
+      })
+      q.question_format = f
+      questions << q
+    end
+    
+    template = Dmptemplate.create({
+      title: "Testing Template",
+      description: "This is a template for testing use only",
+      published: true,
+      organisation: Organisation.first,
+      locale: Language.first,
+      phases: [Phase.new({
+        title: 'Phase 1',
+        number: 1
+      })]
+    })
+
+    template.phases.first.versions << Version.new({
+      title: 'Version 1',
+      number: 1,
+      published: true
+    })
+    
+    template.phases.first.versions.first.sections << Section.new({
+      title: 'Section 1',
+      number: 1,
+      organisation: Organisation.first
+    })
+    
+    template.phases.first.versions.first.sections.first.questions << questions
+    
+    template.save!
+    template.reload
+  end
+  
+
+# FUNCTIONAL/INTEGRATION TEST HELPERS
+  # ----------------------------------------------------------------------
+  def assert_unauthorized_redirect_to_root_path
+    assert_response :redirect
+    assert_match "#{root_url}", @response.redirect_url
+    
+    follow_redirect!
+    assert_response :success
+    assert_select '.welcome-message h2', I18n.t('welcome_title')
+  end
+  
+  # ----------------------------------------------------------------------
+  def assert_authorized_redirect_to_plans_page
+    assert_response :redirect
+    assert_match "#{root_url}", @response.redirect_url
+    
+    # Sometimes Devise has an intermediary step prior to sending the user to the final destination
+    while @response.status >= 300 && @response.status < 400
+      follow_redirect!
+    end
+    
+    assert_response :success
+    assert_select '.main_page_content h1', I18n.t('helpers.project.projects_title')
   end
   
   
@@ -59,5 +138,30 @@ class ActiveSupport::TestCase
     # Search the parent for the child
     parent.reload
     assert_includes parent.send("#{chld.pluralize}"), child, "was expecting the #{prnt}.#{chld.pluralize} to contain the #{chld}"
+  end
+  
+# STUBS FOR CALLS To EXTERNAL SITES
+  # ----------------------------------------------------------------------
+  def stub_blog_calls
+    blog_feed = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><rss version=\"2.0\" " +
+                      "xml:base=\"http://www.example.com/stubbed/blog\" " +
+                      "xmlns:dc=\"http://purl.org/dc/elements/1.1\">" +
+                "<channel>" +
+                  "<title>Testing</title>" +
+                  "<link>http://www.example.com/stubbed/blog/feed</link>" +
+                  "<item>" +
+                    "<title>Stub blog post</title>" +
+                    "<link>http://www.example.com/stubbed/blog/articles/1</link>" +
+                    "<description>This is a stuubed blog post</description>" +
+                    "<category domain=\"http://www.example.com/stubbed/blog\">Test</category>" +
+                    "<pubDate>Thu, 03 Nov 2016 12:38:17 +0000</pubDate>" +
+                    "<dc:creator />" +
+                    "<guid isPermaLink=\"false\">1 at http://www.example.com/stubbed/blog</guid>" +
+                  "</item>" +
+                "</channel>"
+  
+    stub_request(:get, "http://www.dcc.ac.uk/news/dmponline-0/feed").
+      with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.9.2'}).
+      to_return(:status => 200, :body => blog_feed, :headers => {})
   end
 end

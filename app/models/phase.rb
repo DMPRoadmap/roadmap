@@ -18,7 +18,8 @@ class Phase < ActiveRecord::Base
 	accepts_nested_attributes_for :versions, :allow_destroy => true 
 #	accepts_nested_attributes_for :dmptemplate
 
-	attr_accessible :description, :number, :title, :dmptemplate_id, :as => [:default, :admin]
+	attr_accessible :description, :number, :title, :versions, :dmptemplate,
+                  :dmptemplate_id, :as => [:default, :admin]
 
 	friendly_id :title, use: [:slugged, :history, :finders]
 

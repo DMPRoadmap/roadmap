@@ -39,4 +39,5 @@ class ProjectPolicy < ApplicationPolicy
   def possible_guidance?
     true
   end
+  
 end

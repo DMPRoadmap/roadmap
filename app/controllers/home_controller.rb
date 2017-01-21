@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  def index
+  def index    
   	if user_signed_in?
   		name = current_user.name(false)
   		if name.blank?

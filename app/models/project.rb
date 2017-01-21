@@ -1,21 +1,20 @@
 class Project < ActiveRecord::Base
   include GlobalHelpers
-
+  
 	extend FriendlyId
-
-	attr_accessible :dmptemplate_id, :title, :organisation_id, :unit_id, :guidance_group_ids, 
-                  :project_group_ids, :funder_id, :institution_id, :grant_number, :identifier, 
-                  :description, :principal_investigator, :principal_investigator_identifier, 
-                  :data_contact, :funder_name, :as => [:default, :admin]
 
 	#associations between tables
 	belongs_to :dmptemplate
 	belongs_to :organisation
+  
 	has_many :plans
 	has_many :project_groups, :dependent => :destroy
 	has_and_belongs_to_many :guidance_groups, join_table: "project_guidance"
 
 	friendly_id :title, use: [:slugged, :history, :finders]
+
+  # public is a Ruby keyword so using publicly
+  enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]  
 
   ##
   # returns the title of the project
@@ -24,9 +23,9 @@ class Project < ActiveRecord::Base
 	def to_s
 		"#{title}"
 	end
-
+  
 	after_create :create_plans
-
+    
   ##
   # sets a new funder for the project
   # defaults to the first dmptemplate if the current template is nill and the funder has more than one dmptemplate
@@ -321,39 +320,41 @@ class Project < ActiveRecord::Base
 		self.dmptemplate.try(:organisation).try(:abbreviation)
 	end
 
+
+  # ==================================================================
 	private
+    ##
+    # adds a user to the project
+    # if no flags are specified, the user is given read privleges
+    #
+    # @param user_id [Integer] the user to be given privleges
+    # @param is_editor [Boolean] whether or not the user can edit the project
+    # @param is_administrator [Boolean] whether or not the user can administrate the project
+    # @param is_creator [Boolean] wheter or not the user created the project
+    # @return [Array<ProjectGroup>]
+  	def add_user(user_id, is_editor = false, is_administrator = false, is_creator = false)
+  		group = ProjectGroup.new
+  		group.user_id = user_id
+  		group.project_creator = is_creator
+  		group.project_editor = is_editor
+  		group.project_administrator = is_administrator
+  		project_groups << group
+  	end
 
-  ##
-  # adds a user to the project
-  # if no flags are specified, the user is given read privleges
-  #
-  # @param user_id [Integer] the user to be given privleges
-  # @param is_editor [Boolean] whether or not the user can edit the project
-  # @param is_administrator [Boolean] whether or not the user can administrate the project
-  # @param is_creator [Boolean] wheter or not the user created the project
-  # @return [Array<ProjectGroup>]
-	def add_user(user_id, is_editor = false, is_administrator = false, is_creator = false)
-		group = ProjectGroup.new
-		group.user_id = user_id
-		group.project_creator = is_creator
-		group.project_editor = is_editor
-		group.project_administrator = is_administrator
-		project_groups << group
-	end
-
-  ##
-  # creates a plan for each phase in the dmptemplate associated with this project
-  # unless the phase is unpublished, it creates a new plan, and a new version of the plan and adds them to the project's plans
-  #
-  # @return [Array<Plan>]
-	def create_plans
-		dmptemplate.phases.each do |phase|
-			latest_published_version = phase.latest_published_version
-			unless latest_published_version.nil?
-				new_plan = Plan.new
-				new_plan.version = latest_published_version
-				plans << new_plan
-			end
-		end
-	end
+    ##
+    # creates a plan for each phase in the dmptemplate associated with this project
+    # unless the phase is unpublished, it creates a new plan, and a new version of the plan and adds them to the project's plans
+    #
+    # @return [Array<Plan>]
+  	def create_plans
+  		dmptemplate.phases.each do |phase|
+  			latest_published_version = phase.latest_published_version
+  			unless latest_published_version.nil?
+  				new_plan = Plan.new
+  				new_plan.version = latest_published_version
+  				plans << new_plan
+  			end
+  		end
+  	end
+  
 end

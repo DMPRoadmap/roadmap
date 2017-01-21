@@ -11,7 +11,7 @@ class Version < ActiveRecord::Base
 #  accepts_nested_attributes_for :phase
   accepts_nested_attributes_for :sections,  :allow_destroy => true
 
-  attr_accessible :id, :description, :number, :published, :title, :phase_id,
+  attr_accessible :id, :description, :number, :published, :title, :phase_id, :phase, :sections, 
                   :sections_attributes, :as => [:default, :admin]
 
   ##

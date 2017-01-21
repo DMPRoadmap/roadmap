@@ -1,89 +1,40 @@
-single_select_1:
- question: single_select_box
- text: Option 1
- number: 1
+# Produces:
+# -----------------------------
+#   Generates a set of Options for each question using an appropriate format
+#   (see sections.yml, questions.yml and question_formats.yml)
+#
+#     [template]_phase_[1..2]_version_[1..2]_section_[1..2]_question_[check_box, etc]_option_[1..2]
+#
 
-single_select_2:
- question: single_select_box
- text: Option 2
- number: 2
+# Import sections.yml so that we can dynamically generate sections
+<% sections = YAML::load(ERB.new(File.read('./test/fixtures/sections.yml')).result) %>
 
-single_select_3:
- question: single_select_box
- text: Option 3
- number: 3
+<% sections.each do |lbl, hash| %>
+  <% 2.times.each do |n| %>
 
-single_select_4:
- question: single_select_box
- text: Option 4
- number: 4
+<%= lbl %>_question_radio_button_option_<%= n %>:
+  question: test_project_1_plan_1_answer_for_radio_button_question
+  text: <%= (n == 1 ? 'A' : 'B') %>
+  number: <%= n %>
+  is_default: <%= (n == 1 ? true : false) %>
 
-multiple_select_1:
- question: multiple_select_box
- text: Option 1
- number: 1
+<%= lbl %>_question_check_box_option_<%= n %>:
+  question: test_project_1_plan_1_answer_for_check_box_question
+  text: <%= (n == 1 ? 'A' : 'B') %>
+  number: <%= n %>
+  is_default: <%= (n == 1 ? true : false) %>
 
-multiple_select_2:
- question: multiple_select_box
- text: Option 2
- number: 2
+<%= lbl %>_question_dropdown_option_<%= n %>:
+  question: test_project_1_plan_1_answer_for_dropdown_question
+  text: <%= (n == 1 ? 'A' : 'B') %>
+  number: <%= n %>
+  is_default: <%= (n == 1 ? true : false) %>
 
-multiple_select_3:
- question: multiple_select_box
- text: Option 3
- number: 3
+<%= lbl %>_question_multi_select_box_option_<%= n %>:
+  question: test_project_1_plan_1_answer_for_multi_select_box_question
+  text: <%= (n == 1 ? 'A' : 'B') %>
+  number: <%= n %>
+  is_default: <%= (n == 1 ? true : false) %>
 
-multiple_select_4:
- question: multiple_select_box
- text: Option 4
- number: 4
-
-radio_button_1:
- question: radio_button
- text: Option 1
- number: 1
-
-radio_button_2:
- question: radio_button
- text: Option 2
- number: 2
-
-radio_button_3:
- question: radio_button
- text: Option 3
- number: 3
-
-radio_button_4:
- question: radio_button
- text: Option 4
- number: 4
-
-checkbox_1:
- question: checkbox
- text: Option 1
- number: 1
-
-checkbox_2:
- question: checkbox
- text: Option 2
- number: 2
-
-checkbox_3:
- question: checkbox
- text: Option 3
- number: 3
-
-checkbox_4:
- question: checkbox
- text: Option 4
- number: 4
-
-mrc_5_2_yes:
-  question: mrc_5_2
-  text: "Yes"
-  number: 1
-
-mrc_5_2_no:
-  question: mrc_5_2
-  text: "No"
-  number: 2
+  <% end %>
+<% end %>

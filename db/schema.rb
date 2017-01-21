@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102221313) do
+ActiveRecord::Schema.define(version: 20170110092511) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.string   "principal_investigator_identifier"
     t.string   "data_contact"
     t.string   "funder_name"
+    t.integer  "visibility",                        default: 0, null: false
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
@@ -444,11 +445,11 @@ ActiveRecord::Schema.define(version: 20161102221313) do
   create_table "versions", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.boolean  "published"
     t.integer  "number"
     t.integer  "phase_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "published"
   end
 
   add_index "versions", ["phase_id"], name: "index_versions_on_phase_id"
