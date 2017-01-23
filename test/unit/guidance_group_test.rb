@@ -51,8 +51,8 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to a funder" do
     usr = User.first
-    orgs = Organisation.where(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")))
-    gg = GuidanceGroup.create(name: 'Funder Test', organisation: orgs.first)
+    org = Organisation.find_by(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")))
+    gg = GuidanceGroup.create(name: 'Funder Test', organisation: org)
     
     assert GuidanceGroup.can_view?(usr, gg.id)
   end
@@ -60,7 +60,7 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to the managing curation centre" do
     usr = User.first
-    org = Organisation.create(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    org = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
     gg = GuidanceGroup.create(name: 'Managing CC Test', organisation: org)
     
     assert GuidanceGroup.can_view?(usr, gg.id)

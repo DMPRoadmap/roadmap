@@ -19,6 +19,69 @@ class GuidanceTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
+  test "correctly identifies guidance as belonging to the organisation" do
+    assert @guidance.in_group_belonging_to?(@user.organisation.id), "expected the guidance to belong to the organisation"
+    
+    @guidance.guidance_groups = []
+    @guidance.save!
+
+    assert_not @guidance.in_group_belonging_to?(@user.organisation), "expected the guidance to NOT belong to the organisation"
+  end
+
+  # ---------------------------------------------------
+  test "retrieves guidance by organisation" do
+    org = Organisation.create(name: 'Tester 123')
+    assert Guidance.by_organisation(org.id).empty?, "expected the newly created organisation to have no guidance"
+
+    assert_not Guidance.by_organisation(@user.organisation.id).empty?, "expected the organisation to have guidance"
+  end
+
+  # ---------------------------------------------------
+  test "correctly identifies whether the user can view the guidance" do
+    g = Guidance.create!(text: 'Unviewable guidance')
+    
+    assert_not Guidance.can_view?(@user, g), "expected guidance that is not attached to a GuidanceGroup to be unviewable"
+    
+    managing = Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    funder = Organisation.find_by(organisation_type: OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder")))
+    
+    assert Guidance.can_view?(@user, @guidance.id), "expected the user to be able to view guidance belonging to their organisation"
+    
+    @guidance_group.organisation = managing
+    @guidance_group.save!
+    assert Guidance.can_view?(@user, @guidance.id), "expected the user to be able to view guidance belonging to the managing organisation"
+    
+    @guidance_group.organisation = funder
+    @guidance_group.save!
+    assert Guidance.can_view?(@user, @guidance.id), "expected the user to be able to view guidance belonging to a funder"
+  end
+
+  # ---------------------------------------------------
+  test "make sure a user can view all appropriate guidance" do
+    viewable = Guidance.all_viewable(@user)
+    
+    assert viewable.include?(@guidance), "expected the user to be able to view guidance belonging to their organisation"
+    
+    managing = Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    funder = Organisation.find_by(organisation_type: OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder")))
+    
+    GuidanceGroup.create(name: 'managing guidance group test', organisation: managing)
+    GuidanceGroup.create(name: 'funder guidance group test', organisation: funder)
+    
+    managing.guidance_groups.each do |gg|
+      gg.guidances.each do |g|
+        assert viewable.include?(g), "expected the user to be able to view all managing organisation guidance"
+      end
+    end
+    
+    funder.guidance_groups.each do |gg|
+      gg.guidances.each do |g|
+        assert viewable.include?(g), "expected the user to be able to view all funder guidance"
+      end
+    end
+  end
+
+  # ---------------------------------------------------
   test "can CRUD Guidance" do
     g = Guidance.create(text: 'Testing guidance')
     assert_not g.id.nil?, "was expecting to be able to create a new Guidance!"
