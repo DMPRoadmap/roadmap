@@ -111,22 +111,26 @@ class OrganisationTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can manage has_many relationship with Customisations" do
-    
+    tmplt = Dmptemplate.new(title: 'Testing template')
+    verify_has_many_relationship(@org, tmplt, @org.dmptemplates.count)
   end
   
   # ---------------------------------------------------
   test "can manage has_many relationship with GuidanceGroups" do
-
+    gg = GuidanceGroup.new(name: 'Tester')
+    verify_has_many_relationship(@org, gg, @org.guidance_groups.count)
   end
   
   # ---------------------------------------------------
   test "can manage has_many relationship with OptionWarnings" do
-
+    ow = OptionWarning.new(text: 'Test', option: Option.first)
+    verify_has_many_relationship(@org, ow, @org.option_warnings.count)
   end
   
   # ---------------------------------------------------
   test "can manage has_many relationship with SuggestedAnswers" do
-
+    sa = SuggestedAnswer.new(question: Question.first, text: 'Test Suggested Answer')
+    verify_has_many_relationship(@org, sa, @org.suggested_answers.count)
   end
   
   # ---------------------------------------------------
