@@ -1,7 +1,7 @@
 class Plan < ActiveRecord::Base
 
 	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, 
-                  :Exported_plans, :as => [:default, :admin]
+                  :Exported_plans, :project, :version, :as => [:default, :admin]
 
 	A4_PAGE_HEIGHT = 297 #(in mm)
 	A4_PAGE_WIDTH = 210 #(in mm)
