@@ -289,6 +289,7 @@ de:
     news_label: "Aktuelles"
     help_label: "Hilfe"
     contact_label: "Kontakt"
+    public_plans_label: "Öffentliche DMPs"
     jisc: "Das DCC wird untertützt von"
 
     greeting: "Hallo"
@@ -511,6 +512,21 @@ de:
       project_identifier_help_text: "Eine Identifikationskürzel, wie es von Förderern oder Institutionen vergeben wird."
       project_static_info: "Dieser Plan basiert auf:"
       projects_title: "Meine Pläne"
+
+      visibility: "Sichtweite"
+      visibilities:
+        labels:
+          privately_visible: "Private"
+          organisationally_visible: "Organisatorische"
+          publicly_visible: "Öffentlichkeit"
+          is_test: "Test/Übung"
+        help_texts:
+          privately_visible: "Private (Besitzer, Miteigentümer und Admins) Siehe unsere Nutzungsbedingungen."
+          organisationally_visible: "Mit anderen innerhalb Ihrer Organisation"
+          publicly_visible: "Öffentlich im Internet. Ihr DMP erscheint auf der Public DMPs Seite dieser Seite."
+          is_test: "Test / Praxis (Ihr Plan ist für andere Benutzer nicht sichtbar) Siehe unsere Nutzungsbedingungen."
+          not_set: "Nicht angegeben (wird standardmäßig für andere in Ihrer Organisation sichtbar sein)"
+
       project_settings_text: "Die hier ausgewählten Einträge werden in der Tabelle unten angezeigt. Sie können die Daten durch jeden ihrer Tabellenköpfe sortieren oder filtern, indem Sie eine Zeichenkette in der Suchbox eingeben."
       project_text_when_no_project: "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
       project_text_when_project: "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
