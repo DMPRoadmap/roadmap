@@ -8,14 +8,14 @@ class Phase < ActiveRecord::Base
 
 	##
   # Associations
-	belongs_to :template, dependent: :destroy
+	belongs_to :template
 	has_many :sections, dependent: :destroy
   has_many :questions, :through => :sections, dependent: :destroy
 
 	##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :description, :number, :title, :dmptemplate_id, :as => [:default, :admin]
+	attr_accessible :description, :number, :title, :template_id, :as => [:default, :admin]
 
   ##
   # sluggable title
