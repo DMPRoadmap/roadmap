@@ -4,18 +4,18 @@
 	<%= t('org_admin.templates.phase_details_label')%>
 
 	<!-- edit phase details button -->
-	<% if @phase.dmptemplate.org_type != constant("organisation_types.funder") || current_user.org_type == constant("organisation_types.funder") then %>
+	<% if @phase.modifiable %>
 		<div class="move_2_right">
-			<%= link_to t("org_admin.templates.edit_phase_details_label"), '#', :class => "btn btn-primary", :id => "edit_phase_button"%>
+			<%= link_to t("org_admin.templates.edit_phase_details_label"), '#', class: "btn btn-primary", id: "edit_phase_button"%>
 		</div>
-	<%end%>
+	<% end %>
 </h3>
 
-<%if @phase.dmptemplate.org_type != constant("organisation_types.funder") then%>
+<% if @phase.template.org.not_funder %>
 	<div class="div_left">
 		<%= raw t('org_admin.templates.phase_details_text_html')%>
 	</div>
-<%end%>
+<% end %>
 
 <br />
 <div class="div_clear"></div>
