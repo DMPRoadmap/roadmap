@@ -94,11 +94,8 @@ class Guidance < ActiveRecord::Base
     guidance.guidance_groups.each do |guidance_group|
 
       # guidances are viewable if they are owned by any of the user's organisations
-      user.organisations.each do |organisation|
-        
-        if guidance_group.organisation.id == organisation.id
-          viewable = true
-        end
+      if guidance_group.organisation.id == user.organisation.id
+        viewable = true
       end
 
       # guidance groups are viewable if they are owned by the Managing Curation Center
@@ -133,10 +130,8 @@ class Guidance < ActiveRecord::Base
       funder_groups += funder.guidance_groups
     end
     # find all groups owned by any of the user's organisations
-    organisation_groups = []
-    user.organisations.each do |organisation|
-      organisation_groups += organisation.guidance_groups
-    end
+    organisation_groups = user.organisation.guidance_groups
+    
     # find all guidances belonging to any of the viewable groups
     all_viewable_guidances = []
     all_viewable_groups = managing_groups + funder_groups + organisation_groups

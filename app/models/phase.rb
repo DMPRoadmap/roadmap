@@ -37,14 +37,6 @@ class Phase < ActiveRecord::Base
   end
 
   ##
-  # returns the most_recent version of this phase
-  #
-  # @return [Version] the most recent version of this phase
-  def latest_version
-    return versions.order("number DESC").last
-  end
-
-  ##
   # returns either the latest published version of this phase
   # also serves to verify if this phase has any published versions as returns nil
   # if there are no published versions

@@ -3,7 +3,15 @@ require 'test_helper'
 class GuidanceTest < ActiveSupport::TestCase
 
   setup do
-    @guidance = Guidance.new(text: 'Testing some new guidance')
+    Organisation.create(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    
+    @user = User.first
+    
+    @guidance_group = GuidanceGroup.create(name: 'Tester', organisation: @user.organisation)
+    @guidance = Guidance.create(text: 'Testing some new guidance')
+    
+    @guidance_group.guidances << @guidance
+    @guidance_group.save!
     
     @question = Question.first
   end
@@ -38,11 +46,11 @@ class GuidanceTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "correctly identifies whether the user can view the guidance" do
-    g = Guidance.create!(text: 'Unviewable guidance')
+    g = Guidance.create(text: 'Unviewable guidance')
     
-    assert_not Guidance.can_view?(@user, g), "expected guidance that is not attached to a GuidanceGroup to be unviewable"
+    assert_not Guidance.can_view?(@user, g.id), "expected guidance that is not attached to a GuidanceGroup to be unviewable"
     
-    managing = Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    managing = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
     funder = Organisation.find_by(organisation_type: OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder")))
     
     assert Guidance.can_view?(@user, @guidance.id), "expected the user to be able to view guidance belonging to their organisation"
@@ -62,7 +70,7 @@ class GuidanceTest < ActiveSupport::TestCase
     
     assert viewable.include?(@guidance), "expected the user to be able to view guidance belonging to their organisation"
     
-    managing = Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    managing = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
     funder = Organisation.find_by(organisation_type: OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder")))
     
     GuidanceGroup.create(name: 'managing guidance group test', organisation: managing)

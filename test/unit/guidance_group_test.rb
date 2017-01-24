@@ -4,6 +4,9 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   include GlobalHelpers
   
   setup do
+    Organisation.create(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    
+    @user = User.first
     @organisation = Organisation.first
     
     @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', 
@@ -41,47 +44,43 @@ class GuidanceGroupTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to their organisation" do
-    usr = User.first
-    org = usr.organisation
+    org = @user.organisation
     gg = GuidanceGroup.create(name: 'User Test', organisation: org)
     
-    assert GuidanceGroup.can_view?(usr, gg.id)
+    assert GuidanceGroup.can_view?(@user, gg.id)
   end
 
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to a funder" do
-    usr = User.first
     org = Organisation.find_by(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")))
     gg = GuidanceGroup.create(name: 'Funder Test', organisation: org)
     
-    assert GuidanceGroup.can_view?(usr, gg.id)
+    assert GuidanceGroup.can_view?(@user, gg.id)
   end
   
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to the managing curation centre" do
-    usr = User.first
     org = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
     gg = GuidanceGroup.create(name: 'Managing CC Test', organisation: org)
     
-    assert GuidanceGroup.can_view?(usr, gg.id)
+    assert GuidanceGroup.can_view?(@user, gg.id)
   end
 
   # ---------------------------------------------------
   test "user can view all oftheir organisations, funders, and the managing curation centre's guidance groups" do
-    usr = User.first
-    @organisation.users << usr
+    @organisation.users << @user
     @organisation.save
     @organisation.reload
 
     funding = Organisation.where(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder"))).first
-    managing = Organisation.create(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    managing = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
 
     ggs = [@guidance_group,
            GuidanceGroup.create(name: 'User Test', organisation: @organisation),
            GuidanceGroup.create(name: 'Funder Test', organisation: funding),
            GuidanceGroup.create(name: 'Managing CC Test', organisation: managing)]
     
-    v = GuidanceGroup.all_viewable(usr)
+    v = GuidanceGroup.all_viewable(@user)
     
     ggs.each do |gg|
       assert v.include?(gg), "expected Guidance Group: '#{gg.name}' to be viewable"

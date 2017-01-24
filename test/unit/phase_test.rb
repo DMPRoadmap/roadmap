@@ -32,31 +32,17 @@ class PhaseTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "latest_version returns the correct version" do
-    assert_equal @phase.versions.first, @phase.latest_version, "expected the version if there is only one version"
-    
-    [2..4].each do |i|
-      @phase.versions << Version.new(title: "Version #{i}", number: i)
-    end
-    
-    @phase.save!
-    assert_equal 4, @phase.latest_version.number, "expected the last version if there there were multiple versions"
-  end
-  
-  # ---------------------------------------------------
   test "latest_published_version returns the correct version" do
     assert_equal nil, @phase.latest_published_version, "expected nil if there is only one version and it was not specifically designated as published"
-    
-    @phase.published = true
-    @phase.save!
-    assert_equal @phase.versions.first, @phase.latest_published_version, "expected the version if there is only one published version"
-    
-    [2..4].each do |i|
+
+    4.times do |i|
       @phase.versions << Version.new(title: "Version #{i}", number: i, 
                                      published: (i == 3 ? true : false))
     end
     
     @phase.save!
+    @phase.reload
+    
     assert_equal 3, @phase.latest_published_version.number, "expected the last published version if there there were multiple published versions"
   end
   
