@@ -59,6 +59,7 @@ class Phase < ActiveRecord::Base
     end
   end
 
+# TODO: reevaluate this method. It seems like the 1st query is unecessary
   ##
   # verify if a phase has a published version or a version with one or more sections
   #
