@@ -1,26 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-#two:
-#  title: MyString
-#  note: MyText
-#  locked: false
-#  dmptemplate_id: 1
+<% templates = YAML::load(ERB.new(File.read('./test/fixtures/dmptemplates.yml')).result) %>
 
-test_plan:
-  title: "AHRC Template project"
-  dmptemplate: ahrc_template
-  organisation: ahrc
-
-test_plan_2:
-  title: "AHRC Template second project"
-  dmptemplate: ahrc_template_2
-  organisation: ahrc
-
-test_plan_3:
-  title: "DCC Template project"
-  dmptemplate: dcc_template
-  organisation: dcc
-  
-test_plan_4:
-  title: "DMP Template project"
-  dmptemplate: dmp_template
-  organisation: dcc
+<% templates.each do |lbl, hash| %>
+<%= lbl %>_project:
+  title: <%= "#{lbl} Project" %>
+  dmptemplate: <%= lbl %>
+  organisation: complete 
+  visibility: 1
+<% end %>

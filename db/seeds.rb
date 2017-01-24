@@ -2,10 +2,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-# Dmptemplate default formatting settings based on https://je-s.rcuk.ac.uk/Handbook/pages/GuidanceonCompletingaStandardG/CaseforSupportandAttachments/CaseforSupportandAttachments.htm
-
-d1 = DateTime.new(2015, 6, 22)
-
 languages = {
     'English(UK)' => {
         abbreviation: 'en-UK',
@@ -104,8 +100,8 @@ identifier_schemes.each do |l, details|
   if IdentifierScheme.where(name: details[:name]).empty?
     scheme = IdentifierScheme.new({
       name: details[:name],
-      auth_uri: details[:auth_uri],
-      user_uri: details[:user_uri]
+      description: details[:description],
+      active: details[:active]
     })
     scheme.save!
   end

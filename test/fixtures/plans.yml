@@ -1,11 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+<% projects = YAML::load(ERB.new(File.read('./test/fixtures/projects.yml')).result) %>
+<% versions = YAML::load(ERB.new(File.read('./test/fixtures/versions.yml')).result) %>
 
-#one:
-#  locked: false
-#  project_id: 1
-#  version_id: 1
-#
-#two:
-#  locked: false
-#  project_id: 1
-#  version_id: 1
+<% projects.each do |lbl, hash| %>
+<%= lbl %>_plan:
+  project: <%= lbl %>
+  version: version.first
+  locked: false
+<% end %>

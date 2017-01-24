@@ -7,7 +7,12 @@ class AnswersController < ApplicationController
     authorize @answer
 		old_answer = @answer.plan.answer(@answer.question_id, false)
 		proceed = false
-		@answer.text = params["answer-text-#{@answer.question_id}".to_sym]
+
+puts "NEW ANSWER"
+puts @answer.inspect
+puts "OLD ANSWER"
+puts old_answer.inspect
+
 		if (old_answer.nil? && @answer.text != "") || ((!old_answer.nil?) && (old_answer.text != @answer.text)) then
 			proceed = true
 		end

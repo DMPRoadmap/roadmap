@@ -39,8 +39,9 @@ cc_template_unpublished:
   is_default: true
 
 <% 3.times do |n| %>
-funder_template_<%= (n == 1 ? 'unpublished' : n + 1) %>:
-  title: <%= "Funder Template #{(n == 1 ? 'unpublished' : n + 1)}" %>
+<% nbr = (n + 1) %>
+funder_template_<%= (n == 1 ? 'unpublished' : nbr) %>:
+  title: <%= "Funder Template #{(n == 1 ? 'unpublished' : nbr)}" %>
   published: <%= (n != 1) %>
   organisation: funder
   locale: en-UK

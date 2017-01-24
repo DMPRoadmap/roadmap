@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.includes(:roles).find(params[:id])
     authorize @user
     user_roles = current_user.roles
-    @roles = user_roles & Role.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
+    @roles = user_roles & Role.where(name: [constant("roles.change_org_details"),constant("roles.use_api"), constant("roles.modify_guidance"), constant("roles.modify_templates"), constant("roles.grant_permissions")])
   end
 
   def admin_update_permissions
@@ -27,14 +27,14 @@ class UsersController < ApplicationController
       if @user.roles.include? role
         if ! roles.include? role
           @user.roles.delete(role)
-          if role.name == constant("user_role_types.use_api")
+          if role.name == constant("roles.use_api")
             @user.remove_token!
           end
         end
       else
         if roles.include? role
           @user.roles << role
-          if role.name == constant("user_role_types.use_api")
+          if role.name == constant("roles.use_api")
             @user.keep_or_generate_token!
           end
         end

@@ -3,6 +3,9 @@ class QuestionFormat < ActiveRecord::Base
 
   #associations between tables
   has_many :questions
+  
+  validates :title, presence: true, uniqueness: true
+  
   ##
   # gives the title of the question_format
   #

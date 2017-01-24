@@ -44,10 +44,18 @@ module ProjectsHelper
         shared_num = project.project_groups.count - 1
         text = shared_num > 0 ? (t("helpers.yes_label") + " (with #{shared_num} people) ") : t("helpers.no_label")
         [ "dmp_td_small", text ]
+      when 'visibility'
+        ["dmp_td_small", (project.visibility.nil? ? I18n.t("helpers.project.visibilities.labels.organisationally_visible") : I18n.t("helpers.project.visibilities.labels.#{project.visibility}"))]
       when 'last_edited'
         [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
       when 'description'
         [ "dmp_td_medium", (project.try(col) || "Unknown") ]
+      when 'non_link_name'
+        [ "dmp_td_big", project.title ]
+      when 'template'
+        ["dmp_td_big", project.dmptemplate.title]
+      when 'organisation'
+        ["dmp_td_medium", (project.organisation.nil? ? project.owner.organisation.name : project.organisation.name)]
       else
         [ "dmp_td_small", (project.try(col) || "Unknown") ]
     end
