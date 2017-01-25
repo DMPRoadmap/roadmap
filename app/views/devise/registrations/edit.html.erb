@@ -3,8 +3,8 @@
 <%= raw t("helpers.user_details_text_html") %>
 
 <div class="white_background">
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}) do |f| %>
-      <%= hidden_field_tag :unlink_flag, "false", :id => "unlink_flag" %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+      <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
       <!-- body -->
       <div class="dmp_details">
 
@@ -13,14 +13,14 @@
 		<table class="dmp_details_table">
 			<tr>
 				<td class="first"><%= (t("helpers.email") + " *") %></td>
-				<td><%= f.email_field :email, :as => :email %></td>
+				<td><%= f.email_field :email, as: :email %></td>
 			</tr>
 			<tr>
 				<td class="first"><%= t("helpers.first_name") %></td>
-				<td><%= f.text_field :firstname, :as => :string,
-							:id => "first_time_login_firstname",
-							:autofocus => true,
-							:class => "text_field has-tooltip",
+				<td><%= f.text_field :firstname, as: :string,
+							id: "first_time_login_firstname",
+							autofocus: true,
+							class: "text_field has-tooltip",
 							"data-toggle" => "tooltip",
 							"data-trigger" => "focus" ,
 							"title" => t("helpers.first_name_help_text") %></td>
@@ -28,8 +28,8 @@
 			<tr>
 				<td class="first"><%= t("helpers.last_name") %></td>
 				<td><%= f.text_field :surname,
-					:as => :string, :id => "first_time_login_surname",
-					:class => "text_field has-tooltip",
+					as: :string, id: "first_time_login_surname",
+					class: "text_field has-tooltip",
 					"data-toggle" => "tooltip",
 					"data-trigger" => "focus" ,
 					"title" => t("helpers.surname_help_text") %></td>
@@ -37,19 +37,15 @@
 			<tr>
 				<td class="first"><%= t("helpers.org_type.organisation") %></td>
 				<td><%= collection_select(:user,
-						:organisation_id, Organisation.where("parent_id IS NULL").order("name"),
+						:org_id, @orgs,
 						:id, :name, {include_blank: constant("organisation_types.organisation")},
-						{ :class => "typeahead org_sign_up" }) %></td>
+						{ class: "typeahead org_sign_up" }) %></td>
 			</tr>
-			<% other_organisations = Array.new %>
-			<% Organisation.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
-				<% other_organisations << org.id %>
-			<% end %>
-			<tr id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(",") %>">
+			<tr id="other-organisation-name" style="display:none" data-orgs="<%= @other_organisations.join(",") %>">
 				<td class="first"><%= t("helpers.org_type.org_name")%></td>
 				<td><%= f.text_field :other_organisation,
-						:as => :string,
-						:class => "text_field has-tooltip reg-input", "data-toggle" => "tooltip", "data-container" => "body", "title" => t("helpers.org_type.other_org_help_text") %></td>
+						as: :string,
+						class: "text_field has-tooltip reg-input", "data-toggle" => "tooltip", "data-container" => "body", "title" => t("helpers.org_type.other_org_help_text") %></td>
 			</tr>
       <tr>
         <td class="first"><%= t('helpers.user_details_language') %></td>
@@ -60,15 +56,15 @@
 							<option value="<%= l.id %>"<%= (current_user.language_id == l.id || (current_user.language_id.nil? && l.default_language) ? ' selected="selected"' : '') %>><%= l.name %></option>
 						<% end %>
 					</select>
-					
+
 				</td>
       </tr>
 			<tr>
 				<td class="first"><%= t("helpers.orcid_id") %></td>
 				<td><%= f.text_field :orcid_id ,
-						:as => :string,
-						:autocomplete => "off" ,
-						:class => "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
+						as: :string,
+						autocomplete: "off" ,
+						class: "text_field has-tooltip", "data-toggle" => "tooltip", "data-html" => "true", "title" => t("helpers.orcid_html") %></td>
 			</tr>
 			<% unless @user.api_token.blank? %>
 			<tr>
@@ -83,16 +79,16 @@
 		</table>
 		<br />
 		<p>
-            <% if Rails.application.config.shibboleth_enabled %>
-                <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
-                    <%= link_to t("helpers.shibboleth_to_link_text"), user_omniauth_shibboleth_path, :class => "a-orange" %>
-                <% else %>
-                    <%= t("helpers.shibboleth_linked_text") %>
-                    <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
-                        <%= t("helpers.shibboleth_unlink_label")%>
-                    </a>
-                <% end %>
-            <% end %>
+    <% if Rails.application.config.shibboleth_enabled %>
+        <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
+            <%= link_to t("helpers.shibboleth_to_link_text"), user_omniauth_shibboleth_path, class: "a-orange" %>
+        <% else %>
+            <%= t("helpers.shibboleth_linked_text") %>
+            <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
+                <%= t("helpers.shibboleth_unlink_label")%>
+            </a>
+        <% end %>
+    <% end %>
 		</p>
 		<br />
 		<div class="div_clear">
@@ -102,35 +98,29 @@
 		</p>
 		<table class="dmp_details_table">
 			<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-					    <div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
+				<div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
 			<% end %>
 			<tr>
 				<td class="first"><%= t("helpers.current_password") %></td>
 				<td>
-					 <%= f.password_field :current_password, :as => :password %>
+					 <%= f.password_field :current_password, as: :password %>
 				</td>
 			</tr>
 			<tr>
 				<td class="first"><%= t("helpers.new_password") %></td>
-				<td><%= f.password_field :password, :as => :password, :autocomplete => "off" %>
+				<td><%= f.password_field :password, as: :password, autocomplete: "off" %>
 				</td>
 			</tr>
 			<tr>
 				<td class="first"><%= t("helpers.password_conf") %></td>
-				<td><%= f.password_field :password_confirmation, :as => :password, :autocomplete => "off" %></td>
+				<td><%= f.password_field :password_confirmation, as: :password, autocomplete: "off" %></td>
 			</tr>
 		</table>
 		<div class="move_2_right">
-			<%= f.submit t("helpers.submit.save"), :class => "btn btn-primary" %>
-			<%= link_to t("helpers.submit.cancel"), :back, :class => "btn btn-primary" %>
+			<%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
+			<%= link_to t("helpers.submit.cancel"), :back, class: "btn btn-primary" %>
 		</div>
 	<% end %>
-		<!--br/>
-		<h3>Cancel my account</h3>
-		<p>Unhappy?
-			<%# = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>
-		</p-->
-
   </div>
 </div>
 

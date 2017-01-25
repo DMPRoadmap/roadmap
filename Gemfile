@@ -16,7 +16,7 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 # ------------------------------------------------
 #    DATABASE/SERVER
 gem 'pg'
-#gem 'mysql2', '~> 0.3.18'
+gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
 #    JS <-> RUBY BRIDGE
@@ -109,6 +109,8 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'web-console', '~>2.0'
+  gem 'rack-mini-profiler'
+  #gem 'flamegraph'
 end
 
 group :production do

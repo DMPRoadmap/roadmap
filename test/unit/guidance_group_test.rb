@@ -9,7 +9,7 @@ class GuidanceGroupTest < ActiveSupport::TestCase
     
     @org_type = OrganisationType.first
     
-    @organisations = Organisation.all
+    @organisations = Org.all
   end
   
   # ---------- can_view? ----------

@@ -7,8 +7,8 @@
 	<div class="move_2_right">
 		<%= link_to t("org_admin.guidance.view_all_guidance"),
 		            admin_index_guidance_path,
-		            :class => "btn btn-primary" %>
-	</div>            
+		            class: "btn btn-primary" %>
+	</div>
 </h1>
 
 <div class="div_clear"></div>
@@ -16,31 +16,16 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
-		<%= form_for :guidance_group, :url => {:action => "admin_create"} do |f| %>
-			
+		<%= form_for :guidance_group, url: {action: "admin_create"} do |f| %>
+
 				<table class="dmp_details_table guidance_table">
 					<tr>
 						<td class="first"><%= t('org_admin.guidance_group.name_label') %></td>
 						<td><div class="div_left_icon_g">
-								<%= f.text_field :name, 
-								:as => :string, 
-								:class => "text_field" %>
+								<%= f.text_field :name, as: :string, class: "text_field" %>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag("help_button.png"), "#", :class => 'guidance_group_title_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t("org_admin.guidance_group.title_help_text_html"))%>
-							</div>
-							
-						</td>
-					</tr>
-					<tr>
-						<td class="first"><%= t("org_admin.guidance.template") %></td>
-						<td><div class="div_left_icon_g">
-								<%= f.select :dmptemplate_ids, options_for_select( 
-								[['All templates', ""]].concat( Dmptemplate.funders_and_own_templates(current_user.organisation_id).collect{ |g| [g.title, g.id] })),{} ,
-								{:prompt => false , :multiple => true}%>
-							</div>
-							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_template_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.template_help_text_html'))%>
+								<%= link_to( image_tag("help_button.png"), "#", class: 'guidance_group_title_popover', rel: "popover", 'data-html' => "true", 'data-content' => t("org_admin.guidance_group.title_help_text_html"))%>
 							</div>
 						</td>
 					</tr>
@@ -50,22 +35,18 @@
 								<%= f.check_box :optional_subset %> <%= t('org_admin.guidance_group.subset_eg') %>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%>
+								<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_group_subset_popover', rel: "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%>
 							</div>
-							
 						</td>
 					</tr>
-										
 				</table>
-			
+
 			<!-- submit buttons -->
-			
 				<div class="move_2_right">
-					<%= f.submit t("helpers.submit.save"), :name => "draft", :class => "btn btn-primary" %>
-					<%= link_to t("helpers.submit.cancel"), :back, :class => "btn cancel btn-secondary" %>
+					<%= f.submit t("helpers.submit.save"), name: "draft", class: "btn btn-primary" %>
+					<%= link_to t("helpers.submit.cancel"), :back, class: "btn cancel btn-secondary" %>
 				</div>
-			
 			<br />
-		<%end%>
+		<% end %>
 	</div>
-</div>	
+</div>

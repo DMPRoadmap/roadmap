@@ -9,16 +9,16 @@
     <table id="dmp_table" class="dmp_table tablesorter">
       <thead>
         <tr>
-          <% @roles.each do |role| %>
-          <th class="dmp_th_medium"> <%= role.name %> </th>
+          <% @perms.each do |perm| %>
+          <th class="dmp_th_medium"> <%= perm.name %> </th>
           <% end %>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <% @roles.each do |role| %>
+          <% @perms.each do |perm| %>
             <td class="dmp_td_medium">
-              <%= check_box_tag "role_ids[]", role.id, @user.roles.include?(role) %>
+              <%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm) %>
             </td>
           <% end %>
         </tr>

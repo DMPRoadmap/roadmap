@@ -173,7 +173,7 @@
   
     <li><a href="../OptionWarning.html">OptionWarning</a>
   
-    <li><a href="../Organisation.html">Organisation</a>
+    <li><a href="../Org.html">Organisation</a>
   
     <li><a href="../OrganisationType.html">OrganisationType</a>
   
@@ -300,8 +300,10 @@
           <div class="method-source-code" id="associate-source">
             <pre><span class="ruby-comment"># File app/controllers/users/omniauth_shibboleth_request_controller.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">associate</span>
-  <span class="ruby-comment"># This action is protected - can only be reached if user is already logged in.</span>
-  <span class="ruby-comment"># See before_filter</span>
+  <span class="ruby-comment"># This action is protected - can only be reached if user is already logged in.
+</span>
+  <span class="ruby-comment"># See before_filter
+</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_omniauth_callback_path</span>(<span class="ruby-value">:shibboleth</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- associate-source -->

@@ -4,7 +4,7 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-ActiveAdmin.register Option do
+ActiveAdmin.register QuestionOption do
 	permit_params :question_id, :text, :number, :is_default 
 	menu :priority => 6, :label => proc{I18n.t('admin.multi_options')}, :parent =>  "Templates management"
 

@@ -228,7 +228,7 @@ class DmptemplateTest < ActiveSupport::TestCase
 
   # ---------- own_institutional_templates ----------
   test "own_institutional_templates returns all templates belonging to given org_id" do
-    Organisation.find_each do |org|
+    Org.find_each do |org|
       result_templates = Dmptemplate.own_institutional_templates(org.id)
       org.dmptemplates.each do |template|
         assert_includes(result_templates, template, "Template: #{template.title} not returned by own_institutional_templates")
@@ -238,7 +238,7 @@ class DmptemplateTest < ActiveSupport::TestCase
 
   # ---------- funders_and_own_templates ----------
   test "funders_and_own_templates returns all funder and own given org_id templates" do
-    Organisation.find_each do |org|
+    Org.find_each do |org|
       result_templates = Dmptemplate.funders_and_own_templates(org.id)
       org.dmptemplates.each do |template|
         assert_includes(result_templates, template, "Template #{template.title} not returned by funders and own templates")

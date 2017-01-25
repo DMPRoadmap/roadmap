@@ -1,5 +1,5 @@
 class Users::OmniauthShibbolethRequestController < ApplicationController
-  before_filter :authenticate_user!, :only => :associate
+  before_filter :authenticate_user!, only: :associate
 
   def redirect
   	if !current_user.nil? && !current_user.organisation.nil?
