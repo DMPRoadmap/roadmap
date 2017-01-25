@@ -37,7 +37,8 @@
 								organisation_url: Rails.configuration.branding[:organisation][:url],
 								application_name: Rails.configuration.branding[:application][:name],
 								application_home: Rails.configuration.branding[:application][:home],
-								application_url: Rails.configuration.branding[:application][:url])%>
+                                application_url: Rails.configuration.branding[:application][:url],
+                                current_locale: I18n.locale)%>
 		</div>	
 		<div class="tab-pane" id="News">
 			<%= raw t("about_page.body_text_tab_2_html",

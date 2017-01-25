@@ -9,7 +9,8 @@ class AnswerPolicy < ApplicationPolicy
   end
 
   def create?
-    @answer.plan.editable_by(@user.id)
+    # is the plan editable by the user, and is the user_id that of the user
+    @answer.plan.editable_by(@user.id) && (@answer.user_id == @user.id)
   end
 
 end

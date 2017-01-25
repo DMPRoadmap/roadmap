@@ -171,7 +171,7 @@
   
     <li><a href="../OptionWarning.html">OptionWarning</a>
   
-    <li><a href="../Organisation.html">Organisation</a>
+    <li><a href="../Org.html">Organisation</a>
   
     <li><a href="../OrganisationType.html">OrganisationType</a>
   
@@ -315,14 +315,16 @@
 
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">uid</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">uid</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-keyword">then</span>
                               <span class="ruby-identifier">s_user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">shibboleth_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">uid</span>).<span class="ruby-identifier">first</span>
-                              <span class="ruby-comment"># Take out previous record if was not confirmed.</span>
+                              <span class="ruby-comment"># Take out previous record if was not confirmed.
+</span>
                               <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">s_user</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">s_user</span>.<span class="ruby-identifier">confirmed_at</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
                                       <span class="ruby-identifier">sign_out</span> <span class="ruby-identifier">s_user</span>
                                       <span class="ruby-constant">User</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">s_user</span>.<span class="ruby-identifier">id</span>)
                                       <span class="ruby-identifier">s_user</span> = <span class="ruby-keyword">nil</span>
                               <span class="ruby-keyword">end</span>
 
-                              <span class="ruby-comment"># Stops Shibboleth ID being blocked if email incorrectly entered.</span>
+                              <span class="ruby-comment"># Stops Shibboleth ID being blocked if email incorrectly entered.
+</span>
                               <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">s_user</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">s_user</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:persisted?</span>) <span class="ruby-keyword">then</span>
                                       <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;devise.omniauth_callbacks.success&#39;</span>, <span class="ruby-value">:kind</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Shibboleth&#39;</span>)
                                       <span class="ruby-identifier">sign_in</span> <span class="ruby-identifier">s_user</span>

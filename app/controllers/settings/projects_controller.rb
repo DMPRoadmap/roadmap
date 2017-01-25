@@ -36,7 +36,7 @@ module Settings
       @settings = current_user.settings(:plan_list)
       # :name column should always be present (displayed as a disabled checkbox)
       # so it's not necessary to include it in the list here
-      @all_columns -= [:name]
+      @all_columns -= ['name']
     end
 
     def settings_json

@@ -135,6 +135,7 @@ GEM
       faraday_middleware (~> 0.9)
       loofah (~> 2.0)
       sax-machine (~> 1.0)
+    flag_shih_tzu (0.3.15)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -211,7 +212,6 @@ GEM
       ruby-progressbar
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    mysql2 (0.3.21)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -230,6 +230,8 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
+    rack-mini-profiler (0.10.1)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7)
@@ -341,6 +343,7 @@ DEPENDENCIES
   devise_invitable
   dragonfly
   feedjira
+  flag_shih_tzu
   friendly_id
   htmltoword
   i18n-js (>= 3.0.0.rc11)
@@ -351,12 +354,12 @@ DEPENDENCIES
   libv8
   minitest-rails-capybara
   minitest-reporters
-  mysql2 (~> 0.3.18)
   omniauth
   omniauth-shibboleth
   pg
   protected_attributes
   pundit
+  rack-mini-profiler
   rack-test
   rails (= 4.2.7)
   railties
@@ -382,4 +385,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.13.2
+   1.13.7

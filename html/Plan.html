@@ -217,7 +217,7 @@
   
     <li><a href="./OptionWarning.html">OptionWarning</a>
   
-    <li><a href="./Organisation.html">Organisation</a>
+    <li><a href="./Org.html">Organisation</a>
   
     <li><a href="./OrganisationType.html">OrganisationType</a>
   
@@ -651,7 +651,8 @@
             <pre><span class="ruby-comment"># File app/models/plan.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">guidance_for_question</span>(<span class="ruby-identifier">question</span>)
         <span class="ruby-identifier">guidances</span> = {}
-        <span class="ruby-comment"># If project org isn&#39;t nil, get guidance by theme from any &quot;non-subset&quot; groups belonging to project org</span>
+        <span class="ruby-comment"># If project org isn&#39;t nil, get guidance by theme from any &quot;non-subset&quot; groups belonging to project org
+</span>
         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">project</span>.<span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
                 <span class="ruby-identifier">project</span>.<span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">guidance_groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span>
                         <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">group</span>.<span class="ruby-identifier">optional_subset</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">group</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">project</span>.<span class="ruby-identifier">dmptemplate_id</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">group</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-keyword">then</span>
@@ -664,7 +665,8 @@
                 <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
 
-        <span class="ruby-comment"># Get guidance by theme from any guidance groups selected on creation</span>
+        <span class="ruby-comment"># Get guidance by theme from any guidance groups selected on creation
+</span>
         <span class="ruby-identifier">project</span>.<span class="ruby-identifier">guidance_groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span>
                 <span class="ruby-keyword">if</span> <span class="ruby-identifier">group</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">project</span>.<span class="ruby-identifier">dmptemplate_id</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">group</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
                         <span class="ruby-identifier">group</span>.<span class="ruby-identifier">guidances</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">guidance</span><span class="ruby-operator">|</span>
@@ -675,7 +677,8 @@
                 <span class="ruby-keyword">end</span> 
 <span class="ruby-keyword">end</span>
         
-        <span class="ruby-comment"># Get guidance by question where guidance group was selected on creation or if group is organisation default</span>
+        <span class="ruby-comment"># Get guidance by question where guidance group was selected on creation or if group is organisation default
+</span>
         <span class="ruby-identifier">question</span>.<span class="ruby-identifier">guidances</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">guidance</span><span class="ruby-operator">|</span>
                 <span class="ruby-identifier">guidance</span>.<span class="ruby-identifier">guidance_groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span>
                         <span class="ruby-keyword">if</span> (<span class="ruby-identifier">group</span>.<span class="ruby-identifier">organisation</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">project</span>.<span class="ruby-identifier">organisation</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">group</span>.<span class="ruby-identifier">optional_subset</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">project</span>.<span class="ruby-identifier">guidance_groups</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">group</span>) <span class="ruby-keyword">then</span>
@@ -914,7 +917,8 @@
         <span class="ruby-identifier">section</span>.<span class="ruby-identifier">questions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span>
                 <span class="ruby-identifier">section_questions</span>[<span class="ruby-identifier">counter</span>] = {}
                 <span class="ruby-identifier">section_questions</span>[<span class="ruby-identifier">counter</span>][<span class="ruby-string">&quot;id&quot;</span>] = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">id</span>
-                <span class="ruby-comment">#section_questions[counter][&quot;multiple_choice&quot;] = q.multiple_choice</span>
+                <span class="ruby-comment">#section_questions[counter][&quot;multiple_choice&quot;] = q.multiple_choice
+</span>
                 <span class="ruby-identifier">q_answer</span> = <span class="ruby-identifier">answer</span>(<span class="ruby-identifier">q</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword">false</span>)
                 <span class="ruby-keyword">if</span> <span class="ruby-identifier">q_answer</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
                         <span class="ruby-identifier">section_questions</span>[<span class="ruby-identifier">counter</span>][<span class="ruby-string">&quot;answer_id&quot;</span>] = <span class="ruby-keyword">nil</span>
@@ -1043,7 +1047,8 @@ here, too.</p>
                 <span class="ruby-string">&quot;num_answers&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>,
                 <span class="ruby-string">&quot;sections&quot;</span> =<span class="ruby-operator">&gt;</span> {},
                 <span class="ruby-string">&quot;questions&quot;</span> =<span class="ruby-operator">&gt;</span> {},
-                <span class="ruby-string">&quot;space_used&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-comment"># percentage of available space in pdf used</span>
+                <span class="ruby-string">&quot;space_used&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-comment"># percentage of available space in pdf used
+</span>
         }
 
         <span class="ruby-identifier">space_used</span> = <span class="ruby-identifier">height_of_text</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">title</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>)
@@ -1076,7 +1081,8 @@ here, too.</p>
                                 <span class="ruby-identifier">status</span>[<span class="ruby-string">&quot;num_answers&quot;</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">q_format</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;helpers.checkbox&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">q_format</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;helpers.multi_select_box&quot;</span>) <span class="ruby-operator">||</span>
                                 <span class="ruby-identifier">q_format</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;helpers.radio_buttons&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">q_format</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;helpers.dropdown&quot;</span>)) <span class="ruby-operator">||</span> <span class="ruby-identifier">answer</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">present?</span>
                                 <span class="ruby-identifier">section_answers</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-                                <span class="ruby-comment">#TODO: include selected options in space estimate</span>
+                                <span class="ruby-comment">#TODO: include selected options in space estimate
+</span>
                         <span class="ruby-keyword">else</span>
                                 <span class="ruby-identifier">status</span>[<span class="ruby-string">&quot;questions&quot;</span>][<span class="ruby-identifier">q</span>.<span class="ruby-identifier">id</span>] = {
                                         <span class="ruby-string">&quot;answer_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
@@ -1303,11 +1309,13 @@ nearest 5%; it is intended for guidance when editing plan data, not to be
         <span class="ruby-keyword">return</span> <span class="ruby-value">0</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@formatting</span>[<span class="ruby-value">:font_size</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 
         <span class="ruby-identifier">margin_height</span>    = <span class="ruby-ivar">@formatting</span>[<span class="ruby-value">:margin</span>][<span class="ruby-value">:top</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@formatting</span>[<span class="ruby-value">:margin</span>][<span class="ruby-value">:bottom</span>].<span class="ruby-identifier">to_i</span>
-        <span class="ruby-identifier">page_height</span>      = <span class="ruby-constant">A4_PAGE_HEIGHT</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">margin_height</span> <span class="ruby-comment"># 297mm for A4 portrait</span>
+        <span class="ruby-identifier">page_height</span>      = <span class="ruby-constant">A4_PAGE_HEIGHT</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">margin_height</span> <span class="ruby-comment"># 297mm for A4 portrait
+</span>
         <span class="ruby-identifier">available_height</span> = <span class="ruby-identifier">page_height</span> * <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:export</span>).<span class="ruby-identifier">max_pages</span>
 
         <span class="ruby-identifier">percentage</span> = (<span class="ruby-identifier">used_height</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">available_height</span>) * <span class="ruby-value">100</span>
-        (<span class="ruby-identifier">percentage</span> <span class="ruby-operator">/</span> <span class="ruby-constant">ROUNDING</span>).<span class="ruby-identifier">ceil</span> * <span class="ruby-constant">ROUNDING</span> <span class="ruby-comment"># round up to nearest five</span>
+        (<span class="ruby-identifier">percentage</span> <span class="ruby-operator">/</span> <span class="ruby-constant">ROUNDING</span>).<span class="ruby-identifier">ceil</span> * <span class="ruby-constant">ROUNDING</span> <span class="ruby-comment"># round up to nearest five
+</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- estimate_space_used-source -->
           
@@ -1350,10 +1358,12 @@ text)</p>
         <span class="ruby-keyword">return</span> <span class="ruby-value">0</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@base_font_size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 
         <span class="ruby-identifier">font_height</span> = <span class="ruby-constant">FONT_HEIGHT_CONVERSION_FACTOR</span> * (<span class="ruby-ivar">@base_font_size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">font_size_inc</span>)
-        <span class="ruby-identifier">font_width</span>  = <span class="ruby-identifier">font_height</span> * <span class="ruby-constant">FONT_WIDTH_HEIGHT_RATIO</span> <span class="ruby-comment"># Assume glyph width averages at 2/5s the height</span>
+        <span class="ruby-identifier">font_width</span>  = <span class="ruby-identifier">font_height</span> * <span class="ruby-constant">FONT_WIDTH_HEIGHT_RATIO</span> <span class="ruby-comment"># Assume glyph width averages at 2/5s the height
+</span>
         <span class="ruby-identifier">leading</span>     = <span class="ruby-identifier">font_height</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>
 
-        <span class="ruby-identifier">chars_in_line</span> = (<span class="ruby-constant">A4_PAGE_WIDTH</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@margin_width</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">font_width</span> <span class="ruby-comment"># 210mm for A4 portrait</span>
+        <span class="ruby-identifier">chars_in_line</span> = (<span class="ruby-constant">A4_PAGE_WIDTH</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@margin_width</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">font_width</span> <span class="ruby-comment"># 210mm for A4 portrait
+</span>
         <span class="ruby-identifier">num_lines</span> = (<span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">chars_in_line</span>).<span class="ruby-identifier">ceil</span>
 
         (<span class="ruby-identifier">num_lines</span> * <span class="ruby-identifier">font_height</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">vertical_margin</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">leading</span>

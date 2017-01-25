@@ -11,84 +11,62 @@
 </div>
 <div class="div_right">
 	<div class="move_2_right">
-		<%= link_to t("org_admin.guidance_group.add_guidance_group"), admin_new_guidance_group_path(), :class => "btn btn-primary" %>
+		<%= link_to t("org_admin.guidance_group.add_guidance_group"), admin_new_guidance_group_path(), class: "btn btn-primary" %>
 	</div>
 </div>
-	
+
 <!-- List of guidance groups -->
-<% if @guidance_groups.count > 0 then%>	
+<% if @guidance_groups.length > 0 then%>
 	<table id="dmp_table_2" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
-	      	<th class="dmp_th_medium"><%= t("org_admin.guidance_group.name_label") %></th>
-			<th class="dmp_th_medium"><%= t("org_admin.guidance.template") %></th>
-            <th class="dmp_th_small"><%= t("org_admin.guidance.published") %></th>
-			<th class="dmp_th_small"><%= t("org_admin.guidance_group.subset") %></th>
-	      	<th class="dmp_th_small"><%= t("org_admin.guidance.last_updated") %></th>
-	      	<td class="dmp_th_medium"><%= t("org_admin.guidance.actions") %></td>
+	      <th class="dmp_th_medium"><%= t("org_admin.guidance_group.name_label") %></th>
+        <th class="dmp_th_small"><%= t("org_admin.guidance.published") %></th>
+        <th class="dmp_th_small"><%= t("org_admin.guidance_group.subset") %></th>
+      	<th class="dmp_th_small"><%= t("org_admin.guidance.last_updated") %></th>
+      	<td class="dmp_th_medium"><%= t("org_admin.guidance.actions") %></td>
 	    </tr>
 	  </thead>
 	  <tbody>
 	  	<% !@guidance_groups.each do |guidance_gr| %>
 	  		<tr>
-		        <td class="dmp_td_medium">
-		        	<%= guidance_gr.name %>
-		        </td>
-		        <% guidance_group_temp = guidance_gr.dmptemplate_ids %>
-		        <% if guidance_group_temp != [] then %>
-		        	<td class="dmp_td_medium">
-		        		<% i = 1 %>
-			        	<% guidance_group_temp.each do |t| %>
-			        		<% temp = Dmptemplate.find(t) %>
-			             	<%= temp.title %>
-			             	
-			        		<% if guidance_group_temp.count > i then%> 
-								,	
-								<% i +=1 %>		
-							<% end %>
-				   		<%end%>
-				   	</td>	     
-				<%else%>
-				    <td class="dmp_td_medium">
-				       	<%= t("org_admin.guidance_group.all_temp")%>
-				    </td>
-				<%end%>	 
-                <td class="dmp_td_small">
-					<%if guidance_gr.published.nil? || guidance_gr.published == false then%>
-						<%= t("helpers.no_label")%>
-					<%else%>
-						<%= t("helpers.yes_label")%>	
-					<%end%>
-				</td>
-				<td class="dmp_td_small">
-					<%if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false then%>
-						<%= t("helpers.no_label")%>
-					<%else%>
-						<%= t("helpers.yes_label")%>	
-					<%end%>
-				</td>
-			    	
-		        <td class="dmp_td_small">
-		        	<%= l guidance_gr.updated_at.to_date, :formats => :short %>
-		        </td>
-		        <td class="dmp_td_medium">
-		        	<%= link_to t("helpers.view"), admin_show_guidance_group_path(guidance_gr), :class => "dmp_table_link"%><br/>
-					<%= link_to t("helpers.submit.edit"), admin_edit_guidance_group_path(guidance_gr), :class => "dmp_table_link"%><br/>
-					<%= link_to t("helpers.submit.delete"), admin_destroy_guidance_group_path(guidance_gr),
-						:data => {:confirm => t("org_admin.guidance_group.delete_message", :guidance_group_name => guidance_gr.name )}, :method => :delete, :class => "dmp_table_link"%>
-		        </td>
-		      </tr>
-		   
-	    <%end%>
+	        <td class="dmp_td_medium">
+	        	<%= guidance_gr.name %>
+	        </td>
+          <td class="dmp_td_small">
+  					<% if guidance_gr.published.nil? || guidance_gr.published == false then%>
+  						<%= t("helpers.no_label")%>
+  					<% else %>
+  						<%= t("helpers.yes_label")%>
+  					<% end %>
+  				</td>
+  				<td class="dmp_td_small">
+  					<% if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false then%>
+  						<%= t("helpers.no_label")%>
+  					<% else %>
+  						<%= t("helpers.yes_label")%>
+  					<% end %>
+  				</td>
+
+          <td class="dmp_td_small">
+          	<%= l guidance_gr.updated_at.to_date, formats: :short %>
+          </td>
+          <td class="dmp_td_medium">
+          	<%= link_to t("helpers.view"), admin_show_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
+            <%= link_to t("helpers.submit.edit"), admin_edit_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
+            <%= link_to t("helpers.submit.delete"), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: t("org_admin.guidance_group.delete_message", guidance_group_name: guidance_gr.name )}, method: :delete, class: "dmp_table_link"%>
+          </td>
+		    </tr>
+	    <% end %>
 	  </tbody>
 	</table>
-<%end%>	
+<%end%>
 
 <br/>
 <div class="div_clear"></div>
 
 <h1>
-	<%= t("org_admin.guidance.guidance_list") %>           
+	<%= t("org_admin.guidance.guidance_list") %>
 </h1>
 
 <div class="div_left">
@@ -99,14 +77,14 @@
 	<div class="move_2_right">
 		<%= link_to t("org_admin.guidance.add_guidance"),
 		            admin_new_guidance_path(),
-		            :class => "btn btn-primary" %>
+		            class: "btn btn-primary" %>
 	</div> 
 </div>
 
 <div class="div_clear"></div>
 
 <!-- List of guidance -->
-<% if @guidances.count > 0 then%>	
+<% if @guidances.length > 0 then%>
 	<table id="dmp_table" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
@@ -120,55 +98,53 @@
 	  </thead>
 	  <tbody>
 	  	<% @guidances.each do |guidance| %>
-	  		<% if guidance.in_group_belonging_to?(current_user.organisation_id) then %>
+	  		<% if guidance.in_group_belonging_to?(current_user.org_id) then %>
 		      <tr>
 		        <td class="dmp_td_big">
 		        	<%= guidance.text.html_safe%>
 		        </td>
-		        <% if guidance.themes != [] then %>
+		        <% if guidance.themes.present? then %>
 			        <td class="dmp_td_small">
 			        	<% guidance.themes.each do |th| %>
 			        		<%= th.title %>
-			        	<%end%>	
+			        	<% end %>
 			        </td>
-			    <%else%>
+			    <% else %>
 			    	<td class="dmp_td_small">
 			        	-
 			        </td>
-			    <%end%>
+			    <% end %>
 			    <% if !guidance.question_id.nil? then %>
 			        <td class="dmp_td_small">
 			        	<%= raw guidance.question.text.truncate(70, omission: t('helpers.truncate_continued')) %>
 			        </td>
-			    <%else%>
+			    <% else %>
 			    	<td class="dmp_td_small">
 			        	-
 			        </td>
-			    <%end%>
-			    <% if guidance.guidance_groups != [] then %>    
-			        <td class="dmp_td_small">
-			        	<% guidance.guidance_groups.each do |p|%>
-							<%= p.name %>
-						<%end%>
-			        </td>
-		        <%else%>
+			    <% end %>
+			    <% if guidance.guidance_group.present? then %>
+            <td class="dmp_td_small">
+		          <%= guidance.guidance_group.name %>
+            </td>
+		      <% else %>
 			    	<td class="dmp_td_small">
-			        	-
-			        </td>
-			    <%end%>
+			        -
+			       </td>
+			    <% end %>
 		        <td class="dmp_td_small">
-		        	<%= l guidance.updated_at.to_date, :formats => :short %>
+		        	<%= l guidance.updated_at.to_date, formats: :short %>
 		        </td>
 		        <td class="dmp_td_medium">
-		        	<%= link_to t("helpers.view"), admin_show_guidance_path(guidance), :class => "dmp_table_link"%><br/>
-					<%= link_to t("helpers.submit.edit"), admin_edit_guidance_path(guidance), :class => "dmp_table_link"%><br/>
+		        	<%= link_to t("helpers.view"), admin_show_guidance_path(guidance), class: "dmp_table_link"%><br/>
+					<%= link_to t("helpers.submit.edit"), admin_edit_guidance_path(guidance), class: "dmp_table_link"%><br/>
 					<%= link_to t("helpers.submit.delete"), admin_destroy_guidance_path(guidance),
-						:data => {:confirm => t("org_admin.guidance.delete_message_html", :guidance_summary => truncate(sanitize(guidance.text,:tags => %w(br a)), :length => 20 , :omission => t('helpers.truncate_continued')) )}, :method => :delete, :class => "dmp_table_link"%>
+						data: {confirm: t("org_admin.guidance.delete_message_html", guidance_summary: truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: t('helpers.truncate_continued')) )}, method: :delete, class: "dmp_table_link"%>
 		        </td>
 		      </tr>
-		    <%end%>
-	    <%end%>
+		    <% end %>
+	    <% end %>
 	  </tbody>
 	</table>
-<%end%>	
+<% end %>
 

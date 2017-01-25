@@ -1,8 +1,20 @@
 class QuestionFormat < ActiveRecord::Base
+
+  ##
+  # Associations
+  has_many :questions
+
+  ##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :title, :description, :as => [:default, :admin]
 
-  #associations between tables
-  has_many :questions
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
   ##
   # gives the title of the question_format
   #
