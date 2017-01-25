@@ -10,8 +10,8 @@
 
 <%= form_for(@export_settings, url: settings_plan_path(plan), method: :put, as: :export, remote: true) do |f| %>
   <div class="div_right">
-    <%= submit_tag(t("helpers.settings.plans.reset"), class: "btn btn-primary") %>
-    <%= submit_tag(t("helpers.save"), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.version.phase.id}") %>
+    <%= submit_tag(t("helpers.settings.plans.reset"), class: "resetbutton btn btn-primary") %>
+    <%= submit_tag(t("helpers.save"), class: "savebutton btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.version.phase.id}") %>
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= t("helpers.unsaved") %></span>
   <div id="custom-export-title">
