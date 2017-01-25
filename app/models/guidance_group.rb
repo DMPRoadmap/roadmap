@@ -5,7 +5,7 @@ class GuidanceGroup < ActiveRecord::Base
   belongs_to :org
   has_many :guidances
   # depricated but needed for migration "single_group_for_guidance"
-  has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
+  # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
 
   ##
   # Possibly needed for active_admin

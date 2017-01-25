@@ -105,8 +105,8 @@ class TemplatesController < ApplicationController
 
   #preview a phase
   def admin_previewphase
-    @version = Version.find(params[:id])
-    authorize @version.phase.dmptemplate
+    @template = Template.find(params[:id])
+    authorize @template
   end
 
 
@@ -138,16 +138,14 @@ class TemplatesController < ApplicationController
     @phase = Phase.find(params[:id])
     authorize @phase.template
     @phase.description = params["phase-desc"]
-    respond_to do |format|
-      if @phase.update_attributes(params[:phase])
-        format.html { redirect_to admin_phase_dmptemplate_path(@phase), notice: I18n.t('org_admin.templates.updated_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
+    if @phase.update_attributes(params[:phase])
+      redirect_to admin_phase_template_path(@phase), notice: I18n.t('org_admin.templates.updated_message')
+    else
+      render action: "admin_phase"
     end
   end
 
-  #delete a version, sections and questions
+  #delete a phase
   def admin_destroyphase
     @phase = Phase.find(params[:phase_id])
     authorize @phase.template
@@ -160,14 +158,13 @@ class TemplatesController < ApplicationController
   #create a section
   def admin_createsection
     @section = Section.new(params[:section])
-    authorize @section.version.phase.dmptemplate
+    authorize @section.phase.template
     @section.description = params["section-desc"]
-    respond_to do |format|
-      if @section.save
-        format.html { redirect_to admin_phase_template_path(:id => @section.version.phase_id, :version_id => @section.version_id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
+    if @section.save
+      redirect_to admin_phase_template_path(id: @section.phase_id,
+        :section_id => @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+    else
+      render action: "admin_phase"
     end
   end
 
@@ -205,7 +202,7 @@ class TemplatesController < ApplicationController
     @question.guidance = params["new-question-guidance"]
     @question.default_value = params["new-question-default-value"]
     if @question.save
-      redirect_to admin_phase_template_path(id: @question.section.version.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_phase_template_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
     else
       render action: "admin_phase"
     end
@@ -214,32 +211,26 @@ class TemplatesController < ApplicationController
   #update a question of a template
   def admin_updatequestion
     @question = Question.find(params[:id])
-    authorize @question.section.version.phase.dmptemplate
+    authorize @question.section.phase.template
     @question.guidance = params["question-guidance-#{params[:id]}"]
     @question.default_value = params["question-default-value-#{params[:id]}"]
     @section = @question.section
-    @version = @section.version
-    @phase = @version.phase
-    respond_to do |format|
-      if @question.update_attributes(params[:question])
-        format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
+    @phase = @section.phase
+    if @question.update_attributes(params[:question])
+      redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
+    else
+      render action: "admin_phase"
     end
   end
 
-  #delete a version, sections and questions
+  #delete question
   def admin_destroyquestion
     @question = Question.find(params[:question_id])
-    authorize @question.section.version.phase.dmptemplate
+    authorize @question.section.phase.template
     @section = @question.section
-    @version = @section.version
-    @phase = @version.phase
+    @phase = @section.phase
     @question.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
-    end
+    redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.destroyed_message')
   end
 
 
@@ -247,13 +238,11 @@ class TemplatesController < ApplicationController
   #create suggested answers
   def admin_createsuggestedanswer
     @suggested_answer = SuggestedAnswer.new(params[:suggested_answer])
-    authorize @suggested_answer.question.section.version.phase.dmptemplate
-    respond_to do |format|
-      if @suggested_answer.save
-        format.html { redirect_to admin_phase_dmptemplate_path(:id => @suggested_answer.question.section.version.phase_id, :version_id => @suggested_answer.question.section.version_id, :section_id => @suggested_answer.question.section_id, :question_id => @suggested_answer.question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
+    authorize @suggested_answer.question.section.phase.template
+    if @suggested_answer.save
+      redirect_to admin_phase_template_path(id: @suggested_answer.question.section.phase_id, section_id: @suggested_answer.question.section_id, question_id: @suggested_answer.question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+    else
+      render action: "admin_phase"
     end
   end
 
@@ -261,84 +250,26 @@ class TemplatesController < ApplicationController
   #update a suggested answer of a template
   def admin_updatesuggestedanswer
     @suggested_answer = SuggestedAnswer.find(params[:id])
-    authorize @suggested_answer.question.section.version.phase.dmptemplate
+    authorize @suggested_answer.question.section.phase.template
     @question = @suggested_answer.question
     @section = @question.section
-    @version = @section.version
-    @phase = @version.phase
-
-    respond_to do |format|
-      if @suggested_answer.update_attributes(params[:suggested_answer])
-        format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
+    @phase = @section.phase
+    if @suggested_answer.update_attributes(params[:suggested_answer])
+      redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
+    else
+      render action: "admin_phase"
     end
   end
 
   #delete a suggested answer
   def admin_destroysuggestedanswer
     @suggested_answer = SuggestedAnswer.find(params[:suggested_answer])
-    authorize @suggested_answer.question.section.version.phase.dmptemplate
+    authorize @suggested_answer.question.section.phase.template
     @question = @suggested_answer.question
     @section = @question.section
-    @version = @section.version
-    @phase = @version.phase
+    @phase = @section.phase
     @suggested_answer.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
-    end
+    redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.destroyed_message')
   end
-
-#  GUIDANCES
-
-  #create a guidance
-  def admin_createguidance
-    @question = Question.find(params[:question][:id])
-    authorize @question.section.version.phase.dmptemplate
-    @guidance = Guidance.new(params[:guidance])
-    @guidance.question_id = @question.id
-    #@question.guidance = params["new-question-guidance"]
-    #@question.default_value = params["new-question-default-value"]
-    respond_to do |format|
-      if @guidance.save
-        format.html { redirect_to admin_phase_dmptemplate_path(:id => @question.section.version.phase_id, :version_id => @question.section.version_id, :section_id => @question.section_id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.created_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
-    end
-  end
-
-  #update a guidance of a template
-  def admin_updateguidance
-    @question = Question.find(params[:id])
-    authorize @question.section.version.phase.dmptemplate
-    @question.guidance = params["question-guidance-#{params[:id]}"]
-    @question.default_value = params["question-default-value-#{params[:id]}"]
-    @section = @question.section
-    @version = @section.version
-    @phase = @version.phase
-    respond_to do |format|
-      if @question.update_attributes(params[:question])
-        format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :question_id => @question.id, :edit => 'true'), notice: I18n.t('org_admin.templates.updated_message') }
-      else
-        format.html { render action: "admin_phase" }
-      end
-    end
-  end
-
-  #delete a version, sections and guidance
-  def admin_destroyguidance
-    @question = Question.find(params[:question_id])
-    authorize @question.section.version.phase.dmptemplate
-    @section = @question.section
-    @version = @section.version
-    @phase = @version.phase
-    @question.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_phase_dmptemplate_path(:id => @phase.id, :version_id => @version.id, :section_id => @section.id, :edit => 'true'), notice: I18n.t('org_admin.templates.destroyed_message') }
-    end
-  end
-
 
 end

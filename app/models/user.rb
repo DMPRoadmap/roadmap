@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
   #
   # @return [String] the organisation type
   def org_type
-    org_type = organisation.organisation_type.name
+    org_type = org.organisation_type
     return org_type
   end
 
