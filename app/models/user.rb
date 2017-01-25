@@ -8,12 +8,11 @@ class User < ActiveRecord::Base
          :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
 
     #associations between tables
-    belongs_to :user_type
-    belongs_to :user_status
     has_many :answers
-    has_many :user_org_roles
     has_many :project_groups, :dependent => :destroy
     has_many :user_role_types, through: :user_org_roles
+    has_many :roles
+    has_many :new_plans, through: :roles
     belongs_to :language
 
     belongs_to :organisation
@@ -38,7 +37,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    has_and_belongs_to_many :roles, :join_table => :users_roles
+    has_and_belongs_to_many :perms, :join_table => :users_perms
 
     has_many :plan_sections
 
@@ -49,7 +48,7 @@ class User < ActiveRecord::Base
                     :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
                     :organisation, :language, :language_id
 
-    validates :email, email: true, allow_nil: true, uniqueness: true
+    #validates :email, email: true, allow_nil: true, uniqueness: true
 
     # FIXME: The duplication in the block is to set defaults. It might be better if
     #        they could be set in Settings::PlanList itself, if possible.
