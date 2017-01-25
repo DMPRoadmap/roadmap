@@ -1,16 +1,13 @@
 class Answer < ActiveRecord::Base
-  
-	#associations between tables
+  ##
+  # Associations
 	belongs_to :question
 	belongs_to :user
 	belongs_to :plan
+  has_and_belongs_to_many :question_options, join_table: "answers_question_options"
 
-#  accepts_nested_attributes_for :question
-#	accepts_nested_attributes_for :plan
-	
-	has_and_belongs_to_many :options, join_table: "answers_options"
-	    
-    attr_accessible :text, :plan_id, :question_id, :user_id, :option_ids , :as => [:default, :admin]
-	
-    
+  ##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
+  attr_accessible :text, :plan_id, :question_id, :user_id, :option_ids , :as => [:default, :admin]
 end

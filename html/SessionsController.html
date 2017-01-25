@@ -173,7 +173,7 @@
   
     <li><a href="./OptionWarning.html">OptionWarning</a>
   
-    <li><a href="./Organisation.html">Organisation</a>
+    <li><a href="./Org.html">Organisation</a>
   
     <li><a href="./OrganisationType.html">OrganisationType</a>
   
@@ -307,7 +307,8 @@
 <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">existing_user</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">existing_user</span>.<span class="ruby-identifier">dmponline3</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">existing_user</span>.<span class="ruby-identifier">password</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">existing_user</span>.<span class="ruby-identifier">password</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">existing_user</span>.<span class="ruby-identifier">confirmed_at</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
                 <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:existing_users</span>, <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>, <span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>][<span class="ruby-value">:email</span>]
         <span class="ruby-keyword">else</span>
-                <span class="ruby-comment">#after authentication verify if session[:shibboleth] exists</span>
+                <span class="ruby-comment">#after authentication verify if session[:shibboleth] exists
+</span>
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:shibboleth_data</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
         <span class="ruby-identifier">existing_user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:shibboleth_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:shibboleth_data</span>][<span class="ruby-value">:uid</span>])
     <span class="ruby-keyword">end</span>

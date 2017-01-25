@@ -185,7 +185,7 @@
   
     <li><a href="./OptionWarning.html">OptionWarning</a>
   
-    <li><a href="./Organisation.html">Organisation</a>
+    <li><a href="./Org.html">Organisation</a>
   
     <li><a href="./OrganisationType.html">OrganisationType</a>
   
@@ -314,7 +314,8 @@
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">funders_and_own_templates</span>(<span class="ruby-identifier">org_id</span>)
         <span class="ruby-identifier">funders_templates</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">funders_templates</span>
 
-<span class="ruby-comment">#verify if org type is not a funder</span>
+<span class="ruby-comment">#verify if org type is not a funder
+</span>
 <span class="ruby-identifier">current_org</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">org_id</span>)
 <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_org</span>.<span class="ruby-identifier">organisation_type</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;helpers.org_type.funder&quot;</span>) <span class="ruby-keyword">then</span> 
     <span class="ruby-identifier">own_institutional_templates</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">own_institutional_templates</span>(<span class="ruby-identifier">org_id</span>)

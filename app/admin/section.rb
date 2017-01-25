@@ -78,7 +78,7 @@ ActiveAdmin.register Section do
   		f.input :title
   		f.input :number
   		f.input :version, :collection => Version.all.map{ |ver| [ver.title, ver.id] }
-  		f.input :organisation, :as => :select, :collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
+  		f.input :organisation, :as => :select, :collection => Org.order('name').map{|orgp|[orgp.name, orgp.id]}
   		f.input :description
    	end
   	

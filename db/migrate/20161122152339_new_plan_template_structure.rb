@@ -235,6 +235,11 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         template = Template.includes(new_phases: {new_sections: :new_questions}).find(new_plan.template_id)
         template.new_phases.each do |new_phase|
           old_plan = project.plans.where(version_id: new_phase.vid).first
+          puts "old plan id: #{old_plan.id}"
+          puts "plan ids :#{plans.pluck(:id)}"
+          if old_plan.id == 46
+            puts "IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!! IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!! IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!!"
+          end
           new_phase.new_sections.each do |new_section|
             new_section.new_questions.each do |new_question|
               # init new answer
@@ -250,6 +255,17 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
               comments.find_each do |comment|
                 note = initNote(comment, new_ans)
                 note.save!
+              end
+              if new_ans.present? && new_ans.text.present? && new_ans.text.include?("test2")
+                puts "!!!!!!!!!!!!!!!!DEBUG MODE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                puts "old answer: #{old_ans.text}"
+                puts "old answer: #{old_ans.id}"
+                puts "new answer: #{new_ans.text}"
+                puts "old plans: #{project.plans.pluck(:id)}"
+                puts "old_plan: #{old_plan.id}"
+                puts "old project: #{project.id}"
+                puts "question: #{new_question.question_id}"
+                puts "old user: #{old_ans.user.email}"
               end
             end
           end

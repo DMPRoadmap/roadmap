@@ -162,8 +162,8 @@ organisation_types = {
  }
 
  organisations.each do |org, details|
-   if Organisation.where(abbreviation: details[:abbreviation]).empty?
-     organisation = Organisation.new
+   if Org.where(abbreviation: details[:abbreviation]).empty?
+     organisation = Org.new
      organisation.name = details[:name]
      organisation.abbreviation = details[:abbreviation]
      organisation.sort_name = details[:sort_name]
@@ -291,7 +291,7 @@ users.each do |user, details|
     usr.password = details[:password]
     usr.password_confirmation = details[:password_confirmation]
     usr.confirmed_at = details[:confirmed_at]
-    usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
+    usr.organisation_id = Org.find_by_abbreviation(details[:organisation]).id
     usr.language_id = Language.find_by_name(details[:language]).id
     details[:roles].each do |role|
      usr.roles << Role.find_by_name(role)
@@ -387,7 +387,7 @@ end
    if GuidanceGroup.where(name: details[:name]).empty?
      guidance_group = GuidanceGroup.new
      guidance_group.name = details[:name]
-     guidance_group.organisation = Organisation.find_by_abbreviation(details[:organisation])
+     guidance_group.organisation = Org.find_by_abbreviation(details[:organisation])
      guidance_group.optional_subset = details[:optional_subset]
      guidance_group.save!
    end
@@ -469,7 +469,7 @@ end
  }
 
  templates.each do |t, details|
-   org = Organisation.where(abbreviation: details[:organisation]).first
+   org = Org.where(abbreviation: details[:organisation]).first
    
    if Dmptemplate.where(organisation: org).where(title: details[:title]).empty?
      template = Dmptemplate.new
@@ -627,7 +627,7 @@ end
      section.number = details[:number]
      section.description = details[:description]
      section.version = Version.find_by_title(details[:version])
-     section.organisation = Organisation.find_by_abbreviation(details[:organisation])
+     section.organisation = Org.find_by_abbreviation(details[:organisation])
      section.save!
    end
  end

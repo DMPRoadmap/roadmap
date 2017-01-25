@@ -6,16 +6,16 @@
 <!-- render navigation tabs for the project-->
 <%= render :partial => "project_nav_tabs", locals: {project: @project, active: "share_project"} %>
 <div class="dmp_details_body">
-	
+
 	<!--Text describing page content-->
 	<%= raw t('helpers.project.share.share_text_html',
 						application_name: Rails.configuration.branding[:application][:name])%>
-	
+
 	<div class="dmp_details">
 		<h3><%= t('helpers.project.share.collaborators')%></h3>
-		<div>	
-			<% if @project.project_groups.any? then %>
-			
+		<div>
+			<% if @project.roles.any? then %>
+
 				<table class="dmp_table">
 					<thead>
 						<tr>
@@ -25,7 +25,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<% project_people = @project.project_groups.all.select {|pu| pu.user_id != nil}%>	
+					<% project_people = @project.roles.all.select {|pu| pu.user_id != nil}%>
 					<%  project_people.each do |group| %>
 						<tr>
 							<th class="dmp_th_border" ><%= group.user.name %></th>
@@ -33,7 +33,7 @@
 								<% if group.project_creator then %>
 									<%= t("helpers.project.share.owner")%>
 								<% else %>
-									<%= form_for group, :url => {:controller => :project_groups, :action => :update, :id => group.id }, :html=>{:method=>:put} do |f| %>
+									<%= form_for group, :url => {:controller => :roles, :action => :update, :id => group.id }, :html=>{:method=>:put} do |f| %>
 										<%= f.select :access_level, {t('helpers.project.share.co_owner') => 3, t('helpers.project.share.edit') => 2,  t('helpers.project.share.read_only') => 1}, {}, {:id => "#{group.id}-can-edit", :class => "toggle-existing-user-access has-tooltip", 'data-toggle' => "tooltip", 'title' => t('helpers.project.share.permissions_desc') } %>
 									<% end %>
 								<% end %>
@@ -49,14 +49,14 @@
 				</table>
 			<% end %>
 		</div>
-		
+
 		<hr class="orange_break_line">
 		<h3><%= t('helpers.project.share.add_collaborator')%></h3>
-		
+
 		<div>
-			<% new_project_group = ProjectGroup.new %>
-			<% new_project_group.project = @project %>
-			<%= semantic_form_for new_project_group, :url => {:controller => :project_groups, :action => :create }, :html=>{:method=>:post} do |f| %>
+			<% new_role = Role.new %>
+			<% new_role.project = @project %>
+			<%= semantic_form_for new_role, :url => {:controller => :roles, :action => :create }, :html=>{:method=>:post} do |f| %>
 				<%= f.inputs do %>
 					<%= f.input :project_id, :as => :hidden %>
 					<%= f.email_field :email, :label => false,  placeholder: t('helpers.email') %>
