@@ -48,4 +48,9 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = false
 
   BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
+
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+  end
 end

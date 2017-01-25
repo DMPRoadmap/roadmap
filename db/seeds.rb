@@ -126,7 +126,6 @@ organisation_types = {
      organisation_type: "Organisation",
      description: "An example: Regional Curation Center concerned with research data management (typically the organization hosting this website)",
      banner_text: "Example: Your Regional Curation Center",
-     domain: "example.regionalcurationcenter.org",
      region: 'UK',
      language: 'English(UK)'
    },
@@ -137,7 +136,6 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Research funding agency",
      banner_text: "Example: Global Research Center",
-     domain: "example.globalresearchcenter.org",
      region: 'UK',
      language: 'English(UK)'
    },
@@ -148,14 +146,12 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Regional funding agency for scientific research",
      banner_text: "Example: Regional Science Federation",
-     domain: "example.regionalsciencefederation.org",
      region: 'UK',
      language: 'English(UK)'
    },
    'Example Institution'=> {
      name: "Capital City College",
      abbreviation: "CapColl",
-     domain: "example.capitalcitycollege.edu",
      sort_name: "CapitalCityCollege",
      organisation_type: "Institution",
      description: "An example: Academic institution",
@@ -170,7 +166,6 @@ organisation_types = {
      organisation = Organisation.new
      organisation.name = details[:name]
      organisation.abbreviation = details[:abbreviation]
-     organisation.domain = details[:domain]
      organisation.sort_name = details[:sort_name]
      organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
      organisation.region_id = Region.find_by_name(details[:region]).id
@@ -220,24 +215,6 @@ roles.each do |role, details|
     role = Role.new
     role.name = details[:name]
     role.save!
-  end
-end
-
-user_role_types = {
-  'admin' => {
-    name: 'admin'
-  },
-  'org_admin' => {
-    name: 'org_admin'
-  },
-  'user' => {
-    name: 'user'
-  }
-}
-
-user_role_types.each do |urt, details|
-  if UserRoleType.where(name: details[:name]).empty?
-    UserRoleType.create(name: details[:name])
   end
 end
 

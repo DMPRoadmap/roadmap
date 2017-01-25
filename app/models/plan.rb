@@ -173,19 +173,6 @@ class Plan < ActiveRecord::Base
 	end
 
   ##
-  # finds the specified warning for the plan's project's organisation
-  #
-  # @param option_id [Integer] the id to find the OptionWarning associated
-  # @return [OptionWarning] the desired OptionWarning
-	def warning(option_id)
-		if project.organisation.nil?
-			return nil
-		else
-			return project.organisation.warning(option_id)
-		end
-	end
-
-  ##
   # determines if the plan is editable by the specified user
   # NOTE: This should be renamed to editable_by?
   #

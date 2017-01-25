@@ -5,7 +5,7 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 ActiveAdmin.register Role do
-	permit_params :name, :role_in_plans
+	permit_params :name
 
 	menu :priority => 5, :label => proc{I18n.t('admin.role')}, :parent => "User management"
 
@@ -21,7 +21,6 @@ ActiveAdmin.register Role do
     show do
 		attributes_table do
 			row :name
-            row :role_in_plans
 			row :created_at
 			row :updated_at
 		end
@@ -48,7 +47,6 @@ ActiveAdmin.register Role do
 	form do |f|
         f.inputs "Details" do
             f.input :name
-            f.input :role_in_plans
         end    
 	  
         f.actions    

@@ -20,7 +20,7 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :suggested_answers,  :allow_destroy => true
   accepts_nested_attributes_for :themes
 
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :parent_id, :suggested_answer, :text, :section_id,:question_format_id,:options_attributes, :suggested_answers_attributes, :option_comment_display, :theme_ids, :as => [:default, :admin]
+  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :suggested_answer, :text, :section_id,:question_format_id,:options_attributes, :suggested_answers_attributes, :option_comment_display, :theme_ids, :as => [:default, :admin]
 
   ##
   # returns the text from the question
