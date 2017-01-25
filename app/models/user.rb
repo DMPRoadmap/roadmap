@@ -226,7 +226,7 @@ class User < ActiveRecord::Base
       end
       self.save!
       # send an email to the user to notify them of their new api token
-      UserMailer.api_token_granted_notification(self)
+      #UserMailer.api_token_granted_notification(self)
     end
   end
 end

@@ -190,7 +190,7 @@ class Org < ActiveRecord::Base
   #
   # @return [Array<Dmptemplate>] published dmptemplates
 	def published_templates
-		return dmptemplates.where("published = ?", true)
+		return templates.where("published = ?", true)
 	end
 
   def check_api_credentials
