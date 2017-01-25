@@ -26,7 +26,7 @@ de:
       default: "%a, %d %b %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
-      custom: "%d/%m/%Y %H:%M" 
+      custom: "%d/%m/%Y %H:%M"
     am: "am"
     pm: "pm"
 
@@ -122,7 +122,7 @@ de:
     last_updated: "Zuletzt aktualisiert"
     desc_help_text_html: "<div class='tooltip_box'>Bitte beschreibenden Sie Ihre Organisation.</div>"
     abbre_help_text: "Bitte geben Sie eine Abkürzung für Ihre Organisation an."
-    template_desc_help_text_html: "<div class='tooltip_box'>Geben Sie eine Beschreibung ein, die Ihnen bei der Unterscheidung von Vorlagen hilft,      falls Sie z.B. welche für unterschiedliche Zielgruppen besitzen.</div>" 
+    template_desc_help_text_html: "<div class='tooltip_box'>Geben Sie eine Beschreibung ein, die Ihnen bei der Unterscheidung von Vorlagen hilft,      falls Sie z.B. welche für unterschiedliche Zielgruppen besitzen.</div>"
     target_url_help_text: "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
     name_help_text: "Bitte geben Sie den Namen Ihrer Organisation an."
     guidance_label: "Hilfestellungen"
@@ -192,7 +192,7 @@ de:
       title_help_text: "Bitte geben sie einen Titel für Ihre Vorlage an."
       section_title_help_text: "Bitte geben sie eine Überschrift für den Abschnitt an."
       help_text_html: "<div class='tooltip_box'>Bitte geben sie eine Beschreibung der Vorlage für dieses Thema an.</div>"
-      create_own_template_text_html: "<p>Falls Sie eine Vorlage für eine Institution anlegen möchten, können Sie den Knopf 'Vorlage erstellen' nutzen. 
+      create_own_template_text_html: "<p>Falls Sie eine Vorlage für eine Institution anlegen möchten, können Sie den Knopf 'Vorlage erstellen' nutzen.
         Sie können verschiedene Vorlagen erstellen um auf Spezialisierungen einzugehen, z.B. für Forscher und für Doktoranden.</p>"
       create_new_template_text_html: "<p>Um eine Vorlage anzulegen beginnen sie mit einem Titel und einer Beschreibung. Nach dem Speichern haben Sie die Option zum Anlegen von ein oder mehreren Phasen.</p>"
       desc_help_text_html: "Geben Sie eine Beschreibung, die hilft, zwischen den verschiedenen Vorlagen zu unterscheiden, z.B. für verschiedene Zielgruppen"
@@ -334,6 +334,7 @@ de:
     checkbox: "Checkbox"
     dropdown: "Klappliste"
     multi_select_box: "Mehrfachauswahlliste"
+    date: "Date"
 
     error: "Fehler!"
     comment: "Kommentar"
@@ -423,7 +424,7 @@ de:
       archive_comment_button_label: "Entfernen"
       clear_by: "Kommentar entfernt von"
       retracted: "Kommentar von Ihnen entfernt"
-    
+
     failures:
       email_exists: "Diese E-Mail-Adresse ist bereits registriert."
       registration_error: "Fehler bei Bearbeitung der Registrierung. Bitte überprüfen Sie, ob sie eine gültige E-Mail-Adresse angegeben haben und Ihr Passwort mindestens 8 Zeichen lang ist."
@@ -457,7 +458,7 @@ de:
       account_no_access: "Dieser Zugang hat keinen Zugriff auf jenen Plan."
       plan_updated: "Plan wurde erfolgreich aktualisiert."
       settings_updated: "Einstellungen erfolgreich aktualisiert."
-      
+
     progress_bar:
       answered: "beantwortet"
       question: "Frage"

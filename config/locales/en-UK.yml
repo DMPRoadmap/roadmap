@@ -393,6 +393,7 @@ en-UK:
     checkbox: "Check box"
     dropdown: "Dropdown"
     multi_select_box: "Multi select box"
+    date: "Date"
     export: "Export"
 
     about:

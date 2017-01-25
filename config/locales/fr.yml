@@ -1,6 +1,6 @@
 # [+Project:+] DMPonline v4
 # [+Description:+] This file contains all the text present on DMPonline that is not being retrieve from the database.
-# [+Copyright:+] Digital Curation Centre 
+# [+Copyright:+] Digital Curation Centre
 
 fr:
   date:
@@ -34,7 +34,7 @@ fr:
       short: "%d %b %H:%M"
       custom: "%d/%m/%Y %H:%M"
       long: "%B %d, %Y %H:%M"
-# TRANSLATION: In French commun usage, the difference between AM and PM is expressed numerically, eg. 10:00 am is 10:00 and  10:00 pm is 22:00, otherwise keeping am and pm with hours from 01 to 12 as in English is the best option. 
+# TRANSLATION: In French commun usage, the difference between AM and PM is expressed numerically, eg. 10:00 am is 10:00 and  10:00 pm is 22:00, otherwise keeping am and pm with hours from 01 to 12 as in English is the best option.
     am: "am"
     pm: "pm"
 
@@ -171,7 +171,7 @@ fr:
       subset_eg: "par ex. : Faculté/Département"
       all_temp: "Toues les modèles"
       help_text_add: "Veuillez entrer le titre du groupe"
-      subset_option_help_text: "Si les conseils ne sont destinés qu'à un sous-ensemble d'utilisateurs (par ex. : faisant partie d'une faculté ou d'un institut), cochez cette case.  Les utilisateurs pourront sélectionner ce sous-groupe de conseils 
+      subset_option_help_text: "Si les conseils ne sont destinés qu'à un sous-ensemble d'utilisateurs (par ex. : faisant partie d'une faculté ou d'un institut), cochez cette case.  Les utilisateurs pourront sélectionner ce sous-groupe de conseils
  lorqu'ils répondront aux questions dans l'assistant de création de plan."
       template_help_text_html: "Sélectionnez le modèle dans lequel vous voulez que s'affichent vos conseils. Habituellement, il s'agit de tous les modèles."
       title_help_text_html: "Ajoutez un nom adéquat à votre groupe de conseils, par ex. : Conseils de Glasgow. Ce nom sera utilié pour indiquer à l'utilisateur final l'origine des conseils, par ex. : 'Glasgow Guidance on Metadata'"
@@ -320,6 +320,7 @@ fr:
     checkbox: "Case à cocher"
     dropdown: "Liste déroulante"
     multi_select_box: "Boîte de sélections multiples"
+    date: "Date"
 
     error: "Erreur!"
     comment: "Commentaire"
@@ -407,8 +408,8 @@ fr:
       archive_comment_button_label: "Retirer"
       clear_by: "Note retirée par"
       retracted: "Note retirée par vous"
-      
-    
+
+
     org_type:
       funder: "Organisme financeur"
       institution: "Établissement"
@@ -570,7 +571,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     title: "À propos de DMPonline"
     tab_1: "Contexte"
     tab_2: "Dernières nouvelles"
-    
+
     body_text_tab_1_html: "<p>De plus en plus, les agences de financement exigent que leurs bénéficiaires proposent des DMP (des plans de gestion de données), tant pendant la préparation de leur soumission qu’après l’attribution de la subvention. Le Digital Curation Centre (Centre de curation numérique britannique - DCC) a élaboré DMPonline pour satisfaire cette exigence, ainsi que leur établissement ou tout autre acteur.</p>
     <p>Le DCC <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> a coopéré étroitement avec des agences de financement de la recherche et des universités pour réaliser au profit des chercheurs un outil les assistant dans l’élaboration d'un DMP (un plan de gestion de données) efficace qui couvre le cycle de vie complet d’un projet de recherche, de l’étape de préparation de sa soumission jusqu’à son achèvement.</p>
     </br>
@@ -702,7 +703,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
      </ul>
      <p>Tél. : +44 (0) 131 651 1239</p>
      <p>Courriel <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
-  
+
   roadmap_page:
     title: "Feuille de route"
     tab_1: "Nos futurs projets"
@@ -733,7 +734,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
         <li>- Assistance localisée</li>
     </ul>
     <p>Si vous souhaitez contribuer à l'élaboration de nos projets de développements, vous pouvez vous joindre à notre groupe d'utilisateurs. Rendez-vous sur l'onglet \"Impliquez-vous\" pour plus d'informations sur la façon de vous joindre à nous.</p>"
-     
+
     body_text_tab_2_html: "<p>Le développement et la maintenance de DMPonline sont assurés par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC). Nous formons une petite équipe et nous nous sommes volontiers ouverts à des collaborations. Plusieurs possibilités vous sont offertes dans ce but :</p>
     <h3>Rejoindre le groupe d'utilisateurs</h3>
     <p>Nous souhaitons nouer des liens plus actifs avec nos utilisateurs, et nous vous invitons donc à faire partie de notre groupe d'utilisateurs. Nous avons mis en place une <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>liste de diffusion</a> pour ce groupe à laquelle vous pouvez vous abonner. Nous organisons aussi des réunions de consultation sur nos projets.</p>
@@ -742,7 +743,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     </br>
     <h3>Personnaliser DMPonline</h3>
     <p>DMPonline peut être personnalisé en fonctions des institutions et des disciplines. Vous pouvez y ajouter des modèles destinés aux utilisateurs de votre établissement et ajouter des conseils qui expliquent comment trouver localement de l'assistance et des services. Des réponses types peuvent être ajoutées pour aider les utilisateurs à comprendre les informations qu'ils doivent rédiger dans un plan de gestion de données (DMP). Pour cela, vous devrez demander des droits d'accès administrateur, merci de nous envoyer un courriel à <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
-    <p>D'autres conseils sont également sur le <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>site web du DCC</a>.</p> 
+    <p>D'autres conseils sont également sur le <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>site web du DCC</a>.</p>
     </br>
     <h3>Contribuer au code</h3>
     <p>DMPonline est une application Ruby on Rails. Le code source est disponible sous licence GNU AGPL (<i>Affero General Public License</i>). Elle autorise tout un chacun à réutiliser le code librement, mais vous oblige à partager le code source de toute extensions de la même manière. Veuillez-nous informer si vous installez une instance de DMPonline et offrez à votre tour vos contributions à la communauté.</p>
@@ -752,7 +753,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     <h3>Soutenir nos travaux</h3>
     <p>Nous sommes impressionné par la montée en l'utilisation de DMPonline au Royaume-Uni comme à m'international et nous souhaitons vivement savoir comment vous utilisez cet outil, comment vous promouvez son utilisation dans votre environnement. Nous savons que d'autres que nous ont mis en place des programmes de formation, créé des supports d'assistance et de conseils et militent pour son utilisation. Veuillez nous le faire savoir, car cela nous permet d'en montrer l'impact.</p>
     <p>Nous réfléchissons actuellement sur des solutions pour créer des moyens de financement. Cela nous permettra de répondre plus efficacement à une demande montante et de garantir la pérennité de DMPonline. Des projets seront bientôt rendus publics en consultation, mais nous accueillons volontiers vos suggestions pour soutenir au mieux nos travaux.</p> "
-    
+
   terms_page:
     title: "Conditions d'utilisation"
     body_text_html: "<div class='white_background'>

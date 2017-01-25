@@ -34,7 +34,7 @@ es:
     pm: "pm"
 
   tool_title: "DMPonline"
-  dmponline3_text: "Versión anterior de DMPonline" 
+  dmponline3_text: "Versión anterior de DMPonline"
   dcc_name: "Digital Curation Centre"
   welcome_title: "Bienvenido/a."
   welcome_text: "<p>DMPonline ha sido desarrollado por el <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> como una herramienta para elaborar planes de gestión de datos.</p>"
@@ -266,7 +266,7 @@ es:
       delete_message: "Va a eliminar '%{question_text}'. ¿Está seguro?"
       question_options_help_text_html: "Introduzca las opciones que quiere mostrar. Si quiere que una opción esté seleccionada por defecto, marque la casilla correspondiente."
 
- 
+
 
 
   helpers:
@@ -311,13 +311,14 @@ es:
     send_password_info: "Reiniciar las instrucciones de la clave"
     edit_password_info: "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
     accept_terms_html: " Acepto los <a href='/terms'>términos y condiciones</a> *"
- 
+
     text_area: "Text area"
     text_field: "Text field"
     radio_buttons: "Radio buttons"
     checkbox: "Check box"
     dropdown: "Dropdown"
     multi_select_box: "Multi select box"
+    date: "Date"
 
     error: "¡Error!"
     comment: "Comentario"

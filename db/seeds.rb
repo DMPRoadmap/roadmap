@@ -303,7 +303,7 @@ users = {
         confirmed_at: Time.zone.now
     }
  }
- 
+
 users.each do |user, details|
   if User.where(email: details[:email]).empty?
     usr = User.new
@@ -372,6 +372,9 @@ end
    },
    "Multi select box" => {
      title: "Multi select box"
+   },
+   "Date" => {
+     title: "Date"
    },
  }
 
@@ -493,7 +496,7 @@ end
 
  templates.each do |t, details|
    org = Organisation.where(abbreviation: details[:organisation]).first
-   
+
    if Dmptemplate.where(organisation: org).where(title: details[:title]).empty?
      template = Dmptemplate.new
      template.title = details[:title]

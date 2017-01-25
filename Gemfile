@@ -46,6 +46,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
+gem 'cancan'
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration
@@ -60,6 +61,7 @@ gem 'ledermann-rails-settings'
 gem 'sass-rails'
 gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
 gem 'jquery-rails'
+gem 'jquery-ui-rails'                   # USED FOR THE DATEPICKER
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
 gem 'contact_us', '>= 1.2.0'            # COULD BE EASILY REPLACED WITH OUR OWN CODE
@@ -125,4 +127,3 @@ end
 # gem 'email_validator'            # UNUSED ACTIVERECORD VALIDATOR
 # gem 'validate_url'               # UNUSED ACTIVERECORD VALIDATOR
 # gem 'turbolinks'                 # IS NOW A CORE PART OF RAILS >= 4.0
-
