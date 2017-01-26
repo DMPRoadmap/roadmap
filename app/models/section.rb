@@ -11,7 +11,7 @@ class Section < ActiveRecord::Base
 #  accepts_nested_attributes_for :version
 
   attr_accessible :organisation_id, :description, :number, :title, :published, :questions_attributes, 
-                  :organisation, :as => [:default, :admin]
+                  :organisation, :modifiable, :phase, :as => [:default, :admin]
 
   ##
   # return the title of the section
