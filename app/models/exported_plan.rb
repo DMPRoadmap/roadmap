@@ -107,18 +107,18 @@ class ExportedPlan < ActiveRecord::Base
 
   def as_txt
     output = "#{self.plan.project.title}\n\n#{self.plan.version.phase.title}\n"
-
-
-puts "SETTINGS: #{self.plan.inspect}"
-
-    output += "\nDetails:\n#{self.plan.settings[:export][:fields][:admin].collect{|f| f.to_s}.join('\n')}\n"
+    output += "\nDetails:\n\n"
+    attrs = self.plan.settings(:export)[:value]['fields'][:admin].collect{|f| f.to_s}
+    attrs.each do |attr|
+        output += attr + ": " + self.send(attr) + "\n"
+    end
 
     self.sections.each do |section|
       output += "\n#{section.title}\n"
 
       self.questions_for_section(section).each do |question|
         qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
-        output += "\n#{qtext}\n"
+        output += "\n* #{qtext}"
         answer = self.plan.answer(question.id, false)
 
         if answer.nil? || answer.text.nil? then

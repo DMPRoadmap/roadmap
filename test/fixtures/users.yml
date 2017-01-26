@@ -24,6 +24,7 @@ cc_super:
   firstname: 'Curation Centre'
   surname: 'Super Admin'
   email: 'super-admin@example-cc.org'
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   accept_terms: true
   organisation: curation_center
   roles: [add_organisations, change_org_affiliation, grant_api_to_orgs, grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
@@ -35,6 +36,7 @@ cc_admin:
   firstname: 'Curation Centre'
   surname: 'Administrator'
   email: 'admin@example-cc.org'
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   accept_terms: true
   organisation: curation_center
   roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
@@ -46,6 +48,7 @@ funder_admin:
   firstname: 'Funder'
   surname: 'Administrator'
   email: 'admin@example-funder.org'
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   accept_terms: true
   organisation: funder
   roles: [grant_permissions, modify_templates, modify_guidance, change_org_details, use_api]
@@ -63,6 +66,7 @@ funder_admin:
   firstname: <%= "#{obj['name']} #{x + 1}" %>
   surname: "Admin"
   email: <%= "admin@example-#{lbl}-#{x + 1}.org" %>
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   orcid_id: <%= "orcid-#{lbl}-#{x + 1}-admin12345" %>
   shibboleth_id: <%= "shib-#{lbl}-#{x + 1}-admin12345" %>
   accept_terms: true
@@ -76,6 +80,7 @@ funder_admin:
   firstname: <%= "#{obj['name']} #{x + 1}" %>
   surname: "User"
   email: <%= "user@example-#{lbl}-#{x + 1}.org" %>
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   orcid_id: <%= "orcid-#{lbl}-#{x + 1}-user12345" %>
   shibboleth_id: <%= "shib-#{lbl}-#{x + 1}-user12345" %>
   accept_terms: true
@@ -92,6 +97,7 @@ complete_admin:
   firstname: "Complete"
   surname: "Admin"
   email: <%= "admin@example-complete.org" %>
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   orcid_id: <%= "orcid-complete-admin12345" %>
   shibboleth_id: <%= "shib-complete-admin12345" %>
   accept_terms: true
@@ -105,6 +111,7 @@ complete_user:
   firstname: "Complete"
   surname: "User"
   email: <%= "user@example-complete.org" %>
+  encrypted_password: <%= User.new.send(:password_digest, 'password123') %>
   orcid_id: <%= "orcid-complete-user12345" %>
   shibboleth_id: <%= "shib-complete-user12345" %>
   accept_terms: true

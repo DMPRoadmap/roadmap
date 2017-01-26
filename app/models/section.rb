@@ -1,17 +1,17 @@
 class Section < ActiveRecord::Base
 
-  #associations between tables
-  belongs_to :version
+  ##
+  # Associations
+  belongs_to :phase
   belongs_to :organisation
   has_many :questions, :dependent => :destroy
-  has_many :plan_sections, :dependent => :destroy
 
   #Link the data
   accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
 #  accepts_nested_attributes_for :version
 
-  attr_accessible :organisation_id, :description, :number, :title, :version_id, :questions, :version, 
-                  :published, :questions_attributes, :organisation, :as => [:default, :admin]
+  attr_accessible :organisation_id, :description, :number, :title, :published, :questions_attributes, 
+                  :organisation, :as => [:default, :admin]
 
   ##
   # return the title of the section

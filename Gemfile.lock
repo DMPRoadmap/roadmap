@@ -218,7 +218,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.21)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -248,6 +247,8 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
+    rack-mini-profiler (0.10.1)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7)
@@ -380,13 +381,13 @@ DEPENDENCIES
   libv8
   minitest-rails-capybara
   minitest-reporters
-  mysql2 (~> 0.3.18)
   omniauth
   omniauth-orcid
   omniauth-shibboleth
   pg
   protected_attributes
   pundit
+  rack-mini-profiler
   rack-test
   rails (= 4.2.7)
   railties
@@ -414,4 +415,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.13.2
+   1.13.7

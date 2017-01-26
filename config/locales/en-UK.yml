@@ -341,6 +341,7 @@ en-UK:
     public_plans_label: "Public DMPs"
 
     contact_label: "Contact"
+    public_plans_label: "Public DMPs"
     jisc: "The %{organisation_abbreviation} is funded by"
     format: "format"
     change_language: "Change language"

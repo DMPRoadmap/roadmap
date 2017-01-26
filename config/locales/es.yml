@@ -280,7 +280,7 @@ es:
     roadmap_label: "Hoja de ruta"
     help_label: "Ayuda"
     contact_label: "Contacto"
-    public_plans_label: "DMP públicos"
+    public_plans_label: "DMP Públicos"
     jisc: "El DCC está financiado por"
 
     sign_in: "Conectar"
@@ -455,11 +455,10 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
       project_static_info: "Este plan está basado en:"
       projects_title: "Mis planes"
 
-      test: "Plan de prueba o práctica"
       visibility: "Visibilidad"
       visibilities:
         labels:
-          privatelt_visible: "Privado"
+          privately_visible: "Privado"
           organisationally_visible: "Organizativo"
           publicly_visible: "Público"
           is_test: "Prueba/Práctica"

@@ -23,10 +23,9 @@ Rails.application.routes.draw do
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
   
-  ActiveAdmin.routes(self)
+  #ActiveAdmin.routes(self)
 
   #organisation admin area
-  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
   resources :users, :path => 'org/admin/users', only: [] do
     collection do
       get 'admin_index'
@@ -55,7 +54,7 @@ Rails.application.routes.draw do
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
     
-    resources :organisations, :path => 'org/admin', only: [] do
+    resources :orgs, :path => 'org/admin', only: [] do
       member do
         get 'children'
         get 'templates'
@@ -93,7 +92,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :dmptemplates, :path => 'org/admin/templates', only: [] do
+    resources :templates, :path => 'org/admin/templates', only: [] do
       member do
         get 'admin_index'
         get 'admin_template'
@@ -124,7 +123,7 @@ Rails.application.routes.draw do
 
     resources :answers, only: :create
 
-    resources :comments, only: [:create, :update] do
+    resources :notes, only: [:create, :update] do
       member do
         put 'archive'
       end
@@ -158,7 +157,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :project_groups, only: [:create, :update, :destroy]
+    resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
       resource :projects, only: [:show, :update]
@@ -170,8 +169,8 @@ Rails.application.routes.draw do
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
         resources :guidance_groups, only: [:index, :show]
-        resources :plans, only: :create, controller: "projects", path: "plans"
-        resources :templates, only: :index, controller: "dmptemplates", path: "templates"
+        resources :plans, only: :create
+        resources :templates, only: :index
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do
           member do
             get :users_joined

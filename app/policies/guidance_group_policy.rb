@@ -8,19 +8,19 @@ class GuidanceGroupPolicy < ApplicationPolicy
   end
 
   def admin_show?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
   end
 
   def admin_edit?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
   end
 
   def admin_update?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
   end
 
   def admin_update_publish?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
   end
 
   def admin_new?
@@ -32,12 +32,12 @@ class GuidanceGroupPolicy < ApplicationPolicy
   end
 
   def admin_destroy?
-    user.can_modify_guidance? && (guidance_group.organisation_id == user.organisation_id)
+    user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
   end
 
   class Scope < Scope
     def resolve
-      scope.where(organisation_id: user.organisation_id)
+      scope.where(org_id: user.org_id)
     end
   end
 

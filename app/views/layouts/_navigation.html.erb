@@ -9,12 +9,12 @@
     <!-- Navigation for organisation admin -->
     <% if (user_signed_in? && current_user.can_org_admin? && ( action_name.include? "admin_" ) ) %>
       <% if current_user.can_modify_templates? %>
-        <% if namespace == "dmptemplates" then %>
+        <% if namespace == "templates" then %>
           <li class="active">
         <% else %>
           <li>
         <% end %>
-            <%= link_to t("org_admin.template_label"), admin_index_dmptemplate_path(current_user.organisation_id) %>
+            <%= link_to t("org_admin.template_label"), admin_index_template_path(current_user.org_id) %>
           </li>
       <% end %>
       <% if current_user.can_modify_guidance? %>
@@ -23,16 +23,16 @@
         <% else %>
           <li>
         <% end %>
-          <%= link_to t("org_admin.guidance_label"), admin_index_guidance_path(current_user.organisation_id)%>
+          <%= link_to t("org_admin.guidance_label"), admin_index_guidance_path(current_user.org_id)%>
           </li>
       <% end %>
       <% if current_user.can_modify_org_details? %>
-        <% if namespace == "organisations" then %>
+        <% if namespace == "orgs" then %>
           <li class="active">
         <% else %>
           <li>
         <% end %>
-            <%= link_to t("org_admin.org_details_label"), admin_show_organisation_path(current_user.organisation_id)%>
+            <%= link_to t("org_admin.org_details_label"), admin_show_org_path(current_user.org_id)%>
           </li>
       <% end %>
       <% if current_user.can_grant_permissions? %>
@@ -41,7 +41,7 @@
         <% else %>
           <li>
         <% end %>
-          <%= link_to t("org_admin.user_list_label"), admin_index_users_path, :class => "main_nav_last_li"%>
+          <%= link_to t("org_admin.user_list_label"), "/org/admin/users/admin_index", class: "main_nav_last_li"%>
           </li>
       <% end %>
     <% else %>
@@ -125,6 +125,6 @@
           <% end %>
         </ul>
       </li>
-    <%end%>
+    <% end %>
   </ul>
 </div>

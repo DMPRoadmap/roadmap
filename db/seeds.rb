@@ -141,7 +141,6 @@ organisation_types = {
      organisation_type: "Organisation",
      description: "An example: Regional Curation Center concerned with research data management (typically the organization hosting this website)",
      banner_text: "Example: Your Regional Curation Center",
-     domain: "example.regionalcurationcenter.org",
      region: 'UK',
      language: 'English(UK)'
    },
@@ -152,7 +151,6 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Research funding agency",
      banner_text: "Example: Global Research Center",
-     domain: "example.globalresearchcenter.org",
      region: 'UK',
      language: 'English(UK)'
    },
@@ -163,14 +161,12 @@ organisation_types = {
      organisation_type: "Funder",
      description: "An example: Regional funding agency for scientific research",
      banner_text: "Example: Regional Science Federation",
-     domain: "example.regionalsciencefederation.org",
      region: 'UK',
      language: 'English(UK)'
    },
    'Example Institution'=> {
      name: "Capital City College",
      abbreviation: "CapColl",
-     domain: "example.capitalcitycollege.edu",
      sort_name: "CapitalCityCollege",
      organisation_type: "Institution",
      description: "An example: Academic institution",
@@ -181,11 +177,10 @@ organisation_types = {
  }
 
  organisations.each do |org, details|
-   if Organisation.where(abbreviation: details[:abbreviation]).empty?
-     organisation = Organisation.new
+   if Org.where(abbreviation: details[:abbreviation]).empty?
+     organisation = Org.new
      organisation.name = details[:name]
      organisation.abbreviation = details[:abbreviation]
-     organisation.domain = details[:domain]
      organisation.sort_name = details[:sort_name]
      organisation.organisation_type = OrganisationType.find_by_name(details[:organisation_type])
      organisation.region_id = Region.find_by_name(details[:region]).id
@@ -235,24 +230,6 @@ roles.each do |role, details|
     role = Role.new
     role.name = details[:name]
     role.save!
-  end
-end
-
-user_role_types = {
-  'admin' => {
-    name: 'admin'
-  },
-  'org_admin' => {
-    name: 'org_admin'
-  },
-  'user' => {
-    name: 'user'
-  }
-}
-
-user_role_types.each do |urt, details|
-  if UserRoleType.where(name: details[:name]).empty?
-    UserRoleType.create(name: details[:name])
   end
 end
 
@@ -329,7 +306,7 @@ users.each do |user, details|
     usr.password = details[:password]
     usr.password_confirmation = details[:password_confirmation]
     usr.confirmed_at = details[:confirmed_at]
-    usr.organisation_id = Organisation.find_by_abbreviation(details[:organisation]).id
+    usr.organisation_id = Org.find_by_abbreviation(details[:organisation]).id
     usr.language_id = Language.find_by_name(details[:language]).id
     details[:roles].each do |role|
      usr.roles << Role.find_by_name(role)
@@ -425,7 +402,7 @@ end
    if GuidanceGroup.where(name: details[:name]).empty?
      guidance_group = GuidanceGroup.new
      guidance_group.name = details[:name]
-     guidance_group.organisation = Organisation.find_by_abbreviation(details[:organisation])
+     guidance_group.organisation = Org.find_by_abbreviation(details[:organisation])
      guidance_group.optional_subset = details[:optional_subset]
      guidance_group.save!
    end
@@ -507,7 +484,7 @@ end
  }
 
  templates.each do |t, details|
-   org = Organisation.where(abbreviation: details[:organisation]).first
+   org = Org.where(abbreviation: details[:organisation]).first
    
    if Dmptemplate.where(organisation: org).where(title: details[:title]).empty?
      template = Dmptemplate.new
@@ -665,7 +642,7 @@ end
      section.number = details[:number]
      section.description = details[:description]
      section.version = Version.find_by_title(details[:version])
-     section.organisation = Organisation.find_by_abbreviation(details[:organisation])
+     section.organisation = Org.find_by_abbreviation(details[:organisation])
      section.save!
    end
  end

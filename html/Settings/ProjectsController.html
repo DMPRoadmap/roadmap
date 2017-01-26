@@ -177,7 +177,7 @@
   
     <li><a href="../OptionWarning.html">OptionWarning</a>
   
-    <li><a href="../Organisation.html">Organisation</a>
+    <li><a href="../Org.html">Organisation</a>
   
     <li><a href="../OrganisationType.html">OrganisationType</a>
   
@@ -345,7 +345,8 @@
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">settings_json</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">render</span>(<span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-value">:show</span>) <span class="ruby-comment"># Expect #show to display errors etc</span>
+    <span class="ruby-identifier">render</span>(<span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-value">:show</span>) <span class="ruby-comment"># Expect #show to display errors etc
+</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- update-source -->
@@ -383,8 +384,10 @@
             <pre><span class="ruby-comment"># File app/controllers/settings/projects_controller.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_settings</span>
   <span class="ruby-ivar">@settings</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:plan_list</span>)
-  <span class="ruby-comment"># :name column should always be present (displayed as a disabled checkbox)</span>
-  <span class="ruby-comment"># so it&#39;s not necessary to include it in the list here</span>
+  <span class="ruby-comment"># :name column should always be present (displayed as a disabled checkbox)
+</span>
+  <span class="ruby-comment"># so it&#39;s not necessary to include it in the list here
+</span>
   <span class="ruby-ivar">@all_columns</span> <span class="ruby-operator">-=</span> [<span class="ruby-value">:name</span>]
 <span class="ruby-keyword">end</span></pre>
           </div><!-- get_settings-source -->

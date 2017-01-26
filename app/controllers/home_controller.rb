@@ -1,6 +1,14 @@
 class HomeController < ApplicationController
+  respond_to :html
 
-  def index    
+  ##
+  # Index
+  #
+  # Currently redirects user to their list of projects
+  # UNLESS
+  # User's contact name is not filled in
+  # Is this the desired behavior?
+  def index
   	if user_signed_in?
   		name = current_user.name(false)
   		if name.blank?

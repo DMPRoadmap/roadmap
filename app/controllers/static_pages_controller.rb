@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   def about_us
 		dcc_news_feed_url = "http://www.dcc.ac.uk/news/dmponline-0/feed"
-		@dcc_news_feed = Feedjira::Feed.fetch_and_parse dcc_news_feed_url   
+		@dcc_news_feed = Feedjira::Feed.fetch_and_parse dcc_news_feed_url
 		respond_to do |format|
 			format.rss { redirect_to dcc_news_feed_url }
 			format.html
@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
 
   def contact_us
   end
-  
+
   def roadmap
   end
   
@@ -20,19 +20,19 @@ class StaticPagesController < ApplicationController
   def public_plans
     @projects = Project.publicly_visible.order(title: :asc)
   end
-  
+
   # GET /projects/[:project_slug]/public_export
   # -------------------------------------------------------------
   def public_export
     @project = Project.find(params[:id])
-    
+  
     # Force PDF response 
     request.format = :pdf
-    
+  
     # if the project is designated as public
     if @project.visibility == :publicly_visible
       @plan = @project.plans.first
-      
+    
       if !@plan.nil?
         @exported_plan = ExportedPlan.new.tap do |ep|
           ep.plan = @plan
@@ -62,12 +62,11 @@ class StaticPagesController < ApplicationController
                    }
           end
         end
-      
+
       else
         # the project has no plans for some reason
         redirect_to public_plans_path, notice: I18n.t('helpers.settings.projects.errors.no_plan')
       end
-      
     else
       # Otherwise redirect to the home page with an unauthorized message
       redirect_to public_plans_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account')

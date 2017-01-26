@@ -2,10 +2,8 @@ class ProjectsController < ApplicationController
   before_filter :get_plan_list_columns, only: %i( index )
   after_action :verify_authorized
 
-  respond_to :html
-
   # GET /projects
-  # -----------------------------------------------------------
+  # GET /projects.json
   def index
     authorize Project
     ## TODO: Is this A magic String? the "Show_shib_link?" as we define it and users dont see cookies
@@ -26,19 +24,16 @@ class ProjectsController < ApplicationController
       end
     end
   end
-  
+
   # GET /projects/1
   # GET /projects/1.json
-  # -----------------------------------------------------------
   def show
     @project = Project.find(params[:id])
     authorize @project
-    
     @show_form = false
     if params[:show_form] == "yes" then
       @show_form = true
     end
-
     if user_signed_in? && @project.readable_by(current_user.id) then
       respond_to do |format|
         format.html # show.html.erb
@@ -56,7 +51,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   # GET /projects/new.json
-  # -----------------------------------------------------------
   def new
     if user_signed_in? then
       @project = Project.new
@@ -67,24 +61,19 @@ class ProjectsController < ApplicationController
       @guidance_groups = get_available_guidance
       @always_guidance = get_always_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
-      
-# TODO: Would be better to determine if the user's org has templates here than in the view.
-#       Replace the if Dmptemplate.own_institutional_templates check in views/projects/new with:
-#          @own_org_has_templates = current_user.organisation.templates.empty?
-      
-      respond_to do |format|
-        format.html # new.html.erb
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    end
-  end
+
+			respond_to do |format|
+			  format.html # new.html.erb
+			end
+		else
+			respond_to do |format|
+				format.html { redirect_to edit_user_registration_path }
+			end
+		end
+	end
 
   # GET /projects/1/edit
-  # Should this be removed?
-  # -----------------------------------------------------------
+     # Should this be removed?
   def edit
     @project = Project.find(params[:id])
     authorize @project
@@ -99,7 +88,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # -----------------------------------------------------------
   def share
     @project = Project.find(params[:id])
     authorize @project
@@ -114,7 +102,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # -----------------------------------------------------------
   def export
     @project = Project.find(params[:id])
     authorize @project
@@ -123,9 +110,6 @@ class ProjectsController < ApplicationController
         format.html { redirect_to edit_user_registration_path }
       end
     else
-      # REPLACE THIS WITH CALL To LOCAL generate_export 
-      # AFTER DATA MODEL REFACTOR WHEN WE COLLAPSE Projects and Plans
-      
       respond_to do |format|
         format.html { render action: "export" }
 
@@ -135,12 +119,10 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   # POST /projects.json
-  # -----------------------------------------------------------
   def create
     if user_signed_in? then
       
       attrs = project_params
-
       @project = Project.new(attrs)
       authorize @project
       
@@ -176,11 +158,10 @@ class ProjectsController < ApplicationController
 
   # PUT /projects/1
   # PUT /projects/1.json
-  # -----------------------------------------------------------
   def update
     @project = Project.find(params[:id])
     authorize @project
-  
+    
     if user_signed_in? && @project.editable_by(current_user.id) then
       attrs = project_params
       
@@ -200,7 +181,6 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1
   # DELETE /projects/1.json
-  # -----------------------------------------------------------
   def destroy
     @project = Project.find(params[:id])
     authorize @project
@@ -218,39 +198,39 @@ class ProjectsController < ApplicationController
   # returns to AJAX call from frontend 
   # difficult to secure as it passes through params, and dosent curate data based
   # on what the user can "view" or is public
-  # GET /projects/possible_templates.json
-  # -----------------------------------------------------------
-  def possible_templates
-    if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
-      funder = Organisation.find(params[:funder])
-    else
-      funder = nil
-    end
-    if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
-      institution = Organisation.find(params[:institution])
-    else
-      institution = nil
-    end
-    templates = {}
-    unless funder.nil? then
-      funder.published_templates.each do |t|
-        templates[t.id] = t.title
-      end
-    end
-    if templates.count == 0 && !institution.nil? then
-      institution.published_templates.each do |t|
-        templates[t.id] = t.title
-      end
-      institution.children.each do |o|
-        o.published_templates.each do |t|
-          templates[t.id] = t.title
-        end
-      end
-    end
-    respond_to do |format|
-      format.json { render json: templates.to_json }
-    end
-  end
+
+	# GET /projects/possible_templates.json
+	def possible_templates
+		if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
+			funder = Org.find(params[:funder])
+		else
+			funder = nil
+		end
+		if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
+			institution = Org.find(params[:institution])
+		else
+			institution = nil
+		end
+		templates = {}
+		unless funder.nil? then
+			funder.published_templates.each do |t|
+				templates[t.id] = t.title
+			end
+		end
+		if templates.count == 0 && !institution.nil? then
+			institution.published_templates.each do |t|
+				templates[t.id] = t.title
+			end
+			institution.children.each do |o|
+				o.published_templates.each do |t|
+					templates[t.id] = t.title
+				end
+			end
+		end
+		respond_to do |format|
+			format.json { render json: templates.to_json }
+		end
+	end
 
   # returns to AJAX call from frontend 
   # difficult to secure as it passes through params, and dosent curate data based
@@ -258,19 +238,20 @@ class ProjectsController < ApplicationController
   # -----------------------------------------------------------
   def possible_guidance
     authorize @project
-    if !params[:template].nil? && params[:template] != "" && params[:template] != "undefined" then
-      template = Dmptemplate.find(params[:template])
-    else
-      template = nil
-    end
-    if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
-      institution = Organisation.find(params[:institution])
-    else
-      institution = nil
-    end
-    excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
-    guidance_groups = {}
-    ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
+
+		if !params[:template].nil? && params[:template] != "" && params[:template] != "undefined" then
+			template = Dmptemplate.find(params[:template])
+		else
+			template = nil
+		end
+		if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
+			institution = Org.find(params[:institution])
+		else
+			institution = nil
+		end
+		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
+		guidance_groups = {}
+		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
 
     ggs.each do |gg|
       guidance_groups[gg.id] = gg.name
@@ -314,17 +295,15 @@ class ProjectsController < ApplicationController
     end
   end
   
-  # ============================================================
   private
     def project_params
       params.require(:project).permit(:title, :grant_number, :identifier, :description, 
-                                     :principal_investigator, :principal_investigator_identifier,
-                                     :data_contact, :funder_name, :visibility,
-                                     :dmptemplate_id, :organisation_id, :funder_id, :institution_id,
-                                     :guidance_group_ids, :project_group_ids)
+                                      :principal_investigator, :principal_investigator_identifier,
+                                      :data_contact, :funder_name, :visibility,
+                                      :dmptemplate_id, :organisation_id, :funder_id, :institution_id,
+                                      :guidance_group_ids, :project_group_ids)
     end
   
-    # -----------------------------------------------------------
     def orgs_of_type(org_type_name, published_templates = false)
       org_type = OrganisationType.find_by_name(org_type_name)
       all_such_orgs = org_type.organisations
@@ -357,7 +336,7 @@ class ProjectsController < ApplicationController
       # Exclude Funders, Institutions, or children of Institutions
       excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
                       orgs_of_type(constant("organisation_types.institution")) + 
-                      Organisation.orgs_with_parent_of_type(constant("organisation_types.institution"))
+                      Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
 
       GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
     end

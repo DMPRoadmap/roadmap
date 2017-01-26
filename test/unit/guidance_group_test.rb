@@ -9,8 +9,12 @@ class GuidanceGroupTest < ActiveSupport::TestCase
     @user = User.first
     @organisation = Organisation.first
     
+<<<<<<< HEAD
     @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', 
                                            organisation: @organisation)
+=======
+    @organisations = Org.all
+>>>>>>> final_schema
   end
   
   # ---------------------------------------------------

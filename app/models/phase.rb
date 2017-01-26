@@ -4,29 +4,38 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
+	extend FriendlyId
 
-  extend FriendlyId
+	##
+  # Associations
+	belongs_to :template
+	has_many :sections, dependent: :destroy
+  has_many :questions, :through => :sections, dependent: :destroy
 
-  #associations between tables
-  belongs_to :dmptemplate
+	##
+  # Possibly needed for active_admin
+  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
+	attr_accessible :description, :number, :title, :template_id, 
+                  :template, :sections, :as => [:default, :admin]
 
-# TODO: We shouldn't be short-cutting access to grandchildren and great grandchildren
-  has_many :versions, :dependent => :destroy
-  has_many :sections, :through => :versions, :dependent => :destroy
-  has_many :questions, :through => :sections, :dependent => :destroy
+  ##
+  # sluggable title
+	friendly_id :title, use: [:slugged, :history, :finders]
 
-# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
-  #Link the child's data
-  accepts_nested_attributes_for :versions, :allow_destroy => true 
-#  accepts_nested_attributes_for :dmptemplate
 
-# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
-  attr_accessible :description, :number, :title, :versions, :dmptemplate,
-                  :dmptemplate_id, :versions, :as => [:default, :admin]
 
-  friendly_id :title, use: [:slugged, :history, :finders]
 
-  validates :title, :number, :dmptemplate, presence: true
+
+
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
+
+
 
   ##
   # returns the title of the phase

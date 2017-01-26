@@ -10,7 +10,7 @@ class OrganisationTest < ActiveSupport::TestCase
   
   # ---------- required fields are required ------------
   test "required fields should be required" do
-    org = Organisation.new
+    org = Org.new
     assert_not(org.valid?)
     
     org.name = 'ABCD'
@@ -86,7 +86,7 @@ class OrganisationTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can CRUD" do
-    org = Organisation.create(name: 'testing')
+    org = Org.create(name: 'testing')
     assert_not org.id.nil?, "was expecting to be able to create a new Organisation: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     org.abbreviation = 'TEST'
