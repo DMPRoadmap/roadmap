@@ -11,7 +11,7 @@ class GuidanceGroup < ActiveRecord::Base
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :organisation_id, :name, :optional_subset, :published, 
-                  :organisation, :as => [:default, :admin]
+                  :org, :as => [:default, :admin]
   attr_accessible :dmptemplate_ids, :as => [:default, :admin]
 
 
@@ -25,7 +25,7 @@ class GuidanceGroup < ActiveRecord::Base
 
 
 
-  validates :name, :organisation, presence: true
+  validates :name, :org, presence: true
 
   ##
   # Converts a guidance group to a string containing the display name
