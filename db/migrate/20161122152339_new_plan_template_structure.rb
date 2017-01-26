@@ -118,161 +118,167 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       t.timestamps
     end
 
-    # migrate all of the data from plans into templates (user facing)
-    #   first migrate all "pure"(uncustomised) plans
-    #     find template for plan
-    #     find versions for plan
-    #       find phases for template
-    #         find sections for version
-    #           find questions for section
-    #             find question_options for question
-    #             find answers for question
-    #               find notes from question & link to answer
-    #             find guidance_by_question for question
-    #             find themes for question
-    #     IF EXISTS Template SUCH THAT:
-    #     dmptemplate.name = template.name,
-    #       phase.title = new_phase.title,
-    #         new_phase.version_id in versions.id
-    #           SUCCESSFUL MATCH, copy over all data
-    #   Then migrate all customised plans
-    # migrate most current template into templates (org facing)
-    proj_number = 0
-    # migrating uncustomised plans
-    Template.transaction do
-      Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: [:version ]}, :organisation).find_each(batch_size: 20) do |project|
-        puts ""
-        puts "beginning number #{proj_number}"
-        proj_number +=1
-        if project.dmptemplate.nil?               # one of the templates dosent exist
-          next
-        end
-        new_plan = initNewPlan(project)           # copy data from project to NewPlan object
-        plans = project.plans                     # select plans for project
-        version_ids = []
-        versions = []
-        plans.each do |plan|                      # select version ids from plans list
-          version_ids << plan.version.id
-          versions << plan.version
-        end
-        dmptemplate = project.dmptemplate         # select template for project
-        phases = dmptemplate.phases               # select phases for project
-        temp_match = false                        # flag for if we found a matching template
+    # Since we ultimately drop the Project model we must check for it before
+    # attempting to manipulate data
+    if Object.const_defined?('Project')
 
-        puts "checking for matching templates for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
-        puts "checking for matching templates for #{dmptemplate.title} uncustomised" unless project.organisation.present?
-        possible_templates = project.organisation.nil? ?
-          Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: dmptemplate.organisation_id) :
-          Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: project.organisation_id)
-        possible_templates.find_each do |t|  # for templates with same id
-          # early cut for un-even number of phases
-          new_phase_versions = t.new_phases.pluck(:vid)
-          if new_phase_versions.sort == version_ids.sort
-            temp_match = true                                 # flag that we found match
-                                                      # we can point the new_plan to this template and init all data
-            new_plan.template_id = t.id
+      # migrate all of the data from plans into templates (user facing)
+      #   first migrate all "pure"(uncustomised) plans
+      #     find template for plan
+      #     find versions for plan
+      #       find phases for template
+      #         find sections for version
+      #           find questions for section
+      #             find question_options for question
+      #             find answers for question
+      #               find notes from question & link to answer
+      #             find guidance_by_question for question
+      #             find themes for question
+      #     IF EXISTS Template SUCH THAT:
+      #     dmptemplate.name = template.name,
+      #       phase.title = new_phase.title,
+      #         new_phase.version_id in versions.id
+      #           SUCCESSFUL MATCH, copy over all data
+      #   Then migrate all customised plans
+      # migrate most current template into templates (org facing)
+      proj_number = 0
+      # migrating uncustomised plans
+      Template.transaction do
+        Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: [:version ]}, :organisation).find_each(batch_size: 20) do |project|
+          puts ""
+          puts "beginning number #{proj_number}"
+          proj_number +=1
+          if project.dmptemplate.nil?               # one of the templates dosent exist
+            next
+          end
+          new_plan = initNewPlan(project)           # copy data from project to NewPlan object
+          plans = project.plans                     # select plans for project
+          version_ids = []
+          versions = []
+          plans.each do |plan|                      # select version ids from plans list
+            version_ids << plan.version.id
+            versions << plan.version
+          end
+          dmptemplate = project.dmptemplate         # select template for project
+          phases = dmptemplate.phases               # select phases for project
+          temp_match = false                        # flag for if we found a matching template
+
+          puts "checking for matching templates for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
+          puts "checking for matching templates for #{dmptemplate.title} uncustomised" unless project.organisation.present?
+          possible_templates = project.organisation.nil? ?
+            Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: dmptemplate.organisation_id) :
+            Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: project.organisation_id)
+          possible_templates.find_each do |t|  # for templates with same id
+            # early cut for un-even number of phases
+            new_phase_versions = t.new_phases.pluck(:vid)
+            if new_phase_versions.sort == version_ids.sort
+              temp_match = true                                 # flag that we found match
+                                                        # we can point the new_plan to this template and init all data
+              new_plan.template_id = t.id
+              new_plan.save!
+              puts "found a match: #{t.title} version #{t.version}"
+              break
+            end
+          end
+
+
+          # this section handles for customisations
+          unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
+            puts "creating new template for #{dmptemplate.title}" unless project.organisation.present?
+            puts "creating new template for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
+            modifiable = project.organisation.nil? || project.organisation_id == dmptemplate.organisation_id
+            template = initTemplate(dmptemplate, modifiable, project.organisation_id)      # needs to select next version of temp based on old_temp_id
+            # some differences between a customised and un-customised template
+            # customised templates need a different organisation_id
+            template.organisation_id = project.organisation_id unless project.organisation_id.nil?  # updated to not overwrite with nil
+            # customised templates follow different version rules
+            template.save!
+            # since template was not a match, need to gen/copy all data below the template level
+            versions.each do |version|
+              new_phase = initNewPhase(version.phase, version, template, modifiable)
+              new_phase.save!
+              sections = []
+              sections += version.sections.where("organisation_id = ? ", dmptemplate.organisation_id).pluck(:id)
+              unless project.organisation_id.nil?
+                sections += Section.where(organisation_id: project.organisation_id, version_id: version.id).pluck(:id)
+              end
+              Section.includes(questions: [:themes, :options, :suggested_answers]).where(id: sections).each do |section|
+                new_section = initNewSection(section, new_phase, modifiable)
+                new_section.save!
+                section.questions.each do |question|
+                  new_question = initNewQuestion(question, new_section, modifiable)
+                  new_question.save!
+                  question.themes.each do |theme|
+                    new_question.themes << theme
+                  end
+                  question.options.each do |option|
+                    question_option = initQuestionOption(option, new_question)
+                    question_option.save!
+                  end
+                  question.suggested_answers.each do |suggested_answer|
+                    new_suggested_answer = initNewSuggestedAnswers(suggested_answer, new_question)
+                    new_suggested_answer.save!
+                  end
+                end
+              end
+            end
+            new_plan.template_id = template.id
             new_plan.save!
-            puts "found a match: #{t.title} version #{t.version}"
-            break
           end
-        end
 
-
-        # this section handles for customisations
-        unless temp_match     # no matches found, init template & phase & sections & questions & themes & options
-          puts "creating new template for #{dmptemplate.title}" unless project.organisation.present?
-          puts "creating new template for #{dmptemplate.title} customised by #{project.organisation.name}" unless project.organisation.nil?
-          modifiable = project.organisation.nil? || project.organisation_id == dmptemplate.organisation_id
-          template = initTemplate(dmptemplate, modifiable, project.organisation_id)      # needs to select next version of temp based on old_temp_id
-          # some differences between a customised and un-customised template
-          # customised templates need a different organisation_id
-          template.organisation_id = project.organisation_id unless project.organisation_id.nil?  # updated to not overwrite with nil
-          # customised templates follow different version rules
-          template.save!
-          # since template was not a match, need to gen/copy all data below the template level
-          versions.each do |version|
-            new_phase = initNewPhase(version.phase, version, template, modifiable)
-            new_phase.save!
-            sections = []
-            sections += version.sections.where("organisation_id = ? ", dmptemplate.organisation_id).pluck(:id)
-            unless project.organisation_id.nil?
-              sections += Section.where(organisation_id: project.organisation_id, version_id: version.id).pluck(:id)
+          # up to this point, we have either found a matching template and pointed the
+          # new_plan obj at it, or we have generated a new:
+          # template/phases/sections/questions/question_options/question_themes
+          # now need to init answers, notes, answers_options
+          #new_plan.template.new_phases.each do |new_phase|
+          puts "transfering plan data"
+          project.project_groups.each do |group|
+            role = initRole(group, new_plan)
+            role.save!
+          end
+          template = Template.includes(new_phases: {new_sections: :new_questions}).find(new_plan.template_id)
+          template.new_phases.each do |new_phase|
+            old_plan = project.plans.where(version_id: new_phase.vid).first
+            puts "old plan id: #{old_plan.id}"
+            puts "plan ids :#{plans.pluck(:id)}"
+            if old_plan.id == 46
+              puts "IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!! IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!! IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!!"
             end
-            Section.includes(questions: [:themes, :options, :suggested_answers]).where(id: sections).each do |section|
-              new_section = initNewSection(section, new_phase, modifiable)
-              new_section.save!
-              section.questions.each do |question|
-                new_question = initNewQuestion(question, new_section, modifiable)
-                new_question.save!
-                question.themes.each do |theme|
-                  new_question.themes << theme
+            new_phase.new_sections.each do |new_section|
+              new_section.new_questions.each do |new_question|
+                # init new answer
+                old_ans = Answer.where(question_id: new_question.question_id, plan_id: old_plan.id).order("created_at DESC").first
+                # init comments on answer
+                new_ans = nil
+                comments = Comment.where(question_id: new_question.question_id, plan_id: old_plan.id)
+                # unless there is no old answer, and no comments, create an answer
+                unless old_ans.nil? && comments.length < 1
+                  new_ans = initNewAnswer(old_ans, new_plan, new_question)
+                  new_ans.save!
                 end
-                question.options.each do |option|
-                  question_option = initQuestionOption(option, new_question)
-                  question_option.save!
+                comments.find_each do |comment|
+                  note = initNote(comment, new_ans)
+                  note.save!
                 end
-                question.suggested_answers.each do |suggested_answer|
-                  new_suggested_answer = initNewSuggestedAnswers(suggested_answer, new_question)
-                  new_suggested_answer.save!
+                if new_ans.present? && new_ans.text.present? && new_ans.text.include?("test2")
+                  puts "!!!!!!!!!!!!!!!!DEBUG MODE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                  puts "old answer: #{old_ans.text}"
+                  puts "old answer: #{old_ans.id}"
+                  puts "new answer: #{new_ans.text}"
+                  puts "old plans: #{project.plans.pluck(:id)}"
+                  puts "old_plan: #{old_plan.id}"
+                  puts "old project: #{project.id}"
+                  puts "question: #{new_question.question_id}"
+                  puts "old user: #{old_ans.user.email}"
                 end
-              end
-            end
-          end
-          new_plan.template_id = template.id
-          new_plan.save!
-        end
-
-        # up to this point, we have either found a matching template and pointed the
-        # new_plan obj at it, or we have generated a new:
-        # template/phases/sections/questions/question_options/question_themes
-        # now need to init answers, notes, answers_options
-        #new_plan.template.new_phases.each do |new_phase|
-        puts "transfering plan data"
-        project.project_groups.each do |group|
-          role = initRole(group, new_plan)
-          role.save!
-        end
-        template = Template.includes(new_phases: {new_sections: :new_questions}).find(new_plan.template_id)
-        template.new_phases.each do |new_phase|
-          old_plan = project.plans.where(version_id: new_phase.vid).first
-          puts "old plan id: #{old_plan.id}"
-          puts "plan ids :#{plans.pluck(:id)}"
-          if old_plan.id == 46
-            puts "IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!! IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!! IT'S NOT WORKING RITE HERE!!!!!!!!!!!!!!!!!!!!!!!"
-          end
-          new_phase.new_sections.each do |new_section|
-            new_section.new_questions.each do |new_question|
-              # init new answer
-              old_ans = Answer.where(question_id: new_question.question_id, plan_id: old_plan.id).order("created_at DESC").first
-              # init comments on answer
-              new_ans = nil
-              comments = Comment.where(question_id: new_question.question_id, plan_id: old_plan.id)
-              # unless there is no old answer, and no comments, create an answer
-              unless old_ans.nil? && comments.length < 1
-                new_ans = initNewAnswer(old_ans, new_plan, new_question)
-                new_ans.save!
-              end
-              comments.find_each do |comment|
-                note = initNote(comment, new_ans)
-                note.save!
-              end
-              if new_ans.present? && new_ans.text.present? && new_ans.text.include?("test2")
-                puts "!!!!!!!!!!!!!!!!DEBUG MODE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-                puts "old answer: #{old_ans.text}"
-                puts "old answer: #{old_ans.id}"
-                puts "new answer: #{new_ans.text}"
-                puts "old plans: #{project.plans.pluck(:id)}"
-                puts "old_plan: #{old_plan.id}"
-                puts "old project: #{project.id}"
-                puts "question: #{new_question.question_id}"
-                puts "old user: #{old_ans.user.email}"
               end
             end
           end
         end
       end
+    
     end
-
+    
     # indexes on join tables at the end
     change_table :new_answers_question_options do |t|
       t.index [:new_answer_id, :question_option_id], name: 'answer_question_option_index'
