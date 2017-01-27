@@ -19,6 +19,9 @@ class Answer < ActiveRecord::Base
   validates :user, :plan, :question, presence: true
   
   # Make sure there is only one answer per question!
-  validates :question, uniqueness: {scope: [:user, :plan], 
+  validates :question, uniqueness: {scope: [:plan], 
                                     message: I18n.t('helpers.errors.answer.only_one_per_question')}
+                                    
+  # TODO: We should validate that the text attribute is set or that an
+  #       option was selected 
 end

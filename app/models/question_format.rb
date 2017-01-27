@@ -9,7 +9,7 @@ class QuestionFormat < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :title, :description, :as => [:default, :admin]
+  attr_accessible :title, :description, :questions, :as => [:default, :admin]
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
