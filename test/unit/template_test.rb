@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DmptemplateTest < ActiveSupport::TestCase
+class TemplateTest < ActiveSupport::TestCase
 
   setup do
     @template = Dmptemplate.first

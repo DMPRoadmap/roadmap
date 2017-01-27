@@ -15,7 +15,7 @@ class Phase < ActiveRecord::Base
 	##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :description, :number, :title, :template_id, 
+	attr_accessible :description, :number, :title, :template_id, :modifiable,
                   :template, :sections, :as => [:default, :admin]
 
   ##
