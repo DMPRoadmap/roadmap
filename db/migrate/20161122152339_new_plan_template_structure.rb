@@ -118,30 +118,28 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       t.timestamps
     end
 
-    # Since we ultimately drop the Project model we must check for it before
-    # attempting to manipulate data
-    if Object.const_defined?('Project')
-
-      # migrate all of the data from plans into templates (user facing)
-      #   first migrate all "pure"(uncustomised) plans
-      #     find template for plan
-      #     find versions for plan
-      #       find phases for template
-      #         find sections for version
-      #           find questions for section
-      #             find question_options for question
-      #             find answers for question
-      #               find notes from question & link to answer
-      #             find guidance_by_question for question
-      #             find themes for question
-      #     IF EXISTS Template SUCH THAT:
-      #     dmptemplate.name = template.name,
-      #       phase.title = new_phase.title,
-      #         new_phase.version_id in versions.id
-      #           SUCCESSFUL MATCH, copy over all data
-      #   Then migrate all customised plans
-      # migrate most current template into templates (org facing)
-      proj_number = 0
+    # migrate all of the data from plans into templates (user facing)
+    #   first migrate all "pure"(uncustomised) plans
+    #     find template for plan
+    #     find versions for plan
+    #       find phases for template
+    #         find sections for version
+    #           find questions for section
+    #             find question_options for question
+    #             find answers for question
+    #               find notes from question & link to answer
+    #             find guidance_by_question for question
+    #             find themes for question
+    #     IF EXISTS Template SUCH THAT:
+    #     dmptemplate.name = template.name,
+    #       phase.title = new_phase.title,
+    #         new_phase.version_id in versions.id
+    #           SUCCESSFUL MATCH, copy over all data
+    #   Then migrate all customised plans
+    # migrate most current template into templates (org facing)
+    proj_number = 0
+    
+    if Object.const_defined?('Project') && Object.const_defined?('Template')
       # migrating uncustomised plans
       Template.transaction do
         Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: [:version ]}, :organisation).find_each(batch_size: 20) do |project|
@@ -276,7 +274,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           end
         end
       end
-    
+
     end
     
     # indexes on join tables at the end

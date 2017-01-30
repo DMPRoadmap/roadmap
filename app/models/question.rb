@@ -25,7 +25,7 @@ class Question < ActiveRecord::Base
                   :question_options_attributes, :suggested_answers_attributes, 
                   :option_comment_display, :theme_ids, :section, :question_format, 
                   :question_options, :suggested_answers, :answers, :themes, 
-                  :modifiable, :as => [:default, :admin]
+                  :modifiable, :option_comment_display, :as => [:default, :admin]
 
 
 

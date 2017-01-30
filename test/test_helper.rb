@@ -19,7 +19,10 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
+  #fixtures :all
+
+  # Use the db/seed.rb file to populate the test DB
+  require_relative '../db/seeds.rb'
 
   # Add more helper methods to be used by all tests here...
   
@@ -29,57 +32,6 @@ class ActiveSupport::TestCase
     name.gsub(/([a-z]+)([A-Z])/, '\1_\2').gsub('-', '_').downcase
   end
   
-  # Generate a template for testing
-  # ----------------------------------------------------------------------
-  def generate_complete_template
-    questions = []
-    QuestionFormat.all.each do |f| 
-      q = Question.new({
-        text: "(#{f.title}) Question",
-        default_value: "Default for #{f.title} questions",
-        guidance: "Guidance for #{f.title} questions",
-        number: 1,
-        option_comment_display: true,
-        options: (['Radio Button', 'Check Box', 'Dropdown', 'Multi Select Box'].include?(f.title) ? 
-                    2.times.collect{ |n| 
-                      Option.new(text: "Option #{n}", number: n, is_default: (n == 1 ? true : false)) 
-                    } : [])
-      })
-      q.question_format = f
-      questions << q
-    end
-    
-    template = Dmptemplate.create({
-      title: "Testing Template",
-      description: "This is a template for testing use only",
-      published: true,
-      organisation: Organisation.first,
-      locale: Language.first,
-      phases: [Phase.new({
-        title: 'Phase 1',
-        number: 1
-      })]
-    })
-
-    template.phases.first.versions << Version.new({
-      title: 'Version 1',
-      number: 1,
-      published: true
-    })
-    
-    template.phases.first.versions.first.sections << Section.new({
-      title: 'Section 1',
-      number: 1,
-      organisation: Organisation.first
-    })
-    
-    template.phases.first.versions.first.sections.first.questions << questions
-    
-    template.save!
-    template.reload
-  end
-  
-
 # FUNCTIONAL/INTEGRATION TEST HELPERS
   # ----------------------------------------------------------------------
   def assert_unauthorized_redirect_to_root_path
