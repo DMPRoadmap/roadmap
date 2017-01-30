@@ -65,7 +65,8 @@ class Plan < ActiveRecord::Base
 	def settings(key)
 		self_settings = self.super_settings(key)
 		return self_settings if self_settings.value?
-		self.dmptemplate.settings(key)
+#		self.dmptemplate.settings(key)
+    self.template.settings(key)
 	end
 
   ##
@@ -73,7 +74,8 @@ class Plan < ActiveRecord::Base
   #
   # @return [Dmptemplate] the template associated with this plan
 	def dmptemplate
-		self.project.try(:dmptemplate) || Dmptemplate.new
+#		self.project.try(:dmptemplate) || Dmptemplate.new
+    self.try(:template) || Template.new
 	end
 
   ##
@@ -83,8 +85,10 @@ class Plan < ActiveRecord::Base
 	def title
 		logger.debug "Title in settings: #{self.settings(:export).title}"
 		if self.settings(:export).title == ""
-      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
-        return self.version.phase.title
+#      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
+      if !self.template.nil? && !self.template.phases.empty?  
+#        return self.version.phase.title
+        return self.template.phases.first.title
       else
         return I18n.t('tool_title2')
 			end

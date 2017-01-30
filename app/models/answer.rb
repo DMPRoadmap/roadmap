@@ -23,6 +23,10 @@ class Answer < ActiveRecord::Base
                                     
   # The answer MUST have a text value if the question is NOT option based or a question_option if
   # it is option based. 
-  validates :text, presence: true, if: Proc.new{|a| !a.question.question_format.option_based? }
-  validates :question_options, presence: true, if: Proc.new{|a| a.question.question_format.option_based? }
+  validates :text, presence: true, if: Proc.new{|a| 
+    (a.question.nil? ? false : !a.question.question_format.option_based?)
+  }
+  validates :question_options, presence: true, if: Proc.new{|a| 
+    (a.question.nil? ? false : a.question.question_format.option_based?)
+  }
 end
