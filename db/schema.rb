@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124235829) do
+ActiveRecord::Schema.define(version: 20170130173612) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.integer "question_option_id", limit: 4, null: false
   end
 
-  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index"
-  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index"
+  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index", using: :btree
+  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id",    limit: 4
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -105,9 +105,9 @@ ActiveRecord::Schema.define(version: 20170124235829) do
   end
 
   create_table "languages", force: :cascade do |t|
-    t.string  "abbreviation"
-    t.string  "description"
-    t.string  "name"
+    t.string  "abbreviation",     limit: 255
+    t.string  "description",      limit: 255
+    t.string  "name",             limit: 255
     t.boolean "default_language"
   end
 
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.datetime "updated_at"
   end
 
-  add_index "perms", ["name"], name: "index_perms_on_name"
-  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
 
   create_table "phases", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -199,10 +199,11 @@ ActiveRecord::Schema.define(version: 20170124235829) do
   add_index "plans", ["template_id"], name: "fk_rails_3424ca281f", using: :btree
 
   create_table "question_formats", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
+    t.string   "title",        limit: 255
+    t.text     "description",  limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "option_based",               default: false
   end
 
   create_table "question_options", force: :cascade do |t|
@@ -237,18 +238,18 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.integer "theme_id",    limit: 4, null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index"
-  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index"
+  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index", using: :btree
+  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index", using: :btree
 
   create_table "region_groups", force: :cascade do |t|
-    t.integer "super_region_id"
-    t.integer "region_id"
+    t.integer "super_region_id", limit: 4
+    t.integer "region_id",       limit: 4
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string "abbreviation"
-    t.string "description"
-    t.string "name"
+    t.string "abbreviation", limit: 255
+    t.string "description",  limit: 255
+    t.string "name",         limit: 255
   end
 
   create_table "roles", force: :cascade do |t|
@@ -284,7 +285,7 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination", limit: 255
@@ -338,8 +339,8 @@ ActiveRecord::Schema.define(version: 20170124235829) do
   add_index "themes_in_guidance", ["theme_id"], name: "fk_rails_7d708f6f1e", using: :btree
 
   create_table "token_permission_types", force: :cascade do |t|
-    t.string   "token_type"
-    t.text     "text_description"
+    t.string   "token_type",       limit: 255
+    t.text     "text_description", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -359,7 +360,6 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.string   "firstname",              limit: 255
     t.string   "surname",                limit: 255
     t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "orcid_id",               limit: 255
     t.string   "shibboleth_id",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -370,12 +370,12 @@ ActiveRecord::Schema.define(version: 20170124235829) do
     t.integer  "sign_in_count",          limit: 4,   default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "invitation_token"
+    t.string   "invitation_token",       limit: 255
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"

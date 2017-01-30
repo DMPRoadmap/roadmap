@@ -2,7 +2,7 @@ class AddFieldToGuidances < ActiveRecord::Migration
   def change
      add_column :guidances, :published, :boolean
 
-     if Object.const_defined?('Guidance')
+     if table_exists?('guidances')
        Guidance.find_each do |guidance|
           guidance.published = true
           guidance.save!

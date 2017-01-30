@@ -2,7 +2,7 @@ class SingleOrganisationForUsers < ActiveRecord::Migration
 
   def up
     unless Rails.env.test?
-      if Object.const_defined?('User')
+      if table_exists?('users')
         User.class_eval do
           belongs_to :organisation,
                      :class_name => "Organisation",

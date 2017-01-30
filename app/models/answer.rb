@@ -10,9 +10,8 @@ class Answer < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :text, :plan_id, :question_id, :user_id, :option_ids, 
-                  :question, :user, :plan, :question_options, 
-                  :as => [:default, :admin]
+  attr_accessible :text, :plan_id, :question_id, :user_id, :question_option_ids, 
+                  :question, :user, :plan, :question_options, :as => [:default, :admin]
 
   ##
   # Validations
@@ -22,6 +21,8 @@ class Answer < ActiveRecord::Base
   validates :question, uniqueness: {scope: [:plan], 
                                     message: I18n.t('helpers.errors.answer.only_one_per_question')}
                                     
-  # TODO: We should validate that the text attribute is set or that an
-  #       option was selected 
+  # The answer MUST have a text value if the question is NOT option based or a question_option if
+  # it is option based. 
+  validates :text, presence: true, if: Proc.new{|a| !a.question.question_format.option_based? }
+  validates :question_options, presence: true, if: Proc.new{|a| a.question.question_format.option_based? }
 end

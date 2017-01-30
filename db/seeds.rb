@@ -14,13 +14,13 @@ identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.fi
 # Question Formats
 # -------------------------------------------------------
 question_formats = [
-  {title: "Text area"},
-  {title: "Text field"},
-  {title: "Radio buttons"},
-  {title: "Check box"},
-  {title: "Dropdown"},
-  {title: "Multi select box"},
-  {title: "Date"}
+  {title: "Text area", option_based: false},
+  {title: "Text field", option_based: false},
+  {title: "Radio buttons", option_based: true},
+  {title: "Check box", option_based: true},
+  {title: "Dropdown", option_based: true},
+  {title: "Multi select box", option_based: true},
+  {title: "Date", option_based: false}
 ]
 question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(title: qf[:title]).nil? }
 

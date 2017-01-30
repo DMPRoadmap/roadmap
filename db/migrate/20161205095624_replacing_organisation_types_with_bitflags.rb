@@ -13,7 +13,7 @@ class ReplacingOrganisationTypesWithBitflags < ActiveRecord::Migration
       # t.boolean :Project
     end
     
-    if Object.const_defined?('Org')
+    if table_exists?('orgs')
       # migrate old org_type data to bitfield
       Org.includes(:organisation_type).all.each do |org|
         unless org.organisation_type.nil?

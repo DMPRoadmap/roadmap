@@ -8,7 +8,7 @@ class ReplacingPlanRolesWithBitflags < ActiveRecord::Migration
     rename_column :roles, :administrator, :admin
 
     # transfer the data from the other fields to the bitfield
-    if Object.const_defined?('Role')
+    if table_exists?('roles')
       Role.find_each do |role|
         if role.admin
           role.administrator = true

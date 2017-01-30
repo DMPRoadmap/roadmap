@@ -139,7 +139,8 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     # migrate most current template into templates (org facing)
     proj_number = 0
     
-    if Object.const_defined?('Project') && Object.const_defined?('Template')
+    if table_exists?('projects') && table_exists?('templates') && table_exists?('answers') &&
+              table_exists?('comments') && table_exists?('sections')
       # migrating uncustomised plans
       Template.transaction do
         Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: [:version ]}, :organisation).find_each(batch_size: 20) do |project|
@@ -309,26 +310,31 @@ end
 
 
 def initTemplate(dmptemp, modifiable, organisation_id)
-  template                  = Template.new
-  template.title            = dmptemp.title
-  template.description      = dmptemp.description
-  template.published        = dmptemp.published
-  template.organisation_id  = organisation_id.present? ? organisation_id : dmptemp.organisation_id
-  template.locale           = dmptemp.locale
-  template.is_default       = dmptemp.is_default
-  template.created_at       = dmptemp.created_at
-  template.updated_at       = dmptemp.updated_at
-  template.visibility       = 0                   # dummy value for private
-  template.customization_of = modifiable ? nil : dmptemp.id
-  template.dmptemplate_id   = dmptemp.id
-  # if no templates with the same dmptemplate_id and organisation_id exist
-  #   0
-  # otherwise
-  #   take the maximum version from templates with the same dmptemplate_id and organisation_id and add 1
-  template.version          = Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).blank? ?
-    0 : Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).pluck(:version).max + 1
-  puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
-  return template
+  if table_exists?('templates')
+    template                  = Template.new
+    template.title            = dmptemp.title
+    template.description      = dmptemp.description
+    template.published        = dmptemp.published
+    template.organisation_id  = organisation_id.present? ? organisation_id : dmptemp.organisation_id
+    template.locale           = dmptemp.locale
+    template.is_default       = dmptemp.is_default
+    template.created_at       = dmptemp.created_at
+    template.updated_at       = dmptemp.updated_at
+    template.visibility       = 0                   # dummy value for private
+    template.customization_of = modifiable ? nil : dmptemp.id
+    template.dmptemplate_id   = dmptemp.id
+    # if no templates with the same dmptemplate_id and organisation_id exist
+    #   0
+    # otherwise
+    #   take the maximum version from templates with the same dmptemplate_id and organisation_id and add 1
+    template.version          = Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).blank? ?
+      0 : Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).pluck(:version).max + 1
+    puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
+    return template
+    
+  else
+    return nil
+  end
 end
 
 def initNewPhase(phase, version, temp, modifiable)
@@ -363,8 +369,10 @@ def initNewQuestion(question, new_section, modifiable)
   new_question.text                   = question.text
   new_question.default_value          = question.default_value
   new_question.guidance               = question.guidance.nil? ? "" : question.guidance
-  Guidance.where(question_id: question.id).each do |guidance|
-    new_question.guidance             += guidance.text
+  if table_exists?('guidances')
+    Guidance.where(question_id: question.id).each do |guidance|
+      new_question.guidance             += guidance.text
+    end
   end
   new_question.number                 = question.number
   new_question.new_section_id         = new_section.id
@@ -387,35 +395,45 @@ def initNewAnswer(answer, new_plan, new_question)
     new_answer.created_at       = answer.created_at
     new_answer.updated_at       = answer.updated_at
     # not sure if these get saved properly as new_answer has no id yet
-    answer.options.each do |option|
-      new_answer.question_options << QuestionOption.find_by(option_id: option.id)
+    if table_exists?('question_options')
+      answer.options.each do |option|
+        new_answer.question_options << QuestionOption.find_by(option_id: option.id)
+      end
     end
   end
   return new_answer
 end
 
 def initQuestionOption(option, new_question)
-  question_option                 = QuestionOption.new
-  question_option.new_question_id = new_question.id
-  question_option.option_id       = option.id
-  question_option.text            = option.text
-  question_option.number          = option.number
-  question_option.is_default      = option.is_default
-  question_option.created_at      = option.created_at
-  question_option.updated_at      = option.updated_at
-  return question_option
+  if table_exists?('question_options')
+    question_option                 = QuestionOption.new
+    question_option.new_question_id = new_question.id
+    question_option.option_id       = option.id
+    question_option.text            = option.text
+    question_option.number          = option.number
+    question_option.is_default      = option.is_default
+    question_option.created_at      = option.created_at
+    question_option.updated_at      = option.updated_at
+    return question_option
+  else
+    return nil
+  end
 end
 
 def initNote(comment, new_answer)
-  note                  = Note.new
-  note.user_id          = comment.user_id
-  note.text             = comment.text
-  note.archived         = comment.archived
-  note.archived_by      = comment.archived_by
-  note.new_answer_id    = new_answer.id
-  note.created_at       = comment.created_at
-  note.updated_at       = comment.updated_at
-  return note
+  if table_exists?('notes')
+    note                  = Note.new
+    note.user_id          = comment.user_id
+    note.text             = comment.text
+    note.archived         = comment.archived
+    note.archived_by      = comment.archived_by
+    note.new_answer_id    = new_answer.id
+    note.created_at       = comment.created_at
+    note.updated_at       = comment.updated_at
+    return note
+  else
+    return nil
+  end
 end
 
 def initNewPlan(project)
@@ -447,13 +465,17 @@ def initNewSuggestedAnswers(suggested_answer, new_question)
 end
 
 def initRole(project_group, new_plan)
-  role                = Role.new
-  role.creator        = project_group.project_creator
-  role.administrator  = project_group.project_administrator
-  role.editor         = project_group.project_editor
-  role.created_at     = project_group.created_at
-  role.updated_at     = project_group.updated_at
-  role.user_id        = project_group.user_id
-  role.new_plan_id    = new_plan.id
-  return role
+  if table_exists?('roles')
+    role                = Role.new
+    role.creator        = project_group.project_creator
+    role.administrator  = project_group.project_administrator
+    role.editor         = project_group.project_editor
+    role.created_at     = project_group.created_at
+    role.updated_at     = project_group.updated_at
+    role.user_id        = project_group.user_id
+    role.new_plan_id    = new_plan.id
+    return role
+  else
+    return nil
+  end
 end

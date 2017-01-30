@@ -83,7 +83,7 @@ class AddForeignKeys < ActiveRecord::Migration
   def scrub_references
     # answers
     i = 0
-    if Object.const_defined?('Answer')
+    if table_exists?('answers')
       Answer.includes(:user, :plan, :question).find_each do |ans|
         if ans.user.nil? && ans.user_id.present?
           ans.user_id = nil
@@ -104,7 +104,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # notes
     i = 0
-    if Object.const_defined?('Note')
+    if table_exists?('notes')
       Note.includes(:answer, :user).find_each do |note|
         if note.answer.nil? && note.answer_id.present?
           note.answer_id = nil
@@ -121,7 +121,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # templates
     i = 0
-    if Object.const_defined?('Template')
+    if table_exists?('templates')
       Template.includes(:org).find_each do |temp|
         if temp.org.nil? && temp.org_id.present?
           temp.org_id = nil
@@ -134,7 +134,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # guidance_groups
     # i = 0
-    # if Object.const_defined?('GuidanceGroup')
+    # if table_exists?('guidance_groups')
     #   GuidanceGroup.includes(:org).find_each do |gg|
     #     if gg.org.nil? && gg.org_id.present?
     #       gg.org_id = nil
@@ -147,7 +147,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # # question_options
     # i = 0
-    # if Object.const_defined?('QuestionOption')
+    # if table_exists?('question_options')
     #   QuestionOption.includes(:question).find_each do |opt|
     #     if opt.question.nil? && opt.question_id.present?
     #       opt.question_id = nil
@@ -160,7 +160,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # # orgs
     # i = 0
-    # if Object.const_defined?('Org')
+    # if table_exists?('orgs')
     #   Org.includes( :language).find_each do |org|
     #     if org.language.nil? && org.language_id.present?
     #       org.language_id = nil
@@ -179,7 +179,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # roles
     i = 0
-    if Object.const_defined?('Role')
+    if table_exists?('roles')
       Role.includes(:user, :plan).find_each do |role|
         if role.user.nil? && role.user_id.present?
           Role.delete_all(user_id: role.user_id)
@@ -200,7 +200,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # # suggested_answers
     # i = 0
-    # if Object.const_defined?('SuggestedAnswer')
+    # if table_exists?('suggested_answers')
     #   SuggestedAnswer.includes(:org, :question).find_each do |sa|
     #     if sa.org.nil? && sa.org_id.present?
     #       sa.org_id = nil
@@ -220,7 +220,7 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # # users
     # i = 0
-    # if Object.const_defined?('User')
+    # if table_exists?('users')
     #   User.includes(:org, :language).find_each do |u|
     #     if u.org.nil? && u.org_id.present?
     #       u.org_id = nil
@@ -236,7 +236,7 @@ class AddForeignKeys < ActiveRecord::Migration
     # puts "#{i} users scrubbed"
 
     # users_perms
-    if Object.const_defined?('UsersPerm')
+    if table_exists?('users_perms')
       UsersPerm.includes(:user).all.each do |u|
         if u.user.nil?
           UsersPerm.delete_all(user_id: u.user_id)
