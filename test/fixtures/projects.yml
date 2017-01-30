@@ -1,9 +1,0 @@
-<% templates = YAML::load(ERB.new(File.read('./test/fixtures/dmptemplates.yml')).result) %>
-
-<% templates.each do |lbl, hash| %>
-<%= lbl %>_project:
-  title: <%= "#{lbl} Project" %>
-  dmptemplate: <%= lbl %>
-  organisation: complete 
-  visibility: 1
-<% end %>
