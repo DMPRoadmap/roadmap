@@ -1,11 +1,10 @@
 require 'test_helper'
 
-class OrganisationTest < ActiveSupport::TestCase
+class OrgTest < ActiveSupport::TestCase
   setup do
-    @org = organisations(:curation_center)
+    @org = Org.first
     
-    @org_type = OrganisationType.last
-    @language = languages(I18n.default_locale)
+    @language = Language.find_by(abbreviation: I18n.default_locale)
   end
   
   # ---------- required fields are required ------------
@@ -56,14 +55,14 @@ class OrganisationTest < ActiveSupport::TestCase
        path = File.expand_path("../../assets/#{file}", __FILE__)
        @org.logo = Dragonfly.app.fetch_file("#{path}")
        
-       assert @org.valid?, "expected the logo to have been attached to the organisation"
+       assert @org.valid?, "expected the logo to have been attached to the org"
        assert_equal 100, @org.logo.height, "expected the logo to have been resized properly"
     end
   end
   
   # ---------------------------------------------------
   test "should remove all associated User's api tokens if no TokenPermissionTypes are present" do
-    @org.token_permission_types << token_permission_types(:plans_token_type)
+    @org.token_permission_types << TokenPermissionType.first
     usr = User.new(email: 'tester@testing.org', password: 'testing123')
     usr.keep_or_generate_token!
     
@@ -77,7 +76,7 @@ class OrganisationTest < ActiveSupport::TestCase
     
     # TODO: Determine if this should just be removed or if it should still be removing these
     # Make sure that the user's API token is cleared out when all API permissions
-    # for the organisation have been removed
+    # for the org have been removed
     #@org.token_permission_types.clear
     #@org.save!
     #usr = @org.reload.users.find_by(email: 'tester@testing.org')
@@ -87,14 +86,14 @@ class OrganisationTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "can CRUD" do
     org = Org.create(name: 'testing')
-    assert_not org.id.nil?, "was expecting to be able to create a new Organisation: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    assert_not org.id.nil?, "was expecting to be able to create a new Org: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     org.abbreviation = 'TEST'
     org.save!
     org.reload
-    assert_equal 'TEST', org.abbreviation, "Was expecting to be able to update the abbreviation of the Organisation!"
+    assert_equal 'TEST', org.abbreviation, "Was expecting to be able to update the abbreviation of the Org!"
     
-    assert org.destroy!, "Was unable to delete the Organisation!"
+    assert org.destroy!, "Was unable to delete the Org!"
   end
   
   # ---------------------------------------------------
@@ -105,26 +104,20 @@ class OrganisationTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage has_many relationship with Dmptemplates" do
-    tmplt = Dmptemplate.new(title: 'Added through test')
-    verify_has_many_relationship(@org, tmplt, @org.dmptemplates.count)
+    tmplt = Template.new(title: 'Added through test')
+    verify_has_many_relationship(@org, tmplt, @org.templates.count)
   end
   
   # ---------------------------------------------------
   test "can manage has_many relationship with Customisations" do
-    tmplt = Dmptemplate.new(title: 'Testing template')
-    verify_has_many_relationship(@org, tmplt, @org.dmptemplates.count)
+    tmplt = Template.new(title: 'Testing template')
+    verify_has_many_relationship(@org, tmplt, @org.templates.count)
   end
   
   # ---------------------------------------------------
   test "can manage has_many relationship with GuidanceGroups" do
     gg = GuidanceGroup.new(name: 'Tester')
     verify_has_many_relationship(@org, gg, @org.guidance_groups.count)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with OptionWarnings" do
-    ow = OptionWarning.new(text: 'Test', option: Option.first)
-    verify_has_many_relationship(@org, ow, @org.option_warnings.count)
   end
   
   # ---------------------------------------------------
@@ -137,11 +130,6 @@ class OrganisationTest < ActiveSupport::TestCase
   test "can manage has_many relationship with TokenPermissionTypes" do
     tpt = TokenPermissionType.new(token_type: 'testing')
     verify_has_many_relationship(@org, tpt, @org.token_permission_types.count)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with OrganisationType" do
-    verify_belongs_to_relationship(@org, @org_type)
   end
   
 end
