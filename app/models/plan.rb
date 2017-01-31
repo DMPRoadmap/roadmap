@@ -12,7 +12,14 @@ class Plan < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, :as => [:default, :admin]
+	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, 
+                  :exported_plans, :project, :title, :template, :grant_number,
+                  :identifier, :principal_investigator, :principal_investigator_identifier,
+                  :description, :data_contact, :funder_name, :visibility,
+                  :as => [:default, :admin]
+
+  # public is a Ruby keyword so using publicly
+  enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
   ##
   # Constants
@@ -29,7 +36,7 @@ class Plan < ActiveRecord::Base
 	end
 	alias_method :super_settings, :settings
 
-
+  
 
 
 
@@ -58,7 +65,8 @@ class Plan < ActiveRecord::Base
 	def settings(key)
 		self_settings = self.super_settings(key)
 		return self_settings if self_settings.value?
-		self.dmptemplate.settings(key)
+#		self.dmptemplate.settings(key)
+    self.template.settings(key)
 	end
 
   ##
@@ -66,7 +74,8 @@ class Plan < ActiveRecord::Base
   #
   # @return [Dmptemplate] the template associated with this plan
 	def dmptemplate
-		self.project.try(:dmptemplate) || Dmptemplate.new
+#		self.project.try(:dmptemplate) || Dmptemplate.new
+    self.try(:template) || Template.new
 	end
 
   ##
@@ -76,8 +85,10 @@ class Plan < ActiveRecord::Base
 	def title
 		logger.debug "Title in settings: #{self.settings(:export).title}"
 		if self.settings(:export).title == ""
-      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
-        return self.version.phase.title
+#      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
+      if !self.template.nil? && !self.template.phases.empty?  
+#        return self.version.phase.title
+        return self.template.phases.first.title
       else
         return I18n.t('tool_title2')
 			end

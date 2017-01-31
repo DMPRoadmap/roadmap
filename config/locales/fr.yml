@@ -19,7 +19,7 @@ fr:
     day_names: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi]
     abbr_day_names: [DIM, LUN, MAR, MER, JEU, VEN, SAM]
 
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    # Dont forget the nil at the beginning; theres no such thing as a 0th month
     month_names:  [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
     abbr_month_names:  [~, JAN, FEV, MAR, AVR, MAI, JUN, JUL, AOU, SEP, OCT, NOV, DEC]
     # Used in date_select and datetime_select.
@@ -42,23 +42,23 @@ fr:
   dmponline3_text: "Version précédente de DMPonline"
   dcc_name: "Digital Curation Centre"
   welcome_title: "Bienvenue !"
-  welcome_text: "<p>DMPonline est un développement du <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> (Centre de curation numérique britannique - DCC) pour vous aider dans la rédaction de plans de gestion de données, ou DMP.</p>"
-  screencast_text: "Vidéo en ligne sur l'utilisation de DMPonline"
-  screencast_error_text: "La balise <video> n'est pas reconnue par votre navigateur."
+  welcome_text: "<p>DMPonline est un développement du <a href=http://dcc.ac.uk target=_blank>Digital Curation Centre</a> (Centre de curation numérique britannique - DCC) pour vous aider dans la rédaction de plans de gestion de données, ou DMP.</p>"
+  screencast_text: "Vidéo en ligne sur lutilisation de DMPonline"
+  screencast_error_text: "La balise <video> nest pas reconnue par votre navigateur."
 
   admin:
-    org_title: "Nom de l'organisme"
+    org_title: "Nom de lorganisme"
     org: "Organisme"
     orgs: "Organismes"
-    org_type: "Type de l'organisme"
+    org_type: "Type de lorganisme"
     org_parent: "Organisme de tutelle"
-    org_created_message: "Création de l'organisme effectuée."
-    org_updated_message: "Mise à jour de l'organisme effectuée."
+    org_created_message: "Création de lorganisme effectuée."
+    org_updated_message: "Mise à jour de lorganisme effectuée."
     plans: "Plans"
     title: "Titre"
     desc: "Description"
-    guidance_group: "Groupe d'assistance"
-    no_guidance_group: "Pas de groupe d'assistance"
+    guidance_group: "Groupe dassistance"
+    no_guidance_group: "Pas de groupe dassistance"
     guidance: "Assitance"
     name: "Nom"
     abbrev: "Abréviation"
@@ -69,16 +69,16 @@ fr:
     section_title: "Titre de section"
     phase_title: "Titre de la phase"
     version_title: "Titre de la version"
-    user_name: "Nom d'utilisateur"
+    user_name: "Nom dutilisateur"
     firstname: "Prénom"
     surname: "Nom"
     user: "Utilisateur"
-    user_org_role: "Rôle de l'utilisateur dans l'organisme"
-    user_role_type: "Type de rôle de l'utilsateur"
-    user_role: "Rôle de l'utilisateur"
+    user_org_role: "Rôle de lutilisateur dans lorganisme"
+    user_role_type: "Type de rôle de lutilsateur"
+    user_role: "Rôle de lutilisateur"
     role: "Rôle"
-    user_status: "Statut de l'utilisateur"
-    user_type: "Type d'utilisateur"
+    user_status: "Statut de lutilisateur"
+    user_type: "Type dutilisateur"
     last_logged_in: "Dernière connexion"
     version_numb: "Numéro de version"
     details: "Détails"
@@ -103,9 +103,9 @@ fr:
     admin_area: "Administration"
     template_label: "Modèles"
     user_list_label: "Utilisateurs"
-    org_details_label:  "Détails sur l'organisme"
-    org_text: "Voici/il s'agit des informations de base sur votre organisme."
-    org_abbr_help_text_html: "Ceci correspond à l'étiquette qui s'affiche avec vos conseils, par ex. : 'Conseils de Glasgow sur les métadonnées'. Le mieux est d'utiliser une abréviation ou un raccorci du nom."
+    org_details_label:  "Détails sur lorganisme"
+    org_text: "Voici/il sagit des informations de base sur votre organisme."
+    org_abbr_help_text_html: "Ceci correspond à létiquette qui saffiche avec vos conseils, par ex. : Conseils de Glasgow sur les métadonnées. Le mieux est dutiliser une abréviation ou un raccorci du nom."
     users_list: "Liste des utilisateurs"
     user_full_name: "Nom"
     user_name: "Courriel"
@@ -115,15 +115,15 @@ fr:
     org_name: "Nom"
     org_abbr: "Abréviation"
     org_desc: "Description"
-    org_banner_text: "Texte de la bannière en haut d'écran"
+    org_banner_text: "Texte de la bannière en haut décran"
     org_target_url: "Site web"
-    org_type: "Type d'organisme"
+    org_type: "Type dorganisme"
     parent_org: "Organisme principal"
     last_updated: "Dernière mise à jour"
-    desc_help_text_html: "<div class='tooltip_box'>Entrez les informations décrivant votre organisme, svp.</div>"
-    top_banner_help_text_html: "<div class='tooltip_box'>Entrez ici les informations que vous souhaitez faire voir à vos utilisateurs quand ils se connecteront. Ne pas dépasser 165 caractères.</div>"
-    template_desc_help_text_html: "<div class='tooltip_box'>Entrez une description qui permet de distinguer différents modèles, par ex. : pour des publics différents.</div>"
-    abbre_help_text: "Merci d'entrer une abréviation du nom de votre organisme."
+    desc_help_text_html: "<div class=tooltip_box>Entrez les informations décrivant votre organisme, svp.</div>"
+    top_banner_help_text_html: "<div class=tooltip_box>Entrez ici les informations que vous souhaitez faire voir à vos utilisateurs quand ils se connecteront. Ne pas dépasser 165 caractères.</div>"
+    template_desc_help_text_html: "<div class=tooltip_box>Entrez une description qui permet de distinguer différents modèles, par ex. : pour des publics différents.</div>"
+    abbre_help_text: "Merci dentrer une abréviation du nom de votre organisme."
     target_url_help_text: "Formation à la rédaction de documents scientifiques en anglais une adresse web valide."
     name_help_text: "Entrez le nom de votre organisme."
     guidance_label: "Conseils"
@@ -140,7 +140,7 @@ fr:
       text_label: "Texte"
       themes_label: "Thèmes"
       question_label: "Question"
-      by_theme_or_by_question: "Si ces conseils s'appliquent :"
+      by_theme_or_by_question: "Si ces conseils sappliquent :"
       by_themes_label: "par thèmes"
       by_question_label: "par question"
       template: "Modèle"
@@ -152,17 +152,17 @@ fr:
       add_guidance: "Ajoutez des conseils"
       created_message: "Création de conseils effectuée."
       updated_message: "Mise à jour de conseils effectuée."
-      help_text_html: "<div class='tooltip_box'>Entrez le texte des conseils pour ce thème.</div>"
+      help_text_html: "<div class=tooltip_box>Entrez le texte des conseils pour ce thème.</div>"
       new_label: "Nouveaux conseils"
       view_all_guidance: "Voir tous les conseils"
       text_help_text_html: "Entrez ici vos conseils. Vous pouvez ajouter des liens là où il faut."
-      apply_to_help_text_html: "Décidez si vos conseils s'affichent par thèmes (situation par défaut) ou s'ils ne s'appliquent qu'à une question spécifique dans un des modèles de bailleur de subventions."
+      apply_to_help_text_html: "Décidez si vos conseils saffichent par thèmes (situation par défaut) ou sils ne sappliquent quà une question spécifique dans un des modèles de bailleur de subventions."
       by_themes_help_text_html: "Sélectionnez le ou les thèmes liés à ces conseils."
-      by_question_help_text_html: "Sélectionnez le modèle, la phase, la version ou la section qui s'applique parmi les options de cette liste déroulante pour définir la question qui doit afficher ces conseils."
+      by_question_help_text_html: "Sélectionnez le modèle, la phase, la version ou la section qui sapplique parmi les options de cette liste déroulante pour définir la question qui doit afficher ces conseils."
       guidance_group_select_help_text_html: "Sélectionnez le groupe auxquel ces conseils sont liés."
-      guidance_text_html: "<p>Vous pouvez rédiger différents conseils devant s'afficher en fonction d'un thème (par ex. : des conseils généraux sur l'enregistrement et le stockage devant apparaître systématiquement) ou d'autres pour des questions spécifiques. Vous gagnerez à écrire des conseils généraux par thème, car ceux-ci s'afficheront automatiquement dans tous les modèles plutôt qu'en rédiger pour accompagner chaque thème.</p>
-      <p>Habituellement, vous souhaitez afficher des conseils dans tous les modèles, mais dans certains cas ils peut être souhaitable d'en afficher que concernant des bailleurs de subvention précis, par ex. :en cas d'instructions propres à une soumission au BBSRC. Cette situation peut être paramétrée au besoin.</p>"
-      delete_message_html: "Vous allez effacer '%{guidance_summary}'. En êtes-vous sûr?"
+      guidance_text_html: "<p>Vous pouvez rédiger différents conseils devant safficher en fonction dun thème (par ex. : des conseils généraux sur lenregistrement et le stockage devant apparaître systématiquement) ou dautres pour des questions spécifiques. Vous gagnerez à écrire des conseils généraux par thème, car ceux-ci safficheront automatiquement dans tous les modèles plutôt quen rédiger pour accompagner chaque thème.</p>
+      <p>Habituellement, vous souhaitez afficher des conseils dans tous les modèles, mais dans certains cas ils peut être souhaitable den afficher que concernant des bailleurs de subvention précis, par ex. :en cas dinstructions propres à une soumission au BBSRC. Cette situation peut être paramétrée au besoin.</p>"
+      delete_message_html: "Vous allez effacer %{guidance_summary}. En êtes-vous sûr?"
     guidance_group:
       add_guidance_group: "Ajoutez un groupe de conseils"
       guidance_group_list: "Liste des groupes de conseils"
@@ -171,11 +171,11 @@ fr:
       subset_eg: "par ex. : Faculté/Département"
       all_temp: "Toues les modèles"
       help_text_add: "Veuillez entrer le titre du groupe"
-      subset_option_help_text: "Si les conseils ne sont destinés qu'à un sous-ensemble d'utilisateurs (par ex. : faisant partie d'une faculté ou d'un institut), cochez cette case.  Les utilisateurs pourront sélectionner ce sous-groupe de conseils 
- lorqu'ils répondront aux questions dans l'assistant de création de plan."
-      template_help_text_html: "Sélectionnez le modèle dans lequel vous voulez que s'affichent vos conseils. Habituellement, il s'agit de tous les modèles."
-      title_help_text_html: "Ajoutez un nom adéquat à votre groupe de conseils, par ex. : Conseils de Glasgow. Ce nom sera utilié pour indiquer à l'utilisateur final l'origine des conseils, par ex. : 'Glasgow Guidance on Metadata'"
-      delete_message: "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+      subset_option_help_text: "Si les conseils ne sont destinés quà un sous-ensemble dutilisateurs (par ex. : faisant partie dune faculté ou dun institut), cochez cette case.  Les utilisateurs pourront sélectionner ce sous-groupe de conseils 
+ lorquils répondront aux questions dans lassistant de création de plan."
+      template_help_text_html: "Sélectionnez le modèle dans lequel vous voulez que saffichent vos conseils. Habituellement, il sagit de tous les modèles."
+      title_help_text_html: "Ajoutez un nom adéquat à votre groupe de conseils, par ex. : Conseils de Glasgow. Ce nom sera utilié pour indiquer à lutilisateur final lorigine des conseils, par ex. : Glasgow Guidance on Metadata"
+      delete_message: "You are about to delete %{guidance_group_name}. This will affect guidance. Are you sure?"
       guidance_group_text_html: "<p>Commencez par créer un groupe de conseils. Celui-ci peut désigner un établissement dans son ensemble, ou un sous-ensemble : une faculté, un institut, un département. Quand vous créerez des conseils, on vous demandera de les affecter à un groupe de conseils.</p>"
       created_message: "Création du groupe de conseils effectuée."
       updated_message: "Mise à jour du groupe de conseils effectuée."
@@ -188,33 +188,33 @@ fr:
       view_all_templates: "Voir tous les modèles"
       funders_temp: "Modèles des bailleurs de subventions"
       title_help_text: "Merci de saisir un titre pour votre modèle."
-      section_title_help_text: "Merci d'entrer un titre de section"
-      help_text_html: "<div class='tooltip_box'>Merci de saisir une description pour ce thème.</div>"
-      create_own_template_text_html: "<p>Si vous souhaitez ajouter un modèle institutionnel propre à un plan de gestion de données, utilisez le bouton 'créer un modèle'. Vous pouvez au besoin créer plusieurs modèles, par ex. : un pour des chercheurs et un pour des thésards.</p>
-              <p>Votre modèle apparaîtra aux utilisateurs de votre établissement quand aucun modèle propre à un bailleur de subvention ne s'applique. Si vous souhaitez ajouter des questions dans un modèle de bailleur de subventions, utilisez les options de 'personalisation de modèle' ci-après.</p>"
-      create_new_template_text_html: "<p>Pour créer un nouveau modèle, commencez par saisir un titre et une description. Un fois ces éléments enregistrés, le programme vous propose d'ajouter une phase ou plus. </p>"
-      desc_help_text_html: "Saisissez une description qui vous permet de distinguer un modèle de l'autre, par ex. : si vous visez différents"
+      section_title_help_text: "Merci dentrer un titre de section"
+      help_text_html: "<div class=tooltip_box>Merci de saisir une description pour ce thème.</div>"
+      create_own_template_text_html: "<p>Si vous souhaitez ajouter un modèle institutionnel propre à un plan de gestion de données, utilisez le bouton créer un modèle. Vous pouvez au besoin créer plusieurs modèles, par ex. : un pour des chercheurs et un pour des thésards.</p>
+              <p>Votre modèle apparaîtra aux utilisateurs de votre établissement quand aucun modèle propre à un bailleur de subvention ne sapplique. Si vous souhaitez ajouter des questions dans un modèle de bailleur de subventions, utilisez les options de personalisation de modèle ci-après.</p>"
+      create_new_template_text_html: "<p>Pour créer un nouveau modèle, commencez par saisir un titre et une description. Un fois ces éléments enregistrés, le programme vous propose dajouter une phase ou plus. </p>"
+      desc_help_text_html: "Saisissez une description qui vous permet de distinguer un modèle de lautre, par ex. : si vous visez différents"
       own_temp: "Modèles propres"
       add_phase_label: "Ajouter une nouvelle phase +"
       view_phase_label: "Voir la phase"
       edit_phase_label: "Modifier la phase"
       back_to_edit_phase_label: "Retour à la vue à modifier"
-      #Vérifier qu'il s'agit bien de cela ci-dessus...
+      #Vérifier quil sagit bien de cela ci-dessus...
       edit_phase_details_label: "Modifiez les détails de la phase"
       phase_details_label: "Détails de la phase"
-      phase_order_label: "Ordre d'affichage"
+      phase_order_label: "Ordre daffichage"
       phase_details_text_html: "<p>Vous définissez ici le titre que verrons les utilisateurs. Si vous souhaitez que votre DMP comporte plusieurs phases, cela doit apparaître clairement dans le titre et la description.<p/>"
-      phase_title_help_text: "Saisissez une titre pour cette phase, par ex. : DMP initial, DMP complet... Ce sont ces mentions que verrons les utilisateurs dans les onglets pendant la rédaction d'un plan. Si le vôtre ne comporte qu'une phase, donnez-lui un nom général, par ex. : DMP de Glasgow"
+      phase_title_help_text: "Saisissez une titre pour cette phase, par ex. : DMP initial, DMP complet... Ce sont ces mentions que verrons les utilisateurs dans les onglets pendant la rédaction dun plan. Si le vôtre ne comporte quune phase, donnez-lui un nom général, par ex. : DMP de Glasgow"
       phase_number_help_text: "Cette fonction vous permet de classer les phases de votre modèle."
       phase_desc_help_text_html: "Entrez une courte description. Les utilisateurs la verront au-dessus du récapitulaif des parties et des questions auxquels ils devront répondre."
-      phase_delete_message: "Vous allez supprimer '%{phase_title}'. Cette opération affectera les versions, sections et questions liées à cette phase. En êtes-vous sûr?"
+      phase_delete_message: "Vous allez supprimer %{phase_title}. Cette opération affectera les versions, sections et questions liées à cette phase. En êtes-vous sûr?"
       phase_new_text_html: "Quand vous créez une nouvelle phase dans votre modèle, une version sera créée automatiquement. Quand vous remplirez la grille ci-dessous, le système affichera des options pour créer des sections et des questions."
       versions_label: "Versions"
       version_details_label: "Détails de la version"
       add_section: "Ajouter une section"
       new_section: "Nouveau titre de section"
       section_title_placeholder: "Le nouveau titre de section"
-      section_desc_help_text_html: "<div class='tooltip_box'>Saisissez une courte description. Celle-ci peut résumer l'objet de la section ou donner des indications sur comment y répondre. Ce texte s'affichera dans la bannière de couleur quand une section sera ouverte pour modification.</div>"
+      section_desc_help_text_html: "<div class=tooltip_box>Saisissez une courte description. Celle-ci peut résumer lobjet de la section ou donner des indications sur comment y répondre. Ce texte saffichera dans la bannière de couleur quand une section sera ouverte pour modification.</div>"
       section_number_help_text: "Cette fonction vous permet de classer des sections."
       add_question: "Ajouter une question"
       created: "Créée à"
@@ -229,16 +229,16 @@ fr:
       created_message: "Création des informations effectuée."
       updated_message: "Mise à jour des informations effectuée."
       destroyed_message: "Suppression des informations effectuée."
-      section_delete_message: "Vous allez supprimer '%{section_title}'. Cette opération affectera les questions liées à cette phase. En êtes-vous sûr?"
+      section_delete_message: "Vous allez supprimer %{section_title}. Cette opération affectera les questions liées à cette phase. En êtes-vous sûr?"
     versions:
       clone_versions_label: "Effectuer des changements importants"
       edit_versions_label: "Effectuer des changements mineurs"
       edit_label: "Modifier"
       versions_text_html: "Une première version est créée automatiquement. Si vous devez opérer des changements importants dans des versions publiées par la suite (par ex. : ajouter une section, des questions) veuillez créer une nouvelle version. Si vous ne devez faire que des corrections ou de petits changements sans modifier le sens, modifiez la version en cours."
       desc_help_text_html: "Saisissez une courte description."
-      delete_message: "Vous allez supprimer '%{version_title}'. Cette opération affectera les sections et les questions liées à cette version. En êtes-vous sûr?"
-      edit_alert_label: "Modifiez l'alerte"
-      edit_alert_text: "Veuillez revoir les types de changements que vous vous apprêtez à faire : ce plan est déjà publié et pourrait être en cours d'utilisation"
+      delete_message: "Vous allez supprimer %{version_title}. Cette opération affectera les sections et les questions liées à cette version. En êtes-vous sûr?"
+      edit_alert_label: "Modifiez lalerte"
+      edit_alert_text: "Veuillez revoir les types de changements que vous vous apprêtez à faire : ce plan est déjà publié et pourrait être en cours dutilisation"
     questions:
       question_text_label: "Texte de la question"
       question_number_label: "Numéro de la question"
@@ -247,32 +247,32 @@ fr:
       answer_format_label: "Format de réponse"
       example_answer_label: "Exemple de réponse"
       suggested_answer_label: "Suggestion de réponse"
-      suggested_answer_help_text_html: "Vous pouvez ajouter un exemple ou une suggestion de réponse pour aider les utilisateurs. Ils s'afficheront au-dessus de la grille de réponse et on peut les copier/coller."
+      suggested_answer_help_text_html: "Vous pouvez ajouter un exemple ou une suggestion de réponse pour aider les utilisateurs. Ils safficheront au-dessus de la grille de réponse et on peut les copier/coller."
       suggested_or_example_answer_label: "Suggestion/exemple de réponse"
       suggested_or_example_answer_button: "Ajouter une suggestion/un exemple de réponse"
-      edit_suggested_answer_button: "Modifier la suggestion/l'exemple de réponse"
-      delete_suggested_answer_message: "Vous allez supprimer la suggestion/l'exemple de réponse à la questioo : '%{question_text}'. En êtes-vous sûr ?"
+      edit_suggested_answer_button: "Modifier la suggestion/lexemple de réponse"
+      delete_suggested_answer_message: "Vous allez supprimer la suggestion/lexemple de réponse à la questioo : %{question_text}. En êtes-vous sûr ?"
       default_value_label: "Valeur par défaut"
       number_help_text: "Cette fonction vous permet de classer les questions dans une section."
       question_format_help_text_html: "Vos choix possibles :<ul><li>- une zone de texte (un grand cadre pour les paragraphes);</li> <li>- un champ de texte (pour une réponse courte);</li>
       <li>- les cases à cocher se présentent en une liste où plusieurs choix peuvent être sélectionnés;</li>
       <li>- les boutons radio buttons se présentent en une liste où un seul choix est possible;</li>
       <li>- la liste déroulante comme cet encadré, où une seule sélection est possible;</li>
-      <li>- un cadre à choix multiples permet à l'utilisateur de faire plusieurs sélections dans une liste, avec la touche CTRL;</li></ul>"
-      default_answer_help_text_html: "Tout ce que vous écrivez s'affiche dans la boîte de réponse. Si vous souhaitez une réponse ayant une certaine forme (par ex. : des tableaux), c'est ici que vous pouvez entrer ce style."
+      <li>- un cadre à choix multiples permet à lutilisateur de faire plusieurs sélections dans une liste, avec la touche CTRL;</li></ul>"
+      default_answer_help_text_html: "Tout ce que vous écrivez saffiche dans la boîte de réponse. Si vous souhaitez une réponse ayant une certaine forme (par ex. : des tableaux), cest ici que vous pouvez entrer ce style."
       themes_label: "Thèmes"
       question_themes_help_text_html: "<p>Sélectionnez les thèmes relatifs à cette question.</p>
-      <p>Cette fonction permet d'intégrer une documentation générale d'assistance de votre établissement, comme encore issue d'autres sources comme le DCC et des facultés ou départements auxquels vous fournissez des conseils. </p>
+      <p>Cette fonction permet dintégrer une documentation générale dassistance de votre établissement, comme encore issue dautres sources comme le DCC et des facultés ou départements auxquels vous fournissez des conseils. </p>
       <p>Vous pouvez sélectionner plusieurs thèmes avec la touche CTRL.</p>"
       default_answer_label: "Réponse par défaut"
       guidance_label: "Conseils"
-      question_guidance_help_text_html: "Saisissez des instructions spécifiques pour accompagner cette question. Si vous avez des conseils par thèmes aussi : ceux-ci vont être aiguillés ici selon ce que sélectionnez ci-dessous, aussi mieux vaut éviter de dupliquer trop d'extraits."
-      delete_message: "Vous allez supprimer la question : '%{question_text}'. En êtes-vous sûr?"
-      question_options_help_text_html: "Saisissez toutes les options que vous voulez afficher. Si vous voulez paramétrer la sélection par défaut d'un élément, cochez la case correspondante."
+      question_guidance_help_text_html: "Saisissez des instructions spécifiques pour accompagner cette question. Si vous avez des conseils par thèmes aussi : ceux-ci vont être aiguillés ici selon ce que sélectionnez ci-dessous, aussi mieux vaut éviter de dupliquer trop dextraits."
+      delete_message: "Vous allez supprimer la question : %{question_text}. En êtes-vous sûr?"
+      question_options_help_text_html: "Saisissez toutes les options que vous voulez afficher. Si vous voulez paramétrer la sélection par défaut dun élément, cochez la case correspondante."
 
   helpers:
     home: "Accueil"
-    return_home: "Revenir à l'accueil"
+    return_home: "Revenir à laccueil"
     admin_area: "Espace Super admin"
     edit_profile: "Modifier le profil"
     view_plans_label: "Voir les plans"
@@ -281,24 +281,25 @@ fr:
     roadmap_label: "Feuille de route"
     help_label: "Aide"
     contact_label: "Contact"
+    public_plans_label: "DMP Publics"
     jisc: "Le DCC est financé par"
 
     sign_in: "Connexion"
     sign_out: "Déconnexion"
-    sign_up: "S'inscrire"
+    sign_up: "Sinscrire"
     sign_up_text: "Nouveau sur DMPonline ? Inscrivez-vous..."
     signed_in: "Connecté en tant que "
-    institution_sign_in_link: "ou, connectez-vous avec votre authentifiant d'établissement"
-    #Voir dans la doc shibboleth : authentifiant d'établissement ?
+    institution_sign_in_link: "ou, connectez-vous avec votre authentifiant détablissement"
+    #Voir dans la doc shibboleth : authentifiant détablissement ?
     institution_sign_in: " (réservé aux utilisateurs britanniques)"
 
     user_name: "Adresse courriel"
     email: "Courriel"
     valid_email: "Vous devez entrer un courriel valide."
-    user_details_text_html: "<p>À noter que votre courriel est à utiliser comme nom d'utilisateur. Si vous modifiez ces informations, rappelez-vous d'utiliser votre courriel en vous connectant.</p>"
+    user_details_text_html: "<p>À noter que votre courriel est à utiliser comme nom dutilisateur. Si vous modifiez ces informations, rappelez-vous dutiliser votre courriel en vous connectant.</p>"
     user_details_paragraph_html: "Vous pouvez modifiez les informations ci-dessous."
     remember_me: "Se souvenir de moi"
-    org_not_listed: "Mon établissement n'est pas listé."
+    org_not_listed: "Mon établissement nest pas listé."
 
     mot de passe: "Mot de passe"
     current_mot de passe: "Mot de passe actuel"
@@ -311,7 +312,7 @@ fr:
     no_pass_instructions: "Instructions de confirmation non reçues ?"
     no_unlock_instructions: "Instructions de déverrouillage non reçues ?"
     send_mot de passe_info: "Instructions pour réinitialiser le mot de passe"
-    accept_terms_html: " J'accepte les <a href='/terms'>Conditions générales d'utilisation.</a> *"
+    accept_terms_html: " Jaccepte les <a href=\"/%{current_locale}/terms\">Conditions générales dutilisation.</a> *"
     edit_mot de passe_info: "Si vous voulez changer de mot de passe, remplissez les champs suivants."
 
     text_area: "Zone de texte"
@@ -324,8 +325,8 @@ fr:
     error: "Erreur!"
     comment: "Commentaire"
     send: "Envoi"
-    yes: "Oui"
-    no: "Non"
+    'yes': "Oui"
+    'no': "Non"
     none: "Aucun"
     false_lowercase: "faux"
     title: "Titre"
@@ -355,19 +356,19 @@ fr:
     first_name: "Prénom"
     last_name: "Nom"
     first_name_help_text: "Entrez votre prénom, svp."
-    surname_help_text: "Entrez votre nom d'usage ou de famille, svp."
+    surname_help_text: "Entrez votre nom dusage ou de famille, svp."
     owner: "Propriétaire"
     orcid_id: "Numéro ORCID"
-    orcid_html: "Le numéro ORCID est un identifiant numérique permanent qui distingue chaque chercheur de tous les autres, <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>en savoir plus...</a>."
-    sign_up_shibboleth_alert_text_html: "DMPonline ne reconnaît pas votre authentifiant d'établissement : soit vous n'avez pas créé de compte chez nous, soit vous n'avez pas lié ces renseignements à votre compte. </br>
-     --> Si vous <strong>n'avez pas</strong> de compte sur DMPonline, veuillez compléter le formulaire qui suit.</br>
-     --> Si vous <strong>avez</strong> un compte sur DMPonline, <a href='#header-login-form' data-toggle='modal' class='a_orange'>Connectez-vous</a> pour lier votre compte et votre authentifiant d'établissement.</br>
-    Une fois que vous avez créé votre compte ou l'avez lié, vous pourrez vous connecter directement avec votre authentifiant d'établissement."
-    shibboleth_linked_text: "Votre compte est lié à votre authentifiant d'établissement."
-    shibboleth_to_link_text: "Reliez votre compte DMPonline à votre authentifiant d'établissement"
-    shibboleth_unlink_label: "Détachez votre authentifiant d'établissement"
-    shibboleth_unlink_alert: "Alerte de détachement d'authentifiant d'établissement"
-    shibboleth_unlink_dialog_text: "<p>Vous allez détacher DMPonline de votre authentfiant d'établissement, voulez-vous continuer ?</p>"
+    orcid_html: "Le numéro ORCID est un identifiant numérique permanent qui distingue chaque chercheur de tous les autres, <a href=http://orcid.org/content/initiative target=_blank rel=external class=a_orange>en savoir plus...</a>."
+    sign_up_shibboleth_alert_text_html: "DMPonline ne reconnaît pas votre authentifiant détablissement : soit vous navez pas créé de compte chez nous, soit vous navez pas lié ces renseignements à votre compte. </br>
+     --> Si vous <strong>navez pas</strong> de compte sur DMPonline, veuillez compléter le formulaire qui suit.</br>
+     --> Si vous <strong>avez</strong> un compte sur DMPonline, <a href=#header-login-form data-toggle=modal class=a_orange>Connectez-vous</a> pour lier votre compte et votre authentifiant détablissement.</br>
+    Une fois que vous avez créé votre compte ou lavez lié, vous pourrez vous connecter directement avec votre authentifiant détablissement."
+    shibboleth_linked_text: "Votre compte est lié à votre authentifiant détablissement."
+    shibboleth_to_link_text: "Reliez votre compte DMPonline à votre authentifiant détablissement"
+    shibboleth_unlink_label: "Détachez votre authentifiant détablissement"
+    shibboleth_unlink_alert: "Alerte de détachement dauthentifiant détablissement"
+    shibboleth_unlink_dialog_text: "<p>Vous allez détacher DMPonline de votre authentfiant détablissement, voulez-vous continuer ?</p>"
 
 
     section_label: "Section"
@@ -382,7 +383,7 @@ fr:
     suggested_answer: "Suggestion de réponse"
     suggested_example: "Exemple de réponse"
     notanswered: "Pas encore de réponse"
-    noquestionanswered: "Aucune question n'a reçu de réponse"
+    noquestionanswered: "Aucune question na reçu de réponse"
     guidance: "Conseils"
     policy_expectations: "Résultats attendus du plan"
     #est-ce bien cela ?
@@ -414,10 +415,10 @@ fr:
       institution: "Établissement"
       project: "Projet"
       organisation: "Organisme"
-      org_name: "Nom de l'organisme"
+      org_name: "Nom de lorganisme"
       school: "Faculté"
       publisher: "Émetteur"
-      #Publisher ? S'agit-il de la personne à avoir mis l'information en ligne ? Valideur ?
+      #Publisher ? Sagit-il de la personne à avoir mis linformation en ligne ? Valideur ?
       other_guidance: "Autres conseils"
       template: "Modèles"
       templates: "Modèles"
@@ -429,7 +430,7 @@ fr:
       create: "Créer un plan"
       edit: "Modifier des détails du plan"
       grant_title: "N° de subvention"
-      grant_help_text: "N° de réféence de la subvention, le cas échéant (UNIQUEMENT POUR LES DMP CRÉÉS APRÈS OCTROI D'UNE SUBVENTION)"
+      grant_help_text: "N° de réféence de la subvention, le cas échéant (UNIQUEMENT POUR LES DMP CRÉÉS APRÈS OCTROI DUNE SUBVENTION)"
       not_applicable: "Non pertinent/non répertorié."
       multi_templates: "Un certain nombre de modèle vous sont proposés. Choisissez."
       project_name: "Nom du plan"
@@ -440,46 +441,62 @@ fr:
       principal_investigator_id: "Identifiant du directeur de recherche/chercheur"
       principal_investigator_id_help_text: "par ex. : ORCID http://orcid.org/."
       funder_help_text: "Financeur du projet, le cas échéant"
-      funder_name: "Nom de l'organisme financeur"
+      funder_name: "Nom de lorganisme financeur"
       project_question_desc_label: "Résumé des questions"
       tab_plan: "Détails du plan"
       tab_export: "Exporter"
       export_text_html: "<p>À ce niveau, vous pouvez décharger votre plan sous différents formats. Cela peut vous être utile pour soumettre votre plan dans une demande de subvention.</br>
-Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
+Sélectionnez votre format et cliquez sur Exporter.</p>"
       questions_answered: "questions avec réponses"
       not_saved_answers_text_alert: "Vous avez changé des réponses sans les sauvegarder:"
       not_saved_answers_confirmation_alert: "Voulez-vous faire la sauvegarde maintenant?"
       not_saved_answers_header: "réponses non sauvegardées"
       project_data_contact: "Interlocuteur pour les données du Plan"
-      project_data_contact_help_text: "Nom (s'il diffère du précédent), coordonnées courriel et téléphone"
+      project_data_contact_help_text: "Nom (sil diffère du précédent), coordonnées courriel et téléphone"
       project_name_help_text: "En cas de demande de financement, indiquer le nom exactement comme dans la demande de subvention."
-      project_desc_help_text_html: "<div class='tooltip_box'><h4>Questions auxquelles réfléchir :</h4><ul><li>- Quelle est la nature de votre projet de recherche ?</li><li>- Quelles ont les problématiques de recherche que vous traitez ? </li><li>- Dans quel but est effectuée la collecte ou la création des données ? </li></ul><h4>Conseils :</h4><p>Résumez brièvement le type d'étude(s) pour permettre à d'autres de comprendre dans quel but les données sont collectées ou créées.</p></div>"
+      project_desc_help_text_html: "<div class=tooltip_box><h4>Questions auxquelles réfléchir :</h4><ul><li>- Quelle est la nature de votre projet de recherche ?</li><li>- Quelles ont les problématiques de recherche que vous traitez ? </li><li>- Dans quel but est effectuée la collecte ou la création des données ? </li></ul><h4>Conseils :</h4><p>Résumez brièvement le type détude(s) pour permettre à dautres de comprendre dans quel but les données sont collectées ou créées.</p></div>"
       project_identifier: "Identifiant"
-      project_identifier_help_text: "Un identifiant approprié conforme aux prescriptions de l'organisme financeur ou de l'établissement."
-      project_static_info: "Ce plan s'inspire de :"
+      project_identifier_help_text: "Un identifiant approprié conforme aux prescriptions de lorganisme financeur ou de létablissement."
+      project_static_info: "Ce plan sinspire de :"
       projects_title: "Mes plans"
+
+      visibility: "Visibilité"
+      visibilities:
+        labels:
+          privately_visible: "Privé"
+          organisationally_visible: "Organisationnel"
+          publicly_visible: "Public"
+          is_test: "Test/Pratique"
+        help_texts:
+          privately_visible: "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
+          organisationally_visible: "Avec d'autres membres de votre organisation"
+          publicly_visible: "Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce site."
+          is_test: "Test / Practice (votre plan n'est pas visible aux autres utilisateurs) Voir nos Conditions d'utilisation."
+          not_set: "Non spécifié (sera visible par d'autres personnes au sein de votre organisation par défaut)"
+
       project_settings_text: "Les éléments que vous sélectionnez ici s'afficherontt dans le tableaiu ci-après. Vous pouvez trier les données à partir de chacune de ces en-tête ou les filtrer en tapant une chaîne de caractères dans la zone de recherche."
       project_text_when_no_project: "<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier DMP.</br>Cliquez sur le bouton 'Créer un plan' ci-dessous pour commencer.</p>"
       project_text_when_project: "<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi que ceux que vous partagez avec d'autres.</br>Vous pouvez à tout moment les modifier, les partager, les exporter, les effacer...</p>"
       project_details_text_html: "Cette page vous donne un aperçu de votre plan. Elle indique de quoi il s'inspire et donne une idée générale des questions auxquelles vous devrez répondre."
       project_details_editing_text_html: "Veuillez renseigner les premiers détails ci-après et cliquez sur 'Mettre à jour' pour enregistrer"
       confirm_delete_text: "Voulez-vous vraiment effacer ce plan ? S'il est partagé avec d'autres utilisateurs, le fait de l'effacer de votre liste, l'effacera aussi de leur liste de plans."
+
       confirmation_text: "Confirmer les détails du plan"
-      confirmation_text_desc: "Si votre agence de financement ou votre établissement n'émet pas de prescriptions (ou si vous n'avez pas rempli ces options), la checklist du DCC s'affichera. Celle-ci propose un ensemble de questions générales et de conseils pour un DMP. Pour en savoir plus : <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      confirmation_text_desc: "Si votre agence de financement ou votre établissement német pas de prescriptions (ou si vous navez pas rempli ces options), la checklist du DCC saffichera. Celle-ci propose un ensemble de questions générales et de conseils pour un DMP. Pour en savoir plus : <a href=http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf target=_blank>DMP checklist 2013</a>."
       confirmation_button_text: "Oui, créer un plan"
-      default_confirmation_text_desc: "Vous avez choisi le DMP par défaut, qui repose sur la checklist du DCC. Celle-ci propose un ensemble de questions générales et de conseils pour un DMP. Pour en savoir plus : <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      default_confirmation_text_desc: "Vous avez choisi le DMP par défaut, qui repose sur la checklist du DCC. Celle-ci propose un ensemble de questions générales et de conseils pour un DMP. Pour en savoir plus : <a href=http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf target=_blank>DMP checklist 2013</a>."
       default_confirmation_button_text: "Create plan"
-      alert_default_template_text_html: "Attention : Votre organisme (%{org_name}) fournit un modèle de DMP. Si vous voulez l'utiliser, sélectionnez 'Annuler', sinon cliquez sur 'Créer un plan'"
+      alert_default_template_text_html: "Attention : Votre organisme (%{org_name}) fournit un modèle de DMP. Si vous voulez lutiliser, sélectionnez Annuler, sinon cliquez sur Créer un plan"
       share:
         tab_share: "Partager"
         shared_label: "Partagé ?"
-        share_text_html: "<p>À ce niveau, vous pouvez donner accès à votre plan à d'autres personnes. Trois niveaux d'autorisation sont possibles.<ul><li>Les utilisateurs avec un droit en \"lecture seule\" ne pourront que consulter le plan.</li><li>Les utilisateurs avec un droit de mofification pourront y contribuer.</li><li>Les copropriétaires le peuvent aussi, mais peuvent aussi en modifier les détails et en contrôler l'accès.</li></ul></p><p>Ajoutez chacun des collaborateurs en saisissant leurs courriels l'un après l'autre, en choisissant un niveau d'autorisation et en cliquant sur  \"Ajouter le collaborateur\".</p><p>Ceux qui sont invités recevront un avis par courriel leur indiquant qu'ils ont accès à ce plan, invitant ceux qui n'ont pas de compte dans DMPonline à s'enregistrer. L'utilisateur reçoit aussi un avis quand ces droits sont changés.</p>"
+        share_text_html: "<p>À ce niveau, vous pouvez donner accès à votre plan à dautres personnes. Trois niveaux dautorisation sont possibles.<ul><li>Les utilisateurs avec un droit en \"lecture seule\" ne pourront que consulter le plan.</li><li>Les utilisateurs avec un droit de mofification pourront y contribuer.</li><li>Les copropriétaires le peuvent aussi, mais peuvent aussi en modifier les détails et en contrôler laccès.</li></ul></p><p>Ajoutez chacun des collaborateurs en saisissant leurs courriels lun après lautre, en choisissant un niveau dautorisation et en cliquant sur  \"Ajouter le collaborateur\".</p><p>Ceux qui sont invités recevront un avis par courriel leur indiquant quils ont accès à ce plan, invitant ceux qui nont pas de compte dans DMPonline à senregistrer. Lutilisateur reçoit aussi un avis quand ces droits sont changés.</p>"
         collaborators: "Collaborateurs"
         add_collaborator: "Ajouter le collaborateur"
         add: "Ajouter"
         permissions: "Permissions"
-        permissions_desc: "Les collaborateurs avec des droits de modification peuvent contribuer aux plans. Les copropriétaires ont en plus le droit de modifier les détails du plan et en contrôler l'accès. "
-        remove: "Retirer l'accès utilisateur"
+        permissions_desc: "Les collaborateurs avec des droits de modification peuvent contribuer aux plans. Les copropriétaires ont en plus le droit de modifier les détails du plan et en contrôler laccès. "
+        remove: "Retirer laccès utilisateur"
         confirmation_question: "Êtes-vous sûr ?"
         owner: "Propriétaire"
         co_owner: "Copropriétaire"
@@ -489,11 +506,11 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       create_page:
         title: "Créer un nouveau plan"
         desc_html: "<p>Veuillez sélectionner des éléments dans les menus déroulants ci-après pour pouvoir identifier les questions et conseils à afficher dans votre plan.</p>
-        <p>Si votre soumission doit répondre à des prescriptions propres à un organisme financeur ou un établissement, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>sélectionnez ici la rédaction d'un DMP</a> à partir des thèmes les plus courants.</p>"
+        <p>Si votre soumission doit répondre à des prescriptions propres à un organisme financeur ou un établissement, <a id=create-default-plan-button data-toggle=modal href=#default-template-confirmation-dialog>sélectionnez ici la rédaction dun DMP</a> à partir des thèmes les plus courants.</p>"
         default_template: "DMP par défaut"
-        funders_question: "Si vous soumettez une demande de subvention, sélectionnez l'organisme financeur."
+        funders_question: "Si vous soumettez une demande de subvention, sélectionnez lorganisme financeur."
         funders_question_description: "Sinon laissez ce champ vide."
-        other_funder_name_label: "Nom de l'organisme financeur, le cas échéant."
+        other_funder_name_label: "Nom de lorganisme financeur, le cas échéant."
         institution_question: "Sélectionnez votre organisme pour voir les questions et conseils de votre établissement."
         institution_question_description: "Ce champ peut rester vide, ou vous pouvez sélectionner un autre organisme que le vôtre."
         other_guidance_question: "Cochez une ou plusieurs des sources de conseils que vous voulez voir."
@@ -509,36 +526,49 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
         principal_investigator: "Directeur de recherche / chercheur"
         data_contact: "Interlocuteur pour les données du plan"
         description: "Description"
+        visibility: "Visibilité"
+        name: 'Prénom'
+        template: 'Modèle'
+        organisation: 'Organisation'
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"
         cancel: "Annuler"
-        no_matches: "Pas de plans pour '%{filter}'"
+        no_matches: "Pas de plans pour %{filter}"
 
     plan:
       export:
         pdf:
           question_not_answered: Question sans réponse.
           generated_by: Ce document a été créé par DMPonline (http://dmponline.dcc.ac.uk)
-        space_used: "env. %{space_used}% d'espace disponible utilisé (%{num_pages} pages maxi)"
+        space_used: "env. %{space_used}% despace disponible utilisé (%{num_pages} pages maxi)"
+        space_used_without_max: "env. %{space_used}% despace disponible utilisé"
         project_name: "Nom du projet"
         project_identifier: "Identifiant du projet"
         grant_title: "Titre de la subvention"
         principal_investigator: "Directeur de recherche / chercheur"
         project_data_contact: "Interlocuteur pour les données du plan"
         project_description: "Description"
-        funder: "Financeur"
-        institution: "Etablissement"
+        funder: "Bailleur de fonds"
+        institution: "Établissement"
+        orcid: "Votre ORCID"
+        section: "Section"
+        question: "Question"
+        answer: "Réponse"
+        selected_options: "Option(s) choisie(s)"
+        answered_by: "Réponse faite par"
+        answered_at: "Réponse faite à"
 
     settings:
       title: "Réglages"
       projects:
         title: "Réglages - Mes plans"
-        desc: "Le tableau suivant donne la liste des colonnes que l'on peut faire apparaître dans la liste 'Mes Plans'. Choisissez celles que vous voulez voir."
+        desc: "Le tableau suivant donne la liste des colonnes que lon peut faire apparaître dans la liste Mes Plans. Choisissez celles que vous voulez voir."
         errors:
-          no_name: "'name' doit figurer dans la liste des colonnes."
-          duplicate: "Nom de colonne en doublon. Merci de n'ajouter qu'une seule colonne."
+          no_name: "name doit figurer dans la liste des colonnes."
+          duplicate: "Nom de colonne en doublon. Merci de najouter quune seule colonne."
           unknown: "Nom de colonne inconnu."
+          no_plan: "Le plan est incomplet."
       plans:
         title: Titre du plan
         reset: "Réinitialiser"
@@ -557,7 +587,7 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
           right: "Droite"
         max_pages: "Nombre de pages maxi"
         errors:
-          missing_key: "Vous n'avez pas précisé un réglage obligatoire"
+          missing_key: "Vous navez pas précisé un réglage obligatoire"
           invalid_margin: "Valeur de marge non valide"
           negative_margin: "Une marge ne peut être négative"
           unknown_margin: "Marge inconnue. Seules marges possibles : Haut, Bas, Gauche et Droite"
@@ -572,126 +602,127 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
     tab_2: "Dernières nouvelles"
     
     body_text_tab_1_html: "<p>De plus en plus, les agences de financement exigent que leurs bénéficiaires proposent des DMP (des plans de gestion de données), tant pendant la préparation de leur soumission qu’après l’attribution de la subvention. Le Digital Curation Centre (Centre de curation numérique britannique - DCC) a élaboré DMPonline pour satisfaire cette exigence, ainsi que leur établissement ou tout autre acteur.</p>
-    <p>Le DCC <a href='http://www.dcc.ac.uk/' target='_blank'>DCC</a> a coopéré étroitement avec des agences de financement de la recherche et des universités pour réaliser au profit des chercheurs un outil les assistant dans l’élaboration d'un DMP (un plan de gestion de données) efficace qui couvre le cycle de vie complet d’un projet de recherche, de l’étape de préparation de sa soumission jusqu’à son achèvement.</p>
+    <p>Le DCC <a href=http://www.dcc.ac.uk/ target=_blank>DCC</a> a coopéré étroitement avec des agences de financement de la recherche et des universités pour réaliser au profit des chercheurs un outil les assistant dans l’élaboration dun DMP (un plan de gestion de données) efficace qui couvre le cycle de vie complet d’un projet de recherche, de l’étape de préparation de sa soumission jusqu’à son achèvement.</p>
     </br>
-    <h3>Fonctionnement de l'outil</h3>
-    <p>L'outil comprend un certain nombre de modèles qui sont représentatifs des prescriptions de différents organismes financeurs et établissements. Au départ, les utilisateurs doivent répondre à trois questions pour que nous puissions déterminer le modèle qu'il convient d'afficher(par ex. : le modèle ESRC pour une soumission dans le cadre d'un appel à projet de l'ESRC). Des conseils vous sont fournis pour vous permettre d'interpréter les questions posées et y répondre. Ces conseils sont fournis selon les agences de financement, universités et disciplines.</p>
+    <h3>Fonctionnement de loutil</h3>
+    <p>Loutil comprend un certain nombre de modèles qui sont représentatifs des prescriptions de différents organismes financeurs et établissements. Au départ, les utilisateurs doivent répondre à trois questions pour que nous puissions déterminer le modèle quil convient dafficher(par ex. : le modèle ESRC pour une soumission dans le cadre dun appel à projet de lESRC). Des conseils vous sont fournis pour vous permettre dinterpréter les questions posées et y répondre. Ces conseils sont fournis selon les agences de financement, universités et disciplines.</p>
     </br>
-    <h3>Pour commencer.../h3>
+    <h3>Pour commencer...</h3>
     <p>Si vous possédez un compte, veuillez vous connecter, puis commencez à créer ou modifier votre DMP.</p>
-    <p>En l'absence de compte DMPonline , cliquez sur <a href='/'>'S'enregistrer'</a> en page d'accueil.</p>
-    <p>Visitez la page d'<a href='/help'>'Aide'</a> pour quelques conseils.</p>
+    <p>En labsence de compte DMPonline , cliquez sur <a href=\"/\">Senregistrer</a> en page daccueil.</p>
+    <p>Visitez la page d<a href=\"/%{current_locale}/help\">Aide</a> pour quelques conseils.</p>
     </br>
     <h3>Autres informations</h3>
-    <p>NOus améliorons constamment l'interface utilisateur de DMPonline et ses fonctionnalités.
-    Si vous souhaitez apporter une contribution par un retour ou des suggestions, veuillez nous contacter par courriel :    <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>. Vous pouvez aussi signaler des dysfonctionnements ou demander d'autres fonctionnalités directement sur <a href='https://github.com/DigitalCurationCentre/DMPonline_v4' target='_top'>GitHub</a></p>
-    <p>Si vous voulez consulter des DMP issus d'une version antérieure de cette outil, visitez <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
+    <p>NOus améliorons constamment linterface utilisateur de DMPonline et ses fonctionnalités.
+    Si vous souhaitez apporter une contribution par un retour ou des suggestions, veuillez nous contacter par courriel :    <a href=mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry target=_top>dmponline@dcc.ac.uk</a>. Vous pouvez aussi signaler des dysfonctionnements ou demander dautres fonctionnalités directement sur <a href=https://github.com/DigitalCurationCentre/DMPonline_v4 target=_top>GitHub</a></p>
+    <p>Si vous voulez consulter des DMP issus dune version antérieure de cette outil, visitez <a href=https://dmponline3.dcc.ac.uk target=_top>DMPonline v3</a>.</p>"
 
     body_text_tab_2_html: "<p>Témoignages sur DMPonline depuis le site web du DCC</p></br>"
 
   help_page:
     title: "Aide"
     tab_1: "À propos de DMPonline"
-    tab_2: "À propos de la réalisation d'un plan de gestion de données (DMP)"
+    tab_2: "À propos de la réalisation dun plan de gestion de données (DMP)"
     body_text_tab_2_html: "<h3>Ressources utiles pour programmer un DMP</h3>
-      <ul class='help_ul'>
+      <ul class=help_ul>
         <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>Prescriptions des agences de financement britanniques pour les DMP</a> [webpage]<br />
+          <a target=_blank href=http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements>Prescriptions des agences de financement britanniques pour les DMP</a> [webpage]<br />
  Un récapitulatif des prescriptions des Conseils de recherche, des sociétés philanthropiques ou des organismes financeurs dans le secteur de la santé au Royaume-Uni.
         </li>
         <li>
-          <a target='_blank' href='https://dmp.cdlib.org/pages/funder_requirement'>Prescriptions des agences de financements américaines pour les DMP</a> [webpage]<br />
-  Un récapitulatif des prescriptions de la NSF, des NIH et d'autres baillaurs de fonds importants aux États-Unis.
+          <a target=_blank href=https://dmp.cdlib.org/pages/funder_requirement>Prescriptions des agences de financements américaines pour les DMP</a> [webpage]<br />
+  Un récapitulatif des prescriptions de la NSF, des NIH et dautres baillaurs de fonds importants aux États-Unis.
         </li>
         <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf'>Checklist du DCC pour les DMP</a> [PDF, 3 pages]<br />
- Une liste de 13 questions et de conseils associés, qui représentent les principales problématiques qui se présentent dans la gestion et le partage de DMP. Cette liste sert de modèle générique pour DMPOnline, cette liste est proposée quand aucune prescription financière ou organisationnelle ne s'impose à l'utilisateur.
+          <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf>Checklist du DCC pour les DMP</a> [PDF, 3 pages]<br />
+ Une liste de 13 questions et de conseils associés, qui représentent les principales problématiques qui se présentent dans la gestion et le partage de DMP. Cette liste sert de modèle générique pour DMPOnline, cette liste est proposée quand aucune prescription financière ou organisationnelle ne simpose à lutilisateur.
         </li>
         <li>
-          <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf'>Comment élaborer un plan de gestion et de partage de données</a> [PDF, 8 pages]<br />Un Guide du DCC (Digital Curation Centre) qui brosse un tableau général des prescriptions des organismes financeurs pour les DMP et le type de réflexions à entreprendre quand l'on projette de présenter un projet<data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf'>Technical plan submitted to the AHRC</a> [PDF, 7 pages]<br />
-  Un DMP présenté par un chercheur de l'Université de Bristol, avec les commentaires des auditeurs.
+          <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How%20to%20Develop.pdf>Comment élaborer un plan de gestion et de partage de données</a> [PDF, 8 pages]<br />Un Guide du DCC (Digital Curation Centre) qui brosse un tableau général des prescriptions des organismes financeurs pour les DMP et le type de réflexions à entreprendre quand lon projette de présenter un projet<data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf>Technical plan submitted to the AHRC</a> [PDF, 7 pages]<br />
+  Un DMP présenté par un chercheur de lUniversité de Bristol, avec les commentaires des auditeurs.
       </li>
       <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Deux DMP en Sciences sociales</a> [PDF, 7 pages]<br />
-  Exemples de  plans réalisés par des chercheurs de l'Université de Leeds, partagés dans le cadre des supports de formation Leeds RoaDMaP
+        <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf>Deux DMP en Sciences sociales</a> [PDF, 7 pages]<br />
+  Exemples de  plans réalisés par des chercheurs de lUniversité de Leeds, partagés dans le cadre des supports de formation Leeds RoaDMaP
       </li>
       <li>
-        <a target='_blank' href='http://relu.data-archive.ac.uk/data-sharing/planning/examples'>Examples en Economie rurale et aménagement du territoire (Rural Economy & Land Use - RELU)</a> [webpage]<br />
-  Exemples provenant d'un programme conjoint ESRC, BBSRC et NERC
+        <a target=_blank href=http://relu.data-archive.ac.uk/data-sharing/planning/examples>Examples en Economie rurale et aménagement du territoire (Rural Economy & Land Use - RELU)</a> [webpage]<br />
+  Exemples provenant dun programme conjoint ESRC, BBSRC et NERC
       </li>
       <li>
-        <a target='_blank' href='http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf'>DMP en Scanté et médecine</a> [PDF, 11 pages]<br />
+        <a target=_blank href=http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf>DMP en Scanté et médecine</a> [PDF, 11 pages]<br />
   Exemple de DMP par le projet de formation à la gestion de données en Santé DATUM
       </li>
       <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/DMTpsych-example-DMP.pdf'>Psychology DMP</a> [PDF, 11 pages]<br />
+        <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/adocs/DMTpsych-example-DMP.pdf>Psychology DMP</a> [PDF, 11 pages]<br />
   Un DMP fictif très détaillé en psychologie élaboré par le projet pédagogique DMTpsych RDM, à partir de travaux expérimentaux précurseurs
       </li>
       <li>
-        <a target='_blank' href='http://rci.ucsd.edu/data-curation/examples.html'>Exemples de DMP de l'Université de San Diego</a> [webpage]<br />
-  Un vingtaine d'exemple de DMP proposé à la <i>National Science Foundation</i> (NSF) aux États-Unis par des enseignants chercheurs de l'Université de Californie à San Diego
+        <a target=_blank href=http://rci.ucsd.edu/data-curation/examples.html>Exemples de DMP de lUniversité de San Diego</a> [webpage]<br />
+  Un vingtaine dexemple de DMP proposé à la <i>National Science Foundation</i> (NSF) aux États-Unis par des enseignants chercheurs de lUniversité de Californie à San Diego
       </li>
       <li>
-        <a target='_blank' href='http://inside.mines.edu/RDS-example-plans'>Exemples de L'École des Mines du Colorado (<i>Colorado School of Mines examples</i>)</a> [webpage]<br />
-  Plusieurs exemples de DMP américain de cette École et d'autres établissements
+        <a target=_blank href=http://inside.mines.edu/RDS-example-plans>Exemples de LÉcole des Mines du Colorado (<i>Colorado School of Mines examples</i>)</a> [webpage]<br />
+  Plusieurs exemples de DMP américain de cette École et dautres établissements
       </li>
       <li>
-        <a target='_blank' href='https://www.dataone.org/data-management-planning'>DMP de la NSF</a> [webpage]<br />
+        <a target=_blank href=https://www.dataone.org/data-management-planning>DMP de la NSF</a> [webpage]<br />
   5 DMP soumis à la NSF, partagés par la <i>DataOne initiative</i>
       </li>
       <li>
-        <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>DMP en biologie et en chimie</a> [webpage]<br />
-  Trois exemples de DMP américains partagés par NECDMC, un outil pédagogique pour la formation à la gestion de données de recherche d'étudiants de niveaux L, M et en recherche en sciences, technologies et médecine.
+        <a target=_blank href=http://library.umassmed.edu/necdmc/dmp>DMP en biologie et en chimie</a> [webpage]<br />
+  Trois exemples de DMP américains partagés par NECDMC, un outil pédagogique pour la formation à la gestion de données de recherche détudiants de niveaux L, M et en recherche en sciences, technologies et médecine.
       </li>
     </ul>
     <h3>Guides utiles sur la gestion des données de la recherche en général</h3>
-    <ul class='help_ul'>
+    <ul class=help_ul>
       <li>
-        <a target='_blank' href='http://www.data-archive.ac.uk/media/2894/managingsharing.pdf'>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 pages]<br />
-  Un guide édité par le <i>UK Data Service</i> abordant une série de sujets, dont les formats et description de données, les questions d'éthique, de droit d'auteur et de partage des données.
+        <a target=_blank href=http://www.data-archive.ac.uk/media/2894/managingsharing.pdf>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 pages]<br />
+  Un guide édité par le <i>UK Data Service</i> abordant une série de sujets, dont les formats et description de données, les questions déthique, de droit dauteur et de partage des données.
       </li>
       <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br />
+        <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br />
   Un guide édité par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC) contenant des recommandations pratiques sur la manière de citer des données et signalant les différents outils et infrastructures de référencement de données.
       </li>
       <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br />
+        <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf>How to License Research Data</a> [PDF, 16 pages]<br />
   Un guide édité par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC) qui rend compte des différents types de licences, des points positifs et négatifs de chacune et comment les mettre en place.
       </li>
       <li>
-        <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br />
-  Un guide diffusé par l'ANDS et le DCC sur les méthodes de sélection des données à retenir pour leur conservation à long terme, leur partageet leur réutilisation. Plusieurs critères sont proposés pour faciliter la prise de décision.
+        <a target=_blank href=http://www.dcc.ac.uk/sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br />
+  Un guide diffusé par lANDS et le DCC sur les méthodes de sélection des données à retenir pour leur conservation à long terme, leur partageet leur réutilisation. Plusieurs critères sont proposés pour faciliter la prise de décision.
       </li>
       <li>
-        <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br />
-  Un cours en ligne destiné aux chercheurs ou d'autres acteurs désireux de gérer des données dans le cadre de leurs opérations de recherche. Ce cours comporte un certain nombre de considérations d'ordre pratique dans le domaine logiciel, sur l'utilisation de SPSS, R, ArcGIS et NVivo.
+        <a target=_blank href=http://datalib.edina.ac.uk/mantra>Research Data MANTRA</a> [online resource]<br />
+  Un cours en ligne destiné aux chercheurs ou dautres acteurs désireux de gérer des données dans le cadre de leurs opérations de recherche. Ce cours comporte un certain nombre de considérations dordre pratique dans le domaine logiciel, sur lutilisation de SPSS, R, ArcGIS et NVivo.
       </li>
     </ul>"
-    body_text_tab_1_html: "<p>Quand vous vous connectez à DMPonline, vous êtes redirigé vers la page intitulées 'Mes plans'. À partir de là, vous pouvez éditer, partager, exporter ou supprimer l'un de vos plans. Vous verrez à cet endroit aussi les plans que d'autres ont partagé avec vous.</p>
+
+    body_text_tab_1_html: "<p>Quand vous vous connectez à DMPonline, vous êtes redirigé vers la page intitulées Mes plans. À partir de là, vous pouvez éditer, partager, exporter ou supprimer lun de vos plans. Vous verrez à cet endroit aussi les plans que dautres ont partagé avec vous.</p>
     <h3>Créer un plan</h3>
-    <p>Pour créer un plan, cliquez sur le bouton 'Créer un plan' depuis votre page 'Mes plans' ou depuis le menu du haut. Sélectionnez les options des menus déroulants et parmi les cases à cocher pour définir les questions et les conseils qui devront vous être proposés. Confirmez vos choix en cliquant sur 'Oui, créer un plan'.</p>
+    <p>Pour créer un plan, cliquez sur le bouton Créer un plan depuis votre page Mes plans ou depuis le menu du haut. Sélectionnez les options des menus déroulants et parmi les cases à cocher pour définir les questions et les conseils qui devront vous être proposés. Confirmez vos choix en cliquant sur Oui, créer un plan.</p>
     <h3>Rédigez votre plan</h3>
-    <p>L'interface sous forme d'onglets vous permet de naviguer d'une fonction à l'autre quand vous écrivez et mettez à jour votre plan.</p>
+    <p>Linterface sous forme donglets vous permet de naviguer dune fonction à lautre quand vous écrivez et mettez à jour votre plan.</p>
     <ul>
-      <li>- L'onglet 'Détails du plan' donne quelques informations administratives élémentaires, indique sur quel ensemble de questions et de conseils il s'appuie et des indications générales sur les questions qui vous seront posées.</li>
-      <li>- Le ou les onglets suivants affiche les questions auxquelles il faudra répondre. Cet écran peut afficher plusieurs onglets si votre agence de financement ou votre université vous demande plusieurs séries de questions selon différentes étapes, par ex. :au moment d'une demande de subvention ou après son attribution.</li>
-      <li>- L'onglet 'Partager' vous sert à inviter d'autres personnes à lire ou contribuer à votre plan.</li>
-      <li>- L'onglet 'Exporter' vous permet de décharger votre plan sous différents formats. Cela peut vous être utile pour présenter votre plan dans le cadre d'une demande de subvention.</li>
+      <li>- Longlet Détails du plan donne quelques informations administratives élémentaires, indique sur quel ensemble de questions et de conseils il sappuie et des indications générales sur les questions qui vous seront posées.</li>
+      <li>- Le ou les onglets suivants affiche les questions auxquelles il faudra répondre. Cet écran peut afficher plusieurs onglets si votre agence de financement ou votre université vous demande plusieurs séries de questions selon différentes étapes, par ex. :au moment dune demande de subvention ou après son attribution.</li>
+      <li>- Longlet Partager vous sert à inviter dautres personnes à lire ou contribuer à votre plan.</li>
+      <li>- Longlet Exporter vous permet de décharger votre plan sous différents formats. Cela peut vous être utile pour présenter votre plan dans le cadre dune demande de subvention.</li>
     </ul>
-    <p>Quand les différents onglets s'affichent, ils montrent les différentes parties de votre plan à l'écran. Cliquez pour répondre aux différentes questions. Vous pouvez mettre en forme vos réponses en utilisant les boutons de mise à jour.</p>
-    <p>Des conseils peuvent s'afficher dans le panneau de droite. Cliquez sur le symbole '+' pour qu'ils apparaissent.</p>
-    <p>Pensez à 'enregistrer' vos réponses avant de poursuivre.</p>
+    <p>Quand les différents onglets saffichent, ils montrent les différentes parties de votre plan à lécran. Cliquez pour répondre aux différentes questions. Vous pouvez mettre en forme vos réponses en utilisant les boutons de mise à jour.</p>
+    <p>Des conseils peuvent safficher dans le panneau de droite. Cliquez sur le symbole + pour quils apparaissent.</p>
+    <p>Pensez à enregistrer vos réponses avant de poursuivre.</p>
     <h3>Partager des plans</h3>
-    <p>Insérez les courriels des collaborateurs que vous souhaitez inviter à lire ou modifier votre plan. Utilisez les options du menu déroulant pour leur attribuer les droits souhaités et cliquez sur 'Ajouter le collaborateur'</p>
+    <p>Insérez les courriels des collaborateurs que vous souhaitez inviter à lire ou modifier votre plan. Utilisez les options du menu déroulant pour leur attribuer les droits souhaités et cliquez sur Ajouter le collaborateur</p>
     <h3>Exporter des plans</h3>
-    <p>À cet endroit vous pouvez décharger votre plans dans différents formats. Cela peut vous servir pour présenter votre plan dans le cadre d'une demande de subvention. Choisissez le format de visualisation ou de déchargement souhaité puis cliquer pour lancer l'export. Quand vous vous connecterez à DMPonline, celui-ci vous dirigera vers votre page 'Mes plans'. Vous pourrez modifier, partager, exporter ou supprimer l'un ou l'autre de vos plans. Vous verrez aussi les plans que d'autres ont partagé avec vous.</p>
-    <h3>Données d'héritage</h3>
-    <p>S'il vous faut accéder à des plans provenant de la version antérieure de cet outil, veuillez aller sur <a href='https://dmponline3.dcc.ac.uk' target='_top'>DMPonline v3</a>.</p>"
+    <p>À cet endroit vous pouvez décharger votre plans dans différents formats. Cela peut vous servir pour présenter votre plan dans le cadre dune demande de subvention. Choisissez le format de visualisation ou de déchargement souhaité puis cliquer pour lancer lexport. Quand vous vous connecterez à DMPonline, celui-ci vous dirigera vers votre page Mes plans. Vous pourrez modifier, partager, exporter ou supprimer lun ou lautre de vos plans. Vous verrez aussi les plans que dautres ont partagé avec vous.</p>
+    <h3>Données dhéritage</h3>
+    <p>Sil vous faut accéder à des plans provenant de la version antérieure de cet outil, veuillez aller sur <a href=https://dmponline3.dcc.ac.uk target=_top>DMPonline v3</a>.</p>"
 
   contact_page:
     title: "Contatez-nous"
-    intro_text_html: "<p>DMPonline est fourni par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC). Pour plus de renseignements, consultez notre <a href='http://www.dcc.ac.uk/' target='_blank'>site web</a>. Pour nous contacter, veuillez remplir le formulaire ci-après ou envoyez un courriel à <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a>.</p>"
-    github_text_html: "<p>Si un fonctionnalité vous paraît souhaitable, ou si vous pensez constater une erreur, veuillez consulter la <a href='https://github.com/DigitalCurationCentre/DMPonline_v4/issues?state=open'>liste des questions à traiter sur GitHub</a>. Si votre question n'est pas répertoriée, merci de l'ajouter. Si elle y figure, merci d'ajouter un commentaire si vous disposez d'informations supplémentaires ou souhaitez nous informer de l'importance qu'elle revêt pour vous. Ceci nous permettra de prioriser de futurs développements.</p>"
+    intro_text_html: "<p>DMPonline est fourni par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC). Pour plus de renseignements, consultez notre <a href=http://www.dcc.ac.uk/ target=_blank>site web</a>. Pour nous contacter, veuillez remplir le formulaire ci-après ou envoyez un courriel à <a href=mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry target=_top>dmponline@dcc.ac.uk</a>.</p>"
+    github_text_html: "<p>Si un fonctionnalité vous paraît souhaitable, ou si vous pensez constater une erreur, veuillez consulter la <a href=https://github.com/DigitalCurationCentre/DMPonline_v4/issues?state=open>liste des questions à traiter sur GitHub</a>. Si votre question nest pas répertoriée, merci de lajouter. Si elle y figure, merci dajouter un commentaire si vous disposez dinformations supplémentaires ou souhaitez nous informer de limportance quelle revêt pour vous. Ceci nous permettra de prioriser de futurs développements.</p>"
     address_text_html: "<ul>
       <li>Digital Curation Centre</li>
       <li>Level 7, Appleton Tower</li>
@@ -701,88 +732,137 @@ Sélectionnez votre format et cliquez sur 'Exporter'.</p>"
       <li>Royaume-Uni</li>
      </ul>
      <p>Tél. : +44 (0) 131 651 1239</p>
-     <p>Courriel <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry' target='_top'>dmponline@dcc.ac.uk</a></p>"
+     <p>Courriel <a href=mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20inquiry target=_top>dmponline@dcc.ac.uk</a></p>"
   
   roadmap_page:
     title: "Feuille de route"
     tab_1: "Nos futurs projets"
     tab_2: "Impliquez-vous"
-    body_text_tab_1_html: "<p>La communauté des utilisateurs de DMPonline est active et s'agrandit, et nous remercions ses membres qui nous proposent des idées pour améliorer ses fonctionnalités ou en créer de nouvelles. Nous faisons des bilans réguliers et décidons comment développer le service en répondant à ces besoins en évolution. Pour que tout le monde puisse rester dans la boucle, nous publions nos futurs projets dans la Feuille de route de DMPonline.</p>
-    <p>Notre <a href='http://www.dcc.ac.uk/webfm_send/1956' target='_blank'>feuille de route pour 2015</a> est organisée en cycles de 2 mois, et détaille un éventail de nouvelles fonctionnalités et d'améliorations à des fonctionnalités existantes.</p>
-    <p><a href='http://www.dcc.ac.uk/sites/default/files/documents/tools/dmpOnline/DMPonline-roadmap.png' target='_blank'><img alt='' src='http://www.dcc.ac.uk/webfm_send/1957' style='font-size: 14px; width: 600px; height: 266px;'/></a></p>
-    <p>Pour nous assurer d'aller dans le bon sens, nous nous efforçons d'élaborer notre feuille de route en concertation avec notre groupe d'utilisateurs de DMPonline.</p>
+    body_text_tab_1_html: "<p>La communauté des utilisateurs de DMPonline est active et sagrandit, et nous remercions ses membres qui nous proposent des idées pour améliorer ses fonctionnalités ou en créer de nouvelles. Nous faisons des bilans réguliers et décidons comment développer le service en répondant à ces besoins en évolution. Pour que tout le monde puisse rester dans la boucle, nous publions nos futurs projets dans la Feuille de route de DMPonline.</p>
+    <p>Notre <a href=http://www.dcc.ac.uk/webfm_send/1956 target=_blank>feuille de route pour 2015</a> est organisée en cycles de 2 mois, et détaille un éventail de nouvelles fonctionnalités et daméliorations à des fonctionnalités existantes.</p>
+    <p><a href=http://www.dcc.ac.uk/sites/default/files/documents/tools/dmpOnline/DMPonline-roadmap.png target=_blank><img alt= src=http://www.dcc.ac.uk/webfm_send/1957 style=font-size: 14px; width: 600px; height: 266px;/></a></p>
+    <p>Pour nous assurer daller dans le bon sens, nous nous efforçons délaborer notre feuille de route en concertation avec notre groupe dutilisateurs de DMPonline.</p>
     </br>
     <h3>Version actuelle</h3>
-    <p>À ce jour, DMPonline en est à sa version 4.1, publiée en mai 2015. Elle comporte une fonctionnalité de commentaires, des conseils plus précis sur comment s'enregistrer avec des authentifiants d'établissement, des conseils pour le déploiement, ainsi que des propositions méthodologiques pour l'internationalisation. La note de version et les documents détaillent plus complètement ces évolutions.</p>
+    <p>À ce jour, DMPonline en est à sa version 4.1, publiée en mai 2015. Elle comporte une fonctionnalité de commentaires, des conseils plus précis sur comment senregistrer avec des authentifiants détablissement, des conseils pour le déploiement, ainsi que des propositions méthodologiques pour linternationalisation. La note de version et les documents détaillent plus complètement ces évolutions.</p>
     <ul>
-      <li>- <a href='/files/DMPonline-DeliveryNote-May2015.pdf' target='_blank'>Note de version</a></li>
-      <li>- <a href='/files/DMPonline-v4-InstitutionalLogin.pdf' target='_blank'>Comment s'enregistrer dans la version 4 de DMPonline avec l'authentifiant d'un établissement britannique</a></li>
-      <li>- <a href='/files/DMPonline-v4-LocaleSupport.pdf' target='_blank'>Comment mettre en place une localisation d'assistance pour DMPonline version 4</a></li>
+      <li>- <a href=/files/DMPonline-DeliveryNote-May2015.pdf target=_blank>Note de version</a></li>
+      <li>- <a href=/files/DMPonline-v4-InstitutionalLogin.pdf target=_blank>Comment senregistrer dans la version 4 de DMPonline avec lauthentifiant dun établissement britannique</a></li>
+      <li>- <a href=/files/DMPonline-v4-LocaleSupport.pdf target=_blank>Comment mettre en place une localisation dassistance pour DMPonline version 4</a></li>
     </ul>
-    <p>Vous trouverez la code correspondant sur <a target='_blank' href='https://github.com/DigitalCurationCentre/DMPonline_v4'>GitHub</a></p>
+    <p>Vous trouverez la code correspondant sur <a target=_blank href=https://github.com/DigitalCurationCentre/DMPonline_v4>GitHub</a></p>
     </br>
     <h3>Projets de développements</h3>
     <p>Plusieurs fonctionnalités nouvelles sont programmées pour la version suivante : </p>
     <ul>
         <li>- Identification institutionnelle</li>
-        <li>- Fonctionnalité d'examen de DMP</li>
-        <li>- Alerte de notifications de demande d'assistance aux établissements</li>
+        <li>- Fonctionnalité dexamen de DMP</li>
+        <li>- Alerte de notifications de demande dassistance aux établissements</li>
         <li>- Statistiques et analyses pour administrateurs</li>
-        <li>- Mise en place d'une gestion de cycle de vie (par ex. :état \"projet\", \"terminé\", \"publié\")</li>
-        <li>- Développement d'API</li>
+        <li>- Mise en place dune gestion de cycle de vie (par ex. :état \"projet\", \"terminé\", \"publié\")</li>
+        <li>- Développement dAPI</li>
         <li>- Assistance localisée</li>
     </ul>
-    <p>Si vous souhaitez contribuer à l'élaboration de nos projets de développements, vous pouvez vous joindre à notre groupe d'utilisateurs. Rendez-vous sur l'onglet \"Impliquez-vous\" pour plus d'informations sur la façon de vous joindre à nous.</p>"
+    <p>Si vous souhaitez contribuer à lélaboration de nos projets de développements, vous pouvez vous joindre à notre groupe dutilisateurs. Rendez-vous sur longlet \"Impliquez-vous\" pour plus dinformations sur la façon de vous joindre à nous.</p>"
      
     body_text_tab_2_html: "<p>Le développement et la maintenance de DMPonline sont assurés par le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC). Nous formons une petite équipe et nous nous sommes volontiers ouverts à des collaborations. Plusieurs possibilités vous sont offertes dans ce but :</p>
-    <h3>Rejoindre le groupe d'utilisateurs</h3>
-    <p>Nous souhaitons nouer des liens plus actifs avec nos utilisateurs, et nous vous invitons donc à faire partie de notre groupe d'utilisateurs. Nous avons mis en place une <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>liste de diffusion</a> pour ce groupe à laquelle vous pouvez vous abonner. Nous organisons aussi des réunions de consultation sur nos projets.</p>
-    <p>Nos réunions du groupe d'utilisateurs sont en général organisées sur un sujet précis (par ex. :étoffer une API par des cas d'utilisations). Aussi nos invitations sont lancées en fonction de vos domaines de compétence. Il est aussi utile pour nous de savoir à quelle catégorie d'utilisateur vous appartenez : chercheur, administrateur d'un établissement, bibliothécaire ou documentaliste, développeur informatique, personnel financier,  etc.</p>
-    <p>Merci de nous indiquer vos centres d'intérêts et de faire partager vos suggestions de développements souhaités via la liste de diffusion pour que toute la communauté faire part de ses réactions.</p>
+    <h3>Rejoindre le groupe dutilisateurs</h3>
+    <p>Nous souhaitons nouer des liens plus actifs avec nos utilisateurs, et nous vous invitons donc à faire partie de notre groupe dutilisateurs. Nous avons mis en place une <a target=_blank href=https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP>liste de diffusion</a> pour ce groupe à laquelle vous pouvez vous abonner. Nous organisons aussi des réunions de consultation sur nos projets.</p>
+    <p>Nos réunions du groupe dutilisateurs sont en général organisées sur un sujet précis (par ex. :étoffer une API par des cas dutilisations). Aussi nos invitations sont lancées en fonction de vos domaines de compétence. Il est aussi utile pour nous de savoir à quelle catégorie dutilisateur vous appartenez : chercheur, administrateur dun établissement, bibliothécaire ou documentaliste, développeur informatique, personnel financier,  etc.</p>
+    <p>Merci de nous indiquer vos centres dintérêts et de faire partager vos suggestions de développements souhaités via la liste de diffusion pour que toute la communauté faire part de ses réactions.</p>
     </br>
     <h3>Personnaliser DMPonline</h3>
-    <p>DMPonline peut être personnalisé en fonctions des institutions et des disciplines. Vous pouvez y ajouter des modèles destinés aux utilisateurs de votre établissement et ajouter des conseils qui expliquent comment trouver localement de l'assistance et des services. Des réponses types peuvent être ajoutées pour aider les utilisateurs à comprendre les informations qu'ils doivent rédiger dans un plan de gestion de données (DMP). Pour cela, vous devrez demander des droits d'accès administrateur, merci de nous envoyer un courriel à <a href='mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access' target='_top'>dmponline@dcc.ac.uk</a>.</p>
-    <p>D'autres conseils sont également sur le <a href='http://www.dcc.ac.uk/dmponline' target='_blank'>site web du DCC</a>.</p> 
+    <p>DMPonline peut être personnalisé en fonctions des institutions et des disciplines. Vous pouvez y ajouter des modèles destinés aux utilisateurs de votre établissement et ajouter des conseils qui expliquent comment trouver localement de lassistance et des services. Des réponses types peuvent être ajoutées pour aider les utilisateurs à comprendre les informations quils doivent rédiger dans un plan de gestion de données (DMP). Pour cela, vous devrez demander des droits daccès administrateur, merci de nous envoyer un courriel à <a href=mailto:dmponline@dcc.ac.uk?Subject=DMPonline%20Admin%20access target=_top>dmponline@dcc.ac.uk</a>.</p>
+    <p>Dautres conseils sont également sur le <a href=http://www.dcc.ac.uk/dmponline target=_blank>site web du DCC</a>.</p> 
     </br>
     <h3>Contribuer au code</h3>
     <p>DMPonline est une application Ruby on Rails. Le code source est disponible sous licence GNU AGPL (<i>Affero General Public License</i>). Elle autorise tout un chacun à réutiliser le code librement, mais vous oblige à partager le code source de toute extensions de la même manière. Veuillez-nous informer si vous installez une instance de DMPonline et offrez à votre tour vos contributions à la communauté.</p>
-    <p>Si vous installez une instance de DMPonline, nous vous demandons de créditer DMPonline au DCC comme étant à l'origine de cet outil. Nous recommandons que la mention de crédit se fasse sous la forme du logo de DMPonline renvoyant par un lien vers la version hébergée par le DCC.</p>
+    <p>Si vous installez une instance de DMPonline, nous vous demandons de créditer DMPonline au DCC comme étant à lorigine de cet outil. Nous recommandons que la mention de crédit se fasse sous la forme du logo de DMPonline renvoyant par un lien vers la version hébergée par le DCC.</p>
     <p>Nous sommes désireux de travailler avec des développeurs extérieurs pour ajouter de nouvelles fonctionnalité à cet outil.Nous sommes également ouverts à fournir de nouvelles fonctionnalités à titre onéreux. Si vous souhaitez que priorité soit donnée à certaines extensions ou si vous disposez de moyens pour soutenir des travaux de développement supplémentaires, veuillez nous contacter sur dmponline@dcc.ac.uk pour en négocier les conditions.</p>
     </br>
     <h3>Soutenir nos travaux</h3>
-    <p>Nous sommes impressionné par la montée en l'utilisation de DMPonline au Royaume-Uni comme à m'international et nous souhaitons vivement savoir comment vous utilisez cet outil, comment vous promouvez son utilisation dans votre environnement. Nous savons que d'autres que nous ont mis en place des programmes de formation, créé des supports d'assistance et de conseils et militent pour son utilisation. Veuillez nous le faire savoir, car cela nous permet d'en montrer l'impact.</p>
+    <p>Nous sommes impressionné par la montée en lutilisation de DMPonline au Royaume-Uni comme à minternational et nous souhaitons vivement savoir comment vous utilisez cet outil, comment vous promouvez son utilisation dans votre environnement. Nous savons que dautres que nous ont mis en place des programmes de formation, créé des supports dassistance et de conseils et militent pour son utilisation. Veuillez nous le faire savoir, car cela nous permet den montrer limpact.</p>
     <p>Nous réfléchissons actuellement sur des solutions pour créer des moyens de financement. Cela nous permettra de répondre plus efficacement à une demande montante et de garantir la pérennité de DMPonline. Des projets seront bientôt rendus publics en consultation, mais nous accueillons volontiers vos suggestions pour soutenir au mieux nos travaux.</p> "
     
   terms_page:
-    title: "Conditions d'utilisation"
-    body_text_html: "<div class='white_background'>
-    <p>Le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC) est un consortium porté par le Jisc et installé dans les université d'Édimbourg, de Glasgow et de Bath. Nos missions concernent au premier chef la communauté de recherche britannique, en particulier le secteur de l'enseignement supérieur et de la formation tout au long de la vie.</p>
+    title: "Conditions dutilisation"
+    body_text_html: "<div class=white_background>
+    <p>Le <i>Digital Curation Centre</i> (Centre de curation numérique britannique - DCC) est un consortium porté par le Jisc et installé dans les université dÉdimbourg, de Glasgow et de Bath. Nos missions concernent au premier chef la communauté de recherche britannique, en particulier le secteur de lenseignement supérieur et de la formation tout au long de la vie.</p>
     </div>
     <h3>DMPonline</h3>
-    <div class='white_background'>
-      <p>DMPonline ('l'outil', 'le système') est une ressource partagée pour la communauté de recherche développée par le DCC. Elle est hébergée par l'université d'Édimbourg.</p>
+    <div class=white_background>
+      <p>DMPonline (loutil, le système) est une ressource partagée pour la communauté de recherche développée par le DCC. Elle est hébergée par luniversité dÉdimbourg.</p>
     </div>
     <h3>Vos informations personnelles</h3>
-    <div class='white_background'>
-      <p>Pour pouvoir identifier et administrer votre compte dans DMPonline, nous avons besoin d'enregistrer votre adresse de courriel. Il se peut que nous l'utilisions aussi pour recueillir votre avis sur l'utilisation de cet outil, ou de vous informer des dernières évolutions ou versions. Ces informations pourront être échangées entre institutions partenaires du DCC mais uniquement à des fins légitimes pour le DCC. Nous ne vendrons, ni ne louerons ni n'échangerons les informations personnelles que vous nous fournirez.</p>
+    <div class=white_background>
+      <p>Pour pouvoir identifier et administrer votre compte dans DMPonline, nous avons besoin denregistrer votre adresse de courriel. Il se peut que nous lutilisions aussi pour recueillir votre avis sur lutilisation de cet outil, ou de vous informer des dernières évolutions ou versions. Ces informations pourront être échangées entre institutions partenaires du DCC mais uniquement à des fins légitimes pour le DCC. Nous ne vendrons, ni ne louerons ni néchangerons les informations personnelles que vous nous fournirez.</p>
     </div>
     <h3>Protections des données à caractère personnel</h3>
-    <div class='white_background'>
-      <p>Les informations que vous enregistrez dans le système ne peuvent être visualisées que par vous-même, par les personnes avec lesquelles vous avez décidé d'en partager l'accès, et - uniquement pour la maintenance du service - pour les administrateurs du système de l'université d'Édimbourg.  Nous extrayons des informations anonymisées, automatiquement et sous forme agrégée à partir des DMP, mais nous n'accédons pas à votre contenu directement, ni ne l'utilisons ni le partageons avec des tiers sans autorisation de votre part. Des agents habilités de votre établissement d'affiliation pourront avoir accès à vos DMP dans des conditions précises, par ex. :pour vérifier le respect des prescriptions de l'établissement ou d'agences de financement ou pour calculer les besoins de stockage.</p>
+    <div class=white_background>
+      <p>Les informations que vous enregistrez dans le système ne peuvent être visualisées que par vous-même, par les personnes avec lesquelles vous avez décidé den partager laccès, et - uniquement pour la maintenance du service - pour les administrateurs du système de luniversité dÉdimbourg.  Nous extrayons des informations anonymisées, automatiquement et sous forme agrégée à partir des DMP, mais nous naccédons pas à votre contenu directement, ni ne lutilisons ni le partageons avec des tiers sans autorisation de votre part. Des agents habilités de votre établissement daffiliation pourront avoir accès à vos DMP dans des conditions précises, par ex. :pour vérifier le respect des prescriptions de létablissement ou dagences de financement ou pour calculer les besoins de stockage.</p>
     </div>
-    <h3>Liberté d'information</h3>
-    <div class='white_background'>
-      <p>L'université d'Édimbourg assure le stockage de vos DMP pour votre compte, mais ceux-ci restent votre propriété et sous votre responsabilité. Toute demande au titre de la législation sur la liberté d'information se verra redirigée vers votre établissement d'affiliation.</p>
+    <h3>Liberté dinformation</h3>
+    <div class=white_background>
+      <p>Luniversité dÉdimbourg assure le stockage de vos DMP pour votre compte, mais ceux-ci restent votre propriété et sous votre responsabilité. Toute demande au titre de la législation sur la liberté dinformation se verra redirigée vers votre établissement daffiliation.</p>
     </div>
     <h3>Mots de passe</h3>
-    <div class='white_background'>
-      <p>Votre mot de passe est enregistré sous forme chiffrée et ne peut être récupéré. En cas d'oubli, celui-ci devra être réinitialisé.</p>
+    <div class=white_background>
+      <p>Votre mot de passe est enregistré sous forme chiffrée et ne peut être récupéré. En cas doubli, celui-ci devra être réinitialisé.</p>
     </div>
     <h3>Cookies</h3>
-    <div class='white_background'>
-      <p>Veuillez noter que DMPonline utilise des cookies. Vous pourrez en savoir plus sur les cookies et la manière dont nous les utilisons sur le <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>site web principal du DCC</a>.</p>
+    <div class=white_background>
+      <p>Veuillez noter que DMPonline utilise des cookies. Vous pourrez en savoir plus sur les cookies et la manière dont nous les utilisons sur le <a target=_blank href=http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies>site web principal du DCC</a>.</p>
     </div>
 
     <br />
-    <div class='white_background'>
-    <p>En utilisant l'outil, vous reconnaissez avoir pris connaissance et accepté les présentes conditions d'utilisation.</p></div>"
+    <div class=white_background>
+    <p>En utilisant loutil, vous reconnaissez avoir pris connaissance et accepté les présentes conditions dutilisation.</p></div>"
+
+  identifier_schemes:
+    connect_success: 'Votre compte a été connecté à %{scheme}'
+    connect_failure: 'Nous ne pouvions pas connecter votre compte %{scheme}'
+    disconnect_success: 'Votre compte a été déconnecté de %{scheme}'
+    disconnect_failure: 'Nous avons été incapables de déconnecter votre compte %{scheme}'
+    new_login_success: "Vous ne l'avez pas configurer un compte avec nous. S'il vous plaît remplir les informations ci-dessous pour terminer votre inscription."
+    new_login_failure: "Nous avons été en mesure de vérifier votre compte. S'il vous plaît utiliser le formulaire ci-dessous pour créer un nouveau compte. Vous serez en mesure de lier votre nouveau compte par la suite."
+
+    schemes:
+      orcid:
+        logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
+        user_landing_page: 'https://orcid.org/%{id}'
+        connect: 'Créer ou Connectez votre ID ORCID'
+        connect_tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs. En savoir plus sur orcid.org'
+        disconnect_confirmation: 'Êtes-vous certain que vous voulez déconnecter votre ID orcid?'
+        disconnect_tooltip: 'Déconnectez votre compte à partir de ORCID. Vous pouvez vous reconnecter à tout moment.'
+
+  magic_strings:
+    organisation_types:
+      funder: 'Funder'
+      organisation: 'Organisation'
+      project: 'Project'
+      institution: 'Institution'
+      research_institute: 'Research Institute'
+      template: 'Template'
+      managing_organisation: 'Digital Curation Centre'
+    user_role_types:
+      admin: 'admin'
+      org_admin: 'org_admin'
+      user: 'user'
+    roles:
+      super_admin: 'admin'
+      organisational_admin: 'org_admin'
+      user: 'user'
+      add_organisations: 'add_organisations'
+      change_org_affiliation: 'change_org_affiliation'
+      grant_permissions: 'grant_permissions'
+      modify_templates: 'modify_templates'
+      modify_guidance: 'modify_guidance'
+      use_api: 'use_api'
+      change_org_details: 'change_org_details'
+      grant_api_to_orgs: 'grant_api_to_orgs'
+    token_permission_types:
+      guidances: 'guidances'
+      plans: 'plans'
+      templates: 'templates'
+      statistics: 'statistics'
+    languages:

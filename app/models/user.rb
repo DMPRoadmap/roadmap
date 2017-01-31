@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
+
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -30,6 +31,9 @@ class User < ActiveRecord::Base
       self.where(conditions)
     end
   end
+  
+  has_many :user_identifiers
+  has_many :identifier_schemes, through: :user_identifiers
 
   ##
   # Possibly needed for active_admin
@@ -39,7 +43,7 @@ class User < ActiveRecord::Base
                   :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                   :user_status_id, :surname, :user_type_id, :org_id, :skip_invitation, 
                   :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language, :language_id
+                  :organisation, :language, :language_id, :org, :perms, :confirmed_at
 
   validates :email, email: true, allow_nil: true, uniqueness: true
 
@@ -74,6 +78,15 @@ class User < ActiveRecord::Base
       name = "#{firstname} #{surname}"
       return name.strip
     end
+  end
+
+  ##
+  # Returns the user's identifier for the specified scheme name
+  #
+  # @param the identifier scheme name (e.g. ORCID)
+  # @return [UserIdentifier] the user's identifier for that scheme
+  def identifier_for(scheme)
+    user_identifiers.where(identifier_scheme: scheme).first
   end
 
   ##
@@ -229,4 +242,31 @@ class User < ActiveRecord::Base
       #UserMailer.api_token_granted_notification(self)
     end
   end
+
+  ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  # --------------------------------------------------------------
+  def self.from_omniauth(auth)
+    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
+    
+    if scheme.nil?
+      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
+    else
+      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
+                   'user_identifiers.identifier_scheme_id': scheme.id).first
+    end
+  end
+
+  # this generates a reset password link for a given user
+  # which can then be sent to them with the appropriate host
+  # prepended.
+  def reset_password_link
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token   = enc 
+    self.reset_password_sent_at = Time.now.utc
+    save(validate: false)
+
+    edit_user_password_path  + '?reset_password_token=' + raw
+  end
+
 end

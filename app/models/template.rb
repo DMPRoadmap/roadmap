@@ -12,7 +12,9 @@ class Template < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :organisation_id, :description, :published, :title, :locale, :is_default, :guidance_group_ids, :as => [:default, :admin]
+  attr_accessible :id, :org_id, :description, :published, :title, :locale, 
+                  :is_default, :guidance_group_ids, :org, :plans, :phases, 
+                  :version, :visibility, :published, :as => [:default, :admin]
 
   # defines the export setting for a template object
   has_settings :export, class_name: 'Settings::Template' do |s|

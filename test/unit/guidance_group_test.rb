@@ -1,177 +1,130 @@
 require 'test_helper'
 
 class GuidanceGroupTest < ActiveSupport::TestCase
+  include GlobalHelpers
   
   setup do
-    @user_one = User.first
-    @user_two = User.order(surname: :desc).first
-    @user_three = User.last
+    Organisation.create(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
     
-    @org_type = OrganisationType.first
+    @user = User.first
+    @organisation = Organisation.first
     
+<<<<<<< HEAD
+    @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', 
+                                           organisation: @organisation)
+=======
     @organisations = Org.all
+>>>>>>> final_schema
   end
   
-  # ---------- can_view? ----------
-  test "DCC guidance groups should be viewable" do
-#    assert GuidanceGroup.can_view?(@user_one, guidance_groups(:dcc_guidance_group_1))
+  # ---------------------------------------------------
+  test "required fields are required" do
+    assert_not GuidanceGroup.new.valid?
+    assert_not GuidanceGroup.new(organisation: @organisation).valid?, "expected the 'name' field to be required"
+    assert_not GuidanceGroup.new(name: 'Tester').valid?, "expected the 'organisation' field to be required"
+
+    # Ensure the bar minimum and complete versions are valid
+    a = GuidanceGroup.new(name: 'Tester', organisation: @organisation)
+    assert a.valid?, "expected the 'name' and 'organisation' fields to be enough to create a GuidanceGroup! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+  end
+  
+  # ---------------------------------------------------
+  test "display_name returns organisation name and the guidance group name" do
+    assert_equal "#{@organisation.name}", @guidance_group.display_name, "Expected display_name to return the organisation name if there is only one GuidanceGroup"
+    
+    GuidanceGroup.create(name: 'Second Test', organisation: @organisation)
+    assert_equal "#{@organisation.name}: #{@guidance_group.name}", @guidance_group.display_name, "Expected display_name to return the organisation name and guidance group name if there are more than one GuidanceGroup"
   end
 
-  test "Funder guidance groups should be viewable" do
-=begin
-    @org_type.organisations.each do |org|
-      org.guidance_groups.each do |funder_group|
-        assert GuidanceGroup.can_view?(@user_one, funder_group)
-      end
-    end
-=end
+  # ---------------------------------------------------
+  test "to_s returns organisation name and the guidance group name" do
+    assert_equal @guidance_group.display_name, @guidance_group.to_s
   end
 
-  test "User's organisation groups should be viewable" do
-=begin
-    assert GuidanceGroup.can_view?(@user_one, guidance_groups(:institution_guidance_group_1).id) , "user_one cannot view aru_institution_guidance"
-
-    assert GuidanceGroup.can_view?(@user_two, guidance_groups(:institution_guidance_group_2).id), "user_two cannot view au_..._1"
-
-    assert GuidanceGroup.can_view?(@user_three, guidance_groups(:institution_guidance_group_3).id), "user_three cannot view bu_..._1"
-    assert GuidanceGroup.can_view?(@user_three, guidance_groups(:institution_guidance_group_4).id), "user_three cannot view bu_..._2"
-=end
+  # ---------------------------------------------------
+  test "guidance_groups_excluding does not return guidance groups for the current organisation" do
+    assert_not GuidanceGroup.guidance_groups_excluding([@organisation]).include?(@guidance_group)
   end
 
-  test "No other organisations's groups should be viewable"  do
-=begin
-    assert_not GuidanceGroup.can_view?(@user_one, guidance_groups(:institution_guidance_group_2).id)
-    assert_not GuidanceGroup.can_view?(@user_one, guidance_groups(:institution_guidance_group_3).id)
-    assert_not GuidanceGroup.can_view?(@user_one, guidance_groups(:institution_guidance_group_4).id)
-
-    assert_not GuidanceGroup.can_view?(@user_two, guidance_groups(:institution_guidance_group_1).id)
-    assert_not GuidanceGroup.can_view?(@user_two, guidance_groups(:institution_guidance_group_3).id)
-    assert_not GuidanceGroup.can_view?(@user_two, guidance_groups(:institution_guidance_group_4).id)
-
-    assert_not GuidanceGroup.can_view?(@user_three, guidance_groups(:institution_guidance_group_1).id)
-    assert_not GuidanceGroup.can_view?(@user_three, guidance_groups(:institution_guidance_group_2).id)
-=end
+  # ---------------------------------------------------
+  test "user can view guidance_group if it belongs to their organisation" do
+    org = @user.organisation
+    gg = GuidanceGroup.create(name: 'User Test', organisation: org)
+    
+    assert GuidanceGroup.can_view?(@user, gg.id)
   end
 
-
-  # ---------- all_viewable ----------
-  # ensure that the all_viewable function returns all viewable groups
-  #   should return true for groups owned by funders
-  #   should return true for groups owned by DCC
-  #   should return true for groups owned by the user's organisation
-  #   should not return true for an organisation outwith those above
-  test "all_viewable returns all dcc groups" do
-    all_viewable_groups = GuidanceGroup.all_viewable(@user_one)
-    @organisations.first.guidance_groups.each do |group|
-      assert_includes(all_viewable_groups, group)
-    end
+  # ---------------------------------------------------
+  test "user can view guidance_group if it belongs to a funder" do
+    org = Organisation.find_by(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")))
+    gg = GuidanceGroup.create(name: 'Funder Test', organisation: org)
+    
+    assert GuidanceGroup.can_view?(@user, gg.id)
+  end
+  
+  # ---------------------------------------------------
+  test "user can view guidance_group if it belongs to the managing curation centre" do
+    org = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    gg = GuidanceGroup.create(name: 'Managing CC Test', organisation: org)
+    
+    assert GuidanceGroup.can_view?(@user, gg.id)
   end
 
-  test "all_viewable returns all funder groups" do
-    all_viewable_groups = GuidanceGroup.all_viewable(@user_one)
-    @org_type.organisations.each do |org|
-      org.guidance_groups.each do |group|
-        assert_includes(all_viewable_groups, group)
-      end
-    end
-  end
+  # ---------------------------------------------------
+  test "user can view all oftheir organisations, funders, and the managing curation centre's guidance groups" do
+    @organisation.users << @user
+    @organisation.save
+    @organisation.reload
 
-  test "all_viewable returns all of a user's organisations's guidances" do 
-    all_viewable_groups_one = GuidanceGroup.all_viewable(@user_one)
-    @organisations.first.guidance_groups.each do |group|
-      assert_includes(all_viewable_groups_one, group)
-    end
+    funding = Organisation.where(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder"))).first
+    managing = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
 
-    all_viewable_groups_two = GuidanceGroup.all_viewable(@user_two)
-    @organisations[1].guidance_groups.each do |group|
-      assert_includes(all_viewable_groups_two, group)
-    end
-
-    all_viewable_groups_three = GuidanceGroup.all_viewable(@user_three)
-    @organisations.last.guidance_groups.each do |group|
-      assert_includes(all_viewable_groups_three, group)
+    ggs = [@guidance_group,
+           GuidanceGroup.create(name: 'User Test', organisation: @organisation),
+           GuidanceGroup.create(name: 'Funder Test', organisation: funding),
+           GuidanceGroup.create(name: 'Managing CC Test', organisation: managing)]
+    
+    v = GuidanceGroup.all_viewable(@user)
+    
+    ggs.each do |gg|
+      assert v.include?(gg), "expected Guidance Group: '#{gg.name}' to be viewable"
     end
   end
 
-  test "all_viewable does not return any other organisaition's guidance" do
-=begin
-    all_viewable_groups = GuidanceGroup.all_viewable(@user_one)
-    all_viewable_groups.delete_if do |group|
-      if group.organisation.id == @organisation.id
-        true
-      elsif group.organisation.organisation_type.id == @org_type.id
-        true
-      elsif group.organisation.id == @user_one.organisation.id
-        true
-      else
-        false
-      end
-    end
-    assert_empty(all_viewable_groups)
-=end
-  end
+  # ---------------------------------------------------
+  test "can CRUD GuidanceGroup" do
+    gg = GuidanceGroup.create(name: 'Tester', organisation: @organisation)
+    assert_not gg.id.nil?, "was expecting to be able to create a new GuidanceGroup!"
 
-
-  # ---------- display_name ----------
-  test "display_name should return an org name for an org with one guidance" do
-#    assert_equal(guidance_groups(:funder_guidance_group_1).display_name, "Arts and Humanities Research Council", "result of display_name for an org with one group should be the org name")
+    gg.name = 'Testing an update'
+    gg.save!
+    gg.reload
+    assert_equal 'Testing an update', gg.name, "Was expecting to be able to update the text of the GuidanceGroup!"
+  
+    assert gg.destroy!, "Was unable to delete the GuidanceGroup!"
   end
-
-  test "display_name should return an org and group name for an org with more than one guidance" do
-#    assert_equal(guidance_groups(:institution_guidance_group_4).display_name, "Bangor University: Bangor University guidance group 2", "result of display_name for an org with more than one group should be <org_name>: <group_name>")
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Project" do
+    proj = Project.new(title: 'Test Project', dmptemplate: Dmptemplate.first)
+    verify_has_many_relationship(@guidance_group, proj, @guidance_group.projects.count)
   end
-
-  # ---------- self.guidance_groups_excluding ----------
-  test "guidance_groups_excluding should not return a group belonging to specified single org" do
-=begin
-    # generate a list
-    excluding_list = GuidanceGroup.guidance_groups_excluding([@organisation])
-    excluding_list.each do |group|
-      refute_equal(group.organisation, @organisation, "#{group.name} is owned by dcc")
-    end
-=end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Template" do
+    t = Dmptemplate.new(title: 'Test Theme', organisation: @organisation)
+    verify_has_many_relationship(@guidance_group, t, @guidance_group.dmptemplates.count)
   end
-
-  test "guidance_groups_excluding should not return a group belonging to specified orgs" do
-=begin
-    org_list = [organisations.first, organisations.last]
-    excluding_list = GuidanceGroup.guidance_groups_excluding(org_list)
-    excluding_list.each do |group|
-      org_list.each do |org|
-        refute_equal(group.organisation, org, "#{group.name} is owned by specified org: #{org.name}")
-      end
-    end
-=end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Guidance" do
+    g = Guidance.new(text: 'Test Guidance')
+    verify_has_many_relationship(@guidance_group, g, @guidance_group.guidances.count)
   end
-
-  test "guidance_groups_excluding should return all groups not belonging to the specified org" do
-=begin
-    excluding_list = GuidanceGroup.guidance_groups_excluding([@organisation])
-    GuidanceGroup.all.each do |group|
-      if group.organisation_id != @organisation.id
-        assert_includes(excluding_list, group, "#{group.name} is not owned by dcc so should be included")
-      end
-    end
-=end
-  end
-
-  test "guidance_groups_excluding should return all groups not belonging to specified orgs" do
-=begin
-    excluded =false
-    org_list = [organisations.first, organisations.last]
-    excluding_list = GuidanceGroup.guidance_groups_excluding(org_list)
-    GuidanceGroup.all.each do |group|
-      excluded = false
-      org_list.each do |org|
-        if group.organisation == org
-          excluded = true
-        end
-      end
-      unless excluded
-        assert_includes(excluding_list, group, "#{group.name} is not owned by a specified org so should be included")
-      end
-    end
-=end
-  end
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Organisation" do
+    verify_belongs_to_relationship(@guidance_group, @organisation)
+  end  
 
 end

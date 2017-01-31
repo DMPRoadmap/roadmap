@@ -20,8 +20,12 @@ class Question < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :suggested_answer, :text, :section_id, :question_format_id, :question_options_attributes, :suggested_answers_attributes, :id, :option_comment_display, :theme_ids, :as => [:default, :admin]
-
+  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, 
+                  :suggested_answer, :text, :section_id, :question_format_id, 
+                  :question_options_attributes, :suggested_answers_attributes, 
+                  :option_comment_display, :theme_ids, :section, :question_format, 
+                  :question_options, :suggested_answers, :answers, :themes, 
+                  :modifiable, :option_comment_display, :as => [:default, :admin]
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

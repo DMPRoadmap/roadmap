@@ -47,24 +47,27 @@
                 <% end %>
 
                 <!-- verify if the question has multiple choice -->
-                <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") then%>
+                <% if q_format.title == "Check box" ||
+                      q_format.title == "Multi select box" ||
+                      q_format.title == "Radio buttons" ||
+                      q_format.title == "Dropdown" then%>
 					<% options = question.options.order("number") %>
 					<!--checkbox display-->
-					<% if q_format.title == t("helpers.checkbox") then %>
+					<% if q_format.title == "Check box" then %>
 						<% if readonly then %>
 							<%= f.input :options, :as => :check_boxes, :collection => options, :label => false, input_html => { :disabled => true, :id => "options-#{question.id}" } %>
 						<% else %>
 							<%= f.input :options, :as => :check_boxes, :collection => options, :label => false, :input_html => { :id => "options-#{question.id}" } %>
 						<% end %>
 					<!--multi select box display-->
-					<% elsif q_format.title == t("helpers.multi_select_box") then %>
+					<% elsif q_format.title == "Multi select box" then %>
 						<% if readonly then %>
 							<%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true, :disabled => true , :id => "options-#{question.id}" } %>
 						<% else %>
 							<%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true , :id => "options-#{question.id}" } %>
 						<% end %>
 					<!--Radio buttons display-->
-					<% elsif q_format.title == t("helpers.radio_buttons") then%>
+					<% elsif q_format.title == "Radio buttons" then%>
 						<ol class="choices-group">
                         <% options.each do |op| %>
                             <li class= "choices-group">
@@ -85,7 +88,7 @@
                         <% end %>
                         </ol>
                     <!--dropdown display-->
-					<% elsif q_format.title == t("helpers.dropdown") then%>
+					<% elsif q_format.title == "Dropdown" then%>
 						<% if readonly then %>
 							<%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :disabled => true, :id => "options-#{question.id}" } %>
 						<% else %>
@@ -99,10 +102,10 @@
                     <%end%>
 
                 <!--text field display-->
-                <% elsif q_format.title == t("helpers.text_field") then %>
+                <% elsif q_format.title == "Text field" then %>
                     <%= text_field_tag("answer-text-#{question.id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
                 <!--text area display-->
-                <% elsif q_format.title == t("helpers.text_area") then%>
+                <% elsif q_format.title == "Text area" then%>
                     <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
                 <% end %>
 
@@ -113,7 +116,8 @@
                 <% if readonly then %>
                     <%= f.action :submit, :label => t("helpers.save"), :button_html => { :class => "btn btn-primary"}, :input_html => { :disabled => true } %>
                 <% else %>
-                    <%= f.action :submit, :label => t("helpers.save"), :button_html => { :class => "btn btn-primary"} %>
+										<input type="submit" class="btn btn-primary" value="<%= t('helpers.save') %>" />
+
                 <% end %>
                 <li id="saving-<%= question.id %>" class="saving-message" style="display:none;"><%= t("helpers.saving")%></li>
             <% end %>
@@ -124,7 +128,10 @@
     <div id="question-readonly-<%= question.id %>" class="question-readonly" <%= if readonly == nil then "style='display:none;'" end %>>
             <h4><%= question.text %></h4>
             <div class="answer-readonly">
-                <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
+                <% if q_format.title == "Check box" ||
+                       q_format.title == "Multi select box" ||
+                       q_format.title == "Radio buttons" ||
+                       q_format.title == "Dropdown" %>
                     <ul class="options">
                     <% if answer.options.is_a? Option then %>
                         <li><%= answer.options.text %></li>

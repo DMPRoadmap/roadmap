@@ -15,8 +15,6 @@ class Guidance < ActiveRecord::Base
   belongs_to :guidance_group
   belongs_to :question
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
-  # depricated, but required for migration "single_group_for_guidance"
-  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
 
 
 
@@ -25,6 +23,9 @@ class Guidance < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
 
+
+
+  validates :text, presence: true
 
 
   ##
@@ -125,10 +126,8 @@ class Guidance < ActiveRecord::Base
       funder_groups += funder.guidance_groups
     end
     # find all groups owned by any of the user's organisations
-    organisation_groups = []
-    user.organisations.each do |organisation|
-      organisation_groups += organisation.guidance_groups
-    end
+    organisation_groups = user.organisation.guidance_groups
+    
     # find all guidances belonging to any of the viewable groups
     all_viewable_guidances = []
     all_viewable_groups = managing_groups + funder_groups + organisation_groups

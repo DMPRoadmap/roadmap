@@ -158,10 +158,10 @@ class PlansController < ApplicationController
 		@plan = Plan.find(params[:id])
     authorize @plan
 
-		if user_signed_in? && @plan.readable_by(current_user.id) then
+		if (user_signed_in? && @plan.readable_by(current_user.id)) then
 			@exported_plan = ExportedPlan.new.tap do |ep|
 				ep.plan = @plan
-				ep.user = current_user
+				ep.user = current_user ||= nil
 				#ep.format = request.format.try(:symbol)
         ep.format = request.format.to_sym
 				plan_settings = @plan.settings(:export)
@@ -193,10 +193,12 @@ class PlansController < ApplicationController
 			  	            }
 			  end
 			end
+      
 		elsif !user_signed_in? then
                respond_to do |format|
 				format.html { redirect_to edit_user_registration_path }
 			end
+      
 		elsif !@plan.editable_by(current_user.id) then
 			respond_to do |format|
 				format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }

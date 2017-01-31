@@ -338,10 +338,16 @@ en-UK:
     about_us_label: "About"
     roadmap_label: "Future plans"
     help_label: "Help"
+    public_plans_label: "Public DMPs"
+
     contact_label: "Contact"
+    public_plans_label: "Public DMPs"
     jisc: "The %{organisation_abbreviation} is funded by"
     format: "format"
     change_language: "Change language"
+
+    'yes': 'Yes'
+    'no': 'No'
 
     sign_in: "Sign in"
     sign_out: "Sign out"
@@ -574,6 +580,21 @@ Select what format you wish to use and click to 'Export'.</p>"
       project_identifier_help_text: "A pertinent ID as determined by the funder and/or institution."
       project_static_info: "This plan is based on:"
       projects_title: "My plans"
+
+      visibility: "Visibility"
+      visibilities:
+        labels:
+          privately_visible: "Private"
+          organisationally_visible: "Organisational"
+          publicly_visible: "Public"
+          is_test: "Test/Practice"
+        help_texts:
+          privately_visible: "Private (owners, co-owners, and administrators only) See our Terms of Use."
+          organisationally_visible: "Organisational (visibile to others within your organisation)"
+          publicly_visible: "Public (Your DMP will appear on the Public DMPs page of this site)"
+          is_test: "Test/Practice (your plan is not visible to other users) See our Terms of Use."
+          not_set: "Not specified (will be visible to others within your organisation by default)"
+
       project_settings_text: "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
       project_text_when_no_project: "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
       project_text_when_project: "<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>"
@@ -626,6 +647,11 @@ Select what format you wish to use and click to 'Export'.</p>"
         data_contact: "Plan data contact"
         description: "Description"
         unknown: " - "
+        visibility: "Visibility"
+        name: 'Name'
+        template: 'Template'
+        organisation: 'Organization'
+
       filter:
         placeholder: "Filter plans"
         submit: "Filter"
@@ -657,6 +683,7 @@ Select what format you wish to use and click to 'Export'.</p>"
         project_description: "Plan Description"
         funder: "Funder"
         institution: "Institution"
+        orcid: "Your ORCID"
         not_valid_format: '%{value}% is not a valid format'
 
     settings:
@@ -668,6 +695,7 @@ Select what format you wish to use and click to 'Export'.</p>"
           no_name: "'name' must be included in column list."
           duplicate: "Duplicate column name. Please only include each column once."
           unknown: "Unknown column name."
+          no_plan: "The plan is incomplete."
       plans:
         title: "File Name"
         reset: "Reset"
@@ -739,6 +767,23 @@ Select what format you wish to use and click to 'Export'.</p>"
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
+  identifier_schemes:
+    connect_success: 'Your account has bee connected to %{scheme}'
+    connect_failure: 'We could not connect your account to %{scheme}'
+    disconnect_success: 'Your account has been disconnected from %{scheme}'
+    disconnect_failure: 'We were unable to disconnect your account from %{scheme}'
+    new_login_success: 'It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.'
+    new_login_failure: 'We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.'
+ 
+    schemes:
+      orcid:
+        logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
+        user_landing_page: 'https://orcid.org/%{id}'
+        connect: 'Create or Connect your ORCID ID'
+        connect_tooltip: 'ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org'
+        disconnect_confirmation: 'Are you sure you want to disconnect your ORCID ID?'
+        disconnect_tooltip: 'Disconnect your account from ORCID. You can reconnect at any time.'
+
   magic_strings:
     organisation_types:
       funder: 'Funder'
@@ -749,6 +794,10 @@ Select what format you wish to use and click to 'Export'.</p>"
       template: 'Template'
       managing_organisation: 'Digital Curation Centre'
     user_role_types:
+      admin: 'admin'
+      org_admin: 'org_admin'
+      user: 'user'
+    roles:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
       user: 'user'
@@ -760,7 +809,7 @@ Select what format you wish to use and click to 'Export'.</p>"
       use_api: 'use_api'
       change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
-    api_endpoint_types:
+    token_permission_types:
       guidances: 'guidances'
       plans: 'plans'
       templates: 'templates'
