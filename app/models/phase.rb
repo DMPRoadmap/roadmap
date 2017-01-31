@@ -23,6 +23,7 @@ class Phase < ActiveRecord::Base
 	friendly_id :title, use: [:slugged, :history, :finders]
 
 
+  validates :title, :number, :template, presence: true
 
 
 
@@ -45,20 +46,21 @@ class Phase < ActiveRecord::Base
     "#{title}"
   end
 
+# TODO: This function does not belong here anymore. It may be useless now.
   ##
   # returns either the latest published version of this phase
   # also serves to verify if this phase has any published versions as returns nil
   # if there are no published versions
   #
   # @return [Version, nil]
-  def latest_published_version
-    pub_vers = versions.where('published = ?', true).order('updated_at DESC')
-    if pub_vers.any?() then
-      return pub_vers.first
-    else
-      return nil
-    end
-  end
+#  def latest_published_version
+#    pub_vers = versions.where('published = ?', true).order('updated_at DESC')
+#    if pub_vers.any?() then
+#      return pub_vers.first
+#    else
+#      return nil
+#    end
+#  end
 
 # TODO: reevaluate this method. It seems like the 1st query is unecessary
   ##
