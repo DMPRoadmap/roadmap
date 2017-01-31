@@ -4,85 +4,74 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   include GlobalHelpers
   
   setup do
-    Organisation.create(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
-    
     @user = User.first
-    @organisation = Organisation.first
+    @org = Org.last
     
-<<<<<<< HEAD
-    @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', 
-                                           organisation: @organisation)
-=======
-    @organisations = Org.all
->>>>>>> final_schema
+    @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', org: @org,
+                                           optional_subset: false, published: true)
   end
   
   # ---------------------------------------------------
   test "required fields are required" do
     assert_not GuidanceGroup.new.valid?
-    assert_not GuidanceGroup.new(organisation: @organisation).valid?, "expected the 'name' field to be required"
+    assert_not GuidanceGroup.new(org: @org).valid?, "expected the 'name' field to be required"
     assert_not GuidanceGroup.new(name: 'Tester').valid?, "expected the 'organisation' field to be required"
 
     # Ensure the bar minimum and complete versions are valid
-    a = GuidanceGroup.new(name: 'Tester', organisation: @organisation)
+    a = GuidanceGroup.new(name: 'Tester', org: @org)
     assert a.valid?, "expected the 'name' and 'organisation' fields to be enough to create a GuidanceGroup! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
   
   # ---------------------------------------------------
   test "display_name returns organisation name and the guidance group name" do
-    assert_equal "#{@organisation.name}", @guidance_group.display_name, "Expected display_name to return the organisation name if there is only one GuidanceGroup"
+    assert_equal "#{@org.name}", @guidance_group.display_name, "Expected display_name to return the organisation name if there is only one GuidanceGroup"
     
-    GuidanceGroup.create(name: 'Second Test', organisation: @organisation)
-    assert_equal "#{@organisation.name}: #{@guidance_group.name}", @guidance_group.display_name, "Expected display_name to return the organisation name and guidance group name if there are more than one GuidanceGroup"
-  end
-
-  # ---------------------------------------------------
-  test "to_s returns organisation name and the guidance group name" do
-    assert_equal @guidance_group.display_name, @guidance_group.to_s
+    GuidanceGroup.create(name: 'Second Test', org: @org)
+    assert_equal "#{@org.name}: #{@guidance_group.name}", @guidance_group.display_name, "Expected display_name to return the organisation name and guidance group name if there are more than one GuidanceGroup"
   end
 
   # ---------------------------------------------------
   test "guidance_groups_excluding does not return guidance groups for the current organisation" do
-    assert_not GuidanceGroup.guidance_groups_excluding([@organisation]).include?(@guidance_group)
+    assert_not GuidanceGroup.guidance_groups_excluding([@org]).include?(@guidance_group)
   end
 
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to their organisation" do
-    org = @user.organisation
-    gg = GuidanceGroup.create(name: 'User Test', organisation: org)
+    org = @user.org
+    gg = GuidanceGroup.create(name: 'User Test', org: org)
     
     assert GuidanceGroup.can_view?(@user, gg.id)
   end
 
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to a funder" do
-    org = Organisation.find_by(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder")))
-    gg = GuidanceGroup.create(name: 'Funder Test', organisation: org)
+    org = Org.find_by(org_type: 2)
+    gg = GuidanceGroup.create(name: 'Funder Test', org: org)
     
     assert GuidanceGroup.can_view?(@user, gg.id)
   end
   
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to the managing curation centre" do
-    org = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
-    gg = GuidanceGroup.create(name: 'Managing CC Test', organisation: org)
+    org = Org.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    gg = GuidanceGroup.create(name: 'Managing CC Test', org: org)
     
     assert GuidanceGroup.can_view?(@user, gg.id)
   end
 
   # ---------------------------------------------------
   test "user can view all oftheir organisations, funders, and the managing curation centre's guidance groups" do
-    @organisation.users << @user
-    @organisation.save
-    @organisation.reload
+    @org.users << @user
+    @org.save
+    @org.reload
 
-    funding = Organisation.where(organisation_type: OrganisationType.find_by(name: GlobalHelpers.constant("organisation_types.funder"))).first
-    managing = Organisation.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
+    funding = Org.where(org_type: 2).first
+    managing = Org.find_by(name: GlobalHelpers.constant("organisation_types.managing_organisation"))
 
     ggs = [@guidance_group,
-           GuidanceGroup.create(name: 'User Test', organisation: @organisation),
-           GuidanceGroup.create(name: 'Funder Test', organisation: funding),
-           GuidanceGroup.create(name: 'Managing CC Test', organisation: managing)]
+           GuidanceGroup.create(name: 'User Test', org: @org),
+           GuidanceGroup.create(name: 'Funder Test', org: funding),
+           GuidanceGroup.create(name: 'Managing CC Test', org: managing)]
     
     v = GuidanceGroup.all_viewable(@user)
     
@@ -93,7 +82,7 @@ class GuidanceGroupTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can CRUD GuidanceGroup" do
-    gg = GuidanceGroup.create(name: 'Tester', organisation: @organisation)
+    gg = GuidanceGroup.create(name: 'Tester', org: @org)
     assert_not gg.id.nil?, "was expecting to be able to create a new GuidanceGroup!"
 
     gg.name = 'Testing an update'
@@ -105,26 +94,14 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with Project" do
-    proj = Project.new(title: 'Test Project', dmptemplate: Dmptemplate.first)
-    verify_has_many_relationship(@guidance_group, proj, @guidance_group.projects.count)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Template" do
-    t = Dmptemplate.new(title: 'Test Theme', organisation: @organisation)
-    verify_has_many_relationship(@guidance_group, t, @guidance_group.dmptemplates.count)
-  end
-  
-  # ---------------------------------------------------
   test "can manage has_many relationship with Guidance" do
     g = Guidance.new(text: 'Test Guidance')
     verify_has_many_relationship(@guidance_group, g, @guidance_group.guidances.count)
   end
   
   # ---------------------------------------------------
-  test "can manage belongs_to relationship with Organisation" do
-    verify_belongs_to_relationship(@guidance_group, @organisation)
+  test "can manage belongs_to relationship with Org" do
+    verify_belongs_to_relationship(@guidance_group, @org)
   end  
 
 end
