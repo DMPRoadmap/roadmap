@@ -8,6 +8,7 @@ class Plan < ActiveRecord::Base
   has_many :answers
   has_many :notes, through: :answers
   has_many :users, through: :roles
+  has_many :exported_plans
 
   ##
   # Possibly needed for active_admin
@@ -15,7 +16,7 @@ class Plan < ActiveRecord::Base
 	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, 
                   :exported_plans, :project, :title, :template, :grant_number,
                   :identifier, :principal_investigator, :principal_investigator_identifier,
-                  :description, :data_contact, :funder_name, :visibility,
+                  :description, :data_contact, :funder_name, :visibility, :exported_plans,
                   :as => [:default, :admin]
 
   # public is a Ruby keyword so using publicly

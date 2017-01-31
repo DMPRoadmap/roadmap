@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :org
   has_many :answers
   has_many :notes
+  has_many :exported_plans
   has_many :roles, dependent: :destroy
   has_many :projects, through: :roles do
     def filter(query)
