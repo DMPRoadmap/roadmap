@@ -59,7 +59,7 @@ in the admin interface.
                 <% end %>
                                 <% i = 0 %>
                 <% question.question_options.to_a.sort_by{|op| op["number"]}.each do |options_q|%>
-                  <%= f.fields_for :options, options_q do |op|%>
+                  <%= f.fields_for :question_options, options_q do |op|%>
                                         <% i = i + 1%>
                                         <% options_q.number = i %>
                     <%= render "option_fields", f: op %>

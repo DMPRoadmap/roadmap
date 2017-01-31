@@ -51,7 +51,7 @@
       <td><%= q_format.title %>
         </br>
         <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
-          <% if question.question_option_comment_display == true %>
+          <% if question.option_comment_display == true %>
             <%= t("org_admin.questions.option_comment_display")%>
           <% else %>
             <%= t("org_admin.questions.option_comment_hide")%>
@@ -120,7 +120,7 @@
 
   <br/>
   <!-- edit question button-->
-  <% if (@edit == 'true' && question.modifiable) %>
+  <% if (@edit && question.modifiable) %>
     <div class="move_2_right">
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <%= link_to t("org_admin.questions.question_edit_button"), '# ', class: "btn btn-primary edit_question_button"%>
@@ -129,7 +129,7 @@
         confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
       <% end %>
     </div>
-  <% elsif  @edit == 'false' && question.modifiable %>
+  <% elsif !@edit && question.modifiable %>
     <% suggested_answer = question.get_suggested_answer(current_user.org_id) %>
     <% if suggested_answer.nil? %>
       <div id="add_suggested_answer_button_<%= question.id%>">
