@@ -9,4 +9,6 @@ class QuestionOption < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :text, :question_id, :is_default, :number, :question, 
                   :as => [:default, :admin]
+                  
+  validates :text, :question, :number, presence: true
 end
