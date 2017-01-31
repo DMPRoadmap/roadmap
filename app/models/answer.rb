@@ -11,7 +11,8 @@ class Answer < ActiveRecord::Base
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :text, :plan_id, :question_id, :user_id, :question_option_ids, 
-                  :question, :user, :plan, :question_options, :as => [:default, :admin]
+                  :question, :user, :plan, :question_options, 
+                  :as => [:default, :admin]
 
   ##
   # Validations
@@ -19,7 +20,7 @@ class Answer < ActiveRecord::Base
   
   # Make sure there is only one answer per question!
   validates :question, uniqueness: {scope: [:plan], 
-                                    message: I18n.t('helpers.errors.answer.only_one_per_question')}
+                                    message: I18n.t('helpers.answer.only_one_per_question')}
                                     
   # The answer MUST have a text value if the question is NOT option based or a question_option if
   # it is option based. 
@@ -29,4 +30,7 @@ class Answer < ActiveRecord::Base
   validates :question_options, presence: true, if: Proc.new{|a| 
     (a.question.nil? ? false : a.question.question_format.option_based?)
   }
+  
+  # Make sure the plan and question are associated with the same template!
+  validates :plan, :question, answer_for_correct_template: true
 end

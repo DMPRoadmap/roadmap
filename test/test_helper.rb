@@ -32,6 +32,50 @@ class ActiveSupport::TestCase
     name.gsub(/([a-z]+)([A-Z])/, '\1_\2').gsub('-', '_').downcase
   end
   
+  # Scaffold a new Template with one Phase, one Section, and a Question for 
+  # each of the possible Question Formats. 
+  # ----------------------------------------------------------------------
+  def template_scaffold
+    template = Template.create(title: 'Test template', description: 'My test template',
+                               published: true, org: Org.first, locale: nil, is_default: false,
+                               version: 1, visibility: 0)
+    
+    phase = Phase.create(title: 'Test phase', description: 'My test phase', number: 1,
+                         template: template, modifiable: false)
+    
+    section = Section.create(title: 'Test section', description: 'My test section',
+                             number: 99, published: true, phase: phase, modifiable: false)
+    
+    i = 1
+    # Add each type of Question to the new section
+    QuestionFormat.all.each do |frmt|
+      q = Question.create(text: "Test question - #{frmt.title}", number: i, 
+                          question_format: frmt, section: section)
+      
+      if frmt.option_based?
+        3.times do |j|
+          QuestionOption.create(text: "Option #{j}", number: j, question: q)
+        end
+      end
+      
+      i += 1
+    end
+    
+    @template = template.reload
+  end
+  
+  # Scaffold a new Plan based on the scaffolded Template 
+  # ----------------------------------------------------------------------
+  def plan_scaffold
+    template_scaffold if @template.nil?
+    
+    @plan = Plan.create(template: @template, title: 'Test Plan', grant_number: 'Grant-123', 
+                        principal_investigator: 'me', principal_investigator_identifier: 'me-1234',
+                        description: "this is my plan's informative description",
+                        identifier: '1234567890', data_contact: 'me@example.com', visibility: 0)
+  end
+  
+  
 # FUNCTIONAL/INTEGRATION TEST HELPERS
   # ----------------------------------------------------------------------
   def assert_unauthorized_redirect_to_root_path

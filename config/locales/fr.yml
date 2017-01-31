@@ -392,6 +392,10 @@ fr:
     add_comment_accordion_label: "Partager la note"
     comment_accordion_label: "Notes"
 
+    answer: 
+      only_one_per_question: "Une question ne peut avoir qu'une seule réponse."
+      question_must_belong_to_correct_template: "La question doit appartenir au modèle correct."
+
     comments:
       add_comment_label: "Ajouter une note"
       add_comment_text: "Partager la note avec des collaborateurs"
