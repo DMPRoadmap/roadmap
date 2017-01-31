@@ -113,7 +113,7 @@ class ActiveSupport::TestCase
     # Add another association for the object
     object.send(rel) << new_association
     object.save!
-    assert_equal (initial_expected_count + 1), object.send(rel).count, "was expecting #{object.class.name} to have #{initial_expected_count + 1} #{rel} after adding a new one"
+    assert_equal (initial_expected_count + 1), object.send(rel).count, "was expecting #{object.class.name} to have #{initial_expected_count + 1} #{rel} after adding a new one - #{new_association.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
     
     # Remove the newly added association
     object.send(rel).delete(new_association)
