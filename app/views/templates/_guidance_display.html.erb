@@ -2,7 +2,7 @@
 
 <div class="question-guidance">
   <div class="accordion" id="<%= question.id %>-guidance">
-    <% if !question.guidance.nil? && question.guidance != "" then %>
+    <% if !question.guidance.nil? && question.guidance != "" %>
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">

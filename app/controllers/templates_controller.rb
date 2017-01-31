@@ -54,6 +54,12 @@ class TemplatesController < ApplicationController
     @template = Template.new(params[:template])
     @template.org_id = current_user.org_id
     @template.description = params['template-desc']
+    @template.published = false
+    @template.version = 0
+    @template.dmptemplate_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
     authorize @template
     if @template.save
       redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.created_message')
@@ -82,7 +88,7 @@ class TemplatesController < ApplicationController
     @edit = params[:edit] == "true" ? true : false
         #verify if there are any sections if not create one
     @sections = @phase.sections
-    if !@sections.any?() || @sections.count == 0 then
+    if !@sections.any?() || @sections.count == 0
       @section = @phase.sections.build
       @section.phase = @phase
       @section.title = ''
@@ -93,11 +99,11 @@ class TemplatesController < ApplicationController
       @new_sec = true
     end
     #verify if section_id has been passed, if so then open that section
-    if params.has_key?(:section_id) then
+    if params.has_key?(:section_id)
       @open = true
       @section_id = params[:section_id].to_i
     end
-    if params.has_key?(:question_id) then
+    if params.has_key?(:question_id)
       @question_id = params[:question_id].to_i
     end
   end
@@ -105,8 +111,9 @@ class TemplatesController < ApplicationController
 
   #preview a phase
   def admin_previewphase
-    @template = Template.find(params[:id])
-    authorize @template
+    @phase = Phase.find(params[:id])
+    authorize @phase.template
+    @template = @phase.template
   end
 
 
