@@ -28,7 +28,6 @@ class Question < ActiveRecord::Base
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
 
-
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -101,11 +100,12 @@ class Question < ActiveRecord::Base
     # pulls together guidance from various sources for question
     guidances = {}
     theme_ids = question.theme_ids
-
-    GuidanceGroup.where(org_id: org.id).each do |group|
-      group.guidances.each do |g|
-        g.themes.where("id IN (?)", theme_ids).each do |gg|
-          guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{gg.title}"] = g
+    if theme_ids.present?
+      GuidanceGroup.where(org_id: org.id).each do |group|
+        group.guidances.each do |g|
+          g.themes.where("id IN (?)", theme_ids).each do |gg|
+            guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{gg.title}"] = g
+          end
         end
       end
     end
