@@ -107,7 +107,7 @@ class TemplatesController < ApplicationController
   def admin_previewphase
     @phase = Phase.find(params[:id])
     authorize @phase.template
-    @template = Phase.template
+    @template = @phase.template
   end
 
 

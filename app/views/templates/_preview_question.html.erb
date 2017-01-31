@@ -8,7 +8,7 @@
     <div class="question-form">
       <!-- verify if the question has multiple choice -->
       <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
-        <% options = question.options.order("number") %>
+        <% options = question.question_options.order("number") %>
 
         <!--checkbox display-->
         <% if q_format.title == t("helpers.checkbox") %>
