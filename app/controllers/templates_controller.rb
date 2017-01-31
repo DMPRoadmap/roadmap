@@ -54,6 +54,12 @@ class TemplatesController < ApplicationController
     @template = Template.new(params[:template])
     @template.org_id = current_user.org_id
     @template.description = params['template-desc']
+    @template.published = false
+    @template.version = 0
+    @template.dmptemplate_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
     authorize @template
     if @template.save
       redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.created_message')
