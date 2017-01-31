@@ -7,11 +7,13 @@ class Answer < ActiveRecord::Base
 	belongs_to :plan
   has_and_belongs_to_many :question_options, join_table: "answers_question_options"
 
+  has_many :notes
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :text, :plan_id, :question_id, :user_id, :question_option_ids, 
-                  :question, :user, :plan, :question_options, 
+                  :question, :user, :plan, :question_options, :notes, :note_ids,
                   :as => [:default, :admin]
 
   ##

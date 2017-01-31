@@ -7,7 +7,10 @@ class AnswerTest < ActiveSupport::TestCase
 
     @plan = plan_scaffold
     
-    q = @plan.template.questions.select{|q| !q.question_format.option_based }.first
+    q = @plan.template.questions.select{|q| !q.question_format.option_based }.last
+    q = Question.create(text: 'Answer Testing', number: 9, 
+                        section: @plan.template.phases.first.sections.first,
+                        question_format: QuestionFormat.find_by(option_based: false))
     @answer = Answer.create(user: @user, plan: @plan, question: q, text: 'Testing')
   end
 
@@ -105,6 +108,12 @@ class AnswerTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Question" do
     q = @plan.template.phases.first.sections.first.questions.last
-    verify_belongs_to_relationship(@question, q)
+    verify_belongs_to_relationship(@answer, q)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Notes" do
+    note = Note.new(text: 'Test Note', user: @user)
+    verify_has_many_relationship(@answer, note, @answer.notes.count)
   end
 end
