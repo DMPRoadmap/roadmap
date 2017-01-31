@@ -36,30 +36,36 @@ class ActiveSupport::TestCase
   # each of the possible Question Formats. 
   # ----------------------------------------------------------------------
   def scaffold_template
-    template = Template.create(title: 'Test template', description: 'My test template',
-                               published: true, org: Org.first, locale: nil, is_default: false,
-                               version: 1, visibility: 0)
+    template = Template.new(title: 'Test template', description: 'My test template',
+                            published: true, org: Org.first, locale: nil, is_default: false,
+                            version: 1, visibility: 0)
     
-    phase = Phase.create(title: 'Test phase', description: 'My test phase', number: 1,
-                         template: template, modifiable: false)
+    template.phases << Phase.new(title: 'Test phase', description: 'My test phase', 
+                                 number: 1, modifiable: false)
     
-    section = Section.create(title: 'Test section', description: 'My test section',
-                             number: 99, published: true, phase: phase, modifiable: false)
+    section = Section.new(title: 'Test section', description: 'My test section',
+                          number: 99, published: true, modifiable: false)
     
     i = 1
     # Add each type of Question to the new section
     QuestionFormat.all.each do |frmt|
-      q = Question.create(text: "Test question - #{frmt.title}", number: i, 
-                          question_format: frmt, section: section)
+      question = Question.new(text: "Test question - #{frmt.title}", number: i, 
+                              question_format: frmt)
       
       if frmt.option_based?
         3.times do |j|
-          QuestionOption.create(text: "Option #{j}", number: j, question: q)
+          question.question_options << QuestionOption.new(text: "Option #{j}", number: j)
         end
       end
       
+      section.questions << question
       i += 1
     end
+    
+    template.phases.first.sections << section
+    
+    assert template.valid?, "unable to create new Template: #{template.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    template.save!
     
     @template = template.reload
   end
@@ -69,10 +75,14 @@ class ActiveSupport::TestCase
   def scaffold_plan
     scaffold_template if @template.nil?
     
-    @plan = Plan.create(template: @template, title: 'Test Plan', grant_number: 'Grant-123', 
+    @plan = Plan.new(template: @template, title: 'Test Plan', grant_number: 'Grant-123', 
                         principal_investigator: 'me', principal_investigator_identifier: 'me-1234',
                         description: "this is my plan's informative description",
-                        identifier: '1234567890', data_contact: 'me@example.com', visibility: 0)
+                        identifier: '1234567890', data_contact: 'me@example.com', visibility: 0,
+                        users: [User.last])
+                        
+    assert @plan.valid?, "unable to create new Plan: #{@plan.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    @plan.save!
   end
   
   

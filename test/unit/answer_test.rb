@@ -57,6 +57,15 @@ class AnswerTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "answer's template must match the plan's template" do
+    plan = Plan.new(title: 'Wrong plan test', template: Template.where.not(id: @plan.template.id).first)
+    q = @plan.template.questions.select{|q| !q.question_format.option_based }.first
+
+    assert_not Answer.new(user: @user, plan: plan, question: @plan.questions.first, 
+                          text: 'Testing').valid?, "expected to only be able to add an answer if it belongs to the template associated with the plan"
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD answers for text based questions" do
     QuestionFormat.where(option_based: false).each do |qf|
       q = @plan.template.questions.select{|q| q.question_format == qf }.first
@@ -102,7 +111,7 @@ class AnswerTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Plan" do
-    verify_belongs_to_relationship(@answer, Plan.last)
+    verify_belongs_to_relationship(@answer, @plan)
   end
   
   # ---------------------------------------------------
