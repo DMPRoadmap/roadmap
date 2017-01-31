@@ -25,7 +25,7 @@ class ActiveSupport::TestCase
   require_relative '../db/seeds.rb'
 
   # Add more helper methods to be used by all tests here...
-  
+ 
   # Convert Ruby Class Names into attribute names (e.g. MyClass --> my_class)
   # ----------------------------------------------------------------------
   def class_name_to_attribute_name(name)
@@ -35,7 +35,7 @@ class ActiveSupport::TestCase
   # Scaffold a new Template with one Phase, one Section, and a Question for 
   # each of the possible Question Formats. 
   # ----------------------------------------------------------------------
-  def template_scaffold
+  def scaffold_template
     template = Template.create(title: 'Test template', description: 'My test template',
                                published: true, org: Org.first, locale: nil, is_default: false,
                                version: 1, visibility: 0)
@@ -66,8 +66,8 @@ class ActiveSupport::TestCase
   
   # Scaffold a new Plan based on the scaffolded Template 
   # ----------------------------------------------------------------------
-  def plan_scaffold
-    template_scaffold if @template.nil?
+  def scaffold_plan
+    scaffold_template if @template.nil?
     
     @plan = Plan.create(template: @template, title: 'Test Plan', grant_number: 'Grant-123', 
                         principal_investigator: 'me', principal_investigator_identifier: 'me-1234',

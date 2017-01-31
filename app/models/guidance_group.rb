@@ -10,7 +10,7 @@ class GuidanceGroup < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :org_id, :name, :optional_subset, :published, :org, 
+  attr_accessible :org_id, :name, :optional_subset, :published, :org, :guidances,
                   :as => [:default, :admin]
 
   validates :name, :org, presence: true

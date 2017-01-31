@@ -5,7 +5,7 @@ class ExportedPlanTest < ActiveSupport::TestCase
   setup do
     @user = User.last
     
-    @plan = plan_scaffold
+    scaffold_plan
     
     @exported = ExportedPlan.create(user: @user, plan: @plan, 
                                     format: ExportedPlan::VALID_FORMATS.first)

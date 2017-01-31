@@ -5,7 +5,7 @@ class AnswerTest < ActiveSupport::TestCase
   setup do
     @user = User.last
 
-    @plan = plan_scaffold
+    scaffold_plan
     
     q = @plan.template.questions.select{|q| !q.question_format.option_based }.last
     q = Question.create(text: 'Answer Testing', number: 9, 

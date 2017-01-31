@@ -5,7 +5,7 @@ class NoteTest < ActiveSupport::TestCase
   setup do
     @user = User.last
     
-    @plan = plan_scaffold
+    scaffold_plan
     
     q = @plan.template.questions.select{|q| !q.question_format.option_based }.first
     @answer = Answer.create(user: @user, plan: @plan, question: q, text: 'Testing')
