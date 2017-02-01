@@ -10,7 +10,7 @@ class TemplatesController < ApplicationController
   def admin_index
     authorize Template
     #institutional templates
-    all_versions_own_templates = Template.where(org_id: current_user.org_id, customization_of: nil).order(:version)
+    all_versions_own_templates = Template.where(org_id: current_user.org_id, customization_of: nil).order(version: :desc)
     current_templates = {}
     all_versions_own_templates.each do |temp|
       if current_templates[temp.dmptemplate_id].nil?
@@ -50,12 +50,14 @@ class TemplatesController < ApplicationController
 
 
   # POST /dmptemplates
+  # creates a new template with version 0 and new dmptemplate_id
   def admin_create
     @template = Template.new(params[:template])
     @template.org_id = current_user.org_id
     @template.description = params['template-desc']
     @template.published = false
     @template.version = 0
+    # Generate a unique identifier for the dmptemplate_id
     @template.dmptemplate_id = loop do
       random = rand 2147483647
       break random unless Template.exists?(dmptemplate_id: random)
@@ -75,6 +77,13 @@ class TemplatesController < ApplicationController
     authorize @template
     @template.destroy
     redirect_to admin_index_template_path
+  end
+
+  # GET /templates/1
+  def admin_template_history
+    @template = Template.find(params[:id])
+    authorize @template
+    @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
   end
 
 

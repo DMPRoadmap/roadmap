@@ -31,6 +31,10 @@ class TemplatePolicy < ApplicationPolicy
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end
 
+  def admin_template_history?
+    user.can_modify_templates? && (template.org_id == user.org_id)
+  end
+
   def admin_phase?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end

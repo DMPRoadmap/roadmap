@@ -101,6 +101,7 @@ Rails.application.routes.draw do
         get 'admin_phase'
         get 'admin_previewphase'
         get 'admin_cloneversion'
+        get 'admin_template_history'
         delete 'admin_destroy'
         delete 'admin_destroyversion'
         delete 'admin_destroyphase'
