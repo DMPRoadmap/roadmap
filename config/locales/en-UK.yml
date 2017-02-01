@@ -245,7 +245,7 @@ en-UK:
       create_own_template_text_html: "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p>
               <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
       create_new_template_text_html: "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
-      template_history_text_html: "<p>Here you can view previously published versions of your template.  These are read only and cannot be modified.</p>"
+      template_history_text_html: "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
       desc_help_text_html: "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
       own_temp: "Own templates"
       add_phase_label: "Add new phase +"

@@ -24,8 +24,8 @@
   <table id="dmp_table" class="dmp_table tablesorter">
     <thead>
       <tr>
-        <th class="dmp_th_small"><%= t('org_admin.templates.title_label') %></th>
-        <th class="dmp_th_medium"><%= "Version" %></th>
+        <th class="dmp_th_medium"><%= t('org_admin.templates.title_label') %></th>
+        <th class="dmp_th_small"><%= "Version" %></th>
         <th class="dmp_th_small"><%= t('org_admin.templates.published_label') %></th>
         <th class="dmp_th_small"><%= t('org_admin.templates.last_updated') %></th>
         <td class="dmp_th_small"><%= t('org_admin.templates.actions') %></td>
@@ -34,10 +34,10 @@
     <tbody>
       <% @templates.each do |org_template| %>
         <tr>
-          <td class="dmp_td_small">
+          <td class="dmp_td_medium">
             <%= org_template.title%>
           </td>
-            <td class="dmp_td_medium">
+            <td class="dmp_td_small">
               <%= org_template.version %>
             </td>
             <td class="dmp_td_small">
