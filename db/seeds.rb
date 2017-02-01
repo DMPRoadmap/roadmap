@@ -73,6 +73,7 @@ regions = [
   {abbreviation: 'horizon', 
    description: 'European super region',
    name: 'Horizon2020',
+   
    sub_regions: [
      {abbreviation: 'uk',
       description: 'United Kingdom',
@@ -99,12 +100,12 @@ regions.each do |r|
   
   if Region.find_by(abbreviation: r[:abbreviation]).nil?
     region = Region.create!(r) 
-  
+
     unless srs.nil?
       srs.each do |sr|
         if Region.find_by(abbreviation: sr[:abbreviation]).nil?
-          subregion = Region.create!(sr)
-          RegionGroup.create!({region_id: subregion.id, super_region_id: region.id})
+          sr[:super_region] = region
+          Region.create!((sr))
         end
       end
     end
