@@ -46,6 +46,9 @@ class Org < ActiveRecord::Base
             6 => :school,
             column: 'org_type'
 
+  # Predefined queries for retrieving the managain organisation and funders
+  scope :managing_orgs, -> { where(name: GlobalHelpers.constant("organisation_types.managing_organisation")) }
+  scope :funders, -> { where(org_type: 2) }
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

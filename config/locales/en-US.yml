@@ -491,6 +491,10 @@ en-US:
     add_comment_accordion_label: "Share note"
     comment_accordion_label: "Notes"
 
+    answer: 
+      only_one_per_question: "A question can only have one answer."
+      question_must_belong_to_correct_template: "The question must belong to the correct template."
+
     comments:
       add_comment_label: "Add note"
       add_comment_text: "Share note with collaborators"

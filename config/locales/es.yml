@@ -388,6 +388,10 @@ es:
     add_comment_accordion_label: "Compartir nota"
     comment_accordion_label: "Notas"
 
+    answer: 
+      only_one_per_question: "Una pregunta sólo puede tener una respuesta."
+      question_must_belong_to_correct_template: "La pregunta debe pertenecer a la plantilla correcta."
+
     comments:
       add_comment_label: "Añadir nota"
       add_comment_text: "Compartir nota con colaboradores"

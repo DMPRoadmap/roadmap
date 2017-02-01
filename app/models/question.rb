@@ -27,6 +27,8 @@ class Question < ActiveRecord::Base
                   :question_options, :suggested_answers, :answers, :themes, 
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
+  validates :text, :section, :number, presence: true
+
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

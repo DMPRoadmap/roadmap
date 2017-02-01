@@ -16,17 +16,17 @@ class ExportedPlan < ActiveRecord::Base
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a
   # given time can be lost)
-  has_settings :export, class_name: 'Settings::Dmptemplate' do |s|
-    s.key :export, defaults: Settings::Dmptemplate::DEFAULT_SETTINGS
+  has_settings :export, class_name: 'Settings::Template' do |s|
+    s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
 # TODO: Consider removing the accessor methods, they add no value. The view/controller could
 #       just access the value directly from the project/plan: exported_plan.plan.project.title
 
-  # Getters to match Settings::Dmptemplate::VALID_ADMIN_FIELDS
+  # Getters to match Settings::Template::VALID_ADMIN_FIELDS
   def project_name
     name = self.plan.project.title
-    name += " - #{self.plan.title}" if self.plan.project.dmptemplate.phases.count > 1
+    name += " - #{self.plan.title}" if self.plan.project.template.phases.count > 1
     name
   end
 
@@ -51,7 +51,7 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def funder
-    org = self.plan.project.dmptemplate.try(:organisation)
+    org = self.plan.project.template.try(:organisation)
     org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder")
   end
 

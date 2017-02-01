@@ -408,6 +408,10 @@ de:
     add_comment_accordion_label: "Füge Kommentar hinzu"
     comment_accordion_label: "Kommentare"
 
+    answer: 
+      only_one_per_question: "Eine Frage kann nur eine Antwort haben."
+      question_must_belong_to_correct_template: "Die Frage muss zur richtigen vorlage gehören."
+
     comments:
       add_comment_label: "Füge Kommentar hinzu"
       add_comment_text: "Bitte füge einen Kommentar hinzu"

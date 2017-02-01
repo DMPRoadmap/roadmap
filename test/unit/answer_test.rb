@@ -5,29 +5,13 @@ class AnswerTest < ActiveSupport::TestCase
   setup do
     @user = User.last
 
-    @template = Template.first
+    scaffold_plan
     
-    @section = Section.create(title: 'Test section', number: 99, phase: @template.phases.last)
-    
-    i = 1
-    # Add each type of Question to the new section
-    QuestionFormat.all.each do |frmt|
-      q = Question.create(text: "Test question - #{frmt.title}", number: i, 
-                          question_format: frmt, section: @section)
-      
-      if frmt.option_based?
-        3.times do |j|
-          QuestionOption.create(text: "Option #{j}", number: j, question: q)
-        end
-      end
-      
-      i += 1
-    end
-    
-    @plan = Plan.create(template: @template, title: 'Test Plan', grant_number: 'Grant-123', 
-                        principal_investigator: 'me', principal_investigator_identifier: 'me-1234',
-                        description: "this is my plan's informative description",
-                        identifier: '1234567890', data_contact: 'me@example.com', visibility: 0)
+    q = @plan.template.questions.select{|q| !q.question_format.option_based }.last
+    q = Question.create(text: 'Answer Testing', number: 9, 
+                        section: @plan.template.phases.first.sections.first,
+                        question_format: QuestionFormat.find_by(option_based: false))
+    @answer = Answer.create(user: @user, plan: @plan, question: q, text: 'Testing')
   end
 
   # ---------------------------------------------------
@@ -73,6 +57,15 @@ class AnswerTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "answer's template must match the plan's template" do
+    plan = Plan.new(title: 'Wrong plan test', template: Template.where.not(id: @plan.template.id).first)
+    q = @plan.template.questions.select{|q| !q.question_format.option_based }.first
+
+    assert_not Answer.new(user: @user, plan: plan, question: @plan.questions.first, 
+                          text: 'Testing').valid?, "expected to only be able to add an answer if it belongs to the template associated with the plan"
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD answers for text based questions" do
     QuestionFormat.where(option_based: false).each do |qf|
       q = @plan.template.questions.select{|q| q.question_format == qf }.first
@@ -109,5 +102,27 @@ class AnswerTest < ActiveSupport::TestCase
     
       assert answr.destroy!, "Was unable to delete the Answer for a #{qf.title} question!"
     end
+  end
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with User" do
+    verify_belongs_to_relationship(@answer, User.last)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Plan" do
+    verify_belongs_to_relationship(@answer, @plan)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Question" do
+    q = @plan.template.phases.first.sections.first.questions.last
+    verify_belongs_to_relationship(@answer, q)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Notes" do
+    note = Note.new(text: 'Test Note', user: @user)
+    verify_has_many_relationship(@answer, note, @answer.notes.count)
   end
 end
