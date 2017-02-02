@@ -5,15 +5,21 @@ class Plan < ActiveRecord::Base
   has_many :phases, through: :template
   has_many :sections, through: :phases
   has_many :questions, through: :sections
-  has_many :answers
+  has_many :answers, dependent: :destroy
   has_many :notes, through: :answers
+  has_many :roles, dependent: :destroy
   has_many :users, through: :roles
+  has_many :plan_guidance_groups, dependent: :destroy
+  has_many :guidance_groups, through: :plan_guidance_groups
+
+  accepts_nested_attributes_for :template
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, :as => [:default, :admin]
-
+	attr_accessible :title, :identifier, :grant_number,
+                  :principal_investigator, :principal_investigator_identifier,
+                  :data_contact, :description
   ##
   # Constants
 	A4_PAGE_HEIGHT = 297 #(in mm)
@@ -31,16 +37,21 @@ class Plan < ActiveRecord::Base
 
 
 
+  def new
+        if user_signed_in? then
+            @plan = Plan.new
+            authorize @plan
+            @funders = Org.funder.all 
 
-
-
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-  # Special note, these are both the methods in the old plan, and in the old project
-
-
+            respond_to do |format|
+              format.html # new.html.erb
+            end
+        else
+            respond_to do |format|
+                format.html { redirect_to edit_user_registration_path }
+            end
+        end
+    end
 
 
 
@@ -66,25 +77,29 @@ class Plan < ActiveRecord::Base
   #
   # @return [Dmptemplate] the template associated with this plan
 	def dmptemplate
-		self.project.try(:dmptemplate) || Dmptemplate.new
+		#self.project.try(:dmptemplate) || Dmptemplate.new
+		self.template
 	end
 
-  ##
-  # returns the title for this project as defined by the settings
-  #
-  # @return [String] the title for this project
-	def title
-		logger.debug "Title in settings: #{self.settings(:export).title}"
-		if self.settings(:export).title == ""
-      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
-        return self.version.phase.title
-      else
-        return I18n.t('tool_title2')
-			end
-		else
-			return self.settings(:export).title
-		end
-	end
+# DON'T THINK WE NEED THIS ANYMORE - DELETE IF YOU ARE READING THIS
+# AND IT'S WORKING
+#
+#  ##
+#  # returns the title for this project as defined by the settings
+#  #
+#  # @return [String] the title for this project
+#	def title
+#		logger.debug "Title in settings: #{self.settings(:export).title}"
+#		if self.settings(:export).title == ""
+#      if !self.version.nil? && !self.version.phase.nil? && !self.version.phase.title? then
+#        return self.version.phase.title
+#      else
+#        return I18n.t('tool_title2')
+#			end
+#		else
+#			return self.settings(:export).title
+#		end
+#	end
 
   ##
   # returns the most recent answer to the given question id
@@ -102,12 +117,12 @@ class Plan < ActiveRecord::Base
 			answer.question_id = qid
 			answer.text = question.default_value
 			default_options = Array.new
-			question.options.each do |option|
+			question.question_options.each do |option|
 				if option.is_default
 					default_options << option
 				end
 			end
-			answer.options = default_options
+			answer.question_options = default_options
 		end
 		return answer
 	end
@@ -116,55 +131,85 @@ class Plan < ActiveRecord::Base
   # returns all of the sections for this version of the plan, and for the project's organisation
   #
   # @return [Array<Section>,nil] either a list of sections, or nil if none were found
-	def sections
-		unless project.organisation.nil? then
-			sections = version.global_sections + project.organisation.all_sections(version_id)
-		else
-			sections = version.global_sections
-		end
-		return sections.uniq.sort_by &:number
-	end
+#	def sections
+#		unless plan.organisation.nil? then
+#			sections = version.global_sections + project.organisation.all_sections(version_id)
+#		else
+#			sections = version.global_sections
+#		end
+#		return sections.uniq.sort_by &:number
+#	end
+
+
+  def set_possible_guidance_groups
+    # find all the themes in this plan
+    # and get the guidance groups they belong to
+    logger.debug "RAY: set_possible_guidance_groups"
+    ggroups = []
+    self.template.phases.each do |phase|
+      phase.sections.each do |section|
+        section.questions.each do |question|
+          question.themes.each do |theme|
+            theme.guidances.each do |guidance|
+              ggroups << guidance.guidance_group
+            end
+          end
+        end
+      end
+    end
+
+    self.guidance_groups = ggroups.uniq
+  end
+
+
+
 
   ##
   # returns the guidances associated with the project's organisation, for a specified question
   #
   # @param question [Question] the question to find guidance for
-  # @return [Array<Guidance>] the list of guidances which pretain to the specified question
-	def guidance_for_question(question)
-		guidances = {}
-		# If project org isn't nil, get guidance by theme from any "non-subset" groups belonging to project org
-		unless project.organisation.nil? then
-			project.organisation.guidance_groups.each do |group|
-				if !group.optional_subset && (group.dmptemplates.pluck(:id).include?(project.dmptemplate_id) || group.dmptemplates.count == 0) then
-					group.guidances.each do |guidance|
-						guidance.themes.where("id IN (?)", question.theme_ids).each do |theme|
-							guidances = self.add_guidance_to_array(guidances, group, theme, guidance)
-						end
-					end
-				end
-			end
-		end
-		# Get guidance by theme from any guidance groups selected on creation
-		project.guidance_groups.each do |group|
-			if group.dmptemplates.pluck(:id).include?(project.dmptemplate_id) || group.dmptemplates.count == 0 then
-				group.guidances.each do |guidance|
-					guidance.themes.where("id IN (?)", question.theme_ids).each do |theme|
-						guidances = self.add_guidance_to_array(guidances, group, theme, guidance)
-					end
-				end
-			end
-    end
-		# Get guidance by question where guidance group was selected on creation or if group is organisation default
-		question.guidances.each do |guidance|
-			guidance.guidance_groups.each do |group|
-				if (group.organisation == project.organisation && !group.optional_subset) || project.guidance_groups.include?(group) then
-					guidances = self.add_guidance_to_array(guidances, group, nil, guidance)
-				end
+  # @return array of hashes with orgname, themes and the guidance itself
+  def guidance_for_question(question)
+    guidances = []
+    logger.debug "RAY: guidance_for_question"
+
+    # add in the guidance for the template org
+    unless self.template.org.nil? then
+      self.template.org.guidance_groups.each do |group|
+        group.guidances.each do |guidance|
+          common_themes = guidance.themes.all & question.themes.all
+          if common_themes.length > 0
+            guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+          end
+        end
       end
-		end
-    
-		return guidances
-	end
+    end
+
+    # add in the guidance for the user's org
+    unless self.owner.org.nil? then
+      self.owner.org.guidance_groups.each do |group|
+        group.guidances.each do |guidance|
+          common_themes = guidance.themes.all & question.themes.all
+          if common_themes.length > 0
+            guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+          end
+        end
+      end
+    end
+
+    # Get guidance by theme from any guidance groups currently selected
+    self.plan_guidance_groups.where(selected: true).each do |pgg|
+      group = pgg.guidance_group
+      group.guidances.each do |guidance|
+        common_themes = guidance.themes.all & question.themes.all
+        if common_themes.length > 0
+          guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+        end
+      end
+    end
+
+    return guidances
+  end
 
   ##
   # adds the given guidance to a hash indexed by a passed guidance group and theme
@@ -198,36 +243,32 @@ class Plan < ActiveRecord::Base
 
   ##
   # determines if the plan is editable by the specified user
-  # NOTE: This should be renamed to editable_by?
   #
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if user can edit the plan
-	def editable_by(user_id)
-		return project.editable_by(user_id)
+	def editable_by?(user_id)
+    role = roles.where(user_id: user_id).first
+    return role.present? && role.editor?
 	end
 
   ##
   # determines if the plan is readable by the specified user
-  # NOTE: This shoudl be renamed to readable_by?
   #
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if the user can read the plan
-	def readable_by(user_id)
-		if project.nil?
-			return false
-		else
-			return project.readable_by(user_id)
-		end
+	def readable_by?(user_id)
+    role = roles.where(user_id: user_id).first
+    return role.present? && role.editor?
 	end
 
   ##
   # determines if the plan is administerable by the specified user
-  # NOTE: This should be renamed to administerable_by?
   #
   # @param user_id [Integer] the id for the user
   # @return [Boolean] true if the user can administer the plan
-	def administerable_by(user_id)
-		return project.readable_by(user_id)
+	def administerable_by?(user_id)
+    role = roles.where(user_id: user_id).first
+    return role.present? && role.administrator?
 	end
 
 
@@ -247,7 +288,7 @@ class Plan < ActiveRecord::Base
 			"space_used" => 0 # percentage of available space in pdf used
 		}
 
-		space_used = height_of_text(self.project.title, 2, 2)
+		space_used = height_of_text(self.title, 2, 2)
 
 		sections.each do |s|
 			space_used += height_of_text(s.title, 1, 1)
@@ -270,7 +311,7 @@ class Plan < ActiveRecord::Base
 						"answer_id" => answer.id,
 						"answer_created_at" => answer.created_at.to_i,
 						"answer_text" => answer.text,
-						"answer_option_ids" => answer.option_ids,
+						"answer_option_ids" => answer.question_options.pluck(:id),
 						"answered_by" => answer.user.name
 					}
                     q_format = q.question_format
@@ -478,66 +519,18 @@ class Plan < ActiveRecord::Base
  		return section_questions
 	end
 
-private
+
 
   ##
-	# Based on the height of the text gathered so far and the available vertical
-	# space of the pdf, estimate a percentage of how much space has been used.
-	# This is highly dependent on the layout in the pdf. A more accurate approach
-	# would be to render the pdf and check how much space had been used, but that
-	# could be very slow.
-	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
-	# for guidance when editing plan data, not to be 100% accurate.
+  # assigns the passed user_id to the creater_role for the project
+  # gives the user rights to read, edit, administrate, and defines them as creator
   #
-  # @param used_height [Integer] an estimate of the height used so far
-  # @return [Integer] the estimate of space used of an A4 portrain
-	def estimate_space_used(used_height)
-		@formatting ||= self.settings(:export).formatting
+  # @param user_id [Integer] the user to be given priveleges' id
+  def assign_creator(user_id)
+    Rails.logger.debug "RAY: assign_creator #{ user_id } to plan #{ self.inspect }"
+    add_user(user_id, true, true, true)
+  end
 
-		return 0 unless @formatting[:font_size] > 0
-
-		margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
-		page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-		available_height = page_height * self.dmptemplate.settings(:export).max_pages
-
-		percentage = (used_height / available_height) * 100
-		(percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
-	end
-
-  ##
-	# Take a guess at the vertical height (in mm) of the given text based on the
-	# font-size and left/right margins stored in the plan's settings.
-	# This assumes a fixed-width for each glyph, which is obviously
-	# incorrect for the font-face choices available; the idea is that
-	# they'll hopefully average out to that in the long-run.
-	# Allows for hinting different font sizes (offset from base via font_size_inc)
-	# and vertical margins (i.e. for heading text)
-  #
-  # @param text [String] the text to estimate size of
-  # @param font_size_inc [Integer] the size of the font of the text, defaults to 0
-  # @param vertical_margin [Integer] the top margin above the text, defaults to 0
-	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
-		@formatting     ||= self.settings(:export).formatting
-		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
-		@base_font_size ||= @formatting[:font_size]
-
-		return 0 unless @base_font_size > 0
-
-		font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
-		font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
-		leading     = font_height / 2
-
-		chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
-		num_lines = (text.length / chars_in_line).ceil
-
-		(num_lines * font_height) + vertical_margin + leading
-	end
-
-
-
-  # BEGIN METHODS FROM PROJECT
-  # 
-  
 
 
   ##
@@ -632,11 +625,12 @@ private
   #
   # @return [Integer, nil] the organisation_id or nil
   def institution_id
-    if organisation.nil?
-      return nil
-    else
-      return organisation.root.id
-    end
+#    if organisation.nil?
+#      return nil
+#    else
+#      return organisation.root.id
+#    end
+     return template.org.id
   end
 
   ##
@@ -664,14 +658,6 @@ private
     end
   end
 
-  ##
-  # assigns the passed user_id to the creater_role for the project
-  # gives the user rights to read, edit, administrate, and defines them as creator
-  #
-  # @param user_id [Integer] the user to be given priveleges' id
-  def assign_creator(user_id)
-    add_user(user_id, true, true, true)
-  end
 
   ##
   # assigns the passed user_id as an editor for the project
@@ -698,49 +684,6 @@ private
   # @param user_id [Integer] the user to be given priveleges' id
   def assign_administrator(user_id)
     add_user(user_id, true, true)
-  end
-
-  ##
-  # whether or not the current plan is administrable by the user
-  #
-  # @param user_id [Integer] the user to check if has privleges
-  # @return [Boolean] true if user can administer project, false otherwise
-  def administerable_by(user_id)
-    user = project_groups.find_by_user_id(user_id)
-    if (! user.nil?) && user.project_administrator then
-      return true
-    else
-      return false
-    end
-  end
-
-  ##
-  # whether or not the current plan is editable by the user
-  #
-  # @param user_id [Integer] the user to check if has privleges
-  # @return [Boolean] true if user can edit project, false otherwise
-  def editable_by(user_id)
-    user = project_groups.find_by_user_id(user_id)
-    if (! user.nil?) && user.project_editor then
-      return true
-    else
-      return false
-    end
-  end
-
-  ##
-  # whether or not the current plan is readable by the user
-  # should be renamed to readable_by?
-  #
-  # @param user_id [Integer] the user to check if has privleges
-  # @return [Boolean] true if user can read project, false otherwise
-  def readable_by(user_id)
-    user = project_groups.find_by_user_id(user_id)
-    if (! user.nil?) then
-      return true
-    else
-      return false
-    end
   end
 
   ##
@@ -805,7 +748,12 @@ private
   #
   # @return [User] the creater of the project
   def owner
-    self.project_groups.find_by_project_creator(true).try(:user)
+    self.roles.each do |role|
+      if role.creator?
+        return role.user
+      end
+    end
+    return nil
   end
 
   ##
@@ -845,13 +793,24 @@ private
   # @param is_administrator [Boolean] whether or not the user can administrate the project
   # @param is_creator [Boolean] wheter or not the user created the project
   # @return [Array<ProjectGroup>]
+  #
+  # TODO: change this to specifying uniqueness of user/plan association and handle
+  # that way
+  #
   def add_user(user_id, is_editor = false, is_administrator = false, is_creator = false)
-    group = ProjectGroup.new
-    group.user_id = user_id
-    group.project_creator = is_creator
-    group.project_editor = is_editor
-    group.project_administrator = is_administrator
-    project_groups << group
+    Role.where(plan_id: self.id, user_id: user_id).each do |r|
+      r.destroy
+    end
+
+    role = Role.new
+    role.user_id = user_id
+    role.plan_id = id
+
+    role.creator= is_creator
+    role.editor= is_editor
+    role.administrator= is_administrator
+    role.save
+    Rails.logger.debug("RAY: saved role #{ role.inspect }")
   end
 
   ##
@@ -869,5 +828,60 @@ private
       end
     end
   end
+
+
+
+  ##
+	# Based on the height of the text gathered so far and the available vertical
+	# space of the pdf, estimate a percentage of how much space has been used.
+	# This is highly dependent on the layout in the pdf. A more accurate approach
+	# would be to render the pdf and check how much space had been used, but that
+	# could be very slow.
+	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
+	# for guidance when editing plan data, not to be 100% accurate.
+  #
+  # @param used_height [Integer] an estimate of the height used so far
+  # @return [Integer] the estimate of space used of an A4 portrain
+	def estimate_space_used(used_height)
+		@formatting ||= self.settings(:export).formatting
+
+		return 0 unless @formatting[:font_size] > 0
+
+		margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
+		page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
+		available_height = page_height * self.dmptemplate.settings(:export).max_pages
+
+		percentage = (used_height / available_height) * 100
+		(percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
+	end
+
+  ##
+	# Take a guess at the vertical height (in mm) of the given text based on the
+	# font-size and left/right margins stored in the plan's settings.
+	# This assumes a fixed-width for each glyph, which is obviously
+	# incorrect for the font-face choices available; the idea is that
+	# they'll hopefully average out to that in the long-run.
+	# Allows for hinting different font sizes (offset from base via font_size_inc)
+	# and vertical margins (i.e. for heading text)
+  #
+  # @param text [String] the text to estimate size of
+  # @param font_size_inc [Integer] the size of the font of the text, defaults to 0
+  # @param vertical_margin [Integer] the top margin above the text, defaults to 0
+	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
+		@formatting     ||= self.settings(:export).formatting
+		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
+		@base_font_size ||= @formatting[:font_size]
+
+		return 0 unless @base_font_size > 0
+
+		font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
+		font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
+		leading     = font_height / 2
+
+		chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
+		num_lines = (text.length / chars_in_line).ceil
+
+		(num_lines * font_height) + vertical_margin + leading
+	end
 
 end

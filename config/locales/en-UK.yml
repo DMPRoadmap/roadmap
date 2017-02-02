@@ -517,9 +517,9 @@ en-UK:
       archive_comment_button_label: "Remove"
       clear_by: "Note removed by"
       retracted: "Note removed by you"
-      comment_created: 'Comment was successfully created.'
-      comment_updated: 'Comment was successfully updated.'
-      comment_removed: 'Comment has been removed.'
+      note_created: 'Comment was successfully created.'
+      note_updated: 'Comment was successfully updated.'
+      note_removed: 'Comment has been removed.'
 
 
     org_type:

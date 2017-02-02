@@ -4,6 +4,7 @@ class Answer < ActiveRecord::Base
 	belongs_to :question
 	belongs_to :user
 	belongs_to :plan
+  has_many :notes, dependent: :destroy
   has_and_belongs_to_many :question_options, join_table: "answers_question_options"
 
   ##

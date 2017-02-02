@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :notes
   has_many :roles, dependent: :destroy
-  has_many :projects, through: :roles do
+  has_many :plans, through: :roles do
     def filter(query)
       return self unless query.present?
       t = self.arel_table
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   # @param user_email [Boolean] defaults to true, allows the use of email if there is no firstname or surname
   # @return [String] the email or the firstname and surname of the user
   def name(use_email = true)
-    if ((firstname.nil? && surname.nil?) || (firstname.strip == "" && surname.strip == "")) && use_email then
+    if (firstname.blank? && surname.blank?) || use_email then
       return email
     else
       name = "#{firstname} #{surname}"
@@ -229,4 +229,18 @@ class User < ActiveRecord::Base
       UserMailer.api_token_granted_notification(self)
     end
   end
+
+
+    # this generates a reset password link for a given user
+  # which can then be sent to them with the appropriate host
+  # prepended.
+  def reset_password_link
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token   = enc 
+    self.reset_password_sent_at = Time.now.utc
+    save(validate: false)
+
+    edit_user_password_path  + '?reset_password_token=' + raw
+  end
+
 end

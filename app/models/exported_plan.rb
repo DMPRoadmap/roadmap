@@ -14,8 +14,8 @@ class ExportedPlan < ActiveRecord::Base
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a
   # given time can be lost)
-  has_settings :export, class_name: 'Settings::Dmptemplate' do |s|
-    s.key :export, defaults: Settings::Dmptemplate::DEFAULT_SETTINGS
+  has_settings :export, class_name: 'Settings::Template' do |s|
+    s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
   # Getters to match Settings::Dmptemplate::VALID_ADMIN_FIELDS

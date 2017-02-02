@@ -60,7 +60,7 @@ module ProjectsHelper
   # --------------------------------------------------------
   def plan_settings_indicator(plan)
     plan_settings     = plan.super_settings(:export)
-    template_settings = plan.project.dmptemplate.try(:settings, :export)
+    template_settings = plan.template.try(:settings, :export)
 
     key = if plan_settings.try(:value?)
       plan_settings.formatting == template_settings.formatting ? "template_formatting" : "custom_formatting"

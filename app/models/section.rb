@@ -2,7 +2,7 @@ class Section < ActiveRecord::Base
 
   ##
   # Associations
-  belongs_to :version
+  belongs_to :phase
   belongs_to :organisation
   has_many :questions, :dependent => :destroy
   has_many :plan_sections, :dependent => :destroy

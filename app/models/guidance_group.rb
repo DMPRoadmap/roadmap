@@ -41,10 +41,10 @@ class GuidanceGroup < ActiveRecord::Base
   #
   # @return [String] the display name for the guidance group
 	def display_name
-		if organisation.guidance_groups.count > 1
-			return "#{organisation.name}: #{name}"
+		if org.guidance_groups.count > 1
+			return "#{org.name}: #{name}"
 		else
-			return organisation.name
+			return org.name
 		end
 	end
 
