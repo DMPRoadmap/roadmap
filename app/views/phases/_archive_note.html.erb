@@ -1,4 +1,3 @@
-<!--edit note to question. note passed as argument-->
 
 <%= form_for(note, :url => {:controller => :notes, :action => :archive } , :html => { :method => :put, :class => "archive_note_form", :id => "archive_note_form_#{note.id}"}) do |f| %>
     <%= f.hidden_field :id, :value => note.id %>
@@ -16,12 +15,8 @@
 
 	<!-- submit buttons -->
 	<div class="move_2_right">
-        <% question = Question.find(note.question_id)%>
-        <%= hidden_field_tag :plan_id, note.plan_id, :class => "plan_id" %>
         <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
-        <%= hidden_field_tag :section_id, question.section_id, :class => "section_id" %>
 		<%= f.submit button_label, :class => "btn btn-primary archive_comment_submit_button" %>
-        <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
         <%= link_to t("helpers.submit.cancel"), "#", :class => "cancel_archive_comment btn cancel" %>
 	</div>
     <br>

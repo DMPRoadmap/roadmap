@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :exported_plans
   has_many :roles, dependent: :destroy
-  has_many :projects, through: :roles do
+  has_many :plans, through: :roles do
     def filter(query)
       return self unless query.present?
       t = self.arel_table
@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   # @param user_email [Boolean] defaults to true, allows the use of email if there is no firstname or surname
   # @return [String] the email or the firstname and surname of the user
   def name(use_email = true)
-    if ((firstname.nil? && surname.nil?) || (firstname.strip == "" && surname.strip == "")) && use_email then
+    if (firstname.blank? && surname.blank?) || use_email then
       return email
     else
       name = "#{firstname} #{surname}"

@@ -1,0 +1,38 @@
+<!-- project navigation -->  
+<div id="project-tabs" class="nav-project-tabs">
+  <ul class="nav nav-tabs" data-tabs="tabs">
+
+    <!-- Project details -->
+    <li <%= if active == "details" then "class=active" end %> >
+        <%= link_to t("helpers.project.tab_plan"), plan_path(plan) %>
+    </li>
+
+    <!-- Phases -->
+    <% plan.template.phases.each do |phase| %>
+        <li <%= if active == phase.title then "class=active" end%> >
+          <%= link_to phase.title,  edit_plan_phase_path(plan,phase) %>
+      </li>
+    <% end %>
+
+    <!--Share project (project admin only)-->
+    <% if @plan.administerable_by?(current_user.id) then %>
+      <% if active == "share" %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to t("helpers.project.share.tab_share"), ["share", plan] %>
+      </li>
+    <% end %>
+
+    <!-- Export page that display all plans options to export-->
+    <% if active == "export" then %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to t("helpers.project.tab_export"), ["export",plan] %>
+    </li>
+
+  </ul>
+</div>

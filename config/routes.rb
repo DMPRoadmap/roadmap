@@ -122,7 +122,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :answers, only: :create
+    resources :answers, only: :update
 
     resources :notes, only: [:create, :update] do
       member do
@@ -130,33 +130,65 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :projects do
-      resources :plans , only: [:edit, :update] do
+    resources :plans do
+      resources :phases do
         member do
-          get 'status'
-          get 'locked'
-          get 'answer'
-          #get 'edit'
-          post 'delete_recent_locks'
-          post 'lock_section', constraints: {format: [:html, :json]}
-          post 'unlock_section', constraints: {format: [:html, :json]}
-          post 'unlock_all_sections'
-          get 'export'
-          get 'warning'
-          get 'section_answers'
+          get 'edit'
+          post 'update'
         end
       end
 
+
       member do
+        get 'status'
+        get 'locked'
+        get 'answer'
+        put 'update_guidance_choices'
+        post 'delete_recent_locks'
+        post 'lock_section', constraints: {format: [:html, :json]}
+        post 'unlock_section', constraints: {format: [:html, :json]}
+        post 'unlock_all_sections'
+        get 'export'
+        get 'warning'
+        get 'section_answers'
         get 'share'
         get 'export'
         post 'invite'
       end
+
       collection do
         get 'possible_templates'
         get 'possible_guidance'
       end
     end
+
+#    resources :projects do
+#      resources :plans , only: [:edit, :update] do
+#        member do
+#          get 'status'
+#          get 'locked'
+#          get 'answer'
+#          #get 'edit'
+#          post 'delete_recent_locks'
+#          post 'lock_section', constraints: {format: [:html, :json]}
+#          post 'unlock_section', constraints: {format: [:html, :json]}
+#          post 'unlock_all_sections'
+#          get 'export'
+#          get 'warning'
+#          get 'section_answers'
+#        end
+#      end
+#
+#      member do
+#        get 'share'
+#        get 'export'
+#        post 'invite'
+#      end
+#      collection do
+#        get 'possible_templates'
+#        get 'possible_guidance'
+#      end
+#    end
 
     resources :roles, only: [:create, :update, :destroy]
 

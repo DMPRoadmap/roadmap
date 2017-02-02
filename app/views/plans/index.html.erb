@@ -6,9 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:locked) %></th>
       <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%= model_class.human_attribute_name(:version_id) %></th>
       <th><%= model_class.human_attribute_name(:slug) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -18,14 +16,12 @@
     <% @plans.each do |plan| %>
       <tr>
         <td><%= link_to plan.id, plan_path(plan) %></td>
-        <td><%= plan.locked %></td>
-        <td><%= plan.project_id %></td>
-        <td><%= plan.version_id %></td>
+        <td><%= plan.identifier %></td>
         <td><%= plan.slug %></td>
         <td><%=l plan.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_project_plan_path(plan), :class => 'btn btn-mini' %>
+                      edit_plan_path(plan), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       plan_path(plan),
                       :method => :delete,

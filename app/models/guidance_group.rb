@@ -32,13 +32,13 @@ class GuidanceGroup < ActiveRecord::Base
   # organisation followed by the name of the guidance group.
   #
   # @return [String] the display name for the guidance group
-  def display_name
-    if org.guidance_groups.count > 1
-      return "#{org.name}: #{name}"
-    else
-      return org.name
-    end
-  end
+	def display_name
+		if org.guidance_groups.count > 1
+			return "#{org.name}: #{name}"
+		else
+			return org.name
+		end
+	end
 
   ##
   # Returns the list of all guidance groups not coming from the given organisations
