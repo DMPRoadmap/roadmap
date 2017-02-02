@@ -14,36 +14,10 @@ class Role < ActiveRecord::Base
             3 => :editor,
             column: 'access'
 
+  validates :user, :plan, :access, presence: true
+  validates :access, one_role_per_user_plan: true
 
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-  # These functions are from the old project_groups model
-
-
-
-  ##
-  # returns the user's email unless it is nil
-  #
-  # @return [Boolean, String] false if no email exists, the email otherwise
-  def email
-    unless user.nil?
-      return user.email
-    end
-  end
-
-  ##
-  # define a new user for the project group by email
-  #
-  # @param new_email [String] the email of the new user for the project group
-  # @return [User] the new user
-  def email=(new_email)
-    unless User.find_by(email: email).nil? then
-    user = User.find_by(email: email)
-    end
-    self.save!
-  end
+# TODO: Do we really want to force the save in these 2 methods?
 
   ##
   # return the access level for the current project group
@@ -81,6 +55,9 @@ class Role < ActiveRecord::Base
     else
       self.editor = false
     end
+    
+puts self.inspect
+    
     self.save!
   end
 end
