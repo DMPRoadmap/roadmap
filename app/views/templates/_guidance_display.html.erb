@@ -17,7 +17,7 @@
       </div>
     <% end %>
 
-    <% question.guidance_for_question(question, current_user.org).each_pair do |title,guidance| %>
+    <% question.guidance_for_org(current_user.org).each_pair do |title,guidance| %>
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance.id%>-<%= question.id %>">

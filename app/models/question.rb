@@ -44,64 +44,25 @@ class Question < ActiveRecord::Base
     "#{text}"
   end
 
-  def select_text
-    cleantext = text.gsub(/<[^<]+>/, '')
-    if cleantext.length > 120
-      cleantext = cleantext.slice(0,120)
-    end
-    cleantext
-  end
+# TODO: Commented this amoeba cloning gem definition out to see if its even used. The
+#       amoeba documentations uses [object].amoeba_dup to clone the object, but that
+#       command does not exist in the codebase
 
-  amoeba do
-    include_association :options
-    include_association :suggested_answers
-    clone [:themes]
-  end
-
-	#def question_type?
-	#	type_label = {}
-	#	if self.is_text_field?
-	#	  type_label = 'Text field'
-	#	elsif self.multiple_choice?
-	#		type_label = 'Multiple choice'
-	#	else
-	#		type_label = 'Text area'
-	#	end
-	#	return type_label
-	#end
+#  amoeba do
+#    include_association :options
+#    include_association :suggested_answers
+#    clone [:themes]
+#  end
 
   ##
-  # for each question theme, appends them separated by comas
-  # shouldnt have a ? after the method name
+	# guidance for org
   #
-  # @return [Hash{String=> String}]
-	def question_themes?
-		themes_label = {}
-		i = 1
-		themes_quest = self.themes
-
-		themes_quest.each do |tt|
-			themes_label = tt.title
-
-			if themes_quest.count > i then
-				themes_label +=	','
-				i +=1
-			end
-		end
-
-		return themes_label
-	end
-
-  ##
-	# guidance for question in the org admin
-  #
-  # @param question [Question] the question to find guidance for
-  # @param org_admin [Organisation] the organisation to find guidance for
+  # @param org [Org] the org to find guidance for
   # @return [Hash{String => String}]
-	def guidance_for_question(question, org)
+	def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
-    theme_ids = question.theme_ids
+    theme_ids = themes.collect{|t| t.id}
     if theme_ids.present?
       GuidanceGroup.where(org_id: org.id).each do |group|
         group.guidances.each do |g|

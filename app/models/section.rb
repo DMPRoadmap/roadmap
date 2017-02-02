@@ -22,8 +22,11 @@ class Section < ActiveRecord::Base
     "#{title}"
   end
 
-  amoeba do
-    include_association :questions
-  end
+# TODO: Commented this amoeba cloning gem definition out to see if its even used. The
+#       amoeba documentations uses [object].amoeba_dup to clone the object, but that
+#       command does not exist in the codebase
+#  amoeba do
+#    include_association :questions
+#  end
 
 end
