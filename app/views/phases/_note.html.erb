@@ -1,0 +1,37 @@
+<!-- if there are notes then list of notes and view last note
+  else display display add note form -->
+
+  <% notes = answer.notes.all %>
+  <% answerid = answer.id %>
+  <%= hidden_field_tag :answer_id, answer.id %>
+
+  <% if notes.count  >  0 %>
+
+    <!-- add note -->
+    <div id="add_comment_button_top_div_<%= answerid %>" class="move_2_right" >
+      <%= link_to t("helpers.comments.add_comment_label"),'#', :class => "btn btn-primary add_comment_button" %>
+    </div>
+
+    <div class="div_clear"></div>
+
+    <!-- list of notes, view and edit a note -->
+    <%= render :partial => "list_notes", locals: {notes: notes, plan:plan} %>
+
+    <div class="div_clear"></div>
+
+    <!-- add a note button -->
+    <div id="add_comment_button_bottom_div_<%= answerid %>" class="move_2_right">
+      <%= link_to t("helpers.comments.add_comment_label"),'#', :class => "btn btn-primary add_comment_button" %>
+    </div>
+
+    <div class="div_clear"></div>
+
+    <!-- add a note block -->
+    <div id="add_comment_block_div_<%= answerid %>" style="display: none">
+      <%= render :partial => "add_note", locals: {answer: answer}%>
+    </div>
+
+  <% else%>
+    <%= t("helpers.comments.add_comment_text")%>
+    <%= render :partial => "add_note", locals: {answer: answer}%>
+  <% end%>
