@@ -46,21 +46,21 @@
       <% end %>
     <% else %>
       <% if user_signed_in? %>
-        <!-- project and plan page -->
-        <% if (namespace == "projects" || namespace == "plans") && current_path != "/projects/new" then %>
+        <!-- plan page -->
+        <% if namespace == "plans" && current_path != "/plans/new" then %>
           <li class="active">
         <% else %>
           <li>
         <% end %>
-        <%= link_to t("helpers.view_plans_label"), projects_path %>
+        <%= link_to t("helpers.view_plans_label"), plans_path %>
           </li>
         <!-- create a plan page -->
-        <% if current_path == "/projects/new" then %>
+        <% if current_path == "/plans/new" then %>
           <li class="active">
         <% else %>
           <li>
         <% end %>
-          <%= link_to t("helpers.create_plan_label"), new_project_path %>
+          <%= link_to t("helpers.create_plan_label"), new_plan_path %>
           </li>
 
       <% else %>

@@ -33,23 +33,6 @@ class User < ActiveRecord::Base
     end
   end
   
-=begin
-  has_many :projects, through: :roles do
-    def filter(query)
-      return self unless query.present?
-      t = self.arel_table
-      q = "%#{query}%"
-      conditions = t[:title].matches(q)
-      columns = %i(
-        grant_number identifier description principal_investigator data_contact 
-      )
-      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
-      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
-      self.where(conditions)
-    end
-  end
-=end
-  
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
 
@@ -90,7 +73,7 @@ class User < ActiveRecord::Base
   # @param user_email [Boolean] defaults to true, allows the use of email if there is no firstname or surname
   # @return [String] the email or the firstname and surname of the user
   def name(use_email = true)
-    if ((firstname.nil? && surname.nil?) || (firstname.strip == "" && surname.strip == "")) && use_email then
+    if (firstname.blank? && surname.blank?) || use_email then
       return email
     else
       name = "#{firstname} #{surname}"

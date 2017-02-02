@@ -1,0 +1,87 @@
+<!--table displaying notes for this question and actions-->
+
+<% if notes.count > 1 then%>
+  <% style_to_add =  "height:150px; overflow-y:auto;" %>
+<%else%>
+  <% style_to_add = "" %>
+<%end%>
+
+<div class="two-column-clear question-divider"></div>
+
+<div class="div-table-content" style ="<%= style_to_add %>">
+  <table class="dmp_table" id="dmp_table">
+    <tbody class= "comment_table_body">
+      <% notes.order("updated_at DESC").each do |c|%>
+        <tr >
+          <td class="dmp_border_bottom">
+            <% user = c.user %>
+            <%= user.name %> </br>
+            (<%= l c.updated_at, format: :custom %>)
+          </td >
+          <td  class="dmp_border_bottom">
+
+            <% if c.archived  %>
+
+              <% if c.archived_by == current_user.id %>
+                <%= t("helpers.comments.retracted")%>
+              <% else %>
+                <% archived_by_user = User.find(c.archived_by) %>
+                <%= t("helpers.comments.clear_by")%> <%= archived_by_user.name %>
+              <%end%>
+
+            <%else%>   <!-- not archived -->
+
+              <%= link_to t("helpers.comments.view_label"),"#", :class => "dmp_table_link view_comment_button" %>
+              <%= hidden_field_tag :note_id, c.id, :class => "comment_id" %>
+
+              <% if current_user.id == c.user_id %>
+                <%= link_to t("helpers.comments.edit_label"),"#", :class => "dmp_table_link edit_comment_button" %>
+                <%= hidden_field_tag :note_id, c.id, :class => "comment_id" %>
+                <%= link_to t("helpers.comments.retract_label"),"#", :class => "dmp_table_link archive_comment_button" %>
+              <% end%>   <!-- if current user -->
+
+              <% if @plan.administerable_by?(current_user.id) && current_user.id != c.user_id %>
+                <%= hidden_field_tag :note_id, c.id, :class => "comment_id" %>
+                <%= link_to t("helpers.comments.clear_label"),"#", :class => "dmp_table_link archive_comment_button" %>
+              <% end%>
+            <%end%>   <!-- archived -->
+
+          </td>
+        </tr>
+      <%end%>   <!-- notes each -->
+    </tbody>
+  </table>
+</div>
+
+<div class="two-column-clear question-divider"></div>
+
+<!-- view latest note block -->
+<% notes_not_archived = notes.where("archived IS NULL") %>
+<% latest_note = notes_not_archived.order("updated_at DESC").first %>
+<% if !latest_note.nil? then%>
+  <div id = "latest_comment_div_<%= latest_note.answer.question_id %>" class ="view_comment_class">
+    <%= render :partial => "view_note", locals: {note: latest_note} %>
+    <div class="two-column-clear question-divider"></div>
+  </div>
+<%end%>
+<!-- load notes to view and edit -->
+<%notes.order("updated_at DESC").each do |com|%>
+  <!-- view note -->
+  <div id = "view_comment_div_<%= com.id%>" class ="view_comment_class" style="display: none">
+    <%= render :partial => "view_note", locals: {note: com} %>
+    <div class="two-column-clear question-divider"></div>
+  </div>
+
+  <!-- edit note block -->
+  <div id = "edit_comment_div_<%= com.id %>"  class ="edit_comment_class" style="display: none">
+    <%= render :partial => "edit_note", locals: {note: com} %>
+    <div class="two-column-clear question-divider"></div>
+  </div>
+
+  <!-- archive note block -->
+  <div id = "archive_comment_div_<%= com.id %>"  class ="archive_comment_class" style="display: none">
+    <%= render :partial => "archive_note", locals: {note: com} %>
+    <div class="two-column-clear question-divider"></div>
+  </div>
+
+<%end%>
