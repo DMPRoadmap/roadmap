@@ -28,7 +28,8 @@ class Plan < ActiveRecord::Base
   # public is a Ruby keyword so using publicly
   enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
-  validates :template, :title, :users, presence: true
+  #TODO: work out why this messes up plan creation
+  #validates :template, :title, :users, presence: true
 
   ##
   # Constants
@@ -513,7 +514,6 @@ class Plan < ActiveRecord::Base
   #
   # @param user_id [Integer] the user to be given priveleges' id
   def assign_creator(user_id)
-    Rails.logger.debug "RAY: assign_creator #{ user_id } to plan #{ self.inspect }"
     add_user(user_id, true, true, true)
   end
   
@@ -591,19 +591,14 @@ class Plan < ActiveRecord::Base
   end
 
   ##
-  # returns the funder id for the project
+  # returns the funder id for the plan
   #
   # @return [Integer, nil] the id for the funder
   def funder_id
-    if self.dmptemplate.nil? then
+    if self.template.nil? then
       return nil
     end
-    template_org = self.dmptemplate.organisation
-    if template_org.organisation_type.name == constant("organisation_types.funder").downcase
-      return template_org.id
-    else
-      return nil
-    end
+    return self.template.org
   end
 
   ##
@@ -852,7 +847,6 @@ class Plan < ActiveRecord::Base
     role.editor= is_editor
     role.administrator= is_administrator
     role.save
-    Rails.logger.debug("RAY: saved role #{ role.inspect }")
   end
 
   ##
