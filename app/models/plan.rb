@@ -6,10 +6,12 @@ class Plan < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
   has_many :answers
-  has_many :roles
   has_many :notes, through: :answers
-  has_many :users, through: :roles
   has_many :exported_plans
+
+  has_many :roles
+  has_many :users, through: :roles
+
 
   ##
   # Possibly needed for active_admin
@@ -40,9 +42,6 @@ class Plan < ActiveRecord::Base
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias_method :super_settings, :settings
-
-  
-
 
 
 

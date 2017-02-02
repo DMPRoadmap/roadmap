@@ -1,6 +1,8 @@
 class Role < ActiveRecord::Base
   include FlagShihTzu
 
+  before_validation :check_access_level
+
   ##
   # Associations
   belongs_to :user
@@ -15,6 +17,7 @@ class Role < ActiveRecord::Base
             column: 'access'
 
   validates :user, :plan, :access, presence: true
+  validates :access, numericality: {greater_than: 0}
 
   ##
   # return the access level for the current project group
@@ -51,5 +54,11 @@ class Role < ActiveRecord::Base
     else
       self.editor = false
     end
+    self.creator = true unless self.administrator? || self.editor?
+  end
+  
+  # Ensures that the access attribute is set
+  def check_access_level
+    self.access_level = self.access_level
   end
 end

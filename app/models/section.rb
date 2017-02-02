@@ -14,6 +14,8 @@ class Section < ActiveRecord::Base
                   :questions_attributes, :organisation, :phase, :modifiable,
                   :as => [:default, :admin]
                   
+  validates :phase, :title, :number, presence: true
+  
   ##
   # return the title of the section
   #
