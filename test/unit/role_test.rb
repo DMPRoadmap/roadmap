@@ -24,17 +24,7 @@ class RoleTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "cannot have more than one role per User+Plan" do
-    @user.roles << Role.new(plan: @plan, access: 2)
-    assert_not @user.valid?, "Expected to NOT be able to add more than one role for the same user/plan"
-    
-    plan = Plan.create(title: 'Test Plan', template: Template.last)
-    @user.roles << Role.new(plan: plan, access: 3)
-    assert @user.valid?, "Expected to be able to add a role for the same user but a different plan"
-  end
-  
-  # ---------------------------------------------------
-  test "access_level acts a proxy to the 'access' flagshihtzu bit flag field" do
+  test "access_level acts a proxy to the 'access' FlagShihTzu bit flag field" do
  
     puts @role.inspect
     

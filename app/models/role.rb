@@ -15,9 +15,6 @@ class Role < ActiveRecord::Base
             column: 'access'
 
   validates :user, :plan, :access, presence: true
-  validates :access, one_role_per_user_plan: true
-
-# TODO: Do we really want to force the save in these 2 methods?
 
   ##
   # return the access level for the current project group
@@ -34,7 +31,6 @@ class Role < ActiveRecord::Base
     else
       return 1
     end
-    self.save!
   end
 
   ##
@@ -55,9 +51,5 @@ class Role < ActiveRecord::Base
     else
       self.editor = false
     end
-    
-puts self.inspect
-    
-    self.save!
   end
 end
