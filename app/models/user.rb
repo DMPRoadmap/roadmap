@@ -18,6 +18,22 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :exported_plans
   has_many :roles, dependent: :destroy
+  has_many :plans, through: :roles do
+    def filter(query)
+      return self unless query.present?
+      t = self.arel_table
+      q = "%#{query}%"
+      conditions = t[:title].matches(q)
+      columns = %i(
+        grant_number identifier description principal_investigator data_contact 
+      )
+      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
+      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
+      self.where(conditions)
+    end
+  end
+  
+=begin
   has_many :projects, through: :roles do
     def filter(query)
       return self unless query.present?
@@ -32,6 +48,7 @@ class User < ActiveRecord::Base
       self.where(conditions)
     end
   end
+=end
   
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QuestionQuestionOptionTest < ActiveSupport::TestCase
+class QuestionOptionTest < ActiveSupport::TestCase
   include GlobalHelpers
   
   setup do
@@ -40,8 +40,8 @@ class QuestionQuestionOptionTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Question" do
-    question = Question.new(text: 'Testing 123', section: Section.first, question_format: QuestionFormat.find_by(option_based: true))
-    verify_belongs_to_relationship(@option, question)
+    option = QuestionOption.new(text: 'Test', number: 1)
+    verify_belongs_to_relationship(option, @question)
   end
   
   # ---------------------------------------------------

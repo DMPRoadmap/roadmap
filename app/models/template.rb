@@ -9,6 +9,9 @@ class Template < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
 
+  has_many :customizations, class_name: 'Template', foreign_key: 'dmptemplate_id'
+  belongs_to :dmptemplate, class_name: 'Template'
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
@@ -35,6 +38,7 @@ class Template < ActiveRecord::Base
   #
   # @param ot [String] name of an organisation type e.g. founder
   # @return [Array<dmptemplates>] list of published dmptemplates
+=begin
   def self.templates_org_type(ot)
     # DISCUSS - This function other than the check for the template being published
     # is a superclass for the below funders_templates
@@ -79,7 +83,7 @@ class Template < ActiveRecord::Base
     new_templates = self.where("org_id = ?", org_id)
     return new_templates
   end
-
+  
   ##
   # returns an array with all funders and of the given organisations's
   # institutional templates
@@ -105,7 +109,7 @@ class Template < ActiveRecord::Base
 
     return templates_list
   end
-
+  
   ##
   # Returns the string name of the organisation type of the organisation who
   # owns this dmptemplate
@@ -115,7 +119,8 @@ class Template < ActiveRecord::Base
     org_type = org.organisation_type
     return org_type
   end
-
+=end
+  
   ##
   # Verify if a template has customisation by given organisation
   #
@@ -142,6 +147,7 @@ class Template < ActiveRecord::Base
     # end
   end
 
+=begin
   ##
   # verify if there are any publish version for the template
   #
@@ -152,8 +158,8 @@ class Template < ActiveRecord::Base
     end
     return false 
   end
-
-
+=end
+  
   # OLD CODE STARTS HERE
 
 end

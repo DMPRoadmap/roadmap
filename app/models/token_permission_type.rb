@@ -2,7 +2,8 @@ class TokenPermissionType < ActiveRecord::Base
   ##
   # Associations
   #has_and_belongs_to_many :org_token_permissions, join_table: "org_token_permissions"
-  has_and_belongs_to_many :organisations, join_table: 'org_token_permissions', unique: true
+#  has_and_belongs_to_many :organisations, join_table: 'org_token_permissions', unique: true
+  has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
 
   ##
   # Possibly needed for active_admin

@@ -114,7 +114,7 @@
                             </td>
                             <td class="dmp_td_small">
                                 <%if current_user.can_org_admin? then%>
-                                    <% if org_template.org_type == constant("organisation_types.funder") then %>
+                                    <% if org_template.org.org_type == constant("organisation_types.funder") then %>
                                         <%if org_template.has_customisations?(current_user.org_id, org_template) then%>
                                             <% b_label = t("org_admin.templates.edit_customisation")%>
                                         <%else%>

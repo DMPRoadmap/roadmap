@@ -32,7 +32,7 @@
 		<div><p><%= raw t("helpers.project.default_confirmation_text_desc", 
 			organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) %></p></div>
 		<!-- verify if the current user organisation has or a template or guidance. if true display alert text-->
-		<%if !Dmptemplate.own_institutional_templates(current_user.organisation_id).empty? then %>
+		<%if @org_templates.empty? then %>
 			<div><p><strong><%= raw t("helpers.project.alert_default_template_text_html", :org_name => current_user.organisation.name )%></strong></p></div>
 		<%end%>
 	</div>

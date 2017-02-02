@@ -4,7 +4,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   setup do
-    @user = users(:cc_super)
+    @user = User.first
   end
   
   # -------------------------------------------------------------
@@ -57,7 +57,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     cntr = 1
     # Test the bare minimum requirements and then all options
     [form, form.merge({email: "foo.bar#{cntr}@test.org", 
-                       organisation_id: Organisation.first.id})].each do |params|
+                       organisation_id: Org.first.id})].each do |params|
       post user_registration_path, {user: params}
     
       assert_response :redirect

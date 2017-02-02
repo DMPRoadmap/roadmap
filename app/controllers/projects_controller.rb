@@ -62,6 +62,9 @@ class ProjectsController < ApplicationController
       @always_guidance = get_always_available_guidance
       @institutions = orgs_of_type(constant("organisation_types.institution"))
 
+      # Replacing DB call in view with instance variable
+      @org_templates = current_user.org.templates
+
 			respond_to do |format|
 			  format.html # new.html.erb
 			end

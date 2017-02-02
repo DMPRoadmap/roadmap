@@ -13,6 +13,8 @@ class Theme < ActiveRecord::Base
   attr_accessible :description, :title, :locale , :as => [:default, :admin]
 
 
+  validates :title, presence: true
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?

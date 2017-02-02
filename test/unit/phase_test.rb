@@ -57,7 +57,7 @@ class PhaseTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Template" do
-    tmplt = Template.create(org: @org, title: 'Testing relationship')
-    verify_belongs_to_relationship(@phase, tmplt)
+    phase = Phase.new(title: 'Tester', number: 9)
+    verify_belongs_to_relationship(phase, @template)
   end
 end

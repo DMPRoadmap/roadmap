@@ -70,8 +70,8 @@ class PlanTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Template" do
-    tmplt = Template.create(org: @org, title: 'Testing relationship')
-    verify_belongs_to_relationship(@plan, tmplt)
+    plan = Plan.new(title: 'Tester')
+    verify_belongs_to_relationship(plan, Template.first)
   end
   
 end

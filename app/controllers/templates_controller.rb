@@ -19,7 +19,7 @@ class TemplatesController < ApplicationController
     end
     @templates_own = current_templates.values
     #funders templates
-    @templates_funders = Template.funders_templates
+    @templates_funders = Org.funders.collect{|o| o.templates } #Template.funders_templates
   end
 
 

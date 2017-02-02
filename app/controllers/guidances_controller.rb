@@ -20,7 +20,11 @@ class GuidancesController < ApplicationController
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
-		@templates = Template.funders_and_own_templates(current_user.org_id)
+
+		#@templates = Template.funders_and_own_templates(current_user.org_id)
+    # Replacing weird accessor on Template
+    @templates = (Org.funders.collect{|o| o.templates } + current_user.org.templates).flatten
+
 		@phases = nil
 		@templates.includes(:phases).each do |template|
 			if @phases.nil? then

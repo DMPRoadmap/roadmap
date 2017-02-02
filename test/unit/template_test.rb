@@ -8,16 +8,16 @@ class TemplateTest < ActiveSupport::TestCase
     scaffold_template
   end
 
-#  def settings(extras = {})
-#    {margin:    (@margin || { top: 10, bottom: 10, left: 10, right: 10 }),
-#     font_face: (@font_face || Settings::Template::VALID_FONT_FACES.first),
-#     font_size: (@font_size || 11)
-#    }.merge(extras)
-#  end
+  def settings(extras = {})
+    {margin:    (@margin || { top: 10, bottom: 10, left: 10, right: 10 }),
+     font_face: (@font_face || Settings::Template::VALID_FONT_FACES.first),
+     font_size: (@font_size || 11)
+    }.merge(extras)
+  end
 
-#  def default_formatting
-#    Settings::Template::DEFAULT_SETTINGS[:formatting]
-#  end
+  def default_formatting
+    Settings::Template::DEFAULT_SETTINGS[:formatting]
+  end
 
   # ---------------------------------------------------
   test "required fields are required" do
@@ -30,13 +30,6 @@ class TemplateTest < ActiveSupport::TestCase
     a = Template.new(org: @org, version: 1, title: 'Tester')
     assert a.valid?, "expected the 'org', 'version' and 'title' fields to be enough to create an Template! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
-
-=begin
-  # ---------------------------------------------------
-  test "to_s method returns the title" do
-    assert_equal @template.title, @template.to_s
-  end
-  
 
   # ---------- settings ----------
   # ---------------------------------------------------
@@ -234,21 +227,10 @@ class TemplateTest < ActiveSupport::TestCase
 
   # ---------- has_customisations? ----------
   test "has_customisations? correctly identifies if a given org has customised the template" do
-    # TODO: Impliment after understanding has_customisations
+    # TODO: Not sure if this is still an applicable method
 
   end
 
-  # ---------- has_published_versions? ----------
-  test "has_published_versions? correctly identifies published versions" do
-    Template.find_each do |template|
-      template.phases.each do |phase|
-        unless phase.latest_published_version.nil?
-          assert(template.has_published_versions? , "there was a published version of phase: #{phase.title}")
-        end
-      end
-    end
-  end
-=end
   
   # ---------------------------------------------------
   test "can CRUD Template" do
