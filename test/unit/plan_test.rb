@@ -8,20 +8,20 @@ class PlanTest < ActiveSupport::TestCase
     @plan = Plan.create(title: 'Test Plan', template: @template, grant_number: 'Plan12345',
                         identifier: '000912', description: 'This is a test plan', 
                         principal_investigator: 'John Doe', principal_investigator_identifier: 'ABC',
-                        data_contact: 'john.doe@example.com', visibility: 1, users: [User.last])
+                        data_contact: 'john.doe@example.com', visibility: 1, 
+                        roles: [Role.new(user: User.last, creator: true)])
   end
   
   # ---------------------------------------------------
   test "required fields are required" do
     assert_not Plan.new.valid?
-    assert_not Plan.new(users: [User.last], title: 'Testing').valid?, "expected the template field to be required"
-    assert_not Plan.new(template: @template, title: 'Testing').valid?, "expected at least one user to be required"
+    assert_not Plan.new(title: 'Testing').valid?, "expected the template field to be required"
     
     # Make sure that the Settings gem is defaulting the title for us
-    assert Plan.new(users: [User.last], template: @template).valid?, "expected the title field to have been set by default by the Settings gem"
+    assert Plan.new(template: @template).valid?, "expected the title field to have been set by default by the Settings gem"
     
     # Ensure the bare minimum and complete versions are valid
-    a = Plan.new(title: 'Testing', template: @template, users: [User.last])
+    a = Plan.new(title: 'Testing', template: @template)
     assert a.valid?, "expected the 'title', 'template' and at least one 'user' fields to be enough to create an Plan! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
   
@@ -39,7 +39,7 @@ class PlanTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "can CRUD Plan" do
     obj = Plan.create(title: 'Testing CRUD', template: Template.where.not(id: @template.id).first, 
-                      users: [User.last], description: "should change")
+                      roles: [Role.new(user: User.last, creator: true)], description: "should change")
     assert_not obj.id.nil?, "was expecting to be able to create a new Plan! - #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     obj.description = 'changed'
@@ -57,8 +57,9 @@ class PlanTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "can manage has_many relationship with Users" do
-    verify_has_many_relationship(@plan, User.first, @plan.users.count)
+  test "can manage has_many relationship with Role" do
+    role = Role.new(user: User.first, editor: true)
+    verify_has_many_relationship(@plan, role, @plan.roles.count)
   end
   
   # ---------------------------------------------------

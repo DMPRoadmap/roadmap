@@ -21,7 +21,7 @@ class Template < ActiveRecord::Base
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
-
+  validates :org, :title, :version, presence: true
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

@@ -79,7 +79,7 @@ class ActiveSupport::TestCase
                         principal_investigator: 'me', principal_investigator_identifier: 'me-1234',
                         description: "this is my plan's informative description",
                         identifier: '1234567890', data_contact: 'me@example.com', visibility: 0,
-                        users: [User.last])
+                        roles: [Role.new(user: User.last, creator: true)])
                         
     assert @plan.valid?, "unable to create new Plan: #{@plan.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
     @plan.save!

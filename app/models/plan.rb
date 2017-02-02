@@ -10,7 +10,8 @@ class Plan < ActiveRecord::Base
   has_many :exported_plans
 
   has_many :roles
-  has_many :users, through: :roles
+# COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
+#  has_many :users, through: :roles
 
 
   ##
@@ -26,7 +27,7 @@ class Plan < ActiveRecord::Base
   # public is a Ruby keyword so using publicly
   enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
-  validates :template, :title, :users, presence: true
+  validates :template, :title, presence: true
 
   ##
   # Constants
