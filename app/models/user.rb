@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include GlobalHelpers
+
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -15,6 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :org
   has_many :answers
   has_many :notes
+  has_many :exported_plans
   has_many :roles, dependent: :destroy
   has_many :plans, through: :roles do
     def filter(query)
@@ -30,6 +32,9 @@ class User < ActiveRecord::Base
       self.where(conditions)
     end
   end
+  
+  has_many :user_identifiers
+  has_many :identifier_schemes, through: :user_identifiers
 
   ##
   # Possibly needed for active_admin
@@ -39,7 +44,7 @@ class User < ActiveRecord::Base
                   :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
                   :user_status_id, :surname, :user_type_id, :org_id, :skip_invitation, 
                   :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language, :language_id
+                  :organisation, :language, :language_id, :org, :perms, :confirmed_at
 
   validates :email, email: true, allow_nil: true, uniqueness: true
 
@@ -74,6 +79,15 @@ class User < ActiveRecord::Base
       name = "#{firstname} #{surname}"
       return name.strip
     end
+  end
+
+  ##
+  # Returns the user's identifier for the specified scheme name
+  #
+  # @param the identifier scheme name (e.g. ORCID)
+  # @return [UserIdentifier] the user's identifier for that scheme
+  def identifier_for(scheme)
+    user_identifiers.where(identifier_scheme: scheme).first
   end
 
   ##
@@ -128,7 +142,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can add new organisations
   def can_add_orgs?
-    perms.include? Perm.find_by(name: constant("user_role_types.add_organisations"))
+    perms.include? Perm.find_by(name: constant("roles.add_organisations"))
   end
 
   ##
@@ -136,7 +150,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can change their organisation affiliations
   def can_change_org?
-    perms.include? Perm.find_by(name: constant("user_role_types.change_org_affiliation"))
+    perms.include? Perm.find_by(name: constant("roles.change_org_affiliation"))
   end
 
   ##
@@ -144,7 +158,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant their permissions to others
   def can_grant_permissions?
-    perms.include? Perm.find_by(name: constant("user_role_types.grant_permissions"))
+    perms.include? Perm.find_by(name: constant("roles.grant_permissions"))
   end
 
   ##
@@ -152,7 +166,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
-    perms.include? Perm.find_by(name: constant("user_role_types.modify_templates"))
+    perms.include? Perm.find_by(name: constant("roles.modify_templates"))
   end
 
   ##
@@ -160,7 +174,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organistion guidance
   def can_modify_guidance?
-    perms.include? Perm.find_by(name: constant("user_role_types.modify_guidance"))
+    perms.include? Perm.find_by(name: constant("roles.modify_guidance"))
   end
 
   ##
@@ -168,7 +182,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can use the api
   def can_use_api?
-    perms.include? Perm.find_by(name: constant("user_role_types.use_api"))
+    perms.include? Perm.find_by(name: constant("roles.use_api"))
   end
 
   ##
@@ -176,7 +190,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
-    perms.include? Perm.find_by(name: constant("user_role_types.change_org_details"))
+    perms.include? Perm.find_by(name: constant("roles.change_org_details"))
   end
 
   ##
@@ -184,7 +198,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    perms.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    perms.include? Perm.find_by(name: constant('roles.grant_api_to_orgs'))
   end
 
 
@@ -193,7 +207,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    perms.include? Perm.find_by(name: constant('user_role_types.grant_api_to_orgs'))
+    perms.include? Perm.find_by(name: constant('roles.grant_api_to_orgs'))
   end
 
   ##
@@ -201,7 +215,7 @@ class User < ActiveRecord::Base
   #
   # @return [String] the organisation type
   def org_type
-    org_type = organisation.organisation_type.name
+    org_type = org.organisation_type
     return org_type
   end
 
@@ -226,12 +240,25 @@ class User < ActiveRecord::Base
       end
       self.save!
       # send an email to the user to notify them of their new api token
-      UserMailer.api_token_granted_notification(self)
+      #UserMailer.api_token_granted_notification(self)
     end
   end
 
+  ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  # --------------------------------------------------------------
+  def self.from_omniauth(auth)
+    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
+    
+    if scheme.nil?
+      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
+    else
+      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
+                   'user_identifiers.identifier_scheme_id': scheme.id).first
+    end
+  end
 
-    # this generates a reset password link for a given user
+  # this generates a reset password link for a given user
   # which can then be sent to them with the appropriate host
   # prepended.
   def reset_password_link

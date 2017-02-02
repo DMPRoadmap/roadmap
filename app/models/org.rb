@@ -11,7 +11,8 @@ class Org < ActiveRecord::Base
   has_many :templates
   has_many :users
   has_many :suggested_answers
-  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
+  
+  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
   ##
   # Possibly needed for active_admin
@@ -19,7 +20,8 @@ class Org < ActiveRecord::Base
 	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
                   :logo_file_name, :name, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email
+                  :token_permission_type_ids, :language_id, :contact_email, 
+                  :language, :org_type, :region, :token_permission_types
 
   ##
   # Validators
@@ -44,6 +46,9 @@ class Org < ActiveRecord::Base
             6 => :school,
             column: 'org_type'
 
+  # Predefined queries for retrieving the managain organisation and funders
+  scope :managing_orgs, -> { where(name: GlobalHelpers.constant("organisation_types.managing_organisation")) }
+  scope :funders, -> { where(org_type: 2) }
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -190,7 +195,7 @@ class Org < ActiveRecord::Base
   #
   # @return [Array<Dmptemplate>] published dmptemplates
 	def published_templates
-		return dmptemplates.where("published = ?", true)
+		return templates.where("published = ?", true)
 	end
 
   def check_api_credentials

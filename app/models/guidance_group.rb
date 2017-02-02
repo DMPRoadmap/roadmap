@@ -5,15 +5,15 @@ class GuidanceGroup < ActiveRecord::Base
   belongs_to :org
   has_many :guidances
   # depricated but needed for migration "single_group_for_guidance"
-  has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
+  # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :organisation_id, :name, :optional_subset, :published, :as => [:default, :admin]
-  attr_accessible :dmptemplate_ids, :as => [:default, :admin]
+  attr_accessible :org_id, :name, :optional_subset, :published, :org, :guidances,
+                  :as => [:default, :admin]
 
-
+  validates :name, :org, presence: true
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -23,15 +23,7 @@ class GuidanceGroup < ActiveRecord::Base
 
 
 
-
-
-  ##
-  # Converts a guidance group to a string containing the display name
-  #
-  # @return [String] the name of the organisation, with or without the name of the guidance group
-	def to_s
-		"#{display_name}"
-	end
+  
 
   ##
   # Converts the current guidance group to a string containing the display name.
@@ -53,14 +45,20 @@ class GuidanceGroup < ActiveRecord::Base
   #
   # @param excluded_orgs [Array<Organisation>] a list of organisations to exclude in the result
   # @return [Array<GuidanceGroup>] a list of guidance groups
-	def self.guidance_groups_excluding(excluded_orgs)
-		excluded_org_ids = Array.new
-		excluded_orgs.each do |org|
-			excluded_org_ids << org.id
-		end
-		return_orgs =  GuidanceGroup.where("organisation_id NOT IN (?)", excluded_org_ids)
-		return return_orgs
-	end
+  def self.guidance_groups_excluding(excluded_orgs)
+    excluded_org_ids = Array.new
+    
+    if excluded_orgs.is_a?(Array)
+      excluded_orgs.each do |org|
+        excluded_org_ids << org.id
+      end
+    else
+      excluded_org_ids << excluded_orgs
+    end
+    
+    return_orgs =  GuidanceGroup.where("org_id NOT IN (?)", excluded_org_ids)
+    return return_orgs
+  end
 
   ##
   # Returns whether or not a given user can view a given guidance group
@@ -77,17 +75,17 @@ class GuidanceGroup < ActiveRecord::Base
     viewable = false
 
     # groups are viewable if they are owned by any of the user's organisations
-    if guidance_group.organisation == user.organisation
+    if guidance_group.org == user.org
       viewable = true
     end
     # groups are viewable if they are owned by the managing curation center
     Org.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_group|
-      if guidance_group.organisation.id == managing_group.id
+      if guidance_group.org.id == managing_group.id
         viewable = true
       end
     end
     # groups are viewable if they are owned by a funder
-    if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
+    if guidance_group.org.org_type == 2
       viewable = true
     end
 
@@ -106,21 +104,21 @@ class GuidanceGroup < ActiveRecord::Base
   def self.all_viewable(user)
     # first find all groups owned by the Managing Curation Center
     managing_org_groups = []
-    Org.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_org|
+    Org.where(name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_org|
       managing_org_groups = managing_org_groups + managing_org.guidance_groups
     end
 
     # find all groups owned by  a Funder organisation
     funder_groups = []
-    funders = OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
-    funders.organisations.each do |funder|
+    funders = Org.where(org_type: 2)
+    funders.each do |funder|
       funder_groups = funder_groups + funder.guidance_groups
     end
-    organisation_groups = [user.organisation.guidance_groups]
+    organisation_groups = [user.org.guidance_groups]
 
     # pass this organisation guidance groups to the view with respond_with @all_viewable_groups
     all_viewable_groups = managing_org_groups + funder_groups + organisation_groups
-    all_viewable_groups = all_viewable_groups.uniq{|x| x.id}
+    all_viewable_groups = all_viewable_groups.flatten.uniq{|x| x.id}
     return all_viewable_groups
   end
 end

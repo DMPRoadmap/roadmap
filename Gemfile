@@ -15,9 +15,9 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
+gem 'mysql2', '~> 0.3.18'
 gem 'pg'
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
-
 
 # ------------------------------------------------
 #    JS <-> RUBY BRIDGE
@@ -47,6 +47,8 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
+gem 'omniauth-orcid'
+
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration
@@ -63,7 +65,7 @@ gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NO
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
-gem 'contact_us', '>= 1.2.0'            # COULD BE EASILY REPLACED WITH OUR OWN CODE
+gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha'
 gem 'dragonfly'                         # LOGO UPLOAD
 
@@ -103,7 +105,9 @@ group :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
   gem 'rack-test'
+  gem 'webmock'
   gem 'sqlite3'
+  gem 'simplecov', require: false
 end
 
 group :development do

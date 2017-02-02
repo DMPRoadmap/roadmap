@@ -3,73 +3,73 @@
 <% javascript "admin.js" %>
 
 <h1>
-	<%= @dmptemplate.title %>
-	<!-- link button to add new guidance -->
-	<div class="move_2_right">
-		<%= link_to t("org_admin.templates.view_all_templates"),
-		            admin_index_dmptemplate_path,
-		            :class => "btn btn-primary" %>
-	</div>            
+  <%= @template.title %>
+  <!-- link button to add new guidance -->
+  <div class="move_2_right">
+    <%= link_to t("org_admin.templates.view_all_templates"),
+                admin_index_template_path,
+                class: "btn btn-primary" %>
+  </div>
 </h1>
 
 <div class="div_clear"></div>
 
 <!-- render navigation tabs for the template-->
-<%= render :partial => "admin_nav_tabs", locals: {dmptemplate: @dmptemplate, active: "add_plan"} %>
+<%= render partial: "admin_nav_tabs", locals: {template: @template, active: "add_plan"} %>
 
 <!-- phase main container -->
 <div class="project-tabs-body">
     <div class="accordion" id="sections-accordion">
-    	
-    	<!--phase details -->
-    	<div class="phase_details">
-    		<div class="phase_details_body">
-    			
-    			<!-- add phase details -->
-    			<%= form_for :phase, :url => { :action => "admin_createphase"} do |f| %>
-					<h3>
-						<%= t("org_admin.templates.phase_details_label")%>
-					</h3>
-					<%= raw t("org_admin.templates.phase_new_text_html")%>
-					<br/>
-					<div class="div_clear"></div>
-					<%= f.hidden_field :dmptemplate_id, :value => @dmptemplate.id%>
-					<table class="dmp_details_table phase">
-						<tr>
-							<td class="first_template"><%= t("org_admin.templates.title_label") %></td>
-							<td><%= f.text_field :title, 
-									:as => :string,
-									:class => "text_field has-tooltip", "data-toggle" => "tooltip", "title" => t("org_admin.templates.phase_title_help_text") %></td>
-						</tr>
-						<tr>
-							<td class="first_template"><%= t("org_admin.templates.phase_order_label") %></td>
-							<td><%= f.number_field :number, :in => 1..5, :class => "number_field has-tooltip", "data-toggle" => "tooltip", "title" => t("org_admin.templates.phase_number_help_text") %></td>
-						</tr>
-						<tr>
-							<td class="first_template"><%= t("org_admin.templates.desc_label") %></td>
-							<td class="phase_table_last_column">
-								<div class="div_left_icon">
-									<%= text_area_tag("phase-desc","" , class: "tinymce") %>
-								</div>
-								<div class="div_right_icon">
-									<%= link_to( image_tag("help_button.png"), "#", :class => "phase_desc_popover", :rel => "popover", "data-html" => "true", "data-content" => t("org_admin.templates.phase_desc_help_text_html"))%>
-								</div>
-								<div class="clearfix"></div>
-							</td>
-						</tr>
-					</table>
-					<div class="div_clear"></div>	
-					
-					<!-- submit buttons -->
-					<div class="move_2_right">
-						<%= f.submit t("helpers.submit.save"), :class => "btn btn-primary" %>
-						<%= link_to t("helpers.submit.cancel"), admin_dmptemplate_path(@dmptemplate), :class => "btn cancel" %>
-					</div>
-	
-				<%end%>	
-   			</div>
-		</div>  				
-	</div>	
+
+      <!--phase details -->
+      <div class="phase_details">
+        <div class="phase_details_body">
+
+          <!-- add phase details -->
+          <%= form_for :phase, url: { action: "admin_createphase"} do |f| %>
+          <h3>
+            <%= t("org_admin.templates.phase_details_label")%>
+          </h3>
+          <%= raw t("org_admin.templates.phase_new_text_html")%>
+          <br/>
+          <div class="div_clear"></div>
+          <%= f.hidden_field :template_id, value: @template.id%>
+          <table class="dmp_details_table phase">
+            <tr>
+              <td class="first_template"><%= t("org_admin.templates.title_label") %></td>
+              <td><%= f.text_field :title,
+                  as: :string,
+                  class: "text_field has-tooltip", "data-toggle" => "tooltip", "title" => t("org_admin.templates.phase_title_help_text") %></td>
+            </tr>
+            <tr>
+              <td class="first_template"><%= t("org_admin.templates.phase_order_label") %></td>
+              <td><%= f.number_field :number, in: 1..5, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: t("org_admin.templates.phase_number_help_text") %></td>
+            </tr>
+            <tr>
+              <td class="first_template"><%= t("org_admin.templates.desc_label") %></td>
+              <td class="phase_table_last_column">
+                <div class="div_left_icon">
+                  <%= text_area_tag("phase-desc","" , class: "tinymce") %>
+                </div>
+                <div class="div_right_icon">
+                  <%= link_to( image_tag("help_button.png"), "#", class: "phase_desc_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.templates.phase_desc_help_text_html"))%>
+                </div>
+                <div class="clearfix"></div>
+              </td>
+            </tr>
+          </table>
+          <div class="div_clear"></div>
+
+          <!-- submit buttons -->
+          <div class="move_2_right">
+            <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
+            <%= link_to t("helpers.submit.cancel"), admin_template_template_path(@template), class: "btn cancel" %>
+          </div>
+
+        <%end%>
+      </div>
+    </div>
+  </div>
 </div>
-		    	    
-<%= tinymce :content_css => asset_path("application.css") %>
+
+<%= tinymce content_css: asset_path("application.css") %>

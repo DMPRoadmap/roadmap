@@ -4,9 +4,9 @@
 		<td class="first_template">
 			<% if suggested_answer.is_example? then %>
 				<%= t('org_admin.questions.example_answer_label')%>
-			<%else%>
+			<% else %>
 				<%= t('org_admin.questions.suggested_answer_label')%>
-			<%end%>
+			<% end %>
 		</td>
 		<td><%= raw suggested_answer.text %></td>
 	</tr>
@@ -14,6 +14,6 @@
 <br/>
 
 <div class="move_2_right">
-	<%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
-	<%= link_to t("org_admin.questions.edit_suggested_answer_button"), '# ', :class => "btn btn-primary edit_form_for_suggested_answer"%>
+	<%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+	<%= link_to t("org_admin.questions.edit_suggested_answer_button"), '# ', class: "btn btn-primary edit_form_for_suggested_answer"%>
 </div>

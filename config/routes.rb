@@ -1,18 +1,28 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords', :sessions => 'sessions', :omniauth_callbacks => 'users/omniauth_callbacks'} do
+  devise_for :users, controllers: {
+        registrations: "registrations", 
+        confirmations: 'confirmations', 
+        passwords: 'passwords', 
+        sessions: 'sessions', 
+        omniauth_callbacks: 'users/omniauth_callbacks'} do
+        
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
-
+  
   # WAYFless access point - use query param idp
   get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
 
+  #post '/auth/:provider/callback' => 'sessions#oauth_create'
+  
   # fix for activeadmin signout bug
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
+  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  
   #ActiveAdmin.routes(self)
 
   #organisation admin area
@@ -36,6 +46,9 @@ Rails.application.routes.draw do
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
+    get "public_plans" => 'static_pages#public_plans'
+    get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
+    
     get "existing_users" => 'existing_users#index'
   
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
@@ -88,6 +101,7 @@ Rails.application.routes.draw do
         get 'admin_phase'
         get 'admin_previewphase'
         get 'admin_cloneversion'
+        get 'admin_template_history'
         delete 'admin_destroy'
         delete 'admin_destroyversion'
         delete 'admin_destroyphase'
@@ -188,8 +202,8 @@ Rails.application.routes.draw do
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
         resources :guidance_groups, only: [:index, :show]
-        resources :plans, only: :create, controller: "projects", path: "plans"
-        resources :templates, only: :index, controller: "dmptemplates", path: "templates"
+        resources :plans, only: :create
+        resources :templates, only: :index
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do
           member do
             get :users_joined

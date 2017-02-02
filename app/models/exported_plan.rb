@@ -1,7 +1,8 @@
 class ExportedPlan < ActiveRecord::Base
   include GlobalHelpers
 
-  attr_accessible :plan_id, :user_id, :format, :as => [:default, :admin]
+# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
+  attr_accessible :plan_id, :user_id, :format, :user, :plan, :as => [:default, :admin]
 
   #associations between tables
   belongs_to :plan
@@ -10,6 +11,7 @@ class ExportedPlan < ActiveRecord::Base
   VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
   validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
+  validates :plan, :format, presence: true
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a
@@ -18,10 +20,13 @@ class ExportedPlan < ActiveRecord::Base
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
-  # Getters to match Settings::Dmptemplate::VALID_ADMIN_FIELDS
+# TODO: Consider removing the accessor methods, they add no value. The view/controller could
+#       just access the value directly from the project/plan: exported_plan.plan.project.title
+
+  # Getters to match Settings::Template::VALID_ADMIN_FIELDS
   def project_name
     name = self.plan.project.title
-    name += " - #{self.plan.title}" if self.plan.project.dmptemplate.phases.count > 1
+    name += " - #{self.plan.title}" if self.plan.project.template.phases.count > 1
     name
   end
 
@@ -46,12 +51,22 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def funder
-    org = self.plan.project.dmptemplate.try(:organisation)
+    org = self.plan.project.template.try(:organisation)
     org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder")
   end
 
   def institution
     plan.project.organisation.try(:name)
+  end
+
+  def orcid
+    scheme = IdentifierScheme.find_by(name: 'orcid')
+    if self.user.nil?
+      ''
+    else
+      orcid = self.user.user_identifiers.where(identifier_scheme: scheme).first
+      (orcid.nil? ? '' : orcid.identifier)
+    end
   end
 
   # sections taken from fields settings
@@ -92,18 +107,18 @@ class ExportedPlan < ActiveRecord::Base
 
   def as_txt
     output = "#{self.plan.project.title}\n\n#{self.plan.version.phase.title}\n"
-
-
-puts "SETTINGS: #{self.plan.inspect}"
-
-    output += "\nDetails:\n#{self.plan.settings[:export][:fields][:admin].collect{|f| f.to_s}.join('\n')}\n"
+    output += "\nDetails:\n\n"
+    attrs = self.plan.settings(:export)[:value]['fields'][:admin].collect{|f| f.to_s}
+    attrs.each do |attr|
+        output += attr + ": " + self.send(attr) + "\n"
+    end
 
     self.sections.each do |section|
       output += "\n#{section.title}\n"
 
       self.questions_for_section(section).each do |question|
         qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
-        output += "\n#{qtext}\n"
+        output += "\n* #{qtext}"
         answer = self.plan.answer(question.id, false)
 
         if answer.nil? || answer.text.nil? then

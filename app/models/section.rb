@@ -5,14 +5,15 @@ class Section < ActiveRecord::Base
   belongs_to :phase
   belongs_to :organisation
   has_many :questions, :dependent => :destroy
-  has_many :plan_sections, :dependent => :destroy
 
   #Link the data
   accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
 #  accepts_nested_attributes_for :version
 
-  attr_accessible :organisation_id, :description, :number, :title, :version_id , :published, :questions_attributes, :as => [:default, :admin]
-
+  attr_accessible :organisation_id, :description, :number, :title, :published, 
+                  :questions_attributes, :organisation, :phase, :modifiable,
+                  :as => [:default, :admin]
+                  
   ##
   # return the title of the section
   #
@@ -21,8 +22,11 @@ class Section < ActiveRecord::Base
     "#{title}"
   end
 
-  amoeba do
-    include_association :questions
-  end
+# TODO: Commented this amoeba cloning gem definition out to see if its even used. The
+#       amoeba documentations uses [object].amoeba_dup to clone the object, but that
+#       command does not exist in the codebase
+#  amoeba do
+#    include_association :questions
+#  end
 
 end

@@ -1,0 +1,63 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+  <%= @template.title %>
+</h1>
+<div class="div_clear"></div>
+<h2>
+  <%= t('org_admin.templates.template_history') %>
+</h2>
+
+<div class="div_left">
+  <%= raw t('org_admin.templates.template_history_text_html')%>
+</div>
+<div class="move_2_right">
+  <%= link_to t("org_admin.templates.view_all_templates"),
+      admin_index_template_path,
+      class: 'btn btn-primary' %>
+</div>
+
+<div class="div_clear"></div>
+
+<!-- List of own templates -->
+<% if @templates.length > 0 then %>
+  <table id="dmp_table" class="dmp_table tablesorter">
+    <thead>
+      <tr>
+        <th class="dmp_th_medium"><%= t('org_admin.templates.title_label') %></th>
+        <th class="dmp_th_small"><%= "Version" %></th>
+        <th class="dmp_th_small"><%= t('org_admin.templates.published_label') %></th>
+        <th class="dmp_th_small"><%= t('org_admin.templates.last_updated') %></th>
+        <td class="dmp_th_small"><%= t('org_admin.templates.actions') %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @templates.each do |org_template| %>
+        <tr>
+          <td class="dmp_td_medium">
+            <%= org_template.title%>
+          </td>
+            <td class="dmp_td_small">
+              <%= org_template.version %>
+            </td>
+            <td class="dmp_td_small">
+              <%= org_template.published %>
+          </td>
+          <td class="dmp_td_small">
+            <% last_temp_updated = org_template.updated_at %>
+            <% org_template.phases.each do |phase|%>
+              <% if org_template.updated_at.to_date < phase.updated_at.to_date %>
+                <% last_temp_updated = phase.updated_at %>
+              <% end %>
+            <% end %>
+            <%= l last_temp_updated.to_date, formats: :short %>
+          </td>
+            <td class="dmp_td_small">
+            <%= link_to t('helpers.view'), admin_template_template_path(id: org_template), class: "dmp_table_link"%>
+            </td>
+         </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+<%end%>

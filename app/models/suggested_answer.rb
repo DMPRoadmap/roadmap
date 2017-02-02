@@ -8,7 +8,8 @@ class SuggestedAnswer < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :organisation_id, :question_id, :text, :is_example, :as => [:default, :admin]
+	attr_accessible :org_id, :question_id, :text, :is_example, 
+                  :org, :question, :as => [:default, :admin]
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

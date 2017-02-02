@@ -1,0 +1,34 @@
+<!-- templates navigation -->
+<div id="project-tabs" class="nav-project-tabs">
+	<ul class="nav nav-tabs" data-tabs="tabs">
+		<!-- template details (views/dmptemplate/_project_details.html.erb)-->
+		<% if active == "show_template" then %>
+			<li class="active">
+		<% else %>
+			<li>
+		<% end %>
+			<%= link_to t('org_admin.templates.template_details'), admin_template_dmptemplate_path(dmptemplate) %>
+	   	</li>
+    <!-- Phases -->
+    <% dmptemplate.phases.order(:number).each do |phase| %>
+		<% if active == phase.id then %>
+			<li class="active">
+		<% else %>
+			<li>
+		<% end %>
+			<%= link_to phase.title, admin_phase_dmptemplate_path(phase) %>
+		</li>
+    <% end %>
+    <!-- Add another phase button -->
+    <% if current_user.can_org_admin? && (dmptemplate.org_type != constant("organisation_types.funder")|| current_user.org_type == constant("organisation_types.funder")) then %>
+    	<% if active == 'add_plan' then %>
+			<li class="active">
+		<% else %>
+			<li>
+		<% end %>
+			<%= link_to t('org_admin.templates.add_phase_label'), admin_addphase_dmptemplate_path(dmptemplate) %>
+		</li>
+    <%end%>
+	</ul>
+</div>
+

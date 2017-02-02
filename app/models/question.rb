@@ -20,8 +20,14 @@ class Question < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, :suggested_answer, :text, :section_id,:question_format_id,:options_attributes, :suggested_answers_attributes, :option_comment_display, :theme_ids, :as => [:default, :admin]
+  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, 
+                  :suggested_answer, :text, :section_id, :question_format_id, 
+                  :question_options_attributes, :suggested_answers_attributes, 
+                  :option_comment_display, :theme_ids, :section, :question_format, 
+                  :question_options, :suggested_answers, :answers, :themes, 
+                  :modifiable, :option_comment_display, :as => [:default, :admin]
 
+  validates :text, :section, :number, presence: true
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -38,80 +44,35 @@ class Question < ActiveRecord::Base
     "#{text}"
   end
 
-  def select_text
-    cleantext = text.gsub(/<[^<]+>/, '')
-    if cleantext.length > 120
-      cleantext = cleantext.slice(0,120)
-    end
-    cleantext
-  end
+# TODO: Commented this amoeba cloning gem definition out to see if its even used. The
+#       amoeba documentations uses [object].amoeba_dup to clone the object, but that
+#       command does not exist in the codebase
 
-  amoeba do
-    include_association :options
-    include_association :suggested_answers
-    clone [:themes]
-  end
-
-	#def question_type?
-	#	type_label = {}
-	#	if self.is_text_field?
-	#	  type_label = 'Text field'
-	#	elsif self.multiple_choice?
-	#		type_label = 'Multiple choice'
-	#	else
-	#		type_label = 'Text area'
-	#	end
-	#	return type_label
-	#end
+#  amoeba do
+#    include_association :options
+#    include_association :suggested_answers
+#    clone [:themes]
+#  end
 
   ##
-  # for each question theme, appends them separated by comas
-  # shouldnt have a ? after the method name
+	# guidance for org
   #
-  # @return [Hash{String=> String}]
-	def question_themes?
-		themes_label = {}
-		i = 1
-		themes_quest = self.themes
-
-		themes_quest.each do |tt|
-			themes_label = tt.title
-
-			if themes_quest.count > i then
-				themes_label +=	','
-				i +=1
-			end
-		end
-
-		return themes_label
-	end
-
-  ##
-	# guidance for question in the org admin
-  #
-  # @param question [Question] the question to find guidance for
-  # @param org_admin [Organisation] the organisation to find guidance for
+  # @param org [Org] the org to find guidance for
   # @return [Hash{String => String}]
-	def guidance_for_question(question, org_admin)
-        # pulls together guidance from various sources for question
-        guidances = {}
-        theme_ids = question.theme_ids
-
-        GuidanceGroup.where("organisation_id = ?", org_admin.id).each do |group|
-            group.guidances.each do |g|
-                g.themes.where("id IN (?)", theme_ids).each do |gg|
-                   guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{gg.title}"] = g
-                end
-            end
+	def guidance_for_org(org)
+    # pulls together guidance from various sources for question
+    guidances = {}
+    theme_ids = themes.collect{|t| t.id}
+    if theme_ids.present?
+      GuidanceGroup.where(org_id: org.id).each do |group|
+        group.guidances.each do |g|
+          g.themes.where("id IN (?)", theme_ids).each do |gg|
+            guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{gg.title}"] = g
+          end
         end
-	  	# Guidance link to directly to a question
-        question.guidances.each do |g_by_q|
-            g_by_q.guidance_groups.each do |group|
-                if group.organisation == org_admin
-                    guidances["#{group.name} " + I18n.t('admin.guidance_lowercase')] = g_by_q
-                end
-            end
-	  	end
+      end
+    end
+
 		return guidances
  	end
 
@@ -121,7 +82,7 @@ class Question < ActiveRecord::Base
   # @param org_id [Integer] the id for the organisation
   # @return [String] the suggested_answer for this question for the specified organisation
  	def get_suggested_answer(org_id)
- 		suggested_answer = suggested_answers.find_by_organisation_id(org_id)
+ 		suggested_answer = suggested_answers.find_by(org_id: org_id)
  		return suggested_answer
  	end
 

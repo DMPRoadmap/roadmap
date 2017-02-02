@@ -9,8 +9,9 @@
 		<% end %>
 		<%= link_to t("helpers.project.tab_plan"), project_path(project) %>
 	   		</li>
-    <!-- Plans (phases)-->
-    <% project.plans.each do |plan| %>
+    <!-- Plans (phases) -->
+    <% pplans = project.plans.sort { |x,y| x.version.phase.number <=> y.version.phase.number} %>
+    <% pplans.each do |plan| %>
 		<% if active == plan.id then %>
 			<li class="active">
 		<% else %>

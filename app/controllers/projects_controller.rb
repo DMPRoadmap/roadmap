@@ -169,116 +169,127 @@ class ProjectsController < ApplicationController
   # returns to AJAX call from frontend 
   # difficult to secure as it passes through params, and dosent curate data based
   # on what the user can "view" or is public
-    # GET /projects/possible_templates.json
-    def possible_templates
-        if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
-            funder = Org.find(params[:funder])
-        else
-            funder = nil
-        end
-        if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
-            institution = Org.find(params[:institution])
-        else
-            institution = nil
-        end
-        templates = {}
-        unless funder.nil? then
-            funder.published_templates.each do |t|
-                templates[t.id] = t.title
-            end
-        end
-        if templates.count == 0 && !institution.nil? then
-            institution.published_templates.each do |t|
-                templates[t.id] = t.title
-            end
-            institution.children.each do |o|
-                o.published_templates.each do |t|
-                    templates[t.id] = t.title
-                end
-            end
-        end
-        respond_to do |format|
-            format.json { render json: templates.to_json }
-        end
-    end
+
+	# GET /projects/possible_templates.json
+	def possible_templates
+		if !params[:funder].nil? && params[:funder] != "" && params[:funder] != "undefined" then
+			funder = Org.find(params[:funder])
+		else
+			funder = nil
+		end
+		if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
+			institution = Org.find(params[:institution])
+		else
+			institution = nil
+		end
+		templates = {}
+		unless funder.nil? then
+			funder.published_templates.each do |t|
+				templates[t.id] = t.title
+			end
+		end
+		if templates.count == 0 && !institution.nil? then
+			institution.published_templates.each do |t|
+				templates[t.id] = t.title
+			end
+			institution.children.each do |o|
+				o.published_templates.each do |t|
+					templates[t.id] = t.title
+				end
+			end
+		end
+		respond_to do |format|
+			format.json { render json: templates.to_json }
+		end
+	end
 
   # returns to AJAX call from frontend 
-    # difficult to secure as it passes through params, and dosent curate data based
+  # difficult to secure as it passes through params, and dosent curate data based
   # on what the user can "view" or is public
+  # -----------------------------------------------------------
   def possible_guidance
     authorize @project
-        if !params[:template].nil? && params[:template] != "" && params[:template] != "undefined" then
-            template = Dmptemplate.find(params[:template])
-        else
-            template = nil
-        end
-        if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
-            institution = Org.find(params[:institution])
-        else
-            institution = nil
-        end
-        excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
-        guidance_groups = {}
-        ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
 
-        ggs.each do |gg|
-            guidance_groups[gg.id] = gg.name
-        end
+		if !params[:template].nil? && params[:template] != "" && params[:template] != "undefined" then
+			template = Dmptemplate.find(params[:template])
+		else
+			template = nil
+		end
+		if !params[:institution].nil? && params[:institution] != "" && params[:institution] != "undefined" then
+			institution = Org.find(params[:institution])
+		else
+			institution = nil
+		end
+		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
+		guidance_groups = {}
+		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
+
+    ggs.each do |gg|
+      guidance_groups[gg.id] = gg.name
+    end
 
         #subset guidance that belong to the institution
-        unless institution.nil? then
+    unless institution.nil? then
       authorize Project
-            optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id = ?", true, institution.id)
-            optional_gg.each do|optional|
-                guidance_groups[optional.id] = optional.name
-            end
+      optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id = ?", true, institution.id)
+      optional_gg.each do|optional|
+        guidance_groups[optional.id] = optional.name
+      end
 
-            institution.children.each do |o|
-                o.guidance_groups.each do |gg|
-                    include = false
-                    gg.guidances.each do |g|
-                        if g.dmptemplate.nil? || g.dmptemplate_id == template.id then
-                            include = true
-                            break
-                        end
-                    end
-                    if include then
-                        guidance_groups[gg.id] = gg.name
-                    end
-                end
+      institution.children.each do |o|
+        o.guidance_groups.each do |gg|
+          include = false
+          gg.guidances.each do |g|
+            if g.dmptemplate.nil? || g.dmptemplate_id == template.id then
+              include = true
+              break
             end
+          end
+          if include then
+            guidance_groups[gg.id] = gg.name
+          end
         end
+      end
+    end
 
         #If template belongs to a funder and that funder has subset guidance display then.
         if !template.nil? && template.organisation.organisation_type.name == constant("organisation_types.funder") then
             optional_gg = GuidanceGroup.where("optional_subset =  ? AND organisation_id = ?", true, template.organisation_id)
-            optional_gg.each do|optional|
-                guidance_groups[optional.id] = optional.name
-            end
+      optional_gg.each do|optional|
+        guidance_groups[optional.id] = optional.name
+      end
         end
 
 
-        respond_to do |format|
-            format.json { render json: guidance_groups.to_json }
-        end
+    respond_to do |format|
+      format.json { render json: guidance_groups.to_json }
+    end
+  end
+  
+  private
+    def project_params
+      params.require(:project).permit(:title, :grant_number, :identifier, :description, 
+                                      :principal_investigator, :principal_investigator_identifier,
+                                      :data_contact, :funder_name, :visibility,
+                                      :dmptemplate_id, :organisation_id, :funder_id, :institution_id,
+                                      :guidance_group_ids, :project_group_ids)
     end
   
-    private
-      def orgs_of_type(org_type_name, published_templates = false)
-          org_type = OrganisationType.find_by_name(org_type_name)
-          all_such_orgs = org_type.organisations
-          if published_templates then
-              with_published = Array.new
-              all_such_orgs.each do |o|
-                  if o.published_templates.count > 0 then
-                      with_published << o
-                  end
-              end
-              return with_published.sort_by {|o| [o.sort_name, o.name] }
-          else
-              return all_such_orgs.sort_by {|o| [o.sort_name, o.name] }
+    def orgs_of_type(org_type_name, published_templates = false)
+      org_type = OrganisationType.find_by_name(org_type_name)
+      all_such_orgs = org_type.organisations
+      if published_templates then
+        with_published = Array.new
+        all_such_orgs.each do |o|
+          if o.published_templates.count > 0 then
+            with_published << o
           end
+        end
+        return with_published.sort_by {|o| [o.sort_name, o.name] }
+      else
+        return all_such_orgs.sort_by {|o| [o.sort_name, o.name] }
       end
+    end
   
     # -----------------------------------------------------------
     def get_available_templates
@@ -294,7 +305,7 @@ class ProjectsController < ApplicationController
     # -----------------------------------------------------------
     def get_always_available_guidance
       # Exclude Funders, Institutions, or children of Institutions
-          excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
+      excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + 
                       orgs_of_type(constant("organisation_types.institution")) + 
                       Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
 
@@ -333,4 +344,42 @@ class ProjectsController < ApplicationController
     
       GuidanceGroup.where(id: guidance_groups)
     end  
+
+    # -----------------------------------------------------------
+    def generate_export
+      @exported_plan = ExportedPlan.new.tap do |ep|
+        ep.plan = @plan
+        ep.user = current_user ||= nil
+        #ep.format = request.format.try(:symbol)
+        ep.format = request.format.to_sym
+        plan_settings = @plan.settings(:export)
+
+        Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
+          ep.settings(:export).send("#{key}=", plan_settings.send(key))
+        end
+      end
+
+      @exported_plan.save! # FIXME: handle invalid request types without erroring?
+      file_name = @exported_plan.project_name
+
+      respond_to do |format|
+        format.html
+        format.xml
+        format.json
+        format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
+        format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
+        format.pdf do
+          @formatting = @plan.settings(:export).formatting
+          render pdf: file_name,
+                 margin: @formatting[:margin],
+                 footer: {
+                   center: t('helpers.plan.export.pdf.generated_by'),
+                   font_size: 8,
+                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                   right: '[page] of [topage]'
+                 }
+        end
+      end
+    end
 end
