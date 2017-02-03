@@ -7,6 +7,8 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
     @user = User.first
     
     stub_blog_calls
+    
+    scaffold_plan
   end
   
   # In order to test methods on the application controller, we must call routes
