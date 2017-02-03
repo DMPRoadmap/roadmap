@@ -12,6 +12,8 @@ class SuggestedAnswer < ActiveRecord::Base
                   :org, :question, :as => [:default, :admin]
 
 
+  validates :question, :org, :text, presence: true
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?

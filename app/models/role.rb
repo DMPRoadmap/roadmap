@@ -1,6 +1,8 @@
 class Role < ActiveRecord::Base
   include FlagShihTzu
 
+  before_validation :check_access_level
+
   ##
   # Associations
   belongs_to :user
@@ -14,36 +16,8 @@ class Role < ActiveRecord::Base
             3 => :editor,
             column: 'access'
 
-
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-  # These functions are from the old project_groups model
-
-
-
-  ##
-  # returns the user's email unless it is nil
-  #
-  # @return [Boolean, String] false if no email exists, the email otherwise
-  def email
-    unless user.nil?
-      return user.email
-    end
-  end
-
-  ##
-  # define a new user for the project group by email
-  #
-  # @param new_email [String] the email of the new user for the project group
-  # @return [User] the new user
-  def email=(new_email)
-    unless User.find_by(email: email).nil? then
-    user = User.find_by(email: email)
-    end
-    self.save!
-  end
+  validates :user, :plan, :access, presence: true
+  validates :access, numericality: {greater_than: 0}
 
   ##
   # return the access level for the current project group
@@ -60,7 +34,6 @@ class Role < ActiveRecord::Base
     else
       return 1
     end
-    self.save!
   end
 
   ##
@@ -81,6 +54,11 @@ class Role < ActiveRecord::Base
     else
       self.editor = false
     end
-    self.save!
+    self.creator = true unless self.administrator? || self.editor?
+  end
+  
+  # Ensures that the access attribute is set
+  def check_access_level
+    self.access_level = self.access_level
   end
 end

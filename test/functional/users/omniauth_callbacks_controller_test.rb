@@ -3,7 +3,7 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
   
   setup do
     @schemes = IdentifierScheme.all
-    @user = users(:cc_super)
+    @user = User.first
     
     @callback_uris = {}
     

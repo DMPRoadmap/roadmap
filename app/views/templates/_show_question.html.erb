@@ -62,7 +62,7 @@
     </tr>
 
     <!-- Suggested answer or Example-->
-    <% if question.section.phase.template.org_type != constant("organisation_types.funder")  %>
+    <% if question.section.phase.template.org.org_type != constant("organisation_types.funder")  %>
       <% suggested_answer = question.get_suggested_answer(current_user.org_id) %>
       <% if !suggested_answer.nil?  && suggested_answer.text != ""  %>
         <tr>

@@ -15,6 +15,11 @@ class Plan < ActiveRecord::Base
   accepts_nested_attributes_for :template
   has_many :exported_plans
 
+  has_many :roles
+# COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
+#  has_many :users, through: :roles
+
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
@@ -28,8 +33,9 @@ class Plan < ActiveRecord::Base
   # public is a Ruby keyword so using publicly
   enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
-  #TODO: work out why this messes up plan creation
-  #validates :template, :title, :users, presence: true
+  #TODO: work out why this messes up plan creation : 
+  #   briley: Removed reliance on :users, its really on :roles (shouldn't have a plan without at least a creator right?) It should be ok like this though now
+  validates :template, :title, presence: true
 
   ##
   # Constants
@@ -45,29 +51,6 @@ class Plan < ActiveRecord::Base
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias_method :super_settings, :settings
-
-  
-
-  def new
-        if user_signed_in? then
-            @plan = Plan.new
-            authorize @plan
-            @funders = Org.funder.all 
-
-            respond_to do |format|
-              format.html # new.html.erb
-            end
-        else
-            respond_to do |format|
-                format.html { redirect_to edit_user_registration_path }
-            end
-        end
-    end
-
-
-
-
-
 
 
   ##

@@ -25,7 +25,7 @@
 		<%= f.hidden_field "user_identifiers[#{scheme}]", value: resource.user_identifiers.first.identifier%>
 	<% end %>
 	<li>
-		<%= collection_select(:user, :organisation_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: constant("organisation_types.organisation")}, { :class => 'typeahead org_sign_up' }) %>
+		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: constant("organisation_types.organisation")}, { :class => 'typeahead org_sign_up' }) %>
 	</li>
   <div id="other-org-link"><a href="#"><%= t("helpers.org_not_listed") %></a></div>
 	<% other_organisations = Array.new %>
