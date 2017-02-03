@@ -86,4 +86,20 @@ class Phase < ActiveRecord::Base
     end
     return has_section
   end
+
+  ##
+  # deep copy the given phase and all it's associations
+  #
+  # @params [Phase] phase to be deep copied
+  # @return [Phase] the saved, copied phase
+  def self.deep_copy(phase)
+    phase_copy = phase.dup
+    phase_copy.save!
+    phase.sections.each do |section|
+      section_copy = Section.deep_copy(section)
+      section_copy.phase_id = phase_copy.id
+      section_copy.save!
+    end
+    return phase_copy
+  end
 end

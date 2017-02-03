@@ -12,7 +12,7 @@
       <!--delete a phase button. only displays when template not published-->
 
       <% if phase.sections.length > 0 %>
-          <%= link_to t("helpers.preview"), admin_previewphase_template_path(phase), class: 'btn btn-primary'%>
+          <%= link_to t("helpers.preview"), admin_previewphase_template_path(id: phase.id), class: 'btn btn-primary'%>
       <% end %>
       <% if !phase.template.published? %>
           <%= link_to t("helpers.submit.delete"), admin_destroyphase_template_path(phase_id: phase.id),

@@ -9,9 +9,10 @@ class TemplatesController < ApplicationController
   # GET /dmptemplates
   def admin_index
     authorize Template
-    #institutional templates
+    # institutional templates
     all_versions_own_templates = Template.where(org_id: current_user.org_id, customization_of: nil).order(version: :desc)
     current_templates = {}
+    # take most recent version of each template
     all_versions_own_templates.each do |temp|
       if current_templates[temp.dmptemplate_id].nil?
         current_templates[temp.dmptemplate_id] = temp
@@ -19,7 +20,7 @@ class TemplatesController < ApplicationController
     end
     @templates_own = current_templates.values
     #funders templates
-    @templates_funders = Org.funders.collect{|o| o.templates } #Template.funders_templates
+    @templates_funders = []#Org.funders.collect{|o| o.templates } #Template.funders_templates
   end
 
 
@@ -27,6 +28,9 @@ class TemplatesController < ApplicationController
   def admin_template
     @template = Template.find(params[:id])
     authorize @template
+    if @template.published
+      # create a new template version
+    end
   end
 
 
@@ -36,7 +40,7 @@ class TemplatesController < ApplicationController
     authorize @template
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
-      redirect_to admin_template_template_path(params[:template]), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
     else
       render action: "edit"
     end
