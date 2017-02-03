@@ -24,6 +24,22 @@ class Section < ActiveRecord::Base
     "#{title}"
   end
 
+  ##
+  # deep copy of the given section and all it's associations
+  #
+  # @params [Section] section to be deep copied
+  # @return [Section] the saved, copied section
+  def self.deep_copy(section)
+    section_copy = section.dup
+    section_copy.save!
+    section.questions.each do |question|
+      question_copy = Question.deep_copy(question)
+      question_copy.section_id = section_copy.id
+      question_copy.save!
+    end
+    return section_copy
+  end
+
 # TODO: Commented this amoeba cloning gem definition out to see if its even used. The
 #       amoeba documentations uses [object].amoeba_dup to clone the object, but that
 #       command does not exist in the codebase

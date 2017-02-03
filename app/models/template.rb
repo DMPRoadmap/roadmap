@@ -31,6 +31,21 @@ class Template < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
 
+  ##
+  # deep copy the given template and all of it's associations
+  #
+  # @params [Template] template to be deep copied
+  # @return [Template] saved copied template
+  def self.deep_copy(template)
+    template_copy = template.dup
+    template_copy.save!
+    template.phases.each do |phase|
+      phase_copy = Phase.deep_copy(phase)
+      phase_copy.template_id = template_copy.id
+      phase_copy.save!
+    end
+    return template_copy
+  end
 
   ##
   # takes a type or organisation and returns all published templates from

@@ -44,7 +44,19 @@
               <%= raw org_template.description.truncate(90, omission: t('helpers.truncate_continued')) %>
             </td>
             <td class="dmp_td_small">
-              <%= org_template.published %>
+              <% #Yes if published version exists, Yes[Unpublished changes] if newer version modified, No otherwise%>
+              <% if org_template.published %>
+                <%= "Yes" %>
+              <% elsif org_template.version > 0 && Template.where(dmptemplate_id: org_template.dmptemplate_id, published: true).present? %>
+                <% #there is a published version, but this version is not %>
+                <% if org_template.created_at < org_template.updated_at %>
+                  <%= "Yes [Unpublished Changes]" %>
+                <% else %>
+                  <%= "Yes" %>
+                <% end %>
+              <% else %>
+                <%= "No" %>
+              <% end %>
           </td>
           <td class="dmp_td_small">
             <% last_temp_updated = org_template.updated_at %>
@@ -61,11 +73,11 @@
             <%= link_to t('helpers.history'), admin_template_history_template_path(id: org_template.id), class: "dmp_table_link" %>
             </td>
          </tr>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
 
-<%end%>
+<% end %>
 
 <br/>
 <div class="div_clear"></div>
@@ -92,7 +104,7 @@
             <tbody>
 
                 <% @templates_funders.each do |org_template| %>
-                    <% if org_template.published? ||org_template.has_customisations?(current_user.organisation_id, org_template) then %>
+                    <% if org_template.published ||org_template.has_customisations?(current_user.organisation_id, org_template) then %>
                        <tr>
                             <td class="dmp_td_small">
                                 <%= org_template.title%>
