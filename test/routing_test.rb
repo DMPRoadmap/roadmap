@@ -2,6 +2,10 @@ require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
 
+  setup do
+    scaffold_plan
+  end
+
   # Routing for the home page
   # ------------------------------------------------------------------- 
   test 'GET / should resolve to HomeController#index' do
@@ -34,10 +38,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing public_plans_path(locale: I18n.locale), target
   end
   test 'GET /public_export should resolve to StaticPagesController#public_export' do
-    project = Project.includes(:plans).where.not(plans: {id: nil}).first
-    target = {controller: "static_pages", action: "public_export", locale: "#{I18n.locale}", id: project.id.to_s}
+    plan = Plan.first
+    target = {controller: "static_pages", action: "public_export", locale: "#{I18n.locale}", id: plan.id.to_s}
     
-    assert_routing public_export_path(locale: I18n.locale, id: project), target
+    assert_routing public_export_path(locale: I18n.locale, id: plan), target
   end
 
   # OAuth - Based on providers identified in the en-UK locale file
