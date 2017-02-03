@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
-
+  
+  include Devise::Test::IntegrationHelpers
+  
   setup do
     scaffold_plan
   end
@@ -46,16 +48,8 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   # OAuth - Based on providers identified in the en-UK locale file
   # ------------------------------------------------------------------- 
-  test "GET /users/auth/[:provider] should resolve to OmniauthCallbackController#passthru" do
-    target = {controller: "users/omniauth_callbacks", action: "passthru"}
-
-    IdentifierScheme.all.each do |scheme|
-      assert_routing "/users/auth/#{scheme.name.downcase}", target
-    end
-  end
-  
   test "POST /auth/[:provider]/callback should resolve to OmniauthCallbackController#[:provider]" do
-    IdentifierScheme.all.each do |scheme|
+    IdentifierScheme.where(active: true).all.each do |scheme|
       target = {controller: "users/omniauth_callbacks", action: "#{scheme.name.downcase}"}
       assert_routing "/users/auth/#{scheme.name.downcase}/callback", target
     end

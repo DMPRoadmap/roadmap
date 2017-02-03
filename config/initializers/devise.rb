@@ -265,6 +265,16 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   
+  config.omniauth :orcid, 'APP-T96TCS5F64T5EB2O', 
+            '8def5f5c-25f3-4faf-9bb9-0740cde89daa', {"scope": "/authenticate"}
+  #  config.omniauth :orcid, 'APP-Z80XR6IBPK2D4DWN', '92e159d6-5947-4c1a-9b9e-44560ba9370b', {"scope": "/authenticate"} #{"scope": "/orcid-profile/read-limited"}
+
+  #  config.omniauth :shibboleth, {uid_field: 'eppn', 
+  #                                info_fields: {email: 'mail', name: 'cn', last_name: 'sn'}, 
+  #                                extra_fields: [:schacHomeOrganization]} #, debug: true}
+
+  config.omniauth_path_prefix = "/users/auth"
+  
   # Configure the system to redirect to the home page after a session timeout
   config.warden do |manager|
     manager.failure_app = CustomFailure

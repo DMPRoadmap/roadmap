@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       handle_omniauth(scheme)
     end
   end
-
+  
   ##
   # Processes callbacks from an omniauth provider and directs the user to 
   # the appropriate page:
@@ -19,6 +19,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # @scheme [IdentifierScheme] The IdentifierScheme for the provider
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
+    
+puts "now weez handlin it #{scheme}"
+
     user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
     
     # If the user isn't logged in
