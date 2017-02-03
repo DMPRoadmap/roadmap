@@ -120,7 +120,9 @@ class ActiveSupport::TestCase
 
     copy = clazz.deep_copy(object)
     object.attributes.each do |name, val|
-      unless exclusions.include?(name)
+      if exclusions.include?(name)
+        assert_not_equal object.send(name), copy.send(name), "expected the deep_copy of #{object.class.name}.#{name} to be unique in the copy"
+      else
         assert_equal object.send(name), copy.send(name), "expected the deep_copy of #{object.class.name}.#{name} to match"
       end
     end

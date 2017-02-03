@@ -54,7 +54,7 @@ class Question < ActiveRecord::Base
     question_copy.save!
     question.question_options.each do |question_option|
       question_option_copy = QuestionOption.deep_copy(question_option)
-      question_option_copy.quesion_id = question_copy.id
+      question_option_copy.question_id = question_copy.id
       question_option_copy.save!
     end
     question.suggested_answers.each do |suggested_answer|

@@ -37,6 +37,11 @@ class PhaseTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "deep copy" do
+    verify_deep_copy(@phase, ['id', 'created_at', 'updated_at', 'slug'])
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD Phase" do
     obj = Phase.create(title: 'Testing CRUD', template: @template, number: 4)
     assert_not obj.id.nil?, "was expecting to be able to create a new Phase! - #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
