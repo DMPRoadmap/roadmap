@@ -62,7 +62,7 @@ class Question < ActiveRecord::Base
       suggested_answer_copy.quesion_id = question_copy.id
       suggested_answer_copy.save!
     end
-    question.theme.each do |theme|
+    question.themes.each do |theme|
       question_copy.themes << theme
     end
     return question_copy

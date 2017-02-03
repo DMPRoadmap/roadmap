@@ -114,6 +114,19 @@ class ActiveSupport::TestCase
   
 # UNIT TEST HELPERS
   # ----------------------------------------------------------------------
+  def verify_deep_copy(object, exclusions)
+    clazz = Object.const_get(object.class.name)
+    assert clazz.respond_to?(:deep_copy), "#{object.class.name} does not have a deep_copy method!"
+
+    copy = clazz.deep_copy(object)
+    object.attributes.each do |name, val|
+      unless exclusions.include?(name)
+        assert_equal object.send(name), copy.send(name), "expected the deep_copy of #{object.class.name}.#{name} to match"
+      end
+    end
+  end
+  
+  # ----------------------------------------------------------------------
   def verify_has_many_relationship(object, new_association, initial_expected_count)
     # Assumes that the association name matches the pluralized name of the class
     rel = "#{class_name_to_attribute_name(new_association.class.name).pluralize}"

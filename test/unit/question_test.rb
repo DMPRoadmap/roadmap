@@ -65,28 +65,9 @@ class QuestionTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-# TODO: amoeba gem doesn't seem to be in play anymore
-=begin
-  test "should be able to clone a Question (should include its question_options, themes suggested_answers)" do
-    Question.all.each do |question|
-puts question.inspect
-      q = question.amoeba_dup
-
-      assert_equal question.text, q.text, "expected the 'text' field to match"
-      assert_equal question.default_value, q.default_value, "expected the 'default_value' field to match"
-      assert_equal question.guidance, q.guidance, "expected the 'guidance' field to match"
-      assert_equal question.number, q.number, "expected the 'number' field to match"
-      assert_equal question.section, q.section, "expected the 'section' field to match"
-      assert_equal question.question_format, q.question_format, "expected the 'question_format' field to match"
-      assert_equal question.option_comment_display, q.option_comment_display, "expected the 'option_comment_display' field to match"
-      assert_equal question.modifiable, q.modifiable, "expected the 'modifiable' field to match"
-      
-      assert q.question_options.eql?(question.question_options), "expected the clone to carry over all of the question_options instead got: original - #{question.question_options.count}, clone - #{q.question_options.count}"
-      assert q.suggested_answers.eql?(question.suggested_answers), "expected the clone to carry over all of the suggested_answers instead got: original - #{question.suggested_answers.count}, clone - #{q.suggested_answers.count}"
-      assert q.themes.eql?(question.themes), "expected the clone to carry over all of the suggested_answers instead got: original - #{question.themes.count}, clone - #{q.themes.count}"
-    end
+  test "deep copy" do
+    verify_deep_copy(@question, ['id', 'created_at', 'updated_at'])
   end
-=end
   
   # ---------------------------------------------------
   test "can CRUD Question" do
