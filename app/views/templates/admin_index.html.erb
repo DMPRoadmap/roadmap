@@ -92,7 +92,7 @@
             <tbody>
 
                 <% @templates_funders.each do |org_template| %>
-                    <% if org_template.published? ||org_template.has_customisations?(current_user.organisation_id, org_template) then %>
+                    <% if org_template.published ||org_template.has_customisations?(current_user.organisation_id, org_template) then %>
                        <tr>
                             <td class="dmp_td_small">
                                 <%= org_template.title%>
