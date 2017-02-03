@@ -51,14 +51,17 @@ class UserTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "name returns the correct value" do
-    # Name should return 'First Last'
-    assert @user.name.include?(@user.firstname)
-    assert @user.name.include?(@user.surname)
+    # Name should return 'First Last' if we do not specify email 
+    assert @user.name(false).include?(@user.firstname), "expected the first name to be included when specifying non-email"
+    assert @user.name(false).include?(@user.surname), "expected the last name to be included when specifying non-email"
     
+    # Should return email if we do not pass in a variable
+    assert_equal @user.email, @user.name, "expected the email by default"
+        
     # Name should return the email if no first and last are present
     @user.firstname = nil
     @user.surname = nil
-    assert_equal @user.email, @user.name
+    assert_equal @user.email, @user.name(false), "expected the email if there is no first and last name"
   end
 
   # ---------------------------------------------------
