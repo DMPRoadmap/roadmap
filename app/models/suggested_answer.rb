@@ -28,4 +28,15 @@ class SuggestedAnswer < ActiveRecord::Base
     "#{text}"
   end
 
+
+  ##
+  # deep copy the given question_option and all it's associations
+  #
+  # @params [QuestionOption] question_option to be deep copied
+  # @return [QuestionOption] the saved, copied question_option
+  def self.deep_copy(suggested_answer)
+    suggested_answer_copy = suggested_answer.dup
+    suggested_answer_copy.save!
+    return suggested_answer_copy
+  end
 end
