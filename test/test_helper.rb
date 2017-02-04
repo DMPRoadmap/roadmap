@@ -92,7 +92,8 @@ class ActiveSupport::TestCase
     assert_response :redirect
     assert_match "#{root_url}", @response.redirect_url
     
-    follow_redirect!
+    follow_redirects
+    
     assert_response :success
     assert_select '.welcome-message h2', I18n.t('welcome_title')
   end
@@ -103,14 +104,18 @@ class ActiveSupport::TestCase
     assert_match "#{root_url}", @response.redirect_url
     
     # Sometimes Devise has an intermediary step prior to sending the user to the final destination
-    while @response.status >= 300 && @response.status < 400
-      follow_redirect!
-    end
+    follow_redirects
     
     assert_response :success
     assert_select '.main_page_content h1', Plan.model_name.human.pluralize.titleize 
   end
   
+  # ----------------------------------------------------------------------
+  def follow_redirects
+    while @response.status >= 300 && @response.status < 400
+      follow_redirect!
+    end
+  end
   
 # UNIT TEST HELPERS
   # ----------------------------------------------------------------------
