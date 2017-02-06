@@ -92,7 +92,8 @@ class ActiveSupport::TestCase
     assert_response :redirect
     assert_match "#{root_url}", @response.redirect_url
     
-    follow_redirect!
+    follow_redirects
+    
     assert_response :success
     assert_select '.welcome-message h2', I18n.t('welcome_title')
   end
@@ -103,16 +104,35 @@ class ActiveSupport::TestCase
     assert_match "#{root_url}", @response.redirect_url
     
     # Sometimes Devise has an intermediary step prior to sending the user to the final destination
+    follow_redirects
+    
+    assert_response :success
+    assert_select '.main_page_content h1', Plan.model_name.human.pluralize.titleize 
+  end
+  
+  # ----------------------------------------------------------------------
+  def follow_redirects
     while @response.status >= 300 && @response.status < 400
       follow_redirect!
     end
-    
-    assert_response :success
-    assert_select '.main_page_content h1', I18n.t('helpers.project.projects_title')
   end
   
-  
 # UNIT TEST HELPERS
+  # ----------------------------------------------------------------------
+  def verify_deep_copy(object, exclusions)
+    clazz = Object.const_get(object.class.name)
+    assert clazz.respond_to?(:deep_copy), "#{object.class.name} does not have a deep_copy method!"
+
+    copy = clazz.deep_copy(object)
+    object.attributes.each do |name, val|
+      if exclusions.include?(name)
+        assert_not_equal object.send(name), copy.send(name), "expected the deep_copy of #{object.class.name}.#{name} to be unique in the copy"
+      else
+        assert_equal object.send(name), copy.send(name), "expected the deep_copy of #{object.class.name}.#{name} to match"
+      end
+    end
+  end
+  
   # ----------------------------------------------------------------------
   def verify_has_many_relationship(object, new_association, initial_expected_count)
     # Assumes that the association name matches the pluralized name of the class

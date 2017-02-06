@@ -27,7 +27,7 @@ class Plan < ActiveRecord::Base
                   :exported_plans, :project, :title, :template, :grant_number,
                   :identifier, :principal_investigator, :principal_investigator_identifier,
                   :description, :data_contact, :funder_name, :visibility, :exported_plans,
-                  :roles, :users, :as => [:default, :admin]
+                  :roles, :users, :org, :as => [:default, :admin]
   accepts_nested_attributes_for :roles
 
   # public is a Ruby keyword so using publicly

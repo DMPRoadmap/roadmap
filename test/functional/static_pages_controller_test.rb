@@ -3,8 +3,9 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   setup do
-    @public_plan = Plan.create!({title: 'Public Test Project', template: Template.first, 
-                                 org: Org.first, visibility: :publicly_visible})
+    @public_plan = Plan.create!({title: 'Public Test Project', 
+                                 template: Template.first, 
+                                 visibility: :publicly_visible})
   end
 
   # ----------------------------------------------------------
