@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.integer "question_option_id", null: false
   end
 
-  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index", using: :btree
-  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index", using: :btree
+  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index"
+  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index"
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
-  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "perms", ["name"], name: "index_perms_on_name"
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
 
   create_table "phases", force: :cascade do |t|
     t.string   "title"
@@ -226,8 +226,8 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.integer "theme_id",    null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index", using: :btree
-  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index", using: :btree
+  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index"
+  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index"
 
   create_table "regions", force: :cascade do |t|
     t.string  "abbreviation"
@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination"
@@ -328,7 +328,6 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.string   "firstname"
     t.string   "surname"
     t.string   "email",                  default: "", null: false
-    t.string   "orcid_id"
     t.string   "shibboleth_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -54,7 +54,7 @@ class Question < ActiveRecord::Base
     question_copy.save!
     question.question_options.each do |question_option|
       question_option_copy = QuestionOption.deep_copy(question_option)
-      question_option_copy.quesion_id = question_copy.id
+      question_option_copy.question_id = question_copy.id
       question_option_copy.save!
     end
     question.suggested_answers.each do |suggested_answer|
@@ -62,21 +62,11 @@ class Question < ActiveRecord::Base
       suggested_answer_copy.quesion_id = question_copy.id
       suggested_answer_copy.save!
     end
-    question.theme.each do |theme|
+    question.themes.each do |theme|
       question_copy.themes << theme
     end
     return question_copy
   end
-
-# TODO: Commented this amoeba cloning gem definition out to see if its even used. The
-#       amoeba documentations uses [object].amoeba_dup to clone the object, but that
-#       command does not exist in the codebase
-
-#  amoeba do
-#    include_association :options
-#    include_association :suggested_answers
-#    clone [:themes]
-#  end
 
   ##
 	# guidance for org

@@ -29,10 +29,6 @@ gem 'therubyracer', '>=0.11.4', platforms: :ruby
 gem 'jbuilder'
 
 # ------------------------------------------------
-#    CLONE ACTIVERECORD MODELS AND ASSOCIATIONS
-gem 'amoeba'
-
-# ------------------------------------------------
 #    SLUGS/PERMALINKS
 gem 'friendly_id'
 

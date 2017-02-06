@@ -6,8 +6,9 @@ class User < ActiveRecord::Base
   #   Include default devise modules. Others available are:
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:shibboleth]
+  devise :invitable, :database_authenticatable, :registerable, :recoverable, 
+         :rememberable, :trackable, :validatable, :confirmable, :omniauthable, 
+         :omniauth_providers => [:shibboleth, :orcid]
 
   ##
   # Associations
@@ -40,11 +41,13 @@ class User < ActiveRecord::Base
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   accepts_nested_attributes_for :roles
-  attr_accessible :password_confirmation, :encrypted_password, :remember_me, :id, :email,
-                  :firstname, :last_login,:login_count, :orcid_id, :password, :shibboleth_id, 
-                  :user_status_id, :surname, :user_type_id, :org_id, :skip_invitation, 
-                  :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language, :language_id, :org, :perms, :confirmed_at
+  attr_accessible :password_confirmation, :encrypted_password, :remember_me, 
+                  :id, :email, :firstname, :last_login,:login_count, :orcid_id, 
+                  :password, :shibboleth_id, :user_status_id, :surname, 
+                  :user_type_id, :org_id, :skip_invitation, :other_organisation, 
+                  :accept_terms, :role_ids, :dmponline3, :api_token,
+                  :organisation, :language, :language_id, :org, :perms, 
+                  :confirmed_at, :org_id
 
   validates :email, email: true, allow_nil: true, uniqueness: true
 

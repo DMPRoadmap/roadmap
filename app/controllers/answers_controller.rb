@@ -3,8 +3,7 @@ class AnswersController < ApplicationController
   respond_to :html
 
   ##
-	# POST /answers
-
+	# PUT/PATCH /[:locale]/answer/[:id]
 	def update
     # create a new answer based off the passed params
     logger.debug("RAY: update params=")

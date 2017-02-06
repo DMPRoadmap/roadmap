@@ -27,6 +27,11 @@ class SectionTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "deep copy" do
+    verify_deep_copy(@section, ['id', 'created_at', 'updated_at'])
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD Section" do
     obj = Section.create(phase: @template.phases.last, title: 'Tester', number: 9)
     assert_not obj.id.nil?, "was expecting to be able to create a new Section: #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"

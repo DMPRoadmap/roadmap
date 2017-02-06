@@ -31,6 +31,49 @@ class TemplateTest < ActiveSupport::TestCase
     assert a.valid?, "expected the 'org', 'version' and 'title' fields to be enough to create an Template! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
 
+  # ---------------------------------------------------
+  test "deep copy" do
+    verify_deep_copy(@template, ['id', 'created_at', 'updated_at', 'slug'])
+  end
+
+  # ---------- has_customisations? ----------
+  test "has_customisations? correctly identifies if a given org has customised the template" do
+    # TODO: Not sure if this is still an applicable method
+
+  end
+
+  
+  # ---------------------------------------------------
+  test "can CRUD Template" do
+    tmplt = Template.create(org: @org, version: 1, title: 'Tester')
+    assert_not tmplt.id.nil?, "was expecting to be able to create a new Template!"
+
+    tmplt.description = 'Testing an update'
+    tmplt.save!
+    tmplt.reload
+    assert_equal 'Testing an update', tmplt.description, "Was expecting to be able to update the description of the Template!"
+  
+    assert tmplt.destroy!, "Was unable to delete the Template!"
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Phase" do
+    phase = Phase.new(title: 'Test Phase', number: 2)
+    verify_has_many_relationship(@template, phase, @template.phases.count)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Plan" do
+    plan = Plan.new(title: 'Test Plan')
+    verify_has_many_relationship(@template, plan, @template.plans.count)
+  end
+
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Org" do
+    tmplt = Template.new(title: 'My test', version: 1)
+    verify_belongs_to_relationship(tmplt, @org)
+  end
+
   # ---------- settings ----------
   # ---------------------------------------------------
   test "settings should use defaults if none are defined" do
@@ -223,44 +266,6 @@ class TemplateTest < ActiveSupport::TestCase
     @template.reload
 
     assert_equal(default_formatting, @template.settings(:export).formatting)
-  end
-
-  # ---------- has_customisations? ----------
-  test "has_customisations? correctly identifies if a given org has customised the template" do
-    # TODO: Not sure if this is still an applicable method
-
-  end
-
-  
-  # ---------------------------------------------------
-  test "can CRUD Template" do
-    tmplt = Template.create(org: @org, version: 1, title: 'Tester')
-    assert_not tmplt.id.nil?, "was expecting to be able to create a new Template!"
-
-    tmplt.description = 'Testing an update'
-    tmplt.save!
-    tmplt.reload
-    assert_equal 'Testing an update', tmplt.description, "Was expecting to be able to update the description of the Template!"
-  
-    assert tmplt.destroy!, "Was unable to delete the Template!"
-  end
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Phase" do
-    phase = Phase.new(title: 'Test Phase', number: 2)
-    verify_has_many_relationship(@template, phase, @template.phases.count)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Plan" do
-    plan = Plan.new(title: 'Test Plan')
-    verify_has_many_relationship(@template, plan, @template.plans.count)
-  end
-
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with Org" do
-    tmplt = Template.new(title: 'My test', version: 1)
-    verify_belongs_to_relationship(tmplt, @org)
   end
   
 end
