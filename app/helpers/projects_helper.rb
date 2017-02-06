@@ -20,16 +20,16 @@ module ProjectsHelper
 
   # Populate a variable column for the project list
   # --------------------------------------------------------
-  def project_list_column_body(column, project)
+  def plan_list_column_body(column, plan)
     
     col = (column.kind_of?(Array) ? column[0] : column)
     
     klass, content = case col
       when 'name'
-        [ "dmp_td_big", link_to(project.title, project_path(project), class: "dmp_table_link") ]
+        [ "dmp_td_big", link_to(plan.title, plan_path(plan), class: "dmp_table_link") ]
         
       when 'owner'
-        user = project.owner
+        user = plan.owner
         
         text = if user.nil?
           "Unknown"
@@ -41,23 +41,23 @@ module ProjectsHelper
 
         [ "tmp_td_small", text ]
       when 'shared'
-        shared_num = project.project_groups.count - 1
+        shared_num = plan.users.count - 1
         text = shared_num > 0 ? (t("helpers.yes_label") + " (with #{shared_num} people) ") : t("helpers.no_label")
         [ "dmp_td_small", text ]
       when 'visibility'
-        ["dmp_td_small", (project.visibility.nil? ? I18n.t("helpers.project.visibilities.labels.organisationally_visible") : I18n.t("helpers.project.visibilities.labels.#{project.visibility}"))]
+        ["dmp_td_small", (plan.visibility.nil? ? I18n.t("helpers.project.visibilities.labels.organisationally_visible") : I18n.t("helpers.project.visibilities.labels.#{project.visibility}"))]
       when 'last_edited'
-        [ "dmp_td_small", l(project.latest_update.to_date, formats: :short) ]
+        [ "dmp_td_small", l(plan.latest_update.to_date, formats: :short) ]
       when 'description'
-        [ "dmp_td_medium", (project.try(col) || "Unknown") ]
+        [ "dmp_td_medium", (plan.try(col) || "Unknown") ]
       when 'non_link_name'
-        [ "dmp_td_big", project.title ]
+        [ "dmp_td_big", plan.title ]
       when 'template'
-        ["dmp_td_big", project.dmptemplate.title]
+        ["dmp_td_big", plan.template.title]
       when 'organisation'
-        ["dmp_td_medium", (project.organisation.nil? ? project.owner.organisation.name : project.organisation.name)]
+        ["dmp_td_medium", (plan.org.nil? ? plan.owner.org.name : plan.org.name)]
       else
-        [ "dmp_td_small", (project.try(col) || "Unknown") ]
+        [ "dmp_td_small", (plan.try(col) || "Unknown") ]
     end
 
     content_tag(:td, content, class: klass)

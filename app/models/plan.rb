@@ -740,14 +740,14 @@ class Plan < ActiveRecord::Base
   end
 
   ##
-  # the datetime for the latest update of this project, or any plan it owns
+  # the datetime for the latest update of this plan
   #
   # @return [DateTime] the time of latest update
   def latest_update
     latest_update = updated_at
-    plans.each do |plan|
-      if plan.latest_update > latest_update then
-        latest_update = plan.latest_update
+    phases.each do |phase|
+      if phase.updated_at > latest_update then
+        latest_update = phase.updated_at
       end
     end
     return latest_update

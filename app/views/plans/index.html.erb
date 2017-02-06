@@ -1,38 +1,38 @@
 <%- model_class = Plan -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%= model_class.human_attribute_name(:slug) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @plans.each do |plan| %>
-      <tr>
-        <td><%= link_to plan.id, plan_path(plan) %></td>
-        <td><%= plan.identifier %></td>
-        <td><%= plan.slug %></td>
-        <td><%=l plan.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_plan_path(plan), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      plan_path(plan),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('helpers.project.share.confirmation_question'))) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% javascript "toolbar.js" %>
+<h1>
+	<%= t("helpers.project.projects_title") %>
+</h1>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<!-- if the user has projects -->
+<% if @plans.count > 0 %>
+
+	<p>
+		<%= raw t("helpers.project.project_text_when_project")%>
+	</p>
+    
+	<%= render(partial: "toolbar") %>
+	<table id="dmp_table" class="dmp_table tablesorter">
+	  <thead>
+	    <%= render(partial: "plan_list_head") %>
+	  </thead>
+	  <tbody>
+	      <% @plans.each do |plan| %>
+	        <%= render(partial: "plan_list_item", locals: { plan: plan } ) %>
+	      <% end %>
+	  </tbody>
+	</table>
+	
+<!-- if the user does not have projects -->
+<% else %>
+	<p>
+		<%= raw t("helpers.project.project_text_when_no_project")%>
+	</p>
+<% end %>
+
+<!-- link button to create a new project -->
+<p>
+	<%= link_to t(".new", :default => t("helpers.project.create")),
             new_plan_path,
-            :class => 'btn btn-primary' %>
+            :class => "btn btn-primary" %>
+</p>
