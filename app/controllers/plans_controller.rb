@@ -47,12 +47,9 @@ class PlansController < ApplicationController
       if !funder_id.blank?
         # get all funder @templates
         funder = Org.find(params[:plan][:funder_id])
-        logger.debug "RAY: funder = " + funder.inspect 
         @templates = get_most_recent( funder.templates.where("published = ?", true).all )
-        logger.debug "RAY: found "+ @templates.count.to_s + " templates = " + @templates.inspect
 
         orgtemplates = current_user.org.templates.all
-        logger.debug "RAY: found "+ @templates.count.to_s + " org templates = " + @templates.inspect
         replacements = []
 
         # replace any that are customised by the org
@@ -62,7 +59,6 @@ class PlansController < ApplicationController
           replacements << orgt
         end
         @templates + replacements
-        logger.debug "RAY: finally "+ @templates.count.to_s + " templates = " + @templates.inspect
 
       else
         # get all org @templates which are not customisations
@@ -113,11 +109,13 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(template:  {phases: :sections} ).find(params[:id])
     authorize @plan
     @editing = params[:editing] && @plan.administerable_by?(current_user.id)
     @selected_guidance_groups = []
-    @selected_guidance_groups = @plan.plan_guidance_groups.map{ |pgg| [pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected] }
+    #@selected_guidance_groups = @plan.plan_guidance_groups.map{ |pgg| [pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected] }
+    all_guidance_groups = @plan.plan_guidance_groups.includes(:guidance_group)
+    @selected_guidance_groups = all_guidance_groups.map{ |pgg| [pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected] }
     @selected_guidance_groups.sort!
 
     if user_signed_in? && @plan.readable_by?(current_user.id) then
@@ -196,18 +194,12 @@ class PlansController < ApplicationController
 
 
   def update_guidance_choices
-    logger.debug "RAY: update_guidance_choices with params"
-    logger.debug params.inspect
-
     @plan = Plan.find(params[:id])
     authorize @plan
     if user_signed_in? && @plan.editable_by?(current_user.id) then
-      guidance_ids = params[:plan][:guidances]
-      logger.debug "RAY: guidance ids = " + guidance_ids.inspect
+      guidance_ids = params[:plan][:plan_guidance_group_ids]
       @plan.plan_guidance_groups.each do |pgg|
-        logger.debug "RAY: looking at pgg = " + pgg.inspect
         pgg.selected = guidance_ids.include?(pgg.guidance_group_id.to_s)
-        logger.debug "RAY: pg now = " + pgg.inspect
         pgg.save!
       end
       @plan.save!
