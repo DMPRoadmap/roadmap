@@ -328,6 +328,7 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.string   "firstname"
     t.string   "surname"
     t.string   "email",                  default: "", null: false
+    t.string   "orcid_id"
     t.string   "shibboleth_id"
     t.datetime "created_at"
     t.datetime "updated_at"
