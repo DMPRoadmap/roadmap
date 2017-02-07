@@ -19,8 +19,25 @@ class TemplatesController < ApplicationController
       end
     end
     @templates_own = current_templates.values
-    #funders templates
-    @templates_funders = []#Org.funders.collect{|o| o.templates } #Template.funders_templates
+
+    # funders templates
+    funders_templates = {}
+    Org.includes(:templates).funder.each do |org|
+      org.templates.where(customization_of: nil, published: true).order(version: :desc).each do |temp|
+        if funders_templates[temp.dmptemplate_id].nil?
+          funders_templates[temp.dmptemplate_id] = temp
+        end
+      end
+    end
+
+    @templates_funders = funders_templates.values
+    # are any funder templates customized
+    @templates_customizations = {}
+    Template.where(org_id: current_user.org_id, customization_of: funders_templates.keys).order(version: :desc).each do |temp|
+      if @templates_customizations[temp.dmptemplate_id].nil?
+        @templates_customizations[temp.dmptemplate_id] = temp
+      end
+    end
   end
 
 
@@ -28,9 +45,6 @@ class TemplatesController < ApplicationController
   def admin_template
     @template = Template.find(params[:id])
     authorize @template
-    if @template.published
-      # create a new template version
-    end
   end
 
 
@@ -38,8 +52,22 @@ class TemplatesController < ApplicationController
   def admin_update
     @template = Template.find(params[:id])
     authorize @template
+    if @template.published?
+      # published templates cannot be edited
+      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.read_only')
+    end
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
+      if @template.published
+        # create a new template version
+        new_version = Template.deep_copy(@template)
+        new_version.version = @template.version + 1
+        new_version.save!
+        # if the organisation is a funder
+        if @template.org.funder?
+          # do something about all the customizations
+        end
+      end
       redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
     else
       render action: "edit"
@@ -180,6 +208,7 @@ class TemplatesController < ApplicationController
     @section = Section.new(params[:section])
     authorize @section.phase.template
     @section.description = params["section-desc"]
+    @section.modifiable = true
     if @section.save
       redirect_to admin_phase_template_path(id: @section.phase_id,
         :section_id => @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
@@ -221,7 +250,7 @@ class TemplatesController < ApplicationController
     authorize @question.section.phase.template
     @question.guidance = params["new-question-guidance"]
     @question.default_value = params["new-question-default-value"]
-    if @question.save
+    if @question.save!
       redirect_to admin_phase_template_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
     else
       render action: "admin_phase"
