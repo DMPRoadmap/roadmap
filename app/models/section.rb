@@ -10,12 +10,12 @@ class Section < ActiveRecord::Base
   accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
 #  accepts_nested_attributes_for :version
 
-  attr_accessible :organisation_id, :description, :number, :title, :published, 
+  attr_accessible :phase_id, :description, :number, :title, :published,
                   :questions_attributes, :organisation, :phase, :modifiable,
                   :as => [:default, :admin]
-                  
+
   validates :phase, :title, :number, presence: true
-  
+
   ##
   # return the title of the section
   #
