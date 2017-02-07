@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
   #
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
+=begin
   def organisation_id=(new_organisation_id)
     unless self.can_change_org? || new_organisation_id.nil? || self.organisation.nil?
       # rip all permissions from the user
@@ -122,7 +123,8 @@ class User < ActiveRecord::Base
   def organisation=(new_organisation)
     organisation_id = new_organisation.id unless new_organisation.nil?
   end
-
+=end
+  
   ##
   # checks if the user is a super admin
   # if the user has any privelege which requires them to see the super admin page
