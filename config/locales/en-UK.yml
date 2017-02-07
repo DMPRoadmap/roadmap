@@ -281,6 +281,7 @@ en-UK:
       created_message: "Information was successfully created."
       updated_message: "Information was successfully updated."
       destroyed_message: "Information was successfully deleted."
+      read_only: "Published templates cannot be edited."
       section_delete_message: "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
     versions:
       clone_versions_label: "Make big changes"
