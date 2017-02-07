@@ -136,6 +136,7 @@ class Template < ActiveRecord::Base
   end
 =end
   
+# TODO: Why are we passing in an org and template here? 
   ##
   # Verify if a template has customisation by given organisation
   #

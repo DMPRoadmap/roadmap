@@ -93,6 +93,9 @@ class User < ActiveRecord::Base
     user_identifiers.where(identifier_scheme: scheme).first
   end
 
+# TODO: Check the logic here. Its deleting the permissions if the user does not have permission
+#       to change orgs and either the incoming or existing org is nil.
+#       We should also NOT be auto-saving here!!!
   ##
   # sets a new organisation id for the user
   # if the user has any perms such as org_admin or admin, those are removed

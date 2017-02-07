@@ -160,6 +160,44 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "Plans query filter is working properly" do
+    3.times do |i|
+      @user.plans << Plan.new(template: Template.last, title: "My test #{i}", 
+                              identifier: (i == 0 ? 'A' : (i == 1 ? 'B' : 'C')).to_s)
+    end
+    @user.save!
+
+    plan = @user.plans.filter("2").first
+    assert_equal "My test 2", plan.title, "Expected the plans filter to search the title"
+    
+    plan = @user.plans.filter("B").first
+    assert_equal "My test 1", plan.title, "Expected the plans filter to search the identifier fields"
+  end
+  
+  # ---------------------------------------------------
+  test "Can only change the org if permissions allow" do
+    user = User.first
+    org = user.org
+    perms = user.perms
+    
+    # If user doesn't have permission (delete all user permissions)
+    user.perms.delete(Perm.find_by(name: 'change_org_affiliation'))
+    
+    user.organisation_id = Org.last
+    assert user.perms.empty?, "expected all of the user's permissions to have been deleted"
+    assert_equal Org.last, user.org, "expected the org to be updated if the user does not have permission to change the org affiliation"
+    assert_equal "", user.api_token, "expected the api_token to be blank"
+    
+    # If we pass nil (delete all user permissions)
+    
+    # If the existing org is nil (delete all user permissions)
+    
+    # sets the organisation
+    
+    # removed the api token
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
     usr = User.create(email: 'test@testing.org', password: 'testing1234')
     assert_not usr.id.nil?, "was expecting to be able to create a new User: #{usr.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
@@ -188,8 +226,8 @@ class UserTest < ActiveSupport::TestCase
   test "can manage has_many relationship with Plans" do
     plan = Plan.new(title: 'Test Project', template: @template)
     verify_has_many_relationship(@user, plan, @user.plans.count)
-  end
-
+  end  
+  
   # ---------------------------------------------------
   test "can manage has_many relationship with Answers" do
     answer = Answer.new(plan: @plan, 
