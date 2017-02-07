@@ -1,4 +1,4 @@
-module ProjectsHelper
+module PlansHelper
 
   # Build variable column headings for the project list
   # --------------------------------------------------------
