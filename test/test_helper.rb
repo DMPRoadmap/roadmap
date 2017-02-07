@@ -25,6 +25,12 @@ class ActiveSupport::TestCase
   require_relative '../db/seeds.rb'
 
   # Add more helper methods to be used by all tests here...
+  
+  # Return the user instance variable
+  # ----------------------------------------------------------------------
+  def current_user
+    return @user
+  end
  
   # Convert Ruby Class Names into attribute names (e.g. MyClass --> my_class)
   # ----------------------------------------------------------------------

@@ -68,7 +68,7 @@ puts answer.inspect
       follow_redirects
       
       assert_response :success
-      assert_select '.main_page_content h1', Plan.model_name.human.pluralize.titleize 
+      assert_select '.main_page_content h1', I18n.t("helpers.project.projects_title")
       
     end
 end

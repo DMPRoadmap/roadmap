@@ -565,6 +565,7 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
 
     settings:
       title: "Réglages"
+      unknown: "Inconnu"
       projects:
         title: "Réglages - Mes plans"
         desc: "Le tableau suivant donne la liste des colonnes que lon peut faire apparaître dans la liste Mes Plans. Choisissez celles que vous voulez voir."

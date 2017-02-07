@@ -2,7 +2,7 @@ module ProjectsHelper
 
   # Build variable column headings for the project list
   # --------------------------------------------------------
-  def project_list_column_heading(column)
+  def plan_list_column_heading(column)
     if column.kind_of?(Array)
       heading = (column.first.kind_of?(String) ? column.first : t("helpers.project.columns.unknown"))
       
@@ -26,13 +26,13 @@ module ProjectsHelper
     
     klass, content = case col
       when 'name'
-        [ "dmp_td_big", link_to(plan.title, plan_path(plan), class: "dmp_table_link") ]
+        [ "dmp_td_big", link_to(plan.title, plan_path(I18n.locale, plan), class: "dmp_table_link") ]
         
       when 'owner'
         user = plan.owner
         
         text = if user.nil?
-          "Unknown"
+          t("helpers.settings.unknown")
         elsif user == current_user
           t("helpers.me")
         else
@@ -45,19 +45,19 @@ module ProjectsHelper
         text = shared_num > 0 ? (t("helpers.yes_label") + " (with #{shared_num} people) ") : t("helpers.no_label")
         [ "dmp_td_small", text ]
       when 'visibility'
-        ["dmp_td_small", (plan.visibility.nil? ? I18n.t("helpers.project.visibilities.labels.organisationally_visible") : I18n.t("helpers.project.visibilities.labels.#{project.visibility}"))]
+        ["dmp_td_small", (plan.visibility.nil? ? I18n.t("helpers.project.visibilities.labels.organisationally_visible") : I18n.t("helpers.project.visibilities.labels.#{plan.visibility}"))]
       when 'last_edited'
         [ "dmp_td_small", l(plan.latest_update.to_date, formats: :short) ]
       when 'description'
-        [ "dmp_td_medium", (plan.try(col) || "Unknown") ]
+        [ "dmp_td_medium", (plan.try(col) || t("helpers.settings.unknown")) ]
       when 'non_link_name'
         [ "dmp_td_big", plan.title ]
       when 'template'
         ["dmp_td_big", plan.template.title]
       when 'organisation'
-        ["dmp_td_medium", (plan.org.nil? ? plan.owner.org.name : plan.org.name)]
+        ["dmp_td_medium", (plan.owner.org.nil? ? t("helpers.settings.unknown") : plan.owner.org.name) ]
       else
-        [ "dmp_td_small", (plan.try(col) || "Unknown") ]
+        [ "dmp_td_small", (plan.try(col) || t("helpers.settings.unknown")) ]
     end
 
     content_tag(:td, content, class: klass)
