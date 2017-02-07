@@ -277,12 +277,17 @@ en-UK:
       desc_label: "Description"
       actions: "Actions"
       customise: "Customise"
+      customise_label: "Customised"
       edit_customisation: "Edit customisation"
+      update_customisation: "Update Customisation"
       created_message: "Information was successfully created."
       updated_message: "Information was successfully updated."
       destroyed_message: "Information was successfully deleted."
       read_only: "Published templates cannot be edited."
       section_delete_message: "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+      unpublished_changes: "Yes [Unpublished Changes]"
+      original_changed: "Yes [Original Template Has Changed]"
+
     versions:
       clone_versions_label: "Make big changes"
       edit_versions_label: "Make small changes"

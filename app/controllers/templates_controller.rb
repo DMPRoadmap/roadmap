@@ -19,8 +19,25 @@ class TemplatesController < ApplicationController
       end
     end
     @templates_own = current_templates.values
-    #funders templates
-    @templates_funders = []#Org.funders.collect{|o| o.templates } #Template.funders_templates
+
+    # funders templates
+    funders_templates = {}
+    Org.includes(:templates).funder.each do |org|
+      org.templates.where(customization_of: nil, published: true).order(version: :desc).each do |temp|
+        if funders_templates[temp.dmptemplate_id].nil?
+          funders_templates[temp.dmptemplate_id] = temp
+        end
+      end
+    end
+
+    @templates_funders = funders_templates.values
+    # are any funder templates customized
+    @templates_customizations = {}
+    Template.where(org_id: current_user.org_id, customization_of: funders_templates.keys).order(version: :desc).each do |temp|
+      if @templates_customizations[temp.dmptemplate_id].nil?
+        @templates_customizations[temp.dmptemplate_id] = temp
+      end
+    end
   end
 
 
