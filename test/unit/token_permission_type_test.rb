@@ -18,6 +18,11 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "to_s returns the roken_type" do
+    assert_equal @tpt.tokenb_type, @tpt.to_s
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
     tpt = TokenPermissionType.create(token_type: 'tester')
     assert_not tpt.id.nil?, "was expecting to be able to create a new TokenPermissionType - #{tpt.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"

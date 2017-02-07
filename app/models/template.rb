@@ -145,7 +145,7 @@ class Template < ActiveRecord::Base
   def has_customisations?(org_id, temp)
     modifiable = true
     phases.each do |phase|
-      modifiable = modifable && phase.modifiable
+      modifiable = modifiable && phase.modifiable
     end
     return !modifiable
     # if temp.org_id != org_id then

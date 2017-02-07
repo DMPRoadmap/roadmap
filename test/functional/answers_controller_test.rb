@@ -30,8 +30,8 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       
       else
         # Try creating one first
-        form_attributes = {answer: {text: "#{format.title} Tester", 
-                                    user_id: @user.id, plan_id: plan.id, 
+        form_attributes = {"answer-text-#{question.id}": "#{format.title} Tester", 
+                           answer: {user_id: @user.id, plan_id: plan.id, 
                                     question_id: question.id}}
                                     
         put_answer(answer, form_attributes, referrer)
@@ -40,7 +40,8 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
         assert_not answer.id.nil?, "expected the answer to have been created and for an id to be present after creating a #{format.title} question!"
                                     
         # Try editing it
-        form_attributes = {answer: {text: "Tested", user_id: answer.user.id, 
+        form_attributes = {"answer-text-#{question.id}": "Tested",
+                           answer: {user_id: answer.user.id, 
                                     plan_id: answer.plan.id, 
                                     question_id: answer.question.id}}
         
@@ -48,6 +49,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
         
         answer.reload
         
+puts form_attributes.inspect
 puts answer.inspect
         
         assert_not answer.id.nil?, "expected the answer to have been updated and for an id to be present after creating a #{format.title} question!"

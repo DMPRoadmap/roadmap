@@ -38,8 +38,17 @@ class TemplateTest < ActiveSupport::TestCase
 
   # ---------- has_customisations? ----------
   test "has_customisations? correctly identifies if a given org has customised the template" do
-    # TODO: Not sure if this is still an applicable method
+    @template.phases.first.modifiable = false
+    assert @template.has_customisations?(@org.id, @template), "expected the template to have customisations if it's phase is NOT modifiable"
 
+    @template.phases.first.modifiable = true
+    assert_not @template.has_customisations?(@org.id, @template), "expected the template to NOT have customisations if it's phase is modifiable"
+    
+    @template.phases << Phase.new(title: 'New phase test', modifiable: false)
+    assert @template.has_customisations?(@org.id, @template), "expected the template to have customisations if all of its phases is NOT modifiable"
+    
+    @template.phases.last.modifiable = true
+    assert_not @template.has_customisations?(@org.id, @template), "expected the template to NOT have customisations if one of its phases is modifiable"
   end
 
   
