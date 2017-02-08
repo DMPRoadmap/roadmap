@@ -176,16 +176,18 @@ class UserTest < ActiveSupport::TestCase
     
     assert_equal @user, User.from_omniauth(Auth.new)
     
-    class BogusAuth
+    class UnknownAuth
       def provider
-        "bogus"
+        "unknown"
       end
       def uid
         "12345"
       end
     end
     
-    assert_raise User.from_omniauth(Auth.new), "'Unknown OAuth provider: bogus"
+    assert_raise "'Unknown OAuth provider: unknown" do
+      User.from_omniauth(UnknownAuth.new)
+    end
   end
   
   # ---------------------------------------------------
