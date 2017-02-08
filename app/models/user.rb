@@ -201,14 +201,6 @@ class User < ActiveRecord::Base
     perms.include? Perm.find_by(name: constant("roles.change_org_details"))
   end
 
-  ##
-  # checks if the user can grant the api to organisations
-  #
-  # @return [Boolean] true if the user can grant api permissions to organisations
-  def can_grant_api_to_orgs?
-    perms.include? Perm.find_by(name: constant('roles.grant_api_to_orgs'))
-  end
-
 
   ##
   # checks if the user can grant the api to organisations

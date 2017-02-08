@@ -175,6 +175,56 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "Returns the appropriate identifier for the specified scheme" do
+    3.times do |i|
+      scheme = IdentifierScheme.create!({name: "test-#{i}", active: true})
+      
+      @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, identifier: i.to_s)
+    end
+    @user.save!
+  
+    3.times do |i|
+      scheme = IdentifierScheme.find_by(name: "test-#{i}")
+      
+      assert_equal i.to_s, @user.identifier_for(scheme), "expected the identifier for #{scheme.name} to be '#{i.to_s}'"
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "can_super_admin is properly set" do
+    perms = Perm.where('name IN (?)', ['add_organisations', 'change_org_affiliation', 'grant_api_to_orgs')
+    user = User.create!(email: 'tester@example.edu', password: 'password', perms: perms)
+                                                           
+    assert user.can_super_admin?, "expected the user to be able to super_admin if they can add orgs, change a user's org and grant api access to an org"
+    
+    perms.each do |p|
+      last = p
+      user.perms << last unless last.nil?
+      user.perms.delete(p)
+      user.save!
+      
+      assert_not user.can_super_admin?, "expected the removal of the #{p.name} perm to prevent the user from being a super_admin"
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "can_org_admin is properly set" do
+    perms = Perm.where('name IN (?)', ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details')
+    user = User.create!(email: 'tester@example.edu', password: 'password', perms: perms)
+                                                           
+    assert user.can_org_admin?, "expected the user to be able to org_admin if they can grant perms, modify templates, modify guidance and change org details"
+    
+    perms.each do |p|
+      last = p
+      user.perms << last unless last.nil?
+      user.perms.delete(p)
+      user.save!
+      
+      assert_not user.can_org_admin?, "expected the removal of the #{p.name} perm to prevent the user from being a org_admin"
+    end
+  end
+  
+  # ---------------------------------------------------
   test "Can only change the org if permissions allow" do
     user = User.first
     org = user.org

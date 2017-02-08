@@ -35,16 +35,29 @@ class OrgTest < ActiveSupport::TestCase
   test "type returns the correct value" do
     @org.institution = true
     assert_equal "Institution", @org.type
+    
+    @org.institution = false
     @org.funder = true
     assert_equal "Funder", @org.type
+    
+    @org.funder = false
     @org.organisation = true
     assert_equal "Organisation", @org.type
+    
+    @org.organisation = false
     @org.research_institute = true
     assert_equal "Research Institute", @org.type
+    
+    @org.research_institute = false
     @org.project = true
     assert_equal "Project", @org.type
+    
+    @org.project = false
     @org.school = true
     assert_equal "School", @org.type
+    
+    @org.school = false
+    assert_equal "None", @org.type
   end
 
   # ---------------------------------------------------
