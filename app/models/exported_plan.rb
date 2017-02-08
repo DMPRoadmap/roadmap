@@ -23,58 +23,55 @@ class ExportedPlan < ActiveRecord::Base
 # TODO: Consider removing the accessor methods, they add no value. The view/controller could
 #       just access the value directly from the project/plan: exported_plan.plan.project.title
 
-=begin
   # Getters to match Settings::Template::VALID_ADMIN_FIELDS
   def project_name
-    
-    name = self.plan.project.title
-    name += " - #{self.plan.title}" if self.plan.project.template.phases.count > 1
-    name
+    self.plan.title
   end
 
   def project_identifier
-    self.plan.project.identifier
+    self.plan.identifier
   end
 
   def grant_title
-    self.plan.project.grant_number
+    self.plan.grant_number
   end
 
   def principal_investigator
-    self.plan.project.principal_investigator
+    self.plan.principal_investigator
   end
 
   def project_data_contact
-    self.plan.project.data_contact
+    self.plan.data_contact
   end
 
   def project_description
-    self.plan.project.description
+    self.plan.description
   end
 
   def funder
-    org = self.plan.project.template.try(:organisation)
+    org = self.plan.template.try(:org)
     org.name if org.present? && org.funder?
   end
 
   def institution
-    plan.project.org.try(:name)
+    plan.owner.org.try(:name)
   end
 
   def orcid
     scheme = IdentifierScheme.find_by(name: 'orcid')
-    if self.user.nil?
+    if self.owner.nil?
       ''
     else
-      orcid = self.user.user_identifiers.where(identifier_scheme: scheme).first
+      orcid = self.owner.user_identifiers.where(identifier_scheme: scheme).first
       (orcid.nil? ? '' : orcid.identifier)
     end
   end
-=end
 
+# TODO: This looks like it will always return an empty array as questions is undefined
   # sections taken from fields settings
   def sections
-    sections = self.plan.sections
+    # TODO: How do we know which phase to use here!?
+    sections = self.template.phases.first.sections
 
     return [] if questions.empty?
 
