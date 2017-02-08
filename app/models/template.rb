@@ -5,7 +5,7 @@ class Template < ActiveRecord::Base
   # Associations
   belongs_to :org
   has_many :plans
-  has_many :phases
+  has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
 
