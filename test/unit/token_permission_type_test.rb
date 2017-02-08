@@ -19,7 +19,7 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "to_s returns the token_type" do
-    assert_equal @tpt.tokenb_type, @tpt.to_s
+    assert_equal @tpt.token_type, @tpt.to_s
   end
   
   # ---------------------------------------------------

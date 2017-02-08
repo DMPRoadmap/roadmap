@@ -23,8 +23,10 @@ class ExportedPlan < ActiveRecord::Base
 # TODO: Consider removing the accessor methods, they add no value. The view/controller could
 #       just access the value directly from the project/plan: exported_plan.plan.project.title
 
+=begin
   # Getters to match Settings::Template::VALID_ADMIN_FIELDS
   def project_name
+    
     name = self.plan.project.title
     name += " - #{self.plan.title}" if self.plan.project.template.phases.count > 1
     name
@@ -52,11 +54,11 @@ class ExportedPlan < ActiveRecord::Base
 
   def funder
     org = self.plan.project.template.try(:organisation)
-    org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder")
+    org.name if org.present? && org.funder?
   end
 
   def institution
-    plan.project.organisation.try(:name)
+    plan.project.org.try(:name)
   end
 
   def orcid
@@ -68,6 +70,7 @@ class ExportedPlan < ActiveRecord::Base
       (orcid.nil? ? '' : orcid.identifier)
     end
   end
+=end
 
   # sections taken from fields settings
   def sections

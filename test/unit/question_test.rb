@@ -12,7 +12,10 @@ class QuestionTest < ActiveSupport::TestCase
     @question = Question.create(text: 'Test question', default_value: 'ABCD', guidance: 'Hello',
                                 number: 999, section: @section, 
                                 question_format: QuestionFormat.where(option_based: false).first, 
-                                option_comment_display: true, modifiable: true)
+                                option_comment_display: true, modifiable: true,
+                                themes: [Theme.first], 
+                                suggested_answers: [SuggestedAnswer.new(org: @user.org,
+                                                                        text: "just a suggestion")])
   end
 
   # ---------------------------------------------------

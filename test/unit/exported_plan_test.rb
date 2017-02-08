@@ -22,6 +22,7 @@ class ExportedPlanTest < ActiveSupport::TestCase
     assert a.valid?, "expected the 'plan', 'user' and 'format' fields to be enough to create an ExportedPlan! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
 
+
   # ---------------------------------------------------
   test "as_csv" do
     

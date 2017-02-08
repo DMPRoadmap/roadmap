@@ -1,3 +1,4 @@
+=begin
 class OrganisationType < ActiveRecord::Base
   ##
   # Attributes
@@ -12,3 +13,4 @@ class OrganisationType < ActiveRecord::Base
   # Validators
   validates :name, presence: true, uniqueness: true
 end
+=end

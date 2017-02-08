@@ -12,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
                         surname: 'User',
                         shibboleth_id: 'test-shib',
                         accept_terms: 'true',
-                        organisation: Org.last,
+                        org: Org.last,
                         api_token: 'ABC123',
                         language: Language.find_by(abbreviation: I18n.locale))
   end

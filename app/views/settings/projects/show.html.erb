@@ -5,7 +5,7 @@
   <div class="error"><%= error %></div>
 <% end %>
 
-<%= form_for(@settings, url: settings_projects_path, method: :put, as: :columns) do |f| %>
+<%= form_for(@settings, url: settings_plans_path, method: :put, as: :columns) do |f| %>
   <%= f.hidden_field(:name, value: true) %>
  
   <table class="dmp_table">
