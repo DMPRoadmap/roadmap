@@ -59,7 +59,7 @@ class Question < ActiveRecord::Base
     end
     question.suggested_answers.each do |suggested_answer|
       suggested_answer_copy = SuggestedAnswer.deep_copy(suggested_answer)
-      suggested_answer_copy.quesion_id = question_copy.id
+      suggested_answer_copy.question_id = question_copy.id
       suggested_answer_copy.save!
     end
     question.themes.each do |theme|
