@@ -199,7 +199,12 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
               sections += Section.where(organisation_id: project.organisation_id, version_id: version.id).pluck(:id)
             end
             Section.includes(questions: [:themes, :options, :suggested_answers]).where(id: sections).each do |section|
-              new_section = initNewSection(section, new_phase, modifiable)
+              if project.organisation_id.nil?
+                sec_mod = modifiable
+              else
+                sec_mod = (section.organisation_id == project.organisation_id)
+              end
+              new_section = initNewSection(section, new_phase, sec_mod)
               new_section.save!
               section.questions.each do |question|
                 new_question = initNewQuestion(question, new_section, modifiable)
