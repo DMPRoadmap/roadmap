@@ -214,11 +214,13 @@ class User < ActiveRecord::Base
   # checks what type the user's organisation is
   #
   # @return [String] the organisation type
+=begin
   def org_type
     org_type = org.organisation_type
     return org_type
   end
-
+=end
+  
   ##
   # removes the api_token from the user
   # modifies the user model
