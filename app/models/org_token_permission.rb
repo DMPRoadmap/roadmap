@@ -1,3 +1,4 @@
+=begin
 class OrgTokenPermission < ActiveRecord::Base
   ##
   # Associations
@@ -9,3 +10,4 @@ class OrgTokenPermission < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :organisation_id, :token_permission_type_id, :organisation, :token_permission_type, :as => [:default, :admin]
 end
+=end
