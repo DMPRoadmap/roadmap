@@ -15,7 +15,7 @@
     <% else %>
       <li>
     <% end %>
-      <%= link_to phase.title, admin_phase_template_path(phase) %>
+      <%= link_to phase.title, admin_phase_template_path(phase.id) %>
     </li>
     <% end %>
     <!-- Add another phase button -->
