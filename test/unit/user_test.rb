@@ -160,6 +160,35 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "can find a user via an OAuth response" do
+    scheme = IdentifierScheme.create!(name: 'tester', active: true)
+    @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, identifier: '12345')
+    @user.save!
+    
+    class Auth
+      def provider
+        "tester"
+      end
+      def uid
+        "12345"
+      end
+    end
+    
+    assert_equal @user, User.from_omniauth(Auth.new)
+    
+    class BogusAuth
+      def provider
+        "bogus"
+      end
+      def uid
+        "12345"
+      end
+    end
+    
+    assert_raise User.from_omniauth(Auth.new), "'Unknown OAuth provider: bogus"
+  end
+  
+  # ---------------------------------------------------
   test "Plans query filter is working properly" do
     3.times do |i|
       @user.plans << Plan.new(template: Template.last, title: "My test #{i}", 
@@ -186,65 +215,56 @@ class UserTest < ActiveSupport::TestCase
     3.times do |i|
       scheme = IdentifierScheme.find_by(name: "test-#{i}")
       
-      assert_equal i.to_s, @user.identifier_for(scheme), "expected the identifier for #{scheme.name} to be '#{i.to_s}'"
+      assert_equal i.to_s, @user.identifier_for(scheme).identifier, "expected the identifier for #{scheme.name} to be '#{i.to_s}'"
     end
   end
   
   # ---------------------------------------------------
   test "can_super_admin is properly set" do
-    perms = Perm.where('name IN (?)', ['add_organisations', 'change_org_affiliation', 'grant_api_to_orgs')
-    user = User.create!(email: 'tester@example.edu', password: 'password', perms: perms)
+    perms = Perm.where('name IN (?)', ['add_organisations', 'change_org_affiliation', 'grant_api_to_orgs'])
+    user = User.create!(email: 'tester@example.edu', password: 'password')
                                                            
-    assert user.can_super_admin?, "expected the user to be able to super_admin if they can add orgs, change a user's org and grant api access to an org"
-    
+    assert_not user.can_super_admin?, "expected a user with no permissions to NOT be a super_admin"
+
     perms.each do |p|
       last = p
-      user.perms << last unless last.nil?
-      user.perms.delete(p)
+      user.perms.delete(last) unless last.nil?
+      user.perms << p
       user.save!
       
-      assert_not user.can_super_admin?, "expected the removal of the #{p.name} perm to prevent the user from being a super_admin"
+      assert user.can_super_admin?, "expected the addition of the #{p.name} perm to enable the user to become a super_admin"
     end
+      
+    user.perms = []
+    user.save!
+    
+    user.perms = perms
+    user.save!
+    assert user.can_super_admin?, "expected the addition of all the super_admin perms to allow the user to be a super_admin"
   end
   
   # ---------------------------------------------------
   test "can_org_admin is properly set" do
-    perms = Perm.where('name IN (?)', ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details')
-    user = User.create!(email: 'tester@example.edu', password: 'password', perms: perms)
+    perms = Perm.where('name IN (?)', ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+    user = User.create!(email: 'tester@example.edu', password: 'password')
                                                            
-    assert user.can_org_admin?, "expected the user to be able to org_admin if they can grant perms, modify templates, modify guidance and change org details"
-    
+    assert_not user.can_org_admin?, "expected a user with no permissions to NOT be a org_admin"
+
     perms.each do |p|
       last = p
-      user.perms << last unless last.nil?
-      user.perms.delete(p)
+      user.perms.delete(last) unless last.nil?
+      user.perms << p
       user.save!
       
-      assert_not user.can_org_admin?, "expected the removal of the #{p.name} perm to prevent the user from being a org_admin"
+      assert user.can_org_admin?, "expected the addition of the #{p.name} perm to enable the user to become a org_admin"
     end
-  end
-  
-  # ---------------------------------------------------
-  test "Can only change the org if permissions allow" do
-    user = User.first
-    org = user.org
-    perms = user.perms
+      
+    user.perms = []
+    user.save!
     
-    # If user doesn't have permission (delete all user permissions)
-    user.perms.delete(Perm.find_by(name: 'change_org_affiliation'))
-    
-    user.organisation_id = Org.last
-    assert user.perms.empty?, "expected all of the user's permissions to have been deleted"
-    assert_equal Org.last, user.org, "expected the org to be updated if the user does not have permission to change the org affiliation"
-    assert_equal "", user.api_token, "expected the api_token to be blank"
-    
-    # If we pass nil (delete all user permissions)
-    
-    # If the existing org is nil (delete all user permissions)
-    
-    # sets the organisation
-    
-    # removed the api token
+    user.perms = perms
+    user.save!
+    assert user.can_org_admin?, "expected the addition of all the super_admin perms to allow the user to be a org_admin"
   end
   
   # ---------------------------------------------------

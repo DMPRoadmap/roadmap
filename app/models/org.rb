@@ -74,7 +74,7 @@ class Org < ActiveRecord::Base
       return "Funder"
     elsif self.organisation?
       return "Organisation"
-    elsif @org.research_institute?
+    elsif self.research_institute?
       return "Research Institute"
     elsif self.project?
       return "Project"

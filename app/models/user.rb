@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user is an admin
   def can_super_admin?
-    return self.can_add_orgs? || self.can_grant_api_to_orgs? || can_change_org?
+    return self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
   end
 
   ##
@@ -142,7 +142,8 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user is an organisation admin
   def can_org_admin?
-    return self.can_grant_permissions? || self.can_modify_guidance? || self.can_modify_templates? || self.can_modify_org_details?
+    return self.can_grant_permissions? || self.can_modify_guidance? || 
+           self.can_modify_templates? || self.can_modify_org_details?
   end
 
   ##
@@ -260,9 +261,11 @@ class User < ActiveRecord::Base
     end
   end
 
+# TODO: Remove this, its never called.
   # this generates a reset password link for a given user
   # which can then be sent to them with the appropriate host
   # prepended.
+=begin
   def reset_password_link
     raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
     self.reset_password_token   = enc 
@@ -271,5 +274,6 @@ class User < ActiveRecord::Base
 
     edit_user_password_path  + '?reset_password_token=' + raw
   end
-
+=end
+  
 end
