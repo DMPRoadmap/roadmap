@@ -31,7 +31,7 @@
         <div id="show_phase_div">
           <%= render partial: "show_phase", locals: {phase: @phase}%>
         </div>
-        <% if @phase.modifiable then %>
+        <% if @phase.modifiable && @edit %>
           <div id="edit_phase_div" style="display: none">
             <%= render partial: "edit_phase", locals: {phase: @phase}%>
           </div>
@@ -52,20 +52,18 @@
 </div>
 
 
-  <!-- Add a new section if the version is not published-->
-  <% if !@phase.template.published %>
+<% if @edit %>
+  <!-- add section block -->
+  <div id="add_section_block_div" style="display: none">
+    <%= render partial: 'add_section', locals: {phase: @phase} %>
+  </div>
 
-    <!-- add section block -->
-    <div id="add_section_block_div" style="display: none">
-      <%= render partial: 'add_section', locals: {phase: @phase} %>
+  <!-- add section button-->
+  <div id="add_section_button_div">
+    <div class="div_right">
+      <%= link_to t('org_admin.add_section_label'),'#', id: 'add_section_button', class: 'btn btn-primary' %>
     </div>
-
-    <!-- add section button-->
-    <div id="add_section_button_div">
-      <div class="div_right">
-        <%= link_to t('org_admin.add_section_label'),'#', id: 'add_section_button', class: 'btn btn-primary' %>
-      </div>
-    </div>
-  <%end%>
+  </div>
+<% end %>
 
 

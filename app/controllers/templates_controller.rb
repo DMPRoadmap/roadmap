@@ -44,6 +44,44 @@ class TemplatesController < ApplicationController
   # GET /dmptemplates/1
   def admin_template
     @template = Template.find(params[:id])
+    # check to see if this is a funder template needing customized
+    if @template.org_id != current_user.org_id
+      # definitely need to deep_copy the given template
+      new_customization = Template.deep_copy(@template)
+      new_customization.org_id = current_user.org_id
+      new_customization.published = false
+      new_customization.customization_of = @template.dmptemplate_id
+      # need to mark all Phases, questions, sections as not-modifiable
+      new_customization.phases.includes(sections: :questions).each do |phase|
+        phase.modifiable = false
+        phase.save!
+        phase.sections.each do |section|
+          section.modifiable = false
+          section.save!
+          section.questions.each do |question|
+            question.modifiable = false
+            question.save!
+          end
+        end
+      end
+      customizations = Template.where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+      if customizations.present?
+        # existing customization to port over
+        max_version = customizations.first
+        new_customization.dmptemplate_id = max_version.dmptemplate_id
+        new_customization.version = max_version.version + 1
+        # port customization data...?
+      else
+        # first time customization
+        new_customization.version = 0
+        new_customization.dmptemplate_id = loop do
+          random = rand 2147483647  # max int field in psql
+          break random unless Template.exists?(dmptemplate_id: random)
+        end
+      end
+      new_customization.save!
+      @template = new_customization
+    end
     authorize @template
   end
 
@@ -59,13 +97,14 @@ class TemplatesController < ApplicationController
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
       if @template.published
-        # create a new template version
+        # create a new template version if this template became published
         new_version = Template.deep_copy(@template)
         new_version.version = @template.version + 1
+        new_version.published = false
         new_version.save!
         # if the organisation is a funder
         if @template.org.funder?
-          # do something about all the customizations
+          # do something about all the customizations?
         end
       end
       redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
