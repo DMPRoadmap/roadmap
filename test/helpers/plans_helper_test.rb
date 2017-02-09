@@ -1,8 +1,10 @@
 require 'test_helper'
 
-class ProjectsHelperTest < ActionView::TestCase
+class PlansHelperTest < ActionView::TestCase
   
   include Devise::Test::IntegrationHelpers
+  
+  UNKNOWN = I18n.t("helpers.project.columns.unknown")
   
   def setup
     scaffold_plan
@@ -18,11 +20,18 @@ class ProjectsHelperTest < ActionView::TestCase
     cols.each do |k,v|
       assert plan_list_column_heading(k.to_s).include?(">#{I18n.t("helpers.project.columns.#{k}")}<"), "expected #{k} to return a column heading labeled #{v}"
     end
+    
+    assert plan_list_column_heading(["test1", 18, 'test3']).include?("Test1"), "expected the 1st item in the array if its a String"
+    assert plan_list_column_heading([18, 'test3']).include?(UNKNOWN), "expected 'Unknown' if the 1st item in the array if is NOT a String"
+    
+    assert plan_list_column_heading(18).include?(UNKNOWN), "expected 'Unknown' if the value passed is not a String or an Array"
   end
   
   # -----------------------------------------------------------------------
   test "plan_list_column_body should return the localized text for the column heading" do
     cols = I18n.t("helpers.project.columns")
+    
+    assert plan_list_column_body(["non_link_name", "owner"], @plan).include?(@plan.title), "expected the 1st column to be used if passing in an Array"
     
     cols.each do |k,v|
       val = plan_list_column_body(k.to_s, @plan)
@@ -42,10 +51,23 @@ class ProjectsHelperTest < ActionView::TestCase
       end
       
     end
+
+    # Check different return options for the plan's owner
+    plan = Plan.create(template: @template, title: 'No owner test')
+    user = User.create(email: 'tester@example.com', firstname: 'Test', surname: 'Er', password: '123password')
+    
+    assert plan_list_column_body('owner', plan).include?(UNKNOWN), "expected Unknown if the column is 'owner' but the plan has no owner"
+
+    plan.assign_creator(user.id)
+    plan.save!
+    plan.reload
+
+    assert plan_list_column_body('owner', plan).include?(user.name), "expected the user's name if the column is 'owner' and the plan owner is not the current user"    
   end
 
-  # TODO: 'custom_template' is part of the case logic in this method but it is unreachable because both
-  # the plan and template settings objects use "Settings::Template". We should remove it from logic
+  # TODO: 'custom_template' is part of the case logic in this method but it is unreachable 
+  #       because both the plan and template settings objects use "Settings::Template". We 
+  #       should remove it from logic
   # -----------------------------------------------------------------------
   test "plan_settings_indicator should return the correct export formatting settings" do
     assert plan_settings_indicator(@plan).include?(">#{I18n.t("helpers.settings.plans.default_formatting")}<"), "expected the default plan to use default export settings"

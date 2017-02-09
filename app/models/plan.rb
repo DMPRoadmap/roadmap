@@ -853,6 +853,14 @@ class Plan < ActiveRecord::Base
     role.editor= is_editor
     role.administrator= is_administrator
     role.save
+    
+    # This is necessary because we're creating the associated record but not assigning it 
+    # to roles. Auto-saving like this may be confusing when coding upstream in a controller,
+    # view or api. Should probably change this to: 
+    #    self.roles << role
+    # and then let the save be called manually via: 
+    #    plan.save!
+    #self.reload
   end
 
   ##

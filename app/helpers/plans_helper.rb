@@ -32,7 +32,7 @@ module PlansHelper
         user = plan.owner
         
         text = if user.nil?
-          t("helpers.settings.unknown")
+          t("helpers.project.columns.unknown")
         elsif user == current_user
           t("helpers.me")
         else

@@ -57,8 +57,25 @@ class PlanTest < ActiveSupport::TestCase
     answer.save!
     
     answr = @plan.answer(q.id)
-    assert_not answer.id.nil?, "expected the latest Answer"
-    assert_equal "testing", answer.text, "expected the Answer returned to have the correct text"
+    assert_not answr.id.nil?, "expected the latest Answer"
+    assert_equal "testing", answr.text, "expected the Answer returned to have the correct text"
+    
+    # Check an option based question
+    q = QuestionFormat.find_by(option_based: true).questions.first
+    p = Plan.create(template: q.section.phase.template, title: 'Testing an option based answer')
+    o = QuestionOption.find_by(question: q)
+    d = QuestionOption.create(question: q, text: 'default', number: 99, is_default: true)
+    a = Answer.create(plan: p, question: q, user: @creator, question_options: [o])
+    
+    answr = p.answer(q.id, false)
+    
+    assert_not answr.id.nil?, "expected the Option Based Answer"
+    assert_equal [o], answr.question_options, "expected the Answer returned to have the correct options selected"
+
+    # Make sure that default options are selected if creating a new Answer
+    a.destroy
+    answr = p.answer(q.id)
+    assert_equal [d], answr.question_options, "expected the Answer returned to have the correct options selected"
   end
   
   # ---------------------------------------------------
