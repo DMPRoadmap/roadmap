@@ -19,7 +19,11 @@ class ReplacingPlanRolesWithBitflags < ActiveRecord::Migration
         if role.create
           role.creator = true
         end
-        role.save!
+        if role.user.nil?
+          Role.delete_all(user_id: role.user_id)
+        else
+          role.save!
+        end
       end
     end
     
