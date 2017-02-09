@@ -107,12 +107,19 @@ class AddForeignKeys < ActiveRecord::Migration
     if table_exists?('notes')
       Note.includes(:answer, :user).find_each do |note|
         if note.answer.nil? && note.answer_id.present?
-          note.answer_id = nil
+          note.destroy!
           i += 1
+          next
         end
         if note.user.nil? && note.user_id.present?
-          note.user_id = nil
+          note.destroy!
           i += 1
+          next
+        end
+        if note.text.blank?
+          note.destroy!
+          i += 1
+          next
         end
         note.save!
       end
