@@ -79,6 +79,7 @@ gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 # ------------------------------------------------
 #     INTERNATIONALIZATION
 gem "i18n-js", ">= 3.0.0.rc11"          #damodar added TODO: explain
+gem 'gettext_i18n_rails', '~> 1.8'
 
 # ------------------------------------------------
 #     API
