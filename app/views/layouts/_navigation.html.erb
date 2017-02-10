@@ -1,38 +1,21 @@
-<!-- Main navigation information -->
-
-<!-- main menu -->
-<% current_path = request.path%>
-<% namespace = controller_path.split("/").first %>
+<!-- http://0.0.0.0:8080/en-UK/org/admin/templates/851874071/admin_index -->
 <div id="main-nav-tabs" class="main_nav_tabs">
   <ul class="nav nav-tabs" data-tabs="tabs">
-
     <!-- Navigation for organisation admin -->
     <% if (user_signed_in? && current_user.can_org_admin? && ( action_name.include? "admin_" ) ) %>
       <% if current_user.can_modify_templates? %>
-        <% if namespace == "templates" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-            <%= link_to t("org_admin.template_label"), admin_index_template_path(current_user.org_id) %>
+          <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
+            <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
           </li>
       <% end %>
       <% if current_user.can_modify_guidance? %>
-        <% if namespace == "guidances" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-          <%= link_to t("org_admin.guidance_label"), admin_index_guidance_path(current_user.org_id)%>
+          <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
+            <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
           </li>
       <% end %>
       <% if current_user.can_modify_org_details? %>
-        <% if namespace == "orgs" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-            <%= link_to t("org_admin.org_details_label"), admin_show_org_path(current_user.org_id)%>
+          <li <%= 'class=active' if isActivePage(admin_show_org_path(current_user.org_id)) %>>
+            <%= link_to _('Organisation details'), admin_show_org_path(current_user.org_id) %> 
           </li>
       <% end %>
       <% if current_user.can_grant_permissions? %>
@@ -41,87 +24,50 @@
         <% else %>
           <li>
         <% end %>
-          <%= link_to t("org_admin.user_list_label"), "/org/admin/users/admin_index", class: "main_nav_last_li"%>
+          <%= link_to _('Users'), "/org/admin/users/admin_index", class: "main_nav_last_li"%>
           </li>
       <% end %>
     <% else %>
       <% if user_signed_in? %>
-        <!-- plan page -->
-        <% if namespace == "plans" && current_path != "/plans/new" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-        <%= link_to t("helpers.view_plans_label"), plans_path %>
+          <li <%= 'class=active' if isActivePage(plans_path) %>>
+            <%= link_to _('View plans'), plans_path %>
           </li>
-        <!-- create a plan page -->
-        <% if current_path == "/plans/new" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-          <%= link_to t("helpers.create_plan_label"), new_plan_path %>
+          <li <%= 'class=active' if isActivePage(new_plan_path) %>>
+            <%= link_to _('Create plan'), new_plan_path %>
           </li>
-
       <% else %>
         <!-- Home page -->
-        <% if current_path == "/" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-          <%= link_to t("helpers.home"), root_path %>
+          <li <%= 'class=active' if isActivePage(root_path) %>>
+            <%= link_to _('Home'), root_path %>
           </li>
       <% end %>
       <!-- about_us page -->
-      <% if current_path == "/about_us" then %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
-          <a href="<%= about_us_path %>"><%= t("helpers.about_us_label") %></a>
+        <li <%= 'class=active' if isActivePage(about_us_path) %>>
+          <%= link_to _('About'), about_us_path %>
         </li>
       <!-- roadmap page -->
-      <% if current_path == "/roadmap" then %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
-          <a href="<%= roadmap_path %>"><%= t("helpers.roadmap_label") %></a>
+        <li <%= 'class=active' if isActivePage(roadmap_path) %>>
+          <%= link_to _('Future plans'), roadmap_path %>
         </li>
       <!-- help page -->
-      <% if current_path == "/help" then %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
-          <a href="<%= help_path %>" class="main_nav"><%= t("helpers.help_label") %></a>
+        <li <%= 'class=active' if isActivePage(help_path) %>>
+          <%= link_to _('Help'), help_path %>
         </li>
-
       <!-- plans/publicly_available page -->
-      <% if current_path == "/plans/public_plans" then %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
-          <a href="<%= public_plans_path %>"><%= t("helpers.public_plans_label") %></a>
+        <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+          <%= link_to _('Public DMPs'), public_plans_path %>
         </li>
-
       <!-- language dropdown -->
       <li class="dropdown sign_in">
         <a class="dropdown-toggle main_nav" data-toggle="dropdown" href="#">
-          <%= t('helpers.change_language')%>
+          <%= _('Change language') %>
           <b class="caret caret-orange"></b>
         </a>
         <ul class="dropdown-menu" style="padding: 0;">
-          <% Language.all.order('name ASC').each do |language|%>
-            <% if I18n.locale == language.abbreviation %>
-              <li class="active">
-            <% else %>
-              <li>
-            <% end %>
-                <%= link_to language.name, {locale: language.abbreviation}, class: 'main_nav lang-dropdown-link'%>
-              </li>
+          <% FastGettext.default_available_locales.sort.each do |l| %>
+            <li <%= 'class=active' if FastGettext.locale == l %>>
+              <%= link_to l, {locale: l}, class: 'main_nav lang-dropdown-link'%>
+            </li>
           <% end %>
         </ul>
       </li>

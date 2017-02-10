@@ -1,0 +1,2762 @@
+
+#  translator-comments
+#. extracted-comments
+#: reference…
+#, flag…
+#| msgid previous-untranslated-string
+
+#date.formats.default
+msgid "%d-%m-%Y"
+msgstr ""
+
+#date.formats.short
+msgid "%d/%m/%Y"
+msgstr ""
+
+#date.formats.long
+msgid "%d %B, %Y"
+msgstr ""
+
+#time.formats.default
+msgid "%a, %b %d %Y %H:%M:%S %z"
+msgstr ""
+
+#time.formats.short
+msgid "%d %b %H:%M"
+msgstr ""
+
+#time.formats.custom
+msgid "%d/%m/%Y %H:%M"
+msgstr ""
+
+#time.formats.long
+msgid "%B %d, %Y %H:%M"
+msgstr ""
+
+#time.am
+msgid "am"
+msgstr ""
+
+#time.pm
+msgid "pm"
+msgstr ""
+
+#tool_title
+msgid "%{application_name}"
+msgstr ""
+
+#tool_title2
+msgid "DMP title"
+msgstr ""
+
+#dcc_name
+msgid "%{organisation_name}"
+msgstr ""
+
+#welcome_title
+msgid "Welcome."
+msgstr ""
+
+#welcome_text
+msgid "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+msgstr ""
+
+#screencast_text
+msgid "Screencast on how to use %{application_name}"
+msgstr ""
+
+#screencast_error_text
+msgid "Your browser does not support the video tag."
+msgstr ""
+
+#unauthorized
+msgid "You need to sign in or sign up before continuing."
+msgstr ""
+
+#admin.language
+msgid "Language"
+msgstr ""
+
+#admin.language_name
+msgid "Language name"
+msgstr ""
+
+#admin.language_abbreviation
+msgid "Language abbreviation"
+msgstr ""
+
+#admin.language_is_default
+msgid "Is default language"
+msgstr ""
+
+#admin.true
+msgid "Yes"
+msgstr ""
+
+#admin.false
+msgid "No"
+msgstr ""
+
+#admin.org_title
+msgid "Organisation name"
+msgstr ""
+
+#admin.org
+msgid "Organisation"
+msgstr ""
+
+#admin.orgs
+msgid "Organisations"
+msgstr ""
+
+#admin.org_type
+msgid "Organisation type"
+msgstr ""
+
+#admin.org_parent
+msgid "Parent organisation"
+msgstr ""
+
+#admin.org_created_message
+msgid "Organisation was successfully created."
+msgstr ""
+
+#admin.org_updated_message
+msgid "Organisation was successfully updated."
+msgstr ""
+
+#admin.org_bad_logo
+msgid "There seems to be a problem with your logo. Please upload it again."
+msgstr ""
+
+#admin.plans
+msgid "Plans"
+msgstr ""
+
+#admin.title
+msgid "Title"
+msgstr ""
+
+#admin.desc
+msgid "Description"
+msgstr ""
+
+#admin.guidance_group
+msgid "Guidance group"
+msgstr ""
+
+#admin.no_guidance_group
+msgid "No guidance group"
+msgstr ""
+
+#admin.guidance
+msgid "Guidance"
+msgstr ""
+
+#admin.guidance_lowercase
+msgid "guidance"
+msgstr ""
+
+#admin.guidance_lowercase_on
+msgid "guidance on"
+msgstr ""
+
+#admin.name
+msgid "Name"
+msgstr ""
+
+#admin.abbrev
+msgid "Abbreviation"
+msgstr ""
+
+#admin.question
+msgid "Question"
+msgstr ""
+
+#admin.question_format
+msgid "Question Format"
+msgstr ""
+
+#admin.questions
+msgid "Questions"
+msgstr ""
+
+#admin.template_title
+msgid "Template title"
+msgstr ""
+
+#admin.section_title
+msgid "Section title"
+msgstr ""
+
+#admin.formatting
+msgid "Formatting"
+msgstr ""
+
+#admin.max_pages
+msgid "Max Pages"
+msgstr ""
+
+#admin.phase_title
+msgid "Phase title"
+msgstr ""
+
+#admin.version_title
+msgid "Version title"
+msgstr ""
+
+#admin.user_name
+msgid "Username"
+msgstr ""
+
+#admin.firstname
+msgid "First name"
+msgstr ""
+
+#admin.surname
+msgid "Surname"
+msgstr ""
+
+#admin.user
+msgid "User"
+msgstr ""
+
+#admin.user_created
+msgid "User was successfully created."
+msgstr ""
+
+#admin.user_org_role
+msgid "User role on an Organisation"
+msgstr ""
+
+#admin.user_role_type
+msgid "User role type"
+msgstr ""
+
+#admin.user_role_type_created
+msgid "User role type was successfully created."
+msgstr ""
+
+#admin.user_role_type_updated
+msgid "User role type was successfully updated."
+msgstr ""
+
+#admin.user_role
+msgid "User role"
+msgstr ""
+
+#admin.role
+msgid "Role"
+msgstr ""
+
+#admin.user_status
+msgid "User status"
+msgstr ""
+
+#admin.user_status_created
+msgid "User status was successfully created."
+msgstr ""
+
+#admin.user_status_updated
+msgid "User status was successfully updated."
+msgstr ""
+
+#admin.user_type
+msgid "User type"
+msgstr ""
+
+#admin.user_type_created
+msgid "User type was successfully created."
+msgstr ""
+
+#admin.user_type_updated
+msgid "User type was successfully created."
+msgstr ""
+
+#admin.last_logged_in
+msgid "Last logged in"
+msgstr ""
+
+#admin.version_numb
+msgid "Version number"
+msgstr ""
+
+#admin.details
+msgid "Details"
+msgstr ""
+
+#admin.phases
+msgid "Phases"
+msgstr ""
+
+#admin.phase
+msgid "Phase"
+msgstr ""
+
+#admin.version
+msgid "Version"
+msgstr ""
+
+#admin.versions
+msgid "Versions"
+msgstr ""
+
+#admin.sections
+msgid "Sections"
+msgstr ""
+
+#admin.section
+msgid "Section"
+msgstr ""
+
+#admin.multi_options
+msgid "Multiple question options"
+msgstr ""
+
+#admin.templates
+msgid "Templates"
+msgstr ""
+
+#admin.template
+msgid "Template"
+msgstr ""
+
+#admin.themes
+msgid "Themes"
+msgstr ""
+
+#admin.theme
+msgid "Theme"
+msgstr ""
+
+#admin.theme_created
+msgid "Theme was successfully created."
+msgstr ""
+
+#admin.theme_updated
+msgid "Theme was successfully updated."
+msgstr ""
+
+#admin.sug_answer
+msgid "Suggested answer"
+msgstr ""
+
+#admin.sug_answers
+msgid "Suggested answers"
+msgstr ""
+
+#admin.old_temp_field
+msgid "old template field"
+msgstr ""
+
+#admin.old_theme_field
+msgid "old theme field"
+msgstr ""
+
+#admin.token_permission_type
+msgid "Token Permission Type"
+msgstr ""
+
+#admin.permission_description
+msgid "Permission Description"
+msgstr ""
+
+#admin.token_permission
+msgid "Token Permission"
+msgstr ""
+
+#admin.org_token_permission
+msgid "Organisation Token Permission"
+msgstr ""
+
+#admin.settings_updated
+msgid "Settings updated successfully"
+msgstr ""
+
+#admin.choose_themes
+msgid "Choose all themes that apply."
+msgstr ""
+
+#admin.all_themes
+msgid "All themes"
+msgstr ""
+
+#admin.selected_themes
+msgid "Selected themes"
+msgstr ""
+
+#admin.choose_templates
+msgid "Choose all templates that apply."
+msgstr ""
+
+#admin.all_templates
+msgid "All templates"
+msgstr ""
+
+#admin.selected_templates
+msgid "Selected templates"
+msgstr ""
+
+#admin.select_question_format
+msgid "Select question format"
+msgstr ""
+
+#admin.no_template
+msgid "No template"
+msgstr ""
+
+#admin.no_phase
+msgid "No phase"
+msgstr ""
+
+#admin.no_version
+msgid "No version"
+msgstr ""
+
+#admin.no_section
+msgid "No section"
+msgstr ""
+
+#org_admin.org_default_language
+msgid "Organisation language"
+msgstr ""
+
+#org_admin.org_default_language_help_text
+msgid "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
+msgstr ""
+
+#org_admin.admin_area
+msgid "Admin area"
+msgstr ""
+
+#org_admin.admin_details
+msgid "Admin Details"
+msgstr ""
+
+#org_admin.template_label
+msgid "Templates"
+msgstr ""
+
+#org_admin.user_list_label
+msgid "Users"
+msgstr ""
+
+#org_admin.org_details_label
+msgid "Organisation details"
+msgstr ""
+
+#org_admin.org_text
+msgid "These are the basic details for your organisation."
+msgstr ""
+
+#org_admin.org_abbr_help_text_html
+msgid "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
+msgstr ""
+
+#org_admin.org_contact_email
+msgid "Contact Email"
+msgstr ""
+
+#org_admin.org_contact_email_help_text
+msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+msgstr ""
+
+#org_admin.users_list
+msgid "List of users"
+msgstr ""
+
+#org_admin.user_full_name
+msgid "Name"
+msgstr ""
+
+#org_admin.user_name
+msgid "Email address"
+msgstr ""
+
+#org_admin.last_logged_in
+msgid "Last logged in"
+msgstr ""
+
+#org_admin.how_many_plans
+msgid "How many plans?"
+msgstr ""
+
+#org_admin.privileges
+msgid "Privileges"
+msgstr ""
+
+#org_admin.user_text_html
+msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
+msgstr ""
+
+#org_admin.org_name
+msgid "Name"
+msgstr ""
+
+#org_admin.org_abbr
+msgid "Abbreviation"
+msgstr ""
+
+#org_admin.org_logo_failed_message
+msgid "Logo Upload Failed."
+msgstr ""
+
+#org_admin.org_logo
+msgid "Logo"
+msgstr ""
+
+#org_admin.new_org_logo
+msgid "Upload a new logo file"
+msgstr ""
+
+#org_admin.remove_logo
+msgid "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
+msgstr ""
+
+#org_admin.org_desc
+msgid "Description"
+msgstr ""
+
+#org_admin.org_banner_text
+msgid "Top banner text"
+msgstr ""
+
+#org_admin.org_target_url
+msgid "Website"
+msgstr ""
+
+#org_admin.org_type
+msgid "Organisation type"
+msgstr ""
+
+#org_admin.parent_org
+msgid "Main organisation"
+msgstr ""
+
+#org_admin.last_updated
+msgid "Last updated"
+msgstr ""
+
+#org_admin.desc_help_text_html
+msgid "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
+msgstr ""
+
+#org_admin.top_banner_help_text_html
+msgid "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
+msgstr ""
+
+#org_admin.template_desc_help_text_html
+msgid "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
+msgstr ""
+
+#org_admin.abbre_help_text
+msgid "Please enter an abbreviation to your organisation's name."
+msgstr ""
+
+#org_admin.target_url_help_text
+msgid "Please enter a valid web address."
+msgstr ""
+
+#org_admin.name_help_text
+msgid "Please enter your organisation's name."
+msgstr ""
+
+#org_admin.guidance_label
+msgid "Guidance"
+msgstr ""
+
+#org_admin.templates_label
+msgid "Templates"
+msgstr ""
+
+#org_admin.add_option_label
+msgid "Add option"
+msgstr ""
+
+#org_admin.add_question_label
+msgid "Add question"
+msgstr ""
+
+#org_admin.add_section_label
+msgid "Add section"
+msgstr ""
+
+#org_admin.remove_option_label
+msgid "Remove"
+msgstr ""
+
+#org_admin.option_order_label
+msgid "Order"
+msgstr ""
+
+#org_admin.option_text_label
+msgid "Text"
+msgstr ""
+
+#org_admin.option_default_label
+msgid "Default"
+msgstr ""
+
+#org_admin.user_org_created
+msgid "User org role was successfully created."
+msgstr ""
+
+#org_admin.user_org_updated
+msgid "User org role was successfully updated."
+msgstr ""
+
+#org_admin.api_privileges
+msgid "API Privleges?"
+msgstr ""
+
+#org_admin.edit_user_privileges
+msgid "Edit User Privileges"
+msgstr ""
+
+#org_admin.guidance.guidance_list
+msgid "Guidance list"
+msgstr ""
+
+#org_admin.guidance.text_label
+msgid "Text"
+msgstr ""
+
+#org_admin.guidance.themes_label
+msgid "Themes"
+msgstr ""
+
+#org_admin.guidance.question_label
+msgid "Question"
+msgstr ""
+
+#org_admin.guidance.by_theme_or_by_question
+msgid "Should this guidance apply:"
+msgstr ""
+
+#org_admin.guidance.by_themes_label
+msgid "by themes"
+msgstr ""
+
+#org_admin.guidance.by_question_label
+msgid "by question"
+msgstr ""
+
+#org_admin.guidance.template
+msgid "Template"
+msgstr ""
+
+#org_admin.guidance.templates
+msgid "Templates"
+msgstr ""
+
+#org_admin.guidance.guidance_group_label
+msgid "Guidance group"
+msgstr ""
+
+#org_admin.guidance.published
+msgid "Published"
+msgstr ""
+
+#org_admin.guidance.created
+msgid "Created"
+msgstr ""
+
+#org_admin.guidance.last_updated
+msgid "Last updated"
+msgstr ""
+
+#org_admin.guidance.actions
+msgid "Actions"
+msgstr ""
+
+#org_admin.guidance.add_guidance
+msgid "Add guidance"
+msgstr ""
+
+#org_admin.guidance.created_message
+msgid "Guidance was successfully created."
+msgstr ""
+
+#org_admin.guidance.updated_message
+msgid "Guidance was successfully updated."
+msgstr ""
+
+#org_admin.guidance.help_text_html
+msgid "<div class='tooltip_box'>Please enter guidance text for this theme.</div>"
+msgstr ""
+
+#org_admin.guidance.new_label
+msgid "New guidance"
+msgstr ""
+
+#org_admin.guidance.view_all_guidance
+msgid "View all guidance"
+msgstr ""
+
+#org_admin.guidance.text_help_text_html
+msgid "Enter your guidance here. You can include links where needed."
+msgstr ""
+
+#org_admin.guidance.apply_to_help_text_html
+msgid "Decide whether your guidance should display by themes (default) or if it only pertains to a specific question in one of the funder templates."
+msgstr ""
+
+#org_admin.guidance.by_themes_help_text_html
+msgid "Select which theme(s) this guidance relates to."
+msgstr ""
+
+#org_admin.guidance.by_question_help_text_html
+msgid "Select the relevant template, phase, version, section and question from the following dropdown options to define which specific question this guidance should display on."
+msgstr ""
+
+#org_admin.guidance.guidance_group_select_help_text_html
+msgid "Select which group this guidance relates to."
+msgstr ""
+
+#org_admin.guidance.guidance_group_published_help_text_html
+msgid "Check this box when you are ready for this guidance to appear on user's plans."
+msgstr ""
+
+#org_admin.guidance.guidance_text_html
+msgid "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board) or you can write guidance for specific questions. Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>You will usually want your guidance to display on all templates, however there may be cases where you only want it to show for specific funders e.g. if you have specific instructions for applicants to BBSRC for example. This can be set too if needed.</p>"
+msgstr ""
+
+#org_admin.guidance.delete_message_html
+msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
+msgstr ""
+
+#org_admin.guidance_group.add_guidance_group
+msgid "Add guidance group"
+msgstr ""
+
+#org_admin.guidance_group.guidance_group_list
+msgid "Guidance group list"
+msgstr ""
+
+#org_admin.guidance_group.name_label
+msgid "Name"
+msgstr ""
+
+#org_admin.guidance_group.subset
+msgid "Optional subset"
+msgstr ""
+
+#org_admin.guidance_group.subset_eg
+msgid "e.g. School/ Department"
+msgstr ""
+
+#org_admin.guidance_group.all_temp
+msgid "All templates"
+msgstr ""
+
+#org_admin.guidance_group.help_text_add
+msgid "Please enter the group title"
+msgstr ""
+
+#org_admin.guidance_group.subset_option_help_text
+msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
+msgstr ""
+
+#org_admin.guidance_group.template_help_text_html
+msgid "Select which templates you want the guidance to display on. This will usually be all templates."
+msgstr ""
+
+#org_admin.guidance_group.title_help_text_html
+msgid "Add an appropriate name for your guidance group e.g. Glasgow guidance. This name will be used to tell the end user where the guidance has come from e.g. 'Glasgow Guidance on Metadata'"
+msgstr ""
+
+#org_admin.guidance_group.guidance_group_text_html
+msgid "<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>"
+msgstr ""
+
+#org_admin.guidance_group.delete_message
+msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+msgstr ""
+
+#org_admin.guidance_group.created_message
+msgid "Guidance group was successfully created."
+msgstr ""
+
+#org_admin.guidance_group.updated_message
+msgid "Guidance group was successfully updated."
+msgstr ""
+
+#org_admin.guidance_group.destroyed_message
+msgid "Guidance group was successfully deleted."
+msgstr ""
+
+#org_admin.templates.template_history
+msgid "Template History"
+msgstr ""
+
+#org_admin.templates.create_template
+msgid "Create a template"
+msgstr ""
+
+#org_admin.templates.new_label
+msgid "New template"
+msgstr ""
+
+#org_admin.templates.template_details
+msgid "Template details"
+msgstr ""
+
+#org_admin.templates.edit_details
+msgid "Edit template details"
+msgstr ""
+
+#org_admin.templates.view_all_templates
+msgid "View all templates"
+msgstr ""
+
+#org_admin.templates.funders_temp
+msgid "Funders templates"
+msgstr ""
+
+#org_admin.templates.title_help_text
+msgid "Please enter a title for your template."
+msgstr ""
+
+#org_admin.templates.section_title_help_text
+msgid "Please enter section title"
+msgstr ""
+
+#org_admin.templates.help_text_html
+msgid "<div class='tooltip_box'>Please enter template description for this theme.</div>"
+msgstr ""
+
+#org_admin.templates.create_own_template_text_html
+msgid "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p> <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
+msgstr ""
+
+#org_admin.templates.create_new_template_text_html
+msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
+msgstr ""
+
+#org_admin.templates.template_history_text_html
+msgid "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
+msgstr ""
+
+#org_admin.templates.desc_help_text_html
+msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
+msgstr ""
+
+#org_admin.templates.own_temp
+msgid "Own templates"
+msgstr ""
+
+#org_admin.templates.add_phase_label
+msgid "Add new phase +"
+msgstr ""
+
+#org_admin.templates.view_phase_label
+msgid "View phase"
+msgstr ""
+
+#org_admin.templates.edit_phase_label
+msgid "Edit phase"
+msgstr ""
+
+#org_admin.templates.back_to_edit_phase_label
+msgid "Back to edit view"
+msgstr ""
+
+#org_admin.templates.edit_phase_details_label
+msgid "Edit phase details"
+msgstr ""
+
+#org_admin.templates.phase_details_label
+msgid "Phase details"
+msgstr ""
+
+#org_admin.templates.phase_order_label
+msgid "Order of display"
+msgstr ""
+
+#org_admin.templates.phase_details_text_html
+msgid "<p>Here you set the title that users will see. If you intend to have multiple phases for you DMP, this should be clear in the title and description.<p/>"
+msgstr ""
+
+#org_admin.templates.phase_title_help_text
+msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
+msgstr ""
+
+#org_admin.templates.phase_number_help_text
+msgid "This allows you to order the phases of your template."
+msgstr ""
+
+#org_admin.templates.phase_desc_help_text_html
+msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
+msgstr ""
+
+#org_admin.templates.phase_delete_message
+msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
+msgstr ""
+
+#org_admin.templates.phase_new_text_html
+msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr ""
+
+#org_admin.templates.versions_label
+msgid "Versions"
+msgstr ""
+
+#org_admin.templates.version_details_label
+msgid "Version details"
+msgstr ""
+
+#org_admin.templates.add_section
+msgid "Add section"
+msgstr ""
+
+#org_admin.templates.new_section
+msgid "New section title"
+msgstr ""
+
+#org_admin.templates.section_title_placeholder
+msgid "New section title"
+msgstr ""
+
+#org_admin.templates.section_desc_help_text_html
+msgid "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"
+msgstr ""
+
+#org_admin.templates.section_number_help_text
+msgid "This allows you to order sections."
+msgstr ""
+
+#org_admin.templates.add_question
+msgid "Add question"
+msgstr ""
+
+#org_admin.templates.created
+msgid "Created at"
+msgstr ""
+
+#org_admin.templates.last_updated
+msgid "Last updated"
+msgstr ""
+
+#org_admin.templates.published_label
+msgid "Published"
+msgstr ""
+
+#org_admin.templates.cannot_publish
+msgid "Please ensure you have created at least one phase with a published version."
+msgstr ""
+
+#org_admin.templates.title_label
+msgid "Title"
+msgstr ""
+
+#org_admin.templates.desc_label
+msgid "Description"
+msgstr ""
+
+#org_admin.templates.actions
+msgid "Actions"
+msgstr ""
+
+#org_admin.templates.customise
+msgid "Customise"
+msgstr ""
+
+#org_admin.templates.edit_customisation
+msgid "Edit customisation"
+msgstr ""
+
+#org_admin.templates.created_message
+msgid "Information was successfully created."
+msgstr ""
+
+#org_admin.templates.updated_message
+msgid "Information was successfully updated."
+msgstr ""
+
+#org_admin.templates.destroyed_message
+msgid "Information was successfully deleted."
+msgstr ""
+
+#org_admin.templates.section_delete_message
+msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgstr ""
+
+#org_admin.versions.clone_versions_label
+msgid "Make big changes"
+msgstr ""
+
+#org_admin.versions.edit_versions_label
+msgid "Make small changes"
+msgstr ""
+
+#org_admin.versions.edit_label
+msgid "Edit"
+msgstr ""
+
+#org_admin.versions.versions_text_html
+msgid "A first version is created automatically. If you want to make major changes to published versions later (e.g. add section or questions) please create a new version. If you only want to fix typos or make small changes that do not alter meanings, edit the current version."
+msgstr ""
+
+#org_admin.versions.desc_help_text_html
+msgid "Enter a basic description as an internal reference to describe the difference between versions"
+msgstr ""
+
+#org_admin.versions.delete_message
+msgid "You are about to delete '%{version_title}'. This will affect sections and questions linked to this version. Are you sure?"
+msgstr ""
+
+#org_admin.versions.edit_alert_label
+msgid "Edit alert"
+msgstr ""
+
+#org_admin.versions.edit_alert_text
+msgid "Please consider the kind of changes you are about to make as this plan is already published and might be in use"
+msgstr ""
+
+#org_admin.questions.quidance_button
+msgid "Guidance"
+msgstr ""
+
+#org_admin.questions.question_text_label
+msgid "Question text"
+msgstr ""
+
+#org_admin.questions.question_number_label
+msgid "Question number"
+msgstr ""
+
+#org_admin.questions.question_edit_button
+msgid "Edit question"
+msgstr ""
+
+#org_admin.questions.question_delete_button
+msgid "Delete question"
+msgstr ""
+
+#org_admin.questions.answer_format_label
+msgid "Answer format"
+msgstr ""
+
+#org_admin.questions.option_comment_display_checkbox
+msgid "Display additional comment area."
+msgstr ""
+
+#org_admin.questions.option_comment_display
+msgid "Additional comment area will be displayed."
+msgstr ""
+
+#org_admin.questions.option_comment_hide
+msgid "No additional comment area will be displayed."
+msgstr ""
+
+#org_admin.questions.example_answer_label
+msgid "Example of answer"
+msgstr ""
+
+#org_admin.questions.suggested_answer_label
+msgid "Suggested answer"
+msgstr ""
+
+#org_admin.questions.suggested_answer_help_text_html
+msgid "You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+msgstr ""
+
+#org_admin.questions.suggested_or_example_answer_label
+msgid "Suggested answer/ Example"
+msgstr ""
+
+#org_admin.questions.suggested_or_example_answer_button
+msgid "Add suggested answer/ example"
+msgstr ""
+
+#org_admin.questions.edit_suggested_answer_button
+msgid "Edit suggested answer/ example"
+msgstr ""
+
+#org_admin.questions.delete_suggested_answer_message
+msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
+msgstr ""
+
+#org_admin.questions.default_value_label
+msgid "Default value"
+msgstr ""
+
+#org_admin.questions.number_help_text
+msgid "This allows you to order questions within a section."
+msgstr ""
+
+#org_admin.questions.question_format_help_text_html
+msgid "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
+msgstr ""
+
+#org_admin.questions.default_answer_help_text_html
+msgid "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
+msgstr ""
+
+#org_admin.questions.themes_label
+msgid "Themes"
+msgstr ""
+
+#org_admin.questions.question_themes_help_text_html
+msgid "<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"
+msgstr ""
+
+#org_admin.questions.default_answer_label
+msgid "Default answer"
+msgstr ""
+
+#org_admin.questions.guidance_label
+msgid "Guidance"
+msgstr ""
+
+#org_admin.questions.question_guidance_help_text_html
+msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
+msgstr ""
+
+#org_admin.questions.delete_message
+msgid "You are about to delete '%{question_text}'. Are you sure?"
+msgstr ""
+
+#org_admin.questions.question_options_help_text_html
+msgid "Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box."
+msgstr ""
+
+#helpers.home
+msgid "Home"
+msgstr ""
+
+#helpers.return_home
+msgid "Return to the home page"
+msgstr ""
+
+#helpers.admin_area
+msgid "Super admin area"
+msgstr ""
+
+#helpers.edit_profile
+msgid "Edit profile"
+msgstr ""
+
+#helpers.view_plans_label
+msgid "View plans"
+msgstr ""
+
+#helpers.create_plan_label
+msgid "Create plan"
+msgstr ""
+
+#helpers.about_us_label
+msgid "About"
+msgstr ""
+
+#helpers.roadmap_label
+msgid "Future plans"
+msgstr ""
+
+#helpers.help_label
+msgid "Help"
+msgstr ""
+
+#helpers.public_plans_label
+msgid "Public DMPs"
+msgstr ""
+
+#helpers.contact_label
+msgid "Contact"
+msgstr ""
+
+#helpers.jisc
+msgid "The %{organisation_abbreviation} is funded by"
+msgstr ""
+
+#helpers.format
+msgid "format"
+msgstr ""
+
+#helpers.change_language
+msgid "Change language"
+msgstr ""
+
+#helpers.yes
+msgid "Yes"
+msgstr ""
+
+#helpers.no
+msgid "No"
+msgstr ""
+
+#helpers.sign_in
+msgid "Sign in"
+msgstr ""
+
+#helpers.sign_out
+msgid "Sign out"
+msgstr ""
+
+#helpers.sign_up
+msgid "Sign up"
+msgstr ""
+
+#helpers.sign_up_text
+msgid "New to %{application_name}? Sign up today."
+msgstr ""
+
+#helpers.signed_in
+msgid "Signed in as "
+msgstr ""
+
+#helpers.institution_sign_in_link
+msgid "Or, sign in with your institutional credentials"
+msgstr ""
+
+#helpers.institution_sign_in
+msgid " (UK users only)"
+msgstr ""
+
+#helpers.user_name
+msgid "Email address"
+msgstr ""
+
+#helpers.email
+msgid "Email"
+msgstr ""
+
+#helpers.subject
+msgid "Subject"
+msgstr ""
+
+#helpers.message
+msgid "Message"
+msgstr ""
+
+#helpers.valid_email
+msgid "You must enter a valid email address."
+msgstr ""
+
+#helpers.user_details_text_html
+msgid "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
+msgstr ""
+
+#helpers.user_details_paragraph_html
+msgid "You can edit any of the details below."
+msgstr ""
+
+#helpers.user_details_language
+msgid "Language"
+msgstr ""
+
+#helpers.remember_me
+msgid "Remember me"
+msgstr ""
+
+#helpers.org_not_listed
+msgid "My organisation isn't listed."
+msgstr ""
+
+#helpers.password
+msgid "Password"
+msgstr ""
+
+#helpers.current_password
+msgid "Current password"
+msgstr ""
+
+#helpers.new_password
+msgid "New password"
+msgstr ""
+
+#helpers.password_conf
+msgid "Password confirmation"
+msgstr ""
+
+#helpers.change_password
+msgid "Change your password"
+msgstr ""
+
+#helpers.forgot_password
+msgid "Forgot your password?"
+msgstr ""
+
+#helpers.password_too_small
+msgid "Your password must contain at least 8 characters."
+msgstr ""
+
+#helpers.password_no_match
+msgid "This must match what you entered in the previous field."
+msgstr ""
+
+#helpers.no_pass_instructions
+msgid "Didn't receive confirmation instructions?"
+msgstr ""
+
+#helpers.no_unlock_instructions
+msgid "Didn't receive unlock instructions?"
+msgstr ""
+
+#helpers.send_password_info
+msgid "Reset password instructions"
+msgstr ""
+
+#helpers.edit_password_info
+msgid "If you would like to change your password please complete the following fields."
+msgstr ""
+
+#helpers.accept_terms_html
+msgid " I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *"
+msgstr ""
+
+#helpers.you_must_accept
+msgid "You must accept the terms and conditions to register."
+msgstr ""
+
+#helpers.email_already_registered
+msgid "That email address is already registered."
+msgstr ""
+
+#helpers.email_must_valid_confirmation_message
+msgid "This must be a valid email address - a message will be sent to it for confirmation."
+msgstr ""
+
+#helpers.error_registration_check
+msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
+msgstr ""
+
+#helpers.api_token
+msgid "API token"
+msgstr ""
+
+#helpers.api_info
+msgid "API Information"
+msgstr ""
+
+#helpers.api_use
+msgid "How to use the API"
+msgstr ""
+
+#helpers.api_granted
+msgid "You have been granted permission by your organisation to use our API."
+msgstr ""
+
+#helpers.api_view_token
+msgid "Your API token and instructions for using the API endpoints can be found here."
+msgstr ""
+
+#helpers.api_mail_subject
+msgid "API Permission Granted"
+msgstr ""
+
+#helpers.text_area
+msgid "Text area"
+msgstr ""
+
+#helpers.text_field
+msgid "Text field"
+msgstr ""
+
+#helpers.radio_buttons
+msgid "Radio buttons"
+msgstr ""
+
+#helpers.checkbox
+msgid "Check box"
+msgstr ""
+
+#helpers.dropdown
+msgid "Dropdown"
+msgstr ""
+
+#helpers.multi_select_box
+msgid "Multi select box"
+msgstr ""
+
+#helpers.export
+msgid "Export"
+msgstr ""
+
+#helpers.about.by
+msgid "By "
+msgstr ""
+
+#helpers.about.true
+msgid " on "
+msgstr ""
+
+#helpers.about.read_more
+msgid "Read more on the "
+msgstr ""
+
+#helpers.mailer.permission_relating
+msgid "Your permissions relating to "
+msgstr ""
+
+#helpers.mailer.changed
+msgid " have changed. You now have "
+msgstr ""
+
+#helpers.mailer.access
+msgid "access."
+msgstr ""
+
+#helpers.mailer.access_to
+msgid "Your access to "
+msgstr ""
+
+#helpers.mailer.removed
+msgid " has been removed."
+msgstr ""
+
+#helpers.mailer.given
+msgid "You have been given "
+msgstr ""
+
+#helpers.mailer.access_two
+msgid " access to "
+msgstr ""
+
+#helpers.truncate_continued
+msgid "... (continued)"
+msgstr ""
+
+#helpers.security_check
+msgid "Security check"
+msgstr ""
+
+#helpers.error
+msgid "Error!"
+msgstr ""
+
+#helpers.comment
+msgid "Comment"
+msgstr ""
+
+#helpers.send
+msgid "Send"
+msgstr ""
+
+#helpers.yes_label
+msgid "Yes"
+msgstr ""
+
+#helpers.no_label
+msgid "No"
+msgstr ""
+
+#helpers.ok_label
+msgid "Ok"
+msgstr ""
+
+#helpers.none
+msgid "None"
+msgstr ""
+
+#helpers.false_lowercase
+msgid "false"
+msgstr ""
+
+#helpers.title
+msgid "Title"
+msgstr ""
+
+#helpers.note
+msgid "Note"
+msgstr ""
+
+#helpers.me
+msgid "Me"
+msgstr ""
+
+#helpers.view
+msgid "View"
+msgstr ""
+
+#helpers.history
+msgid "History"
+msgstr ""
+
+#helpers.desc
+msgid "Description"
+msgstr ""
+
+#helpers.save
+msgid "Save"
+msgstr ""
+
+#helpers.preview
+msgid "Preview"
+msgstr ""
+
+#helpers.saving
+msgid "Saving..."
+msgstr ""
+
+#helpers.loading
+msgid "Loading..."
+msgstr ""
+
+#helpers.removing
+msgid "Removing..."
+msgstr ""
+
+#helpers.unsaved
+msgid "Unsaved changes"
+msgstr ""
+
+#helpers.unlink_account
+msgid "Unlink account"
+msgstr ""
+
+#helpers.links.edit
+msgid "Edit"
+msgstr ""
+
+#helpers.links.share
+msgid "Share"
+msgstr ""
+
+#helpers.links.export
+msgid "Export"
+msgstr ""
+
+#helpers.links.destroy
+msgid "Delete"
+msgstr ""
+
+#helpers.submit.edit
+msgid "Edit"
+msgstr ""
+
+#helpers.submit.create
+msgid "Create"
+msgstr ""
+
+#helpers.submit.update
+msgid "Update"
+msgstr ""
+
+#helpers.submit.cancel
+msgid "Cancel"
+msgstr ""
+
+#helpers.submit.save
+msgid "Save"
+msgstr ""
+
+#helpers.submit.delete
+msgid "Delete"
+msgstr ""
+
+#helpers.submit.back
+msgid "Back"
+msgstr ""
+
+#helpers.submit.discard
+msgid "Discard"
+msgstr ""
+
+#helpers.submit.publish
+msgid "Publish"
+msgstr ""
+
+#helpers.before_submitting_consider
+msgid "Before submitting, please consider:"
+msgstr ""
+
+#helpers.name
+msgid "Name"
+msgstr ""
+
+#helpers.first_name
+msgid "First name"
+msgstr ""
+
+#helpers.last_name
+msgid "Last name"
+msgstr ""
+
+#helpers.first_name_help_text
+msgid "Please enter your first name."
+msgstr ""
+
+#helpers.surname_help_text
+msgid "Please enter your surname or family name."
+msgstr ""
+
+#helpers.owner
+msgid "Owner"
+msgstr ""
+
+#helpers.orcid_id
+msgid "ORCID number"
+msgstr ""
+
+#helpers.orcid_html
+msgid "ORCID number is a persistent digital identifier that distinguishes each researcher, <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>more info</a>."
+msgstr ""
+
+#helpers.sign_up_shibboleth_alert_text_html
+msgid "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account. </br> --> If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.</br> --> If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.</br> Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
+msgstr ""
+
+#helpers.shibboleth_linked_text
+msgid "Your account is linked to your institutional credentials."
+msgstr ""
+
+#helpers.shibboleth_to_link_text
+msgid "Link your %{application_name} account to your institutional credentials (UK users only)"
+msgstr ""
+
+#helpers.shibboleth_unlink_label
+msgid "Unlink your institutional credentials"
+msgstr ""
+
+#helpers.shibboleth_unlink_alert
+msgid "Unlink institutional credentials alert"
+msgstr ""
+
+#helpers.shibboleth_unlink_dialog_text
+msgid "<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>"
+msgstr ""
+
+#helpers.select_phase
+msgid "Select a phase"
+msgstr ""
+
+#helpers.select_version
+msgid "Select a version"
+msgstr ""
+
+#helpers.select_section
+msgid "Select a section"
+msgstr ""
+
+#helpers.select_question
+msgid "Select a question"
+msgstr ""
+
+#helpers.select_template
+msgid "Select a template"
+msgstr ""
+
+#helpers.main_email.from
+msgid "info@dcc.ac.uk"
+msgstr ""
+
+#helpers.main_email.access_given
+msgid "You have been given access to a Data Management Plan"
+msgstr ""
+
+#helpers.main_email.permission_changed
+msgid "DMP permissions changed"
+msgstr ""
+
+#helpers.main_email.access_removed
+msgid "DMP access removed"
+msgstr ""
+
+#helpers.section_label
+msgid "Section"
+msgstr ""
+
+#helpers.sections_label
+msgid "Sections"
+msgstr ""
+
+#helpers.questions_label
+msgid "Questions"
+msgstr ""
+
+#helpers.answers_label
+msgid "Answers"
+msgstr ""
+
+#helpers.answer_questions
+msgid "Answer questions"
+msgstr ""
+
+#helpers.last_edit
+msgid "Last edited"
+msgstr ""
+
+#helpers.select_action
+msgid "Select an action"
+msgstr ""
+
+#helpers.answered_by
+msgid "Answered "
+msgstr ""
+
+#helpers.answered_by_part2
+msgid " by "
+msgstr ""
+
+#helpers.suggested_answer
+msgid "Suggested answer"
+msgstr ""
+
+#helpers.suggested_example
+msgid "Example answer"
+msgstr ""
+
+#helpers.notanswered
+msgid "Not answered yet"
+msgstr ""
+
+#helpers.noquestionanswered
+msgid "No questions have been answered"
+msgstr ""
+
+#helpers.guidance
+msgid "Guidance"
+msgstr ""
+
+#helpers.policy_expectations
+msgid "Policy Expectations"
+msgstr ""
+
+#helpers.guidance_accordion_label
+msgid "Guidance"
+msgstr ""
+
+#helpers.add_comment_accordion_label
+msgid "Share note"
+msgstr ""
+
+#helpers.comment_accordion_label
+msgid "Notes"
+msgstr ""
+
+#helpers.answer.only_one_per_question
+msgid "A question can only have one answer."
+msgstr ""
+
+#helpers.answer.question_must_belong_to_correct_template
+msgid "The question must belong to the correct template."
+msgstr ""
+
+#helpers.comments.add_comment_label
+msgid "Add note"
+msgstr ""
+
+#helpers.comments.add_comment_text
+msgid "Share note with collaborators"
+msgstr ""
+
+#helpers.comments.comment_label
+msgid "Note"
+msgstr ""
+
+#helpers.comments.comments_label
+msgid "Notes"
+msgstr ""
+
+#helpers.comments.view_label
+msgid "View"
+msgstr ""
+
+#helpers.comments.edit_label
+msgid "Edit"
+msgstr ""
+
+#helpers.comments.retract_label
+msgid "Remove"
+msgstr ""
+
+#helpers.comments.clear_label
+msgid "Remove"
+msgstr ""
+
+#helpers.comments.commented_by
+msgid "Noted by:"
+msgstr ""
+
+#helpers.comments.archive_own_comment_question
+msgid "Are you sure you would like to remove this note?"
+msgstr ""
+
+#helpers.comments.archive_own_comment_button_label
+msgid "Remove"
+msgstr ""
+
+#helpers.comments.archive_comment_question
+msgid "Are you sure you would like to remove this note?"
+msgstr ""
+
+#helpers.comments.archive_comment_button_label
+msgid "Remove"
+msgstr ""
+
+#helpers.comments.clear_by
+msgid "Note removed by"
+msgstr ""
+
+#helpers.comments.retracted
+msgid "Note removed by you"
+msgstr ""
+
+#helpers.comments.note_created
+msgid "Comment was successfully created."
+msgstr ""
+
+#helpers.comments.note_updated
+msgid "Comment was successfully updated."
+msgstr ""
+
+#helpers.comments.note_removed
+msgid "Comment has been removed."
+msgstr ""
+
+#helpers.org_type.funder
+msgid "Funder"
+msgstr ""
+
+#helpers.org_type.institution
+msgid "Institution"
+msgstr ""
+
+#helpers.org_type.project
+msgid "Project"
+msgstr ""
+
+#helpers.org_type.organisation
+msgid "Organisation"
+msgstr ""
+
+#helpers.org_type.org_name
+msgid "Organisation name"
+msgstr ""
+
+#helpers.org_type.school
+msgid "School"
+msgstr ""
+
+#helpers.org_type.publisher
+msgid "Publisher"
+msgstr ""
+
+#helpers.org_type.other_guidance
+msgid "Other guidance"
+msgstr ""
+
+#helpers.org_type.template
+msgid "Template"
+msgstr ""
+
+#helpers.org_type.templates
+msgid "Templates"
+msgstr ""
+
+#helpers.org_type.child
+msgid "Unit"
+msgstr ""
+
+#helpers.org_type.other_org_help_text
+msgid "Please enter the name of your organisation."
+msgstr ""
+
+#helpers.project.create
+msgid "Create plan"
+msgstr ""
+
+#helpers.project.edit
+msgid "Edit plan details"
+msgstr ""
+
+#helpers.project.grant_title
+msgid "Grant number"
+msgstr ""
+
+#helpers.project.grant_help_text
+msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
+msgstr ""
+
+#helpers.project.not_applicable
+msgid "Not applicable/not listed."
+msgstr ""
+
+#helpers.project.multi_templates
+msgid "There are a number of possible templates you could use. Please choose one."
+msgstr ""
+
+#helpers.project.project_name
+msgid "Plan name"
+msgstr ""
+
+#helpers.project.my_project_name
+msgid "My plan"
+msgstr ""
+
+#helpers.project.success
+msgid "Plan was successfully created."
+msgstr ""
+
+#helpers.project.success_update
+msgid "Plan was successfully updated."
+msgstr ""
+
+#helpers.project.principal_investigator
+msgid "Principal Investigator/Researcher"
+msgstr ""
+
+#helpers.project.principal_investigator_help_text
+msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
+msgstr ""
+
+#helpers.project.principal_investigator_id
+msgid "Principal Investigator/Researcher ID"
+msgstr ""
+
+#helpers.project.principal_investigator_id_help_text
+msgid "E.g ORCID http://orcid.org/."
+msgstr ""
+
+#helpers.project.funder_help_text
+msgid "Research funder if relevant"
+msgstr ""
+
+#helpers.project.funder_name
+msgid "Funder name"
+msgstr ""
+
+#helpers.project.project_question_desc_label
+msgid "Summary about the questions"
+msgstr ""
+
+#helpers.project.tab_plan
+msgid "Plan details"
+msgstr ""
+
+#helpers.project.tab_export
+msgid "Export"
+msgstr ""
+
+#helpers.project.export_text_html
+msgid "<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>"
+msgstr ""
+
+#helpers.project.questions_answered
+msgid "questions answered"
+msgstr ""
+
+#helpers.project.not_saved_answers_text_alert
+msgid "You have altered answers but have not saved them:"
+msgstr ""
+
+#helpers.project.not_saved_answers_confirmation_alert
+msgid "Would you like to save them now?"
+msgstr ""
+
+#helpers.project.not_saved_answers_header
+msgid "Unsaved answers"
+msgstr ""
+
+#helpers.project.answer_recorded
+msgid "Answer was successfully recorded."
+msgstr ""
+
+#helpers.project.answer_error
+msgid "There was an error saving the answer."
+msgstr ""
+
+#helpers.project.answer_no_change
+msgid "No change in answer content - not saved."
+msgstr ""
+
+#helpers.project.project_data_contact
+msgid "Plan data contact"
+msgstr ""
+
+#helpers.project.project_data_contact_help_text
+msgid "Name (if different to above), telephone and email contact details"
+msgstr ""
+
+#helpers.project.project_name_help_text
+msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr ""
+
+#helpers.project.project_desc_help_text_html
+msgid "<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>"
+msgstr ""
+
+#helpers.project.project_identifier
+msgid "ID"
+msgstr ""
+
+#helpers.project.project_identifier_help_text
+msgid "A pertinent ID as determined by the funder and/or institution."
+msgstr ""
+
+#helpers.project.project_static_info
+msgid "This plan is based on:"
+msgstr ""
+
+#helpers.project.projects_title
+msgid "My plans"
+msgstr ""
+
+#helpers.project.visibility
+msgid "Visibility"
+msgstr ""
+
+#helpers.project.visibilities.labels.privately_visible
+msgid "Private"
+msgstr ""
+
+#helpers.project.visibilities.labels.organisationally_visible
+msgid "Organisational"
+msgstr ""
+
+#helpers.project.visibilities.labels.publicly_visible
+msgid "Public"
+msgstr ""
+
+#helpers.project.visibilities.labels.is_test
+msgid "Test/Practice"
+msgstr ""
+
+#helpers.project.visibilities.help_texts.privately_visible
+msgid "Private (owners, co-owners, and administrators only) See our Terms of Use."
+msgstr ""
+
+#helpers.project.visibilities.help_texts.organisationally_visible
+msgid "Organisational (visibile to others within your organisation)"
+msgstr ""
+
+#helpers.project.visibilities.help_texts.publicly_visible
+msgid "Public (Your DMP will appear on the Public DMPs page of this site)"
+msgstr ""
+
+#helpers.project.visibilities.help_texts.is_test
+msgid "Test/Practice (your plan is not visible to other users) See our Terms of Use."
+msgstr ""
+
+#helpers.project.visibilities.help_texts.not_set
+msgid "Not specified (will be visible to others within your organisation by default)"
+msgstr ""
+
+#helpers.project.project_settings_text
+msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
+msgstr ""
+
+#helpers.project.project_text_when_no_project
+msgid "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
+msgstr ""
+
+#helpers.project.project_text_when_project
+msgid "<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>"
+msgstr ""
+
+#helpers.project.project_details_text_html
+msgid "This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked."
+msgstr ""
+
+#helpers.project.project_details_editing_text_html
+msgid "Please fill in the basic project details below and click 'Update' to save"
+msgstr ""
+
+#helpers.project.confirm_delete_text
+msgid "Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well"
+msgstr ""
+
+#helpers.project.confirmation_text
+msgid "Confirm plan details"
+msgstr ""
+
+#helpers.project.confirmation_text_desc
+msgid "Where your funder or institution doesn't have specific requirements (or if you left these options blank), you will see the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+msgstr ""
+
+#helpers.project.confirmation_button_text
+msgid "Yes, create plan"
+msgstr ""
+
+#helpers.project.default_confirmation_text_desc
+msgid "You have selected the Default DMP, which is based on the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+msgstr ""
+
+#helpers.project.default_confirmation_button_text
+msgid "Create plan"
+msgstr ""
+
+#helpers.project.alert_default_template_text_html
+msgid "Please note: %{org_name} provides a DMP template. If you wish to use it select 'Cancel', otherwise select 'Create plan'"
+msgstr ""
+
+#helpers.project.share.tab_share
+msgid "Share"
+msgstr ""
+
+#helpers.project.share.shared_label
+msgid "Shared?"
+msgstr ""
+
+#helpers.project.share.share_text_html
+msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
+msgstr ""
+
+#helpers.project.share.collaborators
+msgid "Collaborators"
+msgstr ""
+
+#helpers.project.share.add_collaborator
+msgid "Add collaborator"
+msgstr ""
+
+#helpers.project.share.add
+msgid "Add"
+msgstr ""
+
+#helpers.project.share.permissions
+msgid "Permissions"
+msgstr ""
+
+#helpers.project.share.permissions_desc
+msgid "Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access."
+msgstr ""
+
+#helpers.project.share.remove
+msgid "Remove user access"
+msgstr ""
+
+#helpers.project.share.confirmation_question
+msgid "Are you sure?"
+msgstr ""
+
+#helpers.project.share.owner
+msgid "Owner"
+msgstr ""
+
+#helpers.project.share.co_owner
+msgid "Co-owner"
+msgstr ""
+
+#helpers.project.share.edit
+msgid "Edit"
+msgstr ""
+
+#helpers.project.share.read_only
+msgid "Read only"
+msgstr ""
+
+#helpers.project.share.locked_section_text
+msgid "This section is locked for editing by "
+msgstr ""
+
+#helpers.project.create_page.title
+msgid "Create a new plan"
+msgstr ""
+
+#helpers.project.create_page.desc_html
+msgid "<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>"
+msgstr ""
+
+#helpers.project.create_page.default_template
+msgid "Default DMP"
+msgstr ""
+
+#helpers.project.create_page.funders_question
+msgid "If applying for funding, select your research funder."
+msgstr ""
+
+#helpers.project.create_page.funders_question_description
+msgid "Otherwise leave blank."
+msgstr ""
+
+#helpers.project.create_page.other_funder_name_label
+msgid "Name of funder, if applicable."
+msgstr ""
+
+#helpers.project.create_page.institution_question
+msgid "To see institutional questions and/or guidance, select your organisation."
+msgstr ""
+
+#helpers.project.create_page.institution_question_description
+msgid "You may leave blank or select a different organisation to your own."
+msgstr ""
+
+#helpers.project.create_page.other_guidance_question
+msgid "Tick to select any other sources of guidance you wish to see."
+msgstr ""
+
+#helpers.project.configure
+msgid "Configure"
+msgstr ""
+
+#helpers.project.columns.name
+msgid "Name"
+msgstr ""
+
+#helpers.project.columns.owner
+msgid "Owner"
+msgstr ""
+
+#helpers.project.columns.shared
+msgid "Shared?"
+msgstr ""
+
+#helpers.project.columns.template_owner
+msgid "Template Owner"
+msgstr ""
+
+#helpers.project.columns.last_edited
+msgid "Last edited"
+msgstr ""
+
+#helpers.project.columns.identifier
+msgid "Identifier"
+msgstr ""
+
+#helpers.project.columns.grant_number
+msgid "Grant number"
+msgstr ""
+
+#helpers.project.columns.principal_investigator
+msgid "Principal Investigator / Researcher"
+msgstr ""
+
+#helpers.project.columns.data_contact
+msgid "Plan data contact"
+msgstr ""
+
+#helpers.project.columns.description
+msgid "Description"
+msgstr ""
+
+#helpers.project.columns.unknown
+msgid " - "
+msgstr ""
+
+#helpers.project.columns.visibility
+msgid "Visibility"
+msgstr ""
+
+#helpers.project.columns.template
+msgid "Template"
+msgstr ""
+
+#helpers.project.columns.organisation
+msgid "Organization"
+msgstr ""
+
+#helpers.project.filter.placeholder
+msgid "Filter plans"
+msgstr ""
+
+#helpers.project.filter.submit
+msgid "Filter"
+msgstr ""
+
+#helpers.project.filter.cancel
+msgid "Cancel"
+msgstr ""
+
+#helpers.project.filter.no_plans_match
+msgid "No plans match '%{filter}'"
+msgstr ""
+
+#helpers.project.filter.no_matches
+msgid "No matches"
+msgstr ""
+
+#helpers.project.user_added
+msgid "User added to project"
+msgstr ""
+
+#helpers.project.invitation_success
+msgid "Invitation issued successfully."
+msgstr ""
+
+#helpers.project.enter_email
+msgid "Please enter an email address"
+msgstr ""
+
+#helpers.project.sharing_updated
+msgid "Sharing details successfully updated."
+msgstr ""
+
+#helpers.project.access_removed
+msgid "Access removed"
+msgstr ""
+
+#helpers.project.update_success
+msgid "Project was successfully updated."
+msgstr ""
+
+#helpers.project.create_success
+msgid "Project was successfully created."
+msgstr ""
+
+#helpers.project.details_update_success
+msgid "Details successfully updated."
+msgstr ""
+
+#helpers.project.choose_template
+msgid "Choose a template"
+msgstr ""
+
+#helpers.plan.export.pdf.question_not_answered
+msgid "Question not answered."
+msgstr ""
+
+#helpers.plan.export.pdf.generated_by
+msgid "This document was generated by %{application_name} (http://dmponline.dcc.ac.uk)"
+msgstr ""
+
+#helpers.plan.export.space_used
+msgid "approx. %{space_used}% of available space used (max %{num_pages} pages)"
+msgstr ""
+
+#helpers.plan.export.space_used_without_max
+msgid "approx. %{space_used}% of available space used"
+msgstr ""
+
+#helpers.plan.export.project_name
+msgid "Plan Name"
+msgstr ""
+
+#helpers.plan.export.project_identifier
+msgid "Plan ID"
+msgstr ""
+
+#helpers.plan.export.grant_title
+msgid "Grant number"
+msgstr ""
+
+#helpers.plan.export.principal_investigator
+msgid "Principal Investigator / Researcher"
+msgstr ""
+
+#helpers.plan.export.project_data_contact
+msgid "Plan Data Contact"
+msgstr ""
+
+#helpers.plan.export.project_description
+msgid "Plan Description"
+msgstr ""
+
+#helpers.plan.export.funder
+msgid "Funder"
+msgstr ""
+
+#helpers.plan.export.institution
+msgid "Institution"
+msgstr ""
+
+#helpers.plan.export.orcid
+msgid "Your ORCID"
+msgstr ""
+
+#helpers.plan.export.not_valid_format
+msgid "%{value}% is not a valid format"
+msgstr ""
+
+#helpers.settings.title
+msgid "Settings"
+msgstr ""
+
+#helpers.settings.projects.title
+msgid "Settings - My plans"
+msgstr ""
+
+#helpers.settings.projects.desc
+msgid "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."
+msgstr ""
+
+#helpers.settings.projects.errors.no_name
+msgid "'name' must be included in column list."
+msgstr ""
+
+#helpers.settings.projects.errors.duplicate
+msgid "Duplicate column name. Please only include each column once."
+msgstr ""
+
+#helpers.settings.projects.errors.unknown
+msgid "Unknown column name."
+msgstr ""
+
+#helpers.settings.projects.errors.no_plan
+msgid "The plan is incomplete."
+msgstr ""
+
+#helpers.settings.plans.title
+msgid "File Name"
+msgstr ""
+
+#helpers.settings.plans.reset
+msgid "Reset"
+msgstr ""
+
+#helpers.settings.plans.description
+msgid "Description"
+msgstr ""
+
+#helpers.settings.plans.custom_formatting
+msgid "(Using custom PDF formatting values)"
+msgstr ""
+
+#helpers.settings.plans.template_formatting
+msgid "(Using template PDF formatting values)"
+msgstr ""
+
+#helpers.settings.plans.default_formatting
+msgid "(Using default PDF formatting values)"
+msgstr ""
+
+#helpers.settings.plans.included_elements
+msgid "Included Elements"
+msgstr ""
+
+#helpers.settings.plans.pdf_formatting
+msgid "PDF Formatting"
+msgstr ""
+
+#helpers.settings.plans.font_face
+msgid "Face"
+msgstr ""
+
+#helpers.settings.plans.font_size
+msgid "Size"
+msgstr ""
+
+#helpers.settings.plans.font
+msgid "Font"
+msgstr ""
+
+#helpers.settings.plans.margin
+msgid "Margin"
+msgstr ""
+
+#helpers.settings.plans.margins.top
+msgid "Top"
+msgstr ""
+
+#helpers.settings.plans.margins.bottom
+msgid "Bottom"
+msgstr ""
+
+#helpers.settings.plans.margins.left
+msgid "Left"
+msgstr ""
+
+#helpers.settings.plans.margins.right
+msgid "Right"
+msgstr ""
+
+#helpers.settings.plans.max_pages
+msgid "Maximum number of pages"
+msgstr ""
+
+#helpers.settings.plans.errors.missing_key
+msgid "A required setting has not been provided"
+msgstr ""
+
+#helpers.settings.plans.errors.invalid_margin
+msgid "Margin value is invalid"
+msgstr ""
+
+#helpers.settings.plans.errors.negative_margin
+msgid "Margin cannot be negative"
+msgstr ""
+
+#helpers.settings.plans.errors.unknown_margin
+msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
+msgstr ""
+
+#helpers.settings.plans.errors.invalid_font_size
+msgid "Invalid font size"
+msgstr ""
+
+#helpers.settings.plans.errors.invalid_font_face
+msgid "Invalid font face"
+msgstr ""
+
+#helpers.settings.plans.errors.unknown_key
+msgid "Unknown formatting setting"
+msgstr ""
+
+#helpers.settings.plans.errors.invalid_max_pages
+msgid "Invalid maximum pages"
+msgstr ""
+
+#helpers.settings.plans.errors.no_access_account
+msgid "This account does not have access to that plan."
+msgstr ""
+
+#js.question_text_empty
+msgid "Question text is empty, please enter your question."
+msgstr ""
+
+#js.add_guidance_text
+msgid "add guidance text"
+msgstr ""
+
+#js.select_question
+msgid "select a question"
+msgstr ""
+
+#js.select_at_least_one_theme
+msgid "select at least one theme"
+msgstr ""
+
+#js.select_guidance_group
+msgid "select a guidance group"
+msgstr ""
+
+#js.enter_up_to
+msgid "Please only enter up to 165 characters, you have used"
+msgstr ""
+
+#js.if_using_url_try
+msgid "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+msgstr ""
+
+#js.you_have_unsaved_in_sections
+msgid "You have unsaved answers in the following sections:\n"
+msgstr ""
+
+#custom_devise.resend_confirmation
+msgid "Resend confirmation instructions"
+msgstr ""
+
+#custom_devise.welcome_to_DMP
+msgid "Welcome to %{application_name}"
+msgstr ""
+
+#custom_devise.thank_you_and_confirm
+msgid "Thank you for registering at %{application_name}. Please confirm your email address:"
+msgstr ""
+
+#custom_devise.click_to_confirm
+msgid "Click here to confirm your account"
+msgstr ""
+
+#custom_devise.1st_part_copy
+msgid "(or copy"
+msgstr ""
+
+#custom_devise.2nd_part_copy
+msgid "into your browser)."
+msgstr ""
+
+#custom_devise.colleague_invited_you
+msgid "A colleague has invited you to contribute to their Data Management Plan at"
+msgstr ""
+
+#custom_devise.click_to_accept
+msgid "Click here to accept the invitation"
+msgstr ""
+
+#custom_devise.ignore_wont_be_created
+msgid "<p>If you don't want to accept the invitation, please ignore this email.<br /> Your account won't be created until you access the link above and set your password.</p>"
+msgstr ""
+
+#custom_devise.1st_part_change_password
+msgid "Someone has requested a link to change your"
+msgstr ""
+
+#custom_devise.2nd_part_change_password
+msgid "password. You can do this through the link below."
+msgstr ""
+
+#custom_devise.ignore_password_wont_be_changed
+msgid "<p>If you didn't request this, please ignore this email.</p> <p>Your password won't change until you access the link above and create a new one.</p>"
+msgstr ""
+
+#custom_devise.hello
+msgid "Hello"
+msgstr ""
+
+#custom_devise.1st_part_locked
+msgid "Your "
+msgstr ""
+
+#custom_devise.2nd_part_locked
+msgid " account has been locked due to an excessive number of unsuccessful sign in attempts."
+msgstr ""
+
+#custom_devise.click_to_unlock
+msgid "Click the link below to unlock your account:"
+msgstr ""
+
+#custom_devise.unlock
+msgid "Unlock my account"
+msgstr ""
+
+#custom_devise.waiting_for_confirmation
+msgid "Currently waiting confirmation for: "
+msgstr ""
+
+#custom_devise.resend_unlock
+msgid "Resend unlock instructions"
+msgstr ""
+
+#api.bad_credentials
+msgid "{"Error":"Bad credentials"}"
+msgstr ""
+
+#api.org_dosent_exist
+msgid "{"Error":"Organisation does not exist"}"
+msgstr ""
+
+#api.org_not_funder
+msgid "{"Error":"Organisation specified is not a funder"}"
+msgstr ""
+
+#api.org_multiple_templates
+msgid "{"Error":"Organisation has more than one template and template name unspecified or invalid"}"
+msgstr ""
+
+#api.no_auth_for_endpoint
+msgid "{"Error":"You do not have authorisation to view this endpoint"}"
+msgstr ""
+
+#api.bad_resource
+msgid "{"Error":"You do not have authorisation to view this resource"}"
+msgstr ""
+
+#identifier_schemes.connect_success
+msgid "Your account has bee connected to %{scheme}"
+msgstr ""
+
+#identifier_schemes.connect_failure
+msgid "We could not connect your account to %{scheme}"
+msgstr ""
+
+#identifier_schemes.disconnect_success
+msgid "Your account has been disconnected from %{scheme}"
+msgstr ""
+
+#identifier_schemes.disconnect_failure
+msgid "We were unable to disconnect your account from %{scheme}"
+msgstr ""
+
+#identifier_schemes.new_login_success
+msgid "It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration."
+msgstr ""
+
+#identifier_schemes.new_login_failure
+msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
+msgstr ""
+
+#identifier_schemes.schemes.orcid.logo
+msgid "http://orcid.org/sites/default/files/images/orcid_16x16.png"
+msgstr ""
+
+#identifier_schemes.schemes.orcid.user_landing_page
+msgid "https://orcid.org/%{id}"
+msgstr ""
+
+#identifier_schemes.schemes.orcid.connect
+msgid "Create or Connect your ORCID ID"
+msgstr ""
+
+#identifier_schemes.schemes.orcid.connect_tooltip
+msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
+msgstr ""
+
+#identifier_schemes.schemes.orcid.disconnect_confirmation
+msgid "Are you sure you want to disconnect your ORCID ID?"
+msgstr ""
+
+#identifier_schemes.schemes.orcid.disconnect_tooltip
+msgid "Disconnect your account from ORCID. You can reconnect at any time."
+msgstr ""
+
+#magic_strings.organisation_types.funder
+msgid "Funder"
+msgstr ""
+
+#magic_strings.organisation_types.organisation
+msgid "Organisation"
+msgstr ""
+
+#magic_strings.organisation_types.project
+msgid "Project"
+msgstr ""
+
+#magic_strings.organisation_types.institution
+msgid "Institution"
+msgstr ""
+
+#magic_strings.organisation_types.research_institute
+msgid "Research Institute"
+msgstr ""
+
+#magic_strings.organisation_types.template
+msgid "Template"
+msgstr ""
+
+#magic_strings.organisation_types.managing_organisation
+msgid "Digital Curation Centre"
+msgstr ""
+
+#magic_strings.user_role_types.admin
+msgid "admin"
+msgstr ""
+
+#magic_strings.user_role_types.org_admin
+msgid "org_admin"
+msgstr ""
+
+#magic_strings.user_role_types.user
+msgid "user"
+msgstr ""
+
+#magic_strings.roles.super_admin
+msgid "admin"
+msgstr ""
+
+#magic_strings.roles.organisational_admin
+msgid "org_admin"
+msgstr ""
+
+#magic_strings.roles.user
+msgid "user"
+msgstr ""
+
+#magic_strings.roles.add_organisations
+msgid "add_organisations"
+msgstr ""
+
+#magic_strings.roles.change_org_affiliation
+msgid "change_org_affiliation"
+msgstr ""
+
+#magic_strings.roles.grant_permissions
+msgid "grant_permissions"
+msgstr ""
+
+#magic_strings.roles.modify_templates
+msgid "modify_templates"
+msgstr ""
+
+#magic_strings.roles.modify_guidance
+msgid "modify_guidance"
+msgstr ""
+
+#magic_strings.roles.use_api
+msgid "use_api"
+msgstr ""
+
+#magic_strings.roles.change_org_details
+msgid "change_org_details"
+msgstr ""
+
+#magic_strings.roles.grant_api_to_orgs
+msgid "grant_api_to_orgs"
+msgstr ""
+
+#magic_strings.token_permission_types.guidances
+msgid "guidances"
+msgstr ""
+
+#magic_strings.token_permission_types.plans
+msgid "plans"
+msgstr ""
+
+#magic_strings.token_permission_types.templates
+msgid "templates"
+msgstr ""
+
+#magic_strings.token_permission_types.statistics
+msgid "statistics"
+msgstr ""
