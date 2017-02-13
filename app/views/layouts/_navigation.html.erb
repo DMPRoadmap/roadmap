@@ -19,12 +19,8 @@
           </li>
       <% end %>
       <% if current_user.can_grant_permissions? %>
-        <% if current_path == "/org/admin/users/admin_index" || current_path == "/org/admin/users/admin_api_update" then %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-          <%= link_to _('Users'), "/org/admin/users/admin_index", class: "main_nav_last_li"%>
+          <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>
+            <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
           </li>
       <% end %>
     <% else %>
