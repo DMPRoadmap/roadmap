@@ -21,6 +21,11 @@ class QuestionFormatTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "to_s should return the title" do
+    assert_equal QuestionFormat.first.title, QuestionFormat.first.to_s
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
     qf = QuestionFormat.create(title: 'Random', description: 'Random Number')
     assert_not qf.id.nil?, "was expecting to be able to create a new QuestionFormat : #{qf.errors.collect{ |e| e }.join(', ')}"

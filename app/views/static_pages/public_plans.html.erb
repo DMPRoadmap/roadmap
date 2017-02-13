@@ -13,7 +13,7 @@
 	  <thead>
 			<tr>
 			  <% ['name', 'template', 'organisation', 'owner'].each do |column| %>
-			    <%= project_list_column_heading(column) %>
+			    <%= plan_list_column_heading(column) %>
 			  <% end %>
 			  <th class="dmp_th_small"></th>
 			</tr>
@@ -22,7 +22,7 @@
       <% @plans.each do |plan| %>
 				<tr>
 				  <% ['non_link_name', 'template', 'organisation', 'owner'].each do |column| %>
-				    <%= project_list_column_body(column, plan) %>
+				    <%= plant_list_column_body(column, plan) %>
 				  <% end %>
 
 				  <td class="dmp_td_medium">

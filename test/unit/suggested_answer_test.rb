@@ -30,6 +30,11 @@ class SuggestedAnswerTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "deep_copy" do
+    verify_deep_copy(@suggested_answer, ['id', 'created_at', 'updated_at'])
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD SuggestedAnswer" do
     obj = SuggestedAnswer.create(org: @org, question: @question, text: 'Tester')
     assert_not obj.id.nil?, "was expecting to be able to create a new SuggestedAnswer: #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"

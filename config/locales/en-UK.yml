@@ -701,6 +701,7 @@ Select what format you wish to use and click to 'Export'.</p>"
 
     settings:
       title: "Settings"
+      unknown: "Unknown"
       projects:
         title: "Settings - My plans"
         desc: "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."

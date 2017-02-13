@@ -78,7 +78,7 @@
 			@institutions.collect{ |inst| 
 				{'id': inst.id, 
 				 'text': inst.name,
-				 'default': (current_user.organisation_id == inst.id)} 
+				 'default': (current_user.org.id == inst.id)} 
 		}) %>
 		
 		<%= hash_to_js_json_variable('templates', 

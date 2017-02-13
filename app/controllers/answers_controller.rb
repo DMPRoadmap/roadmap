@@ -25,6 +25,8 @@ class AnswersController < ApplicationController
 
     authorize @answer
 
+puts params.inspect
+
 		@answer.text = params["answer-text-#{@answer.question_id}".to_sym]
 
     #TODO: check for optimistic locking

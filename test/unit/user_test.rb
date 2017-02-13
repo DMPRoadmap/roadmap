@@ -12,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
                         surname: 'User',
                         shibboleth_id: 'test-shib',
                         accept_terms: 'true',
-                        organisation: Org.last,
+                        org: Org.last,
                         api_token: 'ABC123',
                         language: Language.find_by(abbreviation: I18n.locale))
   end
@@ -160,6 +160,116 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "can find a user via an OAuth response" do
+    scheme = IdentifierScheme.create!(name: 'tester', active: true)
+    @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, identifier: '12345')
+    @user.save!
+    
+    class Auth
+      def provider
+        "tester"
+      end
+      def uid
+        "12345"
+      end
+    end
+    
+    assert_equal @user, User.from_omniauth(Auth.new)
+    
+    class UnknownAuth
+      def provider
+        "unknown"
+      end
+      def uid
+        "12345"
+      end
+    end
+    
+    assert_raise "'Unknown OAuth provider: unknown" do
+      User.from_omniauth(UnknownAuth.new)
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "Plans query filter is working properly" do
+    3.times do |i|
+      @user.plans << Plan.new(template: Template.last, title: "My test #{i}", 
+                              identifier: (i == 0 ? 'A' : (i == 1 ? 'B' : 'C')).to_s)
+    end
+    @user.save!
+
+    plan = @user.plans.filter("2").first
+    assert_equal "My test 2", plan.title, "Expected the plans filter to search the title"
+    
+    plan = @user.plans.filter("B").first
+    assert_equal "My test 1", plan.title, "Expected the plans filter to search the identifier fields"
+  end
+  
+  # ---------------------------------------------------
+  test "Returns the appropriate identifier for the specified scheme" do
+    3.times do |i|
+      scheme = IdentifierScheme.create!({name: "test-#{i}", active: true})
+      
+      @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, identifier: i.to_s)
+    end
+    @user.save!
+  
+    3.times do |i|
+      scheme = IdentifierScheme.find_by(name: "test-#{i}")
+      
+      assert_equal i.to_s, @user.identifier_for(scheme).identifier, "expected the identifier for #{scheme.name} to be '#{i.to_s}'"
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "can_super_admin is properly set" do
+    perms = Perm.where('name IN (?)', ['add_organisations', 'change_org_affiliation', 'grant_api_to_orgs'])
+    user = User.create!(email: 'tester@example.edu', password: 'password')
+                                                           
+    assert_not user.can_super_admin?, "expected a user with no permissions to NOT be a super_admin"
+
+    perms.each do |p|
+      last = p
+      user.perms.delete(last) unless last.nil?
+      user.perms << p
+      user.save!
+      
+      assert user.can_super_admin?, "expected the addition of the #{p.name} perm to enable the user to become a super_admin"
+    end
+      
+    user.perms = []
+    user.save!
+    
+    user.perms = perms
+    user.save!
+    assert user.can_super_admin?, "expected the addition of all the super_admin perms to allow the user to be a super_admin"
+  end
+  
+  # ---------------------------------------------------
+  test "can_org_admin is properly set" do
+    perms = Perm.where('name IN (?)', ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+    user = User.create!(email: 'tester@example.edu', password: 'password')
+                                                           
+    assert_not user.can_org_admin?, "expected a user with no permissions to NOT be a org_admin"
+
+    perms.each do |p|
+      last = p
+      user.perms.delete(last) unless last.nil?
+      user.perms << p
+      user.save!
+      
+      assert user.can_org_admin?, "expected the addition of the #{p.name} perm to enable the user to become a org_admin"
+    end
+      
+    user.perms = []
+    user.save!
+    
+    user.perms = perms
+    user.save!
+    assert user.can_org_admin?, "expected the addition of all the super_admin perms to allow the user to be a org_admin"
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
     usr = User.create(email: 'test@testing.org', password: 'testing1234')
     assert_not usr.id.nil?, "was expecting to be able to create a new User: #{usr.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
@@ -188,8 +298,8 @@ class UserTest < ActiveSupport::TestCase
   test "can manage has_many relationship with Plans" do
     plan = Plan.new(title: 'Test Project', template: @template)
     verify_has_many_relationship(@user, plan, @user.plans.count)
-  end
-
+  end  
+  
   # ---------------------------------------------------
   test "can manage has_many relationship with Answers" do
     answer = Answer.new(plan: @plan, 

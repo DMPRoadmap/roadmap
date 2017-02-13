@@ -18,6 +18,11 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "to_s returns the token_type" do
+    assert_equal @tpt.token_type, @tpt.to_s
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
     tpt = TokenPermissionType.create(token_type: 'tester')
     assert_not tpt.id.nil?, "was expecting to be able to create a new TokenPermissionType - #{tpt.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
@@ -30,7 +35,7 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "can manage has_many relationship with OrgTokenPermissions" do
+  test "can manage has_many relationship with Org" do
     org = Org.new(name: 'Testing')
     verify_has_many_relationship(@tpt, org, @tpt.orgs.count)
   end
