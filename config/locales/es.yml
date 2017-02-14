@@ -311,7 +311,7 @@ es:
     no_unlock_instructions: "¿No recibió instrucciones para el desbloqueo?"
     send_password_info: "Reiniciar las instrucciones de la clave"
     edit_password_info: "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
-    accept_terms_html: " Acepto los <a href='/terms'>términos y condiciones</a> *"
+    accept_terms_html: " Acepto los <a href=\"/terms\" target=\"_blank\">términos y condiciones</a> *"
  
     text_area: "Text area"
     text_field: "Text field"

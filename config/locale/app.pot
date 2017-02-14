@@ -961,8 +961,16 @@ msgstr ""
 msgid "Customise"
 msgstr ""
 
+#org_admin.templates.customise_label
+msgid "Customised"
+msgstr ""
+
 #org_admin.templates.edit_customisation
 msgid "Edit customisation"
+msgstr ""
+
+#org_admin.templates.update_customisation
+msgid "Update Customisation"
 msgstr ""
 
 #org_admin.templates.created_message
@@ -977,8 +985,20 @@ msgstr ""
 msgid "Information was successfully deleted."
 msgstr ""
 
+#org_admin.templates.read_only
+msgid "Published templates cannot be edited."
+msgstr ""
+
 #org_admin.templates.section_delete_message
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgstr ""
+
+#org_admin.templates.unpublished_changes
+msgid "Yes [Unpublished Changes]"
+msgstr ""
+
+#org_admin.templates.original_changed
+msgid "Yes [Original Template Has Changed]"
 msgstr ""
 
 #org_admin.versions.clone_versions_label
@@ -1302,7 +1322,7 @@ msgid "If you would like to change your password please complete the following f
 msgstr ""
 
 #helpers.accept_terms_html
-msgid " I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *"
+msgid " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
 msgstr ""
 
 #helpers.you_must_accept

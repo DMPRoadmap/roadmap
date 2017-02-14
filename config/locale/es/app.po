@@ -1322,8 +1322,8 @@ msgid "If you would like to change your password please complete the following f
 msgstr "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
 
 #helpers.accept_terms_html
-msgid " I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *"
-msgstr " Acepto los <a href="/%{current_locale}/terms" target="_blank">términos y condiciones</a> *"
+msgid " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
+msgstr " Acepto los <a href="/terms" target="_blank">términos y condiciones</a> *"
 
 #helpers.you_must_accept
 msgid "You must accept the terms and conditions to register."
