@@ -120,7 +120,7 @@
 
   <br/>
   <!-- edit question button-->
-  <% if (@edit && question.modifiable) %>
+  <% if (@edit && question.section.modifiable) || question.section.phase.template.customization_of.present? %>
     <div class="move_2_right">
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <%= link_to t("org_admin.questions.question_edit_button"), '# ', class: "btn btn-primary edit_question_button"%>
