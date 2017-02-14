@@ -551,6 +551,7 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
 
     settings:
       title: "Preferencias"
+      unknown: "Desconocido"
       projects:
         title: "Preferencias - Mis planes"
         desc: "La siguiente tabla muestra las columnas que pueden mostrarse en la lista 'Mis planes'. Elija cuales quiere que se muestren."

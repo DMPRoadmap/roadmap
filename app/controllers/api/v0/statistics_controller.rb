@@ -9,7 +9,7 @@ module Api
       # users are scoped to the organisation of the user initiating the call
       def users_joined
         if has_auth(constant("token_permission_types.statistics"))
-          users = restrict_date_range(@user.organisations.first.users)
+          users = restrict_date_range(@user.org.users)
           confirmed_users = []
           users.each do |user|
             unless user.confirmed_at.blank?
@@ -31,8 +31,8 @@ module Api
       def using_template
         if has_auth(constant("token_permission_types.statistics"))
           template = Dmptemplate.find(params[:id])
-          if template.organisation == @user.organisations.first
-            @template_count = restrict_date_range(template.projects).count
+          if template.org == @user.org
+            @template_count = restrict_date_range(template.plans).count
             respond_with @template_count
           else
             #no auth to view statistics for this template
@@ -50,10 +50,10 @@ module Api
       def plans_by_template
         if has_auth(constant("token_permission_types.statistics"))
           @org_projects = []
-          @user.organisations.first.users.each do |user|
-            user.projects.each do |project|
-              unless @org_projects.include? project
-                @org_projects += [project]
+          @user.org.users.each do |user|
+            user.plans.each do |plan|
+              unless @org_projects.include? plan
+                @org_projects += [plan]
               end
             end
           end
@@ -72,10 +72,10 @@ module Api
       def plans
         if has_auth(constant("token_permission_types.statistics"))
           @org_projects = []
-          @user.organisations.first.users.each do |user|
-            user.projects.each do |project|
-              unless @org_projects.include? project
-                @org_projects += [project]
+          @user.org.users.each do |user|
+            user.plans.each do |plan|
+              unless @org_projects.include? plan
+                @org_projects += [plan]
               end
             end
           end

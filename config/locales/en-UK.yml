@@ -285,7 +285,7 @@ en-UK:
       destroyed_message: "Information was successfully deleted."
       read_only: "Published templates cannot be edited."
       section_delete_message: "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
-      unpublished_changes: "Yes [Unpublished Changes]"
+      unpublished_changes: "[Unpublished Changes]"
       original_changed: "Yes [Original Template Has Changed]"
 
     versions:
@@ -701,6 +701,7 @@ Select what format you wish to use and click to 'Export'.</p>"
 
     settings:
       title: "Settings"
+      unknown: "Unknown"
       projects:
         title: "Settings - My plans"
         desc: "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."

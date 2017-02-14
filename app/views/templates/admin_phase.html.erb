@@ -52,7 +52,7 @@
 </div>
 
 
-<% if @edit %>
+<% if @edit || @phase.template.customization_of.present? %>
   <!-- add section block -->
   <div id="add_section_block_div" style="display: none">
     <%= render partial: 'add_section', locals: {phase: @phase} %>

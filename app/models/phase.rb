@@ -4,7 +4,7 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
-	extend FriendlyId
+	#extend FriendlyId
 
 	##
   # Associations
@@ -20,7 +20,7 @@ class Phase < ActiveRecord::Base
 
   ##
   # sluggable title
-	friendly_id :title, use: [:slugged, :history, :finders]
+	#friendly_id :title, use: [:slugged, :history, :finders]
 
 
   validates :title, :number, :template, presence: true
@@ -67,6 +67,7 @@ class Phase < ActiveRecord::Base
   # verify if a phase has a published version or a version with one or more sections
   #
   # @return [Boolean]
+=begin
   def has_sections
     versions = self.versions.where('published = ?', true).order('updated_at DESC')
     if versions.any? then
@@ -86,7 +87,8 @@ class Phase < ActiveRecord::Base
     end
     return has_section
   end
-
+=end
+  
   ##
   # deep copy the given phase and all it's associations
   #

@@ -104,11 +104,12 @@ class Plan < ActiveRecord::Base
 		return answer
 	end
 
+# TODO: This just retrieves all of the guidance associated with the themes within the template
+#       so why are we transferring it here to the plan?
   ##
   # returns all of the sections for this version of the plan, and for the project's organisation
   #
   # @return [Array<Section>,nil] either a list of sections, or nil if none were found
-
   def set_possible_guidance_groups
     # find all the themes in this plan
     # and get the guidance groups they belong to
@@ -154,17 +155,19 @@ class Plan < ActiveRecord::Base
     end
 
     # add in the guidance for the user's org
-    unless self.owner.org.nil? then
-      self.owner.org.guidance_groups.each do |group|
-        group.guidances.each do |guidance|
-          common_themes = guidance.themes.all & question.themes.all
-          if common_themes.length > 0
-            guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+    unless self.owner.nil?
+      unless self.owner.org.nil? then
+        self.owner.org.guidance_groups.each do |group|
+          group.guidances.each do |guidance|
+            common_themes = guidance.themes.all & question.themes.all
+            if common_themes.length > 0
+              guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+            end
           end
         end
       end
     end
-
+    
     # Get guidance by theme from any guidance groups currently selected
     self.plan_guidance_groups.where(selected: true).each do |pgg|
       group = pgg.guidance_group
@@ -307,7 +310,8 @@ class Plan < ActiveRecord::Base
     return status
   end
 
-
+# TODO: Guessing this isn't in use since it still refers to Project and Version
+=begin
   ##
   # defines and returns the details for the plan
   # details consists of a hash of: project_title, phase_title, and for each section,
@@ -343,7 +347,10 @@ class Plan < ActiveRecord::Base
     end
     return details
   end
+=end
 
+# TODO: commenting this old lock stuff out since PlanSection is gone and we wanted to get rid of it
+=begin
   ##
   # determines wether or not a specified section of a plan is locked to a specified user and returns a status hash
   #
@@ -436,7 +443,10 @@ class Plan < ActiveRecord::Base
       lock.delete
     end
   end
+=end
 
+# TODO: Commenting out because this method appears below as well so this one is overwritten
+=begin
   ##
   # returns the time of either the latest answer to any question, or the latest update to the model
   #
@@ -453,7 +463,10 @@ class Plan < ActiveRecord::Base
       return updated_at
     end
   end
+=end
 
+# TODO: Guessing this isn't in use since it still refers to Project and Version
+=begin
   ##
   # returns an array of hashes.  Each hash contains the question's id, the answer_id,
   # the answer_text, the answer_timestamp, and the answer_options
@@ -488,7 +501,7 @@ class Plan < ActiveRecord::Base
      end
      return section_questions
   end
-
+=end
 
 
   ##
@@ -502,7 +515,9 @@ class Plan < ActiveRecord::Base
   
 
 
-
+# TODO: commenting these out because they are overriden by private methods below, so this 
+#       is unreachable
+=begin
   ##
   # Based on the height of the text gathered so far and the available vertical
   # space of the pdf, estimate a percentage of how much space has been used.
@@ -521,7 +536,7 @@ class Plan < ActiveRecord::Base
 
     margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
     page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-    available_height = page_height * self.dmptemplate.settings(:export).max_pages
+    available_height = page_height * self.template.settings(:export).max_pages
 
     percentage = (used_height / available_height) * 100
     (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
@@ -555,9 +570,10 @@ class Plan < ActiveRecord::Base
 
     (num_lines * font_height) + vertical_margin + leading
   end
+=end
 
-
-
+# TODO: What are these used for? Should just be using self.org and self.org.funder? 
+=begin
   ##
   # sets a new funder for the project
   # defaults to the first dmptemplate if the current template is nill and the funder has more than one dmptemplate
@@ -567,8 +583,8 @@ class Plan < ActiveRecord::Base
   def funder_id=(new_funder_id)
     if new_funder_id != "" then
       new_funder = Org.find(new_funder_id);
-      if new_funder.dmptemplates.count >= 1 && self.dmptemplate.nil? then
-        self.dmptemplate = new_funder.dmptemplates.first
+      if new_funder.templates.count >= 1 && self.template.nil? then
+        self.template = new_funder.templates.first
       end
     end
   end
@@ -589,11 +605,11 @@ class Plan < ActiveRecord::Base
   #
   # @return [Organisation, nil] the funder for project, or nil if none exists
   def funder
-    if self.dmptemplate.nil? then
+    if self.template.nil? then
       return nil
     end
-    template_org = self.dmptemplate.organisation
-    if template_org.organisation_type.name == constant("organisation_types.funder").downcase
+    template_org = self.template.org
+    if template_org.funder?
       return template_org
     else
       return nil
@@ -677,7 +693,7 @@ class Plan < ActiveRecord::Base
       return organisation_id
     end
   end
-
+=end
 
   ##
   # assigns the passed user_id as an editor for the project
@@ -706,6 +722,8 @@ class Plan < ActiveRecord::Base
     add_user(user_id, true, true)
   end
 
+# TODO: ProjectGroup doesn't exist anymore so commenting these out
+=begin
   ##
   # returns the projects which the user can atleast read
   #
@@ -738,6 +756,7 @@ class Plan < ActiveRecord::Base
       return false
     end
   end
+=end
 
   ##
   # the datetime for the latest update of this plan
@@ -784,6 +803,8 @@ class Plan < ActiveRecord::Base
     self.latest_update.to_date
   end
 
+# TODO: These next 2 reference defunct models so commenting out
+=begin
   ##
   # whether or not the plan is shared with anybody
   #
@@ -801,7 +822,9 @@ class Plan < ActiveRecord::Base
   def template_owner
     self.dmptemplate.try(:organisation).try(:abbreviation)
   end
-
+=end
+  
+  
   private
 
   ##
@@ -830,6 +853,14 @@ class Plan < ActiveRecord::Base
     role.editor= is_editor
     role.administrator= is_administrator
     role.save
+    
+    # This is necessary because we're creating the associated record but not assigning it 
+    # to roles. Auto-saving like this may be confusing when coding upstream in a controller,
+    # view or api. Should probably change this to: 
+    #    self.roles << role
+    # and then let the save be called manually via: 
+    #    plan.save!
+    #self.reload
   end
 
   ##

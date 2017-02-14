@@ -236,7 +236,7 @@ class ProjectsController < ApplicationController
 		else
 			institution = nil
 		end
-		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
+		excluded_orgs = Org.funders + Org.institutions
 		guidance_groups = {}
 		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
 

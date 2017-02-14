@@ -49,6 +49,7 @@ class Org < ActiveRecord::Base
   # Predefined queries for retrieving the managain organisation and funders
   scope :managing_orgs, -> { where(name: GlobalHelpers.constant("organisation_types.managing_organisation")) }
   scope :funders, -> { where(org_type: 2) }
+  scope :institutions, -> { where(org_type: 3) }
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -56,7 +57,11 @@ class Org < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
 
-
+# TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at one time.
+#       For example you can do: funder = true; project = true; school = true
+#       Calling type in the above scenario returns "Funder" which is a bit misleading
+#       Is FlagShihTzu's Bit flag the appropriate structure here or should we use an enum?
+#       Tests are setup currently to work with this issue.
   ##
   # returns the name of the type of the organisation as a string
   # defaults to none if no org type present
@@ -69,7 +74,7 @@ class Org < ActiveRecord::Base
       return "Funder"
     elsif self.organisation?
       return "Organisation"
-    elsif @org.research_institute?
+    elsif self.research_institute?
       return "Research Institute"
     elsif self.project?
       return "Project"
@@ -105,6 +110,7 @@ class Org < ActiveRecord::Base
   #
   # @param [String] the name of an organisation type
   # @return [Array<Organisation>]
+=begin
   def self.orgs_with_parent_of_type(org_type)
     parents = OrganisationType.find_by_name(org_type).organisations
     children = Array.new
@@ -113,7 +119,7 @@ class Org < ActiveRecord::Base
     end
     return children
   end
-
+  
   ##
   # returns a list of all guidance groups belonging to other organisations
   #
@@ -148,7 +154,7 @@ class Org < ActiveRecord::Base
 		end
 		return organisations_list
 	end
-
+  
   ##
   # returns a list of all sections of a given version from this organisation and it's parents
   #
@@ -165,7 +171,7 @@ class Org < ActiveRecord::Base
 			return sections.where("version_id = ? ", version_id).all + parent.all_sections(version_id)
 		end
 	end
-
+  
   ##
   # returns the guidance groups of this organisation and all of it's children
   #
@@ -177,7 +183,7 @@ class Org < ActiveRecord::Base
 		end
 		return ggs
 	end
-
+  
   ##
   # returns the highest parent organisation in the tree
   #
@@ -189,7 +195,8 @@ class Org < ActiveRecord::Base
 			return parent.root
 		end
 	end
-
+=end
+  
   ##
   # returns all published templates belonging to the organisation
   #
