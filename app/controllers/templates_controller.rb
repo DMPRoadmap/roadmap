@@ -19,6 +19,10 @@ class TemplatesController < ApplicationController
       end
     end
     @templates_own = current_templates.values
+    @other_published_version = {}
+    current_templates.keys.each do |dmptemplate_id|
+      @other_published_version[dmptemplate_id] = Template.where(org_id: current_user.org_id, dmptemplate_id: dmptemplate_id, published: true).present?
+    end
 
     # funders templates
     funders_templates = {}
@@ -90,7 +94,7 @@ class TemplatesController < ApplicationController
               if section.modifiable
                 # this is a custom section
                 section_copy = Section.deep_copy(section)
-                customization_phase = new_customization.includes(:sections).phase.where(number: phase.number)
+                customization_phase = new_customization.phases.includes(:sections).where(number: phase.number).first
                 section_copy.phase_id = customization_phase.id
                 # custom sections get added to the end
                 section_copy.number = customization_phase.sections.length + 1
@@ -98,11 +102,11 @@ class TemplatesController < ApplicationController
                 section_copy.save!
               else
                 # not a customized section, iterate over questions
-                customization_phase = new_customization.includes(sections: [questions: :suggested_answers])
-                customization_section = customization_phase.section.where(number: section.number)
+                customization_phase = new_customization.phases.includes(sections: [questions: :suggested_answers]).where(number: phase.number).first
+                customization_section = customization_phase.sections.where(number: section.number).first
                 section.questions.each do |question|
                   # find corresponding question in new template
-                  customization_question = customization_section.question.where(number: question.number)
+                  customization_question = customization_section.questions.where(number: question.number).first
                   # apply suggested_answers
                   question.suggested_answers.each do |suggested_answer|
                     suggested_answer_copy = SuggestedAnswer.deep_copy(suggested_answer)
@@ -133,7 +137,7 @@ class TemplatesController < ApplicationController
     end
     # needed for some post-migration edge cases
     # some customized templates which were edited
-    if @template.customization_of.present? && @template.published
+    if @template.published
       new_version = Template.deep_copy(@template)
       new_version.version = @template.version + 1
       new_version.published = false
