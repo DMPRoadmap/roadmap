@@ -27,11 +27,11 @@ question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en-UK',
+  {abbreviation: 'en_UK',
    description: 'UK English',
    name: 'English (UK)',
    default_language: true},
-  {abbreviation: 'en-US',
+  {abbreviation: 'en_US',
    description: 'US English',
    name: 'English (US)',
    default_language: false},

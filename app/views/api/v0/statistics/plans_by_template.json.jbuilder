@@ -1,14 +1,14 @@
 json.prettify!
 templates = {}
-@org_projects.each do |project|
+@org_projects.each do |plan|
   # if hash exists
-  if templates[project.dmptemplate.title].blank?
-    templates[project.dmptemplate.title] = {}
-      templates[project.dmptemplate.title][:title] = project.dmptemplate.title
-      templates[project.dmptemplate.title][:id] = project.dmptemplate.id
-      templates[project.dmptemplate.title][:uses] = 1
+  if templates[plan.template.title].blank?
+    templates[plan.template.title] = {}
+      templates[plan.template.title][:title] = plan.template.title
+      templates[plan.template.title][:id] = plan.template.id
+      templates[plan.template.title][:uses] = 1
   else
-    templates[project.dmptemplate.title][:uses] += 1
+    templates[plan.template.title][:uses] += 1
   end
 end
 

@@ -25,6 +25,12 @@ class ActiveSupport::TestCase
   require_relative '../db/seeds.rb'
 
   # Add more helper methods to be used by all tests here...
+  
+  # Return the user instance variable
+  # ----------------------------------------------------------------------
+  def current_user
+    return @user
+  end
  
   # Convert Ruby Class Names into attribute names (e.g. MyClass --> my_class)
   # ----------------------------------------------------------------------
@@ -107,7 +113,7 @@ class ActiveSupport::TestCase
     follow_redirects
     
     assert_response :success
-    assert_select '.main_page_content h1', Plan.model_name.human.pluralize.titleize 
+    assert_select '.main_page_content h1', I18n.t("helpers.project.projects_title")
   end
   
   # ----------------------------------------------------------------------

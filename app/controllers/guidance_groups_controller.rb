@@ -59,7 +59,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_update_publish
  		@guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
-    @guidance_group.organisation_id = current_user.organisation_id
+    @guidance_group.org.id = current_user.org.id
     @guidance_group.published = true
 
     if @guidance_group.update_attributes(params[:guidance_group])

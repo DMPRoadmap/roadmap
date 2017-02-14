@@ -57,7 +57,7 @@ class Role < ActiveRecord::Base
     self.creator = true unless self.administrator? || self.editor?
   end
   
-  # Ensures that the access attribute is set
+  # Ensures that the access attribute is set (will default to creator - see logic in access_level=)
   def check_access_level
     self.access_level = self.access_level
   end

@@ -193,7 +193,7 @@ Rails.application.routes.draw do
     resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
-      resource :projects, only: [:show, :update]
+      #resource :projects, only: [:show, :update]
       resources :plans, only: [:show, :update]
     end
 

@@ -625,6 +625,7 @@ de:
 
     settings:
       title: "Einstellungen"
+      unknown: "Unbekannt"
       projects:
         title: "Einstellungen - Meine Pläne"
         desc: "Die untere Tabelle listet die verfügbaren Spalten auf, welche in der Liste 'Meine Pläne' gezeigt werden können.

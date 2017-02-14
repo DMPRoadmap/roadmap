@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  plan_id: 
-  guidance_group_id: 
-
-two:
-  plan_id: 
-  guidance_group_id: 
