@@ -2780,3 +2780,11 @@ msgstr "templates"
 #magic_strings.token_permission_types.statistics
 msgid "statistics"
 msgstr "statistics"
+
+#contact_page.title
+msgid "Contact us"
+msgstr ""
+
+#terms_page.title
+msgid "Terms of use"
+msgstr ""
