@@ -113,13 +113,14 @@
               <% customized = 0 %>
               <% template = org_template # template to be edited%>
               <% if @templates_customizations[org_template.dmptemplate_id].present? %>
-                <% if @templates_customizations[org_template.dmptemplate_id].updated_at < org_template.updated_at %>
+                <% if @templates_customizations[org_template.dmptemplate_id][:temp].updated_at < org_template.updated_at %>
                   <%= t("org_admin.templates.original_changed") %>
                   <% customized = 3 %>
                 <% else %>
-                  <% template = @templates_customizations[org_template.dmptemplate_id] %>
-                  <% if !@templates_customizations[org_template.dmptemplate_id].published %>
-                    <%= t("org_admin.templates.unpublished_changes") %>
+                  <% template = @templates_customizations[org_template.dmptemplate_id][:temp] %>
+                  <% if !@templates_customizations[org_template.dmptemplate_id][:temp].published %>
+                    <%= @templates_customizations[org_template.dmptemplate_id][:published] ? t("helpers.yes_label") : t("helpers.no_label")%>
+                    <%= " " + t("org_admin.templates.unpublished_changes") %>
                     <% customized = 2 %>
                   <% else %>
                     <%= t("helpers.yes_label") %>

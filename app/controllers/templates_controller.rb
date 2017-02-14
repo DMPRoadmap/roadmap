@@ -34,8 +34,12 @@ class TemplatesController < ApplicationController
     # are any funder templates customized
     @templates_customizations = {}
     Template.where(org_id: current_user.org_id, customization_of: funders_templates.keys).order(version: :desc).each do |temp|
-      if @templates_customizations[temp.dmptemplate_id].nil?
-        @templates_customizations[temp.dmptemplate_id] = temp
+      if @templates_customizations[temp.customization_of].nil?
+        @templates_customizations[temp.customization_of] = {}
+        @templates_customizations[temp.customization_of][:temp] = temp
+        @templates_customizations[temp.customization_of][:published] = temp.published
+      else
+        @templates_customizations[temp.customization_of][:published] = @templates_customizations[temp.customization_of][:published] || temp.published
       end
     end
   end
@@ -64,13 +68,58 @@ class TemplatesController < ApplicationController
           end
         end
       end
-      customizations = Template.where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+      customizations = Template.includes(phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
       if customizations.present?
         # existing customization to port over
         max_version = customizations.first
         new_customization.dmptemplate_id = max_version.dmptemplate_id
         new_customization.version = max_version.version + 1
-        # port customization data...?
+        # here we rip the customizations out of the old template
+        # First, we find any customized phases or sections
+        max_version.phases.each do |phase|
+          # check if the phase was added as a customization
+          if phase.modifiable
+            # deep copy the phase and add it to the template
+            phase_copy = Phase.deep_copy(phase)
+            phase_copy.number = new_customization.phases.length + 1
+            phase_copy.template_id = new_customization.id
+            phase_copy.save!
+          else
+            # iterate over the sections to see if any of them are customizations
+            phase.sections.each do |section|
+              if section.modifiable
+                # this is a custom section
+                section_copy = Section.deep_copy(section)
+                customization_phase = new_customization.includes(:sections).phase.where(number: phase.number)
+                section_copy.phase_id = customization_phase.id
+                # custom sections get added to the end
+                section_copy.number = customization_phase.sections.length + 1
+                # section from phase with corresponding number in the main_template
+                section_copy.save!
+              else
+                # not a customized section, iterate over questions
+                customization_phase = new_customization.includes(sections: [questions: :suggested_answers])
+                customization_section = customization_phase.section.where(number: section.number)
+                section.questions.each do |question|
+                  # find corresponding question in new template
+                  customization_question = customization_section.question.where(number: question.number)
+                  # apply suggested_answers
+                  question.suggested_answers.each do |suggested_answer|
+                    suggested_answer_copy = SuggestedAnswer.deep_copy(suggested_answer)
+                    suggested_answer_copy.org_id = current_user.org_id
+                    suggested_answer_copy.question_id = customization_question.id
+                    suggested_answer_copy.save!
+                  end
+                  # guidance attached to a question is also a form of customization
+                  # It will soon become an annotation of the question, and be combined with
+                  # suggested answers
+                  customization_question.guidance = customization_question.guidance + question.guidance
+                  customization_question.save!
+                end
+              end
+            end
+          end
+        end
       else
         # first time customization
         new_customization.version = 0
@@ -82,6 +131,15 @@ class TemplatesController < ApplicationController
       new_customization.save!
       @template = new_customization
     end
+    # needed for some post-migration edge cases
+    # some customized templates which were edited
+    if @template.customization_of.present? && @template.published
+      new_version = Template.deep_copy(@template)
+      new_version.version = @template.version + 1
+      new_version.published = false
+      new_version.save!
+      @template = new_version
+    end
     authorize @template
   end
 
@@ -92,7 +150,7 @@ class TemplatesController < ApplicationController
     authorize @template
     if @template.published?
       # published templates cannot be edited
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.read_only')
+      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.read_only') and return
     end
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
@@ -102,10 +160,6 @@ class TemplatesController < ApplicationController
         new_version.version = @template.version + 1
         new_version.published = false
         new_version.save!
-        # if the organisation is a funder
-        if @template.org.funder?
-          # do something about all the customizations?
-        end
       end
       redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
     else
