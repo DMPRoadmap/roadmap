@@ -312,7 +312,7 @@ fr:
     no_pass_instructions: "Instructions de confirmation non reçues ?"
     no_unlock_instructions: "Instructions de déverrouillage non reçues ?"
     send_mot de passe_info: "Instructions pour réinitialiser le mot de passe"
-    accept_terms_html: " Jaccepte les <a href=\"/%{current_locale}/terms\">Conditions générales dutilisation.</a> *"
+    accept_terms_html: " Jaccepte les <a href=\"/terms\" target=\"_blank\">Conditions générales dutilisation.</a> *"
     edit_mot de passe_info: "Si vous voulez changer de mot de passe, remplissez les champs suivants."
 
     text_area: "Zone de texte"

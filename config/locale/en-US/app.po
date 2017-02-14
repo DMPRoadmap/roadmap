@@ -1322,8 +1322,8 @@ msgid "If you would like to change your password please complete the following f
 msgstr "If you would like to change your password please complete the following fields."
 
 #helpers.accept_terms_html
-msgid " I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *"
-msgstr " I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *"
+msgid " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
+msgstr " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
 
 #helpers.you_must_accept
 msgid "You must accept the terms and conditions to register."
@@ -2780,11 +2780,3 @@ msgstr "templates"
 #magic_strings.token_permission_types.statistics
 msgid "statistics"
 msgstr "statistics"
-
-#contact_page.title
-msgid "Contact us"
-msgstr ""
-
-#terms_page.title
-msgid "Terms of use"
-msgstr ""
