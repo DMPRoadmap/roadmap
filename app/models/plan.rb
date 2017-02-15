@@ -908,10 +908,6 @@ class Plan < ActiveRecord::Base
 
 
 
-=======
-=end
-  
-  
   private
 
   # reconnect the various parts of the hash so that:
