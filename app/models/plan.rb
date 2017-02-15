@@ -824,6 +824,7 @@ class Plan < ActiveRecord::Base
   def template_owner
     self.dmptemplate.try(:organisation).try(:abbreviation)
   end
+=end
   
 
 
