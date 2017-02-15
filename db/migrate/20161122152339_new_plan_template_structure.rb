@@ -140,7 +140,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     proj_number = 0
     
     if table_exists?('projects') && table_exists?('templates') && table_exists?('answers') &&
-              table_exists?('comments') && table_exists?('sections')
+              table_exists?('comments') && table_exists?('sections') && table_exists?('new_plan')
       # migrating uncustomised plans
       Template.transaction do
         Project.includes( { dmptemplate: [ { phases: [ { versions: [:sections] } ] } ] }, {plans: [:version ]}, :organisation).find_each(batch_size: 20) do |project|

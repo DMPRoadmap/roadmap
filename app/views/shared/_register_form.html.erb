@@ -4,9 +4,9 @@
 		<%= devise_error_messages! %>
 	</li>
 	<li>
-		<%= f.email_field :email, placeholder: (t('helpers.email') + ' *'), :required => true, :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.email_must_valid_confirmation_message') %>
+		<%= f.email_field :email, placeholder: (_('Email') + ' *'), :required => true, :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('This must be a valid email address - a message will be sent to it for confirmation.') %>
 		<div class="alert alert-error" style="display:none">
-			<strong><%= t('helpers.error')%></strong> <%= t('helpers.valid_email')%>
+			<strong><%= _('Error!')%></strong> <%= _('You must enter a valid email address.')%>
 		</div>
 	</li>
 	<% if extended then %>
@@ -14,10 +14,10 @@
 			<%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
 		<% end %>
 		<li>
-			<%= f.text_field :firstname, placeholder: t('helpers.first_name'), :as => :string, :class => 'text_field' %>
+			<%= f.text_field :firstname, placeholder: _('First name'), :as => :string, :class => 'text_field' %>
 		</li>
 		<li>
-			<%= f.text_field :surname, placeholder: t('helpers.last_name'), :as => :string, :class => 'text_field' %>
+			<%= f.text_field :surname, placeholder: _('Last name'), :as => :string, :class => 'text_field' %>
 		</li>
 	<% end %>
 	<% if resource.user_identifiers.count > 0 %>
@@ -25,35 +25,35 @@
 		<%= f.hidden_field "user_identifiers[#{scheme}]", value: resource.user_identifiers.first.identifier%>
 	<% end %>
 	<li>
-		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: constant("organisation_types.organisation")}, { :class => 'typeahead org_sign_up' }) %>
+		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up' }) %>
 	</li>
-  <div id="other-org-link"><a href="#"><%= t("helpers.org_not_listed") %></a></div>
+  <div id="other-org-link"><a href="#"><%= _("My organisation isn't listed.") %></a></div>
 	<% other_organisations = Array.new %>
 	<% Org.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
 		<% other_organisations << org.id %>
 	<% end %>
 	<li id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
-		<%= f.text_field :other_organisation, placeholder: (t('helpers.org_type.org_name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.org_type.other_org_help_text') %>
+		<%= f.text_field :other_organisation, placeholder: ( _('Organisation name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
 	</li>
 	<li>
-		<%= f.password_field :password, placeholder: (t('helpers.password') + ' *'), :autocomplete => "off", :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.password_too_small') %>
+		<%= f.password_field :password, placeholder: (_('Password') + ' *'), :autocomplete => "off", :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
 		<div class="alert alert-error" style="display:none">
-			<strong><%= t('helpers.error')%></strong> <%= t('helpers.password_too_small')%>
+			<strong><%= _('Error!')%></strong> <%= _('Your password must contain at least 8 characters.')%>
 		</div>
 	</li>
 	<li>
-		<%= f.password_field :password_confirmation, placeholder: (t('helpers.password_conf') + ' *'), :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => t('helpers.password_too_small') %>
+		<%= f.password_field :password_confirmation, placeholder: (_('Password confirmation') + ' *'), :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
 		<div class="alert alert-error" style="display:none">
-			<strong><%= t('helpers.error')%></strong>&nbsp;<%= t('helpers.password_no_match')%>
+			<strong><%= _('Error!')%></strong>&nbsp;<%= _('This must match what you entered in the previous field.')%>
 		</div>
 	</li>
 	<li class="remember_me_li">
 		<%= f.check_box :accept_terms, :required => true %> <%= f.label :accept_terms, :class => "remember_div"  do %>
-		  <%= raw t('helpers.accept_terms_html', current_locale: I18n.locale)%>
+		  <%= raw _(' I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *') % { :current_locale => FastGettext.locale } %>
 		<%end%>
 	</li>
 	<li>
-		<%= f.submit t('helpers.sign_up'), :class => "btn btn-primary" %>
+		<%= f.submit _('Sign up'), :class => "btn btn-primary" %>
 	</li>
 </ul>
 <% end %>

@@ -12,7 +12,7 @@ class SuggestedAnswer < ActiveRecord::Base
                   :org, :question, :as => [:default, :admin]
 
 
-  validates :question, :org, :text, presence: true
+  validates :question, :org,  presence: true
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

@@ -32,6 +32,35 @@ class OrgTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
+  test "type returns the correct value" do
+    @org.institution = true
+    assert_equal "Institution", @org.type
+    
+    @org.institution = false
+    @org.funder = true
+    assert_equal "Funder", @org.type
+    
+    @org.funder = false
+    @org.organisation = true
+    assert_equal "Organisation", @org.type
+    
+    @org.organisation = false
+    @org.research_institute = true
+    assert_equal "Research Institute", @org.type
+    
+    @org.research_institute = false
+    @org.project = true
+    assert_equal "Project", @org.type
+    
+    @org.project = false
+    @org.school = true
+    assert_equal "School", @org.type
+    
+    @org.school = false
+    assert_equal "None", @org.type
+  end
+
+  # ---------------------------------------------------
   test "only accepts valid contact_email addresses" do
     assert @org.valid?
     
@@ -81,6 +110,33 @@ class OrgTest < ActiveSupport::TestCase
     #@org.save!
     #usr = @org.reload.users.find_by(email: 'tester@testing.org')
     #assert_equal nil, usr.api_token
+  end
+  
+  # ---------------------------------------------------
+  test "published_templates should return all published templates" do
+    3.times do |i|
+      @org.templates << Template.new(version: 1, title: "Testing #{i}", published: (i < 2 ? true : false))
+    end
+    
+    assert_not @org.published_templates.select{|t| t.title == "Testing 0"}.empty?, "expected the 1st template to be included"
+    assert_not @org.published_templates.select{|t| t.title == "Testing 1"}.empty?, "expected the 2nd template to be included"
+    assert @org.published_templates.select{|t| t.title == "Testing 2"}.empty?, "expected the 3rd template to NOT be included"
+  end
+  
+  # ---------------------------------------------------
+  test "check_api_credentials removes all user api_tokens" do
+    org = Org.last
+    org.users.each do |user|
+      user.api_token = '12345'
+      user.save!
+    end
+    
+    org.check_api_credentials
+    org.reload
+    
+    org.users.each do |user|
+      assert_equal "", user.api_token, "expected the api_token for #{user.name} to have been deleted"
+    end
   end
   
   # ---------------------------------------------------

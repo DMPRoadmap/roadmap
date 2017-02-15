@@ -5,7 +5,7 @@ class Template < ActiveRecord::Base
   # Associations
   belongs_to :org
   has_many :plans
-  has_many :phases
+  has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
 
@@ -136,6 +136,7 @@ class Template < ActiveRecord::Base
   end
 =end
   
+# TODO: Why are we passing in an org and template here? 
   ##
   # Verify if a template has customisation by given organisation
   #
@@ -145,7 +146,7 @@ class Template < ActiveRecord::Base
   def has_customisations?(org_id, temp)
     modifiable = true
     phases.each do |phase|
-      modifiable = modifable && phase.modifiable
+      modifiable = modifiable && phase.modifiable
     end
     return !modifiable
     # if temp.org_id != org_id then

@@ -25,7 +25,7 @@ class PlansController < ApplicationController
     if user_signed_in? then
       @plan = Plan.new
       authorize @plan
-      @funders = Org.funder.all 
+      @funders = Org.funders.all 
 
       respond_to do |format|
         format.html # new.html.erb

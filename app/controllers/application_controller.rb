@@ -17,29 +17,21 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: I18n.t('unauthorized')
   end
 
-  before_filter :set_locale
+  before_filter :set_gettext_locale
 
   after_filter :store_location
 
-  def set_locale
-    # parameter from url takes precedence
-    # check if locale is defined
-    if params[:locale] # and I18n.available_locales.include? params[:locale] # throw an error if not available
-      # if locales data is present in the parameter from url use it
-      I18n.locale = params[:locale]
-      
+  def set_gettext_locale
+    if params[:locale] and FastGettext.default_available_locales.include?(params[:locale])
+      FastGettext.locale = params[:locale]
     elsif user_signed_in? and !current_user[:language_id].nil?
-      I18n.locale = Language.find_by_id(current_user[:language_id]).abbreviation
-      # if user has set preferred language use it
-
+      FastGettext.locale = Language.find_by_id(current_user[:language_id]).abbreviation #Relies on successful db call
     elsif user_signed_in? and current_user.org.present? and !current_user.org[:language_id].nil?
-      I18n.locale = Language.find_by_id(current_user.org[:language_id]).abbreviation
-      # use user's organization language, keep in mine the "OTHER ORG" edge case which should use default language
-      
+      FastGettext.locale = Language.find_by_id(current_user.org[:language_id]).abbreviation #Relies on successful db call
     else
-      # just use the default language, line can be commented out, included just for clarity
-      I18n.locale = I18n.default_locale
+      FastGettext.locale = FastGettext.default_locale
     end
+    puts 'FastGettext.locale = '+FastGettext.locale
   end
 
   # Added setting for passing local params across pages

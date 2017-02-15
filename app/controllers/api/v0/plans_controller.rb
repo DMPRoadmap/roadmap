@@ -21,20 +21,20 @@ module Api
         if has_auth(constant("api_endpoint_types.plans"))
           #params[:organization_id] = Org.where(name: params[:template][:organization])
           # find_by returns nil if none found, find_by! raises an ActiveRecord error
-          organization = Org.find_by name: params[:template][:organisation]
+          org = Org.find_by name: params[:template][:organisation]
           
           # if organization exists
-          if !organization.nil?
+          if !org.nil?
             # if organization is funder
-            if organization.organisation_type == (OrganisationType.find_by(name: constant("organisation_types.funder")))
+            if org.funder?
               # if organization has only 1 template
-              if organization.dmptemplates.length == 1
+              if org.templates.length == 1
                 # set template id
-                dmptemplate = organization.dmptemplates.first
+                template = org.templates.first
               # else if params.template.name specified && params.template.name == one of organization's tempates
-              elsif !organization.dmptemplates.find_by title: params[:template][:name].nil?
+              elsif !org.templates.find_by title: params[:template][:name].nil?
                 # set template id
-                dmptemplate = organization.templates.find_by title: params[:template][:name]
+                template = org.templates.find_by title: params[:template][:name]
               # else error: organization has more than one template and template name unspecified
               else
                 render json: I18n.t("api.org_multiple_templates"), status: 400 and return
@@ -73,11 +73,11 @@ module Api
           end
 
           # create new project with specified parameters
-          @project = Project.new
+          @project = Plan.new
           @project.title =  params[:project][:title]
-          @project.dmptemplate = dmptemplate
+          @project.template = template
           @project.slug = params[:project][:title]
-          @project.organisation = @user.organisations.first
+          #@project.organisation = @user.organisations.first
           @project.assign_creator(user.id)
           @project.guidance_groups = all_groups
 

@@ -51,27 +51,29 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def funder
-    org = self.plan.template.try(:organisation)
-    org.name if org.present? && org.org.try(:name) == constant("organisation_types.funder")
+    org = self.plan.template.try(:org)
+    org.name if org.present? && org.funder?
   end
 
   def institution
-    plan.template.org.try(:name)
+    plan.owner.org.try(:name)
   end
 
   def orcid
     scheme = IdentifierScheme.find_by(name: 'orcid')
-    if self.user.nil?
+    if self.owner.nil?
       ''
     else
-      orcid = self.user.user_identifiers.where(identifier_scheme: scheme).first
+      orcid = self.owner.user_identifiers.where(identifier_scheme: scheme).first
       (orcid.nil? ? '' : orcid.identifier)
     end
   end
 
+# TODO: This looks like it will always return an empty array as questions is undefined
   # sections taken from fields settings
   def sections
-    sections = self.plan.sections
+    # TODO: How do we know which phase to use here!?
+    sections = self.template.phases.first.sections
 
     return [] if questions.empty?
 

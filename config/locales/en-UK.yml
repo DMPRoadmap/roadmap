@@ -277,11 +277,17 @@ en-UK:
       desc_label: "Description"
       actions: "Actions"
       customise: "Customise"
+      customise_label: "Customised"
       edit_customisation: "Edit customisation"
+      update_customisation: "Update Customisation"
       created_message: "Information was successfully created."
       updated_message: "Information was successfully updated."
       destroyed_message: "Information was successfully deleted."
+      read_only: "Published templates cannot be edited."
       section_delete_message: "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+      unpublished_changes: "[Unpublished Changes]"
+      original_changed: "Yes [Original Template Has Changed]"
+
     versions:
       clone_versions_label: "Make big changes"
       edit_versions_label: "Make small changes"
@@ -382,7 +388,7 @@ en-UK:
     no_unlock_instructions: "Didn't receive unlock instructions?"
     send_password_info: "Reset password instructions"
     edit_password_info: "If you would like to change your password please complete the following fields."
-    accept_terms_html: " I accept the <a href='/%{current_locale}/terms' target='_blank'>terms and conditions</a> *"
+    accept_terms_html: " I accept the <a href=\"/terms\" target=\"_blank\">terms and conditions</a> *"
     you_must_accept: 'You must accept the terms and conditions to register.'
     email_already_registered: 'That email address is already registered.'
     email_must_valid_confirmation_message: "This must be a valid email address - a message will be sent to it for confirmation."
@@ -695,6 +701,7 @@ Select what format you wish to use and click to 'Export'.</p>"
 
     settings:
       title: "Settings"
+      unknown: "Unknown"
       projects:
         title: "Settings - My plans"
         desc: "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."

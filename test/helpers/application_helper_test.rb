@@ -23,8 +23,8 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal nil, resource.id, "Expected resource() to return a User with an Id"
     
     # If @resource is set then we should receive that object
-    @resource = Organisation.first
-    assert resource.is_a?(Organisation), "Expected resource() to return @resource"
+    @resource = Org.first
+    assert resource.is_a?(Org), "Expected resource() to return @resource"
     assert_equal @resource.id, resource.id, "Expected resource() to return the first Organisation"
   end
   

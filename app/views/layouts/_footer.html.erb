@@ -3,9 +3,9 @@
     <div class="left_side_footer">
     	<div class="first_row">
         	<ul class="footer-links">	
-	            <li><a href="<%= contact_us_path %>"><%= t("contact_page.title") %></a></li>
+	            <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
 	            <li class="muted">|</li>
-	            <li><a href="<%= terms_path %>"><%= t("terms_page.title") %></a></li>
+	            <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
        		</ul>
        	</div>
        	<div class="second_row">
@@ -24,7 +24,7 @@
 	<div id="header-login-form" class="modal hide fade">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3><%= t("helpers.sign_in")%></h3>
+			<h3><%= _('Sign in')%></h3>
 		</div>
 		<div class="modal-body">
 			<%= render :partial => "shared/login_form" %>
@@ -33,7 +33,7 @@
 	<div id="header-register-form" class="modal hide fade">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3><%= t("helpers.sign_up")%></h3>
+			<h3><%= _('Sign up')%></h3>
 		</div>
 		<div class="modal-body">
 			<%= render :partial => "shared/register_form", locals: {extended: false} %>

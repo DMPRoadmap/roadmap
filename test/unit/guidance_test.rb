@@ -76,6 +76,11 @@ class GuidanceTest < ActiveSupport::TestCase
       assert viewable.include?(g), "expected the user to be able to view all funder guidance"
     end
   end
+  
+  # ---------------------------------------------------
+  test "make sure all templates associated with the guidance are returned" do
+    # TODO: is this method even appropriate?
+  end
 
   # ---------------------------------------------------
   test "can CRUD Guidance" do

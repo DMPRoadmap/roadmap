@@ -32,7 +32,8 @@ class GuidanceGroupTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "guidance_groups_excluding does not return guidance groups for the current organisation" do
-    assert_not GuidanceGroup.guidance_groups_excluding([@org]).include?(@guidance_group)
+    assert_not GuidanceGroup.guidance_groups_excluding([@org]).include?(@guidance_group), "expected the exclusion to work for an array of orgs"
+    assert_not GuidanceGroup.guidance_groups_excluding(@org).include?(@guidance_group), "expected the exclusion to work for a single org"
   end
 
   # ---------------------------------------------------

@@ -59,7 +59,7 @@ class Question < ActiveRecord::Base
     end
     question.suggested_answers.each do |suggested_answer|
       suggested_answer_copy = SuggestedAnswer.deep_copy(suggested_answer)
-      suggested_answer_copy.quesion_id = question_copy.id
+      suggested_answer_copy.question_id = question_copy.id
       suggested_answer_copy.save!
     end
     question.themes.each do |theme|
@@ -78,10 +78,12 @@ class Question < ActiveRecord::Base
     guidances = {}
     theme_ids = themes.collect{|t| t.id}
     if theme_ids.present?
-      GuidanceGroup.where(org_id: org.id).each do |group|
+      GuidanceGroup.includes(guidances: :themes).where(org_id: org.id).each do |group|
         group.guidances.each do |g|
-          g.themes.where("id IN (?)", theme_ids).each do |gg|
-            guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{gg.title}"] = g
+          g.themes.each do |theme|
+            if theme_ids.include? theme.id
+              guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{theme.title}"] = g
+            end
           end
         end
       end
