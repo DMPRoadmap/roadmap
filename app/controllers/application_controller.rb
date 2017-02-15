@@ -17,26 +17,34 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: I18n.t('unauthorized')
   end
 
+  before_filter :get_languages
   before_filter :set_gettext_locale
 
   after_filter :store_location
 
-  def set_gettext_locale
-    if params[:locale] and FastGettext.default_available_locales.include?(params[:locale])
-      FastGettext.locale = params[:locale]
-    elsif user_signed_in? and !current_user[:language_id].nil?
-      FastGettext.locale = Language.find_by_id(current_user[:language_id]).abbreviation #Relies on successful db call
-    elsif user_signed_in? and current_user.org.present? and !current_user.org[:language_id].nil?
-      FastGettext.locale = Language.find_by_id(current_user.org[:language_id]).abbreviation #Relies on successful db call
-    else
-      FastGettext.locale = FastGettext.default_locale
-    end
-    puts 'FastGettext.locale = '+FastGettext.locale
+  def get_languages
+    @languages = Language.sorted_by_abbreviation
   end
 
-  # Added setting for passing local params across pages
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
+  # Sets FastGettext locale for every request maade
+  def set_gettext_locale
+    FastGettext.locale = session[:locale] || FastGettext.default_locale
+    I18n.locale = FastGettext.locale
+    puts 'FastGettext.locale: '+FastGettext.locale.inspect
+    puts 'FastGettext.default_locale: '+FastGettext.default_locale.inspect
+    puts 'FastGettext.default_available_locales: '+FastGettext.default_available_locales.inspect
+    puts 'I18n.locale: '+I18n.locale.inspect
+    puts 'I18n.default_locale: '+I18n.default_locale.inspect
+    puts 'I18n.available_locales: '+I18n.available_locales.inspect
+  end
+
+  # PATCH /locale/:locale REST method
+  def set_locale_session
+    if FastGettext.default_available_locales.include?(params[:locale])
+      session[:locale] = params[:locale]
+    end
+    puts 'session[:locale] = '+session[:locale]
+    redirect_to root_path
   end
 
   def store_location

@@ -66,8 +66,17 @@ class User < ActiveRecord::Base
   #
   # What do they do? do they do it efficiently, and do we need them?
 
-
-
+  # Determines the locale set for the user or the organisation he/she belongs
+  # @return String or nil 
+  def get_locale
+    if !self.language.nil?
+      return self.language.abbreviation
+    elsif !self.org.nil?
+      return self.org.get_locale
+    else 
+      return nil
+    end
+  end
 
 
   ##

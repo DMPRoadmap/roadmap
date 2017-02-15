@@ -168,11 +168,11 @@ orgs = [
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2,
-   language: Language.find_by(abbreviation: 'en-UK')},
+   language: Language.find_by(abbreviation: 'en_UK')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1,
-   language: Language.find_by(abbreviation: 'en-UK')}
+   language: Language.find_by(abbreviation: 'en_UK')}
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
 

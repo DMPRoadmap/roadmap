@@ -56,6 +56,15 @@ class Org < ActiveRecord::Base
   #
   # What do they do? do they do it efficiently, and do we need them?
 
+  # Determines the locale set for the organisation
+  # @return String or nil 
+  def get_locale
+    if !self.language.nil?
+      return self.language.abbreviation
+    else
+      return nil
+    end
+  end
 
 # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at one time.
 #       For example you can do: funder = true; project = true; school = true

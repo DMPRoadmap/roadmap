@@ -79,7 +79,7 @@ namespace :migrate do
     # seed languages to database
     languages = {
         'English(UK)' => {
-            abbreviation: 'en-UK',
+            abbreviation: 'en_UK',
             description: 'UK English language used as default',
             name: 'English(UK)',
             default_language: true

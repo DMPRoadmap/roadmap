@@ -1,16 +1,16 @@
 # [+Project:+] DMPRoadmap
 # [+Description:+] This file contains all the text present on DMPRoadmap that is not being retrieve from the database.
-# [+Copyright:+] Digital Curation Centre and University of California Curation Centre
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-en-UK:
+en_US:
   date:
     formats:
       # Use the strftime parameters for formats.
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
-      default: "%d-%m-%Y"
-      short: "%d/%m/%Y"
-      long: "%d %B, %Y"
+      default: "%m-%d-%Y"
+      short: "%m/%d/%Y"
+      long: "%B %d, %Y"
 
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
@@ -28,7 +28,7 @@ en-UK:
     formats:
       default: "%a, %b %d %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
-      custom: "%d/%m/%Y %H:%M"
+      custom: "%m/%d/%Y %H:%M"
       long: "%B %d, %Y %H:%M"
     am: "am"
     pm: "pm"
@@ -44,19 +44,13 @@ en-UK:
   unauthorized: "You need to sign in or sign up before continuing."
 
   admin:
-    language: "Language"
-    language_name: "Language name"
-    language_abbreviation: "Language abbreviation"
-    language_is_default: "Is default language"
-    yes: "Yes"
-    no: "No"
-    org_title: "Organisation name"
-    org: "Organisation"
-    orgs: "Organisations"
-    org_type: "Organisation type"
-    org_parent: "Parent organisation"
-    org_created_message: "Organisation was successfully created."
-    org_updated_message: "Organisation was successfully updated."
+    org_title: "Organization name"
+    org: "Organization"
+    orgs: "Organizations"
+    org_type: "Organization type"
+    org_parent: "Parent organization"
+    org_created_message: "Organization was successfully created."
+    org_updated_message: "Organization was successfully updated."
     org_bad_logo: "There seems to be a problem with your logo. Please upload it again."
     plans: "Plans"
     title: "Title"
@@ -82,7 +76,7 @@ en-UK:
     surname: "Surname"
     user: "User"
     user_created: 'User was successfully created.'
-    user_org_role: "User role on an Organisation"
+    user_org_role: "User role on an Organization"
     user_role_type: "User role type"
     user_role_type_created: 'User role type was successfully created.'
     user_role_type_updated: 'User role type was successfully updated.'
@@ -117,7 +111,7 @@ en-UK:
     token_permission_type: "Token Permission Type"
     permission_description: "Permission Description"
     token_permission: "Token Permission"
-    org_token_permission: "Organisation Token Permission"
+    org_token_permission: "Organization Token Permission"
 
 #    choose_api_permissions: "Choose all API Permissions that apply."
 
@@ -135,42 +129,40 @@ en-UK:
     no_section: 'No section'
 
   org_admin:
-    org_default_language: "Organisation language"
-    org_default_language_help_text: "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
     admin_area: "Admin area"
     admin_details: "Admin Details"
     template_label: "Templates"
     user_list_label: "Users"
-    org_details_label:  "Organisation details"
-    org_text: "These are the basic details for your organisation."
+    org_details_label:  "Organization details"
+    org_text: "These are the basic details for your organization."
     org_abbr_help_text_html: "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
-    org_contact_email: "Contact Email"
-    org_contact_email_help_text: "The email address of an administrator at your organisation. Your users will use this address if they have questions."
     users_list: "List of users"
     user_full_name: "Name"
     user_name: "Email address"
     last_logged_in: "Last logged in"
     how_many_plans: "How many plans?"
-    privileges: "Privileges"
-    user_text_html: "Below is a list of users registered for your organisation. You can sort the data by each field."
+    privileges: "Permissions"
+    user_text_html: "Below is a list of users registered for your organization. You can sort the data by each field."
     org_name: "Name"
     org_abbr: "Abbreviation"
     org_logo_failed_message: "Logo Upload Failed."
     org_logo: "Logo"
+    org_contact_email: "Contact Email"
+    org_contact_email_help_text: "The email address of an administrator at your organization. Your users will use this address if they have questions."
     new_org_logo: "Upload a new logo file"
     remove_logo: "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
     org_desc: "Description"
     org_banner_text: "Top banner text"
     org_target_url: "Website"
-    org_type: "Organisation type"
-    parent_org: "Main organisation"
+    org_type: "Organization type"
+    parent_org: "Main organization"
     last_updated: "Last updated"
-    desc_help_text_html: "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
+    desc_help_text_html: "<div class='tooltip_box'>Please enter information describing your organization.</div>"
     top_banner_help_text_html: "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
     template_desc_help_text_html: "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
-    abbre_help_text: "Please enter an abbreviation to your organisation's name."
+    abbre_help_text: "Please enter an abbreviation to your organization's name."
     target_url_help_text: "Please enter a valid web address."
-    name_help_text: "Please enter your organisation's name."
+    name_help_text: "Please enter your organization's name."
     guidance_label: "Guidance"
     templates_label: "Templates"
     add_option_label: "Add option"
@@ -182,8 +174,8 @@ en-UK:
     option_default_label: "Default"
     user_org_created: 'User org role was successfully created.'
     user_org_updated: 'User org role was successfully updated.'
-    api_privileges: 'API Privleges?'
-    edit_user_privileges: 'Edit User Privileges'
+    api_privileges: 'API Permissions?'
+    edit_user_privileges: 'Edit User Permissions'
 
     guidance:
       guidance_list: "Guidance list"
@@ -232,7 +224,6 @@ en-UK:
       updated_message: "Guidance group was successfully updated."
       destroyed_message: "Guidance group was successfully deleted."
     templates:
-      template_history: "Template History"
       create_template: "Create a template"
       new_label: "New template"
       template_details: "Template details"
@@ -245,7 +236,6 @@ en-UK:
       create_own_template_text_html: "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p>
               <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
       create_new_template_text_html: "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
-      template_history_text_html: "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
       desc_help_text_html: "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
       own_temp: "Own templates"
       add_phase_label: "Add new phase +"
@@ -277,17 +267,11 @@ en-UK:
       desc_label: "Description"
       actions: "Actions"
       customise: "Customise"
-      customise_label: "Customised"
       edit_customisation: "Edit customisation"
-      update_customisation: "Update Customisation"
       created_message: "Information was successfully created."
       updated_message: "Information was successfully updated."
       destroyed_message: "Information was successfully deleted."
-      read_only: "Published templates cannot be edited."
       section_delete_message: "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
-      unpublished_changes: "[Unpublished Changes]"
-      original_changed: "Yes [Original Template Has Changed]"
-
     versions:
       clone_versions_label: "Make big changes"
       edit_versions_label: "Make small changes"
@@ -332,10 +316,6 @@ en-UK:
       delete_message: "You are about to delete '%{question_text}'. Are you sure?"
       question_options_help_text_html: "Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box."
 
-
-
-
-
   helpers:
     home: "Home"
     return_home: "Return to the home page"
@@ -346,13 +326,10 @@ en-UK:
     about_us_label: "About"
     roadmap_label: "Future plans"
     help_label: "Help"
-    public_plans_label: "Public DMPs"
-
     contact_label: "Contact"
     public_plans_label: "Public DMPs"
     jisc: "The %{organisation_abbreviation} is funded by"
     format: "format"
-    change_language: "Change language"
 
     'yes': 'Yes'
     'no': 'No'
@@ -372,9 +349,8 @@ en-UK:
     valid_email: "You must enter a valid email address."
     user_details_text_html: "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
     user_details_paragraph_html: "You can edit any of the details below."
-    user_details_language: "Language"
     remember_me: "Remember me"
-    org_not_listed: "My organisation isn't listed."
+    org_not_listed: "My organization isn't listed."
 
     password: "Password"
     current_password: "Current password"
@@ -397,7 +373,7 @@ en-UK:
     api_token: 'API token'
     api_info: 'API Information'
     api_use: 'How to use the API'
-    api_granted: 'You have been granted permission by your organisation to use our API.'
+    api_granted: 'You have been granted permission by your organization to use our API.'
     api_view_token: 'Your API token and instructions for using the API endpoints can be found here.'
     api_mail_subject: 'API Permission Granted'
 
@@ -437,7 +413,6 @@ en-UK:
     note: "Note"
     me: "Me"
     view: "View"
-    history: "History"
     desc: "Description"
     save: "Save"
     preview: "Preview"
@@ -536,24 +511,24 @@ en-UK:
       archive_comment_button_label: "Remove"
       clear_by: "Note removed by"
       retracted: "Note removed by you"
-      note_created: 'Comment was successfully created.'
-      note_updated: 'Comment was successfully updated.'
-      note_removed: 'Comment has been removed.'
+      comment_created: 'Comment was successfully created.'
+      comment_updated: 'Comment was successfully updated.'
+      comment_removed: 'Comment has been removed.'
 
 
     org_type:
       funder: "Funder"
       institution: "Institution"
       project: "Project"
-      organisation: "Organisation"
-      org_name: "Organisation name"
+      organisation: "Organization"
+      org_name: "Organization name"
       school: "School"
       publisher: "Publisher"
       other_guidance: "Other guidance"
       template: "Template"
       templates: "Templates"
       child: "Unit"
-      other_org_help_text: "Please enter the name of your organisation."
+      other_org_help_text: "Please enter the name of your organization."
 
 
     project:
@@ -598,15 +573,15 @@ Select what format you wish to use and click to 'Export'.</p>"
       visibilities:
         labels:
           privately_visible: "Private"
-          organisationally_visible: "Organisational"
+          organisationally_visible: "Organizational"
           publicly_visible: "Public"
           is_test: "Test/Practice"
         help_texts:
           privately_visible: "Private (owners, co-owners, and administrators only) See our Terms of Use."
-          organisationally_visible: "Organisational (visibile to others within your organisation)"
+          organisationally_visible: "Organizational (visibile to others within your organization)"
           publicly_visible: "Public (Your DMP will appear on the Public DMPs page of this site)"
           is_test: "Test/Practice (your plan is not visible to other users) See our Terms of Use."
-          not_set: "Not specified (will be visible to others within your organisation by default)"
+          not_set: "Not specified (will be visible to others within your organization by default)"
 
       project_settings_text: "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
       project_text_when_no_project: "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
@@ -644,8 +619,8 @@ Select what format you wish to use and click to 'Export'.</p>"
         funders_question: "If applying for funding, select your research funder."
         funders_question_description: "Otherwise leave blank."
         other_funder_name_label: "Name of funder, if applicable."
-        institution_question: "To see institutional questions and/or guidance, select your organisation."
-        institution_question_description: "You may leave blank or select a different organisation to your own."
+        institution_question: "To see institutional questions and/or guidance, select your organization."
+        institution_question_description: "You may leave blank or select a different organization to your own."
         other_guidance_question: "Tick to select any other sources of guidance you wish to see."
       configure: "Configure"
       columns:
@@ -664,7 +639,6 @@ Select what format you wish to use and click to 'Export'.</p>"
         name: 'Name'
         template: 'Template'
         organisation: 'Organization'
-
       filter:
         placeholder: "Filter plans"
         submit: "Filter"
@@ -690,10 +664,10 @@ Select what format you wish to use and click to 'Export'.</p>"
         space_used_without_max: "approx. %{space_used}% of available space used"
         project_name: "Plan Name"
         project_identifier: "Plan ID"
-        grant_title: "Grant number"
+        grant_title: "Grant Number"
         principal_investigator: "Principal Investigator / Researcher"
         project_data_contact: "Plan Data Contact"
-        project_description: "Plan Description"
+        project_description: "Description"
         funder: "Funder"
         institution: "Institution"
         orcid: "Your ORCID"
@@ -775,9 +749,9 @@ Select what format you wish to use and click to 'Export'.</p>"
 
   api:
     bad_credentials: '{"Error":"Bad credentials"}'
-    org_dosent_exist: '{"Error":"Organisation does not exist"}'
-    org_not_funder: '{"Error":"Organisation specified is not a funder"}'
-    org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
+    org_dosent_exist: '{"Error":"Organization does not exist"}'
+    org_not_funder: '{"Error":"Organization specified is not a funder"}'
+    org_multiple_templates: '{"Error":"Organization has more than one template and template name unspecified or invalid"}'
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
@@ -788,7 +762,7 @@ Select what format you wish to use and click to 'Export'.</p>"
     disconnect_failure: 'We were unable to disconnect your account from %{scheme}'
     new_login_success: 'It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.'
     new_login_failure: 'We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.'
- 
+    
     schemes:
       orcid:
         logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'

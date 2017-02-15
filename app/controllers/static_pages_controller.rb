@@ -13,6 +13,11 @@ class StaticPagesController < ApplicationController
   end
 
   def roadmap
+    
+  end
+
+  def locale
+    puts 'test locale'
   end
   
   # GET /plans/publicly_available

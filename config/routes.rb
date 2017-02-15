@@ -38,17 +38,16 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
-  get '/:locale' => 'home#index', :as => 'locale_root'
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  patch 'locale/:locale' => 'application#set_locale_session', as: 'locale'
+
+  root :to => 'home#index'
     get "about_us" => 'static_pages#about_us'
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
     get "public_plans" => 'static_pages#public_plans'
     get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
-    
     get "existing_users" => 'existing_users#index'
   
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
@@ -268,5 +267,4 @@ Rails.application.routes.draw do
     # This is a legacy wild controller route that's not recommended for RESTful applications.
     # Note: This route will make all actions in every controller accessible via GET requests.
     # match ':controller(/:action(/:id))(.:format)'
-  end
 end
