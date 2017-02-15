@@ -1,0 +1,32 @@
+<!-- templates navigation -->
+<div id="project-tabs" class="nav-project-tabs">
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <% if active == "show_template" %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to t('org_admin.templates.template_details'), admin_template_template_path(template) %>
+      </li>
+    <!-- Phases -->
+    <% template.phases.each do |phase| %>
+    <% if active == phase.id %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to phase.title, admin_phase_template_path(phase.id) %>
+    </li>
+    <% end %>
+    <!-- Add another phase button -->
+    <% if current_user.can_org_admin? && (template.org.funder? || current_user.org.funder?) %>
+      <% if active == 'add_plan' %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to t('org_admin.templates.add_phase_label'), admin_addphase_template_path(template) %>
+    </li>
+    <%end%>
+  </ul>
+</div>

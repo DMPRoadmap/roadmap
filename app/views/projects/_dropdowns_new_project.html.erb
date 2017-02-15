@@ -68,27 +68,27 @@
 			 #    (they are referenced in /app/assets/javascripts/projects.js)
 		   # %>
 		
-		<%= hash_to_json_object('funders', 
+		<%= hash_to_js_json_variable('funders', 
 			@funders.collect{ |inst| 
 				{'id': inst.id, 
 				 'text': inst.name} 
 		}) %>
 		
-		<%= hash_to_json_object('institutions', 
+		<%= hash_to_js_json_variable('institutions', 
 			@institutions.collect{ |inst| 
 				{'id': inst.id, 
 				 'text': inst.name,
-				 'default': (current_user.organisation_id == inst.id)} 
+				 'default': (current_user.org.id == inst.id)} 
 		}) %>
 		
-		<%= hash_to_json_object('templates', 
+		<%= hash_to_js_json_variable('templates', 
 			@templates.collect{ |tmplt| 
 				{'organisation': tmplt.organisation_id, 
 				 'id': tmplt.id, 
 				 'text': tmplt.title} 
 		}) %>
 		
-		<%= hash_to_json_object('guidance_for_template_or_organisation',
+		<%= hash_to_js_json_variable('guidance_for_template_or_organisation',
 			@guidance_groups.collect{ |grp| 
 				{'organisation': grp.organisation_id,
 				 'templates': grp.dmptemplates.collect{ |t| t.id }, 
@@ -96,7 +96,7 @@
 				 'text': grp.name} 
 		}) %>
 		
-		<%= hash_to_json_object('guidance_always_available',
+		<%= hash_to_js_json_variable('guidance_always_available',
 			@always_guidance.collect{ |grp|
 				{'id': grp.id, 
 				 'text': grp.name} 

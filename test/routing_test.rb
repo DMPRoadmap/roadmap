@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
+  
+  include Devise::Test::IntegrationHelpers
+  
+  setup do
+    scaffold_plan
+  end
 
   # Routing for the home page
   # ------------------------------------------------------------------- 
@@ -14,26 +20,42 @@ class RoutingTest < ActionDispatch::IntegrationTest
   # ------------------------------------------------------------------- 
   test 'GET /about_us should resolve to StaticPagesController#about_us' do
     target = {controller: "static_pages", action: "about_us", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/about_us", target
+    assert_routing about_us_path(locale: I18n.locale), target
   end
 
   test 'GET /help should resolve to StaticPagesController#help' do
     target = {controller: "static_pages", action: "help", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/help", target
+    assert_routing help_path(locale: I18n.locale), target
   end
   test 'GET /roadmap should resolve to StaticPagesController#roadmap' do
     target = {controller: "static_pages", action: "roadmap", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/roadmap", target
+    assert_routing roadmap_path(locale: I18n.locale), target
   end
   test 'GET /terms should resolve to StaticPagesController#terms' do
     target = {controller: "static_pages", action: "termsuse", locale: "#{I18n.locale}"}
-
-    assert_routing "/#{I18n.locale}/terms", target
+    assert_routing terms_path(locale: I18n.locale), target
+  end
+  test 'GET /public_plans should resolve to StaticPagesController#public_plans' do
+    target = {controller: "static_pages", action: "public_plans", locale: "#{I18n.locale}"}
+    assert_routing public_plans_path(locale: I18n.locale), target
+  end
+  test 'GET /public_export should resolve to StaticPagesController#public_export' do
+    plan = Plan.first
+    target = {controller: "static_pages", action: "public_export", locale: "#{I18n.locale}", id: plan.id.to_s}
+    
+    assert_routing public_export_path(locale: I18n.locale, id: plan), target
   end
 
+  # OAuth - Based on providers identified in the en-UK locale file
+  # ------------------------------------------------------------------- 
+  test "POST /auth/[:provider]/callback should resolve to OmniauthCallbackController#[:provider]" do
+    IdentifierScheme.where(active: true).all.each do |scheme|
+      target = {controller: "users/omniauth_callbacks", action: "#{scheme.name.downcase}"}
+      assert_routing "/users/auth/#{scheme.name.downcase}/callback", target
+    end
+  end
+  
+  
   # Routing for Users (Some resolve to UsersController and others to Devise's 
   # RegistrationController)
   # ------------------------------------------------------------------- 

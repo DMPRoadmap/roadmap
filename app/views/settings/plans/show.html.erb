@@ -1,6 +1,43 @@
-<!-- This file might not be used! -->
+<h1><%= t('helpers.settings.projects.title') -%></h1>
+<p><%= t("helpers.settings.projects.desc") -%></p>
 
-<h1><%= t('helpers.settings.plans.title') -%> - <%= @plan.project.title -%></h1>
-<p><%= t('helpers.settings.plans.description') -%></p>
+<% @settings.errors.full_messages.each do |error| %>
+  <div class="error"><%= error %></div>
+<% end %>
 
-<%= render "export_formatting_form" %>
+<%= form_for(@settings, url: settings_plans_path, method: :put, as: :columns) do |f| %>
+  <%= f.hidden_field(:name, value: true) %>
+ 
+  <table class="dmp_table">
+    <thead>
+      <tr>
+        <th>
+        <%= label_tag("columns[name]", t("helpers.project.columns.name")) -%></th>
+        <% @all_columns.each do |column| %>
+          <th><%= label_tag("columns[#{column}]", t("helpers.project.columns.#{column}")) -%></th>
+        <% end %>
+        <th><%= label_tag("columns[select]", t("helpers.select_action")) -%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+        
+        <%= check_box_tag("columns[name]", true, true, disabled: true) -%></td>
+        <%
+           @all_columns.each do |column|
+             checked = @selected_columns.member?(column)
+        %>
+          <td><%= check_box_tag("columns[#{column}]", true, checked) -%></td>
+        <% end %>
+        <td><%= check_box_tag("columns[select]", true, true, disabled: true) -%></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><%= submit_tag(t("helpers.submit.save"), class: "btn btn-primary") -%></td>
+        <td><%= link_to(t('helpers.submit.cancel'), projects_path, class: "btn btn-primary") -%></td>
+        </tr>
+    </tfoot>
+  </table>
+<% end %>

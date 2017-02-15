@@ -281,6 +281,7 @@ fr:
     roadmap_label: "Feuille de route"
     help_label: "Aide"
     contact_label: "Contact"
+    public_plans_label: "DMP Publics"
     jisc: "Le DCC est financé par"
 
     sign_in: "Connexion"
@@ -311,7 +312,7 @@ fr:
     no_pass_instructions: "Instructions de confirmation non reçues ?"
     no_unlock_instructions: "Instructions de déverrouillage non reçues ?"
     send_mot de passe_info: "Instructions pour réinitialiser le mot de passe"
-    accept_terms_html: " Jaccepte les <a href=\"/%{current_locale}/terms\">Conditions générales dutilisation.</a> *"
+    accept_terms_html: " Jaccepte les <a href=\"/terms\" target=\"_blank\">Conditions générales dutilisation.</a> *"
     edit_mot de passe_info: "Si vous voulez changer de mot de passe, remplissez les champs suivants."
 
     text_area: "Zone de texte"
@@ -324,8 +325,8 @@ fr:
     error: "Erreur!"
     comment: "Commentaire"
     send: "Envoi"
-    yes: "Oui"
-    no: "Non"
+    'yes': "Oui"
+    'no': "Non"
     none: "Aucun"
     false_lowercase: "faux"
     title: "Titre"
@@ -390,6 +391,10 @@ fr:
     guidance_accordion_label: "Conseils"
     add_comment_accordion_label: "Partager la note"
     comment_accordion_label: "Notes"
+
+    answer: 
+      only_one_per_question: "Une question ne peut avoir qu'une seule réponse."
+      question_must_belong_to_correct_template: "La question doit appartenir au modèle correct."
 
     comments:
       add_comment_label: "Ajouter une note"
@@ -458,12 +463,28 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
       project_identifier_help_text: "Un identifiant approprié conforme aux prescriptions de lorganisme financeur ou de létablissement."
       project_static_info: "Ce plan sinspire de :"
       projects_title: "Mes plans"
-      project_settings_text: "Les éléments que vous sélectionnez ici safficherontt dans le tableaiu ci-après. Vous pouvez trier les données à partir de chacune de ces en-tête ou les filtrer en tapant une chaîne de caractères dans la zone de recherche."
-      project_text_when_no_project: "<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier DMP.</br>Cliquez sur le bouton Créer un plan ci-dessous pour commencer.</p>"
-      project_text_when_project: "<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi que ceux que vous partagez avec dautres.</br>Vous pouvez à tout moment les modifier, les partager, les exporter, les effacer...</p>"
-      project_details_text_html: "Cette page vous donne un aperçu de votre plan. Elle indique de quoi il sinspire et donne une idée générale des questions auxquelles vous devrez répondre."
-      project_details_editing_text_html: "Veuillez renseigner les premiers détails ci-après et cliquez sur Mettre à jour pour enregistrer"
-      confirm_delete_text: "Voulez-vous vraiment effacer ce plan ? Sil est partagé avec dautres utilisateurs, le fait de leffacer de votre liste, leffacera aussi de leur liste de plans."
+
+      visibility: "Visibilité"
+      visibilities:
+        labels:
+          privately_visible: "Privé"
+          organisationally_visible: "Organisationnel"
+          publicly_visible: "Public"
+          is_test: "Test/Pratique"
+        help_texts:
+          privately_visible: "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
+          organisationally_visible: "Avec d'autres membres de votre organisation"
+          publicly_visible: "Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce site."
+          is_test: "Test / Practice (votre plan n'est pas visible aux autres utilisateurs) Voir nos Conditions d'utilisation."
+          not_set: "Non spécifié (sera visible par d'autres personnes au sein de votre organisation par défaut)"
+
+      project_settings_text: "Les éléments que vous sélectionnez ici s'afficherontt dans le tableaiu ci-après. Vous pouvez trier les données à partir de chacune de ces en-tête ou les filtrer en tapant une chaîne de caractères dans la zone de recherche."
+      project_text_when_no_project: "<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier DMP.</br>Cliquez sur le bouton 'Créer un plan' ci-dessous pour commencer.</p>"
+      project_text_when_project: "<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi que ceux que vous partagez avec d'autres.</br>Vous pouvez à tout moment les modifier, les partager, les exporter, les effacer...</p>"
+      project_details_text_html: "Cette page vous donne un aperçu de votre plan. Elle indique de quoi il s'inspire et donne une idée générale des questions auxquelles vous devrez répondre."
+      project_details_editing_text_html: "Veuillez renseigner les premiers détails ci-après et cliquez sur 'Mettre à jour' pour enregistrer"
+      confirm_delete_text: "Voulez-vous vraiment effacer ce plan ? S'il est partagé avec d'autres utilisateurs, le fait de l'effacer de votre liste, l'effacera aussi de leur liste de plans."
+
       confirmation_text: "Confirmer les détails du plan"
       confirmation_text_desc: "Si votre agence de financement ou votre établissement német pas de prescriptions (ou si vous navez pas rempli ces options), la checklist du DCC saffichera. Celle-ci propose un ensemble de questions générales et de conseils pour un DMP. Pour en savoir plus : <a href=http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf target=_blank>DMP checklist 2013</a>."
       confirmation_button_text: "Oui, créer un plan"
@@ -509,6 +530,10 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
         principal_investigator: "Directeur de recherche / chercheur"
         data_contact: "Interlocuteur pour les données du plan"
         description: "Description"
+        visibility: "Visibilité"
+        name: 'Prénom'
+        template: 'Modèle'
+        organisation: 'Organisation'
       filter:
         placeholder: "Filtrer les plans"
         submit: "Filtrer"
@@ -528,11 +553,19 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
         principal_investigator: "Directeur de recherche / chercheur"
         project_data_contact: "Interlocuteur pour les données du plan"
         project_description: "Description"
-        funder: "Financeur"
-        institution: "Etablissement"
+        funder: "Bailleur de fonds"
+        institution: "Établissement"
+        orcid: "Votre ORCID"
+        section: "Section"
+        question: "Question"
+        answer: "Réponse"
+        selected_options: "Option(s) choisie(s)"
+        answered_by: "Réponse faite par"
+        answered_at: "Réponse faite à"
 
     settings:
       title: "Réglages"
+      unknown: "Inconnu"
       projects:
         title: "Réglages - Mes plans"
         desc: "Le tableau suivant donne la liste des colonnes que lon peut faire apparaître dans la liste Mes Plans. Choisissez celles que vous voulez voir."
@@ -540,6 +573,7 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
           no_name: "name doit figurer dans la liste des colonnes."
           duplicate: "Nom de colonne en doublon. Merci de najouter quune seule colonne."
           unknown: "Nom de colonne inconnu."
+          no_plan: "Le plan est incomplet."
       plans:
         title: Titre du plan
         reset: "Réinitialiser"
@@ -668,6 +702,7 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
   Un cours en ligne destiné aux chercheurs ou dautres acteurs désireux de gérer des données dans le cadre de leurs opérations de recherche. Ce cours comporte un certain nombre de considérations dordre pratique dans le domaine logiciel, sur lutilisation de SPSS, R, ArcGIS et NVivo.
       </li>
     </ul>"
+
     body_text_tab_1_html: "<p>Quand vous vous connectez à DMPonline, vous êtes redirigé vers la page intitulées Mes plans. À partir de là, vous pouvez éditer, partager, exporter ou supprimer lun de vos plans. Vous verrez à cet endroit aussi les plans que dautres ont partagé avec vous.</p>
     <h3>Créer un plan</h3>
     <p>Pour créer un plan, cliquez sur le bouton Créer un plan depuis votre page Mes plans ou depuis le menu du haut. Sélectionnez les options des menus déroulants et parmi les cases à cocher pour définir les questions et les conseils qui devront vous être proposés. Confirmez vos choix en cliquant sur Oui, créer un plan.</p>
@@ -787,3 +822,52 @@ Sélectionnez votre format et cliquez sur Exporter.</p>"
     <br />
     <div class=white_background>
     <p>En utilisant loutil, vous reconnaissez avoir pris connaissance et accepté les présentes conditions dutilisation.</p></div>"
+
+  identifier_schemes:
+    connect_success: 'Votre compte a été connecté à %{scheme}'
+    connect_failure: 'Nous ne pouvions pas connecter votre compte %{scheme}'
+    disconnect_success: 'Votre compte a été déconnecté de %{scheme}'
+    disconnect_failure: 'Nous avons été incapables de déconnecter votre compte %{scheme}'
+    new_login_success: "Vous ne l'avez pas configurer un compte avec nous. S'il vous plaît remplir les informations ci-dessous pour terminer votre inscription."
+    new_login_failure: "Nous avons été en mesure de vérifier votre compte. S'il vous plaît utiliser le formulaire ci-dessous pour créer un nouveau compte. Vous serez en mesure de lier votre nouveau compte par la suite."
+
+    schemes:
+      orcid:
+        logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
+        user_landing_page: 'https://orcid.org/%{id}'
+        connect: 'Créer ou Connectez votre ID ORCID'
+        connect_tooltip: 'ORCID fournit un identifiant numérique persistant qui vous distingue des autres chercheurs. En savoir plus sur orcid.org'
+        disconnect_confirmation: 'Êtes-vous certain que vous voulez déconnecter votre ID orcid?'
+        disconnect_tooltip: 'Déconnectez votre compte à partir de ORCID. Vous pouvez vous reconnecter à tout moment.'
+
+  magic_strings:
+    organisation_types:
+      funder: 'Funder'
+      organisation: 'Organisation'
+      project: 'Project'
+      institution: 'Institution'
+      research_institute: 'Research Institute'
+      template: 'Template'
+      managing_organisation: 'Digital Curation Centre'
+    user_role_types:
+      admin: 'admin'
+      org_admin: 'org_admin'
+      user: 'user'
+    roles:
+      super_admin: 'admin'
+      organisational_admin: 'org_admin'
+      user: 'user'
+      add_organisations: 'add_organisations'
+      change_org_affiliation: 'change_org_affiliation'
+      grant_permissions: 'grant_permissions'
+      modify_templates: 'modify_templates'
+      modify_guidance: 'modify_guidance'
+      use_api: 'use_api'
+      change_org_details: 'change_org_details'
+      grant_api_to_orgs: 'grant_api_to_orgs'
+    token_permission_types:
+      guidances: 'guidances'
+      plans: 'plans'
+      templates: 'templates'
+      statistics: 'statistics'
+    languages:

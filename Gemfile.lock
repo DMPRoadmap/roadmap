@@ -64,8 +64,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    amoeba (3.0.0)
-      activerecord (>= 3.2.6)
     ansi (1.5.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
@@ -108,6 +106,8 @@ GEM
     concurrent-ruby (1.0.2)
     contact_us (1.2.0)
       rails (>= 4.2.0)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     daemons (1.2.4)
     debug_inspector (0.0.2)
     devise (4.2.0)
@@ -119,6 +119,7 @@ GEM
     devise_invitable (1.7.0)
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
+    docile (1.1.5)
     dragonfly (1.0.12)
       addressable (~> 2.3)
       multi_json (~> 1.0)
@@ -135,6 +136,7 @@ GEM
       faraday_middleware (~> 0.9)
       loofah (~> 2.0)
       sax-machine (~> 1.0)
+    flag_shih_tzu (0.3.15)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -145,6 +147,7 @@ GEM
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
+    hashdiff (0.3.0)
     hashie (3.4.6)
     htmltoword (0.5.1)
       actionpack
@@ -168,6 +171,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    jwt (1.5.6)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -210,13 +214,26 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mysql2 (0.3.21)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
     omniauth (1.3.1)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
+    omniauth-oauth2 (1.4.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    omniauth-orcid (1.2.1)
+      omniauth-oauth2 (~> 1.3)
     omniauth-shibboleth (1.2.1)
       omniauth (>= 1.0.0)
     orm_adapter (0.5.0)
@@ -229,6 +246,8 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
+    rack-mini-profiler (0.10.1)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7)
@@ -271,6 +290,7 @@ GEM
     rolify (5.1.0)
     ruby-progressbar (1.8.1)
     rubyzip (1.2.0)
+    safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -279,6 +299,11 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     sax-machine (1.3.2)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -318,6 +343,10 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webmock (2.1.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.3)
     xpath (2.0.0)
@@ -329,7 +358,6 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  amoeba
   better_errors
   binding_of_caller
   byebug
@@ -340,6 +368,7 @@ DEPENDENCIES
   devise_invitable
   dragonfly
   feedjira
+  flag_shih_tzu
   friendly_id
   htmltoword
   i18n-js (>= 3.0.0.rc11)
@@ -350,11 +379,14 @@ DEPENDENCIES
   libv8
   minitest-rails-capybara
   minitest-reporters
+  mysql2 (~> 0.3.18)
   omniauth
+  omniauth-orcid
   omniauth-shibboleth
   pg
   protected_attributes
   pundit
+  rack-mini-profiler
   rack-test
   rails (= 4.2.7)
   railties
@@ -363,6 +395,7 @@ DEPENDENCIES
   responders (~> 2.0)
   rolify
   sass-rails
+  simplecov
   sqlite3
   swagger-docs
   therubyracer (>= 0.11.4)
@@ -371,6 +404,7 @@ DEPENDENCIES
   twitter-bootstrap-rails (= 2.2.8)
   uglifier
   web-console (~> 2.0)
+  webmock
   wicked_pdf
   wkhtmltopdf-binary
   yaml_db!

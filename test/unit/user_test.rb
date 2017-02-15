@@ -3,25 +3,18 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   def setup
-    @super = users(:cc_super)
-    @funder = users(:funder_admin)
-    @user = users(:complete_user)
+    scaffold_plan
     
-    @organisation = organisations(:curation_center)
-    @language = languages(I18n.default_locale)
-    
-    @dmptemplate = dmptemplates(:cc_template)
-    
-    @complete = User.new(email: 'me@example.edu', 
-                         password: 'password',
-                         firstname: 'Test',
-                         surname: 'User',
-                         orcid_id: 'test-orcid',
-                         shibboleth_id: 'test-shib',
-                         accept_terms: 'true',
-                         organisation: @organisation,
-                         api_token: 'ABC123',
-                         language: @language)
+    @user = User.create(email: 'me@example.edu', 
+                        password: 'password',
+                        password_confirmation: 'password',
+                        firstname: 'Test',
+                        surname: 'User',
+                        shibboleth_id: 'test-shib',
+                        accept_terms: 'true',
+                        org: Org.last,
+                        api_token: 'ABC123',
+                        language: Language.find_by(abbreviation: I18n.locale))
   end
 
   # ---------------------------------------------------
@@ -34,8 +27,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not User.new(firstname: 'test', surname: 'user', email: 'me@example.org').valid?
     
     # Ensure the bar minimum and complete versions are valid
-    assert User.new(email: 'me@example.edu', password: 'password').valid?
-    assert @complete.valid?
+    a = User.new(email: 'me_testing@example.edu', password: 'password')
+    assert a.valid?, "expected 'email' and 'password' to be enough to create a User - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    assert @user.valid?
+  end
+
+  # ---------------------------------------------------
+  test "email address must be unique" do
+    assert_not User.new(email: 'me@example.edu', password: 'password').valid?
   end
 
   # ---------------------------------------------------
@@ -52,86 +51,222 @@ class UserTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "name returns the correct value" do
-    # Name should return 'First Last'
-    assert @super.name.include?(@super.firstname)
-    assert @super.name.include?(@super.surname)
+    # Name should return 'First Last' if we do not specify email 
+    assert @user.name(false).include?(@user.firstname), "expected the first name to be included when specifying non-email"
+    assert @user.name(false).include?(@user.surname), "expected the last name to be included when specifying non-email"
     
+    # Should return email if we do not pass in a variable
+    assert_equal @user.email, @user.name, "expected the email by default"
+        
     # Name should return the email if no first and last are present
-    @super.firstname = nil
-    @super.surname = nil
-    assert_equal @super.email, @super.name
+    @user.firstname = nil
+    @user.surname = nil
+    assert_equal @user.email, @user.name(false), "expected the email if there is no first and last name"
   end
 
   # ---------------------------------------------------
   test "only accepts valid email addresses" do
-    assert @super.valid?
+    assert @user.valid?
     
-    @super.email = 'testing'
-    assert_not @super.valid?
-    @super.email = 'testing.tester.org'
-    assert_not @super.valid?
-    @super.email = 'testing@tester'
-    assert_not @super.valid?
+    @user.email = 'testing'
+    assert_not @user.valid?
+    @user.email = 'testing.tester.org'
+    assert_not @user.valid?
+    @user.email = 'testing@tester'
+    assert_not @user.valid?
     
-    @super.email = 'testing@tester.org'
-    assert @super.valid?
+    @user.email = 'testing@tester.org'
+    assert @user.valid?
   end
 
   # ---------------------------------------------------
   test "has default Settings::PlanList" do
-    assert_not_equal [], @super.settings(:plan_list).columns
+    assert_not_equal [], @user.settings(:plan_list).columns
   end
   
   # ---------------------------------------------------
-  test "api token gets removed" do
-    @super.api_token = 'ABCDEFGHIJKLMNOP'
-    @super.save!
-    assert_equal 'ABCDEFGHIJKLMNOP', @super.reload.api_token, "expected the api_token to have been initialized"
+  test "api token is removed after call to remove_token" do
+    @user.api_token = 'ABCDEFGHIJKLMNOP'
+    @user.save!
+    assert_equal 'ABCDEFGHIJKLMNOP', @user.reload.api_token, "expected the api_token to have been initialized"
     
-    @super.remove_token!
-    assert_equal '', @super.reload.api_token, "expected the api_token to have been removed"
+    @user.remove_token!
+    assert_equal '', @user.reload.api_token, "expected the api_token to have been removed"
   end
   
   # ---------------------------------------------------
   test "api token gets kept or created" do
-    @super.api_token = 'ABCDEFGHIJKLMNOP'
-    @super.save!
-    assert_equal 'ABCDEFGHIJKLMNOP', @super.reload.api_token, "expected the api_token to have been initialized"
+    @user.api_token = 'ABCDEFGHIJKLMNOP'
+    @user.save!
+    assert_equal 'ABCDEFGHIJKLMNOP', @user.reload.api_token, "expected the api_token to have been initialized"
     
-    @super.keep_or_generate_token!
-    assert_equal 'ABCDEFGHIJKLMNOP', @super.reload.api_token, "expected the api_token to have been kept"
+    @user.keep_or_generate_token!
+    assert_equal 'ABCDEFGHIJKLMNOP', @user.reload.api_token, "expected the api_token to have been kept"
 
-    @super.remove_token!
-    assert_equal '', @super.reload.api_token, "expected the api_token to have been removed"
+    @user.remove_token!
+    assert_equal '', @user.reload.api_token, "expected the api_token to have been removed"
     
-    @super.keep_or_generate_token!
-    assert_not_equal '', @super.reload.api_token, "expected the api_token to have been generated"
+    @user.keep_or_generate_token!
+    assert_not_equal '', @user.reload.api_token, "expected the api_token to have been generated"
   end
   
   # ---------------------------------------------------
   test "responds to all of the authentication options" do
-    admin = [:can_add_orgs?, :can_change_org?, :can_grant_api_to_orgs?]
+    super_admins = User.joins(:perms).where('perms.name = ?', 'add_organisations').to_a
+    org_admins = User.joins(:perms).where('perms.name = ?', 'modify_templates').to_a
+    users = User.includes(:perms).where(perms: {id: nil}).to_a
+        
+    # remove all of the users who also have super_admin privileges
+    org_admins = org_admins.delete_if{|u| super_admins.include?(u) }
+
+    admin_methods = [:can_add_orgs?, :can_change_org?, :can_grant_api_to_orgs?]
     
-    org_admin = [:can_grant_permissions?, :can_modify_templates?, 
-                 :can_modify_guidance?, :can_use_api?, :can_modify_org_details?]
+    org_admin_methods = [:can_grant_permissions?, :can_modify_templates?, 
+                         :can_modify_guidance?, :can_use_api?, :can_modify_org_details?]
           
     [:can_super_admin?, :can_org_admin?].each do |auth|
-      assert_respond_to @super, auth, "expected User to respond to #{auth}"
+      assert_respond_to super_admins.first, auth, "expected User to respond to #{auth}"
     end
     
     # Super Admin - permission checks
-    admin.each do |auth|
-      assert @super.send(auth), "expected that Super Admin #{auth}"
-      assert_not @funder.send(auth), "did NOT expect that Organisation Admin #{auth}"
+    admin_methods.each do |auth|
+      assert super_admins.first.send(auth), "expected that Super Admin #{auth}"
+      assert_not org_admins.first.send(auth), "did NOT expect that Organisation Admin #{auth}"
       assert_not @user.send(auth), "did NOT expect that User #{auth}"
     end
     
     # Organisational Admin - permission checks
-    org_admin.each do |auth|
-      assert @super.send(auth), "expected that the Super Admin #{auth}"
-      assert @funder.send(auth), "expected that the Organisational Admin #{auth}"
+    org_admin_methods.each do |auth|
+      assert super_admins.first.send(auth), "expected that the Super Admin #{auth}"
+      assert org_admins.first.send(auth), "expected that the Organisational Admin #{auth}"
       assert_not @user.send(auth), "did NOT expect that User #{auth}"
     end
+  end
+  
+  # ---------------------------------------------------
+  test "can only have one identifier per IdentifierScheme" do
+    @scheme = IdentifierScheme.first
+    
+    count = @user.user_identifiers.count
+    @user.user_identifiers << UserIdentifier.new(identifier_scheme: @scheme, identifier: 'abc')
+    @user.save!
+    @user.reload
+    
+    assert_equal (count + 1), @user.user_identifiers.count, "Expected the initial identifier to be saved"
+    
+    @user.user_identifiers << UserIdentifier.new(identifier_scheme: @scheme, identifier: 'abc')
+    assert_not @user.valid?, "Expected to NOT be able to add more than one identifier for the same scheme"
+    assert_equal (count + 1), @user.user_identifiers.count, "Expected the initial identifier to be saved"
+  end
+  
+  # ---------------------------------------------------
+  test "can find a user via an OAuth response" do
+    scheme = IdentifierScheme.create!(name: 'tester', active: true)
+    @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, identifier: '12345')
+    @user.save!
+    
+    class Auth
+      def provider
+        "tester"
+      end
+      def uid
+        "12345"
+      end
+    end
+    
+    assert_equal @user, User.from_omniauth(Auth.new)
+    
+    class UnknownAuth
+      def provider
+        "unknown"
+      end
+      def uid
+        "12345"
+      end
+    end
+    
+    assert_raise "'Unknown OAuth provider: unknown" do
+      User.from_omniauth(UnknownAuth.new)
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "Plans query filter is working properly" do
+    3.times do |i|
+      @user.plans << Plan.new(template: Template.last, title: "My test #{i}", 
+                              identifier: (i == 0 ? 'A' : (i == 1 ? 'B' : 'C')).to_s)
+    end
+    @user.save!
+
+    plan = @user.plans.filter("2").first
+    assert_equal "My test 2", plan.title, "Expected the plans filter to search the title"
+    
+    plan = @user.plans.filter("B").first
+    assert_equal "My test 1", plan.title, "Expected the plans filter to search the identifier fields"
+  end
+  
+  # ---------------------------------------------------
+  test "Returns the appropriate identifier for the specified scheme" do
+    3.times do |i|
+      scheme = IdentifierScheme.create!({name: "test-#{i}", active: true})
+      
+      @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, identifier: i.to_s)
+    end
+    @user.save!
+  
+    3.times do |i|
+      scheme = IdentifierScheme.find_by(name: "test-#{i}")
+      
+      assert_equal i.to_s, @user.identifier_for(scheme).identifier, "expected the identifier for #{scheme.name} to be '#{i.to_s}'"
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "can_super_admin is properly set" do
+    perms = Perm.where('name IN (?)', ['add_organisations', 'change_org_affiliation', 'grant_api_to_orgs'])
+    user = User.create!(email: 'tester@example.edu', password: 'password')
+                                                           
+    assert_not user.can_super_admin?, "expected a user with no permissions to NOT be a super_admin"
+
+    perms.each do |p|
+      last = p
+      user.perms.delete(last) unless last.nil?
+      user.perms << p
+      user.save!
+      
+      assert user.can_super_admin?, "expected the addition of the #{p.name} perm to enable the user to become a super_admin"
+    end
+      
+    user.perms = []
+    user.save!
+    
+    user.perms = perms
+    user.save!
+    assert user.can_super_admin?, "expected the addition of all the super_admin perms to allow the user to be a super_admin"
+  end
+  
+  # ---------------------------------------------------
+  test "can_org_admin is properly set" do
+    perms = Perm.where('name IN (?)', ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+    user = User.create!(email: 'tester@example.edu', password: 'password')
+                                                           
+    assert_not user.can_org_admin?, "expected a user with no permissions to NOT be a org_admin"
+
+    perms.each do |p|
+      last = p
+      user.perms.delete(last) unless last.nil?
+      user.perms << p
+      user.save!
+      
+      assert user.can_org_admin?, "expected the addition of the #{p.name} perm to enable the user to become a org_admin"
+    end
+      
+    user.perms = []
+    user.save!
+    
+    user.perms = perms
+    user.save!
+    assert user.can_org_admin?, "expected the addition of all the super_admin perms to allow the user to be a org_admin"
   end
   
   # ---------------------------------------------------
@@ -148,46 +283,56 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with Roles" do
-    role = Role.new(name: 'Added through test')
-    verify_has_many_relationship(@super, role, @super.roles.count)
+  test "can manage has_many relationship with Perms" do
+    perm = Perm.new(name: 'Added through test')
+    verify_has_many_relationship(@user, perm, @user.perms.count)
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with Projects" do
-    # TODO: need to change dmptemplate_id to dmptemplate after refactor of Project
-    project = Project.new(title: 'Test Project', dmptemplate_id: @dmptemplate.id)
-    verify_has_many_relationship(@super, project, @super.projects.count)
+  test "can manage has_many relationship with UserIdentifiers" do
+    id = UserIdentifier.new(identifier_scheme: IdentifierScheme.first, identifier: 'tester')
+    verify_has_many_relationship(@user, id, @user.user_identifiers.count)
   end
-
+  
+  # ---------------------------------------------------
+  test "can manage has_many relationship with Plans" do
+    plan = Plan.new(title: 'Test Project', template: @template)
+    verify_has_many_relationship(@user, plan, @user.plans.count)
+  end  
+  
   # ---------------------------------------------------
   test "can manage has_many relationship with Answers" do
-    # TODO: many need to remove this once we revise/remove locking
-    project = Project.new(title: 'Test Project', dmptemplate_id: @dmptemplate.id)
-    plan = Plan.new(project: project)
-    question = Question.new(text: 'testing question')
-    answer = Answer.new(plan: plan, question: question)
-    verify_has_many_relationship(@super, answer, @super.answers.count)
+    answer = Answer.new(plan: @plan, 
+                        question: @plan.template.phases.first.sections.first.questions.first, 
+                        text: 'Testing')
+    verify_has_many_relationship(@user, answer, @user.answers.count)
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with PlanSections" do
-    # TODO: many need to remove this once we revise/remove locking
-    project = Project.new(title: 'Test Project', dmptemplate_id: @dmptemplate.id)
-    plan = Plan.new(project: project)
-    section = Section.new()
-    ps = PlanSection.new(plan: plan, section: section)
-    verify_has_many_relationship(@super, ps, @super.plan_sections.count)
+  test "can manage has_many relationship with Notes" do
+    answer = Answer.create(plan: @plan, 
+                        question: @plan.template.phases.first.sections.first.questions.first, 
+                        text: 'Testing')
+    note = Note.new(answer: answer, text: 'Testing')
+    verify_has_many_relationship(@user, note, @user.notes.count)
   end
   
   # ---------------------------------------------------
-  test "can manage belongs_to relationship with Organisation" do
-    verify_belongs_to_relationship(@super, @organisation)
+  test "can manage has_many relationship with ExportedPlans" do
+    plan = ExportedPlan.new(plan: @plan, format: ExportedPlan::VALID_FORMATS.last)
+    verify_has_many_relationship(@user, plan, @user.exported_plans.count)
+  end
+  
+  # ---------------------------------------------------
+  test "can manage belongs_to relationship with Org" do
+    org = Org.new(name: 'Tester', abbreviation: 'TST')
+    verify_belongs_to_relationship(@user, org)
   end
 
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Language" do
-    verify_belongs_to_relationship(@super, @language)
+    language = Language.new(name: 'esperonto', abbreviation: 'zz')
+    verify_belongs_to_relationship(@user, language)
   end
 
 end

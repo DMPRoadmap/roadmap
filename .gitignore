@@ -29,6 +29,9 @@ db/data.yml
 # Ignore the test DB
 db/test.sqlite3
 
+# Ignore the SimpleCov output
+coverage
+
 # Ignore database configuration and token secrets
 config/database.yml
 config/secrets.yml

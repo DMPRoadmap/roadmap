@@ -18,7 +18,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should create organisation" do
-    assert_difference('Organisation.count') do
+    assert_difference('Org.count') do
       post :create, organisation: { abbreviation: @organisation.abbreviation, banner_file_id: @organisation.banner_file_id, description: @organisation.description, domain: @organisation.domain, logo_file_id: @organisation.logo_file_id, name: @organisation.name, stylesheet_file_id: @organisation.stylesheet_file_id, target_url: @organisation.target_url, type_id: @organisation.type_id, wayfless_entite: @organisation.wayfless_entite }
     end
 
@@ -41,7 +41,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should destroy organisation" do
-    assert_difference('Organisation.count', -1) do
+    assert_difference('Org.count', -1) do
       delete :destroy, id: @organisation
     end
 
