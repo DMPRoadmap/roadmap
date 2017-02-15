@@ -4,13 +4,13 @@
 
     <!-- Project details -->
     <li <%= if active == "details" then "class=active" end %> >
-        <%= link_to t("helpers.project.tab_plan"), plan_path(plan) %>
+        <%= link_to t("helpers.project.tab_plan"), "/plans/" + plan_data["id"].to_s %>
     </li>
 
     <!-- Phases -->
-    <% plan.template.phases.each do |phase| %>
-        <li <%= if active == phase.title then "class=active" end%> >
-          <%= link_to phase.title,  edit_plan_phase_path(plan,phase) %>
+    <% plan_data["template"]["phases"].each do |phase| %>
+        <li <%= if active == phase["title"] then "class=active" end%> >
+            <%= link_to phase["title"],  "/plans/" + plan_data["id"].to_s + "/phases/" + phase["id"].to_s + "/edit" %>
       </li>
     <% end %>
 

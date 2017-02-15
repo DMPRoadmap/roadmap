@@ -4,7 +4,7 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
-	extend FriendlyId
+#	extend FriendlyId
 
 	##
   # Associations
@@ -20,7 +20,7 @@ class Phase < ActiveRecord::Base
 
   ##
   # sluggable title
-	friendly_id :title, use: [:slugged, :history, :finders]
+	#friendly_id :title, use: [:slugged, :history, :finders]
 
 
   validates :title, :number, :template, presence: true

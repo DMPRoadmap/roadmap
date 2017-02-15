@@ -1,4 +1,5 @@
 class PhasesController < ApplicationController
+  require 'pp'
 
   after_action :verify_authorized
 
@@ -9,7 +10,7 @@ class PhasesController < ApplicationController
   DROPDOWN = QuestionFormat.where(title: "Dropdown").first.id
   MULTI = QuestionFormat.where(title: "Multi select box").first.id
   
-	# GET /phases/1/edit
+	# GET /plans/PLANID/phases/PHASEID/edit
 	def edit
     
     @textarea = TEXTAREA
@@ -21,19 +22,12 @@ class PhasesController < ApplicationController
 
     @plan = Plan.find(params[:plan_id])
     authorize @plan
-		@phase = Phase.where(template_id: @plan.template_id, slug: params[:id]).first
 
-    @sections = @phase.sections
-    @section_answers = Hash.new
-    @phase.sections.each do |section|
-      nanswers = 0
-      questions = section.questions
-      questions.each do |q| 
-        answers = q.answers.where(plan_id: @plan)
-        nanswers += answers.count
-      end
-      @section_answers[section.id] = nanswers
-    end
+    @plan_data = @plan.to_hash
+
+    phase_id = params[:id].to_i
+		@phase = Phase.find(phase_id)
+    @phase_data = @plan_data["template"]["phases"].select {|p| p["id"] == phase_id}.first
 
     if !user_signed_in? then
       respond_to do |format|
@@ -42,6 +36,20 @@ class PhasesController < ApplicationController
 		end
 
 	end
+  
+  
+	# GET /plans/PLANID/phases/PHASEID/status.json
+  def status
+    @plan = Plan.find(params[:plan_id])
+    authorize @plan
+    if user_signed_in? && @plan.readable_by?(current_user.id) then
+      respond_to do |format|
+        format.json { render json: @plan.status }
+      end
+    else
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
+  end
 
 
 end

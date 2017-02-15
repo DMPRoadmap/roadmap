@@ -134,6 +134,7 @@ Rails.application.routes.draw do
       resources :phases do
         member do
           get 'edit'
+          get 'status'
           post 'update'
         end
       end

@@ -5,6 +5,7 @@ class Plan < ActiveRecord::Base
   has_many :phases, through: :template
   has_many :sections, through: :phases
   has_many :questions, through: :sections
+  has_many :themes, through: :questions
   has_many :answers, dependent: :destroy
   has_many :notes, through: :answers
   has_many :roles, dependent: :destroy
@@ -35,7 +36,7 @@ class Plan < ActiveRecord::Base
 
   #TODO: work out why this messes up plan creation : 
   #   briley: Removed reliance on :users, its really on :roles (shouldn't have a plan without at least a creator right?) It should be ok like this though now
-  validates :template, :title, presence: true
+#  validates :template, :title, presence: true
 
   ##
   # Constants
@@ -112,7 +113,6 @@ class Plan < ActiveRecord::Base
   def set_possible_guidance_groups
     # find all the themes in this plan
     # and get the guidance groups they belong to
-    logger.debug "RAY: set_possible_guidance_groups"
     ggroups = []
     self.template.phases.each do |phase|
       phase.sections.each do |section|
@@ -139,7 +139,6 @@ class Plan < ActiveRecord::Base
   # @return array of hashes with orgname, themes and the guidance itself
   def guidance_for_question(question)
     guidances = []
-    logger.debug "RAY: guidance_for_question"
 
     # add in the guidance for the template org
     unless self.template.org.nil? then
@@ -307,7 +306,8 @@ class Plan < ActiveRecord::Base
     return status
   end
 
-
+  
+  
   ##
   # defines and returns the details for the plan
   # details consists of a hash of: project_title, phase_title, and for each section,
@@ -521,7 +521,7 @@ class Plan < ActiveRecord::Base
 
     margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
     page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-    available_height = page_height * self.dmptemplate.settings(:export).max_pages
+    available_height = page_height * self.template.settings(:export).max_pages
 
     percentage = (used_height / available_height) * 100
     (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
@@ -589,14 +589,11 @@ class Plan < ActiveRecord::Base
   #
   # @return [Organisation, nil] the funder for project, or nil if none exists
   def funder
-    if self.dmptemplate.nil? then
-      return nil
-    end
-    template_org = self.dmptemplate.organisation
-    if template_org.organisation_type.name == constant("organisation_types.funder").downcase
-      return template_org
+    template = self.template
+    if template.customization_of
+      return template.customization_of.org
     else
-      return nil
+      return template.org
     end
   end
 
@@ -801,8 +798,172 @@ class Plan < ActiveRecord::Base
   def template_owner
     self.dmptemplate.try(:organisation).try(:abbreviation)
   end
+  
+
+
+  ##
+  #
+  # The following method is to help optimise data access.
+  # Even using includes or joins the data access gets performed lazily
+  # and the caching appears to be forgotten at times over view/partial boundaries
+  # To get round it we can pull everything out into a hash and use that
+  # which guarantees no further DB accesses.
+  #
+  # The serializable_hash method only pulls in one level but this includes
+  # attributes which are "through" other attributes. So we do a basic 
+  # conversion to hash and then a "fixup" which knits the pieces together into
+  # the structure which we really want.
+  #
+  def to_hash
+    plan_data = self.serializable_hash(
+        include: [ :template, :phases, :sections,
+                   :answers, :notes, :roles, :users, :questions, 
+                   :plan_guidance_groups, :guidance_groups]
+      )
+
+    question_hash = {}
+
+    plan_data["questions"].each do |q|
+      question_hash[q["id"]] = q
+    end
+
+    question_ids = question_hash.keys
+
+    suggested_answers = SuggestedAnswer.where(question_id: question_ids).where.not(text: '')
+    suggested_answers.each do |sa|
+      question_hash[sa.question_id]["suggested_answer"] = sa.serializable_hash
+    end
+
+    qf_hash = {}
+    QuestionFormat.all.each do |qf|
+      qf_hash[qf.id] = qf.serializable_hash
+    end
+    question_hash.values.each do |q|
+      q["question_format"] = qf_hash[q["question_format_id"]]
+    end
+
+    gg_ids = plan_data["plan_guidance_groups"].select{|pgg| pgg["selected"]}.map{|pgg| pgg["guidance_group_id"]}
+    gg_hash = {}
+
+    theme_guidance = {} 
+
+    ggs = GuidanceGroup.find(gg_ids).each do |gg|
+       gg_hash[gg.id] = gg.serializable_hash
+    end
+
+    guidances = Guidance.joins(:themes).select('guidances.guidance_group_id, guidances.text, themes.title').where(guidance_group: gg_ids).to_a
+    guidances.each do |g|
+      title = g.title
+      if !theme_guidance.has_key?(title)
+        theme_guidance[title] = Array.new
+      end
+        theme_guidance[title] << {
+          "text" => g.text,
+          "org" => gg_hash[g.guidance_group_id]["name"]
+        }
+    end
+
+    plan_data["questions"].each do |q|
+      qg = {}
+      if q.has_key?("themes")
+        q["themes"].each do |t|
+          title = t["title"]
+          qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
+        end
+        q["theme_guidance"] = qg
+      end
+    end
+
+    fixup_hash(plan_data)
+
+    return plan_data
+  end
+
+
 
   private
+
+  # reconnect the various parts of the hash so that:
+  # plan = {
+  #           template:
+  #           phases:
+  #           sections:
+  #           questions:
+  #           answers
+  #         }
+  #
+  # becomes a nested structure like so
+  #
+  # plan = { template: {
+  #                      phases: [ {
+  #                                   sections: [ {
+  #                                                questions: [ {
+  #                                                              answers: [...]
+  #
+  def fixup_hash(plan)
+    # sort out guidance first so we can add it to the questions
+    # before rolling up
+    ghash = {}
+    plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
+    plan["plan_guidance_groups"].each do |pgg|
+      pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
+    end
+
+    rollup(plan, "notes", "answer_id", "answers")
+    rollup(plan, "answers", "question_id", "questions")
+    rollup(plan, "questions", "section_id", "sections", true)
+    rollup(plan, "sections", "phase_id", "phases", true)
+
+    plan["template"]["phases"] = plan.delete("phases")
+    plan["template"]["phases"].sort! { |x,y| x["number"].to_i <=> y["number"].to_i }
+
+    plan["template"]["org"] = Org.find(plan["template"]["org_id"]).serializable_hash()
+
+    # when editing phases we want the number of questions answered
+    # so calculate that now
+    plan["template"]["phases"].each do |phase|
+      phase["sections"].each do |section|
+        nanswers = 0
+        section["questions"].each do |question|
+          if question.has_key?("answers") && question["answers"].first["text"].present?
+            nanswers += 1
+          end
+        end
+        section["nanswers"] = nanswers
+      end
+    end
+
+  end
+
+
+  # find all object under src_plan_key
+  # merge them into the items under obj_plan_key using
+  # super_id = id
+  # so we have answers which each have a question_id
+  # rollup(plan, "answers", "quesiton_id", "questions")
+  # will put the answers into the right questions.
+  # sort determines whether the items being rolled up should be sorted by number field
+  def rollup(plan, src_plan_key, super_id, obj_plan_key, sort = false)
+    id_to_obj = Hash.new()
+    plan[src_plan_key].each do |o|
+      id = o[super_id]
+      if !id_to_obj.has_key?(id)
+        id_to_obj[id] = Array.new
+      end
+      id_to_obj[id]  << o
+    end
+
+    plan[obj_plan_key].each do |o|
+      id = o["id"]
+      if id_to_obj.has_key?(id)
+        if sort
+          id_to_obj[ id ].sort! { |x,y| x["number"].to_i <=> y["number"].to_i }
+        end
+        o[src_plan_key] = id_to_obj[ id ]
+      end
+    end
+    plan.delete(src_plan_key)
+  end
 
   ##
   # adds a user to the project
