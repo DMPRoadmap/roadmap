@@ -52,7 +52,4 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by(@user.id)
   end
 
-  def warning?
-    @plan.readable_by(@user.id)
-  end
 end

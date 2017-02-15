@@ -52,18 +52,6 @@ ActiveAdmin.register User do
           end
 		   	end
         row :other_organisation
-  		#	row I18n.t('admin.user_status'), :user_status_id do |us|
-  		#		if !us.user_status.nil? then
-  		#			link_to us.user_status.name, [:admin, us.user_status]
-  		#		end
-  		#	end
-  		#	row I18n.t('admin.user_type'), :user_type_id do |ut|
-  		#		if !ut.user_type.nil? then
-  		#			link_to ut.user_type.name, [:admin, ut.user_type]
-  		#		else
-  		#			'-'
-  		#		end
-  		#	end
   			row I18n.t('admin.user_role') do
   				(user.roles.map{|ro| link_to ro.name, [:admin, ro]}).join(', ').html_safe
   			end
@@ -88,12 +76,6 @@ ActiveAdmin.register User do
                     :as => :select, 
                     :collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
   			f.input :other_organisation
-  		#	f.input :user_status_id, :label => I18n.t('admin.user_status'),
-  		#				:as => :select,
-  		#				:collection => UserStatus.find(:all, :order => 'name ASC').map{|us|[us.name, us.id]}
-  		#	f.input :user_type_id, :label => I18n.t('admin.user_type'),
-  		#				:as => :select,
-  		#				:collection => UserType.find(:all, :order => 'name ASC').map{|ut|[ut.name, ut.id]}
   			f.input :role_ids, :label => I18n.t('admin.user_role'),
   							:as => :select,
   							:multiple => true,

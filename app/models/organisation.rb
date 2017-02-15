@@ -9,7 +9,6 @@ class Organisation < ActiveRecord::Base
   has_many :dmptemplates
   has_many :sections
   has_many :users
-  has_many :option_warnings
   has_many :suggested_answers
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions"
 
@@ -22,8 +21,8 @@ class Organisation < ActiveRecord::Base
 	accepts_nested_attributes_for :dmptemplates
   accepts_nested_attributes_for :token_permission_types
 
-	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo, :domain, 
-                  :logo_file_name, :name, :stylesheet_file_id, :target_url, 
+	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
+                  :logo_file_name, :name, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id, :contact_email
 
@@ -146,20 +145,6 @@ class Organisation < ActiveRecord::Base
 			return self
 		else
 			return parent.root
-		end
-	end
-
-  ##
-  # takes in the id of, and returns an OptionWarning
-  #
-  # @param option_id [number] the id of the desired warning
-  # @return [OptionWarning] the specified warning
-	def warning(option_id)
-		warning = option_warnings.find_by_option_id(option_id)
-		if warning.nil? && !parent.nil? then
-			return parent.warning(option_id)
-		else
-			return warning
 		end
 	end
 

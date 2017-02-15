@@ -96,15 +96,6 @@
                             <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :id => "options-#{question.id}" } %>
 						<% end %>
 					<% end %>
-
-					<!--div id="option-warning-<%#= question.id %>" class="alert" style="display:none">
-					<%# question.options.order("number").each do |option| %>
-						<%# warning = @plan.warning(option.id) %>
-						<%# unless warning.nil? then %>
-							<p id="<%#= option.id %>-warning" data-option="<%#= option.id %>"><%#= warning %></p>
-						<%# end %>
-					<%# end %> -->
-                    
                     <!-- Comment text area for the multiple choice answers-->
                     <% if question.option_comment_display == true then%>
                         <%= label_tag("answer-text-#{question.id}".to_sym, t("helpers.comment")) %>
