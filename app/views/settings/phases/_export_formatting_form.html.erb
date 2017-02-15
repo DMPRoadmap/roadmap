@@ -8,7 +8,7 @@
   <div class="error"><%= error %></div>
 <% end %>
 
-<%= form_for(@export_settings, url: settings_plan_path(plan), method: :put, as: :export, remote: true) do |f| %>
+<%= form_for(@export_settings, url: settings_phase_path(plan), method: :put, as: :export, remote: true) do |f| %>
   <div class="div_right">
     <%= submit_tag(t("helpers.settings.plans.reset"), class: "btn btn-primary") %>
     <%= submit_tag(t("helpers.save"), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}") %>
