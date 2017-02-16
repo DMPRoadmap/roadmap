@@ -1,33 +1,28 @@
 class ContactsController < ContactUs::ContactsController
+  respond_to :html
 
-  # in order to i18 this file recaptcha gem has to be updated
-
+  ##
+  # create
+  #
+  # POST - Create a Contact Request
 	def create
 		@contact = ContactUs::Contact.new(params[:contact_us_contact])
 		if (!user_signed_in?)
-			if verify_recaptcha(:message => "You have not added the validation words correctly") && @contact.save
+			if verify_recaptcha(message: "You have not added the validation words correctly") && @contact.save
 				flash[:notice] = t('contact_us.notices.success')
-				if user_signed_in? then
-			  		redirect_to :controller => 'projects', :action => 'index'
-			  	else
-			  		redirect_to(root_path)
-			  	end
-			else
-			  	flash[:alert]  = t('contact_us.notices.error')
-			  	render_new_page
+			  redirect_to(root_path)
+			else # recaptcha invalid or contact failed to save
+        flash[:alert]  = t('contact_us.notices.error')
+        render_new_page
 			end
-		else
+		else # no user signed in
 			if @contact.save
 				flash[:notice] = t('contact_us.notices.success')
-				if user_signed_in? then
-			  		redirect_to :controller => 'projects', :action => 'index'
-			  	else
-			  		redirect_to(root_path)
-			  	end
-			else
-			  	flash[:alert] = t('contact_us.notices.error')
-			  	render_new_page
+			  redirect_to :controller => 'projects', :action => 'index'
+			else # contact failed to save
+			  flash[:alert] = t('contact_us.notices.error')
+			  render_new_page
 			end
-		end		
+		end
 	end
 end

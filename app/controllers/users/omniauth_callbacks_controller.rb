@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       handle_omniauth(scheme)
     end
   end
-
+  
   ##
   # Processes callbacks from an omniauth provider and directs the user to 
   # the appropriate page:

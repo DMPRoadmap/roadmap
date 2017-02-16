@@ -56,7 +56,7 @@ ActiveAdmin.register GuidanceGroup do
             f.input :name
             f.input :organisation_id, :label => I18n.t('admin.org_title'), 
                     :as => :select, 
-                    :collection => Organisation.order('name').map{|orgp|[orgp.name, orgp.id]}
+                    :collection => Org.order('name').map{|orgp|[orgp.name, orgp.id]}
             f.input :published    
             f.input :optional_subset 
 		end

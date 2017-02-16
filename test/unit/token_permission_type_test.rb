@@ -3,14 +3,13 @@ require 'test_helper'
 class TokenPermissionTypeTest < ActiveSupport::TestCase
   
   def setup
-    @tpt = token_permission_types(:plans_token_type)
-    @org = organisations(:curation_center)
+    @tpt = TokenPermissionType.create(token_type: 'testing', text_description: 'abcd')
   end
   
   # ---------------------------------------------------
   test "required fields are required" do
     assert_not TokenPermissionType.new.valid?, "was expecting TokenPermissionType.token_type to be required!"
-    assert TokenPermissionType.new(token_type: 'testing').valid?, "was only expecting TokenPermissionType.token_type to be required!"
+    assert TokenPermissionType.new(token_type: 'tester').valid?, "was only expecting TokenPermissionType.token_type to be required!"
   end
   
   # ---------------------------------------------------
@@ -19,9 +18,14 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "to_s returns the token_type" do
+    assert_equal @tpt.token_type, @tpt.to_s
+  end
+  
+  # ---------------------------------------------------
   test "can CRUD" do
-    tpt = TokenPermissionType.create(token_type: 'testing')
-    assert_not tpt.id.nil?, "was expecting to be able to create a new TokenPermissionType"
+    tpt = TokenPermissionType.create(token_type: 'tester')
+    assert_not tpt.id.nil?, "was expecting to be able to create a new TokenPermissionType - #{tpt.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     tpt.text_description = 'testing updates'
     tpt.save!
@@ -31,9 +35,9 @@ class TokenPermissionTypeTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "can manage has_many relationship with OrgTokenPermissions" do
-    org = Organisation.new(name: 'Testing')
-    verify_has_many_relationship(@tpt, org, @tpt.organisations.count)
+  test "can manage has_many relationship with Org" do
+    org = Org.new(name: 'Testing')
+    verify_has_many_relationship(@tpt, org, @tpt.orgs.count)
   end
 
 end

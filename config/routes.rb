@@ -23,10 +23,9 @@ Rails.application.routes.draw do
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
   
-  ActiveAdmin.routes(self)
+  #ActiveAdmin.routes(self)
 
   #organisation admin area
-  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
   resources :users, :path => 'org/admin/users', only: [] do
     collection do
       get 'admin_index'
@@ -47,12 +46,15 @@ Rails.application.routes.draw do
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
+    get "public_plans" => 'static_pages#public_plans'
+    get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
+    
     get "existing_users" => 'existing_users#index'
   
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
     
-    resources :organisations, :path => 'org/admin', only: [] do
+    resources :orgs, :path => 'org/admin', only: [] do
       member do
         get 'children'
         get 'templates'
@@ -90,7 +92,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :dmptemplates, :path => 'org/admin/templates', only: [] do
+    resources :templates, :path => 'org/admin/templates', only: [] do
       member do
         get 'admin_index'
         get 'admin_template'
@@ -99,6 +101,7 @@ Rails.application.routes.draw do
         get 'admin_phase'
         get 'admin_previewphase'
         get 'admin_cloneversion'
+        get 'admin_template_history'
         delete 'admin_destroy'
         delete 'admin_destroyversion'
         delete 'admin_destroyphase'
@@ -119,47 +122,80 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :answers, only: :create
+    resources :answers, only: :update
 
-    resources :comments, only: [:create, :update] do
+    resources :notes, only: [:create, :update] do
       member do
         put 'archive'
       end
     end
 
-    resources :projects do
-      resources :plans , only: [:edit, :update] do
+    resources :plans do
+      resources :phases do
         member do
+          get 'edit'
           get 'status'
-          get 'locked'
-          get 'answer'
-          #get 'edit'
-          post 'delete_recent_locks'
-          post 'lock_section', constraints: {format: [:html, :json]}
-          post 'unlock_section', constraints: {format: [:html, :json]}
-          post 'unlock_all_sections'
-          get 'export'
-          get 'warning'
-          get 'section_answers'
+          post 'update'
         end
       end
 
+
       member do
+        get 'status'
+        get 'locked'
+        get 'answer'
+        put 'update_guidance_choices'
+        post 'delete_recent_locks'
+        post 'lock_section', constraints: {format: [:html, :json]}
+        post 'unlock_section', constraints: {format: [:html, :json]}
+        post 'unlock_all_sections'
+        get 'export'
+        get 'warning'
+        get 'section_answers'
         get 'share'
         get 'export'
         post 'invite'
       end
+
       collection do
         get 'possible_templates'
         get 'possible_guidance'
       end
     end
 
-    resources :project_groups, only: [:create, :update, :destroy]
+#    resources :projects do
+#      resources :plans , only: [:edit, :update] do
+#        member do
+#          get 'status'
+#          get 'locked'
+#          get 'answer'
+#          #get 'edit'
+#          post 'delete_recent_locks'
+#          post 'lock_section', constraints: {format: [:html, :json]}
+#          post 'unlock_section', constraints: {format: [:html, :json]}
+#          post 'unlock_all_sections'
+#          get 'export'
+#          get 'warning'
+#          get 'section_answers'
+#        end
+#      end
+#
+#      member do
+#        get 'share'
+#        get 'export'
+#        post 'invite'
+#      end
+#      collection do
+#        get 'possible_templates'
+#        get 'possible_guidance'
+#      end
+#    end
+
+    resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
-      resource :projects, only: [:show, :update]
-      resources :plans, only: [:show, :update]
+      resource :plans, only: [:show, :update]
+      resources :phase, only: [:show, :update]
     end
 
     resources :token_permission_types, only: [:index]
@@ -167,8 +203,8 @@ Rails.application.routes.draw do
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
         resources :guidance_groups, only: [:index, :show]
-        resources :plans, only: :create, controller: "projects", path: "plans"
-        resources :templates, only: :index, controller: "dmptemplates", path: "templates"
+        resources :plans, only: :create
+        resources :templates, only: :index
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do
           member do
             get :users_joined

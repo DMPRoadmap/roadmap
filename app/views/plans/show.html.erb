@@ -1,27 +1,10 @@
 <%- model_class = Plan -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:locked) %>:</strong></dt>
-  <dd><%= @plan.locked %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:project_id) %>:</strong></dt>
-  <dd><%= @plan.project_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:version_id) %>:</strong></dt>
-  <dd><%= @plan.version_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:slug) %>:</strong></dt>
-  <dd><%= @plan.slug %></dd>
-</dl>
+<!-- render the project title -->
+<%= render :partial => "plan_title", locals: {plan: @plan, plan_data: @plan_data} %>
 
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              plans_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_project_plan_path(@plan), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              plan_path(@plan),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('helpers.project.share.confirmation_question'))) },
-              :class => 'btn btn-danger' %>
-</div>
+<!-- render navigation tabs for the project-->
+<%= render :partial => "plan_nav_tabs", locals: {plan: @plan, plan_data: @plan_data, active: "details"} %>
+
+<!-- project details -->
+<%= render :partial => "plan_details", locals: {plan: @plan, plan_data: @plan_data, selected_guidance_groups: @selected_guidance_groups} %>

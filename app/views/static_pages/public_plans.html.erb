@@ -1,0 +1,41 @@
+<%- model_class = Plan -%>
+<h1>
+	<%= raw t("public_plans_page.title") %>
+</h1>
+
+<!-- if the user has projects -->
+<% if @plans.count > 0 %>
+	<p>
+		<%= raw t("public_plans_page.body_text_html", {app_name: Rails.configuration.branding[:application][:name]}) %>
+	</p>
+    
+	<table id="dmp_table" class="dmp_table tablesorter">
+	  <thead>
+			<tr>
+			  <% ['name', 'template', 'organisation', 'owner'].each do |column| %>
+			    <%= plan_list_column_heading(column) %>
+			  <% end %>
+			  <th class="dmp_th_small"></th>
+			</tr>
+	  </thead>
+	  <tbody>
+      <% @plans.each do |plan| %>
+				<tr>
+				  <% ['non_link_name', 'template', 'organisation', 'owner'].each do |column| %>
+				    <%= plant_list_column_body(column, plan) %>
+				  <% end %>
+
+				  <td class="dmp_td_medium">
+						<%= link_to t("helpers.project.tab_export"), "#{public_export_path(plan)}", :class => "dmp_table_link" %>
+				  </td>
+				</tr>
+      <% end %>
+	  </tbody>
+	</table>
+	
+<!-- if the user does not have projects -->
+<% else %>
+	<p>
+		<%= raw t("public_plans_page.no_plans_body_text_html")%>
+	</p>
+<% end %>

@@ -499,6 +499,12 @@ hr.orange_break_line{
 }
 
 
+/**** Substance Editor ***/
+.sc-rich-text-area {
+	border: 1px solid #ddd;
+  padding: 20px 10px;
+  padding-bottom: 0px;
+}
 
 
 
@@ -743,6 +749,11 @@ input#user_remember_me, input#user_accept_terms{
   width:10px;
   margin-top:4px;
 }
+
+.radio-label {
+  margin-left: 10px;
+}
+
 
 .sign_up_org_label{
   margin: 0 0 6px 0;
@@ -1201,6 +1212,49 @@ table.dmp_details_table .text_field{
 
 .div_clear{
   clear:both;
+}
+
+#plan-guidance-accordion {
+  & > .accordion-group {
+    background-color:@white_colour;
+    border-color: @white_colour;
+    border:none !important;
+    box-shadow:none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow:none !important;
+
+    & > .accordion-heading {
+      background-color:@white_colour;
+      border-bottom: 1px solid @orange_colour;
+      min-height: 50px;
+
+      a {
+        padding-left:0px;
+        padding-right:0px;
+      }
+
+      h3 {
+        float: left;
+        margin-top: 0px;
+        min-width:100%;
+      }
+
+      span {
+        margin: 7px;
+      }
+    }
+  }
+
+  .accordion-project {
+    clear: both;
+  }
+
+  .accordion-inner {
+    border:none !important;
+    padding-right: 0px;
+    padding-left:0px;
+  }
+
 }
 
 #project-accordion {

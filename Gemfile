@@ -15,8 +15,9 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-gem 'pg'
 gem 'mysql2', '~> 0.3.18'
+gem 'pg'
+gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
 #    JS <-> RUBY BRIDGE
@@ -26,10 +27,6 @@ gem 'therubyracer', '>=0.11.4', platforms: :ruby
 # ------------------------------------------------
 #    JSON DSL - USED BY API
 gem 'jbuilder'
-
-# ------------------------------------------------
-#    CLONE ACTIVERECORD MODELS AND ASSOCIATIONS
-gem 'amoeba'
 
 # ------------------------------------------------
 #    SLUGS/PERMALINKS
@@ -47,6 +44,7 @@ gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
 gem 'omniauth-orcid'
+
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration
@@ -63,7 +61,7 @@ gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NO
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
-gem 'contact_us', '>= 1.2.0'            # COULD BE EASILY REPLACED WITH OUR OWN CODE
+gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha'
 gem 'dragonfly'                         # LOGO UPLOAD
 
@@ -81,6 +79,7 @@ gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 # ------------------------------------------------
 #     INTERNATIONALIZATION
 gem "i18n-js", ">= 3.0.0.rc11"          #damodar added TODO: explain
+gem 'gettext_i18n_rails', '~> 1.8'
 
 # ------------------------------------------------
 #     API
@@ -105,12 +104,15 @@ group :test do
   gem 'rack-test'
   gem 'webmock'
   gem 'sqlite3'
+  gem 'simplecov', require: false
 end
 
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'web-console', '~>2.0'
+  gem 'rack-mini-profiler'
+  #gem 'flamegraph'
 end
 
 group :production do

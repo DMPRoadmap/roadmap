@@ -37,6 +37,8 @@ Rails.application.configure do
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 
+  config.log_level = :debug
+
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
@@ -48,4 +50,10 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = false
 
   BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
+
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+    ActiveRecord::Base.logger.level = Logger::DEBUG
+  end
 end

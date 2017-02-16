@@ -37,9 +37,9 @@ class IdentifierSchemesTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with Users" do
-    usr = User.new(email: 'me@example.edu', password: 'password')
-    verify_has_many_relationship(@scheme, usr, @scheme.users.count)
+  test "can manage has_many relationship with UserIdentifiers" do
+    ui = UserIdentifier.new(user: User.first, identifier: 'tester')
+    verify_has_many_relationship(@scheme, ui, @scheme.users.count)
   end
 
 end

@@ -1,0 +1,40 @@
+<!-- show template details A template is passed as an argument-->
+
+<% if template.org.not_funder?  || current_user.org.funder? then %>
+  <h3><!-- edit template button -->
+    <div class="move_2_right">
+      <%= link_to t("org_admin.templates.edit_details"), '# ', class: "btn btn-primary", id: "edit_template_button"%>
+    </div>
+  </h3>
+<% end %>
+<br/>
+
+<table class="dmp_details_table">
+  <tr>
+    <td class="first_template"><%= t('org_admin.templates.title_label') %></td>
+    <td><%= template.title %></td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= t('org_admin.templates.desc_label') %></td>
+    <td><% if !template.description.nil? && template.description != "" then %>
+        <%= raw template.description %>
+      <% else %>
+         -
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= t('org_admin.templates.published_label') %></td>
+    <td>
+      <%= template.published %>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= t('org_admin.templates.created') %></td>
+    <td><%= l template.created_at.to_date, formats: :short %></td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= t('org_admin.templates.last_updated') %></td>
+    <td class="phase_table_last_column"><%= l template.updated_at.to_date, formats: :short %></td>
+  </tr>
+</table>

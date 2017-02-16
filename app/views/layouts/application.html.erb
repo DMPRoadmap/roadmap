@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="dmponline">
 	<head>
-	  <title><%= t('tool_title', application_name: Rails.configuration.branding[:application][:name])%></title>
+	  <title><%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %></title>
       <%= favicon_link_tag "favicon.ico" %>
 		<!--[ if lte IE 9]>
 			<script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>

@@ -1,0 +1,124 @@
+<!-- preview a question and its guidance.  Question is passed as an argument-->
+
+<div class="question-div">
+
+  <!--question format-->
+  <% q_format = question.question_format%>
+  <form action="">
+    <div class="question-form">
+      <!-- verify if the question has multiple choice -->
+      <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
+        <% options = question.question_options.order("number") %>
+
+        <!--checkbox display-->
+        <% if q_format.title == t("helpers.checkbox") %>
+          <%if !options.nil? %>
+            <fieldset class="choices">
+              <label class="text_colour"><%= raw question.text %></label>
+              <ol class="choices-group">
+                <% options.each do |op|%>
+                  <li class="choice"><label ><input type="checkbox" ><%= raw op.text %></label></li>
+                <% end %>
+              </ol>
+            </fieldset>
+          <% end %>
+        <!--multi select box display-->
+        <% elsif q_format.title == t("helpers.multi_select_box") %>
+          <% if !options.nil? %>
+            <label class="text_colour"><%= raw question.text %></label>
+            <select multiple="multiple">
+              <% options.each do |op|%>
+                <option><%= raw op.text %></option>
+              <% end %>
+            </select>
+          <% end %>
+        <!--Radio buttons display-->
+        <% elsif q_format.title == t("helpers.radio_buttons") %>
+          <% if !options.nil?  %>
+            <fieldset class="choices">
+              <label class="text_colour"><%= raw question.text %></label>
+              <ol class="choices-group">
+                <% options.each do |op|%>
+                  <li class="choice"><label ><input type="radio"><%= raw op.text %></label></li>
+                <% end %>
+              </ol>
+            </fieldset>
+          <% end %>
+        <!--dropdown display-->
+        <% elsif q_format.title == t("helpers.dropdown") %>
+          <% if !options.nil? %>
+            <label class="text_colour" ><%= raw question.text %></label>
+            <select>
+              <% options.each do |op|%>
+                <option><%= raw op.text %></option>
+              <% end %>
+            </select>
+          <% end %>
+        <% end %>
+
+        <!--Suggested answer area-->
+        <% suggested_answer = question.suggested_answers.find_by(org_id: current_user.org_id) %>
+        <% if !suggested_answer.blank? %>
+          <div class="suggested-answer-div">
+            <span class="suggested-answer-intro">
+              <% if suggested_answer.is_example? %>
+                <%= t("org_admin.questions.example_answer_label")%>
+              <% else %>
+                <%= t("org_admin.questions.suggested_answer_label")%>
+              <% end %>
+            </span>
+            <div class="suggested-answer-border">
+              <p class="suggested-answer">
+                <%= raw suggested_answer.text %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+        <label ><%= t("helpers.comment")%></label>
+        <div class="clear"></div>
+        <textarea rows="4" style="width: 97%;"><%= question.default_value %></textarea>
+      <% else %>
+        <label class="text_colour"><%= raw question.text %></label>
+        <!--Suggested answer area-->
+        <% suggested_answer = question.suggested_answers.find_by(org_id: current_user.org_id) %>
+        <% if !suggested_answer.blank? %>
+          <div class="suggested-answer-div">
+            <span class="suggested-answer-intro">
+              <% if suggested_answer.is_example? %>
+                <%= t("org_admin.questions.example_answer_label")%>
+              <% else %>
+                <%= t("org_admin.questions.suggested_answer_label")%>
+              <% end %>
+            </span>
+            <div class="suggested-answer-border">
+              <p class="suggested-answer">
+                <%= raw suggested_answer.text %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+
+      <% end %>
+
+
+
+      <!--text field display-->
+      <% if q_format.title == t("helpers.text_field") %>
+        <input type ="text" style="width: 97%;"/>
+      <!--text area display-->
+      <%elsif q_format.title == t("helpers.text_area") %>
+        <textarea rows="4" style="width: 97%;" ><%= question.default_value[3..-5] unless question.default_value.nil? %></textarea>
+      <%end%>
+      <br/>
+      <!-- button without action-->
+      <%= link_to t("helpers.save"), "#", class: "btn btn-primary", onclick: "event.preventDefault();" %>
+
+      <span class="label label-warning answer-status"><%= t("helpers.notanswered") %></span>
+
+    </div>
+  </form>
+</div>
+
+
+<!--guidance block -->
+<%= render partial: "guidance_display", locals: {question: question}%>
