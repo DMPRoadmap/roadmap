@@ -6,8 +6,6 @@ class AnswersController < ApplicationController
 	# PUT/PATCH /[:locale]/answer/[:id]
 	def update
     # create a new answer based off the passed params
-    logger.debug("RAY: update params=")
-    logger.debug params.inspect
 
     ans_params = params[:answer]
     plan_id = ans_params[:plan_id]
@@ -17,10 +15,8 @@ class AnswersController < ApplicationController
                         plan_id: plan_id,
                         user_id: user_id,
                         question_id: question_id)
-    logger.debug "RAY: found answer=#{@answer.inspect}"
     if @answer.nil?
       @answer = Answer.new(params[:answer])
-      logger.debug "RAY: created answer=#{@answer.inspect}"
     end
 
     authorize @answer

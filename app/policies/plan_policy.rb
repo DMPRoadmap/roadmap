@@ -20,6 +20,10 @@ class PlanPolicy < ApplicationPolicy
     @plan.editable_by?(@user.id)
   end
 
+  def share?
+    @plan.readable_by?(@user.id)
+  end
+
   def export?
     @plan.readable_by?(@user.id)
   end

@@ -25,7 +25,9 @@ class ExportedPlan < ActiveRecord::Base
 
   # Getters to match Settings::Template::VALID_ADMIN_FIELDS
   def project_name
-    self.plan.title
+    name = self.plan.template.title
+    name += " - #{self.plan.title}" if self.plan.template.phases.count > 1
+    name
   end
 
   def project_identifier

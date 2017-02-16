@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       resources :phases do
         member do
           get 'edit'
+          get 'status'
           post 'update'
         end
       end
@@ -192,8 +193,8 @@ Rails.application.routes.draw do
     resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
-      #resource :projects, only: [:show, :update]
-      resources :plans, only: [:show, :update]
+      resource :plans, only: [:show, :update]
+      resources :phase, only: [:show, :update]
     end
 
     resources :token_permission_types, only: [:index]

@@ -1,4 +1,5 @@
 class PlansController < ApplicationController
+  require 'pp'
   #Uncomment the line below in order to add authentication to this page - users without permission will not be able to add new plans
   #load_and_authorize_resource
   #
@@ -109,13 +110,15 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
-    @plan = Plan.includes(template:  {phases: :sections} ).find(params[:id])
+    @plan = Plan.find(params[:id])
     authorize @plan
+
+    @plan_data = @plan.to_hash
+
     @editing = params[:editing] && @plan.administerable_by?(current_user.id)
     @selected_guidance_groups = []
-    #@selected_guidance_groups = @plan.plan_guidance_groups.map{ |pgg| [pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected] }
-    all_guidance_groups = @plan.plan_guidance_groups.includes(:guidance_group)
-    @selected_guidance_groups = all_guidance_groups.map{ |pgg| [pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected] }
+    all_guidance_groups = @plan_data["plan_guidance_groups"]
+    @selected_guidance_groups = all_guidance_groups.map{ |pgg| [ pgg["guidance_group"]["name"], pgg["guidance_group"]["id"], :checked => pgg["selected"] ] }
     @selected_guidance_groups.sort!
 
     if user_signed_in? && @plan.readable_by?(current_user.id) then
@@ -212,6 +215,20 @@ class PlansController < ApplicationController
     end
   end
 
+  def share
+    @plan = Plan.find(params[:id])
+    authorize @plan
+    @plan_data = @plan.to_hash
+    if !user_signed_in? then
+      respond_to do |format|
+        format.html { redirect_to edit_user_registration_path }
+      end
+    elsif !@plan.editable_by?(current_user.id) then
+      respond_to do |format|
+        format.html { redirect_to plans_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+      end
+    end
+  end
 
 
   def destroy
@@ -348,7 +365,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
-    if user_signed_in? && @plan.readable_by(current_user.id) then
+    if user_signed_in? && @plan.readable_by?(current_user.id) then
       @exported_plan = ExportedPlan.new.tap do |ep|
         ep.plan = @plan
         ep.user = current_user
@@ -356,7 +373,7 @@ class PlansController < ApplicationController
         ep.format = request.format.to_sym
         plan_settings = @plan.settings(:export)
 
-        Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
+        Settings::Template::DEFAULT_SETTINGS.each do |key, value|
           ep.settings(:export).send("#{key}=", plan_settings.send(key))
         end
       end
@@ -413,6 +430,50 @@ class PlansController < ApplicationController
       end
     end
     groups.values
+  end
+
+
+  def fixup_hash(plan)
+    rollup(plan, "notes", "answer_id", "answers")
+    rollup(plan, "answers", "question_id", "questions")
+    rollup(plan, "questions", "section_id", "sections")
+    rollup(plan, "sections", "phase_id", "phases")
+
+    plan["template"]["phases"] = plan.delete("phases")
+
+    ghash = {}
+    plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
+    plan["plan_guidance_groups"].each do |pgg|
+      pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
+    end
+
+    plan["template"]["org"] = Org.find(plan["template"]["org_id"]).serializable_hash()
+  end
+
+
+  # find all object under src_plan_key
+  # merge them into the items under obj_plan_key using
+  # super_id = id
+  # so we have answers which each have a question_id
+  # rollup(plan, "answers", "quesiton_id", "questions")
+  # will put the answers into the right questions.
+  def rollup(plan, src_plan_key, super_id, obj_plan_key)
+    id_to_obj = Hash.new()
+    plan[src_plan_key].each do |o|
+      id = o[super_id]
+      if !id_to_obj.has_key?(id)
+        id_to_obj[id] = Array.new
+      end
+      id_to_obj[id]  << o
+    end
+
+    plan[obj_plan_key].each do |o|
+      id = o["id"]
+      if id_to_obj.has_key?(id)
+        o[src_plan_key] = id_to_obj[ id ]
+      end
+    end
+    plan.delete(src_plan_key)
   end
 
 end
