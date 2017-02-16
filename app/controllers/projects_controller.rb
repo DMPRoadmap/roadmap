@@ -1,199 +1,186 @@
 class ProjectsController < ApplicationController
-  before_filter :get_plan_list_columns, only: %i( index )
+    before_filter :get_plan_list_columns, only: %i( index )
   after_action :verify_authorized
 
-  # GET /projects
-  # GET /projects.json
-  def index
+    # GET /projects
+    # GET /projects.json
+    def index
     authorize Project
     ## TODO: Is this A magic String? the "Show_shib_link?" as we define it and users dont see cookies
-    if user_signed_in? then
-      if (current_user.shibboleth_id.nil? || current_user.shibboleth_id.length == 0) && !cookies[:show_shib_link].nil? && cookies[:show_shib_link] == "show_shib_link" then
-        flash.notice = "Would you like to #{view_context.link_to I18n.t('helpers.shibboleth_to_link_text'), user_omniauth_shibboleth_path}".html_safe
-      end
+        if user_signed_in? then
+            if (current_user.shibboleth_id.nil? || current_user.shibboleth_id.length == 0) && !cookies[:show_shib_link].nil? && cookies[:show_shib_link] == "show_shib_link" then
+                flash.notice = "Would you like to #{view_context.link_to I18n.t('helpers.shibboleth_to_link_text'), user_omniauth_shibboleth_path}".html_safe
+            end
 
-      @projects = current_user.projects.filter(params[:filter])
-      @has_projects = current_user.projects.any? # unfiltered count
+            @projects = current_user.projects.filter(params[:filter])
+            @has_projects = current_user.projects.any? # unfiltered count
 
-      respond_to do |format|
-        format.html # index.html.erb
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    end
-  end
-
-  # GET /projects/1
-  # GET /projects/1.json
-  def show
-    @project = Project.find(params[:id])
-    authorize @project
-    @show_form = false
-    if params[:show_form] == "yes" then
-      @show_form = true
-    end
-    if user_signed_in? && @project.readable_by(current_user.id) then
-      respond_to do |format|
-        format.html # show.html.erb
-      end
-    elsif user_signed_in? then
-      respond_to do |format|
-        format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    end
-  end
-
-  # GET /projects/new
-  # GET /projects/new.json
-  def new
-    if user_signed_in? then
-      @project = Project.new
-      authorize @project
-      @project.organisation = current_user.organisation
-      @funders = orgs_of_type(constant("organisation_types.funder"), true)
-      @templates = get_available_templates
-      @guidance_groups = get_available_guidance
-      @always_guidance = get_always_available_guidance
-      @institutions = orgs_of_type(constant("organisation_types.institution"))
-
-			respond_to do |format|
-			  format.html # new.html.erb
-			end
-		else
-			respond_to do |format|
-				format.html { redirect_to edit_user_registration_path }
-			end
-		end
-	end
-
-  # GET /projects/1/edit
-     # Should this be removed?
-  def edit
-    @project = Project.find(params[:id])
-    authorize @project
-    if !user_signed_in? then
-               respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    elsif !@project.editable_by(current_user.id) then
-      respond_to do |format|
-        format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
-      end
-    end
-  end
-
-  def share
-    @project = Project.find(params[:id])
-    authorize @project
-    if !user_signed_in? then
-               respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    elsif !@project.editable_by(current_user.id) then
-      respond_to do |format|
-        format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
-      end
-    end
-  end
-
-  def export
-    @project = Project.find(params[:id])
-    authorize @project
-    if !user_signed_in? then
-               respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    else
-      respond_to do |format|
-        format.html { render action: "export" }
-
-      end
-    end
-  end
-
-  # POST /projects
-  # POST /projects.json
-  def create
-    if user_signed_in? then
-      
-      attrs = project_params
-      @project = Project.new(attrs)
-      authorize @project
-      
-      if @project.dmptemplate.nil? && attrs[:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
-        funder = Organisation.find(attrs[:funder_id])
-        if funder.dmptemplates.count == 1 then
-          @project.dmptemplate = funder.published_templates.first
-        end
-        
-      elsif @project.dmptemplate.nil? || params[:default_tag] == 'true' then
-        if @project.organisation.nil?  || params[:default_tag] == 'true'  || @project.organisation.published_templates.first.nil? then
-          @project.dmptemplate = Dmptemplate.find_by_is_default(true)
+            respond_to do |format|
+                format.html # index.html.erb
+            end
         else
-          @project.dmptemplate = @project.organisation.published_templates.first
+            respond_to do |format|
+                format.html { redirect_to edit_user_registration_path }
+            end
         end
-      end
-      @project.principal_investigator = current_user.name(false)
-
-      @project.title = I18n.t('helpers.project.my_project_name')+' ('+@project.dmptemplate.title+')'
-      @project.assign_creator(current_user.id)
-      respond_to do |format|
-        if @project.save
-          format.html { redirect_to({:action => "show", :id => @project.slug, :show_form => "yes"}, {:notice => I18n.t('helpers.project.success')}) }
-        else
-          format.html { render action: "new" }
-        end
-      end
-      
-    else
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
-  end
 
-  # PUT /projects/1
-  # PUT /projects/1.json
-  def update
-    @project = Project.find(params[:id])
+    # GET /projects/1
+    # GET /projects/1.json
+    def show
+        @project = Project.find(params[:id])
     authorize @project
-    
-    if user_signed_in? && @project.editable_by(current_user.id) then
-      attrs = project_params
-      
-      if @project.update_attributes(attrs)
+        @show_form = false
+        if params[:show_form] == "yes" then
+            @show_form = true
+        end
+        if user_signed_in? && @project.readable_by(current_user.id) then
+            respond_to do |format|
+                format.html # show.html.erb
+            end
+        elsif user_signed_in? then
+            respond_to do |format|
+                format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+            end
+        else
+            respond_to do |format|
+                format.html { redirect_to edit_user_registration_path }
+            end
+        end
+    end
+
+    def new
+      if user_signed_in? then
+        @plan = Plan.new
+        authorize @plan
+        @funders = Org.funder.all 
+
         respond_to do |format|
-          format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
+          format.html # new.html.erb
         end
       else
         respond_to do |format|
-          format.html { render action: "edit" }
+          format.html { redirect_to edit_user_registration_path }
         end
       end
-    else
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
-  end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
-  def destroy
-    @project = Project.find(params[:id])
+   
+    # GET /projects/1/edit
+     # Should this be removed?
+    def edit
+        @project = Project.find(params[:id])
     authorize @project
-    if user_signed_in? && @project.editable_by(current_user.id) then
-      @project.destroy
-
-      respond_to do |format|
-        format.html { redirect_to projects_url }
-      end
-    else
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+        if !user_signed_in? then
+               respond_to do |format|
+                format.html { redirect_to edit_user_registration_path }
+            end
+        elsif !@project.editable_by(current_user.id) then
+            respond_to do |format|
+                format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+            end
+        end
     end
-  end
+
+    def share
+        @project = Project.find(params[:id])
+    authorize @project
+        if !user_signed_in? then
+               respond_to do |format|
+                format.html { redirect_to edit_user_registration_path }
+            end
+        elsif !@project.editable_by(current_user.id) then
+            respond_to do |format|
+                format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+            end
+        end
+    end
+
+    def export
+        @project = Project.find(params[:id])
+    authorize @project
+        if !user_signed_in? then
+               respond_to do |format|
+                format.html { redirect_to edit_user_registration_path }
+            end
+        else
+            respond_to do |format|
+                format.html { render action: "export" }
+
+            end
+        end
+    end
+
+    # POST /projects
+    def create
+        puts params
+        return
+        if user_signed_in? then
+            @plan = Plan.new(params[:plan])
+      authorize @project
+            if @project.dmptemplate.nil? && params[:project][:funder_id] != "" then # this shouldn't be necessary - see setter for funder_id in project.rb
+                funder = Org.find(params[:project][:funder_id])
+                if funder.dmptemplates.count == 1 then
+                    @project.dmptemplate = funder.published_templates.first
+                end
+            elsif @project.dmptemplate.nil? || params[:default_tag] == 'true' then
+                if @project.organisation.nil?  || params[:default_tag] == 'true'  || @project.organisation.published_templates.first.nil? then
+                    @project.dmptemplate = Dmptemplate.find_by_is_default(true)
+                else
+                    @project.dmptemplate = @project.organisation.published_templates.first
+                end
+            end
+            @project.principal_investigator = current_user.name(false)
+
+            @project.title = I18n.t('helpers.project.my_project_name')+' ('+@project.dmptemplate.title+')'
+            @project.assign_creator(current_user.id)
+            respond_to do |format|
+                if @project.save
+                    format.html { redirect_to({:action => "show", :id => @project.slug, :show_form => "yes"}, {:notice => I18n.t('helpers.project.success')}) }
+                else
+                    format.html { render action: "new" }
+                end
+            end
+        else
+            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+        end
+    end
+
+    # PUT /projects/1
+    # PUT /projects/1.json
+    def update
+        @project = Project.find(params[:id])
+    authorize @project
+        if user_signed_in? && @project.editable_by(current_user.id) then
+      if @project.update_attributes(params[:project])
+        respond_to do |format|
+                  format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
+        end
+      else
+        respond_to do |format|
+                    format.html { render action: "edit" }
+                end
+            end
+        else
+            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+        end
+    end
+
+    # DELETE /projects/1
+    # DELETE /projects/1.json
+    def destroy
+        @project = Project.find(params[:id])
+    authorize @project
+        if user_signed_in? && @project.editable_by(current_user.id) then
+            @project.destroy
+
+            respond_to do |format|
+                format.html { redirect_to projects_url }
+            end
+        else
+            render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+        end
+    end
 
   # returns to AJAX call from frontend 
   # difficult to secure as it passes through params, and dosent curate data based
@@ -249,7 +236,7 @@ class ProjectsController < ApplicationController
 		else
 			institution = nil
 		end
-		excluded_orgs = orgs_of_type(constant("organisation_types.funder")) + orgs_of_type(constant("organisation_types.institution")) + Org.orgs_with_parent_of_type(constant("organisation_types.institution"))
+		excluded_orgs = Org.funders + Org.institutions
 		guidance_groups = {}
 		ggs = GuidanceGroup.guidance_groups_excluding(excluded_orgs) 
 
@@ -322,7 +309,7 @@ class ProjectsController < ApplicationController
   
     # -----------------------------------------------------------
     def get_available_templates
-      Dmptemplate.where(published: true)
+      Template.find_by(published: true)
     end
   
     # -----------------------------------------------------------

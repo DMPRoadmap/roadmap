@@ -1,10 +1,10 @@
-<%- model_class = Project -%>
+<%- model_class = Plan -%>
 <h1>
 	<%= raw t("public_plans_page.title") %>
 </h1>
 
 <!-- if the user has projects -->
-<% if @projects.count > 0 %>
+<% if @plans.count > 0 %>
 	<p>
 		<%= raw t("public_plans_page.body_text_html", {app_name: Rails.configuration.branding[:application][:name]}) %>
 	</p>
@@ -13,20 +13,20 @@
 	  <thead>
 			<tr>
 			  <% ['name', 'template', 'organisation', 'owner'].each do |column| %>
-			    <%= project_list_column_heading(column) %>
+			    <%= plan_list_column_heading(column) %>
 			  <% end %>
 			  <th class="dmp_th_small"></th>
 			</tr>
 	  </thead>
 	  <tbody>
-      <% @projects.each do |project| %>
+      <% @plans.each do |plan| %>
 				<tr>
 				  <% ['non_link_name', 'template', 'organisation', 'owner'].each do |column| %>
-				    <%= project_list_column_body(column, project) %>
+				    <%= plant_list_column_body(column, plan) %>
 				  <% end %>
 
 				  <td class="dmp_td_medium">
-						<%= link_to t("helpers.project.tab_export"), "#{public_export_path(project)}", :class => "dmp_table_link" %>
+						<%= link_to t("helpers.project.tab_export"), "#{public_export_path(plan)}", :class => "dmp_table_link" %>
 				  </td>
 				</tr>
       <% end %>

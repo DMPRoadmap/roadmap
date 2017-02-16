@@ -1,0 +1,102 @@
+<!--
+**Project: DMPRoadmap
+**Description: This block displays editing a question, its guidance, and options when multiple choice is selected
+in the admin interface.
+**Arguments transferred: an instance of 'question'
+**Copyright: Digital Curation Centre and University of California Curation Center
+-->
+
+<%= form_for(question, url: admin_updatequestion_template_path(question), html: { method: :put}) do |f| %>
+<div class="question-div">
+  <table class="dmp_details_table phase">
+    <%= f.hidden_field :id,{ class: "quest_id" } %>
+    <!--Question number -->
+    <tr>
+      <td class="first_template"><%= t("org_admin.questions.question_number_label")%></td>
+      <td><%= question.number %>
+        <div class="border_bottom"></div>
+      </td>
+    </tr>
+
+    <!--Question text -->
+    <tr>
+      <td class="first_template"><%= t('org_admin.questions.question_text_label')%></td>
+      <td><%= raw question.text %>
+        </br>
+        <div class="answer-readonly">
+          <% q_format = question.question_format %>
+          <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
+            <ul class='options'>
+            <% if question.question_options.is_a? QuestionOption  %>
+              <li>- <%= question.question_options.text %></li>
+            <% else %>
+              <% if !question.question_options.to_a.nil? %>
+                <% question.question_options.to_a.sort_by{|op| op['number']}.each do |o| %>
+                  <li>- <%= o.text %></li>
+                <% end %>
+              <% end %>
+            <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+
+    <!-- Suggested answer or Example-->
+    <tr>
+      <td class="first_template"><%= t("org_admin.questions.suggested_or_example_answer_label")%></td>
+      <td>
+        <div class="div_left_icon">
+          <% suggested_answer = question.suggested_answers.find_by_org_id(current_user.org.id) %>
+          <% if suggested_answer.nil? %>
+            <% suggested_answer = question.suggested_answers.build %>
+          <% end %>
+          <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
+            <%= s.hidden_field :org_id, value: current_user.org.id %>
+            <ul>
+              <li><%= s.select :is_example, {t("org_admin.questions.example_answer_label") => true, t("org_admin.questions.suggested_answer_label") => false} %></li>
+              <li><%= s.text_area :text, rows: 5 %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+        <div class="div_right_icon">
+          <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.suggested_answer_help_text_html"))%>
+        </div>
+        <div class="clearfix"></div>
+        <div class="border_bottom"></div>
+      </td>
+    </tr>
+
+    <!-- Guidance for Question -->
+    <tr>
+      <td class="first_template"><%= t("org_admin.questions.guidance_label")%></td>
+      <td>
+        <div class="div_left_icon">
+          <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
+        </div>
+        <div class="div_right_icon">
+          <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_guidance_help_text_html"))%>
+        </div>
+        <div class="clearfix"></div>
+        <div class="border_bottom"></div>
+      </td>
+    </tr>
+  </table>
+  <br />
+  <!-- submit buttons -->
+  <div class="move_2_right">
+    <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
+    <% if !question.section.phase.template.published? %>
+      <%= link_to t("helpers.submit.delete"), admin_destroyquestion_template_path(question_id: question.id),
+                  confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
+    <% end %>
+    <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+    <%= link_to t("helpers.submit.cancel"), "#", class: "btn cancel cancel_edit_question" %>
+  </div>
+</div>
+
+
+<!--guidance block -->
+<%= render partial: "guidance_display", locals: {question: question} %>
+<% end %>

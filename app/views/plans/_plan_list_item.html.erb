@@ -1,0 +1,27 @@
+<tr>
+  <% @selected_columns.each do |column| %>
+    <%= plan_list_column_body(column, plan) %>
+  <% end %>
+  <td class="dmp_td_medium">
+    <% if plan.editable_by?(current_user.id) then %>
+      <%= link_to t(".edit", :default => t("helpers.links.edit")), plan_path(plan), :class => "dmp_table_link"%>
+
+      <% if plan.administerable_by?(current_user.id) then %>
+        <%= link_to t("helpers.project.share.tab_share"), share_plan_path(plan), :class => "dmp_table_link"%>
+      <% end %>
+
+      <%= link_to t("helpers.project.tab_export"), export_plan_path(plan), :class => "dmp_table_link"%>
+
+      <% if plan.administerable_by?(current_user.id) then %>
+        <%= link_to t(".destroy", :default => t("helpers.links.destroy")), plan_path(plan), :class => "dmp_table_link",
+          :method => :delete, :data => {
+            :confirm => t("helpers.project.confirm_delete_text")
+          }%>
+      <% end %>
+    <% else %>
+      <%= link_to t(".view", :default => t("helpers.view")), plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to t("helpers.project.tab_export"), export_plan_path(plan), :class => "dmp_table_link"%>
+    <% end %>
+
+  </td>
+</tr>

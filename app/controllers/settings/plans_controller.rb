@@ -1,14 +1,17 @@
 module Settings
   class PlansController < SettingsController
 
+    before_filter :get_plan_list_columns
     before_filter :get_settings
+
     after_action :verify_authorized
 
     def show
-      authorize @plan
+      authorize [:settings, @plan]
       respond_to do |format|
         format.html
         format.partial
+        format.json{ render json: settings_json }
       end
     end
 

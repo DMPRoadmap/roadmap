@@ -1,0 +1,28 @@
+<!--add note to question. question id is passed as an argument and plan id-->
+
+
+<% new_note = Note.new
+   if !answer.nil?
+     answerid = answer["id"] 
+   else
+     answerid = answer_obj.id
+   end
+%>
+
+<%= form_for :new_note,
+             :url => {:controller => :notes, :action => :create },
+             :html=>{:method=>:post, :id => "new_note_form_#{answerid}", :class => "add_note_form"} do |f| %>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+	<%= f.hidden_field :answer_id, :value => answerid %>
+	<%= f.hidden_field :question_id, :value => question["id"] %>
+	<%= f.hidden_field :plan_id, :value => plan_data["id"] %>
+
+    <%= text_area_tag("#{answerid}new_note_text".to_sym, "" , class: "tinymce") %>
+	<br/>
+
+	<!-- submit button -->
+	<div class="move_2_right">
+		<%= f.submit t("helpers.submit.save"), :class => "btn btn-primary new_comment_submit_button" %>
+	</div>
+    </br>
+<%end%>

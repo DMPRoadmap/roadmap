@@ -1,9 +1,0 @@
-<% projects = YAML::load(ERB.new(File.read('./test/fixtures/projects.yml')).result) %>
-<% versions = YAML::load(ERB.new(File.read('./test/fixtures/versions.yml')).result) %>
-
-<% projects.each do |lbl, hash| %>
-<%= lbl %>_plan:
-  project: <%= lbl %>
-  version: version.first
-  locked: false
-<% end %>

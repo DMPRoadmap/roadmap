@@ -14,24 +14,24 @@ identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.fi
 # Question Formats
 # -------------------------------------------------------
 question_formats = [
-  {title: "Text area"},
-  {title: "Text field"},
-  {title: "Radio buttons"},
-  {title: "Check box"},
-  {title: "Dropdown"},
-  {title: "Multi select box"},
-  {title: "Date"}
+  {title: "Text area", option_based: false},
+  {title: "Text field", option_based: false},
+  {title: "Radio buttons", option_based: true},
+  {title: "Check box", option_based: true},
+  {title: "Dropdown", option_based: true},
+  {title: "Multi select box", option_based: true},
+  {title: "Date", option_based: false}
 ]
 question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(title: qf[:title]).nil? }
 
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en-UK',
+  {abbreviation: 'en_UK',
    description: 'UK English',
    name: 'English (UK)',
    default_language: true},
-  {abbreviation: 'en-US',
+  {abbreviation: 'en_US',
    description: 'US English',
    name: 'English (US)',
    default_language: false},
@@ -73,6 +73,7 @@ regions = [
   {abbreviation: 'horizon', 
    description: 'European super region',
    name: 'Horizon2020',
+   
    sub_regions: [
      {abbreviation: 'uk',
       description: 'United Kingdom',
@@ -97,19 +98,22 @@ regions.each do |r|
   srs = r[:sub_regions]
   r.delete(:sub_regions) unless r[:sub_regions].nil?
   
-  region = Region.create!(r) if Region.find_by(abbreviation: r[:abbreviation]).nil?
-  
-  unless srs.nil?
-    srs.each do |sr|
-      if Region.find_by(abbreviation: sr[:abbreviation]).nil?
-        subregion = Region.create!(sr)
-        RegionGroup.create!({region_id: subregion.id, super_region_id: region.id})
+  if Region.find_by(abbreviation: r[:abbreviation]).nil?
+    region = Region.create!(r) 
+
+    unless srs.nil?
+      srs.each do |sr|
+        if Region.find_by(abbreviation: sr[:abbreviation]).nil?
+          sr[:super_region] = region
+          Region.create!((sr))
+        end
       end
     end
+    
   end
 end
 
-# Permissions
+# Perms
 # -------------------------------------------------------
 perms = [
   {name: 'add_organisations'},
@@ -164,11 +168,11 @@ orgs = [
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2,
-   language_id: Language.find_by(abbreviation: I18n.locale).id},
+   language: Language.find_by(abbreviation: 'en-UK')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1,
-   language_id: Language.find_by(abbreviation: I18n.locale).id}
+   language: Language.find_by(abbreviation: 'en-UK')}
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
 
@@ -193,7 +197,7 @@ users = [
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'GA'),
    language: Language.find_by(abbreviation: I18n.locale),
-   perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation']),
+   perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    confirmed_at: Time.zone.now},
   {email: "org_admin@example.com",
@@ -203,7 +207,7 @@ users = [
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
    language: Language.find_by(abbreviation: I18n.locale),
-   perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation']),
+   perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    confirmed_at: Time.zone.now},
   {email: "org_user@example.com",
@@ -223,10 +227,12 @@ users.map{ |u| User.create!(u) if User.find_by(email: u[:email]).nil? }
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
    org: Org.find_by(abbreviation: 'CC'),
-   optional_subset: true},
+   optional_subset: true,
+   published: true},
   {name: "Government Agency Advice (Funder specific guidance)",
    org: Org.find_by(abbreviation: 'GA'),
-   optional_subset: false}
+   optional_subset: false,
+   published: true}
 ]
 guidance_groups.map{ |gg| GuidanceGroup.create!(gg) if GuidanceGroup.find_by(name: gg[:name]).nil? }
 
@@ -340,269 +346,451 @@ templates = [
    description: "The default template",
    published: true,
    org: Org.find_by(abbreviation: 'CC'),
-   is_default: true},
+   is_default: true,
+   version: 1},
+  
+  {title: "OLD - Department of Testing Award",
+    published: false,
+    org: Org.find_by(abbreviation: 'GA'),
+    is_default: false,
+    version: 1},
+     
   {title: "Department of Testing Award",
    published: true,
    org: Org.find_by(abbreviation: 'GA'),
-   is_default: false}
+   is_default: false,
+   version: 2}
 ]
 templates.map{ |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
 
 # Create 2 phases for the funder's template and one for our generic template
 # ------------------------------------------------------- 
 phases = [
-  {title: "Generic DMP",
+  {title: "Generic Data Management Planning Template",
    number: 1,
-   template: Template.find_by(title: "My Curation Center's Default Template"),
-   modifiable: false},
-   
+   modifiable: false,
+   template: Template.find_by(title: "My Curation Center's Default Template")},
+  
+  {title: "Detailed Overview",
+    number: 1,
+    modifiable: false,
+    template: Template.find_by(title: "OLD - Department of Testing Award")},
+     
   {title: "Preliminary Statement of Work",
    number: 1,
-   template: Template.find_by(title: "Department of Testing Award"),
-   modifiable: false},
+   modifiable: true,
+   template: Template.find_by(title: "Department of Testing Award")},
   {title: "Detailed Overview",
    number: 2,
-   template: Template.find_by(title: "Department of Testing Award"),
-   modifiable: false}
+   modifiable: false,
+   template: Template.find_by(title: "Department of Testing Award")}
 ]
 phases.map{ |p| Phase.create!(p) if Phase.find_by(title: p[:title]).nil? }
 
-generic_template_phase_1 = Phase.find_by(title: "Generic DMP")
+generic_template_phase_1 = Phase.find_by(title: "Generic Data Management Planning Template")
 funder_template_phase_1 = Phase.find_by(title: "Preliminary Statement of Work")
 funder_template_phase_2 = Phase.find_by(title: "Detailed Overview")
 
 # Create sections for the 2 templates and their phases
 # ------------------------------------------------------- 
 sections = [
-  # Sections for the 'Generic DMP' phase of the 'My Curation Center's Default Template'
+  # Sections for the Generic Template
   {title: "Data Collection",
    number: 1,
-   phase: generic_template_phase_1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: generic_template_phase_1},
   {title: "Documentation and Metadata",
    number: 2,
-   phase: generic_template_phase_1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: generic_template_phase_1},
   {title: "Ethics and Legal Compliance",
    number: 3,
-   phase: generic_template_phase_1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: generic_template_phase_1},
   {title: "Storage and Backup",
    number: 4,
-   phase: generic_template_phase_1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: generic_template_phase_1},
   {title: "Selection and Preservation",
    number: 5,
-   phase: generic_template_phase_1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: generic_template_phase_1},
   {title: "Data Sharing",
-   number: 5,
-   phase: generic_template_phase_1,
+   number: 6,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: generic_template_phase_1},
   {title: "Responsibilities and Resources",
-   number: 5,
-   phase: generic_template_phase_1,
+   number: 7,
    published: true,
-   modifiable: false},
-     
-  # Sections for the 'Preliminary Statement of Work' phase of the 'Department of Testing Award'
+   modifiable: false,
+   phase: generic_template_phase_1},
+
+  # Section of old version of Funder Template
+  {title: "Data Collection and Preservation",
+   number: 1,
+   published: false,
+   modifiable: true,
+   phase: Phase.find_by(title: "Detailed Overview")}, 
+
+  # Sections for the Funder Template's Preliminary Phase
+  {title: "Data Overview",
+   number: 1,
+   published: false,
+   modifiable: true,
+   phase: funder_template_phase_1},
   {title: "Data Description",
    number: 1,
-   phase: funder_template_phase_1,
-   published: true,
-   modifiable: false},
-  {title: "Collection Methodology",
-   number: 2,
-   phase: funder_template_phase_1,
-   published: true,
-   modifiable: false},
+   published: false,
+   modifiable: true,
+   phase: funder_template_phase_1},
 
-  # Sections for the 'Detailed Overview' phase of the 'Department of Testing Award'
+  # Sections for the Funder Template's Detailed Phase
   {title: "Preservation Policy",
    number: 1,
-   phase: funder_template_phase_2,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: funder_template_phase_2},
   {title: "Data Format and Storage",
-   number: 2,
-   phase: funder_template_phase_2,
+   number: 1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: funder_template_phase_2},
   {title: "Collection Process",
-   number: 3,
-   phase: funder_template_phase_2,
+   number: 1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: funder_template_phase_2},
   {title: "Ethical Standards",
-   number: 4,
-   phase: funder_template_phase_2,
+   number: 1,
    published: true,
-   modifiable: false},
+   modifiable: false,
+   phase: funder_template_phase_2},
   {title: "Preservation and Reuse Policies",
-   number: 5,
-   phase: funder_template_phase_2,
+   number: 1,
    published: true,
-   modifiable: false}
+   modifiable: false,
+   phase: funder_template_phase_2}
 ]
 sections.map{ |s| Section.create!(s) if Section.find_by(title: s[:title]).nil? }
 
-text_area_format = QuestionFormat.find_by(title: 'Text area')
+text_area = QuestionFormat.find_by(title: "Text area")
 
-# Create questions for the 2 templates and their phases/sections
+# Create questions for the 2 templates and their phases
 # ------------------------------------------------------- 
 questions = [
-  # Questions for the 'Generic DMP' phase of the 'My Curation Center's Default Template'
-  {number: 1,
-   text: "What data will you collect or create?",
-   section: generic_template_phase_1.sections.find_by(number: 1),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "How will the data be collected or created?",
-   section: generic_template_phase_1.sections.find_by(number: 1),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "What documentation and metadata will accompany the data?",
-   section: generic_template_phase_1.sections.find_by(number: 2),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "How will you manage ethical issues?",
-   section: generic_template_phase_1.sections.find_by(number: 3),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "How will you manage copyright and Intellectual Property Rights (IPR) issues?",
-   section: generic_template_phase_1.sections.find_by(number: 3),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "How will the data be stored and backed up during the research?",
-   section: generic_template_phase_1.sections.find_by(number: 4),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "How will you manage access and security?",
-   section: generic_template_phase_1.sections.find_by(number: 4),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "Which data are of long-term value and should be retained, shared, and/or preserved?",
-   section: generic_template_phase_1.sections.find_by(number: 5),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "What is the long-term preservation plan for the dataset?",
-   section: generic_template_phase_1.sections.find_by(number: 5),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "How will you share the data?",
-   section: generic_template_phase_1.sections.find_by(number: 6),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "Are any restrictions on data sharing required?",
-   section: generic_template_phase_1.sections.find_by(number: 6),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "Who will be responsible for data management?",
-   section: generic_template_phase_1.sections.find_by(number: 7),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "What resources will you require to deliver your plan?",
-   section: generic_template_phase_1.sections.find_by(number: 7),
-   question_format: text_area_format,
-   modifiable: false},
-    
-  # Questions for the 'Preliminary Statement of Work' phase of the 'Department of Testing Award'
-  {number: 1,
-   text: "Please provide a description of the type(s) of data you plan to collect.",
-   default_value: "Statistical data stored in csv files, images in the RAW format, etc.",
-   section: funder_template_phase_1.sections.find_by(number: 1),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 1,
-   text: "Please describe your methods for gathering and storing the data.",
-   section: funder_template_phase_1.sections.find_by(number: 2),
-   question_format: text_area_format,
-   modifiable: false},
-   
-  # Questions for the 'Detailed Overview' phase of the 'Department of Testing Award'
-  {number: 1,
-   text: "Please describe your departmental and institutional policies about preserving research data.",
-   section: funder_template_phase_2.sections.find_by(number: 1),
-   question_format: text_area_format,
-   modifiable: false},
-   
-  {number: 1,
-   text: "Please list all data formats you intend to collect and provide a description of the storage facilities you intend to use.",
-   section: funder_template_phase_2.sections.find_by(number: 2),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "Will require store your data in your institution's repository?",
-   section: funder_template_phase_2.sections.find_by(number: 2),
-   question_format: QuestionFormat.find_by(title: 'Check box'),
-   modifiable: false},
-   
-  {number: 1,
-   text: "How will you go about collecting your data?",
-   section: funder_template_phase_2.sections.find_by(number: 3),
-   question_format: text_area_format,
-   modifiable: false},
-   
-  {number: 1,
-   text: "How will you ensure that your data does not contain sensitive information like personal email addresses, social security number, names, etc.",
-   section: funder_template_phase_2.sections.find_by(number: 4),
-   question_format: text_area_format,
-   modifiable: false},
-   
-  {number: 1,
-   text: "Please describe your overall plan for preservation and reuse.",
-   default_value: "Enter your policy guidelines here ...",
-   section: funder_template_phase_2.sections.find_by(number: 5),
-   question_format: text_area_format,
-   modifiable: false},
-  {number: 2,
-   text: "What type of license will you use?",
-   section: funder_template_phase_2.sections.find_by(number: 5),
-   question_format: QuestionFormat.find_by(title: 'Dropdown'),
-   modifiable: false},
-  {number: 3,
-   text: "When will the data be made available to the public?",
-   guidance: "The date can be approximate.",
-   section: funder_template_phase_2.sections.find_by(number: 5),
-   question_format: QuestionFormat.find_by(title: 'Date'),
-   modifiable: false}
-]
-questions.map{ |s| Question.create!(s) if Question.find_by(text: s[:text]).nil? }
-
-
-# Create some options for our dropdown question
-# ------------------------------------------------------- 
-license_question = Question.find_by(text: "What type of license will you use?")
-license_question_options = [
-  {question: license_question,
-   text: "BSD",
+  # Questions for the Generic Template
+  {text: "What data will you collect or create?",
    number: 1,
-   is_default: false},
-  {question: license_question,
-   text: "GNU",
+   section: Section.find_by(title: "Data Collection"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Data Description")]},
+  {text: "How will the data be collected or created?",
    number: 2,
-   is_default: false},
-  {question: license_question,
-   text: "MIT",
+   section: Section.find_by(title: "Data Collection"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Data Collection")]},
+  {text: "What documentation and metadata will accompany the data?",
+   number: 1,
+   section: Section.find_by(title: "Documentation and Metadata"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Metadata & Documentation")]},
+  {text: "How will you manage any ethical issues?",
+   number: 1,
+   section: Section.find_by(title: "Ethics and Legal Compliance"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Ethics & Privacy")]},
+  {text: "How will you manage copyright and Intellectual Property Rights (IPR) issues?",
+   number: 2,
+   section: Section.find_by(title: "Ethics and Legal Compliance"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Intellectual Property Rights")]},
+  {text: "How will the data be stored and backed up during the research?",
+   number: 1,
+   section: Section.find_by(title: "Storage and Backup"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Storage & Security")]},
+  {text: "How will you manage access and security?",
+   number: 2,
+   section: Section.find_by(title: "Storage and Backup"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Storage & Security")]},
+  {text: "Which data are of long-term value and should be retained, shared, and/or preserved?",
+   number: 1,
+   section: Section.find_by(title: "Selection and Preservation"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Preservation")]},
+  {text: "What is the long-term preservation plan for the dataset?",
+   number: 2,
+   section: Section.find_by(title: "Selection and Preservation"),
+   question_format: text_area,
+   modifiable: false},
+  {text: "How will you share the data?",
+   number: 1,
+   section: Section.find_by(title: "Data Sharing"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Data Sharing")]},
+  {text: "Are any restrictions on data sharing required?",
+   number: 2,
+   section: Section.find_by(title: "Data Sharing"),
+   question_format: text_area,
+   modifiable: false},
+  {text: "Who will be responsible for data management?",
+   number: 1,
+   section: Section.find_by(title: "Responsibilities and Resources"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Roles & Responsibilities")]},
+  {text: "What resources will you require to deliver your plan?",
+   number: 2,
+   modifiable: false,
+   section: Section.find_by(title: "Responsibilities and Resources"),
+   question_format: text_area},
+    
+  # Questions for old version of Funder Template
+  {text: "What data will you collect and how will it be obtained?",
+   number: 1,
+   modifiable: false,
+   section: Section.find_by(title: "Data Collection and Preservation"),
+   question_format: text_area},
+  {text: "How will you preserve your data during the project and long-term?",
+   number: 2,
+   modifiable: false,
+   section: Section.find_by(title: "Data Collection and Preservation"),
+   question_format: text_area},
+    
+  # Questions for the Funder Template's Preliminary Phase
+  {text: "Provide an overview of the dataset.",
+   number: 1,
+   section: Section.find_by(title: "Data Overview"),
+   question_format: text_area,
+   modifiable: true,
+   themes: [Theme.find_by(title: "Data Description")]},
+  {text: "What types/formats of data will you collect?",
+   number: 1,
+   modifiable: true,
+   section: Section.find_by(title: "Data Description"),
+   question_format: text_area,
+   themes: [Theme.find_by(title: "Data Format")]},
+  {text: "How will you store the data and how will it be preserved?",
+   number: 2,
+   modifiable: true,
+   section: Section.find_by(title: "Data Description"),
+   question_format: text_area,
+   themes: [Theme.find_by(title: "Data Collection")]},
+   
+  # Questions for the Funder Template's Detailed Phase
+  {text: "What is your policy for long term access to your dataset?",
+   number: 1,
+   section: Section.find_by(title: "Preservation Policy"),
+   question_format: text_area,
+   modifiable: false,
+   default_value: "Please enter your answer here ..." ,
+   themes: [Theme.find_by(title: "Preservation")]},
+  {text: "Where will your data be preserved?",
+   number: 2,
+   section: Section.find_by(title: "Preservation Policy"),
+   question_format: QuestionFormat.find_by(title: "Text field"),
+   modifiable: false,
+   default_value: "on a server at my institution",
+   guidance: "Consider where your data will be stored after your research is complete.",
+   themes: [Theme.find_by(title: "Preservation")]},
+  {text: "What types of data will you collect and how will it be stored?",
+   number: 1,
+   section: Section.find_by(title: "Data Format and Storage"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Storage & Security"), Theme.find_by(title: 'Data Format')]},
+  {text: "Please select the appropriate formats.",
+   number: 2,
+   section: Section.find_by(title: "Data Format and Storage"),
+   question_format: QuestionFormat.find_by(title: "Radio buttons"),
+   modifiable: false,
+   themes: [Theme.find_by(title: "Storage & Security"), Theme.find_by(title: 'Data Format')]},
+  {text: "Will software accompany your dataset?",
+   number: 1,
+   section: Section.find_by(title: "Collection Process"),
+   question_format: QuestionFormat.find_by(title: "Check box"),
+   modifiable: false,
+   themes: [Theme.find_by(title: "Data Collection")]},
+  {text: "Where will you store your data during the research period?",
+   number: 2,
+   section: Section.find_by(title: "Collection Process"),
+   question_format: QuestionFormat.find_by(title: "Dropdown"),
+   modifiable: false,
+   themes: [Theme.find_by(title: "Data Collection")]},
+  {text: "What type(s) of data will you collect?",
    number: 3,
-   is_default: true}
+   section: Section.find_by(title: "Collection Process"),
+   question_format: QuestionFormat.find_by(title: "Multi select box"),
+   option_comment_display: true,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Data Collection")]},
+  {text: "What are your institution's ethical policies?",
+   number: 1,
+   section: Section.find_by(title: "Ethical Standards"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Ethics & Privacy")]},
+  {text: "When will your data be available for public consumption?",
+   number: 2,
+   section: Section.find_by(title: "Ethical Standards"),
+   question_format: QuestionFormat.find_by(title: "Date"),
+   modifiable: false,
+   themes: [Theme.find_by(title: "Ethics & Privacy")]},
+  {text: "Tell us about your departmental and institutional policies on reuse and preservation.",
+   number: 1,
+   section: Section.find_by(title: "Preservation and Reuse Policies"),
+   question_format: text_area,
+   modifiable: false,
+   themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]}
 ]
-license_question_options.map{ |q| QuestionOption.create!(q) if QuestionOption.find_by(text: q[:text]).nil? }
+questions.map{ |q| Question.create!(q) if Question.find_by(text: q[:text]).nil? }
+
+drop_down_question = Question.find_by(text: "Where will you store your data during the research period?")
+multi_select_question = Question.find_by(text: "What type(s) of data will you collect?") 
+radio_button_question = Question.find_by(text: "Please select the appropriate formats.")
+
+# Create suggested answers for a few questions
+# ------------------------------------------------------- 
+suggested_answers = [
+  {text: "We will preserve it in Dryad or a similar data repository service.",
+   is_example: true,
+   org: Org.find_by(abbreviation: 'GA'),
+   question: Question.find_by(text: "What is your policy for long term access to your dataset?")},
+  {text: "We recommend that you identify the type(s) of content as well as the type of file(s) involved",
+   is_example: false,
+   org: Org.find_by(abbreviation: 'GA'),
+   question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
+]
+suggested_answers.map{ |s| SuggestedAnswer.create!(s) if SuggestedAnswer.find_by(text: s[:text]).nil? }
+
+# Create options for the dropdown, multi-select and radio buttons
+# ------------------------------------------------------- 
+question_options = [
+  {text: "csv files",
+   number: 1,
+   question: radio_button_question,
+   is_default: false},
+  {text: "database (e.g. mysql, redis)",
+   number: 2,
+   question: radio_button_question,
+   is_default: false},
+  {text: "archive files (e.g. tar, zip)",
+   number: 3,
+   question: radio_button_question,
+   is_default: false},
+   
+  {text: "local hard drive",
+   number: 1,
+   question: drop_down_question,
+   is_default: true},
+  {text: "personal cloud storage",
+   number: 2,
+   question: drop_down_question,
+   is_default: false},
+  {text: "institutional servers",
+   number: 3,
+   question: drop_down_question,
+   is_default: false},
+   
+  {text: "statistical",
+   number: 1,
+   question: multi_select_question,
+   is_default: false},
+  {text: "image/video",
+   number: 2,
+   question: multi_select_question,
+   is_default: false},
+  {text: "geographical",
+   number: 3,
+   question: multi_select_question,
+   is_default: false},
+  {text: "other",
+   number: 4,
+   question: multi_select_question,
+   is_default: false}
+]
+question_options.map{ |q| QuestionOption.create!(q) if QuestionOption.find_by(text: q[:text]).nil? }
+
+# Create plans
+# ------------------------------------------------------- 
+=begin
+plans = [
+  {title: "Sample plan",
+   template: Template.find_by(title: "Department of Testing Award"),
+   grant_number: "FUNDER-GRANT-123",
+   identifier: "987654321",
+   description: "This is a sample plan based on a funder template",
+   principal_investigator: "John Doe",
+   principal_investigator_identifier: "ORCID: 12346-000-1234",
+   data_contact: "john.doe@example.com",
+   funder_name: "Example Government Agency",
+   visibility: 0}
+]
+plans.map{ |p| Plan.create!(p) if Plan.find_by(title: "Sample plan").nil? }
+
+plan = Plan.find_by(title: "Sample plan")
+user = User.find_by(email: "org_user@example.com")
+
+answers = [
+  {text: "We will collect data from various sources and create our own analysis.",
+   plan: plan,
+   user: user,
+   question: Question.find_by(text: "Provide an overview of the dataset.")},
+  {text: "We will primarily collect images and video from our telescope and other instruments",
+   plan: plan,
+   user: user,
+   question: Question.find_by(text: "What types/formats of data will you collect?")},
+  {text: "We will store the data on our departmental server and then move it to a commercial data repository afterward.",
+   plan: plan,
+   user: user,
+   question: Question.find_by(text: "How will you store the data and how will it be preserved?")},
+   
+  {text: "We want people to be able to access it. ",
+   plan: plan,
+   user: user,
+   question: Question.find_by(text: "What is your policy for long term access to your dataset?")},
+  {plan: plan,
+   user: user,
+   question: drop_down_question,
+   question_options: [QuestionOption.find_by(text: "institutional servers")]},
+  {plan: plan,
+   user: user,
+   question: multi_select_question,
+   question_options: [QuestionOption.find_by(text: "image/video"), 
+                      QuestionOption.find_by(text: "other")]},
+  {plan: plan,
+   user: user,
+   question: radio_button_question,
+   question_options: [QuestionOption.find_by(text: "archive files (e.g. tar, zip)"),
+                      QuestionOption.find_by(text: "csv files")]},
+  {text: "Yes",
+   plan: plan,
+   user: user,
+   question: Question.find_by(text: "Will software accompany your dataset?")},
+  {text: "On a local server",
+   plan: plan,
+   user: user,
+   question: Question.find_by(text: "Where will you store your data during the research period?")},
+   {text: "2018-05-01 00:00:01",
+    plan: plan,
+    user: user,
+    question: Question.find_by(text: "When will your data be available for public consumption?")}
+]
+answers.map{ |a| Answer.create!(a) if Answer.where(plan: a[:plan], user: a[:user], question: a[:question]).empty? }
+=end

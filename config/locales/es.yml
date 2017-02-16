@@ -311,7 +311,7 @@ es:
     no_unlock_instructions: "¿No recibió instrucciones para el desbloqueo?"
     send_password_info: "Reiniciar las instrucciones de la clave"
     edit_password_info: "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
-    accept_terms_html: " Acepto los <a href='/terms'>términos y condiciones</a> *"
+    accept_terms_html: " Acepto los <a href=\"/terms\" target=\"_blank\">términos y condiciones</a> *"
  
     text_area: "Text area"
     text_field: "Text field"
@@ -387,6 +387,10 @@ es:
     guidance_accordion_label: "Guía"
     add_comment_accordion_label: "Compartir nota"
     comment_accordion_label: "Notas"
+
+    answer: 
+      only_one_per_question: "Una pregunta sólo puede tener una respuesta."
+      question_must_belong_to_correct_template: "La pregunta debe pertenecer a la plantilla correcta."
 
     comments:
       add_comment_label: "Añadir nota"
@@ -547,6 +551,7 @@ Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
 
     settings:
       title: "Preferencias"
+      unknown: "Desconocido"
       projects:
         title: "Preferencias - Mis planes"
         desc: "La siguiente tabla muestra las columnas que pueden mostrarse en la lista 'Mis planes'. Elija cuales quiere que se muestren."

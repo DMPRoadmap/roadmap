@@ -5,19 +5,10 @@ class ExportedPlanTest < ActiveSupport::TestCase
   setup do
     @user = User.last
     
-    # generate a template and plan
-    template = generate_complete_template
+    scaffold_plan
     
-    project = Project.new({
-      title: 'Test Project',
-      organisation: @user.organisation
-    })
-    project.dmptemplate = template
-    project.save!
-    
-    @plan = project.plans.first
-    
-    @exported = ExportedPlan.create(user: @user, plan: @plan, format: ExportedPlan::VALID_FORMATS.first)
+    @exported = ExportedPlan.create(user: @user, plan: @plan, 
+                                    format: ExportedPlan::VALID_FORMATS.first)
   end
 
   # ---------------------------------------------------
@@ -30,6 +21,7 @@ class ExportedPlanTest < ActiveSupport::TestCase
     a = ExportedPlan.new(plan: @plan, format: ExportedPlan::VALID_FORMATS.last)
     assert a.valid?, "expected the 'plan', 'user' and 'format' fields to be enough to create an ExportedPlan! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
+
 
   # ---------------------------------------------------
   test "as_csv" do

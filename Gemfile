@@ -15,8 +15,8 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-gem 'pg'
 gem 'mysql2', '~> 0.3.18'
+gem 'pg'
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
@@ -29,16 +29,8 @@ gem 'therubyracer', '>=0.11.4', platforms: :ruby
 gem 'jbuilder'
 
 # ------------------------------------------------
-#    CLONE ACTIVERECORD MODELS AND ASSOCIATIONS
-gem 'amoeba'
-
-# ------------------------------------------------
 #    SLUGS/PERMALINKS
 gem 'friendly_id'
-
-# ------------------------------------------------
-#    BIT FIELDS
-gem 'flag_shih_tzu'
 
 # ------------------------------------------------
 #    SUPER ADMIN SECTION
@@ -87,6 +79,7 @@ gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 # ------------------------------------------------
 #     INTERNATIONALIZATION
 gem "i18n-js", ">= 3.0.0.rc11"          #damodar added TODO: explain
+gem 'gettext_i18n_rails', '~> 1.8'
 
 # ------------------------------------------------
 #     API

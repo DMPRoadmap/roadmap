@@ -1,0 +1,74 @@
+<%- model_class = Plan -%>
+
+<!-- render the project title -->
+<%= render :partial => "plan_title", locals: {plan: @plan} %>
+
+<!-- render navigation tabs for the project-->
+<%= render :partial => "plan_nav_tabs", locals: {plan: @plan, plan_data: @plan_data, active: "share_project"} %>
+<div class="dmp_details_body">
+
+	<!--Text describing page content-->
+	<%= raw t('helpers.project.share.share_text_html',
+						application_name: Rails.configuration.branding[:application][:name])%>
+
+	<div class="dmp_details">
+		<h3><%= t('helpers.project.share.collaborators')%></h3>
+		<div>
+			<% if @plan.roles.any? then %>
+
+				<table class="dmp_table">
+					<thead>
+						<tr>
+							<th><%= t('helpers.user_name')%></th>
+							<th><%= t('helpers.project.share.permissions')%></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					<% plan_roles = @plan.roles.all %>
+					<%  plan_roles.each do |role| %>
+						<tr>
+							<th class="dmp_th_border" ><%= role.user.name %></th>
+							<td class="dmp_td_border">
+								<% if role.creator? then %>
+									<%= t("helpers.project.share.owner")%>
+								<% else %>
+									<%= form_for role, :url => {:controller => :roles, :action => :update, :id => role.id }, :html=>{:method=>:put} do |f| %>
+										<%= f.select :access_level, {t('helpers.project.share.co_owner') => 3, t('helpers.project.share.edit') => 2,  t('helpers.project.share.read_only') => 1}, {}, {:id => "#{group.id}-can-edit", :class => "toggle-existing-user-access has-tooltip", 'data-toggle' => "tooltip", 'title' => t('helpers.project.share.permissions_desc') } %>
+									<% end %>
+								<% end %>
+							</td>
+							<td class="dmp_td_border">
+                <% unless role.creator? || role.user == current_user then %>
+									<%= link_to t('helpers.project.share.remove'), group, method: :delete, data: { confirm: t('helpers.project.share.confirmation_question') }, :class => "a-orange" %>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+					</tbody>
+				</table>
+			<% end %>
+		</div>
+
+		<hr class="orange_break_line">
+		<h3><%= t('helpers.project.share.add_collaborator')%></h3>
+
+		<div>
+			<% new_role = Role.new %>
+			<% new_role.plan = @plan %>
+			<%= semantic_form_for new_role, :url => {:controller => :roles, :action => :create }, :html=>{:method=>:post} do |f| %>
+				<%= f.inputs do %>
+					<%= f.input :plan_id, :as => :hidden %>
+          <%= f.semantic_fields_for :user do |user| %>
+            <%= user.email_field :email, :for => :user, :name => "User", :label => false,  placeholder: t('helpers.email') %> 
+          <% end %>
+					<p><%= t('helpers.project.share.permissions')%>:</p>
+					<%= f.select :access_level, [[t('helpers.project.share.co_owner'), 3], [ t('helpers.project.share.edit') , 2], [ t('helpers.project.share.read_only'), 1]], {}, {:class => 'has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.share.permissions_desc') } %>
+				<% end %>
+				<%= f.actions do %>
+					<%= f.action :submit, :label => I18n.t('helpers.project.share.add_collaborator'), :button_html => { :class => "btn btn-primary" } %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

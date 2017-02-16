@@ -15,24 +15,22 @@ class StaticPagesController < ApplicationController
   def roadmap
   end
   
-  # GET /projects/publicly_available
+  # GET /plans/publicly_available
   # -----------------------------------------------------------
   def public_plans
-    @projects = Project.publicly_visible.order(title: :asc)
+    @plans = Plan.where(visibility: :publicly_visible).order(title: :asc)
   end
 
-  # GET /projects/[:project_slug]/public_export
+  # GET /plans/[:plan_slug]/public_export
   # -------------------------------------------------------------
   def public_export
-    @project = Project.find(params[:id])
+    @plan = Plan.find(params[:id])
   
     # Force PDF response 
     request.format = :pdf
   
     # if the project is designated as public
-    if @project.visibility == :publicly_visible
-      @plan = @project.plans.first
-    
+    if @plan.visibility == :publicly_visible
       if !@plan.nil?
         @exported_plan = ExportedPlan.new.tap do |ep|
           ep.plan = @plan

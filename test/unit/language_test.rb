@@ -3,9 +3,9 @@ require 'test_helper'
 class LanguageTest < ActiveSupport::TestCase
   
   def setup
-    @lang = Language.first
+    @lang = Language.find_by(abbreviation: I18n.locale)
     @user = User.first
-    @organisation = @user.organisation
+    @org = @user.org
   end
   
   # ---------------------------------------------------
@@ -37,14 +37,13 @@ class LanguageTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage has_many relationship with Users" do
-    user = User.new(email: 'me@example.edu', password: 'password')
-    verify_has_many_relationship(@lang, user, @lang.users.count)
+    verify_has_many_relationship(Language.last, User.last, Language.last.users.count)
   end
 
   # ---------------------------------------------------
   test "can manage has_many relationship with Organisations" do
-    org = Organisation.create(name: 'testing')
-    verify_has_many_relationship(@lang, org, @lang.organisations.count)
+    org = Org.create(name: 'testing', abbreviation: "TEST")
+    verify_has_many_relationship(Language.last, org, Language.last.orgs.count)
   end
 
 end

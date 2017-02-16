@@ -327,7 +327,7 @@ de:
     no_unlock_instructions: "Entsperrungsanleitungen nicht erhalten?"
     send_password_info: "Anleitung zum Zurücksetzen des Passworts"
     edit_password_info: "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
-    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms' target='_blank'>Nutzungsbedingungen</a> *"
+    accept_terms_html: "Ich akzeptiere die <a href=\"/terms\" target=\"_blank\">Nutzungsbedingungen</a> *"
 
     text_area: "Text area"
     text_field: "Textfeld"
@@ -407,6 +407,10 @@ de:
     guidance_accordion_label: "Hilfestellung"
     add_comment_accordion_label: "Füge Kommentar hinzu"
     comment_accordion_label: "Kommentare"
+
+    answer: 
+      only_one_per_question: "Eine Frage kann nur eine Antwort haben."
+      question_must_belong_to_correct_template: "Die Frage muss zur richtigen vorlage gehören."
 
     comments:
       add_comment_label: "Füge Kommentar hinzu"
@@ -621,6 +625,7 @@ de:
 
     settings:
       title: "Einstellungen"
+      unknown: "Unbekannt"
       projects:
         title: "Einstellungen - Meine Pläne"
         desc: "Die untere Tabelle listet die verfügbaren Spalten auf, welche in der Liste 'Meine Pläne' gezeigt werden können.

@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
+  
+  include Devise::Test::IntegrationHelpers
+  
+  setup do
+    scaffold_plan
+  end
 
   # Routing for the home page
   # ------------------------------------------------------------------- 
@@ -34,24 +40,16 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing public_plans_path(locale: I18n.locale), target
   end
   test 'GET /public_export should resolve to StaticPagesController#public_export' do
-    project = Project.includes(:plans).where.not(plans: {id: nil}).first
-    target = {controller: "static_pages", action: "public_export", locale: "#{I18n.locale}", id: project.id.to_s}
+    plan = Plan.first
+    target = {controller: "static_pages", action: "public_export", locale: "#{I18n.locale}", id: plan.id.to_s}
     
-    assert_routing public_export_path(locale: I18n.locale, id: project), target
+    assert_routing public_export_path(locale: I18n.locale, id: plan), target
   end
 
   # OAuth - Based on providers identified in the en-UK locale file
   # ------------------------------------------------------------------- 
-  test "GET /users/auth/[:provider] should resolve to OmniauthCallbackController#passthru" do
-    target = {controller: "users/omniauth_callbacks", action: "passthru"}
-
-    IdentifierScheme.all.each do |scheme|
-      assert_routing "/users/auth/#{scheme.name.downcase}", target
-    end
-  end
-  
   test "POST /auth/[:provider]/callback should resolve to OmniauthCallbackController#[:provider]" do
-    IdentifierScheme.all.each do |scheme|
+    IdentifierScheme.where(active: true).all.each do |scheme|
       target = {controller: "users/omniauth_callbacks", action: "#{scheme.name.downcase}"}
       assert_routing "/users/auth/#{scheme.name.downcase}/callback", target
     end

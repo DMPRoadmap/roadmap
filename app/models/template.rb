@@ -5,28 +5,47 @@ class Template < ActiveRecord::Base
   # Associations
   belongs_to :org
   has_many :plans
-  has_many :phases
+  has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
+
+  has_many :customizations, class_name: 'Template', foreign_key: 'dmptemplate_id'
+  belongs_to :dmptemplate, class_name: 'Template'
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :organisation_id, :description, :published, :title, :locale, :is_default, 
-                  :guidance_group_ids, :organisation, :plans, :phases, :org, :as => [:default, :admin]
+  attr_accessible :id, :org_id, :description, :published, :title, :locale, 
+                  :is_default, :guidance_group_ids, :org, :plans, :phases, 
+                  :version, :visibility, :published, :as => [:default, :admin]
 
   # defines the export setting for a template object
   has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
-
+  validates :org, :title, :version, presence: true
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
 
 
+  ##
+  # deep copy the given template and all of it's associations
+  #
+  # @params [Template] template to be deep copied
+  # @return [Template] saved copied template
+  def self.deep_copy(template)
+    template_copy = template.dup
+    template_copy.save!
+    template.phases.each do |phase|
+      phase_copy = Phase.deep_copy(phase)
+      phase_copy.template_id = template_copy.id
+      phase_copy.save!
+    end
+    return template_copy
+  end
 
   ##
   # takes a type or organisation and returns all published templates from
@@ -34,6 +53,7 @@ class Template < ActiveRecord::Base
   #
   # @param ot [String] name of an organisation type e.g. founder
   # @return [Array<dmptemplates>] list of published dmptemplates
+=begin
   def self.templates_org_type(ot)
     # DISCUSS - This function other than the check for the template being published
     # is a superclass for the below funders_templates
@@ -78,7 +98,7 @@ class Template < ActiveRecord::Base
     new_templates = self.where("org_id = ?", org_id)
     return new_templates
   end
-
+  
   ##
   # returns an array with all funders and of the given organisations's
   # institutional templates
@@ -104,7 +124,7 @@ class Template < ActiveRecord::Base
 
     return templates_list
   end
-
+  
   ##
   # Returns the string name of the organisation type of the organisation who
   # owns this dmptemplate
@@ -114,7 +134,9 @@ class Template < ActiveRecord::Base
     org_type = org.organisation_type
     return org_type
   end
-
+=end
+  
+# TODO: Why are we passing in an org and template here? 
   ##
   # Verify if a template has customisation by given organisation
   #
@@ -124,7 +146,7 @@ class Template < ActiveRecord::Base
   def has_customisations?(org_id, temp)
     modifiable = true
     phases.each do |phase|
-      modifiable = modifable && phase.modifiable
+      modifiable = modifiable && phase.modifiable
     end
     return !modifiable
     # if temp.org_id != org_id then
@@ -141,6 +163,7 @@ class Template < ActiveRecord::Base
     # end
   end
 
+=begin
   ##
   # verify if there are any publish version for the template
   #
@@ -151,8 +174,8 @@ class Template < ActiveRecord::Base
     end
     return false 
   end
-
-
+=end
+  
   # OLD CODE STARTS HERE
 
 end
