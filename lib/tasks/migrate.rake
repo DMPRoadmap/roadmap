@@ -139,4 +139,23 @@ namespace :migrate do
     end
 
   end
+
+  desc "enforces unique dmptemplate_id for templates"
+  task unique_dmptemplate_id: :environment do
+    Template.where('dmptemplate_id = customization_of').each do |temp|
+    # iterate over all templates ____WITH POTENTIALLY BAD DATA ______
+      same_dmptemp = Template.where(org_id: temp.org_id, customization_of: temp.customization_of).where('customization_of <> dmptemplate_id').first
+      if same_dmptemp.present?
+        temp.dmptemplate_id = same_dmptemp.dmptemplate_id
+        # use that dmptemplate_id
+      else
+        # generate a new dmptemplate_id
+        temp.dmptemplate_id = loop do
+          random = rand 2147483647  # max int field in psql
+          break random unless Template.exists?(dmptemplate_id: random)
+        end
+      end
+      temp.save!
+    end
+  end
 end
