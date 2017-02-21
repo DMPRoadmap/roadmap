@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   ##
   # POST - updates the permissions for a user
   # redirects to the admin_index action
+  # should add validation that the perms given are current perms of the current_user
   def admin_update_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
