@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.includes(:perms).find(params[:id])
     authorize @user
     user_perms = current_user.perms
-    @perms = user_perms & Perm.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
+    @perms = user_perms & [Perm::GRANT_PERMISSIONS, Perm::MODIFY_TEMPLATES, Perm::MODIFY_GUIDANCE, Perm::USE_API, Perm::CHANGE_ORG_DETAILS]
   end
 
   ##
@@ -33,14 +33,14 @@ class UsersController < ApplicationController
       if @user.perms.include? perm
         if ! perms.include? perm
           @user.perms.delete(perm)
-          if perm.name == constant("user_role_types.use_api")
+          if perm.id == Perm::USE_API.id
             @user.remove_token!
           end
         end
       else
         if perms.include? perm
           @user.perms << perm
-          if perm.name == constant("user_role_types.use_api")
+          if perm.name == Perm::USE_API.id
             @user.keep_or_generate_token!
           end
         end
