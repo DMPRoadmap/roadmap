@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can add new organisations
   def can_add_orgs?
-    perms.include? Perm.find_by(name: constant("roles.add_organisations"))
+    perms.include? Perm::ADD_ORGS
   end
 
   ##
@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can change their organisation affiliations
   def can_change_org?
-    perms.include? Perm.find_by(name: constant("roles.change_org_affiliation"))
+    perms.include? Perm::CHANGE_AFFILIATION
   end
 
   ##
@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant their permissions to others
   def can_grant_permissions?
-    perms.include? Perm.find_by(name: constant("roles.grant_permissions"))
+    perms.include? Perm::GRANT_PERMISSIONS
   end
 
   ##
@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
-    perms.include? Perm.find_by(name: constant("roles.modify_templates"))
+    perms.include? Perm::MODIFY_TEMPLATES
   end
 
   ##
@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organistion guidance
   def can_modify_guidance?
-    perms.include? Perm.find_by(name: constant("roles.modify_guidance"))
+    perms.include? Perm::MODIFY_GUIDANCE
   end
 
   ##
@@ -191,7 +191,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can use the api
   def can_use_api?
-    perms.include? Perm.find_by(name: constant("roles.use_api"))
+    perms.include? Perm::USE_API
   end
 
   ##
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
-    perms.include? Perm.find_by(name: constant("roles.change_org_details"))
+    perms.include? Perm::CHANGE_ORG_DETAILS
   end
 
 
@@ -208,7 +208,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    perms.include? Perm.find_by(name: constant('roles.grant_api_to_orgs'))
+    perms.include? Perm::GRANT_API
   end
 
   ##
