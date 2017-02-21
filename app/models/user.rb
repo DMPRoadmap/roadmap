@@ -59,6 +59,9 @@ class User < ActiveRecord::Base
     s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
   end
 
+  ##
+  # Scopes
+  default_scope { includes(:org, :perms) }
 
 
 
