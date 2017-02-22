@@ -10,7 +10,7 @@ The tool has four main functions:
 4. To allow collaborative work when creating Data Management Plans.  
 
 #### Current Release
-v.0.1.0
+Official release coming soon!
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 #### Summary
@@ -18,8 +18,8 @@ v.0.1.0
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have: 
 1. Ruby >= 2.0.0p247
-2. Rails >= 4.0
-3. MySql >= 5.0
+2. Rails >= 4.2
+3. MySql >= 5.0 OR PostgreSql
 
 Further details on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
 
@@ -34,8 +34,8 @@ You may also find the following resources handy:
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 #### Installation
-* Create your mysql db. Select UTF-8 Unicode (utf8mb4) encoding.
-* Fork the repository and then clone it onto your server
+* Create your database. Select UTF-8 Unicode (utf8) encoding.
+* Clone this repository (or Fork the repository first if you plan on contributing)
 
 >     > git clone https://github.com/[your organization]/roadmap.git
 
@@ -45,6 +45,13 @@ You may also find the following resources handy:
 
 >     > cp config/database_example.yml config/database.yml
 >     > cp config/secrets_example.yml config/secrets.yml
+
+* Make copies of the example gem initializer files and update the values for your installation
+
+>     > cp config/initializers/devise.rb.example config/initializers/devise.rb
+>     > cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+>     > cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+>     > cp config/locales/*.static.yml.example config/locales/*.static.yml
 
 * Create an environment variable for your instance's secret (as defined in config/secrets.yml). You should use the following command to generate secrets for each of your environments, storing the production one in the environment variable:
 
@@ -56,46 +63,35 @@ You may also find the following resources handy:
 
 >     > bundle install
 
->     > rake db:migrate
+>     > rake db:schema:load
 
->     > rake db:seed
-
-* Setup the devise authentication gem
-
->     > rails generate devise:install     (Is this really necessary?)
+>     > rake db:seed    (Unless you are migrating data from an old DMPOnline system)
 
 * Start the application
 
 >     > rails server
 
 * Verify that the site is running properly by going to http://localhost:3000
-* Login as the default administrator: 'super_admin@example.com' - 'password1'
+* Login as the default administrator: 'super_admin@example.com' - 'password123'
 
 #### Troubleshooting
-##### Installation - OSX:
-
-```
-An error occurred while installing libv8 (3.11.8.17), and Bundler cannot continue.
-
-Make sure that `gem install libv8 -v '3.11.8.17'` succeeds before bundling. 
-```
-
-If you are installing on a system that already has v8 installed then you may need to install the libv8 gem manually using your system's current v8 engine. If you're using homebrew to manage your packages you should run 'brew update' and 'brew upgrade' to make sure you have the latest packages
-
->     > gem uninstall -a libv8
-
->     > gem install libv8 -v '<<VERSION>>' -- --with-system-v8
-
->     > bundle install
+See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki
 
 #### Support
 Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
 Please be advised though that we can only provide limited support for your local installations.
 
 #### Become a contributor
-Fork this repository and make your modifications in a new branch. Then create a pull request to our 'development' branch. We will reject any pull request made against the 'master' branch. Once your pull request has been submitted the team will review your request and accept it if appropriate.
+If you would like to contribute to the project. Please follow these steps to submit a contribution:
+* Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
+* Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's '_**development**_' branch
+* Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
+* Make your changes in the new branch
+* When you have finished your work, make sure that your version of the '_**development**_' branch is still up to date with this project. Then merge your new branch into your '_**development**_' branch.
+* Then create a new Pull Request (PR) to this project's '_**contributions**_' branch in GitHub 
+* The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
 
-Join the developer email listserv at www.jiscmail.ac.uk/DMPONLINE-DEV
+See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/wiki/Contributing) on the Wiki for more details
 
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
