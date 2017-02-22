@@ -17,9 +17,9 @@ Official release coming soon!
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have: 
-1. Ruby >= 2.0.0p247
-2. Rails >= 4.2
-3. MySql >= 5.0 OR PostgreSql
+* Ruby >= 2.2.2
+* Rails >= 4.2
+* MySql >= 5.0 OR PostgreSql
 
 Further details on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
 
