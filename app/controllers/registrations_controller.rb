@@ -72,7 +72,7 @@ class RegistrationsController < Devise::RegistrationsController
       @orgs = Org.where(parent_id: nil).order("name")
       @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
-      @languages = Language.sorted_by_abbreviation
+      #@languages = Language.sorted_by_abbreviation
       do_update
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
