@@ -247,65 +247,140 @@ class Plan < ActiveRecord::Base
   ##
   # defines and returns the status of the plan
   # status consists of a hash of the num_questions, num_answers, sections, questions, and spaced used.
-  # For each section, it contains theid's of each of the questions
+  # For each section, it contains the id's of each of the questions
   # for each question, it contains the answer_id, answer_created_by, answer_text, answer_options_id, aand answered_by
   #
   # @return [Status]
-	def status
-		status = {
-			"num_questions" => 0,
-			"num_answers" => 0,
-			"sections" => {},
-			"questions" => {},
-			"space_used" => 0 # percentage of available space in pdf used
-		}
 
-		space_used = height_of_text(self.title, 2, 2)
+  def status
+    status = {
+      "num_questions" => 0,
+      "num_answers" => 0,
+      "sections" => {},
+      "questions" => {},
+      "space_used" => 0 # percentage of available space in pdf used
+    }
 
-		sections.each do |s|
-			space_used += height_of_text(s.title, 1, 1)
-			section_questions = 0
-			section_answers = 0
-			status["sections"][s.id] = {}
-			status["sections"][s.id]["questions"] = Array.new
-			s.questions.each do |q|
-				status["num_questions"] += 1
-				section_questions += 1
-				status["sections"][s.id]["questions"] << q.id
-				status["questions"][q.id] = {}
-				answer = answer(q.id, false)
+    space_used = height_of_text(self.title, 2, 2)
 
-				space_used += height_of_text(q.text) unless q.text == s.title
-				space_used += height_of_text(answer.try(:text) || I18n.t('helpers.plan.export.pdf.question_not_answered'))
+    section_ids = sections.map {|s| s.id}
 
-				if ! answer.nil? then
-					status["questions"][q.id] = {
-						"answer_id" => answer.id,
-						"answer_created_at" => answer.created_at.to_i,
-						"answer_text" => answer.text,
-						"answer_option_ids" => answer.question_options.pluck(:id),
-						"answered_by" => answer.user.name
-					}
-                    q_format = q.question_format
-          status["num_answers"] += 1 if (q_format.title == I18n.t("helpers.checkbox") || q_format.title == I18n.t("helpers.multi_select_box") ||
-                                        q_format.title == I18n.t("helpers.radio_buttons") || q_format.title == I18n.t("helpers.dropdown")) || answer.text.present?
-          section_answers += 1
-          #TODO: include selected options in space estimate
-        else
-          status["questions"][q.id] = {
-            "answer_id" => nil,
-            "answer_created_at" => nil,
-            "answer_text" => nil,
-            "answer_option_ids" => nil,
-            "answered_by" => nil
-          }
-        end
-         status["sections"][s.id]["num_questions"] = section_questions
-         status["sections"][s.id]["num_answers"] = section_answers
+    # we retrieve this is 2 joins:
+    #   1. sections and questions
+    #   2. questions and answers
+    # why? because Rails 4 doesn't have any sensible left outer join.
+    # when we change to RAILS 5 it is meant to have so this can be fixed then
+
+    records = Section.joins(questions: :question_format)
+                     .select('sections.id as sectionid,
+                              sections.title as stitle,
+                              questions.id as questionid,
+                              questions.text as questiontext,
+                              question_formats.title as qformat')
+                     .where("sections.id in (?) ", section_ids)
+                     .to_a
+
+    # extract question ids to get answers
+    question_ids = records.map {|r| r.questionid}.uniq
+    status["num_questions"] = question_ids.count
+
+    arecords = Question.joins(answers: :user)
+                       .select('questions.id as questionid,
+                                answers.id as answerid,
+                                answers.plan_id as plan_id,
+                                answers.text as answertext,
+                                answers.created_at as created,
+                                users.email as username')
+                       .where("questions.id in (?) and answers.plan_id = ?",question_ids, self.id)
+                       .to_a
+
+    # we want answerids to extract options later
+    answer_ids = arecords.map {|r| r.answerid}.uniq
+    status["num_answers"] = answer_ids.count
+
+    # create map from questionid to answer structure
+    qa_map = {}
+    arecords.each do |rec|
+      qa_map[rec.questionid] = {
+        plan: rec.plan_id,
+        id: rec.answerid,
+        text: rec.answertext,
+        created: rec.created,
+        user: rec.username
+      }
+    end
+
+
+    # build main status structure
+    records.each do |rec|
+      sid = rec.sectionid
+      stitle = rec.stitle
+      qid = rec.questionid
+      qtext = rec.questiontext
+      format = rec.qformat
+
+      answer = nil
+      if qa_map.has_key?(qid) 
+        answer = qa_map[qid]
       end
+
+      aid = answer.nil? ? nil : answer[:id]
+      atext = answer.nil? ? nil : answer[:text]
+      created = answer.nil? ? nil : answer[:created]
+      uname = answer.nil? ? nil : answer[:user]
+
+      space_used += height_of_text(stitle, 1, 1)
+
+      shash = status["sections"]
+      if !shash.has_key?(sid)
+        shash[sid] = {}
+        shash[sid]["num_questions"] = 0
+        shash[sid]["num_answers"] = 0
+        shash[sid]["questions"] = Array.new
+      end
+
+      shash[sid]["questions"] << qid
+      shash[sid]["num_questions"] += 1
+
+      space_used += height_of_text(qtext) unless qtext == stitle
+      if atext.present?
+        space_used += height_of_text(atext)
+      else
+        space_used += height_of_text(I18n.t('helpers.plan.export.pdf.question_not_answered'))
+      end
+
+      if answer.present? then
+        shash[sid]["num_answers"] += 1
+      end
+
+      status["questions"][qid] = {
+        "format" => format,
+        "answer_id" => aid,
+          "answer_created_at" => created.to_i,
+        "answer_text" => atext,
+        "answered_by" => uname
+      }
+
+    end
+
+    records = Answer.joins(:question_options).select('answers.id as answerid, question_options.id as optid').where(id: answer_ids).to_a
+    opt_hash = {}
+    records.each do |rec|
+      aid = rec.answerid
+      optid = rec.optid
+      if !opt_hash.has_key?(aid)
+        opt_hash[aid] = Array.new
+      end
+      opt_hash[aid] << optid
+    end
+
+    status["questions"].each_key do |questionid| 
+      answerid = status["questions"][questionid]["answer_id"]
+      status["questions"][questionid]["answer_option_ids"] = opt_hash[answerid]
     end
 
     status['space_used'] = estimate_space_used(space_used)
+
     return status
   end
 
@@ -848,6 +923,10 @@ class Plan < ActiveRecord::Base
                    :plan_guidance_groups, :guidance_groups]
       )
 
+    # serializable_hash only works over one level so we still need to go and extract
+    # the deeper levels and knit them in.
+    #
+    # want hash of questions by id to add in suggested answers and question_formats
     question_hash = {}
 
     plan_data["questions"].each do |q|
@@ -856,40 +935,49 @@ class Plan < ActiveRecord::Base
 
     question_ids = question_hash.keys
 
+    # pull out suggested answers
     suggested_answers = SuggestedAnswer.where(question_id: question_ids).where.not(text: '')
     suggested_answers.each do |sa|
       question_hash[sa.question_id]["suggested_answer"] = sa.serializable_hash
     end
 
+    # pull out question_formats
     qf_hash = {}
     QuestionFormat.all.each do |qf|
       qf_hash[qf.id] = qf.serializable_hash
     end
+    # add question _formats to questions
     question_hash.values.each do |q|
       q["question_format"] = qf_hash[q["question_format_id"]]
     end
 
+    # get the ids of the dynamically selected guidance groups
+    # and keep a map of them so we can extract the name later
     gg_ids = plan_data["plan_guidance_groups"].select{|pgg| pgg["selected"]}.map{|pgg| pgg["guidance_group_id"]}
     gg_hash = {}
-
-    theme_guidance = {} 
-
     ggs = GuidanceGroup.find(gg_ids).each do |gg|
        gg_hash[gg.id] = gg.serializable_hash
     end
 
-    guidances = Guidance.joins(:themes).select('guidances.guidance_group_id, guidances.text, themes.title').where(guidance_group: gg_ids).to_a
+    # create a map from theme to array of guidances
+    theme_guidance = {} 
+    guidances = Guidance.joins(:themes)
+                        .select('guidances.guidance_group_id, guidances.text, themes.title')
+                        .where(guidance_group: gg_ids)
+                        .to_a
+
     guidances.each do |g|
       title = g.title
       if !theme_guidance.has_key?(title)
         theme_guidance[title] = Array.new
       end
-        theme_guidance[title] << {
-          "text" => g.text,
-          "org" => gg_hash[g.guidance_group_id]["name"]
-        }
+      theme_guidance[title] << {
+        "text" => g.text,
+        "org" => gg_hash[g.guidance_group_id]["name"]
+      }
     end
 
+    # link the guidance to the questions
     plan_data["questions"].each do |q|
       qg = {}
       if q.has_key?("themes")
@@ -930,6 +1018,7 @@ class Plan < ActiveRecord::Base
   def fixup_hash(plan)
     # sort out guidance first so we can add it to the questions
     # before rolling up
+    #
     ghash = {}
     plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
     plan["plan_guidance_groups"].each do |pgg|
@@ -959,7 +1048,6 @@ class Plan < ActiveRecord::Base
         section["nanswers"] = nanswers
       end
     end
-
   end
 
 
