@@ -4,13 +4,12 @@ def get_available_locales
     languages.each do |l|
         locales << l.abbreviation
     end
-    puts 'locales: '+locales.inspect
     return locales
 end
 
 def get_default_locale
     language = Language.default()
-    return language.nil? ? 'en_UK' : language.abbreviation
+    return language.nil? ? 'en_GB' : language.abbreviation
 end
 
 FastGettext.add_text_domain 'app', :path => 'config/locale', :type => :po

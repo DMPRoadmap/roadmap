@@ -1,4 +1,4 @@
-en_UK:
+en_GB:
   about_page:
     title: "About %{application_name}"
     tab_1: "Background"

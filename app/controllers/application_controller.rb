@@ -26,16 +26,9 @@ class ApplicationController < ActionController::Base
     @languages = Language.sorted_by_abbreviation
   end
 
-  # Sets FastGettext locale for every request maade
+  # Sets FastGettext locale for every request made
   def set_gettext_locale
     FastGettext.locale = session[:locale] || FastGettext.default_locale
-    I18n.locale = FastGettext.locale
-    puts 'FastGettext.locale: '+FastGettext.locale.inspect
-    puts 'FastGettext.default_locale: '+FastGettext.default_locale.inspect
-    puts 'FastGettext.default_available_locales: '+FastGettext.default_available_locales.inspect
-    puts 'I18n.locale: '+I18n.locale.inspect
-    puts 'I18n.default_locale: '+I18n.default_locale.inspect
-    puts 'I18n.available_locales: '+I18n.available_locales.inspect
   end
 
   # PATCH /locale/:locale REST method
@@ -43,7 +36,6 @@ class ApplicationController < ActionController::Base
     if FastGettext.default_available_locales.include?(params[:locale])
       session[:locale] = params[:locale]
     end
-    puts 'session[:locale] = '+session[:locale]
     redirect_to root_path
   end
 
