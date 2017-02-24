@@ -1,9 +1,9 @@
 <%= stylesheet_link_tag "admin" %>
 
 <h1>
-	<%= t('org_admin.org_details_label') %>
+	<%= _('Organisation details') %>
 </h1>
-<%= t('org_admin.org_text')%>
+<%= _('These are the basic details for your organisation.')%>
 <br/>
 <div class="clear"></div>
 <div class="white_background blue_border">
@@ -14,7 +14,7 @@
 		<table class="dmp_details_table">
 			<% if @org.name.present? then %>
 			<tr>
-				<td class="first"><%= t('org_admin.org_name') %></td>
+				<td class="first"><%= _('Name') %></td>
 				<td><%= @org.name %></td>
 
 				<% if @org.logo.present? then %>
@@ -25,48 +25,48 @@
 
 			<% if @org.abbreviation.present? then %>
 			<tr>
-				<td class="first"><%= t('org_admin.org_abbr') %></td>
+				<td class="first"><%= _('Abbreviation') %></td>
 				<td><%= @org.abbreviation %></td>
 			</tr>
 			<% end %>
 
       <% if @org.banner_text.present? then %>
 			<tr>
-				<td class="first"><%= t('org_admin.org_banner_text') %></td>
+				<td class="first"><%= _('Top banner text') %></td>
 				<td><%= raw @org.banner_text %></td>
 			</tr>
 			<% end %>
 
 			<% if @org.target_url.present? then %>
 			<tr>
-				<td class="first"><%= t('org_admin.org_target_url') %></td>
+				<td class="first"><%= _('Website') %></td>
 				<td><%= @org.target_url %></td>
 			</tr>
 			<% end %>
 
 			<% if @org.contact_email.present? then %>
 			<tr>
-				<td class="first"><%= t('org_admin.org_contact_email') %></td>
+				<td class="first"><%= _('Contact Email') %></td>
 				<td><%= @org.contact_email %></td>
 			</tr>
 			<% end %>
 
 			<% if @org.org_type != 0 then %>
 			<tr>
-				<td class="first"><%= t('org_admin.org_type') %></td>
+				<td class="first"><%= _('Organisation type') %></td>
 				<td><%= @org.organisation_type %></td>
 			</tr>
 			<% end %>
 
 			<% if @org.parent_id.present? then %>
 				<tr>
-					<td class="first"><%= t('org_admin.parent_org') %></td>
+					<td class="first"><%= _('Main organisation') %></td>
 					<td><%= @org.parent.name %></td>
 				</tr>
 			<% end %>
 
 			<tr>
-				<td class="first"><%= t('org_admin.last_updated') %></td>
+				<td class="first"><%= _('Last updated') %></td>
 				<td><%= l @org.updated_at.to_date, formats: :short %></td>
 			</tr>
 		</table>
@@ -75,7 +75,7 @@
   	</div>
 
 		<div class="move_2_right">
-			<%= link_to t("helpers.submit.edit"), admin_edit_org_path(current_user.org), class: 'btn btn-primary'%>
+			<%= link_to _('Edit'), admin_edit_org_path(current_user.org), class: 'btn btn-primary'%>
 		</div>
 		<br />
 	</div>
