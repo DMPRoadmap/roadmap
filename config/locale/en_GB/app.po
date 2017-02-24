@@ -7,15 +7,15 @@
 
 #date.formats.default
 msgid "%d-%m-%Y"
-msgstr "%m-%d-%Y"
+msgstr "%d-%m-%Y"
 
 #date.formats.short
 msgid "%d/%m/%Y"
-msgstr "%m/%d/%Y"
+msgstr "%d/%m/%Y"
 
 #date.formats.long
 msgid "%d %B, %Y"
-msgstr "%B %d, %Y"
+msgstr "%d %B, %Y"
 
 #time.formats.default
 msgid "%a, %b %d %Y %H:%M:%S %z"
@@ -27,7 +27,7 @@ msgstr "%d %b %H:%M"
 
 #time.formats.custom
 msgid "%d/%m/%Y %H:%M"
-msgstr "%m/%d/%Y %H:%M"
+msgstr "%d/%m/%Y %H:%M"
 
 #time.formats.long
 msgid "%B %d, %Y %H:%M"
@@ -75,55 +75,55 @@ msgstr "You need to sign in or sign up before continuing."
 
 #admin.language
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #admin.language_name
 msgid "Language name"
-msgstr ""
+msgstr "Language name"
 
 #admin.language_abbreviation
 msgid "Language abbreviation"
-msgstr ""
+msgstr "Language abbreviation"
 
 #admin.language_is_default
 msgid "Is default language"
-msgstr ""
+msgstr "Is default language"
 
 #admin.true
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #admin.false
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #admin.org_title
 msgid "Organisation name"
-msgstr "Organization name"
+msgstr "Organisation name"
 
 #admin.org
 msgid "Organisation"
-msgstr "Organization"
+msgstr "Organisation"
 
 #admin.orgs
 msgid "Organisations"
-msgstr "Organizations"
+msgstr "Organisations"
 
 #admin.org_type
 msgid "Organisation type"
-msgstr "Organization type"
+msgstr "Organisation type"
 
 #admin.org_parent
 msgid "Parent organisation"
-msgstr "Parent organization"
+msgstr "Parent organisation"
 
 #admin.org_created_message
 msgid "Organisation was successfully created."
-msgstr "Organization was successfully created."
+msgstr "Organisation was successfully created."
 
 #admin.org_updated_message
 msgid "Organisation was successfully updated."
-msgstr "Organization was successfully updated."
+msgstr "Organisation was successfully updated."
 
 #admin.org_bad_logo
 msgid "There seems to be a problem with your logo. Please upload it again."
@@ -227,7 +227,7 @@ msgstr "User was successfully created."
 
 #admin.user_org_role
 msgid "User role on an Organisation"
-msgstr "User role on an Organization"
+msgstr "User role on an Organisation"
 
 #admin.user_role_type
 msgid "User role type"
@@ -367,7 +367,7 @@ msgstr "Token Permission"
 
 #admin.org_token_permission
 msgid "Organisation Token Permission"
-msgstr "Organization Token Permission"
+msgstr "Organisation Token Permission"
 
 #admin.settings_updated
 msgid "Settings updated successfully"
@@ -419,11 +419,11 @@ msgstr "No section"
 
 #org_admin.org_default_language
 msgid "Organisation language"
-msgstr ""
+msgstr "Organisation language"
 
 #org_admin.org_default_language_help_text
 msgid "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
-msgstr ""
+msgstr "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
 
 #org_admin.admin_area
 msgid "Admin area"
@@ -443,11 +443,11 @@ msgstr "Users"
 
 #org_admin.org_details_label
 msgid "Organisation details"
-msgstr "Organization details"
+msgstr "Organisation details"
 
 #org_admin.org_text
 msgid "These are the basic details for your organisation."
-msgstr "These are the basic details for your organization."
+msgstr "These are the basic details for your organisation."
 
 #org_admin.org_abbr_help_text_html
 msgid "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
@@ -459,7 +459,7 @@ msgstr "Contact Email"
 
 #org_admin.org_contact_email_help_text
 msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
-msgstr "The email address of an administrator at your organization. Your users will use this address if they have questions."
+msgstr "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 
 #org_admin.users_list
 msgid "List of users"
@@ -483,11 +483,11 @@ msgstr "How many plans?"
 
 #org_admin.privileges
 msgid "Privileges"
-msgstr "Permissions"
+msgstr "Privileges"
 
 #org_admin.user_text_html
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
-msgstr "Below is a list of users registered for your organization. You can sort the data by each field."
+msgstr "Below is a list of users registered for your organisation. You can sort the data by each field."
 
 #org_admin.org_name
 msgid "Name"
@@ -527,11 +527,11 @@ msgstr "Website"
 
 #org_admin.org_type
 msgid "Organisation type"
-msgstr "Organization type"
+msgstr "Organisation type"
 
 #org_admin.parent_org
 msgid "Main organisation"
-msgstr "Main organization"
+msgstr "Main organisation"
 
 #org_admin.last_updated
 msgid "Last updated"
@@ -539,7 +539,7 @@ msgstr "Last updated"
 
 #org_admin.desc_help_text_html
 msgid "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
-msgstr "<div class='tooltip_box'>Please enter information describing your organization.</div>"
+msgstr "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
 
 #org_admin.top_banner_help_text_html
 msgid "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
@@ -551,7 +551,7 @@ msgstr "<div class='tooltip_box'>Enter a description that helps you to different
 
 #org_admin.abbre_help_text
 msgid "Please enter an abbreviation to your organisation's name."
-msgstr "Please enter an abbreviation to your organization's name."
+msgstr "Please enter an abbreviation to your organisation's name."
 
 #org_admin.target_url_help_text
 msgid "Please enter a valid web address."
@@ -559,7 +559,7 @@ msgstr "Please enter a valid web address."
 
 #org_admin.name_help_text
 msgid "Please enter your organisation's name."
-msgstr "Please enter your organization's name."
+msgstr "Please enter your organisation's name."
 
 #org_admin.guidance_label
 msgid "Guidance"
@@ -607,11 +607,11 @@ msgstr "User org role was successfully updated."
 
 #org_admin.api_privileges
 msgid "API Privleges?"
-msgstr "API Permissions?"
+msgstr "API Privleges?"
 
 #org_admin.edit_user_privileges
 msgid "Edit User Privileges"
-msgstr "Edit User Permissions"
+msgstr "Edit User Privileges"
 
 #org_admin.guidance.guidance_list
 msgid "Guidance list"
@@ -787,7 +787,7 @@ msgstr "Guidance group was successfully deleted."
 
 #org_admin.templates.template_history
 msgid "Template History"
-msgstr ""
+msgstr "Template History"
 
 #org_admin.templates.create_template
 msgid "Create a template"
@@ -835,7 +835,7 @@ msgstr "<p>To create a new template, first enter a title and description. Once y
 
 #org_admin.templates.template_history_text_html
 msgid "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
-msgstr ""
+msgstr "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
 
 #org_admin.templates.desc_help_text_html
 msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
@@ -963,7 +963,7 @@ msgstr "Customise"
 
 #org_admin.templates.customise_label
 msgid "Customised"
-msgstr ""
+msgstr "Customised"
 
 #org_admin.templates.edit_customisation
 msgid "Edit customisation"
@@ -971,7 +971,7 @@ msgstr "Edit customisation"
 
 #org_admin.templates.update_customisation
 msgid "Update Customisation"
-msgstr ""
+msgstr "Update Customisation"
 
 #org_admin.templates.created_message
 msgid "Information was successfully created."
@@ -987,7 +987,7 @@ msgstr "Information was successfully deleted."
 
 #org_admin.templates.read_only
 msgid "Published templates cannot be edited."
-msgstr ""
+msgstr "Published templates cannot be edited."
 
 #org_admin.templates.section_delete_message
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
@@ -995,11 +995,11 @@ msgstr "You are about to delete '%{section_title}'. This will affect questions l
 
 #org_admin.templates.unpublished_changes
 msgid "Yes [Unpublished Changes]"
-msgstr ""
+msgstr "Yes [Unpublished Changes]"
 
 #org_admin.templates.original_changed
 msgid "Yes [Original Template Has Changed]"
-msgstr ""
+msgstr "Yes [Original Template Has Changed]"
 
 #org_admin.versions.clone_versions_label
 msgid "Make big changes"
@@ -1195,7 +1195,7 @@ msgstr "format"
 
 #helpers.change_language
 msgid "Change language"
-msgstr ""
+msgstr "Change language"
 
 #helpers.yes
 msgid "Yes"
@@ -1263,7 +1263,7 @@ msgstr "You can edit any of the details below."
 
 #helpers.user_details_language
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #helpers.remember_me
 msgid "Remember me"
@@ -1271,7 +1271,7 @@ msgstr "Remember me"
 
 #helpers.org_not_listed
 msgid "My organisation isn't listed."
-msgstr "My organization isn't listed."
+msgstr "My organisation isn't listed."
 
 #helpers.password
 msgid "Password"
@@ -1322,8 +1322,8 @@ msgid "If you would like to change your password please complete the following f
 msgstr "If you would like to change your password please complete the following fields."
 
 #helpers.accept_terms_html
-msgid " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
-msgstr " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
+msgid " I accept the <a href='/%{current_locale}/terms' target='_blank'>terms and conditions</a> *"
+msgstr " I accept the <a href='/%{current_locale}/terms' target='_blank'>terms and conditions</a> *"
 
 #helpers.you_must_accept
 msgid "You must accept the terms and conditions to register."
@@ -1355,7 +1355,7 @@ msgstr "How to use the API"
 
 #helpers.api_granted
 msgid "You have been granted permission by your organisation to use our API."
-msgstr "You have been granted permission by your organization to use our API."
+msgstr "You have been granted permission by your organisation to use our API."
 
 #helpers.api_view_token
 msgid "Your API token and instructions for using the API endpoints can be found here."
@@ -1491,7 +1491,7 @@ msgstr "View"
 
 #helpers.history
 msgid "History"
-msgstr ""
+msgstr "History"
 
 #helpers.desc
 msgid "Description"
@@ -1815,15 +1815,15 @@ msgstr "Note removed by you"
 
 #helpers.comments.note_created
 msgid "Comment was successfully created."
-msgstr ""
+msgstr "Comment was successfully created."
 
 #helpers.comments.note_updated
 msgid "Comment was successfully updated."
-msgstr ""
+msgstr "Comment was successfully updated."
 
 #helpers.comments.note_removed
 msgid "Comment has been removed."
-msgstr ""
+msgstr "Comment has been removed."
 
 #helpers.org_type.funder
 msgid "Funder"
@@ -1839,11 +1839,11 @@ msgstr "Project"
 
 #helpers.org_type.organisation
 msgid "Organisation"
-msgstr "Organization"
+msgstr "Organisation"
 
 #helpers.org_type.org_name
 msgid "Organisation name"
-msgstr "Organization name"
+msgstr "Organisation name"
 
 #helpers.org_type.school
 msgid "School"
@@ -1871,7 +1871,7 @@ msgstr "Unit"
 
 #helpers.org_type.other_org_help_text
 msgid "Please enter the name of your organisation."
-msgstr "Please enter the name of your organization."
+msgstr "Please enter the name of your organisation."
 
 #helpers.project.create
 msgid "Create plan"
@@ -2023,7 +2023,7 @@ msgstr "Private"
 
 #helpers.project.visibilities.labels.organisationally_visible
 msgid "Organisational"
-msgstr "Organizational"
+msgstr "Organisational"
 
 #helpers.project.visibilities.labels.publicly_visible
 msgid "Public"
@@ -2039,7 +2039,7 @@ msgstr "Private (owners, co-owners, and administrators only) See our Terms of Us
 
 #helpers.project.visibilities.help_texts.organisationally_visible
 msgid "Organisational (visibile to others within your organisation)"
-msgstr "Organizational (visibile to others within your organization)"
+msgstr "Organisational (visibile to others within your organisation)"
 
 #helpers.project.visibilities.help_texts.publicly_visible
 msgid "Public (Your DMP will appear on the Public DMPs page of this site)"
@@ -2051,7 +2051,7 @@ msgstr "Test/Practice (your plan is not visible to other users) See our Terms of
 
 #helpers.project.visibilities.help_texts.not_set
 msgid "Not specified (will be visible to others within your organisation by default)"
-msgstr "Not specified (will be visible to others within your organization by default)"
+msgstr "Not specified (will be visible to others within your organisation by default)"
 
 #helpers.project.project_settings_text
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -2110,8 +2110,8 @@ msgid "Shared?"
 msgstr "Shared?"
 
 #helpers.project.share.share_text_html
-msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
-msgstr "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
+msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don\'t already have an account. A notification is also issued when a user\'s permission level is changed.</p>"
+msgstr "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don\'t already have an account. A notification is also issued when a user\'s permission level is changed.</p>"
 
 #helpers.project.share.collaborators
 msgid "Collaborators"
@@ -2187,11 +2187,11 @@ msgstr "Name of funder, if applicable."
 
 #helpers.project.create_page.institution_question
 msgid "To see institutional questions and/or guidance, select your organisation."
-msgstr "To see institutional questions and/or guidance, select your organization."
+msgstr "To see institutional questions and/or guidance, select your organisation."
 
 #helpers.project.create_page.institution_question_description
 msgid "You may leave blank or select a different organisation to your own."
-msgstr "You may leave blank or select a different organization to your own."
+msgstr "You may leave blank or select a different organisation to your own."
 
 #helpers.project.create_page.other_guidance_question
 msgid "Tick to select any other sources of guidance you wish to see."
@@ -2339,7 +2339,7 @@ msgstr "Plan ID"
 
 #helpers.plan.export.grant_title
 msgid "Grant number"
-msgstr "Grant Number"
+msgstr "Grant number"
 
 #helpers.plan.export.principal_investigator
 msgid "Principal Investigator / Researcher"
@@ -2351,7 +2351,7 @@ msgstr "Plan Data Contact"
 
 #helpers.plan.export.project_description
 msgid "Plan Description"
-msgstr "Description"
+msgstr "Plan Description"
 
 #helpers.plan.export.funder
 msgid "Funder"
@@ -2615,15 +2615,15 @@ msgstr "{"Error":"Bad credentials"}"
 
 #api.org_dosent_exist
 msgid "{"Error":"Organisation does not exist"}"
-msgstr "{"Error":"Organization does not exist"}"
+msgstr "{"Error":"Organisation does not exist"}"
 
 #api.org_not_funder
 msgid "{"Error":"Organisation specified is not a funder"}"
-msgstr "{"Error":"Organization specified is not a funder"}"
+msgstr "{"Error":"Organisation specified is not a funder"}"
 
 #api.org_multiple_templates
 msgid "{"Error":"Organisation has more than one template and template name unspecified or invalid"}"
-msgstr "{"Error":"Organization has more than one template and template name unspecified or invalid"}"
+msgstr "{"Error":"Organisation has more than one template and template name unspecified or invalid"}"
 
 #api.no_auth_for_endpoint
 msgid "{"Error":"You do not have authorisation to view this endpoint"}"

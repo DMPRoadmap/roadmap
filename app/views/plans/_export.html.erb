@@ -1,7 +1,7 @@
 <div id='<%= plan.id %>-export-dialog' data-container="body" class='modal hide fade'>
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3><%= t('helpers.export') %> <%= plan.title %>: <%= plan_data["template"]["title"] %></h3>
+		<h3><%= _('Export') %> <%= plan.title %>: <%= plan_data["template"]["title"] %></h3>
 	</div>
 	<div class="modal-body">
 		<%= render :partial => "/shared/export_links", locals: {plan: plan, plan_data: plan_data} %>

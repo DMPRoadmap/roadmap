@@ -4,23 +4,23 @@
   <% end %>
   <td class="dmp_td_medium">
     <% if plan.editable_by?(current_user.id) then %>
-      <%= link_to t(".edit", :default => t("helpers.links.edit")), plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to _('Edit'), plan_path(plan), :class => "dmp_table_link"%>
 
       <% if plan.administerable_by?(current_user.id) then %>
-        <%= link_to t("helpers.project.share.tab_share"), share_plan_path(plan), :class => "dmp_table_link"%>
+        <%= link_to _('Share'), share_plan_path(plan), :class => "dmp_table_link"%>
       <% end %>
 
-      <%= link_to t("helpers.project.tab_export"), export_plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to _('Export'), export_plan_path(plan), :class => "dmp_table_link"%>
 
       <% if plan.administerable_by?(current_user.id) then %>
-        <%= link_to t(".destroy", :default => t("helpers.links.destroy")), plan_path(plan), :class => "dmp_table_link",
+        <%= link_to _('Delete'), plan_path(plan), :class => "dmp_table_link",
           :method => :delete, :data => {
-            :confirm => t("helpers.project.confirm_delete_text")
+            :confirm => _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')
           }%>
       <% end %>
     <% else %>
-      <%= link_to t(".view", :default => t("helpers.view")), plan_path(plan), :class => "dmp_table_link"%>
-      <%= link_to t("helpers.project.tab_export"), export_plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to _('View'), plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to _('Export'), export_plan_path(plan), :class => "dmp_table_link"%>
     <% end %>
 
   </td>

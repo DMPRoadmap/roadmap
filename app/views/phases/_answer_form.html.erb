@@ -37,9 +37,9 @@
           <div class="suggested-answer-div">
             <span class="suggested-answer-intro">
               <% if suggested_answer["is_example"] then %>
-                <%= t("org_admin.questions.example_answer_label")%>
+                <%= _('Example of answer')%>
               <%else%>
-                <%= t("org_admin.questions.suggested_answer_label")%>
+                <%= _('Suggested answer')%>
               <%end%>
             </span>
 
@@ -79,7 +79,7 @@
 
           <!-- Comment text area for the multiple choice answers-->
           <% if question.option_comment_display == true %>
-            <%= label_tag("answer-text-#{question.id}".to_sym, t("helpers.comment")) %>
+            <%= label_tag("answer-text-#{question.id}".to_sym, _('Comment')) %>
             <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
           <%end%>
         <% end %>  <!-- if multiple choice -->
@@ -94,20 +94,20 @@
 
       <!--action buttons-->
       <%= f.actions do %>
-        <%= f.action :submit, :label => t("helpers.save"), :button_html => { :class => "btn btn-primary"} %>
-        <li id="saving-<%= question["id"] %>" class="saving-message" style="display:none;"><%= t("helpers.saving")%></li>
+        <%= f.action :submit, :label => _('Save'), :button_html => { :class => "btn btn-primary"} %>
+        <li id="saving-<%= question["id"] %>" class="saving-message" style="display:none;"><%= _('Saving...')%></li>
       <% end %>   <!-- f.actions -->
     <% end %>
   </div>   <!-- question-form -->
 
   <% if answer.nil? || !answer.has_key?("created_at") || answer["created_at"].nil? %>
-    <span id="<%= question["id"] %>-status" class="label label-warning answer-status"><%= t("helpers.notanswered") %></span>
+    <span id="<%= question["id"] %>-status" class="label label-warning answer-status"><%= _('Not answered yet') %></span>
   <% else %>
-    <span id="<%= question["id"] %>-status" class="label label-info answer-status"><%= t("helpers.answered_by")%><abbr class="timeago" data-time="<%= answer_obj.created_at.iso8601 %>" title="<%= answer_obj.created_at.iso8601 %>"><%= answer_obj.created_at %></abbr><%= t("helpers.answered_by_part2")%><%= answer_obj.user.name %></span>
+    <span id="<%= question["id"] %>-status" class="label label-info answer-status"><%= _('Answered')%><abbr class="timeago" data-time="<%= answer_obj.created_at.iso8601 %>" title="<%= answer_obj.created_at.iso8601 %>"><%= answer_obj.created_at %></abbr><%= _(' by')%><%= answer_obj.user.name %></span>
   <% end %>
 </div>   <!-- question-div -->
 
-<span id="<%= question["id"] %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= t("helpers.unsaved") %></span>
+<span id="<%= question["id"] %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
       
 <!-- Question right column -->
 <div class="question-area-right-column">
@@ -121,14 +121,14 @@
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
         <li class="active guidance_tab_class">
-          <%= link_to t("helpers.guidance_accordion_label"), "#", :class => "guidance_accordion_button" %>
+          <%= link_to _('Guidance'), "#", :class => "guidance_accordion_button" %>
         </li>
         <li class="comment_tab_class">
           <% if comments.count > 0 then%>
-            <% comments_label_with_count = "#{t("helpers.comment_accordion_label")} (#{comments.count})"%>
+            <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
             <%= link_to comments_label_with_count , "#", :class => "comments_accordion_button" %>
           <%else%>
-            <%= link_to t("helpers.add_comment_accordion_label"), "#", :class => "comments_accordion_button" %>
+            <%= link_to _('Share note'), "#", :class => "comments_accordion_button" %>
           <%end%>
         </li>
         <%else%>
@@ -137,10 +137,10 @@
           <% css_style_guidance_div = "display: none;"%>
           <li>
             <% if comments.count > 0 then%>
-              <% comments_label_with_count = "#{t("helpers.comment_accordion_label")} (#{comments.count})"%>
+              <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
               <p class= "accordion_label"><%= comments_label_with_count %></p>
             <%else%>
-              <p class= "accordion_label"><%= t("helpers.add_comment_accordion_label") %></p>
+              <p class= "accordion_label"><%= _('Share note') %></p>
             <%end%>
           </li>
         <%end%>
@@ -160,7 +160,7 @@
            <div class="accordion-heading">
              <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question["id"] %>-guidance" href="#collapse-guidance-<%= question["id"]%>">
                <div class="accordion_heading_text">
-               <%= plan.template.org.abbreviation %> <%= t("helpers.guidance") %>
+               <%= plan.template.org.abbreviation %> <%= _('Guidance') %>
                </div>
                <span class="plus-laranja"> </span></a>
            </div>

@@ -8,7 +8,7 @@
 
     <!-- add note -->
     <div id="add_comment_button_top_div_<%= answerid %>" class="move_2_right" >
-      <%= link_to t("helpers.comments.add_comment_label"),'#', :class => "btn btn-primary add_comment_button" %>
+      <%= link_to _('Add note'),'#', :class => "btn btn-primary add_comment_button" %>
     </div>
 
     <div class="div_clear"></div>
@@ -20,7 +20,7 @@
 
     <!-- add a note button -->
     <div id="add_comment_button_bottom_div_<%= answerid %>" class="move_2_right">
-      <%= link_to t("helpers.comments.add_comment_label"),'#', :class => "btn btn-primary add_comment_button" %>
+      <%= link_to _('Add note'),'#', :class => "btn btn-primary add_comment_button" %>  <!-- helpers.comments.add_comment_label has as value Add note -->
     </div>
 
     <div class="div_clear"></div>
@@ -31,6 +31,6 @@
     </div>
 
   <% else%>
-    <%= t("helpers.comments.add_comment_text")%>
+    <%= _('Share note with collaborators')%>
     <%= render :partial => "add_note", locals: {answer: answer, answer_obj: answer_obj, question: question, plan_data: plan_data}%>
   <% end%>

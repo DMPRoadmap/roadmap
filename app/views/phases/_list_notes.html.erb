@@ -27,26 +27,26 @@
             <% if c["archived"]  %>
 
               <% if c["archived_by"] == current_user.id %>
-                <%= t("helpers.comments.retracted")%>
+                <%= _('Note removed by you')%>
               <% else %>
                 <% archived_by_user = User.find(c["archived_by"]) %>
-                <%= t("helpers.comments.clear_by")%> <%= archived_by_user.name %>
+                <%= _('Note removed by')%> <%= archived_by_user.name %>
               <%end%>
 
             <%else%>   <!-- not archived -->
 
-              <%= link_to t("helpers.comments.view_label"),"#", :class => "dmp_table_link view_comment_button" %>
+              <%= link_to _('View'),"#", :class => "dmp_table_link view_comment_button" %>
               <%= hidden_field_tag :note_id, c["id"], :class => "comment_id" %>
 
               <% if current_user.id == c["user_id"] %>
-                <%= link_to t("helpers.comments.edit_label"),"#", :class => "dmp_table_link edit_comment_button" %>
+                <%= link_to _('Edit'),"#", :class => "dmp_table_link edit_comment_button" %>
                 <%= hidden_field_tag :note_id, c["id"], :class => "comment_id" %>
-                <%= link_to t("helpers.comments.retract_label"),"#", :class => "dmp_table_link archive_comment_button" %>
+                <%= link_to _('Remove'),"#", :class => "dmp_table_link archive_comment_button" %>
               <% end%>   <!-- if current user -->
 
               <% if plan.administerable_by?(current_user.id) && current_user.id != c["user_id"] %>
                 <%= hidden_field_tag :note_id, c["id"], :class => "comment_id" %>
-                <%= link_to t("helpers.comments.clear_label"),"#", :class => "dmp_table_link archive_comment_button" %>
+                <%= link_to _('Remove'),"#", :class => "dmp_table_link archive_comment_button" %>   <!-- helpers.comments.clear_label has Remove as value -->
               <% end%>
             <%end%>   <!-- archived -->
 

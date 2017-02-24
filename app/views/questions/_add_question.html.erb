@@ -16,8 +16,8 @@ in the admin interface.
     <table class="dmp_details_table phase">
       <!--Question number -->
       <tr>
-        <td class="first_template"><%= t("org_admin.questions.question_number_label")%></td>
-        <td><%= f.number_field :number, in: 1..50, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: t("org_admin.questions.number_help_text") %>
+        <td class="first_template"><%= _('Question number')%></td>
+        <td><%= f.number_field :number, in: 1..50, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: _('This allows you to order questions within a section.') %>
 
           <div class="border_bottom"></div>
         </td>
@@ -25,7 +25,7 @@ in the admin interface.
 
       <!--Question text -->
       <tr>
-        <td class="first_template"><%= t("org_admin.questions.question_text_label")%></td>
+        <td class="first_template"><%= _('Question text')%></td>
         <td><%= f.text_area :text, rows: "5", id: "new_question_text_#{section.id}" %>
           <div class="border_bottom"></div>
         </td>
@@ -33,16 +33,16 @@ in the admin interface.
 
       <!-- Question format -->
       <tr>
-        <td class="first_template"><%= t("org_admin.questions.answer_format_label")%></td>
+        <td class="first_template"><%= _('Answer format')%></td>
         <td><%= f.hidden_field :section_id, value: section.id, class: "section_id" %>
           <div id="new-ques-format" class="ques_format">
             <div class="div_left_icon">
               <%= f.select :question_format_id,
-                options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(t("helpers.text_area")).id),
+                options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(_('Text area')).id),
                   {}, id: "new-select-format-#{section.id}"%>
             </div>
             <div class="div_right_icon">
-              <%= link_to( image_tag("help_button.png"), "#", class: "question_format_popover", rel: "popover", "data-html" => "true",  "data-content" => t("org_admin.questions.question_format_help_text_html"))%>
+              <%= link_to( image_tag("help_button.png"), "#", class: "question_format_popover", rel: "popover", "data-html" => "true",  "data-content" => _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"))%>
             </div>
 
           </div>
@@ -52,10 +52,10 @@ in the admin interface.
             <table class="options_table">
               <thead>
                 <tr>
-                  <th nowrap class="small"><%= t("org_admin.option_order_label")%></th>
-                  <th nowrap class="medium"><%= t("org_admin.option_text_label")%></th>
-                  <th nowrap class="small"><%= t("org_admin.option_default_label")%></th>
-                  <th nowrap class="small"><%= link_to( image_tag("help_button.png"), "#", class: "question_options_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_options_help_text_html"))%></th>
+                  <th nowrap class="small"><%= _('Order')%></th>
+                  <th nowrap class="medium"><%= _('Text')%></th>
+                  <th nowrap class="small"><%= _('Default')%></th>
+                  <th nowrap class="small"><%= link_to( image_tag("help_button.png"), "#", class: "question_options_popover", rel: "popover", "data-html" => "true", "data-content" => _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.'))%></th>
                 </tr>
               </thead>
               <tbody class="options_tbody">
@@ -75,25 +75,25 @@ in the admin interface.
 
             </table>
 
-            <a href="#" class="add-option"><%= t("org_admin.add_option_label") %></a>
+            <a href="#" class="add-option"><%= _('Add option') %></a>
 
 
             <div class="clearfix"></div>
             <!--display for selecting comment box when multiple choice is being used-->
-            <%= f.check_box :option_comment_display, as: :check_boxes%><%= f.label t("org_admin.questions.option_comment_display_checkbox"), class: "checkbox inline"%>
+            <%= f.check_box :option_comment_display, as: :check_boxes%><%= f.label _('Display additional comment area.'), class: "checkbox inline"%>
           </div>
           <div class="clearfix"></div>
           <!--display for default value for text field label-->
           <div id="new-default-text-field-<%= section.id%>" style="display:none;" class="ques_format">
             <div>
-              <%= t("org_admin.questions.default_answer_label")%>
+              <%= _('Default answer')%>
             </div>
           </div>
           <div class="clearfix"></div>
           <!--display for default value for text area label -->
           <div id="new-default-text-area-<%= section.id%>" style="display:none;" class="ques_format">
             <div>
-              <%= t("org_admin.questions.default_answer_label")%>
+              <%= _('Default answer')%>
             </div>
           </div>
           <div class="clearfix"></div>
@@ -102,7 +102,7 @@ in the admin interface.
               <%= text_area_tag("new-question-default-value", "", class: "tinymce") %>
             </div>
             <div class="div_right_icon">
-              <%= link_to( image_tag("help_button.png"), "#", class: "default_answer_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.default_answer_help_text_html"))%>
+              <%= link_to( image_tag("help_button.png"), "#", class: "default_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.'))%>
             </div>
 
           </div>
@@ -114,20 +114,20 @@ in the admin interface.
 
         <!-- Suggested answer or Example-->
       <tr>
-        <td class="first_template"><%= t("org_admin.questions.suggested_or_example_answer_label")%></td>
+        <td class="first_template"><%= _('Suggested answer/ Example')%></td>
         <td>
           <div class="div_left_icon">
             <% suggested_answer = @new_question.suggested_answers.build %>
             <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
               <%= s.hidden_field :org_id, value: current_user.org_id %>
               <ul>
-                <li><%= s.select :is_example, {t("org_admin.questions.example_answer_label") => true, t("org_admin.questions.suggested_answer_label") => false} %></li>
+                <li><%= s.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
                 <li><%= s.text_area :text, rows: 5 %></li>
               </ul>
             <% end %>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.suggested_answer_help_text_html"))%>
+            <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -137,13 +137,13 @@ in the admin interface.
 
       <!-- Guidance for Question -->
       <tr>
-        <td class="first_template"><%= t("org_admin.questions.guidance_label")%></td>
+        <td class="first_template"><%= _('Guidance')%></td>
         <td>
           <div class="div_left_icon">
             <%= text_area_tag("new-question-guidance", "", class: "tinymce") %>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_guidance_help_text_html"))%>
+            <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -152,15 +152,15 @@ in the admin interface.
 
       <!-- Themes -->
       <tr>
-        <td class="first_template"><%= t("org_admin.questions.themes_label")%></td>
+        <td class="first_template"><%= _('Themes')%></td>
         <td>
           <div class="div_left_icon">
             <%= f.collection_select(:theme_ids,
                 Theme.all.order("title"),
-                :id, :title, {prompt: false, include_blank: t('helpers.none')}, {multiple: true})%>
+                :id, :title, {prompt: false, include_blank: _('None')}, {multiple: true})%>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", class: "question_themes_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_themes_help_text_html"))%>
+            <%= link_to( image_tag("help_button.png"), "#", class: "question_themes_popover", rel: "popover", "data-html" => "true", "data-content" => _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"))%>
           </div>
 
 
@@ -172,9 +172,9 @@ in the admin interface.
     <!-- submit buttons -->
     <div class="move_2_right">
       <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
-      <%= f.submit t("helpers.submit.save"), class: "btn btn-primary new_question_save_button" %>
+      <%= f.submit _('Save'), class: "btn btn-primary new_question_save_button" %>
       <%= hidden_field_tag :section_id, section.id, class: "section_id_new" %>
-      <%= link_to t("helpers.submit.cancel"), '#', class: "btn cancel cancel_add_new_question" %>
+      <%= link_to _('Cancel'), '#', class: "btn cancel cancel_add_new_question" %>
     </div>
   </div>
 

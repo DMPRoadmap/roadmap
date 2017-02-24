@@ -4,10 +4,10 @@
 
   <table class="dmp_details_table phase">
     <tr>
-      <td class="first_template"><%= t("org_admin.questions.suggested_or_example_answer_label")%></td>
+      <td class="first_template"><%= _('Suggested answer/ Example')%></td>
       <td>
         <ul>
-          <li><%= f.select :is_example, {t("org_admin.questions.example_answer_label") => true, t("org_admin.questions.suggested_answer_label") => false} %></li>
+          <li><%= f.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
           <li><%= f.text_area :text, rows: 5 %></li>
         </ul>
       </td>
@@ -17,10 +17,10 @@
 
   <!-- submit buttons -->
   <div class="move_2_right">
-    <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
-    <%= link_to t("helpers.submit.delete"), admin_destroy_suggested_answer_path(id: suggested_answer.id),
-      confirm: t("org_admin.questions.delete_suggested_answer_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
+    <%= f.submit _('Save'), class: "btn btn-primary" %>
+    <%= link_to _('Delete'), admin_destroy_suggested_answer_path(id: suggested_answer.id),
+      confirm: _('You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?') % { question_text: => question.text }, method: :delete, class: "btn btn-primary"%>
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-    <%= link_to t("helpers.submit.cancel"), "#", class: "btn cancel cancel_edit_suggested_answer" %>
+    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_edit_suggested_answer" %>
   </div>
 <%end%>

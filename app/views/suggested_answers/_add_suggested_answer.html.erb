@@ -5,10 +5,10 @@
 
   <table class="dmp_details_table phase">
     <tr>
-      <td class="first_template"><%= t("org_admin.questions.suggested_or_example_answer_label")%></td>
+      <td class="first_template"><%= _('Suggested answer/ Example')%></td>
       <td>
         <ul>
-          <li><%= f.select :is_example, {t("org_admin.questions.example_answer_label") => true, t("org_admin.questions.suggested_answer_label") => false} %></li>
+          <li><%= f.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
           <li><%= f.text_area :text, rows: 5 %>
           </li>
         </ul>
@@ -19,7 +19,7 @@
 
   <!-- submit buttons -->
   <div class="move_2_right">
-    <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
-    <%= link_to t("helpers.submit.cancel"), "#", id: "cancel_suugested_answer", class: "btn cancel" %>
+    <%= f.submit _('Save'), class: "btn btn-primary" %>
+    <%= link_to _('Cancel'), "#", id: "cancel_suugested_answer", class: "btn cancel" %>
   </div>
 <%end%>

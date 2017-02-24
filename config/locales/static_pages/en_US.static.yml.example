@@ -1,4 +1,4 @@
-en-UK:
+en_US:
   about_page:
     title: "About %{application_name}"
     tab_1: "Background"
@@ -37,7 +37,7 @@ en-UK:
   A summary of requirements from the NSF, NIH and other key funders in the USA.
         </li>
         <li>
-          <a target='_blank' href='/files/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
+          <a target='_blank' href='/files/DMP_Checklist_2013.pdf'>Digital Curation Centre Checklist for a Data Management Plan</a> [PDF, 3 pages]<br />
   A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in %{application_name}, and is presented when no funder or organsiational requirements are applicable for the user.
         </li>
         <li>
@@ -95,7 +95,7 @@ en-UK:
       </li>
       <li>
         <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How%20to%20Appraise%20and%20Select%20Research%20Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br />
-  A guide by ANDS and the Digital Curation Centre on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions.
+  A guide by ANDS and the %{organisation_abbreviation} on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions.
       </li>
       <li>
         <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br />
@@ -140,7 +140,7 @@ en-UK:
     title: "Future plans"
     tab_1: "Releases"
     tab_2: "Get involved"
-    body_text_tab_1_html: "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
+    body_text_tab_1_html: "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank  '>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p>
     <ul>
         <li>- APIs to create plans, extract guidance and generate statistics from %{application_name}</li>
         <li>- Multi-lingual support so foreign language versions can be presented</li>
@@ -163,8 +163,8 @@ en-UK:
     <h3>Join the user group</h3>
     <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p>
     <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p>
-    <p>Notes from previous user group sessions are provided below:</p>
-    <ul>
+  <p>Notes from previous user group sessions are provided below:</p>
+  <ul>
       <li>- <a href='/files/DMPonline-user-group-IDCC-2016.pdf' target='_blank'>Meeting notes covering internationalisation and locales, 23 February 2016</a></li>
       <li>- <a href='/files/DMPonline-user-group-notes-29Jan2015' target='_blank'>Meeting notes covering plan lifecycle and review, 29 January 2015</a></li>
     </ul>

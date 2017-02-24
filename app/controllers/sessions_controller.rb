@@ -16,13 +16,20 @@ class SessionsController < Devise::SessionsController
   # ---------------------------------------------------------------------
   def create
     existing_user = User.find_by(email: params[:user][:email])
-
-    if !existing_user.nil? && !params[:shibboleth_data].nil? then
-      #after authentication verify if session[:shibboleth] exists
-      existing_user.update_attributes(shibboleth_id: session[:shibboleth_data][:uid])
+    if !existing_user.nil?
+      if !params[:shibboleth_data].nil? 
+        #after authentication verify if session[:shibboleth] exists
+        existing_user.update_attributes(shibboleth_id: session[:shibboleth_data][:uid])
+      end
+      session[:locale] = existing_user.get_locale unless existing_user.get_locale.nil?
+      set_gettext_locale  #Method defined at controllers/application_controller.rb
     end
-
     super
   end
 
+  def destroy
+    super
+    session[:locale] = nil
+    set_gettext_locale  #Method defined at controllers/application_controller.rb
+  end
 end
