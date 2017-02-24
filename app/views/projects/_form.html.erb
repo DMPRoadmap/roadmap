@@ -1,32 +1,32 @@
 <div class="project-details-body">
 	<%= form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
 		<div class="field-group">
-			<%= f.label t('helpers.title'), :class => 'left-label' %>
+			<%= f.label _('Title'), :class => 'left-label' %>
 			<div class="left-field">
-				<%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_name_help_text') %>
+				<%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('If applying for funding, state the name exactly as in the grant proposal.') %>
 			</div>
 		</div>
 		<div class="field-group">
-			<%= f.label  t('helpers.project.grant_title'), :class => 'left-label' %>
+			<%= f.label  _('Grant number'), :class => 'left-label' %>
 			<div class="left-field">
-				<%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.grant_help_text') %>
+				<%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
 			</div>
 		</div>
 		<div class="field-group">
-			<%= f.label t('helpers.note'), :class => 'left-label' %>
+			<%= f.label _('Note'), :class => 'left-label' %>
 			<div class="left-field">
 				<%= f.text_area :note, :class => 'text_area', :rows => 10 %>
 			</div>
 		</div>
 		<div class="field-group">
-			<%= f.label t('helpers.is_test'), class: 'left-label' %>
+			<%= f.label _('helpers.is_test'), class: 'left-label' %>	<!-- helpers.is_test does not exist -->
 			<div class="left-field">
-				<%= f.check_box :is_test, class: 'check_box has-tooltip', 'data-toggle': 'tooltip' title: t('helpers.project.is_test_help_text') %>
+				<%= f.check_box :is_test, class: 'check_box has-tooltip', 'data-toggle': 'tooltip' title: _('helpers.project.is_test_help_text') %>	<!-- helpers.project.is_test_help_text does not exist -->
 			</div>
 		</div>
 		<div class="form-actions">
-			<%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
-			<%= link_to t("helpers.links.cancel"),
+			<%= f.submit _('Save'), :class => 'btn btn-primary' %>
+			<%= link_to _('Cancel'),
 									projects_path, :class => 'btn' %>
 		</div>
 	<% end %>
