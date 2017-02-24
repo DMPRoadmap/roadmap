@@ -12,11 +12,11 @@
       <!-- edit pro ject button -->
       <div class="div_left">
         <p>
-        <%= raw t('helpers.project.project_details_editing_text_html')%>
+        <%= raw _("Please fill in the basic project details below and click 'Update' to save")%>
         </p>
       </div>
       <div class="div_right">
-        <a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.links.cancel") %></a>
+        <a href='#' class='btn btn-primary show-edit-toggle'><%= _('helpers.links.cancel') %></a> <!-- helpers.links.cancel does not exist -->
       </div>
 
       <div class="div_clear"> </div>
@@ -28,45 +28,45 @@
             <!-- If not first time login in or editing project details -->
             <table class="dmp_details_table">
               <tr>
-                <td class="first"><%= t('helpers.project.project_name') %></td>
+                <td class="first"><%= _('Plan name') %></td>
                 <td>
-                  <%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_name_help_text') %>
+                  <%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('If applying for funding, state the name exactly as in the grant proposal.') %>
                 </td>
               </tr>
               <tr>
-                <td class="first"><%= t('helpers.project.project_identifier') %></td>
+                <td class="first"><%= _('ID') %></td>
                 <td>
-                  <%= f.text_field :identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_identifier_help_text') %>
+                  <%= f.text_field :identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('A pertinent ID as determined by the funder and/or institution.') %>
                 </td>
               </tr>
               <tr>
-                <td class="first"><%= t('helpers.project.grant_title') %></td>
+                <td class="first"><%= _('Grant number') %></td>
                 <td>
-                  <%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.grant_help_text') %>
+                  <%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
                 </td>
               </tr>
               <tr>
-                <td class="first"><%= t('helpers.project.principal_investigator') %></td>
+                <td class="first"><%= _('Principal Investigator/Researcher') %></td>
                 <td>
-                  <%= f.text_field :principal_investigator, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.principal_investigator_help_text') %>
+                  <%= f.text_field :principal_investigator, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Name of Principal Investigator(s) or main researcher(s) on the project.') %>
                 </td>
               </tr>
               <tr>
-                <td class="first"><%= t('helpers.project.principal_investigator_id') %></td>
+                <td class="first"><%= _('Principal Investigator/Researcher ID') %></td>
                 <td>
-                  <%= f.text_field :principal_investigator_identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.principal_investigator_id_help_text') %>
+                  <%= f.text_field :principal_investigator_identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('E.g ORCID http://orcid.org/.') %>
                 </td>
               </tr>
               <tr>
-                <td class="first"><%= t('helpers.project.project_data_contact') %></td>
+                <td class="first"><%= _('Plan data contact') %></td>
                 <td>
-                  <%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_data_contact_help_text') %>
+                  <%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Name (if different to above), telephone and email contact details') %>
                 </td>
               </tr>
               <tr>
-                <td class="first"><%= t('helpers.desc') %></td>
+                <td class="first"><%= _('Description') %></td>
                 <td>
-                  <%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> t('helpers.project.project_desc_help_text_html')} %>
+                  <%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> _("<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>")} %>
                 </td>
               </tr>
             </table>
@@ -75,8 +75,8 @@
         <!-- submit buttons -->
         <%= f.actions do %>
           <div class="move_2_right">
-            <%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
-            <a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.links.cancel") %></a>
+            <%= f.submit _('Save'), :class => 'btn btn-primary' %>
+            <a href='#' class='btn btn-primary show-edit-toggle'><%= _('helpers.links.cancel') %></a> <!-- helpers.links.cancel does not exist --> 
           </div>
         <%end%>
       <%end%>
@@ -86,24 +86,24 @@
   <!-- the viewing div -->
   <div class="show-plan-details <%= if @editing then "project-hide" end %> ">
       <div class="div_left">
-        <p> <%= t('helpers.project.project_details_text_html')%> </p>
+        <p> <%= _('This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked.')%> </p>
       </div>
 
       <!-- edit plan button -->
       <div class="div_right">
-        <a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.project.edit") %></a>
+        <a href='#' class='btn btn-primary show-edit-toggle'><%= _('Edit plan details') %></a>
       </div>
 
       <!-- display plan details -->
       <div class="dmp_details">
         <table class="dmp_details_table">
           <tr>
-            <td class="first"><%= t('helpers.project.project_name') %></td>
+            <td class="first"><%= _('Plan name') %></td>
             <td><%= @plan.title %></td>
           </tr>
 
           <tr>
-            <td class="first"><%= t('helpers.project.project_identifier') %></td>
+            <td class="first"><%= _('ID') %></td>
             <td>
               <% if !@plan.identifier.nil? && @plan.identifier != "" then %>
                 <%= @plan.identifier %>
@@ -114,7 +114,7 @@
           </tr>
 
           <tr>
-            <td class="first"><%= t('helpers.project.grant_title') %></td>
+            <td class="first"><%= _('Grant number') %></td>
             <td>
               <% if !@plan.grant_number.nil? && @plan.grant_number!= "" then %>
                 <%= @plan.grant_number %>
@@ -124,7 +124,7 @@
             </td>
           </tr>
           <tr>
-            <td class="first"><%= t('helpers.project.principal_investigator') %></td>
+            <td class="first"><%= _('Principal Investigator/Researcher') %></td>
             <td><% if !@plan.principal_investigator.nil? && @plan.principal_investigator != "" then %>
               <%= @plan.principal_investigator %>
             <%else%>
@@ -134,14 +134,14 @@
           </tr>
           <% if !@plan.principal_investigator_identifier.nil? && @plan.principal_investigator_identifier != "" then %>
             <tr>
-              <td class="first"><%= t('helpers.project.principal_investigator_id') %></td>
+              <td class="first"><%= _('Principal Investigator/Researcher ID') %></td>
               <td>
                 <%= @plan.principal_investigator_identifier %>
               </td>
             </tr>
           <%end%>
           <tr>
-            <td class="first"><%= t('helpers.project.project_data_contact') %></td>
+            <td class="first"><%= _('Plan data contact') %></td>
             <td><% if !@plan.data_contact.nil? && @plan.data_contact != "" then%>
               <%= @plan.data_contact %>
             <%else%>
@@ -150,7 +150,7 @@
             </td>
           </tr>
           <tr>
-            <td class="first"><%= t('helpers.desc') %></td>
+            <td class="first"><%= _('Description') %></td>
             <td><% if !@plan.description.nil? && @plan.description != "" then%>
               <%= @plan.description %>
             <%else%>
@@ -182,8 +182,8 @@
                       <!-- submit buttons -->
                       <%= f.actions do %>
                           <div class="move_2_right">
-                              <%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
-                              <a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.links.cancel") %></a>
+                              <%= f.submit _('Save'), :class => 'btn btn-primary' %>
+                              <a href='#' class='btn btn-primary show-edit-toggle'><%= _('helpers.links.cancel') %></a> <!-- helpers.links.cancel does not exist --> 
                           </div>
                       <%end%>
                   <%end%>
@@ -194,7 +194,7 @@
 
   <div class="div_clear"></div>
 
-	<h3><%= t('helpers.project.project_static_info')%></h3>
+	<h3><%= _('This plan is based on:')%></h3>
 
 	<table class="dmp_details_table">
 		<!-- get the funder name if there is one -->
@@ -218,8 +218,8 @@
 			<% phases.each do |phase| %>
 
 				<div class="move_2_right">
-					<%= link_to t('helpers.answer_questions'), edit_plan_path(plan), :class => 'btn btn-primary'  %>
-					<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= t('helpers.export') %></a>
+					<%= link_to _('Answer questions'), edit_plan_path(plan), :class => 'btn btn-primary'  %>
+					<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
 				</div>
 				<%= render :partial => "plans/export", locals: {plan: plan, plan_data: plan_data} %>
 				<div class="div_clear"></div>
@@ -228,8 +228,8 @@
 					<table class="dmp_table">
 						<thead>
 						    <tr>
-						      	<th class="dmp_th_medium"><%= t('helpers.sections_label')%></th>
-						      	<th class="dmp_th_big"><%= t('helpers.questions_label')%></th>
+						      	<th class="dmp_th_medium"><%= _('Sections')%></th>
+						      	<th class="dmp_th_big"><%= _('Questions')%></th>
 		   					</tr>
 	   					</thead>
 	   					<tbody>
@@ -271,8 +271,8 @@
 						<div id="<%= phase["id"] %>" class="accordion-project collapse">
 							<div class="accordion-inner">
 								<div class="div_right">
-									<%= link_to t('helpers.answer_questions'), edit_plan_path(plan), :class => 'btn btn-primary'  %>
-									<a href="#<%= phase["id"] %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= t('helpers.export') %></a>
+									<%= link_to _('Answer questions'), edit_plan_path(plan), :class => 'btn btn-primary'  %>
+									<a href="#<%= phase["id"] %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
 								</div>
 								<%= render :partial => "plans/export", locals: {plan: plan, plan_data: plan_data} %>
 								<div class="div_clear"></div>
@@ -283,8 +283,8 @@
 									<table class="dmp_table">
 										<thead>
 										    <tr>
-										      	<th class="dmp_th_medium"><%= t('helpers.sections_label')%></th>
-										      	<th class="dmp_th_big"><%= t('helpers.questions_label')%></th>
+										      	<th class="dmp_th_medium"><%= _('Sections')%></th>
+										      	<th class="dmp_th_big"><%= _('Questions')%></th>
 						   					</tr>
 					   					</thead>
 					   					<tbody>

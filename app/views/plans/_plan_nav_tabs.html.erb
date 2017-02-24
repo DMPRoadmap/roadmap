@@ -4,7 +4,7 @@
 
     <!-- Project details -->
     <li <%= if active == "details" then "class=active" end %> >
-        <%= link_to t("helpers.project.tab_plan"), "/plans/" + plan_data["id"].to_s %>
+        <%= link_to _('Plan details'), "/plans/" + plan_data["id"].to_s %>
     </li>
 
     <!-- Phases -->
@@ -21,7 +21,7 @@
       <% else %>
         <li>
       <% end %>
-        <%= link_to t("helpers.project.share.tab_share"), ["share", plan] %>
+        <%= link_to _('Share'), ["share", plan] %>
       </li>
     <% end %>
 
@@ -31,7 +31,7 @@
     <% else %>
       <li>
     <% end %>
-      <%= link_to t("helpers.project.tab_export"), ["export",plan] %>
+      <%= link_to _('Export'), ["export",plan] %>
     </li>
 
   </ul>

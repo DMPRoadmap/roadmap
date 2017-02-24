@@ -41,12 +41,12 @@
                     <% end %>
                     <% answer = @plan.answer(question.id, false) %>
                         <% if answer.nil? then %>
-                            <p><%= t('helpers.plan.export.pdf.question_not_answered') -%></p>
+                            <p><%= _('Question not answered.') -%></p>
                         <% else %>
                             <% q_format = question.question_format%>
                             <!-- display an answer for questions type 'checkbox','radio_buttons', 'multi_select_box' and 'dropdown'-->
-                            <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") ||
-                                        q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") then%>
+                            <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
+                                        q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') then%>
                                 <ul>
                                     <% answer.options.each do |option| %>
                                         <li><%= option.text %></li>
