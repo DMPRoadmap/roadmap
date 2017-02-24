@@ -3,15 +3,15 @@
 
 
 <h1>
-	<%= t("org_admin.guidance_group.guidance_group_list") %>
+	<%= _('Guidance group list') %>
 </h1>
 
 <div class="div_left">
-	<%= raw t("org_admin.guidance_group.guidance_group_text_html")%>
+	<%= raw _("<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>")%>
 </div>
 <div class="div_right">
 	<div class="move_2_right">
-		<%= link_to t("org_admin.guidance_group.add_guidance_group"), admin_new_guidance_group_path(), class: "btn btn-primary" %>
+		<%= link_to _('Add guidance group'), admin_new_guidance_group_path(), class: "btn btn-primary" %>
 	</div>
 </div>
 
@@ -20,11 +20,11 @@
 	<table id="dmp_table_2" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
-	      <th class="dmp_th_medium"><%= t("org_admin.guidance_group.name_label") %></th>
-        <th class="dmp_th_small"><%= t("org_admin.guidance.published") %></th>
-        <th class="dmp_th_small"><%= t("org_admin.guidance_group.subset") %></th>
-      	<th class="dmp_th_small"><%= t("org_admin.guidance.last_updated") %></th>
-      	<td class="dmp_th_medium"><%= t("org_admin.guidance.actions") %></td>
+	      <th class="dmp_th_medium"><%= _('Name') %></th>
+        <th class="dmp_th_small"><%= _('Published') %></th>
+        <th class="dmp_th_small"><%= _('Optional subset') %></th>
+      	<th class="dmp_th_small"><%= _('Last updated') %></th>
+      	<td class="dmp_th_medium"><%= _('Actions') %></td>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -35,16 +35,16 @@
 	        </td>
           <td class="dmp_td_small">
   					<% if guidance_gr.published.nil? || guidance_gr.published == false then%>
-  						<%= t("helpers.no_label")%>
+  						<%= _('No')%>
   					<% else %>
-  						<%= t("helpers.yes_label")%>
+  						<%= _('Yes')%>
   					<% end %>
   				</td>
   				<td class="dmp_td_small">
   					<% if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false then%>
-  						<%= t("helpers.no_label")%>
+  						<%= _('No')%>
   					<% else %>
-  						<%= t("helpers.yes_label")%>
+  						<%= _('Yes')%>
   					<% end %>
   				</td>
 
@@ -52,9 +52,9 @@
           	<%= l guidance_gr.updated_at.to_date, formats: :short %>
           </td>
           <td class="dmp_td_medium">
-          	<%= link_to t("helpers.view"), admin_show_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
-            <%= link_to t("helpers.submit.edit"), admin_edit_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
-            <%= link_to t("helpers.submit.delete"), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: t("org_admin.guidance_group.delete_message", guidance_group_name: guidance_gr.name )}, method: :delete, class: "dmp_table_link"%>
+          	<%= link_to _('View'), admin_show_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
+            <%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
+            <%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % {guidance_group_name: => guidance_gr.name }}, method: :delete, class: "dmp_table_link"%>
           </td>
 		    </tr>
 	    <% end %>
@@ -66,16 +66,16 @@
 <div class="div_clear"></div>
 
 <h1>
-	<%= t("org_admin.guidance.guidance_list") %>
+	<%= _('Guidance list') %>
 </h1>
 
 <div class="div_left">
-	<%= raw t("org_admin.guidance.guidance_text_html")%>
+	<%= raw _('<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board) or you can write guidance for specific questions. Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>You will usually want your guidance to display on all templates, however there may be cases where you only want it to show for specific funders e.g. if you have specific instructions for applicants to BBSRC for example. This can be set too if needed.</p>')%>
 </div>
 <div class="div_right">
 	<!-- link button to add new guidance -->
 	<div class="move_2_right">
-		<%= link_to t("org_admin.guidance.add_guidance"),
+		<%= link_to _('Add guidance'),
 		            admin_new_guidance_path(),
 		            class: "btn btn-primary" %>
 	</div> 
@@ -88,12 +88,12 @@
 	<table id="dmp_table" class="dmp_table tablesorter">
 	  <thead>
 	    <tr>
-	      	<th class="dmp_th_big"><%= t("org_admin.guidance.text_label") %></th>
-	      	<th class="dmp_th_small"><%= t("org_admin.guidance.themes_label") %></th>
-	      	<th class="dmp_th_small"><%= t("org_admin.guidance.question_label") %></th>
-	      	<th class="dmp_th_small"><%= t("org_admin.guidance.guidance_group_label") %></th>
-			<th class="dmp_th_small"><%= t("org_admin.guidance.last_updated") %></th>
-	      	<td class="dmp_th_medium"><%= t("org_admin.guidance.actions") %></td>
+	      	<th class="dmp_th_big"><%= _('Text') %></th>
+	      	<th class="dmp_th_small"><%= _('Themes') %></th>
+	      	<th class="dmp_th_small"><%= _('Question') %></th>
+	      	<th class="dmp_th_small"><%= _('Guidance group') %></th>
+			<th class="dmp_th_small"><%= _('Last updated') %></th>
+	      	<td class="dmp_th_medium"><%= _('Actions') %></td>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -116,7 +116,7 @@
 			    <% end %>
 			    <% if !guidance.question_id.nil? then %>
 			        <td class="dmp_td_small">
-			        	<%= raw guidance.question.text.truncate(70, omission: t('helpers.truncate_continued')) %>
+			        	<%= raw guidance.question.text.truncate(70, omission: _('... (continued)')) %>
 			        </td>
 			    <% else %>
 			    	<td class="dmp_td_small">
@@ -136,10 +136,10 @@
 		        	<%= l guidance.updated_at.to_date, formats: :short %>
 		        </td>
 		        <td class="dmp_td_medium">
-		        	<%= link_to t("helpers.view"), admin_show_guidance_path(guidance), class: "dmp_table_link"%><br/>
-					<%= link_to t("helpers.submit.edit"), admin_edit_guidance_path(guidance), class: "dmp_table_link"%><br/>
-					<%= link_to t("helpers.submit.delete"), admin_destroy_guidance_path(guidance),
-						data: {confirm: t("org_admin.guidance.delete_message_html", guidance_summary: truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: t('helpers.truncate_continued')) )}, method: :delete, class: "dmp_table_link"%>
+		        	<%= link_to _('View'), admin_show_guidance_path(guidance), class: "dmp_table_link"%><br/>
+					<%= link_to _('Edit'), admin_edit_guidance_path(guidance), class: "dmp_table_link"%><br/>
+					<%= link_to _('Delete'), admin_destroy_guidance_path(guidance),
+						data: {confirm: _('You are about to delete '%{guidance_summary}'. Are you sure?') % { guidance_summary: => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class: "dmp_table_link"%>
 		        </td>
 		      </tr>
 		    <% end %>
