@@ -21,7 +21,7 @@
     <div class="accordion-heading">
       <div class="div_left make_div_smaller">
         <div class="accordion_heading_text">
-          <%= s.text_field :title, as: :string, class: 'text_field', placeholder: t('org_admin.templates.section_title_placeholder') %>
+          <%= s.text_field :title, as: :string, class: 'text_field', placeholder: _('New section title') %>
 
         </div>
       </div>
@@ -38,29 +38,29 @@
       <div class="accordion-inner">
         <table class="dmp_details_table">
           <tr>
-            <td class="first_template"><%= t('org_admin.templates.phase_order_label') %></td>
-            <td><%= s.number_field :number, in: 1..15, class: "number_field has-tooltip", 'data-toggle' => "tooltip", 'title' => t('org_admin.templates.section_number_help_text') %></td>
+            <td class="first_template"><%= _('Order of display') %></td>
+            <td><%= s.number_field :number, in: 1..15, class: "number_field has-tooltip", 'data-toggle' => "tooltip", 'title' => _('This allows you to order sections.') %></td>
           </tr>
           <tr>
-            <td class="first_template"><%= t('org_admin.templates.desc_label') %></td>
+            <td class="first_template"><%= _('Description') %></td>
             <td class="phase_table_last_column">
               <div class="div_left_icon">
                 <%= text_area_tag("section-desc-#{section.id}", section.description , class: "tinymce") %>
               </div>
               <div class="div_right_icon">
-                <%= link_to( image_tag('help_button.png'), '#', class: 'section_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => t('org_admin.templates.section_desc_help_text_html'))%>
+                <%= link_to( image_tag('help_button.png'), '#', class: 'section_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"))%>
               </div>
             </td>
           </tr>
         </table>
         <!-- save buttons-->
         <div class="move_2_right">
-          <%= s.submit t('helpers.submit.save'), class: 'btn btn-primary' %>
+          <%= s.submit _('Save'), class: 'btn btn-primary' %>
           <% if section.modifiable %>
-            <%= link_to t("helpers.submit.delete"), admin_destroysection_template_path(section_id: section.id),
-            confirm: t("org_admin.templates.section_delete_message", section_title: section.title ), method: :delete, class: "btn btn-primary"%>
+            <%= link_to _('Delete'), admin_destroysection_template_path(section_id: section.id),
+            confirm: _('You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?') % { section_title: => section.title }, method: :delete, class: "btn btn-primary"%>
           <% end %>
-          <%= link_to t('helpers.submit.cancel'), :back, class: 'btn cancel' %>
+          <%= link_to _('Cancel'), :back, class: 'btn cancel' %>
         </div>
 <% end %>
         <div class="two-column-clear question-divider"></div>
@@ -105,7 +105,7 @@
           <div id="add_question_button_div_<%= section.id%>">
             <div class="div_left">
               <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
-              <%= link_to t("org_admin.add_question_label"), '#', class: "btn btn-primary add_question_button" %>
+              <%= link_to _('Add question'), '#', class: "btn btn-primary add_question_button" %>
             </div>
           </div>
         <% end %>

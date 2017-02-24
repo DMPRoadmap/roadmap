@@ -6,7 +6,7 @@
     <% else %>
       <li>
     <% end %>
-      <%= link_to t('org_admin.templates.template_details'), admin_template_template_path(template) %>
+      <%= link_to _('Template details'), admin_template_template_path(template) %>
       </li>
     <!-- Phases -->
     <% template.phases.each do |phase| %>
@@ -25,7 +25,7 @@
     <% else %>
       <li>
     <% end %>
-      <%= link_to t('org_admin.templates.add_phase_label'), admin_addphase_template_path(template) %>
+      <%= link_to _('Add new phase +'), admin_addphase_template_path(template) %>
     </li>
     <%end%>
   </ul>
