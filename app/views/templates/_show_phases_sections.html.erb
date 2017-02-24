@@ -12,10 +12,10 @@
       <!--delete a phase button. only displays when template not published-->
 
       <% if phase.sections.length > 0 %>
-          <%= link_to t("helpers.preview"), admin_previewphase_template_path(id: phase.id), class: 'btn btn-primary'%>
+          <%= link_to t("helpers.preview"), admin_preview_phase_path(id: phase.id), class: 'btn btn-primary'%>
       <% end %>
       <% if !phase.template.published? %>
-          <%= link_to t("helpers.submit.delete"), admin_destroyphase_template_path(phase_id: phase.id),
+          <%= link_to t("helpers.submit.delete"), admin_destroy_phase_path(phase_id: phase.id),
           confirm: t("org_admin.templates.phase_delete_message", phase_title: phase.title ), method: :delete, class: "btn btn-primary"%>
       <% end %>
       <% if !phase.modifiable %>
@@ -23,7 +23,7 @@
       <% else %>
           <% b_label = t('org_admin.templates.edit_phase_label')%>
       <% end %>
-      <%= link_to b_label, admin_phase_template_path(id: phase.id, edit: (b_label == t('org_admin.templates.edit_phase_label'))), class: "btn btn-primary" %>
+      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == t('org_admin.templates.edit_phase_label'))), class: "btn btn-primary" %>
 
   </div>
   <% if phase.sections.any? %>

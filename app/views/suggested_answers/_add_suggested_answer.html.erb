@@ -1,5 +1,5 @@
 <!--add suggested answer. question is passed as an argument-->
-<%= form_for :suggested_answer, url: {action: "admin_createsuggestedanswer"} do |f| %>
+<%= form_for :suggested_answer, url: admin_create_suggested_answer_path do |f| %>
   <%= f.hidden_field :org_id, value: current_user.org_id %>
   <%= f.hidden_field :question_id, value: question.id %>
 

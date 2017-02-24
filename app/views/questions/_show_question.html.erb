@@ -107,14 +107,14 @@
     <% suggested_answer = question.get_suggested_answer(current_user.org_id) %>
     <% if !suggested_answer.nil?  && suggested_answer.text != "" %>
       <div id="show_suggested_answer_div_<%= question.id%>">
-        <%= render partial: 'show_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
+        <%= render partial: 'suggested_answers/show_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
       </div>
       <div id="edit_suggested_answer_div_<%= question.id%>" style="display: none">
-        <%= render partial: 'edit_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
+        <%= render partial: 'suggested_answers/edit_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
       </div>
     <% end %>
     <div id="add_suggested_answer_block_<%= question.id%>" style="display: none">
-      <%= render partial: 'add_suggested_answer', locals: {question: question} %>
+      <%= render partial: 'suggested_answers/add_suggested_answer', locals: {question: question} %>
     </div>
   <% end %>
 
@@ -125,7 +125,7 @@
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <%= link_to t("org_admin.questions.question_edit_button"), '# ', class: "btn btn-primary edit_question_button"%>
       <% if !question.section.published? %>
-        <%= link_to t("org_admin.questions.question_delete_button"), admin_destroyquestion_template_path(question_id: question.id),
+        <%= link_to t("org_admin.questions.question_delete_button"), admin_destroy_question_path(question_id: question.id),
         confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
       <% end %>
     </div>
@@ -145,4 +145,4 @@
 
 
 <!--guidance block -->
-<%= render partial: 'guidance_display', locals: {question: question}%>
+<%= render partial: 'guidances/guidance_display', locals: {question: question}%>

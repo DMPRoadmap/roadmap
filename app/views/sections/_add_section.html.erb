@@ -4,7 +4,7 @@
 <% @new_section.number = phase.sections.count + 1 %>
 
 
-<%= form_for @new_section, url: {action: "admin_createsection"} do |f| %>
+<%= form_for @new_section, url: admin_create_section_path do |f| %>
   <%= f.hidden_field :phase_id, value: phase.id %>
 
   <div class="accordion-group">

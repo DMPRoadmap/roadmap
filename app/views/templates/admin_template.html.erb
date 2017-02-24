@@ -14,18 +14,18 @@
 <div class="div_clear"></div>
 
 <!-- render navigation tabs for the template-->
-<%= render partial: "admin_nav_tabs", locals: {template: @template, active: "show_template"} %>
+<%= render partial: "templates/admin_nav_tabs", locals: {template: @template, active: "show_template"} %>
 
 <!-- body -->
 <div class="dmp_details_body">
   <div class="dmp_details">
     <% if @template.org.funder? || current_user.org.funder? then %>
       <div id="edit_template_div" style="display: none">
-        <%= render partial: "edit_template", locals: {template: @template}%>
+        <%= render partial: "templates/edit_template", locals: {template: @template}%>
       </div>
     <%end%>
     <div id="show_template_div">
-      <%= render partial: "show_template", locals: {template: @template}%>
+      <%= render partial: "templates/show_template", locals: {template: @template}%>
     </div>
   </div>
   <!-- If template has phases-->
@@ -33,7 +33,7 @@
     <% if @template.phases.count == 1 then %>
       <% @template.phases.each do |phase| %>
         <!--render the display block with the phase, sections and questions information-->
-        <%= render partial: 'show_phases_sections', locals: {phase: phase}%>
+        <%= render partial: 'templates/show_phases_sections', locals: {phase: phase}%>
       <%end%>
     <%else%>
       <% @template.phases.order(:number).each do |phase| %>
@@ -48,7 +48,7 @@
             <div id="<%= phase.id %>" class="accordion-project collapse">
               <div class="accordion-inner">
                 <!--render the display block with the phase, sections and questions information-->
-                <%= render partial: 'show_phases_sections', locals: {phase: phase}%>
+                <%= render partial: 'templates/show_phases_sections', locals: {phase: phase}%>
               </div>
             </div>
           </div>

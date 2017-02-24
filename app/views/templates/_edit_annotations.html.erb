@@ -6,7 +6,7 @@ in the admin interface.
 **Copyright: Digital Curation Centre and University of California Curation Center
 -->
 
-<%= form_for(question, url: admin_updatequestion_template_path(question), html: { method: :put}) do |f| %>
+<%= form_for(question, url: admin_update_question_path(question), html: { method: :put}) do |f| %>
 <div class="question-div">
   <table class="dmp_details_table phase">
     <%= f.hidden_field :id,{ class: "quest_id" } %>
@@ -88,7 +88,7 @@ in the admin interface.
   <div class="move_2_right">
     <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
     <% if !question.section.phase.template.published? %>
-      <%= link_to t("helpers.submit.delete"), admin_destroyquestion_template_path(question_id: question.id),
+      <%= link_to t("helpers.submit.delete"), admin_destroy_question_path(question_id: question.id),
                   confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
     <% end %>
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
@@ -98,5 +98,5 @@ in the admin interface.
 
 
 <!--guidance block -->
-<%= render partial: "guidance_display", locals: {question: question} %>
+<%= render partial: "guidances/guidance_display", locals: {question: question} %>
 <% end %>

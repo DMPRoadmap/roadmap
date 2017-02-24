@@ -1,5 +1,5 @@
 <!--edit suggested answer. question is passed as an argument-->
-<%= form_for(suggested_answer, url: admin_updatesuggestedanswer_template_path(suggested_answer), html: { method: :put}) do |f| %>
+<%= form_for(suggested_answer, url: admin_update_suggested_answer_path(suggested_answer), html: { method: :put}) do |f| %>
   <%= f.hidden_field :org_id, value: current_user.org_id %>
 
   <table class="dmp_details_table phase">
@@ -18,7 +18,7 @@
   <!-- submit buttons -->
   <div class="move_2_right">
     <%= f.submit t('helpers.submit.save'), class: 'btn btn-primary' %>
-    <%= link_to t("helpers.submit.delete"), admin_destroysuggestedanswer_template_path(suggested_answer: suggested_answer.id),
+    <%= link_to t("helpers.submit.delete"), admin_destroy_suggested_answer_path(id: suggested_answer.id),
       confirm: t("org_admin.questions.delete_suggested_answer_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
     <%= link_to t('helpers.submit.cancel'), '#', class: 'btn cancel cancel_edit_suggested_answer' %>

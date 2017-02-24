@@ -15,7 +15,7 @@
 <div class="div_clear"></div>
 
 <!-- render navigation tabs for the template-->
-<%= render partial: "admin_nav_tabs", locals: {template: @template, active: "add_plan"} %>
+<%= render partial: "templates/admin_nav_tabs", locals: {template: @template, active: "add_plan"} %>
 
 <!-- phase main container -->
 <div class="project-tabs-body">
@@ -26,7 +26,7 @@
         <div class="phase_details_body">
 
           <!-- add phase details -->
-          <%= form_for :phase, url: { action: "admin_createphase"} do |f| %>
+          <%= form_for :phase, url: { admin_create_phase_path} do |f| %>
           <h3>
             <%= t("org_admin.templates.phase_details_label")%>
           </h3>

@@ -6,7 +6,7 @@
 -->
 
 
-<%= form_for(section, url: admin_updatesection_template_path(section, phase: phase, edit: edit), html: { method: :put}) do |s| %>
+<%= form_for(section, url: admin_update_section_path(section, phase: phase, edit: edit), html: { method: :put}) do |s| %>
   <% if @open && @section_id == section.id then%>
     <% toggle = 'accordion-body  section-collapse in collapse'%>
   <% else %>
@@ -57,7 +57,7 @@
         <div class="move_2_right">
           <%= s.submit t('helpers.submit.save'), class: 'btn btn-primary' %>
           <% if section.modifiable %>
-            <%= link_to t("helpers.submit.delete"), admin_destroysection_template_path(section_id: section.id),
+            <%= link_to t("helpers.submit.delete"), admin_destroy_section_path(section_id: section.id),
             confirm: t("org_admin.templates.section_delete_message", section_title: section.title ), method: :delete, class: "btn btn-primary"%>
           <% end %>
           <%= link_to t('helpers.submit.cancel'), :back, class: 'btn cancel' %>
@@ -71,12 +71,12 @@
             <div class="question_guidance_block">
               <div id="show_question_div_<%= question.id%>" class="<%= if question.id == @question_id then "current_question" end %>">
                 <!-- render the show question block-->
-                <%= render partial: 'show_question', locals: {question: question} %>
+                <%= render partial: 'questions/show_question', locals: {question: question} %>
               </div>
 
               <div id="edit_question_div_<%= question.id%>"  style="display: none">
                 <!-- render the edit question block-->
-                <%= render partial: 'edit_question', locals: {question: question} %>
+                <%= render partial: 'questions/edit_question', locals: {question: question} %>
               </div>
             </div>
             <!--verify how many questions are left -->
@@ -98,7 +98,7 @@
           <% end%>
           <!-- add question block -->
           <div id="add_question_block_div_<%= section.id%>" style="display: none">
-            <%= render partial: 'add_question', locals: {section: section} %>
+            <%= render partial: 'questions/add_question', locals: {section: section} %>
           </div>
 
           <!-- add question button-->

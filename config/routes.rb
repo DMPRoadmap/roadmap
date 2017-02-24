@@ -97,28 +97,45 @@ Rails.application.routes.draw do
         get 'admin_index'
         get 'admin_template'
         get 'admin_new'
-        get 'admin_addphase'
-        get 'admin_phase'
-        get 'admin_previewphase'
-        get 'admin_cloneversion'
         get 'admin_template_history'
         delete 'admin_destroy'
-        delete 'admin_destroyversion'
-        delete 'admin_destroyphase'
-        delete 'admin_destroysection'
-        delete 'admin_destroyquestion'
-        delete 'admin_destroysuggestedanswer'
         post 'admin_create'
-        post 'admin_createphase'
-        post 'admin_createsection'
-        post 'admin_createquestion'
-        post 'admin_createsuggestedanswer'
         put 'admin_update'
-        put 'admin_updatephase'
-        put 'admin_updateversion'
-        put 'admin_updatesection'
-        put 'admin_updatequestion'
-        put 'admin_updatesuggestedanswer'
+      end
+    end
+
+    resources :phases, path: 'org/admin/templates/phases', only: [] do
+      member do
+        get 'admin_show'
+        get 'admin_preview'
+        get 'admin_add'
+        put 'admin_update'
+        post 'admin_create'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :sections, path: 'org/admin/templates/sections', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :questions, path: 'org/admin/templates/questions', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :suggested_answers, path: 'org/admin/templates/suggested_answers', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
       end
     end
 
