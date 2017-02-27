@@ -58,7 +58,7 @@
           <%= s.submit _('Save'), class: 'btn btn-primary' %>
           <% if section.modifiable %>
             <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
-            confirm: _('You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?') % { section_title: => section.title }, method: :delete, class: "btn btn-primary"%>
+            confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: "btn btn-primary"%>
           <% end %>
           <%= link_to _('Cancel'), :back, class: 'btn cancel' %>
         </div>

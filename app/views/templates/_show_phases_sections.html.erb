@@ -16,7 +16,7 @@
       <% end %>
       <% if !phase.template.published? %>
           <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
-          confirm: _('You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?') % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
+          confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
       <% end %>
       <% if !phase.modifiable %>
           <% b_label = _('View phase')%>

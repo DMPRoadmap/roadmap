@@ -161,7 +161,7 @@ in the admin interface.
       <%= f.submit _('Save'), class: "btn btn-primary" %>
       <% if !question.section.phase.template.published? %>
         <%= link_to _('Delete'), admin_destroy_question_path(question_id: question.id),
-        confirm: _('You are about to delete '%{question_text}'. Are you sure?') % { question_text: => question.text }, method: :delete, class: "btn btn-primary"%>
+        confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
       <% end %>
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <%= link_to _('Cancel'), "#", class: "btn cancel cancel_edit_question" %>

@@ -126,7 +126,7 @@
       <%= link_to _('Edit question'), '# ', class: "btn btn-primary edit_question_button"%>
       <% if !question.section.published? %>
         <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
-        confirm: _('You are about to delete '%{question_text}'. Are you sure?') % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
+        confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
       <% end %>
     </div>
   <% elsif !@edit && question.modifiable %>

@@ -54,7 +54,7 @@
           <td class="dmp_td_medium">
           	<%= link_to _('View'), admin_show_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
             <%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
-            <%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % {guidance_group_name: => guidance_gr.name }}, method: :delete, class: "dmp_table_link"%>
+            <%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete, class: "dmp_table_link"%>
           </td>
 		    </tr>
 	    <% end %>
@@ -139,7 +139,7 @@
 		        	<%= link_to _('View'), admin_show_guidance_path(guidance), class: "dmp_table_link"%><br/>
 					<%= link_to _('Edit'), admin_edit_guidance_path(guidance), class: "dmp_table_link"%><br/>
 					<%= link_to _('Delete'), admin_destroy_guidance_path(guidance),
-						data: {confirm: _('You are about to delete '%{guidance_summary}'. Are you sure?') % { guidance_summary: => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class: "dmp_table_link"%>
+						data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class: "dmp_table_link"%>
 		        </td>
 		      </tr>
 		    <% end %>
