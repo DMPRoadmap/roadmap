@@ -9,7 +9,7 @@
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section.id%>">
       <div class="accordion_heading_text">
         <% if section.title == '' then%>
-          <%= t('org_admin.templates.new_section')%>
+          <%= _('New section title')%>
         <%else%>
           <%= section.title %>
         <%end%>
