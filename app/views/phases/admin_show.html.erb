@@ -8,7 +8,7 @@
   <%= @phase.template.title %>
   <!-- link button to add new guidance -->
   <div class="move_2_right">
-    <%= link_to t("org_admin.templates.view_all_templates"),
+    <%= link_to _('View all templates'),
       admin_index_template_path,
       class: 'btn btn-primary' %>
   </div>
@@ -61,7 +61,7 @@
   <!-- add section button-->
   <div id="add_section_button_div">
     <div class="div_right">
-      <%= link_to t('org_admin.add_section_label'),'#', id: 'add_section_button', class: 'btn btn-primary' %>
+      <%= link_to _('Add section'),'#', id: 'add_section_button', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

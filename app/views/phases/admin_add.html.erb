@@ -6,7 +6,7 @@
   <%= @template.title %>
   <!-- link button to add new guidance -->
   <div class="move_2_right">
-    <%= link_to t("org_admin.templates.view_all_templates"),
+    <%= link_to _('View all templates'),
                 admin_index_template_path,
                 class: "btn btn-primary" %>
   </div>
@@ -28,31 +28,31 @@
           <!-- add phase details -->
           <%= form_for :phase, url: { admin_create_phase_path} do |f| %>
           <h3>
-            <%= t("org_admin.templates.phase_details_label")%>
+            <%= _('Phase details')%>
           </h3>
-          <%= raw t("org_admin.templates.phase_new_text_html")%>
+          <%= raw _('When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions.')%>
           <br/>
           <div class="div_clear"></div>
           <%= f.hidden_field :template_id, value: @template.id%>
           <table class="dmp_details_table phase">
             <tr>
-              <td class="first_template"><%= t("org_admin.templates.title_label") %></td>
+              <td class="first_template"><%= _('Title') %></td>
               <td><%= f.text_field :title,
                   as: :string,
-                  class: "text_field has-tooltip", "data-toggle" => "tooltip", "title" => t("org_admin.templates.phase_title_help_text") %></td>
+                  class: "text_field has-tooltip", "data-toggle" => "tooltip", "title" => _('Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP') %></td>
             </tr>
             <tr>
-              <td class="first_template"><%= t("org_admin.templates.phase_order_label") %></td>
-              <td><%= f.number_field :number, in: 1..5, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: t("org_admin.templates.phase_number_help_text") %></td>
+              <td class="first_template"><%= _('Order of display') %></td>
+              <td><%= f.number_field :number, in: 1..5, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: _('This allows you to order the phases of your template.') %></td>
             </tr>
             <tr>
-              <td class="first_template"><%= t("org_admin.templates.desc_label") %></td>
+              <td class="first_template"><%= _('Description') %></td>
               <td class="phase_table_last_column">
                 <div class="div_left_icon">
                   <%= text_area_tag("phase-desc","" , class: "tinymce") %>
                 </div>
                 <div class="div_right_icon">
-                  <%= link_to( image_tag("help_button.png"), "#", class: "phase_desc_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.templates.phase_desc_help_text_html"))%>
+                  <%= link_to( image_tag("help_button.png"), "#", class: "phase_desc_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."))%>
                 </div>
                 <div class="clearfix"></div>
               </td>
@@ -62,8 +62,8 @@
 
           <!-- submit buttons -->
           <div class="move_2_right">
-            <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
-            <%= link_to t("helpers.submit.cancel"), admin_template_template_path(@template), class: "btn cancel" %>
+            <%= f.submit _('Save'), class: "btn btn-primary" %>
+            <%= link_to _('Cancel'), admin_template_template_path(@template), class: "btn cancel" %>
           </div>
 
         <%end%>
