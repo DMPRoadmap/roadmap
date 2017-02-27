@@ -9,18 +9,18 @@
   <table class="dmp_details_table phase">
     <!--Question number -->
     <tr>
-      <td class="first_template"><%= t('org_admin.questions.question_number_label')%></td>
+      <td class="first_template"><%= _('Question number')%></td>
       <td><%= question.number %></td>
     </tr>
 
     <!--Question text -->
     <tr>
-      <td class="first_template"><%= t('org_admin.questions.question_text_label')%></td>
+      <td class="first_template"><%= _('Question text')%></td>
       <td><%= raw question.text %>
         </br>
         <div class="answer-readonly">
           <% q_format = question.question_format %>
-          <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
+          <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
             <ul class='options'>
             <% if question.question_options.is_a? QuestionOption  %>
               <li>- <%= question.question_options.text %></li>
@@ -37,24 +37,24 @@
       </td>
     </tr>
     <!--Default value -->
-    <% if q_format.title  == t("helpers.text_field") || q_format.title == t("helpers.text_area") %>
+    <% if q_format.title  == _('Text field') || q_format.title == _('Text area') %>
       <% if !question.default_value.nil? %>
         <tr>
-          <td class="first_template"><%= t('org_admin.questions.default_value_label')%></td>
+          <td class="first_template"><%= _('Default value')%></td>
           <td><%= raw question.default_value %></td>
         </tr>
       <% end %>
     <% end %>
     <!-- Question format -->
     <tr>
-      <td class="first_template"><%= t('org_admin.questions.answer_format_label')%></td>
+      <td class="first_template"><%= _('Answer format')%></td>
       <td><%= q_format.title %>
         </br>
-        <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
+        <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
           <% if question.option_comment_display == true %>
-            <%= t("org_admin.questions.option_comment_display")%>
+            <%= _('Additional comment area will be displayed.')%>
           <% else %>
-            <%= t("org_admin.questions.option_comment_hide")%>
+            <%= _('No additional comment area will be displayed.')%>
           <% end %>
         <% end %>
         <div class="add_space"></div>
@@ -68,9 +68,9 @@
         <tr>
           <td class="first_template">
             <% if suggested_answer.is_example? %>
-              <%= t('org_admin.questions.example_answer_label')%>
+              <%= _('Example of answer')%>
             <% else %>
-              <%= t('org_admin.questions.suggested_answer_label')%>
+              <%= _('Suggested answer')%>
             <% end %>
           </td>
           <td><%= raw suggested_answer.text %></td>
@@ -80,7 +80,7 @@
     <!-- Guidance linked to this question -->
     <% if !question.guidance.nil?  %>
       <tr>
-        <td class="first_template"><%= t('org_admin.questions.guidance_label')%></td>
+        <td class="first_template"><%= _('Guidance')%></td>
         <td><%= raw question.guidance %></td>
       </tr>
     <% end %>
@@ -88,7 +88,7 @@
     <% themes_q = question.themes %>
     <% if !themes_q.nil? %>
       <tr>
-        <td class="first_template"><%= t('org_admin.questions.themes_label')%></td>
+        <td class="first_template"><%= _('Themes')%></td>
         <td><% i = 1%>
           <% themes_q.each do |t|%>
             <%= t.title %>
@@ -123,10 +123,10 @@
   <% if (@edit && question.section.modifiable) || question.section.phase.template.customization_of.present? %>
     <div class="move_2_right">
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-      <%= link_to t("org_admin.questions.question_edit_button"), '# ', class: "btn btn-primary edit_question_button"%>
+      <%= link_to _('Edit question'), '# ', class: "btn btn-primary edit_question_button"%>
       <% if !question.section.published? %>
-        <%= link_to t("org_admin.questions.question_delete_button"), admin_destroy_question_path(question_id: question.id),
-        confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
+        <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
+        confirm: _('You are about to delete '%{question_text}'. Are you sure?') % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
       <% end %>
     </div>
   <% elsif !@edit && question.modifiable %>
@@ -135,7 +135,7 @@
       <div id="add_suggested_answer_button_<%= question.id%>">
         <div class="move_2_right">
           <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-          <%= link_to t("org_admin.questions.suggested_or_example_answer_button"), '# ', class: "btn btn-primary add_suggested_answer_button"%>
+          <%= link_to _('Add suggested answer/ example'), '# ', class: "btn btn-primary add_suggested_answer_button"%>
         </div>
       </div>
     <% end %>
