@@ -14,7 +14,7 @@ class HomeController < ApplicationController
   		if name.blank?
   			redirect_to edit_user_registration_path
   		else
-  			redirect_to projects_url
+  			redirect_to plans_url
   		end
   	end
   end

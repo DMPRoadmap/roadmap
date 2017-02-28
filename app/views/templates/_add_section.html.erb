@@ -25,7 +25,8 @@
           <tr>
             <td class="first_template"><%= t("org_admin.templates.phase_order_label") %></td>
             <td>
-                            <%= f.number_field :number, in: 1..15, class: "number_field has-tooltip", "data-toggle" => "tooltip", "title" => t("org_admin.templates.section_number_help_text") %></td>
+              <%= f.number_field :number, in: 1..15, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: t("org_admin.templates.section_number_help_text") %>
+            </td>
           </tr>
           <tr>
             <td class="first_template"><%= t("org_admin.templates.desc_label") %></td>
@@ -48,6 +49,6 @@
       </div>
     </div>
   </div>
-<%end%>
+<% end %>
 
 

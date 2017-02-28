@@ -1,6 +1,6 @@
 <!-- edit/add a phase. Phase is passed as an argument-->
 
-<%= form_for(phase, url: admin_updatephase_template_path(phase), html: { method: :put}) do |f| %>
+<%= form_for(phase, url: admin_updatephase_template_path(phase.id), html: { method: :put}) do |f| %>
 
   <h3>
     <%= t('org_admin.templates.phase_details_label')%>

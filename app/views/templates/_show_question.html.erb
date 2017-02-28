@@ -51,7 +51,7 @@
       <td><%= q_format.title %>
         </br>
         <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
-          <% if question.question_option_comment_display == true %>
+          <% if question.option_comment_display == true %>
             <%= t("org_admin.questions.option_comment_display")%>
           <% else %>
             <%= t("org_admin.questions.option_comment_hide")%>
@@ -62,7 +62,7 @@
     </tr>
 
     <!-- Suggested answer or Example-->
-    <% if question.section.phase.template.org_type != constant("organisation_types.funder")  %>
+    <% if question.section.phase.template.org.org_type != constant("organisation_types.funder")  %>
       <% suggested_answer = question.get_suggested_answer(current_user.org_id) %>
       <% if !suggested_answer.nil?  && suggested_answer.text != ""  %>
         <tr>
@@ -107,40 +107,35 @@
     <% suggested_answer = question.get_suggested_answer(current_user.org_id) %>
     <% if !suggested_answer.nil?  && suggested_answer.text != "" %>
       <div id="show_suggested_answer_div_<%= question.id%>">
-        <%= render :partial => 'show_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
+        <%= render partial: 'show_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
       </div>
       <div id="edit_suggested_answer_div_<%= question.id%>" style="display: none">
-        <%= render :partial => 'edit_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
+        <%= render partial: 'edit_suggested_answer', locals: {suggested_answer: suggested_answer, question: question} %>
       </div>
-
     <% end %>
-
-
     <div id="add_suggested_answer_block_<%= question.id%>" style="display: none">
-      <%= render :partial => 'add_suggested_answer', locals: {question: question} %>
+      <%= render partial: 'add_suggested_answer', locals: {question: question} %>
     </div>
-
-
   <% end %>
 
   <br/>
   <!-- edit question button-->
-  <% if (@edit == 'true' && question.modifiable) %>
+  <% if (@edit && question.section.modifiable) || question.section.phase.template.customization_of.present? %>
     <div class="move_2_right">
-      <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
-      <%= link_to t("org_admin.questions.question_edit_button"), '# ', :class => "btn btn-primary edit_question_button"%>
+      <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+      <%= link_to t("org_admin.questions.question_edit_button"), '# ', class: "btn btn-primary edit_question_button"%>
       <% if !question.section.published? %>
-        <%= link_to t("org_admin.questions.question_delete_button"), admin_destroyquestion_template_path(:question_id => question.id),
-        :confirm => t("org_admin.questions.delete_message", :question_text => question.text ), :method => :delete, :class => "btn btn-primary"%>
+        <%= link_to t("org_admin.questions.question_delete_button"), admin_destroyquestion_template_path(question_id: question.id),
+        confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
       <% end %>
     </div>
-  <% elsif  @edit == 'false' && question.modifiable %>
+  <% elsif !@edit && question.modifiable %>
     <% suggested_answer = question.get_suggested_answer(current_user.org_id) %>
     <% if suggested_answer.nil? %>
       <div id="add_suggested_answer_button_<%= question.id%>">
         <div class="move_2_right">
-          <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
-          <%= link_to t("org_admin.questions.suggested_or_example_answer_button"), '# ', :class => "btn btn-primary add_suggested_answer_button"%>
+          <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+          <%= link_to t("org_admin.questions.suggested_or_example_answer_button"), '# ', class: "btn btn-primary add_suggested_answer_button"%>
         </div>
       </div>
     <% end %>
@@ -150,4 +145,4 @@
 
 
 <!--guidance block -->
-<%= render :partial => 'guidance_display', locals: {question: question}%>
+<%= render partial: 'guidance_display', locals: {question: question}%>

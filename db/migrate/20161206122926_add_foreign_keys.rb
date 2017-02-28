@@ -83,79 +83,98 @@ class AddForeignKeys < ActiveRecord::Migration
   def scrub_references
     # answers
     i = 0
-    Answer.includes(:user, :plan, :question).find_each do |ans|
-      if ans.user.nil? && ans.user_id.present?
-        ans.user_id = nil
-        i += 1
+    if table_exists?('answers')
+      Answer.includes(:user, :plan, :question).find_each do |ans|
+        if ans.user.nil? && ans.user_id.present?
+          ans.user_id = nil
+          i += 1
+        end
+        if ans.plan.nil? && ans.plan_id.present?
+          ans.plan_id = nil
+          i += 1
+        end
+        if ans.question.nil? && ans.question_id.present?
+          ans.question_id = nil
+          i += 1
+        end
+        ans.save!
       end
-      if ans.plan.nil? && ans.plan_id.present?
-        ans.plan_id = nil
-        i += 1
-      end
-      if ans.question.nil? && ans.question_id.present?
-        ans.question_id = nil
-        i += 1
-      end
-      ans.save!
     end
     puts "#{i} answers scrubbed"
 
     # notes
     i = 0
-    Note.includes(:answer, :user).find_each do |note|
-      if note.answer.nil? && note.answer_id.present?
-        note.answer_id = nil
-        i += 1
+    if table_exists?('notes')
+      Note.includes(:answer, :user).find_each do |note|
+        if note.answer.nil? && note.answer_id.present?
+          note.destroy!
+          i += 1
+          next
+        end
+        if note.user.nil? && note.user_id.present?
+          note.destroy!
+          i += 1
+          next
+        end
+        if note.text.blank?
+          note.destroy!
+          i += 1
+          next
+        end
+        note.save!
       end
-      if note.user.nil? && note.user_id.present?
-        note.user_id = nil
-        i += 1
-      end
-      note.save!
     end
     puts "#{i} notes scrubbed"
 
     # templates
     i = 0
-    Template.includes(:org).find_each do |temp|
-      if temp.org.nil? && temp.org_id.present?
-        temp.org_id = nil
-        i += 1
+    if table_exists?('templates')
+      Template.includes(:org).find_each do |temp|
+        if temp.org.nil? && temp.org_id.present?
+          temp.org_id = nil
+          i += 1
+        end
+        temp.save!
       end
-      temp.save!
     end
     puts "#{i} templates scrubbed"
 
     # guidance_groups
     # i = 0
-    # GuidanceGroup.includes(:org).find_each do |gg|
-    #   if gg.org.nil? && gg.org_id.present?
-    #     gg.org_id = nil
-    #     i += 1
+    # if table_exists?('guidance_groups')
+    #   GuidanceGroup.includes(:org).find_each do |gg|
+    #     if gg.org.nil? && gg.org_id.present?
+    #       gg.org_id = nil
+    #       i += 1
+    #     end
+    #     gg.save!
     #   end
-    #   gg.save!
     # end
     # puts "#{i} guidance groups scrubbed"
 
     # # question_options
     # i = 0
-    # QuestionOption.includes(:question).find_each do |opt|
-    #   if opt.question.nil? && opt.question_id.present?
-    #     opt.question_id = nil
-    #     i += 1
+    # if table_exists?('question_options')
+    #   QuestionOption.includes(:question).find_each do |opt|
+    #     if opt.question.nil? && opt.question_id.present?
+    #       opt.question_id = nil
+    #       i += 1
+    #     end
+    #     opt.save!
     #   end
-    #   opt.save!
     # end
     # puts "#{i} question_options scrubbed"
 
     # # orgs
     # i = 0
-    # Org.includes( :language).find_each do |org|
-    #   if org.language.nil? && org.language_id.present?
-    #     org.language_id = nil
-    #     i += 1
+    # if table_exists?('orgs')
+    #   Org.includes( :language).find_each do |org|
+    #     if org.language.nil? && org.language_id.present?
+    #       org.language_id = nil
+    #       i += 1
+    #     end
+    #     org.save!
     #   end
-    #   org.save!
     # end
     # puts "#{i} orgs scrubbed"
 
@@ -167,15 +186,17 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # roles
     i = 0
-    Role.includes(:user, :plan).find_each do |role|
-      if role.user.nil? && role.user_id.present?
-        Role.delete_all(user_id: role.user_id)
-        i += 1
-        next
-      end
-      if role.plan.nil? && role.plan_id.present?
-        Role.delete_all(plan_id: role.plan_id)
-        i += 1
+    if table_exists?('roles')
+      Role.includes(:user, :plan).find_each do |role|
+        if role.user.nil? && role.user_id.present?
+          Role.delete_all(user_id: role.user_id)
+          i += 1
+          next
+        end
+        if role.plan.nil? && role.plan_id.present?
+          Role.delete_all(plan_id: role.plan_id)
+          i += 1
+        end
       end
     end
     puts "#{i} roles scrubbed"
@@ -186,17 +207,19 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # # suggested_answers
     # i = 0
-    # SuggestedAnswer.includes(:org, :question).find_each do |sa|
-    #   if sa.org.nil? && sa.org_id.present?
-    #     sa.org_id = nil
-    #     i += 1
+    # if table_exists?('suggested_answers')
+    #   SuggestedAnswer.includes(:org, :question).find_each do |sa|
+    #     if sa.org.nil? && sa.org_id.present?
+    #       sa.org_id = nil
+    #       i += 1
+    #     end
+    #     if sa.question.nil?
+    #       sa.delete!
+    #       i += 1
+    #       next
+    #     end
+    #     sa.save!
     #   end
-    #   if sa.question.nil?
-    #     sa.delete!
-    #     i += 1
-    #     next
-    #   end
-    #   sa.save!
     # end
     # puts "#{i} suggested answers scrubbed"
 
@@ -204,23 +227,27 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # # users
     # i = 0
-    # User.includes(:org, :language).find_each do |u|
-    #   if u.org.nil? && u.org_id.present?
-    #     u.org_id = nil
-    #     i += 1
+    # if table_exists?('users')
+    #   User.includes(:org, :language).find_each do |u|
+    #     if u.org.nil? && u.org_id.present?
+    #       u.org_id = nil
+    #       i += 1
+    #     end
+    #     if u.language.nil? && u.language_id.present?
+    #       u.language_id = nil
+    #       i += 1
+    #     end
+    #     u.save!
     #   end
-    #   if u.language.nil? && u.language_id.present?
-    #     u.language_id = nil
-    #     i += 1
-    #   end
-    #   u.save!
     # end
     # puts "#{i} users scrubbed"
 
     # users_perms
-    UsersPerm.includes(:user).all.each do |u|
-      if u.user.nil?
-        UsersPerm.delete_all(user_id: u.user_id)
+    if table_exists?('users_perms')
+      UsersPerm.includes(:user).all.each do |u|
+        if u.user.nil?
+          UsersPerm.delete_all(user_id: u.user_id)
+        end
       end
     end
   end

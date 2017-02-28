@@ -49,7 +49,7 @@ in the admin interface.
                   <th nowrap class="small"><%= t("org_admin.option_order_label")%></th>
                   <th nowrap class="medium"><%= t("org_admin.option_text_label")%></th>
                   <th nowrap class="small"><%= t("org_admin.option_default_label")%></th>
-                  <th nowrap class="small"><%= link_to( image_tag("help_button.png"), "#", class: "question_options_popover", :rel => "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_options_help_text_html"))%></th>
+                  <th nowrap class="small"><%= link_to( image_tag("help_button.png"), "#", class: "question_options_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_options_help_text_html"))%></th>
                 </tr>
               </thead>
               <tbody class="options_tbody">
@@ -59,7 +59,7 @@ in the admin interface.
                 <% end %>
                                 <% i = 0 %>
                 <% question.question_options.to_a.sort_by{|op| op["number"]}.each do |options_q|%>
-                  <%= f.fields_for :options, options_q do |op|%>
+                  <%= f.fields_for :question_options, options_q do |op|%>
                                         <% i = i + 1%>
                                         <% options_q.number = i %>
                     <%= render "option_fields", f: op %>
@@ -159,7 +159,7 @@ in the admin interface.
     <!-- submit buttons -->
     <div class="move_2_right">
       <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
-      <% if !question.section.phase.template.published?%>
+      <% if !question.section.phase.template.published? %>
         <%= link_to t("helpers.submit.delete"), admin_destroyquestion_template_path(question_id: question.id),
         confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
       <% end %>
@@ -170,5 +170,5 @@ in the admin interface.
 
 
 <!--guidance block -->
-<%= render partial: "guidance_display", locals: {question: question}%>
+<%= render partial: "guidance_display", locals: {question: question} %>
 <% end %>

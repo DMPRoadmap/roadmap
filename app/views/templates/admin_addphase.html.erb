@@ -43,7 +43,7 @@
             </tr>
             <tr>
               <td class="first_template"><%= t("org_admin.templates.phase_order_label") %></td>
-              <td><%= f.number_field :number, in: 1..5, class: "number_field has-tooltip", "data-toggle" => "tooltip", "title" => t("org_admin.templates.phase_number_help_text") %></td>
+              <td><%= f.number_field :number, in: 1..5, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: t("org_admin.templates.phase_number_help_text") %></td>
             </tr>
             <tr>
               <td class="first_template"><%= t("org_admin.templates.desc_label") %></td>
@@ -67,7 +67,7 @@
           </div>
 
         <%end%>
-        </div>
+      </div>
     </div>
   </div>
 </div>

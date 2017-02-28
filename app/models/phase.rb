@@ -4,7 +4,7 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
-	extend FriendlyId
+#	extend FriendlyId
 
 	##
   # Associations
@@ -20,9 +20,10 @@ class Phase < ActiveRecord::Base
 
   ##
   # sluggable title
-	friendly_id :title, use: [:slugged, :history, :finders]
+	#friendly_id :title, use: [:slugged, :history, :finders]
 
 
+  validates :title, :number, :template, presence: true
 
 
 
@@ -45,26 +46,28 @@ class Phase < ActiveRecord::Base
     "#{title}"
   end
 
+# TODO: This function does not belong here anymore. It may be useless now.
   ##
   # returns either the latest published version of this phase
   # also serves to verify if this phase has any published versions as returns nil
   # if there are no published versions
   #
   # @return [Version, nil]
-  def latest_published_version
-    pub_vers = versions.where('published = ?', true).order('updated_at DESC')
-    if pub_vers.any?() then
-      return pub_vers.first
-    else
-      return nil
-    end
-  end
+#  def latest_published_version
+#    pub_vers = versions.where('published = ?', true).order('updated_at DESC')
+#    if pub_vers.any?() then
+#      return pub_vers.first
+#    else
+#      return nil
+#    end
+#  end
 
 # TODO: reevaluate this method. It seems like the 1st query is unecessary
   ##
   # verify if a phase has a published version or a version with one or more sections
   #
   # @return [Boolean]
+=begin
   def has_sections
     versions = self.versions.where('published = ?', true).order('updated_at DESC')
     if versions.any? then
@@ -83,5 +86,22 @@ class Phase < ActiveRecord::Base
       end
     end
     return has_section
+  end
+=end
+  
+  ##
+  # deep copy the given phase and all it's associations
+  #
+  # @params [Phase] phase to be deep copied
+  # @return [Phase] the saved, copied phase
+  def self.deep_copy(phase)
+    phase_copy = phase.dup
+    phase_copy.save!
+    phase.sections.each do |section|
+      section_copy = Section.deep_copy(section)
+      section_copy.phase_id = phase_copy.id
+      section_copy.save!
+    end
+    return phase_copy
   end
 end

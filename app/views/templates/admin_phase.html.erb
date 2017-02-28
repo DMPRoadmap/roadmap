@@ -9,8 +9,8 @@
   <!-- link button to add new guidance -->
   <div class="move_2_right">
     <%= link_to t("org_admin.templates.view_all_templates"),
-                admin_index_template_path,
-                class: 'btn btn-primary' %>
+      admin_index_template_path,
+      class: 'btn btn-primary' %>
   </div>
 </h1>
 
@@ -23,15 +23,15 @@
 <div class="project-tabs-body">
   <div class="accordion" id="sections-accordion">
 
-      <!--phase details -->
+    <!--phase details -->
     <div class="phase_details">
       <div class="phase_details_body">
 
-              <!-- display phase details-->
+        <!-- display phase details-->
         <div id="show_phase_div">
           <%= render partial: "show_phase", locals: {phase: @phase}%>
         </div>
-        <% if @phase.modifiable then %>
+        <% if @phase.modifiable && @edit %>
           <div id="edit_phase_div" style="display: none">
             <%= render partial: "edit_phase", locals: {phase: @phase}%>
           </div>
@@ -52,20 +52,18 @@
 </div>
 
 
-  <!-- Add a new section if the version is not published-->
-  <% if !@phase.template.published %>
+<% if @edit || @phase.template.customization_of.present? %>
+  <!-- add section block -->
+  <div id="add_section_block_div" style="display: none">
+    <%= render partial: 'add_section', locals: {phase: @phase} %>
+  </div>
 
-    <!-- add section block -->
-    <div id="add_section_block_div" style="display: none">
-      <%= render partial: 'add_section', locals: {phase: @phase} %>
+  <!-- add section button-->
+  <div id="add_section_button_div">
+    <div class="div_right">
+      <%= link_to t('org_admin.add_section_label'),'#', id: 'add_section_button', class: 'btn btn-primary' %>
     </div>
-
-    <!-- add section button-->
-    <div id="add_section_button_div">
-      <div class="div_right">
-        <%= link_to t('org_admin.add_section_label'),'#', id: 'add_section_button', aclass: 'btn btn-primary' %>
-      </div>
-    </div>
-  <%end%>
+  </div>
+<% end %>
 
 

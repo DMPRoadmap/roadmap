@@ -1214,6 +1214,49 @@ table.dmp_details_table .text_field{
   clear:both;
 }
 
+#plan-guidance-accordion {
+  & > .accordion-group {
+    background-color:@white_colour;
+    border-color: @white_colour;
+    border:none !important;
+    box-shadow:none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow:none !important;
+
+    & > .accordion-heading {
+      background-color:@white_colour;
+      border-bottom: 1px solid @orange_colour;
+      min-height: 50px;
+
+      a {
+        padding-left:0px;
+        padding-right:0px;
+      }
+
+      h3 {
+        float: left;
+        margin-top: 0px;
+        min-width:100%;
+      }
+
+      span {
+        margin: 7px;
+      }
+    }
+  }
+
+  .accordion-project {
+    clear: both;
+  }
+
+  .accordion-inner {
+    border:none !important;
+    padding-right: 0px;
+    padding-left:0px;
+  }
+
+}
+
 #project-accordion {
   & > .accordion-group {
     background-color:@white_colour;
