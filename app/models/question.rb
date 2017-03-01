@@ -44,6 +44,12 @@ class Question < ActiveRecord::Base
     "#{text}"
   end
 
+
+  def isOptionBased?
+    format = self.question_format
+    return format.option_based
+  end
+
   ##
   # deep copy the given question and all it's associations
   #
