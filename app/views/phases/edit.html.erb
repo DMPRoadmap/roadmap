@@ -6,7 +6,6 @@
   so if we come this way then we are editing a phase
 -->
 
-
 <!-- render the project title -->
 <%= render :partial => "/plans/plan_title", locals: {plan: @plan, plan_data: @plan_data} %>
 
@@ -30,10 +29,8 @@
   </div>
 </div>   <!-- progess -->
 
-
 <!-- render navigation tabs for the plan phases -->
 <%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, plan_data: @plan_data, active: @phase.title } %>
-
 
 <!-- phase main container -->
 <div class="project-tabs-body">
@@ -118,8 +115,9 @@
                       locals: {
                         plan: @plan,
                         plan_data: @plan_data,
+                        phase_id: @phase_data["id"],
                         question: question,
-                        last_question_id: section["questions"].last["id"]
+                        last_question_id: section["questions"].last["id"],
                       }
                   %>
                 </div>   <!-- id_css -->    
