@@ -14,11 +14,12 @@ class TokenPermissionType < ActiveRecord::Base
   # Validators
   validates :token_type, presence: true, uniqueness: true
 
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-
+  ##
+  # Constant Token Permission Types
+  GUIDANCES   = TokenPermissionType.where(name: 'guidances').first.freeze
+  PLANS       = TokenPermissionType.where(name: 'plans').first.freeze
+  TEMPLATES   = TokenPermissionType.where(name: 'templates').first.freeze
+  STATISTICS  = TokenPermissionType.where(name: 'statistics').first.freeze
 
 
   ##

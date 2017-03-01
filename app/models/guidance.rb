@@ -91,7 +91,7 @@ class Guidance < ActiveRecord::Base
 
     unless guidance.nil?
       unless guidance.guidance_group.nil?
-        # guidances are viewable if they are owned by any of the user's organisations
+        # guidances are viewable if they are owned by the user's org
         if guidance.guidance_group.org == user.org
           viewable = true
         end
@@ -99,14 +99,14 @@ class Guidance < ActiveRecord::Base
         if Org.managing_orgs.include?(guidance.guidance_group.org)
           viewable = true
         end
-        
+
         # guidance groups are viewable if they are owned by a funder
         if Org.funders.include?(guidance.guidance_group.org)
           viewable = true
         end
       end
     end
-    
+
     return viewable
   end
 
@@ -122,20 +122,13 @@ class Guidance < ActiveRecord::Base
   def self.all_viewable(user)
     managing_groups = Org.managing_orgs.collect{|o| o.guidance_groups}
     # find all groups owned by a Funder organisation
-    funder_groups = []
-    funders = Org.funders
-    funders.each do |funder|
-      funder_groups += funder.guidance_groups
-    end
+    funder_groups = Org.funders.collect{|org| org.guidance_groups}
     # find all groups owned by any of the user's organisations
     organisation_groups = user.org.guidance_groups
-    
+
     # find all guidances belonging to any of the viewable groups
-    all_viewable_guidances = []
     all_viewable_groups = managing_groups + funder_groups + organisation_groups
-    all_viewable_groups.flatten.each do |group|
-      all_viewable_guidances += group.guidances
-    end
+    all_viewable_guidances = all_viewable_groups.flatten.collect{|group| group.guidances}
     # pass the list of viewable guidances to the view
     return all_viewable_guidances
   end
