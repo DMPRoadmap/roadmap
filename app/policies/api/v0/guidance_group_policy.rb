@@ -1,22 +1,21 @@
 module Api
   module V0
-    class GuidancePolicy < ApplicationPolicy
-      attr_reader :user
-      attr_reader :guidance
+    class GuidanceGroupPolicy < ApplicationPolicy
+      attr_reader :user, :guidance_group
 
-      def initialize(user, guidance)
+      def initialize(user, guidance_group)
         raise Pundit::NotAuthorizedError, _("must be logged in") unless user
         unless user.org.token_permission_types.include? TokenPermissionType::GUIDANCES
           raise Pundit::NotAuthorizedError, _("must have access to guidances api")
         end
         @user = user
-        @guidance = guidance
+        @guidance_group = guidance_group
       end
 
       ##
       # is the plan editable by the user
       def show?
-        Guidance.can_view(@user, @guidance.id)
+        GuidanceGroup.can_view?(@user, @guidance_group)
       end
 
       ##
@@ -24,6 +23,7 @@ module Api
       def index?
         true
       end
+
     end
   end
 end

@@ -30,7 +30,7 @@ module Api
       # ensures that the template is owned/created by the caller's organisation
       def using_template
         if has_auth(constant("token_permission_types.statistics"))
-          template = Dmptemplate.find(params[:id])
+          template = Template.find(params[:dmptemplate_id])
           if template.org == @user.org
             @template_count = restrict_date_range(template.plans).count
             respond_with @template_count
