@@ -16,10 +16,10 @@ class TokenPermissionType < ActiveRecord::Base
 
   ##
   # Constant Token Permission Types
-  GUIDANCES   = TokenPermissionType.where(name: 'guidances').first.freeze
-  PLANS       = TokenPermissionType.where(name: 'plans').first.freeze
-  TEMPLATES   = TokenPermissionType.where(name: 'templates').first.freeze
-  STATISTICS  = TokenPermissionType.where(name: 'statistics').first.freeze
+  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
+  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
+  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
+  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
 
 
   ##
