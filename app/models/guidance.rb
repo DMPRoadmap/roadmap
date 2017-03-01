@@ -120,17 +120,17 @@ class Guidance < ActiveRecord::Base
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    managing_groups = Org.managing_orgs.collect{|o| o.guidance_groups}
+    managing_groups = Org.includes(guidance_groups: :guidances).managing_orgs.collect{|o| o.guidance_groups}
     # find all groups owned by a Funder organisation
-    funder_groups = Org.funders.collect{|org| org.guidance_groups}
+    funder_groups = Org.includes(guidance_groups: :guidances).funders.collect{|org| org.guidance_groups}
     # find all groups owned by any of the user's organisations
     organisation_groups = user.org.guidance_groups
 
     # find all guidances belonging to any of the viewable groups
-    all_viewable_groups = managing_groups + funder_groups + organisation_groups
-    all_viewable_guidances = all_viewable_groups.flatten.collect{|group| group.guidances}
+    all_viewable_groups = (managing_groups + funder_groups + organisation_groups).flatten
+    all_viewable_guidances = all_viewable_groups.collect{|group| group.guidances}
     # pass the list of viewable guidances to the view
-    return all_viewable_guidances
+    return all_viewable_guidances.flatten
   end
 
 end
