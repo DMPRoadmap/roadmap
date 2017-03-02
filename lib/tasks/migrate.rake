@@ -79,22 +79,34 @@ namespace :migrate do
     # seed languages to database
     languages = {
         'English(GB)' => {
-            abbreviation: 'en_GB',
-            description: '',
-            name: 'English (GB)',
-            default_language: true
+          abbreviation: 'en_GB',
+          description: '',
+          name: 'English (GB)',
+          default_language: true
+        },
+        'English(US)' => {
+          abbreviation: 'en_US',
+          description: '',
+          name: 'English (US)',
+          default_language: false
         },
         'FR' => {
-            abbreviation: 'fr',
-            description: '',
-            name: 'Français',
-            default_language: false
+          abbreviation: 'fr',
+          description: '',
+          name: 'Français',
+          default_language: false
         },
         'DE' => {
             abbreviation: 'de',
             description: '',
             name: 'Deutsch',
             default_language: false
+        },
+        'Español' => {
+          abbreviation: 'es',
+          description: '',
+          name: 'Español',
+          default_language: false
         }
     }
 
@@ -158,4 +170,60 @@ namespace :migrate do
       temp.save!
     end
   end
+
+  desc "replaces languages in incorrect formats and seeds all correct formats"
+  task fix_languages: :environment do
+    languages = [
+      { abbreviation: 'en_GB',
+        old_abbreviation: 'en-UK',
+        description: '',
+        name: 'English (GB)',
+        default_language: true},
+      { abbreviation: 'en_US',
+        old_abbreviation: 'en-US',
+        description: '',
+        name: 'English (US)',
+        default_language: false},
+      { abbreviation: 'fr',
+        old_abbreviation: 'fr',
+        description: '',
+        name: 'Français',
+        default_language: false},
+      { abbreviation: 'de',
+        old_abbreviation: 'de',
+        description: '',
+        name: 'Deutsch',
+        default_language: false},
+      { abbreviation: 'es',
+        old_abbreviation: 'es',
+        description: '',
+        name: 'Español',
+        default_language: false}
+    ]
+
+    languages.each do |lang_data|
+      # if the old abbreviation exists, remove and replace the data
+      lang = Language.find_by(abbreviation: lang_data[:old_abbreviation])
+      if lang.present?
+        lang.abbreviation = lang_data[:abbreviation]
+        lang.description = lang_data[:description]
+        lang.name = lang_data[:name]
+        lang.default_language = lang_data[:default_language]
+        lang.save!
+      else
+        # if nothing batching either abbreviation exists, replace with new abbreviation
+        lang = Language.find_by(abbreviation: lang_data[:abbreviation])
+        if lang.blank?
+          lang = Language.new
+          lang.abbreviation = lang_data[:abbreviation]
+          lang.description = lang_data[:description]
+          lang.name = lang_data[:name]
+          lang.default_language = lang_data[:default_language]
+          lang.save!
+        end
+      end
+    end
+
+  end
+
 end
