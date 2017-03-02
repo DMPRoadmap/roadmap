@@ -30,13 +30,13 @@ class OrgsController < ApplicationController
 
     begin
       if @org.update_attributes(assign_params)
-        redirect_to admin_show_org_path(params[:id]), notice: I18n.t("admin.org_updated_message")
+        redirect_to admin_show_org_path(params[:id]), notice: _('Organisation was successfully updated.')
       else
         flash[:notice] = @org.errors.collect{|e| e.message}.join('<br />').html_safe
         render action: "admin_edit"
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye
-      flash[:notice] = I18n.t("admin.org_bad_logo")
+      flash[:notice] = _('There seems to be a problem with your logo. Please upload it again.')
       render action: "admin_edit"
     end
   end

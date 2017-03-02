@@ -7,7 +7,7 @@ class SuggestedAnswersController < ApplicationController
     @suggested_answer = SuggestedAnswer.new(params[:suggested_answer])
     authorize @suggested_answer
     if @suggested_answer.save
-      redirect_to admin_show_phase_path(id: @suggested_answer.question.section.phase_id, section_id: @suggested_answer.question.section_id, question_id: @suggested_answer.question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_show_phase_path(id: @suggested_answer.question.section.phase_id, section_id: @suggested_answer.question.section_id, question_id: @suggested_answer.question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       render action: "phases/admin_show"
     end
@@ -22,7 +22,7 @@ class SuggestedAnswersController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @suggested_answer.update_attributes(params[:suggested_answer])
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
       render action: "phases/admin_show"
     end
@@ -36,7 +36,7 @@ class SuggestedAnswersController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     @suggested_answer.destroy
-    redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.destroyed_message')
+    redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
   end
 
 end

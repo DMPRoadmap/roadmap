@@ -7,12 +7,12 @@ class RolesController < ApplicationController
     authorize @role
 		@role.access_level = params[:role][:access_level].to_i
 		if params[:role][:email].present?
-			message = I18n.t('helpers.project.user_added')
+			message = _('User added to project')
 			if @role.save
 				if @role.user.nil? then
 					if User.find_by_email(params[:role][:email]).nil? then
 						User.invite!(email: params[:role][:email])
-						message = I18n.t('helpers.project.invitation_success')
+						message = _('Invitation issued successfully.')
 						@role.user = User.find_by_email(params[:role][:email])
 						@role.save
 					else
@@ -29,7 +29,7 @@ class RolesController < ApplicationController
 				render action: "new"
 			end
 		else
-			flash[:notice] = I18n.t('helpers.project.enter_email')
+			flash[:notice] = _('Please enter an email address')
 			redirect_to controller: 'plans', action: 'share', id: @role.plan.slug
 		end
 	end
@@ -39,7 +39,7 @@ class RolesController < ApplicationController
     authorize @role
   	@role.access_level = params[:role][:access_level].to_i
 		if @role.update_attributes(params[:role])
-			flash[:notice] = I18n.t('helpers.project.sharing_updated')
+			flash[:notice] = _('Sharing details successfully updated.')
 			UserMailer.permissions_change_notification(@role).deliver
 			redirect_to controller: 'plans', action: 'share', id: @role.plan.slug
 		else
@@ -54,7 +54,7 @@ class RolesController < ApplicationController
 		plan = @role.plan
 		@role.destroy
 
-		flash[:notice] = I18n.t('helpers.project.access_removed')
+		flash[:notice] = _('Access removed')
 		UserMailer.project_access_removed_notification(user, plan).deliver
 	  redirect_to controller: 'plans', action: 'share', id: @role.plan.slug
 	end
