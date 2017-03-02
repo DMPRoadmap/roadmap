@@ -289,7 +289,7 @@ class Plan < ActiveRecord::Base
                                 answers.id as answerid,
                                 answers.plan_id as plan_id,
                                 answers.text as answertext,
-                                answers.created_at as created,
+                                answers.updated_at as updated,
                                 users.email as username')
                        .where("questions.id in (?) and answers.plan_id = ?",question_ids, self.id)
                        .to_a
@@ -305,7 +305,7 @@ class Plan < ActiveRecord::Base
         plan: rec.plan_id,
         id: rec.answerid,
         text: rec.answertext,
-        created: rec.created,
+        updated: rec.updated,
         user: rec.username
       }
     end
@@ -326,7 +326,7 @@ class Plan < ActiveRecord::Base
 
       aid = answer.nil? ? nil : answer[:id]
       atext = answer.nil? ? nil : answer[:text]
-      created = answer.nil? ? nil : answer[:created]
+      updated = answer.nil? ? nil : answer[:updated]
       uname = answer.nil? ? nil : answer[:user]
 
       space_used += height_of_text(stitle, 1, 1)
@@ -356,7 +356,7 @@ class Plan < ActiveRecord::Base
       status["questions"][qid] = {
         "format" => format,
         "answer_id" => aid,
-          "answer_created_at" => created.to_i,
+        "answer_updated_at" => updated.to_i,
         "answer_text" => atext,
         "answered_by" => uname
       }
