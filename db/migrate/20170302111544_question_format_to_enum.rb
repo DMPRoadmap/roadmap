@@ -1,5 +1,6 @@
 class QuestionFormatToEnum < ActiveRecord::Migration
   def self.up
+    add_column  :question_formats, :formattype, :integer, :default => 0
     QuestionFormat.all.each do |qf|
       if qf.title == "Text area"
         qf.textarea!
