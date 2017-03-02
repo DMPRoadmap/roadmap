@@ -26,7 +26,7 @@ module PlansHelper
     
     klass, content = case col
       when 'name'
-        [ "dmp_td_big", link_to(plan.title, plan_path(I18n.locale, plan), class: "dmp_table_link") ]
+        [ "dmp_td_big", link_to(plan.title, plan_path(plan), class: "dmp_table_link") ]
         
       when 'owner'
         user = plan.owner
