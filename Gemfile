@@ -34,7 +34,7 @@ gem 'friendly_id'
 
 # ------------------------------------------------
 #    SUPER ADMIN SECTION
-gem 'activeadmin', github: 'activeadmin'
+gem 'administrate', github: 'thoughtbot/administrate'
 
 # ------------------------------------------------
 #    USERS
