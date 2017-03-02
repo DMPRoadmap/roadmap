@@ -6,12 +6,6 @@ class PlansController < ApplicationController
 	before_filter :get_plan_list_columns, only: %i( index )
   after_action :verify_authorized
 
-  TEXTAREA = QuestionFormat.where(title: "Text area").first.id
-  TEXTFIELD = QuestionFormat.where(title: "Text field").first.id
-  RADIO = QuestionFormat.where(title: "Radio buttons").first.id
-  CHECKBOX = QuestionFormat.where(title: "Check box").first.id
-  DROPDOWN = QuestionFormat.where(title: "Dropdown").first.id
-  MULTI = QuestionFormat.where(title: "Multi select box").first.id
 
   def index
     authorize Plan
@@ -148,12 +142,6 @@ class PlansController < ApplicationController
   #
   # GET /plans/1/edit
   def edit
-    @textarea = TEXTAREA
-    @textfield = TEXTFIELD
-    @radio = RADIO
-    @checkbox = CHECKBOX
-    @dropdown = DROPDOWN
-    @multi = MULTI
 
     @plan = Plan.find(params[:id])
 
