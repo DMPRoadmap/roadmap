@@ -1,4 +1,5 @@
 class QuestionFormat < ActiveRecord::Base
+  include FlagShihTzu
 
   ##
   # Associations
@@ -11,6 +12,17 @@ class QuestionFormat < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :title, :description, :option_based, :questions, :as => [:default, :admin]
 
+  ##
+  # Define Bit Field Values so we can test a format without doing string comps
+  # Column type
+  has_flags 1 => :textarea,
+            2 => :textfield,
+            3 => :radiobuttons,
+            4 => :checkbox,
+            5 => :dropdown,
+            6 => :multiselectbox,
+            7 => :date,
+            column: 'formattype'
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
