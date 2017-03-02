@@ -662,6 +662,7 @@ class Plan < ActiveRecord::Base
       end
     end
   end
+=end
 
   ##
   # returns the funder id for the plan
@@ -673,7 +674,6 @@ class Plan < ActiveRecord::Base
     end
     return self.template.org
   end
-=end
 
   ##
   # returns the funder organisation for the project or nil if none is specified
