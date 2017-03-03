@@ -45,7 +45,7 @@ class Question < ActiveRecord::Base
   end
 
 
-  def isOptionBased?
+  def option_based?
     format = self.question_format
     return format.option_based
   end
