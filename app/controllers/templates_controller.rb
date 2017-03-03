@@ -51,7 +51,8 @@ class TemplatesController < ApplicationController
 
   # GET /dmptemplates/1
   def admin_template
-    @template = Template.find(params[:id])
+    @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format,
+          :suggested_answers]]]).find(params[:id])
     # check to see if this is a funder template needing customized
     if @template.org_id != current_user.org_id
       # definitely need to deep_copy the given template
@@ -72,7 +73,7 @@ class TemplatesController < ApplicationController
           end
         end
       end
-      customizations = Template.includes(phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+      customizations = Template.includes(:org, phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
       if customizations.present?
         # existing customization to port over
         max_version = customizations.first
@@ -145,6 +146,8 @@ class TemplatesController < ApplicationController
       @template = new_version
     end
     authorize @template
+    # once the correct template has been generated, we convert it to hash
+    @hash = @template.to_hash
   end
 
 
