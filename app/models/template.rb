@@ -48,95 +48,47 @@ class Template < ActiveRecord::Base
   end
 
   ##
-  # takes a type or organisation and returns all published templates from
-  # organisations of that type
+  # convert the given template to a hash and return with all it's associations
+  # to use, please pre-fetch org, phases, section, questions, suggested_answers, 
+  #   question_options, question_formats, 
+  # TODO: Themes & guidance?
   #
-  # @param ot [String] name of an organisation type e.g. founder
-  # @return [Array<dmptemplates>] list of published dmptemplates
-=begin
-  def self.templates_org_type(ot)
-    # DISCUSS - This function other than the check for the template being published
-    # is a superclass for the below funders_templates
-    new_org_obejcts = OrganisationType.find_by( name: ot ).organisations
-
-    org_templates = Array.new
-    new_org_obejcts.each do |neworg|
-       org_templates += neworg.dmptemplates.where("published = ?", true)
+  # @return [hash] hash of template, phases, sections, questions, question_options, suggested_answers
+  def to_hash
+    hash = {}
+    hash[:template] = {}
+    hash[:template][:data] = self
+    hash[:template][:org] = self.org
+    phases = {}
+    hash[:template][:phases] = phases
+    self.phases.each do |phase|
+      phases[phase.number] = {}
+      phases[phase.number][:data] = phase
+      phases[phase.number][:sections] = {}
+      phase.sections.each do |section|
+        phases[phase.number][:sections][section.number] = {}
+        phases[phase.number][:sections][section.number][:data] = section
+        phases[phase.number][:sections][section.number][:questions] = {}
+        section.questions.each do |question|
+          phases[phase.number][:sections][section.number][:questions][question.number] = {}
+          phases[phase.number][:sections][section.number][:questions][question.number][:data] = question
+          phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers] = {}
+          question.suggested_answers.each do |suggested_answer|
+            phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers][suggested_answer.id] = {}
+            phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers][suggested_answer.id][:data] = suggested_answer
+          end
+          phases[phase.number][:sections][section.number][:questions][question.number][:question_options] = {}
+          question.question_options.each do |question_option|
+            phases[phase.number][:sections][section.number][:questions][question.number][:question_options][:data] = question_option
+            phases[phase.number][:sections][section.number][:questions][question.number][:question_format] = question.question_format
+          end
+        end
+      end
     end
-
-    return org_templates
+    return hash
   end
 
-  ##
-  # returns all templates from all organisations of the Organisation_Type funder
-  #
-  # @return [Array<dmptemplates>] all templates from funder organisations
-  def self.funders_templates
-    funder_orgs = Org.includes(:templates).funder
-    org_templates = Array.new
-
-    funder_orgs.each do |neworg|
-      org_templates += neworg.templates
-    end
-
-    return org_templates
-  end
-
-  ##
-  # returns all institutional templates bellowing to the given organisation
-  #
-  # @param org_id [integer] the integer id for an organisation
-  # @return [Array<dmptemplates>] all templates from a user's organisation
-  def self.own_institutional_templates(org_id)
-    # DISCUSS - Why is this done by scanning organisation_id's from the templates
-    # yet all other calls are done by finding an organisation, and using the
-    # has_many relationship to find the dmptemplates?
-    # - A possible answer is that there may be deleted organisations which we are
-    # serching for templates for.
-    # - A standardised behavior on querries, wether through active reccord or the
-    # where, should maybe be thought of/decided upon
-    new_templates = self.where("org_id = ?", org_id)
-    return new_templates
-  end
-  
-  ##
-  # returns an array with all funders and of the given organisations's
-  # institutional templates
-  #
-  # @param org_id [integer] the integer id for an organisation
-  # @return [Array<dmptemplates>] all templates from the template's organisation
-  #   or from a funder organisation
-  def self.funders_and_own_templates(org_id)
-    funders_templates = self.funders_templates
-
-    #verify if org type is not a funder
-    current_org = Org.find(org_id)
-    if !current_org.funder? then
-      own_institutional_templates = self.own_institutional_templates(org_id)
-    else
-      own_institutional_templates = []
-    end
-
-    templates_list = Array.new
-    templates_list += own_institutional_templates
-    templates_list += funders_templates
-    templates_list = templates_list.sort_by { |f| f['title'].downcase }
-
-    return templates_list
-  end
-  
-  ##
-  # Returns the string name of the organisation type of the organisation who
-  # owns this dmptemplate
-  #
-  # @return [string] the string name of an organisation type
-  def org_type
-    org_type = org.organisation_type
-    return org_type
-  end
-=end
-  
-# TODO: Why are we passing in an org and template here? 
+# TODO: Why are we passing in an org and template here?
   ##
   # Verify if a template has customisation by given organisation
   #
@@ -149,33 +101,6 @@ class Template < ActiveRecord::Base
       modifiable = modifiable && phase.modifiable
     end
     return !modifiable
-    # if temp.org_id != org_id then
-    #   temp.phases.each do |phase|
-    #     phase.versions.each do |version|
-    #       version.sections.each do |section|
-    #         return true if section.organisation_id == org_id
-    #       end
-    #     end
-    #     return false
-    #   end
-    # else
-    #   return false
-    # end
   end
-
-=begin
-  ##
-  # verify if there are any publish version for the template
-  #
-  # @return [Boolean] true if there is a published version for the template
-  def has_published_versions?
-    phases.each do |phase|
-      return true if !phase.latest_published_version.nil?
-    end
-    return false 
-  end
-=end
-  
-  # OLD CODE STARTS HERE
 
 end
