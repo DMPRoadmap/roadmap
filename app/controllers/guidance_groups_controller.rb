@@ -27,7 +27,7 @@ class GuidanceGroupsController < ApplicationController
     end
 
     if @guidance_group.save
-      redirect_to admin_index_guidance_path, notice: I18n.t('org_admin.guidance_group.created_message')
+      redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully created.')
     else
       render action: "new"
     end
@@ -48,7 +48,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.org_id = current_user.org_id
 
     if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: I18n.t('org_admin.guidance_group.updated_message')
+      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
     else
       render action: "edit"
     end
@@ -63,7 +63,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.published = true
 
     if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: I18n.t('org_admin.guidance_group.updated_message')
+      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
     else
       render action: "edit"
     end
@@ -77,7 +77,7 @@ class GuidanceGroupsController < ApplicationController
     authorize @guidance_group
     @guidance_group.destroy
 
-    redirect_to admin_index_guidance_path, notice: I18n.t('org_admin.guidance_group.destroyed_message')
+    redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully deleted.')
 	end
 
 end

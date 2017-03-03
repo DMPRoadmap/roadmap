@@ -68,11 +68,11 @@ class StaticPagesController < ApplicationController
 
       else
         # the project has no plans for some reason
-        redirect_to public_plans_path, notice: I18n.t('helpers.settings.projects.errors.no_plan')
+        redirect_to public_plans_path, notice: _('The plan is incomplete.')
       end
     else
       # Otherwise redirect to the home page with an unauthorized message
-      redirect_to public_plans_path, notice: I18n.t('helpers.settings.plans.errors.no_access_account')
+      redirect_to public_plans_path, notice: _('This account does not have access to that plan.')
     end
   end
 end

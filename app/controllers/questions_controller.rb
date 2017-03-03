@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     @question.guidance = params["new-question-guidance"]
     @question.default_value = params["new-question-default-value"]
     if @question.save!
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       render action: "phases/admin_show"
     end
@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @question.update_attributes(params[:question])
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
       render action: "phases/admin_show"
     end
@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     @question.destroy
-    redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.destroyed_message')
+    redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
   end
 
 end

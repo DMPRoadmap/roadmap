@@ -157,7 +157,7 @@ class TemplatesController < ApplicationController
     authorize @template
     if @template.published?
       # published templates cannot be edited
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.read_only') and return
+      redirect_to admin_template_template_path(@template), notice: _('Published templates cannot be edited.') and return
     end
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
@@ -168,7 +168,7 @@ class TemplatesController < ApplicationController
         new_version.published = false
         new_version.save!
       end
-      redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_index_template_path(), notice: _('Information was successfully updated.')
     else
       render action: "edit"
     end
@@ -196,7 +196,7 @@ class TemplatesController < ApplicationController
     end
     authorize @template
     if @template.save!
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
       render action: "admin_new"
     end

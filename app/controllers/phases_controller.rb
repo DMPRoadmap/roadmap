@@ -93,7 +93,7 @@ class PhasesController < ApplicationController
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
     if @phase.save
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       render action: "admin_show"
     end
@@ -106,7 +106,7 @@ class PhasesController < ApplicationController
     authorize @phase
     @phase.description = params["phase-desc"]
     if @phase.update_attributes(params[:phase])
-      redirect_to admin_show_phase_path(@phase), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
       render action: "admin_show"
     end
@@ -118,7 +118,7 @@ class PhasesController < ApplicationController
     authorize @phase
     @template = @phase.template
     @phase.destroy
-    redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.destroyed_message')
+    redirect_to admin_template_template_path(@template), notice: _('Information was successfully deleted.')
   end
 
 

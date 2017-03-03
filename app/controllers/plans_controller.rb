@@ -77,7 +77,7 @@ class PlansController < ApplicationController
 
       @plan.principal_investigator = current_user.name
 
-      @plan.title = I18n.t('helpers.project.my_project_name')+' ('+@plan.template.title+')'
+      @plan.title = _('My plan')+' ('+@plan.template.title+')'  # We should use interpolated string since the order of the words from this message could vary among languages
 
       @plan.assign_creator(current_user.id)
 
@@ -89,9 +89,9 @@ class PlansController < ApplicationController
       respond_to do |format|
         if @plan.save
           #format.html { redirect_to({:action => "show", :id => @plan.slug, :show_form => "yes"}, {:notice => I18n.t('helpers.project.success')}) }
-          format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }, {:notice => I18n.t('helpers.project.success')}) }
+          format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }, {:notice => _('Plan was successfully created.')}) }
         else
-          @error = "Something went wrong"
+          @error = "Something went wrong" 
           format.html { render action: "new" }
         end
       end
@@ -121,7 +121,7 @@ class PlansController < ApplicationController
       end
     elsif user_signed_in? then
       respond_to do |format|
-        format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+        format.html { redirect_to projects_url, notice: _('This account does not have access to that plan.') }
       end
     else
       respond_to do |format|
@@ -158,7 +158,7 @@ class PlansController < ApplicationController
       end
     elsif !@plan.readable_by?(current_user.id) then
       respond_to do |format|
-        format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+        format.html { redirect_to projects_url, notice: _('This account does not have access to that plan.') }
       end
     end
   end
@@ -171,7 +171,7 @@ class PlansController < ApplicationController
     if user_signed_in? && @plan.editable_by?(current_user.id) then
       respond_to do |format|
         if @plan.update_attributes(params[:plan])
-          format.html { redirect_to @plan, :editing => false, notice: I18n.t('helpers.project.success_update') }
+          format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }
@@ -213,7 +213,7 @@ class PlansController < ApplicationController
       end
     elsif !@plan.editable_by?(current_user.id) then
       respond_to do |format|
-        format.html { redirect_to plans_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+        format.html { redirect_to plans_url, notice: _('This account does not have access to that plan.') }
       end
     end
   end
@@ -394,7 +394,7 @@ class PlansController < ApplicationController
       end
     elsif !@plan.editable_by(current_user.id) then
       respond_to do |format|
-        format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+        format.html { redirect_to projects_url, notice: _('This account does not have access to that plan.') }
       end
     end
   end
