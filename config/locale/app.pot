@@ -2780,3 +2780,9 @@ msgstr ""
 #magic_strings.token_permission_types.statistics
 msgid "statistics"
 msgstr ""
+
+msgid "Select Organisation"
+msgstr ""
+
+msgid "Select Funder"
+msgstr ""
