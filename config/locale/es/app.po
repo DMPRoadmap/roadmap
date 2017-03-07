@@ -2366,7 +2366,7 @@ msgid "Your ORCID"
 msgstr ""
 
 #helpers.plan.export.not_valid_format
-msgid "%{value}% is not a valid format"
+msgid "%{value} is not a valid format"
 msgstr ""
 
 #helpers.settings.title

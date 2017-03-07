@@ -346,7 +346,7 @@ class Plan < ActiveRecord::Base
       if atext.present?
         space_used += height_of_text(atext)
       else
-        space_used += height_of_text(I18n.t('helpers.plan.export.pdf.question_not_answered'))
+        space_used += height_of_text(_('Question not answered.'))
       end
 
       if answer.present? then
