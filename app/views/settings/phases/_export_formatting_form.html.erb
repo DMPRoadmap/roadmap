@@ -10,16 +10,16 @@
 
 <%= form_for(@export_settings, url: settings_phase_path(plan), method: :put, as: :export, remote: true) do |f| %>
   <div class="div_right">
-    <%= submit_tag(t("helpers.settings.plans.reset"), class: "btn btn-primary") %>
-    <%= submit_tag(t("helpers.save"), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}") %>
+    <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
+    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}") %>
   </div>
-  <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= t("helpers.unsaved") %></span>
+  <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= _('Unsaved changes') %></span>
   <div id="custom-export-title">
-    <h3><%= t("helpers.settings.plans.title") %></h3>
+    <h3><%= _('File Name') %></h3>
     <fieldset>
       <ol>
         <li>
-          <%= label_tag("export[title]", t("helpers.settings.plans.title")) %>
+          <%= label_tag("export[title]", _('File Name')) %>
           <div class="move_2_right">
             <%= text_field_tag("export[title]", plan.title) %>
           </div>
@@ -28,10 +28,10 @@
     </fieldset>
     <div class="div_clear"></div>
   </div>
-  <h3><%= t("helpers.settings.plans.included_elements") %></h3>
+  <h3><%= _('Included Elements') %></h3>
   <div class="div_clear"> </div>
   <fieldset class="check_select">
-    <legend><label for="admin_details_toggle"><%= t('admin.details') %></label></legend>
+    <legend><label for="admin_details_toggle"><%= _('Details') %></label></legend>
     <ol>
     <% Settings::Template::VALID_ADMIN_FIELDS.each do |field|
          name = "export[fields][admin][#{field}]"
@@ -44,7 +44,7 @@
     </ol>
   </fieldset>
   <fieldset class="check_select sections">
-    <legend><label for="sections_toggle"><%= t('admin.sections') %></label></legend>
+    <legend><label for="sections_toggle"><%= _('Sections') %></label></legend>
     <ol>
       <% plan_data["template"]["phases"].each do |phase| %>
         <% phase["sections"].each do |section| %>
@@ -71,20 +71,20 @@
     </ol>
   </fieldset>
   <div id="pdf-format-options">
-    <h3><%= t("helpers.settings.plans.pdf_formatting") %></h3>
+    <h3><%= _('PDF Formatting') %></h3>
     <fieldset class="font">
-      <legend><%= t("helpers.settings.plans.font") -%></legend>
+      <legend><%= _('Font') -%></legend>
       <div>
-      <%= label_tag("export[formatting][font_face]", t("helpers.settings.plans.font_face")) %>
+      <%= label_tag("export[formatting][font_face]", _('Face')) %>
       <%= select_tag("export[formatting][font_face]", options_for_select(Settings::Template::VALID_FONT_FACES, @export_settings.formatting[:font_face]), { "data-default" => plan.template.settings(:export).formatting[:font_face] }) %>
       </div>
       <div>
-        <%= label_tag("export[formatting][font_size]", t("helpers.settings.plans.font_size") + " (pt)") %>
+        <%= label_tag("export[formatting][font_size]", _('Size') + " (pt)") %>
         <%= select_tag("export[formatting][font_size]", options_for_select(Settings::Template::VALID_FONT_SIZE_RANGE.to_a, @export_settings.formatting[:font_size]), { "data-default" => plan.template.settings(:export).formatting[:font_size] }) %>
       </div>
     </fieldset>
     <fieldset class="margins">
-      <legend><%= t("helpers.settings.plans.margin") -%> (mm)</legend>
+      <legend><%= _('Margin') -%> (mm)</legend>
 
       <% ["top", "bottom", "left", "right"].each do |pos| %>
         <div>
@@ -95,9 +95,9 @@
     </fieldset>
   </div>
   <div class="div_right">
-    <%= submit_tag(t("helpers.settings.plans.reset"), class: "btn btn-primary") %>
-    <%= submit_tag(t("helpers.save"), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}") %>
+    <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
+    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}") %>
   </div>
-  <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= t("helpers.unsaved") %></span>
+  <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= _('Unsaved changes') %></span>
   <div class="div_clear"> </div>
 <% end %>

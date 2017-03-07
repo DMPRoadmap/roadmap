@@ -1,4 +1,3 @@
-<!-- http://0.0.0.0:8080/en-UK/org/admin/templates/851874071/admin_index -->
 <div id="main-nav-tabs" class="main_nav_tabs">
   <ul class="nav nav-tabs" data-tabs="tabs">
     <!-- Navigation for organisation admin -->
@@ -60,9 +59,9 @@
           <b class="caret caret-orange"></b>
         </a>
         <ul class="dropdown-menu" style="padding: 0;">
-          <% FastGettext.default_available_locales.sort.each do |l| %>
-            <li <%= 'class=active' if FastGettext.locale == l %>>
-              <%= link_to l, {locale: l}, class: 'main_nav lang-dropdown-link'%>
+          <% @languages.each do |l| %>
+            <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+              <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'main_nav lang-dropdown-link'%>
             </li>
           <% end %>
         </ul>

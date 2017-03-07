@@ -1,0 +1,59 @@
+<%- model_class = Phase -%>
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+  <%= @template.title %>
+  <!-- link button to add new guidance -->
+  <div class="move_2_right">
+    <%= link_to _('Back to edit view'),
+        admin_show_phase_path(id: @phase.id, edit: "true"),
+        class: 'btn btn-primary' %>
+    <%= link_to _('View all templates'),
+        admin_index_template_path,
+        class: 'btn btn-primary' %>
+  </div>
+</h1>
+
+<div class="div_clear"></div>
+
+<!-- render navigation tabs for the template-->
+<%= render partial: "templates/admin_nav_tabs", locals: {template: @template, active: @phase.id} %>
+
+<!-- phase main container -->
+<div class="project-tabs-body">
+  <div class="accordion" id="sections-accordion">
+    <% sections = @phase.sections %>
+    <% sections.order(:number).each do |section| %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section.id%>">
+            <div class="accordion_heading_text">
+              <%= section.title %>
+            </div>
+            <!-- + or - icon-->
+            <span class="icon-plus icon-white accordion-icon"> </span>
+          </a>
+        </div>
+        <div id="collapse-<%= section.id%>" class="accordion-body collapse section-collapse">
+          <div class="section_desc">
+            <%= raw section.description %>
+          </div>
+          <div class="accordion-inner">
+            <% last_question_id = section.questions.order("number DESC").first.id%>
+
+            <% section.questions.order("number").each do |question| %>
+              <!--question block-->
+              <%= render partial: 'question/preview_question', locals: {question: question}%>
+              <% if last_question_id == question.id then %>
+                <div class="two-column-clear"></div>
+              <% else %>
+                <div class="two-column-clear question-divider"></div>
+              <% end %>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

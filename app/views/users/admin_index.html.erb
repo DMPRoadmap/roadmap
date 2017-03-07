@@ -1,18 +1,18 @@
 <%= stylesheet_link_tag "admin" %>
 
 <h1>
-    <%= t('org_admin.users_list') %>
+    <%= _('List of users') %>
 </h1>
 
-<%= raw t('org_admin.user_text_html')%>
+<%= raw _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
   <table id="dmp_table" class="dmp_table tablesorter">
     <thead>
       <tr>
-          <th class="dmp_th_big"><%= t('org_admin.user_full_name') %></th>
-          <th class="dmp_th_medium"><%= t('org_admin.user_name') %></th>
-          <th class="dmp_th_small"><%= t('org_admin.last_logged_in') %></th>
-          <th class="dmp_th_small"><%= t('org_admin.how_many_plans') %></th>
-          <th class="dmp_th_small"><%= t('org_admin.privileges') %></th>
+          <th class="dmp_th_big"><%= _('Name') %></th>
+          <th class="dmp_th_medium"><%= _('Email address') %></th>
+          <th class="dmp_th_small"><%= _('Last logged in') %></th>
+          <th class="dmp_th_small"><%= _('How many plans?') %></th>
+          <th class="dmp_th_small"><%= _('Privileges') %></th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +39,7 @@
               </td>
               <td class="dmp_td_small">
                 <% unless current_user == user %>
-                  <% b_label = t('helpers.submit.edit')%>
+                  <% b_label = _('Edit')%>
                   <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
                 <% end %>
               </td>

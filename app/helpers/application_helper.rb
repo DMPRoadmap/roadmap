@@ -29,4 +29,5 @@ module ApplicationHelper
   def isActivePage(path)
     return request.fullpath() == path
   end
+
 end
