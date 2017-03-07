@@ -58,7 +58,7 @@
 
       <!-- Comment text area for the multiple choice answers-->
       <% if question.option_comment_display %>
-        <%= label_tag("answer-text-Ans#{question.id}".to_sym, t("helpers.comment")) %>
+        <%= label_tag("answer-text-Ans#{question.id}".to_sym, _('Comment')) %>
         <%= text_area_tag("answer-text-Ans#{question.id}".to_sym, answer.text, class: "tinymce") %>
       <%end%>
     <% end %>  <!-- if multiple choice -->

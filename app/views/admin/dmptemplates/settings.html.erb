@@ -13,10 +13,14 @@
       </li>
       <li>
         <%= f.label(_('Margin')) %>
-				<% ["top", "bottom", "left", "right"].each do |pos| %>
-        	<span><%= t("helpers.settings.plans.margins.#{pos}") -%></span>
-        	<%= select_tag("settings[export][formatting][margin][#{pos}]", options_for_select((0..100).to_a, @settings.formatting[:margin][pos])) %>
-        <% end %>
+        <span><%= _('Top') -%></span>
+        <%= select_tag("settings[export][formatting][margin][top]", options_for_select((0..100).to_a, @settings.formatting[:margin][:top])) %>
+        <span><%= _('Bottom') -%></span>
+        <%= select_tag("settings[export][formatting][margin][bottom]", options_for_select((0..100).to_a, @settings.formatting[:margin][:bottom])) %>
+        <span><%= _('Left') -%></span>
+        <%= select_tag("settings[export][formatting][margin][left]", options_for_select((0..100).to_a, @settings.formatting[:margin][:left])) %>
+        <span><%= _('Right') -%></span>
+        <%= select_tag("settings[export][formatting][margin][right]", options_for_select((0..100).to_a, @settings.formatting[:margin][:right])) %>
       </li>
     </ol>
   </fieldset>
