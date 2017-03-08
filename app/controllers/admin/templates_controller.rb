@@ -5,7 +5,9 @@ module Admin
     #
     # def index
     #   super
-    #   @resources = Template.all.paginate(10, params[:page])
+    #   @resources = Template.
+    #     page(params[:page]).
+    #     per(10)
     # end
 
     # Define a custom finder by overriding the `find_resource` method:
@@ -13,7 +15,7 @@ module Admin
     #   Template.find_by!(slug: param)
     # end
 
-    # See https://administrate-docs.herokuapp.com/customizing_controller_actions
+    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
   end
 end

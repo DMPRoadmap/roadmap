@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/thoughtbot/administrate.git
-  revision: 576976a12d3725570576ec8e5a005d1647af999c
-  branch: 576976a12d
+  revision: 5ee0c2ffe4de99ebf639befd63831c1083dc535f
+  branch: v0.4.0
   specs:
-    administrate (0.3.0)
+    administrate (0.4.0)
       autoprefixer-rails (~> 6.0)
       bourbon (~> 4.2)
       datetime_picker_rails (~> 0.0.7)
