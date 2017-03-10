@@ -49,7 +49,8 @@ class User < ActiveRecord::Base
                     :other_organisation, :accept_terms, :role_ids, :dmponline3, :api_token,
                     :organisation, :language, :language_id
 
-    validates :email, email: true, allow_nil: true, uniqueness: true
+# Commenting out for the first part of the migration
+#    validates :email, email: true, allow_nil: true, uniqueness: true
 
     # FIXME: The duplication in the block is to set defaults. It might be better if
     #        they could be set in Settings::PlanList itself, if possible.
