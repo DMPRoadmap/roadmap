@@ -139,4 +139,76 @@ namespace :migrate do
     end
 
   end
+  
+  desc "Remove orphaned records from the database"
+  task data_integrity: :environment do
+    # Look for orphaned records in the join tables:
+
+    # Remove orphaned records from answers_options
+    execute "DELETE FROM answers_options WHERE answer_id IS NULL OR option_id IS NULL;"
+    execute "DELETE FROM answers_options WHERE answer_id NOT IN (SELECT id FROM answers);"
+    execute "DELETE FROM answers_options WHERE option_id NOT IN (SELECT id FROM options);"
+
+    # Remove orphaned records from dmptemplates_guidance_groups
+    execute "DELETE FROM dmptemplates_guidance_groups WHERE dmptemplate_id IS NULL OR guidance_group_id IS NULL;"
+    execute "DELETE FROM dmptemplates_guidance_groups WHERE dmptemplate_id NOT IN (SELECT id FROM dmptemplates);"
+    execute "DELETE FROM dmptemplates_guidance_groups WHERE guidance_group_id NOT IN (SELECT id FROM guidance_groups);"
+    
+    # Remove orphaned records from guidance_in_group
+    execute "DELETE FROM guidance_in_group WHERE guidance_id IS NULL OR guidance_group_id IS NULL;"
+    execute "DELETE FROM guidance_in_group WHERE guidance_id NOT IN (SELECT id FROM guidances);"
+    execute "DELETE FROM guidance_in_group WHERE guidance_group_id NOT IN (SELECT id FROM guidance_groups);"
+    
+    # Remove orphaned records from plan_sections
+    execute "DELETE FROM plan_sections WHERE plan_id IS NULL OR section_id IS NULL OR user_id IS NULL;"
+    execute "DELETE FROM plan_sections WHERE plan_id NOT IN (SELECT id FROM plans);"
+    execute "DELETE FROM plan_sections WHERE section_id NOT IN (SELECT id FROM sections);"
+    execute "DELETE FROM plan_sections WHERE user_id NOT IN (SELECT id FROM users);"
+    
+    # TODO: xsrust: does this one seem appropriate? I can't see a scenario 
+    #               where it would be valid for user_id or project_id to 
+    #               be null
+    # Remove orphaned records from project_groups
+    execute "DELETE FROM project_groups WHERE user_id IS NULL OR project_id IS NULL;"
+    execute "DELETE FROM project_groups WHERE user_id NOT IN (SELECT id FROM users);"
+    execute "DELETE FROM project_groups WHERE project_id NOT IN (SELECT id FROM projects);"
+    
+    # Remove orphaned records from project_guidance
+    execute "DELETE FROM project_guidance WHERE project_id IS NULL OR guidance_group_id IS NULL;"
+    execute "DELETE FROM project_guidance WHERE project_id NOT IN (SELECT id FROM projects);"
+    execute "DELETE FROM project_guidance WHERE guidance_group_id NOT IN (SELECT id FROM guidance_groups);"
+
+    # Remove orphaned records from questions_themes
+    execute "DELETE FROM questions_themes WHERE question_id IS NULL OR theme_id IS NULL;"
+    execute "DELETE FROM questions_themes WHERE question_id NOT IN (SELECT id FROM questions);"
+    execute "DELETE FROM questions_themes WHERE theme_id NOT IN (SELECT id FROM themes);"
+    
+    # Remove orphaned records from themes_in_guidance
+    execute "DELETE FROM themes_in_guidance WHERE theme_id IS NULL OR guidance_id IS NULL;"
+    execute "DELETE FROM themes_in_guidance WHERE theme_id NOT IN (SELECT id FROM themes);"
+    execute "DELETE FROM themes_in_guidance WHERE guidance_id NOT IN (SELECT id FROM guidances);"
+    
+    # Remove orphaned records from user_org_roles
+    execute "DELETE FROM user_org_roles WHERE user_id IS NULL;"
+    execute "DELETE FROM user_org_roles WHERE user_id NOT IN (SELECT id FROM users);"
+    execute "DELETE FROM user_org_roles WHERE organisation_id NOT IN (SELECT id FROM organisations);"
+    
+    # Remove orphaned records from users_roles 
+    execute "DELETE FROM users_roles WHERE user_id IS NULL OR role_id IS NULL;"
+    execute "DELETE FROM users_roles WHERE user_id NOT IN (SELECT id FROM users);"
+    execute "DELETE FROM users_roles WHERE role_id NOT IN (SELECT id FROM roles);"
+    
+    Rake::Task['migrate:remove_invalid_emails'].execute
+  end
+  
+  desc "Remove invalid user email addresses"
+  task remove_invalid_emails: :setup_logger do
+  
+  end
+  
+  desc "Setup the log/migration.log"
+  task setup_logger: :environment do
+    Rails.logger = Logger.new('log/migration.log')
+    Rails.logger.level = Logger::INFO
+  end
 end
