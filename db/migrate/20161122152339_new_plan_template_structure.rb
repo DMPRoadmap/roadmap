@@ -152,8 +152,8 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         version_ids = []
         versions = []
         plans.each do |plan|                      # select version ids from plans list
-          version_ids << plan.version.id
-          versions << plan.version
+          version_ids << plan.version.id unless plan.version.nil?
+          versions << plan.version unless plan.version.nil?        
         end
         dmptemplate = project.dmptemplate         # select template for project
         phases = dmptemplate.phases               # select phases for project
