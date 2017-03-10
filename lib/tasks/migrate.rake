@@ -222,7 +222,7 @@ namespace :migrate do
   
   desc "Setup the log/migration.log"
   task setup_logger: :environment do
-    Dir.mkdir 'tmp' unless Dir.exists?('tmp')
+    Dir.mkdir "#{Rails.root}/tmp" unless Dir.exists?("#{Rails.root}/tmp")
     
     Rails.logger = Logger.new('log/migration.log')
     Rails.logger.level = Logger::INFO
