@@ -203,7 +203,7 @@ namespace :migrate do
   
   desc "Remove invalid user email addresses"
   task remove_invalid_emails: :setup_logger do
-    bad_emails = User.not.where(email: /@([-a-z0-9]+\.)+[a-z]{2,}/)
+    bad_emails = User.where.not(email: /@([-a-z0-9]+\.)+[a-z]{2,}/)
   
     puts bad_emails.inspect
   
