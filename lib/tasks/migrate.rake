@@ -212,9 +212,15 @@ namespace :migrate do
       bad_emails = User.where("email !~ '@([-a-z0-9]+\.)+[a-z]{2,}'")
     end
     
-    puts adapter
-    puts bad_emails.inspect
-  
+    unless bad_emails.empty?
+      bad_emails.each do |usr|
+        tmp = "#{SecureRandom.uuid(8)}@replacement-email.org"
+        Rails.logger.warn "Replacing invalid email address for name: #{usr.name}, id: #{usr.id}, email: #{usr.email} with #{tmp}"
+        usr.email = tmp
+        usr.save!
+      end
+      puts "#{bad_emails.count} #{bad_emails.count > 1 ? 'users' : 'user'} with bad invalid addresses were detected. These emails have been replaced. See log/migration.log for more details."
+    end
   end
   
   desc "Setup the log/migration.log"
