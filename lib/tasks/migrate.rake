@@ -214,6 +214,7 @@ namespace :migrate do
     
     unless bad_emails.empty?
       bad_emails.each do |usr|
+        # Replace the invalid email address with a unique fake email
         tmp = "#{SecureRandom.uuid}@replacement-email.org"
         Rails.logger.warn "Replacing invalid email address for name: #{usr.name}, id: #{usr.id}, email: #{usr.email} with #{tmp}"
         usr.email = tmp
