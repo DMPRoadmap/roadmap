@@ -207,7 +207,7 @@ namespace :migrate do
 
     # Unfortunately Postgres and Mysql handle regexes differently
     if adapter.include?("mysql")
-      bad_emails = User.where("email NOT REGEX '@([-a-z0-9]+\.)+[a-z]{2,}'")
+      bad_emails = User.where("email NOT REGEXP '@([-a-z0-9]+\.)+[a-z]{2,}'")
     else
       bad_emails = User.where("email !~ '@([-a-z0-9]+\.)+[a-z]{2,}'")
     end
