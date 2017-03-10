@@ -15,15 +15,9 @@ class StaticPagesController < ApplicationController
   def roadmap
     
   end
-
-  def locale
-    puts 'test locale'
-  end
   
-  # GET /plans/publicly_available
-  # -----------------------------------------------------------
   def public_plans
-    @plans = Plan.where(visibility: :publicly_visible).order(title: :asc)
+    @plans = Plan.publicly_visible
   end
 
   # GET /plans/[:plan_slug]/public_export

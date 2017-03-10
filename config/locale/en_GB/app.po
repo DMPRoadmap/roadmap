@@ -2255,7 +2255,7 @@ msgstr "Template"
 
 #helpers.project.columns.organisation
 msgid "Organization"
-msgstr "Organization"
+msgstr "Organisation"
 
 #helpers.project.filter.placeholder
 msgid "Filter plans"
