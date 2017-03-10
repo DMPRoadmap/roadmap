@@ -189,11 +189,6 @@ namespace :migrate do
     conn.execute "DELETE FROM themes_in_guidance WHERE theme_id NOT IN (SELECT id FROM themes);"
     conn.execute "DELETE FROM themes_in_guidance WHERE guidance_id NOT IN (SELECT id FROM guidances);"
     
-    # Remove orphaned records from user_org_roles
-    conn.execute "DELETE FROM user_org_roles WHERE user_id IS NULL;"
-    conn.execute "DELETE FROM user_org_roles WHERE user_id NOT IN (SELECT id FROM users);"
-    conn.execute "DELETE FROM user_org_roles WHERE organisation_id NOT IN (SELECT id FROM organisations);"
-    
     # Remove orphaned records from users_roles 
     conn.execute "DELETE FROM users_roles WHERE user_id IS NULL OR role_id IS NULL;"
     conn.execute "DELETE FROM users_roles WHERE user_id NOT IN (SELECT id FROM users);"
