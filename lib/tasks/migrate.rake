@@ -219,7 +219,7 @@ namespace :migrate do
         usr.email = tmp
         usr.save!
       end
-      puts "#{bad_emails.count} #{bad_emails.count > 1 ? 'users' : 'user'} with bad invalid addresses were detected. These emails have been replaced. See log/migration.log for more details."
+      puts "Users with invalid email addresses were detected. Those emails have been replaced. See log/migration.log for more details."
     end
   end
   
