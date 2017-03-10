@@ -244,11 +244,14 @@ class AddForeignKeys < ActiveRecord::Migration
 
     # users_perms
     if table_exists?('users_perms')
-      UsersPerm.includes(:user).all.each do |u|
-        if u.user.nil?
-          UsersPerm.delete_all(user_id: u.user_id)
-        end
-      end
+      # switched to simply removing orphaned records directly rather than
+      # trying to use a model that may or may not exist.
+      execute "DELETE FROM users_perms WHERE user_id NOT IN (SELECT id FROM users);"
+      #UsersPerm.includes(:user).all.each do |u|
+      #  if u.user.nil?
+      #    UsersPerm.delete_all(user_id: u.user_id)
+      #  end
+      #end
     end
   end
 end
