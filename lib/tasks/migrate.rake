@@ -141,7 +141,7 @@ namespace :migrate do
   end
   
   desc "Remove orphaned records from the database"
-  task data_integrity: :environment do
+  task data_integrity: :setup_logger do
     # Look for orphaned records in the join tables:
     conn = ActiveRecord::Base.connection
     
