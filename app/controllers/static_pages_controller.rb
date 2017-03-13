@@ -23,50 +23,51 @@ class StaticPagesController < ApplicationController
   # GET /plans/[:plan_slug]/public_export
   # -------------------------------------------------------------
   def public_export
-    @plan = Plan.find(params[:id])
+    redirect_to public_plans_path, notice: _('Exporting public plan is under development. Apologies for any inconvience.')
+    #@plan = Plan.find(params[:id])
   
     # Force PDF response 
-    request.format = :pdf
+    #request.format = :pdf
   
     # if the project is designated as public
-    if @plan.visibility == :publicly_visible
-      if !@plan.nil?
-        @exported_plan = ExportedPlan.new.tap do |ep|
-          ep.plan = @plan
-          ep.user = current_user ||= nil
-          #ep.format = request.format.try(:symbol)
-          ep.format = request.format.to_sym
-          plan_settings = @plan.settings(:export)
+    #if @plan.visibility == :publicly_visible
+    #  if !@plan.nil?
+    #    @exported_plan = ExportedPlan.new.tap do |ep|
+    #      ep.plan = @plan
+    #      ep.user = current_user ||= nil
+    #      #ep.format = request.format.try(:symbol)
+    #      ep.format = request.format.to_sym
+    #      plan_settings = @plan.settings(:export)
 
-          Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
-            ep.settings(:export).send("#{key}=", plan_settings.send(key))
-          end
-        end
+    #      Settings::Dmptemplate::DEFAULT_SETTINGS.each do |key, value|
+    #        ep.settings(:export).send("#{key}=", plan_settings.send(key))
+    #      end
+    #    end
 
-        @exported_plan.save! # FIXME: handle invalid request types without erroring?
-        file_name = @exported_plan.project_name
+    #    @exported_plan.save! # FIXME: handle invalid request types without erroring?
+    #    file_name = @exported_plan.project_name
 
-        respond_to do |format|
-          format.pdf do
-            @formatting = @plan.settings(:export).formatting
-            render pdf: file_name,
-                   margin: @formatting[:margin],
-                   footer: {
-                     center: t('helpers.plan.export.pdf.generated_by'),
-                     font_size: 8,
-                     spacing: (@formatting[:margin][:bottom] / 2) - 4,
-                     right: '[page] of [topage]'
-                   }
-          end
-        end
+    #    respond_to do |format|
+    #      format.pdf do
+    #        @formatting = @plan.settings(:export).formatting
+    #        render pdf: file_name,
+    #               margin: @formatting[:margin],
+    #               footer: {
+    #                 center: t('helpers.plan.export.pdf.generated_by'),
+    #                 font_size: 8,
+    #                 spacing: (@formatting[:margin][:bottom] / 2) - 4,
+    #                 right: '[page] of [topage]'
+    #               }
+    #      end
+    #    end
 
-      else
+    #  else
         # the project has no plans for some reason
-        redirect_to public_plans_path, notice: _('The plan is incomplete.')
-      end
-    else
+    #    redirect_to public_plans_path, notice: _('The plan is incomplete.')
+    #  end
+    #else
       # Otherwise redirect to the home page with an unauthorized message
-      redirect_to public_plans_path, notice: _('This account does not have access to that plan.')
-    end
+    #  redirect_to public_plans_path, notice: _('This account does not have access to that plan.')
+    #end
   end
 end

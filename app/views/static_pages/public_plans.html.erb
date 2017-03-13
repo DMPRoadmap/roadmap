@@ -16,7 +16,7 @@
 				<th class="dmp_th_small"><%= _('Template') %></th>
 				<th class="dmp_th_small"><%= _('Organization') %></th>
 				<th class="dmp_th_small"><%= _('Owner') %></th>
-			  	<th class="dmp_th_small"></th>
+			  	<!-- th class="dmp_th_small"></th -->
 			</tr>
 	  </thead>
 	  <tbody>
@@ -25,9 +25,9 @@
 				  <% ['non_link_name', 'template', 'organisation', 'owner'].each do |column| %>
 				    <%= plan_list_column_body(column, plan) %>
 				  <% end %>
-				  <td class="dmp_td_medium">
-						<%= link_to _('Export'), public_export_path(plan), :class => "dmp_table_link" %>
-				  </td>
+				  <!--td class="dmp_td_medium"-->
+						<!-- %= link_to _('Export'), public_export_path(plan), :class => "dmp_table_link" % -->
+				  <!--/td-->
 				</tr>
       <% end %>
 	  </tbody>
