@@ -55,6 +55,10 @@ class ExportedPlan < ActiveRecord::Base
     self.plan.description
   end
 
+  def owner
+    self.plan.roles.to_a.select{ |role| role.creator? }.first.user
+  end
+
   def funder
     org = self.plan.template.try(:org)
     org.name if org.present? && org.funder?
@@ -78,7 +82,7 @@ class ExportedPlan < ActiveRecord::Base
   # sections taken from fields settings
   def sections
     # TODO: How do we know which phase to use here!?
-    sections = self.template.phases.first.sections
+    sections = self.plan.template.phases.first.sections
 
     return [] if questions.empty?
 
