@@ -149,9 +149,10 @@
   <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
     <% @comments = Notes.where("question_id = ? AND plan_id = ?", question.id, answer.plan_id ) %>
     <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
-    <% @question_guidances = @plan.guidance_for_question(question) %>
+
     <ul class="question_right_column_ul">
-      <% if (!question.guidance.nil? && question.guidance != "") || @question_guidances.count > 0  then %>
+      <!-- if we have some guidance on the question or by theme -->
+      <% if (!question.guidance.nil? && question.guidance != "") || !question_guidances.empty?  then %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
@@ -206,28 +207,25 @@
           </div>
         </div>
       <% end %>
-      <!--guidance from themes, institution themes and/or direct to the question-->
-      <% @question_guidances.each_pair do |group,themes| %>
-        <% themes.each_pair do |theme,guidances| %>
-          <% guidances.each do |guidance| %>
+      <!--guidance from themes -->
+      <% guidance_accordion_id = 1 %>
+      <% question_guidances.each_pair do |theme, group| %>
+          <% group.each do |gobj| %>
             <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= group.id%>-<%= guidance.id%>-<%= question.id %>">
+                <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance_accordion_id %>">
                   <div class="accordion_heading_text">
-                    <% if theme == "no_theme" then %>
-                      <%= group.name.chomp(" guidance") %> guidance
-                    <% else %>
-                      <%= group.name.chomp(" guidance") %> guidance on <%= theme.title %>
+                      <%= gobj[:org] %> guidance on <%= theme %>
                     <% end %>
                   </div>
                   <span class="plus-laranja"> </span></a>
               </div>
-              <div id="collapse-guidance-<%= group.id%>-<%= guidance.id%>-<%= question.id %>" class="guidance-accordion-body collapse">
-                <div class="accordion-inner"><%= raw guidance.text %></div>
+              <div id="collapse-guidance-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
+                <div class="accordion-inner"><%= raw gobj[:text] %></div>
               </div>
+              <% guidance_accordion_id += 1 %>
             </div>
           <% end %>
-        <% end %>
       <% end %>
     </div>
   </div>

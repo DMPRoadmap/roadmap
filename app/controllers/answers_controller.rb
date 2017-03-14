@@ -22,7 +22,6 @@ class AnswersController < ApplicationController
     @old_answer = nil
 
     if @answer.nil?
-      logger.debug "didn't find answer so creating a new one"
       @answer = Answer.new(params[:answer])
       authorize @answer
 			@answer.save

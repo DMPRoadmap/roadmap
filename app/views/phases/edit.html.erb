@@ -7,7 +7,7 @@
 -->
 
 <!-- render the project title -->
-<%= render :partial => "/plans/plan_title", locals: {plan: @plan, plan_data: @plan_data} %>
+<%= render :partial => "/plans/plan_title", locals: {plan: @plan} %>
 
 
 <!-- progress bar -->
@@ -30,15 +30,15 @@
 </div>   <!-- progess -->
 
 <!-- render navigation tabs for the plan phases -->
-<%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, plan_data: @plan_data, active: @phase.title } %>
+<%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, active: @phase.title} %>
 
 <!-- phase main container -->
 <div class="project-tabs-body">
 
   <div class="accordion" id="sections-accordion">
-    <% @phase_data["sections"].each do |section| %>
+    <% @phase.sections.each do |section| %>
 
-      <% sectionid = section["id"] %>
+      <% sectionid = section.id %>
 
       <!-- verify if the session[:question_id_comments] has been created. -->
       <% if session[:question_id_comments].to_i != 0 then %>
@@ -48,13 +48,11 @@
         <%end%>    
       <% end%>     
 
-
-
       <div class="accordion-group">
 
         <!-- section status line included in heading -->
-        <% num_section_questions = section["questions"].count %>
-        <% num_section_answers = section["nanswers"] %>
+        <% num_section_questions = section.questions.to_a.count %>
+        <% num_section_answers = section.num_answered_questions(@plan.id) %>
         <% question_word = "questions" %>
         <% if num_section_questions == 1 then %>
           <% question_word = "question" %>
@@ -63,9 +61,9 @@
 
         <!-- section heading -->
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section["id"] %>">
-            <div class="accordion_heading_text" id="section-header-<%= section["id"] %>">
-              <%= section["title"] %>
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= sectionid %>">
+            <div class="accordion_heading_text" id="section-header-<%= sectionid %>">
+              <%= section.title %>
               <% if num_section_questions.to_i > num_section_answers.to_i then %>
                 <span id="<%= sectionid %>-status" class="label label-warning section-status">(<%= section_status %>)</span>
               <% else %>
@@ -81,7 +79,7 @@
         <!-- accordion body -->
         <div id="collapse-<%= sectionid %>" class="accordion-body collapse section-collapse">
           <div class="section_desc">
-            <%= raw section["description"] %>
+            <%= raw section.description %>
           </div>
 
           <div class="accordion-inner">
@@ -100,8 +98,8 @@
 
             <!-- the section body -->
             <div class="loaded">
-              <% section["questions"].each do |question| %>
-                <% if question["id"] == session[:question_id_comments].to_i then id_css = "current_question" end %>
+              <% section.questions.each do |question| %>
+                <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
                 <div id="<%= id_css%>">
                   <% partialname = "answer_form"
                      if @readonly
@@ -109,15 +107,15 @@
                      end
                   %>
   
-                  <% guidances = question["guidances"] %>
+                  <% guidances = @question_guidance[question.id] %>
   
                   <%= render partial: partialname,
                       locals: {
                         plan: @plan,
-                        plan_data: @plan_data,
-                        phase_id: @phase_data["id"],
+                        phase_id: @phase.id,
                         question: question,
-                        last_question_id: section["questions"].last["id"],
+                        question_guidances: guidances,
+                        last_question_id: section.questions.last.id,
                       }
                   %>
                 </div>   <!-- id_css -->    

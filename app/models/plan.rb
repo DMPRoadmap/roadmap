@@ -995,6 +995,35 @@ class Plan < ActiveRecord::Base
   end
 
 
+  # the following two methods are for eager loading. One gets used for the plan/show
+  # page and the oter for the plan/edit. The difference is just that one pulls in more than
+  # the other.
+  # TODO: revisit this and work out for sure that maintaining the difference is worthwhile.
+  # it may not be. Also make sure nether is doing more thanit needs to.
+  #
+  def self.eager_load(id)
+    Plan.includes(
+      [{template: [
+                   {phases: {sections: {questions: :answers}}},
+                   {customizations: :org}
+                  ]},
+       {plan_guidance_groups: {guidance_group: :guidances}}
+      ]).find(id)
+  end
+
+  def self.eager_load2(id)
+    Plan.includes(
+      [{template: [
+                   {phases: {sections: {questions: [{answers: :notes}, :suggested_answers, :question_format, :themes]}}},
+                   {customizations: :org},
+                   :org
+                  ]},
+       {plan_guidance_groups: {guidance_group: {guidances: :themes}}},
+       {questions: :themes}
+      ]).find(id)
+  end
+
+
 
   private
 

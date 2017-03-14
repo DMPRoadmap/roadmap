@@ -46,20 +46,20 @@
   <fieldset class="check_select sections">
     <legend><label for="sections_toggle"><%= _('Sections') %></label></legend>
     <ol>
-      <% plan_data["template"]["phases"].each do |phase| %>
-        <% phase["sections"].each do |section| %>
+      <% plan.template.phases.each do |phase| %>
+        <% phase.sections.each do |section| %>
           <li>
             <fieldset class="check_select">
-              <legend title="<%= section["title"] -%>">
-                <label for="section_toggle_<%= section["id"] -%>"><%= section["title"] -%></label>
+              <legend title="<%= section.title -%>">
+                <label for="section_toggle_<%= section.id -%>"><%= section.title -%></label>
               </legend>
               <ol>
-                <% section["questions"].each do |question|
-                  selected = question_settings == :all || question_settings.member?(question["id"])
-                  name = "export[fields][questions][#{question["id"]}]"
+                <% section.questions.each do |question|
+                  selected = question_settings == :all || question_settings.member?(question.id)
+                  name = "export[fields][questions][#{question.id}]"
                 %>
               <li>
-                <%= label_tag(name, strip_tags(question["text"]).html_safe, title: strip_tags(question["text"]).html_safe) %>
+                <%= label_tag(name, strip_tags(question.text).html_safe, title: strip_tags(question.text).html_safe) %>
                 <%= check_box_tag(name, true, selected) %>
               </li>
             <% end %>

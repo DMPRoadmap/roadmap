@@ -1,10 +1,10 @@
 <!-- if there are notes then list of notes and view last note
   else display display add note form -->
 
-  <% if answer.present? && answer.has_key?("notes") %>
-    <% notes = answer["notes"] %>
-    <% answerid = answer["id"] %>
-    <%= hidden_field_tag :answer_id, answer["id"] %>
+  <% if answer.present? && answer.notes.any? %>
+    <% notes = answer.notes.all.to_a.sort! {|x,y| y["updated_at"] <=> x["updated_at"] } %>
+    <% answerid = answer.id %>
+    <%= hidden_field_tag :answer_id, answer.id %>
 
     <!-- add note -->
     <div id="add_comment_button_top_div_<%= answerid %>" class="move_2_right" >
@@ -14,7 +14,7 @@
     <div class="div_clear"></div>
 
     <!-- list of notes, view and edit a note -->
-    <%= render :partial => "list_notes", locals: {question: question, notes: notes, plan:plan} %>
+    <%= render :partial => "list_notes", locals: {question_id: question.id, notes: notes, plan: plan} %>
 
     <div class="div_clear"></div>
 
@@ -27,10 +27,10 @@
 
     <!-- add a note block -->
     <div id="add_comment_block_div_<%= answerid %>" style="display: none">
-      <%= render :partial => "add_note", locals: {answer: answer, answer_obj: answer_obj, question: question, plan_data: plan_data}%>
+      <%= render :partial => "add_note", locals: {answer: answer, question: question, plan_id: plan.id }%>
     </div>
 
   <% else%>
     <%= _('Share note with collaborators')%>
-    <%= render :partial => "add_note", locals: {answer: answer, answer_obj: answer_obj, question: question, plan_data: plan_data}%>
+    <%= render :partial => "add_note", locals: {answer: answer, question: question, plan_id: plan.id }%>
   <% end%>

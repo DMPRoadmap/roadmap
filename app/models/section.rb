@@ -24,6 +24,14 @@ class Section < ActiveRecord::Base
     "#{title}"
   end
 
+  def num_answered_questions(plan_id)
+    n = 0
+    self.questions.each do |question|
+      n += question.plan_answers(plan_id).select{|answer| answer.text.present?}.count
+    end
+    return n
+  end
+
   ##
   # deep copy of the given section and all it's associations
   #

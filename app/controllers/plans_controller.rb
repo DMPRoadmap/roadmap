@@ -104,15 +104,13 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
-    @plan = Plan.find(params[:id])
+    @plan = Plan.eager_load(params[:id])
     authorize @plan
-
-    @plan_data = @plan.to_hash
 
     @editing = params[:editing] && @plan.administerable_by?(current_user.id)
     @selected_guidance_groups = []
-    all_guidance_groups = @plan_data["plan_guidance_groups"]
-    @selected_guidance_groups = all_guidance_groups.map{ |pgg| [ pgg["guidance_group"]["name"], pgg["guidance_group"]["id"], :checked => pgg["selected"] ] }
+    all_guidance_groups = @plan.plan_guidance_groups
+    @selected_guidance_groups = all_guidance_groups.map{ |pgg| [ pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected ] }
     @selected_guidance_groups.sort!
 
     if user_signed_in? && @plan.readable_by?(current_user.id) then

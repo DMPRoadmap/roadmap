@@ -6,46 +6,42 @@
   <% style_to_add = "" %>
 <%end%>
 
-<!-- sort notes into descending updated order -->
-<% notes.sort! {|x,y| y["updated_at"] <=> x["updated_at"] } %>  <!--TODO: is this right? - probably not! -->
-
 <div class="two-column-clear question-divider"></div>
 
 <div class="div-table-content" style ="<%= style_to_add %>">
   <table class="dmp_table" id="dmp_table">
     <tbody class= "comment_table_body">
-      <% notes.each do |c|%>
+      <% notes.each do |note|%>
         <tr >
           <td class="dmp_border_bottom">
-            <% user = c["user"] %>
-            <% user = User.find(c["user_id"]) %>
-            <%= user["name"] %> </br>
-            (<%= l c["updated_at"], format: :custom %>)
+            <% user = note.user.name %>
+            <%= user %> </br>
+            (<%= l note.updated_at, format: :custom %>)
           </td >
           <td  class="dmp_border_bottom">
 
-            <% if c["archived"]  %>
+            <% if note.archived  %>
 
-              <% if c["archived_by"] == current_user.id %>
+              <% if note.archived_by == current_user.id %>
                 <%= _('Note removed by you')%>
               <% else %>
-                <% archived_by_user = User.find(c["archived_by"]) %>
+                <% archived_by_user = User.find(note.archived_by) %>
                 <%= _('Note removed by')%> <%= archived_by_user.name %>
               <%end%>
 
             <%else%>   <!-- not archived -->
 
               <%= link_to _('View'),"#", :class => "dmp_table_link view_comment_button" %>
-              <%= hidden_field_tag :note_id, c["id"], :class => "comment_id" %>
+              <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
 
-              <% if current_user.id == c["user_id"] %>
+              <% if current_user.id == note.user_id %>
                 <%= link_to _('Edit'),"#", :class => "dmp_table_link edit_comment_button" %>
-                <%= hidden_field_tag :note_id, c["id"], :class => "comment_id" %>
+                <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
                 <%= link_to _('Remove'),"#", :class => "dmp_table_link archive_comment_button" %>
               <% end%>   <!-- if current user -->
 
-              <% if plan.administerable_by?(current_user.id) && current_user.id != c["user_id"] %>
-                <%= hidden_field_tag :note_id, c["id"], :class => "comment_id" %>
+              <% if plan.administerable_by?(current_user.id) && current_user.id != note.user_id %>
+                <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
                 <%= link_to _('Remove'),"#", :class => "dmp_table_link archive_comment_button" %>   <!-- helpers.comments.clear_label has Remove as value -->
               <% end%>
             <%end%>   <!-- archived -->
@@ -60,10 +56,10 @@
 <div class="two-column-clear question-divider"></div>
 
 <!-- view latest note block -->
-<% notes_not_archived = notes.select { |n| n["archived"].nil? }  %>
-<% latest_note = notes_not_archived.sort { |x,y| y["updated_at"] <=> x["updated_at"] }.first %>   <!--TODO: is this comp right? -->
+<% notes_not_archived = notes.select { |n| n.archived.nil? }  %>
+<% latest_note = notes_not_archived.sort { |x,y| y.updated_at <=> x.updated_at }.first %>   <!--TODO: is this comp right? -->
 <% if !latest_note.nil? then%>
-  <div id = "latest_comment_div_<%= question["id"] %>" class ="view_comment_class">
+  <div id = "latest_comment_div_<%= question_id %>" class ="view_comment_class">
     <%= render :partial => "view_note", locals: {note: latest_note} %>
     <div class="two-column-clear question-divider"></div>
   </div>

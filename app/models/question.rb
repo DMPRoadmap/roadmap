@@ -50,6 +50,10 @@ class Question < ActiveRecord::Base
     return format.option_based
   end
 
+  def plan_answers(plan_id)
+    return self.answers.to_a.select{|ans| ans.plan_id == plan_id}
+  end
+
   ##
   # deep copy the given question and all it's associations
   #
