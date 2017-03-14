@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       end
     end
     @user.save!
-    redirect_to({controller: 'users', action: 'admin_index'}, {notice: I18n.t('helpers.success')})
+    redirect_to({controller: 'users', action: 'admin_index'}, {notice: _('Information was successfully updated.')})  # helpers.success key does not exist, replaced with a generic string
   end
 
 end

@@ -20,7 +20,7 @@
   <%= af.inputs do %>
 
     <!-- if the question has multiple choices pull out the options -->
-    <% if question.isOptionBased? %>
+    <% if question.option_based? %>
       <% options = question.options.order("number") %>
 
       <!-- work through the various format options -->
@@ -37,7 +37,7 @@
           :collection => options,
           :label => false,
           :input_html => { :multiple => true , :disabled => :true } %>
-      <% elsif qformat.radiobuttons %>
+      <% elsif qformat.radiobuttons?%>
         <ol class="choices-group">
           <% options.each do |op| %>
             <li class= "choices-group">
@@ -58,7 +58,7 @@
 
       <!-- Comment text area for the multiple choice answers-->
       <% if question.option_comment_display %>
-        <%= label_tag("answer-text-Ans#{question.id}".to_sym, t("helpers.comment")) %>
+        <%= label_tag("answer-text-Ans#{question.id}".to_sym, _('Comment')) %>
         <%= text_area_tag("answer-text-Ans#{question.id}".to_sym, answer.text, class: "tinymce") %>
       <%end%>
     <% end %>  <!-- if multiple choice -->

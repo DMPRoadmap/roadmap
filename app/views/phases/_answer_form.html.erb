@@ -56,7 +56,7 @@
         <div id="answer_notice_<%=question_id%>" class="answer_notice"></div>
 
         <!-- if the question has multiple choices pull out the options -->
-        <% if question.isOptionBased? %>
+        <% if question.option_based? %>
           <% options = question.options.order("number") %>
 
           <!-- work through the various format options -->

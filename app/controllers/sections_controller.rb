@@ -11,7 +11,7 @@ class SectionsController < ApplicationController
     @phase = section.phase
     if @section.save
       redirect_to admin_show_phase_template_path(id: @section.phase_id,
-        :section_id => @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
+        :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       render action: "phases/admin_show"
     end
@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
     @section.description = params["section-desc-#{params[:id]}"]
     @phase = @section.phase
     if @section.update_attributes(params[:section])
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: _('Information was successfully updated.')
     else
       render action: "phases/admin_show"
     end
@@ -38,9 +38,7 @@ class SectionsController < ApplicationController
     authorize @section
     @phase = @section.phase
     @section.destroy
-    redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: I18n.t('org_admin.templates.destroyed_message')
+    redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: _('Information was successfully deleted.')
   end
-
-
-
+  
 end

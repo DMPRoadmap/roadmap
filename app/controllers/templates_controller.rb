@@ -51,7 +51,8 @@ class TemplatesController < ApplicationController
 
   # GET /dmptemplates/1
   def admin_template
-    @template = Template.find(params[:id])
+    @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format,
+          :suggested_answers]]]).find(params[:id])
     # check to see if this is a funder template needing customized
     if @template.org_id != current_user.org_id
       # definitely need to deep_copy the given template
@@ -72,7 +73,7 @@ class TemplatesController < ApplicationController
           end
         end
       end
-      customizations = Template.includes(phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+      customizations = Template.includes(:org, phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
       if customizations.present?
         # existing customization to port over
         max_version = customizations.first
@@ -145,6 +146,8 @@ class TemplatesController < ApplicationController
       @template = new_version
     end
     authorize @template
+    # once the correct template has been generated, we convert it to hash
+    @hash = @template.to_hash
   end
 
 
@@ -154,7 +157,7 @@ class TemplatesController < ApplicationController
     authorize @template
     if @template.published?
       # published templates cannot be edited
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.read_only') and return
+      redirect_to admin_template_template_path(@template), notice: _('Published templates cannot be edited.') and return
     end
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
@@ -165,7 +168,7 @@ class TemplatesController < ApplicationController
         new_version.published = false
         new_version.save!
       end
-      redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
+      redirect_to admin_index_template_path(), notice: _('Information was successfully updated.')
     else
       render action: "edit"
     end
@@ -193,7 +196,7 @@ class TemplatesController < ApplicationController
     end
     authorize @template
     if @template.save!
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
       render action: "admin_new"
     end

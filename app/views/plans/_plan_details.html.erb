@@ -200,7 +200,7 @@
 		<!-- get the funder name if there is one -->
     <%if plan.template.org.name.present? %>
 			<tr>
-				<td class="first"><%= constant("organisation_types.funder") %></td>
+				<td class="first"><%= _('Funder') %></td>
 				<td><%= plan.template.org.name %></td>
 			</tr>
 		<%end%>

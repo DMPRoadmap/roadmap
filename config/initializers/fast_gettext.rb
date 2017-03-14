@@ -1,5 +1,5 @@
 def get_available_locales
-    languages = Language.sorted_by_abbreviation()
+    languages = LANGUAGES # LANGUAGES is defined in config/initializers/constants.rb
     locales = []
     languages.each do |l|
         locales << l.abbreviation

@@ -52,20 +52,22 @@
         <li <%= 'class=active' if isActivePage(public_plans_path) %>>
           <%= link_to _('Public DMPs'), public_plans_path %>
         </li>
-      <!-- language dropdown -->
-      <li class="dropdown sign_in">
-        <a class="dropdown-toggle main_nav" data-toggle="dropdown" href="#">
-          <%= _('Change language') %>
-          <b class="caret caret-orange"></b>
-        </a>
-        <ul class="dropdown-menu" style="padding: 0;">
-          <% @languages.each do |l| %>
-            <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
-              <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'main_nav lang-dropdown-link'%>
-            </li>
-          <% end %>
-        </ul>
-      </li>
+      <% if MANY_LANGUAGES %>
+          <!-- language dropdown -->
+          <li class="dropdown sign_in">
+            <a class="dropdown-toggle main_nav" data-toggle="dropdown" href="#">
+              <%= _('Change language') %>
+              <b class="caret caret-orange"></b>
+            </a>
+            <ul class="dropdown-menu" style="padding: 0;">
+              <% LANGUAGES.each do |l| %>
+                <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+                  <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'main_nav lang-dropdown-link'%>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

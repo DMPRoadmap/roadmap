@@ -37,7 +37,7 @@
         <td class="first"><%= _('Organisation') %></td>
         <td><%= collection_select(:user,
             :org_id, @orgs,
-            :id, :name, {include_blank: constant("organisation_types.organisation")},
+            :id, :name, {include_blank: _('Select Organisation')},
             { class: "typeahead org_sign_up" }) %></td>
       </tr>
       <tr id="other-organisation-name" style="display:none" data-orgs="<%= @other_organisations.join(",") %>">

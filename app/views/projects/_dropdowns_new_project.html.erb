@@ -11,7 +11,7 @@
 			<div class="dropdowns">
 				<div class="control-group" id="funder-control-group">
 					<div class="controls">
-						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => _('If applying for funding, select your research funder.'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  constant("organisation_types.funder") %>
+						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => _('If applying for funding, select your research funder.'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  _('Select Funder') %>
 
 						<div class="div_clear"></div>
 
@@ -29,7 +29,7 @@
 				</div>
 				<div class="control-group" id="institution-control-group">
 					<div class="controls">
-						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => _('To see institutional questions and/or guidance, select your organisation.'), :input_html => { :multiple => false, :class => ["select2", "select2-container", "typeahead"] }, :include_blank =>  constant("organisation_types.organisation")  %>
+						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => _('To see institutional questions and/or guidance, select your organisation.'), :input_html => { :multiple => false, :class => ["select2", "select2-container", "typeahead"] }, :include_blank =>  _('Select Organisation')  %>
 						<div class="div_clear"></div>
 						<div class="move_2_right">
 							<a href='#' id="no-institution"><%= _('Not applicable/not listed.')%></a>

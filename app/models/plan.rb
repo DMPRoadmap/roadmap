@@ -17,6 +17,8 @@ class Plan < ActiveRecord::Base
   has_many :exported_plans
 
   has_many :roles
+
+
 # COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
 #  has_many :users, through: :roles
 
@@ -45,6 +47,10 @@ class Plan < ActiveRecord::Base
   ROUNDING = 5 #round estimate up to nearest 5%
   FONT_HEIGHT_CONVERSION_FACTOR = 0.35278 #convert font point size to mm
   FONT_WIDTH_HEIGHT_RATIO = 0.4 #Assume glyph width averages 2/5 the height
+
+  # Scope queries
+  # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
+  scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
 
   ##
   # Settings for the template
@@ -346,7 +352,7 @@ class Plan < ActiveRecord::Base
       if atext.present?
         space_used += height_of_text(atext)
       else
-        space_used += height_of_text(I18n.t('helpers.plan.export.pdf.question_not_answered'))
+        space_used += height_of_text(_('Question not answered.'))
       end
 
       if answer.present? then

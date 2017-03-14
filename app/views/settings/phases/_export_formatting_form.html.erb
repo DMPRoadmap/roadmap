@@ -85,13 +85,22 @@
     </fieldset>
     <fieldset class="margins">
       <legend><%= _('Margin') -%> (mm)</legend>
-
-      <% ["top", "bottom", "left", "right"].each do |pos| %>
         <div>
-          <%= label_tag("export[formatting][margin][#{pos}]", t("helpers.settings.plans.margins.#{pos}")) %>
-          <%= select_tag("export[formatting][margin][#{pos}]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][pos]), { "data-default" => plan.template.settings(:export).formatting[:margin][pos] }) %>
+          <%= label_tag("export[formatting][margin][top]", _('Top')) %>
+          <%= select_tag("export[formatting][margin][top]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:top]), { "data-default" => plan.template.settings(:export).formatting[:margin][:top] }) %>
         </div>
-      <% end %>
+        <div>
+          <%= label_tag("export[formatting][margin][bottom]", _('Bottom')) %>
+          <%= select_tag("export[formatting][margin][bottom]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:bottom]), { "data-default" => plan.template.settings(:export).formatting[:margin][:bottom] }) %>
+        </div>
+        <div>
+          <%= label_tag("export[formatting][margin][left]", _('Left')) %>
+          <%= select_tag("export[formatting][margin][left]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:left]), { "data-default" => plan.template.settings(:export).formatting[:margin][:left] }) %>
+        </div>
+        <div>
+          <%= label_tag("export[formatting][margin][right]", _('Right')) %>
+          <%= select_tag("export[formatting][margin][right]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:right]), { "data-default" => plan.template.settings(:export).formatting[:margin][:rigth] }) %>
+        </div>
     </fieldset>
   </div>
   <div class="div_right">

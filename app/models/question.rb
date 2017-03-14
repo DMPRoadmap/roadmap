@@ -45,7 +45,7 @@ class Question < ActiveRecord::Base
   end
 
 
-  def isOptionBased?
+  def option_based?
     format = self.question_format
     return format.option_based
   end
@@ -92,7 +92,7 @@ class Question < ActiveRecord::Base
         group.guidances.each do |g|
           g.themes.each do |theme|
             if theme_ids.include? theme.id
-              guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{theme.title}"] = g
+              guidances["#{group.name} " + _('guidance on') + " #{theme.title}"] = g
             end
           end
         end

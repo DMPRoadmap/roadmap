@@ -2255,7 +2255,7 @@ msgstr "Template"
 
 #helpers.project.columns.organisation
 msgid "Organization"
-msgstr "Organization"
+msgstr "Organisation"
 
 #helpers.project.filter.placeholder
 msgid "Filter plans"
@@ -2366,8 +2366,8 @@ msgid "Your ORCID"
 msgstr "Your ORCID"
 
 #helpers.plan.export.not_valid_format
-msgid "%{value}% is not a valid format"
-msgstr "%{value}% is not a valid format"
+msgid "%{value} is not a valid format"
+msgstr "%{value} is not a valid format"
 
 #helpers.settings.title
 msgid "Settings"

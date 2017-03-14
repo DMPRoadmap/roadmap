@@ -14,17 +14,12 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    redirect_to root_url, alert: I18n.t('unauthorized')
+    redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
   end
 
-  before_filter :get_languages
   before_filter :set_gettext_locale
 
   after_filter :store_location
-
-  def get_languages
-    @languages = Language.sorted_by_abbreviation
-  end
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
