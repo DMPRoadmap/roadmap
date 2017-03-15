@@ -65,7 +65,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     
       follow_redirect!
       assert_response :success
-      assert_equal I18n.t('devise.registrations.user.signed_up_but_unconfirmed'), flash[:notice]
+      assert_equal I18n.t('devise.registrations.signed_up_but_unconfirmed'), flash[:notice]
       assert_select '.welcome-message h2', I18n.t('welcome_title')
       
       cntr += 1
