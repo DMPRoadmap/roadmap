@@ -2787,6 +2787,9 @@ msgstr ""
 msgid "Select Funder"
 msgstr ""
 
+msgid "Question not answered"
+msgstr ""
+
 #about_page.title
 msgid "About %{application_name}"
 msgstr ""
