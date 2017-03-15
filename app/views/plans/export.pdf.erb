@@ -27,7 +27,7 @@
              value = @exported_plan.send(field)
              if value.present?
         %>
-          <p><strong><%= t("helpers.plan.export.#{field}") -%></strong> <%= value -%></p>
+          <p><strong><%= admin_field_t(field) -%></strong> <%= value -%></p>
           <% end %>
         <% end %>
 

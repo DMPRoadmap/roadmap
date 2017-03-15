@@ -8,7 +8,7 @@ xml.plan("id" => @plan.id) do
 		xml.details do
 			details.each do |field|
 				value = @exported_plan.send(field)
-				xml.detail(value, title: t("helpers.plan.export.#{field}")) if value.present?
+				xml.detail(value, title: admin_field_t(field)) if value.present?
 			end
 		end
 	end

@@ -1,5 +1,6 @@
 class PlansController < ApplicationController
   require 'pp'
+  helper SettingsTemplateHelper
   #Uncomment the line below in order to add authentication to this page - users without permission will not be able to add new plans
   #load_and_authorize_resource
   #

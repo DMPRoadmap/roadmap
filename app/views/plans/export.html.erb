@@ -22,14 +22,14 @@
 							if value.present?
 					%>
 						<tr>
-							<th class="dmp_th_border"><p>- <%= t("helpers.plan.export.#{field}") -%></p></th>
+							<th class="dmp_th_border"><p>- <%= admin_field_t(field) -%></p></th>
 							<td class="dmp_td_border"><%= value -%></td>
 						</tr>
 							<% end %>
 						<% end %>
 					</tbody>
 				</table>
-      <% end %>
+      		 <% end %>
 			<% @exported_plan.sections.each do |section| %>
 				<h3><%= section.title %></h3>
 				<table class="dmp_table">
@@ -49,7 +49,7 @@
 	        					<td class="dmp_td_border" >	
 									<% answer = @plan.answer(question.id, false) %>
 									<% if answer.nil? then %>
-										<p>Question not answered.</p>
+										<p><%= _('Question not answered') %></p>
 									<% else %>
                                         <% q_format = question.question_format %>
 										<% if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
