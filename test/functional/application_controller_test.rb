@@ -32,7 +32,7 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
       
       get plan_path(other, plan)
       assert_redirected_to "#{root_path}?locale=#{I18n.locale}", "Expected the changed locale to appear in the query string"
-      assert_equal other, I18n.locale, "Expected the locale to have been set when passing it in URL"
+      assert_equal other.to_sym, I18n.locale, "Expected the locale to have been set when passing it in URL"
     end
   end
   
