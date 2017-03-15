@@ -1,5 +1,5 @@
 # This initilializer should not be removed unless all internationalisation is handled by gettext_rails
-# DMPRoadmap::Application.config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+DMPRoadmap::Application.config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
 module I18n
     class Config
         def locale
