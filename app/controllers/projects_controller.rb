@@ -115,7 +115,6 @@ class ProjectsController < ApplicationController
 
     # POST /projects
     def create
-        puts params
         return
         if user_signed_in? then
             @plan = Plan.new(params[:plan])

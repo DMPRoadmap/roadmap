@@ -20,8 +20,8 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   #fixtures :all
-
-  # Use the db/seed.rb file to populate the test DB
+  
+  # Use the seeds.rb file to seed the test database
   require_relative '../db/seeds.rb'
 
   # Add more helper methods to be used by all tests here...
