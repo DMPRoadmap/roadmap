@@ -34,7 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    logger.debug "#{sign_up_params}"
+    #logger.debug "#{sign_up_params}"
   	if sign_up_params[:accept_terms] != "1" then
   	  redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
   	else
@@ -124,8 +124,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :accept_terms,
-                                 :organisation_id, :other_organisation)
+    params.require(:user).permit(:email, :password, :password_confirmation, 
+                                 :accept_terms, :org_id, :other_organisation)
   end
 
 end

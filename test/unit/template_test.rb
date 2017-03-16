@@ -33,7 +33,7 @@ class TemplateTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "deep copy" do
-    verify_deep_copy(@template, ['id', 'created_at', 'updated_at', 'slug'])
+    verify_deep_copy(@template, ['id', 'created_at', 'updated_at'])
   end
 
   # ---------- has_customisations? ----------

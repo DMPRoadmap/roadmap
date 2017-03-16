@@ -32,7 +32,12 @@ class OrgsController < ApplicationController
       if @org.update_attributes(assign_params)
         redirect_to admin_show_org_path(params[:id]), notice: _('Organisation was successfully updated.')
       else
-        flash[:notice] = @org.errors.collect{|e| e.message}.join('<br />').html_safe
+        # For some reason our custom validator returns as a string and not a hash like normal activerecord 
+        # errors. We followed the example provided in the Rails guides when building the validator so
+        # its unclear why its doing this. Placing a check here for the data type. We should reasses though
+        # when doing a broader eval of the look/feel of the site and we come up with a standardized way of
+        # displaying errors
+        flash[:notice] = @org.errors.collect{|a, e| "#{a} - #{(e.instance_of?(String) ? e : e.message)}"}.join('<br />').html_safe
         render action: "admin_edit"
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye

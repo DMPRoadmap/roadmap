@@ -21,12 +21,6 @@ class PhaseTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "a slug is properly generated when creating a record" do
-    a = Phase.create(title: 'Testing 123', template: @template, number: 2)
-    assert_equal "testing-123", a.slug
-  end
-  
-  # ---------------------------------------------------
   test "to_s returns the title" do
     assert_equal @phase.title, @phase.to_s
   end
@@ -38,7 +32,7 @@ class PhaseTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "deep copy" do
-    verify_deep_copy(@phase, ['id', 'created_at', 'updated_at', 'slug'])
+    verify_deep_copy(@phase, ['id', 'created_at', 'updated_at'])
   end
   
   # ---------------------------------------------------
