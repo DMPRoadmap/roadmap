@@ -49,9 +49,6 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
         
         answer.reload
         
-puts form_attributes.inspect
-puts answer.inspect
-        
         assert_not answer.id.nil?, "expected the answer to have been updated and for an id to be present after creating a #{format.title} question!"
         assert_equal "Tested", answer.text, "expected the text to have been updated for a #{format.title} question!"        
         

@@ -64,16 +64,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to root_path
     else
       auth = request.env['omniauth.auth'] || {}
-      eppn = auth['extra']['raw_info']['eppn']
+      
+      eppn = auth['extra']['raw_info']['eppn'] unless auth['extra'].nil?
       uid = nil
       if !eppn.blank? then
         uid = eppn
       elsif !auth['uid'].blank? then
         uid = auth['uid']
-      elsif !auth['extra']['raw_info']['targeted-id'].blank? then
-        uid = auth['extra']['raw_info']['targeted-id']
+      elsif !auth['extra'].nil?
+        if !auth['extra']['raw_info']['targeted-id'].blank? then
+          uid = auth['extra']['raw_info']['targeted-id']
+        end
       end
-
+      
       if !uid.nil? && !uid.blank? then
 				s_user = User.where(shibboleth_id: uid).first
 				# Take out previous record if was not confirmed.
@@ -95,6 +98,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						sign_out current_user
 						session.delete(:shibboleth_data)
 						s_user = User.find(user_id)
+            flash[:notice] = I18n.t('devise.omniauth_callbacks.success', :kind => 'Shibboleth')
+            
 						sign_in s_user
                         redirect_to edit_user_registration_path
 					else
