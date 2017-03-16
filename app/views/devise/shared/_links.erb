@@ -1,13 +1,13 @@
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <%= link_to t('helpers.forgot_password'), new_password_path(resource_name), :class => "a-orange"%><br />
+  <%= link_to _('Forgot your password?'), new_password_path(resource_name), :class => "a-orange"%><br />
 <% end -%>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to t('helpers.no_pass_instructions'), new_confirmation_path(resource_name), :class => "a-orange"%><br />
+  <%= link_to _("Didn't receive confirmation instructions?"), new_confirmation_path(resource_name), :class => "a-orange"%><br />
 <% end -%>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to t('helpers.no_unlock_instructions'), new_unlock_path(resource_name), :class => "a-orange" %><br />
+  <%= link_to _("Didn't receive unlock instructions?"), new_unlock_path(resource_name), :class => "a-orange" %><br />
 <% end -%>
 
 <%#- if devise_mapping.omniauthable? %>

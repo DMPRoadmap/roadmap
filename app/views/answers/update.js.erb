@@ -1,0 +1,22 @@
+// after saving the answer (and possibly getting a conflict)
+// set the message div about the answer.
+// On success this will be "" on error it will be the 
+// conflicting answer
+
+//$("#answer_notice").html("<%= raw @message  %>");
+
+<%if @message %>
+      $("#answer_notice-<%=@question.id%>").html(<%= @message %>) %>"); 
+<% end %>
+
+<% if @old_answer %>
+  $("#answer_notice_<%=@question.id%>").html("<%= escape_javascript(render partial: '/phases/answer', locals: { question: @question, answer: @old_answer}) %>"); 
+<% else %>
+  $("#answer_notice_<%=@question.id%>").html(""); 
+<% end %>
+
+// have to update the lock_version on success or failure
+// so that the next save can work. If you don't do
+// this it will fail forever.
+
+$("#answer_lock_version").val(<%= @lock_version %>);

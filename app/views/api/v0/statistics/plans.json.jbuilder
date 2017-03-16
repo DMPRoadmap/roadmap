@@ -1,9 +1,9 @@
 json.prettify!
 
-json.plans @org_projects.each do |plan|
+json.plans @org_plans.each do |plan|
   json.id             plan.id
   json.grant_number   plan.grant_number
-  json.org_id         plan.creator.org.id
+  json.org_id         plan.owner.org.id
   json.template do
     json.title        plan.template.title
     json.id           plan.template.id
@@ -12,7 +12,7 @@ json.plans @org_projects.each do |plan|
     json.title        plan.title
   end
   json.funder do
-    json.name         (plan.template.org.funder? ? plan.org.name : '')
+    json.name         (plan.template.org.funder? ? plan.template.org.name : '')
   end
   json.principal_investigator do
     json.name         plan.principal_investigator

@@ -10,7 +10,7 @@
 	<div class="move_2_right">
         <%= hidden_field_tag :answer, note["answer_id"], :class => "answer_id" %>
         <%= hidden_field_tag :note_id, note["id"], :class => "note_id" %>
-		<%= f.submit t("helpers.submit.save"), :class => "btn btn-primary edit_note_submit_button" %>
+		<%= f.submit _('Save'), :class => "btn btn-primary edit_note_submit_button" %>
 	</div>
     <br>
 <%end%>

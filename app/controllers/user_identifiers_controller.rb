@@ -12,7 +12,6 @@ class UserIdentifiersController < ApplicationController
         identifier.destroy!
         flash[:notice] = t('identifier_schemes.disconnect_success', 
                            scheme: identifier.identifier_scheme.name)
-        
       else
         flash[:notice] = t('identifier_schemes.disconnect_failure', 
                             scheme:  identifier.identifier_scheme.name)

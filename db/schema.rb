@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170303220255) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "answers", force: :cascade do |t|
     t.text     "text",        limit: 65535
     t.integer  "plan_id",     limit: 4
@@ -20,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170303220255) do
     t.integer  "question_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "lock_version", default: 0
   end
 
   add_index "answers", ["plan_id"], name: "fk_rails_84a6005a3e", using: :btree

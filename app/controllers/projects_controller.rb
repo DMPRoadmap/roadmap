@@ -9,7 +9,9 @@ class ProjectsController < ApplicationController
     ## TODO: Is this A magic String? the "Show_shib_link?" as we define it and users dont see cookies
         if user_signed_in? then
             if (current_user.shibboleth_id.nil? || current_user.shibboleth_id.length == 0) && !cookies[:show_shib_link].nil? && cookies[:show_shib_link] == "show_shib_link" then
-                flash.notice = "Would you like to #{view_context.link_to I18n.t('helpers.shibboleth_to_link_text'), user_omniauth_shibboleth_path}".html_safe
+                flash.notice = ActionController::Base.helpers.link_to(
+                  _('Link your %{application_name} account to your institutional credentials (UK users only)' % { :application_name => Rails.configuration.branding[:application][:name]},
+                    user_omniauth_shibboleth_path)).html_safe()
             end
 
             @projects = current_user.projects.filter(params[:filter])
@@ -40,7 +42,7 @@ class ProjectsController < ApplicationController
             end
         elsif user_signed_in? then
             respond_to do |format|
-                format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+                format.html { redirect_to projects_url, notice: _('This account does not have access to that plan.') }
             end
         else
             respond_to do |format|
@@ -77,7 +79,7 @@ class ProjectsController < ApplicationController
             end
         elsif !@project.editable_by(current_user.id) then
             respond_to do |format|
-                format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+                format.html { redirect_to projects_url, notice: _('This account does not have access to that plan.') }
             end
         end
     end
@@ -91,7 +93,7 @@ class ProjectsController < ApplicationController
             end
         elsif !@project.editable_by(current_user.id) then
             respond_to do |format|
-                format.html { redirect_to projects_url, notice: I18n.t('helpers.settings.plans.errors.no_access_account') }
+                format.html { redirect_to projects_url, notice: _('This account does not have access to that plan.') }
             end
         end
     end
@@ -131,11 +133,11 @@ class ProjectsController < ApplicationController
             end
             @project.principal_investigator = current_user.name(false)
 
-            @project.title = I18n.t('helpers.project.my_project_name')+' ('+@project.dmptemplate.title+')'
+            @project.title = _('My plan')+' ('+@project.dmptemplate.title+')' # We should use interpolated string since the order of the words from this message could vary among languages
             @project.assign_creator(current_user.id)
             respond_to do |format|
                 if @project.save
-                    format.html { redirect_to({:action => "show", :id => @project.slug, :show_form => "yes"}, {:notice => I18n.t('helpers.project.success')}) }
+                    format.html { redirect_to({:action => "show", :id => @project.slug, :show_form => "yes"}, {:notice => _('Plan was successfully created.')}) }
                 else
                     format.html { render action: "new" }
                 end
@@ -153,7 +155,7 @@ class ProjectsController < ApplicationController
         if user_signed_in? && @project.editable_by(current_user.id) then
       if @project.update_attributes(params[:project])
         respond_to do |format|
-                  format.html { redirect_to({:action => "show", :id => @project.slug, notice: I18n.t('helpers.project.success_update') }) }
+                  format.html { redirect_to({:action => "show", :id => @project.slug, notice: _('Plan was successfully updated.') }) }
         end
       else
         respond_to do |format|

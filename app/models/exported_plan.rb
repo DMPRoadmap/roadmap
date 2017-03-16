@@ -10,7 +10,12 @@ class ExportedPlan < ActiveRecord::Base
 
   VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
 
-  validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
+  validates :format, inclusion: { 
+    in: VALID_FORMATS,
+    message: -> (object, data) do 
+      _('%{value} is not a valid format') % { :value => data[:value] } 
+    end 
+  }
   validates :plan, :format, presence: true
 
   # Store settings with the exported plan so it can be recreated later
@@ -50,6 +55,10 @@ class ExportedPlan < ActiveRecord::Base
     self.plan.description
   end
 
+  def owner
+    self.plan.roles.to_a.select{ |role| role.creator? }.first.user
+  end
+
   def funder
     org = self.plan.template.try(:org)
     org.name if org.present? && org.funder?
@@ -73,7 +82,7 @@ class ExportedPlan < ActiveRecord::Base
   # sections taken from fields settings
   def sections
     # TODO: How do we know which phase to use here!?
-    sections = self.template.phases.first.sections
+    sections = self.plan.template.phases.first.sections
 
     return [] if questions.empty?
 
@@ -124,7 +133,7 @@ class ExportedPlan < ActiveRecord::Base
         answer = self.plan.answer(question.id, false)
 
         if answer.nil? || answer.text.nil? then
-          output += I18n.t('helpers.plan.export.pdf.question_not_answered')+ "\n"
+          output += _('Question not answered.')+ "\n"
         else
           output += answer.options.collect {|o| o.text}.join("\n")
           if question.option_comment_display == true then

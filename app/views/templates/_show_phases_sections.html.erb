@@ -11,42 +11,42 @@
   <div class="div_right admin_right_bigger">
       <!--delete a phase button. only displays when template not published-->
 
-      <% if phase.sections.length > 0 %>
-          <%= link_to t("helpers.preview"), admin_previewphase_template_path(id: phase.id), class: 'btn btn-primary'%>
+      <% if phase_hash[:sections].length > 0 %>
+          <%= link_to _('Preview'), admin_preview_phase_path(id: phase.id), class: 'btn btn-primary'%>
       <% end %>
-      <% if !phase.template.published? %>
-          <%= link_to t("helpers.submit.delete"), admin_destroyphase_template_path(phase_id: phase.id),
-          confirm: t("org_admin.templates.phase_delete_message", phase_title: phase.title ), method: :delete, class: "btn btn-primary"%>
+      <% if !template.published? %>
+          <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
+          confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
       <% end %>
       <% if !phase.modifiable %>
-          <% b_label = t('org_admin.templates.view_phase_label')%>
+          <% b_label = _('View phase')%>
       <% else %>
-          <% b_label = t('org_admin.templates.edit_phase_label')%>
+          <% b_label = _('Edit phase')%>
       <% end %>
-      <%= link_to b_label, admin_phase_template_path(id: phase.id, edit: (b_label == t('org_admin.templates.edit_phase_label'))), class: "btn btn-primary" %>
+      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('org_admin.templates.edit_phase_label'))), class: "btn btn-primary" %>
 
   </div>
-  <% if phase.sections.any? %>
+  <% if phase_hash[:sections].present? %>
     <table class="dmp_table">
       <thead>
           <tr>
-              <th class="dmp_th_medium"><%= t('helpers.sections_label')%></th>
-              <th class="dmp_th_big"><%= t('helpers.questions_label')%></th>
+              <th class="dmp_th_medium"><%= _('Sections')%></th>
+              <th class="dmp_th_big"><%= _('Questions')%></th>
         </tr>
       </thead>
       <tbody>
-        <% phase.sections.order("number ASC").each do |section| %>
+        <% (1..phase_hash[:sections].length).each do |section_no| %>
+          <% section = phase_hash[:sections][section_no] %>
           <tr >
             <th class="dmp_th_border" >
-              <p><%= section.title %></p>
+              <p><%= section[:data].title %></p>
             </th>
             <td class="dmp_td_border" >
-              <% if section.questions.any? %>
-                <% questions = section.questions.order("number ASC") %>
+              <% if section[:questions].present? %>
                 <ul class="question_ul">
-                  <% questions.each do |ques|%>
+                  <% (1..section[:questions].length).each do |question_no|%>
                     <li>
-                      - <%= raw ques.text %>
+                      - <%= raw section[:questions][question_no][:data].text %>
                     </li>
                   <% end %>
                 </ul>

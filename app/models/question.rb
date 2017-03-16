@@ -44,6 +44,16 @@ class Question < ActiveRecord::Base
     "#{text}"
   end
 
+
+  def option_based?
+    format = self.question_format
+    return format.option_based
+  end
+
+  def plan_answers(plan_id)
+    return self.answers.to_a.select{|ans| ans.plan_id == plan_id}
+  end
+
   ##
   # deep copy the given question and all it's associations
   #
@@ -82,7 +92,7 @@ class Question < ActiveRecord::Base
         group.guidances.each do |g|
           g.themes.each do |theme|
             if theme_ids.include? theme.id
-              guidances["#{group.name} " + I18n.t('admin.guidance_lowercase_on') + " #{theme.title}"] = g
+              guidances["#{group.name} " + _('guidance on') + " #{theme.title}"] = g
             end
           end
         end

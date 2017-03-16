@@ -7,12 +7,12 @@
 				details = @exported_plan.admin_details
 				if details.present?
 			%>
-				<h3><%= t('org_admin.admin_details') %></h3>
+				<h3><%= _('Admin Details') %></h3>
 				<table class="dmp_table">
 					<thead>
 						<tr>
-							<th class="dmp_th_medium"><%= t('helpers.title')%></th>
-							<th class="dmp_th_big"><%= t('helpers.desc')%></th>
+							<th class="dmp_th_medium"><%= _('Title')%></th>
+							<th class="dmp_th_big"><%= _('Description')%></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -22,21 +22,21 @@
 							if value.present?
 					%>
 						<tr>
-							<th class="dmp_th_border"><p>- <%= t("helpers.plan.export.#{field}") -%></p></th>
+							<th class="dmp_th_border"><p>- <%= admin_field_t(field) -%></p></th>
 							<td class="dmp_td_border"><%= value -%></td>
 						</tr>
 							<% end %>
 						<% end %>
 					</tbody>
 				</table>
-      <% end %>
+      		 <% end %>
 			<% @exported_plan.sections.each do |section| %>
 				<h3><%= section.title %></h3>
 				<table class="dmp_table">
 					<thead>
 					    <tr>
-					      	<th class="dmp_th_medium"><%= t('helpers.questions_label')%></th>
-					      	<th class="dmp_th_big"><%= t('helpers.answers_label')%></th>
+					      	<th class="dmp_th_medium"><%= _('Questions')%></th>
+					      	<th class="dmp_th_big"><%= _('Answers')%></th>
 	   					</tr>
    					</thead>
    					<tbody>
@@ -49,11 +49,11 @@
 	        					<td class="dmp_td_border" >	
 									<% answer = @plan.answer(question.id, false) %>
 									<% if answer.nil? then %>
-										<p>Question not answered.</p>
+										<p><%= _('Question not answered') %></p>
 									<% else %>
                                         <% q_format = question.question_format %>
-										<% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") ||
-                                        q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") then%>
+										<% if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
+                                        q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') then%>
 											<ul>
 												<% answer.options.each do |option| %>
 													<li><%= option.text %></li>

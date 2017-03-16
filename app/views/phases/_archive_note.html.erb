@@ -6,18 +6,18 @@
     <%= render :partial => "view_note", locals: {note: note} %>
 
     <% if current_user.id == note["user_id"] then %>
-        <%= t('helpers.notes.archive_own_note_question')%>
-        <% button_label = t("helpers.notes.archive_own_comment_button_label") %>
+        <%= _('helpers.notes.archive_own_note_question')%>  <!-- There is no value for this KEY -->
+        <% button_label = _('helpers.notes.archive_own_comment_button_label') %>    <!-- There is no value for this KEY -->
     <% else%>
-        <%= t("helpers.notes.archive_note_question")%>
-        <% button_label = t("helpers.notes.archive_comment_button_label") %>
+        <%= _('helpers.notes.archive_note_question')%>  <!-- There is no value for this KEY -->
+        <% button_label = _('helpers.notes.archive_comment_button_label') %>    <!-- There is no value for this KEY -->
 	<%end%>
 
 	<!-- submit buttons -->
 	<div class="move_2_right">
         <%= hidden_field_tag :note_id, note["id"], :class => "comment_id" %>
 		<%= f.submit button_label, :class => "btn btn-primary archive_comment_submit_button" %>
-        <%= link_to t("helpers.submit.cancel"), "#", :class => "cancel_archive_comment btn cancel" %>
+        <%= link_to _('Cancel'), "#", :class => "cancel_archive_comment btn cancel" %>
 	</div>
     <br>
 <%end%>

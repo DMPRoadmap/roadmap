@@ -26,25 +26,25 @@ question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en_UK',
-   description: 'UK English',
-   name: 'English (UK)',
+  {abbreviation: 'en_GB',
+   description: '',
+   name: 'English (GB)',
    default_language: true},
   {abbreviation: 'en_US',
-   description: 'US English',
+   description: '',
    name: 'English (US)',
    default_language: false},
   {abbreviation: 'fr',
-   description: 'French',
-   name: 'French',
+   description: '',
+   name: 'Français',
    default_language: false},
   {abbreviation: 'de',
-   description: 'German',
-   name: 'German',
+   description: '',
+   name: 'Deutsch',
    default_language: false},
   {abbreviation: 'es',
-   description: 'Spanish',
-   name: 'Spanish',
+   description: '',
+   name: 'Español',
    default_language: false}
 ]
 languages.map{ |l| Language.create!(l) if Language.find_by(abbreviation: l[:abbreviation]).nil? }
@@ -167,11 +167,11 @@ orgs = [
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2,
-   language: Language.find_by(abbreviation: 'en-UK')},
+   language: Language.find_by(abbreviation: 'en_GB')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1,
-   language: Language.find_by(abbreviation: 'en-UK')}
+   language: Language.find_by(abbreviation: 'en_GB')}
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
 

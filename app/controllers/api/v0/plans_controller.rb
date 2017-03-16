@@ -37,15 +37,15 @@ module Api
                 template = org.templates.find_by title: params[:template][:name]
               # else error: organization has more than one template and template name unspecified
               else
-                render json: I18n.t("api.org_multiple_templates"), status: 400 and return
+                render json: _('{"Error":"Organisation has more than one template and template name unspecified or invalid"}'), status: 400 and return
               end
             # else error: organization specified is not a funder
             else
-              render json: I18n.t("api.org_not_funder"), status: 400 and return
+              render json: _('{"Error":"Organisation specified is not a funder"}'), status: 400 and return
             end
           # else error: organization does not exist
           else
-            render json: I18n.t("api.org_dosent_exist"), status: 400 and return
+            render json: _('{"Error":"Organisation does not exist"}'), status: 400 and return
           end
 
           all_groups = []
@@ -90,7 +90,7 @@ module Api
           end
         else
 
-          render json: I18n.t("api.no_auth_for_endpoint"), status: 400 and return
+          render json: _('{"Error":"You do not have authorisation to view this endpoint"}'), status: 400 and return
         end
       end
 
