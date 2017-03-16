@@ -3,39 +3,39 @@
 	<%= f.inputs do %>
         <%= hidden_field_tag :default_tag, "false" ,:id => "default_tag" %>
 		<div class="createa-project">
-			<h1> <%= t('helpers.project.create_page.title')%> </h1>
+			<h1> <%= _('Create a new plan')%> </h1>
 			<div class="info-new-project">
-				<p><%= raw t('helpers.project.create_page.desc_html')%></p>
+				<p><%= raw _("<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>")%></p>
 
 			</div>
 			<div class="dropdowns">
 				<div class="control-group" id="funder-control-group">
 					<div class="controls">
-						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => t('helpers.project.create_page.funders_question'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  constant("organisation_types.funder") %>
+						<%= f.input :funder_id, :as => :select, :collection => @funders, :label => _('If applying for funding, select your research funder.'), :input_html => { :multiple => false, :class => ["select2", "select2-container"] }, :include_blank =>  _('Select Funder') %>
 
 						<div class="div_clear"></div>
 
 						<div id="other-funder-link" class="move_2_right">
-							<a href='#' id="no-funder"><%= t('helpers.project.not_applicable')%></a>
+							<a href='#' id="no-funder"><%= _('Not applicable/not listed.')%></a>
 						</div>
 						<div class="create_project_question_descriptions">
-							<%= t('helpers.project.create_page.funders_question_description')%>
+							<%= _('Otherwise leave blank.')%>
 						</div>
 					</div>
 					<div class="div_clear"></div>
 					<div id="other-funder-name" class="controls" style="display:none;">
-						<%= f.input :funder_name, :as => :string, :placeholder => t('helpers.project.funder_name'), :label => t('helpers.project.create_page.other_funder_name_label') %>
+						<%= f.input :funder_name, :as => :string, :placeholder => _('Funder name'), :label => _('Name of funder, if applicable.') %>
 					</div>
 				</div>
 				<div class="control-group" id="institution-control-group">
 					<div class="controls">
-						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => t('helpers.project.create_page.institution_question'), :input_html => { :multiple => false, :class => ["select2", "select2-container", "typeahead"] }, :include_blank =>  constant("organisation_types.organisation")  %>
+						<%= f.input :institution_id, :as => :select, :collection => @institutions, :label => _('To see institutional questions and/or guidance, select your organisation.'), :input_html => { :multiple => false, :class => ["select2", "select2-container", "typeahead"] }, :include_blank =>  _('Select Organisation')  %>
 						<div class="div_clear"></div>
 						<div class="move_2_right">
-							<a href='#' id="no-institution"><%= t('helpers.project.not_applicable')%></a>
+							<a href='#' id="no-institution"><%= _('Not applicable/not listed.')%></a>
 						</div>
 						<div class="create_project_question_descriptions">
-							<%= t('helpers.project.create_page.institution_question_description')%>
+							<%= _('You may leave blank or select a different organisation to your own.')%>
 						</div>
 					</div>
 				</div>
@@ -43,11 +43,11 @@
 					<div class="controls">
 						<li id="project_dmptemplate_id_input" class="select input optional">
 							<label for="project_dmptemplate_id" class="label">
-								<%= t('helpers.project.choose_template') %>
+								<%= _('Choose a template') %>
 							</label>
 							<select id="project_dmptemplate_id" name="project[dmptemplate_id]" class="select2 select2-container typeahead"></select>
 							<div class="create_project_question_descriptions">
-								<%= t('helpers.project.multi_templates') %>
+								<%= _('There are a number of possible templates you could use. Please choose one.') %>
 							</div>
 						</li>
 					</div>
@@ -55,7 +55,7 @@
 				<div class="control-group" id="guidance-control-group">
 					<div class="controls">
 						<% other_guidance = GuidanceGroup.all %>
-						<%= f.input :guidance_groups, :as => :check_boxes, :collection => other_guidance, :label => t("helpers.project.create_page.other_guidance_question"), :member_label => :display_name %>
+						<%= f.input :guidance_groups, :as => :check_boxes, :collection => other_guidance, :label => _('Tick to select any other sources of guidance you wish to see.'), :member_label => :display_name %>
 					</div>
 				</div>
 			</div>
@@ -105,6 +105,6 @@
 	<% end %>
 	<!-- submit buttons -->
 	<%= f.actions do %>
-		<a id="create-plan-button" style="display:none;" data-toggle="modal" href="#project-confirmation-dialog" class="btn btn-primary"><%= t('helpers.project.create')%></a>
+		<a id="create-plan-button" style="display:none;" data-toggle="modal" href="#project-confirmation-dialog" class="btn btn-primary"><%= _('Create plan')%></a>
 	<% end %>
 <% end %>

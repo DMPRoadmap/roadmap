@@ -30,7 +30,7 @@ class OrgsController < ApplicationController
 
     begin
       if @org.update_attributes(assign_params)
-        redirect_to admin_show_org_path(params[:id]), notice: I18n.t("admin.org_updated_message")
+        redirect_to admin_show_org_path(params[:id]), notice: _('Organisation was successfully updated.')
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 
         # errors. We followed the example provided in the Rails guides when building the validator so
@@ -41,7 +41,7 @@ class OrgsController < ApplicationController
         render action: "admin_edit"
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye
-      flash[:notice] = I18n.t("admin.org_bad_logo")
+      flash[:notice] = _('There seems to be a problem with your logo. Please upload it again.')
       render action: "admin_edit"
     end
   end

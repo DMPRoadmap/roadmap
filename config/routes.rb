@@ -38,17 +38,16 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
-  get '/:locale' => 'home#index', :as => 'locale_root'
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  patch 'locale/:locale' => 'application#set_locale_session', as: 'locale'
+
+  root :to => 'home#index'
     get "about_us" => 'static_pages#about_us'
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
     get "public_plans" => 'static_pages#public_plans'
     get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
-    
     get "existing_users" => 'existing_users#index'
   
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
@@ -97,28 +96,45 @@ Rails.application.routes.draw do
         get 'admin_index'
         get 'admin_template'
         get 'admin_new'
-        get 'admin_addphase'
-        get 'admin_phase'
-        get 'admin_previewphase'
-        get 'admin_cloneversion'
         get 'admin_template_history'
         delete 'admin_destroy'
-        delete 'admin_destroyversion'
-        delete 'admin_destroyphase'
-        delete 'admin_destroysection'
-        delete 'admin_destroyquestion'
-        delete 'admin_destroysuggestedanswer'
         post 'admin_create'
-        post 'admin_createphase'
-        post 'admin_createsection'
-        post 'admin_createquestion'
-        post 'admin_createsuggestedanswer'
         put 'admin_update'
-        put 'admin_updatephase'
-        put 'admin_updateversion'
-        put 'admin_updatesection'
-        put 'admin_updatequestion'
-        put 'admin_updatesuggestedanswer'
+      end
+    end
+
+    resources :phases, path: 'org/admin/templates/phases', only: [] do
+      member do
+        get 'admin_show'
+        get 'admin_preview'
+        get 'admin_add'
+        put 'admin_update'
+        post 'admin_create'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :sections, path: 'org/admin/templates/sections', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :questions, path: 'org/admin/templates/questions', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :suggested_answers, path: 'org/admin/templates/suggested_answers', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
       end
     end
 
@@ -203,6 +219,7 @@ Rails.application.routes.draw do
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
         resources :guidance_groups, only: [:index, :show]
+        resources :guidances, only: [:index, :show]
         resources :plans, only: :create
         resources :templates, only: :index
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do
@@ -269,5 +286,4 @@ Rails.application.routes.draw do
     # This is a legacy wild controller route that's not recommended for RESTful applications.
     # Note: This route will make all actions in every controller accessible via GET requests.
     # match ':controller(/:action(/:id))(.:format)'
-  end
 end

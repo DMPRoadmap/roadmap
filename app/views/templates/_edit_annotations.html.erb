@@ -6,13 +6,13 @@ in the admin interface.
 **Copyright: Digital Curation Centre and University of California Curation Center
 -->
 
-<%= form_for(question, url: admin_updatequestion_template_path(question), html: { method: :put}) do |f| %>
+<%= form_for(question, url: admin_update_question_path(question), html: { method: :put}) do |f| %>
 <div class="question-div">
   <table class="dmp_details_table phase">
     <%= f.hidden_field :id,{ class: "quest_id" } %>
     <!--Question number -->
     <tr>
-      <td class="first_template"><%= t("org_admin.questions.question_number_label")%></td>
+      <td class="first_template"><%= _('Question number')%></td>
       <td><%= question.number %>
         <div class="border_bottom"></div>
       </td>
@@ -20,12 +20,12 @@ in the admin interface.
 
     <!--Question text -->
     <tr>
-      <td class="first_template"><%= t('org_admin.questions.question_text_label')%></td>
+      <td class="first_template"><%= _('Question text')%></td>
       <td><%= raw question.text %>
         </br>
         <div class="answer-readonly">
           <% q_format = question.question_format %>
-          <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") || q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") %>
+          <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
             <ul class='options'>
             <% if question.question_options.is_a? QuestionOption  %>
               <li>- <%= question.question_options.text %></li>
@@ -44,7 +44,7 @@ in the admin interface.
 
     <!-- Suggested answer or Example-->
     <tr>
-      <td class="first_template"><%= t("org_admin.questions.suggested_or_example_answer_label")%></td>
+      <td class="first_template"><%= _('Suggested answer/ Example')%></td>
       <td>
         <div class="div_left_icon">
           <% suggested_answer = question.suggested_answers.find_by_org_id(current_user.org.id) %>
@@ -54,14 +54,14 @@ in the admin interface.
           <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
             <%= s.hidden_field :org_id, value: current_user.org.id %>
             <ul>
-              <li><%= s.select :is_example, {t("org_admin.questions.example_answer_label") => true, t("org_admin.questions.suggested_answer_label") => false} %></li>
+              <li><%= s.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
               <li><%= s.text_area :text, rows: 5 %>
               </li>
             </ul>
           <% end %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.suggested_answer_help_text_html"))%>
+          <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
@@ -70,13 +70,13 @@ in the admin interface.
 
     <!-- Guidance for Question -->
     <tr>
-      <td class="first_template"><%= t("org_admin.questions.guidance_label")%></td>
+      <td class="first_template"><%= _('Guidance')%></td>
       <td>
         <div class="div_left_icon">
           <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.questions.question_guidance_help_text_html"))%>
+          <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
@@ -86,17 +86,17 @@ in the admin interface.
   <br />
   <!-- submit buttons -->
   <div class="move_2_right">
-    <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
+    <%= f.submit _('Save'), class: "btn btn-primary" %>
     <% if !question.section.phase.template.published? %>
-      <%= link_to t("helpers.submit.delete"), admin_destroyquestion_template_path(question_id: question.id),
-                  confirm: t("org_admin.questions.delete_message", question_text: question.text ), method: :delete, class: "btn btn-primary"%>
+      <%= link_to _('Delete'), admin_destroy_question_path(question_id: question.id),
+                  confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
     <% end %>
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-    <%= link_to t("helpers.submit.cancel"), "#", class: "btn cancel cancel_edit_question" %>
+    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_edit_question" %>
   </div>
 </div>
 
 
 <!--guidance block -->
-<%= render partial: "guidance_display", locals: {question: question} %>
+<%= render partial: "guidances/guidance_display", locals: {question: question} %>
 <% end %>

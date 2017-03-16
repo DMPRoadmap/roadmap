@@ -1,5 +1,5 @@
-<h1><%= t('helpers.settings.projects.title') -%></h1>
-<p><%= t("helpers.settings.projects.desc") -%></p>
+<h1><%= _('Settings - My plans') -%></h1>
+<p><%= _("The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear.") -%></p>
 
 <% @settings.errors.full_messages.each do |error| %>
   <div class="error"><%= error %></div>
@@ -12,11 +12,11 @@
     <thead>
       <tr>
         <th>
-        <%= label_tag("columns[name]", t("helpers.project.columns.name")) -%></th>
+        <%= label_tag("columns[name]", _('Name')) -%></th>
         <% @all_columns.each do |column| %>
           <th><%= label_tag("columns[#{column}]", t("helpers.project.columns.#{column}")) -%></th>
         <% end %>
-        <th><%= label_tag("columns[select]", t("helpers.select_action")) -%></th>
+        <th><%= label_tag("columns[select]", _('Select an action')) -%></th>
       </tr>
     </thead>
     <tbody>
@@ -35,8 +35,8 @@
     </tbody>
     <tfoot>
       <tr>
-        <td><%= submit_tag(t("helpers.submit.save"), class: "btn btn-primary") -%></td>
-        <td><%= link_to(t('helpers.submit.cancel'), projects_path, class: "btn btn-primary") -%></td>
+        <td><%= submit_tag(_('Save'), class: "btn btn-primary") -%></td>
+        <td><%= link_to(_('Cancel'), projects_path, class: "btn btn-primary") -%></td>
         </tr>
     </tfoot>
   </table>

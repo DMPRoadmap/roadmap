@@ -1,4 +1,18 @@
+def get_available_locales
+    languages = LANGUAGES # LANGUAGES is defined in config/initializers/constants.rb
+    locales = []
+    languages.each do |l|
+        locales << l.abbreviation
+    end
+    return locales
+end
+
+def get_default_locale
+    language = Language.default()
+    return language.nil? ? 'en_GB' : language.abbreviation
+end
+
 FastGettext.add_text_domain 'app', :path => 'config/locale', :type => :po
 FastGettext.default_text_domain = 'app'
-FastGettext.default_available_locales = ['en-UK','en-US','de','es','fr']
-FastGettext.default_locale = 'en-UK'
+FastGettext.default_available_locales = get_available_locales()
+FastGettext.default_locale = get_default_locale()

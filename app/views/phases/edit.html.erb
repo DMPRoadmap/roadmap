@@ -6,20 +6,19 @@
   so if we come this way then we are editing a phase
 -->
 
-
 <!-- render the project title -->
-<%= render :partial => "/plans/plan_title", locals: {plan: @plan, plan_data: @plan_data} %>
+<%= render :partial => "/plans/plan_title", locals: {plan: @plan} %>
 
 
 <!-- progress bar -->
 <% status = @plan.status %>
 <div class="progress">
   <%space_used = status["space_used"].to_i
-  space_title = t("helpers.plan.export.space_used", space_used: space_used, num_pages: @plan.template.settings(:export).max_pages)
+  space_title = _('approx. %{space_used}%% of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
   answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
   <div class="bar-container">
-    <span id="questions-progress-title"><%= answered -%> <%= t("helpers.project.questions_answered")%></span>
-    <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= t("helpers.project.questions_answered")%>"></span>
+    <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>
+    <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= _('questions answered')%>"></span>
   </div>
 
   <hr>
@@ -30,18 +29,16 @@
   </div>
 </div>   <!-- progess -->
 
-
 <!-- render navigation tabs for the plan phases -->
-<%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, plan_data: @plan_data, active: @phase.title } %>
-
+<%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, active: @phase.title} %>
 
 <!-- phase main container -->
 <div class="project-tabs-body">
 
   <div class="accordion" id="sections-accordion">
-    <% @phase_data["sections"].each do |section| %>
+    <% @phase.sections.each do |section| %>
 
-      <% sectionid = section["id"] %>
+      <% sectionid = section.id %>
 
       <!-- verify if the session[:question_id_comments] has been created. -->
       <% if session[:question_id_comments].to_i != 0 then %>
@@ -51,13 +48,11 @@
         <%end%>    
       <% end%>     
 
-
-
       <div class="accordion-group">
 
         <!-- section status line included in heading -->
-        <% num_section_questions = section["questions"].count %>
-        <% num_section_answers = section["nanswers"] %>
+        <% num_section_questions = section.questions.to_a.count %>
+        <% num_section_answers = section.num_answered_questions(@plan.id) %>
         <% question_word = "questions" %>
         <% if num_section_questions == 1 then %>
           <% question_word = "question" %>
@@ -66,9 +61,9 @@
 
         <!-- section heading -->
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section["id"] %>">
-            <div class="accordion_heading_text" id="section-header-<%= section["id"] %>">
-              <%= section["title"] %>
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= sectionid %>">
+            <div class="accordion_heading_text" id="section-header-<%= sectionid %>">
+              <%= section.title %>
               <% if num_section_questions.to_i > num_section_answers.to_i then %>
                 <span id="<%= sectionid %>-status" class="label label-warning section-status">(<%= section_status %>)</span>
               <% else %>
@@ -84,7 +79,7 @@
         <!-- accordion body -->
         <div id="collapse-<%= sectionid %>" class="accordion-body collapse section-collapse">
           <div class="section_desc">
-            <%= raw section["description"] %>
+            <%= raw section.description %>
           </div>
 
           <div class="accordion-inner">
@@ -103,8 +98,8 @@
 
             <!-- the section body -->
             <div class="loaded">
-              <% section["questions"].each do |question| %>
-                <% if question["id"] == session[:question_id_comments].to_i then id_css = "current_question" end %>
+              <% section.questions.each do |question| %>
+                <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
                 <div id="<%= id_css%>">
                   <% partialname = "answer_form"
                      if @readonly
@@ -112,14 +107,15 @@
                      end
                   %>
   
-                  <% guidances = question["guidances"] %>
+                  <% guidances = @question_guidance[question.id] %>
   
                   <%= render partial: partialname,
                       locals: {
                         plan: @plan,
-                        plan_data: @plan_data,
+                        phase_id: @phase.id,
                         question: question,
-                        last_question_id: section["questions"].last["id"]
+                        question_guidances: guidances,
+                        last_question_id: section.questions.last.id,
                       }
                   %>
                 </div>   <!-- id_css -->    
@@ -134,21 +130,21 @@
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3><%= t("helpers.project.not_saved_answers_header")%></h3>
+          <h3><%= _('Unsaved answers')%></h3>
         </div>
 
         <div class="modal-body">
           <div id="section-<%= sectionid %>-collapse-alert-plural">
-            <p><%= t("helpers.project.not_saved_answers_text_alert")%></p>
+            <p><%= _('You have altered answers but have not saved them:')%></p>
             <ul id="unsaved-answers-<%= sectionid %>"></ul>
-            <p><%= t("helpers.project.not_saved_answers_confirmation_alert")%></p>
+            <p><%= _('Would you like to save them now?')%></p>
           </div>
         </div>
 
         <div class="modal-footer">
-          <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" class="cancel-section-collapse btn"><%= t("helpers.submit.cancel")%></a>
-          <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" class="discard-section-collapse btn"><%= t("helpers.submit.discard")%></a>
-          <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" class="save-section-collapse btn btn-primary"><%= t("helpers.submit.save")%></a>
+          <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
+          <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" class="discard-section-collapse btn"><%= _('Discard')%></a>
+          <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
         </div>
 
       </div>  <!-- section-sectionid-collapse-alert -->
@@ -160,7 +156,7 @@
 </div>   <!-- project-tabs-body -->
 
 <div class="div_right">
-  <a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= t("helpers.export") %></a>
+  <a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
 </div>
 <%= render :partial => "plans/export", locals: {plan: @plan, plan_data: @plan_data} %>
 

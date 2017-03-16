@@ -1,0 +1,45 @@
+<!-- edit/add a phase. Phase is passed as an argument-->
+
+<%= form_for(phase, url: admin_update_phase_path(phase.id), html: { method: :put}) do |f| %>
+
+  <h3>
+    <%= _('Phase details')%>
+  </h3>
+  <div class="div_left">
+    <%= raw _("<p>Here you set the title that users will see. If you intend to have multiple phases for you DMP, this should be clear in the title and description.<p/>")%>
+  </div>
+  <br />
+  <div class="div_clear"></div>
+
+  <table class="dmp_details_table phase">
+    <tr>
+      <td class="first_template"><%= _('Title') %></td>
+      <td><%= f.text_field :title,
+            as: :string,
+            class: 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP') %></td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Order of display') %></td>
+      <td><%= f.number_field :number, in: 0..5, class: "number_field has-tooltip", 'data-toggle' => "tooltip", 'title' => _('This allows you to order the phases of your template.') %></td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Description') %></td>
+      <td class="phase_table_last_column">
+        <div class="div_left_icon">
+          <%= text_area_tag("phase-desc", phase.description, class: "tinymce") %>
+        </div>
+        <div class="div_right_icon">
+          <%= link_to( image_tag('help_button.png'), '#', class: 'phase_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."))%>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <div class="div_clear"></div>
+
+  <!-- submit buttons -->
+  <div class="move_2_right">
+    <%= f.submit _('Save'), class: 'btn btn-primary' %>
+    <%= link_to _('Cancel'), admin_show_phase_path(phase), class: 'btn cancel' %>
+  </div>
+
+<% end %>

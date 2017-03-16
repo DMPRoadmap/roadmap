@@ -32,7 +32,7 @@ class NotesController < ApplicationController
 
     if @note.save
       session[:question_id_notes] = answer.question_id
-      redirect_to edit_plan_phase_path(@plan, @phase), status: :found, notice: I18n.t("helpers.comments.note_created")
+      redirect_to edit_plan_phase_path(@plan, @phase), status: :found, notice: _('Comment was successfully created.')
     end
   end
 
@@ -48,7 +48,7 @@ class NotesController < ApplicationController
 
     if @note.update_attributes(params[:note])
       session[:question_id_notes] = @note.question_id
-      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_updated")
+      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: _('Comment was successfully updated.')
     end
   end
 
@@ -65,7 +65,7 @@ class NotesController < ApplicationController
 
     if @note.update_attributes(params[:note])
       session[:question_id_notes] = @note.question_id
-      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: I18n.t("helpers.comments.note_removed")
+      redirect_to edit_project_plan_path(@project, @plan), status: :found, notice: _('Comment has been removed.')
     end
   end
 end

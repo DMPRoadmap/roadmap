@@ -59,10 +59,10 @@ class GuidancesController < ApplicationController
     # updates phases, versions, sections and questions based on template selected
     dmptemplate = Template.find(params[:dmptemplate_id])
     # map to title and id for use in our options_for_select
-    @phases = dmptemplate.phases.map{|a| [a.title, a.id]}.insert(0, I18n.t('helpers.select_phase'))
-    @versions = dmptemplate.versions.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_version'))
-    @sections = dmptemplate.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
-    @questions = dmptemplate.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
+    @phases = dmptemplate.phases.map{|a| [a.title, a.id]}.insert(0, _('Select a phase'))
+    @versions = dmptemplate.versions.map{|s| [s.title, s.id]}.insert(0, _('Select a version'))
+    @sections = dmptemplate.sections.map{|s| [s.title, s.id]}.insert(0, _('Select a section'))
+    @questions = dmptemplate.questions.map{|s| [s.text, s.id]}.insert(0, _('Select a question'))
   end
 
  def update_versions
@@ -70,9 +70,9 @@ class GuidancesController < ApplicationController
     # updates versions, sections and questions based on phase selected
     phase = Phase.find(params[:phase_id])
     # map to name and id for use in our options_for_select
-    @versions = phase.versions.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_version'))
-    @sections = phase.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
-    @questions = phase.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
+    @versions = phase.versions.map{|s| [s.title, s.id]}.insert(0, _('Select a version'))
+    @sections = phase.sections.map{|s| [s.title, s.id]}.insert(0, _('Select a section'))
+    @questions = phase.questions.map{|s| [s.text, s.id]}.insert(0, _('Select a question'))
   end
 
   def update_sections
@@ -80,15 +80,15 @@ class GuidancesController < ApplicationController
     # updates sections and questions based on version selected
     version = Version.find(params[:version_id])
     # map to name and id for use in our options_for_select
-    @sections = version.sections.map{|s| [s.title, s.id]}.insert(0, I18n.t('helpers.select_section'))
-    @questions = version.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
+    @sections = version.sections.map{|s| [s.title, s.id]}.insert(0, _('Select a section'))
+    @questions = version.questions.map{|s| [s.text, s.id]}.insert(0, _('Select a question'))
   end
 
   def update_questions
     authorize Guidance
     # updates songs based on artist selected
     section = Section.find(params[:section_id])
-    @questions = section.questions.map{|s| [s.text, s.id]}.insert(0, I18n.t('helpers.select_question'))
+    @questions = section.questions.map{|s| [s.text, s.id]}.insert(0, _('Select a question'))
   end
 
   ##
@@ -116,7 +116,7 @@ class GuidancesController < ApplicationController
     end
 
     if @guidance.save
-      redirect_to admin_show_guidance_path(@guidance), notice: I18n.t('org_admin.guidance.created_message')
+      redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
     else
       render action: "new"
     end
@@ -131,7 +131,7 @@ class GuidancesController < ApplicationController
 		@guidance.question_id = params["question_id"]
 
     if @guidance.update_attributes(params[:guidance])
-      redirect_to admin_show_guidance_path(params[:guidance]), notice: I18n.t('org_admin.guidance.updated_message')
+      redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
       render action: "edit"
     end

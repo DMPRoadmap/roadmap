@@ -70,22 +70,20 @@ class GuidanceGroup < ActiveRecord::Base
   # @param id [Integer] the integer id for a guidance group
   # @param user [User] a user object
   # @return [Boolean] true if the specified user can view the specified guidance group, false otherwise
-  def self.can_view?(user, id)
-    guidance_group = GuidanceGroup.find_by(id: id)
+  def self.can_view?(user, guidance_group)
     viewable = false
-
     # groups are viewable if they are owned by any of the user's organisations
     if guidance_group.org == user.org
       viewable = true
     end
     # groups are viewable if they are owned by the managing curation center
-    Org.where( name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_group|
+    Org.managing_orgs.each do |managing_group|
       if guidance_group.org.id == managing_group.id
         viewable = true
       end
     end
     # groups are viewable if they are owned by a funder
-    if guidance_group.org.org_type == 2
+    if guidance_group.org.funder?
       viewable = true
     end
 
@@ -103,17 +101,11 @@ class GuidanceGroup < ActiveRecord::Base
     # @return [Array<GuidanceGroup>] a list of all "viewable" guidance groups to a user
   def self.all_viewable(user)
     # first find all groups owned by the Managing Curation Center
-    managing_org_groups = []
-    Org.where(name: GlobalHelpers.constant("organisation_types.managing_organisation")).find_each do |managing_org|
-      managing_org_groups = managing_org_groups + managing_org.guidance_groups
-    end
+    managing_org_groups = Org.includes(:guidance_groups).managing_orgs.collect{|org| org.guidance_groups}
 
     # find all groups owned by  a Funder organisation
-    funder_groups = []
-    funders = Org.where(org_type: 2)
-    funders.each do |funder|
-      funder_groups = funder_groups + funder.guidance_groups
-    end
+    funder_groups = Org.includes(:guidance_groups).funders.collect{|org| org.guidance_groups}
+
     organisation_groups = [user.org.guidance_groups]
 
     # pass this organisation guidance groups to the view with respond_with @all_viewable_groups

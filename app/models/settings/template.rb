@@ -59,13 +59,27 @@ module Settings
         end
 
         errs.map do |key|
-          errors.add(:formatting, I18n.t("helpers.settings.plans.errors.#{key}"))
+          if key == :missing_key
+            errors.add(:formatting, _('A required setting has not been provided'))
+          elsif key == :invalid_margin
+            errors.add(:formatting, _('Margin value is invalid'))
+          elsif key == :negative_margin
+            errors.add(:formatting, _('Margin cannot be negative'))
+          elsif key == :unknown_margin
+            errors.add(:formatting, _("Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"))
+          elsif key == :invalid_font_size
+            errors.add(:formatting, _('Invalid font size'))
+          elsif key == :invalid_font_face
+            errors.add(:formatting, _('Invalid font face'))
+          elsif key == :unknown_key
+            errors.add(:formatting, _('Unknown formatting setting'))
+          end
         end
 
       end
 
       if max_pages.present? && (!max_pages.is_a?(Integer) || max_pages <= 0)
-        errors.add(:max_pages, I18n.t('helpers.settings.plans.errors.invalid_max_pages'))
+        errors.add(:max_pages, _('Invalid maximum pages'))
       end
     end
 

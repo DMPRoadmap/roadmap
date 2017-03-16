@@ -78,23 +78,35 @@ namespace :migrate do
 
     # seed languages to database
     languages = {
-        'English(UK)' => {
-            abbreviation: 'en-UK',
-            description: 'UK English language used as default',
-            name: 'English(UK)',
-            default_language: true
+        'English(GB)' => {
+          abbreviation: 'en_GB',
+          description: '',
+          name: 'English (GB)',
+          default_language: true
+        },
+        'English(US)' => {
+          abbreviation: 'en_US',
+          description: '',
+          name: 'English (US)',
+          default_language: false
         },
         'FR' => {
-            abbreviation: 'fr',
-            description: '',
-            name: 'fr',
-            default_language: false
+          abbreviation: 'fr',
+          description: '',
+          name: 'Français',
+          default_language: false
         },
         'DE' => {
             abbreviation: 'de',
             description: '',
-            name: 'de',
+            name: 'Deutsch',
             default_language: false
+        },
+        'Español' => {
+          abbreviation: 'es',
+          description: '',
+          name: 'Español',
+          default_language: false
         }
     }
 
@@ -135,6 +147,80 @@ namespace :migrate do
         region.description = details[:description]
         region.name = details[:name]
         region.save!
+      end
+    end
+
+  end
+
+  desc "enforces unique dmptemplate_id for templates"
+  task unique_dmptemplate_id: :environment do
+    Template.where('dmptemplate_id = customization_of').each do |temp|
+    # iterate over all templates ____WITH POTENTIALLY BAD DATA ______
+      same_dmptemp = Template.where(org_id: temp.org_id, customization_of: temp.customization_of).where('customization_of <> dmptemplate_id').first
+      if same_dmptemp.present?
+        temp.dmptemplate_id = same_dmptemp.dmptemplate_id
+        # use that dmptemplate_id
+      else
+        # generate a new dmptemplate_id
+        temp.dmptemplate_id = loop do
+          random = rand 2147483647  # max int field in psql
+          break random unless Template.exists?(dmptemplate_id: random)
+        end
+      end
+      temp.save!
+    end
+  end
+
+  desc "replaces languages in incorrect formats and seeds all correct formats"
+  task fix_languages: :environment do
+    languages = [
+      { abbreviation: 'en_GB',
+        old_abbreviation: 'en-UK',
+        description: '',
+        name: 'English (GB)',
+        default_language: true},
+      { abbreviation: 'en_US',
+        old_abbreviation: 'en-US',
+        description: '',
+        name: 'English (US)',
+        default_language: false},
+      { abbreviation: 'fr',
+        old_abbreviation: 'fr',
+        description: '',
+        name: 'Français',
+        default_language: false},
+      { abbreviation: 'de',
+        old_abbreviation: 'de',
+        description: '',
+        name: 'Deutsch',
+        default_language: false},
+      { abbreviation: 'es',
+        old_abbreviation: 'es',
+        description: '',
+        name: 'Español',
+        default_language: false}
+    ]
+
+    languages.each do |lang_data|
+      # if the old abbreviation exists, remove and replace the data
+      lang = Language.find_by(abbreviation: lang_data[:old_abbreviation])
+      if lang.present?
+        lang.abbreviation = lang_data[:abbreviation]
+        lang.description = lang_data[:description]
+        lang.name = lang_data[:name]
+        lang.default_language = lang_data[:default_language]
+        lang.save!
+      else
+        # if nothing batching either abbreviation exists, replace with new abbreviation
+        lang = Language.find_by(abbreviation: lang_data[:abbreviation])
+        if lang.blank?
+          lang = Language.new
+          lang.abbreviation = lang_data[:abbreviation]
+          lang.description = lang_data[:description]
+          lang.name = lang_data[:name]
+          lang.default_language = lang_data[:default_language]
+          lang.save!
+        end
       end
     end
 

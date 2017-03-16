@@ -14,29 +14,24 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    redirect_to root_url, alert: I18n.t('unauthorized')
+    redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
   end
 
   before_filter :set_gettext_locale
 
   after_filter :store_location
 
+  # Sets FastGettext locale for every request made
   def set_gettext_locale
-    if params[:locale] and FastGettext.default_available_locales.include?(params[:locale])
-      FastGettext.locale = params[:locale]
-    elsif user_signed_in? and !current_user[:language_id].nil?
-      FastGettext.locale = Language.find_by_id(current_user[:language_id]).abbreviation #Relies on successful db call
-    elsif user_signed_in? and current_user.org.present? and !current_user.org[:language_id].nil?
-      FastGettext.locale = Language.find_by_id(current_user.org[:language_id]).abbreviation #Relies on successful db call
-    else
-      FastGettext.locale = FastGettext.default_locale
-    end
-    puts 'FastGettext.locale = '+FastGettext.locale
+    FastGettext.locale = session[:locale] || FastGettext.default_locale
   end
 
-  # Added setting for passing local params across pages
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
+  # PATCH /locale/:locale REST method
+  def set_locale_session
+    if FastGettext.default_available_locales.include?(params[:locale])
+      session[:locale] = params[:locale]
+    end
+    redirect_to root_path
   end
 
   def store_location
