@@ -62,7 +62,7 @@ gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
 gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
-gem 'recaptcha'
+gem 'recaptcha', '>= 4.0'
 gem 'dragonfly'                         # LOGO UPLOAD
 
 # ------------------------------------------------
