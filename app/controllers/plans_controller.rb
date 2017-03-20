@@ -36,34 +36,39 @@ class PlansController < ApplicationController
   def create
     if user_signed_in? then
       @plan = Plan.new
-      authorize @plan
       @plan.save
+      authorize @plan
 
-      funder_id = params[:plan][:funder_id]
-      if !funder_id.blank?
-        # get all funder @templates
-        funder = Org.find(params[:plan][:funder_id])
-        @templates = get_most_recent( funder.templates.where("published = ?", true).all )
-
-        orgtemplates = current_user.org.templates.all
-        replacements = []
-
-        # replace any that are customised by the org
-        orgtemplates.each do |orgt|
-          base_template = orgt.customization_of 
-          @templates.delete(base_template)
-          replacements << orgt
-        end
-        @templates + replacements
-
+      if params[:template_id]
+        @templates = [ Template.find(params[:template_id] ) ]
       else
-        # get all org @templates which are not customisations
-        @templates = current_user.org.templates.where(customization_of: nil)
 
-        # if none of these get the basic dcc template
-        if @templates.blank?
-          @templates = Template.find_by_is_default(true)
-        end
+          funder_id = params[:plan][:funder_id]
+          if !funder_id.blank?
+            # get all funder @templates
+            funder = Org.find(params[:plan][:funder_id])
+            @templates = get_most_recent( funder.templates.where("published = ?", true).all )
+
+            orgtemplates = current_user.org.templates.all
+            replacements = []
+
+            # replace any that are customised by the org
+            orgtemplates.each do |orgt|
+              base_template = orgt.customization_of 
+              @templates.delete(base_template)
+              replacements << orgt
+            end
+            @templates + replacements
+
+          else
+            # get all org @templates which are not customisations
+            @templates = current_user.org.templates.where(customization_of: nil)
+
+            # if none of these get the basic dcc template
+            if @templates.blank?
+              @templates = Template.find_by_is_default(true)
+            end
+          end
       end
 
       # if we have more than one template then back to the user
@@ -89,7 +94,6 @@ class PlansController < ApplicationController
       
       respond_to do |format|
         if @plan.save
-          #format.html { redirect_to({:action => "show", :id => @plan.slug, :show_form => "yes"}, {:notice => I18n.t('helpers.project.success')}) }
           format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }, {:notice => _('Plan was successfully created.')}) }
         else
           @error = "Something went wrong" 
