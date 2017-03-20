@@ -47,13 +47,13 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     get public_export_path(locale: I18n.locale, id: @public_plan)
     
     assert_redirected_to "#{public_plans_path}", "expected to be redirected to the home page!"
-    assert_equal I18n.t('helpers.settings.plans.errors.no_access_account'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
+    assert_equal _('This account does not have access to that plan.'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
     
     sign_in User.first
     
     get public_export_path(locale: I18n.locale, id: @public_plan)
     
     assert_redirected_to "#{public_plans_path}", "expected to be redirected to the home page!"
-    assert_equal I18n.t('helpers.settings.plans.errors.no_access_account'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
+    assert_equal _('This account does not have access to that plan.'), flash[:notice], "Expected an unauthorized message when trying to export a plan (via the public_export route) when the plan is not actually public"
   end
 end

@@ -23,7 +23,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     
     assert_response :success
-    assert_equal I18n.t('helpers.you_must_accept'), flash[:alert]
+    assert_equal _('You must accept the terms and conditions to register.'), flash[:alert]
   end
   
   # -------------------------------------------------------------
@@ -43,7 +43,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       follow_redirect!
     
       assert_response :success
-      assert_equal I18n.t('helpers.error_registration_check'), flash[:alert]
+      assert_equal _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.'), flash[:alert]
     end
   end
   
@@ -66,7 +66,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       follow_redirect!
       assert_response :success
       assert_equal I18n.t('devise.registrations.signed_up_but_unconfirmed'), flash[:notice]
-      assert_select '.welcome-message h2', I18n.t('welcome_title')
+      assert_select '.welcome-message h2', _('Welcome.')
       
       cntr += 1
     end
@@ -79,7 +79,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     get edit_user_registration_path
     
     assert_response :success
-    assert_select '.main_page_content h1', I18n.t('helpers.edit_profile')
+    assert_select '.main_page_content h1', _('Edit profile')
     
   end
   
@@ -91,7 +91,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   
     assert_response :success
     assert_equal nil, flash[:notice]
-    assert_select '.main_page_content h1', I18n.t('helpers.edit_profile')
+    assert_select '.main_page_content h1', _('Edit profile')
   end
   
 # INVALID AUTH REROUTING CHECKS
