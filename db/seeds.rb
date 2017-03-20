@@ -6,8 +6,7 @@
 # -------------------------------------------------------
 identifier_schemes = [
   {name: 'orcid', description: 'ORCID researcher identifiers', active: true},
-  {name: 'shibboleth', description: 'Shibboleth', active: false},
-  {name: 'facebook', description: 'Facebook OAuth', active: false}
+  {name: 'shibboleth', description: 'Shibboleth', active: false}
 ]
 identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
 

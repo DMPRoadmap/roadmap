@@ -14,7 +14,7 @@ namespace :migrate do
     Rake::Task['migrate:seed'].execute
     Rake::Task['migrate:permissions'].execute
   end
-
+  
   desc "seed database with default values for new data structures"
   task seed: :environment do
     # seed roles to database
@@ -226,4 +226,27 @@ namespace :migrate do
 
   end
 
+  desc "move old ORCID from user table to user_identifiers"
+  task move_orcids: :environment do
+    if IdentifierScheme.find_by(name: 'orcid').nil?
+      IdentifierScheme.create!(name: 'orcid', description: 'ORCID', active: true)
+    end
+    
+    scheme = IdentifierScheme.find_by(name: 'orcid')
+      
+    unless scheme.nil?
+      User.all.each do |u|
+        if u.respond_to?(:orcid_id)
+          if u.orcid_id.present? 
+            if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
+              u.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, 
+                                                       identifier: u.orcid_id.gsub('orcid.org/', ''))
+              u.save!
+            end
+          end
+        end
+      end
+    end
+  end
+  
 end
