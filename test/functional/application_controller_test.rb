@@ -17,52 +17,37 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------
   test "make sure unauthorized users are redirected to the root path" do
     plan = Plan.first
-    get plan_path(I18n.locale, plan)
+    get plan_path(plan)
     
-    assert_redirected_to "#{root_path}?locale=#{I18n.locale}"
+    assert_redirected_to "#{root_path}"
   end
 
   # ----------------------------------------------------------------
-  test "we can change the locale by changing the URL" do
-    plan = Plan.first
-    
-    if I18n.available_locales.count > 1
-      # Verify that passing a locale in the URL will set the locale
-      other = I18n.available_locales.last
-      
-      get plan_path(other, plan)
-      assert_redirected_to "#{root_path}?locale=#{I18n.locale}", "Expected the changed locale to appear in the query string"
-      assert_equal other.to_sym, I18n.locale, "Expected the locale to have been set when passing it in URL"
-    end
-  end
-  
-  # ----------------------------------------------------------------
-  test "a user's language specification is used if no locale is passed in the URL" do
-    if I18n.available_locales.count > 1
-      @user.language = Language.find_by(abbreviation: I18n.available_locales.last)
+  test "a user's language specification is set in the session" do
+    if LANGUAGES.count > 1
+      @user.language = LANGUAGES.last
       @user.save!
       
       sign_in @user
       
       get root_path
-      assert_equal @user.language.abbreviation.to_s, I18n.locale.to_s, "Expected the locale to have been set to the user's chosen language"
-      assert "#{plans_path}".starts_with?("/#{@user.language.abbreviation}/"), "Expected the system to use the user's language specification"
+      
+      assert_equal @user.language, session[:locale], "Expected the locale to have been set to the user's chosen language"
     end
   end
   
   # ----------------------------------------------------------------
   test "a user's org language specification is used if no locale is passed in the URL and the user has no language setting" do
-    if I18n.available_locales.count > 1
+    if LANGUAGES.count > 1
       @user.language = nil
-      @user.org[:language_id] = Language.find_by(abbreviation: I18n.available_locales.last).id
+      @user.org[:language_id] = LANGUAGES.last.id
       @user.save!
       
       sign_in @user
       
       get root_path
-      org_lang = Language.find(@user.org[:language_id]).abbreviation 
-      assert_equal org_lang.to_s, I18n.locale.to_s, "Expected the locale to have been set to the org's chosen language"
-      assert "#{plans_path}".starts_with?("/#{org_lang}/"), "Expected the system to use the org's language specification"
+      org_lang = Language.find(@user.org[:language_id]) 
+      assert_equal org_lang, session[:locale], "Expected the locale to have been set to the org's chosen language"
     end
   end
 
