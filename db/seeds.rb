@@ -162,7 +162,7 @@ orgs = [
    abbreviation: 'CC',
    banner_text: 'This is an example organisation',
    org_type: 3,
-   language_id: Language.find_by(abbreviation: I18n.locale).id,
+   language_id: Language.find_by(abbreviation: 'en_GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
    abbreviation: 'GA',
