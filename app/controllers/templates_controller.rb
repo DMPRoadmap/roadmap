@@ -189,12 +189,18 @@ class TemplatesController < ApplicationController
     @template.description = params['template-desc']
     @template.published = false
     @template.version = 0
+    @template.visibility = 0
+    
     # Generate a unique identifier for the dmptemplate_id
     @template.dmptemplate_id = loop do
       random = rand 2147483647
       break random unless Template.exists?(dmptemplate_id: random)
     end
     authorize @template
+    
+    # Auto create a default phase
+    @template.phases << Phase.new({number: 1, title: "#{_('Phase')} 1"})
+    
     if @template.save!
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
