@@ -8,8 +8,6 @@ class ApplicationController < ActionController::Base
   include Pundit
   helper_method GlobalHelpers.instance_methods
 
-  # Override build_footer method in ActiveAdmin::Views::Pages
-  require 'active_admin_views_pages_base.rb'
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 

@@ -1,5 +1,35 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :users
+    resources :orgs
+    resources :perms
+    resources :languages
+    resources :templates
+    resources :token_permission_types
+    resources :phases
+    resources :sections
+    resources :questions
+    resources :question_formats
+    resources :question_options
+    resources :suggested_answers
+    resources :answers
+    resources :guidances
+    resources :guidance_groups
+    resources :themes
+    resources :notes
+    resources :plans
+    resources :plan_guidance_groups
+    resources :identifier_schemes
+    resources :exported_plans
+    resources :regions
+    resources :roles
+    resources :splash_logs
+    resources :user_identifiers
+
+    root to: "users#index"
+  end
+
   devise_for :users, controllers: {
         registrations: "registrations", 
         confirmations: 'confirmations', 
