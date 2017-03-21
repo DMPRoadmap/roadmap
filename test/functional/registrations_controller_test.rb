@@ -61,7 +61,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       post user_registration_path, {user: params}
     
       assert_response :redirect
-      assert_redirected_to "#{root_url}?locale=#{I18n.locale}"
+      assert_redirected_to root_url
     
       follow_redirect!
       assert_response :success

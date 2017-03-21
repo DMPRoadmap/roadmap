@@ -101,7 +101,7 @@ class ActiveSupport::TestCase
     follow_redirects
     
     assert_response :success
-    assert_select '.welcome-message h2', I18n.t('welcome_title')
+    assert_select '.welcome-message h2', _('Welcome.')
   end
   
   # ----------------------------------------------------------------------
@@ -113,7 +113,7 @@ class ActiveSupport::TestCase
     follow_redirects
     
     assert_response :success
-    assert_select '.main_page_content h1', I18n.t("helpers.project.projects_title")
+    assert_select '.main_page_content h1', _('My plans')
   end
   
   # ----------------------------------------------------------------------

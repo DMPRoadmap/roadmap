@@ -23,31 +23,11 @@ class ApplicationController < ActionController::Base
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
-    # If there is no locale set in the session and the current_user exists (meaning the user has just logged in)
-    if session[:locale].nil? && !current_user.nil?
-      if current_user.language.nil?
-        if current_user.org.language.nil?
-          # The User and Org do not have any language specifications so use the default locale
-          session[:locale] = FastGettext.default_locale
-    
-        else
-          # The User does not have a language specification but the Org does
-          session[:locale] = current_user.org.language
-        end
-      
-      else
-        # The User has a language specification
-        session[:locale] = current_user.language
-      end
-    
-      # This doesn't seem to do anything ... the locale never seems to change
-      FastGettext.locale = session[:locale]
-    end
+   FastGettext.locale = session[:locale] || FastGettext.default_locale
   end
 
   # PATCH /locale/:locale REST method
   def set_locale_session
-    
     if FastGettext.default_available_locales.include?(params[:locale])
       session[:locale] = params[:locale]
     end

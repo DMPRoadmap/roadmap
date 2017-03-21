@@ -23,7 +23,7 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
   end
 
   # ----------------------------------------------------------------
-  test "a user's language specification is set in the session" do
+  test "a user's language specification gets picked up and set in the session" do
     if LANGUAGES.count > 1
       @user.language = LANGUAGES.last
       @user.save!
@@ -32,12 +32,12 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
       
       get root_path
       
-      assert_equal @user.language, session[:locale], "Expected the locale to have been set to the user's chosen language"
+      assert_equal @user.language.abbreviation, FastGettext.locale, "Expected the locale to have been set to the user's chosen language"
     end
   end
   
   # ----------------------------------------------------------------
-  test "a user's org language specification is used if no locale is passed in the URL and the user has no language setting" do
+  test "a user's org language specification gets picked up and used if the user has no language setting" do
     if LANGUAGES.count > 1
       @user.language = nil
       @user.org[:language_id] = LANGUAGES.last.id
@@ -47,7 +47,7 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
       
       get root_path
       org_lang = Language.find(@user.org[:language_id]) 
-      assert_equal org_lang, session[:locale], "Expected the locale to have been set to the org's chosen language"
+      assert_equal org_lang.abbreviation, FastGettext.locale, "Expected the locale to have been set to the org's chosen language"
     end
   end
 
