@@ -1,0 +1,12 @@
+<p><%= t('custom_devise.hello') %> <%= @project_group.user.name %></p>
+
+<% 
+access_level = "read-only"
+if @project_group.access_level == 2 then
+	access_level = "editor"
+elsif @project_group.access_level == 3 then
+	access_level = "co-owner"
+end
+%>
+
+<p><%= t('helpers.mailer.permission_relating') %>"<%= link_to @project_group.project.title, url_for(action: 'show', controller: 'projects', id: @project_group.project.id, locale: I18n.default_locale) %>"<%= t('helpers.mailer.changed') %><%= access_level %> <%= t('helpers.mailer.access') %></p>

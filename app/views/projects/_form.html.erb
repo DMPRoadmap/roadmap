@@ -1,0 +1,27 @@
+<div class="project-details-body">
+	<%= form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
+		<div class="field-group">
+			<%= f.label t('helpers.title'), :class => 'left-label' %>
+			<div class="left-field">
+				<%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_name_help_text') %>
+			</div>
+		</div>
+		<div class="field-group">
+			<%= f.label  t('helpers.project.grant_title'), :class => 'left-label' %>
+			<div class="left-field">
+				<%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.grant_help_text') %>
+			</div>
+		</div>
+		<div class="field-group">
+			<%= f.label t('helpers.note'), :class => 'left-label' %>
+			<div class="left-field">
+				<%= f.text_area :note, :class => 'text_area', :rows => 10 %>
+			</div>
+		</div>
+		<div class="form-actions">
+			<%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
+			<%= link_to t("helpers.links.cancel"),
+									projects_path, :class => 'btn' %>
+		</div>
+	<% end %>
+</div>

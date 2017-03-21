@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+#one:
+#  name: MyString
+#  title: MyString
+#  description: MyText
+#  size: 1
+#  published: false
+#  location: MyString
+#  file_type_id: 1
+#
+#two:
+#  name: MyString
+#  title: MyString
+#  description: MyText
+#  size: 1
+#  published: false
+#  location: MyString
+#  file_type_id: 1

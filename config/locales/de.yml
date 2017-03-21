@@ -1,0 +1,713 @@
+de:
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%d-%m-%Y"
+      short: "%d/%m/%Y"
+      custom: "%d/%m/%Y %H:%M"
+      long: "%d %B, %Y"
+
+    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+    abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
+    # Used in date_select and datetime_select.
+    order:
+      - day
+      - month
+      - year
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+      custom: "%d/%m/%Y %H:%M" 
+    am: "am"
+    pm: "pm"
+
+  tool_title: "DMPonline"
+  dmponline3_text: "DMPonline vorherige Version"
+  dcc_name: "Digital Curation Centre"
+  welcome_title: "Willkommen."
+  welcome_text: "<p>DMPonline wurde vom <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> entwickelt, um Sie bei der Erstellung von Data-Managment-Plänen zu unterstützen.</p>"
+  welcome_links: "<p></p>"
+  ccid_message: ""
+
+  unauthorized: "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
+
+  admin:
+    org_title: "Name der Organisation"
+    org: "Organisation"
+    orgs: "Organisationen"
+    org_type: "Art der Organisation"
+    org_parent: "Übergeordnete Organisation"
+    org_created_message: "Organisation wurde erfolgreich angelegt."
+    org_updated_message: "Organisation wurde erfolgreich aktualisiert."
+    org_bad_logo: "Es scheint ein Problem mit unserem Logo zu sein. Bitte laden Sie es erneut."
+    plans: "Pläne"
+    title: "Titel"
+    desc: "Beschreibung"
+    guidance_group: "Hilfestellungsgruppe"
+    no_guidance_group: "Keine Hilfestellungsgruppe"
+    guidance: "Hilfestellung"
+    name: "Name"
+    abbrev: "Abkürzung"
+    question: "Frage"
+    question_format: "Fragenformat"
+    questions: "Fragen"
+    template_title: "Vorlagentitel"
+    section_title: "Abschnittstitel"
+    phase_title: "Phasentitel"
+    version_title: "Versionstitel"
+    user_name: "Nutzername"
+    firstname: "Vorname"
+    surname: "Nachname"
+    user: "Nutzer"
+    user_org_role: "Rolle des Nutzers in der Organisation"
+    user_role_type: "Art der Rolle"
+    user_role: "Nutzerrolle"
+    role: "Rolle"
+    user_status: "Nutzerstatus"
+    user_type: "Nutzerart"
+    last_logged_in: "Zuletzt angemeldet"
+    version_numb: "Versionsnummer"
+    details: "Details"
+    phases: "Phasen"
+    phase: "Phase"
+    version: "Version"
+    versions: "Versionen"
+    sections: "Abschnitte"
+    section: "Abschnitt"
+    multi_options: "Mehrfachfragen-Optionen"
+    templates: "Vorlagen"
+    template: "Vorlage"
+    themes: "Themen"
+    theme: "Thema"
+    sug_answer: "Antwortvorschlag"
+    sug_answers: "Antwortvorschläge"
+    old_temp_field: "altes Vorlagenfeld"
+    old_theme_field: "altes Themenfeld"
+
+
+  org_admin:
+    admin_area: "Administativer Bereich"
+    template_label: "Vorlagen"
+    user_list_label: "Nutzer"
+    org_details_label:  "Organisations-Details"
+    org_text: "Grundlegende Informationen über ihre Organisation."
+    org_abbr_help_text_html: "Dies wird als Bezeichnung an Ihrer Anleitung angezeigt, z.B. 'Kieler Hilfestellung für Metadaten'. Am besten eine Abkürzung oder ein Namenskürzel."
+    users_list: "Liste der Nutzer"
+    user_full_name: "Name"
+    user_name: "E-Mail-Adresse"
+    last_logged_in: "Zuletzt angemeldet"
+    how_many_plans: "Wie viele Pläne?"
+    user_text_html: "Folgend findet sich die Liste von Benutzern registriert bzgl. Ihrer Organisation. Sie können diese Liste bzgl. aller Felder sortieren."
+    org_name: "Name"
+    org_abbr: "Abkürzung"
+    org_logo_failed_message: "Logo Upload fehlgeschlagen."
+    org_logo: "Logo"
+    org_contact_email: "Kontakt Email"
+    org_contact_email_help_text: "Die E-Mail -Adresse des Administrators in Ihrer Organisation. Ihre Benutzer werden diese Adresse verwenden, wenn sie Fragen haben."
+    new_org_logo: "Laden Sie ein neues Logo-Datei"
+    remove_logo: "Wenn Sie die Standard DMPRoadmap Logo verwenden entscheiden , prüfen Sie bitte dieses Feld Ihre aktuelle Logo zu entfernen."
+    org_desc: "Beschreibung"
+    org_target_url: "Web-Seite"
+    org_type: "Organisationsart"
+    parent_org: "Übergeordnete Organisation"
+    last_updated: "Zuletzt aktualisiert"
+    desc_help_text_html: "<div class='tooltip_box'>Bitte beschreibenden Sie Ihre Organisation.</div>"
+    abbre_help_text: "Bitte geben Sie eine Abkürzung für Ihre Organisation an."
+    template_desc_help_text_html: "<div class='tooltip_box'>Geben Sie eine Beschreibung ein, die Ihnen bei der Unterscheidung von Vorlagen hilft,      falls Sie z.B. welche für unterschiedliche Zielgruppen besitzen.</div>" 
+    target_url_help_text: "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
+    name_help_text: "Bitte geben Sie den Namen Ihrer Organisation an."
+    guidance_label: "Hilfestellungen"
+    templates_label: "Vorlagen"
+    add_option_label: "Option hinzufügen"
+    add_question_label: "Frage hinzufügen"
+    add_section_label: "Abschnitt hinzufügen"
+    remove_option_label: "Entfernen"
+    option_order_label: "Reihenfolge"
+    option_text_label: "Text"
+    option_default_label: "Vorgabe"
+    api_privileges: 'API Berechtigungen?'
+    edit_user_privileges: 'Bearbeiten Benutzerberechtigungen'
+
+    guidance:
+      guidance_list: "Liste der Hilfestellungen"
+      text_label: "Text"
+      themes_label: "Themen"
+      question_label: "Frage"
+      by_theme_or_by_question: "Soll diese Hilfestellung angewendet werden auf:"
+      by_themes_label: "Themen"
+      by_question_label: "Fragen"
+      template: "Vorlage"
+      templates: "Vorlagen"
+      guidance_group_label: "Hilfestellungsgruppe"
+      created: "Erstellt"
+      last_updated: "Zuletzt aktualisiert"
+      actions: "Aktionen"
+      add_guidance: "Hilfestellung hinzufügen"
+      created_message: "Hilfestellung erfolgreich angelegt."
+      updated_message: "Hilfestellung erfolgreich aktualisiert."
+      help_text_html: "<div class='tooltip_box'>Bitte geben Sie eine Hilfestellungstext für dieses Thema ein.</div>"
+      new_label: "Neue Hilfestellung"
+      view_all_guidance: "Alle Hilfestellungen ansehen"
+      text_help_text_html: "Hilfestellung hier eingeben; Verweise auf andere Web-Seiten können integriert werden."
+      apply_to_help_text_html: "Entscheiden Sie, ob Ihre Hilfestellung an Themen orientiert dargestellt werden soll (Voreinstellung), oder ob sie eine bestimmte Frage in einer Vorlage betrifft."
+      by_themes_help_text_html: "Wählen Sie die Themen aus, für die diese Hilfestellung relevant ist."
+      by_question_help_text_html: "Wählen Sie die Vorlage, die Phase, die Version, den Abschnitt und die Frage aus den folgenden Auswahllisten aus, um die Frage zu bestimmen, für die diese Hilfestellung angezeigt werden soll."
+      guidance_group_select_help_text_html: "Wählen Sie die Gruppe aus, für die diese Hilfestellung relevant ist."
+      guidance_group_published_help_text_html: "Markieren Sie dieses Kästchen, wenn Sie bereit sind, für diese Anleitung für Benutzer-Pläne zu erscheinen."
+      guidance_text_html: "<p>Sie können eine Hilfestellungtexte erstellen, die im Zusammenhang mit bestimmten Themen angezeigt werden, oder die sich auf eine spezifische Frage beziehen. Generische Hilfestellungen für Themen helfen Zeit und Arbeit zu sparen, da Ihre Hilfestellungen automatisch für alle Vorlagen angezeigt werden; sie müssen andernfalls für jede Vorlage neu erstellt werden.</p>
+      <p>Im Normalfall werden Sie wollen, dass Ihre Orinetierungshilfen in allen Vorlagen angezeigt wird. Ausnahmen sind z.B. Hilfestellungen die spezielle Hinweise für einen Förderer geben.</p>"
+      delete_message: "Sie sind dabei '%{guidance_summary}' zu löschen. Sind Sie sicher?"
+    guidance_group:
+      add_guidance_group: "Gruppe für Hilfestellungen hinzufügen"
+      guidance_group_list: "Liste der Gruppen für Hilfestellungen"
+      name_label: "Name"
+      subset: "Optionale Untergruppe"
+      subset_eg: "z.B. Fakultät / Einrichtung"
+      all_temp: "Alle Vorlagen"
+      help_text_add: "Bitte geben Sie einen Titel für die Gruppe an."
+      subset_option_help_text: "Falls die Hilfestellung nur für eine bestimmte Nutzergruppe, wie z.B. eine bestimmte Fakultät oder ein Institut, bestimmt ist, wählen Sie diese Option aus. Die Nutzer können die Anzeige von Hilfestellungen dieser Untergruppe im 'Plan erstellen'-Assistenten auswählen."
+      template_help_text_html: "Wählen Sie aus, in Vorlagen der Hilfetext angezeigt werden soll. Normalerweise werden dies alle Vorlagen sein."
+      title_help_text_html: "Geben Sie einen geeigneten Namen für Ihre Hilfestellungsgruppe ein, wie z.B. 'CAU Hilfestellungen'. Dieser Name soll den Nutzern vermitteln, woher die Hilfestellung kommt, z.B. 'CAU Hilfestellung zu Metadaten'"
+      guidance_group_text_html: "<p>Erstelle zuerst eine Hilfestellungsgruppe. Diese könnte institutionsweit oder eine Untermenge von z.B. einer bestimmten Universität / Schule, eines Instituts oder einer Abteilung sein. Wenn Sie Hilfestellung erstellen, werden sie aufgefordert sie einer Hilfestellungsgruppe zuzuordnen.</p>"
+      delete_message: "Sie sind dabei '%{guidance_group_name}' zu löschen. Das wird Auswirkungen auf die Hilfestellungen haben. Sind Sie sicher?"
+      created_message: "Hilfestellungsgruppe erfolgreich erzeugt."
+      updated_message: "Hilfestellungsgruppe erfolgreich aktualisiert."
+      destroyed_message: "Hilfestellungsgruppe erfolgreich gelöscht."
+    templates:
+      create_template: "Vorlage erstellen"
+      new_label: "Neue Vorlage"
+      template_details: "Details der Vorlage"
+      edit_details: "Details der Vorlage bearbeiten"
+      view_all_templates: "Alle Vorlagen ansehen"
+      funders_temp: "Vorlagen der Geldgeber"
+      title_help_text: "Bitte geben sie einen Titel für Ihre Vorlage an."
+      section_title_help_text: "Bitte geben sie eine Überschrift für den Abschnitt an."
+      help_text_html: "<div class='tooltip_box'>Bitte geben sie eine Beschreibung der Vorlage für dieses Thema an.</div>"
+      create_own_template_text_html: "<p>Falls Sie eine Vorlage für eine Institution anlegen möchten, können Sie den Knopf 'Vorlage erstellen' nutzen. 
+        Sie können verschiedene Vorlagen erstellen um auf Spezialisierungen einzugehen, z.B. für Forscher und für Doktoranden.</p>"
+      create_new_template_text_html: "<p>Um eine Vorlage anzulegen beginnen sie mit einem Titel und einer Beschreibung. Nach dem Speichern haben Sie die Option zum Anlegen von ein oder mehreren Phasen.</p>"
+      desc_help_text_html: "Geben Sie eine Beschreibung, die hilft, zwischen den verschiedenen Vorlagen zu unterscheiden, z.B. für verschiedene Zielgruppen"
+      own_temp: "Eigene Vorlagen"
+      add_phase_label: "Neue Phase hinzufügen"
+      view_phase_label: "Phase ansehen"
+      edit_phase_label: "Phase bearbeiten"
+      back_to_edit_phase_label: "Zurück, um die Ansicht zu bearbeiten"
+      edit_phase_details_label: "Details der Phase bearbeiten"
+      phase_details_label: "Details der Phase"
+      phase_order_label: "Reihenfolge"
+      phase_details_text_html: "<p>Dieser Titel wird den Nutzern angezeigt. Falls Sie mehrere Phasen für einen DMP haben wollen, sollte dies aus dem Titel und der Beschreibung hervorgehen. </p>"
+      phase_title_help_text: "Geben Sie einen Titel für die Phase an, z.B. Initialer DMP oder Kompletter DMP. Die Titel werden den Benutzern in den Reitern angezeigt, während sie einen Plan erstellen. Falls Sie nur eine Phase bereitstellen, geben Sie ihm einen allgemeinen Titel wie z.B. 'CAU DMP'"
+      phase_number_help_text: "Hier können sie die Abfolge der Phasen in Ihrer Vorlage bestimmen."
+      phase_desc_help_text_html: "Geben Sie eine kurze Beschreibung an. Diese wird den Nutzern oberhalb der Zusammenfassung der Abschnitte und der Fragen, die sie beantowrten müssen, angezeigt."
+      phase_delete_message: "Sie sind dabei '%{phase_title}' zu löschen. Das wird Auswirkungen auf die Versionen, Abschnitte und Fragen haben, die mit dieser Phase verknüpft sind. Sind Sie sicher?"
+      phase_new_text_html:  "Wenn Sie eine neue Phase in einer Vorlage anlegen, wird automatische eine Version erzeugt. Nachdem Sie das folgende Formular ausgefüllt haben, werden Ihnen Optionen zum erstellen von Abschnitten und Fragen angezeigt."
+      versions_label: "Versionen"
+      version_details_label: "Details der Version"
+      add_section: "Abschnitt hinzufügen"
+      new_section: "Neuer Abschnitt"
+      section_title_placeholder: "Neue Abschnittsüberschrift"
+      section_desc_help_text_html: "<div class='tooltip_box'>Geben Sie eine kurze Beschreibung an. Diese sollte zusammenfassen, was von diesem Abschnitt abgedeckt wird, oder Hinweise zur Beantwortung der Fragen geben. Dieser Text wird ein einem farbigen Banner angezeigt, sobald ein Abschnitt zur Bearbeitung geöffnet wird."
+      section_number_help_text: "Hier können Sie die Reihenfolge der Abschnitte bestimmen."
+      add_question: "Frage hinzufügen"
+      created: "Angelegt am"
+      last_updated: "Zuletzt aktualisiert"
+      published_label: "Veröffentlicht"
+      cannot_publish: "Bitte erstellen Sie mindestens eine Phase mit einer einer veröffentlichten Version."
+      title_label: "Titel"
+      desc_label: "Beschreibung"
+      actions: "Aktionen"
+      customise: "Anpassen"
+      edit_customisation: "Anpassungen bearbeiten"
+      created_message: "Information wurde erfolgreich angelegt."
+      updated_message: "Information wurde erfolgreich aktuallisiert"
+      destroyed_message: "Information wurde erfolgreiche entfernt."
+      section_delete_message: "Sie sind dabei '%{section_title}' zu entfernen. Das wird Auswirkungen auf die Fragen haben, die mit diesem Abschnitt verbunden sind. Sind Sie sicher?"
+    versions:
+      clone_versions_label: "Wesentliche Änderungen vornehmen"
+      edit_versions_label: "Kleine Änderungen vornehmen"
+      edit_label: "Berarbeiten"
+      versions_text_html: "Eine erste Version wird automatisch erzeugt. Falls Sie wesentliche Änderungen vornehmen möchten (z.B. einen neuen Abschnitt oder neue Fragen hinzuzufügen), erstellen Sie bitte eine neue Version. Falls Sie Rechtschreibfehler korrigieren oder kleine Änderungen vornehmen möchten, die keine Aussagen ändern oder hinzufügen, editieren Sie direkt die aktuelle Version."
+      desc_help_text_html: "Geben Sie eine kurze Beschreibung an."
+      delete_message: "Sie sind dabei '%{version_title}' zu löschen. Das wird Auswirkungen auf Abschnitte und Fragen haben, die mit dieser Version verbunden sind. Sind Sie sicher?"
+      edit_alert_label: "Bearbeitungswarnung"
+      edit_alert_text: "Bitte wägen Sie Ihre geplanten Änderungen sorgfältig ab, da dieser Plan bereits publiziert ist und in Benutzung sein könnte."
+    questions:
+      question_text_label: "Fragentext"
+      question_number_label: "Fragennummer"
+      question_edit_button: "Frage bearbeiten"
+      question_delete_button: "Frage löschen"
+      answer_format_label: "Antwortform"
+      example_answer_label: "Beispielantwort"
+      suggested_answer_label: "Antwortvorschlag"
+      suggested_answer_help_text_html: "Hier können Sie einen Text als Beispiel oder Vorschlag angeben, der Nutzern bei der Beantwortung helfen soll. Der Text erscheint oberhalb des Antwortfeldes und kann kopiert und eingefügt werden."
+      suggested_or_example_answer_label: "Antwortvorschlag / Beispiel"
+      suggested_or_example_answer_button: "Antwortvorschlag / Beispiel hinzufügen"
+      edit_suggested_answer_button: "Antwortvorschlag / Beispiel bearbeiten"
+      delete_suggested_answer_message: "Sie sind dabei den Antwortvorschlag / das Beispiel für '%{question_text}' zu löschen. Sind Sie sicher?"
+      default_value_label: "Wertvorgabe"
+      number_help_text: "Hier können sie die Reihenfolge der Fragen innerhalb eines Abschnittes bestimmen."
+      question_format_help_text_html: "Sie haben die Wahl zwischen:
+        <ul>
+          <li>- Textbereiche (große Box für Absätze);</li>
+          <li>- Textfelder (für kurze Antworten);</li>
+          <li>- Checkboxen, die Antwortoptionen in Listen präsentieren und eine Mehrfachauswahl ermöglichen</li>
+          <li>- Optionsfelder, die Antwortoptionen in Listen präsentieren, aus der eine ausgewählt wird</li>
+          <li>- Klapplisten, Eingabelisten wie diese - nur eine Option kann ausgewählt</li>
+          <li>- Mehrfachauswahllisten, die Antwortoptionen in einer scrollbaren Liste präsentieren und Merhfachauswahl durch klicken und gleichzeitiges Drücken der Kommando- bzw. Steuerungstaste erlauben</li>
+        </ul>"
+      default_answer_help_text_html: "Alles, was Sie hier eingeben, wird im Antwortfeld erscheinen. Falls Sie eine Antwort in einem bestimmten Format haben möchten (z.B. als Tabelle) können Sie diesen Stil hier angeben."
+      themes_label: "Themen"
+      question_themes_help_text_html: "<p>Wählen Sie die für diese Frage relevanten Themen aus.</p>
+      <p>Dies erlaubt es, sowohl generischen Hilfestellungen auf Institutions-Ebene, als auch aus anderen Quellen, wie z.B. der DINI, oder jedweder Institute oder Einrichtungen, für die Sie Unterstützung anbieten, einzubeziehen.</p>
+      <p>Sie können mehrere Themen durch klicken und gleichzeitiges Drücken der Steuerungs- bzw. Kommando-Taste auswählen.</p>"
+      default_answer_label: "Vorauswahl"
+      guidance_label: "Hilfestellung"
+      question_guidance_help_text_html: "Geben Sie spezifische Hilfestellung an, die diese Frage begleiten soll. Falls Sie auch Hilfestellungen nach Themen angeben, werden diese mit angezeigt; Sie sollten deshalb möglichst wenig Text kopieren."
+      delete_message: "Sie sind dabei '%{question_text}' zu löschen. Sind Sie sicher?"
+      question_options_help_text_html: "Geben Sie alle Optionen an, die angezeigt werden sollen.  Sie können eine der Option als Vorauswahl mit Hilfe der entsprechenden Checkbox markieren."
+
+
+
+
+  helpers:
+    home: "Start"
+    return_home: "Zurück zur Startseite."
+    admin_area: "Superadmin"
+    edit_profile: "Profil bearbeiten"
+    view_plans_label: "Pläne anzeigen"
+    create_plan_label: "Plan erstellen"
+    about_us_label: "Über uns"
+    news_label: "Aktuelles"
+    help_label: "Hilfe"
+    contact_label: "Kontakt"
+    jisc: "Das DCC wird untertützt von"
+
+    greeting: "Hallo"
+    sign_in: "Anmelden"
+    sign_in_text: "Falls Sie ein Benutzerkonto besitzen"
+    sign_out: "Abmelden"
+    sign_up: "Registrieren"
+    sign_up_text: "Neu auf DMPonline? Heute noch registrieren."
+    signed_in: "Angemeldet als "
+    institution_sign_in_link: "Oder melden Sie sich mit den Zugangsdaten Ihres Instituts an"
+    institution_sign_in: ""
+
+    user_name: "E-Mail-Adresse"
+    email: "E-Mail"
+    org_not_listed: "Meine Organisation ist nicht in der Auflistung."
+    email_tip: "This must be a valid email address - a message will be sent to it for confirmation."
+    organisation_name_tip: "Bitte geben Sie den Namen Ihrer Organisation an."
+    password_tip: "Dieses muss mindestends 8 Zeichen lang sein."
+    password_reentry_tip: "Dieses muss mit der Eingabe des vorigen Feldes übereinstimmen."
+    valid_email: "Bitte geben Sie eine gültige E-Mail-Adresse an."
+    user_details_text_html: "<p>Bitte beachten Sie, dass Ihre Email-Adresse als Nutzername verwendet wird. Vergessen Sie nicht, Ihre neue E-Mail-Adresse beim der nächsten Anmeldung zu verwenden, falls Sie diese geändert haben.</p>"
+    user_details_paragraph_html: "Alle folgenden Angaben können bearbeitet werden."
+    remember_me: "angemeldet bleiben"
+
+
+    password: "Passwort"
+    current_password: "Aktuelles Passwort"
+    new_password: "Neues Passwort"
+    password_conf: "Passwort bestätigen"
+    change_password: "Passwort ändern"
+    forgot_password: "Passwort vergessen?"
+    password_too_small: "Ihr Passwort muss mindestens acht Zeichen enthalten."
+    password_no_match: "Die Eingabe in diesem Feld muss mit der im vorherigen Feld übereinstimmen."
+    no_pass_instructions: "Bestätigungsanleitungen nicht erhalten?"
+    no_unlock_instructions: "Entsperrungsanleitungen nicht erhalten?"
+    send_password_info: "Anleitung zum Zurücksetzen des Passworts"
+    edit_password_info: "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
+    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms' target='_blank'>Nutzungsbedingungen</a> *"
+
+    text_area: "Text area"
+    text_field: "Textfeld"
+    radio_buttons: "Optionsfelder"
+    checkbox: "Checkbox"
+    dropdown: "Klappliste"
+    multi_select_box: "Mehrfachauswahlliste"
+
+    error: "Fehler!"
+    comment: "Kommentar"
+    send: "Senden"
+    yes: "Ja"
+    no: "Nein"
+    none: "Keines"
+    title: "Titel"
+    note: "Anmerkung"
+    me: "Ich"
+    view: "Betrachten"
+    desc: "Beschreibung"
+    save: "Speichern"
+    preview: "Vorschau"
+    saving: "Speichere..."
+    loading: "Lade..."
+    removing: "Entferne..."
+    unsaved: "Ungesicherte Änderungen"
+    unlink_account: "Trenne Zugang"
+
+    links:
+      edit: "Bearbeiten"
+      share: "Teilen"
+      export: "Export"
+      destroy: "Löschen"
+
+    submit:
+      edit: "Bearbeiten"
+      create: "Erstellen"
+      update: "Aktualisieren"
+      cancel: "Abbrechen"
+      save: "Speichern"
+      delete: "Löschen"
+      back: "Zurück"
+      discard: "Verwerfen"
+
+    name: "Name"
+    first_name: "Vorname"
+    last_name: "Nachname"
+    first_name_help_text: "Bitte geben Sie ihren Vornamen ein."
+    surname_help_text: "Bitte geben Sie ihren Familien- bzw. Nachnamen ein."
+    owner: "Besitzer"
+    orcid_id: "ORCID Nummer"
+    orcid_html: "ORCID Nummer ist ein persistenter digitaler Identifikator für Forschende. <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>Weitere Informationen…</a>"
+    sign_up_shibboleth_alert_text_html: "Hinweis: If you have previously created an account in DMPonline, and you want to link this to your institutional credentials, you need to <a href='/' class='a_orange'>Sign in</a> to that existing DMPonline account first. If you have never created a DMPonline account, then please complete the form below."
+    shibboleth_linked_text: "Your account is linked to your institutional credentials."
+    shibboleth_to_link_text: "Link your DMP Builder account to your institutional credentials"
+    shibboleth_to_link_question: "link your DMP Builder account to your institutional credentials?"
+    shibboleth_unlink_label: "Unlink your institutional credentials"
+    shibboleth_unlink_alert: "Unlink institutional credentials alert"
+    shibboleth_unlink_dialog_text: "<p>You are about to unlink DMP Builder of your institutional credentials, would you like to continue?</p>"
+    shibboleth_wait_confirmation: "Currently waiting confirmation for:"
+
+    section_label: "Abschnitt"
+    sections_label: "Abschnitte"
+    questions_label: "Fragen"
+    answers_label: "Antworten"
+    answer_questions: "Fragen beantworten"
+    last_edit: "Zuletzt bearbeitet"
+    select_action: "Wählen Sie eine Aktion"
+    answered_by: "Beantwortet "
+    answered_by_part2: " von "
+    suggested_answer: "Antwortvorschlag"
+    suggested_example: "Beispielantwort"
+    notanswered: "Noch nicht beantwortet"
+    noquestionanswered: "Keine der Fragen wurden beantwortet"
+    guidance: "Hilfestellung"
+    policy_expectations: "Policy Expectations"
+    export: "Export"
+    guidance_accordion_label: "Hilfestellung"
+    add_comment_accordion_label: "Füge Kommentar hinzu"
+    comment_accordion_label: "Kommentare"
+
+    comments:
+      add_comment_label: "Füge Kommentar hinzu"
+      add_comment_text: "Bitte füge einen Kommentar hinzu"
+      comment_label: "Kommentar"
+      comments_label: "Kommentare"
+      view_label: "Ansicht"
+      edit_label: "Bearbeiten"
+      retract_label: "Entfernen"
+      clear_label: "Entfernen"
+      commented_by: "Kommentar von:"
+      archive_own_comment_question: "Wollen Sie diesen Kommentar wirklich entfernen?"
+      archive_own_comment_button_label: "Entfernen"
+
+      archive_comment_button_label: "Entfernen"
+      clear_by: "Kommentar entfernt von"
+      retracted: "Kommentar von Ihnen entfernt"
+    
+    failures:
+      email_exists: "Diese E-Mail-Adresse ist bereits registriert."
+      registration_error: "Fehler bei Bearbeitung der Registrierung. Bitte überprüfen Sie, ob sie eine gültige E-Mail-Adresse angegeben haben und Ihr Passwort mindestens 8 Zeichen lang ist."
+    notices:
+      successfully_updated: "Details erfolgreich aktualisiert. "
+      sharing_updated: "Angaben zum Teilen erfolgreich aktualisiert."
+      invitation_issued: "Einladungen erfolgreich ausgestellt."
+      enter_email: "Bitte geben Sie eine E-Mail-Adresse an."
+      access_removed: "Zugriff entfernt."
+      user_added: "Nutzer dem Projekt hinzugefügt."
+      answer_recorded: "Antwort erfolgreich erfasst."
+      answer_saving_error: "Es gab einen Fehler beim Speichern der Antwort."
+      answer_not_changed: "Keine Änderung in Frageninhalt - nicht gespeichert."
+      comment_created: "Kommentar wurde erfolgreich erstellt."
+      comment_updated: "Kommentar wurde erfolgreich aktualisiert."
+      theme_created: "Thema wurde erfolgreich erstellt.."
+      theme_updated: "Thema wurde erfolgreich aktualisiert."
+      page_created: "Seite wurde erfolgreich erstellt."
+      page_updated: "Seite wurde erfolgreich aktualisert."
+      user_created: "Nutzer wurde erfolgreich erstellt.."
+      project_created: "Projekt wurde erfolgreich erstellt."
+      user_org_role_created: "?User?org?role? wurde erfolgreich erstellt."
+      user_org_role_updated: "?User?org?role? wurde erfolgreich aktualisiert."
+      user_role_created: "Nutzerrollentyp wurde erfolgreich erstellt."
+      user_role_updated: "Nutzerrollentyp wurde erfolgreich aktualisiert."
+      user_status_created: "Nutzerstatus wurde erfolgreich erstellt."
+      user_status_updated: "Nutzerstatus wurde erfolgreich aktualisiert."
+      user_type_created: "Nutzertyp wurde erfolgreich erstellt."
+      user_type_updated: "Nutzertyp wurde erfolgreich aktualisiert."
+      link_account_question: "Möchten Sie"
+      account_no_access: "Dieser Zugang hat keinen Zugriff auf jenen Plan."
+      plan_updated: "Plan wurde erfolgreich aktualisiert."
+      settings_updated: "Einstellungen erfolgreich aktualisiert."
+      
+    progress_bar:
+      answered: "beantwortet"
+      question: "Frage"
+      questions: "Fragen"
+
+    org_type:
+      funder: "Funder"
+      institution: "Institution"
+      project: "Projekt"
+      organisation: "Organisation"
+      org_name: "Name der Organisation"
+      school: "Fakultät"
+      publisher: "Verleger"
+      other_guidance: "Andere Hilfestellungen"
+      template: "Vorlage"
+      templates: "Vorlagen"
+      child: "Untereinheit"
+      other_org_help_text: "Bitte geben Sie den Namen Ihrer Organisation an."
+      org_select_text: "Bitte eine Organisation auswählen: "
+
+    project:
+      create: "Ja, Plan erstellen"
+      edit: "Plandetails bearbeiten"
+      grant_title: "Förderkennzeichen"
+      grant_help_text: "Das Förderkennzeichen als Referenz, sofern sinnvoll (Nur für Datenmanagement-Pläne nach der Bewilligung)."
+      not_applicable: "Nicht anwendbar / nicht gelistet."
+      multi_templates: "Es stehen verschiedene mögliche Vorlagen zur Auswahl. Bitte wählen Sie eine aus."
+      project_name: "Name des Plans"
+      my_project_name: "Mein Plan"
+      success: "Plan wurde erfolgreich angelegt."
+      principal_investigator: "Projektleitung / Principal Investigator"
+      principal_investigator_help_text: "Name des Principal Investigators oder der Leitung des Projektes."
+      principal_investigator_id: "Principal Investigator ID"
+      principal_investigator_id_help_text: "z.B. die ORCID (http://orcid.org/)."
+      funder_help_text: "Der Geldgeber, falls relevant."
+      funder_name: "Name des Geldgebers"
+      project_question_desc_label: "Zusammenfassung der Fragen"
+      tab_plan: "Plandetails"
+      tab_export: "Export"
+      export_text_html: "<p>Hier können Sie Ihren Plan in verschiedenen Formaten herunterladen.  Das kann nützlich sein, falls Sie den Plan als Teil Ihres Projektantrags einreichen müssen.</br>
+        Wählen Sie das gewünschte Format aus und wählen Sie 'Exportieren'.</p>"
+      questions_answered: "Fragen beantwortet"
+      not_saved_answers_text_alert: "Geänderte Antworten wurden nicht gesichert:"
+      not_saved_answers_confirmation_alert: "Wollen Sie sie jetzt sichern?"
+      not_saved_answers_header: "Ungesicherte Antworten"
+      project_data_contact: "Kontakt für Plan-Daten"
+      project_data_contact_help_text: "Name (falls abweichend von obigen Angaben), Telefonnummer und E-Mail-Adresse."
+      project_name_help_text: "Falls Sie einen Förderantrag stellen, geben Sie bitte den Namen exakt genau so an, wie im Förderantrag."
+      project_desc_help_text_html: "<div class='tooltip_box'> <h4>Zu berücksichtigende Fragen:</h4> <ul> <li>- Welcher Art ist Ihr Forschungsproject?</li> <li>- Welche Forschungsfragen sollen im Projekt bearbeitet werden?</li> <li>- Welchem Zweck werden die erzeugten oder gesammelt Daten dienen?</li> </ul> <h4>Hilfestellung:</h4> <p>Fassen Sie die Art der Studien / Untersuchungen zusammen, um Dritten den Zweck der erzeugten oder gesammelt Daten zu veranschaulichen.</p> </div>"
+      project_identifier: "ID"
+      project_identifier_help_text: "Eine Identifikationskürzel, wie es von Förderern oder Institutionen vergeben wird."
+      project_static_info: "Dieser Plan basiert auf:"
+      projects_title: "Meine Pläne"
+      project_settings_text: "Die hier ausgewählten Einträge werden in der Tabelle unten angezeigt. Sie können die Daten durch jeden ihrer Tabellenköpfe sortieren oder filtern, indem Sie eine Zeichenkette in der Suchbox eingeben."
+      project_text_when_no_project: "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
+      project_text_when_project: "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
+      confirmation_text: "Plandetails bestätigen"
+      confirmation_text_desc: "An Stellen, an denen Förderer oder Institutionen keine spezifischen Anforderung definiert haben (oder Sie entsprechende Angaben nicht gemacht haben), wird Ihnen die DCC Checkliste angezeigt. Diese bietet eine generische Fragen und Hilfestellungen; Mehr Informationen unter: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP Check-Liste 2013</a>."
+      confirmation_button_text: "Ja, Plan erstellen"
+      project_details_text_html: "Diese Seite bietet Ihnen einen Überblick über Ihren Plan. Sie gibt an, worauf dieser Plan basiert und gibt eine Übersicht über die Fragen, die gestellt werden."
+      project_details_editing_text_html: "Bitte geben Sie im Folgenden die Projektdetails an und wählen 'Aktualisieren' aus, um die Änderungen zu speichern."
+      confirm_delete_text: "Sind Sie sicher, dass sie diesen Plan löschen wollen?"
+      default_confirmation_text_desc: "Sie haben den Standardplan gewählt, der auf dem Katalog der DCC basiert. Dies bietet eine generische Menge von DMP-Fragen and Hilfestellung. Für mehr Einzelheiten: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
+      default_confirmation_button_text: "Erstelle Plan"
+      alert_default_template_text_html: "Bitte beachten: %{org_name} stellt eine DMP-Vorlage zur Verfügung. Wenn Sie sie benutzen möchten, wähle 'Abbrechen', ansonsten wähle 'Erstelle Plan'"
+      share:
+        tab_share: "Teilen"
+        shared_label: "Geteilt?"
+        share_text_html: "<p>Sie können anderen Zugriff zu Ihren Plan gewähren. Es gibt hierbei drei Abstufungen des Zugriffs.
+        <ul>
+        <li>Benutzer mit 'nur lesen'-Rechten können den Plan nur lesen.</li>
+        <li>Bearbeiter können zum Plan beitragen.</li>
+        <li>Miteigentümer können zum Plan beitragen und zusätzlich die Plandetails und die Zugriffsrechte bearbeiten.</li>
+        </ul></p>
+        <p>Neue Mitarbeitende können durch die Angabe ihrer E-Mail-Adresse und das Wählen des Zugriffsrechts hinzugefugt werden. Bestätigen Sie Ihre Angaben mit 'Mitarbeitende(n) hinzufügen'</p>
+        <p>Eingeladene Mitarbeitende erhalten eine E-Mail, die sie darüber informiert, dass sie Zugriff zu Ihrem Plan erhalten haben; sofern Mitarbeitende noch nicht bei DMPonline registriert sind, erhalten sie eine Einladung zur Registrierung. Wenn die Zugriffsrechte geändert werden wird ebenfalls eine Benachrichtigungs-E-Mail versand.</p>"
+        collaborators: "Mitarbeitende"
+        add_collaborator: "Mitarbeitende(n) hinzufügen"
+        add: "Hinzufügen"
+        permissions: "Zugriffsrechte"
+        permissions_desc: "Editoren können zu Plan beitragen. Miteigentümer haben zusätzliche Rechte um Plandetails und Zugriffsrechte bearbeiten zu können."
+        remove: "Mitarbeitende(n) entfernen"
+        confirmation_question: "Sind Sie sicher?"
+        owner: "Besitzer"
+        co_owner: "Miteigentümer"
+        edit: "Bearbeiten"
+        read_only: "Nur Lesen"
+        locked_section_text: "Dieser Abschnitt ist gespert wegen Bearbeitung durch "
+        email_text: "<p>Ihnnen wurde '%{access_level}'-Zugriff auf den DMP %{project_link}. gegeben.</p>"
+        permission_email_text: "<p>Ihre Befugnisse bzgl. des DMP '%{project_link}' haben sich geändert. Sie besitzen jetzt %{access_level}-Zugriff.</p>"
+        access_removed_email_text: "<p>Ihr Zugriff auf den DMP '%{project_title}' wurde entzogen.</p>"
+      export:
+        generated_by: "This document was generated by DMP Builder (http://dmp.library.ualberta.ca)"
+      create_page:
+        title: "Einen neuen Plan erstellen"
+        desc_html: "<p>Bitte wählen Sie aus folgendem Drop-Down-Menü, so dass wir bestimmen können, welche Fragen und Hilfestellungen in Ihrem Plan angezeigt werden sollen.</p>
+        <p>Falls Sie nicht den spezifischen Anforderungen eines Geldgebers oder einer Institution folgen,
+        <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>
+        wählen Sie hier, um einen generischen DMP zu schreiben</a> , der auf den allgemeinsten Themen basiert.</p>"
+        default_template: "Standard DMP"
+        funders_question: "Falls Sie Fördermittel beantragen, wählen Sie bitte den Förderer aus."
+        funders_question_description: "Falls nicht, lassen Sie dieses Feld bitte unberührt."
+        institution_question: "Um Fragen und Hilfestellung einer bestimmten Organisation zu integrieren, wählen Sie diese bitte aus."
+        institution_question_description: "Sie können eine beliebige Organisation wählen, oder das Feld leer lassen."
+        other_guidance_question: "Wählen Sie jede beliebige andere Quelle für Hilfestellungen."
+        other_funder_name_label: "Name des Geldgebers, falls anwendbar."
+      configure: "Konfigurieren"
+      columns:
+        name: "Name"
+        owner: "Besitzer"
+        shared: "Geteilt?"
+        template_owner: "Vorlagenbesitzer"
+        last_edited: "Zuletzt bearbeitet"
+        identifier: "Bezeichner"
+        grant_number: "Zuschussnummer"
+        principal_investigator: "Principal Investigator / Researcher"
+        data_contact: "Plandatenkontakt"
+        description: "Beschreibung"
+        unknown: " - "
+      filter:
+        placeholder: "Filter Pläne"
+        submit: "Filter"
+        cancel: "Abbrechen"
+        no_matches: "Kein Plan erfüllt '%{filter}'"
+    plan:
+      export:
+        default_title: "DMP Titel"
+        pdf:
+          question_not_answered: "Frage nicht beantwortet."
+          generated_by: "Dieses Dokument wurde von DMPonline (http://dmponline.dcc.ac.uk) erzeugt."
+        space_used: "annährend %{space_used}% des verfügbaren Platzes wird verwendet (max. %{num_pages} Seiten)"
+        project_name: "Planenname"
+        project_identifier: "Planenbezeichner"
+        grant_title: "Grantnummer"
+        principal_investigator: "Principal Investigator / Forscher"
+        project_data_contact: "Kontakt für Planen"
+        project_description: "Beschreibung"
+        funder: "Geldgeber"
+        institution: "Institution"
+
+    settings:
+      title: "Einstellungen"
+      projects:
+        title: "Einstellungen - Meine Pläne"
+        desc: "Die untere Tabelle listet die verfügbaren Spalten auf, welche in der Liste 'Meine Pläne' gezeigt werden können.
+          Wählen Sie, welche erscheinen sollen."
+        errors:
+          no_name: "'Name' muss in der Liste von Spalten enthalten sein."
+          duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
+          unknown: "Unbekannter Spaltenname."
+      plans:
+        title: "Dateiname"
+        reset: "Zurücksetzen"
+        custom_formatting: "(Verwende eigene Werte bei PDF-Formatierung)"
+        template_formatting: "(Verwende Vorlagenwerte bei PDF-Formatting)"
+        default_formatting: "(Verwende standardmäßige Werte bei PDF-Formatierung)"
+        included_elements: "Enthaltene Elemente"
+        pdf_formatting: "PDF Formatierung"
+        font: "Schrift"
+        font_face: "Schriftart"
+        font_size: "Größe"
+        margin: "Rand"
+        margins:
+          top: "Oben"
+          bottom: "Unten"
+          left: "Links"
+          right: "Rechts"
+        max_pages: "Maximale Anzahl von Seiten"
+        errors:
+          missing_key: "Eine benötigte Einstellung wurde nicht erbracht"
+          invalid_margin: "Randwert ist ungültig"
+          negative_margin: "Rand darf nicht negativ sein"
+          unknown_margin: "Unbekannter Rand. Kann nur 'oben', 'unten', 'links' oder 'rechts' sein"
+          invalid_font_size: "Ungültige Schriftgröße"
+          invalid_font_face: "Ungültige Schriftart"
+          unknown_key: "Unbekannte Formatierungseinstellung"
+          invalid_max_pages: "Ungültige maximale Anzahl von Seiten"
+    mailer:
+      sharing_notification: "Ihnen wurde Zugang zu einem Datenmanagementplan gewährt"
+      permissions_change: "DMP-Zulassungen geändert"
+      access_removed: "DMP-Zugriff entfernt"
+
+  footer:
+    terms_of_use: "<p><a href='http://www.uni-kiel.de'>Universität Kiel</a>, Kiel, SH, Deutschland <br/><a href='/terms'>Nutzungsbedingungen</a></p>"
+
+  js:
+    question_text_empty: 'Question text is empty, please enter your question.'
+    add_guidance_text: "add guidance text"
+    select_question: "select a question"
+    select_at_least_one_theme: "select at least one theme"
+    select_guidance_group: "select a guidance group"
+    enter_up_to: "Please only enter up to 165 characters, you have used"
+    if_using_url_try: "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+    you_have_unsaved_in_sections: 'You have unsaved answers in the following sections:\n'
+
+  custom_devise:
+    resend_confirmation: "Resend confirmation instructions"
+    welcome_to_DMP: "Welcome to %{application_name}"
+    thank_you_and_confirm: "Thank you for registering at %{application_name}. Please confirm your email address:"
+    click_to_confirm: "Click here to confirm your account"
+    1st_part_copy: "(or copy"
+    2nd_part_copy: "into your browser)."
+    colleague_invited_you: "A colleague has invited you to contribute to their Data Management Plan at"
+    click_to_accept: "Click here to accept the invitation"
+    ignore_wont_be_created: "<p>If you don't want to accept the invitation, please ignore this email.<br />
+    Your account won't be created until you access the link above and set your password.</p>"
+    1st_part_change_password: "Someone has requested a link to change your"
+    2nd_part_change_password: "password. You can do this through the link below."
+    ignore_password_wont_be_changed: "<p>If you didn't request this, please ignore this email.</p>
+     <p>Your password won't change until you access the link above and create a new one.</p>"
+    hello: "Hello"
+    1st_part_locked: "Your "
+    2nd_part_locked: " account has been locked due to an excessive number of unsuccessful sign in attempts."
+    click_to_unlock: "Click the link below to unlock your account:"
+    unlock: 'Unlock my account'
+    waiting_for_confirmation: "Currently waiting confirmation for: "
+    resend_unlock: "Resend unlock instructions"
+
+  api:
+    bad_credentials: '{"Error":"Bad credentials"}'
+    org_dosent_exist: '{"Error":"Organisation does not exist"}'
+    org_not_funder: '{"Error":"Organisation specified is not a funder"}'
+    org_multiple_templates: '{"Error":"Organisation has more than one template and template name unspecified or invalid"}'
+    no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
+    bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
+
+  magic_strings:
+    organisation_types:
+      funder: 'Funder'
+      organisation: 'Organisation'
+      project: 'Project'
+      institution: 'Institution'
+      research_institute: 'Research Institute'
+      template: 'Template'
+      managing_organisation: 'Digital Curation Centre'
+    user_role_types:
+      super_admin: 'admin'
+      organisational_admin: 'org_admin'
+      user: 'user'
+      add_organisations: 'add_organisations'
+      change_org_affiliation: 'change_org_affiliation'
+      grant_permissions: 'grant_permissions'
+      modify_templates: 'modify_templates'
+      modify_guidance: 'modify_guidance'
+      use_api: 'use_api'
+      change_org_details: 'change_org_details'
+      grant_api_to_orgs: 'grant_api_to_orgs'
+    api_endpoint_types:
+      guidances: 'guidances'
+      plans: 'plans'
+      templates: 'templates'
+      statistics: 'statistics'
+    languages:

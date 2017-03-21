@@ -1,0 +1,80 @@
+<!--table displaying comments for this question and actions-->
+<% if comments.count > 1 then%>
+    <% style_to_add =  "height:150px; overflow-y:auto;" %>
+<%else%>
+    <% style_to_add = "" %>
+<%end%>
+<div class="two-column-clear question-divider"></div>
+<div class="div-table-content" style ="<%= style_to_add %>">
+    <table class="dmp_table" id="dmp_table">
+        <tbody class= "comment_table_body">
+            <% comments.order("updated_at DESC").each do |c|%>
+                <tr >
+                    <td class="dmp_border_bottom">
+                        <% user = User.find(c.user_id) %>
+                        <%= user.name %> </br>
+                        (<%= l c.updated_at, format: :custom %>)
+                    </td >
+                    <td  class="dmp_border_bottom">
+                        <% if c.archived == true then %>
+                            <% if c.archived_by == current_user.id then%>
+                                <%= t("helpers.comments.retracted")%>
+                            <% else %>    
+                                <% archived_by_user = User.find(c.archived_by) %>
+                                <%= t("helpers.comments.clear_by")%> <%= archived_by_user.name %>
+                            <%end%>    
+                        <%else%>
+                            <%= link_to t("helpers.comments.view_label"),"#", :class => "dmp_table_link view_comment_button" %>
+                            <%= hidden_field_tag :comment_id, c.id, :class => "comment_id" %>
+                            <% if current_user.id == c.user_id then %>
+                                <%= link_to t("helpers.comments.edit_label"),"#", :class => "dmp_table_link edit_comment_button" %>
+                                
+                                <%= hidden_field_tag :comment_id, c.id, :class => "comment_id" %>
+                                <%= link_to t("helpers.comments.retract_label"),"#", :class => "dmp_table_link archive_comment_button" %>
+                            <% end%>    
+                            <% project_id = Plan.find(c.plan_id).project_id%>
+                            <% if (Project.find(project_id).administerable_by(current_user.id) && current_user.id != c.user_id )then%>
+                                <%= hidden_field_tag :comment_id, c.id, :class => "comment_id" %>
+                                <%= link_to t("helpers.comments.clear_label"),"#", :class => "dmp_table_link archive_comment_button" %>
+                            <% end%>
+                        <%end%>    
+                    </td>	
+                </tr>
+                
+            <%end%>
+        </tbody>
+    </table>
+</div>
+
+<div class="two-column-clear question-divider"></div>
+
+<!-- view latest comment block -->
+<% comments_not_archived = comments.where("archived IS NULL") %>
+<% latest_comment = comments_not_archived.order("updated_at DESC").first %>
+<% if !latest_comment.nil? then%>
+    <div id = "lastet_comment_div_<%= latest_comment.question_id %>" class ="view_comment_class">
+        <%= render :partial => "view_comment", locals: {comment: latest_comment} %> 
+        <div class="two-column-clear question-divider"></div>
+    </div>
+<%end%>    
+<!-- load comments to view and edit -->   
+<%comments.order("updated_at DESC").each do |com|%>    
+    <!-- view comment -->
+    <div id = "view_comment_div_<%= com.id%>" class ="view_comment_class" style="display: none">
+        <%= render :partial => "view_comment", locals: {comment: com} %> 
+        <div class="two-column-clear question-divider"></div>
+    </div>
+    
+    <!-- edit comment block -->
+    <div id = "edit_comment_div_<%= com.id %>"  class ="edit_comment_class" style="display: none">
+        <%= render :partial => "edit_comment", locals: {comment: com} %>
+        <div class="two-column-clear question-divider"></div>
+    </div>   
+    
+    <!-- archive comment block -->
+    <div id = "archive_comment_div_<%= com.id %>"  class ="archive_comment_class" style="display: none">
+        <%= render :partial => "archive_comment", locals: {comment: com} %>
+        <div class="two-column-clear question-divider"></div>
+    </div> 
+ 
+ <%end%>  

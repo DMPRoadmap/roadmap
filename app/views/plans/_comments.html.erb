@@ -1,0 +1,35 @@
+<!-- builds the comments box, it receives a question id and a object plan-->
+
+<!-- if there are comments then list of comments and view last comment
+    else display display add comment form -->
+ 
+<% @comments = Comment.where("question_id = ? AND plan_id = ?", questionId, plan_id) %> 
+<%= hidden_field_tag :question_id, questionId, :class => "question_id" %>
+  
+<% if @comments.count  >  0 then%>
+    <!-- add comment -->
+	<div id="add_comment_button_top_div_<%= questionId%>" class="move_2_right" >
+		<%= link_to t("helpers.comments.add_comment_label"),'#', :class => "btn btn-primary add_comment_button" %> 
+        
+	</div>
+    <div class="div_clear">
+    </div>
+    <!-- list of comments, view and edit a comment -->
+    <%= render :partial => "list_comments", locals: {comments: @comments}%>
+     <div class="div_clear">
+    </div>   
+    <!-- add a comment button -->
+    <div id="add_comment_button_bottom_div_<%= questionId%>" class="move_2_right">
+        <%= link_to t("helpers.comments.add_comment_label"),'#', :class => "btn btn-primary add_comment_button" %>
+    </div>
+    <div class="div_clear">
+    </div>
+    <!-- add a comment block -->
+    <div id="add_comment_block_div_<%= questionId%>" style="display: none"> 
+        <%= render :partial => "add_comment", locals: {questionId: questionId, planId: plan_id}%>
+    </div>
+        
+<% else%>
+    <%= t("helpers.comments.add_comment_text")%>
+    <%= render :partial => "add_comment", locals: {questionId: questionId, planId: plan_id}%>
+<% end%>

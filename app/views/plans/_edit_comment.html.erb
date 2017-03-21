@@ -1,0 +1,18 @@
+<!--edit comment to question. comment passed as argument-->
+
+<%= form_for(comment, :url => {:controller => :comments, :action => :update } , :html => { :method => :put, :class => "edit_comment_form", :id=> "edit_comment_form_#{comment.id}"}) do |f| %>
+    <%= f.hidden_field :id, :value => comment.id %>
+	   
+    <%= text_area_tag("#{comment.id}_comment_text".to_sym, comment.text , class: "tinymce") %>
+	<br/>
+		
+	<!-- submit buttons -->
+	<div class="move_2_right">
+        <% question = Question.find(comment.question_id)%>	
+        <%= hidden_field_tag :plan_id, comment.plan_id, :class => "plan_id" %>
+        <%= hidden_field_tag :comment_id, comment.id, :class => "comment_id" %>
+        <%= hidden_field_tag :section_id, question.section_id, :class => "section_id" %>
+		<%= f.submit t("helpers.submit.save"), :class => "btn btn-primary edit_comment_submit_button" %>
+	</div>
+    <br>
+<%end%>

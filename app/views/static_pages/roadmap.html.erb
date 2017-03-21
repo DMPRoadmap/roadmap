@@ -1,0 +1,48 @@
+<script>
+	$(function(){
+	  var hash = window.location.hash;
+	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+	
+	  $('#project-tabs .nav-tabs a').click(function (e) {
+	    $(this).tab('show');
+	    var scrollmem = $('body').scrollTop();
+	    window.location.hash = this.hash;
+	    $('html,body').scrollTop(scrollmem);
+	  });
+	});
+
+</script>
+
+<h1>
+	<%= t("roadmap_page.title")%>
+</h1>
+
+<div id="project-tabs" class="nav-project-tabs">
+	<ul class="nav nav-tabs" data-tabs="tabs">
+		<li class="active"><%= link_to t("roadmap_page.tab_1"), "#FuturePlans", :data => { :toggle => "tab"} %></li>
+        <li><%= link_to t("roadmap_page.tab_2"), "#GetInvolved", :data => { :toggle => "tab"} %></li>
+	</ul>
+</div>
+<div class="dmp_details_body">
+	<div id="my-tab-content" class="tab-content">
+		<div class="tab-pane active" id="FuturePlans">
+			<%= raw t("roadmap_page.body_text_tab_1_html",
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								application_name: Rails.configuration.branding[:application][:name],
+								application_url: Rails.configuration.branding[:application][:url],
+								application_version: Rails.configuration.branding[:application][:version],
+								application_release_notes_url: Rails.configuration.branding[:application][:release_notes_url])%>
+		</div>	
+		<div class="tab-pane" id="GetInvolved">
+			<%= raw t("roadmap_page.body_text_tab_2_html",
+								organisation_name: Rails.configuration.branding[:organisation][:name],
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_url: Rails.configuration.branding[:organisation][:url],
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								application_name: Rails.configuration.branding[:application][:name],
+								application_url: Rails.configuration.branding[:application][:url],
+								application_user_group_subscription_url: Rails.configuration.branding[:application][:user_group_subscription_url])%>
+		</div>		
+	</div>
+</div>

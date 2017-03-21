@@ -1,0 +1,31 @@
+<!-- Sign in / out -->
+<div class="signIn">
+	<ul class="navbar">
+        <% if user_signed_in? %>
+            <li class="dropdown sign_in">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= t("helpers.signed_in")%>
+                    <%= current_user.name %> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" id="signIn_dropdown">
+                    <li><%= link_to t("helpers.edit_profile"), edit_user_registration_path, :class => "signIn_dropdown_link" %></li>
+                    <% if current_user.can_super_admin? %>
+                        <li><%= link_to t("helpers.admin_area"), admin_root_path, :class => "signIn_dropdown_link" %></li>
+                    <%end%>	
+                    <% if current_user.can_org_admin? && !current_user.organisation_id.nil? %>
+<li><%= link_to t("org_admin.admin_area"), admin_index_dmptemplate_path(current_user.organisation_id), :class => "signIn_dropdown_link" %></li>
+                    <%end%>	
+                    <li><%= link_to t("helpers.sign_out"), destroy_user_session_path, method: :delete, :class => "signIn_dropdown_link" %></li>
+                </ul>
+            </li>
+        <% else %>
+            <li>
+            <% unless controller_name == "home" && action_name == "index" then %>
+                <a href="#header-login-form" data-toggle="modal"><%= t("helpers.sign_in")%></a> / 
+                <a href="#header-register-form" data-toggle="modal"><%= t("helpers.sign_up")%></a>
+            <% else %>
+          <%= raw "&nbsp;" %>
+        <% end %>
+            </li>
+        <% end %> 
+    </ul>
+</div>

@@ -1,0 +1,746 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+#Administrative Data
+
+related_policies:
+  text: "Related Policies:"
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are there any existing procedures that you will base your approach on?</li> <li>Does your department/group have data management guidelines?</li> <li>Does your institution have a data protection or security policy that you will follow? - Does your institution have a Research Data Management (RDM) policy?</li> <li>Does your funder have a Research Data Management policy?</li> <li>Are there any formal standards that you will adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>List any other relevant funder, institutional, departmental or group policies on data management, data sharing and data security. Some of the information you give in the remainder of the DMP will be determined by the content of other policies. If so, point/link to them here.</p>"
+  number: 1
+  section: administrative_data
+  themes: related_policies
+
+#Data Collection
+
+what_data_will_you_collect_or_create:
+  text: What data will you collect or create?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What type, format and volume of data?</li> <li>Do your chosen formats and software enable sharing and long-term access to the data?</li> <li>Are there any existing data that you can reuse?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Give a brief description of the data, including any existing data or third-party sources that will be used, in each case noting its content, type and coverage. Outline and justify your choice of format and consider the implications of data format and data volumes in terms of storage, backup and access.</p>"
+  number: 1
+  section: data_collection
+  themes: data_format, data_volumes, data_type, existing_data, description_of_data_content
+
+how_will_the_data_be_collected_or_created:
+  text: How will the data be collected or created?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What standards or methodologies will you use?</li> <li>How will you structure and name your folders and files?</li> <li>How will you handle versioning?</li> <li>What quality assurance processes will you adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline how the data will be collected/created and which community data standards (if any) will be used. Consider how the data will be organised during the project, mentioning for example naming conventions, version control and folder structures. Explain how the consistency and quality of data collection will be controlled and documented. This may include processes such as calibration, repeat samples or measurements, standardised data capture or recording, data entry validation, peer review of data or representation with controlled vocabularies.</p>"
+  number: 2
+  section: data_collection
+  themes: data_capture_methods, data_quality
+
+#Documentation and Metadata
+
+what_documentation_and_metadata_will_acompany_the_data:
+  text: What documentation and metadata will acompany the data?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What information is needed for the data to be to be read and interpreted in the future?</li> <li>How will you capture / create this documentation and metadata?</li> <li>What metadata standards will you use and why?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Describe the types of documentation that will accompany the data to help secondary users to understand and reuse it. This should at least include basic details that will help people to find the data, including who created or contributed to the data, its title, date of creation and under what conditions it can be accessed.</p> <p>Documentation may also include details on the methodology used, analytical and procedural information, definitions of variables, vocabularies, units of measurement, any assumptions made, and the format and file type of the data. Consider how you will capture this information and where it will be recorded. Wherever possible you should identify and use existing community standards.</p>"
+  number: 1
+  section: documentation_and_metadata
+  themes: metadata_capture, documentation, metadata_standards
+
+#Ethics and Legal Compliance
+
+how_will_you_manage_any_ethical_issues:
+  text: How will you manage any ethical issues?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Have you gained consent for data preservation and sharing?</li> <li>How will you protect the identity of participants if required? e.g. via anonymisation</li> <li>How will sensitive data be handled to ensure it is stored and transferred securely?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Ethical issues affect how you store data, who can see/use it and how long it is kept. Managing ethical concerns may include: anonymisation of data; referral to departmental or institutional ethics committees; and formal consent agreements. You should show that you are aware of any issues and have planned accordingly. If you are carrying out research involving human participants, you must also ensure that consent is requested to allow data to be shared and reused.</p>"
+  number: 1
+  section: ethics_and_legal_compliance
+  themes: ethical_issues, data_security
+
+how_will_you_manage_copyright_and_intellectual_property_rights_ipr_issues:
+  text: How will you manage copyright and Intellectual Property Rights (IPR) issues?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who owns the data?</li> <li>How will the data be licensed for reuse?</li> <li>Are there any restrictions on the reuse of third-party data?</li> <li>Will data sharing be postponed / restricted e.g. to publish or seek patents?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>State who will own the copyright and IPR of any data that you will collect or create, along with the licence(s) for its use and reuse. For multi-partner projects, IPR ownership may be worth covering in a consortium agreement. Consider any relevant funder, institutional, departmental or group policies on copyright or IPR. Also consider permissions to reuse third-party data and any restrictions needed on data sharing.</p>"
+  number: 2
+  section: ethics_and_legal_compliance
+  themes: licensing_of_existing_data, ipr_ownership_and_licencing
+
+#Storage and Backup
+
+how_will_the_data_be_stored_and_backed_up_during_the_research:
+  text: How will the data be stored and backed up during the research?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Do you have sufficient storage or will you need to include charges for additional services?</li> <li>How will the data be backed up?</li> <li>Who will be responsible for backup and recovery?</li> <li>How will the data be recovered in the event of an incident?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>State how often the data will be backed up and to which locations. How many copies are being made? Storing data on laptops, computer hard drives or external storage devices alone is very risky. The use of robust, managed storage provided by university IT teams is preferable. Similarly, it is normally better to use automatic backup services provided by IT Services than rely on manual processes. If you choose to use a third-party service, you should ensure that this does not conflict with any funder, institutional, departmental or group policies, for example in terms of the legal jurisdiction in which data are held or the protection of sensitive data.</p>"
+  number: 1
+  section: storage_and_backup
+  themes: active_data_storage, backup_procedures
+
+how_will_you_manage_access_and_security:
+  text: How will you manage access and security?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What are the risks to data security and how will these be managed?</li> <li>How will you control access to keep the data secure?</li> <li>How will you ensure that collaborators can access your data securely?</li> <li>If creating or collecting data in the field how will you ensure its safe transfer into your main secured systems?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>If your data is confidential (e.g. personal data not already in the public domain, confidential information or trade secrets), you should outline any appropriate security measures and note any formal standards that you will comply with e.g. ISO 27001.&quot;</p>"
+  number: 2
+  section: storage_and_backup
+  themes: data_security, managed_access_procedures
+
+#Selection and Preservation
+
+which_data_are_of_long-term_value_and_should_be_retained_shared_and-or_preserved:
+  text: Which data are of long-term value and should be retained, shared, and/or preserved?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What data must be retained/destroyed for contractual, legal, or regulatory purposes?</li> <li>How will you decide what other data to keep?</li> <li>What are the foreseeable research uses for the data?</li> <li>How long will the data be retained and preserved?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider how the data may be reused e.g. to validate your research findings, conduct new studies, or for teaching. Decide which data to keep and for how long. This could be based on any obligations to retain certain data, the potential reuse value, what is economically viable to keep, and any additional effort required to prepare the data for data sharing and preservation. Remember to consider any additional effort required to prepare the data for sharing and preservation, such as changing file formats.</p>"
+  number: 1
+  section: selection_and_preservation
+  themes: data_selection
+
+what_is_the_long-term_preservation_plan_for_the_dataset:
+  text: What is the long-term preservation plan for the dataset?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Where e.g. in which repository or archive will the data be held?</li> <li>What costs if any will your selected data repository or archive charge?</li> <li>Have you costed in time and effort to prepare the data for sharing / preservation?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>Consider how datasets that have long-term value will be preserved and curated beyond the lifetime of the grant. Also outline the plans for preparing and documenting data for sharing and archiving. If you do not propose to use an established repository, the data management plan should demonstrate that resources and systems will be in place to enable the data to be curated effectively beyond the lifetime of the grant.</p>"
+  number: 2
+  section: selection_and_preservation
+  themes: preservation_plan
+
+#Data Sharing
+
+how_will_you_share_the_data:
+  text: How will you share the data?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will potential users find out about your data?</li> <li>With whom will you share the data, and under what conditions?</li> <li>Will you share data via a repository, handle requests directly or use another mechanism?</li> <li>When will you make the data available?</li> <li>Will you pursue getting a persistent identifier for your data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider where, how, and to whom data with acknowledged long-term value should be made available. The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. If possible, mention earlier examples to show a track record of effective data sharing. Consider how people might acknowledge the reuse of your data.</p>"
+  number: 1
+  section: data_sharing
+  themes: method_for_data_sharing
+
+are_any_restrictions_on_data_sharing_required:
+  text: Are any restrictions on data sharing required?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What action will you take to overcome or minimise restrictions?</li> <li>For how long do you need exclusive use of the data and why?</li> <li>Will a data sharing agreement (or equivalent) be required?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline any expected difficulties in sharing data with acknowledged long-term value, along with causes and possible measures to overcome these. Restrictions may be due to confidentiality, lack of consent agreements or IPR, for example. Consider whether a non-disclosure agreement would give sufficient protection for confidential data.</p>"
+  number: 2
+  section: data_sharing
+  themes: restrictions_on_sharing, embargo_period
+
+#Responsibilities and Resources
+
+who_will_be_responsible_for_data_management:
+  text: Who will be responsible for data management?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who is responsible for implementing the DMP, and ensuring it is reviewed and revised?</li> <li>Who will be responsible for each data management activity?</li> <li>How will responsibilities be split across partner sites in collaborative research projects?</li> <li>Will data ownership and responsibilities for RDM be part of any consortium agreement or contract agreed between partners?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline the roles and responsibilities for all activities e.g. data capture, metadata production, data quality, storage and backup, data archiving &amp; data sharing. Consider who will be responsible for ensuring relevant policies will be respected. Individuals should be named where possible.</p>"
+  number: 1
+  section: responsibilities_and_resources
+  themes: responsibilities
+
+what_resources_will_you_require_to_deliver_your_plan:
+  text: What resources will you require to deliver your plan?
+  guidance: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Is additional specialist expertise (or training for existing staff) required?</li> <li>Do you require hardware or software which is additional or exceptional to existing institutional provision?</li> <li>Will charges be applied by data repositories?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Carefully consider any resources needed to deliver the plan, e.g. software, hardware, technical expertise, etc. Where dedicated resources are needed, these should be outlined and justified.</p>"
+  number: 2
+  section: responsibilities_and_resources
+  themes: resourcing_skills_and_training, resourcing_hardware_and_software, resourcing_preservation_and_data_sharing
+
+#Multiple Choice
+
+#single_select_box:
+#  text: Example select box limited to one option
+#  number: 1
+#  section: multiple_choice
+#
+#multiple_select_box:
+#  text: Example select box allowing multiple options
+#  number: 2
+#  section: multiple_choice
+#
+#radio_button:
+#  text: Example radio button
+#  number: 3
+#  section: multiple_choice
+#
+#checkbox:
+#  text: Example checkbox
+#  number: 4
+#  section: multiple_choice
+
+ahrc_1_1:
+  text: Summary of Digital Outputs and Digital Technologies
+  guidance: "<p>You should provide a brief and clear description of the digital output or digital technology being proposed, considering the following aspects: purpose, source data, content, functionality, use and its relationship to the research questions. You should identify the type of access envisaged, if applicable, such as 'freely available online'.</p><p>The summary should provide clear overview of what you intend to achieve technically, to enable reviewers to assess whether the plans for achieving this are appropriate. You should provide a level of detail which is appropriate to the digital output or digital technology being proposed and its cost and status within the project.</p>"
+  number: 1
+  section: ahrc_1
+  themes: description_of_data_content, method_for_data_sharing
+
+ahrc_2_1:
+  text: "Technical Methodology: Standards and Formats"
+  guidance: "<p>You should provide information about your choice of data and file formats. You must provide any relevant vital statistics relating to the data, such as size, quantity and duration. Although such statistics might need to rely on estimation, you should provide the reasoning behind your calculations. You should give your reasons for using the standards or formats chosen.<p>"
+  number: 1
+  section: ahrc_2
+  themes: data_format, data_volumes, data_type
+
+ahrc_2_2:
+  text: "Technical Methodology: Hardware and Software"
+  guidance: "<p>You should provide information about and the rationale for any hardware or software which will be used to support the project’s research methodology, which is additional or exceptional to conventional desk-based research and institutional provision. They should be included in the Justification of Resources and cross-referenced if there is an associated budget line. Where necessary you should produce additional justification of the use of such items.</p><p>You must write ‘Not applicable’ if this section is not relevant to the type of digital output or digital technology proposed.</p>"
+  number: 2
+  section: ahrc_2
+  themes: resourcing_hardware_and_software
+
+ahrc_2_3:
+  text: "Technical Methodology Data Acquisition, Processing, Analysis and Use"
+  guidance: "<p>You should provide information about the process of technical development, showing how the standards and formats described in section 2.a and the hardware and software described in section 2.b relate to each other. You must show that you have considered how you will achieve your digital output or digital technology in practice, including issues of timetabling.</p><p>You should consider the technical development process from the point of data capture or data creation through to final delivery (in the case of a digital output) or analysis (in the case of a digital process). You should consider issues such as backup, monitoring, quality control and internal documentation where relevant, identifying procedures which are appropriate to the research environments. For example Technical Reviewers acknowledge that the backup procedures which are possible during fieldwork might be very different to those which are possible within an office environments.</p><p>This section needs to relate to the timetable and milestones given in the Case for Support as well as the project’s overall research methodology.  The Technical Reviewer will be assessing the alignment of the technical development process with other project activities for logic and timeliness.</p>"
+  number: 3
+  section: ahrc_2
+  themes: data_capture_methods, data_quality, data_organisation, documentation, metadata_capture, metadata_standards, backup_procedures
+
+ahrc_3_1:
+  text: "Technical Support and Relevant Experience"
+  guidance: ""
+  number: 1
+  section: ahrc_3
+  themes: resourcing_skills_and_training, responsibilities
+
+ahrc_4_1:
+  text: "Preserving Your Data"
+  guidance: "<p>Preservation of digital outputs is necessary in order for them to endure changes in the technological environments and remain potentially re-usable in the future. In this section you must state what, if any, digital outputs of your project you intend to preserve beyond the period of funding.</p><p>The length and cost of preservation should be proportionate to the value and significance of the digital outputs. If you believe that none of these should be preserved this must be justified, and if the case is a good one the application will not be prejudiced.</p><p>You must consider preservation in four ways: what, where, how and for how long. You must also consider any institutional support needed in order to carry out these plans, whether from an individual, facility, organisation or service.</p><p>You should think about the possibilities for re-use of your data in other contexts and by other users, and connect this as appropriate with your plans for dissemination and Pathways to Impact.Where there is potential for re-usability, you should use standards and formats that facilitate this.</p><p>The Technical Reviewer will be looking for evidence that you understand the reasons for the choice of technical standards and formats described in Section 2.a Technical Methodology: Standards and Formats.</p><p>You should describe the types of documentation which will accompany the data. Documentation in this sense means technical documentation as well as user documentation. It includes, for instance, technical description, code commenting, project-build guidelines, the documentation of technical decisions and resource metadata which is additional to the standards which you have described in Section 2.a. Not all types of documentation will be relevant to a project and the quantity of documentation proposed should be proportionate to the envisaged value of the data.</p>"
+  number: 1
+  section: ahrc_4
+  themes: preservation_plan, period_of_preservation, resourcing_preservation_and_data_sharing, documentation
+
+ahrc_4_2:
+  text: "Ensuring Continued Accessibility and Use of Your Digital Outputs"
+  guidance: "<p>In this section you must provide information about any plans for ensuring that digital outputs remain sustainable in the sense of immediately accessible and usable beyond the period of funding. There are costs to ensuring sustainability in this sense over and above the costs of preservation. The project's sustainability plan should therefore be proportionate to the envisaged longer-term value of the data for the research community and should be closely related to your plans for dissemination and Pathways to Impact.</p><p>If you believe that digital outputs should not be sustained beyond the period of funding then this should be justified. It is not mandatory to sustain all digital outputs. While you should consider the long-term value of the digital outputs to the research community, where they are purely ancillary to a project’s research outputs there may not be a case for sustaining them (though there would usually be a case for preservation).</p><p>You must consider the sustainability of your digital outputs in five ways: what, where, how, for how long, and how the cost will be covered. You must make appropriate provision for user consultation and user testing in this connection, and plan the development of suitable user documentation.</p><p>You should provide justification if you do not envisage open, public access. A case can be made for charging for or otherwise limiting access, but the default expectation is that access will be open. The Technical Reviewer will be looking for realistic commitments to sustaining public access in line with affordability and the longer-term value of the digital output.</p><p>You must consider any institutional support needed in order to carry out these plans, if not covered under Section 3, as well as the cost of keeping the digital output publicly available in the future, including issues relating to maintenance, infrastructure and upgrade (such as the need to modify aspects of a web interface or software application in order to account for changes in the technological environments). In order to minimise sustainability costs, it is generally useful that the expertise involved in the development of your project is supported by expertise in your own or a partner institution.</p><p>A sustainability plan does not necessarily mean a requirement to generate income or prevent resources from being freely available. Rather it is a requirement to consider the direct costs and expertise of maintaining digital outputs for continued access. Some applicants might be able to demonstrate that there will be no significant sustainability problems with their digital output; in some cases the university’s computing services or library might provide a firm commitment to sustaining the resource for a specified period; others might see the benefit of Open Source community development models. You should provide reassurances of sustainability which are proportionate to the envisaged longer-term value of the digital outputs for the research community.</p><p>When completing this section, you should consider the potential impact of the data on research in your field (if research in the discipline will be improved through the creation of the digital output, how will it be affected if the resource then disappears?), and make the necessary connections with your Impact Plan. You must factor in the effects of any IP, copyright and ethical issues during the period in which the digital output will be publicly accessible, connecting what you say with the relevant part of your Case for Support.</p><p>You must identify whether or not you envisage the academic content (as distinct from the technology) of the digital output being extended or updated beyond the period of funding, addressing the following issues: how this will be done, by who and at what cost. You will need to show how the cost of this will be sustained after the period of funding ends.</p>"
+  number: 2
+  section: ahrc_4
+  themes: resourcing_preservation_and_data_sharing, managed_access_procedures, data_repository, method_for_data_sharing, timeframe_for_data_sharing
+
+bbsrc_1_1:
+  text: "Data areas and data types - the volume, type and content of data that will be generated e.g. experimental measurements, models, records and images"
+  guidance: "<p>BBSRC recognises that effective data sharing is already practiced in certain areas and expects this to continue. BBSRC supports, either directly or indirectly, a number of such resources. Data sharing in other areas is also expected where there is a strong scientific case and where it is cost effective.</p><p>BBSRC has identified a number of areas where there is a particularly strong scientific case for data sharing. These are:<ul><li>Data arising from high volume experimentation</li><li>Low throughput data arising from long time series or cumulative approaches</li><li>Models generated using systems approaches</li></ul>BBSRC expects data sharing to take place in these areas.</p>"
+  number: 1
+  section: bbsrc_1
+  themes: description_of_data_content, data_type, data_volumes
+
+bbsrc_2_1:
+  text: "Standards and metadata - the standards and methodologies that will be adopted for data collection and management, and why these have been selected"
+  guidance: "<p>Standards are fundamental to effective data sharing. These can include standards for administrative processes, as well as for methodologies relating to data management and data formats. Researchers are expected to make use of current guidance and information on best practice.</p><p>It is expected that, in order to maximise the potential for re-use of data, BBSRC researchers should generate and manage data using existing widely accepted formats and methodologies where available. Data released for sharing should be validated and verified in line with accepted best practice and be of high quality. Data should be accompanied by the contextual information or documentation (metadata) needed to provide a secondary user with any necessary details on the origin or manipulation of the data in order to prevent any misuse, misinterpretation or confusion. Where standards for metadata exist, it is expected that these should be adhered to.</p><p>BBSRC encourages community development of standards where these do not currently exist or are not widely accepted and provides funding mechanisms for support of this type of activity.</p>"
+  number: 1
+  section: bbsrc_2
+  themes: data_format, metadata_standards, data_quality, documentation
+
+bbsrc_3_1:
+  text: "Relationship to other data available in public repositories"
+  guidance: ""
+  number: 1
+  section: bbsrc_3
+  themes: existing_data, relationship_to_existing data, licensing_of_existing data
+
+bbsrc_4_1:
+  text: "Secondary use - further intended and/or foreseeable research uses for the completed dataset(s)"
+  guidance: "<p>BBSRC supports the view that those enabling sharing should receive full and appropriate recognition by funders, their academic institutions and new users for promoting secondary research.</p><p>Where data are shared through a third party resource or databases, secondary users should acknowledge the source of data. Where data are shared directly from the originator, depending on the level of usage and collaboration either joint authorship or acknowledgement to the data originator may be appropriate. It is also important to ensure that researchers and their research institutions are protected against claims that application of their data led to wrong conclusions/decisions by others: any use made of any data generated by third parties would not come with a warranty of its quality.</p><p>Furthermore, BBSRC expects that researchers accessing data have responsibilities to preserve data confidentiality and to observe the ethical and legal obligations pertaining to the data.</p>"
+  number: 1
+  section: bbsrc_4
+  themes: expected_reuse, audience
+
+bbsrc_5_1:
+  text: "Methods for data sharing - planned mechanisms for making these data available, e.g. through deposition in existing public databases or on request, including access mechanisms where appropriate"
+  guidance: "<p>BBSRC recognises that different approaches to data sharing will be required in different situations and considers that it is most appropriate for researchers to determine their own strategies for data sharing and outline these within their research grant proposal(s). Applicants should consider where, how, and to whom their data should be made available.</p><p>In addition, data sharing practices will change as areas of research develop and become more mature. This can be observed by looking at the areas of sequencing (i.e. well established mechanisms in place), microarrays (i.e. standards developed and being implemented) and systems biology (i.e. databases currently not well developed). Consideration should be given to what constitutes good practice in emerging areas of research.</p><p>It is expected that data sharing strategies will fall into the two broad categories below.</p><p class='guidance_header'>Data Sharing via a 3rd Party</p><p>Data sharing via deposition in an existing database, repository or other community resource is expected where possible and researchers are encouraged to share data through mechanisms affording the widest availability for generating added value and enabling re-use.</p><p>Researchers are encouraged to use existing infrastructure to facilitate data sharing where possible. BBSRC funds or otherwise supports a number of such resources. Where no such resources exist, applicants may consider sharing data via other third party mechanisms such as journal websites and / or open access repositories, many of which are now able to capture and share data underpinning publications.</p><p class='guidance_header'>Direct Data Sharing: from Originator to Others</p><p>This method of data sharing may be appropriate for areas where suitable third party mechanisms are not available. Researchers are expected to ensure that data are maintained for a period of 10 years after the completion of the research project in suitable accessible formats using established standards where possible such that the data can be made available on request in line with BBSRC guidance on good scientific practice. This may lead to collaboration between the new user and the original data creators, with the responsibilities and rights of all parties agreed at the outset.</p><p>Other mechanisms for data sharing may be used where appropriate. These could include sharing data within closed communities or a combination of methods for different datasets. Specific access mechanisms could be appropriate for example where there are ethical considerations, a need to protect confidential data, or other reasons for limiting access.</p>"
+  number: 1
+  section: bbsrc_5
+  themes: discovery_by_users, method_for_data_sharing, managed_access_procedures, data_repository
+
+bbsrc_6_1:
+  text: "Proprietary data - any restrictions on data sharing due to the need to protect proprietary or patentable data"
+  guidance: "<p>In instances where BBSRC and a commercial partner jointly fund academic research work (for example LINK projects) there may be some restrictions over releasing data. Any such restrictions on data sharing due to co-funding arrangements should be set out in the “statement on data sharing” section of an application and will be considered when a grant application is peer reviewed. Applicants should also ensure they have obtained necessary clearances from relevant collaborators with regards to the content of the proposal including the data sharing plan in line with the BBSRC Research Grants Guide.</p>"
+  number: 1
+  section: bbsrc_6
+  themes: ipr_ownership_and_licencing, restrictions_on_sharing
+
+bbsrc_7_1:
+  text: "Timeframes - timescales for public release of data"
+  guidance: "<p>The value of data often depends on timeliness. Researchers have a legitimate interest in benefiting from their own time and effort in producing data, but not in prolonged exclusive use of these data. BBSRC expects that all data (with accompanying metadata) should be shared in a timely fashion as soon as it is verified. It is expected that timely release would generally be no later than the release through publication of the main findings and should be in-line with established best practice in the field. Where best practices does not exist release within three years of generation of the dataset is suggested as a guide. </p><p>The timescale for release for the data may differ for several reasons, depending on the nature of the data. These reasons may include: <ul><li><strong>Scientific Area:</strong> Researchers are expected to make data available in-line with established practices within the relevant research community. Examples include: <ul><li>Crystallography (Protein Data Bank) - the community has agreed a maximum 12-month delay between publishing the first paper on a structure and making coordinates public for secondary use. </li><li>Sequencing (EMBL Nucleotide Sequence database) – submitted data can be withheld from public access until publication of results but no later. </li><li>Metabolomics (MeT-RO) – Up to a six-month delay in publication can be requested. </li><li>Arabidopsis microarray data (NASC Affymetrix service) – all data are made available after a maximum one-year confidential period. </li></ul></li><li><strong>Intellectual Property (IP) issues and potential for commercialisation of research outputs:</strong> New knowledge generates patentable ideas. BBSRC is also driving a policy of Knowledge Transfer and strongly encourages the commercialisation of IP through various initiatives. BBSRC recognises the need for periods of exclusive use of data but considers that commercialisation of research does not preclude data sharing and should not unduly delay or prevent data sharing. Any IP issues or plans for commercialisation should be highlighted in the case for support of the grant application. </li><li><strong>Length or scope of research project:</strong> Data from large studies may be released in waves as they become available or as they are published.</li></ul></p>"
+  number: 1
+  section: bbsrc_7
+  themes: timeframe_for_data_sharing
+
+bbsrc_8_1:
+  text: "Format of the final dataset"
+  guidance: ""
+  number: 1
+  section: bbsrc_8
+  themes: data_format
+
+cruk_1_1:
+  text: "The volume, type, content and format of the final dataset"
+  guidance: ""
+  number: 1
+  section: cruk_1
+  themes: description_of_data_content, data_format, data_volumes, data_type
+
+cruk_2_1:
+  text: "The standards that will be utilised for data collection and management"
+  guidance: ""
+  number: 1
+  section: cruk_2
+  themes: data_capture_methods, metadata_standards
+
+cruk_3_1:
+  text: "The metadata, documentation or other supporting material that should accompany the data for it to be interpreted correctly"
+  guidance: "<p>For data sharing to be a success it is important that data are prepared in such a way that those using the dataset have a clear understanding of what the data mean so that they can be used appropriately. To enable this, applicants are encouraged to include with the dataset all the necessary information (metadata) describing the data and their format. This information should include such information as the methodology used to collect data, definitions of variables, units of measurement, any assumptions made, the format of the data, file type of the data etc. To support this researchers are strongly encouraged to utilise community standards to describe and structure data, (e.g. common terminology, minimum information guidelines and standard data exchange formats).</p>"
+  number: 1
+  section: cruk_3
+  themes: documentation, metadata_capture, data_quality
+
+cruk_4_1:
+  text: "The method used to share data"
+  guidance: "<p>The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. Data can be shared by any of the following methods: </p><p class='guidance_header'>Under the auspices of the Principal Investigator </p><p>Investigators sharing under their own auspices may securely send data to a requestor, or upload the data to their institutional website. Investigators should consider using a data-sharing agreement (see below) to impose appropriate limitations on the secondary use of the data. </p><p>Through a third party </p><p>Investigators can share their data by transferring it to a data archive facility to distribute more widely to the scientific community, to maintain documentation and meet reporting requirements. Data archives are particularly attractive for investigators concerned about managing a large volume of requests for data, vetting frivolous or inappropriate requests, or providing technical assistance for users seeking to help with analyses. </p><p class='guidance_header'>Using a data enclave </p><p>Datasets that cannot be distributed to the general public due to confidentially concerns, or third-party licensing or use agreements that prohibit redistribution, can be accessed through a data enclave. A data enclave provides a controlled secure environments in which eligible researchers can perform analyses using restricted data resources. </p><p class='guidance_header'>Through a combination of methods </p><p>Investigators may wish to share their data by a combination of the above methods or in different versions, in order to control the level of access permitted.</p>"
+  number: 1
+  section: cruk_4
+  themes: discovery_by_users, method_for_data_sharing, data_repository
+
+cruk_5_1:
+  text: "The timescale for public release of data"
+  guidance: "<p>As the value of data is often dependent on its timeliness Cancer Research UK expects that data sharing should occur in a timely manner. Cancer Research UK acknowledges that the investigators who generated the data have a legitimate interest in benefiting from their investment of time and effort and we therefore support the initial investigator having a reasonable period of private use of the data but not prolonged exclusive use. </p><p>Cancer Research UK expects data to be released no later than the acceptance for publication of the main findings from the final dataset (unless restrictions from third party agreements or IP protection still apply) or on a timescale in line with the procedures of the relevant research area. For example, for crystallography data there is an agreed 12-month delay between publishing the first paper on a structure and making the co-ordinates public. </p><p>With experiments carried out over an extended period of time, (e.g. population based studies), it is reasonable to expect that subsets of data analysed by the investigator(s) be made available for sharing. The investigator(s) can then continue to benefit from further reasonable periods of exclusive analysis while the dataset as a whole matures.</p>"
+  number: 1
+  section: cruk_5
+  themes: timeframe_for_data_sharing
+
+cruk_6_1:
+  text: "The long-term preservation plan for the dataset"
+  guidance: "<p>Once the funding for a project has ceased researchers should preserve all data resulting from that grant to ensure that data can be used for follow-up or new studies. Cancer Research UK expects that data be preserved and available for sharing with the science community for a minimum period of five years following the end of a research grant.</p>"
+  number: 1
+  section: cruk_6
+  themes: preservation_plan
+
+cruk_7_1:
+  text: "Whether a data sharing agreement will be required"
+  guidance: "<p class='guidance_header'>Data Sharing Agreements</p> <p>To ensure that data are used appropriately investigators may consider implementing a data sharing agreement that indicates the criteria for data access and conditions for research use. This can ensure the responsibilities of both parties, along with intellectual property, citation and publication rights are agreed at the outset. It may incorporate privacy and confidentiality standards, as needed, to ensure data security at the recipient site and prohibit manipulation of data. For further guidance on managing data access and the development of data sharing agreements please refer to the 'Samples and Data for Cancer Research: Template for Access Policy Development' document available from the NCRI website. </p><p class='guidance_header'>Data Acknowledgement</p> <p>As a minimum, researchers using shared data are expected to acknowledge the investigators who generated the data upon which any published findings are based. When both parties have collaborated using a shared dataset, co-authorship on publications may be more appropriate. Researchers using shared data are also expected to acknowledge Cancer Research UK for supporting the original study.</p>"
+  number: 1
+  section: cruk_7
+  themes: managed_access_procedures
+
+cruk_8_1:
+  text: "Any reasons why there may be restrictions on data sharing?"
+  guidance: "<p>Data which might have the potential to be exploited commercially or otherwise to deliver patient benefit should be discussed with your technology transfer office and Cancer Research Technology prior to data sharing. Cancer Research UK encourages the appropriate filing of patents and recognises that there may be a need to delay the release of data until patent applications have been filed. Whilst there may be a delay in the release of data due to the application process, appropriate intellectual property protection should not hinder data sharing and may be the best way of ensuring that patient (and public) benefit is delivered. Any intellectual property issues or plans for commercialisation that may affect data sharing should be addressed in the data sharing plan. Cancer Research UK understands that unexpected intellectual property may arise during the course of the study and investigators may need to depart from their data sharing plan to protect intellectual property and for any other necessary steps to be taken. Data sharing may also be affected when co-funding is provided by the private sector (e.g. by a pharmaceutical company) or host institution resulting in some restrictions on the disclosure of data. For example with clinical trials, the Trial Management Group and/or trial sponsor etc may impose restrictions on data access. Any restrictions should be outlined in the data sharing plan and applicants should explore ways data sharing requests can be considered by the body that owns the data.</p> <p class='guidance_header'>e.g. Development arrangements through Cancer Research Technology including intellectual property protection and commercialisation</p> <p class='guidance_header'>e.g. Proprietary Data - restrictions due to collaborations with for profit organisations International policies governing the sharing of data collected outside of the UK</p> <p>My research seeks supports from both the public and private sectors. How do I deal with the sharing of data? Where research is funded by a commercial sponsor, restrictions on data sharing may apply in arrangements agreed with the sponsor. Any such restriction(s) should be highlighted in the data management and sharing plan. In the event that researchers apply for or receive commercial funding for any part of their research that Cancer Research UK supports they should advise Cancer Research Technology of the situation without delay.</p> <p class='guidance_header'>e.g. Confidentiality, ethical or consent issues that may arise with the use of data involving human subjects.</p> <p>Investigators carrying out research involving human participants must ensure that consent is obtained to share information; furthermore the necessary legal, ethical and regulatory permissions regarding data sharing should be in place prior to disclosing any data. Every effort must be made to protect the identity of participants and, prior to sharing, data should be anonymised. In addition, any indirect identifiers that may lead to deductive disclosures should be removed to reduce the risk of identification. In most instances, sharing data should be possible without compromising the confidentiality of participants but if there are circumstances where data needs to be restricted due to the inability to protect confidentiality this should be fully addressed in the data management and sharing plan.</p>"
+  number: 1
+  section: cruk_8
+  themes: restrictions_on_sharing, ipr_ownership_and_licencing, licensing_of_existing_data, ethical_issues
+
+esrc_1_1:
+  text: "An explanation of the existing data sources that will be used by the research project (with references)"
+  guidance: "<p>When creating new data sources, explain why existing data sources can not be re-used. If purchasing or re-using existing data sources, explain whether issues such as copyright and IPR have been addressed to ensure that the data can be shared i.e. explain how you plan to deal with permissions to share data you have created which is derived from data which you do not own.</p> <p>The following sources can be reviewed for the availability of existing data that could be used: <ul> <li>Data Catalogue - an integrated catalogue containing over 5,000 datasets covering an extensive range of key economic, social and historical data - both quantitative and qualitative - spanning many disciplines and themes, and with links to census data</li> <li>ESRC Research Catalogue - the ESRC's repository of past and present research awards and their outputs</li> </ul> </p>"
+  number: 1
+  section: esrc_1
+  themes: existing_data, licensing_of_existing_data
+
+esrc_1_2:
+  text: "An analysis of the gaps identified between the currently available and required data for the research"
+  guidance: "<p>When creating new data sources, explain why existing data sources can not be re-used. If purchasing or re-using existing data sources, explain whether issues such as copyright and IPR have been addressed to ensure that the data can be shared i.e. explain how you plan to deal with permissions to share data you have created which is derived from data which you do not own.</p> <p>The following sources can be reviewed for the availability of existing data that could be used: <ul> <li>Data Catalogue - an integrated catalogue containing over 5,000 datasets covering an extensive range of key economic, social and historical data - both quantitative and qualitative - spanning many disciplines and themes, and with links to census data</li> <li>ESRC Research Catalogue - the ESRC's repository of past and present research awards and their outputs</li> </ul> </p>"
+  number: 2
+  section: esrc_1
+  themes: relationship_to_existing_data
+
+esrc_2_1:
+  text: "Data volume and data type, e.g. qualitative or quantitative data"
+  guidance: "<p>Give a brief description of new data which you envisage creating. This information should include how the data will be collected (in line with the proposed research methods), their format (e.g. SPSS, Open Document Format, tab-delimited format, MS Excel), and how they will be documented.</p> <p>Using standardised and interchangeable or open lossless data formats ensures the long-term usability of data. Clear and detailed data descriptions and annotation, together with user-friendly accompanying documentation on methods and contextual information, makes data easy to understand and interpret and therefore shareable and with long-lasting usability.</p> <ul>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format.aspx'>Guidance on data formats</a></li>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/document.aspx'>Guidance on documenting data</a></li> </ul>"
+  number: 1
+  section: esrc_2
+  themes: data_volumes, data_type
+
+esrc_2_2:
+  text: "Data quality, formats, standards documentation and metadata"
+  guidance: "<p>Give a brief description of new data which you envisage creating. This information should include how the data will be collected (in line with the proposed research methods), their format (e.g. SPSS, Open Document Format, tab-delimited format, MS Excel), and how they will be documented.</p> <p>Using standardised and interchangeable or open lossless data formats ensures the long-term usability of data. Clear and detailed data descriptions and annotation, together with user-friendly accompanying documentation on methods and contextual information, makes data easy to understand and interpret and therefore shareable and with long-lasting usability.</p> <ul>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format.aspx'>Guidance on data formats</a></li>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/document.aspx'>Guidance on documenting data</a></li> </ul>"
+  number: 2
+  section: esrc_2
+  themes: data_format, metadata_standards, documentation
+
+esrc_2_3:
+  text: "Methodologies for data collection"
+  guidance: "<p>Give a brief description of new data which you envisage creating. This information should include how the data will be collected (in line with the proposed research methods), their format (e.g. SPSS, Open Document Format, tab-delimited format, MS Excel), and how they will be documented.</p> <p>Using standardised and interchangeable or open lossless data formats ensures the long-term usability of data. Clear and detailed data descriptions and annotation, together with user-friendly accompanying documentation on methods and contextual information, makes data easy to understand and interpret and therefore shareable and with long-lasting usability.</p> <ul>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format.aspx'>Guidance on data formats</a></li>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/document.aspx'>Guidance on documenting data</a></li> </ul>"
+  number: 3
+  section: esrc_2
+  themes: data_capture_methods
+
+esrc_3_1:
+  text: "Quality Assurance"
+  guidance: "<p>Quality control of data is an integral part of a research process. Describe the procedures for quality assurance that will be carried out on the data collected at the time of data collection, data entry, digitisation and data checking.</p> <p>For example this might include: <ul><li>Documenting the calibration of instruments </li><li>Taking duplicate samples or measurements </li><li>Standardised data capture, data entry or recording methods </li><li>Data entry validation techniques </li><li>Methods of transcription </li><li>Peer review of data</li></ul></p> <ul><li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format/quality.aspx'>Guidance on data quality control</a></li></ul>"
+  number: 1
+  section: esrc_3
+  themes: data_quality
+
+esrc_3_2:
+  text: "Back-Up"
+  guidance: "<p>Describe the data back-up procedures that you will adopt to ensure the data and metadata are securely stored during the lifetime of the project. You may need to discuss your institution's policy on back-ups. If your data is sensitive (e.g. detailed personal data) you should discuss appropriate security measures which you will be taking.</p> <p>The methods of version control of data files should also be stated. Version control includes making sure that if the information in one file is altered, the related information in other files is also adapted, as well as keeping track of versions of data files and their locations.</p> <ul><li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/store.aspx'>Guidance on storing, back-up and security</a></li> <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format/versioning.aspx'>Guidance on version control</a></li></ul>"
+  number: 2
+  section: esrc_3
+  themes: backup_procedures, data_security, data_organisation
+
+esrc_4_1:
+  text: "Plans for management and archiving of collected data"
+  guidance: "<p>Outline your plans for preparing and documenting data for sharing and archiving (unless otherwise agreed). Identify any additional plans for data sharing, if any. A crucial part of making data user-friendly, shareable and with long-lasting usability is to ensure they can be understood and interpreted by other users. This requires clear and detailed data description, annotation and contextual information.</p> <ul>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/document.aspx'>Guidance on documenting data</a></li>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/plan/costing.aspx'>Guidance on how to cost data management</a></li>    <li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/format/transcription.aspx'>Guidance on transcribing qualitative data</a></li> </ul>"
+  number: 1
+  section: esrc_4
+  themes: data_selection, preservation_plan, documentation
+
+esrc_5_1:
+  text: "Expected difficulties in data sharing, along with causes and possible measures to overcome these difficulties."
+  guidance: "<p>We require that all applicants seeking ESRC funding include a statement on data sharing in the relevant section of the Je-S application form. If data sharing is not possible, the applicant must present a strong argument to justify their case. We reserve the right to decline the request or demand additional information from the applicant.</p> <p class='guidance_header'>Data Protection and Freedom of Information</p> <p>We expect grant holders to adhere to the Data Protection Act 1998, which contains eight (enforceable) principles of good practice, applying to anyone processing personal data, including the use of personal data in research. These include obtaining the data subject’s consent or meeting at least one of the ‘necessary’ conditions described in the Act.</p> <p>The ESRC complies with the requirements of the Freedom of Information Act 2000 that establishes a general right of access to all types of recorded information held by public authorities, including Government Departments and Non-Departmental Public Bodies.</p> <p>If the Principal Investigator does not state to the contrary in the Je-S application form, it will be assumed that they are willing for their contact details and other relevant information to be shared with the relevant data service provider working with the ESRC.</p>"
+  number: 1
+  section: esrc_5
+  themes: restrictions_on_sharing, managed_access_procedures
+
+esrc_6_1:
+  text: "Explicit mention of consent, confidentiality, anonymisation and other ethical considerations"
+  guidance: "<p>In facilitating innovative and high quality research, we require that the research we supports will be carried out to a high ethical standard. ESRC grant holders are, therefore, required to adhere to the key principles of ethical research addressed in the <a target='_blank' href='www.esrc.ac.uk/researchethics'>ESRC Framework for Research Ethics</a></p>"
+  number: 1
+  section: esrc_6
+  themes: ethical_issues
+
+esrc_7_1:
+  text: "Copyright and intellectual property ownership of the data"
+  guidance: "<p class='guidance_header'>Intellectual Property Rights</p> <p>In respect of research grant funding, unless stated otherwise, the ownership of intellectual property and responsibility for its exploitation, rests with the organisation carrying out the research. The ESRC may, in specific cases, reserve the right to retain ownership of the intellectual property and to arrange for it to be exploited for the national benefit in other ways. If exercised, this condition is included in the terms of the relevant award.</p> <p>In taking responsibility for exploiting intellectual property, we expect the research organisation to ensure that individuals associated with the research understand the arrangements for exploitation. Where research is funded by or undertaken in collaboration with others, the research organisation is responsible for putting appropriate formal agreements in place covering the contributions and rights of the various organisations and individuals involved. Such agreements must be in place before the research begins. Research organisations are required to ensure that the terms of collaboration agreements do not conflict with the Terms and Conditions for Research Council Grants.</p> <p class='guidance_header'>Copyright</p> <p>The ESRC expects grant holders to meet the copyright requirements set down in the Copyright, Designs and Patents Act 1988. Responsibility for ensuring compliance with all laws and other legal instruments rests with the grant holders and/or their institutions. We will not accept liability for any complaint or legal action taken against a researcher or the ESDS for infringements of copyrights, defamation or any other data protection requirements.</p>"
+  number: 1
+  section: esrc_7
+  themes: ipr_ownership_and_licencing
+
+esrc_8_1:
+  text: "Responsibilities for data management and curation within research teams at all participating institutions"
+  guidance: "<p>Indicate who within your research team will be responsible for data management, metadata production, dealing with quality issues and the final delivery of data for sharing or archiving. Provide this information within the Staff Duties section in the Je-S form and where appropriate in the Justification of Resources. If several people will be responsible state their roles and responsibilities in the relevant section of the Je-S form. For collaborative projects you should explain the co-ordination of data management responsibilities across partners in your Data Management Plan.</p> <ul><li><a target='_blank' href='http://ukdataservice.ac.uk/manage-data/plan/roles-and-responsibilities.aspx'>Guidance on data management roles and responsibilities</a></li></ul>"
+  number: 1
+  section: esrc_8
+  themes: project_data_contact, responsibilities
+
+nerc_1_1_1:
+  text: Data management procedures to be followed during the lifetime of the grant or fellowship
+  guidance: "<p>Consider issues like:<ul><li>metadata: will you document discovery (what, where, when, why, who) and descriptive (how collected, how processed, how stored, how linked) metadata and implement the NERC Discovery Metadata Standard (http://data-search.nerc.ac.uk/documents/metadatastandard_v1.0.pdf) early in the project?</li><li>data storage: have you access to enough storage and backup? Will you need specialist help with database design?</li><li>data quality: will there be an earmarked data manager within the team, what data quality checks will be used, will student data be integrated in the data plan?</li><li>ethical and access issues: are there special data security or licensing issues and how will you address these?</li></ul></p>"
+  number: 1
+  section: nerc_1_1
+  themes: metadata_capture, active_data_storage, data_quality, ethical_issues, managed_access_procedures
+
+nerc_1_2_1:
+  text: Existing datasets to be used by the grant or fellowship
+  guidance: "<p>Comment on any restrictions on reuse.</p>"
+  number: 1
+  section: nerc_1_2
+  themes: existing_data, licensing_of_existing_data
+
+nerc_1_3_1:
+  text: Data Centre
+  guidance: "<p>The most appropriate NERC Data Centre – projects can contribute to more than one Data Centre.</p>"
+  number: 1
+  section: nerc_1_3
+  themes: data_repository
+
+nerc_1_3_2:
+  text: Data Description
+  guidance: "<p>1-2 sentences describing the data.</p>"
+  number: 2
+  section: nerc_1_3
+  themes: description_of_data_content
+
+nerc_1_3_3:
+  text: Release Date to Data Centre
+  guidance: "<p>Data should normally be delivered to a data centre within 2 years of collection.</p>"
+  number: 3
+  section: nerc_1_3
+  themes: timeframe_for_data_sharing
+
+nerc_1_3_4:
+  text: Reuse Scenarios
+  guidance: "<p>Possible user types and estimate of numbers if possible.</p>"
+  number: 4
+  section: nerc_1_3
+  themes: expected_reuse
+
+nerc_2_1_1:
+  text: Nominated Data Centre
+  number: 1
+  section: nerc_2_1
+  themes: data_repository
+
+nerc_2_1_2:
+  text: Data Centre Contact
+  number: 2
+  section: nerc_2_1
+
+nerc_2_1_3:
+  text: Please specify any other team members with responsibility for data
+  number: 3
+  section: nerc_2_1
+
+nerc_2_2_1:
+  text: Roles and Responsibilities
+  guidance: "<p>For example: who is responsible for obtaining 3rd party data, for capturing data in the field, producing metadata, transferring metadata and data to DDC.</p>"
+  number: 1
+  section: nerc_2_2
+  themes: responsibilities
+
+nerc_2_3_1:
+  text: Data Generation Activities
+  guidance: "<p>Short description of the what, how much, when and how etc.</p>"
+  number: 1
+  section: nerc_2_3
+  themes: data_capture_methods
+
+nerc_2_4_1:
+  text: In-Project Data Management Approach
+  guidance: "<p>Statement about how the data will be managed within the project, including backup & security.</p>"
+  number: 1
+  section: nerc_2_4
+  themes: active_data_storage, backup_procedures, data_security
+
+nerc_2_5_1:
+  text: Metadata and Documentation
+  guidance: "<p>Insert statement about how metadata will be supplied and standards to which it will adhere.</p>"
+  number: 1
+  section: nerc_2_5
+  themes: metadata_capture, metadata_standards
+
+nerc_2_6_1:
+  text: Data Quality
+  guidance: "<p>List procedures for quality control of data.</p>"
+  number: 1
+  section: nerc_2_6
+  themes: data_quality
+
+nerc_2_7_1:
+  text: Exceptions or Additional Services
+  guidance: "<p>Any exceptional expectations of Data Centres (for example exceptional size or complexity) - funding for which should be included within the project's Directly Incurred costs and explained within the Justification of Resources attachment.</p>"
+  number: 1
+  section: nerc_2_7
+  themes: resourcing_preservation_and_data_sharing
+
+nerc_2_8_1:
+  text: Digital Information
+  guidance: "<p>Enter a brief description of the activities that will produce the data.</p>"
+  number: 1
+  section: nerc_2_8
+  themes: data_capture_methods, description_of_data_content, project_data_contact, data_volumes, data_format, ipr_ownership_and_licencing, timeframe_for_data_sharing, timeframe_for_data_sharing, expected_reuse, preservation_plan
+
+nerc_2_8_2:
+  text: Hardcopy Records
+  guidance: "<p>Enter a brief description of the activities that will produce the data.</p>"
+  number: 2
+  section: nerc_2_8
+  themes: data_capture_methods, project_data_contact, data_volumes, data_format, ipr_ownership_and_licencing, timeframe_for_data_sharing, preservation_plan
+
+nerc_2_8_3:
+  text: Physical Collections & Samples
+  guidance: "<p>Enter a brief description of the activities that will produce the data</p>"
+  number: 3
+  section: nerc_2_8
+  themes: data_capture_methods,project_data_contact,data_volumes,data_format,ipr_ownership_and_licencing,timeframe_for_data_sharing,preservation_plan
+
+nerc_2_9_1:
+  text: Third Party/Existing Datasets
+  number: 1
+  section: nerc_2_9
+  themes: existing_data, data_volumes, responsibilities, licensing_of_existing_data, restrictions_on_sharing
+
+mrc_1_1:
+  text: Type of Study
+  guidance: "<p>Up to three lines of text that summarise the type of study (or studies) for which the data are being collected.</p>"
+  number: 1
+  section: mrc_1
+  themes: project_description
+
+mrc_1_2:
+  text: Types of Data
+  guidance: "<p>Types of research data to be managed in the following terms: quantitative, qualitative; generated from surveys, clinical measurements, interviews, medical records, electronic health records, administrative records, genotypic data, images, tissue samples,...</p>"
+  number: 2
+  section: mrc_1
+  themes: data_type
+
+mrc_1_3:
+  text: Format and scale of the data
+  guidance: "<p>File formats, software used, number of records, databases, sweeps, repetitions,… (in terms that are meaningful in your field of research). Do formats and software enable sharing and long-term validity of data?</p>"
+  number: 1
+  section: mrc_1
+  themes: data_format, data_volumes
+
+mrc_2_1:
+  text: Methodologies for data collection / generation
+  guidance: "<p>How the data will be collected/generated and which community data standards (if any) will be used at this stage.</p>"
+  number: 1
+  section: mrc_2
+  themes: data_capture_methods
+
+mrc_2_2:
+  text: Data quality and standards
+  guidance: "<p>How consistency and quality of data collection / generation will be controlled and documented, through processes of calibration, repeat samples or measurements, standardised data capture or recording, data entry validation, peer review of data or representation with controlled vocabularies.</p>"
+  number: 2
+  section: mrc_2
+  themes: data_quality, documentation
+
+mrc_3_1:
+  text: Managing, storing and curating data
+  guidance: "<p>Briefly, how data will be stored, backed-up, managed and curated in the short to medium term. Specify any community agreed or other formal data standards used (with URL references). [Enter data security standards in Section 4].</p>"
+  number: 1
+  section: mrc_3
+  themes: active_data_storage, backup_procedures
+
+mrc_3_2:
+  text: Metadata standards and data documentation
+  guidance: "<p>Plans for documenting, annotating and describing data so that research data are usable by others than your own team. This may include documenting the methods used to generate the data, analytical and procedural information, capturing instrument metadata alongside data, documenting provenance of data and their coding, detailed descriptions for variables, records, etc.</p>"
+  number: 2
+  section: mrc_3
+  themes: metadata_standards, documentation
+
+mrc_3_3:
+  text: Data preservation strategy and standards
+  guidance: "<p>Plans and place for long-term storage, preservation and planned retention period for the research data. Formal preservation standards, if any. Indicate which data may not be retained (if any).</p>"
+  number: 3
+  section: mrc_3
+  themes: preservation_plan, data_repository, period_of_preservation
+
+mrc_4_1:
+  text: Formal information/data security standards
+  guidance: "<p>Identify formal information standards with which your study is or will be compliant. An example is ISO 27001.</p>"
+  number: 1
+  section: mrc_4
+  themes: data_security
+
+mrc_4_2:
+  text: Main risks to data security
+  guidance: "<p>If not using formal standards, summarise the main risks to the confidentiality and security of information related to human participants, and how these risks will be managed. Cover the main processes or facilities for storage and processing of personal data, data access, with controls put in place and any auditing of user compliance with consent and security conditions.</p><p>MRC guidance on the categories of data availability is provided.</p>"
+  number: 2
+  section: mrc_4
+  themes: data_security
+
+mrc_5_1:
+  text: Data sharing and access
+  guidance: "<p>Identify any data repository (-ies) that are, or will be, entrusted with storing, curating and/or sharing data from your study, where they exist for particular disciplinary domains or data types. Information on repositories is available here.</p>"
+  number: 1
+  section: mrc_5
+  themes: data_repository
+
+mrc_5_2:
+  text: Suitability for sharing
+  guidance: "<p>Indicate whether the data you propose to collect (or existing data you propose to use) in the study will be suitable for sharing. (“Yes” or “No”)</p><p>If “No,” indicate why they will not be suitable for sharing and then go to Section 6.</p>"
+  number: 2
+  section: mrc_5
+
+mrc_5_3:
+  text: Discovery by potential users of the research data
+  guidance: "<p>Indicate how potential new users can find out about your data and identify whether they could be suitable for their research purposes, e.g. through summary information (metadata) being readily available on the study website, in the MRC gateway for population and patient research data, or in other databases or catalogues. Indicate whether your policy or approach to data sharing is (or will be) published on your study website (or by other means).</p>"
+  number: 3
+  section: mrc_5
+  themes: discovery_by_users
+
+mrc_5_4:
+  text: Governance of access
+  guidance: "<p>Identify who makes or will make the decision on whether to supply research data to a potential new user.</p><p>For population health and patient-based research, indicate how independent oversight of data access and sharing works (or will work) in compliance with MRC policy.</p><p>Indicate whether the research data will be deposited in and available from an identified community database, repository, archive or other infrastructure established to curate and share data.</p>"
+  number: 4
+  section: mrc_5
+  themes: managed_access_procedures, method_for_data_sharing
+
+mrc_5_5:
+  text: The study team’s exclusive use of the data
+  guidance: "<p>MRC’s requirement is for timely data sharing, with the understanding that a limited, defined period of exclusive use of data for primary research is reasonable according to the nature and value of the data, and that this restriction on sharing should be based on simple, clear principles.</p><p>Summarise the principles of your current/intended policy.</p>"
+  number: 5
+  section: mrc_5
+  themes: timeframe_for_data_sharing
+
+mrc_5_6:
+  text: Restrictions or delays to sharing, with planned actions to limit such restrictions
+  guidance: "<p>Restriction to data sharing may be due to participant confidentiality, consent agreements or IPR. Strategies to limit restrictions may include data being anonymised or aggregated; gaining participant consent for data sharing; gaining copyright permissions. For prospective studies, consent procedures should include provision for data sharing to maximise the value of the data for wider research use, while providing adequate safeguards for participants. As part of the consent process, proposed procedures for data sharing should be set out clearly and current and potential future risks associated with this explained to research participants.</p>"
+  number: 6
+  section: mrc_5
+  themes: restrictions_on_sharing
+
+mrc_5_7:
+  text: Regulation of responsibilities of users
+  guidance: "<p>Indicate whether external users are (will be) bound by data sharing agreements, setting out their main responsibilities.</p>"
+  number: 7
+  section: mrc_5
+  themes: managed_access_procedures
+
+mrc_6_1:
+  text: Responsibilities
+  guidance: "<p>Specify who, alongside the PI, is responsible for ensuring the study-wide data management, as well as for specific roles such as metadata creation, data security and quality assurance of data.</p>"
+  number: 1
+  section: mrc_6
+  themes: responsibilities
+
+mrc_6_2:
+  text: Relevant institutional, departmental or study policies on data sharing and data security
+  guidance: "<p>List policy, URL & reference</p><p>Please complete, where such policies are (i) relevant to your study, and (ii) are in the public domain, e.g. accessibly through the internet. Add any others that are relevant</p>"
+  number: 2
+  section: mrc_6
+  themes: related_policies
+
+stfc_1_1:
+  text: Specify the types of data the research will generate.
+  guidance: "<p>Data management plans should describe the types of data that are expected to be produced from the project, including the raw data arising directly from the research, the reduced data derived from it, and published data.</p>"
+  number: 1
+  section: stfc_1
+  themes: data_type
+
+stfc_2_1:
+  text: Specify which data will be preserved and how.
+  guidance: "<p>Unless there are compelling reasons not to do so, STFC expects data to be managed through an established repository, chosen to maximise the scientific value from aggregation of related data. This may be at the grant holder's institution or elsewhere. Data management plans may refer to the general policies of the chosen repository and only include further details if necessary to the specific project. (If it is proposed not to use an established repository, the data management plan will need to demonstrate that resources and systems will be in place to enable the data to be curated effectively beyond the lifetime of the grant, although STFC recognises that applicants may not have the expertise to describe in detail how data will be curated).</p>"
+  number: 1
+  section: stfc_2
+  themes: data_selection, preservation_plan, data_repository
+
+stfc_3_1:
+  text: Specify the software and metadata implications.
+  guidance: "<p>The data management plan should specify the software and metadata that will be retained to enable the data to be read and interpreted.</p>"
+  number: 1
+  section: stfc_3
+  themes: documentation, metadata_standards
+
+stfc_4_1:
+  text: Specify for how long the data will be preserved.
+  guidance: "<p>This may depend on the type of data. Where possible, STFC expects the original data, from which other related data can in principle be derived, to be retained for a minimum of 10 years from the end of the project. For data that by their nature cannot be re-measured, efforts should be made to retain them indefinitely.</p>"
+  number: 1
+  section: stfc_4
+  themes: period_of_preservation
+
+stfc_5_1:
+  text: Specify and justify which data will have value to others and should be shared.
+  guidance: "<p>Any data that are shared should be of a sufficiently high quality to be of value to other researchers. In general, published data – data that are displayed or otherwise referred to in a publication – should be made publicly available, but it is for applicants to consider and justify which types of data will, in the context of their project, meaningfully and practically constitute published data. Publicly available means available to anyone, but there may be a requirement for registration to enable tracking of data use and to provide notification of terms and conditions of use where they apply. Other data should be made available wherever it is appropriate and cost-effective to do so, taking into account the cost of curation compared with the cost or feasibility of re-creation, the potential long-term demand for the data and the feasibility of their reuse by others.</p>"
+  number: 1
+  section: stfc_5
+  themes: audience, expected_reuse, data_selection
+
+stfc_6_1:
+  text: Specify and justify the length of any proprietary period.
+  guidance: "<p>This might for example refer to the reasonable needs of the research team to have a first opportunity to exploit the results of their research, including any intellectual property arising. Where there are accepted norms within a scientific field or specific archive they should normally be followed. In general, STFC expects that published data should be made publicly available within six months of publication unless justified otherwise.</p>"
+  number: 1
+  section: stfc_6
+  themes: timeframe_for_data_sharing
+
+stfc_7_1:
+  text: Specify how data will be shared
+  guidance: "<p>The minimum level of data sharing expected would be that of making the data available in the natural format in which they were created, along with documentation and metadata, according to the standard accepted procedures within the scientific field. Where the data are likely to be in great demand by others it may be appropriate to request resources for a more proactive approach to data sharing, which maximises opportunities for cross linkage with other sectors.</p>"
+  number: 1
+  section: stfc_7
+  themes: method_for_data_sharing
+
+stfc_8_1:
+  text: Specify and justify any resources required to preserve and share the data.
+  guidance: "<p>Wherever possible, data management should make use of existing skills and capabilities. However, justification should be made for any additional specialist staff (or training for existing staff) needed within the grant to enable the research team to manage, preserve and share data effectively; and for any computational facilities needed to manage, store and share the data generated by the research.</p>"
+  number: 1
+  section: stfc_8
+  themes: resourcing_preservation_and_data_sharing, resourcing_skills_and_training
+
+wellcome_1_1:
+  text: What data outputs will your research generate and what data will have value to other researchers?
+  guidance: "<p>Researchers should maximise access to research datasets of value to the wider research community in a timely and responsible manner. Any data that is shared should be of a sufficiently high quality that it will have value to other researchers and should be provided in a format that enables it to be used effectively. </p><p>We recognise that in some cases it may not be appropriate for researchers to share their data. However, if your research meets the criteria for requiring a data management and sharing plan but you are intending not to share your data, the reasons for this must be clearly justified. </p><p>Data should be shared in accordance with recognised data standards where these exist, and in a way that maximises opportunities for data linkage and interoperability. Sufficient metadata must be provided to enable the dataset to be used by others. Agreed best practice standards for metadata provision should be adopted where these are in place. </p><p>When developing data management and sharing plans, researchers should therefore consider and briefly describe: <ul> <li>what types of data the proposed research will generate? </li><li>which data will have value to other research users and could be shared? </li><li>what data formats and quality standards will be applied to enable the data to be shared effectively?</li></ul></p>"
+  number: 1
+  section: wellcome_1
+  themes: description_of_data_content, data_selection, audience, data_format, data_quality, data_type
+
+wellcome_2_1:
+  text: When will you share the data?
+  guidance: "<p>All data management and sharing plans must state clearly the timescales over which datasets of value will be shared. Such timescales should take account of any recognised standards of good practice in the applicant's research field. </p><p>In considering the timescales that are appropriate, the Trust recognises fully that data generators have the right to a reasonable (but not unlimited) period of exclusive use for the research data that they produce.</p><p>As set out in our guidelines on good research practice, all grant holders must ensure as an absolute minimum that the data underpinning research papers are made available to other researchers on publication, providing this is consistent with any ethics approvals and consents which cover the data and any intellectual property rights in them. </p><p>In cases where the creation of a database resource is the primary goal of a Trust-funded activity, we would normally expect the data to be made widely available to user communities at the earliest feasible opportunity. </p><p>In line with the Fort Lauderdale Principles and subsequent Toronto statement on pre-publication data sharing, the Trust also encourages timely and responsible pre-publication data sharing for research that might constitute a \"community resource\" (i.e. those that have the characteristics set out in point 7 above). </p><p>Where appropriate, researchers may use publication moratoria to facilitate pre-publication sharing of data with other researchers, while protecting their right to first publication. Any such restrictions on data use should be reasonable, transparent and in line with established best practice. </p><p>Illustrative examples of timescales for data sharing are provided to help demonstrate different models that have been adopted and may be considered as examples of good practice in the field of large-scale genetics and genomics studies.</p>"
+  number: 1
+  section: wellcome_2
+  themes: timeframe_for_data_sharing
+
+wellcome_3_1:
+  text: Where will you make the data available?
+  guidance: "<p>Researchers should deposit data in recognised data repositories where these exist for particular data types, unless there is a compelling reason not to do so. Further information on repositories that may be appropriate</p><p>If the intention is to create a tailored database resource or to store data locally, researchers should ensure that they have the resources and systems in place so that the data are curated, secured and shared in an way that maximises its value and safeguards any associated risks.This includes consideration of how data held in this way can be effectively linked and integrated with other datasets to enhance its value to users.</p>"
+  number: 1
+  section: wellcome_3
+  themes: method_for_data_sharing, data_repository
+
+wellcome_4_1:
+  text: How will other researchers be able to access the data?
+  guidance: "<p>Data should be made available to other researchers with as few restrictions as possible. Where a managed access process is required - for example, where a study involves potentially identifiable data about research participants - the access mechanisms established should be proportionate to the risks associated with the data, and must not unduly restrict or delay access. Any managed access procedures that are proposed must be described clearly as part of your data management and sharing plan. </p><p>Depending on the study, it may be appropriate to establish a graded access procedure in which less sensitive data (e.g. anonymised and aggregate data) are made readily available, whereas applications to access to more sensitive datasets are subject to a more stringent assessment process. </p><p>Any managed access procedures should be consistent and transparent. In cases where a Data Access Committee is required to assess applications to access data, the composition of such Committees should include individuals with appropriate expertise who are independent of the project. </p><p>Where appropriate, the Trust would encourage those generating datasets that are likely to be of significant value to other researchers to publish a 'marker paper' or other form of publication, which enables data users to formally cite their usage of the resource. </p><p>Where a database resource is being developed as part of a funded activity, researchers should take reasonable steps to ensure that potential users are made aware of its availability. These should be outlined briefly in your plan.</p>"
+  number: 1
+  section: wellcome_4
+  themes: managed_access_procedures, method_for_data_sharing
+
+wellcome_5_1:
+  text: Are any limits to data sharing required - for example, to either safeguard research participants or to gain appropriate intellectual property protection?
+  guidance: "<p>For some research, delays or limits on data sharing may be necessary and appropriate to safeguard research participants or to ensure intellectual property protection is gained. Any such restrictions should, however, be minimised as far as feasible and set out clearly in data management and sharing plans where these are required. </p><p class='guidance_header'>Safeguarding Research Participants </p><p>For research involving samples or information pertaining to human subjects, data must be managed and shared in a way which is fully consistent with the terms of the consent under which samples and data were provided by the research participants. </p><p>For prospective studies, consent procedures should include provision for data sharing in a way that maximises the value of the data for wider research use, while providing adequate safeguards for participants. As part of the consent process, proposed procedures for data sharing should be set out clearly and current and potential future risks associated with this explained to research participants. </p><p>In designing studies, researchers must ensure that they have appropriate systems to protect the confidentiality and security of data pertaining to human subjects, and minimise any risks of identification by data users. This can be achieved through the use of appropriate anonymisation procedures and managed access processes. Such systems should be sufficient to safeguard participants, but proportionate to the level of sensitivity of the data and associated risk. They should not unduly inhibit responsible data sharing for legitimate research uses. </p><p class='guidance_header'>Intellectual Property </p><p>In line with our policy on intellectual property and patenting, we expect our funded researchers to ensure that any intellectual property in the outputs of their research is suitably protected and managed in a way that best enables the use of that knowledge for ultimate health benefit. </p><p>Delays or restrictions on data sharing may be appropriate to gain intellectual property protection or to further development of a technology for public benefit. As noted above, any such limits should be minimised as far as is feasible.</p>"
+  number: 1
+  section: wellcome_5
+  themes: restrictions_on_sharing, data_security, ethical_issues, ipr_ownership_and_licencing
+
+wellcome_6_1:
+  text: How will you ensure that key datasets are preserved to ensure their long-term value?
+  guidance: "<p>Researchers must consider how datasets that have long-term value will be preserved and curated beyond the lifetime of the grant. If the proposal is to create a bespoke data resource or to store data locally rather than to use a recognised data repository, data management plans should state clearly how the applicant expects that the dataset will be preserved and shared when the period of grant funding comes to an end. </p><p>The Trust is happy to discuss issues relating to longer-term preservation and sustainability with researchers so as to help provide the support required to maximise the long-term value of key research datasets.</p>"
+  number: 1
+  section: wellcome_6
+  themes: preservation_plan, data_repository
+
+wellcome_7_1:
+  text: What resources will you require to deliver your plan?
+  guidance: "<p>In preparing data management and sharing plans, researchers should consider carefully any resources they may need to deliver their plan.Where dedicated resources are required, these should be outlined and justified as part of the plan. </p><p>Issues to consider include: <ul> <li>People and skills - is there sufficient expertise and resource in the research team to manage, preserve and share the data effectively?Is additional specialist expertise (or training for existing staff) required? If so, how will this be sourced? </li><li>Infrastructure - are there appropriate computational facilities to manage, store and analyse the data generated by the research? </li><li>Tools - will additional computational facilities and resources need to be accessed, and what will be the costs associated with this?</li></ul></p>"
+  number: 1
+  section: wellcome_7
+  themes: resourcing_skills_and_training, resourcing_hardware_and_software, resourcing_preservation_and_data_sharing

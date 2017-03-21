@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 2.2.2
+
+before_script:
+  - cp config/database_example.yml config/database.yml
+  - cp config/secrets_example.yml config/secrets.yml
+  - bundle exec rake db:migrate RAILS_ENV=test
+
+script:
+  - bundle exec rake test

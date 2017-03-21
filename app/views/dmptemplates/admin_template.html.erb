@@ -1,0 +1,61 @@
+<%= stylesheet_link_tag "admin" %>
+<% javascript 'admin.js' %>
+
+<h1>
+	<%= @dmptemplate.title %>
+	<!-- link button to add new guidance -->
+	<div class="move_2_right">
+		<%= link_to t("org_admin.templates.view_all_templates"),
+		            admin_index_dmptemplate_path,
+		            :class => 'btn btn-primary' %>
+	</div>
+</h1>
+
+<div class="div_clear"></div>
+
+<!-- render navigation tabs for the template-->
+<%= render :partial => "admin_nav_tabs", locals: {dmptemplate: @dmptemplate, active: "show_template"} %>
+
+<!-- body -->
+<div class="dmp_details_body">
+	<div class="dmp_details">
+		<% if @dmptemplate.org_type != constant("organisation_types.funder") || current_user.org_type == constant("organisation_types.funder") then %>
+			<div id="edit_template_div" style="display: none">
+				<%= render :partial => "edit_template", locals: {dmptemplate: @dmptemplate}%>	
+			</div>
+		<%end%>
+		<div id="show_template_div">
+			<%= render :partial => "show_template", locals: {dmptemplate: @dmptemplate}%>	
+		</div>
+	</div>
+	<!-- If template has phases-->
+	<% if !@dmptemplate.phases.nil? then %>
+		<% if @dmptemplate.phases.count == 1 then %>
+			<% @dmptemplate.phases.each do |phase| %>
+				<!--render the display block with the phase, sections and questions information-->
+				<%= render :partial => 'show_phases_sections', locals: {phase: phase}%>
+			<%end%>
+		<%else%>
+			<% @dmptemplate.phases.order(:number).each do |phase| %>
+				<div class="accordion" id="project-accordion">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= phase.id %>">
+								<h3><%= phase.title %><span class="plus-laranja"> </span>
+								</h3>
+							</a>
+						</div>
+						<div id="<%= phase.id %>" class="accordion-project collapse">
+							<div class="accordion-inner">
+								<!--render the display block with the phase, sections and questions information-->
+								<%= render :partial => 'show_phases_sections', locals: {phase: phase}%>
+							</div>
+						</div>
+					</div>
+				</div>
+			<%end%>
+		<%end%>
+	<%end%>
+</div>
+
+<%= tinymce :content_css => asset_path('application.css') %>

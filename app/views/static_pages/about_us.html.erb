@@ -1,0 +1,72 @@
+<script>
+	$(function(){
+	  var hash = window.location.hash;
+	  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+	
+	  $('#project-tabs .nav-tabs a').click(function (e) {
+	    $(this).tab('show');
+	    var scrollmem = $('body').scrollTop();
+	    window.location.hash = this.hash;
+	    $('html,body').scrollTop(scrollmem);
+	  });
+	});
+
+</script>
+
+
+<h1>
+	<%= t("about_page.title", application_name: Rails.configuration.branding[:application][:name])%>
+</h1>
+<div id="project-tabs" class="nav-project-tabs">
+	<ul class="nav nav-tabs" data-tabs="tabs">
+		<li class="active">
+            <%= link_to t("about_page.tab_1"), "#Background", :data => { :toggle => "tab"} %>
+        </li>
+        <%if t("about_page.tab_2") != "" %>
+            <li><%= link_to t("about_page.tab_2"), "#News", :data => { :toggle => "tab"} %></li>
+        <%end%>
+	</ul>
+</div>
+<div class="dmp_details_body">
+	<div id="my-tab-content" class="tab-content">
+		<div class="tab-pane active" id="Background">
+			<%= raw t("about_page.body_text_tab_1_html", 
+								organisation_name: Rails.configuration.branding[:organisation][:name],
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								organisation_email: Rails.configuration.branding[:organisation][:email],
+								organisation_url: Rails.configuration.branding[:organisation][:url],
+								application_name: Rails.configuration.branding[:application][:name],
+								application_home: Rails.configuration.branding[:application][:home],
+								application_url: Rails.configuration.branding[:application][:url])%>
+		</div>	
+		<div class="tab-pane" id="News">
+			<%= raw t("about_page.body_text_tab_2_html",
+								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+								application_name: Rails.configuration.branding[:application][:name])%>
+			
+            <% news_left = @dcc_news_feed.entries.count %>
+            
+            <% @dcc_news_feed.entries.each do |entry| %>
+                <h3><%= entry.title.sanitize %></h3>
+                <% summary = entry.summary.sanitize %>
+                <% summary = summary.gsub(/\A<img([^>])+>/, "") %>
+                <% summary = summary.gsub(/\A<div([^>])+>/, "") %>
+                <% name = summary[/\A[\s\w]*([^,])/].strip %>
+                <% summary = summary.gsub(/\A.*div>/, "") %>
+                <% summary = summary.gsub(/<p>.*\z/, "") %>
+                <p><%= raw summary.strip %></p>
+                <% author = entry.author.blank? ? 'anonymous' : entry.author %>
+                <p><%= t('helpers.about.by') %> <%= author %> <%= t('helpers.about.on') %> <%= entry.published.strftime("%d/%m/%Y") %></p>
+                <p><%= t('helpers.about.read_more') %><%= link_to "DCC Website", entry.url %></p>
+                </br>
+                <!--verify how many news are left -->
+                <%if news_left.to_i > 1 then %>
+                    <div class="two-column-clear question-divider"></div>
+                <%else%>
+                    <div class="two-column-clear"></div>
+                <%end%>
+                <% news_left = news_left - 1 %>
+            <% end %>
+		</div>		
+	</div>
+</div>	

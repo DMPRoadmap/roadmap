@@ -1,0 +1,59 @@
+<div class="content">
+	<div class="home_left_column">	
+		<div class="welcome-message">
+			
+			<h2><%= raw t('welcome_title')%></h2>
+			<%= raw t('welcome_text', 
+								application_name: Rails.configuration.branding[:application][:name], 
+								organisation_name: Rails.configuration.branding[:organisation][:name])%>
+								
+			<div class="screencast_home_page">
+				<p><%= t('screencast_text', application_name: Rails.configuration.branding[:application][:name]) %></p>
+				<div class="clear"></div>				
+				<video controls="controls" poster="<%= asset_path('screencast.jpg')%>" style="width:100%; height:200" title="1662">
+					<source src="<%= asset_path('index.files/html5video/screencast.mp4')%>" type="video/mp4" />
+					<source src="<%= asset_path('index.files/html5video/screencast.webm')%>" type="video/webm" />
+					<source src="<%= asset_path('index.files/html5video/screencast.ogv')%>" type="video/ogg" />
+					<object type="application/x-shockwave-flash" data="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;">
+						<param name="movie" value="<%= asset_path('index.files/html5video/flashfox.swf')%>" />
+						<param name="allowFullScreen" value="true" />
+						<param name="flashVars" value="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>" />
+			 			<embed src="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;"  flashVars="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>"	allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
+						<img alt="screencast" src="<%= asset_path('screencast.jpg')%>" style="position:absolute;left:0;" width="100%" title="<%= t('screencast_error_text')%>" />
+					</object>
+				</video>
+			</div>	
+		</div>
+	</div>
+	<div class="home_right_column">	
+		<div class="accordion" id="homepage-accordion">
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a class="accordion-toggle" data-toggle="collapse" data-parent="#homepage-accordion" href="#collapse-login">
+						<%= t('helpers.sign_in')%><span class="minus-laranja"> </span></a>
+				</div>
+				<div id="collapse-login" class="accordion-home collapse in">
+					<div class="accordion-inner">
+						<%= render :partial => 'shared/login_form' %>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a class="accordion-toggle" data-toggle="collapse" data-parent="#homepage-accordion" href="#collapse-register">
+						<%= t('helpers.sign_up') %><span class="plus-laranja"> </span></a>
+					<p>
+						<%= t('helpers.sign_up_text', application_name: Rails.configuration.branding[:application][:name])%>
+					</p>
+					
+				</div>
+				<div id="collapse-register" class="accordion-home collapse">
+					<div class="accordion-inner">
+						<%= render :partial => 'shared/register_form', locals: {extended: false} %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="two-column-clear"></div>
+</div>

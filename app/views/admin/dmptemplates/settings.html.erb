@@ -1,0 +1,38 @@
+<% @settings.errors.full_messages.each do |error| %>
+  <div class="error"><%= error %></div>
+<% end %>
+
+<%= form_for(@settings, url: update_settings_admin_dmptemplate_path(@template), method: :put, as: 'settings[export][formatting]', html: { class: 'formtastic' }) do |f| %>
+  <fieldset class="inputs">
+    <legend><span><%= t("admin.formatting")%></span></legend>
+    <ol>
+      <li>
+        <%= f.label(:font_face, t('helpers.settings.plans.font_face')) %>
+        <%= f.select(:font_face, options_for_select(Settings::Dmptemplate::VALID_FONT_FACES, @settings.formatting[:font_face]), as: 'formatting[font_face]') %>
+        <%= f.select(:font_size, options_for_select((1..36).to_a, @settings.formatting[:font_size])) %>pt
+      </li>
+      <li>
+        <%= f.label(t('helpers.settings.plans.margin')) %>
+				<% ["top", "bottom", "left", "right"].each do |pos| %>
+        	<span><%= t("helpers.settings.plans.margins.#{pos}") -%></span>
+        	<%= select_tag("settings[export][formatting][margin][#{pos}]", options_for_select((0..100).to_a, @settings.formatting[:margin][pos])) %>
+        <% end %>
+      </li>
+    </ol>
+  </fieldset>
+
+  <fieldset class="inputs">
+    <legend><span><%= t("admin.max_pages")%></span></legend>
+    <ol>
+      <li>
+        <%= label_tag('settings_export_max_pages', t('helpers.settings.plans.max_pages')) %>
+        <%= select_tag('settings[export][max_pages]', options_for_select((1..10).to_a, @settings.max_pages)) %>
+      </li>
+    </ol>
+  </fieldset>
+
+  <fieldset class="actions">
+    <%= submit_tag(t('helpers.save'), class: 'btn btn-primary') %>
+    <%= submit_tag(t('helpers.settings.plans.reset'), class: 'btn btn-primary') %>
+  </fieldset>
+<% end %>

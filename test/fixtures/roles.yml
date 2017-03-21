@@ -1,0 +1,5 @@
+<% # Load the roles from those defined within the MagicStrings section of the locale %>
+<% I18n.t("magic_strings.user_role_types").each do |k,v| %>
+<%= v %>:
+  name: <%= "#{v}" %>
+<% end %>

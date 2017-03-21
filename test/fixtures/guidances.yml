@@ -1,0 +1,176 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+related_policies:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are there any existing procedures that you will base your approach on?</li> <li>Does your department/group have data management guidelines?</li> <li>Does your institution have a data protection or security policy that you will follow?</li> <li>Does your institution have a Research Data Management (RDM) policy?</li> <li>Does your funder have a Research Data Management policy?</li> <li>Are there any formal standards that you will adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>List any other relevant funder, institutional, departmental or group policies on data management, data sharing and data security. Some of the information you give in the remainder of the DMP will be determined by the content of other policies. If so, point/link to them here.</p>"
+  themes: related_policies
+
+existing_data:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are there any existing data or methods that you can reuse?</li> </ul> <p class='guidance_header'>Guidance: </p> <p>Check to see if there are any existing data that you can reuse, for examples by consulting relevant repositories.</p> <p>When creating new data sources, explain why existing data sources cannot be re-used.</p> <p>A list of repositories is provided by Databib or Re3data .</p>"
+  themes: existing_data
+
+licensing_of_existing_data:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Do you need to pay to reuse existing data?</li> <li>Are there any restrictions on the reuse of third-party data?</li> <li>Can the data that you create - which may be derived from third-party data - be shared?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>If purchasing or reusing existing data sources, explain how issues such as copyright and IPR have been addressed.</p>"
+  themes: licensing_of_existing_data
+
+relationship_to_existing_data:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What is the relationship to existing data e.g. in public repositories?</li> <li>How does your data complement and integrate with existing data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider the relationship between the data that you will capture and existing data available in public repositories or elsewhere.</p>"
+  themes: relationship_to_existing_data
+
+description_of_data_content:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What data will you create?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Give a brief description of the data that will be created, noting its content and coverage</p>"
+  themes: description_of_data_content
+
+data_format:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What format will your data be in?</li> <li>Why have you chosen to use particular formats?</li> <li>Do the chosen formats and software enable sharing and long-term validity of data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline and justify your choice of format e.g. SPSS, Open Document Format, tab-delimited format, MS Excel.</p> <p>Decisions may be based on staff expertise, a preference for Open formats, the standards accepted by data centres or widespread usage with a given community. Using standardised and interchangeable or open lossless data formats ensures the long-term usability of data.</p> <p>See UKDA Guidance on recommended data formats.</p>"
+  themes: data_format
+
+data_volumes:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Do you have sufficient storage?</li> <li>Do you need to include costs for additional managed storage?</li> <li>Will the scale of the data pose challenges when sharing or transferring data between sites?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider the implications of data volumes in terms of storage, backup and access. </p> <p>Estimate the volume of data in KB/MB/GB and how this will grow to make sure any additional storage and technical support required can be provided.</p>"
+  themes: data_volumes
+
+data_type:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What types of data will you create?</li> <li>Which types of data will have long-term value?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline the types of data that are expected to be produced from the project e.g. quantitative, qualitative, survey data, experimental measurements, models, images, audiovisual data, samples&#8230;</p> <p>Include the raw data arising directly from the research, the reduced data derived from it, and published data.</p>"
+  themes: data_type
+
+data_capture_methods:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will the data be created?</li> <li>What standards or methodologies will you use?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline how the data will be collected/generated and which community data standards (if any) will be used at this stage.</p>"
+  themes: data_capture_methods
+
+data_organisation:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will you structure and name your folders and files?</li> <li>How will you ensure that different versions of a dataset are easily identifiable?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Indicate how the data will be organised during the project, mentioning for example naming conventions, version control and folder structures. Consistent, well-ordered research data will be easier for the research team to find, understand and reuse.</p>"
+  themes: data_organisation
+
+data_quality:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will you control data capture to ensure data quality?</li> <li>What quality assurance processes will you adopt?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Explain how the consistency and quality of data collection will be controlled and documented. </p> <p>This may include processes such as calibration, repeat samples or measurements, standardised data capture or recording, data entry validation, peer review of data or representation with controlled vocabularies.</p>"
+  themes: data_quality
+
+documentation:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What metadata, documentation or other supporting material should accompany the data for it to be interpreted correctly?</li> <li>What information needs to be retained to enable the data to be read and interpreted in the future?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Describe the types of documentation that will accompany the data to provide a secondary users with any necessary details to prevent misuse, misinterpretation or confusion. This may include information on the methodology used to collect the data, analytical and procedural information, definitions of variables, units of measurement, any assumptions made, the format and file type of the data.</p>"
+  themes: documentation
+
+metadata_capture:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will you capture / create the metadata?</li> <li>Can any of this information be created automatically?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Metadata should be created to describe the data and aid discovery. Consider how you will capture this information and where it will be recorded e.g. in a database with links to each item, in a ‘readme’ text file, in file headers.</p>"
+  themes: metadata_capture
+
+metadata_standards:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What metadata standards will you use and why?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Researchers are strongly encouraged to utilise community standards to describe and structure data, where these are in place. The DCC offers a catalogue of disciplinary metadata standards.</p>"
+  themes: metadata_standards
+
+discovery_by_users:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will potential users find out about your data?</li> <li>Will you provide metadata online to aid discovery and reuse?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Indicate how potential new users can find out about your data and identify whether they could be suitable for their research purposes. For example, you may provide basic discovery metadata online, such as title, author, subjects, keywords and publisher.</p>"
+  themes: discovery_by_users
+
+ethical_issues:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Have you gained consent for data preservation and sharing?</li> <li>How will sensitive data be handled to ensure it is stored and transferred securely?</li> <li>How will you protect the identity of participants? e.g. via anonymisation or using managed access procedures?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Investigators carrying out research involving human participants must ensure that consent is obtained to share data. Managing ethical concerns may include: anonymisation of data; referral to departmental or institutional ethics committees; and formal consent agreements. Ethical issues may affect how you store data, who can see/use it and how long it is kept. You should show that you&#8217;re aware of this and have planned accordingly.</p> <p>See UKDA Guidance on Consent, Confidentiality and Ethics.</p>"
+  themes: ethical_issues
+
+ipr_ownership_and_licencing:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who owns the data?</li> <li>How will the data be licensed for reuse?</li> <li>Will data sharing be postponed / restricted e.g. to seek patents?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>State who will own the copyright and IPR of any new data that you will generate. For multi-partner projects, IPR ownership may be worth covering in a consortium agreement. Outline any restrictions needed on data sharing e.g. to protect proprietary or patentable data.</p> <p>See DCC How to license research data.</p>"
+  themes: ipr_ownership_and_licencing
+
+active_data_storage:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Where will the data be stored?</li> <li>Do you have access to enough storage or will you need to include charges for additional services?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Storing data on laptops, computer hard drives or external storage devices alone is very risky. The use of robust, managed storage provided by university IT teams is preferable.</p> <p>See UKDA Guidance on Data Storage.</p>"
+  themes: active_data_storage
+
+backup_procedures:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will the data be backed up? i.e. how often, to where, how many copies, is this automated&#8230;</li> <li>Who will be responsible for backup?</li> <li>Have you tested whether you can restore from your backups?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Describe the data back-up procedures that you will adopt to ensure the data and metadata are securely stored during the lifetime of the project. You may need to discuss your institution&#8217;s policy on back-ups. It is better to use automatic backup services provided by university IT than rely on manual processes.</p> <p>See UKDA Guidance on Data Backup.</p>"
+  themes: backup_procedures
+
+data_security:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What are the risks to data security and how will these be managed?</li> <li>Will you follow any formal standards?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>If your data is sensitive (e.g. detailed personal data, politically sensitive information or trade secrets) you should discuss any appropriate security measures that you will be taking. Note the main risks and how these will be managed. Identify any formal standards that you will comply with e.g. ISO 27001.</p> <p>See DCC Briefing Paper on Information Security Management - ISO 27000.</p> <p>See UKDA Guidance on Data Security.</p>"
+  themes: data_security
+
+data_selection:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Which data are of long-term value and should be shared and/or preserved?</li> <li>How will you decide what to keep?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Indicate which data you intend to preserve beyond the period of funding. This should be based on what has long-term value and is economically viable to keep. Consider how long you wish to keep the data and what will happen to it e.g. deposit in a data repository to enable reuse.</p> <p>See DCC How to appraise and select research data.</p>"
+  themes: data_selection
+
+preservation_plan:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What is the long-term preservation plan for the dataset? e.g. deposit in a data repository</li> <li>Will additional resources be needed to prepare data for deposit or meet charges from data repositories?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Researchers should consider how datasets that have long-term value will be preserved and curated beyond the lifetime of the grant. Also outline the plans for preparing and documenting data for sharing and archiving.</p> <p>If you do not propose to use an established repository, the data management plan should demonstrate that resources and systems will be in place to enable the data to be curated effectively beyond the lifetime of the grant.</p>"
+  themes: preservation_plan
+
+period_of_preservation:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How long will the data be retained and preserved?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>This may depend on the type of data. Most research funders expect data to be retained for a minimum of 10 years from the end of the project. For data that by their nature cannot be re-measured, efforts should be made to retain them indefinitely.</p>"
+  themes: period_of_preservation
+
+data_repository:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Where (i.e. in which repository) will the data be deposited?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Most research funders recommend the use of established data repositories, community databases and related initiatives to aid data preservation, sharing and reuse.</p> <p>An international list of data repositories is available via Databib or Re3data.</p>"
+  themes: data_repository
+
+audience:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who may be interested in using your data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Where possible outline the types of users you expect and estimate numbers.</p>"
+  themes: audiencethe
+
+expected_reuse:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>What are the further intended or foreseeable research uses for the data?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>You should think about the possibilities for re-use of your data in other contexts and by other users, and connect this as appropriate with your plans for dissemination and Pathways to Impact. Where there is potential for reuse, you should use standards and formats that facilitate this.</p>"
+  themes: expected_reuse
+
+method_for_data_sharing:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>How will you make the data available to others?</li> <li>With whom will you share the data, and under what conditions?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Consider where, how, and to whom the data should be made available. Will you share data via a data repository, handle data requests directly or use another mechanism? </p> <p>The methods used to share data will be dependent on a number of factors such as the type, size, complexity and sensitivity of data. Mention earlier examples to show a track record of effective data sharing.</p>"
+  themes: method_for_data_sharing
+
+timeframe_for_data_sharing:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>When will you make the data available?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Data (with accompanying metadata) should be shared in a timely fashion. It is generally expected that timely release would generally be no later than the release through publication of the main findings and should be in-line with established best practice in the field.</p>"
+  themes: timeframe_for_data_sharing
+
+embargo_period:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>For how long do you need exclusive use of the data and why?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>The value of data often depends on timeliness. Researchers have a legitimate interest in benefiting from their investment of time and effort in producing data, but not in prolonged exclusive use. Research funders typically allow embargoes in line with practice in the field, but expect these to be outlined and justified.</p>"
+  themes: embargo_period
+
+restrictions_on_sharing:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are any restrictions on data sharing required? e.g. limits on who can use the data, when and for what purpose.</li> <li>What restrictions are needed and why?</li> <li>What action will you take to overcome or minimise restrictions?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline any expected difficulties in data sharing, along with causes and possible measures to overcome these. Restrictions to data sharing may be due to participant confidentiality, consent agreements or IPR. Strategies to limit restrictions may include: anonymising or aggregating data; gaining participant consent for data sharing; gaining copyright permissions; and agreeing a limited embargo period. </p>"
+  themes: restrictions_on_sharing
+
+managed_access_procedures:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Will access be tightly controlled or restricted? e.g. by using data enclaves / secure data services</li> <li>Will a data sharing agreement be required?</li> <li>How will the data be licensed for reuse?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Indicate whether external users are (will be) bound by data sharing agreements, licenses or end-user agreements. If so, set out the terms and key responsibilities to be followed.</p> <p>Note how access will be controlled, for example by the use of specialist services. A data enclave provides a controlled secure environments in which eligible researchers can perform analyses using restricted data resources.</p> <p>Where a managed access process is required, the procedure should be clearly described and transparent.</p>"
+  themes: managed_access_procedures
+
+responsibilities:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Who is responsible for each data management activity?</li> <li>How are responsibilities split across partner sites in collaborative research projects?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Outline the roles and responsibilities for all activities e.g. data capture, metadata production, data quality, storage and backup, data archiving &amp; data sharing. Individuals should be named where possible. For collaborative projects you should explain the co-ordination of data management responsibilities across partners.</p> <p>See UKDA Guidance on data management roles and responsibilities.</p>"
+  themes: responsibilities
+
+resourcing_skills_and_training:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Is additional specialist expertise (or training for existing staff) required?</li> <li>How will additional skills be sourced?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Carefully consider any resources needed to deliver the plan. Where dedicated resources are needed, these should be outlined and justified.</p> <p>Outline any relevant technical expertise, support and training that is likely to be required and how it will be acquired.</p>"
+  themes: resourcing_skills_and_training
+
+resourcing_hardware_and_software:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Are there appropriate computational facilities to manage, store and analyse the data?</li></ul> <p class='guidance_header'>Guidance:</p> <p>Carefully consider any resources needed to deliver the plan. Where dedicated resources are needed, these should be outlined and justified.</p> <p>Provide details and justification for any hardware or software which will be used to support the project’s research methodology, which is additional or exceptional to conventional desk-based research and institutional provision. This includes additional storage and backup costs that may be charged by IT services.</p>"
+  themes: resourcing_hardware_and_software
+
+resourcing_preservation_and_data_sharing:
+  text: "<p class='guidance_header'>Questions to consider:</p> <ul> <li>Will charges be applied by data repositories?</li> <li>Have you costed in time and effort to prepare the data for sharing / preservation?</li> </ul> <p class='guidance_header'>Guidance:</p> <p>Carefully consider any resources needed to deliver the plan. Where dedicated resources are needed, these should be outlined and justified.</p> <p>Funding should be included to cover any charges applied by data repositories, for example to handle data of exceptional size or complexity. Also remember to cost in time and effort to prepare data for deposit and ensure it is adequately documented to enable reuse.</p> <p>If you are not depositing in a data repository, ensure you have appropriate resources and systems in place to share and preserve the data.</p> <p>See UKDA How to cost data management.</p>"
+  themes: resourcing_preservation_and_data_sharing
+
+ahrc_funder_guidance:
+  text: "sample funder guidance ahrc"
+  themes: embargo_period
+
+bbsrc_funder_guidance:
+  text: "sample funder guidance bbsrc"
+  themes: embargo_period
+
+aru_institution_guidance:
+  text: "sample institution guidance aru"
+  themes: embargo_period
+
+au_institution_guidance_1:
+  text: "sample institution guidance au 1"
+  themes: embargo_period
+
+au_institution_guidance_2:
+  text: "sample instiution guidance au 2"
+  themes: embargo_period
+
+bu_institution_guidance_1:
+  text: "sample institution guidance bu 1"
+  themes: embargo_period
+
+bu_institution_guidance_2:
+  text: "sample institution guidance bu 2"
+  themes: embargo_period
+
+one:
+  text: "one"
+  themes: embargo_period
+
+
+

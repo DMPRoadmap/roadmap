@@ -1,0 +1,11 @@
+<% javascript("export_configure") %>
+<form method="get" action="<%= export_project_plan_path(plan.project, plan) -%>" target="_blank" id="select-form-format">
+  <%= label_tag(:format, t("helpers.format")) %>
+  <%= select_tag(:format, options_for_select(ExportedPlan::VALID_FORMATS, :pdf), class: 'export-format-selection') %>
+  <input type="submit" value="<%= t("helpers.export") -%>" class="btn btn-primary" />
+</form>
+
+<div class="plan-export-settings">
+	<h4>Export Settings <%= plan_settings_indicator(plan) -%></h4>
+	<%= render(partial: "settings/plans/export_formatting_form", locals: { plan: plan }) %>
+</div>

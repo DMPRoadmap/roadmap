@@ -1,0 +1,75 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+	<%= t("org_admin.guidance_label") %>
+
+	<!-- link button to add new guidance -->
+	<div class="move_2_right">
+		<%= link_to t("org_admin.guidance.add_guidance"),
+		            admin_new_guidance_path,
+		            :class => "btn btn-primary" %>
+		<%= link_to t("org_admin.guidance.view_all_guidance"),
+		            admin_index_guidance_path,
+		            :class => "btn btn-primary" %>
+	</div>            
+</h1>
+
+<div class="div_clear"></div>
+
+<div class="white_background blue_border">
+	<!-- body -->
+	<div class="dmp_details">
+		
+		<table class="dmp_details_table">
+			<tr>
+				<td class="first"><%= t("org_admin.guidance.text_label") %></td>
+				<td><%= raw @guidance.text %></td>
+			</tr>
+			<% if @guidance.themes !=[] then %>
+				<tr>
+					<td class="first"><%= t("org_admin.guidance.themes_label") %></td>
+					<td><% @guidance.themes.each do |th|%>
+							<%= th.title %>
+						<%end%>
+					</td>
+				</tr>
+			<%end%>	
+			<% if !@guidance.question_id.nil? %>
+				<tr>
+					<td class="first"><%= t("org_admin.guidance.question_label") %></td>
+					<td><%= raw @guidance.question.text %></td>
+				</tr>
+			<%end%>	
+			<tr>
+				<td class="first"><%= t("org_admin.guidance.guidance_group_label") %></td>
+				<td><% @guidance.guidance_groups.each do |p|%>
+						<%= p.name %>
+					<%end%>
+				</td>
+			</tr>
+            <tr>
+				<td class="first"><%= t("org_admin.guidance.published") %></td>
+				<td><%if @guidance.published == false || @guidance.published.nil? then%>
+						<%= t("helpers.no_label")%>
+					<%else%>
+						<%= t("helpers.yes_label")%>	
+					<%end%>
+				</td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("org_admin.guidance.created") %></td>
+				<td><%= l @guidance.created_at.to_date, :formats => :short %></td>
+			</tr>
+			<tr>
+				<td class="first"><%= t("org_admin.guidance.last_updated") %></td>
+				<td><%= l @guidance.updated_at.to_date, :formats => :short %></td>
+			</tr>
+			
+		</table>
+		<div class="move_2_right">
+			<%= link_to t("helpers.submit.edit"), admin_edit_guidance_path(@guidance.id), :class => "btn btn-primary"%>
+			<%= link_to t("helpers.submit.back"), :back, :class => "btn cancel" %>
+		</div>
+		<br />
+	</div>
+</div>	

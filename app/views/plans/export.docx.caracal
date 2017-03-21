@@ -1,0 +1,251 @@
+#-----------------------------------------------------
+# page settings
+#-----------------------------------------------------
+
+docx.page_numbers true do
+  align :center
+end
+
+docx.font do
+    name 'Arial'
+end
+
+docx.p do 
+    size 32
+end    
+
+
+#---------------------------------------------
+#   Structure for docx format 
+#--------------------------------------------- 
+
+docx.h1 @exported_plan.plan.project.title.upcase, font: 'Arial', color: '000000' 
+docx.h2 @exported_plan.plan.title.upcase, font: 'Arial', color: '000000' 
+
+#---- PLAN ADMIN DETAILS -----
+if @exported_plan.admin_details.present?
+    docx.p
+    docx.h3 'Admin Details'.upcase , italic: false, font: 'Arial', color: '000000'
+    @exported_plan.admin_details.each do |field|
+        value = @exported_plan.send(field)
+        label = "helpers.plan.export.#{field}"
+        if value.present?
+            docx.p do 
+                text I18n.t(label), bold: true, color: '000000' 
+                text ': ', bold: true, color: '000000' 
+                text value
+            end
+        end
+    end
+end
+
+
+#---- PLAN SECTIONS, QUESTIONS AND ANSWERS -----
+@exported_plan.sections.each do |section|
+    docx.p
+    docx.h3 section.title.upcase, italic: false, font: 'Arial', color: '000000' 
+    
+    @exported_plan.questions_for_section(section.id).each do |question|
+        docx.p strip_tags(question.text.gsub(/<li>/, '  * ')), bold: true
+        
+        answer = @exported_plan.plan.answer(question.id, false)
+        if answer.nil?
+            docx.p 'Question not answered', italic: true
+        else
+            q_format = question.question_format
+            if q_format.title == I18n.t("helpers.checkbox") || q_format.title == I18n.t("helpers.multi_select_box") ||
+               q_format.title == I18n.t("helpers.radio_buttons") || q_format.title == I18n.t("helpers.dropdown") then
+                answer.options.each do |option|
+                    docx.ul do
+                        if !option.text.nil? 
+                            li option.text
+                        end  
+                    end
+                end
+            end
+      
+            if !answer.text.nil? && question.option_comment_display == true then
+                search_answer = Nokogiri::HTML::DocumentFragment.parse "<div class='container'>"
+                search_answer.at(".//div").inner_html = answer.text
+                
+                if search_answer.css('table').present? then
+                    table_content = search_answer.css('table').css('tbody')
+                    
+                    if table_content.size > 0 then
+                        table_array = Array.new
+                        
+                        table_content.css('tr').each do |tr|
+                            row_th_array = Array.new 
+                            row_td_array = Array.new  
+                            
+                            if tr.search('th') then
+                                tr.search('th').each do |cell|
+                                    row_th_array << cell.text.to_s                                    
+                                end
+                            end
+                            
+                            if tr.search('td') then
+                                tr.search('td').each do |td_cell|
+                                    if !td_cell.text.to_s.blank? then   
+                                        new_val = Nokogiri::HTML::DocumentFragment.parse "<p>"
+                                        new_val.at(".//p").inner_html = td_cell
+                                        td_tags = new_val.at_css('td').children.map {|x| x.name.strip}
+                                        td_text = new_val.at_css('td').children.map {|x| x.text.strip}
+                                        
+                                        start_c = 0 
+                                        end_c = td_tags.size
+                                        
+                                        c1 = Caracal::Core::Models::TableCellModel.new do
+                                            while start_c < end_c do
+                                                p do
+                                                    #-- TEXT
+                                                    if td_tags[start_c] == 'text' then
+                                                        text td_text[start_c]
+                                                    else
+                                                        #-- LINK
+                                                        if td_tags[start_c] == 'a' then
+                                                            l_address = ""
+                                                            l_text = td_text[start_c]
+                                                            #-- GET HREF
+                                                            td_cell.search('a').each do |link|
+                                                                if link.content == td_text[start_c] then
+                                                                    l_address = link["href"]
+                                                                end   
+                                                            end
+                                                            link td_text[start_c], l_address
+                                                        #-- BOLD TEXT
+                                                        else
+                                                            if  td_tags[start_c] == 'strong' && td_text[start_c] != "" then 
+                                                                text td_text[start_c], bold: true
+                                                                text ' '
+                                                            #-- ITALIC TEXT
+                                                            else
+                                                                if td_tags[start_c] == 'em' && td_text[start_c] != "" then 
+                                                                    text td_text[start_c], italic: true
+                                                                    text ' '
+                                                               end
+                                                            end
+                                                        end
+                                                    end
+                                                end
+                                                start_c += 1
+                                            end    
+                                        end
+                                        row_td_array << c1
+                                    else
+                                        row_td_array << td_cell.text.to_s
+                                    end    
+                                end
+                            end
+                            
+                            #--- check if all cells are empty 
+                            if row_td_array.size > 0 then
+                                if row_td_array.all?(&:blank?) then
+                                    row_td_array = []
+                                end
+                            end    
+                                                        
+                            if !row_th_array.empty?  then
+                                table_array <<  row_th_array
+                            end
+                            if !row_td_array.empty? then
+                                table_array <<  row_td_array
+                            end
+                            
+                        end
+                        
+                        #--- build the table layout
+                        docx.table table_array, border_size: 4 do
+                            cell_style rows[0],    bold: true,   background: 'fbb400'
+                            cell_style cells,      size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
+                        end
+    
+                    end 
+                    
+                else
+                    higher_level = search_answer.search('div.container').children.map {|x| x.name.strip}
+                    all_text = search_answer.search('div.container').children.map {|x| x.inner_html.strip}
+                    high_count = 0
+                    high_end_count = higher_level.size
+                  
+                    while high_count < high_end_count do
+                       
+                        if higher_level[high_count] == 'p' then
+                            inner_txt_with_tags = Nokogiri::HTML::DocumentFragment.parse "<p>"
+                            inner_txt_with_tags.at(".//p").inner_html = all_text[high_count]
+                            tags_type = inner_txt_with_tags.at_css('p').children.map {|x| x.name.strip}
+                            inner_txt = inner_txt_with_tags.at_css('p').children.map {|x| x.text.strip}
+                            
+                            start_count = 0 
+                            end_counter = tags_type.size
+                                                     
+                            docx.p do 
+                                while start_count < end_counter do 
+                                    text_val = inner_txt[start_count].to_s
+                                    #-- TEXT
+                                    if tags_type[start_count] == 'text' && text_val != "" then
+                                        text text_val
+                                        text ' '
+                                    #-- LINK
+                                    else 
+                                        if tags_type[start_count] == 'a' && text_val != "" then 
+                                            l_text = text_val
+                                            l_address = ""
+                                            # all links
+                                            search_answer.search('a').each do |link|
+                                                if link.content == text_val then
+                                                    l_address = link["href"]
+                                                 end   
+                                            end
+                                            link text_val, l_address
+                                        #-- BOLD TEXT
+                                        else
+                                            if tags_type[start_count] == 'strong' && text_val != "" then 
+                                                text text_val, bold: true
+                                                text ' '
+                                            #-- ITALIC TEXT
+                                            else
+                                                if tags_type[start_count] == 'em' && text_val != "" then 
+                                                    text text_val, italic: true
+                                                    text ' '
+                                                end
+                                            end
+                                        end    
+                                    end
+                                    start_count +=1
+                                end
+                            end
+                            #-- END OF P
+                        else
+                            if higher_level[high_count] == 'ul' then 
+                                ul_text = search_answer.search('ul').children.map {|x| x.text.strip}
+                                docx.ul do
+                                    ul_text.each do |txt|
+                                        if !txt.blank? 
+                                            li txt
+                                        end  
+                                    end
+                                end
+                            else
+                                if higher_level[high_count] == 'ol' then 
+                                    ol_text = search_answer.search('ol').children.map {|x| x.text.strip}
+                                    docx.ol do
+                                        ol_text.each do |txt|
+                                            if !txt.blank? 
+                                                li txt
+                                            end  
+                                        end
+                                    end
+                                end
+                            end 
+                        end 
+
+                       high_count += 1 
+                    end
+                end    
+            end
+        end
+        #-- add a new line
+        docx.p
+    end
+end

@@ -1,0 +1,7 @@
+<p><%= t('custom_devise.hello') %> <%= @resource.email %>!</p>
+
+<p><%= t('custom_devise.colleague_invited_you') %> <%= link_to t('tool_title'), root_url %></p>
+
+<p><%= link_to t('custom_devise.click_to_accept'), accept_invitation_url(@resource, :invitation_token => @token) %> <%= t('custom_devise.1st_part_copy') %> <%= accept_invitation_url(@resource, :invitation_token => @token) %> <%= t('custom_devise.2nd_part_copy') %></p>
+
+<%= t('custom_devise.ignore_wont_be_created') %>

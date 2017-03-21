@@ -1,0 +1,89 @@
+single_select_1:
+ question: single_select_box
+ text: Option 1
+ number: 1
+
+single_select_2:
+ question: single_select_box
+ text: Option 2
+ number: 2
+
+single_select_3:
+ question: single_select_box
+ text: Option 3
+ number: 3
+
+single_select_4:
+ question: single_select_box
+ text: Option 4
+ number: 4
+
+multiple_select_1:
+ question: multiple_select_box
+ text: Option 1
+ number: 1
+
+multiple_select_2:
+ question: multiple_select_box
+ text: Option 2
+ number: 2
+
+multiple_select_3:
+ question: multiple_select_box
+ text: Option 3
+ number: 3
+
+multiple_select_4:
+ question: multiple_select_box
+ text: Option 4
+ number: 4
+
+radio_button_1:
+ question: radio_button
+ text: Option 1
+ number: 1
+
+radio_button_2:
+ question: radio_button
+ text: Option 2
+ number: 2
+
+radio_button_3:
+ question: radio_button
+ text: Option 3
+ number: 3
+
+radio_button_4:
+ question: radio_button
+ text: Option 4
+ number: 4
+
+checkbox_1:
+ question: checkbox
+ text: Option 1
+ number: 1
+
+checkbox_2:
+ question: checkbox
+ text: Option 2
+ number: 2
+
+checkbox_3:
+ question: checkbox
+ text: Option 3
+ number: 3
+
+checkbox_4:
+ question: checkbox
+ text: Option 4
+ number: 4
+
+mrc_5_2_yes:
+  question: mrc_5_2
+  text: "Yes"
+  number: 1
+
+mrc_5_2_no:
+  question: mrc_5_2
+  text: "No"
+  number: 2
