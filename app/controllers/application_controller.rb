@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
-   FastGettext.locale = session[:locale] || FastGettext.default_locale
+    FastGettext.locale = session[:locale] || FastGettext.default_locale
   end
 
   # PATCH /locale/:locale REST method
