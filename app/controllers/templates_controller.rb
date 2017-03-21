@@ -199,7 +199,7 @@ class TemplatesController < ApplicationController
     authorize @template
     
     # Auto create a default phase
-    @template.phases << Phase.new({number: 1, title: "#{_('Phase')} 1"})
+    @template.phases << Phase.new({number: 1, title: "#{_('Phase')} 1", modifiable: true})
     
     if @template.save!
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
