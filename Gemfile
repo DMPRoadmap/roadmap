@@ -64,6 +64,7 @@ gem 'tinymce-rails'                     # WYSIWYG EDITOR
 gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha', '>= 4.0'
 gem 'dragonfly'                         # LOGO UPLOAD
+gem 'formtastic'
 
 # ------------------------------------------------
 #     EXPORTING
