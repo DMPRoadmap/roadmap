@@ -99,8 +99,9 @@ class PhasesController < ApplicationController
 
   #show and edit a phase of the template
   def admin_show
-    @phase = Phase.eager_load(params[:id])
+    @phase = Phase.eager_load(:sections).find_by('phases.id = ?', params[:id])
     authorize @phase
+
     @edit = params[:edit] == "true" ? true : false
         #verify if there are any sections if not create one
     @sections = @phase.sections
