@@ -168,7 +168,7 @@ class TemplatesController < ApplicationController
         new_version.published = false
         new_version.save!
       end
-      redirect_to admin_index_template_path(), notice: _('Information was successfully updated.')
+      redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
       render action: "edit"
     end
