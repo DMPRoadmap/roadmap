@@ -8,9 +8,9 @@ class SectionsController < ApplicationController
     authorize @section
     @section.description = params["section-desc"]
     @section.modifiable = true
-    @phase = section.phase
+    @phase = @section.phase
     if @section.save
-      redirect_to admin_show_phase_template_path(id: @section.phase_id,
+      redirect_to admin_show_phase_path(id: @section.phase_id,
         :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       render action: "phases/admin_show"
