@@ -205,7 +205,8 @@
 			</tr>
 		<%end%>
     <%if plan.template.customization_of.present? %>
-      <%= " (Customised from " + plan.template.customization_of.org.name + ")" %>
+      <% ctemplate = Template.find(plan.template.customization_of)
+      <%= " (Customised from " + ctemplate.org.name + ")" %>
     <%end%>
 	</table>
 
