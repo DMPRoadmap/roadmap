@@ -19,7 +19,8 @@
 <!-- body -->
 <div class="dmp_details_body">
   <div class="dmp_details">
-    <% if @hash[:template][:org].funder? || current_user.org.funder? %>
+    <% if @hash[:template][:org].funder? || current_user.org.funder? ||
+             @hash[:template][:org] == current_user.org %>
       <div id="edit_template_div" style="display: none">
         <%= render partial: "templates/edit_template", locals: {template: @template, hash: @hash}%>
       </div>
