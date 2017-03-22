@@ -36,7 +36,7 @@
             <% if section.phase.template.customization_of.present? %>
               <div id="edit_question_div_<%= question.id%>"  style="display: none">
                   <!-- render the edit question block-->
-                  <%= render partial: 'questions/edit_annotations', locals: {question: question} %>
+                  <%= render partial: 'questions/edit_question', locals: {question: question} %>
               </div>
               <% end %>
           </div>
