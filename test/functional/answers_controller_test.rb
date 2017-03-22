@@ -21,7 +21,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       plan = Plan.create(title: "Testing Answer For #{format.title}", 
                          template: template)
                          
-      referrer = "/#{I18n.locale}/plans/#{plan.id}/phases/#{question.section.phase.id}/edit"
+      referrer = "/#{FastGettext.locale}/plans/#{plan.id}/phases/#{question.section.phase.id}/edit"
                          
       answer = Answer.create(user: @user, plan: plan, question: question, 
                              text: "#{format.title} Tester")
@@ -59,15 +59,15 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
   
   private
     def put_answer(answer, attributes, referrer)
-      put answer_path(I18n.locale, answer), attributes, {'HTTP_REFERER': referrer}
+      put answer_path(FastGettext.locale, answer), attributes, {'HTTP_REFERER': referrer, 'ACCEPT': 'text/javascript'}
 
-      assert_equal I18n.t('helpers.project.answer_recorded'), flash[:notice]
+      assert_equal _('Answer was successfully recorded.'), flash[:notice]
       assert_response :redirect
       
       follow_redirects
       
       assert_response :success
-      assert_select '.main_page_content h1', I18n.t("helpers.project.projects_title")
+      assert_select '.main_page_content h1', _('My plans')
       
     end
 end
