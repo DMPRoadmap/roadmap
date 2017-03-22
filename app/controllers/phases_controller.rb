@@ -138,7 +138,7 @@ class PhasesController < ApplicationController
   def admin_add
     @template = Template.find(params[:id])
     @phase = Phase.new
-    phase.template = @template
+    @phase.template = @template
     authorize @phase
     @phase.number = @template.phases.count + 1
   end
