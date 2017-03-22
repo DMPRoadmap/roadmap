@@ -23,6 +23,7 @@ class AnswersController < ApplicationController
 
     if @answer.nil?
       @answer = Answer.new(params[:answer])
+      @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
       authorize @answer
 			@answer.save
     else

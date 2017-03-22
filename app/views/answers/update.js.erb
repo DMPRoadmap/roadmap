@@ -19,4 +19,4 @@
 // so that the next save can work. If you don't do
 // this it will fail forever.
 
-$("#answer_lock_version").val(<%= @lock_version %>);
+$("#answer_lock_version-<%=@question.id%>").val(<%= @lock_version %>);
