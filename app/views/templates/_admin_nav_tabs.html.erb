@@ -19,7 +19,10 @@
     </li>
     <% end %>
     <!-- Add another phase button -->
-    <% if current_user.can_org_admin? && (template.org.funder? || current_user.org.funder?) %>
+    <% if current_user.can_org_admin? && 
+            (template.org.funder? || 
+             current_user.org.funder? || 
+             (template.org == current_user.org)) %>
       <% if active == 'add_plan' %>
       <li class="active">
     <% else %>
