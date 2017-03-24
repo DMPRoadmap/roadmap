@@ -26,7 +26,7 @@ class GuidancesController < ApplicationController
     @templates = (Org.funders.collect{|o| o.templates } + current_user.org.templates).flatten
 
 		@phases = nil
-		@templates.includes(:phases).each do |template|
+		@templates.each do |template|
 			if @phases.nil? then
 				@phases = template.phases.all.order('number')
 			else
