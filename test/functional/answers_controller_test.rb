@@ -59,15 +59,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
   
   private
     def put_answer(answer, attributes, referrer)
-      put answer_path(FastGettext.locale, answer), attributes, {'HTTP_REFERER': referrer, 'ACCEPT': 'text/javascript'}
-
-      assert_equal _('Answer was successfully recorded.'), flash[:notice]
-      assert_response :redirect
-      
-      follow_redirects
-      
+      put answer_path(answer), attributes, {'HTTP_REFERER': referrer, 'HTTP_ACCEPT': 'text/javascript'}
       assert_response :success
-      assert_select '.main_page_content h1', _('My plans')
-      
     end
 end
