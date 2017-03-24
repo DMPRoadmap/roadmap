@@ -1,13 +1,13 @@
 defaults: &defaults
   legal_entity: 'the University of Edinburgh, University of Glasgow and the University of California'
 
-	# Warning: The abbreviation here should match the org.abbreviation value registered in your database!
+  # Warning: The abbreviation here should match the org.abbreviation value registered in your database!
   organisation:
-    name: 'Digital Curation Center and University of California Curation Center'
-    abbreviation: 'DCC'
+    name: 'Curation Center'
+    abbreviation: 'CC'
     url: 'https://github.com/DMPRoadmap/roadmap/wiki'
-    copywrite_name: 'DCC and UC3'
-    email: 'dmponline@dcc.ac.uk'
+    copywrite_name: 'Curation Centre (CC)'
+    email: 'tester@cc_curation_centre.org'
 
   application:
     name: 'DMPRoadmap'
@@ -19,12 +19,12 @@ defaults: &defaults
 
 development:
   <<: *defaults
-    
+
 test:
   <<: *defaults
 
-staging:
+stage:
   <<: *defaults
-    
+
 production:
   <<: *defaults
