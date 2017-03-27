@@ -35,6 +35,7 @@ coverage
 # Ignore database configuration and token secrets
 config/database.yml
 config/secrets.yml
+config/branding.yml
 
 # Ignore some of the initializers
 config/initializers/recaptcha.rb

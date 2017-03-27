@@ -47,7 +47,7 @@ class Org < ActiveRecord::Base
             column: 'org_type'
 
   # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> { where(name: GlobalHelpers.constant("organisation_types.managing_organisation")) }
+  scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
   scope :funders, -> { where(org_type: 2) }
   scope :institutions, -> { where(org_type: 3) }
 
