@@ -54,4 +54,8 @@ class TokenPermissionTypeDashboard < Administrate::BaseDashboard
   # def display_resource(token_permission_type)
   #   "TokenPermissionType ##{token_permission_type.id}"
   # end
+  def display_resource(token_permission_type)
+    "#{token_permission_type.token_type}: #{token_permission_type.text_description}"
+  end
+
 end

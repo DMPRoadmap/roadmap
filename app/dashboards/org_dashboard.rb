@@ -8,7 +8,6 @@ class OrgDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    organisation_type: Field::BelongsTo,
     language: Field::BelongsTo,
     guidance_groups: Field::HasMany,
     templates: Field::HasMany,
@@ -47,7 +46,6 @@ class OrgDashboard < Administrate::BaseDashboard
     :templates,
     :contact_email,
     :org_type,
-    :organisation_type,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -60,12 +58,10 @@ class OrgDashboard < Administrate::BaseDashboard
     :templates,
     :contact_email,
     :org_type,
-    :organisation_type,
-
-    :id,
     :users,
     :suggested_answers,
     :token_permission_types,
+    :id,
     :target_url,
     :wayfless_entity,
     :created_at,
@@ -84,12 +80,11 @@ class OrgDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :organisation_type,
     :language,
     :guidance_groups,
-    :templates,
-    :users,
-    :suggested_answers,
+#    :templates,
+#    :users,
+#    :suggested_answers,
     :token_permission_types,
     :name,
     :abbreviation,
@@ -113,4 +108,8 @@ class OrgDashboard < Administrate::BaseDashboard
   # def display_resource(org)
   #   "Org ##{org.id}"
   # end
+
+  def display_resource(org)
+    org.name
+  end
 end

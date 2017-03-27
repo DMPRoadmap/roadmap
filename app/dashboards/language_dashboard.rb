@@ -46,8 +46,8 @@ class LanguageDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :users,
-    :orgs,
+  #  :users,
+  #  :orgs,
     :abbreviation,
     :description,
     :name,
@@ -60,4 +60,9 @@ class LanguageDashboard < Administrate::BaseDashboard
   # def display_resource(language)
   #   "Language ##{language.id}"
   # end
+
+  def display_resource(language)
+    language.abbreviation
+  end
+
 end
