@@ -54,4 +54,9 @@ class UserIdentifierDashboard < Administrate::BaseDashboard
   # def display_resource(user_identifier)
   #   "UserIdentifier ##{user_identifier.id}"
   # end
+
+  def display_resource(user_identifier)
+    user_identifier.identifier
+  end
+
 end

@@ -60,4 +60,9 @@ class IdentifierSchemeDashboard < Administrate::BaseDashboard
   # def display_resource(identifier_scheme)
   #   "IdentifierScheme ##{identifier_scheme.id}"
   # end
+
+  def display_resource(identifier_scheme)
+    identifier_scheme.description
+  end
+
 end

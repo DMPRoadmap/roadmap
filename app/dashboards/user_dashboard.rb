@@ -120,7 +120,7 @@ class UserDashboard < Administrate::BaseDashboard
 #    :answers,
 #    :notes,
 #    :exported_plans,
-    :roles,
+#    :roles,
 #    :plans,
     :user_identifiers,
     :identifier_schemes,
@@ -158,4 +158,9 @@ class UserDashboard < Administrate::BaseDashboard
   # def display_resource(user)
   #   "User ##{user.id}"
   # end
+  
+  def display_resource(user)
+    "user.name (##{user.id})"
+  end
+
 end

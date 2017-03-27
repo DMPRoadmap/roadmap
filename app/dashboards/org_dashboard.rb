@@ -82,9 +82,9 @@ class OrgDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :language,
     :guidance_groups,
-    :templates,
-    :users,
-    :suggested_answers,
+#    :templates,
+#    :users,
+#    :suggested_answers,
     :token_permission_types,
     :name,
     :abbreviation,
@@ -108,4 +108,8 @@ class OrgDashboard < Administrate::BaseDashboard
   # def display_resource(org)
   #   "Org ##{org.id}"
   # end
+
+  def display_resource(org)
+    org.name
+  end
 end
