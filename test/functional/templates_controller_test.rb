@@ -145,7 +145,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     post admin_create_template_path(Template.last.id), {template: {title: nil, org_id: @user.org.id}}
     assert_response :success
     assert assigns(:template)
-    # TODO: Should also probably display the reason why it failed!
+    assert_equal _('Unable to save your changes.'), flash[:notice]
   end
   
   # GET /org/admin/templates/:id/admin_update (admin_update_template_path)
@@ -181,7 +181,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
     assert assigns(:template)
-    # TODO: Should also probably display the reason why it failed!
+    assert_equal _('Unable to save your changes.'), flash[:notice]
   end
 
 end

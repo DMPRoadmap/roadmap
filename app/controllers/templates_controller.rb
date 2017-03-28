@@ -172,7 +172,7 @@ class TemplatesController < ApplicationController
       end
       redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
-      redirect_to admin_template_template_path(@template)
+      redirect_to admin_template_template_path(@template), notice: _('Unable to save your changes.')
     end
   end
 
@@ -204,6 +204,7 @@ class TemplatesController < ApplicationController
     if @template.save
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
+      flash[:notice] = _('Unable to save your changes.')
       render action: "admin_new"
     end
   end
