@@ -201,7 +201,7 @@ class TemplatesController < ApplicationController
       break random unless Template.exists?(dmptemplate_id: random)
     end
 
-    if @template.save!
+    if @template.save
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
       render action: "admin_new"
