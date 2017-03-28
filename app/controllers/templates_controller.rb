@@ -168,7 +168,7 @@ class TemplatesController < ApplicationController
         new_version.published = false
         new_version.save!
       end
-      redirect_to admin_index_template_path(), notice: _('Information was successfully updated.')
+      redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
       render action: "edit"
     end
@@ -197,10 +197,6 @@ class TemplatesController < ApplicationController
       break random unless Template.exists?(dmptemplate_id: random)
     end
     authorize @template
-    
-    # Auto create a default phase
-    @template.phases << Phase.new({number: 1, title: "#{_('Phase')} 1", modifiable: true})
-    
     if @template.save!
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else

@@ -102,7 +102,9 @@ class PhasesController < ApplicationController
     @phase = Phase.eager_load(:sections).find_by('phases.id = ?', params[:id])
     authorize @phase
 
-    @edit = params[:edit] == "true" ? true : false
+    @edit = (@phase.template.org == current_user.org)
+    #@edit = params[:edit] == "true" ? true : false
+    
         #verify if there are any sections if not create one
     @sections = @phase.sections
     if !@sections.any?() || @sections.count == 0
@@ -138,7 +140,7 @@ class PhasesController < ApplicationController
   def admin_add
     @template = Template.find(params[:id])
     @phase = Phase.new
-    phase.template = @template
+    @phase.template = @template
     authorize @phase
     @phase.number = @template.phases.count + 1
   end

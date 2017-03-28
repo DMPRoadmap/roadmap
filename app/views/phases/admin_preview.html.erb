@@ -43,7 +43,7 @@
 
             <% section.questions.order("number").each do |question| %>
               <!--question block-->
-              <%= render partial: 'question/preview_question', locals: {question: question}%>
+              <%= render partial: 'questions/preview_question', locals: {question: question}%>
               <% if last_question_id == question.id then %>
                 <div class="two-column-clear"></div>
               <% else %>
