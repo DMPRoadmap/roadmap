@@ -54,6 +54,8 @@ class TemplatesController < ApplicationController
     @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format,
           :suggested_answers]]]).find(params[:id])
     # check to see if this is a funder template needing customized
+    
+    authorize @template
     if @template.org_id != current_user.org_id
       # definitely need to deep_copy the given template
       new_customization = Template.deep_copy(@template)
@@ -145,7 +147,7 @@ class TemplatesController < ApplicationController
       new_version.save!
       @template = new_version
     end
-    authorize @template
+
     # once the correct template has been generated, we convert it to hash
     @hash = @template.to_hash
   end
@@ -185,6 +187,8 @@ class TemplatesController < ApplicationController
   # creates a new template with version 0 and new dmptemplate_id
   def admin_create
     @template = Template.new(params[:template])
+    authorize @template
+    
     @template.org_id = current_user.org_id
     @template.description = params['template-desc']
     @template.published = false
@@ -196,7 +200,7 @@ class TemplatesController < ApplicationController
       random = rand 2147483647
       break random unless Template.exists?(dmptemplate_id: random)
     end
-    authorize @template
+
     if @template.save!
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else

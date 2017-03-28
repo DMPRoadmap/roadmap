@@ -184,7 +184,7 @@ users = [
    surname: "Admin",
    password: "password123",
    password_confirmation: "password123",
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    language: Language.find_by(abbreviation: I18n.locale),
    perms: Perm.all,
    accept_terms: true,
@@ -225,7 +225,7 @@ users.map{ |u| User.create!(u) if User.find_by(email: u[:email]).nil? }
 # ------------------------------------------------------- 
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    optional_subset: true,
    published: true},
   {name: "Government Agency Advice (Funder specific guidance)",
@@ -344,7 +344,7 @@ templates = [
   {title: "My Curation Center's Default Template",
    description: "The default template",
    published: true,
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
    version: 1},
   
