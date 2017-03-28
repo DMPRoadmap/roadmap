@@ -130,9 +130,9 @@
         <li class="comment_tab_class">
           <% if comments.count > 0 then%>
             <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
-            <%= link_to comments_label_with_count , "#", :class => "comments_accordion_button" %>
+            <%= link_to comments_label_with_count , "#", id: "notes_number_#{question_id}", class: "comments_accordion_button" %>
           <%else%>
-            <%= link_to _('Share note'), "#", :class => "comments_accordion_button" %>
+            <%= link_to _('Share note'), "#", id: "notes_number_#{question_id}", class: "comments_accordion_button" %>
           <%end%>
         </li>
         <%else%>
@@ -142,9 +142,9 @@
           <li>
             <% if comments.count > 0 then%>
               <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
-              <p class= "accordion_label"><%= comments_label_with_count %></p>
+              <p id="notes_number_<%=question_id%>" class= "accordion_label"><%= comments_label_with_count %></p>
             <%else%>
-              <p class= "accordion_label"><%= _('Share note') %></p>
+              <p id="notes_number_<%=question_id%>" class= "accordion_label"><%= _('Share note') %></p>
             <%end%>
           </li>
         <%end%>
@@ -202,7 +202,7 @@
 
   <!--comment area -->
   <div class="comment-area" id="comment-question-area-<%= question_id %>"  style="<%= css_style_comment_div%>">
-      <%= render :partial => "note", locals: {question: question, answer: answer, plan: plan }%>
+      <%= render :partial => "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
   </div>
 
 </div> <!-- question area right column -->

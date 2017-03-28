@@ -170,9 +170,9 @@ Rails.application.routes.draw do
 
     resources :answers, only: :update
 
-    resources :notes, only: [:create, :update] do
+    resources :notes, only: [:create, :update, :archive] do
       member do
-        put 'archive'
+        patch 'archive'
       end
     end
 
