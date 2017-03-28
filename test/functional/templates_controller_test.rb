@@ -10,51 +10,39 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
 # TODO: The following methods SHOULD replace the old 'admin_' prefixed methods. The routes file already has
-#       these defined. We should remove the old routes to the 'admin_' prefixed methods as well
-
-  # GET /admin/templates (admin_templates_path)
-  # ----------------------------------------------------------
-  test "get list of all templates" do
-    # TODO: This method should replace admin_index and would ideally be `templates GET`
-  end 
-  
-  # POST /admin/templates (admin_templates_path)
-  # ----------------------------------------------------------
-  test "create a new template" do
-    # TODO: This method should replace admin_create and would ideally be `templates POST`
-  end 
-  
-  # GET /admin/templates/new (new_admin_template_path)
-  # ----------------------------------------------------------
-  test "get the new template page" do
-    # TODO: This method should replace admin_new and would ideally be `templates/new GET`
-  end
-  
-  # GET /admin/templates/:id/edit (edit_admin_template_path)
-  # ----------------------------------------------------------
-  test "get the edit template page" do
-    # TODO: This method should replace admin_edit and would ideally be `templates/[:id]/edit GET`
-  end 
-  
-  # GET /admin/templates/:id (admin_template_path)
-  # ----------------------------------------------------------
-  test "get the show template page" do
-    # TODO: This method should replace admin_show and would ideally be `template/[:id] GET`
-  end 
-  
-  # PUT/PATCH /admin/templates/:id (admin_template_path)
-  # ----------------------------------------------------------
-  test "update the template" do
-    # TODO: This method should replace admin_update and would ideally be `template/[:id] PUT`
-  end 
-  
-  # DELETE /admin/templates/:id (admin_template_path)
-  # ----------------------------------------------------------
-  test "destroy the template" do
-    # TODO: This method should replace admin_destroy and would ideally be `template/[:id] DELETE`
-  end 
-  
-  
+#       these defined. We should remove the old routes to the 'admin_' prefixed methods as well. We should just
+#       have:
+#
+# SHOULD BE:
+# --------------------------------------------------
+#   templates               GET    /templates           templates#index
+#                           POST   /templates           templates#create
+#   template                GET    /template/[:id]      templates#show
+#                           PATCH  /template/[:id]      templates#update
+#                           PUT    /template/[:id]      templates#update
+#                           DELETE /template/[:id]      templates#destroy
+#   edit_template           GET    /template/[:id]/edit templates#edit
+#   new_template            GET    /templates/new       templates#new
+#
+#
+# CURRENT RESULTS OF `rake routes`
+# --------------------------------------------------
+#   admin_index_template    GET    /org/admin/templates/:id/admin_index(.:format)          templates#admin_index
+#   admin_template_template GET    /org/admin/templates/:id/admin_template(.:format)       templates#admin_template
+#   admin_new_template      GET    /org/admin/templates/:id/admin_new(.:format)            templates#admin_new
+#   admin_template_history_template GET /org/admin/templates/:id/admin_template_history(.:format) templates#admin_template_history
+#   admin_destroy_template  DELETE /org/admin/templates/:id/admin_destroy(.:format)        templates#admin_destroy
+#   admin_create_template   POST   /org/admin/templates/:id/admin_create(.:format)         templates#admin_create
+#   admin_update_template   PUT    /org/admin/templates/:id/admin_update(.:format)         templates#admin_update
+#
+#   admin_templates         GET    /admin/templates(.:format)                              admin/templates#index
+#                           POST   /admin/templates(.:format)                              admin/templates#create
+#   new_admin_template      GET    /admin/templates/new(.:format)                          admin/templates#new
+#   edit_admin_template     GET    /admin/templates/:id/edit(.:format)                     admin/templates#edit
+#   admin_template          GET    /admin/templates/:id(.:format)                          admin/templates#show
+#                           PATCH  /admin/templates/:id(.:format)                          admin/templates#update
+#                           PUT    /admin/templates/:id(.:format)                          admin/templates#update
+#                           DELETE /admin/templates/:id(.:format)                          admin/templates#destroy
   
   
   # GET /org/admin/templates/:id/admin_index (admin_index_template_path) the :id here makes no sense!
@@ -149,17 +137,50 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     post admin_create_template_path(Template.last.id), {template: params}
     assert_response :redirect
-
     assert_redirected_to admin_template_template_url(Template.last.id)
-    
+    assert_equal _('Information was successfully created.'), flash[:notice]
     assert assigns(:template)
+    
+    # Invalid object
+    post admin_create_template_path(Template.last.id), {template: {title: nil, org_id: @user.org.id}}
+    assert_response :redirect
+    assert_redirected_to admin_new_template_url(Template.last.id)
   end
   
   # GET /org/admin/templates/:id/admin_update (admin_update_template_path)
   # ----------------------------------------------------------
   test "update the admin template" do
+    params = {title: 'ABCD'}
+    
+    # Should redirect user to the root path if they are not logged in!
+    put admin_update_template_path(@template), {template: params}
+    assert_unauthorized_redirect_to_root_path
+    
     sign_in @user
 
+    # Make sure we get the proper message if trying to update a published template
+    put admin_update_template_path(@template), {template: params}
+    assert_response :redirect
+    assert_redirected_to admin_template_template_url(Template.last.id)
+    assert_equal _('Published templates cannot be edited.'), flash[:notice]
+    assert assigns(:template)
+    
+    @template.published = false
+    @template.save!
+    
+    # Make sure we get the right response when editing an unpublished template
+    put admin_update_template_path(@template), {template: params}
+    assert_response :redirect
+    assert_redirected_to admin_template_template_url(Template.last.id)
+    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert assigns(:template)
+    
+    # Make sure we get the right response when providing an invalid template
+    put admin_edit_template_path(@template), {template: {title: nil}}
+    assert_response :redirect
+    assert_redirected_to edit_admin_template_url(Template.last.id)
+    assert assigns(:template)
+    # TODO: Should also probably display the reason why it failed!
   end
 
 end
