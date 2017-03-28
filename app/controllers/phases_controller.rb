@@ -150,12 +150,15 @@ class PhasesController < ApplicationController
   def admin_create
     @phase = Phase.new(params[:phase])
     authorize @phase
+    
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
     if @phase.save
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      render action: "admin_show"
+      flash[:notice] = _('Unable to save your changes.')
+      @template = @phase.template
+      render "admin_add"
     end
   end
 
@@ -168,7 +171,8 @@ class PhasesController < ApplicationController
     if @phase.update_attributes(params[:phase])
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
-      render action: "admin_show"
+      # Redirecting here because the method loads a lot of stuff. We may lose whatever the user had entered though 
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Unable to save your changes.')
     end
   end
 
