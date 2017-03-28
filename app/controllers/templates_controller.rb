@@ -172,7 +172,7 @@ class TemplatesController < ApplicationController
       end
       redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
-      render action: "edit"
+      redirect_to admin_template_template_path(@template)
     end
   end
 
