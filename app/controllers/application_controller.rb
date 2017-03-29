@@ -83,6 +83,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def generate_error_notice(obj)
+    "#{_('Unable to save your changes.')}<br />#{obj.errors.collect{|e,m| "#{e} - #{m}"}.join("<br />")}"
+  end
+
   private
     # Override rails default render action to look for a branded version of a
     # template instead of using the default one. If no override exists, the 
