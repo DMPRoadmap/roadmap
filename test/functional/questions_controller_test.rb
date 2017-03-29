@@ -46,7 +46,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/templates/questions/:id/admin_create (admin_create_question_path)
   # ----------------------------------------------------------
   test "create a new question" do
-    params = {section_id: @section.id, text: 'Test Question', number: 9, question_format: @question_format}
+    params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id}
     
     # Should redirect user to the root path if they are not logged in!
     post admin_create_question_path(@section), {question: params}
@@ -82,7 +82,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     # Valid save
     put admin_update_question_path(@section.questions.first), {question: params}
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: Question.last.id)
+    assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: @section.questions.first.id)
     assert assigns(:phase)
     assert assigns(:section)
     assert assigns(:question)
@@ -91,7 +91,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     # Invalid save
     put admin_update_question_path(@section.questions.first), {question: {text: nil}}
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: Question.last.id)
+    assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: @section.questions.first.id)
     assert assigns(:phase)
     assert assigns(:section)
     assert assigns(:question)
