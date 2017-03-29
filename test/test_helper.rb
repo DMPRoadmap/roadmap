@@ -26,12 +26,21 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   
-  
-  
   # Return the user instance variable
   # ----------------------------------------------------------------------
   def current_user
     return @user
+  end
+ 
+ 
+  # Get the organisational admin for the Org specified or create one
+  # ----------------------------------------------------------------------
+  def org_admin_from(org)
+    usr = org.users.select{|u| u.can_org_admin?}.first
+    usr = User.create!(email: "admin@example.com", password: "password123", password_confirmation: "password123", 
+                   perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
+                   org: org, accept_terms: true, confirmed_at: Time.zone.now) if usr.nil?
+    usr
   end
  
   # Convert Ruby Class Names into attribute names (e.g. MyClass --> my_class)

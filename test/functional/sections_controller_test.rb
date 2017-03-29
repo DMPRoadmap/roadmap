@@ -7,7 +7,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     @phase = @template.phases.first
     
     # Get the first Org Admin
-    @user = User.where(org: @template.org).select{|u| u.can_org_admin?}.first
+    @user = org_admin_from(Template.first.org)
   end
 
 # TODO: The following methods SHOULD replace the old 'admin_' prefixed methods. The routes file already has
