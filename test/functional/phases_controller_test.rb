@@ -19,14 +19,14 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
 #
 # SHOULD BE:
 # --------------------------------------------------
-#   phases               GET    /phases             phases#index
-#                        POST   /phases             phases#create
-#   phase                GET    /phase/[:id]        phases#show
-#                        PATCH  /phase/[:id]        phases#update
-#                        PUT    /phase/[:id]        phases#update
-#                        DELETE /phase/[:id]        phases#destroy
-#   edit_phase           GET    /phase/[:id]/edit   phases#edit
-#   new_phase            GET    /phase/new          phases#new
+#   phases               GET    /templates/:template_id/phases             phases#index
+#                        POST   /templates/:template_id/phases             phases#create
+#   phase                GET    /templates/:template_id/phase/:id          phases#show
+#                        PATCH  /templates/:template_id/phase/:id          phases#update
+#                        PUT    /templates/:template_id/phase/:id          phases#update
+#                        DELETE /templates/:template_id/phase/:id          phases#destroy
+#   edit_phase           GET    /templates/:template_id/phase/:id/edit     phases#edit
+#   new_phase            GET    /templates/:template_id/phase/new          phases#new
 #
 # CURRENT RESULTS OF `rake routes`
 # --------------------------------------------------
@@ -155,7 +155,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: params}
     assert_response :success
-    assert_equal _('Unable to save your changes.'), flash[:notice]
+    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
   
   # PUT /org/admin/templates/phases/:id/admin_update (admin_update_phase_path)
@@ -183,7 +183,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     # TODO: WHY are we passing 'edit' as a query param just use that route!?
     assert_redirected_to "#{admin_show_phase_url(@template.phases.first)}?edit=true"
     assert assigns(:phase)
-    assert_equal _('Unable to save your changes.'), flash[:notice]
+    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
 
   # DELETE /org/admin/templates/phases/:id/admin_destroy (admin_destroy_phase_path)
