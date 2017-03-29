@@ -156,7 +156,7 @@ class PhasesController < ApplicationController
     if @phase.save
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      flash[:notice] = _('Unable to save your changes.')
+      flash[:notice] = generate_error_notice(@phase)
       @template = @phase.template
       render "admin_add"
     end
@@ -172,7 +172,7 @@ class PhasesController < ApplicationController
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
       # Redirecting here because the method loads a lot of stuff. We may lose whatever the user had entered though 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Unable to save your changes.')
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: generate_error_notice(@phase)
     end
   end
 
