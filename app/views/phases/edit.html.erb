@@ -10,24 +10,9 @@
 <%= render :partial => "/plans/plan_title", locals: {plan: @plan} %>
 
 
-<!-- progress bar -->
-<% status = @plan.status %>
 <div class="progress">
-  <%space_used = status["space_used"].to_i
-  space_title = _('approx. %{space_used}%% of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
-  answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
-  <div class="bar-container">
-    <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>
-    <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= _('questions answered')%>"></span>
-  </div>
-
-  <hr>
-
-  <div class="bar-container">
-    <span id="export-progress-title" <%= space_used >= 100 ? "class=bar-full-text" : "" -%>><%= space_title -%></span>
-    <span id="export-progress" class="bar <%= space_used >= 100 ? "full" : "space" -%>" style="width: <%= space_used -%>%;" title="<%= space_title -%>"></span>
-  </div>
-</div>   <!-- progess -->
+  <%= render :partial => "/plans/progress", locals: {nquestions: @nquestions, nanswers: @nanswers} %>
+</div> <!-- progess -->
 
 <!-- render navigation tabs for the plan phases -->
 <%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, active: @phase.title} %>

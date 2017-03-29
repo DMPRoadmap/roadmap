@@ -36,6 +36,41 @@ class AnswersController < ApplicationController
       @answer.update(params[:answer])
     end
 
+    @section_id = @answer.question.section.id
+
+    # these are used for updating the status line
+    @username = @answer.user.name
+    @timestamp = ""
+
+    if @answer.text.present?
+      @timestamp = @answer.updated_at.iso8601
+    end
+
+
+    @nquestions = 0
+    @nanswers = 0
+    @n_section_questions = 0
+    @n_section_answers = 0
+
+    plan = Plan.find(plan_id)
+    plan.template.phases.each do |phase|
+      phase.sections.each do |section|
+        section.questions.each do |question|
+          @nquestions += 1
+          if section.id == @section_id
+            @n_section_questions += 1
+          end
+          question.answers = question.answers.to_a.select {|answer| answer.plan_id == plan.id}
+          if question.answers.present? && question.answers.first.text.present?
+            @nanswers += 1
+            if section.id == @section_id
+              @n_section_answers += 1
+            end
+          end
+        end
+      end
+    end
+
     respond_to do |format|
       # pass new lock_version back to the client or they'll never save again
       @lock_version = @answer.lock_version
@@ -49,4 +84,5 @@ class AnswersController < ApplicationController
           format.js {}
         end
     end
+
 end
