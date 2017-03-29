@@ -13,7 +13,7 @@ class SectionsController < ApplicationController
       redirect_to admin_show_phase_path(id: @section.phase_id,
         :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      render action: "phases/admin_show"
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: generate_error_notice(@section)
     end
   end
 
@@ -27,7 +27,7 @@ class SectionsController < ApplicationController
     if @section.update_attributes(params[:section])
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: _('Information was successfully updated.')
     else
-      render action: "phases/admin_show"
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: generate_error_notice(@section)
     end
   end
 
