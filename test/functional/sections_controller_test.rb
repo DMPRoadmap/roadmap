@@ -29,15 +29,6 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
 #   admin_create_section  POST   /org/admin/templates/sections/:id/admin_create       sections#admin_create
 #   admin_update_section  PUT    /org/admin/templates/sections/:id/admin_update       sections#admin_update
 #   admin_destroy_section DELETE /org/admin/templates/sections/:id/admin_destroy      sections#admin_destroy
-#
-#   admin_sections      GET     /admin/sections(.:format)                              admin/sections#index
-#                       POST    /admin/sections(.:format)                              admin/sections#create
-#   new_admin_section   GET     /admin/sections/new(.:format)                          admin/sections#new
-#   edit_admin_section  GET     /admin/sections/:id/edit(.:format)                     admin/sections#edit
-#   admin_section       GET     /admin/sections/:id(.:format)                          admin/sections#show
-#                       PATCH   /admin/sections/:id(.:format)                          admin/sections#update
-#                       PUT     /admin/sections/:id(.:format)                          admin/sections#update
-#                       DELETE  /admin/sections/:id(.:format)                          admin/sections#destroy
   
   
   

@@ -34,15 +34,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 #   admin_destroy_template  DELETE /org/admin/templates/:id/admin_destroy(.:format)        templates#admin_destroy
 #   admin_create_template   POST   /org/admin/templates/:id/admin_create(.:format)         templates#admin_create
 #   admin_update_template   PUT    /org/admin/templates/:id/admin_update(.:format)         templates#admin_update
-#
-#   admin_templates         GET    /admin/templates(.:format)                              admin/templates#index
-#                           POST   /admin/templates(.:format)                              admin/templates#create
-#   new_admin_template      GET    /admin/templates/new(.:format)                          admin/templates#new
-#   edit_admin_template     GET    /admin/templates/:id/edit(.:format)                     admin/templates#edit
-#   admin_template          GET    /admin/templates/:id(.:format)                          admin/templates#show
-#                           PATCH  /admin/templates/:id(.:format)                          admin/templates#update
-#                           PUT    /admin/templates/:id(.:format)                          admin/templates#update
-#                           DELETE /admin/templates/:id(.:format)                          admin/templates#destroy
   
   
   # GET /org/admin/templates/:id/admin_index (admin_index_template_path) the :id here makes no sense!

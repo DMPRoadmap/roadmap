@@ -31,16 +31,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 #   admin_create_question  POST    /org/admin/templates/questions/:id/admin_create    questions#admin_create
 #   admin_update_question  PUT     /org/admin/templates/questions/:id/admin_update    questions#admin_update
 #   admin_destroy_question DELETE  /org/admin/templates/questions/:id/admin_destroy   questions#admin_destroy
-#
-#   admin_questions        GET     /admin/questions                                   admin/questions#index
-#                          POST    /admin/questions                                   admin/questions#create
-#   new_admin_question     GET     /admin/questions/new                               admin/questions#new
-#   edit_admin_question    GET     /admin/questions/:id/edit                          admin/questions#edit
-#   admin_question         GET     /admin/questions/:id                               admin/questions#show
-#                          PATCH   /admin/questions/:id                               admin/questions#update
-#                          PUT     /admin/questions/:id                               admin/questions#update
-#                          DELETE  /admin/questions/:id                               admin/questions#destroy
-  
   
   
   # POST /org/admin/templates/questions/:id/admin_create (admin_create_question_path)
