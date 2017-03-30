@@ -1,4 +1,4 @@
-class PhasesControllerTest < ActionDispatch::IntegrationTest
+class SectionsControllerTest < ActionDispatch::IntegrationTest
   
   include Devise::Test::IntegrationHelpers
   
