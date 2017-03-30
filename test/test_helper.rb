@@ -21,6 +21,9 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   #fixtures :all
   
+  # Safety net to reload LANGUAGES constant if they failed to load during TravisCI tests
+  LANGUAGES = Languages.all if LANGUAGES.empty?
+  
   # Use the seeds.rb file to seed the test database
   require_relative '../db/seeds.rb'
 
