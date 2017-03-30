@@ -18,6 +18,7 @@ class SectionPolicy < ApplicationPolicy
   end
 
   def admin_update?
+puts "POLICY: #{user.inspect}"
     user.can_modify_templates?  &&  (section.phase.template.org_id == user.org_id)
   end
 

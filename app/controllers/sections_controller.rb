@@ -21,6 +21,9 @@ class SectionsController < ApplicationController
   #update a section of a template
   def admin_update
     @section = Section.includes(phase: :template).find(params[:id])
+    
+puts "CONTROLLER: #{current_user.inspect}"
+    
     authorize @section
     @section.description = params["section-desc-#{params[:id]}"]
     @phase = @section.phase
