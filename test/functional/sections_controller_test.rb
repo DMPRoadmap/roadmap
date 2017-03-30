@@ -64,12 +64,13 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   test "update the section" do
     params = {title: 'Phase - UPDATE'}
     
+    puts "TEST USER (#{@user.can_org_admin?}) - #{@user.inspect}"
+    puts "TEST PERMS: #{@user.perms.inspect}"
+    
     # Should redirect user to the root path if they are not logged in!
     put admin_update_section_path(@phase.sections.first), {section: params}
     assert_unauthorized_redirect_to_root_path
     
-puts "TEST USER (#{@user.can_org_admin?}) - #{@user.inspect}"
-puts "TEST ROLES: #{@user.roles.inspect}"
     sign_in @user
     
     # Valid save
