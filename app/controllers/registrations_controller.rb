@@ -124,7 +124,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, 
+    params.require(:user).permit(:email, :password, :password_confirmation, :firstname, :surname,
                                  :accept_terms, :org_id, :other_organisation)
   end
 

@@ -44,6 +44,9 @@ class ActiveSupport::TestCase
                          perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
                          org: org, accept_terms: true, confirmed_at: Time.zone.now) 
     end
+    
+puts "USER: #{usr.email}"
+    
     usr
   end
  
