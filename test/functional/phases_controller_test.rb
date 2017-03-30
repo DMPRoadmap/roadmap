@@ -8,7 +8,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     scaffold_template
     
     # Get the first Org Admin
-    @user = org_admin_from(Template.first.org)
+    @user = org_admin_from(@template.first.org)
     
     @plan = Plan.create!(template: @template, title: 'Test Plan', 
                          roles: [Role.new(user: @user, creator: true)])
@@ -170,12 +170,6 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
-
-    
-    
-    puts "SIGNING IN AS: #{@user.inspect}"
-    
-
     
     # Valid save
     put admin_update_phase_path(@template.phases.first), {phase: params}

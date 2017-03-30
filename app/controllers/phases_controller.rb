@@ -168,10 +168,6 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:id])
     authorize @phase
     @phase.description = params["phase-desc"]
-    
-puts "VALID? #{@phase.valid?} - #{@phase.errors.collect{|e,m| "#{e}: #{m}"}.join(", ")}"
-puts @phases.inspect
-    
     if @phase.update_attributes(params[:phase])
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
