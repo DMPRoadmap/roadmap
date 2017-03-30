@@ -188,9 +188,9 @@ class User < ActiveRecord::Base
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
 puts "USER: #{self.perms.select{|p| p.name == 'modify_templates'}}"
-puts "CONSTANT: #{Perm::MODIFY_TEMPLATES}"
+puts "CONSTANT: #{Perm.MODIFY_TEMPLATES}"
 puts "PERMS: #{self.perms.inspect}"
-    self.perms.include? Perm::MODIFY_TEMPLATES
+    self.perms.include? Perm.MODIFY_TEMPLATES
   end
 
   ##
