@@ -1,11 +1,11 @@
 <!--show note. note is passed as an argument-->
-<% user = User.find(note["user_id"]) %>
+<% user = User.find(note.user_id) %>
 <div class="div_clear">
 </div>
 <div>
     <ul>
         <li><p class= "accordion_label"><%= _('Noted by:')%></p></li>
-        <li><%= user.name%> (<%= l note["updated_at"], format: :custom %>)</li>
-        <li><%= raw note["text"] %></li>
+        <li><%= user.name%> (<%= l note.updated_at, format: :custom %>)</li>
+        <li><%= raw note.text %></li>
     </ul>
 </div>

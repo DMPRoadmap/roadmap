@@ -219,7 +219,7 @@
 			<% phases.each do |phase| %>
 
 				<div class="move_2_right">
-					<%= link_to _('Answer questions'), edit_plan_path(plan), :class => 'btn btn-primary'  %>
+					<%= link_to _('Answer questions'), edit_plan_phase_path(plan,phase), :class => 'btn btn-primary'  %>
 					<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
 				</div>
 				<%= render :partial => "plans/export", locals: {plan: plan } %>
@@ -272,7 +272,7 @@
 						<div id="<%= phase.id %>" class="accordion-project collapse">
 							<div class="accordion-inner">
 								<div class="div_right">
-									<%= link_to _('Answer questions'), edit_plan_path(plan), :class => 'btn btn-primary'  %>
+									<%= link_to _('Answer questions'), edit_plan_phase_path(plan,phase), :class => 'btn btn-primary'  %>
 									<a href="#<%= phase.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
 								</div>
 								<%= render :partial => "plans/export", locals: {plan: plan} %>
