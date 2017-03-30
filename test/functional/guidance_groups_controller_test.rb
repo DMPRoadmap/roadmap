@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
   
   include Devise::Test::IntegrationHelpers
