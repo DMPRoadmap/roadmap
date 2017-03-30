@@ -19,8 +19,9 @@ class SectionPolicy < ApplicationPolicy
 
   def admin_update?
     
+puts "POLICY USER: (#{user.can_org_admin?}) - #{user.inspect}"
+puts "POLICY ROLES: #{user.roles.inspect}"
 puts "MODIFIER? #{user.can_modify_templates?} ORGS MATCH? #{(section.phase.template.org_id == user.org_id)}"
-puts "MODIFIER? #{@user.can_modify_templates?} ORGS MATCH? #{(@section.phase.template.org_id == @user.org_id)}"
     
     user.can_modify_templates?  &&  (section.phase.template.org_id == user.org_id)
   end
