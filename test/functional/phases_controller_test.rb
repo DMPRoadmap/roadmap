@@ -8,7 +8,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     scaffold_template
     
     # Get the first Org Admin
-    @user = org_admin_from(@template.org)
+    scaffold_org_admin(@template.org)
     
     @plan = Plan.create!(template: @template, title: 'Test Plan', 
                          roles: [Role.new(user: @user, creator: true)])
