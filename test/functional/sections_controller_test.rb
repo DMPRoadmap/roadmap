@@ -68,6 +68,10 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_section_path(@phase.sections.first), {section: params}
     assert_unauthorized_redirect_to_root_path
     
+puts "USER ORG: #{@user.org.abbreviation} (can org admin? #{@user.can_org_admin?})"
+puts "TMPLT ORG: #{@template.org.abbreviation}"
+puts "PHASE ORG: #{@phase.template.org.abbreviation}"
+    
     sign_in @user
     
     # Valid save
