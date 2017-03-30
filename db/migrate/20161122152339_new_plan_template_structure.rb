@@ -163,7 +163,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
         puts "checking for matching templates for #{dmptemplate.title} uncustomised" unless project.organisation.present?
         possible_templates = project.organisation.nil? ?
           Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: dmptemplate.organisation_id) :
-          Template.includes(:new_phases).where(dmptemplate_id: dmptemplate.id, organisation_id: project.organisation_id)
+          Template.includes(:new_phases).where(customization_of: dmptemplate.id, organisation_id: project.organisation_id)
         possible_templates.find_each do |t|  # for templates with same id
           # early cut for un-even number of phases
           new_phase_versions = t.new_phases.pluck(:vid)
@@ -305,15 +305,28 @@ def initTemplate(dmptemp, modifiable, organisation_id)
   template.updated_at       = dmptemp.updated_at
   template.visibility       = 0                   # dummy value for private
   template.customization_of = modifiable ? nil : dmptemp.id
-  template.dmptemplate_id   = dmptemp.id
+  # needs to be dmptemp.id if not a customization
+  # if it is a customization,
+  if modifiable
+    template.dmptemplate_id = dmptemp.id
+  else
+    customization_temp = Template.where(customization_of: dmptemp.id, organisation_id: template.organisation_id).first
+    if customization_temp.present?
+      template.dmptemplate_id = customization_temp.dmptemplate_id
+    else
+      template.dmptemplate_id = loop do
+          random = rand 2147483647  # max int field in psql
+          break random unless Template.exists?(dmptemplate_id: random)
+        end
+    end
+  end
   # if no templates with the same dmptemplate_id and organisation_id exist
   #   0
   # otherwise
   #   take the maximum version from templates with the same dmptemplate_id and organisation_id and add 1
-  template.version          = Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).blank? ?
-    0 : Template.where(dmptemplate_id: dmptemp.id, organisation_id: template.organisation_id).pluck(:version).max + 1
+  template.version          = Template.where(dmptemplate_id: template.dmptemplate_id, organisation_id: template.organisation_id).blank? ?
+    0 : Template.where(dmptemplate_id: template.dmptemplate_id, organisation_id: template.organisation_id).pluck(:version).max + 1
   puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
-  return template
 end
 
 def initNewPhase(phase, version, temp, modifiable)
