@@ -96,7 +96,7 @@ class RegistrationsController < Devise::RegistrationsController
         # remove the virtual current_password attribute update_without_password
         # doesn't know how to ignore it
         params[:user].delete(:current_password)
-        current_user.update_without_password(params[:user])
+        current_user.update_without_password(update_params)
       end
     else
     	current_user.update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
@@ -126,6 +126,11 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation, 
                                  :accept_terms, :org_id, :other_organisation)
+  end
+
+  def update_params
+    params.require(:user).permit(:email, :password, :firstname, :current_password,
+                                 :org_id, :other_organisation, :language_id)
   end
 
 end
