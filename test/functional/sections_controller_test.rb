@@ -70,9 +70,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     
     sign_in @user
 
-puts "TEST USER (#{@user.can_org_admin?}) - #{@user.inspect}"
-puts "TEST PERMS: #{@user.perms.inspect}"
-    
     # Valid save
     put admin_update_section_path(@phase.sections.first), {section: params}
     assert_response :redirect
