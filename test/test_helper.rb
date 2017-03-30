@@ -31,7 +31,8 @@ class ActiveSupport::TestCase
                          language: Language.find_by(abbreviation: FastGettext.locale),
                          password: "password123", password_confirmation: "password123", 
                          org: org, accept_terms: true, confirmed_at: Time.zone.now,
-                         perms: [Perm::GRANT_PERMISSIONS, Perm::MODIFY_TEMPLATES, Perm::MODIFY_GUIDANCE, Perm::CHANGE_ORG_DETAILS])
+                         perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs'])
+                         #perms: [Perm::GRANT_PERMISSIONS, Perm::MODIFY_TEMPLATES, Perm::MODIFY_GUIDANCE, Perm::CHANGE_ORG_DETAILS])
   end
   
  
