@@ -41,7 +41,7 @@ class ActiveSupport::TestCase
       usr = User.create!(email: "admin-#{org.abbreviation.downcase}@example.com", firstname: "Org", surname: "Admin",
                          language: Language.find_by(abbreviation: FastGettext.locale),
                          password: "password123", password_confirmation: "password123", 
-                         perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
+                         perms: Perm.where(name: ['grant_permissions', 'modify_guidance', 'modify_templates', 'modify_org_details']),
                          org: org, accept_terms: true, confirmed_at: Time.zone.now) 
     end
     usr
