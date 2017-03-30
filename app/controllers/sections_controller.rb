@@ -23,7 +23,8 @@ class SectionsController < ApplicationController
     @section = Section.includes(phase: :template).find(params[:id])
     
 puts "CONTROLLER: #{current_user.inspect}"
-    
+puts "PERMS: #{current_user.perms.inspect}" unless current_user.nil?    
+
     authorize @section
     @section.description = params["section-desc-#{params[:id]}"]
     @phase = @section.phase

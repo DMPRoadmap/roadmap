@@ -19,6 +19,7 @@ class SectionPolicy < ApplicationPolicy
 
   def admin_update?
 puts "POLICY: #{user.inspect}"
+puts "PERMS: #{user.perms.inspect}" unless user.nil?
     user.can_modify_templates?  &&  (section.phase.template.org_id == user.org_id)
   end
 
