@@ -158,8 +158,8 @@ token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermi
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
 orgs = [
-  {name: GlobalHelpers.constant("organisation_types.managing_organisation"),
-   abbreviation: 'CC',
+  {name: Rails.configuration.branding[:organisation][:name],
+   abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
    banner_text: 'This is an example organisation',
    org_type: 3,
    language_id: Language.find_by(abbreviation: 'en_GB'),

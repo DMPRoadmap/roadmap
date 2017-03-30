@@ -41,21 +41,21 @@ class GuidanceGroupTest < ActiveSupport::TestCase
     org = @user.org
     gg = GuidanceGroup.create(name: 'User Test', org: org)
     
-    assert GuidanceGroup.can_view?(@user, gg.id)
+    assert GuidanceGroup.can_view?(@user, gg)
   end
 
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to a funder" do
     gg = GuidanceGroup.create(name: 'Funder Test', org: Org.funders.first)
     
-    assert GuidanceGroup.can_view?(@user, gg.id)
+    assert GuidanceGroup.can_view?(@user, gg)
   end
   
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to the managing curation centre" do
     gg = GuidanceGroup.create(name: 'Managing CC Test', org: Org.managing_orgs.first)
     
-    assert GuidanceGroup.can_view?(@user, gg.id)
+    assert GuidanceGroup.can_view?(@user, gg)
   end
 
   # ---------------------------------------------------
