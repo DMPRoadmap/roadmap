@@ -37,11 +37,14 @@ class ActiveSupport::TestCase
   # ----------------------------------------------------------------------
   def org_admin_from(org)
     usr = org.users.select{|u| u.can_org_admin?}.first
-    usr = User.create!(email: "admin@example.com", firstname: "Org", surname: "Admin",
+    usr = User.new(email: "admin@example.com", firstname: "Org", surname: "Admin",
                        language: Language.find_by(abbreviation: FastGettext.locale),
                        password: "password123", password_confirmation: "password123", 
                        perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
                        org: org, accept_terms: true, confirmed_at: Time.zone.now) if usr.nil?
+                       
+puts "VALID: #{usr.valid?} - #{usr.errors.collect{|e,m| "#{e} - #{m}"}.join(", ")}"
+                       
     usr
   end
  
