@@ -14,4 +14,4 @@ before_script:
   - bundle exec rake db:schema:load RAILS_ENV=test
 
 script:
-  - bundle exec rake test
+  - bundle exec rake test test/functional/sections_controller_test.rb
