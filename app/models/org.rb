@@ -5,7 +5,7 @@ class Org < ActiveRecord::Base
 
   ##
   # Associations
-  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
+#  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
   belongs_to :language
   has_many :guidance_groups
   has_many :templates
@@ -17,11 +17,11 @@ class Org < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
-                  :logo_file_name, :name, :target_url,
-                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email, 
-                  :language, :org_type, :region, :token_permission_types
+#	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
+#                  :logo_file_name, :name, :target_url,
+#                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
+#                  :token_permission_type_ids, :language_id, :contact_email, 
+#                  :language, :org_type, :region, :token_permission_types
 
   ##
   # Validators
@@ -47,7 +47,7 @@ class Org < ActiveRecord::Base
             column: 'org_type'
 
   # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> { where(name: GlobalHelpers.constant("organisation_types.managing_organisation")) }
+  scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
   scope :funders, -> { where(org_type: 2) }
   scope :institutions, -> { where(org_type: 3) }
 

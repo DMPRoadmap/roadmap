@@ -1,23 +1,21 @@
 
-<%= form_for(Note.new, :url => {:controller => :notes, :action => :archive } , :html => { :method => :put, :class => "archive_note_form", :id => "archive_note_form_#{note["id"]}"}) do |f| %>
-    <%= f.hidden_field :id, :value => note["id"] %>
+<%= form_for(note,
+             url: archive_note_path(note),
+             remote: true,
+             class: "archive_note_form",
+             id: "archive_note_form_#{note.id}") do |f| %>
+
+    <%= f.hidden_field :id, :value => note.id %>
     <%= f.hidden_field :archived_by, :value => current_user.id %>
 
-    <%= render :partial => "view_note", locals: {note: note} %>
+    <%= render :partial => "/phases/view_note", locals: {note: note} %>
 
-    <% if current_user.id == note["user_id"] then %>
-        <%= _('helpers.notes.archive_own_note_question')%>  <!-- There is no value for this KEY -->
-        <% button_label = _('helpers.notes.archive_own_comment_button_label') %>    <!-- There is no value for this KEY -->
-    <% else%>
-        <%= _('helpers.notes.archive_note_question')%>  <!-- There is no value for this KEY -->
-        <% button_label = _('helpers.notes.archive_comment_button_label') %>    <!-- There is no value for this KEY -->
-	<%end%>
+    <p><%= _('Are you sure you want to remove this note?')%></p>
 
-	<!-- submit buttons -->
-	<div class="move_2_right">
-        <%= hidden_field_tag :note_id, note["id"], :class => "comment_id" %>
-		<%= f.submit button_label, :class => "btn btn-primary archive_comment_submit_button" %>
-        <%= link_to _('Cancel'), "#", :class => "cancel_archive_comment btn cancel" %>
-	</div>
+	  <!-- submit buttons -->
+	  <div class="move_2_right">
+      <%= f.submit _('Remove'), onclick: "archive_note(#{note.id}, #{question_id})", :class => "btn btn-primary archive_comment_submit_button" %>
+      <%= link_to _('Cancel'), "#", onclick: "cancel_archive_note(#{note.id})", :class => "cancel_archive_comment btn cancel" %>
+	  </div>
     <br>
-<%end%>
+<% end %>

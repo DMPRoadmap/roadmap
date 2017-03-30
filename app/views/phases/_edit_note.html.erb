@@ -1,15 +1,19 @@
 <!--edit note to answer. note passed as argument-->
 
-<%= form_for(Note.new, :url => {:controller => :notes, :action => :update } , :html => { :method => :put, :class => "edit_note_form", :id=> "edit_note_form_#{note["id"]}"}) do |f| %>
-    <%= f.hidden_field :id, :value => note["id"] %>
+<%= form_for(note,
+             url: note_path(note),
+             remote: true,
+             method: :put,
+             class: "edit_note_form",
+             id: "edit_note_form_#{note.id}") do |f| %>
 
-    <%= text_area_tag("#{note["id"]}_note_text".to_sym, note["text"] , class: "tinymce") %>
+    <%= f.hidden_field :id, :value => note.id %>
+
+    <%= text_area_tag("#{note.id}_note_text".to_sym, note.text , class: "tinymce") %>
 	<br/>
 
 	<!-- submit buttons -->
 	<div class="move_2_right">
-        <%= hidden_field_tag :answer, note["answer_id"], :class => "answer_id" %>
-        <%= hidden_field_tag :note_id, note["id"], :class => "note_id" %>
 		<%= f.submit _('Save'), :class => "btn btn-primary edit_note_submit_button" %>
 	</div>
     <br>

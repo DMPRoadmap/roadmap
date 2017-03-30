@@ -60,4 +60,8 @@ class GuidanceGroupDashboard < Administrate::BaseDashboard
   # def display_resource(guidance_group)
   #   "GuidanceGroup ##{guidance_group.id}"
   # end
+
+  def display_resource(guidance_group)
+    guidance_group.name
+  end
 end
