@@ -58,6 +58,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     get edit_plan_phase_path(@plan, @template.phases.first)
     assert_unauthorized_redirect_to_root_path
     
+    
+puts "SIGNING IN AS: #{@user.inspect}"
+    
     sign_in @user
     
     # TODO: Why does the policy check fail when @user is the creator and owner of @plan!?
