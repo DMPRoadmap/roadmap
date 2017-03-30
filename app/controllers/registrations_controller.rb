@@ -91,7 +91,7 @@ class RegistrationsController < Devise::RegistrationsController
   def do_update(require_password = true, confirm = false)
 	  if require_password then
 		  successfully_updated = if needs_password?(current_user, params)
-      current_user.update_with_password(params[:user])
+      current_user.update_with_password(update_params)
       else
         # remove the virtual current_password attribute update_without_password
         # doesn't know how to ignore it
@@ -99,8 +99,8 @@ class RegistrationsController < Devise::RegistrationsController
         current_user.update_without_password(update_params)
       end
     else
-    	current_user.update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-    	successfully_updated = current_user.update_without_password(params[:user])
+    	current_user.update_attributes(password_update)
+    	successfully_updated = current_user.update_without_password(update_params)
     end
 
     #unlink shibboleth from user's details
@@ -130,7 +130,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_params
     params.require(:user).permit(:email, :password, :firstname, :current_password,
-                                 :org_id, :other_organisation, :language_id)
+                                 :org_id, :other_organisation, :language_id, 
+                                 :password_confirmation)
+  end
+
+  def password_update
+    params.require(:user).permit(:password, :password_confirmation)
   end
 
 end
