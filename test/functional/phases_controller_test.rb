@@ -8,8 +8,8 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     # Get the first Org Admin
     @user = org_admin_from(Template.first.org)
     
-    @plan = Plan.create(template: @template, title: 'Test Plan', 
-                        roles: [Role.new(user: @user, creator: true)])
+    @plan = Plan.create!(template: @template, title: 'Test Plan', 
+                         roles: [Role.new(user: @user, creator: true)])
   end
 
 # TODO: The following methods SHOULD replace the old 'admin_' prefixed methods. The routes file already has
