@@ -9,7 +9,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     @section = @template.phases.first.sections.first
     
     # Get the first Org Admin
-    @user = org_admin_from(@template.org)
+    scaffold_org_admin(@template.org)
     
     @question_format = QuestionFormat.where(option_based: false).first
   end

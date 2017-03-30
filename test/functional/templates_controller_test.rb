@@ -8,7 +8,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     scaffold_template
     
     # Get the first Org Admin
-    @user = org_admin_from(@template.org)
+    scaffold_org_admin(@template.org)
   end
 
 # TODO: The following methods SHOULD replace the old 'admin_' prefixed methods. The routes file already has

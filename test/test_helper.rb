@@ -25,27 +25,19 @@ class ActiveSupport::TestCase
   require_relative '../db/seeds.rb'
 
   # Add more helper methods to be used by all tests here...
-  
-  # Return the user instance variable
-  # ----------------------------------------------------------------------
-  def current_user
-    return @user
-  end
- 
  
   # Get the organisational admin for the Org specified or create one
   # ----------------------------------------------------------------------
-  def org_admin_from(org)
-    usr = org.users.select{|u| u.can_org_admin?}.first
-    if usr.nil?
-      usr = User.create!(email: "admin-#{org.abbreviation.downcase}@example.com", firstname: "Org", surname: "Admin",
-                         language: Language.find_by(abbreviation: FastGettext.locale),
-                         password: "password123", password_confirmation: "password123", 
-                         perms: Perm.where(name: ['grant_permissions', 'modify_guidance', 'modify_templates', 'modify_org_details']),
-                         org: org, accept_terms: true, confirmed_at: Time.zone.now) 
-    end
-    usr
+  def scaffold_org_admin(org)
+    @user = org.users.select{|u| u.can_org_admin?}.first
+    
+    @user = User.create!(email: "admin-#{org.abbreviation.downcase}@example.com", firstname: "Org", surname: "Admin",
+                       language: Language.find_by(abbreviation: FastGettext.locale),
+                       password: "password123", password_confirmation: "password123", 
+                       perms: Perm.where(name: ['grant_permissions', 'modify_guidance', 'modify_templates', 'modify_org_details']),
+                       org: org, accept_terms: true, confirmed_at: Time.zone.now) if @user.nil?
   end
+  
  
   # Convert Ruby Class Names into attribute names (e.g. MyClass --> my_class)
   # ----------------------------------------------------------------------
@@ -210,5 +202,14 @@ class ActiveSupport::TestCase
     stub_request(:get, "http://www.dcc.ac.uk/news/dmponline-0/feed").
       with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.9.2'}).
       to_return(:status => 200, :body => blog_feed, :headers => {})
+  end
+end
+
+# =============================================================================================================
+# Override the ApplicationController's current_user method since it is not set during Rails 4 integration tests
+# (this will change in Rails 5). 
+class ApplicationController < ActionController::Base
+  def current_user
+    @user
   end
 end

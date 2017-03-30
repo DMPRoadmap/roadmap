@@ -28,7 +28,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
   #   admin_update_guidance_group   PUT      /org/admin/guidancegroup/:id/admin_update  guidance_groups#admin_update
 
   setup do
-    @user = org_admin_from(GuidanceGroup.first.org)
+    scaffold_org_admin(GuidanceGroup.first.org)
   end
   
   # GET /org/admin/guidancegroup/:id/admin_show (admin_show_guidance_group_path)
