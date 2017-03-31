@@ -9,4 +9,4 @@ elsif @role.administrator?
 end
 %>
 
-<p><%= ('Your permissions relating to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'projects', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have') %><%= access_level %> <%= _('access.') %></p>
+<p><%= ('Your permissions relating to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plan', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have') %><%= access_level %> <%= _('access.') %></p>
