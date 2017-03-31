@@ -4,7 +4,7 @@
 access_level = "read-only"
 if @role.editor?
 	access_level = "editor"
-elsif @project_group.administrator?
+elsif @role.administrator?
 	access_level = "co-owner"
 end
 %>
