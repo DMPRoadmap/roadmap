@@ -1,12 +1,12 @@
-<p><%= _('Hello') %> <%= @project_group.user.name %></p>
+<p><%= _('Hello') %> <%= @role.user.name %></p>
 
 <% 
 access_level = "read-only"
-if @project_group.access_level == 2 then
+if @role.editor?
 	access_level = "editor"
-elsif @project_group.access_level == 3 then
+elsif @project_group.administrator?
 	access_level = "co-owner"
 end
 %>
 
-<p><%= ('Your permissions relating to') %>"<%= link_to @project_group.project.title, url_for(action: 'show', controller: 'projects', id: @project_group.project.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have') %><%= access_level %> <%= _('access.') %></p>
+<p><%= ('Your permissions relating to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'projects', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have') %><%= access_level %> <%= _('access.') %></p>
