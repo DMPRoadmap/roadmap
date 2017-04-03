@@ -24,6 +24,9 @@ class ActiveSupport::TestCase
   # Use the seeds.rb file to seed the test database
   require_relative '../db/seeds.rb'
 
+  # Sometimes TravisCI fails when accessing the LANGUAGES array, so reload it here if necessary
+  LANGUAGES = Language.all if LANGUAGES.empty?
+
   # Get the organisational admin for the Org specified or create one
   # ----------------------------------------------------------------------
   def scaffold_org_admin(org)
