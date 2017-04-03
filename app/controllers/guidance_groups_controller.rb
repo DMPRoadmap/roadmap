@@ -9,11 +9,11 @@ class GuidanceGroupsController < ApplicationController
   end
 
 
-	# GET add new guidance groups
-	def admin_new
+  # GET add new guidance groups
+  def admin_new
     @guidance_group = GuidanceGroup.new
     authorize @guidance_group
-	end
+  end
 
 
   # POST /guidance_groups
@@ -36,16 +36,17 @@ class GuidanceGroupsController < ApplicationController
 
   # GET /guidance_groups/1/edit
   def admin_edit
-      @guidance_group = GuidanceGroup.find(params[:id])
-      authorize @guidance_group
+    @guidance_group = GuidanceGroup.find(params[:id])
+    authorize @guidance_group
   end
 
 
   # PUT /guidance_groups/1
   def admin_update
- 		@guidance_group = GuidanceGroup.find(params[:id])
+    @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     @guidance_group.org_id = current_user.org_id
+    @guidance_group.published = true unless params[:save_publish].nil?
 
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
@@ -57,7 +58,7 @@ class GuidanceGroupsController < ApplicationController
 # TODO: This does not have a route in config/routes.rb and is unreachable!
   # PUT /guidance_groups/1
   def admin_update_publish
- 		@guidance_group = GuidanceGroup.find(params[:id])
+    @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     @guidance_group.org.id = current_user.org.id
     @guidance_group.published = true
@@ -73,11 +74,11 @@ class GuidanceGroupsController < ApplicationController
   # DELETE /guidance_groups/1
   # DELETE /guidance_groups/1.json
   def admin_destroy
-   	@guidance_group = GuidanceGroup.find(params[:id])
+    @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     @guidance_group.destroy
 
     redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully deleted.')
-	end
+  end
 
 end

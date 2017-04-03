@@ -6,7 +6,7 @@ class Perm < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :name, :as => [:default, :admin]
+  #attr_accessible :name, :as => [:default, :admin]
 
   validates :name, presence: true, uniqueness: true
 

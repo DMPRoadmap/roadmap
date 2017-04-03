@@ -120,8 +120,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_guidance_path(@user.org), {'guidance-text': nil, guidance: {published: false}}
-    assert_response :redirect
-    assert_redirected_to admin_new_guidance_path(@user.org)
+    assert_response :success
     assert assigns(:guidance)
     assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
@@ -145,8 +144,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     put admin_update_guidance_path(Guidance.first), {'guidance-text': nil, guidance: {guidance_group_id: GuidanceGroup.first.id}}
-    assert_response :redirect
-    assert_redirected_to admin_edit_guidance_path(Guidance.first)
+    assert_response :success
     assert assigns(:guidance)
     assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end

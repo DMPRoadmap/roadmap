@@ -45,7 +45,8 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
         form_attributes = {"answer-text-#{question.id}": "Tested",
                            answer: {user_id: answer.user.id, 
                                     plan_id: answer.plan.id, 
-                                    question_id: answer.question.id}}
+                                    question_id: answer.question.id,
+                                    lock_version: answer.lock_version}}
         
         put_answer(answer, form_attributes, referrer)
         
@@ -61,7 +62,12 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
   
   private
     def put_answer(answer, attributes, referrer)
-      put answer_path(answer), attributes, {'HTTP_REFERER': referrer, 'HTTP_ACCEPT': 'text/javascript'}
+      put answer_path(FastGettext.locale, answer, format: "js"), attributes, {'HTTP_REFERER': referrer}
+
       assert_response :success
+      assert_equal "text/javascript", @response.content_type
+
+      # last line of JS updates section status with X questions, Y answered
+      assert_match /status"\).html\("\([0-9]+ questions, [0-9]+ answered/, @response.body
     end
 end

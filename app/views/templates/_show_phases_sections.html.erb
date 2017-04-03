@@ -37,7 +37,7 @@
       <tbody>
         <% (1..phase_hash[:sections].length).each do |section_no| %>
           <% section = phase_hash[:sections][section_no] %>
-          <% if section %>
+          <% if section.present? %>
             <tr >
               <th class="dmp_th_border" >
                 <p><%= section[:data].title %></p>
