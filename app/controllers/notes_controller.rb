@@ -29,13 +29,15 @@ class NotesController < ApplicationController
     authorize @note
 
     @plan = answer.plan
-    @notice = "Save failed."
     @answer = answer
     @question = Question.find(question_id)
 
     if @note.save
       @status = true
       @notice = _('Comment was successfully created.')
+    else
+      @status = false
+      @notice = generate_error_notice(@note)
     end
     notes = answer.notes.all
     @num_notes = notes.count
@@ -54,6 +56,8 @@ class NotesController < ApplicationController
 
     if @note.update_attributes(params[:note])
       @notice = _('Comment was successfully saved.')
+    else
+      @notice = generate_error_notice(@note)
     end
   end
 
@@ -71,6 +75,8 @@ class NotesController < ApplicationController
 
     if @note.update_attributes(params[:note])
       @notice = _('Comment removed.')
+    else
+      @notice = generate_error_notice(@note)
     end
   end
 end

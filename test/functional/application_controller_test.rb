@@ -42,8 +42,6 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
     if LANGUAGES.count > 1
       @user.language = nil
       
-puts "LANGUAGES: #{LANGUAGES.inspect}"
-      
       @user.org[:language_id] = LANGUAGES.last.id
       @user.save!
       
