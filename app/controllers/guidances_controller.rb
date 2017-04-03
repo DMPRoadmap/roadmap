@@ -13,7 +13,7 @@ class GuidancesController < ApplicationController
   ##
   # GET /guidances/1
   def admin_show
-    @guidance = Guidance.includes(:guidance_group, :question, :themes).find(params[:id])
+    @guidance = Guidance.includes(:guidance_group, :themes).find(params[:id])
     authorize @guidance
   end
 
@@ -26,7 +26,7 @@ class GuidancesController < ApplicationController
     @templates = (Org.funders.collect{|o| o.templates } + current_user.org.templates).flatten
 
 		@phases = nil
-		@templates.includes(:phases).each do |template|
+		@templates.each do |template|
 			if @phases.nil? then
 				@phases = template.phases.all.order('number')
 			else
@@ -53,7 +53,9 @@ class GuidancesController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
 	end
 
+# TODO: These no longer appear to be in use
 	#setup variables for use in the dynamic updating
+=begin
 	def update_phases
     authorize Guidance
     # updates phases, versions, sections and questions based on template selected
@@ -90,7 +92,8 @@ class GuidancesController < ApplicationController
     section = Section.find(params[:section_id])
     @questions = section.questions.map{|s| [s.text, s.id]}.insert(0, _('Select a question'))
   end
-
+=end
+  
   ##
   # GET /guidances/1/edit
   def admin_edit
@@ -103,12 +106,12 @@ class GuidancesController < ApplicationController
   ##
   # POST /guidances
   def admin_create
-    @guidance = Guidance.new(params[:guidance])
+    @guidance = Guidance.new(guidance_params)
     authorize @guidance
     @guidance.text = params["guidance-text"]
     @guidance.question_id = params["question_id"]
     if @guidance.published == true then
-      @gg = GuidanceGroup.find(@guidance.guidance_group_ids).first
+      @gg = GuidanceGroup.find(@guidance.guidance_group_id)
       if @gg.published == false || @gg.published.nil? then
         @gg.published = true
         @gg.save
@@ -118,7 +121,7 @@ class GuidancesController < ApplicationController
     if @guidance.save
       redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
     else
-      render action: "new"
+      redirect_to admin_new_guidance_path(current_user.org.id), notice: generate_error_notice(@guidance)
     end
   end
 
@@ -130,10 +133,10 @@ class GuidancesController < ApplicationController
 		@guidance.text = params["guidance-text"]
 		@guidance.question_id = params["question_id"]
 
-    if @guidance.update_attributes(params[:guidance])
+    if @guidance.save(guidance_params)
       redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
-      render action: "edit"
+      redirect_to admin_edit_guidance_path(@guidance), notice: generate_error_notice(@guidance)
     end
   end
 
@@ -144,7 +147,12 @@ class GuidancesController < ApplicationController
     authorize @guidance
     @guidance.destroy
 
-    redirect_to admin_index_guidance_path
+    redirect_to admin_index_guidance_path, notice: _('Guidance was successfully deleted.')
 	end
 
+
+  private
+    def guidance_params
+      params.require(:guidance).permit(:text, :published, :guidance_group_id, :question_id)
+    end
 end
