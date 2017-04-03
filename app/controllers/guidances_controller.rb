@@ -91,6 +91,7 @@ class GuidancesController < ApplicationController
       redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
     else
       load_select_box_content
+      flash[:notice] = generate_error_notice(@guidance)
       render action: "admin_new"
     end
   end
@@ -107,6 +108,7 @@ class GuidancesController < ApplicationController
       redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
       load_select_box_content
+      flash[:notice] = generate_error_notice(@guidance)
       render action: "admin_edit"
     end
   end
