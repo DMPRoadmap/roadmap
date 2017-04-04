@@ -104,7 +104,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/guidance/:id/admin_create (admin_create_guidance_path)
   # ----------------------------------------------------------
   test 'create a new guidance' do
-    params = {'guidance-text': 'Testing UPDATE', guidance: {guidance_group_id: GuidanceGroup.first.id, published: true}}
+    params = {'guidance-text': 'Testing create', guidance: {guidance_group_id: GuidanceGroup.first.id, published: true}}
     
     # Should redirect user to the root path if they are not logged in!
     post admin_create_guidance_path(@user.org), params
@@ -117,6 +117,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_show_guidance_path(Guidance.last)
     assert_equal _('Guidance was successfully created.'), flash[:notice]
     assert assigns(:guidance)
+    assert_equal 'Testing create', Guidance.last.text, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_guidance_path(@user.org), {'guidance-text': nil, guidance: {published: false}}
@@ -141,6 +142,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     assert_equal _('Guidance was successfully updated.'), flash[:notice]
     assert_redirected_to "#{admin_show_guidance_path(Guidance.first)}?guidance_group_id=#{GuidanceGroup.first.id}"
     assert assigns(:guidance)
+    assert_equal 'Testing UPDATE', Guidance.first.text, "expected the record to have been updated"
     
     # Invalid object
     put admin_update_guidance_path(Guidance.first), {'guidance-text': nil, guidance: {guidance_group_id: GuidanceGroup.first.id}}
@@ -152,6 +154,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
   # DELETE /org/admin/guidance/:id/admin_destroy (admin_destroy_guidance_path)
   # ----------------------------------------------------------
   test 'delete the guidance' do
+    id = Guidance.first.id
     # Should redirect user to the root path if they are not logged in!
     delete admin_destroy_guidance_path(Guidance.first)
     assert_unauthorized_redirect_to_root_path
@@ -163,6 +166,9 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_index_guidance_path
     assert_equal _('Guidance was successfully deleted.'), flash[:notice]
     assert assigns(:guidance)
+    assert_raise ActiveRecord::RecordNotFound do 
+      Guidance.find(id).nil?
+    end
   end
 
 end

@@ -49,6 +49,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(id: @phase.id, edit: 'true', section_id: Section.last.id)
     assert_equal _('Information was successfully created.'), flash[:notice]
+    assert_equal 'Section Tester', Section.last.title, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_section_path(@phase), {section: {phase_id: @phase.id, title: nil}}
@@ -72,9 +73,10 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
     # Valid save
     put admin_update_section_path(@phase.sections.first), {section: params}
+    assert_equal _('Information was successfully updated.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(id: @phase.id, section_id: @phase.sections.first.id, edit: 'true')
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert_equal 'Phase - UPDATE', @phase.sections.first.title, "expected the record to have been updated"
     
     # Invalid save
     put admin_update_section_path(@phase.sections.first), {section: {title: nil}}
@@ -88,19 +90,22 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   # DELETE /org/admin/templates/sections/:id/admin_destroy (admin_destroy_section_path)
   # ----------------------------------------------------------
   test "delete the section" do
+    id = @phase.sections.first.id
     # Should redirect user to the root path if they are not logged in!
-    delete admin_destroy_section_path(id: @phase.id, section_id: @phase.sections.first.id)
+    delete admin_destroy_section_path(id: @phase.id, section_id: id)
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    delete admin_destroy_section_path(id: @phase.id, section_id: @phase.sections.first.id)
+    delete admin_destroy_section_path(id: @phase.id, section_id: id)
     assert_response :redirect
     assert assigns(:section)
     assert assigns(:phase)
-    
     assert_redirected_to admin_show_phase_url(id: @phase.id, edit: 'true' )
     assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert_raise ActiveRecord::RecordNotFound do 
+      Section.find(id).nil?
+    end
   end
   
 end

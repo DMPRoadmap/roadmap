@@ -141,7 +141,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/templates/phases/:id/admin_create (admin_create_phase_path)
   # ----------------------------------------------------------
   test "create a phase " do
-    params = {template_id: @template.id, title: 'Phase: Tester 2'}
+    params = {template_id: @template.id, title: 'Phase: Tester 2', number: 2}
     
     # Should redirect user to the root path if they are not logged in!
     post admin_create_phase_path(@template.phases.first), {phase: params}
@@ -150,12 +150,14 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     post admin_create_phase_path(@template.phases.first), {phase: params}
-    assert_response :success
-    assert assigns(:template)
+    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_show_phase_path(id: Phase.last.id, edit: 'true')
     assert assigns(:phase)
+    assert_equal 'Phase: Tester 2', Phase.last.title, "expected the record to have been created!"
     
     # Invalid object
-    post admin_create_phase_path(@template.phases.first), {phase: params}
+    post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
     assert_response :success
     assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
@@ -173,11 +175,11 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Valid save
     put admin_update_phase_path(@template.phases.first), {phase: params}
+    assert_equal _('Information was successfully updated.'), flash[:notice]
     assert_response :redirect
-
     assert_redirected_to admin_show_phase_url(@template.phases.first)
     assert assigns(:phase)
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert_equal 'Phase - UPDATE', @template.phases.first.title, "expected the record to have been updated"
     
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
@@ -191,17 +193,21 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # DELETE /org/admin/templates/phases/:id/admin_destroy (admin_destroy_phase_path)
   # ----------------------------------------------------------
   test "delete the phase" do
+    id = @template.phases.first.id
     # Should redirect user to the root path if they are not logged in!
     # TODO: Why are we not just using id: here? shouldn't need to specify the key
-    delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: @template.phases.first.id)
+    delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: @template.phases.first.id)
+    delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_response :redirect
     assert_redirected_to admin_template_template_url
     assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert_raise ActiveRecord::RecordNotFound do 
+      Phase.find(id).nil?
+    end
   end
 
 end

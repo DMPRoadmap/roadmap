@@ -51,6 +51,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:question)
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: Question.last.id)
     assert_equal _('Information was successfully created.'), flash[:notice]
+    assert_equal 'Test Question', Question.last.text, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil}}
@@ -73,12 +74,13 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Valid save
     put admin_update_question_path(@section.questions.first), {question: params}
+    assert_equal _('Information was successfully updated.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: @section.questions.first.id)
     assert assigns(:phase)
     assert assigns(:section)
     assert assigns(:question)
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert_equal 'Question - UPDATE', @section.questions.first.text, "expected the record to have been updated"
     
     # Invalid save
     put admin_update_question_path(@section.questions.first), {question: {text: nil}}
@@ -93,19 +95,23 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   # DELETE /org/admin/templates/questions/:id/admin_destroy (admin_destroy_question_path)
   # ----------------------------------------------------------
   test "delete the question" do
+    id = @section.questions.first.id
     # Should redirect user to the root path if they are not logged in!
-    delete admin_destroy_question_path(id: @section.id, question_id: @section.questions.first.id)
+    delete admin_destroy_question_path(id: @section.id, question_id: id)
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    delete admin_destroy_question_path(id: @section.id, question_id: @section.questions.first.id)
+    delete admin_destroy_question_path(id: @section.id, question_id: id)
     assert_response :redirect
     assert assigns(:phase)
     assert assigns(:section)
     assert assigns(:question)
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id)
     assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert_raise ActiveRecord::RecordNotFound do 
+      Question.find(id).nil?
+    end
   end
   
 end

@@ -74,6 +74,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_index_guidance_path(@user.org)
     assert_equal _('Guidance group was successfully created.'), flash[:notice]
     assert assigns(:guidance_group)
+    assert_equal 'Testing create', GuidanceGroup.last.name, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_guidance_group_path(@user.org), {guidance_group: {name: nil}}
@@ -108,10 +109,11 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: params}
+    assert_equal _('Guidance group was successfully updated.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to "#{admin_index_guidance_path(@user.org)}?name=Testing+UPDATE"
-    assert_equal _('Guidance group was successfully updated.'), flash[:notice]
     assert assigns(:guidance_group)
+    assert_equal 'Testing UPDATE', GuidanceGroup.first.name, "expected the record to have been updated"
     
     # Invalid object
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: {name: nil}}
@@ -124,6 +126,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
   # DELETE /org/admin/guidancegroup/:id/admin_destroy (admin_destroy_guidance_group_path)
   # ----------------------------------------------------------
   test 'delete the guidance_group' do
+    id = GuidanceGroup.first.id
     # Should redirect user to the root path if they are not logged in!
     delete admin_destroy_guidance_group_path(GuidanceGroup.first)
     assert_unauthorized_redirect_to_root_path
@@ -134,6 +137,9 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path
     assert_equal _('Guidance group was successfully deleted.'), flash[:notice]
+    assert_raise ActiveRecord::RecordNotFound do 
+      GuidanceGroup.find(id).nil?
+    end
   end
   
 end

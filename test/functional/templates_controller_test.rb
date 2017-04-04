@@ -105,6 +105,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   # DELETE /org/admin/templates/:id/admin_destroy (admin_destroy_template_path)
   # ----------------------------------------------------------
   test "delete the admin template" do
+    id = @template.id
     # Should redirect user to the root path if they are not logged in!
     delete admin_destroy_template_path(@template)
     assert_unauthorized_redirect_to_root_path
@@ -114,6 +115,9 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_template_path(@template)
     assert_response :redirect
     assert_redirected_to admin_index_template_url
+    assert_raise ActiveRecord::RecordNotFound do 
+      Template.find(id).nil?
+    end
   end
   
 #  TODO: Why are we passing an :id here!? Its a new record but we seem to need the last template's id
@@ -129,10 +133,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     post admin_create_template_path(Template.last.id), {template: params}
+    assert_equal _('Information was successfully created.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
-    assert_equal _('Information was successfully created.'), flash[:notice]
     assert assigns(:template)
+    assert_equal 'Testing create route', Template.last.title, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_template_path(Template.last.id), {template: {title: nil, org_id: @user.org.id}}
@@ -154,9 +159,9 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Make sure we get the proper message if trying to update a published template
     put admin_update_template_path(@template), {template: params}
+    assert_equal _('Published templates cannot be edited.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
-    assert_equal _('Published templates cannot be edited.'), flash[:notice]
     assert assigns(:template)
     
     @template.published = false
@@ -164,10 +169,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # Make sure we get the right response when editing an unpublished template
     put admin_update_template_path(@template), {template: params}
+    assert_equal _('Information was successfully updated.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
-    assert_equal _('Information was successfully updated.'), flash[:notice]
     assert assigns(:template)
+    assert_equal 'ABCD', @template.reload.title, "expected the record to have been updated"
     
     # Make sure we get the right response when providing an invalid template
     put admin_update_template_path(@template), {template: {title: nil}}
