@@ -20,13 +20,14 @@ class OrgsController < ApplicationController
   ##
   # PUT /organisations/1
   def admin_update
+    attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
     @org.banner_text = params["org_banner_text"]
-    @org.logo = params[:org][:logo] if params[:org][:logo]
-    assign_params = params[:org].dup
+    @org.logo = attrs[:logo] if attrs[:logo]
+    assign_params = attrs.dup
     assign_params.delete(:logo)
-    assign_params.delete(:contact_email) unless params[:org][:contact_email].present?
+    assign_params.delete(:contact_email) unless attrs[:contact_email].present?
 
     begin
       if @org.update_attributes(assign_params)
@@ -37,7 +38,7 @@ class OrgsController < ApplicationController
         # its unclear why its doing this. Placing a check here for the data type. We should reasses though
         # when doing a broader eval of the look/feel of the site and we come up with a standardized way of
         # displaying errors
-        flash[:notice] = @org.errors.collect{|a, e| "#{a} - #{(e.instance_of?(String) ? e : e.message)}"}.join('<br />').html_safe
+        flash[:notice] = generate_error_notice(@org)
         render action: "admin_edit"
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye
@@ -45,4 +46,11 @@ class OrgsController < ApplicationController
       render action: "admin_edit"
     end
   end
+  
+  private
+    def org_params
+      # The form on the page is weird. The text and template/section/question stuff is outside of the normal form params
+      params.require(:org).permit(:name, :abbreviation, :target_url, :is_other, :banner_text, :language_id,
+                                  :region_id, :logo, :contact_email)
+    end
 end
