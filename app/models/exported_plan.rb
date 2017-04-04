@@ -100,6 +100,11 @@ class ExportedPlan < ActiveRecord::Base
     @admin_details ||= self.settings(:export).fields[:admin]
   end
 
+  # Retrieves the title field
+  def title
+    self.settings(:export).title
+  end
+
   # Export formats
 
   def as_csv

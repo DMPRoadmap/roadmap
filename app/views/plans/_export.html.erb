@@ -4,6 +4,6 @@
 		<h3><%= _('Export') %> <%= plan.title %>: <%= plan.template.title %></h3>
 	</div>
 	<div class="modal-body">
-		<%= render :partial => "/shared/export_links", locals: {plan: plan} %>
+		<%= render :partial => "/shared/export_links", locals: {plan: plan, phase: phase} %>
 	</div>
 </div>
