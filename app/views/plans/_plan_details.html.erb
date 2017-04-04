@@ -220,9 +220,9 @@
 
 				<div class="move_2_right">
 					<%= link_to _('Answer questions'), edit_plan_phase_path(plan,phase), :class => 'btn btn-primary'  %>
-					<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
+					<a href="#<%= phases[0].id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
 				</div>
-				<%= render :partial => "plans/export", locals: {plan: plan } %>
+				<%= render :partial => "plans/export", locals: {plan: plan, phase: phases[0] } %>
 				<div class="div_clear"></div>
 				<p><%= raw phase.description %></p>
 				<% if phase.sections.any? %>
@@ -275,7 +275,7 @@
 									<%= link_to _('Answer questions'), edit_plan_phase_path(plan,phase), :class => 'btn btn-primary'  %>
 									<a href="#<%= phase.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
 								</div>
-								<%= render :partial => "plans/export", locals: {plan: plan} %>
+								<%= render :partial => "plans/export", locals: {plan: plan, phase: phase} %>
 								<div class="div_clear"></div>
 									<p><%= raw phase.description %>
 								</p>

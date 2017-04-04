@@ -109,6 +109,7 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
+    puts 'plans#show'
     @plan = Plan.eager_load(params[:id])
     authorize @plan
 
@@ -352,6 +353,12 @@ class PlansController < ApplicationController
     end
   end
 
+  def show_export
+    @plan = Plan.find(params[:id])
+    authorize @plan
+    render 'show_export'
+  end
+  
   def export
     @plan = Plan.find(params[:id])
     authorize @plan

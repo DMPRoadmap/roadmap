@@ -195,10 +195,10 @@ Rails.application.routes.draw do
         post 'lock_section', constraints: {format: [:html, :json]}
         post 'unlock_section', constraints: {format: [:html, :json]}
         post 'unlock_all_sections'
-        get 'export'
         get 'warning'
         get 'section_answers'
         get 'share'
+        get 'show_export'
         get 'export'
         post 'invite'
       end
