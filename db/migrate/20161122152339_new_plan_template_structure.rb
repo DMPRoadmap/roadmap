@@ -327,6 +327,7 @@ def initTemplate(dmptemp, modifiable, organisation_id)
   template.version          = Template.where(dmptemplate_id: template.dmptemplate_id, organisation_id: template.organisation_id).blank? ?
     0 : Template.where(dmptemplate_id: template.dmptemplate_id, organisation_id: template.organisation_id).pluck(:version).max + 1
   puts "NEW TEMPLATE: \n  title: #{template.title} \n  version: #{template.version} \n  others_present? #{Template.where(dmptemplate_id: dmptemp.id).count}"
+  return template
 end
 
 def initNewPhase(phase, version, temp, modifiable)
