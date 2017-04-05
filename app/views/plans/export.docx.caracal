@@ -63,6 +63,12 @@ end
                     end
                 end
             end
+
+            if q_format.title == _('Date') ||
+               q_format.title == _('Text field') ||
+               q_format.title == _('Text area')
+                 docx.p strip_tags(answer.text)
+            end
       
             if !answer.text.nil? && question.option_comment_display == true then
                 search_answer = Nokogiri::HTML::DocumentFragment.parse "<div class='container'>"
