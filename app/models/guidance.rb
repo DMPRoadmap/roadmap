@@ -19,8 +19,6 @@ class Guidance < ActiveRecord::Base
   #has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
 
 
-
-
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
