@@ -2876,3 +2876,52 @@ msgstr "Public DMPs are plans created using the DMPTool and shared publicly by t
 #public_plans_page.no_plans_body_text_html
 msgid "There are no public DMPs."
 msgstr "There are no public DMPs."
+
+# Timeago - found in lib/assets/javascripts/jquery.timeago.js
+# ---------------------
+# suffix ago
+msgid "ago"
+msgstr "ago"
+
+#suffix from now
+msgid "from now"
+msgstr "from now"
+
+#seconds
+msgid "less than a minute"
+msgstr "less than a minute"
+
+#minute
+msgid "about a minute"
+msgstr "about a minute"
+#minutes
+msgid "%{d} minutes"
+msgstr "%{d} minutes"
+
+#hour
+msgid "about an hour"
+msgstr "about an hour"
+#hours
+msgid "about %{d} hours"
+msgstr "about %{d} hours"
+
+#day
+msgid "a day"
+msgstr "a day"
+#days
+msgid "%{d} days"
+msgstr "%{d} days"
+
+#month
+msgid "about a month"
+msgstr "about a month"
+#months
+msgid "%{d} months"
+msgstr "%{d} months"
+
+#year
+msgid "about a year"
+msgstr "about a year"
+#years
+msgid "%{d} years"
+msgstr "%{d} years"
