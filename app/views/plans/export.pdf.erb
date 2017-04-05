@@ -3,11 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>
-            <% if @plan.project.dmptemplate.phases.count > 1 then %>
-                <%= "#{@plan.project.title} - #{@plan.title}" %>
-            <% else %>
-                <%= @plan.project.title %>
-            <% end %>
+            <%= @plan.title %>
         </title>
         <style>
             html { font-family: <%= @formatting[:font_face].tr('"', '') -%>; font-size: <%= @formatting[:font_size] -%>pt; }
@@ -27,7 +23,7 @@
              value = @exported_plan.send(field)
              if value.present?
         %>
-          <p><strong><%= admin_field_t(field) -%></strong> <%= value -%></p>
+          <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= value -%></p>
           <% end %>
         <% end %>
 
