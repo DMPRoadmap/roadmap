@@ -16,7 +16,7 @@ class Guidance < ActiveRecord::Base
 #  belongs_to :question
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
 # depricated, but required for migration "single_group_for_guidance"
-  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
+#  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
 
 
 

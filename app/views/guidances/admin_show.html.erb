@@ -25,21 +25,10 @@
 				<td class="first"><%= _('Text') %></td>
 				<td><%= raw @guidance.text %></td>
 			</tr>
-			<% if @guidance.themes !=[] then %>
-				<tr>
-					<td class="first"><%= _('Themes') %></td>
-					<td><% @guidance.themes.each do |th|%>
-							<%= th.title %>
-						<% end %>
-					</td>
-				</tr>
-			<% end %>
-			<% if !@guidance.question_id.nil? %>
-				<tr>
-					<td class="first"><%= _('Question') %></td>
-					<td><%= raw @guidance.question.text %></td>
-				</tr>
-			<% end %>
+			<tr>
+				<td class="first"><%= _('Themes') %></td>
+				<td><%= @guidance.themes.order(:title).collect{|t| t.title}.join(', ') %></td>
+			</tr>
 			<tr>
 				<td class="first"><%= _('Guidance group') %></td>
 				<td>

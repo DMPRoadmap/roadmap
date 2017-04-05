@@ -17,15 +17,6 @@
       <tr>
         <td class="first"><%= _('Should this guidance apply:') %></td>
         <td>
-          <div class="div_left_icon_g">
-            <%= select_tag "g_options", options_for_select([[_('by themes'), 1],
-              [_('by question'), 2]]) %>
-          </div>
-          <div class="div_right_icon_g">
-            <%= link_to( image_tag("help_button.png"), "#", class: "guidance_apply_to_popover", rel: "popover", "data-html" => "true", "data-content" => _('Decide whether your guidance should display by themes (default) or if it only pertains to a specific question in one of the funder templates.'))%>
-          </div>
-          <div class="clearfix"></div>
-
           <div class="guindance_by_theme" style="display:none;">
             <div class="div_left_icon_g">
               <%= f.collection_select(:theme_ids,
@@ -36,7 +27,6 @@
               <%= link_to( image_tag("help_button.png"), "#", class: "guidance_by_themes_popover", rel: "popover", "data-html" => "true", "data-content" => _('Select which theme(s) this guidance relates to.'))%>
             </div>
             <div class="clearfix"></div>
-
           </div>
         </td>
       </tr>
