@@ -136,8 +136,16 @@ GEM
       actionpack (>= 3.2.13)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    gettext (3.2.2)
+      locale (>= 2.0.5)
+      text (>= 1.3.0)
     gettext_i18n_rails (1.8.0)
       fast_gettext (>= 0.9.0)
+    gettext_i18n_rails_js (1.2.0)
+      gettext (>= 3.0.2)
+      gettext_i18n_rails (>= 0.7.1)
+      po_to_json (>= 1.0.0)
+      rails (>= 3.2.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashdiff (0.3.0)
@@ -180,6 +188,7 @@ GEM
       sprockets (> 2, < 4)
       tilt
     libv8 (3.16.14.15)
+    locale (2.1.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -240,6 +249,8 @@ GEM
     orm_adapter (0.5.0)
     pg (0.19.0)
     pkg-config (1.1.7)
+    po_to_json (1.0.1)
+      json (>= 1.6.0)
     protected_attributes (1.1.3)
       activemodel (>= 4.0.1, < 5.0)
     pundit (1.1.0)
@@ -309,6 +320,7 @@ GEM
     swagger-docs (0.2.9)
       activesupport (>= 3)
       rails (>= 3)
+    text (1.3.1)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -366,6 +378,7 @@ DEPENDENCIES
   formtastic
   friendly_id
   gettext_i18n_rails (~> 1.8)
+  gettext_i18n_rails_js (~> 1.2.0)
   htmltoword
   i18n-js (>= 3.0.0.rc11)
   jbuilder
