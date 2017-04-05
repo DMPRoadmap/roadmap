@@ -4,9 +4,10 @@
 access_level = "read-only"
 if @role.editor?
 	access_level = "editor"
-elsif @role.administrator?
+end
+if @role.administrator?
 	access_level = "co-owner"
 end
 %>
 
-<p><%= ('Your permissions relating to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plan', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have') %><%= access_level %> <%= _('access.') %></p>
+<p><%= ('Your permissions relating to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have') %><%= access_level %> <%= _('access.') %></p>

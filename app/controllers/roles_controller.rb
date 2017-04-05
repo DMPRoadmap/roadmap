@@ -5,7 +5,8 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(role_params)
     authorize @role
-    @role.access_level = params[:role][:access_level].to_i
+    access_level = params[:role][:access_level].to_i
+    set_access_level(access_level)
     if params[:user].present?
       message = _('User added to project')
       user = User.find_by(email: params[:user])
@@ -31,7 +32,8 @@ class RolesController < ApplicationController
   def update
     @role = Role.find(params[:id])
     authorize @role
-    @role.access_level = params[:role][:access_level].to_i
+    access_level = params[:role][:access_level].to_i
+    set_access_level(access_level)
     if @role.update_attributes(role_params)
       flash[:notice] = _('Sharing details successfully updated.')
       UserMailer.permissions_change_notification(@role).deliver
@@ -56,6 +58,19 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.require(:role).permit(:plan_id, :access_level)
+    params.require(:role).permit(:plan_id)
   end
+
+  def set_access_level(access_level)
+    if access_level >= 1
+      @role.commenter = true
+    end
+    if access_level >= 2
+      @role.editor = true
+    end
+    if access_level >= 3
+      @role.administrator = true
+    end
+  end
+
 end
