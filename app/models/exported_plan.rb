@@ -9,7 +9,7 @@ class ExportedPlan < ActiveRecord::Base
   belongs_to :plan
   belongs_to :user
 
-  VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
+  VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
 
   validates :format, inclusion: { 
     in: VALID_FORMATS,
