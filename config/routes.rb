@@ -195,10 +195,10 @@ Rails.application.routes.draw do
         post 'lock_section', constraints: {format: [:html, :json]}
         post 'unlock_section', constraints: {format: [:html, :json]}
         post 'unlock_all_sections'
-        get 'export'
         get 'warning'
         get 'section_answers'
         get 'share'
+        get 'show_export'
         get 'export'
         post 'invite'
       end
@@ -240,8 +240,7 @@ Rails.application.routes.draw do
     resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
-      resource :plans, only: [:show, :update]
-      resources :phase, only: [:show, :update]
+      resources :plans, only: [:update]
     end
 
     resources :token_permission_types, only: [:index]

@@ -19,21 +19,20 @@ end
 #   Structure for docx format 
 #--------------------------------------------- 
 
-docx.h1 @exported_plan.plan.project.title.upcase, font: 'Arial', color: '000000' 
-docx.h2 @exported_plan.plan.title.upcase, font: 'Arial', color: '000000' 
+docx.h1 @exported_plan.plan.title.upcase, font: 'Arial', color: '000000' 
+docx.h2 @plan.template.title.upcase, font: 'Arial', color: '000000' 
 
 #---- PLAN ADMIN DETAILS -----
 if @exported_plan.admin_details.present?
     docx.p
-    docx.h3 'Admin Details'.upcase , italic: false, font: 'Arial', color: '000000'
+    docx.h3 _('Admin Details').upcase , italic: false, font: 'Arial', color: '000000'
     @exported_plan.admin_details.each do |field|
         value = @exported_plan.send(field)
-        label = "helpers.plan.export.#{field}"
         if value.present?
-            docx.p do 
-                text I18n.t(label), bold: true, color: '000000' 
-                text ': ', bold: true, color: '000000' 
-                text value
+            docx.p do |p|
+                p.text admin_field_t(field.to_s), bold: true, color: '000000' 
+                p.text ': ', bold: true, color: '000000' 
+                p.text value
             end
         end
     end
@@ -50,7 +49,7 @@ end
         
         answer = @exported_plan.plan.answer(question.id, false)
         if answer.nil?
-            docx.p 'Question not answered', italic: true
+            docx.p _('Question not answered'), italic: true
         else
             q_format = question.question_format
             if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
@@ -62,6 +61,12 @@ end
                         end  
                     end
                 end
+            end
+
+            if q_format.title == _('Date') ||
+               q_format.title == _('Text field') ||
+               q_format.title == _('Text area')
+                 docx.p strip_tags(answer.text)
             end
       
             if !answer.text.nil? && question.option_comment_display == true then

@@ -17,7 +17,7 @@
 	<%= f.hidden_field :plan_id, value: plan_id %>
 
   <%= text_area_tag "#{questionid}new_note_text", nil, class: "tinymce" %>
-  <%= tinymce %>
+  <%= tinymce :content_css => asset_path("application.css"), :setup => "function(editor){editor.on('change', function(e){$.fn.check_textarea(editor)});}" %>
 	<br/>
 
 	<!-- submit button -->

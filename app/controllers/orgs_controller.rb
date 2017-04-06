@@ -24,12 +24,9 @@ class OrgsController < ApplicationController
     authorize @org
     @org.banner_text = params["org_banner_text"]
     @org.logo = params[:org][:logo] if params[:org][:logo]
-    assign_params = params[:org].dup
-    assign_params.delete(:logo)
-    assign_params.delete(:contact_email) unless params[:org][:contact_email].present?
 
     begin
-      if @org.update_attributes(assign_params)
+      if @org.update_attributes(org_params)
         redirect_to admin_show_org_path(params[:id]), notice: _('Organisation was successfully updated.')
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 
@@ -44,5 +41,11 @@ class OrgsController < ApplicationController
       flash[:notice] = _('There seems to be a problem with your logo. Please upload it again.')
       render action: "admin_edit"
     end
+  end
+
+  private
+
+  def org_params
+    params.require(:org).permit(:name, :abbreviation, :target_url)
   end
 end

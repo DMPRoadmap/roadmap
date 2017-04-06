@@ -10,7 +10,7 @@
         <%= link_to _('Share'), share_plan_path(plan), :class => "dmp_table_link"%>
       <% end %>
 
-      <%= link_to _('Export'), export_plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to _('Export'), show_export_plan_path(plan), :class => "dmp_table_link"%>
 
       <% if plan.administerable_by?(current_user.id) then %>
         <%= link_to _('Delete'), plan_path(plan), :class => "dmp_table_link",
@@ -20,7 +20,7 @@
       <% end %>
     <% else %>
       <%= link_to _('View'), plan_path(plan), :class => "dmp_table_link"%>
-      <%= link_to _('Export'), export_plan_path(plan), :class => "dmp_table_link"%>
+      <%= link_to _('Export'), show_export_plan_path(plan), :class => "dmp_table_link"%>
     <% end %>
 
   </td>
