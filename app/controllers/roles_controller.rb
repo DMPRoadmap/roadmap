@@ -20,7 +20,7 @@ class RolesController < ApplicationController
         UserMailer.sharing_notification(@role).deliver
         flash[:notice] = message
       else
-        flash[:notice] = @role.errors
+        flash[:notice] = generate_error_notice(@role)
       end
     else
       flash[:notice] = _('Please enter an email address')
@@ -39,6 +39,7 @@ class RolesController < ApplicationController
       UserMailer.permissions_change_notification(@role).deliver
       redirect_to controller: 'plans', action: 'share', id: @role.plan.id
     else
+      flash[:notice] = generate_error_notice(@role)
       render action: "edit"
     end
   end
@@ -51,7 +52,7 @@ class RolesController < ApplicationController
     @role.destroy
     flash[:notice] = _('Access removed')
     UserMailer.project_access_removed_notification(user, plan).deliver
-    redirect_to controller: 'plans', action: 'share', id: @role.plan.slug
+    redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
 
   private
