@@ -9,14 +9,14 @@ class RolePolicy < ApplicationPolicy
   end
 
   def create?
-    @role.plan.administerable_by(@user.id)
+    @role.plan.administerable_by?(@user.id)
   end
 
   def update?
-    @role.plan.administerable_by(@user.id)
+    @role.plan.administerable_by?(@user.id)
   end
 
   def destroy?
-    @role.plan.administerable_by(@user.id)
+    @role.plan.administerable_by?(@user.id)
   end
 end
