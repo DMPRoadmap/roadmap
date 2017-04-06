@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
+    if user_signed_in?
+      redirect_to plans_url, notice: _('You are not authorized to perform this action.')
+    else
+      redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
+    end
   end
 
   before_filter :set_gettext_locale
