@@ -42,7 +42,9 @@ class GuidancesController < ApplicationController
     @guidance.question_id = params["question_id"]
     
     @guidance.themes = []
-    guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
+    if !guidance_params[:theme_ids].nil?
+      guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
+    end
     
     if @guidance.published == true then
       @gg = GuidanceGroup.find(@guidance.guidance_group_id)
