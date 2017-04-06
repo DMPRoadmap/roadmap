@@ -93,12 +93,12 @@ class RegistrationsController < Devise::RegistrationsController
       if current_user.email != params[:user][:email]   # if user changing email
         if params[:user][:current_password].blank?    # password needs to be present
           message = _('Please enter your password to change email address.')
-          succesfully_updated = false
+          successfully_updated = false
         else
-          succesfully_updated = current_user.update_with_password(password_update)
+          successfully_updated = current_user.update_with_password(password_update)
         end
       elsif params[:user][:password].present? # user is changing password
-        succesfully_updated = false      # shared across first 3 conditions
+        successfully_updated = false      # shared across first 3 conditions
         if params[:user][:current_password].blank?
           message = _('Please enter your current password')
         elsif params[:user][:password_confirmation].blank?
@@ -106,13 +106,13 @@ class RegistrationsController < Devise::RegistrationsController
         elsif params[:user][:password] != params[:user][:password_confirmation]
           message = _('Password and comfirmation must match')
         else
-          succesfully_updated = current_user.update_with_password(password_update)
+          successfully_updated = current_user.update_with_password(password_update)
         end
       else    # potentially unreachable... but I dont like to leave off the else
-        succesfully_updated = current_user.update_with_password(password_update)
+        successfully_updated = current_user.update_with_password(password_update)
       end
     else        # password not required
-      current_user.update_without_password(update_params)
+      successfully_updated = current_user.update_without_password(update_params)
     end
 
     #unlink shibboleth from user's details
@@ -121,18 +121,19 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     #render the correct page
-    if succesfully_updated
+    if successfully_updated
       if confirm
         current_user.skip_confirmation!
         current_user.save!
       end
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
-      set_flash_message :notice, :updated
+      set_flash_message :notice, _('Details successfully updated.')
       sign_in current_user, bypass_sign_in: true  # Sign in the user bypassing validation in case his password changed
-      redirect_to({:controller => "registrations", :action => "edit"}, {:notice => _('Details successfully updated.')})
+      redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
+
     else
-      flash[:notice] = message.blank? ? _('Update unsucessful, changes not saved') : messages
+      flash[:notice] = message.blank? ? generate_error_notice(current_user) : message
       render "edit"
     end
   end
