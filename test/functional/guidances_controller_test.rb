@@ -76,10 +76,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     get admin_new_guidance_path(@guidance_group)
     assert_response :success
-    assert assigns(:templates)
-    assert assigns(:phases)
-    assert assigns(:sections)
-    assert assigns(:questions)
     assert assigns(:guidance)
     assert assigns(:guidance_groups)
     assert assigns(:themes)

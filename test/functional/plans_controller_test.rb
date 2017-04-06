@@ -36,169 +36,246 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   
   setup do
     @org = Org.first
-    scaffold_org_admin(@org)
+    scaffold_plan
+    @user = @plan.owner
+    
+    # This should NOT be unnecessary! Owner should have full access
+    role = Role.where(user: @user, plan: @plan).first
+    role.access = 15
+    role.save!
   end
 
   # GET /plans (plans_path)
   # ----------------------------------------------------------
   test 'load the list of plans page' do
     # Should redirect user to the root path if they are not logged in!
-    get admin_edit_org_path(@org)
+    get plans_path
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    get admin_edit_org_path(@org)
+    get plans_path
     assert_response :success
-    assert assigns(:org)
-    assert assigns(:languages)
+    assert assigns(:plans)
   end
   
-
   # GET /plans/new (new_plan_path)
   # ----------------------------------------------------------
   test 'load the new plan page' do
     # Should redirect user to the root path if they are not logged in!
-    get admin_edit_org_path(@org)
+    get new_plan_path
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    get admin_edit_org_path(@org)
+    get new_plan_path
     assert_response :success
-    assert assigns(:org)
-    assert assigns(:languages)
+    assert assigns(:plan)
+    assert assigns(:funders)
   end
-  
+
   # POST /plans (plans_path)
   # ----------------------------------------------------------
   test "create a new plan" do
-    params = {phase_id: @phase.id, title: 'Section Tester', number: 99}
-    
+    params = {template_id: @template.id}
     # Should redirect user to the root path if they are not logged in!
-    post admin_create_section_path(@phase), {section: params}
+    post plans_path, params
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    post admin_create_section_path(@phase), {section: params}
+    post plans_path, params
+    assert_equal _('Plan was successfully created.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @phase.id, edit: 'true', section_id: Section.last.id)
-    assert_equal _('Information was successfully created.'), flash[:notice]
-    assert_equal 'Section Tester', Section.last.title, "expected the record to have been created!"
+    assert_redirected_to "#{plan_url(Plan.last)}?editing=true"
+    assert assigns(:plan)
+    assert_equal "#{_('My plan')} (#{@template.title})", Plan.last.title, "expected the record to have been created"
     
+# TODO: We should also test the various template routes: funder, institution, generic
+    
+# TODO: Reactivate this once the validations on the model are in place!
     # Invalid object
-    post admin_create_section_path(@phase), {section: {phase_id: @phase.id, title: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @phase.id, edit: 'true')
-    assert assigns(:section)
-    assert assigns(:phase)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+#    post plans_path, {plan: {title: nil, template: @template}}
+#    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+#    assert_response :success
+#    assert assigns(:plan)
   end 
-  
 
   # GET /plan/:id (plan_path)
   # ----------------------------------------------------------
   test 'show the plan page' do
     # Should redirect user to the root path if they are not logged in!
-    get admin_show_org_path(@org)
-    assert_unauthorized_redirect_to_root_path
+    try_no_user_and_unauthorized(plan_path(@plan))
     
     sign_in @user
-    
-    get admin_show_org_path(@org)
+    get plan_path(@plan)
     assert_response :success
-    assert assigns(:org)
+    assert assigns(:plan)
+    assert_not assigns(:editing)
+    assert assigns(:selected_guidance_groups)
   end
 
   # GET /plan/:id/edit (edit_plan_path)
   # ----------------------------------------------------------
   test 'show the edit plan page' do
     # Should redirect user to the root path if they are not logged in!
-    get admin_show_org_path(@org)
-    assert_unauthorized_redirect_to_root_path
+    try_no_user_and_unauthorized(edit_plan_path(@plan))
     
-    sign_in @user
-    
-    get admin_show_org_path(@org)
+    sign_in @user    
+    get edit_plan_path(@plan)
     assert_response :success
-    assert assigns(:org)
+    assert assigns(:plan)
+    assert assigns(:phase)
+    assert assigns(:readonly)
   end
 
-  
   # PUT /plan/:id (plan_path)
   # ----------------------------------------------------------
   test 'update the plan' do
-    params = {name: 'Testing UPDATE'}
-    
+    params = {title: 'Testing UPDATE'}
     # Should redirect user to the root path if they are not logged in!
-    put admin_update_org_path(@org), {org: params}
+    put plan_path(@plan), {plan: params}
     assert_unauthorized_redirect_to_root_path
+    
+    # User who is does not have access to the plan
+    sign_in User.first
+    put plan_path(@plan), {plan: params}
+    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to plans_url
     
     sign_in @user
     
-    put admin_update_org_path(@org), {org: params}
-    assert_equal _('Organisation was successfully updated.'), flash[:notice]
+    put plan_path(@plan), {plan: params}
+    assert_equal _('Plan was successfully updated.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to admin_show_org_path(@org)
-    assert assigns(:org)
-    assert_equal 'Testing UPDATE', @org.reload.name, "expected the record to have been updated"
+    assert_redirected_to plan_url(@plan)
+    assert assigns(:plan)
+    assert_equal 'Testing UPDATE', @plan.reload.title, "expected the record to have been updated"
     
+# TODO: Reactivate this once the validations on the model are in place!
     # Invalid object
-    put admin_update_org_path(@org), {org: {name: nil}}
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
-    assert_response :success
-    assert assigns(:org)
+#    put plan_path(@plan), {plan: {title: nil}}
+#    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+#    assert_response :success
+#    assert assigns(:plan)
   end
   
   # DELETE /plan/:id (plan_path)
   # ----------------------------------------------------------
   test "delete the plan" do
-    id = @phase.sections.first.id
+    id = @plan.id
     # Should redirect user to the root path if they are not logged in!
-    delete admin_destroy_section_path(id: @phase.id, section_id: id)
+    delete plan_path(@plan)
     assert_unauthorized_redirect_to_root_path
     
-    sign_in @user
-    
-    delete admin_destroy_section_path(id: @phase.id, section_id: id)
+    # User who is does not have access to the plan
+    sign_in User.first
+    delete plan_path(@plan)
+    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
     assert_response :redirect
-    assert assigns(:section)
-    assert assigns(:phase)
-    assert_redirected_to admin_show_phase_url(id: @phase.id, edit: 'true' )
-    assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert_redirected_to plans_url
+    
+    sign_in @user
+    delete plan_path(@plan)
+    assert_equal _('Plan was successfully deleted.'), flash[:notice]
+    assert_response :redirect
+    assert assigns(:plan)
+    assert_redirected_to plans_path
     assert_raise ActiveRecord::RecordNotFound do 
-      Section.find(id).nil?
+      Plan.find(id).nil?
     end
+  end
+  
+  # PUT /plans/:id/update_guidance_choices (update_guidance_choices_plan_path)
+  # ----------------------------------------------------------
+  test "update the selected guidance" do
+    params = {plan_guidance_group_ids: [GuidanceGroup.first.id, GuidanceGroup.last.id]}
+    
+    put update_guidance_choices_plan_path(@plan, format: :json), {plan: params}
+    assert_unauthorized_redirect_to_root_path
+    
+    # User who is does not have access to the plan
+    sign_in User.first
+    put update_guidance_choices_plan_path(@plan, format: :json), {plan: params}
+    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to plans_url
+    
+    sign_in @user
+    put update_guidance_choices_plan_path(@plan, format: :json), {plan: params}
+    assert_response :success
+    
+# TODO: The plan_guidance_groups array is always empty so this method isn't actually doing anything yet
+#       is it old code that is no longer used or is there a problem with implementation? Should we be 
+#       auto-populating it on plan creation?
+    #assert @plan.plan_guidance_groups.include?(GuidanceGroup.first), "expected the plan to have the first GuidanceGroup selected"
+    #assert @plan.plan_guidance_groups.include?(GuidanceGroup.last), "expected the plan to have the last GuidanceGroup selected"
   end
   
   # GET /plans/:id/share (share_plan_path)
   # ----------------------------------------------------------
   test "get the share plan page" do
-    
+    # Should redirect user to the root path if they are not logged in!
+    try_no_user_and_unauthorized(share_plan_path(@plan))
+
+    sign_in @user    
+    get share_plan_path(@plan)
+    assert_response :success
+    assert assigns(:plan)
+    assert assigns(:plan_data)
   end
   
-  # GET /plans/:id/status (status_plan_path)
+  # GET /plans/:id/status(format: :json) (status_plan_path)
   # ----------------------------------------------------------
   test "get the plan status" do
-    
+    # Should redirect user to the root path if they are not logged in!
+    try_no_user_and_unauthorized(status_plan_path(@plan, format: :json))
+
+    sign_in @user    
+    get status_plan_path(@plan, format: :json)
+    assert_response :success
+    assert assigns(:plan)
   end
   
-  # GET /plans/:id/section_answers (section_answers_plan_path)
-  # ----------------------------------------------------------
-  test "get the section answers" do
-    
-  end
-  
-  # GET /plans/:id/answer (answer_plan_path)
+  # GET /plans/:id/answer(format: :json) (answer_plan_path)
   # ----------------------------------------------------------
   test "get the answer to the specified question for the plan" do
-    
+    # Should redirect user to the root path if they are not logged in!
+    try_no_user_and_unauthorized(answer_plan_path(@plan, format: :json))
+
+    sign_in @user    
+    get answer_plan_path(@plan, format: :json)
+    assert_response :success
+    assert assigns(:plan)
   end
   
   # GET /plans/:id/export (export_plan_path)
   # ----------------------------------------------------------
   test "export the plan" do
+    # Should redirect user to the root path if they are not logged in!
+    try_no_user_and_unauthorized(export_plan_path(@plan))
+
+    sign_in @user    
+    get export_plan_path(@plan)
+    assert_response :success
+    assert assigns(:plan)
     
+    # TODO: We need some better tests here to check the different formats!
   end
+  
+  private
+    def try_no_user_and_unauthorized(target)
+      # Should redirect user to the root path if they are not logged in!
+      get target
+      assert_unauthorized_redirect_to_root_path
+    
+      # User who is does not have access to the plan
+      sign_in User.first
+      get target
+      assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+      assert_response :redirect
+      assert_redirected_to plans_url
+    end
+    
 end
