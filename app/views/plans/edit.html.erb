@@ -13,7 +13,7 @@
 <% status = @plan.status %>
     <div class="progress">
         <%space_used = status["space_used"].to_i
-          space_title = _('approx. %{space_used}% of available space used (max %{num_pages} pages)') % { space_used: => space_used, num_pages: => @plan.template.settings(:export).max_pages }
+          space_title = _('approx. %{space_used} of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
           answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
         <div class="bar-container">
             <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>
@@ -50,10 +50,9 @@
                 
                 
     		<div class="accordion-group">
-
           <!-- figure out the status line for this section -->
-    			<% num_section_questions = @section.status["sections"][section.id]["num_questions"] %>
-    			<% num_section_answers = @section.status["sections"][section.id]["num_answers"] %>
+    			<% num_section_questions = @plan.status["sections"][section.id]["num_questions"] %>
+    			<% num_section_answers = @plan.status["sections"][section.id]["num_answers"] %>
     			<% question_word = "questions" %>
     			<% if num_section_questions == 1 then %>
     				<% question_word = "question" %>
@@ -148,7 +147,7 @@
 <div class="div_right">
 	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
 </div>
-<%= render :partial => "export", locals: {plan: @plan} %>
+<%= render :partial => "export", locals: {plan: @plan, phase: @phase} %>
 
 <!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
 <% session.delete(:question_id_comments)%>
