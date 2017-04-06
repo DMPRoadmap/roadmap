@@ -1,5 +1,6 @@
 class ExportedPlan < ActiveRecord::Base
   include GlobalHelpers
+  include SettingsTemplateHelper
 
 # TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
   attr_accessible :plan_id, :user_id, :format, :user, :plan, :as => [:default, :admin]
@@ -8,7 +9,7 @@ class ExportedPlan < ActiveRecord::Base
   belongs_to :plan
   belongs_to :user
 
-  VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
+  VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
 
   validates :format, inclusion: { 
     in: VALID_FORMATS,
@@ -100,28 +101,42 @@ class ExportedPlan < ActiveRecord::Base
     @admin_details ||= self.settings(:export).fields[:admin]
   end
 
+  # Retrieves the title field
+  def title
+    self.settings(:export).title
+  end
+
   # Export formats
 
   def as_csv
     CSV.generate do |csv|
-      csv << ["Section","Question","Answer","Selected option(s)","Answered by","Answered at"]
+      csv << [_('Section'),_('Question'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
       self.sections.each do |section|
         self.questions_for_section(section).each do |question|
           answer = self.plan.answer(question.id)
-          options_string = answer.options.collect {|o| o.text}.join('; ')
-
-          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, answer.try(:user).try(:name), answer.created_at]
+          q_format = question.question_format
+          if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
+            q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')
+            options_string = answer.options.collect {|o| o.text}.join('; ')
+          else
+            options_string = ''
+          end
+          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, user.name, answer.updated_at]
         end
       end
     end
   end
 
   def as_txt
-    output = "#{self.plan.project.title}\n\n#{self.plan.version.phase.title}\n"
-    output += "\nDetails:\n\n"
-    attrs = self.plan.settings(:export)[:value]['fields'][:admin].collect{|f| f.to_s}
-    attrs.each do |attr|
-        output += attr + ": " + self.send(attr) + "\n"
+    output = "#{self.plan.title}\n\n#{self.plan.template.title}\n"
+    output += "\n"+_('Details')+"\n\n"
+    puts 'admin_details: '+self.admin_details.inspect
+
+    self.admin_details.each do |at|
+        value = self.send(at)
+        if value.present?
+          output += admin_field_t(at.to_s) + ": " + value + "\n"
+        end
     end
 
     self.sections.each do |section|
@@ -132,14 +147,18 @@ class ExportedPlan < ActiveRecord::Base
         output += "\n* #{qtext}"
         answer = self.plan.answer(question.id, false)
 
-        if answer.nil? || answer.text.nil? then
+        if answer.nil?
           output += _('Question not answered.')+ "\n"
         else
-          output += answer.options.collect {|o| o.text}.join("\n")
-          if question.option_comment_display == true then
-            output += "\n#{sanitize_text(answer.text)}\n"
+          q_format = question.question_format
+          if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
+            q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')
+            output += answer.options.collect {|o| o.text}.join("\n")
+            if question.option_comment_display
+              output += "\n#{sanitize_text(answer.text)}\n"
+            end
           else
-            output += "\n"
+            output += "\n#{sanitize_text(answer.text)}\n"
           end
         end
       end

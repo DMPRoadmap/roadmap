@@ -1,14 +1,14 @@
 <%
-   plan ||= @plan
    @export_settings ||= plan.settings(:export)
    admin_settings = @export_settings.fields[:admin]
    question_settings = @export_settings.fields[:questions] || :all
+   filename = @export_settings.title.present? ? @export_settings.title : plan.title
 %>
 <% @export_settings.errors.full_messages.each do |error| %>
   <div class="error"><%= error %></div>
 <% end %>
 
-<%= form_for(@export_settings, url: settings_phase_path(plan), method: :put, as: :export, remote: true) do |f| %>
+<%= form_for(@export_settings, url: settings_plan_path(plan), method: :put, as: :export) do |f| %>
   <div class="div_right">
     <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
     <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}") %>
@@ -21,7 +21,7 @@
         <li>
           <%= label_tag("export[title]", _('File Name')) %>
           <div class="move_2_right">
-            <%= text_field_tag("export[title]", plan.title) %>
+            <%= text_field_tag("export[title]", filename) %>
           </div>
         </li>
       </ol>
@@ -37,8 +37,8 @@
          name = "export[fields][admin][#{field}]"
     %>
       <li>
-        <%= label_tag(name, t("helpers.plan.export.#{field}")) %>
-        <%= check_box_tag(name, true, false) %>
+        <%= label_tag(name, t("helpers.plan.export.#{field}")) %> <!-- #TODO, convert to gettext --> 
+        <%= check_box_tag(name, true, admin_settings.include?(field.to_sym)) %>
       </li>
     <% end %>
     </ol>
@@ -46,7 +46,6 @@
   <fieldset class="check_select sections">
     <legend><label for="sections_toggle"><%= _('Sections') %></label></legend>
     <ol>
-      <% plan.template.phases.each do |phase| %>
         <% phase.sections.each do |section| %>
           <li>
             <fieldset class="check_select">
@@ -67,7 +66,6 @@
             </fieldset>
           </li>
         <% end %>
-      <% end %>
     </ol>
   </fieldset>
   <div id="pdf-format-options">

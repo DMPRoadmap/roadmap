@@ -24,13 +24,10 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
     @org.banner_text = params["org_banner_text"]
-    @org.logo = attrs[:logo] if attrs[:logo]
-    assign_params = attrs.dup
-    assign_params.delete(:logo)
-    assign_params.delete(:contact_email) unless attrs[:contact_email].present?
+    @org.logo = org_params[:logo] if org_params[:logo]
 
     begin
-      if @org.update_attributes(assign_params)
+      if @org.update_attributes(org_params)
         redirect_to admin_show_org_path(params[:id]), notice: _('Organisation was successfully updated.')
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 
@@ -46,10 +43,9 @@ class OrgsController < ApplicationController
       render action: "admin_edit"
     end
   end
-  
+
   private
     def org_params
-      # The form on the page is weird. The text and template/section/question stuff is outside of the normal form params
       params.require(:org).permit(:name, :abbreviation, :target_url, :is_other, :banner_text, :language_id,
                                   :region_id, :logo, :contact_email)
     end

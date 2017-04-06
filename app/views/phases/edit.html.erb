@@ -141,9 +141,10 @@
 </div>   <!-- project-tabs-body -->
 
 <div class="div_right">
-  <a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
+  <a href="#<%= @phase.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
 </div>
-<%= render :partial => "plans/export", locals: {plan: @plan, plan_data: @plan_data} %>
+
+<%= render :partial => "plans/export", locals: {plan: @plan, plan_data: @plan_data, phase: @phase } %>
 
 <!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
 <% session.delete(:question_id_comments)%>
