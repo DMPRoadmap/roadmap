@@ -17,18 +17,14 @@ class PlansController < ApplicationController
 
   # GET /plans/new
   def new
-    if user_signed_in? then
-      @plan = Plan.new
-      authorize @plan
-      @funders = Org.funders.all 
+    authorize Plan
+    
+    @plan = Plan.new
+    authorize @plan
+    @funders = Org.funders.all 
 
-      respond_to do |format|
-        format.html # new.html.erb
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
+    respond_to do |format|
+      format.html # new.html.erb
     end
   end
 
