@@ -10,15 +10,22 @@ class ReplacingPlanRolesWithBitflags < ActiveRecord::Migration
     # transfer the data from the other fields to the bitfield
     if table_exists?('roles')
       Role.find_each do |role|
-        if role.admin
-          role.administrator = true
-        end
-        if role.edit
-          role.editor = true
-        end
         if role.create
           role.creator = true
+          role.administrator = true
+          role.editor = true
+          role.commenter = true
+        elsif role.admin
+          role.administrator = true
+          role.editor = true
+          role.commenter = true
+        elsif role.edit
+          role.editor = true
+          role.commenter = true
+        else
+          role.commenter = true
         end
+
         if role.user.nil?
           Role.delete_all(user_id: role.user_id)
         else
@@ -26,7 +33,7 @@ class ReplacingPlanRolesWithBitflags < ActiveRecord::Migration
         end
       end
     end
-    
+
     # remove the other columns
     remove_column :roles, :create
     remove_column :roles, :edit
