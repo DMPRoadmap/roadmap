@@ -17,8 +17,6 @@ class PlansController < ApplicationController
 
   # GET /plans/new
   def new
-    authorize Plan
-    
     @plan = Plan.new
     authorize @plan
     @funders = Org.funders.all 
@@ -31,8 +29,8 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.new
-    @plan.save
     authorize @plan
+    @plan.save
 
     if params[:template_id]
       @templates = [ Template.find(params[:template_id] ) ]
@@ -298,14 +296,11 @@ class PlansController < ApplicationController
     end
   end
 
-# TODO: This one is unreachable ... it has no route defined
-=begin
   def show_export
     @plan = Plan.find(params[:id])
     authorize @plan
     render 'show_export'
   end
-=end
 
   def export
     @plan = Plan.find(params[:id])
