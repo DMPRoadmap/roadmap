@@ -28,10 +28,9 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
-# TODO: There is no route to this function on the controller
-#  def show_export?
-#    @plan.readable_by?(@user.id)
-#  end
+  def show_export?
+    @plan.readable_by?(@user.id)
+  end
 
   def update?
     @plan.editable_by?(@user.id)
