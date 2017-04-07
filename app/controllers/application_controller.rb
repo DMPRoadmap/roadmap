@@ -87,8 +87,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def generate_error_notice(obj)
-    "#{_('Unable to save your changes.')}<br />#{obj.errors.collect{|e,m| "#{e} - #{m}"}.join("<br />")}"
+  def generate_error_notice(obj, obj_name)
+    msg = _('Unable to save your changes to the %{object}.', object: obj_name)
+    "#{msg}<br />#{obj.errors.collect{|e,m| "#{e} - #{m}"}.join("<br />")}"
   end
 
   private

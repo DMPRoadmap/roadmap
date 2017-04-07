@@ -172,7 +172,10 @@ class TemplatesController < ApplicationController
       end
       redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
-      redirect_to admin_template_template_path(@template), notice: generate_error_notice(@template)
+      @hash = @template.to_hash
+      
+      flash[:notice] = generate_error_notice(@template, _('template'))
+      render admin_template_template_path(@template)
     end
   end
 

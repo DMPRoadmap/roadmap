@@ -35,7 +35,7 @@ class OrgsController < ApplicationController
         # its unclear why its doing this. Placing a check here for the data type. We should reasses though
         # when doing a broader eval of the look/feel of the site and we come up with a standardized way of
         # displaying errors
-        flash[:notice] = generate_error_notice(@org)
+        flash[:notice] = generate_error_notice(@org, _('organisation'))
         render action: "admin_edit"
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye

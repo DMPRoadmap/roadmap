@@ -164,7 +164,7 @@ class PhasesController < ApplicationController
     if @phase.save
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      flash[:notice] = generate_error_notice(@phase)
+      flash[:notice] = generate_error_notice(@phase, _('phase'))
       @template = @phase.template
       render "admin_add"
     end
@@ -179,8 +179,16 @@ class PhasesController < ApplicationController
     if @phase.update_attributes(params[:phase])
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
-      # Redirecting here because the method loads a lot of stuff. We may lose whatever the user had entered though 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: generate_error_notice(@phase)
+      @sections = @phase.sections
+      
+      # These params may not be available in this context so they may need
+      # to be set to true without the check
+      @open = !params[:section_id].nil? 
+      @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
+      @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
+
+      flash[:notice] = generate_error_notice(@phase, _('phase'))
+      render admin_edit_phase_path(id: @phase.id, edit: 'true')
     end
   end
 

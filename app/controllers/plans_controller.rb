@@ -91,7 +91,7 @@ class PlansController < ApplicationController
       if @plan.save
         format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }, {:notice => _('Plan was successfully created.')}) }
       else
-        flash[:notice] = generate_error_notice(@plan)
+        flash[:notice] = generate_error_notice(@plan, _('plan'))
         format.html { render action: "new" }
       end
     end
@@ -143,7 +143,7 @@ class PlansController < ApplicationController
         format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
         format.json { head :no_content }
       else
-        flash[:notice] = generate_error_notice(@plan)
+        flash[:notice] = generate_error_notice(@plan, _('plan'))
         format.html { render action: "edit" }
       end
     end

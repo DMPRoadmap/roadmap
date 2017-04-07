@@ -11,7 +11,13 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: generate_error_notice(@question)
+      @edit = (@phase.template.org == current_user.org)
+      @open = true
+      @section_id = @section.id
+      @question_id = @question.id
+      
+      flash[:notice] = generate_error_notice(@question, _('question'))
+      render admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true')
     end
   end
 
@@ -26,7 +32,13 @@ class QuestionsController < ApplicationController
     if @question.update_attributes(params[:question])
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: generate_error_notice(@question)
+      @edit = (@phase.template.org == current_user.org)
+      @open = true
+      @section_id = @section.id
+      @question_id = @question.id
+      
+      flash[:notice] = generate_error_notice(@question, _('question'))
+      render admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true')
     end
   end
 

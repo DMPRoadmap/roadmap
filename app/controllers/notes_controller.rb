@@ -37,7 +37,7 @@ class NotesController < ApplicationController
       @notice = _('Comment was successfully created.')
     else
       @status = false
-      @notice = generate_error_notice(@note)
+      @notice = generate_error_notice(@note, _('note'))
     end
     notes = answer.notes.all
     @num_notes = notes.count
@@ -57,7 +57,7 @@ class NotesController < ApplicationController
     if @note.update_attributes(params[:note])
       @notice = _('Comment was successfully saved.')
     else
-      @notice = generate_error_notice(@note)
+      @notice = generate_error_notice(@note, _('note'))
     end
   end
 
@@ -76,7 +76,7 @@ class NotesController < ApplicationController
     if @note.update_attributes(params[:note])
       @notice = _('Comment removed.')
     else
-      @notice = generate_error_notice(@note)
+      @notice = generate_error_notice(@note, _('note'))
     end
   end
 end

@@ -29,7 +29,8 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.save
       redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully created.')
     else
-      redirect_to admin_new_guidance_group_path(current_user.org), notice: generate_error_notice(@guidance_group)
+      flash[:notice] = generate_error_notice(@guidance_group, _('guidance group'))
+      render admin_new_guidance_group_path(current_user.org)
     end
   end
 
@@ -51,7 +52,8 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
     else
-      redirect_to admin_edit_guidance_group_path(@guidance_group), notice: generate_error_notice(@guidance_group)
+      flash[:notice] = generate_error_notice(@guidance_group, _('guidance group'))
+      render admin_edit_guidance_group_path(current_user.org)
     end
   end
 
@@ -66,7 +68,7 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
     else
-      redirect_to admin_index_guidance_path(@guidance_group), notice: generate_error_notice(@guidance_group)
+      redirect_to admin_index_guidance_path(@guidance_group), notice: generate_error_notice(@guidance_group, _('guidance group'))
     end
   end
 

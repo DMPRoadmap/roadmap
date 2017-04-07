@@ -57,7 +57,7 @@ class GuidancesController < ApplicationController
     if @guidance.save
       redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
     else
-      flash[:notice] = generate_error_notice(@guidance)
+      flash[:notice] = generate_error_notice(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
       render action: "admin_new"
@@ -75,7 +75,7 @@ class GuidancesController < ApplicationController
     if @guidance.save(guidance_params)
       redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
-      flash[:notice] = generate_error_notice(@guidance)
+      flash[:notice] = generate_error_notice(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
 
