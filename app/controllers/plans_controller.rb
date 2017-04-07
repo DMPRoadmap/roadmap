@@ -89,7 +89,7 @@ class PlansController < ApplicationController
       if @plan.save
         format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }, {:notice => _('Plan was successfully created.')}) }
       else
-        flash[:notice] = generate_error_notice(@plan, _('plan'))
+        flash[:notice] = failed_create_error(@plan, _('plan'))
         format.html { render action: "new" }
       end
     end
@@ -141,7 +141,7 @@ class PlansController < ApplicationController
         format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
         format.json { head :no_content }
       else
-        flash[:notice] = generate_error_notice(@plan, _('plan'))
+        flash[:notice] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
       end
     end
@@ -176,9 +176,15 @@ class PlansController < ApplicationController
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
-    @plan.destroy
-    respond_to do |format|
-      format.html { redirect_to plans_url, notice: _('Plan was successfully deleted.') }
+    if @plan.destroy
+      respond_to do |format|
+        format.html { redirect_to plans_url, notice: _('Plan was successfully deleted.') }
+      end
+    else
+      respond_to do |format|
+        flash[:notice] = failed_create_error(@plan, _('plan'))
+        format.html { render action: "edit" }
+      end
     end
   end
 

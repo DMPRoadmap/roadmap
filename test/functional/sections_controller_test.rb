@@ -53,11 +53,13 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_section_path(@phase), {section: {phase_id: @phase.id, title: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @phase.id, edit: 'true')
+    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert_response :success
     assert assigns(:section)
     assert assigns(:phase)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:edit)
+    assert assigns(:open)
+    assert assigns(:sections)
   end 
   
   # PUT /org/admin/templates/sections/:id/admin_update (admin_update_section_path)
@@ -80,11 +82,14 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_section_path(@phase.sections.first), {section: {title: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @phase.id, section_id: @phase.sections.first.id, edit: 'true')
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
     assert assigns(:section)
     assert assigns(:phase)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:edit)
+    assert assigns(:open)
+    assert assigns(:sections)
+    assert assigns(:section_id)
   end
   
   # DELETE /org/admin/templates/sections/:id/admin_destroy (admin_destroy_section_path)

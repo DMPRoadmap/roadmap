@@ -173,9 +173,8 @@ class TemplatesController < ApplicationController
       redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
       @hash = @template.to_hash
-      
-      flash[:notice] = generate_error_notice(@template, _('template'))
-      render admin_template_template_path(@template)
+      flash[:notice] = failed_update_error(@template, _('template'))
+      render 'admin_template'
     end
   end
 
@@ -207,7 +206,8 @@ class TemplatesController < ApplicationController
     if @template.save
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
-      flash[:notice] = generate_error_notice(@template)
+      @hash = @template.to_hash
+      flash[:notice] = failed_create_error(@template, _('template'))
       render action: "admin_new"
     end
   end
@@ -217,8 +217,13 @@ class TemplatesController < ApplicationController
   def admin_destroy
     @template = Template.find(params[:id])
     authorize @template
-    @template.destroy
-    redirect_to admin_index_template_path
+    if @template.destroy
+      redirect_to admin_index_template_path
+    else
+      @hash = @template.to_hash
+      flash[:notice] = failed_destroy_error(@template, _('template'))
+      render admin_template_template_path(@template)
+    end
   end
 
   # GET /templates/1

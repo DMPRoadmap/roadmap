@@ -141,9 +141,10 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_template_path(Template.last.id), {template: {title: nil, org_id: @user.org.id}}
+    assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:template)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:hash)
   end
   
   # GET /org/admin/templates/:id/admin_update (admin_update_template_path)
@@ -177,10 +178,10 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # Make sure we get the right response when providing an invalid template
     put admin_update_template_path(@template), {template: {title: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_template_template_url(Template.last.id)
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
     assert assigns(:template)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:hash)
   end
 
 end

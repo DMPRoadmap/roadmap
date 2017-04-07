@@ -125,9 +125,8 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     
     # Change password
     put user_registration_path, {user: {password: 'testing123', password_confirmation: 'testing123', current_password: 'password123', firstname: @user.firstname, surname: @user.surname, email: @user.email}}
-    assert_equal _('Details successfully updated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to edit_user_registration_url
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
 =end
 
   end

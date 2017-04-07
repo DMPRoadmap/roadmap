@@ -117,9 +117,9 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_guidance_path(@user.org), {'guidance-text': nil, guidance: {published: false}}
+    assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:guidance)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
     
   # PUT /org/admin/guidance/:id/admin_update (admin_update_guidance_path)
@@ -142,9 +142,9 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     put admin_update_guidance_path(Guidance.first), {'guidance-text': nil, guidance: {guidance_group_id: GuidanceGroup.first.id}}
+    assert flash[:notice].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:guidance)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
   
   # DELETE /org/admin/guidance/:id/admin_destroy (admin_destroy_guidance_path)

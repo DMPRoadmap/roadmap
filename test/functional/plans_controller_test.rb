@@ -96,7 +96,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
 # TODO: Reactivate this once the validations on the model are in place!
     # Invalid object
 #    post plans_path, {plan: {title: nil, template: @template}}
-#    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+#    assert flash[:notice].starts_with?(_('Could not create your'))
 #    assert_response :success
 #    assert assigns(:plan)
   end 
@@ -156,7 +156,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
 # TODO: Reactivate this once the validations on the model are in place!
     # Invalid object
 #    put plan_path(@plan), {plan: {title: nil}}
-#    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+#    assert flash[:notice].starts_with?(_('Could not update your'))
 #    assert_response :success
 #    assert assigns(:plan)
   end

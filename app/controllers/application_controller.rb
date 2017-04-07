@@ -87,9 +87,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def generate_error_notice(obj, obj_name)
-    msg = _('Unable to save your changes to the %{object}.', object: obj_name)
-    "#{msg}<br />#{obj.errors.collect{|e,m| "#{e} - #{m}"}.join("<br />")}"
+  def failed_create_error(obj, obj_name)
+    "#{_('Could not create your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+
+  def failed_update_error(obj, obj_name)
+    "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+  
+  def failed_destroy_error(obj, obj_name)
+    "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
 
   private
@@ -102,5 +109,11 @@ class ApplicationController < ActionController::Base
     #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
     def prepend_view_paths
       prepend_view_path "app/views/branded"
+    end
+    
+    def errors_to_s(obj)
+      if obj.errors.count > 0
+        "<br />#{obj.errors.collect{|e,m| "#{_(e)} - #{_(m)}"}.join("<br />")}"
+      end
     end
 end

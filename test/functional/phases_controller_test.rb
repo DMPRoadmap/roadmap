@@ -158,8 +158,10 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
+    assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:phase)
+    assert assigns(:template)
   end
   
   # PUT /org/admin/templates/phases/:id/admin_update (admin_update_phase_path)
@@ -183,11 +185,12 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
-    assert_response :redirect
-    # TODO: WHY are we passing 'edit' as a query param just use that route!?
-    assert_redirected_to "#{admin_show_phase_url(@template.phases.first)}?edit=true"
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
     assert assigns(:phase)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:template)
+    assert assigns(:sections)
+    assert assigns(:edit)
   end
 
   # DELETE /org/admin/templates/phases/:id/admin_destroy (admin_destroy_phase_path)

@@ -78,7 +78,7 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     put admin_update_org_path(@org), {org: {name: nil}}
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert flash[:notice].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:org)
   end

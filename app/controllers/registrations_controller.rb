@@ -133,7 +133,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
 
     else
-      flash[:notice] = message.blank? ? generate_error_notice(current_user, _('profile')) : message
+      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
   end

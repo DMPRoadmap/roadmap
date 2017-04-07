@@ -78,10 +78,9 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_guidance_group_path(@user.org), {guidance_group: {name: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_new_guidance_group_path(@user.org)
+    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert_response :success
     assert assigns(:guidance_group)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
   
   # GET /org/admin/guidancegroup/:id/admin_edit (admin_edit_guidance_group_path)
@@ -117,10 +116,9 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: {name: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_edit_guidance_group_path(GuidanceGroup.first)
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
     assert assigns(:guidance_group)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
   end
   
   # DELETE /org/admin/guidancegroup/:id/admin_destroy (admin_destroy_guidance_group_path)

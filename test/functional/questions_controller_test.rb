@@ -55,10 +55,15 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id)
+    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert_response :success
     assert assigns(:question)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:section)
+    assert assigns(:phase)
+    assert assigns(:edit)
+    assert assigns(:open)
+    assert assigns(:sections)
+    assert assigns(:section_id)
   end 
   
   # PUT /org/admin/templates/questions/:id/admin_update (admin_update_question_path)
@@ -84,12 +89,16 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_question_path(@section.questions.first), {question: {text: nil}}
-    assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: @section.questions.first.id)
-    assert assigns(:phase)
-    assert assigns(:section)
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
     assert assigns(:question)
-    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    assert assigns(:section)
+    assert assigns(:phase)
+    assert assigns(:edit)
+    assert assigns(:open)
+    assert assigns(:sections)
+    assert assigns(:section_id)
+    assert assigns(:question_id)
   end
   
   # DELETE /org/admin/templates/questions/:id/admin_destroy (admin_destroy_question_path)
