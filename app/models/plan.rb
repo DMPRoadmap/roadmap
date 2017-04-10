@@ -85,6 +85,17 @@ class Plan < ActiveRecord::Base
 
 
 
+  def base_template
+    base = nil
+    t = self.template
+    if t.customization_of.present?
+      base = Template.where("dmptemplate_id = ? and created_at < ?", t.customization_of, self.created_at).order(version: :desc).first
+    end
+    return base
+  end
+
+
+
   ##
   # returns the most recent answer to the given question id
   # optionally can create an answer if none exists
@@ -907,98 +918,6 @@ class Plan < ActiveRecord::Base
   end
 =end
   
-
-
-  ##
-  #
-  # The following method is to help optimise data access.
-  # Even using includes or joins the data access gets performed lazily
-  # and the caching appears to be forgotten at times over view/partial boundaries
-  # To get round it we can pull everything out into a hash and use that
-  # which guarantees no further DB accesses.
-  #
-  # The serializable_hash method only pulls in one level but this includes
-  # attributes which are "through" other attributes. So we do a basic 
-  # conversion to hash and then a "fixup" which knits the pieces together into
-  # the structure which we really want.
-  #
-  def to_hash
-    plan_data = self.serializable_hash(
-        include: [ :template, :phases, :sections,
-                   :answers, :notes, :roles, :users, :questions, 
-                   :plan_guidance_groups, :guidance_groups]
-      )
-
-    # serializable_hash only works over one level so we still need to go and extract
-    # the deeper levels and knit them in.
-    #
-    # want hash of questions by id to add in suggested answers and question_formats
-    question_hash = {}
-
-    plan_data["questions"].each do |q|
-      question_hash[q["id"]] = q
-    end
-
-    question_ids = question_hash.keys
-
-    # pull out suggested answers
-    suggested_answers = SuggestedAnswer.where(question_id: question_ids).where.not(text: '')
-    suggested_answers.each do |sa|
-      question_hash[sa.question_id]["suggested_answer"] = sa.serializable_hash
-    end
-
-    # pull out question_formats
-    qf_hash = {}
-    QuestionFormat.all.each do |qf|
-      qf_hash[qf.id] = qf.serializable_hash
-    end
-    # add question _formats to questions
-    question_hash.values.each do |q|
-      q["question_format"] = qf_hash[q["question_format_id"]]
-    end
-
-    # get the ids of the dynamically selected guidance groups
-    # and keep a map of them so we can extract the name later
-    gg_ids = plan_data["plan_guidance_groups"].select{|pgg| pgg["selected"]}.map{|pgg| pgg["guidance_group_id"]}
-    gg_hash = {}
-    ggs = GuidanceGroup.find(gg_ids).each do |gg|
-       gg_hash[gg.id] = gg.serializable_hash
-    end
-
-    # create a map from theme to array of guidances
-    theme_guidance = {} 
-    guidances = Guidance.joins(:themes)
-                        .select('guidances.guidance_group_id, guidances.text, themes.title')
-                        .where(guidance_group: gg_ids)
-                        .to_a
-
-    guidances.each do |g|
-      title = g.title
-      if !theme_guidance.has_key?(title)
-        theme_guidance[title] = Array.new
-      end
-      theme_guidance[title] << {
-        "text" => g.text,
-        "org" => gg_hash[g.guidance_group_id]["name"]
-      }
-    end
-
-    # link the guidance to the questions
-    plan_data["questions"].each do |q|
-      qg = {}
-      if q.has_key?("themes")
-        q["themes"].each do |t|
-          title = t["title"]
-          qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
-        end
-        q["theme_guidance"] = qg
-      end
-    end
-
-    fixup_hash(plan_data)
-
-    return plan_data
-  end
 
 
   # the following two methods are for eager loading. One gets used for the plan/show

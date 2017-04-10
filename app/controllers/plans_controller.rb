@@ -21,45 +21,65 @@ class PlansController < ApplicationController
     authorize @plan
     @funders = Org.funders.all 
 
+    no_org = Org.new()
+    no_org.id = -1
+    no_org.name = "No Funder"
+    @funders.unshift(no_org)
+
+
     respond_to do |format|
       format.html # new.html.erb
     end
   end
 
 
+  # we get here either from selecting a funder or if if the first selection
+  # results in multiple templates, from a template selection screen
   def create
     @plan = Plan.new
     authorize @plan
     @plan.save
 
+    message = ""
+
+    # if we have a template_id we've been selcting between templates, otherwise funders
     if params[:template_id]
       @templates = [ Template.find(params[:template_id] ) ]
     else
+      funder_id = params[:plan][:funder_id].to_i
 
-      funder_id = params[:plan][:funder_id]
-      if !funder_id.blank?
+      if funder_id.present? && funder_id != -1
+        @templates = []
+
         # get all funder @templates
         funder = Org.find(params[:plan][:funder_id])
-        @templates = get_most_recent( funder.templates.where("published = ?", true).all )
+        funder_templates = get_most_recent( funder.templates.where(published: true).all )
 
-        orgtemplates = current_user.org.templates.all
-        replacements = []
+        # get org templates and index by customization id
+        orgtemplates = get_most_recent( current_user.org.templates.all )
 
-        # replace any that are customised by the org
-        orgtemplates.each do |orgt|
-          base_template = orgt.customization_of 
-          @templates.delete(base_template)
-          replacements << orgt
+        orgt_by_customization = orgtemplates.collect{|t| [t.customization_of, t]}.to_h
+
+        # go through funder templates and replace with org cusomizations if needed
+        funder_templates.each do |ft|
+          if orgt_by_customization.has_key?(ft.dmptemplate_id)
+            message = _(" - using template customised by your institution")
+            @templates << orgt_by_customization[ft.dmptemplate_id]
+          else
+            @templates << ft
+          end
         end
-        @templates + replacements
+      else # either didn't select funder or selected "No Funder"
 
-      else
         # get all org @templates which are not customisations
-        @templates = current_user.org.templates.where(customization_of: nil)
+        @templates = get_most_recent( current_user.org.templates.where(customization_of: nil) )
 
-        # if none of these get the basic dcc template
+        message = _(" - choosing default template for your institution")
+
+        # if none of these get the default template
         if @templates.blank?
-          @templates = Template.find_by_is_default(true)
+          @templates = get_most_recent( Template.where(is_default: true, customization_of: nil) )
+          message = _(" - no funder or institution template, choosing default template")
         end
       end
     end
@@ -69,10 +89,17 @@ class PlansController < ApplicationController
     # to choose otherwise just create the plan
     # and go to the plan/show template
     if @templates.length > 1 
+      message += _(" - there are more than one to choose from")
+      flash.notice = message
+      respond_to do |format|
+        format.html
+      end
       return
     end
 
     @plan.template = @templates[0]
+
+    @based_on = @plan.base_template()
 
     @plan.principal_investigator = current_user.name
 
@@ -84,10 +111,11 @@ class PlansController < ApplicationController
 
     @selected_guidance_groups = @plan.guidance_groups.map{ |pgg| [pgg.name, pgg.id, :checked => false] }
     @selected_guidance_groups.sort!
-    
+
     respond_to do |format|
       if @plan.save
-        format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }, {:notice => _('Plan was successfully created.')}) }
+        flash.notice = _('Plan was successfully created.') + message
+        format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }) }
       else
         flash[:notice] = failed_create_error(@plan, _('plan'))
         format.html { render action: "new" }
@@ -106,6 +134,8 @@ class PlansController < ApplicationController
     all_guidance_groups = @plan.plan_guidance_groups
     @selected_guidance_groups = all_guidance_groups.map{ |pgg| [ pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected ] }
     @selected_guidance_groups.sort!
+    @based_on = @plan.base_template
+
     respond_to :html
   end
 
@@ -358,12 +388,15 @@ class PlansController < ApplicationController
   private
 
 
+  # different versions of the same template have the same dmptemplate_id
+  # but different version numbers so for each set of templates with the
+  # same dmptemplate_id choose the highest version number.
   def get_most_recent( templates )
     groups = Hash.new
     templates.each do |t|
       k = t.dmptemplate_id
       if !groups.has_key?(k)
-        groups[k] =t
+        groups[k] = t
       else
         other = groups[k]
         if other.version < t.version
