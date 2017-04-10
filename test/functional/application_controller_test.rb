@@ -41,6 +41,7 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
   test "a user's org language specification gets picked up and used if the user has no language setting" do
     if LANGUAGES.count > 1
       @user.language = nil
+      
       @user.org[:language_id] = LANGUAGES.last.id
       @user.save!
       

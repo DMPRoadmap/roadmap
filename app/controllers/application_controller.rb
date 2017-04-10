@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
+    if user_signed_in?
+      redirect_to plans_url, notice: _('You are not authorized to perform this action.')
+    else
+      redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
+    end
   end
 
   before_filter :set_gettext_locale
@@ -83,6 +87,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def failed_create_error(obj, obj_name)
+    "#{_('Could not create your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+
+  def failed_update_error(obj, obj_name)
+    "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+  
+  def failed_destroy_error(obj, obj_name)
+    "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+
   private
     # Override rails default render action to look for a branded version of a
     # template instead of using the default one. If no override exists, the 
@@ -93,5 +109,11 @@ class ApplicationController < ActionController::Base
     #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
     def prepend_view_paths
       prepend_view_path "app/views/branded"
+    end
+    
+    def errors_to_s(obj)
+      if obj.errors.count > 0
+        "<br />#{obj.errors.collect{|e,m| "#{_(e)} - #{_(m)}"}.join("<br />")}"
+      end
     end
 end

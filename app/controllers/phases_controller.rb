@@ -158,12 +158,15 @@ class PhasesController < ApplicationController
   def admin_create
     @phase = Phase.new(params[:phase])
     authorize @phase
+    
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
     if @phase.save
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      render action: "admin_show"
+      flash[:notice] = failed_create_error(@phase, _('phase'))
+      @template = @phase.template
+      render "admin_add"
     end
   end
 
@@ -176,7 +179,16 @@ class PhasesController < ApplicationController
     if @phase.update_attributes(params[:phase])
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
-      render action: "admin_show"
+      @sections = @phase.sections
+      @template = @phase.template
+      # These params may not be available in this context so they may need
+      # to be set to true without the check
+      @edit = true
+      @open = !params[:section_id].nil? 
+      @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
+      @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
+      flash[:notice] = failed_update_error(@phase, _('phase'))
+      render 'admin_show'
     end
   end
 
@@ -185,10 +197,20 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:phase_id])
     authorize @phase
     @template = @phase.template
-    @phase.destroy
-    redirect_to admin_template_template_path(@template), notice: _('Information was successfully deleted.')
+    if @phase.destroy
+      redirect_to admin_template_template_path(@template), notice: _('Information was successfully deleted.')
+    else
+      @sections = @phase.sections
+      
+      # These params may not be available in this context so they may need
+      # to be set to true without the check
+      @edit = true
+      @open = !params[:section_id].nil? 
+      @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
+      @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
+      flash[:notice] = failed_destroy_error(@phase, _('phase'))
+      render 'admin_show'
+    end
   end
-
-
 
 end

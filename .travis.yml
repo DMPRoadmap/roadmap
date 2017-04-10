@@ -5,6 +5,7 @@ rvm:
 before_script:
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
+  - cp config/branding_example.yml config/branding.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
   - cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb

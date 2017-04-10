@@ -29,17 +29,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="first"><%= _('Should this guidance apply:') %></td>
-						<td><div class="div_left_icon_g">
-								<%= select_tag "g_options", options_for_select([[_('by themes'), 1],
-								[_('by question'), 2]]) %>
-							</div>
-							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_apply_to_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Decide whether your guidance should display by themes (default) or if it only pertains to a specific question in one of the funder templates.'))%>
-							</div>
-							<div class="clearfix"></div>
-
-							<div class="guindance_by_theme" style="display:none;">
+						<td class="first"><%= _('Themes') %></td>
+						<td>
+							<div class="guindance_by_theme">
 								<div class="div_left_icon_g">
 									<%= f.collection_select(:theme_ids, @themes,
 									:id, :title, {prompt: false, include_blank: 'None'}, {multiple: true})%>
@@ -48,25 +40,8 @@
 									<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_by_themes_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
 								</div>
 								<div class="clearfix"></div>
-
 							</div>
-							<div class="guindace_by_question" style="display:none;">
-								<div class="div_left_icon_g">
-									<%= collection_select(nil, :template_id,  @templates, :id, :title, {prompt: _('Select a template')}, {id: 'templates_select'}) %>
-									<br/>
-									<%= collection_select(nil, :phase_id, @phases, :id, :title, {prompt: _('Select a phase')}, {id: 'phases_select'}) %>
-									<br/>
-									<%= collection_select(nil, :section_id, @sections, :id, :title, {prompt: _('Select a section')}, {id: 'sections_select'}) %>
-									<br/>
-									<%= collection_select(nil, :question_id, @questions, :id, :text, {prompt: _('Select a question')}, {id: 'questions_select'}) %>
-
-								</div>
-								<div class="div_right_icon_g">
-									<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_by_question_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Select the relevant template, phase, version, section and question from the following dropdown options to define which specific question this guidance should display on.'))%>
-								</div>
-								<div class="clearfix"></div>
-
-							</div>
+						</div>
 						</td>
 					</tr>
           <tr>
