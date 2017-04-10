@@ -74,7 +74,7 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to "#{edit_user_registration_path}", "Expected a redirect to the edit profile page, #{edit_user_registration_path}, when omniauth returns with a valid identifier for a user that is already signed in!"
       
         # reload the user record and make sure the omniauth value was attached to their record
-        usr = User.find(@user)
+        usr = User.find(@user.id)
         assert_equal usr.user_identifiers.find_by(identifier_scheme: scheme).identifier, 'foo:bar'
       end
     end

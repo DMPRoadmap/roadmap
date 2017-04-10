@@ -2,17 +2,18 @@ class Role < ActiveRecord::Base
   include FlagShihTzu
 
   ##
-  # Associations
+  # Associationsrequire "role"
+  
   belongs_to :user
   belongs_to :plan
 
   ##
   # Define Bit Field Values
   # Column access
-  has_flags 1 => :creator,
-            2 => :administrator,
-            3 => :editor,
-            4 => :commenter,
+  has_flags 1 => :creator,            # 1
+            2 => :administrator,      # 2
+            3 => :editor,             # 4
+            4 => :commenter,          # 8
             column: 'access'
 
   validates :user, :plan, :access, presence: true
@@ -37,3 +38,22 @@ class Role < ActiveRecord::Base
   end
 
 end
+
+# -----------------------------------------------------
+# Bitwise key
+# -----------------------------------------------------
+# 01 - creator
+# 02 - administrator
+# 03 - creator + administrator
+# 04 - editor
+# 05 - creator + editor
+# 06 - administraor + editor
+# 07 - creator + editor + administrator
+# 08 - commenter
+# 09 - creator + commenter
+# 10 - administrator + commenter
+# 11 - creator + administrator + commenter
+# 12 - editor + commenter
+# 13 - creator + editor + commenter
+# 14 - administrator + editor + commenter
+# 15 - creator + administrator + editor + commenter

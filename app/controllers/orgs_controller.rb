@@ -20,10 +20,11 @@ class OrgsController < ApplicationController
   ##
   # PUT /organisations/1
   def admin_update
+    attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
     @org.banner_text = params["org_banner_text"]
-    @org.logo = params[:org][:logo] if params[:org][:logo]
+    @org.logo = org_params[:logo] if org_params[:logo]
 
     begin
       if @org.update_attributes(org_params)
@@ -34,7 +35,7 @@ class OrgsController < ApplicationController
         # its unclear why its doing this. Placing a check here for the data type. We should reasses though
         # when doing a broader eval of the look/feel of the site and we come up with a standardized way of
         # displaying errors
-        flash[:notice] = @org.errors.collect{|a, e| "#{a} - #{(e.instance_of?(String) ? e : e.message)}"}.join('<br />').html_safe
+        flash[:notice] = failed_update_error(@org, _('organisation'))
         render action: "admin_edit"
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye
@@ -44,8 +45,8 @@ class OrgsController < ApplicationController
   end
 
   private
-
-  def org_params
-    params.require(:org).permit(:name, :abbreviation, :target_url)
-  end
+    def org_params
+      params.require(:org).permit(:name, :abbreviation, :target_url, :is_other, :banner_text, :language_id,
+                                  :region_id, :logo, :contact_email)
+    end
 end

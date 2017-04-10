@@ -184,8 +184,8 @@ users = [
    surname: "Admin",
    password: "password123",
    password_confirmation: "password123",
-   org: Org.find_by(abbreviation: 'CC'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.all,
    accept_terms: true,
    confirmed_at: Time.zone.now},
@@ -195,7 +195,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'GA'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    confirmed_at: Time.zone.now},
@@ -205,7 +205,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    confirmed_at: Time.zone.now},
@@ -215,7 +215,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    accept_terms: true,
    confirmed_at: Time.zone.now}
 ]
@@ -225,7 +225,7 @@ users.map{ |u| User.create!(u) if User.find_by(email: u[:email]).nil? }
 # ------------------------------------------------------- 
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    optional_subset: true,
    published: true},
   {name: "Government Agency Advice (Funder specific guidance)",
@@ -344,7 +344,7 @@ templates = [
   {title: "My Curation Center's Default Template",
    description: "The default template",
    published: true,
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
    version: 1},
   

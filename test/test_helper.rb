@@ -24,15 +24,20 @@ class ActiveSupport::TestCase
   # Use the seeds.rb file to seed the test database
   require_relative '../db/seeds.rb'
 
-  # Add more helper methods to be used by all tests here...
-  
-  
-  
-  # Return the user instance variable
+  # Sometimes TravisCI fails when accessing the LANGUAGES array, so reload it here if necessary
+  LANGUAGES = Language.all if LANGUAGES.empty?
+
+  # Get the organisational admin for the Org specified or create one
   # ----------------------------------------------------------------------
-  def current_user
-    return @user
+  def scaffold_org_admin(org)
+    @user = User.create!(email: "admin-#{org.abbreviation.downcase}@example.com", firstname: "Org", surname: "Admin",
+                         language: Language.find_by(abbreviation: FastGettext.locale),
+                         password: "password123", password_confirmation: "password123", 
+                         org: org, accept_terms: true, confirmed_at: Time.zone.now,
+                         perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']))
+                         #perms: [Perm::GRANT_PERMISSIONS, Perm::MODIFY_TEMPLATES, Perm::MODIFY_GUIDANCE, Perm::CHANGE_ORG_DETAILS])
   end
+  
  
   # Convert Ruby Class Names into attribute names (e.g. MyClass --> my_class)
   # ----------------------------------------------------------------------

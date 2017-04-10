@@ -29,7 +29,8 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.save
       redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully created.')
     else
-      render action: "new"
+      flash[:notice] = failed_create_error(@guidance_group, _('guidance group'))
+      render 'admin_new'
     end
   end
 
@@ -51,11 +52,12 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
     else
-      render action: "edit"
+      flash[:notice] = failed_update_error(@guidance_group, _('guidance group'))
+      render 'admin_edit'
     end
   end
 
-
+# TODO: This does not have a route in config/routes.rb and is unreachable!
   # PUT /guidance_groups/1
   def admin_update_publish
     @guidance_group = GuidanceGroup.find(params[:id])
@@ -66,7 +68,7 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
     else
-      render action: "edit"
+      redirect_to admin_index_guidance_path(@guidance_group), notice: failed_update_error(@guidance_group, _('guidance group'))
     end
   end
 
@@ -76,9 +78,11 @@ class GuidanceGroupsController < ApplicationController
   def admin_destroy
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
-    @guidance_group.destroy
-
-    redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully deleted.')
+    if @guidance_group.destroy
+      redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully deleted.')
+    else
+      redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance_group, _('guidance group'))
+    end
   end
 
 end

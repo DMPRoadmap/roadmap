@@ -13,7 +13,13 @@ class SectionsController < ApplicationController
       redirect_to admin_show_phase_path(id: @section.phase_id,
         :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      render action: "phases/admin_show"
+      @edit = (@phase.template.org == current_user.org)
+      @open = true
+      @sections = @phase.sections
+      @section_id = @section.id
+      @question_id = nil
+      flash[:notice] = failed_create_error(@section, _('section'))
+      render template: 'phases/admin_show'
     end
   end
 
@@ -27,7 +33,13 @@ class SectionsController < ApplicationController
     if @section.update_attributes(params[:section])
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: _('Information was successfully updated.')
     else
-      render action: "phases/admin_show"
+      @edit = (@phase.template.org == current_user.org)
+      @open = true
+      @sections = @phase.sections
+      @section_id = @section.id
+      @question_id = nil
+      flash[:notice] = failed_update_error(@section, _('section'))
+      render template: 'phases/admin_show'
     end
   end
 
@@ -37,8 +49,18 @@ class SectionsController < ApplicationController
     @section = Section.includes(phase: :template).find(params[:section_id])
     authorize @section
     @phase = @section.phase
-    @section.destroy
-    redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: _('Information was successfully deleted.')
+    if @section.destroy
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: _('Information was successfully deleted.')
+    else
+      @edit = (@phase.template.org == current_user.org)
+      @open = true
+      @sections = @phase.sections
+      @section_id = @section.id
+      @question_id = nil
+      
+      flash[:notice] = failed_destroy_error(@section, _('section'))
+      render template: 'phases/admin_show'
+    end
   end
   
 end
