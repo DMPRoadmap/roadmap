@@ -193,16 +193,13 @@ class UserTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "Plans query filter is working properly" do
     3.times do |i|
-      @user.plans << Plan.new(template: Template.last, title: "My test #{i}", 
-                              identifier: (i == 0 ? 'A' : (i == 1 ? 'B' : 'C')).to_s)
+      plan = Plan.create(title: "My test #{i}", template: @template, visibility: 1)
+      @user.roles << Role.new(plan: plan, access: 1)
     end
     @user.save!
 
     plan = @user.plans.filter("2").first
     assert_equal "My test 2", plan.title, "Expected the plans filter to search the title"
-    
-    plan = @user.plans.filter("B").first
-    assert_equal "My test 1", plan.title, "Expected the plans filter to search the identifier fields"
   end
   
   # ---------------------------------------------------
@@ -295,9 +292,9 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with Plans" do
-    plan = Plan.new(title: 'Test Project', template: @template)
-    verify_has_many_relationship(@user, plan, @user.plans.count)
+  test "can manage has_many relationship with Roles" do
+    role = Role.new(plan: @plan, access: 1)
+    verify_has_many_relationship(@user, role, @user.roles.count)
   end  
   
   # ---------------------------------------------------

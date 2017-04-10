@@ -8,10 +8,19 @@ class QuestionsController < ApplicationController
     authorize @question
     @question.guidance = params["new-question-guidance"]
     @question.default_value = params["new-question-default-value"]
-    if @question.save!
+    if @question.save
       redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
-      render action: "phases/admin_show"
+      @edit = (@question.section.phase.template.org == current_user.org)
+      @open = true
+      @phase = @question.section.phase
+      @section = @question.section
+      @sections = @phase.sections
+      @section_id = @question.section.id
+      @question_id = @question.id
+      
+      flash[:notice] = failed_create_error(@question, _('question'))
+      render template: 'phases/admin_show'
     end
   end
 
@@ -26,7 +35,14 @@ class QuestionsController < ApplicationController
     if @question.update_attributes(params[:question])
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
-      render action: "phases/admin_show"
+      @edit = (@phase.template.org == current_user.org)
+      @open = true
+      @sections = @phase.sections
+      @section_id = @section.id
+      @question_id = @question.id
+      
+      flash[:notice] = failed_update_error(@question, _('question'))
+      render template: 'phases/admin_show'
     end
   end
 
@@ -36,8 +52,11 @@ class QuestionsController < ApplicationController
     authorize @question
     @section = @question.section
     @phase = @section.phase
-    @question.destroy
-    redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
+    if @question.destroy
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
+    else
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: failed_destroy_error(@question, 'question')
+    end
   end
 
 end

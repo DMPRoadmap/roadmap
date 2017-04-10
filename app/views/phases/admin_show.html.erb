@@ -29,11 +29,11 @@
 
         <!-- display phase details-->
         <div id="show_phase_div">
-          <%= render partial: "show_phase", locals: {phase: @phase}%>
+          <%= render partial: "phases/show_phase", locals: {phase: @phase}%>
         </div>
         <% if @phase.modifiable && @edit %>
           <div id="edit_phase_div" style="display: none">
-            <%= render partial: "edit_phase", locals: {phase: @phase}%>
+            <%= render partial: "phases/edit_phase", locals: {phase: @phase}%>
           </div>
         <% end %>
       </div>

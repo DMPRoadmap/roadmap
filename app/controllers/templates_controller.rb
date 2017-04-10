@@ -54,6 +54,8 @@ class TemplatesController < ApplicationController
     @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format,
           :suggested_answers]]]).find(params[:id])
     # check to see if this is a funder template needing customized
+    
+    authorize @template
     if @template.org_id != current_user.org_id
       # definitely need to deep_copy the given template
       new_customization = Template.deep_copy(@template)
@@ -145,7 +147,7 @@ class TemplatesController < ApplicationController
       new_version.save!
       @template = new_version
     end
-    authorize @template
+
     # once the correct template has been generated, we convert it to hash
     @hash = @template.to_hash
   end
@@ -170,7 +172,9 @@ class TemplatesController < ApplicationController
       end
       redirect_to admin_template_template_path(), notice: _('Information was successfully updated.')
     else
-      render action: "edit"
+      @hash = @template.to_hash
+      flash[:notice] = failed_update_error(@template, _('template'))
+      render 'admin_template'
     end
   end
 
@@ -185,6 +189,8 @@ class TemplatesController < ApplicationController
   # creates a new template with version 0 and new dmptemplate_id
   def admin_create
     @template = Template.new(params[:template])
+    authorize @template
+    
     @template.org_id = current_user.org_id
     @template.description = params['template-desc']
     @template.published = false
@@ -196,10 +202,12 @@ class TemplatesController < ApplicationController
       random = rand 2147483647
       break random unless Template.exists?(dmptemplate_id: random)
     end
-    authorize @template
-    if @template.save!
+
+    if @template.save
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
+      @hash = @template.to_hash
+      flash[:notice] = failed_create_error(@template, _('template'))
       render action: "admin_new"
     end
   end
@@ -209,8 +217,13 @@ class TemplatesController < ApplicationController
   def admin_destroy
     @template = Template.find(params[:id])
     authorize @template
-    @template.destroy
-    redirect_to admin_index_template_path
+    if @template.destroy
+      redirect_to admin_index_template_path
+    else
+      @hash = @template.to_hash
+      flash[:notice] = failed_destroy_error(@template, _('template'))
+      render admin_template_template_path(@template)
+    end
   end
 
   # GET /templates/1

@@ -42,7 +42,9 @@ class GuidancesController < ApplicationController
     @guidance.question_id = params["question_id"]
     
     @guidance.themes = []
-    guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
+    if !guidance_params[:theme_ids].nil?
+      guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
+    end
     
     if @guidance.published == true then
       @gg = GuidanceGroup.find(@guidance.guidance_group_id)
@@ -55,6 +57,7 @@ class GuidancesController < ApplicationController
     if @guidance.save
       redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
     else
+      flash[:notice] = failed_create_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
       render action: "admin_new"
@@ -68,15 +71,14 @@ class GuidancesController < ApplicationController
     authorize @guidance
 		@guidance.text = params["guidance-text"]
 		@guidance.question_id = params["question_id"]
-    
-    @guidance.themes = []
-    guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
-    
-    if @guidance.update_attributes(guidance_params)
-      redirect_to admin_show_guidance_path(guidance_params), notice: _('Guidance was successfully updated.')
+
+    if @guidance.save(guidance_params)
+      redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
+      flash[:notice] = failed_update_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
+
       render action: "admin_edit"
     end
   end
@@ -86,9 +88,11 @@ class GuidancesController < ApplicationController
   def admin_destroy
    	@guidance = Guidance.find(params[:id])
     authorize @guidance
-    @guidance.destroy
-
-    redirect_to admin_index_guidance_path
+    if @guidance.destroy
+      redirect_to admin_index_guidance_path, notice: _('Guidance was successfully deleted.')
+    else
+      redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance, _('guidance'))
+    end
 	end
 
 
