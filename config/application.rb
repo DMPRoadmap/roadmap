@@ -89,7 +89,7 @@ module DMPRoadmap
     config.shibboleth_enabled = false
 
     # Absolute path to Shibboleth SSO Login
-    #config.shibboleth_login = 'https://localhost/Shibboleth.sso/Login'
+    config.shibboleth_login = 'https://localhost/Shibboleth.sso/Login'
     
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.

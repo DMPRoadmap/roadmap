@@ -47,8 +47,12 @@ class UsersController < ApplicationController
         end
       end
     end
-    @user.save!
-    redirect_to({controller: 'users', action: 'admin_index'}, {notice: _('Information was successfully updated.')})  # helpers.success key does not exist, replaced with a generic string
+    
+    if @user.save!
+      redirect_to({controller: 'users', action: 'admin_index'}, {notice: _('Information was successfully updated.')})  # helpers.success key does not exist, replaced with a generic string
+    else
+      flash[:notice] = failed_update_error(@user, _('user'))
+    end
   end
 
 end
