@@ -21,7 +21,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     @user.save!
     post user_session_path, {user: {email: @user.email}}
     assert_equal 'de', session[:locale], "expected the existing user's locale to have been set in the session"
-    assert_equal 'de', FastGettext.locale, "expected the existing user's locale to have updated the FastGettext locale"
     assert_response :redirect
     assert_redirected_to root_path
   end
