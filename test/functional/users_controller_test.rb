@@ -1,51 +1,74 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionController::TestCase
-=begin
+class UsersControllerTest < ActionDispatch::IntegrationTest
+  
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @user = users(:one)
+    scaffold_org_admin(Org.last)
   end
+  
+  # TODO: Reassess these routes. Devise handles the standard profile pages so defining a more RESTful setup
+  #       wouldn't conflict with the update/create of the main user object. They should probably be something like:
+  #
+  #   users                         GET   /org/:org_id/users      users#index
+  #   user                          GET   /user/:id               users#show
+  #   user                          PUT   /user/:id               users#update
+  
+  # CURRENT RESULTS OF `rake routes`
+  # --------------------------------------------------
+  #   admin_index_users             GET   /org/admin/users/admin_index                  users#admin_index
+  #   admin_grant_permissions_user  GET   /org/admin/users/:id/admin_grant_permissions  users#admin_grant_permissions
+  #   admin_update_permissions_user PUT   /org/admin/users/:id/admin_update_permissions users#admin_update_permissions
 
-  test "should get index" do
-    get :index
+
+  # GET /org/admin/users/admin_index (admin_index_users_path)
+  # ----------------------------------------------------------
+  test "get the list of users" do
+    # Should redirect user to the root path if they are not logged in!
+    get admin_index_users_path
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    get admin_index_users_path
     assert_response :success
-    assert_not_nil assigns(:users)
+    assert assigns(:users)
   end
-
-  test "should get new" do
-    get :new
+  
+  # GET /org/admin/users/:id/admin_grant_permissions (admin_grant_permissions_user_path)
+  # ----------------------------------------------------------
+  test "grant the user's permissions" do
+    # Should redirect user to the root path if they are not logged in!
+    get admin_grant_permissions_user_path(@user.org.users.first)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    get admin_grant_permissions_user_path(@user.org.users.first)
     assert_response :success
+    assert assigns(:user)
+    assert assigns(:perms)
   end
 
-  test "should create user" do
-    assert_difference('User.count') do
-      post :create, user: { email: @user.email, firstname: @user.firstname, last_login: @user.last_login, login_count: @user.login_count, orcid_id: @user.orcid_id, password: @user.password, shibboleth_id: @user.shibboleth_id, user_status_id: @user.user_status_id, surname: @user.surname, user_type_id: @user.user_type_id }
+  # PUT /org/admin/users/:id/admin_update_permissions (admin_update_permissions_user_path)
+  # ----------------------------------------------------------
+  test "update the user's permissions" do
+    params = {perm_ids: [Perm.last.id, Perm.first.id]}
+    
+    # Should redirect user to the root path if they are not logged in!
+    put admin_update_permissions_user_path(@user.org.users.last), {user: params}
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+
+    # Valid save
+    put admin_update_permissions_user_path(@user.org.users.last), {user: params}
+    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_index_users_url
+    @user.org.users.last.perms.each do |perm|
+      assert params[:perm_ids].include?(perm.id), "did not expect to find the #{perm.name} attached to the user"
     end
-
-    assert_redirected_to user_path(assigns(:user))
   end
-
-  test "should show user" do
-    get :show, id: @user
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @user
-    assert_response :success
-  end
-
-  test "should update user" do
-    put :update, id: @user, user: { email: @user.email, firstname: @user.firstname, last_login: @user.last_login, login_count: @user.login_count, orcid_id: @user.orcid_id, password: @user.password, shibboleth_id: @user.shibboleth_id, user_status_id: @user.user_status_id, surname: @user.surname, user_type_id: @user.user_type_id }
-    assert_redirected_to user_path(assigns(:user))
-  end
-
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete :destroy, id: @user
-    end
-
-    assert_redirected_to users_path
-  end
-=end
 end

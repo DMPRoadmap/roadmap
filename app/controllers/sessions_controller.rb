@@ -17,6 +17,9 @@ class SessionsController < Devise::SessionsController
   def create
     existing_user = User.find_by(email: params[:user][:email])
     if !existing_user.nil?
+      
+# TODO: Not sure why we check for shib data in params and then use session value below. We should move this to the 
+#       new user_identifiers table
       if !params[:shibboleth_data].nil? 
         #after authentication verify if session[:shibboleth] exists
         existing_user.update_attributes(shibboleth_id: session[:shibboleth_data][:uid])
