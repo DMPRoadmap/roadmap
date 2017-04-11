@@ -264,6 +264,18 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # TODO: We need some better tests here to check the different formats!
   end
   
+  # GET /plans/:id/show_export (show_export_plan_path)
+  # ----------------------------------------------------------
+  test "show the export the plan page" do
+    # Should redirect user to the root path if they are not logged in!
+    try_no_user_and_unauthorized(show_export_plan_path(@plan))
+
+    sign_in @user    
+    get show_export_plan_path(@plan)
+    assert_response :success
+    assert assigns(:plan)
+  end
+  
   private
     def try_no_user_and_unauthorized(target)
       # Should redirect user to the root path if they are not logged in!

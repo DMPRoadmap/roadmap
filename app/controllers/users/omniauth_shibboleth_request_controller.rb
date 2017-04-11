@@ -7,7 +7,11 @@ class Users::OmniauthShibbolethRequestController < ApplicationController
     else
     	idp = params[:idp]
     end
-    query_params = {target: user_omniauth_callback_path(:shibboleth)}
+    
+    # briley - April 10 2017 - Replaced the old path with the one currently defined in `rake routes`
+    #query_params = {target: user_omniauth_callback_path(:shibboleth)}
+    query_params = {target: user_shibboleth_omniauth_callback_path}
+    
     unless idp.blank?
       query_params[:entityID] = idp
     end
