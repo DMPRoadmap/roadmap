@@ -64,12 +64,18 @@ class RolesController < ApplicationController
   def set_access_level(access_level)
     if access_level >= 1
       @role.commenter = true
+    else
+      @role.commenter = false
     end
     if access_level >= 2
       @role.editor = true
+    else
+      @role.editor = false
     end
     if access_level >= 3
       @role.administrator = true
+    else
+      @role.administrator = false
     end
   end
 
