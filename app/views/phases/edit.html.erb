@@ -21,7 +21,7 @@
 <div class="project-tabs-body">
 
   <div class="accordion" id="sections-accordion">
-    <% @phase.sections.each do |section| %>
+    <% @phase.sections.order(:number).each do |section| %>
 
       <% sectionid = section.id %>
 
