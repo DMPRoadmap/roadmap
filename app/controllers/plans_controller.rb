@@ -199,7 +199,7 @@ class PlansController < ApplicationController
   def share
     @plan = Plan.find(params[:id])
     authorize @plan
-    @plan_data = @plan.to_hash
+    #@plan_data = @plan.to_hash
   end
 
 
