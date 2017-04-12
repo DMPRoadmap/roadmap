@@ -975,9 +975,25 @@ class Plan < ActiveRecord::Base
     role.user_id = user_id
     role.plan_id = id
 
-    role.creator= is_creator
-    role.editor= is_editor
-    role.administrator= is_administrator
+    # if you get assigned a role you can comment
+    role.commenter= true
+
+    # the rest of the roles are inclusing so creator => administrator => editor
+    if is_creator
+      role.creator =  true
+      role.administrator = true
+      role.editor = true
+    end
+
+    if is_administrator
+      role.administrator = true
+      role.editor = true
+    end
+
+    if is_editor
+      role.editor = true
+    end
+
     role.save
     
     # This is necessary because we're creating the associated record but not assigning it 
