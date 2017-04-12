@@ -338,6 +338,8 @@ class PlansController < ApplicationController
     render 'show_export'
   end
 
+
+
   def export
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -347,6 +349,7 @@ class PlansController < ApplicationController
 
     @exported_plan = ExportedPlan.new.tap do |ep|
       ep.plan = @plan
+      ep.phase_id = params[:phase_id]
       ep.user = current_user
       ep.format = params[:format].to_sym
       plan_settings = @plan.settings(:export)
@@ -358,7 +361,7 @@ class PlansController < ApplicationController
 
     begin
       @exported_plan.save!
-      file_name = @exported_plan.project_name
+      file_name = @plan.title.gsub(/ /, "_")
 
       respond_to do |format|
         format.html
