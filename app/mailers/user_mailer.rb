@@ -1,8 +1,9 @@
 class UserMailer < ActionMailer::Base
 	default from: I18n.t('helpers.main_email.from')
 	
-	def sharing_notification(role)
+	def sharing_notification(role, user)
     @role = role
+    @user = user
 		mail(to: @role.user.email, subject: I18n.t('helpers.main_email.access_given'))
 	end
 	
