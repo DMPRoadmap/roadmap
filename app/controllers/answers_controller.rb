@@ -14,20 +14,29 @@ class AnswersController < ApplicationController
     lock_version = ans_params[:lock_version]
     question_id = ans_params[:question_id]
     @question = Question.find(question_id);
-		@answer = Answer.find_by(
-                        plan_id: plan_id,
-                        question_id: question_id)
+    # If an answer id is present load that answer otherwise load by plan/question
+    @answer = Answer.find_by(plan_id: plan_id, question_id: question_id)
 
-    @old_answer = nil
+    @old_answer, race_on_creation = nil, false
 
-puts "FOUND: #{@answer.id}"
-
+    # This is the first answer for the question
     if @answer.nil?
+puts"CREATING"
       @answer = Answer.new(params[:answer])
       @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
       authorize @answer
-			@answer.save
+      @answer.save
+    
+    # Someone else already added an answer while the user was working
+    elsif ans_params[:id].nil?
+puts"RACE"
+      @old_answer = Marshal::load(Marshal.dump(@answer))
+      authorize @answer
+      race_on_creation = true
+      
+    # We're updating an answer (let ActiveRecord check for a race condition)
     else
+puts"UPDATING"
       # if you do the obvious clone here it will overwrite the old_answer text
       # in the next line
       #@old_answer = @answer.clone
@@ -36,9 +45,6 @@ puts "FOUND: #{@answer.id}"
       authorize @answer
       @answer.update(params[:answer])
     end
-
-
-puts "ERRORS: #{@answer.errors.collect{|e,m| "#{e} - #{m}"}.join(', ')}"
 
     @section_id = @answer.question.section.id
 
@@ -76,9 +82,19 @@ puts "ERRORS: #{@answer.errors.collect{|e,m| "#{e} - #{m}"}.join(', ')}"
     end
 
     respond_to do |format|
-      # pass new lock_version back to the client or they'll never save again
-      @lock_version = @answer.lock_version
-      @old_answer = nil
+puts "OLD: #{@old_answer.inspect}"
+puts "CURR: #{@answer.inspect}"
+      @lock_version = (@old_answer.nil? ? @answer.lock_version : @old_answer.lock_version)
+      
+      if !race_on_creation
+        # pass new lock_version back to the client or they'll never save again
+        @old_answer = nil
+        
+      else
+        @answer = Answer.new(params[:answer])
+        @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
+      end
+      
       format.js {} 
     end
 
