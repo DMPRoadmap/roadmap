@@ -17,7 +17,7 @@ class RolesController < ApplicationController
       end
       @role.user = user
       if @role.save
-        UserMailer.sharing_notification(@role).deliver
+        UserMailer.sharing_notification(@role, current_user).deliver
         flash[:notice] = message
       else
         flash[:notice] = generate_error_notice(@role, _('role'))
