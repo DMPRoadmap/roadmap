@@ -16,10 +16,11 @@ class AnswersController < ApplicationController
     @question = Question.find(question_id);
 		@answer = Answer.find_by(
                         plan_id: plan_id,
-                        user_id: user_id,
                         question_id: question_id)
 
     @old_answer = nil
+
+puts "FOUND: #{@answer.id}"
 
     if @answer.nil?
       @answer = Answer.new(params[:answer])
@@ -35,6 +36,9 @@ class AnswersController < ApplicationController
       authorize @answer
       @answer.update(params[:answer])
     end
+
+
+puts "ERRORS: #{@answer.errors.collect{|e,m| "#{e} - #{m}"}.join(', ')}"
 
     @section_id = @answer.question.section.id
 
