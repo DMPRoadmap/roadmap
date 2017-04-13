@@ -79,22 +79,13 @@ class ExportedPlan < ActiveRecord::Base
     end
   end
 
-# TODO: This looks like it will always return an empty array as questions is undefined
-  # sections taken from fields settings
   def sections
-    # TODO: How do we know which phase to use here!?
-    sections = self.plan.template.phases.first.sections
-
-    return [] if questions.empty?
-
-    section_ids = questions.pluck(:section_id).uniq
-    sections = sections.select {|section| section_ids.member?(section.id) }
-
+    sections = Phase.find(self.phase_id).sections
     sections.sort_by(&:number)
   end
 
   def questions_for_section(section_id)
-    questions.where(section_id: section_id)
+    questions.where(section_id: section_id).sort_by(&:number)
   end
 
   def admin_details
