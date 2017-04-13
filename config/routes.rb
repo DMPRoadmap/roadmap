@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    resources :users, only: [:new, :create, :edit, :update, :index]
-    resources :orgs, only: [:new, :create, :edit, :update, :index]
-    resources :perms, only: [:new, :create, :edit, :update, :index]
+    resources :users, only: [:new, :create, :edit, :update, :index, :show]
+    resources :orgs, only: [:new, :create, :edit, :update, :index, :show]
+    resources :perms, only: [:new, :create, :edit, :update, :index, :show]
     resources :languages
     resources :templates
     resources :token_permission_types
