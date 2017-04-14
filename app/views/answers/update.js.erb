@@ -15,9 +15,10 @@ $("#saving-<%=@question.id%>").prev().show();
 
 // have to update the lock_version on success or failure
 // so that the next save can work. If you don't do
-// this it will fail forever.
+// this it will fail forever. Also update the answer id
 
 $("#answer_lock_version-<%=@question.id%>").val(<%= @lock_version %>);
+$("#question-form-<%= @question.id %> #answer_id").val(<%= @answer.id %>);
 
 // update the answer status
 
@@ -26,7 +27,7 @@ var timestamp = "<%=@timestamp%>";
 
 if( timestamp != "") {
   q_status.text("");
-  q_status.append( _('Answered') + "<abbr class=\"timeago\" data-time=\"<%=@timestamp%>\" title=\"<%=@timestamp%>\"><%=@timestamp%></abbr> " + _('by') + " <%=@username%>");
+  q_status.append("<%= _('Answered') %> <abbr class=\"timeago\" data-time=\"<%=@timestamp%>\" title=\"<%=@timestamp%>\"><%=@timestamp%></abbr> <%= _('by') %> <%=@username%>");
 	$('abbr.timeago').timeago();
 }
 
@@ -36,4 +37,4 @@ $(".progress").html("<%= escape_javascript(render :partial => '/plans/progress',
 
 
 // update the section progress message
-$("#<%=@section_id%>-status").html("(<%=@n_section_questions%>" + _('questions') + ", <%=@n_section_answers%> " + _('answered'));
+$("#<%=@section_id%>-status").html("(<%=@n_section_questions%> <%= _('questions') %>, <%=@n_section_answers%> <%= _('answered') %>)")

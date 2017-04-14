@@ -23,7 +23,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     
     userB = Answer.new(user: @collaborator, plan: @plan, question: @question,
                        text: "Version conflict at onset - by UserB")
-    
+        
     # Signin as UserA and insert the new answer
     sign_in @plan.owner
     put answer_path(FastGettext.locale, userA, format: "js"), obj_to_params(userA.attributes)
@@ -34,8 +34,9 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     assert_equal @plan.owner.id, updated.user_id
     
     # Make sure the answer-notice is NOT displayed
-    assert_not @response.body.include?(_('Combine their changes with your answer below and then save the answer again.'))
-    
+    assert_not @response.body.include?(_('Combine their changes with your answer below and then save the answer again.')), "expected there to be no lock error messaging"
+    assert @response.body.include?("#{_('by')} #{@plan.owner.name}"), "expected the messaging to say the plan was updated by the plan owner"
+    assert @response.body.include?(_('answered')), "expected the messaging to include the status"
     
     # Signin as UserB and try to insert the new answer but fail
     sign_in @collaborator
@@ -47,7 +48,9 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     assert_equal @plan.owner.id, updated.user_id
 
     # Make sure the answer-notice IS displayed
-    assert @response.body.include?(_('Combine their changes with your answer below and then save the answer again.'))
+    assert @response.body.include?(_('Combine their changes with your answer below and then save the answer again.')), "expected there to be lock error messaging"
+    assert @response.body.include?("#{_('by')} #{@plan.owner.name}"), "expected the messaging to STILL say the plan was updated by the plan owner"
+    assert @response.body.include?(_('answered')), "expected the messaging to include the status"
   end
   
   # ----------------------------------------------------------
@@ -55,10 +58,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     userA = Answer.create!(user: @plan.owner, plan: @plan, question: @question, 
                            text: "Initial answer - by UserA").attributes
     userB = userA.clone
-   
-puts userA.inspect
-puts userB.inspect
-    
+
     # Signin as UserA and insert the new answer
     sign_in @plan.owner
     userA['text'] += " - Updated by userA"
@@ -71,8 +71,9 @@ puts userB.inspect
     assert_equal @plan.owner.id, updated.user_id
     
     # Make sure the answer-notice is NOT displayed
-    assert_not @response.body.include?(_('Combine their changes with your answer below and then save the answer again.'))
-    
+    assert_not @response.body.include?(_('Combine their changes with your answer below and then save the answer again.')), "expected there to be no lock error messaging"
+    assert @response.body.include?("#{_('by')} #{@plan.owner.name}"), "expected the messaging to say the plan was updated by the plan owner"
+    assert @response.body.include?(_('answered')), "expected the messaging to include the status"
     
     # Signin as UserB and try to insert the new answer but fail
     sign_in @collaborator
@@ -86,8 +87,9 @@ puts userB.inspect
     assert_equal @plan.owner.id, updated.user_id
 
     # Make sure the answer-notice IS displayed
-    assert @response.body.include?(_('Combine their changes with your answer below and then save the answer again.'))
-    
+    assert @response.body.include?(_('Combine their changes with your answer below and then save the answer again.')), "expected there to be lock error messaging"
+    assert @response.body.include?("#{_('by')} #{@plan.owner.name}"), "expected the messaging to STILL say the plan was updated by the plan owner"
+    assert @response.body.include?(_('answered')), "expected the messaging to include the status"
   end
 
 # ----------------------------------------------------------  
@@ -97,7 +99,8 @@ puts userB.inspect
        answer: {id: attributes['id'],
                 user_id: attributes['user_id'], 
                 plan_id: attributes['plan_id'], 
-                question_id: attributes['question_id']}
+                question_id: attributes['question_id'],
+                lock_version: attributes['lock_version']}
       }
     end
 end
