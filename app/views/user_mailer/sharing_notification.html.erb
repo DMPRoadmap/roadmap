@@ -1,13 +1,14 @@
-<p><%= _('Hello') %> <%= @role.user.name %></p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+	<p><%= _('Hello') %> <%= @role.user.name %></p>
 
-<%
-access_level = "read-only"
-if @role.editor?
-	access_level = "editor"
-elsif @role.administrator?
-	access_level = "co-owner"
-end
-%>
+	<%
+	access_level = "read-only"
+	if @role.editor?
+		access_level = "editor"
+	elsif @role.administrator?
+		access_level = "co-owner"
+	end
+	%>
 
-<p><%= _('You have been given ') %><%= access_level %><%= _(' access to') %><%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>".</p>
-
+	<p><%= _('You have been given') %> <%= access_level %> <%= _(' access to') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>".</p>
+<% end %>

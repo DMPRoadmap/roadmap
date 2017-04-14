@@ -1,5 +1,7 @@
-<p><%= _("Welcome to %{application_name}") % {application_name: Rails.configuration.branding[:application][:name]} %>, <%= @email %>!</p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+	<p><%= _("Welcome to %{application_name}") % {application_name: Rails.configuration.branding[:application][:name]} %>, <%= @email %>!</p>
 
-<p><%= _("Thank you for registering. Please confirm your email address") %>:</p>
+	<p><%= _("Thank you for registering. Please confirm your email address") %>:</p>
 
-<p><%= link_to _("Click here to confirm your account"), confirmation_url(@resource, :confirmation_token => @token) %> (<%= _("or copy") %> <%= confirmation_url(@resource, :confirmation_token => @token) %> <%= _("into your browser") %>).</p>
+	<p><%= link_to _("Click here to confirm your account"), confirmation_url(@resource, :confirmation_token => @token) %> (<%= _("or copy") %> <%= confirmation_url(@resource, :confirmation_token => @token) %> <%= _("into your browser") %>).</p>
+<% end %>
