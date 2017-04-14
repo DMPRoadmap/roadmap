@@ -1,5 +1,5 @@
-<p><%= t('custom_devise.welcome_to_DMP') %>, <%= @email %>!</p>
+<p><%= _("Welcome to %{application_name}") % {application_name: Rails.configuration.branding[:application][:name]} %>, <%= @email %>!</p>
 
-<p><%= t('custom_devise.thank_you_and_confirm') %></p>
+<p><%= _("Thank you for registering. Please confirm your email address") %>:</p>
 
-<p><%= link_to t('custom_devise.click_to_confirm'), confirmation_url(@resource, :confirmation_token => @token) %> <%= t('custom_devise.1st_part_copy') %> <%= confirmation_url(@resource, :confirmation_token => @token) %> <%= t('custom_devise.2nd_part_copy') %></p>
+<p><%= link_to _("Click here to confirm your account"), confirmation_url(@resource, :confirmation_token => @token) %> (<%= _("or copy") %> <%= confirmation_url(@resource, :confirmation_token => @token) %> <%= _("into your browser") %>).</p>

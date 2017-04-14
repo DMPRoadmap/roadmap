@@ -1,24 +1,28 @@
 class UserMailer < ActionMailer::Base
-	default from: I18n.t('helpers.main_email.from')
+	default from: Rails.configuration.branding[:organisation][:email]
 	
 	def sharing_notification(role)
     @role = role
-		mail(to: @role.user.email, subject: I18n.t('helpers.main_email.access_given'))
+		mail(to: @role.user.email, 
+         subject: _("You have been given access to a Data Management Plan"))
 	end
 	
 	def permissions_change_notification(role)
 		@role = role
-		mail(to: @role.user.email, subject: I18n.t('helpers.main_email.permission_changed'))
+		mail(to: @role.user.email, 
+         subject: _("DMP permissions changed"))
 	end
 	
 	def project_access_removed_notification(user, plan)
 		@user = user
 		@plan = plan
-		mail(to: @user.email, subject: I18n.t('helpers.main_email.access_removed'))
+		mail(to: @user.email, 
+         subject: _("DMP access removed"))
 	end
 
   def api_token_granted_notification(user)
       @user = user
-      mail(to: @user.email, subject: I18n.t('helper.api_mail_subject'))
+      mail(to: @user.email, 
+           subject: _('API Permission Granted'))
   end
 end
