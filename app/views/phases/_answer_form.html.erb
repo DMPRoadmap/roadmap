@@ -58,7 +58,7 @@
 
         <!-- if the question has multiple choices pull out the options -->
         <% if question.option_based? %>
-          <% options = question.options.order("number") %>
+          <% options = question.question_options.order("number") %>
 
           <!-- work through the various format options -->
           <% if q_format.checkbox? %>
