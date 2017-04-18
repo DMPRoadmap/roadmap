@@ -23,7 +23,7 @@ class Phase < ActiveRecord::Base
 	#friendly_id :title, use: [:slugged, :history, :finders]
 
 
-  validates :title, :number, :template, presence: true
+  validates :title, :number, :template, presence: {message: _("can't be blank")}
 
 
 

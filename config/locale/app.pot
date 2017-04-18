@@ -2934,3 +2934,9 @@ msgstr ""
 #years
 msgid "%{d} years"
 msgstr ""
+
+# ActiveRecord model errors that we could not override in the model's validation definition
+msgid "activerecord.errors.models.user.attributes.email.blank"
+msgstr "can't be blank"
+msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr "can't be blank"

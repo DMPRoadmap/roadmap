@@ -13,7 +13,7 @@ class GuidanceGroup < ActiveRecord::Base
   attr_accessible :org_id, :name, :optional_subset, :published, :org, :guidances,
                   :as => [:default, :admin]
 
-  validates :name, :org, presence: true
+  validates :name, :org, presence: {message: _("can't be blank")}
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

@@ -10,5 +10,5 @@ class Note < ActiveRecord::Base
   attr_accessible :text, :user_id, :answer_id, :archived, :archived_by, 
                   :answer, :user, :as => [:default, :admin]
                   
-  validates :text, :answer, :user, presence: true
+  validates :text, :answer, :user, presence: {message: _("can't be blank")}
 end
