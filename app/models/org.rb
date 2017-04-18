@@ -26,14 +26,14 @@ class Org < ActiveRecord::Base
   ##
   # Validators
   validates :contact_email, email: true, allow_nil: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do
     after_assign :resize_image
   end
-  validates_property :height, of: :logo, in: (0..100)
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
-  validates_size_of :logo, maximum: 500.kilobytes
+  validates_property :height, of: :logo, in: (0..100), message: _("height must be less than 100px")
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   ##
   # Define Bit Field values

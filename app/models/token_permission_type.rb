@@ -12,7 +12,7 @@ class TokenPermissionType < ActiveRecord::Base
 
   ##
   # Validators
-  validates :token_type, presence: true, uniqueness: true
+  validates :token_type, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
 
   ##
   # Constant Token Permission Types

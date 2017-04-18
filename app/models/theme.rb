@@ -13,7 +13,7 @@ class Theme < ActiveRecord::Base
   attr_accessible :description, :title, :locale , :as => [:default, :admin]
 
 
-  validates :title, presence: true
+  validates :title, presence: {message: _("can't be blank")}
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

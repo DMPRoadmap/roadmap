@@ -17,7 +17,7 @@ class ExportedPlan < ActiveRecord::Base
       _('%{value} is not a valid format') % { :value => data[:value] } 
     end 
   }
-  validates :plan, :format, presence: true
+  validates :plan, :format, presence: {message: _("can't be blank")}
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a
