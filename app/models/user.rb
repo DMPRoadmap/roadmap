@@ -50,8 +50,6 @@ class User < ActiveRecord::Base
   #                :confirmed_at, :org_id
 
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
-  validates :email, :password, presence: {message: _("can't be blank")}
-
 
   ##
   # Settings
