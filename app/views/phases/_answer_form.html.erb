@@ -69,7 +69,7 @@
             <ol class="choices-group">
               <% options.each do |op| %>
                 <li class= "choices-group">
-                  <% if answer.option_ids[0] == op.id then%>
+                  <% if answer.question_option_ids[0] == op.id then%>
                     <%= f.radio_button :option_ids, op.id, :checked => true, id: "answer_option_ids_#{op.id}"%> 
                   <%else%>
                     <%= f.radio_button :option_ids, op.id, :checked => false, id: "answer_option_ids_#{op.id}"%> 

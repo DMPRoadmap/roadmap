@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
 	default from: Rails.configuration.branding[:organisation][:email]
 	
-	def sharing_notification(role)
+	def sharing_notification(role, user)
     @role = role
     FastGettext.with_locale FastGettext.default_locale do
   		mail(to: @role.user.email, 

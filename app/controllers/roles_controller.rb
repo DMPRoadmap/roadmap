@@ -17,7 +17,7 @@ class RolesController < ApplicationController
       end
       @role.user = user
       if @role.save
-        UserMailer.sharing_notification(@role).deliver_now
+        UserMailer.sharing_notification(@role, current_user).deliver
         flash[:notice] = message
       else
         flash[:notice] = generate_error_notice(@role, _('role'))
@@ -64,12 +64,18 @@ class RolesController < ApplicationController
   def set_access_level(access_level)
     if access_level >= 1
       @role.commenter = true
+    else
+      @role.commenter = false
     end
     if access_level >= 2
       @role.editor = true
+    else
+      @role.editor = false
     end
     if access_level >= 3
       @role.administrator = true
+    else
+      @role.administrator = false
     end
   end
 
