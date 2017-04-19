@@ -107,10 +107,8 @@ class PlansController < ApplicationController
 
     @plan.assign_creator(current_user.id)
 
-    @plan.set_possible_guidance_groups
-
-    @selected_guidance_groups = @plan.guidance_groups.map{ |pgg| [pgg.name, pgg.id, :checked => false] }
-    @selected_guidance_groups.sort!
+    @all_guidance_groups = @plan.get_guidance_group_options
+    @selected_guidance_groups = @plan.plan_guidance_groups.pluck(:guidance_group_id)
 
     respond_to do |format|
       if @plan.save
@@ -130,10 +128,8 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(params[:id])
     authorize @plan
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
-    @selected_guidance_groups = []
-    all_guidance_groups = @plan.plan_guidance_groups
-    @selected_guidance_groups = all_guidance_groups.map{ |pgg| [ pgg.guidance_group.name, pgg.guidance_group.id, :checked => pgg.selected ] }
-    @selected_guidance_groups.sort!
+    @all_guidance_groups = @plan.get_guidance_group_options
+    @selected_guidance_groups = @plan.plan_guidance_groups.pluck(:guidance_group_id)
     @based_on = @plan.base_template
 
     respond_to :html
@@ -182,18 +178,24 @@ class PlansController < ApplicationController
   def update_guidance_choices
     @plan = Plan.find(params[:id])
     authorize @plan
-    guidance_ids = params[:plan][:plan_guidance_group_ids]
-    
-# TODO: This always appears to be empty for a new plan. What SHOULD it contain, all guidance_groups?
-    @plan.plan_guidance_groups.each do |pgg|
-      pgg.selected = guidance_ids.include?(pgg.guidance_group_id.to_s)
-      pgg.save!
+    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
+    all_guidance_groups = @plan.get_guidance_group_options
+    plan_groups = @plan.guidance_groups
+    guidance_groups = GuidanceGroup.where( id: guidance_group_ids)
+    all_guidance_groups.each do |group|
+      # case where plan group exists but not in selection
+      if plan_groups.include?(group) && ! guidance_groups.include?(group)
+      #   remove from plan groups
+        @plan.guidance_groups.delete(group)
+      end
+      #  case where plan group dosent exist and in selection
+      if !plan_groups.include?(group) && guidance_groups.include?(group)
+      #   add to plan groups
+        @plan.guidance_groups << group
+      end
     end
-    @plan.save!
-
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    @plan.save
+    redirect_to action: "show"
   end
 
   def share

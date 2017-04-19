@@ -147,6 +147,18 @@ class Plan < ActiveRecord::Base
     self.guidance_groups = ggroups.uniq
   end
 
+  ##
+  # returns all of the possible guidance groups for the plan (all options to
+  # be selected by the user to display)
+  #
+  # @return Array<Guidance>
+  def get_guidance_group_options
+    ggroups = GuidanceGroup.all
+    # funder organisations
+    # default guidance (dcc)
+    # own organisation?
+  end
+
 
 
 
