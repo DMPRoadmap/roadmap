@@ -108,7 +108,7 @@ class PlansController < ApplicationController
     @plan.assign_creator(current_user.id)
 
     @all_guidance_groups = @plan.get_guidance_group_options
-    @selected_guidance_groups = @plan.plan_guidance_groups.pluck(:guidance_group_id)
+    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
 
     respond_to do |format|
       if @plan.save

@@ -153,16 +153,27 @@ class Plan < ActiveRecord::Base
   #
   # @return Array<Guidance>
   def get_guidance_group_options
-    ggroups = GuidanceGroup.all
-    # funder organisations
-    # default guidance (dcc)
-    # own organisation?
+    # find all the themes in this plan
+    # and get the guidance groups they belong to
+    ggroups = []
+    self.template.phases.each do |phase|
+      phase.sections.each do |section|
+        section.questions.each do |question|
+          question.themes.each do |theme|
+            theme.guidances.each do |guidance|
+              ggroups << guidance.guidance_group
+            end
+          end
+        end
+      end
+    end
+    return ggroups.uniq!
   end
 
 
 
 
-  ##
+   ##
   # returns the guidances associated with the project's organisation, for a specified question
   #
   # @param question [Question] the question to find guidance for
@@ -197,7 +208,7 @@ class Plan < ActiveRecord::Base
     end
     
     # Get guidance by theme from any guidance groups currently selected
-    self.plan_guidance_groups.where(selected: true).each do |pgg|
+    self.plan_guidance_groups.each do |pgg|
       group = pgg.guidance_group
       group.guidances.each do |guidance|
         common_themes = guidance.themes.all & question.themes.all
@@ -209,6 +220,9 @@ class Plan < ActiveRecord::Base
 
     return guidances
   end
+
+
+
 
   ##
   # adds the given guidance to a hash indexed by a passed guidance group and theme
