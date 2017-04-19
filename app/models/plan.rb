@@ -167,7 +167,7 @@ class Plan < ActiveRecord::Base
         end
       end
     end
-    return ggroups.uniq!
+    return ggroups.uniq
   end
 
 
