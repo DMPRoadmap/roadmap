@@ -22,6 +22,9 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       
       plan = Plan.create(title: "Testing Answer For #{format.title}", 
                          template: template)
+      
+      Role.create!(user_id: @user.id, plan_id: plan.id, access: 4)
+      plan.reload
                          
       referrer = "/#{FastGettext.locale}/plans/#{plan.id}/phases/#{question.section.phase.id}/edit"
                          
@@ -43,7 +46,8 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
                                     
         # Try editing it
         form_attributes = {"answer-text-#{question.id}": "Tested",
-                           answer: {user_id: answer.user.id, 
+                           answer: {id: answer.id,
+                                    user_id: answer.user.id, 
                                     plan_id: answer.plan.id, 
                                     question_id: answer.question.id,
                                     lock_version: answer.lock_version}}

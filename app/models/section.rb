@@ -14,7 +14,7 @@ class Section < ActiveRecord::Base
                   :questions_attributes, :organisation, :phase, :modifiable,
                   :as => [:default, :admin]
 
-  validates :phase, :title, :number, presence: true
+  validates :phase, :title, :number, presence: {message: _("can't be blank")}
 
   ##
   # return the title of the section

@@ -1,25 +1,36 @@
 class UserMailer < ActionMailer::Base
-	default from: I18n.t('helpers.main_email.from')
+	default from: Rails.configuration.branding[:organisation][:email]
 	
 	def sharing_notification(role, user)
     @role = role
-    @user = user
-		mail(to: @role.user.email, subject: I18n.t('helpers.main_email.access_given'))
+    FastGettext.with_locale FastGettext.default_locale do
+  		mail(to: @role.user.email, 
+           subject: _("You have been given access to a Data Management Plan"))
+    end
 	end
 	
 	def permissions_change_notification(role)
 		@role = role
-		mail(to: @role.user.email, subject: I18n.t('helpers.main_email.permission_changed'))
+		FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @role.user.email, 
+           subject: _("DMP permissions changed"))
+    end
 	end
 	
 	def project_access_removed_notification(user, plan)
 		@user = user
 		@plan = plan
-		mail(to: @user.email, subject: I18n.t('helpers.main_email.access_removed'))
+    FastGettext.with_locale FastGettext.default_locale do
+  		mail(to: @user.email, 
+           subject: _("DMP access removed"))
+    end
 	end
 
   def api_token_granted_notification(user)
       @user = user
-      mail(to: @user.email, subject: I18n.t('helper.api_mail_subject'))
+      FastGettext.with_locale FastGettext.default_locale do
+        mail(to: @user.email, 
+             subject: _('API Permission Granted'))
+      end
   end
 end

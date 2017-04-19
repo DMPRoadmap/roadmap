@@ -25,7 +25,7 @@ class Guidance < ActiveRecord::Base
 
 
 
-  validates :text, presence: true
+  validates :text, presence: {message: _("can't be blank")}
 
 
   ##

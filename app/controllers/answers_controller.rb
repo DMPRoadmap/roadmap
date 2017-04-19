@@ -14,18 +14,30 @@ class AnswersController < ApplicationController
     lock_version = ans_params[:lock_version]
     question_id = ans_params[:question_id]
     @question = Question.find(question_id);
-		@answer = Answer.find_by(
-                        plan_id: plan_id,
-                        user_id: user_id,
-                        question_id: question_id)
+    # If an answer id is present load that answer otherwise load by plan/question
+    @answer = Answer.find_by(plan_id: plan_id, question_id: question_id)
 
-    @old_answer = nil
+    @old_answer, race_on_creation = nil, false
 
+    # This is the first answer for the question
     if @answer.nil?
       @answer = Answer.new(params[:answer])
       @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
       authorize @answer
-			@answer.save
+
+      @answer.save
+
+      @lock_version = @answer.lock_version
+    
+    # Someone else already added an answer while the user was working
+    elsif ans_params[:id].nil? || ans_params[:id].empty?
+      @old_answer = Marshal::load(Marshal.dump(@answer))
+      @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
+      authorize @answer
+      
+      @lock_version = @answer.lock_version
+      
+    # We're updating an answer (let ActiveRecord check for a race condition)
     else
       # if you do the obvious clone here it will overwrite the old_answer text
       # in the next line
@@ -33,7 +45,13 @@ class AnswersController < ApplicationController
       @old_answer = Marshal::load(Marshal.dump(@answer))
       @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
       authorize @answer
+      
       @answer.update(params[:answer])
+      
+      # The save was successful so get the lock version and nil the 
+      # old answer
+      @lock_version = @answer.lock_version
+      @old_answer = nil
     end
 
     @section_id = @answer.question.section.id
@@ -72,13 +90,11 @@ class AnswersController < ApplicationController
     end
 
     respond_to do |format|
-      # pass new lock_version back to the client or they'll never save again
-      @lock_version = @answer.lock_version
-      @old_answer = nil
       format.js {} 
     end
 
     rescue ActiveRecord::StaleObjectError
+        @username = @old_answer.user.name
         @lock_version = @old_answer.lock_version
         respond_to do |format|
           format.js {}

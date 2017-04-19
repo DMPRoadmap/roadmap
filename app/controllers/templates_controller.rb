@@ -190,13 +190,12 @@ class TemplatesController < ApplicationController
   def admin_create
     @template = Template.new(params[:template])
     authorize @template
-    
-    @template.org_id = current_user.org_id
+    @template.org_id = current_user.org.id
     @template.description = params['template-desc']
     @template.published = false
     @template.version = 0
     @template.visibility = 0
-    
+  
     # Generate a unique identifier for the dmptemplate_id
     @template.dmptemplate_id = loop do
       random = rand 2147483647

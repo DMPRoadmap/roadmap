@@ -1,7 +1,9 @@
-<p><%= t('custom_devise.hello') %> <%= @resource.email %>!</p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+	<p><%= _("Hello") %> <%= @resource.email %>!</p>
 
-<p><%= t('custom_devise.1st_part_locked') %><%= link_to t('tool_title'), root_url %><%= t('custom_devise.2nd_part_locked') %></p>
+	<p><%= _("Your") %> <%= link_to Rails.configuration.branding[:application][:name], root_url %> <%= _("account has been locked due to an excessive number of unsuccessful sign in attempts.") %></p>
 
-<p><%= t('custom_devise.click_to_unlock') %></p>
+	<p><%= _("Click the link below to unlock your account") %>:</p>
 
-<p><%= link_to t('custom_devise.unlock'), unlock_url(@resource, :unlock_token => @token) %></p>
+	<p><%= link_to _("Unlock my account"), unlock_url(@resource, :unlock_token => @token) %></p>
+<% end %>

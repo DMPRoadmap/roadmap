@@ -7,7 +7,7 @@ class QuestionFormat < ActiveRecord::Base
   enum formattype: [ :textarea, :textfield, :radiobuttons, :checkbox, :dropdown, :multiselectbox, :date ]
   attr_accessible :formattype
   
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   
   ##
   # Possibly needed for active_admin

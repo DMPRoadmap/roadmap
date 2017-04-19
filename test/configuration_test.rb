@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConfigurationHelper < ActionDispatch::IntegrationTest
+class ConfigurationTest < ActionDispatch::IntegrationTest
   
   # --------------------------------------------------------------------
   test "Make sure that all of the example YAML files have been setup properly" do

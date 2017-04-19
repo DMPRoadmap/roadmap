@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   #                :organisation, :language, :language_id, :org, :perms, 
   #                :confirmed_at, :org_id
 
-  validates :email, email: true, allow_nil: true, uniqueness: true
+  validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
   ##
   # Settings

@@ -8,7 +8,7 @@ class Perm < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   #attr_accessible :name, :as => [:default, :admin]
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
 
   ##
   # Constant perms
