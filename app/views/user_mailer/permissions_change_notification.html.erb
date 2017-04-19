@@ -1,5 +1,5 @@
 <% FastGettext.with_locale FastGettext.default_locale do %>
-	<p><%= _('Hello') %> <%= @role.user.name %></p>
+	<p><%= _('Hello ') %> <%= @role.user.name %></p>
 
 	<% 
 	access_level = "read-only"
@@ -11,5 +11,5 @@
 	end
 	%>
 
-	<p><%= _('Your permissions relating to') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>" <%= _('have changed. You now have') %> <%= access_level %> <%= _('access.') %></p>
+	<p><%= _('Your permissions relating to ') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have ') %><%= access_level %><%= _(' access.') %></p>
 <% end %>

@@ -30,7 +30,7 @@ class AnswersController < ApplicationController
       @lock_version = @answer.lock_version
     
     # Someone else already added an answer while the user was working
-    elsif ans_params[:id].nil? || ans_params[:id].empty?
+    elsif ans_params[:id].blank?
       @old_answer = Marshal::load(Marshal.dump(@answer))
       @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
       authorize @answer

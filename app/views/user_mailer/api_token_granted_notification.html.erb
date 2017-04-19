@@ -1,7 +1,7 @@
 <% FastGettext.with_locale FastGettext.default_locale do %>
-	<p><% _('Hello') %> <%= @user.name %></p>
+	<p><% _('Hello ') %><%= @user.name %></p>
 	
 	<p>
-	<% _('You have been granted permission by your organisation to use our API.') %>" <%= link_to _('Your API token and instructions for using the API endpoints can be found here.'), controller: "users", action: "edit" %>".
+	<% _('You have been granted permission by your organisation to use our API. ') %>"<%= link_to _('Your API token and instructions for using the API endpoints can be found here.'), controller: "users", action: "edit" %>".
 	</p>
 <% end %>
