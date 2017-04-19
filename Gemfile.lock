@@ -86,13 +86,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    caracal (1.0.8)
-      nokogiri (~> 1.6)
-      rubyzip (~> 1.1)
-      tilt (>= 1.4)
-    caracal-rails (1.0.1)
-      caracal (~> 1.0)
-      rails (>= 3.2)
     coderay (1.1.1)
     commonjs (0.2.7)
     concurrent-ruby (1.0.2)
@@ -367,8 +360,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  caracal
-  caracal-rails
   contact_us (>= 1.2.0)
   devise
   devise_invitable

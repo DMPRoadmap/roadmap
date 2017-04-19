@@ -1,13 +1,13 @@
 <!-- Dropdown funder menu and 'create plan' button -->
 
-<%= semantic_form_for @plan, :url => {:controller => :plans, :action => :create }, :html=>{:method=>:post} do |f| %>
+<%= semantic_form_for @plan, url: plans_path(@plan) do |f| %>
   <%= f.inputs do %>
     <%= hidden_field_tag :default_tag, "false" ,:id => "default_tag" %>
     <div class="createa-project">
 
       <h1> <%= _('Create a new plan') %> </h1>
       <div class="info-new-project">
-          <p><%= raw _("<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>")%></p>
+          <p><%= raw _("<p>Please select from the following drop-down so we can determine what questions and guidance should be displayed in your plan.</p>")%></p>
       </div>
 
       <!-- drop down selecting template, org etc -->
@@ -19,7 +19,7 @@
             <%= f.input :funder_id,
                 :as => :select,
                 :collection => @funders,
-                :label => _('If applying for funding, select your research funder.'),
+                :label => _('Select your research funder or no funder, as appropariate.'),
                 :input_html => { :multiple => false, :class => ["select2", "select2-container"] },
                 :include_blank =>  _('Select Funder') %>
 

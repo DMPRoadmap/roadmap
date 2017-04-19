@@ -45,7 +45,6 @@ class UserDashboard < Administrate::BaseDashboard
     invitation_sent_at: Field::DateTime,
     invitation_accepted_at: Field::DateTime,
     other_organisation: Field::String,
-    dmponline3: Field::Boolean,
     accept_terms: Field::Boolean,
     api_token: Field::String,
   }.freeze
@@ -104,7 +103,6 @@ class UserDashboard < Administrate::BaseDashboard
     :invitation_sent_at,
     :invitation_accepted_at,
     :other_organisation,
-    :dmponline3,
     :accept_terms,
     :api_token,
   ].freeze
@@ -131,25 +129,24 @@ class UserDashboard < Administrate::BaseDashboard
     :orcid_id,
     :shibboleth_id,
 #    :encrypted_password,
-    :reset_password_token,
-    :reset_password_sent_at,
-    :remember_created_at,
-    :sign_in_count,
-    :current_sign_in_at,
-    :last_sign_in_at,
-    :current_sign_in_ip,
-    :last_sign_in_ip,
-    :confirmation_token,
-    :confirmed_at,
-    :confirmation_sent_at,
-    :invitation_token,
-    :invitation_created_at,
-    :invitation_sent_at,
-    :invitation_accepted_at,
-    :other_organisation,
-    :dmponline3,
+#    :reset_password_token,
+#    :reset_password_sent_at,
+#    :remember_created_at,
+#    :sign_in_count,
+#    :current_sign_in_at,
+#    :last_sign_in_at,
+#    :current_sign_in_ip,
+#    :last_sign_in_ip,
+#    :confirmation_token,
+#    :confirmed_at,
+#    :confirmation_sent_at,
+#    :invitation_token,
+#    :invitation_created_at,
+#    :invitation_sent_at,
+#    :invitation_accepted_at,
+#    :other_organisation,
     :accept_terms,
-    :api_token,
+#    :api_token,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
@@ -160,7 +157,7 @@ class UserDashboard < Administrate::BaseDashboard
   # end
   
   def display_resource(user)
-    "user.name (##{user.id})"
+    "#{user.firstname} #{user.surname} (##{user.id})"
   end
 
 end

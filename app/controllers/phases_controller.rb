@@ -38,7 +38,7 @@ class PhasesController < ApplicationController
     #
     # get the ids of the dynamically selected guidance groups
     # and keep a map of them so we can extract the names later
-    guidance_groups_ids = @plan.plan_guidance_groups.select{|pgg| pgg.selected}.map{|pgg| pgg.guidance_group.id}
+    guidance_groups_ids = @plan.plan_guidance_groups.map{|pgg| pgg.guidance_group.id}
     guidance_groups =  GuidanceGroup.includes({guidances: :themes}).find(guidance_groups_ids)
 
     # create a map from theme to array of guidances

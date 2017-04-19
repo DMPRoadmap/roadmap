@@ -85,6 +85,17 @@ class Plan < ActiveRecord::Base
 
 
 
+  def base_template
+    base = nil
+    t = self.template
+    if t.customization_of.present?
+      base = Template.where("dmptemplate_id = ? and created_at < ?", t.customization_of, self.created_at).order(version: :desc).first
+    end
+    return base
+  end
+
+
+
   ##
   # returns the most recent answer to the given question id
   # optionally can create an answer if none exists
@@ -136,10 +147,33 @@ class Plan < ActiveRecord::Base
     self.guidance_groups = ggroups.uniq
   end
 
-
-
-
   ##
+  # returns all of the possible guidance groups for the plan (all options to
+  # be selected by the user to display)
+  #
+  # @return Array<Guidance>
+  def get_guidance_group_options
+    # find all the themes in this plan
+    # and get the guidance groups they belong to
+    ggroups = []
+    self.template.phases.each do |phase|
+      phase.sections.each do |section|
+        section.questions.each do |question|
+          question.themes.each do |theme|
+            theme.guidances.each do |guidance|
+              ggroups << guidance.guidance_group
+            end
+          end
+        end
+      end
+    end
+    return ggroups.uniq!
+  end
+
+
+
+
+   ##
   # returns the guidances associated with the project's organisation, for a specified question
   #
   # @param question [Question] the question to find guidance for
@@ -174,7 +208,7 @@ class Plan < ActiveRecord::Base
     end
     
     # Get guidance by theme from any guidance groups currently selected
-    self.plan_guidance_groups.where(selected: true).each do |pgg|
+    self.plan_guidance_groups.each do |pgg|
       group = pgg.guidance_group
       group.guidances.each do |guidance|
         common_themes = guidance.themes.all & question.themes.all
@@ -186,6 +220,9 @@ class Plan < ActiveRecord::Base
 
     return guidances
   end
+
+
+
 
   ##
   # adds the given guidance to a hash indexed by a passed guidance group and theme
@@ -909,98 +946,6 @@ class Plan < ActiveRecord::Base
   
 
 
-  ##
-  #
-  # The following method is to help optimise data access.
-  # Even using includes or joins the data access gets performed lazily
-  # and the caching appears to be forgotten at times over view/partial boundaries
-  # To get round it we can pull everything out into a hash and use that
-  # which guarantees no further DB accesses.
-  #
-  # The serializable_hash method only pulls in one level but this includes
-  # attributes which are "through" other attributes. So we do a basic 
-  # conversion to hash and then a "fixup" which knits the pieces together into
-  # the structure which we really want.
-  #
-  def to_hash
-    plan_data = self.serializable_hash(
-        include: [ :template, :phases, :sections,
-                   :answers, :notes, :roles, :users, :questions, 
-                   :plan_guidance_groups, :guidance_groups]
-      )
-
-    # serializable_hash only works over one level so we still need to go and extract
-    # the deeper levels and knit them in.
-    #
-    # want hash of questions by id to add in suggested answers and question_formats
-    question_hash = {}
-
-    plan_data["questions"].each do |q|
-      question_hash[q["id"]] = q
-    end
-
-    question_ids = question_hash.keys
-
-    # pull out suggested answers
-    suggested_answers = SuggestedAnswer.where(question_id: question_ids).where.not(text: '')
-    suggested_answers.each do |sa|
-      question_hash[sa.question_id]["suggested_answer"] = sa.serializable_hash
-    end
-
-    # pull out question_formats
-    qf_hash = {}
-    QuestionFormat.all.each do |qf|
-      qf_hash[qf.id] = qf.serializable_hash
-    end
-    # add question _formats to questions
-    question_hash.values.each do |q|
-      q["question_format"] = qf_hash[q["question_format_id"]]
-    end
-
-    # get the ids of the dynamically selected guidance groups
-    # and keep a map of them so we can extract the name later
-    gg_ids = plan_data["plan_guidance_groups"].select{|pgg| pgg["selected"]}.map{|pgg| pgg["guidance_group_id"]}
-    gg_hash = {}
-    ggs = GuidanceGroup.find(gg_ids).each do |gg|
-       gg_hash[gg.id] = gg.serializable_hash
-    end
-
-    # create a map from theme to array of guidances
-    theme_guidance = {} 
-    guidances = Guidance.joins(:themes)
-                        .select('guidances.guidance_group_id, guidances.text, themes.title')
-                        .where(guidance_group: gg_ids)
-                        .to_a
-
-    guidances.each do |g|
-      title = g.title
-      if !theme_guidance.has_key?(title)
-        theme_guidance[title] = Array.new
-      end
-      theme_guidance[title] << {
-        "text" => g.text,
-        "org" => gg_hash[g.guidance_group_id]["name"]
-      }
-    end
-
-    # link the guidance to the questions
-    plan_data["questions"].each do |q|
-      qg = {}
-      if q.has_key?("themes")
-        q["themes"].each do |t|
-          title = t["title"]
-          qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
-        end
-        q["theme_guidance"] = qg
-      end
-    end
-
-    fixup_hash(plan_data)
-
-    return plan_data
-  end
-
-
   # the following two methods are for eager loading. One gets used for the plan/show
   # page and the oter for the plan/edit. The difference is just that one pulls in more than
   # the other.
@@ -1033,87 +978,6 @@ class Plan < ActiveRecord::Base
 
   private
 
-  # reconnect the various parts of the hash so that:
-  # plan = {
-  #           template:
-  #           phases:
-  #           sections:
-  #           questions:
-  #           answers
-  #         }
-  #
-  # becomes a nested structure like so
-  #
-  # plan = { template: {
-  #                      phases: [ {
-  #                                   sections: [ {
-  #                                                questions: [ {
-  #                                                              answers: [...]
-  #
-  def fixup_hash(plan)
-    # sort out guidance first so we can add it to the questions
-    # before rolling up
-    #
-    ghash = {}
-    plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
-    plan["plan_guidance_groups"].each do |pgg|
-      pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
-    end
-
-    rollup(plan, "notes", "answer_id", "answers")
-    rollup(plan, "answers", "question_id", "questions")
-    rollup(plan, "questions", "section_id", "sections", true)
-    rollup(plan, "sections", "phase_id", "phases", true)
-
-    plan["template"]["phases"] = plan.delete("phases")
-    plan["template"]["phases"].sort! { |x,y| x["number"].to_i <=> y["number"].to_i }
-
-    plan["template"]["org"] = Org.find(plan["template"]["org_id"]).serializable_hash()
-
-    # when editing phases we want the number of questions answered
-    # so calculate that now
-    plan["template"]["phases"].each do |phase|
-      phase["sections"].each do |section|
-        nanswers = 0
-        section["questions"].each do |question|
-          if question.has_key?("answers") && question["answers"].first["text"].present?
-            nanswers += 1
-          end
-        end
-        section["nanswers"] = nanswers
-      end
-    end
-  end
-
-
-  # find all object under src_plan_key
-  # merge them into the items under obj_plan_key using
-  # super_id = id
-  # so we have answers which each have a question_id
-  # rollup(plan, "answers", "quesiton_id", "questions")
-  # will put the answers into the right questions.
-  # sort determines whether the items being rolled up should be sorted by number field
-  def rollup(plan, src_plan_key, super_id, obj_plan_key, sort = false)
-    id_to_obj = Hash.new()
-    plan[src_plan_key].each do |o|
-      id = o[super_id]
-      if !id_to_obj.has_key?(id)
-        id_to_obj[id] = Array.new
-      end
-      id_to_obj[id]  << o
-    end
-
-    plan[obj_plan_key].each do |o|
-      id = o["id"]
-      if id_to_obj.has_key?(id)
-        if sort
-          id_to_obj[ id ].sort! { |x,y| x["number"].to_i <=> y["number"].to_i }
-        end
-        o[src_plan_key] = id_to_obj[ id ]
-      end
-    end
-    plan.delete(src_plan_key)
-  end
 
   ##
   # adds a user to the project
@@ -1137,9 +1001,25 @@ class Plan < ActiveRecord::Base
     role.user_id = user_id
     role.plan_id = id
 
-    role.creator= is_creator
-    role.editor= is_editor
-    role.administrator= is_administrator
+    # if you get assigned a role you can comment
+    role.commenter= true
+
+    # the rest of the roles are inclusing so creator => administrator => editor
+    if is_creator
+      role.creator =  true
+      role.administrator = true
+      role.editor = true
+    end
+
+    if is_administrator
+      role.administrator = true
+      role.editor = true
+    end
+
+    if is_editor
+      role.editor = true
+    end
+
     role.save
     
     # This is necessary because we're creating the associated record but not assigning it 
