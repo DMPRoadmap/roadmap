@@ -16,7 +16,7 @@ class Template < ActiveRecord::Base
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :id, :org_id, :description, :published, :title, :locale, 
-                  :is_default, :guidance_group_ids, :org, :plans, :phases, 
+                  :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
                   :version, :visibility, :published, :as => [:default, :admin]
 
   # defines the export setting for a template object
@@ -25,6 +25,14 @@ class Template < ActiveRecord::Base
   end
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
+
+  # Helper scopes to get the latest version and the latest published version
+  scope :current, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id).order(version: :desc).first }
+  scope :published, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id, published: true).order(version: :desc).first }
+
+  # Helper scope to get the dmptemplate_ids for the specified org
+  scope :family_ids, ->(org_id) { where(org_id: org_id).pluck(:dmptemplate_id).distinct }
+
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
