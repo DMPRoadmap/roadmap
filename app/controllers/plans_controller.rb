@@ -38,8 +38,7 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-    @plan.save
-
+    
     message = ""
 
     # if we have a template_id we've been selcting between templates, otherwise funders
@@ -69,6 +68,7 @@ class PlansController < ApplicationController
             @templates << ft
           end
         end
+        
       else # either didn't select funder or selected "No Funder"
 
         # get all org @templates which are not customisations
