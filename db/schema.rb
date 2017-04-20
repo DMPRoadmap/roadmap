@@ -176,6 +176,11 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.string   "funder_name"
   end
 
+  create_table "new_plans_guidance_groups", force: :cascade do |t|
+    t.integer "guidance_group_id"
+    t.integer "new_plan_id"
+  end
+
   create_table "new_questions", force: :cascade do |t|
     t.text     "text"
     t.text     "default_value"

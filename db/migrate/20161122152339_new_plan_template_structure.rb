@@ -109,6 +109,12 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       t.string   :funder_name
     end
 
+    # new plans relation to guidance groups
+    create_table :new_plans_guidance_groups do |t|
+      t.integer :guidance_group_id
+      t.integer :new_plan_id
+    end
+
     create_table :roles do |t|
       t.boolean :creator
       t.boolean :editor
@@ -431,6 +437,11 @@ def initNewPlan(project)
   new_plan.funder_name  = project.funder_name
   new_plan.created_at   = project.created_at
   new_plan.updated_at   = project.updated_at
+  new_plan.save!
+  #init guidance groups
+  project.guidance_groups.each do |group|
+    new_plan.guidance_groups << group
+  end
   return new_plan
 end
 
