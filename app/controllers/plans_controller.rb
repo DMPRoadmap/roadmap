@@ -19,7 +19,7 @@ class PlansController < ApplicationController
   def new
     @plan = Plan.new
     authorize @plan
-    @funders = Org.funders.all 
+    @funders = Org.funders.order('name ASC').all
 
     no_org = Org.new()
     no_org.id = -1
