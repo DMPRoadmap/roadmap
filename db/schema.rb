@@ -193,6 +193,11 @@ ActiveRecord::Schema.define(version: 20170412143945) do
     t.integer  "visibility",                        default: 0, null: false
   end
 
+  create_table "plans_guidance_groups", force: :cascade do |t|
+    t.integer "guidance_group_id"
+    t.integer "plan_id"
+  end
+
   create_table "question_formats", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -390,6 +395,8 @@ ActiveRecord::Schema.define(version: 20170412143945) do
   add_foreign_key "plan_guidance_groups", "guidance_groups"
   add_foreign_key "plan_guidance_groups", "plans"
   add_foreign_key "plans", "templates"
+  add_foreign_key "plans_guidance_groups", "guidance_groups"
+  add_foreign_key "plans_guidance_groups", "plans"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
