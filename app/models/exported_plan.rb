@@ -80,7 +80,8 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def sections
-    sections = Phase.find(self.phase_id).sections
+    phase_id = self.phase_id ||= self.plan.template.phases.first.id # Use the first phase if none was specified
+    sections = Phase.find(phase_id).sections
     sections.sort_by(&:number)
   end
 

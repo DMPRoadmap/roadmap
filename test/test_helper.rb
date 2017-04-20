@@ -49,9 +49,11 @@ class ActiveSupport::TestCase
   # each of the possible Question Formats. 
   # ----------------------------------------------------------------------
   def scaffold_template
+    template_family = Template.all.order(dmptemplate_id: :desc).first
+    
     template = Template.new(title: 'Test template', description: 'My test template',
                             published: true, org: Org.first, locale: nil, is_default: false,
-                            version: 1, visibility: 0)
+                            version: 0, visibility: 0, dmptemplate_id: (template_family.dmptemplate_id + 1))
     
     template.phases << Phase.new(title: 'Test phase', description: 'My test phase', 
                                  number: 1, modifiable: false)

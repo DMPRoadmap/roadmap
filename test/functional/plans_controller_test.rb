@@ -190,27 +190,33 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # PUT /plans/:id/update_guidance_choices (update_guidance_choices_plan_path)
   # ----------------------------------------------------------
   test "update the selected guidance" do
-    params = {plan_guidance_group_ids: [GuidanceGroup.first.id, GuidanceGroup.last.id]}
+    params = {guidance_group_ids: [GuidanceGroup.first.id, GuidanceGroup.last.id]}
     
-    put update_guidance_choices_plan_path(@plan, format: :json), {plan: params}
+    # Make sure the guidance is attached to the template first so that its a valid selection!
+    q = @template.phases.first.sections.first.questions.first
+    q.themes << GuidanceGroup.first.guidances.first.themes.first
+    q.themes << GuidanceGroup.last.guidances.first.themes.first
+    q.save
+    
+    put update_guidance_choices_plan_path(@plan, format: :json), params
     assert_unauthorized_redirect_to_root_path
     
-    # User who is does not have access to the plan
+    # User who does not have access to the plan
     sign_in User.first
-    put update_guidance_choices_plan_path(@plan, format: :json), {plan: params}
+    put update_guidance_choices_plan_path(@plan, format: :json), params
     assert_equal _('You are not authorized to perform this action.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to plans_url
-    
+  
     sign_in @user
-    put update_guidance_choices_plan_path(@plan, format: :json), {plan: params}
-    assert_response :success
+    put update_guidance_choices_plan_path(@plan, format: :json), params
+    assert_response :redirect
+    assert_redirected_to plan_path(@plan)
     
-# TODO: The plan_guidance_groups array is always empty so this method isn't actually doing anything yet
-#       is it old code that is no longer used or is there a problem with implementation? Should we be 
-#       auto-populating it on plan creation?
-    #assert @plan.plan_guidance_groups.include?(GuidanceGroup.first), "expected the plan to have the first GuidanceGroup selected"
-    #assert @plan.plan_guidance_groups.include?(GuidanceGroup.last), "expected the plan to have the last GuidanceGroup selected"
+    @plan.reload
+    ggs = @plan.plan_guidance_groups.collect{|pgg| pgg.guidance_group_id}
+    assert ggs.include?(GuidanceGroup.first.id), "expected the plan to have the first GuidanceGroup selected"
+    assert ggs.include?(GuidanceGroup.last.id), "expected the plan to have the last GuidanceGroup selected"
   end
   
   # GET /plans/:id/share (share_plan_path)
@@ -223,7 +229,6 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     get share_plan_path(@plan)
     assert_response :success
     assert assigns(:plan)
-    assert assigns(:plan_data)
   end
   
   # GET /plans/:id/status(format: :json) (status_plan_path)

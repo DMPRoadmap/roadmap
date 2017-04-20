@@ -163,7 +163,14 @@ class TemplatesController < ApplicationController
     end
     @template.description = params["template-desc"]
     if @template.update_attributes(params[:template])
-      if @template.published
+      if @template.published?
+        # unpublish older versions
+        Template.where("dmptemplate_id = ? AND published = ? AND version < ?", 
+                       @template.dmptemplate_id, true, @template.version).each do |t|
+          t.published = false
+          t.save
+        end
+  
         # create a new template version if this template became published
         new_version = Template.deep_copy(@template)
         new_version.version = @template.version + 1
