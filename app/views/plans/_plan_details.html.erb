@@ -206,8 +206,9 @@
 				<td><%= plan.template.org.name %></td>
 			</tr>
 		<%end%>
+
     <%if based_on.present? %>
-      <%= " (Customised from " + based_on.org.name + ")" %>
+      <%= " (#{_('Customised from')} " + based_on.org.name + ")" %>
     <%end%>
 	</table>
 

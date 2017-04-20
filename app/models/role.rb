@@ -16,8 +16,8 @@ class Role < ActiveRecord::Base
             4 => :commenter,          # 8
             column: 'access'
 
-  validates :user, :plan, :access, presence: true
-  validates :access, numericality: {greater_than: 0}
+  validates :user, :plan, :access, presence: {message: _("can't be blank")}
+  validates :access, numericality: {greater_than: 0, message: _("can't be less than zero")}
 
   ##
   # return the access level for the current project group

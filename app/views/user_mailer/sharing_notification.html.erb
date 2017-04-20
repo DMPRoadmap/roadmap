@@ -1,16 +1,18 @@
-<p><%= _('Hello ') %> <%= @role.user.name %></p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+	<p><%= _('Hello ') %> <%= @role.user.name %></p>
 
-<%
-access_level = "read-only"
-if @role.editor?
-	access_level = "editor"
-elsif @role.administrator?
-	access_level = "co-owner"
-end
-%>
+	<%
+	access_level = "read-only"
+	if @role.editor?
+		access_level = "editor"
+	elsif @role.administrator?
+		access_level = "co-owner"
+	end
+	%>
 
-<p><%= _('You have been given ') %><%= access_level %><%= _(' access to ') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>" <%=_(' by ')%><%= @user.name %>.</p>
+	<p><%= _('You have been given ') %><%= access_level %><%= _(' access to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%=_(' by ')%><%= @user.name %>.</p>
 
-<p><%=_('Please follow the link above to login to ')%><%=Rails.configuration.branding[:application][:name]%><%=_(' to view/edit the plan')%>.</p>
-<p><%=_('Thanks')%></p>
-<p><%=Rails.configuration.branding[:application][:name]%> <%=_(' team')%></p>
+  <p><%=_('Please follow the link above to login to ')%><%=Rails.configuration.branding[:application][:name]%><%=_(' to view/edit the plan')%>.</p>
+  <p><%=_('Thanks')%></p>
+  <p><%=Rails.configuration.branding[:application][:name]%> <%=_(' team')%></p>
+<% end %>

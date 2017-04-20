@@ -39,7 +39,6 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.new(guidance_params)
     authorize @guidance
     @guidance.text = params["guidance-text"]
-    @guidance.question_id = params["question_id"]
     
     @guidance.themes = []
     if !guidance_params[:theme_ids].nil?
@@ -70,7 +69,6 @@ class GuidancesController < ApplicationController
  		@guidance = Guidance.find(params[:id])
     authorize @guidance
 		@guidance.text = params["guidance-text"]
-		@guidance.question_id = params["question_id"]
 
     if @guidance.save(guidance_params)
       redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')

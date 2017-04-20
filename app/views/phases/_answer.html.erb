@@ -14,7 +14,7 @@
   right now you'd need to parameterise it with the form parameter which doesn't exist
   if you are coming from /answer/update -->
 
-<p> While you were editing <%= answer.user.name %> saved the following answer: </p>
+<p><%= _("While you were editing #{answer.user.name} saved the following answer:") %> </p>
 
 <%= semantic_form_for answer, :url => {:controller => :answers, :action => :update }, :remote => true do |af| %>
   <%= af.inputs do %>
@@ -59,19 +59,19 @@
       <!-- Comment text area for the multiple choice answers-->
       <% if question.option_comment_display %>
         <%= label_tag("answer-text-Ans#{question.id}".to_sym, _('Comment')) %>
-        <%= text_area_tag("answer-text-Ans#{question.id}".to_sym, answer.text, class: "tinymce") %>
+        <%= text_area_tag("answer-text-Ans#{question.id}".to_sym, answer.text, class: "tinymce answer-notice") %>
       <%end%>
     <% end %>  <!-- if multiple choice -->
 
     <% if qformat.textfield? %>
       <%= text_field_tag("answer-text-Ans#{question.id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
     <% elsif qformat.textarea? %>
-      <%= text_area_tag("answer-text-Ans#{question["id"]}".to_sym, strip_tags(answer.text), class: "tinymce") %>
+      <%= text_area_tag("answer-text-Ans#{question["id"]}".to_sym, strip_tags(answer.text), class: "tinymce answer-notice") %>
     <% end %>
 
   <% end %>   <!-- inputs -->
 <% end %>     <!-- form -->
 
-<p>Combine with your answer and save.</p>
+<p><%= _('Combine their changes with your answer below and then save the answer again.') %></p>
 
 

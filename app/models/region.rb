@@ -3,6 +3,6 @@ class Region < ActiveRecord::Base
   
   belongs_to :super_region, class_name: 'Region'
   
-  validates :name, presence: true, uniqueness: true
-  validates :abbreviation, uniqueness: true, allow_nil: true
+  validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
+  validates :abbreviation, uniqueness: {message: _("must be unique")}, allow_nil: true
 end
