@@ -48,10 +48,6 @@
         <li <%= 'class=active' if isActivePage(help_path) %>>
           <%= link_to _('Help'), help_path %>
         </li>
-      <!-- plans/publicly_available page -->
-        <li <%= 'class=active' if isActivePage(public_plans_path) %>>
-          <%= link_to _('Public DMPs'), public_plans_path %>
-        </li>
       <% if MANY_LANGUAGES %>
           <!-- language dropdown -->
           <li class="dropdown sign_in">
