@@ -26,29 +26,20 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
-  # By default only use the most recent versions of each template family (represented by dmptemplate_id)
-  #
-  # Couldn't determine how best to structure this via ActiveRecord so going with direct SQL
-  default_scope { select_all("SELECT MAX(t.id) id, title, description, published, org_id, locale, is_default, " +
-                                "created_at, updated_at, version, visibility, customization_of, dmptemplate_id " +
-                             "FROM templates t " +
-                             "WHERE updated_at = " +
-	                              "(SELECT MAX(t2.updated_at) FROM templates t2 " +
-                                    "WHERE t2.dmptemplate_id = t.dmptemplate_id AND t2.org_id = t.org_id)" +
-                             "GROUP BY org_id, dmptemplate_id") }
+  # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
+  def self.dmptemplate_ids(org)
+    Template.where(org_id: org.id).distinct.pluck(:dmptemplate_id)
+  end
 
-  # Helper scopes to get the latest version and the latest published version
-  scope :current, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id).order(version: :desc).first }
-  scope :published, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id, published: true).order(version: :desc).first }
-
-  # Helper scope to get the dmptemplate_ids for the specified org
-  scope :family_ids, ->(org_id) { where(org_id: org_id).pluck(:dmptemplate_id).distinct }
-
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-
+  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
+  def self.current(org, dmptemplate_id)
+    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id).order(updated_at: :desc).first
+  end
+  
+  # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
+  def self.live(org, dmptemplate_id)
+    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id, published: true).order(updated_at: :desc).first
+  end
 
   ##
   # deep copy the given template and all of it's associations
@@ -65,6 +56,12 @@ class Template < ActiveRecord::Base
     end
     return template_copy
   end
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
 
   ##
   # convert the given template to a hash and return with all it's associations
