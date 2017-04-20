@@ -59,6 +59,10 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
     end
     drop_table :plans
     rename_table :new_plans, :plans
+    change_table :new_plans_guidance_groups do |t|
+      t.rename :new_plan_id, :plan_id
+    end
+    rename_table :new_plans_guidance_groups, :plans_guidance_groups
 
     change_table :roles do |t|
       t.rename :new_plan_id, :plan_id
@@ -157,5 +161,9 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
     change_table :new_suggested_answers do |t|
       t.rename :question_id, :new_question_id
     end
+    change_table :plans_guidance_groups do |t|
+      t.rename :plan_id, :new_plan_id
+    end
+    rename_table :plans_guidance_groups, :new_plans_guidance_groups
   end
 end

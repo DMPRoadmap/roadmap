@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.integer "question_option_id", null: false
   end
 
-  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index"
-  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index"
+  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index", using: :btree
+  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "perms", ["name"], name: "index_perms_on_name"
-  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
 
   create_table "phases", force: :cascade do |t|
     t.string   "title"
@@ -162,17 +162,6 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.string   "slug"
     t.boolean  "modifiable"
   end
-
-  create_table "plan_guidance_groups", force: :cascade do |t|
-    t.integer  "plan_id"
-    t.integer  "guidance_group_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.boolean  "selected"
-  end
-
-  add_index "plan_guidance_groups", ["guidance_group_id"], name: "index_plan_guidance_groups_on_guidance_group_id", using: :btree
-  add_index "plan_guidance_groups", ["plan_id"], name: "index_plan_guidance_groups_on_plan_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
     t.integer  "project_id"
@@ -189,6 +178,11 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.string   "data_contact"
     t.string   "funder_name"
     t.integer  "visibility",                        default: 0, null: false
+  end
+
+  create_table "plans_guidance_groups", force: :cascade do |t|
+    t.integer "guidance_group_id"
+    t.integer "plan_id"
   end
 
   create_table "question_formats", force: :cascade do |t|
@@ -226,8 +220,8 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.integer "theme_id",    null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index"
-  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index"
+  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index", using: :btree
+  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index", using: :btree
 
   create_table "regions", force: :cascade do |t|
     t.string  "abbreviation"
@@ -264,7 +258,7 @@ ActiveRecord::Schema.define(version: 20170201194502) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination"
@@ -384,9 +378,9 @@ ActiveRecord::Schema.define(version: 20170201194502) do
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
-  add_foreign_key "plan_guidance_groups", "guidance_groups"
-  add_foreign_key "plan_guidance_groups", "plans"
   add_foreign_key "plans", "templates"
+  add_foreign_key "plans_guidance_groups", "guidance_groups"
+  add_foreign_key "plans_guidance_groups", "plans"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"

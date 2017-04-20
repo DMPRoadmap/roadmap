@@ -11,7 +11,7 @@ class Plan < ActiveRecord::Base
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
   has_many :plan_guidance_groups, dependent: :destroy
-  has_many :guidance_groups, through: :plan_guidance_groups
+  has_and_belongs_to_many :guidance_groups, through: :plans_guidance_groups
 
   accepts_nested_attributes_for :template
   has_many :exported_plans

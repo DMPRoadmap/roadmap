@@ -78,6 +78,10 @@ class AddForeignKeys < ActiveRecord::Migration
     # users_perms
     add_foreign_key :users_perms, :users
     add_foreign_key :users_perms, :perms
+
+    #plans guidance groups
+    add_foreign_key :plans_guidance_groups, :plans
+    add_foreign_key :plans_guidance_groups, :guidance_groups
   end
 
   def scrub_references
