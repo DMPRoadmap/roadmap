@@ -12,7 +12,7 @@ class SuggestedAnswer < ActiveRecord::Base
                   :org, :question, :as => [:default, :admin]
 
 
-  validates :question, :org,  presence: true
+  validates :question, :org,  presence: {message: _("can't be blank")}
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

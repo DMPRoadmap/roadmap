@@ -36,7 +36,7 @@ class RolesController < ApplicationController
     set_access_level(access_level)
     if @role.update_attributes(role_params)
       flash[:notice] = _('Sharing details successfully updated.')
-      UserMailer.permissions_change_notification(@role).deliver
+      UserMailer.permissions_change_notification(@role).deliver_now
       redirect_to controller: 'plans', action: 'share', id: @role.plan.id
     else
       flash[:notice] = generate_error_notice(@role, _('role'))
@@ -51,7 +51,7 @@ class RolesController < ApplicationController
     plan = @role.plan
     @role.destroy
     flash[:notice] = _('Access removed')
-    UserMailer.project_access_removed_notification(user, plan).deliver
+    UserMailer.project_access_removed_notification(user, plan).deliver_now
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
 

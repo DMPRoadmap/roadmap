@@ -46,20 +46,22 @@
             as: :string,
             class: "text_field has-tooltip reg-input", "data-toggle" => "tooltip", "data-container" => "body", "title" => _('Please enter the name of your organisation.') %></td>
       </tr>
-      <tr>
-        <td class="first"><%= _('Language') %></td>
-        <td class="force-left">
-          <!-- For some reason the rails collection_select and f.select would not 'select' the current language, so reverting to HTML -->
-          <% locale = current_user.get_locale(); %>
-          <select id="user_language_id" name="user[language_id]" class="typeahead org_sign_up">
-            <%= @languages.each do |l| %>
-              <option value="<%= l.id %>"<%= locale == l.abbreviation ? ' selected="selected"' : '' %>>
-                <%= l.name %>
-              </option>
-            <% end %>
-          </select>
-        </td>
-      </tr>
+      <% if MANY_LANGUAGES %>
+        <tr>
+          <td class="first"><%= _('Language') %></td>
+          <td class="force-left">
+            <!-- For some reason the rails collection_select and f.select would not 'select' the current language, so reverting to HTML -->
+            <% locale = current_user.get_locale(); %>
+            <select id="user_language_id" name="user[language_id]" class="typeahead org_sign_up">
+              <%= @languages.each do |l| %>
+                <option value="<%= l.id %>"<%= locale == l.abbreviation ? ' selected="selected"' : '' %>>
+                  <%= l.name %>
+                </option>
+              <% end %>
+            </select>
+          </td>
+        </tr>
+      <% end %>
 
       <% @identifier_schemes.each do |scheme| %>
         <tr>

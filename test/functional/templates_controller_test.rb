@@ -124,7 +124,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/templates/:id/admin_create (admin_create_template_path)
   # ----------------------------------------------------------
   test "create a admin template" do
-    params = {org_id: @user.org.id, version: 0, title: 'Testing create route'}
+    params = {title: 'Testing create route'}
     
     # Should redirect user to the root path if they are not logged in!
     post admin_create_template_path(Template.last.id), {template: params}

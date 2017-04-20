@@ -42,12 +42,12 @@
         <div class="accordion" id="project-accordion">
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= phase.id %>">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= phase[:data][:id] %>">
                 <h3><%= phase[:data].title %><span class="plus-laranja"> </span>
                 </h3>
               </a>
             </div>
-            <div id="<%= phase.id %>" class="accordion-project collapse">
+            <div id="<%= phase[:data][:id] %>" class="accordion-project collapse">
               <div class="accordion-inner">
                 <!--render the display block with the phase, sections and questions information-->
                 <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template}%>

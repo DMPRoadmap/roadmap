@@ -30,7 +30,7 @@ class TemplatePolicy < ApplicationPolicy
   end
 
   def admin_create?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
+    user.can_modify_templates? && (template.org_id.nil? || (template.org_id == user.org_id))
   end
 
   def admin_destroy?

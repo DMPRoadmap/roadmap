@@ -27,7 +27,7 @@ class Question < ActiveRecord::Base
                   :question_options, :suggested_answers, :answers, :themes, 
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
-  validates :text, :section, :number, presence: true
+  validates :text, :section, :number, presence: {message: _("can't be blank")}
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

@@ -70,7 +70,7 @@
 </h1>
 
 <div class="div_left">
-	<%= raw _('<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board) or you can write guidance for specific questions. Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>You will usually want your guidance to display on all templates, however there may be cases where you only want it to show for specific funders e.g. if you have specific instructions for applicants to BBSRC for example. This can be set too if needed.</p>')%>
+	<%= raw _('<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.</p>')%>
 </div>
 <div class="div_right">
 	<!-- link button to add new guidance -->
@@ -90,7 +90,6 @@
 	    <tr>
 	      	<th class="dmp_th_big"><%= _('Text') %></th>
 	      	<th class="dmp_th_small"><%= _('Themes') %></th>
-	      	<th class="dmp_th_small"><%= _('Question') %></th>
 	      	<th class="dmp_th_small"><%= _('Guidance group') %></th>
 			<th class="dmp_th_small"><%= _('Last updated') %></th>
 	      	<td class="dmp_th_medium"><%= _('Actions') %></td>
@@ -108,15 +107,6 @@
 			        	<% guidance.themes.each do |th| %>
 			        		<%= th.title %>
 			        	<% end %>
-			        </td>
-			    <% else %>
-			    	<td class="dmp_td_small">
-			        	-
-			        </td>
-			    <% end %>
-			    <% if !guidance.question_id.nil? then %>
-			        <td class="dmp_td_small">
-			        	<%= raw guidance.question.text.truncate(70, omission: _('... (continued)')) %>
 			        </td>
 			    <% else %>
 			    	<td class="dmp_td_small">

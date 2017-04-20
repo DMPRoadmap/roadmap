@@ -1,3 +1,5 @@
-<p><%= _('Hello') %><%= @user.name %></p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+	<p><%= _('Hello') %> <%= @user.name %></p>
 
-<p><%= _('Your access to ') %>"<%= @plan.title %>"<%= _(' has been removed.') %></p>
+	<p><%= _('Your access to') %> "<%= @plan.title %>" <%= _('has been removed.') %></p>
+<% end %>

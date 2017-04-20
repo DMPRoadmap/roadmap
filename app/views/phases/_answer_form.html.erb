@@ -21,6 +21,7 @@
   <div id="question-form-<%= question_id %>" class="question-form">
     <%= semantic_form_for answer, :url => {:controller => :answers, :action => :update }, method: "put", :remote => true do |f| %>
       <%= f.inputs do %>
+        <%= f.input :id, :as => :hidden, :input_html => { :value => answer.id } %>
         <%= f.input :plan_id, :as => :hidden, :input_html => { :value => @plan.id } %>
         <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
         <%= f.input :question_id, :as => :hidden, :input_html => { :value => question_id, :class => "question_id" } %>

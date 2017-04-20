@@ -4,7 +4,8 @@
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
 
 <!-- render navigation tabs for the project-->
-<%= render :partial => "plan_nav_tabs", locals: {plan: @plan, active: "share_project"} %>
+<%= render :partial => "plan_nav_tabs", locals: {plan: @plan, plan_data: @plan_data, active: "share"} %>
+
 <div class="dmp_details_body">
 
 	<!--Text describing page content-->
