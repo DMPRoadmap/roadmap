@@ -32,6 +32,44 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
+  test "family_ids scope only returns the dmptemplate_ids for the specific Org" do
+    Org.all.each do |org|
+      family_ids = Template.where(org_id: org.id).pluck(:dmptemplate_id).uniq
+      scoped = Template.dmptemplate_ids(org)
+      assert_equal family_ids.count, scoped.count
+      
+      family_ids.each do |id|
+        assert scoped.include?(id), "expected the family_ids scope to contain #{id} for Org: #{org.id}"
+      end
+      scoped.each do |id|
+        assert family_ids.include?(id), "expected #{id} to be a valid dmptemplate_id for Org: #{org.id}"
+      end
+    end
+  end
+
+  # ---------------------------------------------------
+  test "current scope only returns the most recent version for each dmptemplate_id" do
+    Org.all.each do |org|
+      Template.dmptemplate_ids(org).each do |dmptemplate_id|
+        latest = Template.where(org_id: org.id, dmptemplate_id: dmptemplate_id).order(updated_at: :desc).first
+        
+        assert_equal latest, Template.current(org, dmptemplate_id), "Expected the template.id #{latest.id} to be the current record for Org: #{org.id}, dmptemplate_id: #{dmptemplate_id}"
+      end
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "published scope only returns the current published version for each dmptemplate_id" do
+    Org.all.each do |org|
+      Template.dmptemplate_ids(org).each do |dmptemplate_id|
+        latest = Template.where(org_id: org.id, dmptemplate_id: dmptemplate_id, published: true).order(updated_at: :desc).first
+
+        assert_equal latest, Template.live(org, dmptemplate_id), "Expected the #{latest.nil? ? 'template to have never been published' : "template.id #{latest.id} to be the published record"} for Org: #{org.id}, dmptemplate_id: #{dmptemplate_id}"
+      end
+    end
+  end
+  
+  # ---------------------------------------------------
   test "deep copy" do
     verify_deep_copy(@template, ['id', 'created_at', 'updated_at'])
   end
