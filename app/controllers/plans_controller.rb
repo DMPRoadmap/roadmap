@@ -367,9 +367,9 @@ class PlansController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
-        format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
+        format.csv  { send_data @exported_plan.as_csv,  filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt,  filename: "#{file_name}.txt" }
+        format.docx { render docx: 'export', filename: "#{file_name}.docx" }
         format.pdf do
           @formatting = @plan.settings(:export).formatting
           render pdf: file_name,
