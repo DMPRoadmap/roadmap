@@ -65,7 +65,7 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
   end
   
   # ----------------------------------------------------------
-  test 'publishing a template version un-publishes older versions' do
+  test 'template gets versioned when its details are updated but it is already published' do
     sign_in @user
     
     # Make sure the template starts out as unpublished. The controller will not allow changes once its published
@@ -81,17 +81,49 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
     put admin_update_template_path(@template), {template: {published: "1"}}
     @template = Template.current(dmptemplate_id)
 
-  
+    assert_equal (initial_version + 1), @template.version, "expected the version to have incremented"
+    assert_not_equal initial_id, @template.id, "expected the id to have changed"
+    assert_equal dmptemplate_id, @template.dmptemplate_id, "expected the dmptemplate_id to match"
+    assert_equal false, @template.published?, "expected the new version to be unpublished"
+    assert_equal initial_title, @template.title, "expected the title to have been updated"
+    
     # Change the title after its been published
     put admin_update_template_path(@template), {template: {title: "Blah blah blah"}}
     @template = Template.current(dmptemplate_id)
     
-    put admin_update_template_path(@template), {template: {published: "1"}}
-    @template = Template.current(dmptemplate_id)
+    # Make sure that the template was versioned
+    assert_equal (initial_version + 1), @template.version, "expected the version to have incremented"
+    assert_not_equal initial_id, @template.id, "expected the id to have changed"
+    assert_equal dmptemplate_id, @template.dmptemplate_id, "expected the dmptemplate_id to match"
+    assert_equal false, @template.published?, "expected the new version to be unpublished"
+    assert_not_equal initial_title, @template.title, "expected the title to have been updated"
     
     # Now retrieve the published version and verify that it is unchanged
-    current = Template.published(dmptemplate_id)
-    old = Template.find(initial_id)
+    old = Template.published(dmptemplate_id)
+    assert_equal initial_version, old.version, "expected the version number of the published version to be the same"
+    assert_equal initial_id, old.id, "expected the id of the published version to be the same"
+    assert_equal initial_title, old.title, "expected the title of the published version to be the same"
+  end
+  
+  # ----------------------------------------------------------
+  test 'template does NOT get versioned if its un-published' do
+    sign_in @user
+    
+    # Make sure the template starts out as unpublished. 
+    @template.published = false
+    @template.save!
+    
+    initial_id = @template.id
+    initial_version = @template.version
+    initial_title = @template.title
+    dmptemplate_id = @template.dmptemplate_id
+    
+    # Change the title after its been published
+    put admin_update_template_path(@template), {template: {title: "Blah blah blah"}}
+    @template = Template.current(dmptemplate_id)
+    
+    # Now retrieve the current version and verify that it is unchanged
+    current = Template.current(dmptemplate_id)
     assert_not old.published?, "expected the old version to have become unpublished"
     assert_not_equal current.id, old.id, "expected the published version id to have changed"
   end

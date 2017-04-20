@@ -26,6 +26,17 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
+  # By default only use the most recent versions of each template family (represented by dmptemplate_id)
+  #
+  # Couldn't determine how best to structure this via ActiveRecord so going with direct SQL
+  default_scope { select_all("SELECT MAX(t.id) id, title, description, published, org_id, locale, is_default, " +
+                                "created_at, updated_at, version, visibility, customization_of, dmptemplate_id " +
+                             "FROM templates t " +
+                             "WHERE updated_at = " +
+	                              "(SELECT MAX(t2.updated_at) FROM templates t2 " +
+                                    "WHERE t2.dmptemplate_id = t.dmptemplate_id AND t2.org_id = t.org_id)" +
+                             "GROUP BY org_id, dmptemplate_id") }
+
   # Helper scopes to get the latest version and the latest published version
   scope :current, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id).order(version: :desc).first }
   scope :published, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id, published: true).order(version: :desc).first }
