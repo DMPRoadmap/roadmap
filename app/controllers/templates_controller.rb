@@ -100,39 +100,47 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     authorize @template
 
-    # Unpublish the older published version if there is one
-    live = Template.live(current_user.org, @template.dmptemplate_id)
-    unless live.nil?
-      live.published = false
-      live.save
-    end
+    current = Template.current(current_user.org, @template.dmptemplate_id)
     
-    # Publish the template
-    @template.published = true
-    @template.dirty = false
-    @template.save
+    # Only allow the current version to be updated
+    if current != @template
+      redirect_to admin_template_template_path(@template), notice: _('You can publish a historical version of this template.')
 
-    # Create a new version 
-    new_version = Template.deep_copy(@template)
-    new_version.version = (@template.version + 1)
-    new_version.published = false
-    new_version.save
-    
-    # Make all of the templates phase/section/questions as unmodifiable
-    @template.phases.each do |p|
-      p.sections.each do |s|
-        s.questions.each do |q|
-          q.modifiable = false
-          q.save
-        end
-        s.modifiable = false
-        s.save
+    else
+      # Unpublish the older published version if there is one
+      live = Template.live(current_user.org, @template.dmptemplate_id)
+      unless live.nil?
+        live.published = false
+        live.save
       end
-      p.modifiable = false
-      p.save
-    end
     
-    redirect_to admin_index_template_path(current_user.org)
+      # Publish the template
+      @template.published = true
+      @template.dirty = false
+      @template.save
+
+      # Create a new version 
+      new_version = Template.deep_copy(@template)
+      new_version.version = (@template.version + 1)
+      new_version.published = false
+      new_version.save
+    
+      # Make all of the templates phase/section/questions as unmodifiable
+      @template.phases.each do |p|
+        p.sections.each do |s|
+          s.questions.each do |q|
+            q.modifiable = false
+            q.save
+          end
+          s.modifiable = false
+          s.save
+        end
+        p.modifiable = false
+        p.save
+      end
+    
+      redirect_to admin_index_template_path(current_user.org)
+    end
   end
 
   # PUT /org/admin/templates/:id/admin_unpublish
@@ -177,7 +185,7 @@ class TemplatesController < ApplicationController
     
     # Only allow the current version to be updated
     if current != @template
-      redirect_to admin_template_template_path(@template), notice: "#{_('This is not the current version of ')} '#{@template.title}'"
+      redirect_to admin_template_template_path(@template), notice: _('You can not edit a historical version of this template.')
 
     else
       if @template.description == params["template-desc"] ||
@@ -239,12 +247,20 @@ class TemplatesController < ApplicationController
   def admin_destroy
     @template = Template.find(params[:id])
     authorize @template
-    if @template.destroy
-      redirect_to admin_index_template_path
+    
+    current = Template.current(current_user.org, @template.dmptemplate_id)
+    
+    # Only allow the current version to be updated
+    if current != @template
+      if @template.destroy
+        redirect_to admin_index_template_path
+      else
+        @hash = @template.to_hash
+        flash[:notice] = failed_destroy_error(@template, _('template'))
+        render admin_template_template_path(@template)
+      end
     else
-      @hash = @template.to_hash
-      flash[:notice] = failed_destroy_error(@template, _('template'))
-      render admin_template_template_path(@template)
+      flash[:notice] = _('You cannot delete historical versions of this template.')
     end
   end
 

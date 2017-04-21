@@ -14,7 +14,7 @@
       <% if phase_hash[:sections].length > 0 %>
           <%= link_to _('Preview'), admin_preview_phase_path(id: phase.id), class: 'btn btn-primary'%>
       <% end %>
-      <% if !template.published? %>
+      <% if template == current && phase.modifiable %>
           <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
           confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
       <% end %>

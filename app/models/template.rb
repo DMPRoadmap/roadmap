@@ -33,12 +33,12 @@ class Template < ActiveRecord::Base
 
   # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
   def self.current(org, dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id).order(updated_at: :desc).first
+    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id).order(version: :desc).first
   end
   
   # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
   def self.live(org, dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id, published: true).order(updated_at: :desc).first
+    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id, published: true).first
   end
 
   ##
