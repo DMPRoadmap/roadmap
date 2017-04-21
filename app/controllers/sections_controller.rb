@@ -10,6 +10,10 @@ class SectionsController < ApplicationController
     @section.modifiable = true
     @phase = @section.phase
     if @section.save
+      # Set the template's dirty flag to true
+      @section.phase.template.dirty = true
+      @section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @section.phase_id,
         :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
     else
@@ -31,6 +35,10 @@ class SectionsController < ApplicationController
     @section.description = params["section-desc-#{params[:id]}"]
     @phase = @section.phase
     if @section.update_attributes(params[:section])
+      # Set the template's dirty flag to true
+      @section.phase.template.dirty = true
+      @section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: _('Information was successfully updated.')
     else
       @edit = (@phase.template.org == current_user.org)
@@ -50,6 +58,10 @@ class SectionsController < ApplicationController
     authorize @section
     @phase = @section.phase
     if @section.destroy
+      # Set the template's dirty flag to true
+      @section.phase.template.dirty = true
+      @section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: _('Information was successfully deleted.')
     else
       @edit = (@phase.template.org == current_user.org)

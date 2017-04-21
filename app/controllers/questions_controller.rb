@@ -9,6 +9,10 @@ class QuestionsController < ApplicationController
     @question.guidance = params["new-question-guidance"]
     @question.default_value = params["new-question-default-value"]
     if @question.save
+      # Set the template's dirty flag to true
+      @question.section.phase.template.dirty = true
+      @question.section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       @edit = (@question.section.phase.template.org == current_user.org)
@@ -33,6 +37,10 @@ class QuestionsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @question.update_attributes(params[:question])
+      # Set the template's dirty flag to true
+      @question.section.phase.template.dirty = true
+      @question.section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
       @edit = (@phase.template.org == current_user.org)
@@ -53,6 +61,10 @@ class QuestionsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @question.destroy
+      # Set the template's dirty flag to true
+      @question.section.phase.template.dirty = true
+      @question.section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
     else
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: failed_destroy_error(@question, 'question')
