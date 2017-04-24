@@ -64,11 +64,11 @@
             	<%= link_to _('History'), admin_template_history_template_path(id: hash[:current].id), class: "dmp_table_link" %>
 							<!-- If the template has never been published or it has changed -->
 							<% if hash[:live].nil? %>
-								<%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+								<br /><%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
 							<% elsif hash[:current].dirty? %>
-								<%= link_to _('Publish changes'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+								<br /><%= link_to _('Publish changes'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
 							<% else %>
-								<%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+								<br /><%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
 							<% end %>
             </td>
          </tr>
