@@ -80,7 +80,7 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
   end
 
   # ----------------------------------------------------------
-  test 'template does NOT get versioned if its un-published' do
+  test 'template does NOT get versioned if its unpublished' do
     # Change the title after its been published
     put admin_update_template_path(@template), {template: {title: "Blah blah blah"}}
     @template = Template.current(@user.org, @dmptemplate_id)
