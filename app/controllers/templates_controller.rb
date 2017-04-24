@@ -118,6 +118,8 @@ class TemplatesController < ApplicationController
       @template.dirty = false
       @template.save
 
+      flash[:notice] = _('Your template has been published and is now available to users.')
+
       # Create a new version 
       new_version = Template.deep_copy(@template)
       new_version.version = (@template.version + 1)
@@ -170,7 +172,7 @@ class TemplatesController < ApplicationController
     else
       @template.published = false
       @template.save
-      flash[:notice] = _('Your template is no longer published.')
+      flash[:notice] = _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it')
     end
     
     redirect_to admin_index_template_path(current_user.org)

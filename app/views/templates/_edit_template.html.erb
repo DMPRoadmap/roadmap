@@ -19,6 +19,20 @@
       </td>
     </tr>
     <tr>
+      <td class="first_template"><%= _('Status') %></td>
+      <td>
+        <% if hash[:live].nil? %>
+          <%= _('Un-published') %>
+        
+        <% elsif hash[:current].dirty? %>
+          <%= _('You have un-published changes') %>
+        
+        <% else %>
+          <%= _('Published') %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
       <td class="first_template"><%= _('Created at') %></td>
       <td>
         <%= l template.created_at.to_date, formats: :short %>

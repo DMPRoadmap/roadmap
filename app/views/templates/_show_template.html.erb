@@ -24,9 +24,17 @@
     </td>
   </tr>
   <tr>
-    <td class="first_template"><%= _('Published') %></td>
+    <td class="first_template"><%= _('Status') %></td>
     <td>
-      <%= template.published %>
+      <% if hash[:live].nil? %>
+        <%= _('Un-published') %>
+        
+      <% elsif hash[:current].dirty? %>
+        <%= _('You have un-published changes') %>
+        
+      <% else %>
+        <%= _('Published') %>
+      <% end %>
     </td>
   </tr>
   <tr>

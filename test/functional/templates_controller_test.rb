@@ -268,6 +268,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # Publish the current template
     put admin_publish_template_path(current)
+    assert_equal _('Your template has been published and is now available to users.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_index_template_path(@user.org)
     
@@ -332,7 +333,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_not Template.live(@user.org, family).nil?
     
     put admin_unpublish_template_path(current)
-    assert_equal _('Your template is no longer published.'), flash[:notice]
+    assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_index_template_path(@user.org)
     
