@@ -1,5 +1,11 @@
 <% FastGettext.with_locale FastGettext.default_locale do %>
-	<p><%= _('Hello ') %> <%= @user.name %></p>
+	<p><%= _('Hello ') %><%= @user.email %></p>
 
-	<p><%= _('Your access to ') %>"<%= @plan.title %>"<%= _(' has been removed.') %></p>
+	<p><%= _('Your access to ') %>"<%= @plan.title %>"<%= _(' has been removed by ') %><%= @user.email %>.</p>
+	
+  <p>
+    <%=_('All the best,')%>
+    <br />
+    <%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.
+  </p>
 <% end %>
