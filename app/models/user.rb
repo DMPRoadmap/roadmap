@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable, 
-         :rememberable, :trackable, :validatable, :confirmable, :omniauthable, 
+         :rememberable, :trackable, :validatable, :omniauthable, 
          :omniauth_providers => [:shibboleth, :orcid]
 
   ##
