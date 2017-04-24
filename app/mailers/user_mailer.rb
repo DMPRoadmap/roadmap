@@ -1,6 +1,14 @@
 class UserMailer < ActionMailer::Base
 	default from: Rails.configuration.branding[:organisation][:email]
 	
+  def welcome_notification(user)
+    @user = user
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @user.email, 
+           subject: "#{_('Welcome to')} #{Rails.configuration.branding[:application][:name]}")
+    end
+  end
+  
 	def sharing_notification(role, user)
     @role = role
     @user = user
