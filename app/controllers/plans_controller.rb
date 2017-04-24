@@ -55,8 +55,12 @@ class PlansController < ApplicationController
         funder_templates = get_most_recent( funder.templates.where(published: true).all )
 
         # get org templates and index by customization id
-        orgtemplates = get_most_recent( current_user.org.templates.all )
-
+        if current_user.org.nil?
+          orgtemplates = []
+        else
+          orgtemplates = get_most_recent( current_user.org.templates.all )
+        end
+        
         orgt_by_customization = orgtemplates.collect{|t| [t.customization_of, t]}.to_h
 
         # go through funder templates and replace with org cusomizations if needed
@@ -105,13 +109,12 @@ class PlansController < ApplicationController
 
     @plan.title = _('My plan')+' ('+@plan.template.title+')'  # We should use interpolated string since the order of the words from this message could vary among languages
 
-    @plan.assign_creator(current_user.id)
-
     @all_guidance_groups = @plan.get_guidance_group_options
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
 
     respond_to do |format|
       if @plan.save
+        @plan.assign_creator(current_user.id)
         flash.notice = _('Plan was successfully created.') + message
         format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }) }
       else
