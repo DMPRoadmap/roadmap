@@ -67,14 +67,13 @@ class TemplatesController < ApplicationController
     customisation.published = false
     customisation.dirty = false
     customisation.customization_of = @template.dmptemplate_id
-    customisation.visibility = :private
     
     customisation.dmptemplate_id = loop do
       random = rand 2147483647  # max int field in psql
       break random unless Template.exists?(dmptemplate_id: random)
     end
     
-    customisation.save!
+    customisation.save
     
     # need to mark all of the original funder's phases, questions, 
     # sections as not-modifiable
@@ -104,7 +103,7 @@ class TemplatesController < ApplicationController
     
     # Only allow the current version to be updated
     if current != @template
-      redirect_to admin_template_template_path(@template), notice: _('You can publish a historical version of this template.')
+      redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
 
     else
       # Unpublish the older published version if there is one
@@ -139,6 +138,20 @@ class TemplatesController < ApplicationController
         p.save
       end
     
+      # Make all of the new version's templates phase/section/questions modifiable
+      new_version.phases.each do |p|
+        p.sections.each do |s|
+          s.questions.each do |q|
+            q.modifiable = true
+            q.save
+          end
+          s.modifiable = true
+          s.save
+        end
+        p.modifiable = true
+        p.save
+      end
+    
       redirect_to admin_index_template_path(current_user.org)
     end
   end
@@ -151,8 +164,14 @@ class TemplatesController < ApplicationController
 
     # Unpublish the live version
     @template = Template.live(current_user.org, template.dmptemplate_id)
-    @template.published = false
-    @template.save
+
+    if @template.nil?
+      flash[:notice] = _('That template is not currently published.')
+    else
+      @template.published = false
+      @template.save
+      flash[:notice] = _('Your template is no longer published.')
+    end
     
     redirect_to admin_index_template_path(current_user.org)
   end
@@ -188,8 +207,8 @@ class TemplatesController < ApplicationController
       redirect_to admin_template_template_path(@template), notice: _('You can not edit a historical version of this template.')
 
     else
-      if @template.description == params["template-desc"] ||
-              @template.title == params[:template][:title]
+      if @template.description != params["template-desc"] ||
+              @template.title != params[:template][:title]
         @template.dirty = true
       end
       
@@ -251,7 +270,7 @@ class TemplatesController < ApplicationController
     current = Template.current(current_user.org, @template.dmptemplate_id)
     
     # Only allow the current version to be updated
-    if current != @template
+    if current == @template
       if @template.destroy
         redirect_to admin_index_template_path
       else
@@ -261,6 +280,7 @@ class TemplatesController < ApplicationController
       end
     else
       flash[:notice] = _('You cannot delete historical versions of this template.')
+      redirect_to admin_index_template_path
     end
   end
 

@@ -22,7 +22,7 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test 'template gets versioned when its details are updated but it is already published' do
     # Publish the template
-    put admin_update_template_path(@template), {template: {published: "1"}}
+    put admin_publish_template_path(@template)
     @template = Template.current(@user.org, @dmptemplate_id)
 
     assert_equal (@initial_version + 1), @template.version, "expected the version to have incremented"
@@ -51,17 +51,32 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
   
   # ----------------------------------------------------------
   test 'template gets versioned when its phases are modified and it is already published' do
+    @template.dirty = false
+    @template.save!
     
+    put admin_update_phase_path @template.phases.first, {phase: {title: 'UPDATED'}}
+    @template.reload
+    assert @template.dirty
   end
   
   # ----------------------------------------------------------
   test 'template gets versioned when its sections are modified and it is already published' do
+    @template.dirty = false
+    @template.save!
     
+    put admin_update_section_path @template.phases.first.sections.first, {section: {title: 'UPDATED'}}
+    @template.reload
+    assert @template.dirty
   end
   
   # ----------------------------------------------------------
   test 'template gets versioned when its questions are modified and it is already published' do
+    @template.dirty = false
+    @template.save!
     
+    put admin_update_question_path @template.phases.first.sections.first.questions.first, {question: {text: 'UPDATED'}}
+    @template.reload
+    assert @template.dirty
   end
 
   # ----------------------------------------------------------
@@ -76,11 +91,24 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
     assert_equal false, @template.published?, "expected the version to have remained unpublished"
   end
   
+  # ----------------------------------------------------------
+  test 'publishing a plan unpublishes the old published plan' do
+    put admin_publish_template_path(@template)
+    assert_not Template.live(@user.org, @dmptemplate_id).nil?
+    assert_equal 1, Template.where(org: @user.org, dmptemplate_id: @dmptemplate_id, published: true).count
+  end
+
+  # ----------------------------------------------------------
+  test 'unpublishing a plan makes all historical versions unpublished' do
+    put admin_publish_template_path(@template)
+    put admin_unpublish_template_path(@template)
+    assert Template.live(@user.org, @dmptemplate_id).nil?
+  end
   
   # ----------------------------------------------------------
   test 'plans get attached to the appropriate template version' do
     # Template is published 
-    put admin_update_template_path(@template), {template: {published: "1"}}
+    put admin_publish_template_path(@template)
     @template = Template.current(@user.org, @dmptemplate_id)
     liveA = Template.live(@user.org, @dmptemplate_id)
     
@@ -106,7 +134,7 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
     assert_equal liveA, planA.template, "expected PlanA to still be attached to the original published version"
     
     # Template v2 is published
-    put admin_update_template_path(@template), {template: {published: "1"}}
+    put admin_publish_template_path(@template)
     @template = Template.current(@user.org, @dmptemplate_id)
     liveB = Template.live(@user.org, @dmptemplate_id)
     

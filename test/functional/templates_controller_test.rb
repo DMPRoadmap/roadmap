@@ -121,16 +121,17 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # Try to delete a historical version should fail
     delete admin_destroy_template_path(prior)
-    assert_response :success
-    assert flash[:notice].start_with?(_('Could not delete'))
-    assert_not Template.find(prior).nil?
+    assert_equal _('You cannot delete historical versions of this template.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path
+    assert_not Template.find(prior.id).nil?
 
     # Try to delete the current version should work
     delete admin_destroy_template_path(current)
     assert_response :redirect
     assert_redirected_to admin_index_template_path
     assert_raise ActiveRecord::RecordNotFound do 
-      Template.find(current).nil?
+      Template.find(current.id).nil?
     end
     assert_equal prior, Template.current(@template.org, family), "expected the old version to now be the current version"
   end
@@ -186,13 +187,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_template_template_url(prior)
     assert assigns(:template)
-    assert assigns(:hash)
     
     # Make sure we get the right response when editing an unpublished template
     put admin_update_template_path(current), {template: params}
     assert_equal _('Information was successfully updated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to admin_template_template_url(Template.last.id)
+    assert_response :success
     assert assigns(:template)
     assert assigns(:hash)
     assert_equal 'ABCD', current.reload.title, "expected the record to have been updated"
@@ -215,24 +214,22 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     template = Template.live(funder, ids.last)
     
     # Make sure we are redirected if we're not logged in
-    put admin_customize_template(template)
+    put admin_customize_template_path(template)
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    put admin_customize_template(template)
+    put admin_customize_template_path(template)
     
-    customization = Template.find_by(org: @user.org, customization_of: template.dmptemplate_id)
-    
+    customization = Template.where(org: @user.org, customization_of: template.dmptemplate_id).last
+
     assert_response :redirect
-    assert_redirected_to admin_template_template_url(customization)
+    assert_redirected_to admin_template_template_url(Template.last)
     assert assigns(:template)
-    assert assigns(:hash)
     
-    assert_equal 0, customisation.version
-    assert_equal 0, customisation.visibility
-    assert_not customisation.published
-    assert_not customisation.dirty
+    assert_equal 0, customization.version
+    assert_not customization.published?
+    assert_not customization.dirty?
     
     # Make sure the funder templates data is not modifiable!
     customization.phases.each do |p|
@@ -268,17 +265,14 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_template_template_url(prior)
     assert assigns(:template)
-    assert assigns(:hash)
     
     # Publish the current template
     put admin_publish_template_path(current)
     assert_response :redirect
     assert_redirected_to admin_index_template_path(@user.org)
-    assert assigns(:funder_templates)
-    assert assigns(:org_templates)
     
     # Make sure it versioned properly
-    current.reload
+    current = Template.includes(:phases, :sections, :questions).find(current.id)
     new_version = Template.current(@user.org, family)
     assert_not_equal current.id = new_version.id, "expected it to create a new version"
     assert_equal (current.version + 1), new_version.version, "expected the version to have incremented"
@@ -290,11 +284,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # The old version's phases/sections/questions should NOT be modifiable
     current.phases.each do |p|
-      assert_not p.modifiable
+      assert_not p.modifiable?
       p.sections.each do |s|
-        assert_not s.modifiable
+        assert_not s.modifiable?
         s.questions.each do |q|
-          assert_not q.modifiable
+          assert_not q.modifiable?
         end
       end
     end
@@ -327,12 +321,20 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     current = Template.current(@user.org, family)
     
-    # Publish the current template
+    # Try to unpublish a template that is not published
     put admin_unpublish_template_path(current)
+    assert_equal _('That template is not currently published.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_index_template_path(@user.org)
-    assert assigns(:funder_templates)
-    assert assigns(:org_templates)
+    
+    # Publish it so we can unpublish
+    put admin_publish_template_path(current)
+    assert_not Template.live(@user.org, family).nil?
+    
+    put admin_unpublish_template_path(current)
+    assert_equal _('Your template is no longer published.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path(@user.org)
     
     # Make sure there are no published versions
     assert Template.live(@user.org, family).nil?
