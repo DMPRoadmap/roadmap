@@ -8,7 +8,7 @@ class Annotation < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :org_id, :question_id, :text,
+  attr_accessible :org_id, :question_id, :text, :type,
                   :org, :question, :as => [:default, :admin]
 
 
