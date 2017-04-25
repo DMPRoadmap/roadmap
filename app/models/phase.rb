@@ -6,6 +6,10 @@
 class Phase < ActiveRecord::Base
 #	extend FriendlyId
 
+  after_save     :make_template_dirty
+  after_create   :make_template_dirty
+  before_destroy :make_template_dirty
+
 	##
   # Associations
 	belongs_to :template
@@ -25,11 +29,7 @@ class Phase < ActiveRecord::Base
 
   validates :title, :number, :template, presence: {message: _("can't be blank")}
 
-
-
-
-
-
+  
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -104,4 +104,13 @@ class Phase < ActiveRecord::Base
     end
     return phase_copy
   end
+
+  # --------------------------------------------------
+  private
+  # Mark the parent template as dirty
+  def make_template_dirty
+    self.template.dirty = true
+    self.template.save!
+  end
+
 end

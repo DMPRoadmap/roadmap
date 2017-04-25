@@ -1,5 +1,8 @@
 class Question < ActiveRecord::Base
-
+  after_save     :make_template_dirty
+  after_create   :make_template_dirty
+  before_destroy :make_template_dirty
+  
   ##
   # Associations
   has_many :answers, :dependent => :destroy
@@ -28,7 +31,6 @@ class Question < ActiveRecord::Base
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
-
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
@@ -111,5 +113,13 @@ class Question < ActiveRecord::Base
  		suggested_answer = suggested_answers.find_by(org_id: org_id)
  		return suggested_answer
  	end
+
+  # --------------------------------------------------------
+  private
+  # Mark the parent template as dirty
+  def make_template_dirty
+    self.section.phase.template.dirty = true
+    self.section.phase.template.save!
+  end
 
 end

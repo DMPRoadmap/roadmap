@@ -64,31 +64,8 @@ class TemplatesController < ApplicationController
     customisation = Template.deep_copy(@template)
     customisation.org = current_user.org
     customisation.version = 0
-    customisation.published = false
-    customisation.dirty = false
     customisation.customization_of = @template.dmptemplate_id
-    
-    customisation.dmptemplate_id = loop do
-      random = rand 2147483647  # max int field in psql
-      break random unless Template.exists?(dmptemplate_id: random)
-    end
-    
     customisation.save
-    
-    # need to mark all of the original funder's phases, questions, 
-    # sections as not-modifiable
-    customisation.phases.includes(:sections, :questions).each do |phase|
-      phase.modifiable = false
-      phase.save!
-      phase.sections.each do |section|
-        section.modifiable = false
-        section.save!
-        section.questions.each do |question|
-          question.modifiable = false
-          question.save!
-        end
-      end
-    end
     
     redirect_to admin_template_template_path(customisation)
   end
@@ -106,54 +83,11 @@ class TemplatesController < ApplicationController
       redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
 
     else
-      # Unpublish the older published version if there is one
-      live = Template.live(current_user.org, @template.dmptemplate_id)
-      unless live.nil?
-        live.published = false
-        live.save
-      end
-    
-      # Publish the template
       @template.published = true
-      @template.dirty = false
       @template.save
 
       flash[:notice] = _('Your template has been published and is now available to users.')
 
-      # Create a new version 
-      new_version = Template.deep_copy(@template)
-      new_version.version = (@template.version + 1)
-      new_version.published = false
-      new_version.save
-    
-      # Make all of the templates phase/section/questions as unmodifiable
-      @template.phases.each do |p|
-        p.sections.each do |s|
-          s.questions.each do |q|
-            q.modifiable = false
-            q.save
-          end
-          s.modifiable = false
-          s.save
-        end
-        p.modifiable = false
-        p.save
-      end
-    
-      # Make all of the new version's templates phase/section/questions modifiable
-      new_version.phases.each do |p|
-        p.sections.each do |s|
-          s.questions.each do |q|
-            q.modifiable = true
-            q.save
-          end
-          s.modifiable = true
-          s.save
-        end
-        p.modifiable = true
-        p.save
-      end
-    
       redirect_to admin_index_template_path(current_user.org)
     end
   end
@@ -243,15 +177,6 @@ class TemplatesController < ApplicationController
     authorize @template
     @template.org_id = current_user.org.id
     @template.description = params['template-desc']
-    @template.published = false
-    @template.version = 0
-    @template.visibility = 0
-  
-    # Generate a unique identifier for the dmptemplate_id
-    @template.dmptemplate_id = loop do
-      random = rand 2147483647
-      break random unless Template.exists?(dmptemplate_id: random)
-    end
 
     if @template.save
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
@@ -271,7 +196,7 @@ class TemplatesController < ApplicationController
     
     current = Template.current(current_user.org, @template.dmptemplate_id)
     
-    # Only allow the current version to be updated
+    # Only allow the current version to be destroyed
     if current == @template
       if @template.destroy
         redirect_to admin_index_template_path
