@@ -41,7 +41,7 @@
               <%= org_template.version %>
             </td>
             <td class="dmp_td_small">
-              <%= org_template.published %>
+              <%= (org_template.published? ? _('Yes') : _('No')) %>
           </td>
           <td class="dmp_td_small">
             <% last_temp_updated = org_template.updated_at %>
@@ -53,7 +53,7 @@
             <%= l last_temp_updated.to_date, formats: :short %>
           </td>
             <td class="dmp_td_small">
-            <%= link_to _('View'), admin_template_template_path(id: org_template), class: "dmp_table_link"%>
+            <%= link_to (org_template == @current ? _('Edit') : _('View')), admin_template_template_path(id: org_template), class: "dmp_table_link"%>
             </td>
          </tr>
         <%end%>

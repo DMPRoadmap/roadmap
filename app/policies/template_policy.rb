@@ -20,6 +20,18 @@ class TemplatePolicy < ApplicationPolicy
   def admin_template?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end
+  
+  def admin_customize?
+    user.can_modify_templates?
+  end
+  
+  def admin_publish?
+    user.can_modify_templates?  &&  (template.org_id == user.org_id)
+  end
+  
+  def admin_unpublish?
+    user.can_modify_templates?  &&  (template.org_id == user.org_id)
+  end
 
   def admin_update?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)

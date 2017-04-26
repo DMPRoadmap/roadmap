@@ -1,5 +1,4 @@
 class Question < ActiveRecord::Base
-
   ##
   # Associations
   has_many :answers, :dependent => :destroy
@@ -28,7 +27,6 @@ class Question < ActiveRecord::Base
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
-
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

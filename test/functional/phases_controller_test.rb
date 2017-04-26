@@ -143,6 +143,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   test "create a phase " do
     params = {template_id: @template.id, title: 'Phase: Tester 2', number: 2}
     
+    @template.dirty = false
+    @template.save!
+    
     # Should redirect user to the root path if they are not logged in!
     post admin_create_phase_path(@template.phases.first), {phase: params}
     assert_unauthorized_redirect_to_root_path
@@ -156,6 +159,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:phase)
     assert_equal 'Phase: Tester 2', Phase.last.title, "expected the record to have been created!"
     
+    # Make sure that the template's dirty flag got set
+    assert @template.reload.dirty?, "expected the templates dirty flag to be true"
+    
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
     assert flash[:notice].starts_with?(_('Could not create your'))
@@ -168,6 +174,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "update the phase" do
     params = {title: 'Phase - UPDATE'}
+    
+    @template.dirty = false
+    @template.save!
     
     # Should redirect user to the root path if they are not logged in!
     put admin_update_phase_path(@template.phases.first), {phase: params}
@@ -183,6 +192,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:phase)
     assert_equal 'Phase - UPDATE', @template.phases.first.title, "expected the record to have been updated"
     
+    # Make sure that the template's dirty flag got set
+    assert @template.reload.dirty?, "expected the templates dirty flag to be true"
+    
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
     assert flash[:notice].starts_with?(_('Could not update your'))
@@ -197,6 +209,10 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "delete the phase" do
     id = @template.phases.first.id
+    
+    @template.dirty = false
+    @template.save!
+    
     # Should redirect user to the root path if they are not logged in!
     # TODO: Why are we not just using id: here? shouldn't need to specify the key
     delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
@@ -211,6 +227,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert_raise ActiveRecord::RecordNotFound do 
       Phase.find(id).nil?
     end
+    
+    # Make sure that the template's dirty flag got set
+    assert @template.reload.dirty?, "expected the templates dirty flag to be true"
   end
 
 end
