@@ -64,10 +64,8 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to root_url
     
       follow_redirect!
-      assert_response :success
-      assert [I18n.t('devise.registrations.user.signed_up_but_unconfirmed'),
-              I18n.t('devise.registrations.signed_up_but_unconfirmed')].include?(flash[:notice])
-      assert_select '.welcome-message h2', _('Welcome.')
+      assert_response :redirect
+      assert_redirected_to plans_path
       
       cntr += 1
     end
