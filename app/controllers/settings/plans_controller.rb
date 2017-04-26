@@ -1,7 +1,6 @@
 module Settings
   class PlansController < SettingsController
 
-    before_filter :get_plan_list_columns
     before_filter :get_settings
 
     after_action :verify_authorized

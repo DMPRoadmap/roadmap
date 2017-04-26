@@ -68,25 +68,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless user_signed_in? && (current_user.can_add_orgs? || current_user.can_change_org? || current_user.can_super_admin?)
   end
 
-  def get_plan_list_columns
-    if user_signed_in?
-      @selected_columns = current_user.settings(:plan_list).columns
-
-      # handle settings saved and stored using an older version of the settings gem
-      if @selected_columns.kind_of? Hash
-        unless @selected_columns['elements'].nil?
-          @selected_columns = @selected_columns['elements'].collect{|k,v| puts "#{k} - #{v}"; k}
-        end
-      end
-      
-      # If the settings are missing or stored in the wrong format for some reason 
-      # then use the defaults columns
-      @selected_columns = Settings::PlanList::DEFAULT_COLUMNS if @selected_columns.empty?
-      
-      @all_columns = Settings::PlanList::ALL_COLUMNS
-    end
-  end
-
   def failed_create_error(obj, obj_name)
     "#{_('Could not create your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end

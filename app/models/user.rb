@@ -52,14 +52,6 @@ class User < ActiveRecord::Base
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
   ##
-  # Settings
-  # FIXME: The duplication in the block is to set defaults. It might be better if
-  #        they could be set in Settings::PlanList itself, if possible.
-  has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
-    s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
-  end
-
-  ##
   # Scopes
   default_scope { includes(:org, :perms, :plans) }
 
