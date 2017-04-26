@@ -113,7 +113,15 @@ class ApplicationController < ActionController::Base
     
     def errors_to_s(obj)
       if obj.errors.count > 0
-        "<br />#{obj.errors.collect{|e,m| "#{_(e)} - #{_(m)}"}.join("<br />")}"
+        msg = "<br />"
+        obj.errors.each do |e,m|
+          if m.include?('empty') || m.include?('blank')
+            msg += "#{_(e)} - #{_(m)}<br />"
+          else
+            msg += "'#{obj[e]}' - #{_(m)}<br />"
+          end 
+        end
+        msg
       end
     end
 end
