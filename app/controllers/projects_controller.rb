@@ -2,9 +2,6 @@ class ProjectsController < ApplicationController
 
   # TODO: Delete this controller! It is no longer in use and `rake routes` does not even map to this any longer
 
-
-
-    before_filter :get_plan_list_columns, only: %i( index )
   after_action :verify_authorized
 
     # GET /projects

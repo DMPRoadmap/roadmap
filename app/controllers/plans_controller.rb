@@ -4,7 +4,6 @@ class PlansController < ApplicationController
   #Uncomment the line below in order to add authentication to this page - users without permission will not be able to add new plans
   #load_and_authorize_resource
   #
-	before_filter :get_plan_list_columns, only: %i( index )
   after_action :verify_authorized
 
 
