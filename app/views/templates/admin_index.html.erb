@@ -41,7 +41,7 @@
             <%= hash[:current].title %>
           </td>
             <td class="dmp_td_medium">
-              <%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) %>
+              <%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) unless hash[:current].description.nil? %>
             </td>
             <td class="dmp_td_small">
               <% if hash[:live].nil? %>

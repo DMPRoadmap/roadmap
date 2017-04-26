@@ -5,6 +5,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   setup do
+puts "SETUP"
     scaffold_template
     
     # Get the first Org Admin
@@ -113,11 +114,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     family = @template.dmptemplate_id
-    prior = Template.current(@template.org, family)
+    prior = Template.current(family)
     
     version_the_template
     
-    current = Template.current(@template.org, family)
+    current = Template.current(family)
     
     # Try to delete a historical version should fail
     delete admin_destroy_template_path(prior)
@@ -133,7 +134,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_raise ActiveRecord::RecordNotFound do 
       Template.find(current.id).nil?
     end
-    assert_equal prior, Template.current(@template.org, family), "expected the old version to now be the current version"
+    assert_equal prior, Template.current(family), "expected the old version to now be the current version"
   end
   
 #  TODO: Why are we passing an :id here!? Its a new record but we seem to need the last template's id
@@ -143,12 +144,12 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     params = {title: 'Testing create route'}
     
     # Should redirect user to the root path if they are not logged in!
-    post admin_create_template_path(Template.last.id), {template: params}
+    post admin_create_template_path(@user.org), {template: params}
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    post admin_create_template_path(Template.last.id), {template: params}
+    post admin_create_template_path(@user.org), {template: params}
     assert_equal _('Information was successfully created.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
@@ -156,7 +157,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Testing create route', Template.last.title, "expected the record to have been created!"
     
     # Invalid object
-    post admin_create_template_path(Template.last.id), {template: {title: nil, org_id: @user.org.id}}
+    post admin_create_template_path(@user.org), {template: {title: nil, org_id: @user.org.id}}
     assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:template)
@@ -175,11 +176,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     family = @template.dmptemplate_id
-    prior = Template.current(@template.org, family)
+    prior = Template.current(family)
     
     version_the_template
     
-    current = Template.current(@template.org, family)
+    current = Template.current(family)
 
     # We shouldn't be able to edit a historical version
     put admin_update_template_path(prior), {template: params}
@@ -209,9 +210,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "customize a funder template" do
     funder = Org.funders.first
-    ids = Template.dmptemplate_ids(funder)
-    
-    template = Template.live(funder, ids.last)
+    id = Template.find_by(org: funder, published: true).dmptemplate_id
+    template = Template.live(id)
     
     # Make sure we are redirected if we're not logged in
     put admin_customize_template_path(template)
@@ -221,7 +221,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     put admin_customize_template_path(template)
     
-    customization = Template.where(org: @user.org, customization_of: template.dmptemplate_id).last
+    customization = Template.where(customization_of: template.dmptemplate_id).last
 
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last)
@@ -253,11 +253,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     family = @template.dmptemplate_id
-    prior = Template.current(@user.org, family)
+    prior = Template.current(family)
     
     version_the_template
     
-    current = Template.current(@user.org, family)
+    current = Template.current(family)
 
     # We shouldn't be able to edit a historical version
     put admin_publish_template_path(prior)
@@ -274,7 +274,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     # Make sure it versioned properly
     current = Template.includes(:phases, :sections, :questions).find(current.id)
-    new_version = Template.current(@user.org, family)
+    new_version = Template.current(family)
     assert_not_equal current.id = new_version.id, "expected it to create a new version"
     assert_equal (current.version + 1), new_version.version, "expected the version to have incremented"
     assert current.published?, "expected the old version to be published"
@@ -282,28 +282,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_not current.dirty?, "expected the old dirty flag to be false"
     assert_not new_version.dirty?, "expected the new dirty flag to be false"
     assert_equal current.dmptemplate_id, new_version.dmptemplate_id, "expected the old and new versions to share the same dmptemplate_id"
-    
-    # The old version's phases/sections/questions should NOT be modifiable
-    current.phases.each do |p|
-      assert_not p.modifiable?
-      p.sections.each do |s|
-        assert_not s.modifiable?
-        s.questions.each do |q|
-          assert_not q.modifiable?
-        end
-      end
-    end
-    
-    # The new version's phases/sections/questions should be modifiable
-    new_version.phases.each do |p|
-      assert p.modifiable
-      p.sections.each do |s|
-        assert s.modifiable
-        s.questions.each do |q|
-          assert q.modifiable
-        end
-      end
-    end
   end
   
   # GET /org/admin/templates/:id/admin_unpublish (admin_unpublish_template_path)
@@ -316,21 +294,15 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     family = @template.dmptemplate_id
-    prior = Template.current(@user.org, family)
+    prior = Template.current(family)
     
     version_the_template
     
-    current = Template.current(@user.org, family)
-    
-    # Try to unpublish a template that is not published
-    put admin_unpublish_template_path(current)
-    assert_equal _('That template is not currently published.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to admin_index_template_path(@user.org)
+    current = Template.current(family)
     
     # Publish it so we can unpublish
     put admin_publish_template_path(current)
-    assert_not Template.live(@user.org, family).nil?
+    assert_not Template.live(family).nil?
     
     put admin_unpublish_template_path(current)
     assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
@@ -338,6 +310,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_index_template_path(@user.org)
     
     # Make sure there are no published versions
-    assert Template.live(@user.org, family).nil?
+    assert Template.live(family).nil?
   end
 end

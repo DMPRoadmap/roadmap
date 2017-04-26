@@ -1,12 +1,8 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
-
-  before_create :set_creation_defaults
-  after_create  :set_modifiable_statuses
   
-  before_save   :pre_publishing
-  after_save    :post_publishing
-
+  before_validation :set_creation_defaults
+  
   ##
   # Associations
   belongs_to :org
@@ -33,18 +29,18 @@ class Template < ActiveRecord::Base
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
-  def self.dmptemplate_ids(org)
-    Template.where(org_id: org.id).distinct.pluck(:dmptemplate_id)
+  def self.dmptemplate_ids
+    Template.all.distinct.pluck(:dmptemplate_id)
   end
 
   # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
-  def self.current(org, dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id).order(version: :desc).first
+  def self.current(dmptemplate_id)
+    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).first
   end
   
   # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
-  def self.live(org, dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, org_id: org.id, published: true).first
+  def self.live(dmptemplate_id)
+    Template.where(dmptemplate_id: dmptemplate_id, published: true).first
   end
 
   ##
@@ -129,57 +125,18 @@ class Template < ActiveRecord::Base
   private
   # Initialize the published and dirty flags for new templates
   def set_creation_defaults
-    self.published = false
-    self.dirty = false
-    
-    # Generate a unique identifier for the dmptemplate_id if necessary
-    if self.dmptemplate_id.nil?
-      self.dmptemplate_id = loop do
-        random = rand 2147483647
-        break random unless Template.exists?(dmptemplate_id: random)
-      end
-    end
-  end
-  
-  # Unpublish older versions when publishing the template
-  def pre_publishing
-    if self.published?
-      # Unpublish the older published version if there is one
-      live = Template.live(self.org, self.dmptemplate_id)
-      if !live.nil? and self != live
-        live.published = false
-        live.save!
-      end
-      # Set the dirty flag to false
+    # Only run this before_validation because rails fires this before save/create
+    if self.id.nil?
+      self.published = false
       self.dirty = false
-    end
-  end
-  
-  # Once the version has been published, create a new one which should
-  # be returned by the Template.current method
-  def post_publishing
-    # Create a new version 
-    new_version = Template.deep_copy(self)
-    new_version.version = (self.version + 1)
-    new_version.save
-  end
-
-  # Update the modifiable flags on phases->sections->questions 
-  def set_modifiable_statuses
-    # If we're working with a customization and its version 0 
-    # we should mark all of the phases->sections->questions 
-    # as unmodifiable
-    if !self.customization_of.nil? && version == 0
-      self.phases.includes(:sections, :questions).each do |phase|
-        phase.modifiable = false
-        phase.save!
-        phase.sections.each do |section|
-          section.modifiable = false
-          section.save!
-          section.questions.each do |question|
-            question.modifiable = false
-            question.save!
-          end
+      self.visibility = 1
+      self.version = 0 if self.version.nil?
+    
+      # Generate a unique identifier for the dmptemplate_id if necessary
+      if self.dmptemplate_id.nil?
+        self.dmptemplate_id = loop do
+          random = rand 2147483647
+          break random unless Template.exists?(dmptemplate_id: random)
         end
       end
     end

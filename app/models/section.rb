@@ -1,8 +1,4 @@
 class Section < ActiveRecord::Base
-  after_save     :make_template_dirty
-  after_create   :make_template_dirty
-  before_destroy :make_template_dirty
-
   ##
   # Associations
   belongs_to :phase
@@ -50,13 +46,4 @@ class Section < ActiveRecord::Base
     end
     return section_copy
   end
-
-  # ---------------------------------------------------
-  private
-  # Mark the parent template as dirty
-  def make_template_dirty
-    self.phase.template.dirty = true
-    self.phase.template.save!
-  end
-
 end

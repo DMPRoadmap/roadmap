@@ -162,6 +162,9 @@ class PhasesController < ApplicationController
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
     if @phase.save
+      @phase.template.dirty = true
+      @phase.template.save!
+      
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       flash[:notice] = failed_create_error(@phase, _('phase'))
@@ -177,6 +180,9 @@ class PhasesController < ApplicationController
     authorize @phase
     @phase.description = params["phase-desc"]
     if @phase.update_attributes(params[:phase])
+      @phase.template.dirty = true
+      @phase.template.save!
+      
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
       @sections = @phase.sections
@@ -198,6 +204,9 @@ class PhasesController < ApplicationController
     authorize @phase
     @template = @phase.template
     if @phase.destroy
+      @template.dirty = true
+      @template.save!
+      
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully deleted.')
     else
       @sections = @phase.sections

@@ -14,8 +14,8 @@ class TemplatesController < ApplicationController
     # Collect all of the published funder templates
     @funder_templates = []
     Org.funders.each do |org|
-      Template.dmptemplate_ids(org).each do |id|
-        template = Template.live(org, id)
+      Template.dmptemplate_ids.each do |id|
+        template = Template.live(id)
         # Its possible for the template to NOT have a published version
         # so only add it if its not nil
         unless template.nil? 
@@ -26,9 +26,9 @@ class TemplatesController < ApplicationController
     
     # Collect all of the organisations templates
     @org_templates = []
-    Template.dmptemplate_ids(current_user.org).each do |id|
-      template = Template.current(current_user.org, id)
-      live = Template.live(current_user.org, id)
+    Template.dmptemplate_ids.each do |id|
+      template = Template.current(id)
+      live = Template.live(id)
       
       # Its possible for the template to NOT have a published version
       # so only add it if its not nil
@@ -67,6 +67,19 @@ class TemplatesController < ApplicationController
     customisation.customization_of = @template.dmptemplate_id
     customisation.save
     
+    customisation.phases.includes(:sections, :questions).each do |phase|
+      phase.modifiable = false
+      phase.save!
+      phase.sections.each do |section|
+        section.modifiable = false
+        section.save!
+        section.questions.each do |question|
+          question.modifiable = false
+          question.save!
+        end
+      end
+    end
+    
     redirect_to admin_template_template_path(customisation)
   end
   
@@ -76,15 +89,29 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     authorize @template
 
-    current = Template.current(current_user.org, @template.dmptemplate_id)
+    current = Template.current(@template.dmptemplate_id)
     
     # Only allow the current version to be updated
     if current != @template
       redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
 
     else
+      # Unpublish the older published version if there is one
+      live = Template.live(@template.dmptemplate_id)
+      if !live.nil? and self != live
+        live.published = false
+        live.save!
+      end
+      # Set the dirty flag to false
+      @template.dirty = false
       @template.published = true
       @template.save
+
+      # Create a new version 
+      new_version = Template.deep_copy(@template)
+      new_version.version = (@template.version + 1)
+      new_version.published = false
+      new_version.save
 
       flash[:notice] = _('Your template has been published and is now available to users.')
 
@@ -99,7 +126,7 @@ class TemplatesController < ApplicationController
     authorize template
 
     # Unpublish the live version
-    @template = Template.live(current_user.org, template.dmptemplate_id)
+    @template = Template.live(template.dmptemplate_id)
 
     if @template.nil?
       flash[:notice] = _('That template is not currently published.')
@@ -119,7 +146,7 @@ class TemplatesController < ApplicationController
           :suggested_answers]]]).find(params[:id])
     authorize @template
     
-    @current = Template.current(current_user.org, @template.dmptemplate_id)
+    @current = Template.current(@template.dmptemplate_id)
     
     unless @template == @current
       flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
@@ -136,7 +163,7 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     authorize @template
     
-    current = Template.current(current_user.org, @template.dmptemplate_id)
+    current = Template.current(@template.dmptemplate_id)
     
     # Only allow the current version to be updated
     if current != @template
@@ -194,7 +221,7 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     authorize @template
     
-    current = Template.current(current_user.org, @template.dmptemplate_id)
+    current = Template.current(@template.dmptemplate_id)
     
     # Only allow the current version to be destroyed
     if current == @template
@@ -217,7 +244,7 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     authorize @template
     @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
-    @current = Template.current(current_user.org, @template.dmptemplate_id)
+    @current = Template.current(@template.dmptemplate_id)
   end
 
 end

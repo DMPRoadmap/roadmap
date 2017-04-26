@@ -5,11 +5,6 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
 #	extend FriendlyId
-
-  after_save     :make_template_dirty
-  after_create   :make_template_dirty
-  before_destroy :make_template_dirty
-
 	##
   # Associations
 	belongs_to :template
@@ -103,14 +98,6 @@ class Phase < ActiveRecord::Base
       section_copy.save!
     end
     return phase_copy
-  end
-
-  # --------------------------------------------------
-  private
-  # Mark the parent template as dirty
-  def make_template_dirty
-    self.template.dirty = true
-    self.template.save!
   end
 
 end
