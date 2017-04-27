@@ -1,11 +1,8 @@
 class PlansController < ApplicationController
   require 'pp'
   helper SettingsTemplateHelper
-  #Uncomment the line below in order to add authentication to this page - users without permission will not be able to add new plans
-  #load_and_authorize_resource
-  #
-  after_action :verify_authorized
 
+  after_action :verify_authorized
 
   def index
     authorize Plan
@@ -18,17 +15,15 @@ class PlansController < ApplicationController
   def new
     @plan = Plan.new
     authorize @plan
-    @funders = Org.funders.all 
+    
+    # Get all of the available funders and non-funder orgs
+    @funders = Org.funders.sort{|x,y| x.name <=> y.name }
+    @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
 
-    no_org = Org.new()
-    no_org.id = -1
-    no_org.name = "No Funder"
-    @funders.unshift(no_org)
+    # Get the current user's org
+    @default_org = current_user.org
 
-
-    respond_to do |format|
-      format.html # new.html.erb
-    end
+    respond_to :html
   end
 
 

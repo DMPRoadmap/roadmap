@@ -70,8 +70,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     
     get new_plan_path
     assert_response :success
-    assert assigns(:plan)
+    assert assigns(:orgs)
     assert assigns(:funders)
+    assert assigns(:default_org)
   end
 
   # POST /plans (plans_path)
