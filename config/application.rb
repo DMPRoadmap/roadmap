@@ -74,6 +74,7 @@ module DMPRoadmap
     config.assets.precompile += %w(jquery.tablesorter.js)
     config.assets.precompile += %w(export_configure.js)
     config.assets.precompile += %w(toolbar.js)
+    config.assets.precompile += %w(new_plan.js)
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
     

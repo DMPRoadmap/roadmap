@@ -1,10 +1,60 @@
-<% javascript "projects.js" %>
+<% javascript "new_plan.js" %>
 
-<div class="new-plan-container">
-    <p><%= @error %></p>
-        <!-- render dropdowns for plan selection -->
-    <%= render "dropdowns_new_plan" %>
+<div class="main">
+  <h1><%= _('Create a new plan') %></h1>
 
+  <p>
+		<%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
+	</p>
+
+	<form source="<%= plans_path %>" method="POST">
+		<fieldset class="white-fieldset">
+			<h3><%= _('Where will the research be conducted?') %></h3>
+			
+			<label for="plan_org_id">
+				<%= _('Select the primary research organisation responsible') %>
+			</label>
+			<input type="text" name="plan[org_id]" id="plan_org_id" 
+						 class="js-combobox" list="orgs" 
+						 data-combobox-prefix-class="combobox"
+						 data-combobox-case-sensitive="no"
+						 data-combobox-search-option="containing" />
+			<datalist id="orgs">
+				<% @orgs.each do |org| %>
+					<option value="<%= org.name %>" />
+				<% end %>
+			</datalist>
+			
+			<input type="checkbox" id="plan_no_org">
+			<span class="checkbox-label">
+				<%= _('My research organization is not on the list or no research organization is associated with this plan')%>
+			</span>
+		</fieldset>
+		
+		<fieldset class="white-fieldset">
+			<h3><%= _('Who will fund the research?') %></h3>
+			
+			<label for="plan_funder_id">
+				<%= _('Select the funding organisation') %>
+			</label>
+			<input type="text" name="plan[funder_id]" id="plan_funder_id" 
+						 class="js-combobox" list="funders" 
+						 data-combobox-prefix-class="combobox"
+						 data-combobox-case-sensitive="no"
+						 data-combobox-search-option="containing" />
+			<datalist id="funders">
+				<% @funders.each do |funder| %>
+					<option value="<%= funder.name %>" />
+				<% end %>
+			</datalist>
+			
+			<input type="checkbox" id="plan_no_funder">
+			<span class="checkbox-label">
+				<%= _('No funder associated with this plan')%>
+			</span>
+		</fieldset>
+		
+		<input type="submit" value="<%= _('Create Plan') %>" class="form-submit" />
+	</form>
 </div>
-
 
