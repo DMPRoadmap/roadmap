@@ -125,10 +125,7 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
     
     # Plan A gets attached to the template v1
     post plans_path, {plan: {funder_id: @template.org.id}}
-
-puts "RESPONSE BODY:"    
-puts @response.body
-    
+    follow_redirects
     assert @response.body.include?("id=\"template_id_#{liveA.id}\""), "expected the user to be presented with the published template"
     post plans_path, {template_id: liveA.id}
     planA = Plan.last
@@ -140,6 +137,7 @@ puts @response.body
     
     # Plan B gets attached to the template v1 because v2 is not yet published
     post plans_path, {plan: {funder_id: @template.org.id}}
+    follow_redirects
     assert @response.body.include?("id=\"template_id_#{liveA.id}\""), "expected the user to be presented with the published template"
     post plans_path, {template_id: liveA.id}
     planB = Plan.last
@@ -160,6 +158,7 @@ puts @response.body
     
     # Plan C gets attached to template v2
     post plans_path, {plan: {funder_id: @template.org.id}}
+    follow_redirects
     assert_not @response.body.include?("id=\"template_id_#{liveA.id}\""), "expected the user to NOT be presented with the OLD published template"
     assert @response.body.include?("id=\"template_id_#{liveB.id}\""), "expected the user to be presented with the published template"
     post plans_path, {template_id: liveB.id}
