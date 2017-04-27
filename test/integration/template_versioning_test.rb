@@ -125,7 +125,8 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
     
     # Plan A gets attached to the template v1
     post plans_path, {plan: {funder_id: @template.org.id}}
-    
+
+puts "RESPONSE BODY:"    
 puts @response.body
     
     assert @response.body.include?("id=\"template_id_#{liveA.id}\""), "expected the user to be presented with the published template"
