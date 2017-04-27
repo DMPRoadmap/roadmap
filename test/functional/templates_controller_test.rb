@@ -5,7 +5,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   setup do
-puts "SETUP"
     scaffold_template
     
     # Get the first Org Admin
@@ -209,15 +208,29 @@ puts "SETUP"
   # GET /org/admin/templates/:id/admin_customize (admin_customize_template_path)
   # ----------------------------------------------------------
   test "customize a funder template" do
-    funder = Org.funders.first
-    id = Template.find_by(org: funder, published: true).dmptemplate_id
-    template = Template.live(id)
-    
     # Make sure we are redirected if we're not logged in
-    put admin_customize_template_path(template)
+    put admin_customize_template_path(@template)
     assert_unauthorized_redirect_to_root_path
     
+    funder_template = Template.create(org: Org.funders.first, title: 'Testing integration')
+
+    # Sign in as the funder so that we cna publish the template
+    sign_in User.find_by(org: funder_template.org)
+
+puts Template.where(dmptemplate_id: funder_template.dmptemplate_id).count
+puts funder_template.inspect
+
+    put admin_publish_template_path(funder_template)
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path(funder_template.org)
+    
+    # Sign in as the regular user so we can customize the funder template
     sign_in @user
+    
+    template = Template.live(funder_template.dmptemplate_id)
+
+puts Template.where(dmptemplate_id: funder_template.dmptemplate_id).count
+puts funder_template.reload.inspect
     
     put admin_customize_template_path(template)
     
