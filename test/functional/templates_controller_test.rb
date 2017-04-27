@@ -217,9 +217,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     # Sign in as the funder so that we cna publish the template
     sign_in User.find_by(org: funder_template.org)
 
-puts Template.where(dmptemplate_id: funder_template.dmptemplate_id).count
-puts funder_template.inspect
-
     put admin_publish_template_path(funder_template)
     assert_response :redirect
     assert_redirected_to admin_index_template_path(funder_template.org)
@@ -228,9 +225,6 @@ puts funder_template.inspect
     sign_in @user
     
     template = Template.live(funder_template.dmptemplate_id)
-
-puts Template.where(dmptemplate_id: funder_template.dmptemplate_id).count
-puts funder_template.reload.inspect
     
     put admin_customize_template_path(template)
     
