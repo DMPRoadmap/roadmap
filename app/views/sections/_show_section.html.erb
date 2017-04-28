@@ -30,15 +30,15 @@
           <div class="question_guidance_block">
             <!--question block-->
             <div id="show_question_div_<%= question.id%>" class="<%= if question.id == @question_id then "current_question" end %>">
+							
+							<% if question.modifiable %>
+								<%= render partial: 'questions/edit_question', locals: {question: question} %>
+							<% else %>
                 <!-- render the show question block-->
                 <%= render partial: 'questions/show_question', locals: {question: question} %>
+							<% end %>
             </div>
-            <% if section.phase.template.customization_of.present? %>
-              <div id="edit_question_div_<%= question.id%>"  style="display: none">
-                  <!-- render the edit question block-->
-                  <%= render partial: 'questions/edit_question', locals: {question: question} %>
-              </div>
-              <% end %>
+
           </div>
 
           <% if last_question_id == question.id %>

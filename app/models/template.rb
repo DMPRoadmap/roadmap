@@ -1,6 +1,8 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
-
+  
+  before_validation :set_creation_defaults
+  
   ##
   # Associations
   belongs_to :org
@@ -26,18 +28,20 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
-  # Helper scopes to get the latest version and the latest published version
-  scope :current, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id).order(version: :desc).first }
-  scope :published, ->(dmptemplate_id) { where(dmptemplate_id: dmptemplate_id, published: true).order(version: :desc).first }
+  # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
+  def self.dmptemplate_ids
+    Template.all.distinct.pluck(:dmptemplate_id)
+  end
 
-  # Helper scope to get the dmptemplate_ids for the specified org
-  scope :family_ids, ->(org_id) { where(org_id: org_id).pluck(:dmptemplate_id).distinct }
-
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-
+  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
+  def self.current(dmptemplate_id)
+    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).first
+  end
+  
+  # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
+  def self.live(dmptemplate_id)
+    Template.where(dmptemplate_id: dmptemplate_id, published: true).first
+  end
 
   ##
   # deep copy the given template and all of it's associations
@@ -54,6 +58,12 @@ class Template < ActiveRecord::Base
     end
     return template_copy
   end
+
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
 
   ##
   # convert the given template to a hash and return with all it's associations
@@ -109,6 +119,27 @@ class Template < ActiveRecord::Base
       modifiable = modifiable && phase.modifiable
     end
     return !modifiable
+  end
+
+  # --------------------------------------------------------
+  private
+  # Initialize the published and dirty flags for new templates
+  def set_creation_defaults
+    # Only run this before_validation because rails fires this before save/create
+    if self.id.nil?
+      self.published = false
+      self.dirty = false
+      self.visibility = 1
+      self.version = 0 if self.version.nil?
+    
+      # Generate a unique identifier for the dmptemplate_id if necessary
+      if self.dmptemplate_id.nil?
+        self.dmptemplate_id = loop do
+          random = rand 2147483647
+          break random unless Template.exists?(dmptemplate_id: random)
+        end
+      end
+    end
   end
 
 end

@@ -50,10 +50,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     get admin_index_template_path(@user.org)
     assert_response :success
     
-    assert assigns(:templates_own)
-    assert assigns(:other_published_version)
-    assert assigns(:templates_funders)
-    assert assigns(:templates_customizations)
+    assert assigns(:funder_templates)
+    assert assigns(:org_templates)
   end 
   
   # GET /org/admin/templates/:id/admin_template (admin_template_template_path)
@@ -70,6 +68,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     assert assigns(:template)
     assert assigns(:hash)
+    assert assigns(:current)
   end
   
 #  TODO: Why are we passing an :id here!? Its a new record but we seem to need the last template's id
@@ -100,6 +99,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     assert assigns(:template)
     assert assigns(:templates)
+    assert assigns(:current)
   end
   
   # DELETE /org/admin/templates/:id/admin_destroy (admin_destroy_template_path)
@@ -112,27 +112,43 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     sign_in @user
     
-    delete admin_destroy_template_path(@template)
+    family = @template.dmptemplate_id
+    prior = Template.current(family)
+    
+    version_the_template
+    
+    current = Template.current(family)
+    
+    # Try to delete a historical version should fail
+    delete admin_destroy_template_path(prior)
+    assert_equal _('You cannot delete historical versions of this template.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to admin_index_template_url
+    assert_redirected_to admin_index_template_path
+    assert_not Template.find(prior.id).nil?
+
+    # Try to delete the current version should work
+    delete admin_destroy_template_path(current)
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path
     assert_raise ActiveRecord::RecordNotFound do 
-      Template.find(id).nil?
+      Template.find(current.id).nil?
     end
+    assert_equal prior, Template.current(family), "expected the old version to now be the current version"
   end
   
 #  TODO: Why are we passing an :id here!? Its a new record but we seem to need the last template's id
   # POST /org/admin/templates/:id/admin_create (admin_create_template_path)
   # ----------------------------------------------------------
-  test "create a admin template" do
+  test "create a template" do
     params = {title: 'Testing create route'}
     
     # Should redirect user to the root path if they are not logged in!
-    post admin_create_template_path(Template.last.id), {template: params}
+    post admin_create_template_path(@user.org), {template: params}
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    post admin_create_template_path(Template.last.id), {template: params}
+    post admin_create_template_path(@user.org), {template: params}
     assert_equal _('Information was successfully created.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
@@ -140,7 +156,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Testing create route', Template.last.title, "expected the record to have been created!"
     
     # Invalid object
-    post admin_create_template_path(Template.last.id), {template: {title: nil, org_id: @user.org.id}}
+    post admin_create_template_path(@user.org), {template: {title: nil, org_id: @user.org.id}}
     assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:template)
@@ -158,30 +174,149 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     sign_in @user
 
-    # Make sure we get the proper message if trying to update a published template
-    put admin_update_template_path(@template), {template: params}
-    assert_equal _('Published templates cannot be edited.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to admin_template_template_url(Template.last.id)
-    assert assigns(:template)
+    family = @template.dmptemplate_id
+    prior = Template.current(family)
     
-    @template.published = false
-    @template.save!
+    version_the_template
+    
+    current = Template.current(family)
+
+    # We shouldn't be able to edit a historical version
+    put admin_update_template_path(prior), {template: params}
+    assert_equal _('You can not edit a historical version of this template.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_template_template_url(prior)
+    assert assigns(:template)
     
     # Make sure we get the right response when editing an unpublished template
-    put admin_update_template_path(@template), {template: params}
+    put admin_update_template_path(current), {template: params}
     assert_equal _('Information was successfully updated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to admin_template_template_url(Template.last.id)
+    assert_response :success
     assert assigns(:template)
-    assert_equal 'ABCD', @template.reload.title, "expected the record to have been updated"
+    assert assigns(:hash)
+    assert_equal 'ABCD', current.reload.title, "expected the record to have been updated"
+    assert current.reload.dirty? 
     
     # Make sure we get the right response when providing an invalid template
-    put admin_update_template_path(@template), {template: {title: nil}}
+    put admin_update_template_path(current), {template: {title: nil}}
     assert flash[:notice].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:template)
     assert assigns(:hash)
   end
 
+  # GET /org/admin/templates/:id/admin_customize (admin_customize_template_path)
+  # ----------------------------------------------------------
+  test "customize a funder template" do
+    # Make sure we are redirected if we're not logged in
+    put admin_customize_template_path(@template)
+    assert_unauthorized_redirect_to_root_path
+    
+    funder_template = Template.create(org: Org.funders.first, title: 'Testing integration')
+
+    # Sign in as the funder so that we cna publish the template
+    sign_in User.find_by(org: funder_template.org)
+
+    put admin_publish_template_path(funder_template)
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path(funder_template.org)
+    
+    # Sign in as the regular user so we can customize the funder template
+    sign_in @user
+    
+    template = Template.live(funder_template.dmptemplate_id)
+    
+    put admin_customize_template_path(template)
+    
+    customization = Template.where(customization_of: template.dmptemplate_id).last
+
+    assert_response :redirect
+    assert_redirected_to admin_template_template_url(Template.last)
+    assert assigns(:template)
+    
+    assert_equal 0, customization.version
+    assert_not customization.published?
+    assert_not customization.dirty?
+    
+    # Make sure the funder templates data is not modifiable!
+    customization.phases.each do |p|
+      assert_not p.modifiable
+      p.sections.each do |s|
+        assert_not s.modifiable
+        s.questions.each do |q|
+          assert_not q.modifiable
+        end
+      end
+    end
+  end
+  
+  # GET /org/admin/templates/:id/admin_publish (admin_publish_template_path)
+  # ----------------------------------------------------------
+  test "publish a template" do
+    # Should redirect user to the root path if they are not logged in!
+    put admin_publish_template_path(@template)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+
+    family = @template.dmptemplate_id
+    prior = Template.current(family)
+    
+    version_the_template
+    
+    current = Template.current(family)
+
+    # We shouldn't be able to edit a historical version
+    put admin_publish_template_path(prior)
+    assert_equal _('You can not publish a historical version of this template.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_template_template_url(prior)
+    assert assigns(:template)
+    
+    # Publish the current template
+    put admin_publish_template_path(current)
+    assert_equal _('Your template has been published and is now available to users.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path(@user.org)
+    
+    # Make sure it versioned properly
+    current = Template.includes(:phases, :sections, :questions).find(current.id)
+    new_version = Template.current(family)
+    assert_not_equal current.id = new_version.id, "expected it to create a new version"
+    assert_equal (current.version + 1), new_version.version, "expected the version to have incremented"
+    assert current.published?, "expected the old version to be published"
+    assert_not new_version.published?, "expected the new version to NOT be published"
+    assert_not current.dirty?, "expected the old dirty flag to be false"
+    assert_not new_version.dirty?, "expected the new dirty flag to be false"
+    assert_equal current.dmptemplate_id, new_version.dmptemplate_id, "expected the old and new versions to share the same dmptemplate_id"
+  end
+  
+  # GET /org/admin/templates/:id/admin_unpublish (admin_unpublish_template_path)
+  # ----------------------------------------------------------
+  test "unpublish a template" do
+    # Should redirect user to the root path if they are not logged in!
+    put admin_unpublish_template_path(@template)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+
+    family = @template.dmptemplate_id
+    prior = Template.current(family)
+    
+    version_the_template
+    
+    current = Template.current(family)
+    
+    # Publish it so we can unpublish
+    put admin_publish_template_path(current)
+    assert_not Template.live(family).nil?
+    
+    put admin_unpublish_template_path(current)
+    assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to admin_index_template_path(@user.org)
+    
+    # Make sure there are no published versions
+    assert Template.live(family).nil?
+  end
 end
