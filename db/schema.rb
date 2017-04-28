@@ -212,6 +212,11 @@ ActiveRecord::Schema.define(version: 20170421170849) do
 
   add_index "plans", ["template_id"], name: "fk_rails_3424ca281f"
 
+  create_table "plans_guidance_groups", force: :cascade do |t|
+    t.integer "guidance_group_id"
+    t.integer "plan_id"
+  end
+
   create_table "question_formats", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -413,7 +418,44 @@ ActiveRecord::Schema.define(version: 20170421170849) do
     t.integer "perm_id"
   end
 
-  add_index "users_perms", ["perm_id"], name: "fk_rails_457217c31c"
-  add_index "users_perms", ["user_id", "perm_id"], name: "index_users_perms_on_user_id_and_perm_id"
+  add_index "users_perms", ["user_id", "perm_id"], name: "index_users_perms_on_user_id_and_perm_id", using: :btree
 
+  add_foreign_key "answers", "plans"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "guidance_groups", "orgs"
+  add_foreign_key "guidances", "guidance_groups"
+  add_foreign_key "notes", "answers"
+  add_foreign_key "notes", "users"
+  add_foreign_key "org_token_permissions", "orgs"
+  add_foreign_key "org_token_permissions", "token_permission_types"
+  add_foreign_key "orgs", "languages"
+  add_foreign_key "orgs", "regions"
+  add_foreign_key "phases", "templates"
+  add_foreign_key "plan_guidance_groups", "guidance_groups"
+  add_foreign_key "plan_guidance_groups", "plans"
+  add_foreign_key "plans", "templates"
+  add_foreign_key "plans_guidance_groups", "guidance_groups"
+  add_foreign_key "plans_guidance_groups", "plans"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "question_formats"
+  add_foreign_key "questions", "sections"
+  add_foreign_key "questions_themes", "questions"
+  add_foreign_key "questions_themes", "themes"
+  add_foreign_key "roles", "plans"
+  add_foreign_key "roles", "users"
+  add_foreign_key "sections", "phases"
+  add_foreign_key "suggested_answers", "orgs"
+  add_foreign_key "suggested_answers", "questions"
+  add_foreign_key "templates", "orgs"
+  add_foreign_key "themes_in_guidance", "guidances"
+  add_foreign_key "themes_in_guidance", "themes"
+  add_foreign_key "user_identifiers", "identifier_schemes"
+  add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "languages"
+  add_foreign_key "users", "orgs"
+  add_foreign_key "users_perms", "perms"
+  add_foreign_key "users_perms", "users"
 end
