@@ -11,10 +11,10 @@
 		<fieldset class="white-fieldset">
 			<h3><%= _('Where will the research be conducted?') %></h3>
 			
-			<label for="plan_org_id">
+			<label for="plan_org_name">
 				<%= _('Select the primary research organisation responsible') %>
 			</label>
-			<input type="text" name="plan[org_id]" id="plan_org_id" 
+			<input type="text" name="plan[org_id]" id="plan_org_name" 
 						 class="js-combobox" list="orgs" 
 						 data-combobox-prefix-class="combobox"
 						 data-combobox-case-sensitive="no"
@@ -35,10 +35,10 @@
 		<fieldset class="white-fieldset">
 			<h3><%= _('Who will fund the research?') %></h3>
 			
-			<label for="plan_funder_id">
+			<label for="plan_funder_name">
 				<%= _('Select the funding organisation') %>
 			</label>
-			<input type="text" name="plan[funder_id]" id="plan_funder_id" 
+			<input type="text" name="plan[funder_id]" id="plan_funder_name" 
 						 class="js-combobox" list="funders" 
 						 data-combobox-prefix-class="combobox"
 						 data-combobox-case-sensitive="no"

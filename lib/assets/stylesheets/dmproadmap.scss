@@ -3,8 +3,11 @@
 $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 
 $white: #FFF;
+
 $primary-color: #F49700;
+$disabled-button-color: #FFE9B3;
 $reverse-text: #FFF;
+
 
 @mixin icon($icon) {
   @extend .fa;
@@ -59,6 +62,9 @@ h4 {
 			-webkit-border-radius: 10px;
 			-moz-border-radius: 10px;
 			border-radius: 10px;
+		}
+		input.form-submit:disabled {
+			background-color: $disabled-button-color;
 		}
 		
 	}
