@@ -18,7 +18,8 @@
 						 class="js-combobox" list="orgs" 
 						 data-combobox-prefix-class="combobox"
 						 data-combobox-case-sensitive="no"
-						 data-combobox-search-option="containing" />
+						 data-combobox-search-option="containing"
+						 value="<%= @default_org_name %>" />
 			<datalist id="orgs">
 				<% @orgs.each do |org| %>
 					<option value="<%= org.name %>" />

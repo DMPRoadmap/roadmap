@@ -19,10 +19,13 @@ class PlansController < ApplicationController
     # Get all of the available funders and non-funder orgs
     @funders = Org.funders.sort{|x,y| x.name <=> y.name }
     @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
-
+    
     # Get the current user's org
-    @default_org = current_user.org
-
+    @default_org_name = ''
+    if @orgs.include?(current_user.org)
+      @default_org_name = current_user.org.name
+    end
+      
     respond_to :html
   end
 

@@ -72,7 +72,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:orgs)
     assert assigns(:funders)
-    assert assigns(:default_org)
+    assert assigns(:default_org_name)
   end
 
   # POST /plans (plans_path)

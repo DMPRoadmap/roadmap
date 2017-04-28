@@ -125,6 +125,8 @@ GEM
       loofah (~> 2.0)
       sax-machine (~> 1.0)
     flag_shih_tzu (0.3.15)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     friendly_id (5.1.0)
@@ -366,6 +368,7 @@ DEPENDENCIES
   dragonfly
   feedjira
   flag_shih_tzu
+  font-awesome-rails
   formtastic
   friendly_id
   gettext_i18n_rails (~> 1.8)
