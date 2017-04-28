@@ -28,6 +28,61 @@ class PlansController < ApplicationController
       
     respond_to :html
   end
+  
+  
+  def possible_templates
+    authorize Plan.new
+    
+    templates = []
+    org = Org.find_by(name: params[:plan_org_name])
+    funder = Org.find_by(name: params[:plan_funder_name])
+    
+    if org.nil?
+      if funder.nil?
+        msg = _("Using the generic Data Management Plan")
+        
+      else
+        templates << Template.where(published: true, org: @funder)
+        msg = _("No funder templates available using the generic DMP") if @templates.empty
+        msg = _("Using the funder's DMP") if @templates.count == 1
+        msg = _("Please select form one of the funder's DMPs") if @templates.count > 1
+      end
+      
+    else
+      if funder.nil?
+        templates << Template.where(published: true, org: @org)
+        msg = _("No organisation templates available using the generic DMP") if @templates.empty
+        msg = _("Using the organisation's DMP") if @templates.count == 1
+        msg = _("Please select form one of the organisation's DMPs") if @templates.count > 1
+        
+      else
+        templates << Template.where(published: true, org: @funder)
+        
+        # Swap out any organisational cusotmizations of a funder template
+        templates.each do |tmplt|
+          customization = Template.where(published: true, org: @org, customization_of: tmplt.dmptemplate_id)
+          unless customization.nil?
+            templates.delete(tmplt)
+            templates << customization
+          end
+        end
+        
+        msg = _("No funder/organisation templates available using the generic DMP") if @templates.empty
+        msg = _("Using the funder/organisation's DMP") if @templates.count == 1
+        msg = _("Please select form one of the funder/organisation's DMPs") if @templates.count > 1
+      end
+    end
+    
+    # If no templates were available use the generic templates
+    if templates.empty?
+      templates << Template.find_by(is_default: true)
+    end
+    
+    @msg = msg
+    @templates = templates.sort{|x,y| x.title <=> y.title } if templates.count > 1
+    
+    respond_to :json
+  end
 
 
   # we get here either from selecting a funder or if if the first selection
