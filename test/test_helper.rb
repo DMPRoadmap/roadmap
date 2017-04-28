@@ -49,20 +49,17 @@ class ActiveSupport::TestCase
   # each of the possible Question Formats. 
   # ----------------------------------------------------------------------
   def scaffold_template
-    template_family = loop do
-      random = rand 2147483647
-      break random unless Template.exists?(dmptemplate_id: random)
-    end
+    template = Template.new(title: 'Test template', 
+                            description: 'My test template',
+                            org: Org.first)
     
-    template = Template.new(title: 'Test template', description: 'My test template',
-                            published: true, org: Org.first, locale: nil, is_default: false,
-                            version: 0, visibility: 0, dmptemplate_id: template_family)
+    template.phases << Phase.new(title: 'Test phase', 
+                                 description: 'My test phase', 
+                                 number: 1)
     
-    template.phases << Phase.new(title: 'Test phase', description: 'My test phase', 
-                                 number: 1, modifiable: false)
-    
-    section = Section.new(title: 'Test section', description: 'My test section',
-                          number: 99, published: true, modifiable: false)
+    section = Section.new(title: 'Test section', 
+                          description: 'My test section',
+                          number: 99, phase: template.phases.first)
     
     i = 1
     # Add each type of Question to the new section
@@ -81,9 +78,9 @@ class ActiveSupport::TestCase
     end
     
     template.phases.first.sections << section
-    
-    assert template.valid?, "unable to create new Template: #{template.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+
     template.save!
+    assert template.valid?, "unable to create new Template: #{template.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
     
     @template = template.reload
   end
