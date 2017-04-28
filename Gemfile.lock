@@ -368,6 +368,7 @@ DEPENDENCIES
   flag_shih_tzu
   formtastic
   friendly_id
+  gettext (>= 3.0.2)
   gettext_i18n_rails (~> 1.8)
   gettext_i18n_rails_js (~> 1.2.0)
   htmltoword
