@@ -5,7 +5,7 @@ $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $white: #FFF;
 
 $primary-color: #F49700;
-$disabled-button-color: #FFE9B3;
+$disabled-button-color: #CCC;
 $reverse-text: #FFF;
 
 
@@ -53,7 +53,7 @@ h4 {
 			}
 		}
 		
-		input.form-submit {
+		button.form-submit {
 			background-color: $primary-color;
 			color: $reverse-text;
 			padding: 10px 30px;
@@ -63,7 +63,7 @@ h4 {
 			-moz-border-radius: 10px;
 			border-radius: 10px;
 		}
-		input.form-submit:disabled {
+		button.form-submit:disabled {
 			background-color: $disabled-button-color;
 		}
 		
@@ -113,7 +113,8 @@ h4 {
 }
 .combobox-suggestion:hover,
 .combobox-suggestion:focus {
-  color: #000;
+  color: $white;
+	background-color: $primary-color;
 }
 
 .combobox-clear-button {

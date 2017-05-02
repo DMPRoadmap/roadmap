@@ -7,7 +7,7 @@
 		<%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
 	</p>
 
-	<form source="<%= plans_path %>" method="POST">
+	<%= form_for @plan, method: :post do |f| %>
 		<fieldset class="white-fieldset">
 			<h3><%= _('Where will the research be conducted?') %></h3>
 			
@@ -55,7 +55,8 @@
 			</span>
 		</fieldset>
 		
-		<input type="submit" value="<%= _('Create Plan') %>" class="form-submit" />
-	</form>
+		<input type="hidden" id="plan_template_id" name="plan[template_id]" />
+		<button type="button" class="form-submit"><%= _('Create Plan') %></button>
+	<% end %>
 </div>
 

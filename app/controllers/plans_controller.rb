@@ -12,6 +12,7 @@ class PlansController < ApplicationController
 
 
   # GET /plans/new
+  # ------------------------------------------------------------------------------------
   def new
     @plan = Plan.new
     authorize @plan
@@ -29,7 +30,8 @@ class PlansController < ApplicationController
     respond_to :html
   end
   
-  
+  # GET /plans/possible_templates [JSON]
+  # ------------------------------------------------------------------------------------
   def possible_templates
     authorize Plan.new
     
@@ -78,101 +80,32 @@ class PlansController < ApplicationController
       templates << Template.find_by(is_default: true)
     end
     
-    @msg = msg
-    @templates = templates.sort{|x,y| x.title <=> y.title } if templates.count > 1
+    templates = templates.sort{|x,y| x.title <=> y.title } if templates.count > 1
+    templates = templates.collect{|t| {id: t.id, title: t.title, org: t.org.name} }
     
-    respond_to :json
+    respond_to do |format|
+      format.json do
+        render json: {msg: msg, templates: templates}
+      end
+    end
   end
 
 
-  # we get here either from selecting a funder or if if the first selection
-  # results in multiple templates, from a template selection screen
+  # POST /plans
+  # ------------------------------------------------------------------------------------
   def create
     @plan = Plan.new
     authorize @plan
     
-    message = ""
-
-    # if we have a template_id we've been selcting between templates, otherwise funders
-    if params[:template_id]
-      @templates = [ Template.find(params[:template_id] ) ]
+    @plan.template = Template.find(plan_params["template_id"])
+    
+    if @plan.save
+      @plan.assign_creator(current_user)
+      
+      redirect_to plan_path(@plan), notice: _('Plan was successfully created.')
     else
-      funder_id = params[:plan][:funder_id].to_i
-
-      if funder_id.present? && funder_id != -1
-        @templates = []
-
-        # get all funder @templates
-        funder = Org.find(params[:plan][:funder_id])
-        funder_templates = get_most_recent( funder.templates.where(published: true).all )
-
-        # get org templates and index by customization id
-        if current_user.org.nil?
-          orgtemplates = []
-        else
-          orgtemplates = get_most_recent( current_user.org.templates.all )
-        end
-        
-        orgt_by_customization = orgtemplates.collect{|t| [t.customization_of, t]}.to_h
-
-        # go through funder templates and replace with org cusomizations if needed
-        funder_templates.each do |ft|
-          if orgt_by_customization.has_key?(ft.dmptemplate_id)
-            message = _(" - using template customised by your institution")
-            @templates << orgt_by_customization[ft.dmptemplate_id]
-          else
-            @templates << ft
-          end
-        end
-        
-      else # either didn't select funder or selected "No Funder"
-
-        # get all org @templates which are not customisations
-        @templates = get_most_recent( current_user.org.templates.where(customization_of: nil) )
-
-        message = _(" - choosing default template for your institution")
-
-        # if none of these get the default template
-        if @templates.blank?
-          @templates = get_most_recent( Template.where(is_default: true, customization_of: nil) )
-          message = _(" - no funder or institution template, choosing default template")
-        end
-      end
-    end
-
-    # if we have more than one template then back to the user
-    # using the 'create' template
-    # to choose otherwise just create the plan
-    # and go to the plan/show template
-    if @templates.length > 1 
-      message += _(" - there are more than one to choose from")
-      flash.notice = message
-      respond_to do |format|
-        format.html
-      end
-      return
-    end
-
-    @plan.template = @templates[0]
-
-    @based_on = @plan.base_template()
-
-    @plan.principal_investigator = current_user.name
-
-    @plan.title = _('My plan')+' ('+@plan.template.title+')'  # We should use interpolated string since the order of the words from this message could vary among languages
-
-    @all_guidance_groups = @plan.get_guidance_group_options
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-
-    respond_to do |format|
-      if @plan.save
-        @plan.assign_creator(current_user.id)
-        flash.notice = _('Plan was successfully created.') + message
-        format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }) }
-      else
-        flash[:notice] = failed_create_error(@plan, _('plan'))
-        format.html { render action: "new" }
-      end
+      flash[:notice] = failed_create_error(@plan, 'Plan')
+      render 'new'
     end
   end
 
@@ -447,6 +380,9 @@ class PlansController < ApplicationController
 
   private
 
+  def plan_params 
+    params.require(:plan).permit(:template_id)
+  end
 
   # different versions of the same template have the same dmptemplate_id
   # but different version numbers so for each set of templates with the
