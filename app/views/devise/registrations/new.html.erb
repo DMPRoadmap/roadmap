@@ -1,7 +1,7 @@
-<h1><%= t('helpers.sign_up') %></h1>
+<h1><%= _('Sign up') %></h1>
 <% unless session[:shibboleth_data].nil? %>
 	<p class="alert alert-notice">
-		<%= raw t('helpers.sign_up_shibboleth_alert_text_html')%>
+		<%= (_("%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account.<br/>* If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.<br/>* If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.<br/>Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly.") % { :application_name => Rails.configuration.branding[:application][:name] }).html_safe %>
 	</p>
 	<% cookies[:show_shib_link] = { value: 'show_shib_link', expires: 3.hours.from_now } %>
 <% end %>	
