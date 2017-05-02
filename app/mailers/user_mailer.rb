@@ -3,6 +3,7 @@ class UserMailer < ActionMailer::Base
 	
 	def sharing_notification(role, user)
     @role = role
+    @user = user
     FastGettext.with_locale FastGettext.default_locale do
   		mail(to: @role.user.email, 
            subject: _("You have been given access to a Data Management Plan"))
