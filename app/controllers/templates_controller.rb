@@ -11,46 +11,41 @@ class TemplatesController < ApplicationController
   def admin_index
     authorize Template
     
-    # Collect all of the published funder templates
-    @funder_templates = []
-    Org.funders.each do |org|
-      Template.dmptemplate_ids.each do |id|
-        template = Template.live(id)
-        # Its possible for the template to NOT have a published version
-        # so only add it if its not nil
-        unless template.nil? 
-          @funder_templates << {current: template, live: template}
-        end
-      end
-    end
+    funder_templates, org_templates, customizations = [], [], []
     
-    # Collect all of the organisations templates
-    @org_templates = []
-    Template.dmptemplate_ids.each do |id|
-      template = Template.current(id)
+    # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
+    funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
+    org_ids = current_user.org.templates.collect{|t| t.dmptemplate_id }.flatten.uniq
+    
+    org_ids.each do |id|
+      current = Template.current(id)
       live = Template.live(id)
       
-      # Its possible for the template to NOT have a published version
-      # so only add it if its not nil
-      unless template.nil?
-        if template.customization_of.nil?
-          @org_templates << {current: template, live: live}
+      # If this isn't a customization of a funder template
+      if current.customization_of.nil?
+        org_templates << {current: current, live: live}
         
-        # Check to see if this is a customization of a funder template
-        # If so replace the funder's copy
-        else
-          @funder_templates.delete_if{|t| 
-            t[:current].dmptemplate_id == template.customization_of 
-          }
-          @funder_templates << {current: template, live: live}
-        end
+      # This is a customization of a funder template
+      else
+        funder_live = Template.live(current.customization_of)
+        customizations << current.customization_of
+        # Mark the customization as stale if the funder has a newer version
+        funder_templates << {current: current, live: live, stale: funder_live.updated_at > current.created_at} 
       end
     end
     
-    @funder_templates = @funder_templates.sort{|x,y| 
+    # Get the funder templates
+    funder_ids.each do |id|
+      # If the org has a customization we don't want to load the funder version
+      unless customizations.include?(id)
+        funder_templates << {current: Template.current(id), live: Template.live(id)}
+      end
+    end
+    
+    @funder_templates = funder_templates.sort{|x,y| 
       x[:current].title <=> y[:current].title
     }
-    @org_templates = @org_templates.sort{|x,y| 
+    @org_templates = org_templates.sort{|x,y| 
       x[:current].title <=> y[:current].title
     }
   end
@@ -65,6 +60,10 @@ class TemplatesController < ApplicationController
     customisation.org = current_user.org
     customisation.version = 0
     customisation.customization_of = @template.dmptemplate_id
+    customisation.dmptemplate_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
     customisation.save
     
     customisation.phases.includes(:sections, :questions).each do |phase|
