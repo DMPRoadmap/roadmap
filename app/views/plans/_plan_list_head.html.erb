@@ -1,5 +1,5 @@
 <tr>
-  <% @selected_columns.each do |column| %>
+  <% ['name', 'owner', 'shared', 'last_edited'].each do |column| %>
     <%= plan_list_column_heading(column) %>
   <% end %>
   <th class="dmp_th_medium"><%= _('Select an action')%> </th>

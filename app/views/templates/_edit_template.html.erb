@@ -19,9 +19,17 @@
       </td>
     </tr>
     <tr>
-      <td class="first_template"><%= _('Published') %></td>
+      <td class="first_template"><%= _('Status') %></td>
       <td>
-        <%= f.check_box :published, as: :check_boxes %>
+        <% if hash[:live].nil? %>
+          <%= _('Unpublished') %>
+        
+        <% elsif hash[:current].dirty? %>
+          <%= _('You have un-published changes') %>
+        
+        <% else %>
+          <%= _('Published') %>
+        <% end %>
       </td>
     </tr>
     <tr>

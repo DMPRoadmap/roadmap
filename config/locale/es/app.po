@@ -1587,3 +1587,11 @@ msgstr "{\"Error\":\"Organization specified is not a funder\"}"
 
 msgid "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
 msgstr "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
+
+# ActiveRecord model errors that we could not override in the model's validation definition
+msgid "activerecord.errors.models.user.attributes.email.blank"
+msgstr ""
+msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr ""
+msgid "activerecord.errors.models.user.attributes.current_password.invalid"
+msgstr ""

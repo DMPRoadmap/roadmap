@@ -7,6 +7,10 @@ class SuggestedAnswersController < ApplicationController
     @suggested_answer = SuggestedAnswer.new(params[:suggested_answer])
     authorize @suggested_answer
     if @suggested_answer.save
+      # Set the template's dirty flag to true
+      @suggested_answer.question.section.phase.template.dirty = true
+      @suggested_answer.question.section.phase.template.save
+      
       redirect_to admin_show_phase_path(id: @suggested_answer.question.section.phase_id, section_id: @suggested_answer.question.section_id, question_id: @suggested_answer.question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       @phase = @suggested_answer.question.section.phase
@@ -29,6 +33,10 @@ class SuggestedAnswersController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @suggested_answer.update_attributes(params[:suggested_answer])
+      # Set the template's dirty flag to true
+      @phase.template.dirty = true
+      @phase.template.save
+      
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
       flash[:notice] = failed_update_error(@suggested_answer, _('suggested answer'))
@@ -44,6 +52,10 @@ class SuggestedAnswersController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @suggested_answer.destroy
+      # Set the template's dirty flag to true
+      @phase.template.dirty = true
+      @phase.template.save
+      
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
     else
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:notice] = failed_destroy_error(@suggested_answer, _('suggested answer'))

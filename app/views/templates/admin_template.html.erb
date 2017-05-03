@@ -19,14 +19,13 @@
 <!-- body -->
 <div class="dmp_details_body">
   <div class="dmp_details">
-    <% if @hash[:template][:org].funder? || current_user.org.funder? ||
-             @hash[:template][:org] == current_user.org %>
+    <% if @template == @current %>
       <div id="edit_template_div" style="display: none">
         <%= render partial: "templates/edit_template", locals: {template: @template, hash: @hash}%>
       </div>
     <% end %>
     <div id="show_template_div">
-      <%= render partial: "templates/show_template", locals: {template: @template, hash: @hash}%>
+      <%= render partial: "templates/show_template", locals: {template: @template, current: @current, hash: @hash}%>
     </div>
   </div>
   <!-- If template has phases-->
@@ -34,7 +33,7 @@
     <% if @hash[:template][:phases].length == 1 %>
       <% @hash[:template][:phases].each do |phase_no, phase| %>
         <!--render the display block with the phase, sections and questions information-->
-        <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template} %>
+        <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current} %>
       <% end %>
     <% else %>
       <% (1..@hash[:template][:phases].length).each do |phase_no| %>
@@ -50,7 +49,7 @@
             <div id="<%= phase[:data][:id] %>" class="accordion-project collapse">
               <div class="accordion-inner">
                 <!--render the display block with the phase, sections and questions information-->
-                <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template}%>
+                <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current}%>
               </div>
             </div>
           </div>

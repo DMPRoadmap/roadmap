@@ -49,9 +49,14 @@ class ActiveSupport::TestCase
   # each of the possible Question Formats. 
   # ----------------------------------------------------------------------
   def scaffold_template
+    template_family = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
+    
     template = Template.new(title: 'Test template', description: 'My test template',
                             published: true, org: Org.first, locale: nil, is_default: false,
-                            version: 1, visibility: 0)
+                            version: 0, visibility: 0, dmptemplate_id: template_family)
     
     template.phases << Phase.new(title: 'Test phase', description: 'My test phase', 
                                  number: 1, modifiable: false)
@@ -81,6 +86,12 @@ class ActiveSupport::TestCase
     template.save!
     
     @template = template.reload
+  end
+  
+  # Version the template
+  # ----------------------------------------------------------------------
+  def version_the_template
+    put admin_publish_template_path(@template)
   end
   
   # Scaffold a new Plan based on the scaffolded Template 

@@ -78,11 +78,6 @@ class UserTest < ActiveSupport::TestCase
     @user.email = 'testing@tester.org'
     assert @user.valid?
   end
-
-  # ---------------------------------------------------
-  test "has default Settings::PlanList" do
-    assert_not_equal [], @user.settings(:plan_list).columns
-  end
   
   # ---------------------------------------------------
   test "api token is removed after call to remove_token" do

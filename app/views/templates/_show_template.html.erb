@@ -1,6 +1,6 @@
 <!-- show template details A template is passed as an argument-->
 
-<% if template.org.not_funder?  || current_user.org.funder? then %>
+<% if template == current then %>
   <h3><!-- edit template button -->
     <div class="move_2_right">
       <%= link_to _('Edit template details'), '# ', class: "btn btn-primary", id: "edit_template_button"%>
@@ -24,9 +24,17 @@
     </td>
   </tr>
   <tr>
-    <td class="first_template"><%= _('Published') %></td>
+    <td class="first_template"><%= _('Status') %></td>
     <td>
-      <%= template.published %>
+      <% if hash[:live].nil? %>
+        <%= _('Unpublished') %>
+        
+      <% elsif hash[:current].dirty? %>
+        <%= _('You have un-published changes') %>
+        
+      <% else %>
+        <%= _('Published') %>
+      <% end %>
     </td>
   </tr>
   <tr>

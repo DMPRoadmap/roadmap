@@ -166,7 +166,7 @@ class Plan < ActiveRecord::Base
         end
       end
     end
-    return ggroups.uniq!
+    return ggroups.uniq
   end
 
 
@@ -258,6 +258,7 @@ class Plan < ActiveRecord::Base
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if user can edit the plan
 	def editable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present? && role.editor?
 	end
@@ -270,6 +271,7 @@ class Plan < ActiveRecord::Base
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if the user can read the plan
 	def readable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present?
 	end
@@ -280,6 +282,7 @@ class Plan < ActiveRecord::Base
   # @param user_id [Integer] the id for the user
   # @return [Boolean] true if the user can administer the plan
 	def administerable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present? && role.administrator?
 	end
@@ -625,6 +628,7 @@ class Plan < ActiveRecord::Base
   #
   # @param user_id [Integer] the user to be given priveleges' id
   def assign_creator(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     add_user(user_id, true, true, true)
   end
   
