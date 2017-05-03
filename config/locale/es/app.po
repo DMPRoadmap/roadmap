@@ -1,2785 +1,1429 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: app 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2017-05-02 14:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#  translator-comments
-#. extracted-comments
-#: reference…
-#, flag…
-#| msgid previous-untranslated-string
-
-#date.formats.default
-msgid "%d-%m-%Y"
-msgstr "%d-%m-%Y"
-
-#date.formats.short
-msgid "%d/%m/%Y"
-msgstr "%d/%m/%Y"
-
-#date.formats.long
-msgid "%d %B, %Y"
-msgstr "%d %B, %Y"
-
-#time.formats.default
-msgid "%a, %b %d %Y %H:%M:%S %z"
-msgstr "%a, %d %b %Y %H:%M:%S %z"
-
-#time.formats.short
-msgid "%d %b %H:%M"
-msgstr "%d %b %H:%M"
-
-#time.formats.custom
-msgid "%d/%m/%Y %H:%M"
-msgstr "%d/%m/%Y %H:%M"
-
-#time.formats.long
-msgid "%B %d, %Y %H:%M"
-msgstr "%B %d, %Y %H:%M"
-
-#time.am
-msgid "am"
-msgstr "am"
-
-#time.pm
-msgid "pm"
-msgstr "pm"
-
-#tool_title
-msgid "%{application_name}"
-msgstr "DMPonline"
-
-#tool_title2
-msgid "DMP title"
-msgstr ""
-
-#dcc_name
-msgid "%{organisation_name}"
-msgstr "Digital Curation Centre"
-
-#welcome_title
-msgid "Welcome."
-msgstr "Bienvenido/a."
-
-#welcome_text
-msgid "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
-msgstr "<p>DMPonline ha sido desarrollado por el <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> como una herramienta para elaborar planes de gestión de datos.</p>"
-
-#screencast_text
-msgid "Screencast on how to use %{application_name}"
-msgstr "Video sobre cómo usar DMPonline"
-
-#screencast_error_text
-msgid "Your browser does not support the video tag."
-msgstr "El navegador no soporta la etiqueta video."
-
-#unauthorized
-msgid "You need to sign in or sign up before continuing."
-msgstr ""
-
-#admin.language
-msgid "Language"
-msgstr ""
-
-#admin.language_name
-msgid "Language name"
-msgstr ""
-
-#admin.language_abbreviation
-msgid "Language abbreviation"
-msgstr ""
-
-#admin.language_is_default
-msgid "Is default language"
-msgstr ""
-
-#admin.true
-msgid "Yes"
-msgstr ""
-
-#admin.false
-msgid "No"
-msgstr ""
-
-#admin.org_title
-msgid "Organisation name"
-msgstr "Nombre de la organización"
-
-#admin.org
-msgid "Organisation"
-msgstr "Organización"
-
-#admin.orgs
-msgid "Organisations"
-msgstr "Organizaciones"
-
-#admin.org_type
-msgid "Organisation type"
-msgstr "Tipo de organización"
-
-#admin.org_parent
-msgid "Parent organisation"
-msgstr "Organización superior"
-
-#admin.org_created_message
-msgid "Organisation was successfully created."
-msgstr "Se ha creado correctamente la organización."
-
-#admin.org_updated_message
-msgid "Organisation was successfully updated."
-msgstr "Se ha actualizado correctamente la actualización."
-
-#admin.org_bad_logo
-msgid "There seems to be a problem with your logo. Please upload it again."
-msgstr ""
-
-#admin.plans
-msgid "Plans"
-msgstr "Planes"
-
-#admin.title
-msgid "Title"
-msgstr "Título"
-
-#admin.desc
-msgid "Description"
-msgstr "Descripción"
-
-#admin.guidance_group
-msgid "Guidance group"
-msgstr "Grupo de orientación"
-
-#admin.no_guidance_group
-msgid "No guidance group"
-msgstr "Sin grupo de orientación"
-
-#admin.guidance
-msgid "Guidance"
-msgstr "Orientación"
-
-#admin.guidance_lowercase
-msgid "guidance"
-msgstr ""
-
-#admin.guidance_lowercase_on
-msgid "guidance on"
-msgstr ""
-
-#admin.name
-msgid "Name"
-msgstr "Nombre"
-
-#admin.abbrev
-msgid "Abbreviation"
-msgstr "Abreviatura"
-
-#admin.question
-msgid "Question"
-msgstr "Pregunta"
-
-#admin.question_format
-msgid "Question Format"
-msgstr "Formato de la Pregunta"
-
-#admin.questions
-msgid "Questions"
-msgstr "Preguntas"
-
-#admin.template_title
-msgid "Template title"
-msgstr "Título de la plantilla"
-
-#admin.section_title
-msgid "Section title"
-msgstr "Título de la sección"
-
-#admin.formatting
-msgid "Formatting"
-msgstr ""
-
-#admin.max_pages
-msgid "Max Pages"
-msgstr ""
-
-#admin.phase_title
-msgid "Phase title"
-msgstr "Título de la fase"
-
-#admin.version_title
-msgid "Version title"
-msgstr "Título de la versión"
-
-#admin.user_name
-msgid "Username"
-msgstr "Nombre de usuario"
-
-#admin.firstname
-msgid "First name"
-msgstr "Nombre"
-
-#admin.surname
-msgid "Surname"
-msgstr "Apellidos"
-
-#admin.user
-msgid "User"
-msgstr "Usuario"
-
-#admin.user_created
-msgid "User was successfully created."
-msgstr ""
-
-#admin.user_org_role
-msgid "User role on an Organisation"
-msgstr "Función del usuario en una Organización"
-
-#admin.user_role_type
-msgid "User role type"
-msgstr "Tipo de función de usuario"
-
-#admin.user_role_type_created
-msgid "User role type was successfully created."
-msgstr ""
-
-#admin.user_role_type_updated
-msgid "User role type was successfully updated."
-msgstr ""
-
-#admin.user_role
-msgid "User role"
-msgstr "Función del usuario"
-
-#admin.role
-msgid "Role"
-msgstr "Función"
-
-#admin.user_status
-msgid "User status"
-msgstr "Estado del usuario"
-
-#admin.user_status_created
-msgid "User status was successfully created."
-msgstr ""
-
-#admin.user_status_updated
-msgid "User status was successfully updated."
-msgstr ""
-
-#admin.user_type
-msgid "User type"
-msgstr "Tipo de usuario"
-
-#admin.user_type_created
-msgid "User type was successfully created."
-msgstr ""
-
-#admin.user_type_updated
-msgid "User type was successfully created."
-msgstr ""
-
-#admin.last_logged_in
-msgid "Last logged in"
-msgstr "Último acceso"
-
-#admin.version_numb
-msgid "Version number"
-msgstr "Número de versión"
-
-#admin.details
-msgid "Details"
-msgstr "Detalles"
-
-#admin.phases
-msgid "Phases"
-msgstr "Fases"
-
-#admin.phase
-msgid "Phase"
-msgstr "Fase"
-
-#admin.version
-msgid "Version"
-msgstr "Versión"
-
-#admin.versions
-msgid "Versions"
-msgstr "Versiones"
-
-#admin.sections
-msgid "Sections"
-msgstr "Secciones"
-
-#admin.section
-msgid "Section"
-msgstr "Sección"
-
-#admin.multi_options
-msgid "Multiple question options"
-msgstr "Opciones de preguntas múltiples"
-
-#admin.templates
-msgid "Templates"
-msgstr "Plantillas"
-
-#admin.template
-msgid "Template"
-msgstr "Plantilla"
-
-#admin.themes
-msgid "Themes"
-msgstr "Temas"
-
-#admin.theme
-msgid "Theme"
-msgstr "Tema"
-
-#admin.theme_created
-msgid "Theme was successfully created."
-msgstr ""
-
-#admin.theme_updated
-msgid "Theme was successfully updated."
-msgstr ""
-
-#admin.sug_answer
-msgid "Suggested answer"
-msgstr "Respuesta sugerida"
-
-#admin.sug_answers
-msgid "Suggested answers"
-msgstr "Respuestas sugeridas"
-
-#admin.old_temp_field
-msgid "old template field"
-msgstr "campo de la plantilla antigua"
-
-#admin.old_theme_field
-msgid "old theme field"
-msgstr "campo del tema antiguo"
-
-#admin.token_permission_type
-msgid "Token Permission Type"
-msgstr ""
-
-#admin.permission_description
-msgid "Permission Description"
-msgstr ""
-
-#admin.token_permission
-msgid "Token Permission"
-msgstr ""
-
-#admin.org_token_permission
-msgid "Organisation Token Permission"
-msgstr ""
-
-#admin.settings_updated
-msgid "Settings updated successfully"
-msgstr ""
-
-#admin.choose_themes
-msgid "Choose all themes that apply."
-msgstr ""
-
-#admin.all_themes
-msgid "All themes"
-msgstr ""
-
-#admin.selected_themes
-msgid "Selected themes"
-msgstr ""
-
-#admin.choose_templates
-msgid "Choose all templates that apply."
-msgstr ""
-
-#admin.all_templates
-msgid "All templates"
-msgstr ""
-
-#admin.selected_templates
-msgid "Selected templates"
-msgstr ""
-
-#admin.select_question_format
-msgid "Select question format"
-msgstr ""
-
-#admin.no_template
-msgid "No template"
-msgstr ""
-
-#admin.no_phase
-msgid "No phase"
-msgstr ""
-
-#admin.no_version
-msgid "No version"
-msgstr ""
-
-#admin.no_section
-msgid "No section"
-msgstr ""
-
-#org_admin.org_default_language
-msgid "Organisation language"
-msgstr ""
-
-#org_admin.org_default_language_help_text
-msgid "Please select your default language from the dropdown list. This will be displayed to users in your organisation, unless they have a different preference or choose another language from the dropdown options on the homepage. If your language is not available and you wish to provide a translation, please contact us."
-msgstr ""
-
-#org_admin.admin_area
-msgid "Admin area"
-msgstr "Área de administración"
-
-#org_admin.admin_details
-msgid "Admin Details"
-msgstr ""
-
-#org_admin.template_label
-msgid "Templates"
-msgstr "Plantillas"
-
-#org_admin.user_list_label
-msgid "Users"
-msgstr "Usuarios"
-
-#org_admin.org_details_label
-msgid "Organisation details"
-msgstr "Detalles de la entidad"
-
-#org_admin.org_text
-msgid "These are the basic details for your organisation."
-msgstr "Estos son los detalles básicos de su entidad."
-
-#org_admin.org_abbr_help_text_html
-msgid "This is what displays as a label on your guidance, e.g. 'Glasgow guidance on Metadata'. It's best to use an abbreviation or short name."
-msgstr "Esto es lo que se muestra como etiqueta para guiarle, ej: 'Guía de Glasgow sobre Metadatos'. Es preferible usar una abreviación o un nombre corto."
-
-#org_admin.org_contact_email
-msgid "Contact Email"
-msgstr ""
-
-#org_admin.org_contact_email_help_text
-msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
-msgstr ""
-
-#org_admin.users_list
-msgid "List of users"
-msgstr "Listado de usuarios"
-
-#org_admin.user_full_name
-msgid "Name"
-msgstr "Nombre"
-
-#org_admin.user_name
-msgid "Email address"
-msgstr "Dirección de correo electrónico"
-
-#org_admin.last_logged_in
-msgid "Last logged in"
-msgstr "Último acceso"
-
-#org_admin.how_many_plans
-msgid "How many plans?"
-msgstr "¿Cuántos planes?"
-
-#org_admin.privileges
-msgid "Privileges"
-msgstr ""
-
-#org_admin.user_text_html
-msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
-msgstr "Debajo tiene la lista de usuarios registrados en su entidad. Puede ordenar los datos por campo."
-
-#org_admin.org_name
-msgid "Name"
-msgstr "Nombre"
-
-#org_admin.org_abbr
-msgid "Abbreviation"
-msgstr "Abreviatura"
-
-#org_admin.org_logo_failed_message
-msgid "Logo Upload Failed."
-msgstr ""
-
-#org_admin.org_logo
-msgid "Logo"
-msgstr ""
-
-#org_admin.new_org_logo
-msgid "Upload a new logo file"
-msgstr ""
-
-#org_admin.remove_logo
-msgid "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
-msgstr ""
-
-#org_admin.org_desc
-msgid "Description"
-msgstr "Descripción"
-
-#org_admin.org_banner_text
-msgid "Top banner text"
-msgstr "Texto del banner superior"
-
-#org_admin.org_target_url
-msgid "Website"
-msgstr "Sitio web"
-
-#org_admin.org_type
-msgid "Organisation type"
-msgstr "Tipo de entidad"
-
-#org_admin.parent_org
-msgid "Main organisation"
-msgstr "Entidad principal"
-
-#org_admin.last_updated
-msgid "Last updated"
-msgstr "Última actualización"
-
-#org_admin.desc_help_text_html
-msgid "<div class='tooltip_box'>Please enter information describing your organisation.</div>"
-msgstr "<div class='tooltip_box'>Por favor, introduzca la información que describe su entidad.</div>"
-
-#org_admin.top_banner_help_text_html
-msgid "<div class='tooltip_box'>Please enter information you would like your users to see while sign in. Do not enter more than 165 characteres.</div>"
-msgstr "<div class='tooltip_box'>Por favor, introduzca la información que le gustaría que vieran sus usuarios al identificarse. No introduzca más de 165 caracteres.</div>"
-
-#org_admin.template_desc_help_text_html
-msgid "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
-msgstr "<div class='tooltip_box'>Introduzca una descripción que ayude a distinguir las plantillas. Ej: Si van dirigidas a audiencias distintas.</div>"
-
-#org_admin.abbre_help_text
-msgid "Please enter an abbreviation to your organisation's name."
-msgstr "Por favor, introduzca una abreviatura del nombre de su entidad."
-
-#org_admin.target_url_help_text
-msgid "Please enter a valid web address."
-msgstr "Por favor, introduzca una dirección web válida."
-
-#org_admin.name_help_text
-msgid "Please enter your organisation's name."
-msgstr "Por favor, introduzca el nombre de su entidad."
-
-#org_admin.guidance_label
-msgid "Guidance"
-msgstr "Orientación"
-
-#org_admin.templates_label
-msgid "Templates"
-msgstr "Plantillas"
-
-#org_admin.add_option_label
-msgid "Add option"
-msgstr "Añadir opción"
-
-#org_admin.add_question_label
-msgid "Add question"
-msgstr "Añadir pregunta"
-
-#org_admin.add_section_label
-msgid "Add section"
-msgstr "Añadir sección"
-
-#org_admin.remove_option_label
-msgid "Remove"
-msgstr "Borrar"
-
-#org_admin.option_order_label
-msgid "Order"
-msgstr "Orden"
-
-#org_admin.option_text_label
-msgid "Text"
-msgstr "Texto"
-
-#org_admin.option_default_label
-msgid "Default"
-msgstr "Por defecto"
-
-#org_admin.user_org_created
-msgid "User org role was successfully created."
-msgstr ""
-
-#org_admin.user_org_updated
-msgid "User org role was successfully updated."
-msgstr ""
-
-#org_admin.api_privileges
-msgid "API Privleges?"
-msgstr ""
-
-#org_admin.edit_user_privileges
-msgid "Edit User Privileges"
-msgstr ""
-
-#org_admin.guidance.guidance_list
-msgid "Guidance list"
-msgstr "Listado de orientaciones"
-
-#org_admin.guidance.text_label
-msgid "Text"
-msgstr "Texto"
-
-#org_admin.guidance.themes_label
-msgid "Themes"
-msgstr "Tema"
-
-#org_admin.guidance.question_label
-msgid "Question"
-msgstr "Pregunta"
-
-#org_admin.guidance.by_theme_or_by_question
-msgid "Should this guidance apply:"
-msgstr "Esta guía se refiere a:"
-
-#org_admin.guidance.by_themes_label
-msgid "by themes"
-msgstr "por tema"
-
-#org_admin.guidance.by_question_label
-msgid "by question"
-msgstr "por pregunta"
-
-#org_admin.guidance.template
-msgid "Template"
-msgstr "Plantilla"
-
-#org_admin.guidance.templates
-msgid "Templates"
-msgstr "Plantillas"
-
-#org_admin.guidance.guidance_group_label
-msgid "Guidance group"
-msgstr "Grupo de orientación"
-
-#org_admin.guidance.published
-msgid "Published"
-msgstr ""
-
-#org_admin.guidance.created
-msgid "Created"
-msgstr "Creación"
-
-#org_admin.guidance.last_updated
-msgid "Last updated"
-msgstr "Última actualización"
-
-#org_admin.guidance.actions
-msgid "Actions"
-msgstr "Acciones"
-
-#org_admin.guidance.add_guidance
-msgid "Add guidance"
-msgstr "Añadir orientación"
-
-#org_admin.guidance.created_message
-msgid "Guidance was successfully created."
-msgstr "La orientación se creó correctamente."
-
-#org_admin.guidance.updated_message
-msgid "Guidance was successfully updated."
-msgstr "La orientación se actualizó correctamente."
-
-#org_admin.guidance.help_text_html
-msgid "<div class='tooltip_box'>Please enter guidance text for this theme.</div>"
-msgstr "<div class='tooltip_box'>Por favor, introduzca un texto de orientación para este tema.</div>"
-
-#org_admin.guidance.new_label
-msgid "New guidance"
-msgstr "Nueva orientación"
-
-#org_admin.guidance.view_all_guidance
-msgid "View all guidance"
-msgstr "Ver todas las orientaciones"
-
-#org_admin.guidance.text_help_text_html
-msgid "Enter your guidance here. You can include links where needed."
-msgstr "Introduzca sus orientaciones aquí. Puede incluir enlaces si lo cree necesario."
-
-#org_admin.guidance.apply_to_help_text_html
-msgid "Decide whether your guidance should display by themes (default) or if it only pertains to a specific question in one of the funder templates."
-msgstr "Decida si su orientación debe ordenarse por temas (opción por defecto) o si sólo pertenece a una pregunta concreta de una plantilla de una agencia de financiación."
-
-#org_admin.guidance.by_themes_help_text_html
-msgid "Select which theme(s) this guidance relates to."
-msgstr "Seleccione a el/los tema(s) relacionados con esta orientación."
-
-#org_admin.guidance.by_question_help_text_html
-msgid "Select the relevant template, phase, version, section and question from the following dropdown options to define which specific question this guidance should display on."
-msgstr "Seleccione la plantilla, fase, versión, sección y pregunta de la siguiente lista desplegable para definir las preguntas que esta guía debe mostrar."
-
-#org_admin.guidance.guidance_group_select_help_text_html
-msgid "Select which group this guidance relates to."
-msgstr "Seleccione a que grupo pertenece esta guía."
-
-#org_admin.guidance.guidance_group_published_help_text_html
-msgid "Check this box when you are ready for this guidance to appear on user's plans."
-msgstr ""
-
-#org_admin.guidance.guidance_text_html
-msgid "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board) or you can write guidance for specific questions. Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>You will usually want your guidance to display on all templates, however there may be cases where you only want it to show for specific funders e.g. if you have specific instructions for applicants to BBSRC for example. This can be set too if needed.</p>"
-msgstr "<p>Puede escribir las porciones de la guía que se mostraran por tema (ej: una guía genérica sobre almacenamiento y copias de seguridad que debe presentarse en la página principal) o puede escribir guías para preguntas en concreto. Escribir una guía genérica por tema le ahorra tiempo y esfuerzo porque ésta será mostrada automáticamente en todas sus plantillas.</p> <p>Probablemente querrá que su guía se muestre en todas sus plantillas, aunque puede haber casos en los que quiera que se muestre sólo para algunas agencias de financiación. Ej: Si tiene instrucciones particulares para BBSRC. Éstas también pueden detallarse si fuera necesario.</p>"
-
-#org_admin.guidance.delete_message_html
-msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
-msgstr "Está a punto de borrar '%{guidance_summary}'. ¿Está seguro?"
-
-#org_admin.guidance_group.add_guidance_group
-msgid "Add guidance group"
-msgstr "Añadir grupo de orientación"
-
-#org_admin.guidance_group.guidance_group_list
-msgid "Guidance group list"
-msgstr "Listado de grupos de orientación"
-
-#org_admin.guidance_group.name_label
-msgid "Name"
-msgstr "Nombre"
-
-#org_admin.guidance_group.subset
-msgid "Optional subset"
-msgstr "Subconjunto opcional"
-
-#org_admin.guidance_group.subset_eg
-msgid "e.g. School/ Department"
-msgstr "ej: Escuela / Departmento"
-
-#org_admin.guidance_group.all_temp
-msgid "All templates"
-msgstr "Todas las plantillas"
-
-#org_admin.guidance_group.help_text_add
-msgid "Please enter the group title"
-msgstr "Por favor, introduzca el título del grupo"
-
-#org_admin.guidance_group.subset_option_help_text
-msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
-msgstr "Si la guía está dirigida a un subconjunto de los usuarios (ej: los pertenecientes a un colegio o instituto), seleccione esta opción. Los usuarios serán capaces de seleccionar esta guía cuando respondan sus preguntas durante la creación del plan."
-
-#org_admin.guidance_group.template_help_text_html
-msgid "Select which templates you want the guidance to display on. This will usually be all templates."
-msgstr "Selecciones que plantillas debe de mostrar la guía. Normalmente serán todas las plantillas."
-
-#org_admin.guidance_group.title_help_text_html
-msgid "Add an appropriate name for your guidance group e.g. Glasgow guidance. This name will be used to tell the end user where the guidance has come from e.g. 'Glasgow Guidance on Metadata'"
-msgstr "Añada un nombre adecuado para el grupo de su guía (Ej: Guía de Glasgow). Este nombre se usará para indicar a los usuarios finales la procedencia de la guía (Ej: 'Guía de metadatos de Glasgow')"
-
-#org_admin.guidance_group.guidance_group_text_html
-msgid "<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>"
-msgstr "<p>Primero cree un grupo de guías. Este podrá abarcar toda la institución o un subconjunto de la misma (ej: una escuela, colegio o departamento en particular). Cuando cree una guía, necesitará asignarla a un grupo de guías.</p>"
-
-#org_admin.guidance_group.delete_message
-msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
-msgstr "Está a punto de borrar el grupo '%{guidance_group_name}'. Esto afectará a la orientación. ¿Está seguro?"
-
-#org_admin.guidance_group.created_message
-msgid "Guidance group was successfully created."
-msgstr "El grupo de orientación se creó correctamente."
-
-#org_admin.guidance_group.updated_message
-msgid "Guidance group was successfully updated."
-msgstr "El grupo de orientación se actualizó correctamente."
-
-#org_admin.guidance_group.destroyed_message
-msgid "Guidance group was successfully deleted."
-msgstr "El grupo de orientación se borró correctamente."
-
-#org_admin.templates.template_history
-msgid "Template History"
-msgstr ""
-
-#org_admin.templates.create_template
-msgid "Create a template"
-msgstr "Crear una plantilla"
-
-#org_admin.templates.new_label
-msgid "New template"
-msgstr "Nueva plantilla"
-
-#org_admin.templates.template_details
-msgid "Template details"
-msgstr "Detalles de la plantilla"
-
-#org_admin.templates.edit_details
-msgid "Edit template details"
-msgstr "Editar plantilla"
-
-#org_admin.templates.view_all_templates
-msgid "View all templates"
-msgstr "Ver todas las plantillas"
-
-#org_admin.templates.funders_temp
-msgid "Funders templates"
-msgstr "Plantillas de financiador"
-
-#org_admin.templates.title_help_text
-msgid "Please enter a title for your template."
-msgstr "Por favor, introduzca un título para la plantilla."
-
-#org_admin.templates.section_title_help_text
-msgid "Please enter section title"
-msgstr "Por favor, introduzca el título de la sección"
-
-#org_admin.templates.help_text_html
-msgid "<div class='tooltip_box'>Please enter template description for this theme.</div>"
-msgstr "<div class='tooltip_box'>Por favor, introduzca la descripción de la plantilla para este tema.</div>"
-
-#org_admin.templates.create_own_template_text_html
-msgid "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p> <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
-msgstr "<p>Si desea añadir una plantilla institucional para un Plan de Gestión de Datos, use el botón 'crear plantilla'. Podrá crear más de una plantilla si lo cree conveniente. Ej: para investigadores y otro para estudiantes de postgrado.</p> <p>Su plantilla se presentará a los usuarios de su institución cuando no sean aplicables plantillas de agencias de financiación. Si quiere aññadir preguntas a las plantillas de las agencias de financiación, use las siguientes opciones de 'personalizar plantilla'</p>"
-
-#org_admin.templates.create_new_template_text_html
-msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
-msgstr "<p>Para crear una plantilla nueva, en primer lugar introduzca un título y una descripción. Tras grabar se le dará la opción de añadir una o más fases. </p>"
-
-#org_admin.templates.template_history_text_html
-msgid "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
-msgstr ""
-
-#org_admin.templates.desc_help_text_html
-msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
-msgstr "Introduzca una descripción que le ayude a diferenciar las plantillas. Ej: Si tiene varias para diferentes audiencias"
-
-#org_admin.templates.own_temp
-msgid "Own templates"
-msgstr "Sus plantillas"
-
-#org_admin.templates.add_phase_label
-msgid "Add new phase +"
-msgstr "Añadir fase nueva +"
-
-#org_admin.templates.view_phase_label
-msgid "View phase"
-msgstr "Ver fase"
-
-#org_admin.templates.edit_phase_label
-msgid "Edit phase"
-msgstr "Editar fase"
-
-#org_admin.templates.back_to_edit_phase_label
-msgid "Back to edit view"
-msgstr "Volver a editar la vista"
-
-#org_admin.templates.edit_phase_details_label
-msgid "Edit phase details"
-msgstr "Editar los detalles de las fase"
-
-#org_admin.templates.phase_details_label
-msgid "Phase details"
-msgstr "Detalles de la fase"
-
-#org_admin.templates.phase_order_label
-msgid "Order of display"
-msgstr "Orden de presentación"
-
-#org_admin.templates.phase_details_text_html
-msgid "<p>Here you set the title that users will see. If you intend to have multiple phases for you DMP, this should be clear in the title and description.<p/>"
-msgstr "<p>Aquí indicará el título mostrado a los usuarios. Si piensa tener varias fases en su PGD, esto debería quedar claro en el título y la descripción.<p/>"
-
-#org_admin.templates.phase_title_help_text
-msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
-msgstr "Por favor, introduzca un título para la fase"
-
-#org_admin.templates.phase_number_help_text
-msgid "This allows you to order the phases of your template."
-msgstr "Esto le permite ordenar las fases de su plantilla."
-
-#org_admin.templates.phase_desc_help_text_html
-msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
-msgstr "Teclee una descripción básica. Se les presentará a los usuarios bajo el resumen de secciones y preguntas solicitadas."
-
-#org_admin.templates.phase_delete_message
-msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
-msgstr "Va a eliminar '%{phase_title}'. Esto afectará a versiones, secciones y preguntas enlazadas con esta fase. ¿Está seguro?"
-
-#org_admin.templates.phase_new_text_html
-msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
-msgstr "Cuando crea una fase nueva para su plantilla, se creará automáticamente una versión. Una vez complete el siguiente formulario se le darán las opciones para crear secciones y preguntas."
-
-#org_admin.templates.versions_label
-msgid "Versions"
-msgstr "Versiones"
-
-#org_admin.templates.version_details_label
-msgid "Version details"
-msgstr "Detalles de la versión"
-
-#org_admin.templates.add_section
-msgid "Add section"
-msgstr "Añadir sección"
-
-#org_admin.templates.new_section
-msgid "New section title"
-msgstr "Título de la nueva sección"
-
-#org_admin.templates.section_title_placeholder
-msgid "New section title"
-msgstr "Título de la nueva sección"
-
-#org_admin.templates.section_desc_help_text_html
-msgid "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"
-msgstr "<div class='tooltip_box'>Teclee una descripción básica. Puede ser un resumen sobre que cubre esta sección o instrucciones sobre como responder las preguntas. Este texto se mostrará en un banner cada vez que se edite esta sección.</div>"
-
-#org_admin.templates.section_number_help_text
-msgid "This allows you to order sections."
-msgstr "Le permite ordenar las secciones."
-
-#org_admin.templates.add_question
-msgid "Add question"
-msgstr "Añadir pregunta"
-
-#org_admin.templates.created
-msgid "Created at"
-msgstr "Creado el"
-
-#org_admin.templates.last_updated
-msgid "Last updated"
-msgstr "Última actualización"
-
-#org_admin.templates.published_label
-msgid "Published"
-msgstr "Publicado"
-
-#org_admin.templates.cannot_publish
-msgid "Please ensure you have created at least one phase with a published version."
-msgstr "Por favor, asegúrese de que ha creado al menos una fase con una versión publicada."
-
-#org_admin.templates.title_label
-msgid "Title"
-msgstr "Título"
-
-#org_admin.templates.desc_label
-msgid "Description"
-msgstr "Descripción"
-
-#org_admin.templates.actions
-msgid "Actions"
-msgstr "Acciones"
-
-#org_admin.templates.customise
-msgid "Customise"
-msgstr "Personalizar"
-
-#org_admin.templates.customise_label
-msgid "Customised"
-msgstr ""
-
-#org_admin.templates.edit_customisation
-msgid "Edit customisation"
-msgstr "Editar la personalización"
-
-#org_admin.templates.update_customisation
-msgid "Update Customisation"
-msgstr ""
-
-#org_admin.templates.created_message
-msgid "Information was successfully created."
-msgstr "La información se creó correctamente."
-
-#org_admin.templates.updated_message
-msgid "Information was successfully updated."
-msgstr "La información se actualizó correctamente."
-
-#org_admin.templates.destroyed_message
-msgid "Information was successfully deleted."
-msgstr "Information se destruyó correctamente"
-
-#org_admin.templates.read_only
-msgid "Published templates cannot be edited."
-msgstr ""
-
-#org_admin.templates.section_delete_message
-msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
-msgstr "Va a borrar '%{section_title}'. Esta acción afectará las preguntas enlazadas con esta sección. ¿Está seguro?"
-
-#org_admin.templates.unpublished_changes
-msgid "Yes [Unpublished Changes]"
-msgstr ""
-
-#org_admin.templates.original_changed
-msgid "Yes [Original Template Has Changed]"
-msgstr ""
-
-#org_admin.versions.clone_versions_label
-msgid "Make big changes"
-msgstr "Make big changes"
-
-#org_admin.versions.edit_versions_label
-msgid "Make small changes"
-msgstr "Make small changes"
-
-#org_admin.versions.edit_label
-msgid "Edit"
-msgstr "Edit"
-
-#org_admin.versions.versions_text_html
-msgid "A first version is created automatically. If you want to make major changes to published versions later (e.g. add section or questions) please create a new version. If you only want to fix typos or make small changes that do not alter meanings, edit the current version."
-msgstr "A first version is created automatically. If you want to make major changes to published versions later (e.g. add section or questions) please create a new version. If you only want to fix typos or make sma    ll changes that do not alter meanings, edit the current version."
-
-#org_admin.versions.desc_help_text_html
-msgid "Enter a basic description as an internal reference to describe the difference between versions"
-msgstr "Enter a basic description."
-
-#org_admin.versions.delete_message
-msgid "You are about to delete '%{version_title}'. This will affect sections and questions linked to this version. Are you sure?"
-msgstr "You are about to delete '%{version_title}'. This will affect sections and questions linked to this version. Are you sure?"
-
-#org_admin.versions.edit_alert_label
-msgid "Edit alert"
-msgstr "Edit alert"
-
-#org_admin.versions.edit_alert_text
-msgid "Please consider the kind of changes you are about to make as this plan is already published and might be in use"
-msgstr "Please consider the kind of changes you are about to make as this plan is already published and might be in use"
-
-#org_admin.questions.quidance_button
-msgid "Guidance"
-msgstr ""
-
-#org_admin.questions.question_text_label
-msgid "Question text"
-msgstr "Texto de la pregunta"
-
-#org_admin.questions.question_number_label
-msgid "Question number"
-msgstr "Número de la pregunta"
-
-#org_admin.questions.question_edit_button
-msgid "Edit question"
-msgstr "Editar la pregunta"
-
-#org_admin.questions.question_delete_button
-msgid "Delete question"
-msgstr "Borrar la pregunta"
-
-#org_admin.questions.answer_format_label
-msgid "Answer format"
-msgstr "Formato de la respuesta"
-
-#org_admin.questions.option_comment_display_checkbox
-msgid "Display additional comment area."
-msgstr "Mostrar un área de comentarios adicional."
-
-#org_admin.questions.option_comment_display
-msgid "Additional comment area will be displayed."
-msgstr "Se mostrará un área adicional para comentarios."
-
-#org_admin.questions.option_comment_hide
-msgid "No additional comment area will be displayed."
-msgstr "No se mostrará un área adicional para comentarios."
-
-#org_admin.questions.example_answer_label
-msgid "Example of answer"
-msgstr "Respuesta de ejemplo"
-
-#org_admin.questions.suggested_answer_label
-msgid "Suggested answer"
-msgstr "Respuesta sugeridada"
-
-#org_admin.questions.suggested_answer_help_text_html
-msgid "You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
-msgstr "Puede añadir un ejemplo o respuesta sugerida para ayudar a responder a sus usuarios. Se presentará bajo la caja de respuestas y pueden ser copiada y pegada."
-
-#org_admin.questions.suggested_or_example_answer_label
-msgid "Suggested answer/ Example"
-msgstr "Respuesta sugerida / ejemplo"
-
-#org_admin.questions.suggested_or_example_answer_button
-msgid "Add suggested answer/ example"
-msgstr "Añadir respuesta sugerida / ejemplo"
-
-#org_admin.questions.edit_suggested_answer_button
-msgid "Edit suggested answer/ example"
-msgstr "Editar respuesta sugerida / ejemplo"
-
-#org_admin.questions.delete_suggested_answer_message
-msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
-msgstr "Va a eliminar una respuesta sugerida / ejemplo de '%{question_text}'. ¿Está seguro?"
-
-#org_admin.questions.default_value_label
-msgid "Default value"
-msgstr "Valor por defecto"
-
-#org_admin.questions.number_help_text
-msgid "This allows you to order questions within a section."
-msgstr "Le permite ordenar las preguntas de una sección."
-
-#org_admin.questions.question_format_help_text_html
-msgid "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
-msgstr "Puede elegir entre:<ul><li>- área de texto (caja grande para párrafos);</li> <li>- campo de texto (para una respuesta corta);</li> <li>- checkboxes donde las opciones se presentan como una lista y pueden seleccionarse varios valores;</li> <li>- botones de radio, donde se presenta una lista de opciones para elegir sólo una de ellas;</li> <li>- lista despegable - sólo puede seleccionarse una opción;</li> <li>- lista de selección múltiple que permite a los usuarios seleccionar varias opciones de una lista desplazable usando la tecla CTRL;</li></ul>"
-
-#org_admin.questions.default_answer_help_text_html
-msgid "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
-msgstr "Cualquier texto que introduzca aquí se mostrará en la caja de respuesta. Si quiere una respuesta en un formato concreto (ej: tablas), puede crear ese estilo aquí."
-
-#org_admin.questions.themes_label
-msgid "Themes"
-msgstr "Temas"
-
-#org_admin.questions.question_themes_help_text_html
-msgid "<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"
-msgstr "<p>Seleccione los temas relevantes para esta pregunta.</p> <p>Le permite crear guías genéricas a nivel de institución o de otras fuentes. Ej. para el DCC o cualquier escuela o departamento a la que se dirija la guía. </p> <p>Puede seleccionar varios temas usando el botón CTRL.</p>"
-
-#org_admin.questions.default_answer_label
-msgid "Default answer"
-msgstr "Respuesta por defecto"
-
-#org_admin.questions.guidance_label
-msgid "Guidance"
-msgstr "Guía"
-
-#org_admin.questions.question_guidance_help_text_html
-msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
-msgstr "Introduzca la guía concreta para esta pregunta. Si también tiene guías temáticas, se eligirán en función de su slección, por lo que es preferible no duplicar mucho texto."
-
-#org_admin.questions.delete_message
-msgid "You are about to delete '%{question_text}'. Are you sure?"
-msgstr "Va a eliminar '%{question_text}'. ¿Está seguro?"
-
-#org_admin.questions.question_options_help_text_html
-msgid "Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box."
-msgstr "Introduzca las opciones que quiere mostrar. Si quiere que una opción esté seleccionada por defecto, marque la casilla correspondiente."
-
-#helpers.home
-msgid "Home"
-msgstr "Inicio"
-
-#helpers.return_home
-msgid "Return to the home page"
-msgstr "Volver a la página inicial"
-
-#helpers.admin_area
-msgid "Super admin area"
-msgstr "Área de super administrador"
-
-#helpers.edit_profile
-msgid "Edit profile"
-msgstr "Editar perfil"
-
-#helpers.view_plans_label
-msgid "View plans"
-msgstr "Ver planes"
-
-#helpers.create_plan_label
-msgid "Create plan"
-msgstr "Crear un plan"
-
-#helpers.about_us_label
-msgid "About"
-msgstr "Acerca de"
-
-#helpers.roadmap_label
-msgid "Future plans"
-msgstr "Hoja de ruta"
-
-#helpers.help_label
-msgid "Help"
-msgstr "Ayuda"
-
-#helpers.public_plans_label
-msgid "Public DMPs"
-msgstr "DMP Públicos"
-
-#helpers.contact_label
-msgid "Contact"
-msgstr "Contacto"
-
-#helpers.jisc
-msgid "The %{organisation_abbreviation} is funded by"
-msgstr "El DCC está financiado por"
-
-#helpers.format
-msgid "format"
-msgstr ""
-
-#helpers.change_language
-msgid "Change language"
-msgstr ""
-
-#helpers.yes
-msgid "Yes"
-msgstr "Si"
-
-#helpers.no
-msgid "No"
-msgstr "No"
-
-#helpers.sign_in
-msgid "Sign in"
-msgstr "Conectar"
-
-#helpers.sign_out
-msgid "Sign out"
-msgstr "Desconectar"
-
-#helpers.sign_up
-msgid "Sign up"
-msgstr "Registrarse"
-
-#helpers.sign_up_text
-msgid "New to %{application_name}? Sign up today."
-msgstr "¿Nuevo en DMPonline? Regístrese ya."
-
-#helpers.signed_in
-msgid "Signed in as "
-msgstr "Registrado como "
-
-#helpers.institution_sign_in_link
-msgid "Or, sign in with your institutional credentials"
-msgstr "O conectar con sus credenciales institucionales"
-
-#helpers.institution_sign_in
 msgid " (UK users only)"
 msgstr " (sólo usuarios del Reino Unido)"
 
-#helpers.user_name
-msgid "Email address"
-msgstr "Dirección de correo electrónico"
-
-#helpers.email
-msgid "Email"
-msgstr "Correo electrónico"
-
-#helpers.subject
-msgid "Subject"
-msgstr ""
-
-#helpers.message
-msgid "Message"
-msgstr ""
-
-#helpers.valid_email
-msgid "You must enter a valid email address."
-msgstr "Debe introducir una dirección de correo electrónico válida."
-
-#helpers.user_details_text_html
-msgid "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
-msgstr "<p>Por favor, tenga en cuenta que su dirección de correo electrónico se usa como su nombre de usuario. Si cambia esto, recuerde usar su nueva dirección de correo electrónico al conectar.</p>"
-
-#helpers.user_details_paragraph_html
-msgid "You can edit any of the details below."
-msgstr "Puede editar cualquiera de los siguientes datos."
-
-#helpers.user_details_language
-msgid "Language"
-msgstr ""
-
-#helpers.remember_me
-msgid "Remember me"
-msgstr "Recordarme"
-
-#helpers.org_not_listed
-msgid "My organisation isn't listed."
-msgstr "No se muestra mi organización."
-
-#helpers.password
-msgid "Password"
-msgstr "Clave"
-
-#helpers.current_password
-msgid "Current password"
-msgstr "Clave actual"
-
-#helpers.new_password
-msgid "New password"
-msgstr "Nueva clave"
-
-#helpers.password_conf
-msgid "Password confirmation"
-msgstr "Confirmación de clave"
-
-#helpers.change_password
-msgid "Change your password"
-msgstr "Cambiar su clave"
-
-#helpers.forgot_password
-msgid "Forgot your password?"
-msgstr "¿Olvidó su clave?"
-
-#helpers.password_too_small
-msgid "Your password must contain at least 8 characters."
-msgstr "Su clave ha de tener al menos 8 caracteres."
-
-#helpers.password_no_match
-msgid "This must match what you entered in the previous field."
-msgstr "Ha de coincidir con lo que introdujo en el campo anterior."
-
-#helpers.no_pass_instructions
-msgid "Didn't receive confirmation instructions?"
-msgstr "¿No recibió instrucciones de confirmación?"
-
-#helpers.no_unlock_instructions
-msgid "Didn't receive unlock instructions?"
-msgstr "¿No recibió instrucciones para el desbloqueo?"
-
-#helpers.send_password_info
-msgid "Reset password instructions"
-msgstr "Reiniciar las instrucciones de la clave"
-
-#helpers.edit_password_info
-msgid "If you would like to change your password please complete the following fields."
-msgstr "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
-
-#helpers.accept_terms_html
-msgid " I accept the <a href="/terms" target="_blank">terms and conditions</a> *"
-msgstr " Acepto los <a href="/terms" target="_blank">términos y condiciones</a> *"
-
-#helpers.you_must_accept
-msgid "You must accept the terms and conditions to register."
-msgstr ""
-
-#helpers.email_already_registered
-msgid "That email address is already registered."
-msgstr ""
-
-#helpers.email_must_valid_confirmation_message
-msgid "This must be a valid email address - a message will be sent to it for confirmation."
-msgstr ""
-
-#helpers.error_registration_check
-msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
-msgstr ""
-
-#helpers.api_token
-msgid "API token"
-msgstr ""
-
-#helpers.api_info
-msgid "API Information"
-msgstr ""
-
-#helpers.api_use
-msgid "How to use the API"
-msgstr ""
-
-#helpers.api_granted
-msgid "You have been granted permission by your organisation to use our API."
-msgstr ""
-
-#helpers.api_view_token
-msgid "Your API token and instructions for using the API endpoints can be found here."
-msgstr ""
-
-#helpers.api_mail_subject
-msgid "API Permission Granted"
-msgstr ""
-
-#helpers.text_area
-msgid "Text area"
-msgstr "Text area"
-
-#helpers.text_field
-msgid "Text field"
-msgstr "Text field"
-
-#helpers.radio_buttons
-msgid "Radio buttons"
-msgstr "Radio buttons"
-
-#helpers.checkbox
-msgid "Check box"
-msgstr "Check box"
-
-#helpers.dropdown
-msgid "Dropdown"
-msgstr "Dropdown"
-
-#helpers.multi_select_box
-msgid "Multi select box"
-msgstr "Multi select box"
-
-#helpers.export
-msgid "Export"
-msgstr "Exportar"
-
-#helpers.about.by
-msgid "By "
-msgstr ""
-
-#helpers.about.true
-msgid " on "
-msgstr ""
-
-#helpers.about.read_more
-msgid "Read more on the "
-msgstr ""
-
-#helpers.mailer.permission_relating
-msgid "Your permissions relating to "
-msgstr ""
-
-#helpers.mailer.changed
-msgid " have changed. You now have "
-msgstr ""
-
-#helpers.mailer.access
-msgid "access."
-msgstr ""
-
-#helpers.mailer.access_to
-msgid "Your access to "
-msgstr ""
-
-#helpers.mailer.removed
-msgid " has been removed."
-msgstr ""
-
-#helpers.mailer.given
-msgid "You have been given "
-msgstr ""
-
-#helpers.mailer.access_two
-msgid " access to "
-msgstr ""
-
-#helpers.truncate_continued
-msgid "... (continued)"
-msgstr ""
-
-#helpers.security_check
-msgid "Security check"
-msgstr ""
-
-#helpers.error
-msgid "Error!"
-msgstr "¡Error!"
-
-#helpers.comment
-msgid "Comment"
-msgstr "Comentario"
-
-#helpers.send
-msgid "Send"
-msgstr "Enviar"
-
-#helpers.yes_label
-msgid "Yes"
-msgstr ""
-
-#helpers.no_label
-msgid "No"
-msgstr ""
-
-#helpers.ok_label
-msgid "Ok"
-msgstr ""
-
-#helpers.none
-msgid "None"
-msgstr "Ninguno/a"
-
-#helpers.false_lowercase
-msgid "false"
-msgstr "falso"
-
-#helpers.title
-msgid "Title"
-msgstr "Título"
-
-#helpers.note
-msgid "Note"
-msgstr "Nota"
-
-#helpers.me
-msgid "Me"
-msgstr "Yo"
-
-#helpers.view
-msgid "View"
-msgstr "Ver"
-
-#helpers.history
-msgid "History"
-msgstr ""
-
-#helpers.desc
-msgid "Description"
-msgstr "Descripción"
-
-#helpers.save
-msgid "Save"
-msgstr "Guardar"
-
-#helpers.preview
-msgid "Preview"
-msgstr "Previsualización"
-
-#helpers.saving
-msgid "Saving..."
-msgstr "Guardando..."
-
-#helpers.loading
-msgid "Loading..."
-msgstr "Cargando..."
-
-#helpers.removing
-msgid "Removing..."
-msgstr "Borrando..."
-
-#helpers.unsaved
-msgid "Unsaved changes"
-msgstr "Deshaciendo cambios"
-
-#helpers.unlink_account
-msgid "Unlink account"
-msgstr "Desvincular cuenta"
-
-#helpers.links.edit
-msgid "Edit"
-msgstr ""
-
-#helpers.links.share
-msgid "Share"
-msgstr ""
-
-#helpers.links.export
-msgid "Export"
-msgstr ""
-
-#helpers.links.destroy
-msgid "Delete"
-msgstr ""
-
-#helpers.submit.edit
-msgid "Edit"
-msgstr "Editar"
-
-#helpers.submit.create
-msgid "Create"
-msgstr "Crear"
-
-#helpers.submit.update
-msgid "Update"
-msgstr "Actualizar"
-
-#helpers.submit.cancel
-msgid "Cancel"
-msgstr "Cancelar"
-
-#helpers.submit.save
-msgid "Save"
-msgstr "Guardar"
-
-#helpers.submit.delete
-msgid "Delete"
-msgstr "Borrar"
-
-#helpers.submit.back
-msgid "Back"
-msgstr "Volver"
-
-#helpers.submit.discard
-msgid "Discard"
-msgstr "Descartar"
-
-#helpers.submit.publish
-msgid "Publish"
-msgstr ""
-
-#helpers.before_submitting_consider
-msgid "Before submitting, please consider:"
-msgstr ""
-
-#helpers.name
-msgid "Name"
-msgstr "Nombre"
-
-#helpers.first_name
-msgid "First name"
-msgstr "Nombre"
-
-#helpers.last_name
-msgid "Last name"
-msgstr "Apellidos"
-
-#helpers.first_name_help_text
-msgid "Please enter your first name."
-msgstr "Por favor, introduzca su nombre."
-
-#helpers.surname_help_text
-msgid "Please enter your surname or family name."
-msgstr "Por favor, introduzca sus apellidos."
-
-#helpers.owner
-msgid "Owner"
-msgstr "Propietario"
-
-#helpers.orcid_id
-msgid "ORCID number"
-msgstr "Número ORCID"
-
-#helpers.orcid_html
-msgid "ORCID number is a persistent digital identifier that distinguishes each researcher, <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>more info</a>."
-msgstr "El número ORCID es un identificador digital persistente que identifica a cada investigador, <a href='http://orcid.org/content/initiative' target='_blank' rel='external' class='a_orange'>más información</a>."
-
-#helpers.sign_up_shibboleth_alert_text_html
-msgid "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account. </br> --> If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.</br> --> If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.</br> Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
-msgstr "DMPonline no reconoce las credenciales de su institución - o usted no ha creado una cuenta con con nosotros o no ha vinculado los detalles de la cuenta en DMPonline con la cuenta de su institución. </br> --> Si usted <strong>no tiene</strong> una cuenta en DMPonline, por favor, rellene el siguiente formulario.</br> --> Si usted <strong>tiene</strong> una cuenta en DMPonline, por favor <a href='#header-login-form' data-toggle='modal' class='a_orange'>Identifíquese</a> de forma que podamos vincular su cuenta con las credenciales de su institución.</br> Una vez ha creado y/o vinculado su cuenta, podrá identificarse con las credenciales de su institución directamente."
-
-#helpers.shibboleth_linked_text
-msgid "Your account is linked to your institutional credentials."
-msgstr "Su cuenta enstá vinculada con las credenciales de su institución."
-
-#helpers.shibboleth_to_link_text
-msgid "Link your %{application_name} account to your institutional credentials (UK users only)"
-msgstr "Vincule su cuenta de DMPonline con las credenciales de su institución (Sólo para usuarios del Reino Unido)"
-
-#helpers.shibboleth_unlink_label
-msgid "Unlink your institutional credentials"
-msgstr "Desvincule las credenciales de su institución"
-
-#helpers.shibboleth_unlink_alert
-msgid "Unlink institutional credentials alert"
-msgstr "Desvincule las alertas relacionadas con las credenciales de su institución"
-
-#helpers.shibboleth_unlink_dialog_text
-msgid "<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>"
-msgstr "<p>Va a desvincular DMPonline de las credenciales de su institución, ¿Quiere continuar?</p>"
-
-#helpers.select_phase
-msgid "Select a phase"
-msgstr ""
-
-#helpers.select_version
-msgid "Select a version"
-msgstr ""
-
-#helpers.select_section
-msgid "Select a section"
-msgstr ""
-
-#helpers.select_question
-msgid "Select a question"
-msgstr ""
-
-#helpers.select_template
-msgid "Select a template"
-msgstr ""
-
-#helpers.main_email.from
-msgid "info@dcc.ac.uk"
-msgstr ""
-
-#helpers.main_email.access_given
-msgid "You have been given access to a Data Management Plan"
-msgstr ""
-
-#helpers.main_email.permission_changed
-msgid "DMP permissions changed"
-msgstr ""
-
-#helpers.main_email.access_removed
-msgid "DMP access removed"
-msgstr ""
-
-#helpers.section_label
-msgid "Section"
-msgstr "Sección"
-
-#helpers.sections_label
-msgid "Sections"
-msgstr "Secciones"
-
-#helpers.questions_label
-msgid "Questions"
-msgstr "Preguntas"
-
-#helpers.answers_label
-msgid "Answers"
-msgstr "Respuestas"
-
-#helpers.answer_questions
-msgid "Answer questions"
-msgstr "Responder"
-
-#helpers.last_edit
-msgid "Last edited"
-msgstr "Última edición"
-
-#helpers.select_action
-msgid "Select an action"
-msgstr "Seleccionar una acción"
-
-#helpers.answered_by
-msgid "Answered "
-msgstr "Contestado "
-
-#helpers.answered_by_part2
-msgid " by "
-msgstr " por "
-
-#helpers.suggested_answer
-msgid "Suggested answer"
-msgstr "Respuesta sugerida"
-
-#helpers.suggested_example
-msgid "Example answer"
-msgstr "Respuesta de ejemplo"
-
-#helpers.notanswered
-msgid "Not answered yet"
-msgstr "Aún no respondido/a"
-
-#helpers.noquestionanswered
-msgid "No questions have been answered"
-msgstr "No se ha respondido a las preguntas"
-
-#helpers.guidance
-msgid "Guidance"
-msgstr "Orientación"
-
-#helpers.policy_expectations
-msgid "Policy Expectations"
-msgstr "Política esperada"
-
-#helpers.guidance_accordion_label
-msgid "Guidance"
-msgstr "Guía"
-
-#helpers.add_comment_accordion_label
-msgid "Share note"
-msgstr "Compartir nota"
-
-#helpers.comment_accordion_label
-msgid "Notes"
-msgstr "Notas"
-
-#helpers.answer.only_one_per_question
-msgid "A question can only have one answer."
-msgstr "Una pregunta sólo puede tener una respuesta."
-
-#helpers.answer.question_must_belong_to_correct_template
-msgid "The question must belong to the correct template."
-msgstr "La pregunta debe pertenecer a la plantilla correcta."
-
-#helpers.comments.add_comment_label
-msgid "Add note"
-msgstr "Añadir nota"
-
-#helpers.comments.add_comment_text
-msgid "Share note with collaborators"
-msgstr "Compartir nota con colaboradores"
-
-#helpers.comments.comment_label
-msgid "Note"
-msgstr "Nota"
-
-#helpers.comments.comments_label
-msgid "Notes"
-msgstr "Notas"
-
-#helpers.comments.view_label
-msgid "View"
-msgstr "Ver"
-
-#helpers.comments.edit_label
-msgid "Edit"
-msgstr "Editar"
-
-#helpers.comments.retract_label
-msgid "Remove"
-msgstr "Borrar"
-
-#helpers.comments.clear_label
-msgid "Remove"
-msgstr "Borrar"
-
-#helpers.comments.commented_by
-msgid "Noted by:"
-msgstr "Anotado por:"
-
-#helpers.comments.archive_own_comment_question
-msgid "Are you sure you would like to remove this note?"
-msgstr "¿Seguro que quiere eliminar esta nota?"
-
-#helpers.comments.archive_own_comment_button_label
-msgid "Remove"
-msgstr "Borrar"
-
-#helpers.comments.archive_comment_question
-msgid "Are you sure you would like to remove this note?"
-msgstr "¿Seguro que quiere eliminar esta nota?"
-
-#helpers.comments.archive_comment_button_label
-msgid "Remove"
-msgstr "Borrar"
-
-#helpers.comments.clear_by
-msgid "Note removed by"
-msgstr "Nota borrada por"
-
-#helpers.comments.retracted
-msgid "Note removed by you"
-msgstr "Nota borrada por usted"
-
-#helpers.comments.note_created
-msgid "Comment was successfully created."
-msgstr ""
-
-#helpers.comments.note_updated
-msgid "Comment was successfully updated."
-msgstr ""
-
-#helpers.comments.note_removed
-msgid "Comment has been removed."
-msgstr ""
-
-#helpers.org_type.funder
-msgid "Funder"
-msgstr "Agencia de financiación"
-
-#helpers.org_type.institution
-msgid "Institution"
-msgstr "Institution"
-
-#helpers.org_type.project
-msgid "Project"
-msgstr "Proyecto"
-
-#helpers.org_type.organisation
-msgid "Organisation"
-msgstr "Entidad"
-
-#helpers.org_type.org_name
-msgid "Organisation name"
-msgstr "Nombre de la entidad"
-
-#helpers.org_type.school
-msgid "School"
-msgstr "Facultad"
-
-#helpers.org_type.publisher
-msgid "Publisher"
-msgstr "Editor"
-
-#helpers.org_type.other_guidance
-msgid "Other guidance"
-msgstr "Otra orientación"
-
-#helpers.org_type.template
-msgid "Template"
-msgstr "Plantilla"
-
-#helpers.org_type.templates
-msgid "Templates"
-msgstr "Plantillas"
-
-#helpers.org_type.child
-msgid "Unit"
-msgstr "Unidad"
-
-#helpers.org_type.other_org_help_text
-msgid "Please enter the name of your organisation."
-msgstr "Por favor, introduzca el nombre de su entidad."
-
-#helpers.project.create
-msgid "Create plan"
-msgstr "Crear un plan"
-
-#helpers.project.edit
-msgid "Edit plan details"
-msgstr "Editar los detalles del plan"
-
-#helpers.project.grant_title
-msgid "Grant number"
-msgstr "Número de la subvención"
-
-#helpers.project.grant_help_text
-msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
-msgstr "Número de referencia de la subvención si es aplicable [SÓLO PGDs YA ADJUDICADOS]"
-
-#helpers.project.not_applicable
-msgid "Not applicable/not listed."
-msgstr "No aplicable / no listado/a."
-
-#helpers.project.multi_templates
-msgid "There are a number of possible templates you could use. Please choose one."
-msgstr "Hay varias plantillas que podría usar. Por favor, elija una."
-
-#helpers.project.project_name
-msgid "Plan name"
-msgstr "Nombre de proyecto"
-
-#helpers.project.my_project_name
-msgid "My plan"
-msgstr "Mi proyecto"
-
-#helpers.project.success
-msgid "Plan was successfully created."
-msgstr "Plan creado con éxito"
-
-#helpers.project.success_update
-msgid "Plan was successfully updated."
-msgstr ""
-
-#helpers.project.principal_investigator
-msgid "Principal Investigator/Researcher"
-msgstr "Investigador principal"
-
-#helpers.project.principal_investigator_help_text
-msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
-msgstr "Nombre del/de los Investigador/es Principal/es o investigador/es principal/es del proyecto."
-
-#helpers.project.principal_investigator_id
-msgid "Principal Investigator/Researcher ID"
-msgstr "ID del Investigador Principal"
-
-#helpers.project.principal_investigator_id_help_text
-msgid "E.g ORCID http://orcid.org/."
-msgstr "P.e. ORCID http://orcid.org/."
-
-#helpers.project.funder_help_text
-msgid "Research funder if relevant"
-msgstr "Financiador del proyecto si es apropiado"
-
-#helpers.project.funder_name
-msgid "Funder name"
-msgstr "Nombre del financiador del proyecto"
-
-#helpers.project.project_question_desc_label
-msgid "Summary about the questions"
-msgstr "Resumen sobre las preguntas"
-
-#helpers.project.tab_plan
-msgid "Plan details"
-msgstr "Detalles"
-
-#helpers.project.tab_export
-msgid "Export"
-msgstr "Exportar"
-
-#helpers.project.export_text_html
-msgid "<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>"
-msgstr "<p>Desde aquí puede descargar su plan en varios formatos. Esto puede ser útil si necesita enviar su plan para solicitar una subvención.</br> Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
-
-#helpers.project.questions_answered
-msgid "questions answered"
-msgstr "preguntas respondidas"
-
-#helpers.project.not_saved_answers_text_alert
-msgid "You have altered answers but have not saved them:"
-msgstr "Ha modificado las respuestas, pero todavía no las ha grabado:"
-
-#helpers.project.not_saved_answers_confirmation_alert
-msgid "Would you like to save them now?"
-msgstr "¿Quere grabar los cambios ahora?"
-
-#helpers.project.not_saved_answers_header
-msgid "Unsaved answers"
-msgstr "Preguntas sin contestar"
-
-#helpers.project.answer_recorded
-msgid "Answer was successfully recorded."
-msgstr ""
-
-#helpers.project.answer_error
-msgid "There was an error saving the answer."
-msgstr ""
-
-#helpers.project.answer_no_change
-msgid "No change in answer content - not saved."
-msgstr ""
-
-#helpers.project.project_data_contact
-msgid "Plan data contact"
-msgstr "Datos del contacto del proyecto"
-
-#helpers.project.project_data_contact_help_text
-msgid "Name (if different to above), telephone and email contact details"
-msgstr "Nombre (si es diferente del de más arriba), teléfono y dirección de correo electrónico"
-
-#helpers.project.project_name_help_text
-msgid "If applying for funding, state the name exactly as in the grant proposal."
-msgstr "Si se solicita financiación, indique el nombre exactamente como en la propuesta de subvención."
-
-#helpers.project.project_desc_help_text_html
-msgid "<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>"
-msgstr "<div class='tooltip_box'><h4>Preguntas a considerar:</h4><ul><li>- ¿Cual es la naturaleza de su proyecto de investigación?</li><li>- ¿Qué temas de investigación está tratando? </li><li>- ¿Para qué propósito se están recogiendo o creando los datos? </li></ul><h4>Orientación:</h4><p>Resuma brevemente el tipo de estudio (o estudios) para ayudar a otros a comprender los propósitos para los cuales se están recogiendo o crendo los datos.</p></div>"
-
-#helpers.project.project_identifier
-msgid "ID"
-msgstr "ID"
-
-#helpers.project.project_identifier_help_text
-msgid "A pertinent ID as determined by the funder and/or institution."
-msgstr "El ID tal como lo determinó la institución u organismo financiador."
-
-#helpers.project.project_static_info
-msgid "This plan is based on:"
-msgstr "Este plan está basado en:"
-
-#helpers.project.projects_title
-msgid "My plans"
-msgstr "Mis planes"
-
-#helpers.project.visibility
-msgid "Visibility"
-msgstr "Visibilidad"
-
-#helpers.project.visibilities.labels.privately_visible
-msgid "Private"
-msgstr "Privado"
-
-#helpers.project.visibilities.labels.organisationally_visible
-msgid "Organisational"
-msgstr "Organizativo"
-
-#helpers.project.visibilities.labels.publicly_visible
-msgid "Public"
-msgstr "Público"
-
-#helpers.project.visibilities.labels.is_test
-msgid "Test/Practice"
-msgstr "Prueba/Práctica"
-
-#helpers.project.visibilities.help_texts.privately_visible
-msgid "Private (owners, co-owners, and administrators only) See our Terms of Use."
-msgstr "Privado (propietarios, copropietarios y administradores solamente) Consulte nuestras Condiciones de uso."
-
-#helpers.project.visibilities.help_texts.organisationally_visible
-msgid "Organisational (visibile to others within your organisation)"
-msgstr "Con otros miembros de su organización"
-
-#helpers.project.visibilities.help_texts.publicly_visible
-msgid "Public (Your DMP will appear on the Public DMPs page of this site)"
-msgstr "Publicamente en la web. Su DMP aparecerá en la página Public DMPs de este sitio."
-
-#helpers.project.visibilities.help_texts.is_test
-msgid "Test/Practice (your plan is not visible to other users) See our Terms of Use."
-msgstr "Prueba / Práctica (su plan no es visible para otros usuarios) Vea nuestras Condiciones de uso."
-
-#helpers.project.visibilities.help_texts.not_set
-msgid "Not specified (will be visible to others within your organisation by default)"
-msgstr "No especificado (será visible para otros dentro de su organización de forma predeterminada)"
-
-#helpers.project.project_settings_text
-msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
-msgstr "Los items que seleccione se mostarán en la siguiente tabla. Puede ordenar los datos según sus encabezados o filtrar tecleando textos en la caja de búsqueda."
-
-#helpers.project.project_text_when_no_project
-msgid "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
-msgstr "<p><strong>Bienvenido.</strong></br> Ya está listo para crear su primer PGD.</br>Haga clic en el botón 'Crear un plan' para comenzar.</p>"
-
-#helpers.project.project_text_when_project
-msgid "<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>"
-msgstr "<p>La siguiente tabla lista los planes que usted ha creado, así como los que otros investigadores hayan compartido con usted.</br>Se pueden editar, compartir, exportar o borrar en cualquier momento.</p>"
-
-#helpers.project.project_details_text_html
-msgid "This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked."
-msgstr "Esta página le proporciona una visión general de su plan. Le dice en qué está basado su plan y le da una visión general de las preguntas que se le harán."
-
-#helpers.project.project_details_editing_text_html
-msgid "Please fill in the basic project details below and click 'Update' to save"
-msgstr "Por favor, rellene los detalles básicos del proyecto y haga clic en 'Actualizar' para guardarlos"
-
-#helpers.project.confirm_delete_text
-msgid "Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well"
-msgstr "¿Está seguro de que quiere borrar este plan?"
-
-#helpers.project.confirmation_text
-msgid "Confirm plan details"
-msgstr "Confirmar los detalles del plan"
-
-#helpers.project.confirmation_text_desc
-msgid "Where your funder or institution doesn't have specific requirements (or if you left these options blank), you will see the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
-msgstr "Donde su financiador o institución no tenga requisitos específicos (o si dejó estas opciones en blanco), verá la lista de verificación del <abbr title='Digital Curation Centre'>DCC</abbr>. Esto proporciona un conjunto genérico de preguntas y orientación para el <abbr title='Plan de Gestión de Datos'>PGD</abbr>. Para más detalles ver: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a> [en inglés]."
-
-#helpers.project.confirmation_button_text
-msgid "Yes, create plan"
-msgstr "Si, crear el plan"
-
-#helpers.project.default_confirmation_text_desc
-msgid "You have selected the Default DMP, which is based on the %{organisation_abbreviation} Checklist. This offers a generic set of DMP questions and guidance. For more details see: <a href='/files/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
-msgstr "Ha seleccionado el PGD por Defecto, que está basado en la lista de comprobación del DCC. Ofrece un conjunto genérico de preguntas y guías relacionadas con los PGDs. Para más información, puede ver: <a href='http://www.dcc.ac.uk/sites/default/files/documents/resource/DMP_Checklist_2013.pdf' target='_blank'>DMP checklist 2013</a>."
-
-#helpers.project.default_confirmation_button_text
-msgid "Create plan"
-msgstr "Crear un plan"
-
-#helpers.project.alert_default_template_text_html
-msgid "Please note: %{org_name} provides a DMP template. If you wish to use it select 'Cancel', otherwise select 'Create plan'"
-msgstr "Tenga en cuenta que %{org_name} provee una plantilla para PGDs. Si quiere usar esta plantilla, seleccione 'Cancelar', si no, seleccione 'Crear un plan'"
-
-#helpers.project.share.tab_share
-msgid "Share"
-msgstr "Compartir"
-
-#helpers.project.share.shared_label
-msgid "Shared?"
-msgstr "Compartido?"
-
-#helpers.project.share.share_text_html
-msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don\'t already have an account. A notification is also issued when a user\'s permission level is changed.</p>"
-msgstr "<p>Aquí puede dar a otras personas acceso a su plan. Hay tres niveles de permiso.<ul><li>Los usuarios con acceso de "sólo lectura" sólo pueden leer el plan.</li><li>Los Editores pueden contribuir al plan.</li><li>Los Co-propietarios pueden también contribuir, editar los detalles y controlar el acceso al plan.</li></ul></p><p>Añada cada colaborador individualmente introduciendo su dirección de correo electrónico, seleccionando un nivel de permiso y haciendo clic en "Añadir colaborador".</p><p>Aquellos a quienes invite recibirán un aviso por correo electrónico indicando que tienen acceso al plan e invitándoles a registrarse en DMPonline si no tienen ya una cuenta. También se envia un aviso si se cambia el nivel de permiso de un usuario.</p>"
-
-#helpers.project.share.collaborators
-msgid "Collaborators"
-msgstr "Colaboradores"
-
-#helpers.project.share.add_collaborator
-msgid "Add collaborator"
-msgstr "Añadir colaborador"
-
-#helpers.project.share.add
-msgid "Add"
-msgstr "Añadir"
-
-#helpers.project.share.permissions
-msgid "Permissions"
-msgstr "Permisos"
-
-#helpers.project.share.permissions_desc
-msgid "Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access."
-msgstr "Los editores pueden contribuir a los planes. Los co-propietarios tienen derechos adicionales para editar los detalles del plan y controlar el acceso al mismo."
-
-#helpers.project.share.remove
-msgid "Remove user access"
-msgstr "Eliminar acceso de usuario"
-
-#helpers.project.share.confirmation_question
-msgid "Are you sure?"
-msgstr "¿Está seguro?"
-
-#helpers.project.share.owner
-msgid "Owner"
-msgstr "Propietario"
-
-#helpers.project.share.co_owner
-msgid "Co-owner"
-msgstr "Co-propietario"
-
-#helpers.project.share.edit
-msgid "Edit"
-msgstr "Editar"
-
-#helpers.project.share.read_only
-msgid "Read only"
-msgstr "Sólo lectura"
-
-#helpers.project.share.locked_section_text
-msgid "This section is locked for editing by "
-msgstr "Esta sección está bloqueda para su edición por "
-
-#helpers.project.create_page.title
-msgid "Create a new plan"
-msgstr "Crear un nuevo plan"
-
-#helpers.project.create_page.desc_html
-msgid "<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>"
-msgstr "<p>Por favor, seleccione la información de los siguientes desplegables, de forma que podamos determinar qué preguntas y orientación han de ser mostrados en su plan.</p> <p>Si no responde a los requisitos específicos de un financiador o institución, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>seleccione aquí para crear un PGD genérico</a> basado en los temas más comunes.</p>"
-
-#helpers.project.create_page.default_template
-msgid "Default DMP"
-msgstr "PGD por defecto"
-
-#helpers.project.create_page.funders_question
-msgid "If applying for funding, select your research funder."
-msgstr "Si se solicita financiación, seleccione el organismo financiador de su investigación."
-
-#helpers.project.create_page.funders_question_description
-msgid "Otherwise leave blank."
-msgstr "Si no, déjelo en blanco."
-
-#helpers.project.create_page.other_funder_name_label
-msgid "Name of funder, if applicable."
-msgstr "Nombre del financiador, si corresponde."
-
-#helpers.project.create_page.institution_question
-msgid "To see institutional questions and/or guidance, select your organisation."
-msgstr "Para ver preguntas y/u orientación relativas a su institución, seleccione su entidad."
-
-#helpers.project.create_page.institution_question_description
-msgid "You may leave blank or select a different organisation to your own."
-msgstr "Puede dejar en blanco o seleccionar una entidad distinta a la suya."
-
-#helpers.project.create_page.other_guidance_question
-msgid "Tick to select any other sources of guidance you wish to see."
-msgstr "Marque para seleccionar cualquier otra fuente de orientación que quiera ver."
-
-#helpers.project.configure
-msgid "Configure"
-msgstr "Configuración"
-
-#helpers.project.columns.name
-msgid "Name"
-msgstr "Nombre"
-
-#helpers.project.columns.owner
-msgid "Owner"
-msgstr "Propietario"
-
-#helpers.project.columns.shared
-msgid "Shared?"
-msgstr "¿Compartido?"
-
-#helpers.project.columns.template_owner
-msgid "Template Owner"
-msgstr "Propietario de la plantilla"
-
-#helpers.project.columns.last_edited
-msgid "Last edited"
-msgstr "Última edición"
-
-#helpers.project.columns.identifier
-msgid "Identifier"
-msgstr "Identificador"
-
-#helpers.project.columns.grant_number
-msgid "Grant number"
-msgstr "Identificador de subvenciaón"
-
-#helpers.project.columns.principal_investigator
-msgid "Principal Investigator / Researcher"
-msgstr "Principal Investigador / Científico"
-
-#helpers.project.columns.data_contact
-msgid "Plan data contact"
-msgstr "Datos de contacto del plan"
-
-#helpers.project.columns.description
-msgid "Description"
-msgstr "Descripción"
-
-#helpers.project.columns.unknown
 msgid " - "
 msgstr ""
 
-#helpers.project.columns.visibility
-msgid "Visibility"
-msgstr "Visibilidad"
-
-#helpers.project.columns.template
-msgid "Template"
-msgstr "Plantilla"
-
-#helpers.project.columns.organisation
-msgid "Organization"
-msgstr "Organización"
-
-#helpers.project.filter.placeholder
-msgid "Filter plans"
-msgstr "Filtro de planes"
-
-#helpers.project.filter.submit
-msgid "Filter"
-msgstr "Filtrar"
-
-#helpers.project.filter.cancel
-msgid "Cancel"
-msgstr "Cancelar"
-
-#helpers.project.filter.no_plans_match
-msgid "No plans match '%{filter}'"
+msgid " - choosing default template for your institution"
 msgstr ""
 
-#helpers.project.filter.no_matches
-msgid "No matches"
-msgstr "Ningún plan coincide con '%{filter}'"
-
-#helpers.project.user_added
-msgid "User added to project"
+msgid " - no funder or institution template, choosing default template"
 msgstr ""
 
-#helpers.project.invitation_success
-msgid "Invitation issued successfully."
+msgid " - there are more than one to choose from"
 msgstr ""
 
-#helpers.project.enter_email
-msgid "Please enter an email address"
+#, fuzzy
+msgid " - using template customised by your institution"
+msgstr " por "
+
+#, fuzzy
+msgid " I accept the <a href=\"/%{current_locale}/terms\" target=\"_blank\">terms and conditions</a> *"
+msgstr " Acepto los <a href=\"/terms\" target=\"_blank\">términos y condiciones</a> *"
+
+msgid " access to"
 msgstr ""
 
-#helpers.project.sharing_updated
-msgid "Sharing details successfully updated."
+#, fuzzy
+msgid " by"
+msgstr " por "
+
+msgid " by "
+msgstr " por "
+
+msgid " on "
 msgstr ""
 
-#helpers.project.access_removed
-msgid "Access removed"
+#, fuzzy
+msgid " team"
+msgstr "am"
+
+msgid " to view/edit the plan"
 msgstr ""
 
-#helpers.project.update_success
-msgid "Project was successfully updated."
+#, fuzzy
+msgid "\"While you were editing #{answer.user.name} saved the following answer:\""
+msgstr "user"
+
+msgid "%d days"
 msgstr ""
 
-#helpers.project.create_success
-msgid "Project was successfully created."
+msgid "%d minutes"
 msgstr ""
 
-#helpers.project.details_update_success
-msgid "Details successfully updated."
+msgid "%d months"
 msgstr ""
 
-#helpers.project.choose_template
-msgid "Choose a template"
+msgid "%d years"
 msgstr ""
 
-#helpers.plan.export.pdf.question_not_answered
-msgid "Question not answered."
-msgstr "Pregunta no respondida."
+msgid "%{application_name}"
+msgstr "DMPonline"
 
-#helpers.plan.export.pdf.generated_by
-msgid "This document was generated by %{application_name} (http://dmponline.dcc.ac.uk)"
-msgstr "Este documento fue generado por DMPonline (http://dmponline.dcc.ac.uk)"
-
-#helpers.plan.export.space_used
-msgid "approx. %{space_used}% of available space used (max %{num_pages} pages)"
-msgstr "aprox. %{space_used}% de disponibilidad del espacio usado (máx. %{num_pages} páginas)"
-
-#helpers.plan.export.space_used_without_max
-msgid "approx. %{space_used}% of available space used"
+msgid "%{format} is not a valid exporting format. Available formats to export are %{available_formats}."
 msgstr ""
 
-#helpers.plan.export.project_name
-msgid "Plan Name"
-msgstr "Nombre del Proyecto"
-
-#helpers.plan.export.project_identifier
-msgid "Plan ID"
-msgstr "Identificador del Proyecto"
-
-#helpers.plan.export.grant_title
-msgid "Grant number"
-msgstr "Título de subvención"
-
-#helpers.plan.export.principal_investigator
-msgid "Principal Investigator / Researcher"
-msgstr "Principal Investigador / Científico"
-
-#helpers.plan.export.project_data_contact
-msgid "Plan Data Contact"
-msgstr "Datos de contacto del proyecto"
-
-#helpers.plan.export.project_description
-msgid "Plan Description"
-msgstr "Descripción"
-
-#helpers.plan.export.funder
-msgid "Funder"
-msgstr "Financiador"
-
-#helpers.plan.export.institution
-msgid "Institution"
-msgstr "Institución"
-
-#helpers.plan.export.orcid
-msgid "Your ORCID"
-msgstr ""
-
-#helpers.plan.export.not_valid_format
 msgid "%{value} is not a valid format"
 msgstr ""
 
-#helpers.settings.title
-msgid "Settings"
-msgstr "Preferencias"
-
-#helpers.settings.projects.title
-msgid "Settings - My plans"
-msgstr "Preferencias - Mis planes"
-
-#helpers.settings.projects.desc
-msgid "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."
-msgstr "La siguiente tabla muestra las columnas que pueden mostrarse en la lista 'Mis planes'. Elija cuales quiere que se muestren."
-
-#helpers.settings.projects.errors.no_name
 msgid "'name' must be included in column list."
 msgstr "'nombre' tiene que estar en la lista de columnas."
 
-#helpers.settings.projects.errors.duplicate
-msgid "Duplicate column name. Please only include each column once."
-msgstr "Nombre de columna duplicado. Por favor, indique cada columna sólo una vez."
-
-#helpers.settings.projects.errors.unknown
-msgid "Unknown column name."
-msgstr "Nombre de columna desconocido."
-
-#helpers.settings.projects.errors.no_plan
-msgid "The plan is incomplete."
-msgstr "El plan es incompleto."
-
-#helpers.settings.plans.title
-msgid "File Name"
-msgstr "Título del plan"
-
-#helpers.settings.plans.reset
-msgid "Reset"
-msgstr "Reiniciar"
-
-#helpers.settings.plans.description
-msgid "Description"
-msgstr ""
-
-#helpers.settings.plans.custom_formatting
 msgid "(Using custom PDF formatting values)"
 msgstr "(Usando valores personalizados para el formato del PDF)"
 
-#helpers.settings.plans.template_formatting
 msgid "(Using template PDF formatting values)"
 msgstr "(Usando valores de la plantilla para el formato del template PDF)"
 
-#helpers.settings.plans.default_formatting
-msgid "(Using default PDF formatting values)"
-msgstr "(Usando valores por defecto para el formato del template PDF)"
-
-#helpers.settings.plans.included_elements
-msgid "Included Elements"
-msgstr "Elementos incluídos"
-
-#helpers.settings.plans.pdf_formatting
-msgid "PDF Formatting"
-msgstr "Dando formato al PDF"
-
-#helpers.settings.plans.font_face
-msgid "Face"
-msgstr "Estilo"
-
-#helpers.settings.plans.font_size
-msgid "Size"
-msgstr "Tamaño"
-
-#helpers.settings.plans.font
-msgid "Font"
+msgid "-"
 msgstr ""
 
-#helpers.settings.plans.margin
-msgid "Margin"
-msgstr "Margen"
+msgid "... (continued)"
+msgstr ""
 
-#helpers.settings.plans.margins.top
-msgid "Top"
-msgstr "Superior"
+msgid "<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>"
+msgstr "<div class='tooltip_box'><h4>Preguntas a considerar:</h4><ul><li>- ¿Cual es la naturaleza de su proyecto de investigación?</li><li>- ¿Qué temas de investigación está tratando? </li><li>- ¿Para qué propósito se están recogiendo o creando los datos? </li></ul><h4>Orientación:</h4><p>Resuma brevemente el tipo de estudio (o estudios) para ayudar a otros a comprender los propósitos para los cuales se están recogiendo o crendo los datos.</p></div>"
 
-#helpers.settings.plans.margins.bottom
-msgid "Bottom"
-msgstr "Inferior"
+msgid "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"
+msgstr "<div class='tooltip_box'>Teclee una descripción básica. Puede ser un resumen sobre que cubre esta sección o instrucciones sobre como responder las preguntas. Este texto se mostrará en un banner cada vez que se edite esta sección.</div>"
 
-#helpers.settings.plans.margins.left
-msgid "Left"
-msgstr "Izquierdo"
+msgid "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
+msgstr "<div class='tooltip_box'>Introduzca una descripción que ayude a distinguir las plantillas. Ej: Si van dirigidas a audiencias distintas.</div>"
 
-#helpers.settings.plans.margins.right
-msgid "Right"
-msgstr "Derecho"
+msgid "<div class='white_background'> <p>The %{organisation_name} ('%{organisation_abbreviation}') are consortia supported by %{legal_entity}. Our primary constituency is the research community, particularly the higher and further education sector.</p> </div> <h3>%{application_name}</h3> <div class='white_background'> <p>%{application_name} ('the tool', 'the system') is a tool developed by the %{organisation_abbreviation} as a shared resource for the research community. It is hosted by %{legal_entity}.</p> </div> <h3>Your personal details</h3> <div class='white_background'> <p>In order to help identify and administer your account with %{application_name}, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the %{organisation_abbreviation} partner institutions but only for legitimate %{organisation_abbreviation} purposes. We will not sell, rent or trade any personal information you provide to us.</p> </div> <h3>Privacy policy</h3> <div class='white_background'> <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at %{legal_entity}.  We compile anonymised, automated and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorised officers of your home institution may access your plans for specific purposes - for example, to track compliance with funder/institutional requirements or to calculate storage requirements.</p> </div> <h3>Freedom of Information</h3> <div class='white_background'> <p>%{legal_entity} holds your plans on your behalf, but they are your property and responsibility. Any FOI applicants will be referred back to your home institution.</p> </div> <h3>Passwords</h3> <div class='white_background'> <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p> </div> <h3>Cookies</h3> <div class='white_background'> <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> </div> <br /> <div class='white_background'> <p>Use of the tool indicates that you understand and agree to these terms and conditions.</p></div>"
+msgstr ""
 
-#helpers.settings.plans.max_pages
-msgid "Maximum number of pages"
-msgstr "Máximo número de páginas"
+msgid "<h3>Useful resources on Data Management Planning</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [webpage]<br /> A summary of requirements from UK Research Councils and other charitable or health funders. </li> <li> <a target='_blank' href='https://dmp.cdlib.org/pages/funder_requirement'>US funder requirements for Data Management Plans</a> [webpage]<br /> A summary of requirements from the NSF, NIH and other key funders in the USA. </li> <li> <a target='_blank' href='/files/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br /> A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in %{application_name}, and is presented when no funder or organsiational requirements are applicable for the user. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How to Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the Digital Curation Centre that outlines typical funder requirements for DMPs and the types of considerations to make when responding. </li> </ul> <h3>Example Data Management Plans</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf'>Technical plan submitted to the AHRC</a> [PDF, 7 pages]<br /> A DMP submitted by a researcher from the University of Bristol, also including comments from the reviewers </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Two social science DMPs</a> [PDF, 7 pages]<br /> Example plans from researchers at the University of Leeds, shared as part of the Leeds RoaDMaP training materials </li> <li> <a target='_blank' href='http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf'>Health sciences DMP</a> [PDF, 11 pages]<br /> Example DMP produced by the DATUM for Health RDM training project </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/DMTpsych-example-DMP.pdf'>Psychology DMP</a> [PDF, 11 pages]<br /> A very detailed, fictional psychology DMP produced by the DMTpsych RDM training project, based on a seminal psychology experiment </li> <li> <a target='_blank' href='http://rci.ucsd.edu/data-curation/examples.html'>UCSD Example Data Management Plans</a> [webpage]<br /> Over 20 example plans submitted to the National Science Foundation (NSF) in the United States by academics at UC San Diego </li> <li> <a target='_blank' href='http://inside.mines.edu/RDS-example-plans'>Colorado School of Mines examples</a> [webpage]<br /> A variety of US example DMPs from Mines and elsewhere </li> <li> <a target='_blank' href='https://www.dataone.org/data-management-planning'>NSF data management plans</a> [webpage]<br /> 5 DMPs submitted to the NSF, shared by the DataOne initiative </li> <li> <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [webpage]<br /> Three example DMPs from the USA shared by NECDMC, an instructional tool for teaching RDM to undergraduates, graduate students, and researchers in the health sciences, sciences and engineering. </li> </ul> <h3>Useful guides on Research Data Management in general</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://www.data-archive.ac.uk/media/2894/managingsharing.pdf'>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 pages]<br /> A guide by the UK Data Service covering a range of topics including data formats, documentaion, ethics, copyright and data sharing. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br /> A guide by the Digital Curation Centre giving practical guidelines on how to cite data and the different tools and infrastructure that can be used to support data citation. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br /> A guide by the Digital Curation Centre that outlines different types of licenses, the pros and cons of each and how they can be applied. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How to Appraise and Select Research Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br /> A guide by ANDS and the Digital Curation Centre on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions. </li> <li> <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br /> An online training course designed for researchers or others planning to manage digital data as part of the research process. The course includes a number of software practicals on using SPSS, R, ArcGIS and NVivo. </li> </ul>"
+msgstr ""
 
-#helpers.settings.plans.errors.missing_key
+msgid "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+msgstr "<p>DMPonline ha sido desarrollado por el <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> como una herramienta para elaborar planes de gestión de datos.</p>"
+
+msgid "<p>%{application_name} is developed and maintained by the UK %{organisation_name}. We’re a small team, and are happy to collaborate with others. There are various ways you can get involved:</p> <h3>Join the user group</h3> <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p> <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p> <p>Notes from previous user group sessions are provided below:</p> <ul> <li>- <a href='/files/DMPonline-user-group-IDCC-2016.pdf' target='_blank'>Meeting notes covering internationalisation and locales, 23 February 2016</a></li> <li>- <a href='/files/DMPonline-user-group-notes-29Jan2015' target='_blank'>Meeting notes covering plan lifecycle and review, 29 January 2015</a></li> </ul> <p>Please let us know your interests and share your ideas for future developments via the mailing list so the community as a whole can feedback on them.</p> </br> <h3>Customise %{application_name}</h3> <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} Admin access' target='_top'>dmponline@dcc.ac.uk</a>.</p> <p>Futher guidance on customising %{application_name} is available on the <a href='%{organisation_url}' target='_blank'>%{application_name} website</a>.</p> </br> <h3>Contribute to the code</h3> <p>%{application_name} is a Ruby on Rails application. The <a href='https://github.com/DMPRoadmap/roadmap'>source code</a> is made available under an <a href='https://github.com/DMPRoadmap/roadmap/blob/master/LICENSE.md'>MIT License</a>. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of %{application_name} and offer your contributions back to the community.</p> <p>If you install an instance of %{application_name} we require that you credit the %{organisation_abbreviation} as originators of the tool. We recommend that the acknowledgement takes the form of the %{application_name} logo with a link back to the %{organisation_abbreviation}-hosted version of the tool.</p> <p>We are willing to work with external developers to add new features to the tool. We are also open to delivering new features on a chargeable basis. If there are extensions you would like to see prioritised and have resource to support additional developer effort, please contact us on dmponline@dcc.ac.uk to negotiate terms.</p> <p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p> <h3>Support our work</h3> <p>We are impressed by the uptake of %{application_name} both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p> <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of %{application_name}. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
+msgstr ""
+
+#, fuzzy
+msgid "<p>%{application_name} stories from the %{organisation_abbreviation} website</p></br>"
+msgstr ""
+
+msgid "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
+msgstr "<p><strong>Bienvenido.</strong></br> Ya está listo para crear su primer PGD.</br>Haga clic en el botón 'Crear un plan' para comenzar.</p>"
+
+msgid "<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>"
+msgstr "<p>Primero cree un grupo de guías. Este podrá abarcar toda la institución o un subconjunto de la misma (ej: una escuela, colegio o departamento en particular). Cuando cree una guía, necesitará asignarla a un grupo de guías.</p>"
+
+msgid "<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>"
+msgstr "<p>Desde aquí puede descargar su plan en varios formatos. Esto puede ser útil si necesita enviar su plan para solicitar una subvención.</br> Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
+
+msgid "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Sign up'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
+msgstr ""
+
+msgid "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
+msgstr ""
+
+msgid "<p>Here you set the title that users will see. If you intend to have multiple phases for you DMP, this should be clear in the title and description.<p/>"
+msgstr "<p>Aquí indicará el título mostrado a los usuarios. Si piensa tener varias fases en su PGD, esto debería quedar claro en el título y la descripción.<p/>"
+
+msgid "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p> <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
+msgstr "<p>Si desea añadir una plantilla institucional para un Plan de Gestión de Datos, use el botón 'crear plantilla'. Podrá crear más de una plantilla si lo cree conveniente. Ej: para investigadores y otro para estudiantes de postgrado.</p> <p>Su plantilla se presentará a los usuarios de su institución cuando no sean aplicables plantillas de agencias de financiación. Si quiere aññadir preguntas a las plantillas de las agencias de financiación, use las siguientes opciones de 'personalizar plantilla'</p>"
+
+msgid "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
+msgstr "<p>Por favor, tenga en cuenta que su dirección de correo electrónico se usa como su nombre de usuario. Si cambia esto, recuerde usar su nueva dirección de correo electrónico al conectar.</p>"
+
+msgid "<p>Please select from the following drop-down so we can determine what questions and guidance should be displayed in your plan.</p>"
+msgstr ""
+
+msgid "<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>"
+msgstr "<p>Por favor, seleccione la información de los siguientes desplegables, de forma que podamos determinar qué preguntas y orientación han de ser mostrados en su plan.</p> <p>Si no responde a los requisitos específicos de un financiador o institución, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>seleccione aquí para crear un PGD genérico</a> basado en los temas más comunes.</p>"
+
+msgid "<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"
+msgstr "<p>Seleccione los temas relevantes para esta pregunta.</p> <p>Le permite crear guías genéricas a nivel de institución o de otras fuentes. Ej. para el DCC o cualquier escuela o departamento a la que se dirija la guía. </p> <p>Puede seleccionar varios temas usando el botón CTRL.</p>"
+
+msgid "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p> <ul> <li>- APIs to create plans, extract guidance and generate statistics from %{application_name}</li> <li>- Multi-lingual support so foreign language versions can be presented</li> <li>- Locales to provide a refined set of content for particular countries or other contexts</li> <li>- A lifecycle to indicate the status of DMPs and allow institutional access to plans</li> <li>- Support for reviewing Data Management Plans</li> </ul> <p>%{application_name} has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p> </br> <h3>Current release</h3> <p>The current version of %{application_name} is %{application_version}.</p> <ul> <li>- <a href='%{application_release_notes_url}' target='_blank'>Release Notes</a></li> <li>- <a href='/files/DMPonline-v4-InstitutionalBranding.pdf' target='_blank'>Customise %{application_name} tool with institutional branding</a></li> </ul> <p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p> </br>"
+msgstr ""
+
+msgid "<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>"
+msgstr "<p>La siguiente tabla lista los planes que usted ha creado, así como los que otros investigadores hayan compartido con usted.</br>Se pueden editar, compartir, exportar o borrar en cualquier momento.</p>"
+
+msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
+msgstr "<p>Para crear una plantilla nueva, en primer lugar introduzca un título y una descripción. Tras grabar se le dará la opción de añadir una o más fases. </p>"
+
+msgid "<p>When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p> <h3>Create a plan</h3> <p>To create a plan, click the 'Create plan' button from the 'My plans' page or  the top menu. Select options from the drop-down menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Yes, create plan'</p> <h3>Write your plan</h3> <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p> <ul> <li>- 'Plan details' includes basic administrative details, tells you what sets of questions and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li> <li>- The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award.</li> <li>- The 'Share' tab allows you to invite others to read or contribute to your plan.</li> <li>- The 'Export' tab allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li> </ul> <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p> <p>Guidance is displayed in the right-hand panel. Click the '+' symbol to view this.</p> <p>Remember to 'save' your responses before moving on.</p> <h3>Share plans</h3> <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the drop-down options and click to 'Add collaborator'</p> <h3>Export plans</h3> <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to export. When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>"
+msgstr ""
+
+msgid "<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>"
+msgstr "<p>Va a desvincular DMPonline de las credenciales de su institución, ¿Quiere continuar?</p>"
+
+#, fuzzy
+msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with \"read only\" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking \"Add collaborator\".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
+msgstr "<p>Aquí puede dar a otras personas acceso a su plan. Hay tres niveles de permiso.<ul><li>Los usuarios con acceso de \"sólo lectura\" sólo pueden leer el plan.</li><li>Los Editores pueden contribuir al plan.</li><li>Los Co-propietarios pueden también contribuir, editar los detalles y controlar el acceso al plan.</li></ul></p><p>Añada cada colaborador individualmente introduciendo su dirección de correo electrónico, seleccionando un nivel de permiso y haciendo clic en \"Añadir colaborador\".</p><p>Aquellos a quienes invite recibirán un aviso por correo electrónico indicando que tienen acceso al plan e invitándoles a registrarse en DMPonline si no tienen ya una cuenta. También se envia un aviso si se cambia el nivel de permiso de un usuario.</p>"
+
+#, fuzzy
+msgid "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.</p>"
+msgstr "templates"
+
+msgid "A colleague has invited you to contribute to their Data Management Plan at "
+msgstr ""
+
+msgid "A pertinent ID as determined by the funder and/or institution."
+msgstr "El ID tal como lo determinó la institución u organismo financiador."
+
 msgid "A required setting has not been provided"
 msgstr "No se ha indicado un valor obligatorio"
 
-#helpers.settings.plans.errors.invalid_margin
-msgid "Margin value is invalid"
-msgstr "El valor del margen no es válido"
-
-#helpers.settings.plans.errors.negative_margin
-msgid "Margin cannot be negative"
-msgstr "El margen no puede ser negativo"
-
-#helpers.settings.plans.errors.unknown_margin
-msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
-msgstr "Margen desconocido. Sólo puede ser 'superior', 'inferior', 'izquierdo' or 'derecho'"
-
-#helpers.settings.plans.errors.invalid_font_size
-msgid "Invalid font size"
-msgstr "Tamaño de fuente inválido"
-
-#helpers.settings.plans.errors.invalid_font_face
-msgid "Invalid font face"
-msgstr "Estilo de fuente inválido"
-
-#helpers.settings.plans.errors.unknown_key
-msgid "Unknown formatting setting"
-msgstr "Valores de formato desconocidos"
-
-#helpers.settings.plans.errors.invalid_max_pages
-msgid "Invalid maximum pages"
-msgstr "Número de páginas inválido"
-
-#helpers.settings.plans.errors.no_access_account
-msgid "This account does not have access to that plan."
+msgid "API Information"
 msgstr ""
 
-#js.question_text_empty
-msgid "Question text is empty, please enter your question."
+msgid "API Permission Granted"
 msgstr ""
 
-#js.add_guidance_text
-msgid "add guidance text"
+msgid "API token"
 msgstr ""
 
-#js.select_question
-msgid "select a question"
+msgid "Abbreviation"
+msgstr "Abreviatura"
+
+msgid "About"
+msgstr "Acerca de"
+
+msgid "About %{application_name}"
 msgstr ""
 
-#js.select_at_least_one_theme
-msgid "select at least one theme"
+msgid "Access removed"
 msgstr ""
 
-#js.select_guidance_group
-msgid "select a guidance group"
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Add an appropriate name for your guidance group e.g. Glasgow guidance. This name will be used to tell the end user where the guidance has come from e.g. 'Glasgow Guidance on Metadata'"
+msgstr "Añada un nombre adecuado para el grupo de su guía (Ej: Guía de Glasgow). Este nombre se usará para indicar a los usuarios finales la procedencia de la guía (Ej: 'Guía de metadatos de Glasgow')"
+
+msgid "Add collaborator"
+msgstr "Añadir colaborador"
+
+msgid "Add guidance"
+msgstr "Añadir orientación"
+
+msgid "Add guidance group"
+msgstr "Añadir grupo de orientación"
+
+msgid "Add new phase +"
+msgstr "Añadir fase nueva +"
+
+msgid "Add note"
+msgstr "Añadir nota"
+
+msgid "Add option"
+msgstr "Añadir opción"
+
+msgid "Add question"
+msgstr "Añadir pregunta"
+
+msgid "Add section"
+msgstr "Añadir sección"
+
+msgid "Add suggested answer/ example"
+msgstr "Añadir respuesta sugerida / ejemplo"
+
+msgid "Additional comment area will be displayed."
+msgstr "Se mostrará un área adicional para comentarios."
+
+msgid "Admin Details"
 msgstr ""
 
-#js.enter_up_to
-msgid "Please only enter up to 165 characters, you have used"
+msgid "Admin area"
+msgstr "Área de administración"
+
+msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
-#js.if_using_url_try
-msgid "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+#, fuzzy
+msgid "Answer"
+msgstr "Respuestas"
+
+msgid "Answer format"
+msgstr "Formato de la respuesta"
+
+msgid "Answer questions"
+msgstr "Responder"
+
+#, fuzzy
+msgid "Answered"
+msgstr "Contestado "
+
+#, fuzzy
+msgid "Answered at"
+msgstr "Contestado "
+
+#, fuzzy
+msgid "Answered by"
+msgstr "Contestado "
+
+msgid "Answers"
+msgstr "Respuestas"
+
+msgid "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
+msgstr "Cualquier texto que introduzca aquí se mostrará en la caja de respuesta. Si quiere una respuesta en un formato concreto (ej: tablas), puede crear ese estilo aquí."
+
+#, fuzzy
+msgid "Are you sure you want to remove this note?"
+msgstr "¿Seguro que quiere eliminar esta nota?"
+
+msgid "Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well"
+msgstr "¿Está seguro de que quiere borrar este plan?"
+
+msgid "Are you sure?"
+msgstr "¿Está seguro?"
+
+msgid "Back"
+msgstr "Volver"
+
+msgid "Back to edit view"
+msgstr "Volver a editar la vista"
+
+msgid "Background"
+msgstr "Volver"
+
+msgid "Bad Credentials"
 msgstr ""
 
-#js.you_have_unsaved_in_sections
-msgid "You have unsaved answers in the following sections:\n"
+msgid "Before submitting, please consider:"
 msgstr ""
 
-#custom_devise.resend_confirmation
-msgid "Resend confirmation instructions"
+msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
+msgstr "Debajo tiene la lista de usuarios registrados en su entidad. Puede ordenar los datos por campo."
+
+msgid "Bottom"
+msgstr "Inferior"
+
+msgid "By "
 msgstr ""
 
-#custom_devise.welcome_to_DMP
-msgid "Welcome to %{application_name}"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Change language"
 msgstr ""
 
-#custom_devise.thank_you_and_confirm
-msgid "Thank you for registering at %{application_name}. Please confirm your email address:"
+#, fuzzy
+msgid "Change my password"
+msgstr "Cambiar su clave"
+
+msgid "Check box"
+msgstr "Check box"
+
+msgid "Check this box when you are ready for this guidance to appear on user's plans."
 msgstr ""
 
-#custom_devise.click_to_confirm
-msgid "Click here to confirm your account"
+msgid "Choose a template"
 msgstr ""
 
-#custom_devise.1st_part_copy
-msgid "(or copy"
-msgstr ""
-
-#custom_devise.2nd_part_copy
-msgid "into your browser)."
-msgstr ""
-
-#custom_devise.colleague_invited_you
-msgid "A colleague has invited you to contribute to their Data Management Plan at"
-msgstr ""
-
-#custom_devise.click_to_accept
 msgid "Click here to accept the invitation"
 msgstr ""
 
-#custom_devise.ignore_wont_be_created
-msgid "<p>If you don't want to accept the invitation, please ignore this email.<br /> Your account won't be created until you access the link above and set your password.</p>"
+msgid "Click here to confirm your account"
 msgstr ""
 
-#custom_devise.1st_part_change_password
-msgid "Someone has requested a link to change your"
+msgid "Click the link below to unlock your account"
 msgstr ""
 
-#custom_devise.2nd_part_change_password
-msgid "password. You can do this through the link below."
+msgid "Co-owner"
+msgstr "Co-propietario"
+
+msgid "Collaborators"
+msgstr "Colaboradores"
+
+msgid "Combine their changes with your answer below and then save the answer again."
 msgstr ""
 
-#custom_devise.ignore_password_wont_be_changed
-msgid "<p>If you didn't request this, please ignore this email.</p> <p>Your password won't change until you access the link above and create a new one.</p>"
+msgid "Comment"
+msgstr "Comentario"
+
+#, fuzzy
+msgid "Comment removed."
+msgstr "Comentario"
+
+msgid "Comment was successfully created."
 msgstr ""
 
-#custom_devise.hello
-msgid "Hello"
+#, fuzzy
+msgid "Comment was successfully saved."
+msgstr "Plan creado con éxito"
+
+msgid "Configure"
+msgstr "Configuración"
+
+msgid "Contact Email"
 msgstr ""
 
-#custom_devise.1st_part_locked
-msgid "Your "
+msgid "Contact us"
+msgstr "Contacto"
+
+msgid "Create a new plan"
+msgstr "Crear un nuevo plan"
+
+msgid "Create a template"
+msgstr "Crear una plantilla"
+
+msgid "Create plan"
+msgstr "Crear un plan"
+
+msgid "Created"
+msgstr "Creación"
+
+msgid "Created at"
+msgstr "Creado el"
+
+msgid "Current password"
+msgstr "Clave actual"
+
+msgid "Customise"
+msgstr "Personalizar"
+
+msgid "Customised"
 msgstr ""
 
-#custom_devise.2nd_part_locked
-msgid " account has been locked due to an excessive number of unsuccessful sign in attempts."
+msgid "DMP access removed"
 msgstr ""
 
-#custom_devise.click_to_unlock
-msgid "Click the link below to unlock your account:"
+msgid "DMP permissions changed"
 msgstr ""
 
-#custom_devise.unlock
-msgid "Unlock my account"
+msgid "Default"
+msgstr "Por defecto"
+
+msgid "Default answer"
+msgstr "Respuesta por defecto"
+
+msgid "Default value"
+msgstr "Valor por defecto"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "Delete question"
+msgstr "Borrar la pregunta"
+
+msgid "Description"
 msgstr ""
 
-#custom_devise.waiting_for_confirmation
-msgid "Currently waiting confirmation for: "
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Details successfully updated."
 msgstr ""
 
-#custom_devise.resend_unlock
-msgid "Resend unlock instructions"
+msgid "Didn't receive confirmation instructions?"
+msgstr "¿No recibió instrucciones de confirmación?"
+
+msgid "Didn't receive unlock instructions?"
+msgstr "¿No recibió instrucciones para el desbloqueo?"
+
+msgid "Discard"
+msgstr "Descartar"
+
+msgid "Display additional comment area."
+msgstr "Mostrar un área de comentarios adicional."
+
+msgid "Dropdown"
+msgstr "Dropdown"
+
+msgid "Duplicate column name. Please only include each column once."
+msgstr "Nombre de columna duplicado. Por favor, indique cada columna sólo una vez."
+
+msgid "E.g ORCID http://orcid.org/."
+msgstr "P.e. ORCID http://orcid.org/."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit User Privileges"
 msgstr ""
 
-#api.bad_credentials
-msgid "{"Error":"Bad credentials"}"
-msgstr "{"Error":"Bad credentials"}"
+msgid "Edit customisation"
+msgstr "Editar la personalización"
 
-#api.org_dosent_exist
-msgid "{"Error":"Organisation does not exist"}"
-msgstr "{"Error":"Organization does not exist"}"
+msgid "Edit phase"
+msgstr "Editar fase"
 
-#api.org_not_funder
-msgid "{"Error":"Organisation specified is not a funder"}"
-msgstr "{"Error":"Organization specified is not a funder"}"
+msgid "Edit phase details"
+msgstr "Editar los detalles de las fase"
 
-#api.org_multiple_templates
-msgid "{"Error":"Organisation has more than one template and template name unspecified or invalid"}"
-msgstr "{"Error":"Organization has more than one template and template name unspecified or invalid"}"
+msgid "Edit plan details"
+msgstr "Editar los detalles del plan"
 
-#api.no_auth_for_endpoint
-msgid "{"Error":"You do not have authorisation to view this endpoint"}"
-msgstr "{"Error":"You do not have authorisation to view this endpoint"}"
+msgid "Edit profile"
+msgstr "Editar perfil"
 
-#api.bad_resource
-msgid "{"Error":"You do not have authorisation to view this resource"}"
-msgstr "{"Error":"You do not have authorisation to view this resource"}"
+msgid "Edit question"
+msgstr "Editar la pregunta"
 
-#identifier_schemes.connect_success
-msgid "Your account has bee connected to %{scheme}"
-msgstr "Tu cuenta se ha conectado a %{scheme}"
+msgid "Edit suggested answer/ example"
+msgstr "Editar respuesta sugerida / ejemplo"
 
-#identifier_schemes.connect_failure
-msgid "We could not connect your account to %{scheme}"
-msgstr "No pudimos conectar tu cuenta a %{scheme}"
+msgid "Edit template details"
+msgstr "Editar plantilla"
 
-#identifier_schemes.disconnect_success
-msgid "Your account has been disconnected from %{scheme}"
-msgstr "Su cuenta se ha desconectado de %{scheme}"
+#, fuzzy
+msgid "Editor"
+msgstr "Editar"
 
-#identifier_schemes.disconnect_failure
-msgid "We were unable to disconnect your account from %{scheme}"
-msgstr "No hemos podido desconectar tu cuenta de %{scheme}"
+msgid "Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access."
+msgstr "Los editores pueden contribuir a los planes. Los co-propietarios tienen derechos adicionales para editar los detalles del plan y controlar el acceso al mismo."
 
-#identifier_schemes.new_login_success
-msgid "It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration."
-msgstr "No ha configurado una cuenta. Por favor complete su registro."
+msgid "Email"
+msgstr "Correo electrónico"
 
-#identifier_schemes.new_login_failure
-msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
-msgstr "No hemos podido verificar tu cuenta. Utilice el siguiente formulario para crear una cuenta nueva. Podrá vincular su nueva cuenta posteriormente."
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
 
-#identifier_schemes.schemes.orcid.logo
-msgid "http://orcid.org/sites/default/files/images/orcid_16x16.png"
-msgstr "http://orcid.org/sites/default/files/images/orcid_16x16.png"
+msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
+msgstr "Teclee una descripción básica. Se les presentará a los usuarios bajo el resumen de secciones y preguntas solicitadas."
 
-#identifier_schemes.schemes.orcid.user_landing_page
-msgid "https://orcid.org/%{id}"
-msgstr "https://orcid.org/%{id}"
+msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
+msgstr "Introduzca una descripción que le ayude a diferenciar las plantillas. Ej: Si tiene varias para diferentes audiencias"
 
-#identifier_schemes.schemes.orcid.connect
-msgid "Create or Connect your ORCID ID"
-msgstr "Cree o conecte su ID de ORCID ID"
+msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
+msgstr "Por favor, introduzca un título para la fase"
 
-#identifier_schemes.schemes.orcid.connect_tooltip
-msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
-msgstr "ORCID proporciona un identificador digital persistente que lo distingue de otros investigadores. Más información en orcid.org"
+msgid "Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box."
+msgstr "Introduzca las opciones que quiere mostrar. Si quiere que una opción esté seleccionada por defecto, marque la casilla correspondiente."
 
-#identifier_schemes.schemes.orcid.disconnect_confirmation
-msgid "Are you sure you want to disconnect your ORCID ID?"
-msgstr "¿Está seguro de que desea desconectar su ORCID ID?"
+msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
+msgstr "Introduzca la guía concreta para esta pregunta. Si también tiene guías temáticas, se eligirán en función de su slección, por lo que es preferible no duplicar mucho texto."
 
-#identifier_schemes.schemes.orcid.disconnect_tooltip
-msgid "Disconnect your account from ORCID. You can reconnect at any time."
-msgstr "Desconecte su cuenta de ORCID. Puede volver a conectarse en cualquier momento."
+msgid "Enter your guidance here. You can include links where needed."
+msgstr "Introduzca sus orientaciones aquí. Puede incluir enlaces si lo cree necesario."
 
-#magic_strings.organisation_types.funder
+msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
+msgstr ""
+
+msgid "Error!"
+msgstr "¡Error!"
+
+msgid "Example of answer"
+msgstr "Respuesta de ejemplo"
+
+msgid "Export"
+msgstr "Exportar"
+
+#, fuzzy
+msgid "Export settings updated successfully."
+msgstr "Exportar"
+
+#, fuzzy
+msgid "Exporting public plan is under development. Apologies for any inconvience."
+msgstr "Exportar"
+
+msgid "Face"
+msgstr "Estilo"
+
+msgid "File Name"
+msgstr "Título del plan"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Filter plans"
+msgstr "Filtro de planes"
+
+msgid "First name"
+msgstr "Nombre"
+
+msgid "Font"
+msgstr ""
+
+msgid "Forgot your password?"
+msgstr "¿Olvidó su clave?"
+
 msgid "Funder"
 msgstr "Financiador"
 
-#magic_strings.organisation_types.organisation
-msgid "Organisation"
-msgstr "Organización"
+msgid "Funder name"
+msgstr "Nombre del financiador del proyecto"
 
-#magic_strings.organisation_types.project
-msgid "Project"
-msgstr "Proyecto"
+msgid "Funders templates"
+msgstr "Plantillas de financiador"
 
-#magic_strings.organisation_types.institution
+msgid "Future plans"
+msgstr "Hoja de ruta"
+
+msgid "Get involved"
+msgstr ""
+
+msgid "Grant number"
+msgstr "Título de subvención"
+
+msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
+msgstr "Número de referencia de la subvención si es aplicable [SÓLO PGDs YA ADJUDICADOS]"
+
+msgid "Guidance"
+msgstr "Guía"
+
+msgid "Guidance group"
+msgstr "Grupo de orientación"
+
+msgid "Guidance group list"
+msgstr "Listado de grupos de orientación"
+
+msgid "Guidance group was successfully created."
+msgstr "El grupo de orientación se creó correctamente."
+
+msgid "Guidance group was successfully deleted."
+msgstr "El grupo de orientación se borró correctamente."
+
+msgid "Guidance group was successfully updated."
+msgstr "El grupo de orientación se actualizó correctamente."
+
+msgid "Guidance list"
+msgstr "Listado de orientaciones"
+
+msgid "Guidance was successfully created."
+msgstr "La orientación se creó correctamente."
+
+#, fuzzy
+msgid "Guidance was successfully deleted."
+msgstr "La orientación se creó correctamente."
+
+msgid "Guidance was successfully updated."
+msgstr "La orientación se actualizó correctamente."
+
+msgid "Hello"
+msgstr ""
+
+msgid "Hello "
+msgstr ""
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "History"
+msgstr ""
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "How many plans?"
+msgstr "¿Cuántos planes?"
+
+msgid "How to use the API"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "If applying for funding, select your research funder."
+msgstr "Si se solicita financiación, seleccione el organismo financiador de su investigación."
+
+msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr "Si se solicita financiación, indique el nombre exactamente como en la propuesta de subvención."
+
+msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
+msgstr "Si la guía está dirigida a un subconjunto de los usuarios (ej: los pertenecientes a un colegio o instituto), seleccione esta opción. Los usuarios serán capaces de seleccionar esta guía cuando respondan sus preguntas durante la creación del plan."
+
+msgid "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+msgstr ""
+
+msgid "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
+msgstr ""
+
+msgid "If you didn't request this, please ignore this email."
+msgstr ""
+
+msgid "If you don't want to accept the invitation, please ignore this email."
+msgstr ""
+
+msgid "If you would like to change your password please complete the following fields."
+msgstr "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
+
+msgid "Impossible sharing plan with %{email} since that email matches with the owner of the plan."
+msgstr ""
+
+msgid "Included Elements"
+msgstr "Elementos incluídos"
+
+msgid "Information was successfully created."
+msgstr "La información se creó correctamente."
+
+msgid "Information was successfully deleted."
+msgstr "Information se destruyó correctamente"
+
+msgid "Information was successfully updated."
+msgstr "La información se actualizó correctamente."
+
 msgid "Institution"
 msgstr "Institución"
 
-#magic_strings.organisation_types.research_institute
-msgid "Research Institute"
-msgstr "Instituto de Investigación"
+msgid "Invalid font face"
+msgstr "Estilo de fuente inválido"
 
-#magic_strings.organisation_types.template
+msgid "Invalid font size"
+msgstr "Tamaño de fuente inválido"
+
+msgid "Invalid maximum pages"
+msgstr "Número de páginas inválido"
+
+msgid "Invitation issued successfully."
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Last logged in"
+msgstr "Último acceso"
+
+msgid "Last name"
+msgstr "Apellidos"
+
+msgid "Last updated"
+msgstr "Última actualización"
+
+msgid "Latest news"
+msgstr ""
+
+msgid "Left"
+msgstr "Izquierdo"
+
+msgid "Link your %{application_name} account to your institutional credentials (UK users only)"
+msgstr "Vincule su cuenta de DMPonline con las credenciales de su institución (Sólo para usuarios del Reino Unido)"
+
+msgid "List of users"
+msgstr "Listado de usuarios"
+
+msgid "Logo"
+msgstr ""
+
+msgid "Main organisation"
+msgstr "Entidad principal"
+
+msgid "Margin"
+msgstr "Margen"
+
+msgid "Margin cannot be negative"
+msgstr "El margen no puede ser negativo"
+
+msgid "Margin value is invalid"
+msgstr "El valor del margen no es válido"
+
+msgid "Me"
+msgstr "Yo"
+
+msgid "Multi select box"
+msgstr "Multi select box"
+
+msgid "My organisation isn't listed."
+msgstr "No se muestra mi organización."
+
+msgid "My plan"
+msgstr "Mi proyecto"
+
+msgid "My plans"
+msgstr "Mis planes"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Name (if different to above), telephone and email contact details"
+msgstr "Nombre (si es diferente del de más arriba), teléfono y dirección de correo electrónico"
+
+msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
+msgstr "Nombre del/de los Investigador/es Principal/es o investigador/es principal/es del proyecto."
+
+msgid "Name of funder, if applicable."
+msgstr "Nombre del financiador, si corresponde."
+
+msgid "New guidance"
+msgstr "Nueva orientación"
+
+msgid "New password"
+msgstr "Nueva clave"
+
+msgid "New section title"
+msgstr "Título de la nueva sección"
+
+msgid "New template"
+msgstr "Nueva plantilla"
+
+msgid "New to %{application_name}? Sign up today."
+msgstr "¿Nuevo en DMPonline? Regístrese ya."
+
+msgid "No"
+msgstr ""
+
+msgid "No additional comment area will be displayed."
+msgstr "No se mostrará un área adicional para comentarios."
+
+msgid "No matches"
+msgstr "Ningún plan coincide con '%{filter}'"
+
+msgid "None"
+msgstr "Ninguno/a"
+
+msgid "Not answered yet"
+msgstr "Aún no respondido/a"
+
+msgid "Not applicable/not listed."
+msgstr "No aplicable / no listado/a."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Note removed by"
+msgstr "Nota borrada por"
+
+msgid "Note removed by you"
+msgstr "Nota borrada por usted"
+
+msgid "Noted by:"
+msgstr "Anotado por:"
+
+msgid "Ok"
+msgstr ""
+
+msgid "On %{application_name}"
+msgstr ""
+
+msgid "On data management planning"
+msgstr ""
+
+msgid "Optional subset"
+msgstr "Subconjunto opcional"
+
+msgid "Or, sign in with your institutional credentials"
+msgstr "O conectar con sus credenciales institucionales"
+
+msgid "Order"
+msgstr "Orden"
+
+msgid "Order of display"
+msgstr "Orden de presentación"
+
+msgid "Organisation"
+msgstr "Organización"
+
+msgid "Organisation details"
+msgstr "Detalles de la entidad"
+
+msgid "Organisation name"
+msgstr "Nombre de la entidad"
+
+msgid "Organisation type"
+msgstr "Tipo de entidad"
+
+msgid "Organisation was successfully updated."
+msgstr "Se ha actualizado correctamente la actualización."
+
+msgid "Organisational"
+msgstr "Organizativo"
+
+msgid "Organisational (visibile to others within your organisation)"
+msgstr "Con otros miembros de su organización"
+
+msgid "Organization"
+msgstr "Organización"
+
+msgid "Otherwise leave blank."
+msgstr "Si no, déjelo en blanco."
+
+msgid "Own templates"
+msgstr "Sus plantillas"
+
+msgid "Owner"
+msgstr "Propietario"
+
+msgid "PDF Formatting"
+msgstr "Dando formato al PDF"
+
+msgid "Password"
+msgstr "Clave"
+
+#, fuzzy
+msgid "Password and comfirmation must match"
+msgstr "Clave"
+
+msgid "Password confirmation"
+msgstr "Confirmación de clave"
+
+msgid "Permissions"
+msgstr "Permisos"
+
+msgid "Phase details"
+msgstr "Detalles de la fase"
+
+msgid "Plan Data Contact"
+msgstr "Datos de contacto del proyecto"
+
+msgid "Plan Description"
+msgstr "Descripción"
+
+msgid "Plan ID"
+msgstr "Identificador del Proyecto"
+
+msgid "Plan Name"
+msgstr "Nombre del Proyecto"
+
+msgid "Plan data contact"
+msgstr "Datos de contacto del plan"
+
+msgid "Plan details"
+msgstr "Detalles"
+
+msgid "Plan name"
+msgstr "Nombre de proyecto"
+
+msgid "Plan was successfully created."
+msgstr "Plan creado con éxito"
+
+#, fuzzy
+msgid "Plan was successfully deleted."
+msgstr "Plan creado con éxito"
+
+msgid "Plan was successfully updated."
+msgstr ""
+
+msgid "Please enter a password confirmation"
+msgstr ""
+
+msgid "Please enter a title for your template."
+msgstr "Por favor, introduzca un título para la plantilla."
+
+msgid "Please enter a valid web address."
+msgstr "Por favor, introduzca una dirección web válida."
+
+msgid "Please enter an email address"
+msgstr ""
+
+msgid "Please enter the name of your organisation."
+msgstr "Por favor, introduzca el nombre de su entidad."
+
+msgid "Please enter your current password"
+msgstr ""
+
+msgid "Please enter your first name."
+msgstr "Por favor, introduzca su nombre."
+
+msgid "Please enter your organisation's name."
+msgstr "Por favor, introduzca el nombre de su entidad."
+
+msgid "Please enter your password to change email address."
+msgstr ""
+
+msgid "Please enter your surname or family name."
+msgstr "Por favor, introduzca sus apellidos."
+
+msgid "Please fill in the basic project details below and click 'Update' to save"
+msgstr "Por favor, rellene los detalles básicos del proyecto y haga clic en 'Actualizar' para guardarlos"
+
+msgid "Please follow the link above to login to "
+msgstr ""
+
+msgid "Please only enter up to 165 characters, you have used"
+msgstr ""
+
+msgid "Policy Expectations"
+msgstr "Política esperada"
+
+msgid "Preview"
+msgstr "Previsualización"
+
+msgid "Principal Investigator / Researcher"
+msgstr "Principal Investigador / Científico"
+
+msgid "Principal Investigator/Researcher"
+msgstr "Investigador principal"
+
+msgid "Principal Investigator/Researcher ID"
+msgstr "ID del Investigador Principal"
+
+msgid "Private"
+msgstr "Privado"
+
+msgid "Private (owners, co-owners, and administrators only) See our Terms of Use."
+msgstr "Privado (propietarios, copropietarios y administradores solamente) Consulte nuestras Condiciones de uso."
+
+msgid "Privileges"
+msgstr ""
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Public (Your DMP will appear on the Public DMPs page of this site)"
+msgstr "Publicamente en la web. Su DMP aparecerá en la página Public DMPs de este sitio."
+
+msgid "Public DMPs"
+msgstr "DMP Públicos"
+
+msgid "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "DMP Públicos"
+
+msgid "Publish"
+msgstr ""
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Published templates cannot be edited."
+msgstr ""
+
+msgid "Question"
+msgstr "Pregunta"
+
+msgid "Question not answered"
+msgstr "Pregunta no respondida."
+
+msgid "Question not answered."
+msgstr "Pregunta no respondida."
+
+msgid "Question number"
+msgstr "Número de la pregunta"
+
+msgid "Question text"
+msgstr "Texto de la pregunta"
+
+msgid "Question text is empty, please enter your question."
+msgstr ""
+
+msgid "Questions"
+msgstr "Preguntas"
+
+msgid "Radio buttons"
+msgstr "Radio buttons"
+
+msgid "Read more on the "
+msgstr ""
+
+msgid "Read only"
+msgstr "Sólo lectura"
+
+msgid "Releases"
+msgstr ""
+
+msgid "Remember me"
+msgstr "Recordarme"
+
+msgid "Remove"
+msgstr "Borrar"
+
+msgid "Remove user access"
+msgstr "Eliminar acceso de usuario"
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "Right"
+msgstr "Derecho"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Saving..."
+msgstr "Guardando..."
+
+msgid "Screencast on how to use %{application_name}"
+msgstr "Video sobre cómo usar DMPonline"
+
+msgid "Section"
+msgstr "Sección"
+
+msgid "Sections"
+msgstr "Secciones"
+
+msgid "Select Funder"
+msgstr "Financiador"
+
+msgid "Select Organisation"
+msgstr "Organización"
+
+msgid "Select an action"
+msgstr "Seleccionar una acción"
+
+msgid "Select which group this guidance relates to."
+msgstr "Seleccione a que grupo pertenece esta guía."
+
+msgid "Select which theme(s) this guidance relates to."
+msgstr "Seleccione a el/los tema(s) relacionados con esta orientación."
+
+msgid "Select your research funder or no funder, as appropariate."
+msgstr ""
+
+msgid "Selected option(s)"
+msgstr ""
+
+msgid "Settings - My plans"
+msgstr "Preferencias - Mis planes"
+
+msgid "Share"
+msgstr "Compartir"
+
+msgid "Share note"
+msgstr "Compartir nota"
+
+msgid "Share note with collaborators"
+msgstr "Compartir nota con colaboradores"
+
+msgid "Sharing details successfully updated."
+msgstr ""
+
+msgid "Should this guidance apply:"
+msgstr "Esta guía se refiere a:"
+
+msgid "Sign in"
+msgstr "Conectar"
+
+msgid "Sign out"
+msgstr "Desconectar"
+
+msgid "Sign up"
+msgstr "Registrarse"
+
+msgid "Signed in as "
+msgstr "Registrado como "
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "Someone has requested a link to change your"
+msgstr ""
+
+msgid "Successfully unlinked your account from %{is}"
+msgstr ""
+
+msgid "Suggested answer"
+msgstr "Respuesta sugerida"
+
+msgid "Suggested answer/ Example"
+msgstr "Respuesta sugerida / ejemplo"
+
+msgid "Super admin area"
+msgstr "Área de super administrador"
+
 msgid "Template"
 msgstr "Modelo"
 
-#magic_strings.organisation_types.managing_organisation
-msgid "Digital Curation Centre"
-msgstr "Centro de Cura Digital"
+msgid "Template History"
+msgstr ""
 
-#magic_strings.user_role_types.admin
-msgid "admin"
-msgstr "admin"
+msgid "Template details"
+msgstr "Detalles de la plantilla"
 
-#magic_strings.user_role_types.org_admin
-msgid "org_admin"
-msgstr "org_admin"
+msgid "Templates"
+msgstr "Plantillas"
 
-#magic_strings.user_role_types.user
-msgid "user"
-msgstr "user"
+msgid "Terms of use"
+msgstr ""
 
-#magic_strings.roles.super_admin
-msgid "admin"
-msgstr "admin"
+msgid "Test/Practice"
+msgstr "Prueba/Práctica"
 
-#magic_strings.roles.organisational_admin
-msgid "org_admin"
-msgstr "org_admin"
+msgid "Test/Practice (your plan is not visible to other users) See our Terms of Use."
+msgstr "Prueba / Práctica (su plan no es visible para otros usuarios) Vea nuestras Condiciones de uso."
 
-#magic_strings.roles.user
-msgid "user"
-msgstr "user"
+msgid "Text"
+msgstr "Texto"
 
-#magic_strings.roles.add_organisations
-msgid "add_organisations"
-msgstr "add_organisations"
+msgid "Text area"
+msgstr "Text area"
 
-#magic_strings.roles.change_org_affiliation
-msgid "change_org_affiliation"
-msgstr "change_org_affiliation"
+msgid "Text field"
+msgstr "Text field"
 
-#magic_strings.roles.grant_permissions
-msgid "grant_permissions"
-msgstr "grant_permissions"
+msgid "Thank you for registering. Please confirm your email address"
+msgstr ""
 
-#magic_strings.roles.modify_templates
-msgid "modify_templates"
-msgstr "modify_templates"
+msgid "Thanks"
+msgstr ""
 
-#magic_strings.roles.modify_guidance
-msgid "modify_guidance"
-msgstr "modify_guidance"
+msgid "That email address is already registered."
+msgstr ""
 
-#magic_strings.roles.use_api
-msgid "use_api"
-msgstr "use_api"
+msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+msgstr ""
 
-#magic_strings.roles.change_org_details
-msgid "change_org_details"
-msgstr "change_org_details"
+msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
+msgstr "Los items que seleccione se mostarán en la siguiente tabla. Puede ordenar los datos según sus encabezados o filtrar tecleando textos en la caja de búsqueda."
 
-#magic_strings.roles.grant_api_to_orgs
-msgid "grant_api_to_orgs"
-msgstr "grant_api_to_orgs"
+msgid "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."
+msgstr "La siguiente tabla muestra las columnas que pueden mostrarse en la lista 'Mis planes'. Elija cuales quiere que se muestren."
 
-#magic_strings.token_permission_types.guidances
-msgid "guidances"
-msgstr "guidances"
+msgid "Themes"
+msgstr "Temas"
 
-#magic_strings.token_permission_types.plans
-msgid "plans"
-msgstr "plans"
+msgid "There are a number of possible templates you could use. Please choose one."
+msgstr "Hay varias plantillas que podría usar. Por favor, elija una."
 
-#magic_strings.token_permission_types.templates
-msgid "templates"
-msgstr "templates"
+msgid "There are no public DMPs."
+msgstr ""
 
-#magic_strings.token_permission_types.statistics
-msgid "statistics"
-msgstr "statistics"
+msgid "There seems to be a problem with your logo. Please upload it again."
+msgstr ""
+
+msgid "These are the basic details for your organisation."
+msgstr "Estos son los detalles básicos de su entidad."
+
+msgid "This account does not have access to that plan."
+msgstr ""
+
+msgid "This allows you to order questions within a section."
+msgstr "Le permite ordenar las preguntas de una sección."
+
+msgid "This allows you to order sections."
+msgstr "Le permite ordenar las secciones."
+
+msgid "This allows you to order the phases of your template."
+msgstr "Esto le permite ordenar las fases de su plantilla."
+
+msgid "This document was generated by %{application_name}"
+msgstr "DMPonline"
+
+msgid "This must be a valid email address - a message will be sent to it for confirmation."
+msgstr ""
+
+msgid "This must match what you entered in the previous field."
+msgstr "Ha de coincidir con lo que introdujo en el campo anterior."
+
+msgid "This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked."
+msgstr "Esta página le proporciona una visión general de su plan. Le dice en qué está basado su plan y le da una visión general de las preguntas que se le harán."
+
+msgid "This plan is based on:"
+msgstr "Este plan está basado en:"
+
+msgid "This section is locked for editing by "
+msgstr "Esta sección está bloqueda para su edición por "
+
+msgid "Tick to select any other sources of guidance you wish to see."
+msgstr "Marque para seleccionar cualquier otra fuente de orientación que quiera ver."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "To see institutional questions and/or guidance, select your organisation."
+msgstr "Para ver preguntas y/u orientación relativas a su institución, seleccione su entidad."
+
+msgid "Top"
+msgstr "Superior"
+
+msgid "Top banner text"
+msgstr "Texto del banner superior"
+
+msgid "Unable to unlinked your account from %{is}"
+msgstr ""
+
+msgid "Unknown column name."
+msgstr "Nombre de columna desconocido."
+
+msgid "Unknown formatting setting"
+msgstr "Valores de formato desconocidos"
+
+msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
+msgstr "Margen desconocido. Sólo puede ser 'superior', 'inferior', 'izquierdo' or 'derecho'"
+
+msgid "Unlink account"
+msgstr "Desvincular cuenta"
+
+msgid "Unlink institutional credentials alert"
+msgstr "Desvincule las alertas relacionadas con las credenciales de su institución"
+
+msgid "Unlink your institutional credentials"
+msgstr "Desvincule las credenciales de su institución"
+
+msgid "Unlock my account"
+msgstr ""
+
+msgid "Unsaved answers"
+msgstr "Preguntas sin contestar"
+
+msgid "Unsaved changes"
+msgstr "Deshaciendo cambios"
+
+msgid "Update Customisation"
+msgstr ""
+
+msgid "Upload a new logo file"
+msgstr ""
+
+msgid "User added to project"
+msgstr ""
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "View all guidance"
+msgstr "Ver todas las orientaciones"
+
+msgid "View all templates"
+msgstr "Ver todas las plantillas"
+
+msgid "View phase"
+msgstr "Ver fase"
+
+msgid "View plans"
+msgstr "Ver planes"
+
+msgid "Visibility"
+msgstr "Visibilidad"
+
+msgid "Website"
+msgstr "Sitio web"
+
+msgid "Welcome to %{application_name}"
+msgstr ""
+
+msgid "Welcome."
+msgstr "Bienvenido/a."
+
+msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr "Cuando crea una fase nueva para su plantilla, se creará automáticamente una versión. Una vez complete el siguiente formulario se le darán las opciones para crear secciones y preguntas."
+
+msgid "Would you like to save them now?"
+msgstr "¿Quere grabar los cambios ahora?"
+
+msgid "Yes"
+msgstr ""
+
+msgid "Yes [Original Template Has Changed]"
+msgstr ""
+
+msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+msgstr "Está a punto de borrar el grupo '%{guidance_group_name}'. Esto afectará a la orientación. ¿Está seguro?"
+
+msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
+msgstr "Está a punto de borrar '%{guidance_summary}'. ¿Está seguro?"
+
+msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
+msgstr "Va a eliminar '%{phase_title}'. Esto afectará a versiones, secciones y preguntas enlazadas con esta fase. ¿Está seguro?"
+
+msgid "You are about to delete '%{question_text}'. Are you sure?"
+msgstr "Va a eliminar '%{question_text}'. ¿Está seguro?"
+
+msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgstr "Va a borrar '%{section_title}'. Esta acción afectará las preguntas enlazadas con esta sección. ¿Está seguro?"
+
+msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
+msgstr "Va a eliminar una respuesta sugerida / ejemplo de '%{question_text}'. ¿Está seguro?"
+
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+msgid "You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+msgstr "Puede añadir un ejemplo o respuesta sugerida para ayudar a responder a sus usuarios. Se presentará bajo la caja de respuestas y pueden ser copiada y pegada."
+
+msgid "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
+msgstr "Puede elegir entre:<ul><li>- área de texto (caja grande para párrafos);</li> <li>- campo de texto (para una respuesta corta);</li> <li>- checkboxes donde las opciones se presentan como una lista y pueden seleccionarse varios valores;</li> <li>- botones de radio, donde se presenta una lista de opciones para elegir sólo una de ellas;</li> <li>- lista despegable - sólo puede seleccionarse una opción;</li> <li>- lista de selección múltiple que permite a los usuarios seleccionar varias opciones de una lista desplazable usando la tecla CTRL;</li></ul>"
+
+msgid "You can edit any of the details below."
+msgstr "Puede editar cualquiera de los siguientes datos."
+
+msgid "You have altered answers but have not saved them:"
+msgstr "Ha modificado las respuestas, pero todavía no las ha grabado:"
+
+msgid "You have been given "
+msgstr ""
+
+msgid "You have been given access to a Data Management Plan"
+msgstr ""
+
+msgid "You have been granted permission by your organisation to use our API."
+msgstr ""
+
+msgid "You have unsaved answers in the following sections:"
+msgstr ""
+
+msgid "You may leave blank or select a different organisation to your own."
+msgstr "Puede dejar en blanco o seleccionar una entidad distinta a la suya."
+
+msgid "You must accept the terms and conditions to register."
+msgstr ""
+
+msgid "You must enter a valid email address."
+msgstr "Debe introducir una dirección de correo electrónico válida."
+
+msgid "You need to sign in or sign up before continuing."
+msgstr ""
+
+msgid "Your"
+msgstr ""
+
+msgid "Your API token and instructions for using the API endpoints can be found here."
+msgstr ""
+
+msgid "Your ORCID"
+msgstr ""
+
+msgid "Your access to"
+msgstr ""
+
+msgid "Your account is linked to your institutional credentials."
+msgstr "Su cuenta enstá vinculada con las credenciales de su institución."
+
+msgid "Your account won't be created until you access the link above and set your password."
+msgstr ""
+
+msgid "Your browser does not support the video tag."
+msgstr "El navegador no soporta la etiqueta video."
+
+msgid "Your password must contain at least 8 characters."
+msgstr "Su clave ha de tener al menos 8 caracteres."
+
+msgid "Your password won't change until you access the link above and create a new one."
+msgstr ""
+
+msgid "Your permissions relating to"
+msgstr ""
+
+msgid "[Unpublished Changes]"
+msgstr ""
+
+msgid "a day"
+msgstr ""
+
+msgid "about %d hours"
+msgstr ""
+
+msgid "about a minute"
+msgstr ""
+
+msgid "about a month"
+msgstr ""
+
+msgid "about a year"
+msgstr ""
+
+msgid "about an hour"
+msgstr ""
+
+msgid "access."
+msgstr ""
+
+msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
+msgstr ""
+
+msgid "add guidance text"
+msgstr ""
 
 # Timeago - found in lib/assets/javascripts/jquery.timeago.js
 # ---------------------
@@ -2787,48 +1431,162 @@ msgstr "statistics"
 msgid "ago"
 msgstr ""
 
-#suffix from now
+#, fuzzy
+msgid "answered"
+msgstr "Contestado "
+
+#, fuzzy
+msgid "approx. %{space_used} of available space used (max %{num_pages} pages)"
+msgstr "aprox. %{space_used}% de disponibilidad del espacio usado (máx. %{num_pages} páginas)"
+
+msgid "by"
+msgstr ""
+
+msgid "can't be blank"
+msgstr ""
+
+msgid "can't be larger than 500KB"
+msgstr ""
+
+msgid "can't be less than zero"
+msgstr ""
+
+msgid "e.g. School/ Department"
+msgstr "ej: Escuela / Departmento"
+
+msgid "format"
+msgstr ""
+
 msgid "from now"
 msgstr ""
 
-#seconds
+msgid "guidance"
+msgstr ""
+
+#, fuzzy
+msgid "guidance group"
+msgstr "Grupo de orientación"
+
+msgid "guidance on"
+msgstr ""
+
+msgid "has been removed."
+msgstr ""
+
+msgid "have changed. You now have"
+msgstr ""
+
+msgid "height must be less than 100px"
+msgstr ""
+
+msgid "helpers.dropdown"
+msgstr ""
+
+msgid "helpers.is_test"
+msgstr ""
+
+msgid "helpers.links.cancel"
+msgstr ""
+
+msgid "helpers.project.is_test_help_text"
+msgstr ""
+
+msgid "into your browser"
+msgstr ""
+
 msgid "less than a minute"
 msgstr ""
 
-#minute
-msgid "about a minute"
-msgstr ""
-#minutes
-msgid "%{d} minutes"
+#, fuzzy
+msgid "must be logged in"
+msgstr "Último acceso"
+
+msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr ""
 
-#hour
-msgid "about an hour"
-msgstr ""
-#hours
-msgid "about %{d} hours"
+msgid "must be unique"
 msgstr ""
 
-#day
-msgid "a day"
-msgstr ""
-#days
-msgid "%{d} days"
+#, fuzzy
+msgid "must have access to guidances api"
+msgstr "guidances"
+
+#, fuzzy
+msgid "note"
+msgstr "Nota"
+
+msgid "or copy"
 msgstr ""
 
-#month
-msgid "about a month"
-msgstr ""
-#months
-msgid "%{d} months"
+#, fuzzy
+msgid "org_admin.templates.edit_phase_label"
+msgstr "org_admin"
+
+#, fuzzy
+msgid "organisation"
+msgstr "Organización"
+
+msgid "password. You can do this through the link below."
 msgstr ""
 
-#year
-msgid "about a year"
+#, fuzzy
+msgid "phase"
+msgstr "Fase"
+
+#, fuzzy
+msgid "plan"
+msgstr "plans"
+
+msgid "profile"
 msgstr ""
-#years
-msgid "%{d} years"
+
+#, fuzzy
+msgid "question"
+msgstr "Pregunta"
+
+#, fuzzy
+msgid "questions"
+msgstr "Preguntas"
+
+msgid "questions answered"
+msgstr "preguntas respondidas"
+
+#, fuzzy
+msgid "role"
+msgstr "Función"
+
+#, fuzzy
+msgid "section"
+msgstr "Sección"
+
+msgid "select a guidance group"
 msgstr ""
+
+msgid "select at least one theme"
+msgstr ""
+
+#, fuzzy
+msgid "suggested answer"
+msgstr "Respuesta sugerida"
+
+#, fuzzy
+msgid "template"
+msgstr "templates"
+
+msgid "user"
+msgstr "user"
+
+msgid "{\"Error\":\"Organisation does not exist\"}"
+msgstr "{\"Error\":\"Organization does not exist\"}"
+
+msgid "{\"Error\":\"Organisation has more than one template and template name unspecified or invalid\"}"
+msgstr "{\"Error\":\"Organization has more than one template and template name unspecified or invalid\"}"
+
+msgid "{\"Error\":\"Organisation specified is not a funder\"}"
+msgstr "{\"Error\":\"Organization specified is not a funder\"}"
+
+msgid "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
+msgstr "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
 
 # ActiveRecord model errors that we could not override in the model's validation definition
 msgid "activerecord.errors.models.user.attributes.email.blank"
