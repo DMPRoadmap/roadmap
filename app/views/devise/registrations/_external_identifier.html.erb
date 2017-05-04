@@ -1,27 +1,23 @@
 <div class="user-identifier" 
-     style="background-image: url(<%= t("identifier_schemes.schemes.#{scheme.name}.logo") %>); background-size: 16px 16px;">
+     style="background-image: url(<%= "#{scheme.logo_url}" %>); background-size: 16px;">
      
   <% if id.nil? || id.identifier == '' %>
-  
-    <%= link_to "#{t("identifier_schemes.schemes.#{scheme.name}.connect")}", 
-                Rails.application.routes.url_helpers.send(
-                  "user_#{scheme.name.downcase}_omniauth_authorize_path"
-                ),
-                title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip") %>
-                
+      <%= link_to "#{_("Create or Link your #{scheme.description} ID")}",
+                  Rails.application.routes.url_helpers.send(
+                    "user_#{scheme.name.downcase}_omniauth_authorize_path"
+                  ),
+                  title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "")
+      %>
   <% else %>
-		<% if t("identifier_schemes.schemes.#{scheme.name}.user_landing_page").nil? %>
-			<%= t("identifier_schemes.schemes.connect_success").gsub(/%\{scheme\}/, scheme.name.capitalize) %>
-			
-		<% else %>
-	    <% uri = t("identifier_schemes.schemes.#{scheme.name}.user_landing_page").gsub(/%\{id\}/, id.identifier) %>
-	    <%= link_to uri, uri, target: '_blank', 
-	                title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip") %>
+    <% if scheme.user_landing_url.nil? %>
+      <%= _("Your account has been linked to #{scheme.description}.") %>
+    <% else %>
+      <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 
+          title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
     <% end %>
-		
     <%= link_to image_tag('remove.png', height: '16px', width: '16px'), 
                 destroy_user_identifier_path(id), method: :delete,
-                title: t("identifier_schemes.schemes.#{scheme.name}.disconnect_tooltip"),
-                data: {confirm: t("identifier_schemes.schemes.#{scheme.name}.disconnect_confirmation")} %>
+                title: _("Unlink your account from #{scheme.description}. You can link again at any time."),
+                data: {confirm: _("Are you sure you want to unlink your #{scheme.description} ID?")} %>
   <% end %>
 </div>

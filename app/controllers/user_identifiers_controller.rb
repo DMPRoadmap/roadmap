@@ -12,9 +12,9 @@ class UserIdentifiersController < ApplicationController
     # If the requested identifier belongs to the current user remove it
     if user.user_identifiers.include?(identifier)
       identifier.destroy!
-      flash[:notice] = _('Successfully unlinked your account from %{is}') % {is: identifier.identifier_scheme.name}
+      flash[:notice] = _('Successfully unlinked your account from %{is}.') % {is: identifier.identifier_scheme.description}
     else
-      flash[:notice] = _('Unable to unlinked your account from %{is}') % {is: identifier.identifier_scheme.name}
+      flash[:notice] = _('Unable to unlink your account from %{is}.') % {is: identifier.identifier_scheme.description}
     end
     
     redirect_to edit_user_registration_path
