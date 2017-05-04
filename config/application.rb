@@ -72,6 +72,7 @@ module DMPRoadmap
     config.assets.precompile += %w(projects.js)    
     config.assets.precompile += %w(jquery.placeholder.js)
     config.assets.precompile += %w(jquery.tablesorter.js)
+    config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
     config.assets.precompile += %w(export_configure.js)
     config.assets.precompile += %w(toolbar.js)
     config.assets.precompile += %w(new_plan.js)

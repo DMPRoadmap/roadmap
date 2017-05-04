@@ -130,6 +130,7 @@ class Template < ActiveRecord::Base
       self.published = false
       self.dirty = false
       self.visibility = 1
+      self.is_default = false
       self.version = 0 if self.version.nil?
     
       # Generate a unique identifier for the dmptemplate_id if necessary

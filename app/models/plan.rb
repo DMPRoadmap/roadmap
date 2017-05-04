@@ -1,4 +1,7 @@
 class Plan < ActiveRecord::Base
+
+  before_validation :set_creation_defaults
+
   ##
   # Associations
   belongs_to :template
@@ -1105,5 +1108,15 @@ class Plan < ActiveRecord::Base
 
 		(num_lines * font_height) + vertical_margin + leading
 	end
+
+  # Initialize the title and dirty flags for new templates
+  # --------------------------------------------------------
+  def set_creation_defaults
+    # Only run this before_validation because rails fires this before save/create
+    if self.id.nil?
+      self.title = "My plan (#{self.template.title})" if self.title.nil?
+      self.visibility = 1
+    end
+  end
 
 end

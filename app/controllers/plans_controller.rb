@@ -22,10 +22,7 @@ class PlansController < ApplicationController
     @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
     
     # Get the current user's org
-    @default_org_name = ''
-    if @orgs.include?(current_user.org)
-      @default_org_name = current_user.org.name
-    end
+    @default_org = current_user.org if @orgs.include?(current_user.org)
       
     respond_to :html
   end
@@ -33,61 +30,7 @@ class PlansController < ApplicationController
   # GET /plans/possible_templates [JSON]
   # ------------------------------------------------------------------------------------
   def possible_templates
-    authorize Plan.new
-    
-    templates = []
-    org = Org.find_by(name: params[:plan_org_name])
-    funder = Org.find_by(name: params[:plan_funder_name])
-    
-    if org.nil?
-      if funder.nil?
-        msg = _("Using the generic Data Management Plan")
-        
-      else
-        templates << Template.where(published: true, org: @funder)
-        msg = _("No funder templates available using the generic DMP") if @templates.empty
-        msg = _("Using the funder's DMP") if @templates.count == 1
-        msg = _("Please select form one of the funder's DMPs") if @templates.count > 1
-      end
-      
-    else
-      if funder.nil?
-        templates << Template.where(published: true, org: @org)
-        msg = _("No organisation templates available using the generic DMP") if @templates.empty
-        msg = _("Using the organisation's DMP") if @templates.count == 1
-        msg = _("Please select form one of the organisation's DMPs") if @templates.count > 1
-        
-      else
-        templates << Template.where(published: true, org: @funder)
-        
-        # Swap out any organisational cusotmizations of a funder template
-        templates.each do |tmplt|
-          customization = Template.where(published: true, org: @org, customization_of: tmplt.dmptemplate_id)
-          unless customization.nil?
-            templates.delete(tmplt)
-            templates << customization
-          end
-        end
-        
-        msg = _("No funder/organisation templates available using the generic DMP") if @templates.empty
-        msg = _("Using the funder/organisation's DMP") if @templates.count == 1
-        msg = _("Please select form one of the funder/organisation's DMPs") if @templates.count > 1
-      end
-    end
-    
-    # If no templates were available use the generic templates
-    if templates.empty?
-      templates << Template.find_by(is_default: true)
-    end
-    
-    templates = templates.sort{|x,y| x.title <=> y.title } if templates.count > 1
-    templates = templates.collect{|t| {id: t.id, title: t.title, org: t.org.name} }
-    
-    respond_to do |format|
-      format.json do
-        render json: {msg: msg, templates: templates}
-      end
-    end
+
   end
 
 
@@ -97,15 +40,42 @@ class PlansController < ApplicationController
     @plan = Plan.new
     authorize @plan
     
-    @plan.template = Template.find(plan_params["template_id"])
+    @plan.principal_investigator = current_user.name
+    @plan.data_contact = current_user.email
+    @plan.funder_name = plan_params[:funder_name]
     
-    if @plan.save
-      @plan.assign_creator(current_user)
-      
-      redirect_to plan_path(@plan), notice: _('Plan was successfully created.')
+    # If a template hasn't been identified look for the available templates
+    if plan_params[:template_id].blank?
+      template_options(plan_params[:org_id], plan_params[:funder_id])
+
+puts "TEMPLATES: #{@templates.collect{|t| t.id }.join(', ')}"
+
+      # Return the 'Select a template' section
+      respond_to do |format|
+        format.js {} 
+      end
+    
+    
+    # Otherwise create the plan
     else
-      flash[:notice] = failed_create_error(@plan, 'Plan')
-      render 'new'
+      @plan.template = Template.find(plan_params[:template_id])
+=begin    
+      if @plan.save
+        @plan.assign_creator(current_user)
+    
+        flash[:notice] = _('Plan was successfully created.')
+        respond_to do |format|
+          format.js { render js: "window.location='#{plan_url(@plan)}'" }
+        end
+        
+      else
+        # Something went wrong so report the issue to the user
+        flash[:notice] = failed_create_error(@plan, 'Plan')
+        respond_to do |format|
+          format.js {} 
+        end
+      end
+=end
     end
   end
 
@@ -381,7 +351,7 @@ class PlansController < ApplicationController
   private
 
   def plan_params 
-    params.require(:plan).permit(:template_id)
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title)
   end
 
   # different versions of the same template have the same dmptemplate_id
@@ -445,6 +415,51 @@ class PlansController < ApplicationController
       end
     end
     plan.delete(src_plan_key)
+  end
+
+  # Collect all of the templates available for the org+funder combination
+  # --------------------------------------------------------------------------
+  def template_options(org_id, funder_id)
+    templates = []
+    
+    if !org_id.blank? || !funder_id.blank?
+      if funder_id.blank?
+        # Load the org's template(s)
+        unless org_id.nil?
+          org = Org.find(org_id)
+          @templates = Template.where(published: true, org: org, customization_of: nil).to_a
+          @msg = _("We found multiple DMP templates corresponding to the research organisation.") if @templates.count > 1
+        end
+        
+      else
+        funder = Org.find(funder_id)
+        # Load the funder's template(s)
+        @templates = Template.where(published: true, org: funder).to_a
+        
+        unless org_id.blank?
+          org = Org.find(org_id)
+          
+          # Swap out any organisational cusotmizations of a funder template
+          @templates.each do |tmplt|
+            customization = Template.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
+            unless customization.nil?
+              @templates.delete(tmplt)
+              @templates << customization
+            end
+          end
+        end
+        
+        msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
+      end
+    end
+    
+    # If no templates were available use the generic templates
+    if @templates.empty?
+      @msg = _("Using the generic Data Management Plan")
+      @templates << Template.find_by(is_default: true)
+    end
+    
+    @templates = templates.sort{|x,y| x.title <=> y.title } if templates.count > 1
   end
 
 end

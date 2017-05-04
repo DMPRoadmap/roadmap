@@ -4,59 +4,71 @@
   <h1><%= _('Create a new plan') %></h1>
 
   <p>
-		<%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
-	</p>
+    <%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
+  </p>
 
-	<%= form_for @plan, method: :post do |f| %>
-		<fieldset class="white-fieldset">
-			<h3><%= _('Where will the research be conducted?') %></h3>
-			
-			<label for="plan_org_name">
-				<%= _('Select the primary research organisation responsible') %>
-			</label>
-			<input type="text" name="plan[org_id]" id="plan_org_name" 
-						 class="js-combobox" list="orgs" 
-						 data-combobox-prefix-class="combobox"
-						 data-combobox-case-sensitive="no"
-						 data-combobox-search-option="containing"
-						 value="<%= @default_org_name %>" />
-			<datalist id="orgs">
-				<% @orgs.each do |org| %>
-					<option value="<%= org.name %>" />
-				<% end %>
-			</datalist>
-			
-			<input type="checkbox" id="plan_no_org">
-			<span class="checkbox-label">
-				<%= _('My research organization is not on the list or no research organization is associated with this plan')%>
-			</span>
-		</fieldset>
-		
-		<fieldset class="white-fieldset">
-			<h3><%= _('Who will fund the research?') %></h3>
-			
-			<label for="plan_funder_name">
-				<%= _('Select the funding organisation') %>
-			</label>
-			<input type="text" name="plan[funder_id]" id="plan_funder_name" 
-						 class="js-combobox" list="funders" 
-						 data-combobox-prefix-class="combobox"
-						 data-combobox-case-sensitive="no"
-						 data-combobox-search-option="containing" />
-			<datalist id="funders">
-				<% @funders.each do |funder| %>
-					<option value="<%= funder.name %>" />
-				<% end %>
-			</datalist>
-			
-			<input type="checkbox" id="plan_no_funder">
-			<span class="checkbox-label">
-				<%= _('No funder associated with this plan')%>
-			</span>
-		</fieldset>
-		
-		<input type="hidden" id="plan_template_id" name="plan[template_id]" />
-		<button type="button" class="form-submit"><%= _('Create Plan') %></button>
-	<% end %>
+  <%= form_for @plan, method: :post, remote: true do |f| %>
+    <div id="create_plan">
+
+      <!-- Organisation selection -->
+      <fieldset class="white-fieldset">
+        <h3><%= _('Where will the research be conducted?') %></h3>
+      
+        <label for="plan_org_name">
+          <%= _('Select the primary research organisation responsible') %>
+        </label>
+      
+        <%= render partial: "shared/accessible_combobox", locals: {name: 'plan[org_name]',
+                                                                   id: 'plan_org_name',
+                                                                   default_selection: @default_org,
+                                                                   models: @orgs,
+                                                                   attribute: 'name'} %>
+      
+        <input type="checkbox" id="plan_no_org">
+        <span class="checkbox-label">
+          <%= _('My research organization is not on the list or no research organization is associated with this plan')%>
+        </span>
+      </fieldset>
+    
+      <!-- Funder selection -->
+      <fieldset class="white-fieldset">
+        <h3><%= _('Who will fund the research?') %></h3>
+      
+        <label for="plan_funder_name">
+          <%= _('Select the funding organisation') %>
+        </label>
+      
+        <%= render partial: "shared/accessible_combobox", locals: {name: 'plan[funder_name]',
+                                                                   id: 'plan_funder_name',
+                                                                   default_selection: nil,
+                                                                   models: @funders,
+                                                                   attribute: 'name'} %>
+                                                                 
+        <input type="checkbox" id="plan_no_funder">
+        <span class="checkbox-label">
+          <%= _('No funder associated with this plan')%>
+        </span>
+      </fieldset>
+
+      <!-- Template selection -->
+      <fieldset class="white-fieldset" id="available-templates">
+      </fieldset>
+
+      <!-- Plan name section -->
+      <fieldset class="white-fieldset">
+        <h3><%= _('What is the subject of your proposal?') %></h3>
+        
+        <label for="plan_title">
+          <%= _('Enter a name for your plan') %>
+        </label>
+        
+        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + _(' Plan')) %>
+        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" />
+      </fieldset>
+    
+    </div>
+    
+    <input type="submit" class="form-submit" value="<%= _('Create Plan') %>" />
+  <% end %>
 </div>
 
