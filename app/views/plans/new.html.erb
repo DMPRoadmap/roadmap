@@ -10,6 +10,21 @@
   <%= form_for @plan, method: :post, remote: true do |f| %>
     <div id="create_plan">
 
+      <!-- Plan name section -->
+      <fieldset class="white-fieldset">
+        <h3><%= _('What research project are you planning?') %></h3>
+        
+        <label for="plan_title">
+          <%= _('Project title') %>
+        </label>
+        
+        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + _(' Plan')) %>
+        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" />
+				<div class="input-advice">
+					<%= _('If applying for funding, state the title exactly as in the proposal.') %>
+				</div>
+      </fieldset>
+
       <!-- Organisation selection -->
       <fieldset class="white-fieldset">
         <h3><%= _('Where will the research be conducted?') %></h3>
@@ -18,15 +33,18 @@
           <%= _('Select the primary research organisation responsible') %>
         </label>
       
-        <%= render partial: "shared/accessible_combobox", locals: {name: 'plan[org_name]',
-                                                                   id: 'plan_org_name',
-                                                                   default_selection: @default_org,
-                                                                   models: @orgs,
-                                                                   attribute: 'name'} %>
+        <%= render partial: "shared/accessible_combobox", 
+									 locals: {name: 'plan[org_name]',
+                            id: 'plan_org_name',
+                            default_selection: @default_org,
+                            models: @orgs,
+                            attribute: 'name'} %>
       
         <input type="checkbox" id="plan_no_org">
         <span class="checkbox-label">
-          <%= _('My research organization is not on the list or no research organization is associated with this plan')%>
+          <%= _('My research organization is not on the list') %>
+					<em><%= _(' or ') %></em>
+					<%= _('no research organization is associated with this plan')%>
         </span>
       </fieldset>
     
@@ -38,11 +56,12 @@
           <%= _('Select the funding organisation') %>
         </label>
       
-        <%= render partial: "shared/accessible_combobox", locals: {name: 'plan[funder_name]',
-                                                                   id: 'plan_funder_name',
-                                                                   default_selection: nil,
-                                                                   models: @funders,
-                                                                   attribute: 'name'} %>
+        <%= render partial: "shared/accessible_combobox", 
+									 locals: {name: 'plan[funder_name]',
+                            id: 'plan_funder_name',
+                            default_selection: nil,
+                            models: @funders,
+                            attribute: 'name'} %>
                                                                  
         <input type="checkbox" id="plan_no_funder">
         <span class="checkbox-label">
@@ -52,18 +71,6 @@
 
       <!-- Template selection -->
       <fieldset class="white-fieldset" id="available-templates">
-      </fieldset>
-
-      <!-- Plan name section -->
-      <fieldset class="white-fieldset">
-        <h3><%= _('What is the subject of your proposal?') %></h3>
-        
-        <label for="plan_title">
-          <%= _('Enter a name for your plan') %>
-        </label>
-        
-        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + _(' Plan')) %>
-        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" />
       </fieldset>
     
     </div>
