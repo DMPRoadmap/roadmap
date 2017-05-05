@@ -31,9 +31,11 @@
       
       // Pull the id out of the json hash based on the text the user selected
       $(combo).keyup(function(){
-        setHiddenId($(this).val());
+        var selection = <%= id %>_crosswalk[$(this).val()];
+        $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
       }).focus(function(){
-        setHiddenId($(this).val());
+        var selection = <%= id %>_crosswalk[$(this).val()];
+        $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
       });
       
       // Initialize the clear buttons on load
@@ -56,11 +58,6 @@
         $(combo).val("").focus();//.keyup();
       });
     });
-    
-    function setHiddenId(val){
-      var selection = <%= id %>_crosswalk[val];
-      $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
-    }
   </script>
 <% else %>
   <span id="<%= id %>_no_items"><%= _('No items available.') %></span>
