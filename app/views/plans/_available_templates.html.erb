@@ -1,15 +1,17 @@
 <h3><%= _('Which DMP template would you like to use?') %></h3>
-<span class="checkboc-label right">
-  <%= _('We found multiple DMP templates corresponding to your funder.') %>
-</span>
 
 <label for="plan_template_title">
   <%= _('Select a template') %>
 </label>
 
 <select id="plan_template_id" name="plan[template_id]" class="combobox-like">
+  <option value=""><%= _('Please select one') %></option>
   <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
 </select>
+
+<div class="combobox-like">
+  <%= _('We found multiple DMP templates corresponding to your funder.') %>
+</div>
 
 <script type="text/javascript">
   $("#plan_template_id").change(function(){

@@ -38,7 +38,7 @@ $reverse-text: #FFF;
         margin-left: 15px;
       }
       
-      input[type="text"] {
+      input[type="text"], select {
         width: 550px;
         margin-bottom: 15px;
       }
@@ -81,7 +81,7 @@ $reverse-text: #FFF;
 
 .combobox-container {
   position: relative;
-  max-width: 385px;
+  max-width: 585px;
   
   font-family: $font-family;
 }
@@ -89,7 +89,7 @@ $reverse-text: #FFF;
 .combobox-suggestions {
   position: absolute;
   left: 0;
-  width: 362px;
+  width: 562px;
   margin-top: -10px;
   background: #fff;
   z-index: 99;

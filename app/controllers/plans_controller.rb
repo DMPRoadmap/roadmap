@@ -37,37 +37,38 @@ class PlansController < ApplicationController
     @plan.data_contact = current_user.email
     @plan.funder_name = plan_params[:funder_name]
     
-    if plan_params[:title].blank?
-      @plan.title = current_user.firstname.blank? ? _('My Plan') : 
-                                  current_user.firstname + "'s" + _(" Plan")
-    else
-      @plan.title = plan_params[:title]
-    end
-    
     # If a template hasn't been identified look for the available templates
     if plan_params[:template_id].blank?
       template_options(plan_params[:org_id], plan_params[:funder_id])
-
-puts "TEMPLATES: #{@templates.collect{|t| t.id }.join(', ')}"
 
       # Return the 'Select a template' section
       respond_to do |format|
         format.js {} 
       end
     
-    
     # Otherwise create the plan
     else
       @plan.template = Template.find(plan_params[:template_id])
-
-puts "CREATING"
-puts @plan.inspect
-
-=begin    
+      
+      if plan_params[:title].blank?
+        @plan.title = current_user.firstname.blank? ? _('My Plan') + '(' + @plan.template.title + ')' : 
+                                    current_user.firstname + "'s" + _(" Plan")
+      else
+        @plan.title = plan_params[:title]
+      end
+      
       if @plan.save
         @plan.assign_creator(current_user)
     
-        flash[:notice] = _('Plan was successfully created.')
+        default = Template.find_by(is_default: true)
+        
+        if !default.nil? && default == @plan.template
+          flash[:notice] = _('Plan was successfully created.') + '<br />' +
+                           _('The funder you selected does not have an official Data Management Plan. We have provided you with the generic plan.')
+        else
+          flash[:notice] = _('Plan was successfully created.')
+        end
+        
         respond_to do |format|
           format.js { render js: "window.location='#{plan_url(@plan)}'" }
         end
@@ -79,7 +80,6 @@ puts @plan.inspect
           format.js {} 
         end
       end
-=end
     end
   end
 
@@ -424,7 +424,7 @@ puts @plan.inspect
   # Collect all of the templates available for the org+funder combination
   # --------------------------------------------------------------------------
   def template_options(org_id, funder_id)
-    templates = []
+    @templates = []
     
     if !org_id.blank? || !funder_id.blank?
       if funder_id.blank?
@@ -463,7 +463,7 @@ puts @plan.inspect
       @templates << Template.find_by(is_default: true)
     end
     
-    @templates = templates.sort{|x,y| x.title <=> y.title } if templates.count > 1
+    @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
   end
 
 end
