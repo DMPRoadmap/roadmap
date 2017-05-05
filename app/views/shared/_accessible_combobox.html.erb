@@ -20,6 +20,7 @@
   <input type="hidden" id="<%= id.gsub("_#{attribute}", "_id") %>" name="<%= name.gsub("_#{attribute}]", "_id]") %>"
          value="<%= default_selection.id unless default_selection.nil? %>" />
  
+
   <script type="text/javascript">
     var <%= id %>_crosswalk = <%= raw JSON.generate(json) %>;
     
@@ -30,12 +31,9 @@
       
       // Pull the id out of the json hash based on the text the user selected
       $(combo).keyup(function(){
-        var selection = <%= id %>_crosswalk[$(this).val()];
-        $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
-      });
-      $(combo).blur(function(){
-        var selection = <%= id %>_crosswalk[$(this).val()];
-        $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
+        setHiddenId($(this).val());
+      }).focus(function(){
+        setHiddenId($(this).val());
       });
       
       // Initialize the clear buttons on load
@@ -47,8 +45,7 @@
       // -------------------------------------------------------------
       $(combo).keyup(function(){
         $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
-      });
-      $(combo).change(function(){
+      }).change(function(){
         $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
       });
   
@@ -56,9 +53,14 @@
       // -------------------------------------------------------------
       $(clear).click(function(){
         $(this).css("display", 'none');
-        $(combo).val("").keyup();
+        $(combo).val("").focus();//.keyup();
       });
     });
+    
+    function setHiddenId(val){
+      var selection = <%= id %>_crosswalk[val];
+      $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
+    }
   </script>
 <% else %>
   <span id="<%= id %>_no_items"><%= _('No items available.') %></span>

@@ -18,9 +18,9 @@
           <%= _('Project title') %>
         </label>
         
-        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + _(' Plan')) %>
-        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" />
-				<div class="input-advice">
+        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + "'s" + _(" Plan")) %>
+        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" class="combobox-like" />
+				<div class="combobox-like">
 					<%= _('If applying for funding, state the title exactly as in the proposal.') %>
 				</div>
       </fieldset>

@@ -15,53 +15,55 @@ $reverse-text: #FFF;
 }
 
 .main_header {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .main {
-	
-	form {
-		
-		.white-fieldset {
-			background-color: $white;
-			padding: 0 25px 25px 25px;
-			margin-bottom: 25px;
-			
-			-webkit-border-radius: 10px;
-			-moz-border-radius: 10px;
-			border-radius: 10px;
-			
-			label, input[type="checkbox"], .combobox-container {
-				margin-left: 15px;
-			}
-			
-			input[type="text"] {
-				width: 450px;
-				margin-bottom: 15px;
-				margin-left: 15px;
-			}
-			
-			input[type="checkbox"] {
-				vertical-align: top;
-			}
-		}
-		
-		button.form-submit {
-			background-color: $primary-color;
-			color: $reverse-text;
-			padding: 10px 30px;
-			font-size: 12pt;
-			
-			-webkit-border-radius: 10px;
-			-moz-border-radius: 10px;
-			border-radius: 10px;
-		}
-		button.form-submit:disabled {
-			background-color: $disabled-button-color;
-		}
-		
-	}
-	
+  
+  form {
+    
+    .white-fieldset {
+      background-color: $white;
+      padding: 0 25px 25px 25px;
+      margin-bottom: 25px;
+      
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      
+      label, 
+      input[type="checkbox"], 
+      .combobox-container, 
+      .combobox-like {
+        margin-left: 15px;
+      }
+      
+      input[type="text"] {
+        width: 550px;
+        margin-bottom: 15px;
+      }
+      
+      input[type="checkbox"] {
+        vertical-align: top;
+      }
+    }
+    
+    input.form-submit {
+      background-color: $primary-color;
+      color: $reverse-text;
+      padding: 10px 30px;
+      font-size: 12pt;
+      
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+    input.form-submit:disabled {
+      background-color: $disabled-button-color;
+    }
+    
+  }
+  
 }
 
 /* Accessible JQuery combobox */
@@ -79,25 +81,25 @@ $reverse-text: #FFF;
 
 .combobox-container {
   position: relative;
-	max-width: 385px;
-	
-	font-family: $font-family;
+  max-width: 385px;
+  
+  font-family: $font-family;
 }
 
 .combobox-suggestions {
   position: absolute;
   left: 0;
   width: 362px;
-	margin-top: -10px;
+  margin-top: -10px;
   background: #fff;
-	z-index: 99;
+  z-index: 99;
 }
 .combobox-suggestion {
   color: #666;
   border-bottom: 1px solid #000;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
-	padding: 5px 10px 5px 10px;
+  padding: 5px 10px 5px 10px;
   cursor: pointer;
   text-align: left;
 }
@@ -107,17 +109,17 @@ $reverse-text: #FFF;
 .combobox-suggestion:hover,
 .combobox-suggestion:focus {
   color: $white;
-	background-color: $primary-color;
+  background-color: $primary-color;
 }
 
 .combobox-clear-button {
-	@include icon(times-circle);
-	display: inline;
+  @include icon(times-circle);
+  display: inline;
   position: absolute;
-	border: none;
-	background: transparent;
-	padding-top: 3px;
-	font-size: 16pt;
+  border: none;
+  background: transparent;
+  padding-top: 3px;
+  font-size: 16pt;
 }
 
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */

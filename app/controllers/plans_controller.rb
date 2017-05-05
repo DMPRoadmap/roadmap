@@ -26,16 +26,9 @@ class PlansController < ApplicationController
       
     respond_to :html
   end
-  
-  # GET /plans/possible_templates [JSON]
-  # ------------------------------------------------------------------------------------
-  def possible_templates
-
-  end
-
 
   # POST /plans
-  # ------------------------------------------------------------------------------------
+  # -------------------------------------------------------------------
   def create
     @plan = Plan.new
     authorize @plan
@@ -43,6 +36,13 @@ class PlansController < ApplicationController
     @plan.principal_investigator = current_user.name
     @plan.data_contact = current_user.email
     @plan.funder_name = plan_params[:funder_name]
+    
+    if plan_params[:title].blank?
+      @plan.title = current_user.firstname.blank? ? _('My Plan') : 
+                                  current_user.firstname + "'s" + _(" Plan")
+    else
+      @plan.title = plan_params[:title]
+    end
     
     # If a template hasn't been identified look for the available templates
     if plan_params[:template_id].blank?
@@ -59,6 +59,10 @@ puts "TEMPLATES: #{@templates.collect{|t| t.id }.join(', ')}"
     # Otherwise create the plan
     else
       @plan.template = Template.find(plan_params[:template_id])
+
+puts "CREATING"
+puts @plan.inspect
+
 =begin    
       if @plan.save
         @plan.assign_creator(current_user)
