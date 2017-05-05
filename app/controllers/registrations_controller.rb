@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
     @orgs = Org.where(parent_id: nil).order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+    @default_org = current_user.org
   end
 
   # GET /resource

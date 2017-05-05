@@ -31,6 +31,10 @@ $reverse-text: #FFF;
       -moz-border-radius: 10px;
       border-radius: 10px;
       
+      .heading-spacer {
+        height: 35px;
+      }
+      
       label, 
       input[type="checkbox"], 
       .combobox-container, 
