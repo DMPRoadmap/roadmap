@@ -24,7 +24,7 @@
         <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
             <li>
                 <div class="institution_login_link">
-                    <%= link_to _('Or, sign in with your institutional credentials'), user_omniauth_shibboleth_path, :class => "a-orange" %>
+                    <%= link_to _('Or, sign in with your institutional credentials'), user_shibboleth_omniauth_authorize_path, :class => "a-orange" %>
                     <%= _(' (UK users only)')%>
                 </div>
             </li>
