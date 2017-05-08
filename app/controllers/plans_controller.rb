@@ -62,12 +62,22 @@ class PlansController < ApplicationController
     
         default = Template.find_by(is_default: true)
         
+        msg = "#{_('Plan was successfully created.')} "
+        
         if !default.nil? && default == @plan.template
-          flash[:notice] = _('Plan was successfully created.') + '<br />' +
-                           _('The funder you selected does not have an official Data Management Plan. We have provided you with the generic plan.')
+          # We used the generic/default template
+          msg += _('This plan is based on the default template.')
+                 
+        elsif !@plan.template.customization_of.nil?
+          # We used a customized version of the the funder template
+          msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+
         else
-          flash[:notice] = _('Plan was successfully created.')
+          # We used the specified org's or funder's template
+          msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
         end
+        
+        flash[:notice] = msg
         
         respond_to do |format|
           format.js { render js: "window.location='#{plan_url(@plan)}'" }
