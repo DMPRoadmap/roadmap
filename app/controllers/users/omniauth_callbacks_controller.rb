@@ -49,9 +49,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                  identifier: request.env["omniauth.auth"].uid,
                                  user: current_user)
                                
-          flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % { scheme: scheme.description }
+          flash[:notice] = _('Your account has been successfully linked to %{scheme}.') % { scheme: scheme.description }
         else
-          flash[:notice] = _("Unable to link your account to %{scheme}.") % { scheme: scheme.description }
+          flash[:notice] = _('Unable to link your account to %{scheme}.') % { scheme: scheme.description }
         end
       end
       
