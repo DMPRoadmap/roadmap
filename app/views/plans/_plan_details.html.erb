@@ -9,77 +9,60 @@
 
   <!-- the editing div -->
   <div class="edit-plan-details <%= unless @editing then "project-hide" end %>">
-      <!-- edit pro ject button -->
-      <div class="div_left">
-        <p>
-        <%= raw _("Please fill in the basic project details below and click 'Update' to save")%>
-        </p>
+    <%= form_for @plan, url: {controller: :plans, action: :update }, 
+												html: {method: :put, class: "side-by-side"} do |f| %>
+      <div class="dmp_details">
+
+        <!-- If not first time login in or editing project details -->
+      	<fieldset class="no-heading">
+        	<h3><%= _('Please fill in the basic project details below') %></h3>
+		
+					<div>
+		        <%= f.label :title, _('Plan name') %>
+		        <%= f.text_field :title, class: "left-indent input-large has-tooltip", 'data-toggle': "tooltip", 
+										'title': _('If applying for funding, state the name exactly as in the grant proposal.') %>
+					</div>
+					<div>
+						<%= f.label :identifier, _('ID') %>
+	          <%= f.text_field :identifier, class: 'left-indent input-medium has-tooltip', 'data-toggle': "tooltip", 
+										'title': _('A pertinent ID as determined by the funder and/or institution.') %>
+    			</div>
+					<div>
+						<%= f.label :grant_number, _('Grant number') %>
+	          <%= f.text_field :grant_number, class: 'tleft-indent input-medium has-tooltip', 
+										'data-toggle': "tooltip", 
+										'title': _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
+      		</div>
+					<div>
+						<%= f.label :principal_investigator, _('Principal Investigator/Researcher') %>
+						<%= f.text_field :principal_investigator, class: 'left-indent input-medium has-tooltip', 
+										'data-toggle': "tooltip", 
+										'title': _('Name of Principal Investigator(s) or main researcher(s) on the project.') %>
+      		</div>
+					<div>
+						<%= f.label :principal_investigator_identifier, _('Principal Investigator/Researcher ID') %>
+	          <%= f.text_field :principal_investigator_identifier, class: 'left-indent input-medium has-tooltip', 
+										'data-toggle': "tooltip", 'title': _('E.g ORCID http://orcid.org/.') %>
+      		</div>
+					<div>			
+						<%= f.label :data_contact, _('Plan data contact') %>
+	          <%= f.text_field :data_contact, class: 'left-indent input-medium has-tooltip', 
+										'data-toggle': "tooltip", 
+										'title': _('Name (if different to above), telephone and email contact details') %>
+					</div>
+					<div>
+	          <%= f.label :description, _('Description') %>
+	          <%= f.text_area :description, { rows: 7, class: 'left-indent input-large has-tooltip', 
+										'data-toggle': "tooltip", 'data-html': "true", 
+										'title': _("<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>")} %>
+					</div>
+				</fieldset>
       </div>
-      <div class="div_right">
-        <a href='#' class='btn btn-primary show-edit-toggle'><%= _('Cancel') %></a> 
-      </div>
-
-      <div class="div_clear"> </div>
-
-      <%= semantic_form_for @plan, :url => {:controller => :plans, :action => :update }, :html=>{:method=>:put} do |f| %>
-        <%= f.inputs do %>
-          <div class="dmp_details">
-
-            <!-- If not first time login in or editing project details -->
-            <table class="dmp_details_table">
-              <tr>
-                <td class="first"><%= _('Plan name') %></td>
-                <td>
-                  <%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('If applying for funding, state the name exactly as in the grant proposal.') %>
-                </td>
-              </tr>
-              <tr>
-                <td class="first"><%= _('ID') %></td>
-                <td>
-                  <%= f.text_field :identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('A pertinent ID as determined by the funder and/or institution.') %>
-                </td>
-              </tr>
-              <tr>
-                <td class="first"><%= _('Grant number') %></td>
-                <td>
-                  <%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
-                </td>
-              </tr>
-              <tr>
-                <td class="first"><%= _('Principal Investigator/Researcher') %></td>
-                <td>
-                  <%= f.text_field :principal_investigator, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Name of Principal Investigator(s) or main researcher(s) on the project.') %>
-                </td>
-              </tr>
-              <tr>
-                <td class="first"><%= _('Principal Investigator/Researcher ID') %></td>
-                <td>
-                  <%= f.text_field :principal_investigator_identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('E.g ORCID http://orcid.org/.') %>
-                </td>
-              </tr>
-              <tr>
-                <td class="first"><%= _('Plan data contact') %></td>
-                <td>
-                  <%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Name (if different to above), telephone and email contact details') %>
-                </td>
-              </tr>
-              <tr>
-                <td class="first"><%= _('Description') %></td>
-                <td>
-                  <%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> _("<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>")} %>
-                </td>
-              </tr>
-            </table>
-          </div>
-        <% end %>
-        <!-- submit buttons -->
-        <%= f.actions do %>
-          <div class="move_2_right">
-            <%= f.submit _('Save'), :class => 'btn btn-primary' %>
-            <a href='#' class='btn btn-primary show-edit-toggle'><%= _('Cancel') %></a>
-          </div>
-        <%end%>
-      <%end%>
+			
+			<div class="button-spacer"></div>
+			<input type="submit" class="form-submit" value="<%= _('Save') %>" />
+			<button class="form-cancel show-edit-toggle"><%= _('Cancel') %></button>
+    <%end%>
   </div>
 
 

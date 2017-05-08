@@ -4,12 +4,12 @@
   <%= _('Select a template') %>
 </label>
 
-<select id="plan_template_id" name="plan[template_id]" class="combobox-like">
+<select id="plan_template_id" name="plan[template_id]" class="left-indent input-large">
   <option value=""><%= _('Please select one') %></option>
   <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
 </select>
 
-<div class="combobox-like">
+<div class="left-indent">
   <%= _('We found multiple DMP templates corresponding to your funder.') %>
 </div>
 

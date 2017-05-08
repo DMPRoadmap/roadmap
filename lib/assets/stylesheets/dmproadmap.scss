@@ -6,6 +6,7 @@ $white: #FFF;
 
 $primary-color: #F49700;
 $disabled-button-color: #CCC;
+$cancel-button-color: #CCC;
 $reverse-text: #FFF;
 
 /* See `.combobox-clear-button` for an example of this mixin in use */
@@ -14,14 +15,47 @@ $reverse-text: #FFF;
   @extend .fa-#{$icon}:before;
 }
 
+.input-large {
+  width: 550px;
+}
+.input-medium {
+  width: 206px;
+}
+.input-small {
+  width: 110px;
+}
+
 .main_header {
   margin-bottom: 20px;
+}
+
+input.form-submit {
+  background-color: $primary-color;
+  color: $reverse-text;
+  padding: 10px 30px;
+  font-size: 12pt;
+  
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+input.form-submit:disabled {
+  background-color: $disabled-button-color;
+}
+button.form-cancel {
+	background-color: $cancel-button-color;
+  color: $reverse-text;
+  padding: 10px 30px;
+  font-size: 12pt;
+  
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .main {
   
   form {
-    
     .white-fieldset {
       background-color: $white;
       padding: 0 25px 25px 25px;
@@ -38,12 +72,11 @@ $reverse-text: #FFF;
       label, 
       input[type="checkbox"], 
       .combobox-container, 
-      .combobox-like {
+      .left-indent {
         margin-left: 15px;
       }
       
       input[type="text"], select {
-        width: 550px;
         margin-bottom: 15px;
       }
       
@@ -51,23 +84,45 @@ $reverse-text: #FFF;
         vertical-align: top;
       }
     }
-    
-    input.form-submit {
-      background-color: $primary-color;
-      color: $reverse-text;
-      padding: 10px 30px;
-      font-size: 12pt;
-      
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-    }
-    input.form-submit:disabled {
-      background-color: $disabled-button-color;
-    }
-    
   }
+}
+
+form.side-by-side {
+	div {
+		fieldset {
+			div {
+				margin-left: 15px;
+				
+				label,
+				input[type="checkbox"], 
+		    .combobox-container, 
+		    .left-indent {
+		      display: inline-block;
+		    }
   
+		    label {
+		      width: 20%;
+		    }
+	
+				input.form-submit, 
+				button.form-cancel {
+					font-size: 9pt;
+				}
+			}
+		}
+	}
+
+	.button-spacer {
+		display: inline-block;
+		width: 21%;
+	}
+	
+	input.form-submit,
+	button.form-cancel {
+		font-size: 11pt;
+		padding: 10px 10px 10px 10px;
+		width: 80px;
+	}
 }
 
 /* Accessible JQuery combobox */

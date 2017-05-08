@@ -15,8 +15,8 @@
         <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
 
         <%= f.label :email, _('Email') + " *" %>
-        <%= f.email_field :email, as: :email, class: "combobox-like" %>
-        <div class="combobox-like"><%= _('Please enter your current password below when changing your email address.') %></div>
+        <%= f.email_field :email, as: :email, class: "left-indent input-medium" %>
+        <div class="left-indent"><%= _('Please enter your current password below when changing your email address.') %></div>
         
         <div class="heading-spacer"></div>
         
@@ -24,14 +24,14 @@
         <%= f.text_field :firstname, as: :string,
                           id: "first_time_login_firstname",
                           autofocus: true,
-                          class: "combobox-like has-tooltip",
+                          class: "left-indent input-medium has-tooltip",
                           "data-toggle" => "tooltip",
                           "data-trigger" => "focus" ,
                           "title" => _('Please enter your first name.') %>
 
         <%= f.label :surname, _('Last name') + " *" %>
         <%= f.text_field :surname, as: :string, id: "first_time_login_surname",
-                  class: "combobox-like has-tooltip", "data-toggle" => "tooltip",
+                  class: "left-indent input-medium has-tooltip", "data-toggle" => "tooltip",
                   "data-trigger" => "focus" ,
                   "title" => _('Please enter your surname or family name.') %>
           
@@ -41,13 +41,14 @@
                             id: "#{resource_name}_org_name",
                             default_selection: @default_org,
                             models: @orgs,
-                            attribute: 'name'} %>
+                            attribute: 'name',
+                            classes: 'input-large'} %>
 
         <% if MANY_LANGUAGES %>
           <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
           <%= f.label :language, _('Language') %>
           <select id="user_language_id" name="user[language_id]" 
-                  class="combobox-like">
+                  class="left-indent input-medium">
             <%= @languages.each do |l| %>
               <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
                 <%= l.name %>
@@ -58,7 +59,7 @@
 
         <% @identifier_schemes.each do |scheme| %>
           <label><%= scheme.name %></label>
-          <div class="combobox-like">
+          <div class="left-indent">
             <%= render partial: 'external_identifier', 
                        locals: {scheme: scheme, 
                                 id: current_user.identifier_for(scheme)} %>
@@ -79,24 +80,24 @@
       
         <% unless @user.api_token.blank? %>
           <%= f.label :api_token, _('API token') %>
-          <div class="combobox-like"><%= @user.api_token %></div>
+          <div class="left-indent input-medium"><%= @user.api_token %></div>
           
           <label><%= _('API Information') %></label>
-          <div class="combobox-like"><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+          <div class="left-indent"><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
         <% end %>
 
-        <div class="heading-spacer"></div>
-        
+       
         <h3><%= _('If you would like to change your password please complete the following fields.') %></h3>
 
         <%= f.label :current_password,  _('Current password') %>
-        <%= f.password_field :current_password, as: :password, class: 'combobox-like' %>
+        <%= f.password_field :current_password, as: :password, class: 'left-indent input-medium' %>
         
         <%= f.label :password, _('New password') %>
-        <%= f.password_field :password, as: :password, autocomplete: "off", class: 'combobox-like' %>
+        <%= f.password_field :password, as: :password, autocomplete: "off", class: 'left-indent input-medium' %>
         
         <%= f.label :password_confirmation, _('Password confirmation') %>
-        <%= f.password_field :password_confirmation, as: :password, autocomplete: "off", class: 'combobox-like' %>
+        <%= f.password_field :password_confirmation, as: :password, autocomplete: "off", 
+                    class: 'left-indent input-medium' %>
         
       </fieldset>
     </div>

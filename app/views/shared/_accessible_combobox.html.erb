@@ -3,7 +3,7 @@
   <% models.map{|m| json[m[attribute]] = m.id} %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
-         class="js-combobox" list="<%= id %>_list" 
+         class="js-combobox <%= classes %>" list="<%= id %>_list" 
          data-combobox-prefix-class="combobox"
          data-combobox-case-sensitive="no"
          data-combobox-search-option="containing"

@@ -19,8 +19,9 @@
         </label>
         
         <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + "'s" + _(" Plan")) %>
-        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" class="combobox-like" />
-        <div class="combobox-like">
+        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" 
+               class="left-indent input-large" />
+        <div class="left-indent">
           <%= _('If applying for funding, state the title exactly as in the proposal.') %>
         </div>
       </fieldset>
@@ -38,7 +39,8 @@
                             id: 'plan_org_name',
                             default_selection: @default_org,
                             models: @orgs,
-                            attribute: 'name'} %>
+                            attribute: 'name',
+                            classes: 'input-large'} %>
       
         <input type="checkbox" id="plan_no_org">
         <span class="checkbox-label">
@@ -61,7 +63,8 @@
                             id: 'plan_funder_name',
                             default_selection: nil,
                             models: @funders,
-                            attribute: 'name'} %>
+                            attribute: 'name',
+                            classes: 'input-large'} %>
                                                                  
         <input type="checkbox" id="plan_no_funder" />
         <span class="checkbox-label">
