@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 14:54+0000\n"
-"PO-Revision-Date: 2017-05-02 14:54+0000\n"
+"POT-Creation-Date: 2017-05-08 16:51+0100\n"
+"PO-Revision-Date: 2017-05-08 16:51+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -48,16 +48,43 @@ msgstr ""
 msgid " by "
 msgstr ""
 
+msgid " has been removed by "
+msgstr ""
+
+msgid " have changed. "
+msgstr ""
+
+msgid " into your browser)"
+msgstr ""
+
 msgid " on "
+msgstr ""
+
+msgid " once you click save!"
+msgstr ""
+
+msgid " password. You can do this through the link below."
+msgstr ""
+
+msgid " saved the following answer:"
 msgstr ""
 
 msgid " team"
 msgstr ""
 
-msgid " to view/edit the plan"
+msgid " to accept the invitation, (or copy "
 msgstr ""
 
-msgid "\"While you were editing #{answer.user.name} saved the following answer:\""
+msgid " will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on "
+msgstr ""
+
+msgid "\"Are you sure you want to unlink your #{scheme.description} ID?\""
+msgstr ""
+
+msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
+msgstr ""
+
+msgid "\"Your account has been linked to #{scheme.description}.\""
 msgstr ""
 
 msgid "%d days"
@@ -75,13 +102,13 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
+msgid "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account.<br/>* If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.<br/>* If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.<br/>Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
+msgstr ""
+
 msgid "%{format} is not a valid exporting format. Available formats to export are %{available_formats}."
 msgstr ""
 
 msgid "%{value} is not a valid format"
-msgstr ""
-
-msgid "'name' must be included in column list."
 msgstr ""
 
 msgid "(Using custom PDF formatting values)"
@@ -186,9 +213,6 @@ msgstr ""
 msgid "API Information"
 msgstr ""
 
-msgid "API Permission Granted"
-msgstr ""
-
 msgid "API token"
 msgstr ""
 
@@ -244,6 +268,9 @@ msgid "Admin Details"
 msgstr ""
 
 msgid "Admin area"
+msgstr ""
+
+msgid "All the best,"
 msgstr ""
 
 msgid "An error has occurred while saving/resetting your export settings."
@@ -324,6 +351,9 @@ msgstr ""
 msgid "Choose a template"
 msgstr ""
 
+msgid "Click here"
+msgstr ""
+
 msgid "Click here to accept the invitation"
 msgstr ""
 
@@ -354,9 +384,6 @@ msgstr ""
 msgid "Comment was successfully saved."
 msgstr ""
 
-msgid "Configure"
-msgstr ""
-
 msgid "Contact Email"
 msgstr ""
 
@@ -382,15 +409,6 @@ msgid "Current password"
 msgstr ""
 
 msgid "Customise"
-msgstr ""
-
-msgid "Customised"
-msgstr ""
-
-msgid "DMP access removed"
-msgstr ""
-
-msgid "DMP permissions changed"
 msgstr ""
 
 msgid "Default"
@@ -430,9 +448,6 @@ msgid "Display additional comment area."
 msgstr ""
 
 msgid "Dropdown"
-msgstr ""
-
-msgid "Duplicate column name. Please only include each column once."
 msgstr ""
 
 msgid "E.g ORCID http://orcid.org/."
@@ -520,9 +535,6 @@ msgid "Face"
 msgstr ""
 
 msgid "File Name"
-msgstr ""
-
-msgid "Filter"
 msgstr ""
 
 msgid "Filter plans"
@@ -696,6 +708,9 @@ msgstr ""
 msgid "Main organisation"
 msgstr ""
 
+msgid "Many thanks,"
+msgstr ""
+
 msgid "Margin"
 msgstr ""
 
@@ -822,6 +837,9 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
+msgid "Original funder template has changed!"
+msgstr ""
+
 msgid "Otherwise leave blank."
 msgstr ""
 
@@ -912,9 +930,6 @@ msgstr ""
 msgid "Please fill in the basic project details below and click 'Update' to save"
 msgstr ""
 
-msgid "Please follow the link above to login to "
-msgstr ""
-
 msgid "Please only enter up to 165 characters, you have used"
 msgstr ""
 
@@ -957,10 +972,10 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-msgid "Published"
+msgid "Publish changes"
 msgstr ""
 
-msgid "Published templates cannot be edited."
+msgid "Published"
 msgstr ""
 
 msgid "Question"
@@ -1047,9 +1062,6 @@ msgstr ""
 msgid "Selected option(s)"
 msgstr ""
 
-msgid "Settings - My plans"
-msgstr ""
-
 msgid "Share"
 msgstr ""
 
@@ -1080,10 +1092,13 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-msgid "Someone has requested a link to change your"
+msgid "Someone has requested a link to change your "
 msgstr ""
 
-msgid "Successfully unlinked your account from %{is}"
+msgid "Status"
+msgstr ""
+
+msgid "Successfully unlinked your account from %{is}."
 msgstr ""
 
 msgid "Suggested answer"
@@ -1128,19 +1143,22 @@ msgstr ""
 msgid "Thank you for registering. Please confirm your email address"
 msgstr ""
 
-msgid "Thanks"
+msgid "That email address is already registered."
 msgstr ""
 
-msgid "That email address is already registered."
+msgid "That template is not currently published."
+msgstr ""
+
+msgid "The "
+msgstr ""
+
+msgid "The edits in the box below will overwrite the existing answer from "
 msgstr ""
 
 msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr ""
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
-msgstr ""
-
-msgid "The table below lists the available columns that can be shown on the 'My plans' list. Choose which you would like to appear."
 msgstr ""
 
 msgid "Themes"
@@ -1156,9 +1174,6 @@ msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
 
 msgid "These are the basic details for your organisation."
-msgstr ""
-
-msgid "This account does not have access to that plan."
 msgstr ""
 
 msgid "This allows you to order questions within a section."
@@ -1203,7 +1218,13 @@ msgstr ""
 msgid "Top banner text"
 msgstr ""
 
-msgid "Unable to unlinked your account from %{is}"
+msgid "Un-published"
+msgstr ""
+
+msgid "Unable to link your account to %{scheme}."
+msgstr ""
+
+msgid "Unable to unlink your account from %{is}."
 msgstr ""
 
 msgid "Unknown column name."
@@ -1227,13 +1248,19 @@ msgstr ""
 msgid "Unlock my account"
 msgstr ""
 
+msgid "Unpublish"
+msgstr ""
+
+msgid "Unpublished"
+msgstr ""
+
+msgid "Unpublished changes"
+msgstr ""
+
 msgid "Unsaved answers"
 msgstr ""
 
 msgid "Unsaved changes"
-msgstr ""
-
-msgid "Update Customisation"
 msgstr ""
 
 msgid "Upload a new logo file"
@@ -1269,6 +1296,9 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
+msgid "Welcome to "
+msgstr ""
+
 msgid "Welcome to %{application_name}"
 msgstr ""
 
@@ -1278,13 +1308,13 @@ msgstr ""
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
 msgstr ""
 
+msgid "While you were editing "
+msgstr ""
+
 msgid "Would you like to save them now?"
 msgstr ""
 
 msgid "Yes"
-msgstr ""
-
-msgid "Yes [Original Template Has Changed]"
 msgstr ""
 
 msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
@@ -1308,6 +1338,9 @@ msgstr ""
 msgid "You are not authorized to perform this action."
 msgstr ""
 
+msgid "You are viewing a historical version of this template. You will not be able to make changes."
+msgstr ""
+
 msgid "You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
 msgstr ""
 
@@ -1317,16 +1350,25 @@ msgstr ""
 msgid "You can edit any of the details below."
 msgstr ""
 
+msgid "You can not edit a historical version of this template."
+msgstr ""
+
+msgid "You can not publish a historical version of this template."
+msgstr ""
+
+msgid "You cannot delete historical versions of this template."
+msgstr ""
+
 msgid "You have altered answers but have not saved them:"
 msgstr ""
 
 msgid "You have been given "
 msgstr ""
 
-msgid "You have been given access to a Data Management Plan"
+msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found "
 msgstr ""
 
-msgid "You have been granted permission by your organisation to use our API."
+msgid "You have un-published changes"
 msgstr ""
 
 msgid "You have unsaved answers in the following sections:"
@@ -1347,13 +1389,13 @@ msgstr ""
 msgid "Your"
 msgstr ""
 
-msgid "Your API token and instructions for using the API endpoints can be found here."
-msgstr ""
-
 msgid "Your ORCID"
 msgstr ""
 
-msgid "Your access to"
+msgid "Your access to "
+msgstr ""
+
+msgid "Your account has been successfully linked to %{scheme}."
 msgstr ""
 
 msgid "Your account is linked to your institutional credentials."
@@ -1368,13 +1410,13 @@ msgstr ""
 msgid "Your password must contain at least 8 characters."
 msgstr ""
 
-msgid "Your password won't change until you access the link above and create a new one."
+msgid "Your permissions relating to "
 msgstr ""
 
-msgid "Your permissions relating to"
+msgid "Your template has been published and is now available to users."
 msgstr ""
 
-msgid "[Unpublished Changes]"
+msgid "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
 msgstr ""
 
 msgid "a day"
@@ -1395,10 +1437,19 @@ msgstr ""
 msgid "about an hour"
 msgstr ""
 
-msgid "access."
+msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr ""
 
-msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
+msgid "activerecord.errors.messages.record_invalid"
+msgstr ""
+
+msgid "activerecord.errors.models.user.attributes.current_password.invalid"
+msgstr ""
+
+msgid "activerecord.errors.models.user.attributes.email.blank"
+msgstr ""
+
+msgid "activerecord.errors.models.user.attributes.password.blank"
 msgstr ""
 
 msgid "add guidance text"
@@ -1410,7 +1461,7 @@ msgstr ""
 msgid "answered"
 msgstr ""
 
-msgid "approx. %{space_used} of available space used (max %{num_pages} pages)"
+msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr ""
 
 msgid "by"
@@ -1441,12 +1492,6 @@ msgid "guidance group"
 msgstr ""
 
 msgid "guidance on"
-msgstr ""
-
-msgid "has been removed."
-msgstr ""
-
-msgid "have changed. You now have"
 msgstr ""
 
 msgid "height must be less than 100px"
@@ -1492,9 +1537,6 @@ msgid "org_admin.templates.edit_phase_label"
 msgstr ""
 
 msgid "organisation"
-msgstr ""
-
-msgid "password. You can do this through the link below."
 msgstr ""
 
 msgid "phase"
@@ -1547,13 +1589,3 @@ msgstr ""
 
 msgid "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
 msgstr ""
-
-# ActiveRecord model errors that we could not override in the model's validation definition
-msgid "activerecord.errors.models.user.attributes.email.blank"
-msgstr "can't be blank"
-msgid "activerecord.errors.models.user.attributes.password.blank"
-msgstr "can't be blank"
-msgid "activerecord.errors.models.user.attributes.current_password.invalid"
-msgstr "invalid email and/or password"
-msgid "activerecord.errors.messages.record_invalid"
-msgstr "unable to save your changes"

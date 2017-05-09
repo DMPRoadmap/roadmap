@@ -5,8 +5,10 @@
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [
-  {name: 'orcid', description: 'ORCID researcher identifiers', active: true},
-  {name: 'shibboleth', description: 'Shibboleth', active: false}
+  {name: 'orcid', description: 'ORCID', active: true, 
+   logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png', 
+   user_landing_url:'https://orcid.org' },
+  {name: 'shibboleth', description: 'Shibboleth', active: true}
 ]
 identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
 

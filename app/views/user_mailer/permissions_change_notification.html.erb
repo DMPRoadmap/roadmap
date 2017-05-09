@@ -14,7 +14,7 @@
   end
   %>
 
-  <p><%= _('Your permissions relating to ') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. ') %><%= permissions %></p>
+  <p><%= _('Your permissions relating to ') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have ') %><%= access_level %><%= _(' access. ')%><%= permissions %></p>
   
   <p>
     <%=_('All the best,')%>

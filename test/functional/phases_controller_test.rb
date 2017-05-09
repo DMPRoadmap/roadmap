@@ -125,12 +125,12 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "show the new phase page" do
     # Should redirect user to the root path if they are not logged in!
-    get admin_add_phase_path(@template.phases.first)
+    get admin_add_phase_path(@template.id)
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    get admin_add_phase_path(@template.phases.first)
+    get admin_add_phase_path(@template.id)
     assert_response :success
     
     assert assigns(:template)
@@ -222,7 +222,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_response :redirect
-    assert_redirected_to admin_template_template_url
+    assert_redirected_to admin_template_template_path(@template)
     assert_equal _('Information was successfully deleted.'), flash[:notice]
     assert_raise ActiveRecord::RecordNotFound do 
       Phase.find(id).nil?
