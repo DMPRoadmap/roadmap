@@ -1,10 +1,10 @@
-class SuggestedAnswersController < ApplicationController
+class AnnotationsController < ApplicationController
   respond_to :html
   after_action :verify_authorized
 
   #create suggested answers
   def admin_create
-    @suggested_answer = SuggestedAnswer.new(params[:suggested_answer])
+    @suggested_answer = Annotation.new(params[:suggested_answer])
     authorize @suggested_answer
     if @suggested_answer.save
       redirect_to admin_show_phase_path(id: @suggested_answer.question.section.phase_id, section_id: @suggested_answer.question.section_id, question_id: @suggested_answer.question.id, edit: 'true'), notice: _('Information was successfully created.')
