@@ -12,7 +12,7 @@
       <!-- edit pro ject button -->
       <div class="div_left">
         <p>
-        <%= raw _("Please fill in the basic project details below and click 'Update' to save")%>
+        <%= raw _("Please fill in the basic project details below and click 'Save' to update")%>
         </p>
       </div>
       <div class="div_right">
@@ -86,7 +86,7 @@
   <!-- the viewing div -->
   <div class="show-plan-details <%= if @editing then "project-hide" end %> ">
       <div class="div_left">
-        <p> <%= _('This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked.')%> </p>
+        <p></p>
       </div>
 
       <!-- edit plan button -->
@@ -198,22 +198,13 @@
 
 	<h3><%= _('This plan is based on:')%></h3>
 
-	<table class="dmp_details_table">
-    <tbody>
-      <%if based_on.present? %> 
-        <tr>
-          <td class="first"><%= _('Funder') %></td>
-          <td><%= based_on.org.name %></td>
-        </tr>
-      <%end%>
-      <%if plan.template.org.name.present? %> 
-        <tr>
-          <td class="first"><%= _('Institution') %></td>
-          <td><%= plan.template.org.name %></td>
-        </tr>
-      <%end%>
-    </tbody>
-	</table>
+	<p>
+		<% if based_on.org != plan.template.org %>
+			<%= _('A version of ') %> "<%= based_on.title %>" <%= _(' that has been customised by ') %> <%= plan.template.org.name %>
+		<% else %>
+			<%= _('The')%> "<%= plan.template.title %>" <%= _('generic template') if plan.template.is_default %> <%= _('provided by ') %><%= plan.template.org.name %>
+		<% end %>
+	</p>
 
   <div class="div_clear"></div>
 

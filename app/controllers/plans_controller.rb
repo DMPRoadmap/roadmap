@@ -33,7 +33,7 @@ class PlansController < ApplicationController
     @plan = Plan.new
     authorize @plan
     
-    @plan.principal_investigator = current_user.name
+    @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
     @plan.data_contact = current_user.email
     @plan.funder_name = plan_params[:funder_name]
     
@@ -80,7 +80,7 @@ class PlansController < ApplicationController
         flash[:notice] = msg
         
         respond_to do |format|
-          format.js { render js: "window.location='#{plan_url(@plan)}'" }
+          format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
         end
         
       else
@@ -102,7 +102,7 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
     @all_guidance_groups = @plan.get_guidance_group_options
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-    @based_on = @plan.base_template
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.live(@plan.template.customization_of))
 
     respond_to :html
   end

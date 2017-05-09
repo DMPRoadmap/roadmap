@@ -1,4 +1,4 @@
-<% javascript "new_plan.js" %>
+<% javascript "create_plan.js" %>
 
 <div class="main">
   <h1><%= _('Create a new plan') %></h1>
@@ -12,61 +12,60 @@
 
       <!-- Plan name section -->
       <fieldset class="white-fieldset">
-        <h3><%= _('What research project are you planning?') %></h3>
+        <legend><%= _('What research project are you planning?') %></legend>
         
         <label for="plan_title">
           <%= _('Project title') %>
         </label>
-        
-        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + "'s" + _(" Plan")) %>
-        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" class="combobox-like" />
-				<div class="combobox-like">
-					<%= _('If applying for funding, state the title exactly as in the proposal.') %>
-				</div>
+  
+        <input type="text" id="plan_title" name="plan[title]" class="combobox-like" />
+        <div class="combobox-like">
+          <%= _('If applying for funding, state the title exactly as in the proposal.') %>
+        </div>
       </fieldset>
 
       <!-- Organisation selection -->
       <fieldset class="white-fieldset">
-        <h3><%= _('Where will the research be conducted?') %></h3>
+        <legend><%= _('Primary research organisation') %></legend>
       
         <label for="plan_org_name">
           <%= _('Select the primary research organisation responsible') %>
         </label>
       
         <%= render partial: "shared/accessible_combobox", 
-									 locals: {name: 'plan[org_name]',
+                   locals: {name: 'plan[org_name]',
                             id: 'plan_org_name',
                             default_selection: @default_org,
                             models: @orgs,
                             attribute: 'name'} %>
       
         <input type="checkbox" id="plan_no_org">
-        <span class="checkbox-label">
-          <%= _('My research organization is not on the list') %>
-					<em><%= _(' or ') %></em>
-					<%= _('no research organization is associated with this plan')%>
-        </span>
+        <label for="plan_no_org" class="checkbox-label">
+          <%= _('My research organisation is not on the list') %>
+          <em><%= _(' or ') %></em>
+          <%= _('no research organisation is associated with this plan')%>
+        </label>
       </fieldset>
     
       <!-- Funder selection -->
       <fieldset class="white-fieldset">
-        <h3><%= _('Who will fund the research?') %></h3>
+        <legend><%= _('Funding organisation') %></legend>
       
         <label for="plan_funder_name">
           <%= _('Select the funding organisation') %>
         </label>
       
         <%= render partial: "shared/accessible_combobox", 
-									 locals: {name: 'plan[funder_name]',
+                   locals: {name: 'plan[funder_name]',
                             id: 'plan_funder_name',
                             default_selection: nil,
                             models: @funders,
                             attribute: 'name'} %>
                                                                  
         <input type="checkbox" id="plan_no_funder" />
-        <span class="checkbox-label">
+        <label for="plan_no_funder" class="checkbox-label">
           <%= _('No funder associated with this plan')%>
-        </span>
+        </label>
       </fieldset>
 
       <!-- Template selection -->

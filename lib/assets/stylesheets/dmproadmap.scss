@@ -1,6 +1,7 @@
 @import "font-awesome";
 
 $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$header-font: "GillSansLight";
 
 $white: #FFF;
 
@@ -19,7 +20,6 @@ $reverse-text: #FFF;
 }
 
 .main {
-  
   form {
     
     .white-fieldset {
@@ -30,6 +30,17 @@ $reverse-text: #FFF;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px;
+      
+      legend {
+        font-family: $header-font;
+        color: $primary-color;
+        font-size: 26px;
+        font-weight: normal;
+        text-decoration: none;
+        
+        float: left; /* positions the legend within the fieldset box */
+        border-bottom: none;
+      }
       
       label, 
       input[type="checkbox"], 
@@ -45,6 +56,11 @@ $reverse-text: #FFF;
       
       input[type="checkbox"] {
         vertical-align: top;
+      }
+      
+      .checkbox-label {
+        display: inline-block;
+        margin-left: 5px;
       }
     }
     
