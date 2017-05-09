@@ -215,7 +215,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to plan_path(@plan)
     
     @plan.reload
-    ggs = @plan.plan_guidance_groups.collect{|pgg| pgg.guidance_group_id}
+    ggs = @plan.guidance_groups.ids
     assert ggs.include?(GuidanceGroup.first.id), "expected the plan to have the first GuidanceGroup selected"
     assert ggs.include?(GuidanceGroup.last.id), "expected the plan to have the last GuidanceGroup selected"
   end

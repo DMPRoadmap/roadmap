@@ -8,19 +8,23 @@ class RolesController < ApplicationController
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if params[:user].present?
-      message = _('User added to project')
-      user = User.find_by(email: params[:user])
-      if user.nil?
-        User.invite!(email: params[:user])
-        message = _('Invitation issued successfully.')
+      if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
+        flash[:notice] = _('Impossible sharing plan with %{email} since that email matches with the owner of the plan.') % {email: params[:user]}
+      else  
+        message = _('User added to project')
         user = User.find_by(email: params[:user])
-      end
-      @role.user = user
-      if @role.save
-        UserMailer.sharing_notification(@role, current_user).deliver
-        flash[:notice] = message
-      else
-        flash[:notice] = generate_error_notice(@role, _('role'))
+        if user.nil?
+          User.invite!(email: params[:user])
+          message = _('Invitation issued successfully.')
+          user = User.find_by(email: params[:user])
+        end
+        @role.user = user
+        if @role.save
+          UserMailer.sharing_notification(@role, current_user).deliver
+          flash[:notice] = message
+        else
+          flash[:notice] = generate_error_notice(@role, _('role'))
+        end
       end
     else
       flash[:notice] = _('Please enter an email address')

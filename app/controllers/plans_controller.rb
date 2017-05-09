@@ -101,7 +101,7 @@ class PlansController < ApplicationController
     authorize @plan
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
     @all_guidance_groups = @plan.get_guidance_group_options
-    @selected_guidance_groups = @plan.plan_guidance_groups.pluck(:guidance_group_id)
+    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
     @based_on = @plan.base_template
 
     respond_to :html
@@ -339,9 +339,9 @@ class PlansController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
-        format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
+        format.csv  { send_data @exported_plan.as_csv,  filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt,  filename: "#{file_name}.txt" }
+        format.docx { render docx: 'export', filename: "#{file_name}.docx" }
         format.pdf do
           @formatting = @plan.settings(:export).formatting
           render pdf: file_name,
@@ -398,7 +398,7 @@ class PlansController < ApplicationController
 
     ghash = {}
     plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
-    plan["plan_guidance_groups"].each do |pgg|
+    plan["plans_guidance_groups"].each do |pgg|
       pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
     end
 

@@ -61,3 +61,7 @@ config/initializers/wicked_pdf.rb
 # ignore yard generated documents
 /doc/*
 !/doc/README_FOR_APP
+
+# ignore auto-generated gettext files when running gettext:find
+config/locale/*/app.edit.po
+config/locale/*/app.po.time_stamp
