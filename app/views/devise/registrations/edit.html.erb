@@ -113,7 +113,7 @@
     <h3><%= _('Unlink institutional credentials alert') %></h3>
   </div>
   <div class="modal-body">
-    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_omniauth_shibboleth_path } %>
+    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
   </div>
   <div class="modal-footer">
     <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>

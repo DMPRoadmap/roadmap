@@ -62,12 +62,22 @@ class PlansController < ApplicationController
     
         default = Template.find_by(is_default: true)
         
+        msg = "#{_('Plan was successfully created.')} "
+        
         if !default.nil? && default == @plan.template
-          flash[:notice] = _('Plan was successfully created.') + '<br />' +
-                           _('The funder you selected does not have an official Data Management Plan. We have provided you with the generic plan.')
+          # We used the generic/default template
+          msg += _('This plan is based on the default template.')
+                 
+        elsif !@plan.template.customization_of.nil?
+          # We used a customized version of the the funder template
+          msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+
         else
-          flash[:notice] = _('Plan was successfully created.')
+          # We used the specified org's or funder's template
+          msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
         end
+        
+        flash[:notice] = msg
         
         respond_to do |format|
           format.js { render js: "window.location='#{plan_url(@plan)}'" }
@@ -91,7 +101,7 @@ class PlansController < ApplicationController
     authorize @plan
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
     @all_guidance_groups = @plan.get_guidance_group_options
-    @selected_guidance_groups = @plan.plan_guidance_groups.pluck(:guidance_group_id)
+    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
     @based_on = @plan.base_template
 
     respond_to :html
@@ -329,9 +339,9 @@ class PlansController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.csv  { send_data @exported_plan.as_csv, filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt, filename: "#{file_name}.txt" }
-        format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.docx\""}
+        format.csv  { send_data @exported_plan.as_csv,  filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt,  filename: "#{file_name}.txt" }
+        format.docx { render docx: 'export', filename: "#{file_name}.docx" }
         format.pdf do
           @formatting = @plan.settings(:export).formatting
           render pdf: file_name,
@@ -388,7 +398,7 @@ class PlansController < ApplicationController
 
     ghash = {}
     plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
-    plan["plan_guidance_groups"].each do |pgg|
+    plan["plans_guidance_groups"].each do |pgg|
       pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
     end
 

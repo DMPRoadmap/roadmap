@@ -13,8 +13,7 @@ class Plan < ActiveRecord::Base
   has_many :notes, through: :answers
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
-  has_many :plan_guidance_groups, dependent: :destroy
-  has_many :guidance_groups, through: :plan_guidance_groups
+  has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
   accepts_nested_attributes_for :template
   has_many :exported_plans
@@ -211,8 +210,7 @@ class Plan < ActiveRecord::Base
     end
     
     # Get guidance by theme from any guidance groups currently selected
-    self.plan_guidance_groups.each do |pgg|
-      group = pgg.guidance_group
+    self.guidance_groups.each do |group|
       group.guidances.each do |guidance|
         common_themes = guidance.themes.all & question.themes.all
         if common_themes.length > 0
@@ -965,7 +963,7 @@ class Plan < ActiveRecord::Base
                    {phases: {sections: {questions: :answers}}},
                    {customizations: :org}
                   ]},
-       {plan_guidance_groups: {guidance_group: :guidances}}
+       {plans_guidance_groups: {guidance_group: :guidances}}
       ]).find(id)
   end
 
@@ -976,7 +974,7 @@ class Plan < ActiveRecord::Base
                    {customizations: :org},
                    :org
                   ]},
-       {plan_guidance_groups: {guidance_group: {guidances: :themes}}},
+       {plans_guidance_groups: {guidance_group: {guidances: :themes}}},
        {questions: :themes}
       ]).find(id)
   end

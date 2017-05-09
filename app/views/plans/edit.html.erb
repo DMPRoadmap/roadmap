@@ -13,7 +13,7 @@
 <% status = @plan.status %>
     <div class="progress">
         <%space_used = status["space_used"].to_i
-          space_title = _('approx. %{space_used} of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
+          space_title = _('approx. %{space_used}%% of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
           answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
         <div class="bar-container">
             <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>
