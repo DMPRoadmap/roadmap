@@ -85,11 +85,11 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :new_suggested_answers do |t|
+    create_table :annotations do |t|
       t.integer  :new_question_id
       t.integer  :organisation_id
       t.text     :text
-      t.boolean  :is_example
+      t.column :type, :integer, default: 0, null: false
       t.timestamps
     end
 
@@ -223,8 +223,22 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                   question_option.save!
                 end
                 question.suggested_answers.each do |suggested_answer|
-                  new_suggested_answer = initNewSuggestedAnswers(suggested_answer, new_question)
-                  new_suggested_answer.save!
+                  annotation = initAnnotationSA(suggested_answer, new_question)
+                  annotation.save!
+                end
+                # question.guidance field to annotation if present
+                if question.guidance.present?
+                  annotation = initAnnotationQuestion(question, new_question, template.organisation)
+                  annotation.save!
+                end
+                Guidance.where(question_id: question.id).each do |guidance|
+                  if guidance.guidance_groups.present?
+                    annotation = initAnnotationGuidance(guidance, new_question) 
+                    annotation.save!
+                  end
+                  # ported over the data, remove the old guidance record
+                  # also removes the orphaned guidances
+                  guidance.destroy!
                 end
               end
             end
@@ -291,7 +305,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     drop_table :question_options
     drop_join_table :new_answers, :question_options
     drop_table :notes
-    drop_table :new_suggested_answers
+    drop_table :annotations
     drop_table :new_plans
     drop_table :roles
   end
@@ -445,15 +459,37 @@ def initNewPlan(project)
   return new_plan
 end
 
-def initNewSuggestedAnswers(suggested_answer, new_question)
-  new_suggested_answer                  = NewSuggestedAnswer.new
-  new_suggested_answer.text             = suggested_answer.text
-  new_suggested_answer.organisation_id  = suggested_answer.organisation_id
-  new_suggested_answer.new_question_id  = new_question.id
-  new_suggested_answer.is_example       = suggested_answer.is_example
-  new_suggested_answer.created_at       = suggested_answer.created_at
-  new_suggested_answer.updated_at       = suggested_answer.updated_at
-  return new_suggested_answer
+def initAnnotationSA(suggested_answer, new_question)
+  annotation                  = Annotation.new
+  annotation.text             = suggested_answer.text
+  annotation.organisation_id  = suggested_answer.organisation_id
+  annotation.new_question_id  = new_question.id
+  annotation.created_at       = suggested_answer.created_at
+  annotation.updated_at       = suggested_answer.updated_at
+  annotation.example_answer!
+  return annotation
+end
+
+def initAnnotationGuidance(guidance, new_question)
+  annotation = Annotation.new
+  annotation.text = guidance.text
+  annotation.organisation_id = guidance.guidance_groups.first.organisation_id
+  annotation.new_question_id = new_question.id
+  annotation.created_at = guidance.created_at
+  annotation.updated_at = guidance.updated_at
+  annotation.guidance!
+  return annotation
+end
+
+def initAnnotationQuestion(question, new_question, organisation)
+  annotation = Annotation.new
+  annotation.text = question.guidance
+  annotation.organisation_id = organisation.id
+  annotation.new_question_id = new_question.id
+  annotation.created_at = question.created_at
+  annotation.updated_at = question.updated_at
+  annotation.guidance!
+  return annotation
 end
 
 def initRole(project_group, new_plan)
