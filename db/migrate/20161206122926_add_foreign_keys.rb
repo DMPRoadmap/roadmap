@@ -64,8 +64,8 @@ class AddForeignKeys < ActiveRecord::Migration
     add_foreign_key :sections, :phases
 
     # suggested_answers
-    add_foreign_key :suggested_answers, :orgs
-    add_foreign_key :suggested_answers, :questions
+    add_foreign_key :annotations, :orgs
+    add_foreign_key :annotations, :questions
 
     # themes_in_guidance
     add_foreign_key :themes_in_guidance, :themes

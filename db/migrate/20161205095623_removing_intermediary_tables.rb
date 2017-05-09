@@ -68,17 +68,16 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
       t.rename :new_plan_id, :plan_id
     end
 
-    change_table :new_suggested_answers do |t|
+    change_table :annotations do |t|
       t.rename :new_question_id, :question_id
     end
     drop_table :suggested_answers
-    rename_table :new_suggested_answers, :suggested_answers
 
     #drop_table :projects
 
     rename_table :organisations, :orgs
     rename_column :guidance_groups, :organisation_id, :org_id
-    rename_column :suggested_answers, :organisation_id, :org_id
+    rename_column :annotations, :organisation_id, :org_id
     rename_column :org_token_permissions, :organisation_id, :org_id
     rename_column :projects, :organisation_id, :org_id
     rename_column :templates, :organisation_id, :org_id
@@ -156,9 +155,8 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
       t.rename :plan_id, :new_plan_id
     end
 
-    rename_table  :suggested_answers, :new_suggested_answers
     create_table :suggested_answers
-    change_table :new_suggested_answers do |t|
+    change_table :annotations do |t|
       t.rename :question_id, :new_question_id
     end
     change_table :plans_guidance_groups do |t|
