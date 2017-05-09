@@ -3,10 +3,11 @@ class GuidanceGroup < ActiveRecord::Base
   ##
   # Associations
   belongs_to :org
-  has_many :guidances
+  has_many :guidances, dependent: :destroy
   has_and_belongs_to_many :plans, join_table: :plans_guidance_groups
   # depricated but needed for migration "single_group_for_guidance"
   # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
+  
 
   ##
   # Possibly needed for active_admin

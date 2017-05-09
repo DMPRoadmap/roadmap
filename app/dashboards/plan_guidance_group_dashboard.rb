@@ -51,7 +51,7 @@ class PlanGuidanceGroupDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how plan guidance groups are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(plan_guidance_group)
-  #   "PlanGuidanceGroup ##{plan_guidance_group.id}"
+  # def display_resource(plans_guidance_group)
+  #   "PlanGuidanceGroup ##{plans_guidance_group.id}"
   # end
 end

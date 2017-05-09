@@ -3,7 +3,7 @@
 
   <p><%= _('A colleague has invited you to contribute to their Data Management Plan at ') %><%=Rails.configuration.branding[:application][:name]%></p>
 
-	<p><%= _('You have been given ') %><%= access_level %><%= _(' access to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%=_(' by ')%><%= @user.firstname %>.</p>
+	<p><%= _('You have been given ') %><%= @access_level %><%= _(' access to') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%=_(' by ')%><%= @user.firstname %>.</p>
 
   <p><%= link_to _('Click here'), url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %><%= _(' to accept the invitation, (or copy ') %><%= url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %><%= _(' into your browser)')%> 
 
