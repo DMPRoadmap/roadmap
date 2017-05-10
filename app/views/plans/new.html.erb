@@ -1,4 +1,4 @@
-<% javascript "new_plan.js" %>
+<% javascript "plans/create_plan.js" %>
 
 <div class="main">
   <h1><%= _('Create a new plan') %></h1>
@@ -12,23 +12,21 @@
 
       <!-- Plan name section -->
       <fieldset class="white-fieldset">
-        <h3><%= _('What research project are you planning?') %></h3>
+        <legend><%= _('What research project are you planning?') %></legend>
         
         <label for="plan_title">
           <%= _('Project title') %>
         </label>
-        
-        <% default_name = (current_user.firstname.blank? ? _('My Plan') : current_user.firstname + "'s" + _(" Plan")) %>
-        <input type="text" id="plan_title" name="plan[title]" placeholder="<%= default_name %>" 
-               class="left-indent input-large" />
-        <div class="left-indent">
+  
+        <input type="text" id="plan_title" name="plan[title]" class="input-large left-indent" />
+        <div class="left-indent" aria-describedby="org-tip" required>
           <%= _('If applying for funding, state the title exactly as in the proposal.') %>
         </div>
       </fieldset>
 
       <!-- Organisation selection -->
       <fieldset class="white-fieldset">
-        <h3><%= _('Where will the research be conducted?') %></h3>
+        <legend><%= _('Primary research organisation') %></legend>
       
         <label for="plan_org_name">
           <%= _('Select the primary research organisation responsible') %>
@@ -43,16 +41,17 @@
                             classes: 'input-large'} %>
       
         <input type="checkbox" id="plan_no_org">
-        <span class="checkbox-label">
-          <%= _('My research organization is not on the list') %>
+
+        <label for="plan_no_org" class="checkbox-label">
+          <%= _('My research organisation is not on the list') %>
           <em><%= _(' or ') %></em>
-          <%= _('no research organization is associated with this plan')%>
-        </span>
+          <%= _('no research organisation is associated with this plan')%>
+        </label>
       </fieldset>
     
       <!-- Funder selection -->
       <fieldset class="white-fieldset">
-        <h3><%= _('Who will fund the research?') %></h3>
+        <legend><%= _('Funding organisation') %></legend>
       
         <label for="plan_funder_name">
           <%= _('Select the funding organisation') %>
@@ -67,9 +66,9 @@
                             classes: 'input-large'} %>
                                                                  
         <input type="checkbox" id="plan_no_funder" />
-        <span class="checkbox-label">
+        <label for="plan_no_funder" class="checkbox-label">
           <%= _('No funder associated with this plan')%>
-        </span>
+        </label>
       </fieldset>
 
       <!-- Template selection -->
@@ -78,7 +77,11 @@
     
     </div>
     
-    <input type="submit" class="form-submit" value="<%= _('Create Plan') %>" />
+    <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
+    
+    <%= render partial: 'shared/accessible_submit_button',
+               locals: {id: 'create_plan_submit', val: 'Create Plan', disabled_initially: false} %>
+
   <% end %>
 </div>
 

@@ -1,10 +1,10 @@
-<h3><%= _('Which DMP template would you like to use?') %></h3>
+<legend><%= _('Which DMP template would you like to use?') %></legend>
 
-<label for="plan_template_title">
+<label for="plan_template_selector">
   <%= _('Select a template') %>
 </label>
 
-<select id="plan_template_id" name="plan[template_id]" class="left-indent input-large">
+<select id="plan_template_selector" class="left-indent input-large">
   <option value=""><%= _('Please select one') %></option>
   <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
 </select>
@@ -14,7 +14,7 @@
 </div>
 
 <script type="text/javascript">
-  $("#plan_template_id").change(function(){
-    $(".form-submit").prop('disabled', false);
+  $("#plan_template_selector").change(function(){
+    $("#plan_template_id").val($(this).val()).change();
   });
 </script>
