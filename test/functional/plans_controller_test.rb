@@ -70,36 +70,27 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     
     get new_plan_path
     assert_response :success
+    assert assigns(:plan)
     assert assigns(:orgs)
     assert assigns(:funders)
-    assert assigns(:default_org_name)
+    assert assigns(:default_org)
   end
 
   # POST /plans (plans_path)
   # ----------------------------------------------------------
   test "create a new plan" do
-    params = {template_id: @template.id}
+    params = {plan: {org_id: @template.org.id, template_id: @template.id, title: 'Testing Create'}}
     # Should redirect user to the root path if they are not logged in!
-    post plans_path, params
+    post plans_path(format: :js), params
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
     
-    post plans_path, params
-    assert_equal _('Plan was successfully created.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to "#{plan_url(Plan.last)}?editing=true"
+    post plans_path(format: :js), params
+    assert flash[:notice].include?(_('Plan was successfully created.'))
+    assert_response :success
     assert assigns(:plan)
-    assert_equal "#{_('My plan')} (#{@template.title})", Plan.last.title, "expected the record to have been created"
-    
-# TODO: We should also test the various template routes: funder, institution, generic
-    
-# TODO: Reactivate this once the validations on the model are in place!
-    # Invalid object
-#    post plans_path, {plan: {title: nil, template: @template}}
-#    assert flash[:notice].starts_with?(_('Could not create your'))
-#    assert_response :success
-#    assert assigns(:plan)
+    assert_equal "Testing Create", Plan.last.title, "expected the record to have been created"
   end 
 
   # GET /plan/:id (plan_path)

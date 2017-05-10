@@ -1111,8 +1111,8 @@ class Plan < ActiveRecord::Base
   # --------------------------------------------------------
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create
-    if self.id.nil?
-      self.title = "My plan (#{self.template.title})" if self.title.nil?
+    if self.id.nil? 
+      self.title = "My plan (#{self.template.title})" if self.title.nil? && !self.template.nil?
       self.visibility = 1
     end
   end
