@@ -200,9 +200,9 @@
 
 	<p>
 		<% if based_on.org != plan.template.org %>
-			<%= _('A version of ') %> "<%= based_on.title %>" <%= _(' that has been customised by ') %> <%= plan.template.org.name %>
+			<%= _('A version of ') %> "<%= based_on.title %>" <%= based_on.title.downcase.end_with?('template') ? '' : _('template') %><%= _(' that has been customised by ') %> <%= plan.template.org.name %>
 		<% else %>
-			<%= _('The')%> "<%= plan.template.title %>" <%= _('generic template') if plan.template.is_default %> <%= _('provided by ') %><%= plan.template.org.name %>
+			<%= _('The')%> "<%= plan.template.title %>" <%= (plan.template.is_default ? _('generic template') : plan.template.title.downcase.end_with?('template') ? '' : _('template')) %> <%= _(' provided by ') %><%= plan.template.org.name %>
 		<% end %>
 	</p>
 

@@ -7,6 +7,7 @@
          data-combobox-prefix-class="combobox"
          data-combobox-case-sensitive="no"
          data-combobox-search-option="containing"
+         data-combobox-allow-suggestion-on-empty="true"
          value="<%= default_selection[attribute] unless default_selection.nil? %>" />
   <datalist id="<%= id %>_list">
     <% models.each do |model| %>
@@ -50,7 +51,7 @@
       }).change(function(){
         $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
       });
-  
+
       // Hide the clear button if it gets clicked
       // -------------------------------------------------------------
       $(clear).click(function(){
