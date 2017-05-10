@@ -17,6 +17,7 @@
     // Allow the 'button disabled' tooltip to appear if the button is NOT clickable
     $("#<%= id %>").on('click focus', function(e){
       if($(this).attr('clickable') != 'true'){
+        e.preventDefault();
         $("#<%= id %>_tip").attr('role', 'tooltip');
       }else{
         $("#<%= id %>_tip").attr('role', '');
