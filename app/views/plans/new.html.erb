@@ -1,4 +1,4 @@
-<% javascript "create_plan.js" %>
+<% javascript "plans/create_plan.js" %>
 
 <div class="main">
   <h1><%= _('Create a new plan') %></h1>
@@ -19,7 +19,7 @@
         </label>
   
         <input type="text" id="plan_title" name="plan[title]" class="combobox-like" />
-        <div class="combobox-like">
+        <div class="combobox-like" aria-describedby="org-tip" required>
           <%= _('If applying for funding, state the title exactly as in the proposal.') %>
         </div>
       </fieldset>
@@ -74,7 +74,11 @@
     
     </div>
     
-    <input type="submit" class="form-submit" value="<%= _('Create Plan') %>" />
+    <!-- <input type="submit" class="form-submit" value="<%= _('Create Plan') %>" /> -->
+    
+    <%= render partial: 'shared/accessible_submit_button',
+               locals: {id: 'create_plan_submit', val: 'Create Plan', disabled_initially: false} %>
+
   <% end %>
 </div>
 

@@ -75,7 +75,7 @@ module DMPRoadmap
     config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
     config.assets.precompile += %w(export_configure.js)
     config.assets.precompile += %w(toolbar.js)
-    config.assets.precompile += %w(create_plan.js)
+    config.assets.precompile += %w(plans/create_plan.js)
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
     

@@ -4,6 +4,7 @@ $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $header-font: "GillSansLight";
 
 $white: #FFF;
+$dark-grey: #333;
 
 $primary-color: #F49700;
 $disabled-button-color: #CCC;
@@ -13,6 +14,15 @@ $reverse-text: #FFF;
 @mixin icon($icon) {
   @extend .fa;
   @extend .fa-#{$icon}:before;
+}
+
+.arrow-left {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 12px solid $dark-grey;
 }
 
 .main_header {
@@ -39,6 +49,7 @@ $reverse-text: #FFF;
         text-decoration: none;
         
         float: left; /* positions the legend within the fieldset box */
+        padding-top: 20px;
         border-bottom: none;
       }
       
@@ -74,10 +85,32 @@ $reverse-text: #FFF;
       -moz-border-radius: 10px;
       border-radius: 10px;
     }
-    input.form-submit:disabled {
+    input.form-submit[clickable='false'] {
       background-color: $disabled-button-color;
     }
-    
+
+    input.form-submit:focus + [role="tooltip"] {
+      display: inline-block;
+    }
+
+    .submit-tooltip {
+      display: none;
+      margin-left: 5px;
+
+      .arrow-left {
+        vertical-align: middle;
+        margin-right: -5px;
+      }
+      .submit-tooltip-msg {
+        color: $white;
+        background-color: $dark-grey;
+        padding: 5px 5px 8px 5px;
+      
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+      }
+    }
   }
   
 }
