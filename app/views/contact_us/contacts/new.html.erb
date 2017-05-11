@@ -4,119 +4,106 @@
  };
 </script>
 <h1>
-	<%= t("contact_page.title") %>
+  <%= _("Contact Us") %>
 </h1>
 <p>
-	<%= raw t("contact_page.intro_text_html",
-						organisation_name: Rails.configuration.branding[:organisation][:name],
-						organisation_email: Rails.configuration.branding[:organisation][:email],
-						organisation_url: Rails.configuration.branding[:organisation][:url],
-						application_name: Rails.configuration.branding[:application][:name],
-						application_url: Rails.configuration.branding[:application][:url],
-						application_issue_list_url: Rails.configuration.branding[:application][:issue_list_url]) %>
-  <%= raw t("contact_page.github_text_html") %>
+  <%= raw _('%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
+                                     organisation_url: Rails.configuration.branding[:organisation][:url],
+                                     application_name: Rails.configuration.branding[:application][:name]} %>
 </p>
 <div class="column_container">
-	<!-- left column  content -->
-	<div class="column_left">
-		<div class="white_background">
-			<%= form_for @contact, :url => contacts_path do |f| %>
-				<div class="dmp_details">
-					<table class="dmp_details_table">
-						<% if ContactUs.require_name %>
-							<tr>
-								<td class="string required first" id="contact_us_contact_name_input">
-									<%= f.label :name, (t('.name') + content_tag(:abbr, "*", :class => "required")).html_safe %>
-								</td>
-								<td>
-									<% if user_signed_in? then %>
-										<%= f.text_field :name, :value => current_user.name(false) %>
-									<% else %>
-										<%= f.text_field :name %>
-									<% end %>
-									<% if f.object.errors[:name].present? %>
-										<p class="inline-error"><%= f.object.errors[:name].join(" and ") %></p>
-									<% end %>
-								</td>
-							</tr>
-						<% end %>
-						<tr>
-							<td class="string required first" id="contact_us_contact_email_input">
-								<%= f.label :email, (t('.email') + content_tag(:abbr, "*", :class => "required")).html_safe %>
-							</td>
-							<td>
-								<% if user_signed_in? then %>
-									<%= f.email_field :email, :value => current_user.email %>
-								<% else %>
-									<%= f.email_field :email %>
-								<% end %>
-								<% if f.object.errors[:email].present? %>
-									<p class="inline-error"><%= f.object.errors[:email].join(" and ") %></p>
-								<% end %>
-							</td>
-						</tr>
-						<% if ContactUs.require_subject %>
-							<tr>
-								<td class="string required first" id="contact_us_contact_subject_input">
-									<%= f.label :subject, (t('.subject') + content_tag(:abbr, "*", :class => "required")).html_safe %>
-								</td>
-								<td>
-									<%= f.text_field :subject %>
-									<% if f.object.errors[:subject].present? %>
-										<p class="inline-error"><%= f.object.errors[:subject].join(" and ") %></p>
-									<% end %>
-								</td>
-							</tr>
-						<% end %>
-						<tr>
-							<td class="text required first" id="contact_us_contact_message_input">
-								<%= f.label :message, (t('.message') + content_tag(:abbr, "*", :class => "required")).html_safe %>
-							</td>
-							<td>
-								<%= f.text_area :message, :rows => 10 %>
-								<% if f.object.errors[:message].present? %>
-									<p class="inline-error"><%= f.object.errors[:message].join(" and ") %></p>
-								<% end %>
-							</td>
-						</tr>
-						<% if !user_signed_in? then %>
-							<tr>
-								<td class="text required first">
-									<%= t('helpers.security_check') %>
-								</td>
-								<td>
-									<%= recaptcha_tags %>
-								</td>
-							</tr>
-						<% end %>
-					</table>
-				</div>
-				<div class="div_right">
-					<%= f.submit :submit, :class => "btn btn-primary", :label => t('.submit') %>
-				</div>
-			<% end %>
-		</div>
-	</div>
-	
-	<!-- right column information -->
-		<div class="column_right">
-			<div class="white_background">
-				<%= raw t("contact_page.address_text_html",
-									organisation_name: Rails.configuration.branding[:organisation][:name],
-									organisation_email: Rails.configuration.branding[:organisation][:email],
-									application_name: Rails.configuration.branding[:application][:name],
-									organisation_telephone: Rails.configuration.branding[:organisation][:telephone],
-									organisation_address_line1: Rails.configuration.branding[:organisation][:address_line1],
-									organisation_address_line2: Rails.configuration.branding[:organisation][:address_line2],
-									organisation_address_line3: Rails.configuration.branding[:organisation][:address_line3],
-									organisation_address_line4: Rails.configuration.branding[:organisation][:address_line4],
-									organisation_address_country: Rails.configuration.branding[:organisation][:address_country]) %>
-				<!-- map -->
-				<div class="div_map">
-					<iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<%= Rails.configuration.branding[:organisation][:google_maps_link] %>"></iframe>
+  <!-- left column  content -->
+  <div class="column_left">
+    <div class="white_background">
+      <%= form_for @contact, :url => contacts_path do |f| %>
+        <div class="dmp_details">
+          <fieldset class="side-by-side">
+            <% if ContactUs.require_name %>
+              <div>
+                <%= f.label :name, (_('Name') + content_tag(:abbr, "*", class: "required")).html_safe %>
+                <% if user_signed_in? then %>
+                  <%= f.text_field :name, value: current_user.name(false) %>
+                <% else %>
+                  <%= f.text_field :name %>
+                <% end %>
+                <% if f.object.errors[:name].present? %>
+                  <p class="inline-error"><%= f.object.errors[:name].join(_(" and ")) %></p>
+                <% end %>
+              </div>
+            <% end %>
+            
+            <div>
+              <%= f.label :email, (_('Email') + content_tag(:abbr, "*", class: "required")).html_safe %>
+              <% if user_signed_in? then %>
+                <%= f.email_field :email, value: current_user.email %>
+              <% else %>
+                <%= f.email_field :email %>
+              <% end %>
+              <% if f.object.errors[:email].present? %>
+                <p class="inline-error"><%= f.object.errors[:email].join(_(" and ")) %></p>
+              <% end %>
+            </div>
+            
+            <% if ContactUs.require_subject %>
+              <div>
+                <%= f.label :subject, (_('Subject') + content_tag(:abbr, "*", class: "required")).html_safe %>
+                <%= f.text_field :subject %>
+                <% if f.object.errors[:subject].present? %>
+                  <p class="inline-error"><%= f.object.errors[:subject].join(_(" and ")) %></p>
+                <% end %>
+              </div>
+            <% end %>
+            
+            <div>
+              <%= f.label :message, (_('Message') + content_tag(:abbr, "*", class: "required")).html_safe %>
+              <%= f.text_area :message, rows: 10, class: "input-large" %>
+              <% if f.object.errors[:message].present? %>
+                <p class="inline-error"><%= f.object.errors[:message].join(_(" and ")) %></p>
+              <% end %>
+            </div>
+            
+            <% if !user_signed_in? then %>
+              <div>
+                <%= t('helpers.security_check') %>
+                <%= recaptcha_tags %>
+              </div>
+            <% end %>
+          </fieldset>
+        </div>
+        
+        <div class="button-spacer"></div>
+        <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+      <% end %>
+    </div>
+  </div>
+  
+  <!-- right column information -->
+  <div class="column_right">
+    <div class="white_background">
+      <%= raw _("<ul><li>%{organisation_name}</li>
+                     <li>%{organisation_address_line1}</li>
+                     <li>%{organisation_address_line2}</li>
+                     <li>%{organisation_address_line3}</li>
+                     <li>%{organisation_address_line4}</li>
+                     <li>%{organisation_address_country}</li>
+                 </ul>
+                 <p>Helpline: %{organisation_telephone}</p>
+                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>") %
+                  { organisation_name: Rails.configuration.branding[:organisation][:name],
+                    organisation_address_line1: Rails.configuration.branding[:organisation][:address_line1],
+                    organisation_address_line2: Rails.configuration.branding[:organisation][:address_line2],
+                    organisation_address_line3: Rails.configuration.branding[:organisation][:address_line3],
+                    organisation_address_line4: Rails.configuration.branding[:organisation][:address_line4],
+                    organisation_address_country: Rails.configuration.branding[:organisation][:address_country],
+                    organisation_telephone: Rails.configuration.branding[:organisation][:telephone],
+                    organisation_email: Rails.configuration.branding[:organisation][:email],
+                    application_name: Rails.configuration.branding[:application][:name]} %>
+        <!-- map -->
+        <div class="div_map">
+          <iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<%= Rails.configuration.branding[:organisation][:google_maps_link] %>"></iframe>
 
-				</div>
-			</div>
-	</div>
-	
+        </div>
+      </div>
+  </div>
+  
 </div>

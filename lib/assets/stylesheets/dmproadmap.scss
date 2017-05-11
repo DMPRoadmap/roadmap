@@ -27,6 +27,10 @@ $reverse-text: #FFF;
   width: 110px;
 }
 
+.left-indent {
+  margin-left: 15px;
+}
+
 .arrow-left {
   display: inline-block;
   width: 0;
@@ -40,6 +44,18 @@ $reverse-text: #FFF;
   margin-bottom: 20px;
 }
 
+.content-box {
+  background-color: $white;
+
+  padding: 20px 15px 35px 15px;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Accessible Form Buttons */
+/* ------------------------------------------------------ */
 input.form-submit {
   background-color: $primary-color;
   color: $reverse-text;
@@ -50,11 +66,18 @@ input.form-submit {
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
-input.form-submit:disabled {
+input.form-submit[clickable='false'] {
   background-color: $disabled-button-color;
 }
+input.form-submit:focus + [role="tooltip"] {
+  display: inline-block;
+}
+input.inline[type="submit"] {
+  font-size: 10pt;
+  padding: 5px 15px;
+}
 button.form-cancel {
-	background-color: $cancel-button-color;
+  background-color: $cancel-button-color;
   color: $reverse-text;
   padding: 10px 30px;
   font-size: 12pt;
@@ -63,7 +86,41 @@ button.form-cancel {
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+.submit-tooltip {
+  display: none;
+  margin-left: 5px;
 
+  .arrow-left {
+    vertical-align: middle;
+    margin-right: -5px;
+  }
+  .submit-tooltip-msg {
+    color: $white;
+    background-color: $dark-grey;
+    padding: 5px 5px 8px 5px;
+  
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+}
+
+/* Generic Fieldset Settings */
+/* ------------------------------------------------------ */
+fieldset legend {
+  font-family: $header-font;
+  color: $primary-color;
+  font-size: 26px;
+  font-weight: normal;
+  text-decoration: none;
+  
+  float: left; /* positions the legend within the fieldset box */
+  padding-top: 20px;
+  border-bottom: none;
+}
+
+/* Standard Form - Labels above Fields */
+/* ------------------------------------------------------ */
 .main {
   form {
     .white-fieldset {
@@ -74,18 +131,6 @@ button.form-cancel {
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px;
-      
-      legend {
-        font-family: $header-font;
-        color: $primary-color;
-        font-size: 26px;
-        font-weight: normal;
-        text-decoration: none;
-        
-        float: left; /* positions the legend within the fieldset box */
-        padding-top: 20px;
-        border-bottom: none;
-      }
       
       label, 
       input[type="checkbox"], 
@@ -107,86 +152,62 @@ button.form-cancel {
         margin-left: 5px;
       }
     }
-    
-    input.form-submit {
-      background-color: $primary-color;
-      color: $reverse-text;
-      padding: 10px 30px;
-      font-size: 12pt;
-      
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-    }
-    input.form-submit[clickable='false'] {
-      background-color: $disabled-button-color;
-    }
-
-    input.form-submit:focus + [role="tooltip"] {
-      display: inline-block;
-    }
-
-    .submit-tooltip {
-      display: none;
-      margin-left: 5px;
-
-      .arrow-left {
-        vertical-align: middle;
-        margin-right: -5px;
-      }
-      .submit-tooltip-msg {
-        color: $white;
-        background-color: $dark-grey;
-        padding: 5px 5px 8px 5px;
-      
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-      }
-    }
   }
 }
 
+/* Embedded Form - Labels to the left of fields */
+/* ------------------------------------------------------ */
 form.side-by-side {
-	div {
-		fieldset {
-			div {
-				margin-left: 15px;
-				
-				label,
-				input[type="checkbox"], 
-		    .combobox-container, 
-		    .left-indent {
-		      display: inline-block;
-		    }
+  div {
+    fieldset {
+      div {
+        margin-left: 15px;
+        
+        label,
+        input[type="checkbox"], 
+        .combobox-container, 
+        .identifier-scheme {
+          display: inline-block;
+        }
   
-		    label {
-		      width: 20%;
-		    }
-	
-				input.form-submit, 
-				button.form-cancel {
-					font-size: 9pt;
+				.identifier-scheme-indent {
+					margin-left: -5px;
 				}
-			}
-		}
-	}
+				
+        label {
+          width: 20%;
+          text-align: right;
+          margin-right: 10px;
+          vertical-align: middle;
+        }
+  
+        input.form-submit, 
+        button.form-cancel {
+          font-size: 10pt;
+        }
+      }
+    }
+  }
 
-	.button-spacer {
-		display: inline-block;
-		width: 21%;
-	}
+  .button-spacer {
+    display: inline-block;
+    width: 21%;
+  }
+  
+  .button-spacer-large {
+    display: inline-block;
+    width: 21%;
+  }
 	
-	input.form-submit,
-	button.form-cancel {
-		font-size: 11pt;
-		padding: 10px 10px 10px 10px;
-		width: 80px;
-	}
+  input.form-submit,
+  button.form-cancel {
+    font-size: 11pt;
+    padding: 10px 10px 10px 10px;
+  }
 }
 
 /* Accessible JQuery combobox */
-/* ----------------------------------------- */
+/* ------------------------------------------------------ */
 .invisible {
   border: 0;
   clip: rect(0 0 0 0);

@@ -28,6 +28,5 @@
       <%= render :partial => "/phases/add_note", locals: {answer: answer, question: question, plan_id: plan.id }%>
     </div>
   <% else%>
-    <%= _('Share note with collaborators')%>
     <%= render :partial => "/phases/add_note", locals: {answer: answer, question: question, plan_id: plan.id }%>
   <% end%>

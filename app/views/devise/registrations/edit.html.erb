@@ -5,104 +5,129 @@
     <%= _("Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.") %>
   </p>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
-    <div id="create_plan">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "side-by-side"}) do |f| %>
+    <div class="content-box">
 
       <!-- Edit Profile -->
-      <fieldset class="white-fieldset no-heading">
-        <h3><%= _('You can edit any of the details below.') %></h3>
+      <fieldset class="no-heading">
+        <legend><%= _('You can edit any of the details below.') %></legend>
         
         <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
 
-        <%= f.label :email, _('Email') + " *" %>
-        <%= f.email_field :email, as: :email, class: "left-indent input-medium" %>
-        <div class="left-indent"><%= _('Please enter your current password below when changing your email address.') %></div>
+        <div>
+          <%= f.label :email, _('Email') + " *" %>
+          <%= f.email_field :email, as: :email, class: "left-indent input-medium has-tooltip",
+                             "data-toggle": "tooltip", "data-trigger": "focus", 
+                            "title": _('Please enter your current password below when changing your email address.') %>
+        </div>
+        <div>
+          <%= f.label :firstname, _('First name')+ " *" %>
+          <%= f.text_field :firstname, as: :string,
+                            id: "first_time_login_firstname",
+                            autofocus: true,
+                            class: "left-indent input-medium has-tooltip",
+                            "data-toggle" => "tooltip",
+                            "data-trigger" => "focus" ,
+                            "title" => _('Please enter your first name.') %>
+        </div>
+        <div>
+          <%= f.label :surname, _('Last name') + " *" %>
+          <%= f.text_field :surname, as: :string, id: "first_time_login_surname",
+                    class: "left-indent input-medium has-tooltip", "data-toggle" => "tooltip",
+                    "data-trigger" => "focus" ,
+                    "title" => _('Please enter your surname or family name.') %>
+        </div>
+        <div>
+          <%= f.label :org, _('Organisation') + " *" %>
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: "#{resource_name}[org_name]",
+                              id: "#{resource_name}_org_name",
+                              default_selection: @default_org,
+                              models: @orgs,
+                              attribute: 'name',
+                              classes: 'input-large indent-left'} %>
+        </div>
         
-        <div class="heading-spacer"></div>
-        
-        <%= f.label :firstname, _('First name')+ " *" %>
-        <%= f.text_field :firstname, as: :string,
-                          id: "first_time_login_firstname",
-                          autofocus: true,
-                          class: "left-indent input-medium has-tooltip",
-                          "data-toggle" => "tooltip",
-                          "data-trigger" => "focus" ,
-                          "title" => _('Please enter your first name.') %>
-
-        <%= f.label :surname, _('Last name') + " *" %>
-        <%= f.text_field :surname, as: :string, id: "first_time_login_surname",
-                  class: "left-indent input-medium has-tooltip", "data-toggle" => "tooltip",
-                  "data-trigger" => "focus" ,
-                  "title" => _('Please enter your surname or family name.') %>
-          
-        <%= f.label :org, _('Organisation') + " *" %>
-        <%= render partial: "shared/accessible_combobox", 
-                   locals: {name: "#{resource_name}[org_name]",
-                            id: "#{resource_name}_org_name",
-                            default_selection: @default_org,
-                            models: @orgs,
-                            attribute: 'name',
-                            classes: 'input-large'} %>
-
         <% if MANY_LANGUAGES %>
-          <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
-          <%= f.label :language, _('Language') %>
-          <select id="user_language_id" name="user[language_id]" 
-                  class="left-indent input-medium">
-            <%= @languages.each do |l| %>
-              <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
-                <%= l.name %>
-              </option>
-            <% end %>
-          </select>
+          <div>
+            <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
+            <%= f.label :language, _('Language') %>
+            <select id="user_language_id" name="user[language_id]" 
+                    class="left-indent input-medium">
+              <%= @languages.each do |l| %>
+                <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
+                  <%= l.name %>
+                </option>
+              <% end %>
+            </select>
+          </div>
         <% end %>
 
         <% @identifier_schemes.each do |scheme| %>
-          <label><%= scheme.name %></label>
-          <div class="left-indent">
-            <%= render partial: 'external_identifier', 
-                       locals: {scheme: scheme, 
-                                id: current_user.identifier_for(scheme)} %>
+          <div>
+            <label><%= scheme.name %></label>
+            <div class="identifier-scheme identifier-scheme-indent">
+              <%= render partial: 'external_identifier', 
+                         locals: {scheme: scheme, 
+                                  id: current_user.identifier_for(scheme)} %>
+            </div>
           </div>
         <% end %>
-        
+
         <% if Rails.application.config.shibboleth_enabled %>
-          <label><%= _('Link to your institution') %></label>
-          <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
-            <%= link_to _('Link your %{application_name} account to your institutional credentials (UK users only)') % { :application_name => user_omniauth_shibboleth_path }, class: "a-orange" %>
-          <% else %>
-              <%= _('Your account is linked to your institutional credentials.') %>
-              <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
-                  <%= _('Unlink your institutional credentials')%>
-              </a>
-          <% end %>
+          <div>
+            <label><%= _('Link to your institution') %></label>
+            <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
+              <%= link_to _('Link your %{application_name} account to your institutional credentials (UK users only)') % { :application_name => user_omniauth_shibboleth_path }, class: "a-orange" %>
+            <% else %>
+                <%= _('Your account is linked to your institutional credentials.') %>
+                <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
+                    <%= _('Unlink your institutional credentials')%>
+                </a>
+            <% end %>
+          </div>
         <% end %>
       
         <% unless @user.api_token.blank? %>
-          <%= f.label :api_token, _('API token') %>
-          <div class="left-indent input-medium"><%= @user.api_token %></div>
+          <div>
+            <%= f.label :api_token, _('API token') %>
+            <div class="left-indent input-medium"><%= @user.api_token %></div>
           
-          <label><%= _('API Information') %></label>
-          <div class="left-indent"><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+            <label><%= _('API Information') %></label>
+            <div class="left-indent"><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+          </div>
         <% end %>
 
        
-        <h3><%= _('If you would like to change your password please complete the following fields.') %></h3>
+        <legend><%= _('If you would like to change your password please complete the following fields.') %></legend>
 
-        <%= f.label :current_password,  _('Current password') %>
-        <%= f.password_field :current_password, as: :password, class: 'left-indent input-medium' %>
+        <div>
+          <%= f.label :current_password,  _('Current password') %>
+          <%= f.password_field :current_password, as: :password, class: 'left-indent input-medium' %>
+        </div>
         
-        <%= f.label :password, _('New password') %>
-        <%= f.password_field :password, as: :password, autocomplete: "off", class: 'left-indent input-medium' %>
+        <div>
+          <%= f.label :password, _('New password') %>
+          <%= f.password_field :password, as: :password, autocomplete: "off", class: 'left-indent input-medium' %>
+        </div>
         
-        <%= f.label :password_confirmation, _('Password confirmation') %>
-        <%= f.password_field :password_confirmation, as: :password, autocomplete: "off", 
-                    class: 'left-indent input-medium' %>
+        <div>
+          <%= f.label :password_confirmation, _('Password confirmation') %>
+          <%= f.password_field :password_confirmation, as: :password, autocomplete: "off", 
+                      class: 'left-indent input-medium' %>
+        </div>
         
+        <div>
+          <div class="button-spacer-large"></div>
+          <input type="submit" class="form-submit indent-left" value="<%= _('Save') %>" />
+        </div>
       </fieldset>
+      
+      
+      
+      
     </div>
-    
-    <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+
   <% end %>
 </div>
 
