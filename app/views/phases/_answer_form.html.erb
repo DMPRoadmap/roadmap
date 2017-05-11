@@ -37,7 +37,7 @@
           <% if annotation.text.present? %>   <!-- could be present but empty -->
             <div class="suggested-answer-div">
               <span class="suggested-answer-intro">
-                  <%= _('Example of answer')%>
+                  <%="#{annotation.org.abbreviation} "%> <%=_('Example of answer')%>
               </span>
 
               <div class="suggested-answer-border">
