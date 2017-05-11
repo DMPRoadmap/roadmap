@@ -23,7 +23,7 @@ class RolesController < ApplicationController
           UserMailer.sharing_notification(@role, current_user).deliver_now
           flash[:notice] = message
         else
-          flash[:notice] = generate_error_notice(@role, _('role'))
+          flash[:notice] = failed_create_error(@role, _('role'))
         end
       end
     else
@@ -43,7 +43,7 @@ class RolesController < ApplicationController
       UserMailer.permissions_change_notification(@role, current_user).deliver_now
       redirect_to controller: 'plans', action: 'share', id: @role.plan.id
     else
-      flash[:notice] = generate_error_notice(@role, _('role'))
+      flash[:notice] = failed_create_error(@role, _('role'))
       render action: "edit"
     end
   end
