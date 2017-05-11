@@ -16,6 +16,15 @@ ActiveRecord::Schema.define(version: 20170412143945) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "annotations", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "org_id"
+    t.text     "text"
+    t.integer  "type",        default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "answers", force: :cascade do |t|
     t.text     "text"
     t.integer  "plan_id"
@@ -165,17 +174,6 @@ ActiveRecord::Schema.define(version: 20170412143945) do
     t.boolean  "modifiable"
   end
 
-  create_table "plan_guidance_groups", force: :cascade do |t|
-    t.integer  "plan_id"
-    t.integer  "guidance_group_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.boolean  "selected"
-  end
-
-  add_index "plan_guidance_groups", ["guidance_group_id"], name: "index_plan_guidance_groups_on_guidance_group_id", using: :btree
-  add_index "plan_guidance_groups", ["plan_id"], name: "index_plan_guidance_groups_on_plan_id", using: :btree
-
   create_table "plans", force: :cascade do |t|
     t.integer  "project_id"
     t.string   "title"
@@ -280,15 +278,6 @@ ActiveRecord::Schema.define(version: 20170412143945) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "suggested_answers", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "org_id"
-    t.text     "text"
-    t.boolean  "is_example"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -378,6 +367,8 @@ ActiveRecord::Schema.define(version: 20170412143945) do
 
   add_index "users_perms", ["user_id", "perm_id"], name: "index_users_perms_on_user_id_and_perm_id", using: :btree
 
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
@@ -392,8 +383,6 @@ ActiveRecord::Schema.define(version: 20170412143945) do
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
-  add_foreign_key "plan_guidance_groups", "guidance_groups"
-  add_foreign_key "plan_guidance_groups", "plans"
   add_foreign_key "plans", "templates"
   add_foreign_key "plans_guidance_groups", "guidance_groups"
   add_foreign_key "plans_guidance_groups", "plans"
@@ -405,8 +394,6 @@ ActiveRecord::Schema.define(version: 20170412143945) do
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
-  add_foreign_key "suggested_answers", "orgs"
-  add_foreign_key "suggested_answers", "questions"
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"

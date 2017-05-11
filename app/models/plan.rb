@@ -963,7 +963,7 @@ class Plan < ActiveRecord::Base
   def self.eager_load2(id)
     Plan.includes(
       [{template: [
-                   {phases: {sections: {questions: [{answers: :notes}, :suggested_answers, :question_format, :themes]}}},
+                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
                    {customizations: :org},
                    :org
                   ]},

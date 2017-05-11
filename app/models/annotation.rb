@@ -6,6 +6,10 @@ class Annotation < ActiveRecord::Base
   belongs_to :question
 
   ##
+  # I liked type as the name for the enum so overriding inheritance column
+  self.inheritance_column = nil
+
+  ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :org_id, :question_id, :text, :type,
@@ -15,19 +19,19 @@ class Annotation < ActiveRecord::Base
   validates :question, :org,  presence: {message: _("can't be blank")}
 
   ##
-  # returns the text from the suggested_answer
+  # returns the text from the annotation
   #
-  # @return [String] the text from the suggested_answer
+  # @return [String] the text from the annotation
   def to_s
     "#{text}"
   end
 
 
   ##
-  # deep copy the given question_option and all it's associations
+  # deep copy the given annotation and all it's associations
   #
-  # @params [QuestionOption] question_option to be deep copied
-  # @return [QuestionOption] the saved, copied question_option
+  # @params [Annotation] annotation to be deep copied
+  # @return [Annotation] the saved, copied annotation
   def self.deep_copy(annotation)
     annotation_copy = annotation.dup
     annotation_copy.save!

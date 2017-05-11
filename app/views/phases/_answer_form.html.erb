@@ -31,22 +31,18 @@
         <!-- need 'raw' to stop formtastic f.*ing up the formatastic formatting -->
         <%= raw question.text %>
 
-        <!--Suggested answer area-->
-        <% if question.suggested_answers.any? %>
-          <% suggested_answer = question.suggested_answers.first %>
-          <% if suggested_answer.text.present? %>   <!-- could be present but empty -->
+        <!--Example Answer area-->
+        <% if question.annotations.where('type <> ?',Annotation.types[:example_answer]).any? %>
+          <% annotation = question.annotations.where('type <> ?',Annotation.types[:example_answer]).order(:created_at).first %>
+          <% if annotation.text.present? %>   <!-- could be present but empty -->
             <div class="suggested-answer-div">
               <span class="suggested-answer-intro">
-                <% if suggested_answer.is_example? then %>
                   <%= _('Example of answer')%>
-                <%else%>
-                  <%= _('Suggested answer')%>
-                <%end%>
               </span>
 
               <div class="suggested-answer-border">
                 <p class="suggested-answer">
-                  <%= raw suggested_answer.text %>
+                  <%= raw annotation.text %>
                 </p>
               </div>
             </div>
@@ -121,7 +117,8 @@
       <% comments = answer.notes.all %> 
       <%= hidden_field_tag :question_id, question_id, :class => "question_id" %>
       <ul class="question_right_column_ul">
-      <% if question.guidance.present? || question_guidances[question_id] %>
+      <% annotations = question.annotations.where("type <> ?", Annotation.types[:guidance]) %>
+      <% if annotations.present? || question_guidances[question_id] %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
@@ -157,25 +154,28 @@
     <div class="question-guidance" id="guidance-question-area-<%= question_id %>" style="<%= css_style_guidance_div%>" >
      <div class="accordion" id="<%= question_id %>-guidance">
 
-       <!--question guidance-->
-       <% if question.guidance.present? %>
-         <div class="accordion-group">
+        <!--question guidance-->
+        <% if annotations.present? %>
+          <% annotations.each do |annotation| %>
 
-           <!-- accordion heading -->
-           <div class="accordion-heading">
-             <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question_id %>-guidance" href="#collapse-guidance-<%= question_id%>">
-               <div class="accordion_heading_text">
-               <%= plan.template.org.abbreviation %> <%= _('Guidance') %>
-               </div>
-               <span class="plus-laranja"> </span></a>
-           </div>
+            <div class="accordion-group">
 
-           <!-- accordion body -->
-           <div id="collapse-guidance-<%= question_id%>" class="guidance-accordion-body collapse">
-             <div class="accordion-inner"><%= raw question.guidance %></div>
-           </div>
+             <!-- accordion heading -->
+              <div class="accordion-heading">
+               <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question_id %>-guidance" href="#collapse-guidance-<%= question_id%>">
+                 <div class="accordion_heading_text">
+                 <%= annotation.org.abbreviation %> <%= _('Guidance') %>
+                 </div>
+                 <span class="plus-laranja"> </span></a>
+             </div>
 
-         </div>   <!-- accordion-group -->
+             <!-- accordion body -->
+             <div id="collapse-guidance-<%= question_id%>" class="guidance-accordion-body collapse">
+               <div class="accordion-inner"><%= annotation.text %></div>
+             </div>
+
+           </div>   <!-- accordion-group -->
+        <% end %>
        <% end %>   <!-- if question.guidance -->
 
        <!-- guidance by theme -->

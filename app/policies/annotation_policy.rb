@@ -10,7 +10,7 @@ class AnnotationPolicy < ApplicationPolicy
   ##
   # Users can modify annotations if:
   #  - They can modify templates
-  #  - The template which they are modifying belongs to their org
+  #  - The template which they are modifying belongs to their orggi
   ##
 
   def admin_create?

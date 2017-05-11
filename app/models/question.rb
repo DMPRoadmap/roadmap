@@ -4,7 +4,7 @@ class Question < ActiveRecord::Base
   # Associations
   has_many :answers, :dependent => :destroy
   has_many :question_options, :dependent => :destroy
-  has_many :suggested_answers, :dependent => :destroy
+  has_many :annotations, :dependent => :destroy
   has_and_belongs_to_many :themes, join_table: "questions_themes"
   belongs_to :section
   belongs_to :question_format
@@ -14,17 +14,17 @@ class Question < ActiveRecord::Base
   # TODO: evaluate if we need this
   accepts_nested_attributes_for :answers, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
   accepts_nested_attributes_for :question_options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :suggested_answers,  :allow_destroy => true
+  accepts_nested_attributes_for :annotations,  :allow_destroy => true
   accepts_nested_attributes_for :themes
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, 
-                  :suggested_answer, :text, :section_id, :question_format_id, 
-                  :question_options_attributes, :suggested_answers_attributes, 
+                  :annotation, :text, :section_id, :question_format_id, 
+                  :question_options_attributes, :annotations_attributes, 
                   :option_comment_display, :theme_ids, :section, :question_format, 
-                  :question_options, :suggested_answers, :answers, :themes, 
+                  :question_options, :annotations, :answers, :themes, 
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
@@ -67,10 +67,10 @@ class Question < ActiveRecord::Base
       question_option_copy.question_id = question_copy.id
       question_option_copy.save!
     end
-    question.suggested_answers.each do |suggested_answer|
-      suggested_answer_copy = SuggestedAnswer.deep_copy(suggested_answer)
-      suggested_answer_copy.question_id = question_copy.id
-      suggested_answer_copy.save!
+    question.annotations.each do |annotation|
+      annotation_copy = Annotation.deep_copy(annotation)
+      annotation_copy.question_id = question_copy.id
+      annotation_copy.save!
     end
     question.themes.each do |theme|
       question_copy.themes << theme
@@ -108,7 +108,7 @@ class Question < ActiveRecord::Base
   # @param org_id [Integer] the id for the organisation
   # @return [String] the suggested_answer for this question for the specified organisation
  	def get_suggested_answer(org_id)
- 		suggested_answer = suggested_answers.find_by(org_id: org_id)
+ 		suggested_answer = Annotaion.find_by(org_id: org_id).where("type <> ?", Annotation.types[:example_answer])
  		return suggested_answer
  	end
 
