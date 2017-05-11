@@ -7,6 +7,7 @@ $white: #FFF;
 $dark-grey: #333;
 
 $primary-color: #F49700;
+$primary-admin-color: #0057A7;
 $disabled-button-color: #CCC;
 $cancel-button-color: #CCC;
 $reverse-text: #FFF;
@@ -29,6 +30,10 @@ $reverse-text: #FFF;
 
 .left-indent {
   margin-left: 15px;
+}
+
+div.inline {
+  display: inline-block;
 }
 
 .arrow-left {
@@ -65,6 +70,10 @@ input.form-submit {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+/* Override the button color for the Org Admin sections */
+input[type="submit"].admin{
+  background-color: $primary-admin-color;
 }
 input.form-submit[clickable='false'] {
   background-color: $disabled-button-color;
@@ -160,6 +169,10 @@ fieldset legend {
 form.side-by-side {
   div {
     fieldset {
+      .mce-tinymce {
+        display: inline-block;
+      }
+      
       div {
         margin-left: 15px;
         
@@ -170,10 +183,10 @@ form.side-by-side {
           display: inline-block;
         }
   
-				.identifier-scheme-indent {
-					margin-left: -5px;
-				}
-				
+        .identifier-scheme-indent {
+          margin-left: -5px;
+        }
+        
         label {
           width: 20%;
           text-align: right;
@@ -198,7 +211,7 @@ form.side-by-side {
     display: inline-block;
     width: 21%;
   }
-	
+  
   input.form-submit,
   button.form-cancel {
     font-size: 11pt;
