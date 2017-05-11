@@ -85,7 +85,7 @@ $reverse-text: #FFF;
       -moz-border-radius: 10px;
       border-radius: 10px;
     }
-    input.form-submit[clickable='false'] {
+    input.form-submit[aria-disabled='true'] {
       background-color: $disabled-button-color;
     }
 
