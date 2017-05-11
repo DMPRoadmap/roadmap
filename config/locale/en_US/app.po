@@ -40,6 +40,10 @@ msgstr " I accept the <a href=\"/%{current_locale}/terms\" target=\"_blank\">ter
 msgid " access to"
 msgstr " access to"
 
+#, fuzzy
+msgid " access. "
+msgstr " access to"
+
 msgid " by"
 msgstr " by"
 
@@ -49,8 +53,9 @@ msgstr " by "
 msgid " has been removed by "
 msgstr " has been removed by "
 
-msgid " have changed. "
-msgstr " have changed. "
+#, fuzzy
+msgid " have been changed by"
+msgstr " by"
 
 msgid " into your browser)"
 msgstr " into your browser)."
@@ -1384,6 +1389,9 @@ msgstr "You must enter a valid email address."
 msgid "You need to sign in or sign up before continuing."
 msgstr "You need to sign in or sign up before continuing."
 
+msgid "You now have "
+msgstr ""
+
 msgid "Your"
 msgstr "Your"
 
@@ -1449,6 +1457,9 @@ msgstr "can't be blank"
 
 msgid "activerecord.errors.models.user.attributes.password.blank"
 msgstr "can't be blank"
+
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
+msgstr "passwords must match"
 
 msgid "add guidance text"
 msgstr "add guidance text"

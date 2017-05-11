@@ -42,6 +42,9 @@ msgstr " Jaccepte les <a href=\"/terms\" target=\"_blank\">Conditions générale
 msgid " access to"
 msgstr ""
 
+msgid " access. "
+msgstr ""
+
 #, fuzzy
 msgid " by"
 msgstr " par "
@@ -53,8 +56,9 @@ msgstr " par "
 msgid " has been removed by "
 msgstr " par "
 
-msgid " have changed. "
-msgstr ""
+#, fuzzy
+msgid " have been changed by"
+msgstr " par "
 
 msgid " into your browser)"
 msgstr ""
@@ -1415,6 +1419,9 @@ msgstr "Vous devez entrer un courriel valide."
 msgid "You need to sign in or sign up before continuing."
 msgstr ""
 
+msgid "You now have "
+msgstr ""
+
 msgid "Your"
 msgstr ""
 
@@ -1484,6 +1491,10 @@ msgstr "user"
 
 #, fuzzy
 msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr "user"
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr "user"
 
 msgid "add guidance text"

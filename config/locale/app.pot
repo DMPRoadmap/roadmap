@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 16:51+0100\n"
-"PO-Revision-Date: 2017-05-08 16:51+0100\n"
+"POT-Creation-Date: 2017-05-11 14:12+0100\n"
+"PO-Revision-Date: 2017-05-11 14:12+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -42,6 +42,9 @@ msgstr ""
 msgid " access to"
 msgstr ""
 
+msgid " access. "
+msgstr ""
+
 msgid " by"
 msgstr ""
 
@@ -51,7 +54,7 @@ msgstr ""
 msgid " has been removed by "
 msgstr ""
 
-msgid " have changed. "
+msgid " have been changed by"
 msgstr ""
 
 msgid " into your browser)"
@@ -1386,6 +1389,9 @@ msgstr ""
 msgid "You need to sign in or sign up before continuing."
 msgstr ""
 
+msgid "You now have "
+msgstr ""
+
 msgid "Your"
 msgstr ""
 
@@ -1450,6 +1456,9 @@ msgid "activerecord.errors.models.user.attributes.email.blank"
 msgstr ""
 
 msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr ""
+
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr ""
 
 msgid "add guidance text"

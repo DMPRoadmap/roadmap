@@ -45,6 +45,9 @@ msgstr "Ich akzeptiere die <a href=\"/terms\" target=\"_blank\">Nutzungsbedingun
 msgid " access to"
 msgstr ""
 
+msgid " access. "
+msgstr ""
+
 #, fuzzy
 msgid " by"
 msgstr " von "
@@ -56,8 +59,9 @@ msgstr " von "
 msgid " has been removed by "
 msgstr " von "
 
-msgid " have changed. "
-msgstr ""
+#, fuzzy
+msgid " have been changed by"
+msgstr " von "
 
 #, fuzzy
 msgid " into your browser)"
@@ -1430,6 +1434,9 @@ msgstr "Bitte geben Sie eine gültige E-Mail-Adresse an."
 msgid "You need to sign in or sign up before continuing."
 msgstr "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
 
+msgid "You now have "
+msgstr ""
+
 #, fuzzy
 msgid "Your"
 msgstr "Your "
@@ -1505,6 +1512,10 @@ msgstr "user"
 
 #, fuzzy
 msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr "user"
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr "user"
 
 msgid "add guidance text"
