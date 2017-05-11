@@ -106,16 +106,16 @@ in the admin interface.
 
       <!-- Suggested answer or Example-->
       <tr>
-        <td class="first_template"><%= _('Suggested answer/ Example')%></td>
+        <td class="first_template"><%= _('Example Answer')%></td>
         <td><div class="div_left_icon">
-          <% suggested_answer = question.suggested_answers.find_by_org_id(current_user.org.id) %>
-          <% if suggested_answer.nil? %>
-             <% suggested_answer = question.suggested_answers.build %>
+          <% example_answer = question.get_example_answer(current_user.org.id) %>
+          <% if example_answer.nil? %>
+             <% example_answer = question.annotaions.build %>
+             <% example_answer.type = :example_answer %>
           <% end %>
-          <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
+          <%= f.fields_for :annotations, example_answer do |s|%>
             <%= s.hidden_field :org_id, value: current_user.org.id %>
             <ul>
-              <li><%= s.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
               <li><%= s.text_area :text, rows: 5 %>
               </li>
             </ul>

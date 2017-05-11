@@ -103,13 +103,24 @@ class Question < ActiveRecord::Base
  	end
 
   ##
- 	# get suggested answer belonging to the currents user for this question
+ 	# get example answer belonging to the currents user for this question
   #
   # @param org_id [Integer] the id for the organisation
-  # @return [String] the suggested_answer for this question for the specified organisation
- 	def get_suggested_answer(org_id)
- 		suggested_answer = Annotaion.find_by(org_id: org_id).where("type <> ?", Annotation.types[:example_answer])
- 		return suggested_answer
+  # @return [String] the example answer for this question for the specified org
+ 	def get_example_answer(org_id)
+ 		example_answer = Annotation.where(org_id: org_id).where("type <> ?", Annotation.types[:example_answer])
+ 		return example_answer.first
  	end
+
+  ##
+  # get guidance belonging to the current user's org for this question(need org 
+  # to distinguish customizations)
+  #
+  # @param org_id [Integer] the id for the organisation
+  # @return [String] the annotation guidance for this question for the specified org
+  def get_guidance_annotation(org_id)
+    guidance = Annotation.where(org_id: org_id).where("type <> ?", Annotation.types[:guidance])
+    return guidance.first
+  end
 
 end

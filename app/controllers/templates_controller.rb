@@ -52,7 +52,7 @@ class TemplatesController < ApplicationController
   # GET /dmptemplates/1
   def admin_template
     @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format,
-          :suggested_answers]]]).find(params[:id])
+          :annotations]]]).find(params[:id])
     # check to see if this is a funder template needing customized
     
     authorize @template
@@ -75,7 +75,7 @@ class TemplatesController < ApplicationController
           end
         end
       end
-      customizations = Template.includes(:org, phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+      customizations = Template.includes(:org, phases: [sections: [questions: :annotations ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
       if customizations.present?
         # existing customization to port over
         max_version = customizations.first
@@ -105,7 +105,7 @@ class TemplatesController < ApplicationController
                 section_copy.save!
               else
                 # not a customized section, iterate over questions
-                customization_phase = new_customization.phases.includes(sections: [questions: :suggested_answers]).where(number: phase.number).first
+                customization_phase = new_customization.phases.includes(sections: [questions: :annotations]).where(number: phase.number).first
                 customization_section = customization_phase.sections.where(number: section.number).first
                 section.questions.each do |question|
                   # find corresponding question in new template
