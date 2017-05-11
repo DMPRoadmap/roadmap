@@ -1,9 +1,9 @@
 <input id="<%= id %>" 
        type="submit" 
        class="form-submit" 
-       clickable="<%= disabled_initially %>"
        value="<%= val %>"
-       artia-describedby="<%= id %>_tip" />
+       aria-disabled="<%= disabled_initially %>"
+       aria-describedby="<%= id %>_tip" />
 
 <div role="tooltip" id="<%= id %>_tip" class="submit-tooltip">
   <div class="arrow-left"></div>
@@ -16,7 +16,7 @@
   $(document).ready(function(){
     // Allow the 'button disabled' tooltip to appear if the button is NOT clickable
     $("#<%= id %>").on('click focus', function(e){
-      if($(this).attr('clickable') != 'true'){
+      if($(this).attr('aria-disabled') == 'true'){
         e.preventDefault();
         $("#<%= id %>_tip").attr('role', 'tooltip');
       }else{

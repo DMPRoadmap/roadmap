@@ -75,7 +75,7 @@ input.form-submit {
 input[type="submit"].admin{
   background-color: $primary-admin-color;
 }
-input.form-submit[clickable='false'] {
+input.form-submit[aria-disabled='true'] {
   background-color: $disabled-button-color;
 }
 input.form-submit:focus + [role="tooltip"] {
