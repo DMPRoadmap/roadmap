@@ -16,7 +16,7 @@
   $(document).ready(function(){
     // Allow the 'button disabled' tooltip to appear if the button is NOT clickable
     $("#<%= id %>").on('click focus', function(e){
-      if($(this).attr('aria-disabled') != 'true'){
+      if($(this).attr('aria-disabled') == 'true'){
         e.preventDefault();
         $("#<%= id %>_tip").attr('role', 'tooltip');
       }else{
