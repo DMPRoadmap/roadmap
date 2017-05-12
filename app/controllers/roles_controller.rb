@@ -3,6 +3,7 @@ class RolesController < ApplicationController
   after_action :verify_authorized
 
   def create
+    registered = true
     @role = Role.new(role_params)
     authorize @role
     access_level = params[:role][:access_level].to_i
@@ -14,16 +15,17 @@ class RolesController < ApplicationController
         message = _('User added to project')
         user = User.find_by(email: params[:user])
         if user.nil?
+          registered = false
           User.invite!(email: params[:user])
           message = _('Invitation issued successfully.')
           user = User.find_by(email: params[:user])
         end
         @role.user = user
         if @role.save
-          UserMailer.sharing_notification(@role, current_user).deliver
+          if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
           flash[:notice] = message
         else
-          flash[:notice] = generate_error_notice(@role, _('role'))
+          flash[:notice] = failed_create_error(@role, _('role'))
         end
       end
     else
@@ -40,10 +42,10 @@ class RolesController < ApplicationController
     set_access_level(access_level)
     if @role.update_attributes(role_params)
       flash[:notice] = _('Sharing details successfully updated.')
-      UserMailer.permissions_change_notification(@role).deliver_now
+      UserMailer.permissions_change_notification(@role, current_user).deliver_now
       redirect_to controller: 'plans', action: 'share', id: @role.plan.id
     else
-      flash[:notice] = generate_error_notice(@role, _('role'))
+      flash[:notice] = failed_create_error(@role, _('role'))
       render action: "edit"
     end
   end
@@ -55,7 +57,7 @@ class RolesController < ApplicationController
     plan = @role.plan
     @role.destroy
     flash[:notice] = _('Access removed')
-    UserMailer.project_access_removed_notification(user, plan).deliver_now
+    UserMailer.project_access_removed_notification(user, plan, current_user).deliver_now
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
 

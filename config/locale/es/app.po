@@ -42,6 +42,9 @@ msgstr " Acepto los <a href=\"/terms\" target=\"_blank\">términos y condiciones
 msgid " access to"
 msgstr ""
 
+msgid " access. "
+msgstr ""
+
 #, fuzzy
 msgid " by"
 msgstr " por "
@@ -53,8 +56,9 @@ msgstr " por "
 msgid " has been removed by "
 msgstr " por "
 
-msgid " have changed. "
-msgstr ""
+#, fuzzy
+msgid " have been changed by"
+msgstr " por "
 
 msgid " into your browser)"
 msgstr ""
@@ -861,6 +865,9 @@ msgstr "Organización"
 msgid "Original funder template has changed!"
 msgstr "templates"
 
+msgid "Other institutions"
+msgstr ""
+
 msgid "Otherwise leave blank."
 msgstr "Si no, déjelo en blanco."
 
@@ -1418,6 +1425,9 @@ msgstr "Debe introducir una dirección de correo electrónico válida."
 msgid "You need to sign in or sign up before continuing."
 msgstr ""
 
+msgid "You now have "
+msgstr ""
+
 msgid "Your"
 msgstr ""
 
@@ -1487,6 +1497,10 @@ msgstr "user"
 
 #, fuzzy
 msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr "user"
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr "user"
 
 msgid "add guidance text"

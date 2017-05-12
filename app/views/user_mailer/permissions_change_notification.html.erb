@@ -1,7 +1,5 @@
 <% FastGettext.with_locale FastGettext.default_locale do %>
-  <p><%= _('Hello ') %><%= @role.user.name %></p>
-
-  <% 
+<% 
   access_level = "read-only"
   permissions = "This means you can read the plan and leave comments."
   if @role.editor?
@@ -12,13 +10,9 @@
     access_level = "co-owner"
     permissions = "This means you can write and edit the plan in a collaborative manner. You can also grant rights to other collaborators."
   end
-  %>
+%>
+<p><%= _('Hello ') %><%= @role.user.name %>,</p>
+<p><%= _('Your permissions relating to ') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%= _(' have been changed by') %><%="#{@current_user.firstname} #{@current_user.surname}. " %><%= _('You now have ') %><%= access_level %><%= _(' access. ') %><%= permissions %></p>
+<p><%=_('All the best,')%><br /><%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.</p>
 
-  <p><%= _('Your permissions relating to ') %>"<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: I18n.default_locale) %>"<%= _(' have changed. You now have ') %><%= access_level %><%= _(' access. ')%><%= permissions %></p>
-  
-  <p>
-    <%=_('All the best,')%>
-    <br />
-    <%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.
-  </p>
 <% end %>

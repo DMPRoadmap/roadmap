@@ -18,17 +18,19 @@ class UserMailer < ActionMailer::Base
     end
 	end
 	
-	def permissions_change_notification(role)
+	def permissions_change_notification(role, current_user)
 		@role = role
+                @current_user = current_user
 		FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, 
            subject: "#{_('Changed permissions on a DMP in')} #{Rails.configuration.branding[:application][:name]}")
     end
 	end
 	
-	def project_access_removed_notification(user, plan)
+	def project_access_removed_notification(user, plan, current_user)
 		@user = user
 		@plan = plan
+                @current_user = current_user
     FastGettext.with_locale FastGettext.default_locale do
   		mail(to: @user.email, 
            subject: "#{_('Permissions removed on a DMP in')} #{Rails.configuration.branding[:application][:name]}")
