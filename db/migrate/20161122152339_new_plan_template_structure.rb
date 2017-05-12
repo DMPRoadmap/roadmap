@@ -223,12 +223,22 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                   question_option.save!
                 end
                 question.suggested_answers.each do |suggested_answer|
-                  annotation = initAnnotationSA(suggested_answer, new_question)
-                  annotation.save!
+                  # only bring suggested answers from the template creator or the
+                  # project's org(customizations)
+                  if suggested_answer.organisation_id == template.organisation_id ||
+                    suggested_answer.organisation_id == project.dmptemplate.organisation_id
+                    annotation = initAnnotationSA(suggested_answer, new_question)
+                    annotation.save!
+                  end
                 end
                 # question.guidance field to annotation if present
                 if question.guidance.present?
-                  annotation = initAnnotationQuestion(question, new_question, template.organisation)
+                  if new_question.modifiable
+                    org_id = template.organisation_id
+                  else
+                    org_id = project.dmptemplate.organisation_id
+                  end
+                  annotation = initAnnotationQuestion(question, new_question, org_id)
                   annotation.save!
                 end
                 Guidance.where(question_id: question.id).each do |guidance|
@@ -382,9 +392,6 @@ def initNewQuestion(question, new_section, modifiable)
   new_question.text                   = question.text
   new_question.default_value          = question.default_value
   new_question.guidance               = question.guidance.nil? ? "" : question.guidance
-  Guidance.where(question_id: question.id).each do |guidance|
-    new_question.guidance             += guidance.text
-  end
   new_question.number                 = question.number
   new_question.new_section_id         = new_section.id
   new_question.question_format_id     = question.question_format_id
@@ -481,10 +488,10 @@ def initAnnotationGuidance(guidance, new_question)
   return annotation
 end
 
-def initAnnotationQuestion(question, new_question, organisation)
+def initAnnotationQuestion(question, new_question, organisation_id)
   annotation = Annotation.new
   annotation.text = question.guidance
-  annotation.organisation_id = organisation.id
+  annotation.organisation_id = organisation_id
   annotation.new_question_id = new_question.id
   annotation.created_at = question.created_at
   annotation.updated_at = question.updated_at
