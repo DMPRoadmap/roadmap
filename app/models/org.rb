@@ -49,7 +49,7 @@ class Org < ActiveRecord::Base
   # Predefined queries for retrieving the managain organisation and funders
   scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
   scope :funders, -> { where(org_type: 2) }
-  scope :institutions, -> { where(org_type: 3) }
+  scope :institutions, -> { where(org_type: 1) }
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
