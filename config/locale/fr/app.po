@@ -863,6 +863,9 @@ msgstr "Organisation"
 msgid "Original funder template has changed!"
 msgstr "templates"
 
+msgid "Other institutions"
+msgstr ""
+
 msgid "Otherwise leave blank."
 msgstr "Sinon laissez ce champ vide."
 
