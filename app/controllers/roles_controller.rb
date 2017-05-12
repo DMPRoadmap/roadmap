@@ -3,6 +3,7 @@ class RolesController < ApplicationController
   after_action :verify_authorized
 
   def create
+    registered = true
     @role = Role.new(role_params)
     authorize @role
     access_level = params[:role][:access_level].to_i
@@ -14,13 +15,14 @@ class RolesController < ApplicationController
         message = _('User added to project')
         user = User.find_by(email: params[:user])
         if user.nil?
+          registered = false
           User.invite!(email: params[:user])
           message = _('Invitation issued successfully.')
           user = User.find_by(email: params[:user])
         end
         @role.user = user
         if @role.save
-          UserMailer.sharing_notification(@role, current_user).deliver_now
+          if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
           flash[:notice] = message
         else
           flash[:notice] = failed_create_error(@role, _('role'))
