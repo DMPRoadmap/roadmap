@@ -1,4 +1,4 @@
-<% javascript "plans/create_plan.js" %>
+<% javascript "plans/new_plan.js" %>
 
 <div class="main">
   <h1><%= _('Create a new plan') %></h1>
@@ -80,7 +80,10 @@
     <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
     
     <%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'create_plan_submit', val: 'Create Plan', disabled_initially: true} %>
+               locals: {id: 'create_plan_submit', 
+                         val: 'Create Plan', 
+                        disabled_initially: true,
+                        tooltip: _('You can not continue until you have filled in all of the required information.')} %>
 
   <% end %>
 </div>

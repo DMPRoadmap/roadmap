@@ -75,9 +75,12 @@ module DMPRoadmap
     config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
     config.assets.precompile += %w(export_configure.js)
     config.assets.precompile += %w(toolbar.js)
-    config.assets.precompile += %w(plans/create_plan.js)
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
+    
+    config.assets.precompile += %w(roadmap-form.scss)
+    config.assets.precompile += %w(plans/new_plan.js)
+    config.assets.precompile += %w(contacts/new_contact.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true

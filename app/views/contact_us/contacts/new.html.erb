@@ -1,8 +1,5 @@
-<script type="text/javascript">
- var RecaptchaOptions = {
-    theme : "clean"
- };
-</script>
+<% javascript "contacts/new_contact.js" %>
+
 <h1>
   <%= _("Contact Us") %>
 </h1>
@@ -15,64 +12,69 @@
   <!-- left column  content -->
   <div class="column_left">
     <div class="white_background">
-      <%= form_for @contact, :url => contacts_path do |f| %>
-        <div class="dmp_details">
-          <fieldset class="side-by-side">
-            <% if ContactUs.require_name %>
-              <div>
-                <%= f.label :name, (_('Name') + content_tag(:abbr, "*", class: "required")).html_safe %>
-                <% if user_signed_in? then %>
-                  <%= f.text_field :name, value: current_user.name(false) %>
-                <% else %>
-                  <%= f.text_field :name %>
-                <% end %>
-                <% if f.object.errors[:name].present? %>
-                  <p class="inline-error"><%= f.object.errors[:name].join(_(" and ")) %></p>
-                <% end %>
-              </div>
-            <% end %>
-            
+      <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
+        <fieldset class="side-by-side">
+          <% if ContactUs.require_name %>
             <div>
-              <%= f.label :email, (_('Email') + content_tag(:abbr, "*", class: "required")).html_safe %>
+              <%= f.label :name, (_('Name') + content_tag(:abbr, "*", class: "required")).html_safe %>
               <% if user_signed_in? then %>
-                <%= f.email_field :email, value: current_user.email %>
+                <%= f.text_field :name, value: current_user.name(false) %>
               <% else %>
-                <%= f.email_field :email %>
+                <%= f.text_field :name %>
               <% end %>
-              <% if f.object.errors[:email].present? %>
-                <p class="inline-error"><%= f.object.errors[:email].join(_(" and ")) %></p>
+              <% if f.object.errors[:name].present? %>
+                <p class="inline-error"><%= f.object.errors[:name].join(_(" and ")) %></p>
               <% end %>
             </div>
-            
-            <% if ContactUs.require_subject %>
-              <div>
-                <%= f.label :subject, (_('Subject') + content_tag(:abbr, "*", class: "required")).html_safe %>
-                <%= f.text_field :subject %>
-                <% if f.object.errors[:subject].present? %>
-                  <p class="inline-error"><%= f.object.errors[:subject].join(_(" and ")) %></p>
-                <% end %>
-              </div>
+          <% end %>
+          
+          <div>
+            <%= f.label :email, (_('Email') + content_tag(:abbr, "*", class: "required")).html_safe %>
+            <% if user_signed_in? then %>
+              <%= f.email_field :email, value: current_user.email %>
+            <% else %>
+              <%= f.email_field :email %>
             <% end %>
-            
+            <% if f.object.errors[:email].present? %>
+              <p class="inline-error"><%= f.object.errors[:email].join(_(" and ")) %></p>
+            <% end %>
+          </div>
+          
+          <% if ContactUs.require_subject %>
             <div>
-              <%= f.label :message, (_('Message') + content_tag(:abbr, "*", class: "required")).html_safe %>
-              <%= f.text_area :message, rows: 10, class: "input-large" %>
-              <% if f.object.errors[:message].present? %>
-                <p class="inline-error"><%= f.object.errors[:message].join(_(" and ")) %></p>
+              <%= f.label :subject, (_('Subject') + content_tag(:abbr, "*", class: "required")).html_safe %>
+              <%= f.text_field :subject %>
+              <% if f.object.errors[:subject].present? %>
+                <p class="inline-error"><%= f.object.errors[:subject].join(_(" and ")) %></p>
               <% end %>
             </div>
-            
-            <% if !user_signed_in? then %>
-              <div>
-                <%= t('helpers.security_check') %>
-                <%= recaptcha_tags %>
-              </div>
+          <% end %>
+          
+          <div>
+            <%= f.label :message, (_('Message') + content_tag(:abbr, "*", class: "required")).html_safe %>
+            <%= f.text_area :message, rows: 10, class: "input-large" %>
+            <% if f.object.errors[:message].present? %>
+              <p class="inline-error"><%= f.object.errors[:message].join(_(" and ")) %></p>
             <% end %>
-          </fieldset>
-        </div>
-        
-        <div class="button-spacer"></div>
-        <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+          </div>
+          
+          <% if !user_signed_in? then %>
+            <div>
+              <%= t('helpers.security_check') %>
+              <%= recaptcha_tags %>
+            </div>
+          <% end %>
+					
+					<div>
+		        <div class="button-spacer"></div>
+				    <%= render partial: 'shared/accessible_submit_button',
+				               locals: {id: 'create_contact_submit', 
+												        val: 'Submit', 
+												        disabled_initially: true,
+																tooltip: _('Fill in required fields')} %>
+					</div>
+        </fieldset>
+
       <% end %>
     </div>
   </div>

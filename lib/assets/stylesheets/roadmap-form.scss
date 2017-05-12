@@ -1,0 +1,248 @@
+@import "font-awesome";
+
+$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$header-font: "GillSansLight";
+
+$white: #FFF;
+$dark-grey: #333;
+
+$primary-color: #F49700;
+$primary-admin-color: #0057A7;
+$disabled-button-color: #CCC;
+$cancel-button-color: #CCC;
+$reverse-text: #FFF;
+
+/* See `.combobox-clear-button` for an example of this mixin in use */
+@mixin icon($icon) {
+  @extend .fa;
+  @extend .fa-#{$icon}:before;
+}
+
+.arrow-left {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 12px solid $dark-grey;
+}
+
+.main_header {
+  margin-bottom: 20px;
+}
+
+.content-box {
+  background-color: $white;
+
+  padding: 20px 15px 35px 15px;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Roadmap Form Styling */
+/* ------------------------------------------------ */
+form.roadmap-form {
+  padding: 0 25px 25px 25px;
+  margin-bottom: 25px;
+	
+	/* Fieldset with labels over inputs */
+	fieldset.standard {
+    label, 
+    input[type="checkbox"], 
+    .combobox-container, 
+    .left-indent {
+      margin-left: 15px;
+    }
+    
+    input[type="text"], select {
+      margin-bottom: 15px;
+    }
+    
+    input[type="checkbox"] {
+      vertical-align: top;
+    }
+    
+    .checkbox-label {
+      display: inline-block;
+      margin-left: 5px;
+    }
+	}
+	
+	/* Fieldset with labels to the left of inputs */
+	fieldset.side-by-side {
+    .mce-tinymce {
+      display: inline-block;
+    }
+    
+    div {
+      label,
+      input[type="checkbox"], 
+      .combobox-container, 
+      .identifier-scheme {
+        display: inline-block;
+      }
+
+      .identifier-scheme-indent {
+        margin-left: -5px;
+      }
+      
+      label {
+        width: 20%;
+        text-align: right;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      input.form-submit, 
+      button.form-cancel {
+        font-size: 10pt;
+      }
+    }
+		
+	  .button-spacer {
+	    display: inline-block;
+	    width: 21%;
+	  }
+	}
+	
+	/* Generic Fieldset Settings */
+	fieldset legend {
+	  font-family: $header-font;
+	  color: $primary-color;
+	  font-size: 26px;
+	  font-weight: normal;
+	  text-decoration: none;
+  
+	  float: left; /* positions the legend within the fieldset box */
+	  padding-top: 20px;
+	  border-bottom: none;
+	}
+	
+	div.inline {
+	  display: inline-block;
+	}
+	.left-indent {
+		margin-left: 15px;
+	}
+	.input-large {
+	  width: 70%;
+	}
+	.input-medium {
+	  width: 50%;
+	}
+	.input-small {
+	  width: 20%;
+	}
+	
+	/* Accessible Form Buttons */
+	input.form-submit {
+	  background-color: $primary-color;
+	  color: $reverse-text;
+	  padding: 10px 30px;
+	  font-size: 12pt;
+  
+	  -webkit-border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  border-radius: 10px;
+	}
+	/* Override the button color for the Org Admin sections */
+	input[type="submit"].admin{
+	  background-color: $primary-admin-color;
+	}
+	input.form-submit[aria-disabled='true'] {
+	  background-color: $disabled-button-color;
+	}
+	input.form-submit:focus + [role="tooltip"] {
+	  display: inline-block;
+	}
+	button.form-cancel {
+	  background-color: $cancel-button-color;
+	  color: $reverse-text;
+	  padding: 10px 30px;
+	  font-size: 12pt;
+  
+	  -webkit-border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  border-radius: 10px;
+	}
+	.submit-tooltip {
+	  display: none;
+	  margin-left: 5px;
+
+	  .arrow-left {
+	    vertical-align: middle;
+	    margin-right: -5px;
+	  }
+	  .submit-tooltip-msg {
+	    color: $white;
+	    background-color: $dark-grey;
+	    padding: 5px 5px 8px 5px;
+  
+	    -webkit-border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    border-radius: 5px;
+	  }
+	}
+}
+
+/* Accessible JQuery combobox */
+/* ------------------------------------------------------ */
+.invisible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.combobox-container {
+  position: relative;
+  max-width: 585px;
+  
+  font-family: $font-family;
+}
+
+.combobox-suggestions {
+  position: absolute;
+  left: 0;
+  width: 562px;
+  margin-top: -10px;
+  background: #fff;
+  z-index: 99;
+}
+.combobox-suggestion {
+  color: #666;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.combobox-suggestion:first-child {
+  border-top: 1px solid #000;
+}
+.combobox-suggestion:hover,
+.combobox-suggestion:focus {
+  color: $white;
+  background-color: $primary-color;
+}
+
+.combobox-clear-button {
+  @include icon(times-circle);
+  display: inline;
+  position: absolute;
+  border: none;
+  background: transparent;
+  padding-top: 3px;
+  font-size: 16pt;
+}
+
+/* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
+.js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
+.js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
