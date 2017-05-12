@@ -7,4 +7,6 @@ _("activerecord.errors.models.user.attributes.email.blank")
 #msgstr "can't be blank"
 _("activerecord.errors.models.user.attributes.password.blank")
 #msgstr "can't be blank"
+_("activerecord.errors.models.user.attributes.password_confirmation.confirmation")
+#msgstr "passwords must match"
 
