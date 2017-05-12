@@ -82,7 +82,7 @@ class PlansController < ApplicationController
         respond_to do |format|
           format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
         end
-        
+
       else
         # Something went wrong so report the issue to the user
         flash[:notice] = failed_create_error(@plan, 'Plan')
@@ -100,7 +100,24 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(params[:id])
     authorize @plan
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+
+    # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.get_guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+
+    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
+    @important_ggs = []
+    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      if org.organisation? 
+        @important_ggs << [org,ggs] 
+        @all_ggs_grouped_by_org.delete(org)
+      end
+    end
+
+    # Sort the rest by org name for the accordion
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
+
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.live(@plan.template.customization_of))
 

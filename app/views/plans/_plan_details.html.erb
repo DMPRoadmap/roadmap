@@ -150,35 +150,69 @@
 
 
   <!-- Selection of guidance groups -->
+  <%= form_tag( update_guidance_choices_plan_path(@plan), method: :put) do %>
+  <div id="plan-guidance-important">
+      <h3>Guidance Choices</h3>
+      <table id="dmp_table" class="dmp_table tablesorter">
+      <tbody>
+          <% @important_ggs.each do |org, groups| %>                                                                                                                                                                  
+              <tr>
+              <td class="dmp_td_medium">
+                  <% if groups && groups.size == 1 %>
+                      <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
+                      <%= org.name %>
+                  <% elsif groups %>
+                      <input type="checkbox" disabled> <%= org.name %>
+                      <% groups.each do |group| %>
+                          <tr><td class="dmp_td_small">
+                              └─ <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
+                              <%= group.name %>
+                          </td></tr>
+                      <% end %>
+                  <% end %>
+              </td>
+              </tr>
+          <% end %>
+      </tbody>
+      </table>
+  </div>
   <div class="accordion" id="plan-guidance-accordion">
       <div class="accordion-group">
           <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#plan-guidance-accordion" href="#guidance-choices">
-                  <h3>Guidance Choices<span class="plus-laranja"> </span></h3>
+                  <h3><%=_('Other institutions')%><span class="plus-laranja"> </span></h3>
               </a>
           </div>
           <div id="guidance-choices" class="accordion-project collapse">
-              <div class="accordion-inner">
-                <%= form_tag( update_guidance_choices_plan_path(@plan), method: :put) do %>
-                  <table id="dmp_table" class="dmp_table tablesorter">
-                    <tbody>
-                        <% all_guidance_groups.each do |group| %>
-                          <tr>
-                          <td class="dmp_td_medium">
-                            <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
-                            <%= group.name %>
-                          </td>
-                          </tr> 
-                        <% end %>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <%= submit_tag _('Save'), class: "btn btn-primary"%>
-                <% end %>
+                  <div class="accordion-inner">
+                      <table id="other_ggs_table" class="dmp_table tablesorter">
+                      <tbody>
+                          <% @all_ggs_grouped_by_org.each do |org, groups| %>
+                              <tr>
+                              <td class="dmp_td_medium">
+                                  <% if groups && groups.size == 1 %>
+                                      <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
+                                      <%= org.name %>
+                                  <% elsif groups %>
+                                      <input type="checkbox" disabled> <%= org.name %>
+                                      <% groups.each do |group| %>
+                                          <tr><td class="dmp_td_small">
+                                              └─ <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
+                                              <%= group.name %>
+                                          </td></tr>
+                                      <% end %>
+                                  <% end %>
+                              </td>
+                              </tr>
+                          <% end %>
+                      </tbody>
+                      </table>               
+                  </div>
               </div>
           </div>
       </div>
-  </div>
+      <%= submit_tag _('Save'), class: "btn btn-primary"%>
+  <% end %>
 
   <div class="div_clear"></div>
 
@@ -296,3 +330,4 @@
       <%end%><!-- end of phases.each
     <%end%> <!-- end of if phases.count == 1 -->
 </div>
+
