@@ -6,8 +6,16 @@ class QuestionsController < ApplicationController
   def admin_create
     @question = Question.new(params[:question])
     authorize @question
-    @question.guidance = params["new-question-guidance"]
+    example = @question.annotations.first
+    example.type = :example_answer
+    example.save
+    guidance = @question.annotations.build
+    guidance.type = :guidance
+    guidance.text = params["new-question-guidance"]
+    guidance.org_id = current_user.org_id
+    guidance.save
     @question.default_value = params["new-question-default-value"]
+    @question.modifiable = true
     if @question.save
       redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
     else
@@ -18,7 +26,7 @@ class QuestionsController < ApplicationController
       @sections = @phase.sections
       @section_id = @question.section.id
       @question_id = @question.id
-      
+
       flash[:notice] = failed_create_error(@question, _('question'))
       render template: 'phases/admin_show'
     end
@@ -28,7 +36,9 @@ class QuestionsController < ApplicationController
   def admin_update
     @question = Question.find(params[:id])
     authorize @question
-    @question.guidance = params["question-guidance-#{params[:id]}"]
+    guidance = @question.get_guidance_annotation(current_user.org_id) 
+    guidance.text = params["question-guidance-#{params[:id]}"]
+    guidance.save
     @question.default_value = params["question-default-value-#{params[:id]}"]
     @section = @question.section
     @phase = @section.phase
@@ -40,7 +50,7 @@ class QuestionsController < ApplicationController
       @sections = @phase.sections
       @section_id = @section.id
       @question_id = @question.id
-      
+
       flash[:notice] = failed_update_error(@question, _('question'))
       render template: 'phases/admin_show'
     end

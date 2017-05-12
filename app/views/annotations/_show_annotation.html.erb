@@ -2,13 +2,9 @@
 <table class="dmp_details_table phase">
 	<tr>
 		<td class="first_template">
-			<% if suggested_answer.is_example? then %>
 				<%= _('Example of answer')%>
-			<% else %>
-				<%= _('Suggested answer')%>
-			<% end %>
 		</td>
-		<td><%= raw suggested_answer.text %></td>
+		<td><%= raw annotation.text %></td>
 	</tr>
 </table>
 <br/>

@@ -1,14 +1,14 @@
 <!--add suggested answer. question is passed as an argument-->
-<%= form_for :suggested_answer, url: admin_create_suggested_answer_path do |f| %>
+<%= form_for :annotation, url: admin_create_annotation_path do |f| %>
   <%= f.hidden_field :org_id, value: current_user.org_id %>
   <%= f.hidden_field :question_id, value: question.id %>
+  <%= f.hidden_field :type, value: Annotation.types[:example_answer] %>
 
   <table class="dmp_details_table phase">
     <tr>
-      <td class="first_template"><%= _('Suggested answer/ Example')%></td>
+      <td class="first_template"><%= _('Example Answer')%></td>
       <td>
         <ul>
-          <li><%= f.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
           <li><%= f.text_area :text, rows: 5 %>
           </li>
         </ul>

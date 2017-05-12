@@ -110,7 +110,7 @@ in the admin interface.
         <td><div class="div_left_icon">
           <% example_answer = question.get_example_answer(current_user.org.id) %>
           <% if example_answer.nil? %>
-             <% example_answer = question.annotaions.build %>
+             <% example_answer = question.annotations.build %>
              <% example_answer.type = :example_answer %>
           <% end %>
           <%= f.fields_for :annotations, example_answer do |s|%>
@@ -132,7 +132,9 @@ in the admin interface.
       <tr>
         <td class="first_template"><%= _('Guidance')%></td>
         <td><div class="div_left_icon">
-            <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
+            <% guidance = question.get_guidance_annotation(current_user.org_id) %>
+            <% guidance_text = guidance.present? ? guidance.text : "" %>
+            <%= text_area_tag("question-guidance-#{question.id}", guidance_text , class: "tinymce") %>
           </div>
           <div class="div_right_icon">
             <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>

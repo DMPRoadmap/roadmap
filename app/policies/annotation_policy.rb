@@ -25,4 +25,4 @@ class AnnotationPolicy < ApplicationPolicy
     user.can_modify_templates?  &&  (annotation.question.section.phase.template.org_id == user.org_id)
   end
 
-endgi
+end
