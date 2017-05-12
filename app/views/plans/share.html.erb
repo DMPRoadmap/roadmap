@@ -58,31 +58,21 @@
       <% new_role = Role.new %>
       <% new_role.plan = @plan %>
       <%= form_for new_role, url: {controller: :roles, action: :create }, 
-                             html: {method: :post, class: 'side-by-side'} do |f| %>
-        <div>
-          <fieldset>
-            <legend><%= _('Add collaborator') %></legend>
+                             html: {method: :post, class: 'roadmap-form'} do |f| %>
+        <fieldset class="standard">
+          <legend><%= _('Add collaborator') %></legend>
 
-            <%= f.hidden_field :plan_id %>
-            
-            <div>
-              <%= f.fields_for :user do |user| %>
-                <%= user.label :email, _('Email') %>
-                <%= user.email_field :email, for: :user, name: "user", class: "left-indent" %> 
-              <% end %>
-            </div>
-            <div>
-              <%= f.label :access_level, _('Permissions') %>
-              <%= f.select :access_level, [[_('Co-owner'), 3], [ _('Editor') , 2], [ _('Read only'), 1]], {}, {class: 'has-tooltip left-indent', 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
-            </div>
-            
-            <div>
-              <div class="button-spacer"></div>
-              <input type="submit" class="form-submit" value="<%= _('Add collaborator') %>" />
-            </div>
-          </fieldset>
-        </div>
-        
+          <%= f.hidden_field :plan_id %>
+          
+          <%= f.fields_for :user do |user| %>
+            <%= user.label :email, _('Email') %>
+            <%= user.email_field :email, for: :user, name: "user", class: "left-indent" %> 
+          <% end %>
+
+          <%= f.label :access_level, _('Permissions') %>
+          <%= f.select :access_level, [[_('Co-owner'), 3], [ _('Editor') , 2], [ _('Read only'), 1]], {}, {class: 'has-tooltip left-indent', 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
+          <input type="submit" class="form-submit" value="<%= _('Add collaborator') %>" />
+        </fieldset>
       <% end %>
     </div>
   </div>

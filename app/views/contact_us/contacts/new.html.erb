@@ -64,15 +64,15 @@
               <%= recaptcha_tags %>
             </div>
           <% end %>
-					
-					<div>
-		        <div class="button-spacer"></div>
-				    <%= render partial: 'shared/accessible_submit_button',
-				               locals: {id: 'create_contact_submit', 
-												        val: 'Submit', 
-												        disabled_initially: true,
-																tooltip: _('Fill in required fields')} %>
-					</div>
+          
+          <div>
+            <label></label>
+            <%= render partial: 'shared/accessible_submit_button',
+                       locals: {id: 'create_contact_submit', 
+                                val: 'Submit', 
+                                disabled_initially: true,
+                                tooltip: _('Fill in the required fields')} %>
+          </div>
         </fieldset>
 
       <% end %>

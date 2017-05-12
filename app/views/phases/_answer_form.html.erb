@@ -19,8 +19,8 @@
    %>
 
   <div id="question-form-<%= question_id %>" class="question-form">
-    <%= semantic_form_for answer, :url => {controller: :answers, action: :update }, method: "put", remote: true do |f| %>
-      <fieldset>
+    <%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form"}, remote: true do |f| %>
+      <fieldset class="standard">
         <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
         <%= f.input :plan_id, as: :hidden, input_html: { value: @plan.id } %>
         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
@@ -95,12 +95,13 @@
           <%= text_area_tag("answer-text-#{question_id}".to_sym, answer.text, class: "tinymce") %>
         <% end %>
 
+				<input type="submit" class="form-submit" value="<%= _('Save') %>" />
+				<div id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></div>
+				
+				<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
+				
       </fieldset>   <!-- f.inputs -->
-
-			<br />
-			<input type="submit" class="form-submit inline" value="<%= _('Save') %>" />
-
-      <div id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></div>
+      
     <% end %>
   </div>   <!-- question-form -->
 
@@ -110,8 +111,6 @@
     <span id="<%= question_id %>-status" class="label label-info answer-status"><%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %></span>
   <% end %>
 </div>   <!-- question-div -->
-
-<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
       
 <!-- Question right column -->
 <div class="question-area-right-column">

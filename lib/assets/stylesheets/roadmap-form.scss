@@ -9,7 +9,7 @@ $dark-grey: #333;
 $primary-color: #F49700;
 $primary-admin-color: #0057A7;
 $disabled-button-color: #CCC;
-$cancel-button-color: #CCC;
+$cancel-button-color: #827D7E;
 $reverse-text: #FFF;
 
 /* See `.combobox-clear-button` for an example of this mixin in use */
@@ -32,23 +32,27 @@ $reverse-text: #FFF;
 }
 
 .content-box {
-  background-color: $white;
-
-  padding: 20px 15px 35px 15px;
-
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  
 }
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
 form.roadmap-form {
-  padding: 0 25px 25px 25px;
-  margin-bottom: 25px;
-	
-	/* Fieldset with labels over inputs */
-	fieldset.standard {
+
+  fieldset.padded {
+    padding: 10px 10px 25px 10px;
+  }
+
+  /* Fieldset with labels over inputs */
+  fieldset.standard {
+    background-color: $white;
+
+    margin-bottom: 25px;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    
     label, 
     input[type="checkbox"], 
     .combobox-container, 
@@ -68,10 +72,10 @@ form.roadmap-form {
       display: inline-block;
       margin-left: 5px;
     }
-	}
-	
-	/* Fieldset with labels to the left of inputs */
-	fieldset.side-by-side {
+  }
+  
+  /* Fieldset with labels to the left of inputs */
+  fieldset.side-by-side {
     .mce-tinymce {
       display: inline-block;
     }
@@ -89,7 +93,7 @@ form.roadmap-form {
       }
       
       label {
-        width: 20%;
+        width: 25%;
         text-align: right;
         margin-right: 10px;
         vertical-align: middle;
@@ -100,91 +104,99 @@ form.roadmap-form {
         font-size: 10pt;
       }
     }
-		
-	  .button-spacer {
-	    display: inline-block;
-	    width: 21%;
-	  }
-	}
-	
-	/* Generic Fieldset Settings */
-	fieldset legend {
-	  font-family: $header-font;
-	  color: $primary-color;
-	  font-size: 26px;
-	  font-weight: normal;
-	  text-decoration: none;
+    
+    .button-spacer {
+      display: inline-block;
+      width: 21%;
+    }
+  }
   
-	  float: left; /* positions the legend within the fieldset box */
-	  padding-top: 20px;
-	  border-bottom: none;
-	}
-	
-	div.inline {
-	  display: inline-block;
-	}
-	.left-indent {
-		margin-left: 15px;
-	}
-	.input-large {
-	  width: 70%;
-	}
-	.input-medium {
-	  width: 50%;
-	}
-	.input-small {
-	  width: 20%;
-	}
-	
-	/* Accessible Form Buttons */
-	input.form-submit {
-	  background-color: $primary-color;
-	  color: $reverse-text;
-	  padding: 10px 30px;
-	  font-size: 12pt;
+  /* Generic Fieldset Settings */
+  fieldset legend {
+    font-family: $header-font;
+    color: $primary-color;
+    font-size: 26px;
+    font-weight: normal;
+    text-decoration: none;
   
-	  -webkit-border-radius: 10px;
-	  -moz-border-radius: 10px;
-	  border-radius: 10px;
-	}
-	/* Override the button color for the Org Admin sections */
-	input[type="submit"].admin{
-	  background-color: $primary-admin-color;
-	}
-	input.form-submit[aria-disabled='true'] {
-	  background-color: $disabled-button-color;
-	}
-	input.form-submit:focus + [role="tooltip"] {
-	  display: inline-block;
-	}
-	button.form-cancel {
-	  background-color: $cancel-button-color;
-	  color: $reverse-text;
-	  padding: 10px 30px;
-	  font-size: 12pt;
+    float: left; /* positions the legend within the fieldset box */
+    border-bottom: none;
+  }
   
-	  -webkit-border-radius: 10px;
-	  -moz-border-radius: 10px;
-	  border-radius: 10px;
-	}
-	.submit-tooltip {
-	  display: none;
-	  margin-left: 5px;
+  div.inline {
+    display: inline-block;
+  }
+  .left-indent {
+    margin-left: 15px;
+  }
+  .input-extra-large {
+    width: 70%;
+  }
+  .input-large {
+    width: 50%;
+  }
+  .input-medium {
+    width: 30%;
+  }
+  .input-small {
+    width: 10%;
+  }
+  /* Used for the jquery autocomplete combobox on side-by-side fieldsets */
+  .fixed-width-large {
+    width: 550px;
+  }
+  
+  /* Accessible Form Buttons */
+  input.form-submit {
+    background-color: $primary-color;
+    color: $reverse-text;
+    padding: 10px 30px;
+    font-size: 12pt;
+    margin-top: 15px;
+  
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+  }
+  /* Override the button color for the Org Admin sections */
+  input[type="submit"].admin{
+    background-color: $primary-admin-color;
+  }
+  input.form-submit[aria-disabled='true'] {
+    background-color: $disabled-button-color;
+  }
+  input.form-submit:focus + [role="tooltip"] {
+    display: inline-block;
+  }
+  button.form-cancel {
+    background-color: $cancel-button-color;
+    color: $reverse-text;
+    padding: 10px 30px;
+    font-size: 12pt;
+    margin-top: 15px;
+    
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+  }
+  .submit-tooltip {
+    display: none;
+    margin-left: 5px;
 
-	  .arrow-left {
-	    vertical-align: middle;
-	    margin-right: -5px;
-	  }
-	  .submit-tooltip-msg {
-	    color: $white;
-	    background-color: $dark-grey;
-	    padding: 5px 5px 8px 5px;
+    .arrow-left {
+      vertical-align: middle;
+      margin-right: -5px;
+    }
+    .submit-tooltip-msg {
+      color: $white;
+      background-color: $dark-grey;
+      padding: 5px 5px 8px 5px;
   
-	    -webkit-border-radius: 5px;
-	    -moz-border-radius: 5px;
-	    border-radius: 5px;
-	  }
-	}
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+  }
 }
 
 /* Accessible JQuery combobox */

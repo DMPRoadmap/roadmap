@@ -3,18 +3,13 @@
 <%= form_for(note,
              url: note_path(note),
              remote: true,
-             method: :put,
-             class: "edit_note_form",
+             html: {method: :put, class: "edit_note_form roadmap-form"},
              id: "edit_note_form_#{note.id}") do |f| %>
 
+	<fieldset class="standard">
     <%= f.hidden_field :id, :value => note.id %>
 
     <%= text_area_tag("#{note.id}_note_text".to_sym, note.text , class: "tinymce") %>
-	<br/>
-
-	<!-- submit buttons -->
-	<div class="move_2_right">
-		<%= f.submit _('Save'), :class => "form-submit inline edit_note_submit_button" %>
-	</div>
-    <br>
+		<%= f.submit _('Save'), :class => "form-submit edit_note_submit_button" %>
+	</fieldset>
 <%end%>
