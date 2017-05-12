@@ -72,20 +72,6 @@
           </div>
         <% end %>
 
-        <% if Rails.application.config.shibboleth_enabled %>
-          <div>
-            <label><%= _('Link to your institution') %></label>
-            <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
-              <%= link_to _('Link your %{application_name} account to your institutional credentials (UK users only)') % { :application_name => user_omniauth_shibboleth_path }, class: "a-orange" %>
-            <% else %>
-                <%= _('Your account is linked to your institutional credentials.') %>
-                <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
-                    <%= _('Unlink your institutional credentials')%>
-                </a>
-            <% end %>
-          </div>
-        <% end %>
-      
         <% unless @user.api_token.blank? %>
           <div>
             <%= f.label :api_token, _('API token') %>
