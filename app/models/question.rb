@@ -108,7 +108,7 @@ class Question < ActiveRecord::Base
   # @param org_id [Integer] the id for the organisation
   # @return [String] the example answer for this question for the specified org
  	def get_example_answer(org_id)
- 		example_answer = Annotation.where(org_id: org_id).where("type <> ?", Annotation.types[:example_answer])
+ 		example_answer = self.annotations.where(org_id: org_id).where("type <> ?", Annotation.types[:example_answer]).order(:created_at)
  		return example_answer.first
  	end
 
@@ -119,7 +119,7 @@ class Question < ActiveRecord::Base
   # @param org_id [Integer] the id for the organisation
   # @return [String] the annotation guidance for this question for the specified org
   def get_guidance_annotation(org_id)
-    guidance = Annotation.where(org_id: org_id).where("type <> ?", Annotation.types[:guidance])
+    guidance = self.annotations.where(org_id: org_id).where("type <> ?", Annotation.types[:guidance])
     return guidance.first
   end
 
