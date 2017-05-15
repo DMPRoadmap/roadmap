@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   end
 
   create_table "file_uploads", force: :cascade do |t|
-    t.string   "name" 
+    t.string   "name"
     t.string   "title"
     t.text     "description"
     t.integer  "size"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type"
+    t.string   "sluggable_type", limit: 40
     t.datetime "created_at"
   end
 
@@ -94,8 +94,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   end
 
   create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "description", limit: 255
+    t.string   "name"
+    t.string   "description"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -141,10 +141,10 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.string   "logo_file_name"
     t.integer  "region_id"
     t.integer  "language_id"
-    t.string   "logo_uid" 
+    t.string   "logo_uid"
     t.string   "logo_name"
     t.string   "contact_email"
-    t.integer  "org_type",                    default: 0, null: false
+    t.integer  "org_type",        default: 0, null: false
   end
 
   create_table "perms", force: :cascade do |t|
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.string   "principal_investigator_identifier"
     t.string   "data_contact"
     t.string   "funder_name"
-    t.integer  "visibility",     default: 0, null: false
+    t.integer  "visibility",                        default: 0, null: false
   end
 
   create_table "plans_guidance_groups", force: :cascade do |t|
@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
-    t.integer "theme_id", null: false
+    t.integer "theme_id",    null: false
   end
 
   add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index", using: :btree
@@ -240,7 +240,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access", default: 0, null: false
+    t.integer  "access",     default: 0, null: false
   end
 
   create_table "sections", force: :cascade do |t|
@@ -255,12 +255,12 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string   "var",   null: false
+    t.string   "var",         null: false
     t.text     "value"
-    t.integer  "target_id",     null: false
-    t.string   "target_type",   null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "target_id",   null: false
+    t.string   "target_type", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
@@ -336,7 +336,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",   default: 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
