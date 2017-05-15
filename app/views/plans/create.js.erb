@@ -1,0 +1,16 @@
+$("#available-templates").fadeOut();
+
+<% if @templates.nil? %>
+  $(".main_page_content").prepend('<p id="main-page-alert" class="alert alert-notice" style="display:none"><p class="alert alert-notice"><%= raw notice %></p></p>');
+
+<% elsif @templates.count > 1 %>
+  // Clear the existing contents of the modal and then display template combobox
+  $("#available-templates").html("<%= escape_javascript(render partial: 'available_templates') %>").fadeIn(); 
+
+<% else %>
+  // Only one template so fill in the id
+  $("#plan_template_id").val("<%= @templates.first.id %>");
+<% end %>
+
+// Force the submit button toggle
+$("#plan_template_id").change();
