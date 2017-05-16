@@ -1,7 +1,7 @@
 module Admin
   class ThemesController < Admin::ApplicationController
     # To customize the behavior of this controller,
-    # simply overwrite any of the RESTful actions. For example:
+    # you can overwrite any of the RESTful actions. For example:
     #
     # def index
     #   super
