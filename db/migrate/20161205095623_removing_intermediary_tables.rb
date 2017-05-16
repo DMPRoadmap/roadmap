@@ -20,6 +20,7 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
     change_table :new_questions do |t|
       t.rename :new_section_id, :section_id
       t.remove :question_id
+      t.remove :guidance
     end
     drop_table :questions
     rename_table :new_questions, :questions
