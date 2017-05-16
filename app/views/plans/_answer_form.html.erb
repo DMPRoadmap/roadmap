@@ -1,4 +1,4 @@
-<!-- 
+<!--
 **Project: DMPRoadmap
 **Description: This block sets up the type of question, its guidance.
 **Arguments transferred: an instance of "question"
@@ -7,16 +7,16 @@
 <% answer = @plan.answer(question.id) %>
 
 <div class="question-div">
-	<!--question format-->
-	<% q_format = question.question_format%>
+    <!--question format-->
+    <% q_format = question.question_format%>
 
-	<% if readonly != "always" then %>
-		<div id="question-form-<%= question.id %>" class="question-form" <%= if readonly == "conditional" then "style='display:none;'" end %>>
-		<%= semantic_form_for answer, :url => {:controller => :answers, :action => :create }, :html=>{:method=>:post}, :remote => true do |f| %>
-			<%= f.inputs do %>
-				<%= f.input :plan_id, :as => :hidden %>
-				<%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
-				<%= f.input :question_id, :as => :hidden, :input_html => { :class => "question_id" } %>
+    <% if readonly != "always" then %>
+        <div id="question-form-<%= question.id %>" class="question-form" <%= if readonly == "conditional" then "style='display:none;'" end %>>
+        <%= semantic_form_for answer, :url => {:controller => :answers, :action => :create }, :html=>{:method=>:post}, :remote => true do |f| %>
+            <%= f.inputs do %>
+                <%= f.input :plan_id, :as => :hidden %>
+                <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+                <%= f.input :question_id, :as => :hidden, :input_html => { :class => "question_id" } %>
 
                 <!-- Question text -->
                 <!--
@@ -51,50 +51,59 @@
                       q_format.title == "Multi select box" ||
                       q_format.title == "Radio buttons" ||
                       q_format.title == "Dropdown" then%>
-					<% options = question.options.order("number") %>
-					<!--checkbox display-->
-					<% if q_format.title == "Check box" then %>
-						<% if readonly then %>
-							<%= f.input :options, :as => :check_boxes, :collection => options, :label => false, input_html => { :disabled => true, :id => "options-#{question.id}" } %>
-						<% else %>
-							<%= f.input :options, :as => :check_boxes, :collection => options, :label => false, :input_html => { :id => "options-#{question.id}" } %>
-						<% end %>
-					<!--multi select box display-->
-					<% elsif q_format.title == "Multi select box" then %>
-						<% if readonly then %>
-							<%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true, :disabled => true , :id => "options-#{question.id}" } %>
-						<% else %>
-							<%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true , :id => "options-#{question.id}" } %>
-						<% end %>
-					<!--Radio buttons display-->
-					<% elsif q_format.title == "Radio buttons" then%>
-						<ol class="choices-group">
+                    <% options = question.options.order("number") %>
+                    <!--checkbox display-->
+                    <% if q_format.title == "Check box" then %>
+                        <% if readonly then %>
+                            <%= f.input :options, :as => :check_boxes, :collection => options, :label => false, input_html => { :disabled => true, :id => "options-#{question.id}" } %>
+                        <% else %>
+                            <%= f.input :options, :as => :check_boxes, :collection => options, :label => false, :input_html => { :id => "options-#{question.id}" } %>
+                        <% end %>
+                    <!--multi select box display-->
+                    <% elsif q_format.title == "Multi select box" then %>
+                        <% if readonly then %>
+                            <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true, :disabled => true , :id => "options-#{question.id}" } %>
+                        <% else %>
+                            <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true , :id => "options-#{question.id}" } %>
+                        <% end %>
+                    <!--Radio buttons display-->
+                    <% elsif q_format.title == "Radio buttons" then%>
+                        <ol class="choices-group">
                         <% options.each do |op| %>
                             <li class= "choices-group">
                             <% if answer.option_ids[0] == op.id then%>
                                <% if readonly then %>
                                     <%= f.radio_button :option_ids, op.id, :checked => true, disabled: true, id: "answer_option_ids_#{op.id}"%>
                                 <% else %>
-                                    <%= f.radio_button :option_ids, op.id, :checked => true, id: "answer_option_ids_#{op.id}"%> 
+                                    <%= f.radio_button :option_ids, op.id, :checked => true, id: "answer_option_ids_#{op.id}"%>
                                 <% end %>
                             <%else%>
                                 <% if readonly then %>
-                                    <%= f.radio_button :option_ids,  op.id, :checked => false, disabled: true, id: "answer_option_ids_#{op.id}"%> 
+                                    <%= f.radio_button :option_ids,  op.id, :checked => false, disabled: true, id: "answer_option_ids_#{op.id}"%>
                                 <% else %>
-                                    <%= f.radio_button :option_ids, op.id, :checked => false, id: "answer_option_ids_#{op.id}"%> 
+                                    <%= f.radio_button :option_ids, op.id, :checked => false, id: "answer_option_ids_#{op.id}"%>
                                 <% end %>
                             <% end %>
                             <%= op.text %> </li>
                         <% end %>
                         </ol>
                     <!--dropdown display-->
-					<% elsif q_format.title == "Dropdown" then%>
-						<% if readonly then %>
-							<%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :disabled => true, :id => "options-#{question.id}" } %>
-						<% else %>
+                    <% elsif q_format.title == "Dropdown" then%>
+                        <% if readonly then %>
+                            <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :disabled => true, :id => "options-#{question.id}" } %>
+                        <% else %>
                             <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :id => "options-#{question.id}" } %>
-						<% end %>
-					<% end %>
+                        <% end %>
+                    <% end %>
+
+                    <!--div id="option-warning-<%#= question.id %>" class="alert" style="display:none">
+                    <%# question.options.order("number").each do |option| %>
+                            <%# warning = @plan.warning(option.id) %>
+                            <%# unless warning.nil? then %>
+                                    <p id="<%#= option.id %>-warning" data-option="<%#= option.id %>"><%#= warning %></p>
+                            <%# end %>
+                    <%# end %> -->
+
                     <!-- Comment text area for the multiple choice answers-->
                     <% if question.option_comment_display == true then%>
                         <%= label_tag("answer-text-#{question.id}".to_sym, _('Comment')) %>
@@ -116,7 +125,7 @@
                 <% if readonly then %>
                     <%= f.action :submit, :label => _('Save'), :button_html => { :class => "btn btn-primary"}, :input_html => { :disabled => true } %>
                 <% else %>
-										<input type="submit" class="btn btn-primary" value="<%= _('Save') %>" />
+                    <%= f.action :submit, :label => _('Save'), :button_html => { :class => "btn btn-primary"} %>
 
                 <% end %>
                 <li id="saving-<%= question.id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></li>
@@ -204,7 +213,7 @@
                     <div class="accordion-heading">
                         <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
                             <div class="accordion_heading_text">
-                                <%= question.section.organisation.abbreviation %> 
+                                <%= question.section.organisation.abbreviation %>
                                 <%if question.section.organisation.abbreviation == "EPSRC" then %>
                                     <%= _('Policy Expectations')%>
                                 <%else%>
@@ -254,7 +263,7 @@
 </div>
 <!--display or not the break line between questions-->
 <% if last_question_id == question.id then %>
-	<div class="two-column-clear"></div>
+    <div class="two-column-clear"></div>
 <% else %>
-	<div class="two-column-clear question-divider"></div>
+    <div class="two-column-clear question-divider"></div>
 <% end %>

@@ -82,7 +82,6 @@ class UserDashboard < Administrate::BaseDashboard
     :plans,
     :user_identifiers,
     :identifier_schemes,
-    :setting_objects,
     :orcid_id,
     :shibboleth_id,
     :created_at,
@@ -122,7 +121,6 @@ class UserDashboard < Administrate::BaseDashboard
 #    :plans,
     :user_identifiers,
     :identifier_schemes,
-#    :setting_objects,
     :firstname,
     :surname,
     :email,
@@ -159,5 +157,4 @@ class UserDashboard < Administrate::BaseDashboard
   def display_resource(user)
     "#{user.firstname} #{user.surname} (##{user.id})"
   end
-
 end

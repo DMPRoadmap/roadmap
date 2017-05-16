@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :themes
     resources :notes
     resources :plans
-    resources :plans_guidance_groups
+    # resources :plans_guidance_groups
     resources :identifier_schemes
     resources :exported_plans
     resources :regions

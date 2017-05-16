@@ -17,7 +17,7 @@ class Template < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :org_id, :description, :published, :title, :locale, 
+  attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of, 
                   :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
                   :version, :visibility, :published, :as => [:default, :admin]
 
@@ -130,6 +130,7 @@ class Template < ActiveRecord::Base
       self.published = false
       self.dirty = false
       self.visibility = 1
+      self.is_default = false
       self.version = 0 if self.version.nil?
     
       # Generate a unique identifier for the dmptemplate_id if necessary

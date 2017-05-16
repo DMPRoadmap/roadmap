@@ -43,6 +43,10 @@ class PlanPolicy < ApplicationPolicy
   def status?
     @plan.readable_by?(@user.id)
   end
+  
+  def possible_templates?
+    @plan.id.nil?
+  end
 
 # TODO: These routes are no lonmger used
 =begin
