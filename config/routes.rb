@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :questions
     resources :question_formats
     resources :question_options
-    resources :suggested_answers
+    resources :annotations
     resources :answers
     resources :guidances
     resources :guidance_groups

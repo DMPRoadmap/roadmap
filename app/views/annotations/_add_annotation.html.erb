@@ -1,4 +1,4 @@
-<!--add suggested answer. question is passed as an argument-->
+<!--add annotation. question is passed as an argument-->
 <%= form_for :annotation, url: admin_create_annotation_path do |f| %>
   <%= f.hidden_field :org_id, value: current_user.org_id %>
   <%= f.hidden_field :question_id, value: question.id %>

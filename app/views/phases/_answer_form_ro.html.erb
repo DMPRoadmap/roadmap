@@ -23,19 +23,15 @@
             <%= raw question.text %>
 
             <!--Suggested answer area-->
-            <% suggested_answer = question.suggested_answers.where(org_id: @plan.template.org_id).first %>
-            <% if suggested_answer.present? %>
+            <<% if question.annotations.where('type <> ?',Annotation.types[:example_answer]).any? %>
+              <% annotation = question.annotations.where('type <> ?',Annotation.types[:example_answer]).order(:created_at).first %>
               <div class="suggested-answer-div">
                 <span class="suggested-answer-intro">
-                  <% if suggested_answer.is_example? then %>
-                    <%= _('Example of answer')%>
-                  <%else%>
-                    <%= _('Suggested answer')%>
-                  <%end%>
+                  <%= _('Example of answer')%>
                 </span>
                 <div class="suggested-answer-border">
                   <p class="suggested-answer">
-                  <%= raw suggested_answer.text %>
+                  <%= raw annotation.text %>
                   </p>
                 </div>
               </div>

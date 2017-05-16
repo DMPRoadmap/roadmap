@@ -1,10 +1,10 @@
-<!--edit suggested answer. question is passed as an argument-->
+<!--edit annotation. question is passed as an argument-->
 <%= form_for( annotation, url: admin_update_annotation_path(annotation.id), html: { method: :put}) do |f| %>
   <%= f.hidden_field :org_id, value: current_user.org_id %>
 
   <table class="dmp_details_table phase">
     <tr>
-      <td class="first_template"><%= _('Suggested answer/ Example')%></td>
+      <td class="first_template"><%= _('Example of Answer')%></td>
       <td>
         <ul>
           <li><%= f.text_area :text, rows: 5 %></li>

@@ -1,5 +1,5 @@
 # [+Project:+] DMPRoadmap
-# [+Description:+] This controller is responsible for all the actions in the admin interface under templates (e.g. phases, versions, sections, questions, suggested answer) (index; show; create; edit; delete)
+# [+Description:+] This controller is responsible for all the actions in the admin interface under templates (e.g. phases, versions, sections, questions, annotations) (index; show; create; edit; delete)
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class TemplatesController < ApplicationController

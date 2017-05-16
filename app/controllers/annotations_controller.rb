@@ -2,7 +2,7 @@ class AnnotationsController < ApplicationController
   respond_to :html
   after_action :verify_authorized
 
-  #create suggested answers
+  #create annotations
   def admin_create
     @example_answer = Annotation.new(params[:annotation])
     authorize @example_answer
@@ -36,7 +36,7 @@ class AnnotationsController < ApplicationController
     end
   end
 
-  #delete a suggested answer
+  #delete an annotation
   def admin_destroy
     @example_answer = Annotation.includes(question: { section: {phase: :template}}).find(params[:id])
     authorize @example_answer
