@@ -67,11 +67,11 @@ class Template < ActiveRecord::Base
 
   ##
   # convert the given template to a hash and return with all it's associations
-  # to use, please pre-fetch org, phases, section, questions, suggested_answers, 
+  # to use, please pre-fetch org, phases, section, questions, annotations, 
   #   question_options, question_formats, 
   # TODO: Themes & guidance?
   #
-  # @return [hash] hash of template, phases, sections, questions, question_options, suggested_answers
+  # @return [hash] hash of template, phases, sections, questions, question_options, annotations
   def to_hash
     hash = {}
     hash[:template] = {}
