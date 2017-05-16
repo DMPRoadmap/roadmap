@@ -279,6 +279,9 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_index_template_path(@user.org)
     
+    # Update the description so that the template gets versioned
+    put admin_update_template_path(current), {template: {description: "this is an update"}}
+    
     # Make sure it versioned properly
     current = Template.includes(:phases, :sections, :questions).find(current.id)
     new_version = Template.current(family)
@@ -287,7 +290,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert current.published?, "expected the old version to be published"
     assert_not new_version.published?, "expected the new version to NOT be published"
     assert_not current.dirty?, "expected the old dirty flag to be false"
-    assert_not new_version.dirty?, "expected the new dirty flag to be false"
+    assert new_version.dirty?, "expected the new dirty flag to be true"
     assert_equal current.dmptemplate_id, new_version.dmptemplate_id, "expected the old and new versions to share the same dmptemplate_id"
   end
   

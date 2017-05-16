@@ -106,12 +106,6 @@ class TemplatesController < ApplicationController
       @template.published = true
       @template.save
 
-      # Create a new version 
-      new_version = Template.deep_copy(@template)
-      new_version.version = (@template.version + 1)
-      new_version.published = false
-      new_version.save
-
       flash[:notice] = _('Your template has been published and is now available to users.')
 
       redirect_to admin_index_template_path(current_user.org)
@@ -169,6 +163,16 @@ class TemplatesController < ApplicationController
       redirect_to admin_template_template_path(@template), notice: _('You can not edit a historical version of this template.')
 
     else
+      # If the template is published so we need to create a new version
+      if @template.published?
+        # Create a new version 
+        new_version = Template.deep_copy(@template)
+        new_version.version = (@template.version + 1)
+        new_version.published = false
+        new_version.save
+        @template = new_version
+      end
+      
       if @template.description != params["template-desc"] ||
               @template.title != params[:template][:title]
         @template.dirty = true
