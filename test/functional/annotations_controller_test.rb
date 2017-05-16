@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class SuggestedAnswersControllerTest < ActionDispatch::IntegrationTest
-  
+class AnnotationsControllerTest < ActionDispatch::IntegrationTest
+
   include Devise::Test::IntegrationHelpers
-  
+
   setup do
-    @question = SuggestedAnswer.first.question
-    
+    @question = Annotation.first.question
+
     # Get the first Org Admin
     scaffold_org_admin(@question.section.phase.template.org)
   end
@@ -30,56 +30,56 @@ class SuggestedAnswersControllerTest < ActionDispatch::IntegrationTest
 #   admin_create_suggested_answer  POST   /org/admin/templates/suggested_answers/:id/admin_create suggested_answers#admin_create
 #   admin_update_suggested_answer  PUT    /org/admin/templates/suggested_answers/:id/admin_update suggested_answers#admin_update
 #   admin_destroy_suggested_answer DELETE /org/admin/templates/suggested_answers/:id/admin_destroy suggested_answers#admin_destroy
-  
-  
-  
-  # POST /org/admin/templates/suggested_answers/:id/admin_create (admin_create_suggested_answer_path)
+
+
+
+  # POST /org/admin/templates/suggested_answers/:id/admin_create (admin_create_annotation_path)
   # ----------------------------------------------------------
-  test "create a new section" do
+  test "create a new annotation" do
     params = {org_id: @user.org.id, question_id: @question.id, text: "Here's a suggestion"}
-    
+
     # Should redirect user to the root path if they are not logged in!
-    post admin_create_suggested_answer_path(@question.id), {suggested_answer: params}
+    post admin_create_annotation_path(@question.id), {annotation: params}
     assert_unauthorized_redirect_to_root_path
-    
+
     sign_in @user
-    
-    post admin_create_suggested_answer_path(@question.id), {suggested_answer: params}
+
+    post admin_create_annotation_path(@question.id), {annotation: params}
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
     assert_equal _('Information was successfully created.'), flash[:notice]
-    assert_equal "Here's a suggestion", SuggestedAnswer.last.text, "expected the record to have been created!"
-    assert assigns(:suggested_answer)
-    
+    assert_equal "Here's a suggestion", Annotation.last.text, "expected the record to have been created!"
+    assert assigns(:example_answer)
+
     # Invalid object
-    post admin_create_suggested_answer_path(@question.id), {suggested_answer: {question_id: @question.id}}
+    post admin_create_annotation_path(@question.id), {annotation: {question_id: @question.id}}
     assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
-    assert assigns(:suggested_answer)
-  end 
-  
+    assert assigns(:example_answer)
+  end
+
   # PUT /org/admin/templates/suggested_answers/:id/admin_update (admin_update_suggested_answer_path)
   # ----------------------------------------------------------
-  test "update the section" do
+  test "update the annotation" do
     params = {text: 'UPDATE'}
-    
+
     # Should redirect user to the root path if they are not logged in!
-    put admin_update_suggested_answer_path(SuggestedAnswer.first), {suggested_answer: params}
+    put admin_update_annotation_path(Annotation.first), {annotation: params}
     assert_unauthorized_redirect_to_root_path
-    
+
     sign_in @user
 
     # Valid save
-    put admin_update_suggested_answer_path(SuggestedAnswer.first), {suggested_answer: params}
+    put admin_update_annotation_path(Annotation.first), {annotation: params}
     assert_equal _('Information was successfully updated.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
-    assert assigns(:suggested_answer)
+    assert assigns(:example_answer)
     assert assigns(:question)
     assert assigns(:section)
     assert assigns(:phase)
-    assert_equal 'UPDATE', SuggestedAnswer.first.text, "expected the record to have been updated"
-    
+    assert_equal 'UPDATE', Annotation.first.text, "expected the record to have been updated"
+
 # TODO: We need to add in validation checks on the model and reactivate this test
     # Invalid save
 #    put admin_update_suggested_answer_path(SuggestedAnswer.first), {suggested_answer: {text: nil}}
@@ -90,27 +90,27 @@ class SuggestedAnswersControllerTest < ActionDispatch::IntegrationTest
 #    assert assigns(:section)
 #    assert assigns(:phase)
   end
-  
+
   # DELETE /org/admin/templates/suggested_answers/:id/admin_destroy (admin_destroy_suggested_answer_path)
   # ----------------------------------------------------------
   test "delete the section" do
-    id = SuggestedAnswer.first.id
+    id = Annotation.first.id
     # Should redirect user to the root path if they are not logged in!
-    delete admin_destroy_suggested_answer_path(id: id)
+    delete admin_destroy_annotation_path(id: id)
     assert_unauthorized_redirect_to_root_path
-    
+
     sign_in @user
-    
-    delete admin_destroy_suggested_answer_path(id: id)
+
+    delete admin_destroy_annotation_path(id: id)
     assert_equal _('Information was successfully deleted.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&section_id=#{@question.section.id}"
     assert assigns(:question)
     assert assigns(:section)
     assert assigns(:phase)
-    assert_raise ActiveRecord::RecordNotFound do 
-      SuggestedAnswer.find(id).nil?
+    assert_raise ActiveRecord::RecordNotFound do
+      Annotation.find(id).nil?
     end
   end
-  
+
 end

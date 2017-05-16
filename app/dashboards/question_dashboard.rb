@@ -10,7 +10,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     answers: Field::HasMany,
     question_options: Field::HasMany,
-    suggested_answers: Field::HasMany,
+    annotations: Field::HasMany,
     themes: Field::HasMany,
     section: Field::BelongsTo,
     question_format: Field::BelongsTo,
@@ -33,7 +33,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :answers,
     :question_options,
-    :suggested_answers,
+    :annotations,
     :themes,
   ].freeze
 
@@ -42,7 +42,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :answers,
     :question_options,
-    :suggested_answers,
+    :annotations,
     :themes,
     :section,
     :question_format,
@@ -63,7 +63,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :answers,
     :question_options,
-    :suggested_answers,
+    :annotations,
     :themes,
     :section,
     :question_format,
