@@ -13,7 +13,7 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
     @schemes.each do |scheme|
       @callback_uris[scheme.name] = Rails.application.routes.url_helpers.send(
                                                 "user_#{scheme.name.downcase}_omniauth_callback_path")
-      
+
       OmniAuth.config.mock_auth[:"#{scheme.name.downcase}"] = OmniAuth::AuthHash.new({
         :provider => "#{scheme.name.downcase}",
         :uid => 'foo:bar'

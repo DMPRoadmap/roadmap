@@ -1,18 +1,18 @@
 GIT
   remote: git://github.com/thoughtbot/administrate.git
-  revision: 47a2f99e22be87119ef0e3a7af3956984df5842c
-  branch: master
+  revision: 6bc227907e8567ca9d8c51658abc92fc2b19ca2d
+  branch: v0.7.0
   specs:
-    administrate (0.4.0)
+    administrate (0.7.0)
+      actionpack (>= 4.2, < 5.1)
+      actionview (>= 4.2, < 5.1)
+      activerecord (>= 4.2, < 5.1)
       autoprefixer-rails (~> 6.0)
-      bourbon (>= 5.0.0.beta.6)
       datetime_picker_rails (~> 0.0.7)
-      jquery-rails (~> 4.0)
+      jquery-rails (>= 4.0)
       kaminari (>= 1.0)
       momentjs-rails (~> 2.8)
-      neat (~> 1.1)
       normalize-rails (>= 3.0)
-      rails (>= 4.2, < 5.1)
       sass-rails (~> 5.0)
       selectize-rails (~> 0.6)
 
@@ -65,7 +65,7 @@ GEM
     addressable (2.4.0)
     ansi (1.5.0)
     arel (6.0.3)
-    autoprefixer-rails (6.7.7.1)
+    autoprefixer-rails (6.7.7.2)
       execjs
     bcrypt (3.1.11)
     better_errors (2.1.1)
@@ -74,9 +74,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourbon (5.0.0.beta.7)
-      sass (~> 3.4.22)
-      thor (~> 0.19.1)
     builder (3.2.2)
     byebug (9.0.5)
     capybara (2.9.1)
@@ -125,6 +122,8 @@ GEM
       loofah (~> 2.0)
       sax-machine (~> 1.0)
     flag_shih_tzu (0.3.15)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     friendly_id (5.1.0)
@@ -216,9 +215,6 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.21)
-    neat (1.8.0)
-      sass (>= 3.3)
-      thor (~> 0.19)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -366,6 +362,7 @@ DEPENDENCIES
   dragonfly
   feedjira
   flag_shih_tzu
+  font-awesome-rails
   formtastic
   friendly_id
   gettext (>= 3.0.2)

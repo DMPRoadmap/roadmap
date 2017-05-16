@@ -22,27 +22,21 @@ msgstr " (réservé aux utilisateurs britanniques)"
 msgid " - "
 msgstr ""
 
-msgid " - choosing default template for your institution"
-msgstr ""
-
-msgid " - no funder or institution template, choosing default template"
-msgstr ""
-
-msgid " - there are more than one to choose from"
-msgstr ""
-
-#, fuzzy
-msgid " - using template customised by your institution"
-msgstr " par "
-
 #, fuzzy
 msgid " I accept the <a href=\"/%{current_locale}/terms\" target=\"_blank\">terms and conditions</a> *"
 msgstr " Jaccepte les <a href=\"/terms\" target=\"_blank\">Conditions générales dutilisation.</a> *"
+
+#, fuzzy
+msgid " Plan"
+msgstr "plans"
 
 msgid " access to"
 msgstr ""
 
 msgid " access. "
+msgstr ""
+
+msgid " and "
 msgstr ""
 
 #, fuzzy
@@ -69,8 +63,15 @@ msgstr ""
 msgid " once you click save!"
 msgstr ""
 
+msgid " or "
+msgstr ""
+
 msgid " password. You can do this through the link below."
 msgstr ""
+
+#, fuzzy
+msgid " provided by "
+msgstr " par "
 
 msgid " saved the following answer:"
 msgstr ""
@@ -78,6 +79,10 @@ msgstr ""
 #, fuzzy
 msgid " team"
 msgstr "am"
+
+#, fuzzy
+msgid " that has been customised by "
+msgstr " par "
 
 msgid " to accept the invitation, (or copy "
 msgstr ""
@@ -112,6 +117,10 @@ msgstr "DMPonline"
 
 #, fuzzy
 msgid "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account.<br/>* If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.<br/>* If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.<br/>Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
+msgstr "DMPonline"
+
+#, fuzzy
+msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr "DMPonline"
 
 msgid "%{format} is not a valid exporting format. Available formats to export are %{available_formats}."
@@ -177,15 +186,6 @@ msgstr "<p>Vous définissez ici le titre que verrons les utilisateurs. Si vous s
 msgid "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p> <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
 msgstr "<p>Si vous souhaitez ajouter un modèle institutionnel propre à un plan de gestion de données, utilisez le bouton créer un modèle. Vous pouvez au besoin créer plusieurs modèles, par ex. : un pour des chercheurs et un pour des thésards.</p> <p>Votre modèle apparaîtra aux utilisateurs de votre établissement quand aucun modèle propre à un bailleur de subvention ne sapplique. Si vous souhaitez ajouter des questions dans un modèle de bailleur de subventions, utilisez les options de personalisation de modèle ci-après.</p>"
 
-msgid "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
-msgstr "<p>À noter que votre courriel est à utiliser comme nom dutilisateur. Si vous modifiez ces informations, rappelez-vous dutiliser votre courriel en vous connectant.</p>"
-
-msgid "<p>Please select from the following drop-down so we can determine what questions and guidance should be displayed in your plan.</p>"
-msgstr ""
-
-msgid "<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>"
-msgstr "<p>Veuillez sélectionner des éléments dans les menus déroulants ci-après pour pouvoir identifier les questions et conseils à afficher dans votre plan.</p> <p>Si votre soumission doit répondre à des prescriptions propres à un organisme financeur ou un établissement, <a id=create-default-plan-button data-toggle=modal href=#default-template-confirmation-dialog>sélectionnez ici la rédaction dun DMP</a> à partir des thèmes les plus courants.</p>"
-
 msgid "<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"
 msgstr "<p>Sélectionnez les thèmes relatifs à cette question.</p> <p>Cette fonction permet dintégrer une documentation générale dassistance de votre établissement, comme encore issue dautres sources comme le DCC et des facultés ou départements auxquels vous fournissez des conseils. </p> <p>Vous pouvez sélectionner plusieurs thèmes avec la touche CTRL.</p>"
 
@@ -212,6 +212,19 @@ msgstr "<p>À ce niveau, vous pouvez donner accès à votre plan à dautres pers
 msgid "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.</p>"
 msgstr "templates"
 
+#, fuzzy
+msgid ""
+"<ul><li>%{organisation_name}</li>\n"
+"                     <li>%{organisation_address_line1}</li>\n"
+"                     <li>%{organisation_address_line2}</li>\n"
+"                     <li>%{organisation_address_line3}</li>\n"
+"                     <li>%{organisation_address_line4}</li>\n"
+"                     <li>%{organisation_address_country}</li>\n"
+"                 </ul>\n"
+"                 <p>Helpline: %{organisation_telephone}</p>\n"
+"                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>"
+msgstr "DMPonline"
+
 msgid "A colleague has invited you to contribute to their Data Management Plan at "
 msgstr ""
 
@@ -220,6 +233,9 @@ msgstr "Un identifiant approprié conforme aux prescriptions de lorganisme finan
 
 msgid "A required setting has not been provided"
 msgstr "Vous navez pas précisé un réglage obligatoire"
+
+msgid "A version of "
+msgstr ""
 
 msgid "API Information"
 msgstr ""
@@ -340,6 +356,10 @@ msgstr ""
 msgid "Before submitting, please consider:"
 msgstr ""
 
+#, fuzzy
+msgid "Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs."
+msgstr "Questions"
+
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 msgstr "La liste ci-dessous indique les utilisateurs de votre organisme. Ces informations peuvent être triées par champ."
 
@@ -362,9 +382,6 @@ msgid "Check box"
 msgstr "Case à cocher"
 
 msgid "Check this box when you are ready for this guidance to appear on user's plans."
-msgstr ""
-
-msgid "Choose a template"
 msgstr ""
 
 msgid "Click here"
@@ -404,6 +421,10 @@ msgstr "Création du plan effectuée."
 
 msgid "Contact Email"
 msgstr ""
+
+#, fuzzy
+msgid "Contact Us"
+msgstr "Communiquez avec nous"
 
 msgid "Contact us"
 msgstr "Communiquez avec nous"
@@ -558,6 +579,9 @@ msgstr "Police"
 msgid "File Name"
 msgstr "Titre du plan"
 
+msgid "Fill in the required fields"
+msgstr ""
+
 msgid "Filter plans"
 msgstr "Filtrer les plans"
 
@@ -570,14 +594,18 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr ""
 
+msgid "Format"
+msgstr ""
+
 msgid "Funder"
 msgstr "Funder"
 
-msgid "Funder name"
-msgstr "Nom de lorganisme financeur"
-
 msgid "Funders templates"
 msgstr "Modèles des bailleurs de subventions"
+
+#, fuzzy
+msgid "Funding organisation"
+msgstr "Organisation"
 
 msgid "Future plans"
 msgstr ""
@@ -646,10 +674,11 @@ msgstr ""
 msgid "ID"
 msgstr "Identifiant"
 
-msgid "If applying for funding, select your research funder."
-msgstr "Si vous soumettez une demande de subvention, sélectionnez lorganisme financeur."
-
 msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr "En cas de demande de financement, indiquer le nom exactement comme dans la demande de subvention."
+
+#, fuzzy
+msgid "If applying for funding, state the title exactly as in the proposal."
 msgstr "En cas de demande de financement, indiquer le nom exactement comme dans la demande de subvention."
 
 msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
@@ -718,9 +747,6 @@ msgstr "Modèle de plan de gestion des données Portage"
 msgid "Left"
 msgstr "Gauche"
 
-msgid "Link your %{application_name} account to your institutional credentials (UK users only)"
-msgstr "Reliez votre compte DMPonline à votre authentifiant détablissement"
-
 msgid "List of users"
 msgstr "Liste des utilisateurs"
 
@@ -745,17 +771,26 @@ msgstr "Valeur de marge non valide"
 msgid "Me"
 msgstr "Moi"
 
+#, fuzzy
+msgid "Message"
+msgstr "Moi"
+
 msgid "Multi select box"
 msgstr "Boîte de sélections multiples"
+
+#, fuzzy
+msgid "My Plan"
+msgstr "Mon plan"
 
 msgid "My organisation isn't listed."
 msgstr "Mon établissement nest pas listé."
 
-msgid "My plan"
-msgstr "Mon plan"
-
 msgid "My plans"
 msgstr "Mes plans"
+
+#, fuzzy
+msgid "My research organisation is not on the list"
+msgstr "Organisation"
 
 msgid "Name"
 msgstr "Prénom"
@@ -765,9 +800,6 @@ msgstr "Nom (sil diffère du précédent), coordonnées courriel et téléphone"
 
 msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
 msgstr "Nom du ou des directeurs de recherche ou du ou des principaux chercheurs du projet."
-
-msgid "Name of funder, if applicable."
-msgstr "Nom de lorganisme financeur, le cas échéant."
 
 msgid "New guidance"
 msgstr "Nouveaux conseils"
@@ -790,6 +822,13 @@ msgstr ""
 msgid "No additional comment area will be displayed."
 msgstr ""
 
+#, fuzzy
+msgid "No funder associated with this plan"
+msgstr "plans"
+
+msgid "No items available."
+msgstr ""
+
 msgid "No matches"
 msgstr "Pas de plans pour %{filter}"
 
@@ -798,9 +837,6 @@ msgstr "Aucun"
 
 msgid "Not answered yet"
 msgstr "Pas encore de réponse"
-
-msgid "Not applicable/not listed."
-msgstr "Non pertinent/non répertorié."
 
 msgid "Note"
 msgstr "Note"
@@ -866,9 +902,6 @@ msgstr "templates"
 msgid "Other institutions"
 msgstr ""
 
-msgid "Otherwise leave blank."
-msgstr "Sinon laissez ce champ vide."
-
 msgid "Own templates"
 msgstr "Modèles propres"
 
@@ -914,9 +947,6 @@ msgstr "Détails du plan"
 msgid "Plan name"
 msgstr "Nom du plan"
 
-msgid "Plan was successfully created."
-msgstr "Création du plan effectuée."
-
 #, fuzzy
 msgid "Plan was successfully deleted."
 msgstr "Création du plan effectuée."
@@ -942,6 +972,9 @@ msgstr "Veuillez saisir le nom de votre organisme.."
 msgid "Please enter your current password"
 msgstr ""
 
+msgid "Please enter your current password below when changing your email address."
+msgstr ""
+
 msgid "Please enter your first name."
 msgstr "Entrez votre prénom, svp."
 
@@ -954,10 +987,20 @@ msgstr ""
 msgid "Please enter your surname or family name."
 msgstr "Entrez votre nom dusage ou de famille, svp."
 
+msgid "Please fill in the basic project details below"
+msgstr ""
+
 msgid "Please fill in the basic project details below and click 'Update' to save"
 msgstr "Veuillez renseigner les premiers détails ci-après et cliquez sur 'Mettre à jour' pour enregistrer"
 
+#, fuzzy
+msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
+msgstr "<p>À noter que votre courriel est à utiliser comme nom dutilisateur. Si vous modifiez ces informations, rappelez-vous dutiliser votre courriel en vous connectant.</p>"
+
 msgid "Please only enter up to 165 characters, you have used"
+msgstr ""
+
+msgid "Please select one"
 msgstr ""
 
 msgid "Policy Expectations"
@@ -965,6 +1008,10 @@ msgstr "Résultats attendus du plan"
 
 msgid "Preview"
 msgstr "Aperçu"
+
+#, fuzzy
+msgid "Primary research organisation"
+msgstr "Organisation"
 
 msgid "Principal Investigator / Researcher"
 msgstr "Directeur de recherche / chercheur"
@@ -982,6 +1029,9 @@ msgid "Private (owners, co-owners, and administrators only) See our Terms of Use
 msgstr "Privé (propriétaires, copropriétaires et administrateurs uniquement) Consultez nos Conditions d'utilisation."
 
 msgid "Privileges"
+msgstr ""
+
+msgid "Project title"
 msgstr ""
 
 msgid "Public"
@@ -1068,23 +1118,26 @@ msgstr "Section"
 msgid "Sections"
 msgstr "Sections"
 
-msgid "Select Funder"
-msgstr "Funder"
-
-msgid "Select Organisation"
-msgstr "Organisation"
+#, fuzzy
+msgid "Select a template"
+msgstr "templates"
 
 msgid "Select an action"
 msgstr "Sélectionnez une action"
+
+#, fuzzy
+msgid "Select the funding organisation"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Select the primary research organisation responsible"
+msgstr "Organisation"
 
 msgid "Select which group this guidance relates to."
 msgstr "Sélectionnez le groupe auxquel ces conseils sont liés."
 
 msgid "Select which theme(s) this guidance relates to."
 msgstr "Sélectionnez le ou les thèmes liés à ces conseils."
-
-msgid "Select your research funder or no funder, as appropariate."
-msgstr ""
 
 msgid "Selected option(s)"
 msgstr ""
@@ -1123,6 +1176,9 @@ msgid "Someone has requested a link to change your "
 msgstr ""
 
 msgid "Status"
+msgstr ""
+
+msgid "Subject"
 msgstr ""
 
 msgid "Successfully unlinked your account from %{is}."
@@ -1177,6 +1233,9 @@ msgstr ""
 msgid "That template is not currently published."
 msgstr "templates"
 
+msgid "The"
+msgstr ""
+
 msgid "The "
 msgstr ""
 
@@ -1191,9 +1250,6 @@ msgstr "Les éléments que vous sélectionnez ici s'afficherontt dans le tableai
 
 msgid "Themes"
 msgstr "Thèmes"
-
-msgid "There are a number of possible templates you could use. Please choose one."
-msgstr "Un certain nombre de modèle vous sont proposés. Choisissez."
 
 msgid "There are no public DMPs."
 msgstr "Aucun DMP n'a été rendu public."
@@ -1225,20 +1281,18 @@ msgstr ""
 msgid "This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked."
 msgstr "Cette page vous donne un aperçu de votre plan. Elle indique de quoi il s'inspire et donne une idée générale des questions auxquelles vous devrez répondre."
 
+#, fuzzy
+msgid "This plan is based on the default template."
+msgstr "templates"
+
 msgid "This plan is based on:"
 msgstr "Ce plan sinspire de :"
 
 msgid "This section is locked for editing by "
 msgstr "La modification de cette section a été verrouillée par "
 
-msgid "Tick to select any other sources of guidance you wish to see."
-msgstr "Cochez une ou plusieurs des sources de conseils que vous voulez voir."
-
 msgid "Title"
 msgstr "Titre"
-
-msgid "To see institutional questions and/or guidance, select your organisation."
-msgstr "Sélectionnez votre organisme pour voir les questions et conseils de votre établissement."
 
 msgid "Top"
 msgstr "Haut"
@@ -1271,9 +1325,6 @@ msgstr "Délier le compte"
 msgid "Unlink institutional credentials alert"
 msgstr "Alerte de détachement dauthentifiant détablissement"
 
-msgid "Unlink your institutional credentials"
-msgstr "Détachez votre authentifiant détablissement"
-
 msgid "Unlock my account"
 msgstr ""
 
@@ -1302,6 +1353,9 @@ msgstr ""
 msgid "Users"
 msgstr "Utilisateurs"
 
+msgid "Using the generic Data Management Plan"
+msgstr ""
+
 msgid "Version"
 msgstr "Version"
 
@@ -1323,6 +1377,18 @@ msgstr "Voir les plans"
 msgid "Visibility"
 msgstr "Visibilité"
 
+#, fuzzy
+msgid "We found multiple DMP templates corresponding to the funder."
+msgstr "templates"
+
+#, fuzzy
+msgid "We found multiple DMP templates corresponding to the research organisation."
+msgstr "Organisation"
+
+#, fuzzy
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr "templates"
+
 msgid "Website"
 msgstr "Site web"
 
@@ -1336,8 +1402,16 @@ msgstr ""
 msgid "Welcome."
 msgstr "Bienvenue !"
 
+#, fuzzy
+msgid "What research project are you planning?"
+msgstr "plans"
+
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
 msgstr "Quand vous créez une nouvelle phase dans votre modèle, une version sera créée automatiquement. Quand vous remplirez la grille ci-dessous, le système affichera des options pour créer des sections et des questions."
+
+#, fuzzy
+msgid "Which DMP template would you like to use?"
+msgstr "templates"
 
 msgid "While you were editing "
 msgstr ""
@@ -1382,6 +1456,9 @@ msgstr "Vos choix possibles :<ul><li>- une zone de texte (un grand cadre pour le
 msgid "You can edit any of the details below."
 msgstr "Vous pouvez modifiez les informations ci-dessous."
 
+msgid "You can not continue until you have filled in all of the required information."
+msgstr ""
+
 #, fuzzy
 msgid "You can not edit a historical version of this template."
 msgstr "templates"
@@ -1410,9 +1487,6 @@ msgstr ""
 msgid "You have unsaved answers in the following sections:"
 msgstr ""
 
-msgid "You may leave blank or select a different organisation to your own."
-msgstr "Ce champ peut rester vide, ou vous pouvez sélectionner un autre organisme que le vôtre."
-
 msgid "You must accept the terms and conditions to register."
 msgstr ""
 
@@ -1436,9 +1510,6 @@ msgstr ""
 
 msgid "Your account has been successfully linked to %{scheme}."
 msgstr ""
-
-msgid "Your account is linked to your institutional credentials."
-msgstr "Votre compte est lié à votre authentifiant détablissement."
 
 msgid "Your account won't be created until you access the link above and set your password."
 msgstr ""
@@ -1532,11 +1603,12 @@ msgstr ""
 msgid "e.g. School/ Department"
 msgstr "par ex. : Faculté/Département"
 
-msgid "format"
-msgstr ""
-
 msgid "from now"
 msgstr ""
+
+#, fuzzy
+msgid "generic template"
+msgstr "templates"
 
 msgid "guidance"
 msgstr ""
@@ -1582,6 +1654,10 @@ msgstr ""
 #, fuzzy
 msgid "must have access to guidances api"
 msgstr "guidances"
+
+#, fuzzy
+msgid "no research organisation is associated with this plan"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "note"
