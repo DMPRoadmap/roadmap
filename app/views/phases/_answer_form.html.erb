@@ -19,12 +19,12 @@
    %>
 
   <div id="question-form-<%= question_id %>" class="question-form">
-    <%= semantic_form_for answer, :url => {:controller => :answers, :action => :update }, method: "put", :remote => true do |f| %>
-      <%= f.inputs do %>
-        <%= f.input :id, :as => :hidden, :input_html => { :value => answer.id } %>
-        <%= f.input :plan_id, :as => :hidden, :input_html => { :value => @plan.id } %>
-        <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.input :question_id, :as => :hidden, :input_html => { :value => question_id, :class => "question_id" } %>
+    <%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form"}, remote: true do |f| %>
+      <fieldset class="standard">
+        <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
+        <%= f.input :plan_id, as: :hidden, input_html: { value: @plan.id } %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+        <%= f.input :question_id, as: :hidden, input_html: { value: question_id, class: "question_id" } %>
         <%= f.hidden_field :lock_version, id: "answer_lock_version-#{question_id}" %>
 
         <!-- Question text -->
@@ -62,23 +62,23 @@
 
           <!-- work through the various format options -->
           <% if q_format.checkbox? %>
-            <%= f.input :options, :as => :check_boxes, :collection => options, :label => false, :input_html => { :id => "options-#{question.id}" } %>
+            <%= f.input :options, as: :check_boxes, collection: options, label: false, input_html: { id: "options-#{question.id}" } %>
           <% elsif q_format.multiselectbox? %>
-            <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true , :id => "options-#{question.id}" } %>
+            <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: true , id: "options-#{question.id}" } %>
           <% elsif q_format.radiobuttons? %>
             <ol class="choices-group">
               <% options.each do |op| %>
                 <li class= "choices-group">
                   <% if answer.question_option_ids[0] == op.id then%>
-                    <%= f.radio_button :option_ids, op.id, :checked => true, id: "answer_option_ids_#{op.id}"%> 
+                    <%= f.radio_button :option_ids, op.id, checked: true, id: "answer_option_ids_#{op.id}"%> 
                   <%else%>
-                    <%= f.radio_button :option_ids, op.id, :checked => false, id: "answer_option_ids_#{op.id}"%> 
+                    <%= f.radio_button :option_ids, op.id, checked: false, id: "answer_option_ids_#{op.id}"%> 
                   <% end %>
                <%= raw op.text %> </li>
               <% end %>
             </ol>
           <% elsif q_format.dropdown? %>
-            <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :id => "options-#{question.id}" } %>
+            <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: false, id: "options-#{question.id}" } %>
           <% end %>
 
 
@@ -95,13 +95,13 @@
           <%= text_area_tag("answer-text-#{question_id}".to_sym, answer.text, class: "tinymce") %>
         <% end %>
 
-      <% end %>   <!-- f.inputs -->
-
-      <!--action buttons-->
-      <%= f.actions do %>
-        <%= f.action :submit, :label => _('Save'), :button_html => { :class => "btn btn-primary"} %>
-        <li id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></li>
-      <% end %>   <!-- f.actions -->
+				<input type="submit" class="form-submit" value="<%= _('Save') %>" />
+				<div id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></div>
+				
+				<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
+				
+      </fieldset>   <!-- f.inputs -->
+      
     <% end %>
   </div>   <!-- question-form -->
 
@@ -111,22 +111,20 @@
     <span id="<%= question_id %>-status" class="label label-info answer-status"><%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %></span>
   <% end %>
 </div>   <!-- question-div -->
-
-<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
       
 <!-- Question right column -->
 <div class="question-area-right-column">
 
     <div id="right-area-tabs-<%= question_id %>" class="question_right_column_nav">
       <% comments = answer.notes.all %> 
-      <%= hidden_field_tag :question_id, question_id, :class => "question_id" %>
+      <%= hidden_field_tag :question_id, question_id, class: "question_id" %>
       <ul class="question_right_column_ul">
       <% if question.guidance.present? || question_guidances[question_id] %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
         <li class="active guidance_tab_class">
-          <%= link_to _('Guidance'), "#", :class => "guidance_accordion_button" %>
+          <%= link_to _('Guidance'), "#", class: "guidance_accordion_button" %>
         </li>
         <li class="comment_tab_class">
           <% if comments.count > 0 then%>
@@ -203,7 +201,7 @@
 
   <!--comment area -->
   <div class="comment-area" id="comment-question-area-<%= question_id %>"  style="<%= css_style_comment_div%>">
-      <%= render :partial => "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
+      <%= render partial: "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
   </div>
 
 </div> <!-- question area right column -->

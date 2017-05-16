@@ -1,11 +1,8 @@
 class PlansController < ApplicationController
   require 'pp'
   helper SettingsTemplateHelper
-  #Uncomment the line below in order to add authentication to this page - users without permission will not be able to add new plans
-  #load_and_authorize_resource
-  #
-  after_action :verify_authorized
 
+  after_action :verify_authorized
 
   def index
     authorize Plan
@@ -15,111 +12,83 @@ class PlansController < ApplicationController
 
 
   # GET /plans/new
+  # ------------------------------------------------------------------------------------
   def new
     @plan = Plan.new
     authorize @plan
-    @funders = Org.funders.order('name ASC')
-
-    no_org = Org.new()
-    no_org.id = -1
-    no_org.name = "No Funder"
-    @funders.unshift(no_org)
-
-
-    respond_to do |format|
-      format.html # new.html.erb
-    end
+    
+    # Get all of the available funders and non-funder orgs
+    @funders = Org.funders.sort{|x,y| x.name <=> y.name }
+    @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
+    
+    # Get the current user's org
+    @default_org = current_user.org if @orgs.include?(current_user.org)
+      
+    respond_to :html
   end
 
-
-  # we get here either from selecting a funder or if if the first selection
-  # results in multiple templates, from a template selection screen
+  # POST /plans
+  # -------------------------------------------------------------------
   def create
     @plan = Plan.new
     authorize @plan
     
-    message = ""
-
-    # if we have a template_id we've been selcting between templates, otherwise funders
-    if params[:template_id]
-      @templates = [ Template.find(params[:template_id] ) ]
-    else
-      funder_id = params[:plan][:funder_id].to_i
-
-      if funder_id.present? && funder_id != -1
-        @templates = []
-
-        # get all funder @templates
-        funder = Org.find(params[:plan][:funder_id])
-        funder_templates = get_most_recent( funder.templates.where(published: true).all )
-
-        # get org templates and index by customization id
-        if current_user.org.nil?
-          orgtemplates = []
-        else
-          orgtemplates = get_most_recent( current_user.org.templates.all )
-        end
-        
-        orgt_by_customization = orgtemplates.collect{|t| [t.customization_of, t]}.to_h
-
-        # go through funder templates and replace with org cusomizations if needed
-        funder_templates.each do |ft|
-          if orgt_by_customization.has_key?(ft.dmptemplate_id)
-            message = _(" - using template customised by your institution")
-            @templates << orgt_by_customization[ft.dmptemplate_id]
-          else
-            @templates << ft
-          end
-        end
-        
-      else # either didn't select funder or selected "No Funder"
-
-        # get all org @templates which are not customisations
-        @templates = get_most_recent( current_user.org.templates.where(customization_of: nil) )
-
-        message = _(" - choosing default template for your institution")
-
-        # if none of these get the default template
-        if @templates.blank?
-          @templates = get_most_recent( Template.where(is_default: true, customization_of: nil) )
-          message = _(" - no funder or institution template, choosing default template")
-        end
-      end
-    end
-
-    # if we have more than one template then back to the user
-    # using the 'create' template
-    # to choose otherwise just create the plan
-    # and go to the plan/show template
-    if @templates.length > 1 
-      message += _(" - there are more than one to choose from")
-      flash.notice = message
-      respond_to do |format|
-        format.html
-      end
-      return
-    end
-
-    @plan.template = @templates[0]
-
-    @based_on = @plan.base_template()
-
-    @plan.principal_investigator = current_user.name
-
-    @plan.title = _('My plan')+' ('+@plan.template.title+')'  # We should use interpolated string since the order of the words from this message could vary among languages
-
-    @all_guidance_groups = @plan.get_guidance_group_options
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+    @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
+    @plan.data_contact = current_user.email
+    @plan.funder_name = plan_params[:funder_name]
     
+    # If a template hasn't been identified look for the available templates
+    if plan_params[:template_id].blank?
+      template_options(plan_params[:org_id], plan_params[:funder_id])
 
-    respond_to do |format|
-      if @plan.save
-        @plan.assign_creator(current_user.id)
-        flash.notice = _('Plan was successfully created.') + message
-        format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }) }
+      # Return the 'Select a template' section
+      respond_to do |format|
+        format.js {} 
+      end
+    
+    # Otherwise create the plan
+    else
+      @plan.template = Template.find(plan_params[:template_id])
+      
+      if plan_params[:title].blank?
+        @plan.title = current_user.firstname.blank? ? _('My Plan') + '(' + @plan.template.title + ')' : 
+                                    current_user.firstname + "'s" + _(" Plan")
       else
-        flash[:notice] = failed_create_error(@plan, _('plan'))
-        format.html { render action: "new" }
+        @plan.title = plan_params[:title]
+      end
+      
+      if @plan.save
+        @plan.assign_creator(current_user)
+    
+        default = Template.find_by(is_default: true)
+        
+        msg = "#{_('Plan was successfully created.')} "
+        
+        if !default.nil? && default == @plan.template
+          # We used the generic/default template
+          msg += _('This plan is based on the default template.')
+                 
+        elsif !@plan.template.customization_of.nil?
+          # We used a customized version of the the funder template
+          msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+
+        else
+          # We used the specified org's or funder's template
+          msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
+        end
+        
+        flash[:notice] = msg
+        
+        respond_to do |format|
+          format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
+        end
+
+      else
+        # Something went wrong so report the issue to the user
+        flash[:notice] = failed_create_error(@plan, 'Plan')
+        respond_to do |format|
+          format.js {} 
+        end
       end
     end
   end
@@ -150,7 +119,7 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
 
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-    @based_on = @plan.base_template
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.live(@plan.template.customization_of))
 
     respond_to :html
   end
@@ -412,6 +381,9 @@ class PlansController < ApplicationController
 
   private
 
+  def plan_params 
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title)
+  end
 
   # different versions of the same template have the same dmptemplate_id
   # but different version numbers so for each set of templates with the
@@ -474,6 +446,51 @@ class PlansController < ApplicationController
       end
     end
     plan.delete(src_plan_key)
+  end
+
+  # Collect all of the templates available for the org+funder combination
+  # --------------------------------------------------------------------------
+  def template_options(org_id, funder_id)
+    @templates = []
+    
+    if !org_id.blank? || !funder_id.blank?
+      if funder_id.blank?
+        # Load the org's template(s)
+        unless org_id.nil?
+          org = Org.find(org_id)
+          @templates = Template.where(published: true, org: org, customization_of: nil).to_a
+          @msg = _("We found multiple DMP templates corresponding to the research organisation.") if @templates.count > 1
+        end
+        
+      else
+        funder = Org.find(funder_id)
+        # Load the funder's template(s)
+        @templates = Template.where(published: true, org: funder).to_a
+        
+        unless org_id.blank?
+          org = Org.find(org_id)
+          
+          # Swap out any organisational cusotmizations of a funder template
+          @templates.each do |tmplt|
+            customization = Template.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
+            unless customization.nil?
+              @templates.delete(tmplt)
+              @templates << customization
+            end
+          end
+        end
+        
+        msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
+      end
+    end
+    
+    # If no templates were available use the generic templates
+    if @templates.empty?
+      @msg = _("Using the generic Data Management Plan")
+      @templates << Template.find_by(is_default: true)
+    end
+    
+    @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
   end
 
 end

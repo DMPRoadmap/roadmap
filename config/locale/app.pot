@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-12 15:25+0100\n"
-"PO-Revision-Date: 2017-05-12 15:25+0100\n"
+"POT-Creation-Date: 2017-05-15 20:57+0000\n"
+"PO-Revision-Date: 2017-05-15 20:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,25 +24,19 @@ msgstr ""
 msgid " - "
 msgstr ""
 
-msgid " - choosing default template for your institution"
-msgstr ""
-
-msgid " - no funder or institution template, choosing default template"
-msgstr ""
-
-msgid " - there are more than one to choose from"
-msgstr ""
-
-msgid " - using template customised by your institution"
-msgstr ""
-
 msgid " I accept the <a href=\"/%{current_locale}/terms\" target=\"_blank\">terms and conditions</a> *"
+msgstr ""
+
+msgid " Plan"
 msgstr ""
 
 msgid " access to"
 msgstr ""
 
 msgid " access. "
+msgstr ""
+
+msgid " and "
 msgstr ""
 
 msgid " by"
@@ -66,13 +60,22 @@ msgstr ""
 msgid " once you click save!"
 msgstr ""
 
+msgid " or "
+msgstr ""
+
 msgid " password. You can do this through the link below."
+msgstr ""
+
+msgid " provided by "
 msgstr ""
 
 msgid " saved the following answer:"
 msgstr ""
 
 msgid " team"
+msgstr ""
+
+msgid " that has been customised by "
 msgstr ""
 
 msgid " to accept the invitation, (or copy "
@@ -106,6 +109,9 @@ msgid "%{application_name}"
 msgstr ""
 
 msgid "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account.<br/>* If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.<br/>* If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.<br/>Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
+msgstr ""
+
+msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr ""
 
 msgid "%{format} is not a valid exporting format. Available formats to export are %{available_formats}."
@@ -171,15 +177,6 @@ msgstr ""
 msgid "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p> <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
 msgstr ""
 
-msgid "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
-msgstr ""
-
-msgid "<p>Please select from the following drop-down so we can determine what questions and guidance should be displayed in your plan.</p>"
-msgstr ""
-
-msgid "<p>Please select from the following drop-downs so we can determine what questions and guidance should be displayed in your plan.</p> <p>If you aren't responding to specific requirements from a funder or an institution, <a id='create-default-plan-button' data-toggle='modal' href='#default-template-confirmation-dialog'>select here to write a generic DMP</a> based on the most common themes.</p>"
-msgstr ""
-
 msgid "<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"
 msgstr ""
 
@@ -204,6 +201,18 @@ msgstr ""
 msgid "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.</p>"
 msgstr ""
 
+msgid ""
+"<ul><li>%{organisation_name}</li>\n"
+"                     <li>%{organisation_address_line1}</li>\n"
+"                     <li>%{organisation_address_line2}</li>\n"
+"                     <li>%{organisation_address_line3}</li>\n"
+"                     <li>%{organisation_address_line4}</li>\n"
+"                     <li>%{organisation_address_country}</li>\n"
+"                 </ul>\n"
+"                 <p>Helpline: %{organisation_telephone}</p>\n"
+"                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>"
+msgstr ""
+
 msgid "A colleague has invited you to contribute to their Data Management Plan at "
 msgstr ""
 
@@ -211,6 +220,9 @@ msgid "A pertinent ID as determined by the funder and/or institution."
 msgstr ""
 
 msgid "A required setting has not been provided"
+msgstr ""
+
+msgid "A version of "
 msgstr ""
 
 msgid "API Information"
@@ -327,6 +339,9 @@ msgstr ""
 msgid "Before submitting, please consider:"
 msgstr ""
 
+msgid "Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs."
+msgstr ""
+
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 msgstr ""
 
@@ -349,9 +364,6 @@ msgid "Check box"
 msgstr ""
 
 msgid "Check this box when you are ready for this guidance to appear on user's plans."
-msgstr ""
-
-msgid "Choose a template"
 msgstr ""
 
 msgid "Click here"
@@ -388,6 +400,9 @@ msgid "Comment was successfully saved."
 msgstr ""
 
 msgid "Contact Email"
+msgstr ""
+
+msgid "Contact Us"
 msgstr ""
 
 msgid "Contact us"
@@ -540,6 +555,9 @@ msgstr ""
 msgid "File Name"
 msgstr ""
 
+msgid "Fill in the required fields"
+msgstr ""
+
 msgid "Filter plans"
 msgstr ""
 
@@ -552,13 +570,16 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr ""
 
+msgid "Format"
+msgstr ""
+
 msgid "Funder"
 msgstr ""
 
-msgid "Funder name"
+msgid "Funders templates"
 msgstr ""
 
-msgid "Funders templates"
+msgid "Funding organisation"
 msgstr ""
 
 msgid "Future plans"
@@ -627,10 +648,10 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-msgid "If applying for funding, select your research funder."
+msgid "If applying for funding, state the name exactly as in the grant proposal."
 msgstr ""
 
-msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgid "If applying for funding, state the title exactly as in the proposal."
 msgstr ""
 
 msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
@@ -699,9 +720,6 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
-msgid "Link your %{application_name} account to your institutional credentials (UK users only)"
-msgstr ""
-
 msgid "List of users"
 msgstr ""
 
@@ -726,16 +744,22 @@ msgstr ""
 msgid "Me"
 msgstr ""
 
+msgid "Message"
+msgstr ""
+
 msgid "Multi select box"
+msgstr ""
+
+msgid "My Plan"
 msgstr ""
 
 msgid "My organisation isn't listed."
 msgstr ""
 
-msgid "My plan"
+msgid "My plans"
 msgstr ""
 
-msgid "My plans"
+msgid "My research organisation is not on the list"
 msgstr ""
 
 msgid "Name"
@@ -745,9 +769,6 @@ msgid "Name (if different to above), telephone and email contact details"
 msgstr ""
 
 msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
-msgstr ""
-
-msgid "Name of funder, if applicable."
 msgstr ""
 
 msgid "New guidance"
@@ -771,6 +792,12 @@ msgstr ""
 msgid "No additional comment area will be displayed."
 msgstr ""
 
+msgid "No funder associated with this plan"
+msgstr ""
+
+msgid "No items available."
+msgstr ""
+
 msgid "No matches"
 msgstr ""
 
@@ -778,9 +805,6 @@ msgid "None"
 msgstr ""
 
 msgid "Not answered yet"
-msgstr ""
-
-msgid "Not applicable/not listed."
 msgstr ""
 
 msgid "Note"
@@ -846,9 +870,6 @@ msgstr ""
 msgid "Other institutions"
 msgstr ""
 
-msgid "Otherwise leave blank."
-msgstr ""
-
 msgid "Own templates"
 msgstr ""
 
@@ -894,9 +915,6 @@ msgstr ""
 msgid "Plan name"
 msgstr ""
 
-msgid "Plan was successfully created."
-msgstr ""
-
 msgid "Plan was successfully deleted."
 msgstr ""
 
@@ -921,6 +939,9 @@ msgstr ""
 msgid "Please enter your current password"
 msgstr ""
 
+msgid "Please enter your current password below when changing your email address."
+msgstr ""
+
 msgid "Please enter your first name."
 msgstr ""
 
@@ -933,16 +954,28 @@ msgstr ""
 msgid "Please enter your surname or family name."
 msgstr ""
 
+msgid "Please fill in the basic project details below"
+msgstr ""
+
 msgid "Please fill in the basic project details below and click 'Update' to save"
 msgstr ""
 
+msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
+msgstr ""
+
 msgid "Please only enter up to 165 characters, you have used"
+msgstr ""
+
+msgid "Please select one"
 msgstr ""
 
 msgid "Policy Expectations"
 msgstr ""
 
 msgid "Preview"
+msgstr ""
+
+msgid "Primary research organisation"
 msgstr ""
 
 msgid "Principal Investigator / Researcher"
@@ -961,6 +994,9 @@ msgid "Private (owners, co-owners, and administrators only) See our Terms of Use
 msgstr ""
 
 msgid "Privileges"
+msgstr ""
+
+msgid "Project title"
 msgstr ""
 
 msgid "Public"
@@ -1047,22 +1083,22 @@ msgstr ""
 msgid "Sections"
 msgstr ""
 
-msgid "Select Funder"
-msgstr ""
-
-msgid "Select Organisation"
+msgid "Select a template"
 msgstr ""
 
 msgid "Select an action"
+msgstr ""
+
+msgid "Select the funding organisation"
+msgstr ""
+
+msgid "Select the primary research organisation responsible"
 msgstr ""
 
 msgid "Select which group this guidance relates to."
 msgstr ""
 
 msgid "Select which theme(s) this guidance relates to."
-msgstr ""
-
-msgid "Select your research funder or no funder, as appropariate."
 msgstr ""
 
 msgid "Selected option(s)"
@@ -1102,6 +1138,9 @@ msgid "Someone has requested a link to change your "
 msgstr ""
 
 msgid "Status"
+msgstr ""
+
+msgid "Subject"
 msgstr ""
 
 msgid "Successfully unlinked your account from %{is}."
@@ -1155,6 +1194,9 @@ msgstr ""
 msgid "That template is not currently published."
 msgstr ""
 
+msgid "The"
+msgstr ""
+
 msgid "The "
 msgstr ""
 
@@ -1168,9 +1210,6 @@ msgid "The items you select here will be displayed in the table below. You can s
 msgstr ""
 
 msgid "Themes"
-msgstr ""
-
-msgid "There are a number of possible templates you could use. Please choose one."
 msgstr ""
 
 msgid "There are no public DMPs."
@@ -1203,19 +1242,16 @@ msgstr ""
 msgid "This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked."
 msgstr ""
 
+msgid "This plan is based on the default template."
+msgstr ""
+
 msgid "This plan is based on:"
 msgstr ""
 
 msgid "This section is locked for editing by "
 msgstr ""
 
-msgid "Tick to select any other sources of guidance you wish to see."
-msgstr ""
-
 msgid "Title"
-msgstr ""
-
-msgid "To see institutional questions and/or guidance, select your organisation."
 msgstr ""
 
 msgid "Top"
@@ -1248,9 +1284,6 @@ msgstr ""
 msgid "Unlink institutional credentials alert"
 msgstr ""
 
-msgid "Unlink your institutional credentials"
-msgstr ""
-
 msgid "Unlock my account"
 msgstr ""
 
@@ -1278,6 +1311,9 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
+msgid "Using the generic Data Management Plan"
+msgstr ""
+
 msgid "Version"
 msgstr ""
 
@@ -1299,6 +1335,15 @@ msgstr ""
 msgid "Visibility"
 msgstr ""
 
+msgid "We found multiple DMP templates corresponding to the funder."
+msgstr ""
+
+msgid "We found multiple DMP templates corresponding to the research organisation."
+msgstr ""
+
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr ""
+
 msgid "Website"
 msgstr ""
 
@@ -1311,7 +1356,13 @@ msgstr ""
 msgid "Welcome."
 msgstr ""
 
+msgid "What research project are you planning?"
+msgstr ""
+
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr ""
+
+msgid "Which DMP template would you like to use?"
 msgstr ""
 
 msgid "While you were editing "
@@ -1356,6 +1407,9 @@ msgstr ""
 msgid "You can edit any of the details below."
 msgstr ""
 
+msgid "You can not continue until you have filled in all of the required information."
+msgstr ""
+
 msgid "You can not edit a historical version of this template."
 msgstr ""
 
@@ -1380,9 +1434,6 @@ msgstr ""
 msgid "You have unsaved answers in the following sections:"
 msgstr ""
 
-msgid "You may leave blank or select a different organisation to your own."
-msgstr ""
-
 msgid "You must accept the terms and conditions to register."
 msgstr ""
 
@@ -1405,9 +1456,6 @@ msgid "Your access to "
 msgstr ""
 
 msgid "Your account has been successfully linked to %{scheme}."
-msgstr ""
-
-msgid "Your account is linked to your institutional credentials."
 msgstr ""
 
 msgid "Your account won't be created until you access the link above and set your password."
@@ -1491,10 +1539,10 @@ msgstr ""
 msgid "e.g. School/ Department"
 msgstr ""
 
-msgid "format"
+msgid "from now"
 msgstr ""
 
-msgid "from now"
+msgid "generic template"
 msgstr ""
 
 msgid "guidance"
@@ -1537,6 +1585,9 @@ msgid "must be unique"
 msgstr ""
 
 msgid "must have access to guidances api"
+msgstr ""
+
+msgid "no research organisation is associated with this plan"
 msgstr ""
 
 msgid "note"
