@@ -5,11 +5,10 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
 #	extend FriendlyId
-
 	##
   # Associations
 	belongs_to :template
-	has_many :sections, dependent: :destroy
+	has_many :sections, -> { order(:number => :asc) }, dependent: :destroy
   has_many :questions, :through => :sections, dependent: :destroy
 
 	##
@@ -25,11 +24,7 @@ class Phase < ActiveRecord::Base
 
   validates :title, :number, :template, presence: {message: _("can't be blank")}
 
-
-
-
-
-
+  
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -104,4 +99,5 @@ class Phase < ActiveRecord::Base
     end
     return phase_copy
   end
+
 end

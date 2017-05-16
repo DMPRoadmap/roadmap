@@ -1,5 +1,5 @@
 <tr>
-  <% @selected_columns.each do |column| %>
+  <% ['name', 'owner', 'shared', 'last_edited'].each do |column| %>
     <%= plan_list_column_body(column, plan) %>
   <% end %>
   <td class="dmp_td_medium">

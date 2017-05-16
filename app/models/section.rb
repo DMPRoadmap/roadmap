@@ -1,5 +1,4 @@
 class Section < ActiveRecord::Base
-
   ##
   # Associations
   belongs_to :phase
@@ -47,5 +46,4 @@ class Section < ActiveRecord::Base
     end
     return section_copy
   end
-
 end

@@ -5,7 +5,7 @@ class PlanTest < ActiveSupport::TestCase
   setup do
     @org = Org.first
     @template = Template.first
-    
+
     @creator = User.last
     @administrator = User.create!(email: 'administrator@example.com', password: 'password123')
     @editor = User.create!(email: 'editor@example.com', password: 'password123')
@@ -16,8 +16,9 @@ class PlanTest < ActiveSupport::TestCase
                         principal_investigator: 'John Doe', principal_investigator_identifier: 'ABC',
                         data_contact: 'john.doe@example.com', visibility: 1)
     
-    @plan.assign_creator(User.last)
+    @plan.assign_creator(@creator.id)
     @plan.save!
+    @plan.reload
   end
   
   # ---------------------------------------------------
@@ -83,28 +84,63 @@ class PlanTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "retrieves the guidance for the specified question" do
-    # TODO: Need to dedicate some time to testing this method. The relationship between templates and guidance
-    #       changed during the refactor. Need to assert that Question based and Theme based guidance appears properly
-=begin
-    template_guidance = @template.org.guidance_groups.collect{|gg| gg.guidances.collect{|g| {orgname: @template.org.name, theme: g.themes.join(','), guidance: g} } }.flatten.uniq
-    org_guidance = @creator.org.guidance_groups.collect{|gg| gg.guidances.collect{|g| {orgname: @template.org.name, theme: g.themes.join(','), guidance: g} } }.flatten.uniq
-    plan_guidance = @plan.guidance_groups.collect{|gg| gg.guidances.collect{|g| {orgname: @template.org.name, theme: g.themes.join(','), guidance: g} } }.flatten.uniq
+  test "retrieves the selected guidance groups" do
+    # Create a new theme and attach it to our template's question and a guidance group
+    t = Theme.create!(title: 'Test A')
+    q = @template.phases.first.sections.first.questions.first
+    g = GuidanceGroup.first.guidances.first
+    g.themes << t
+    g.save
+    q.themes << t
+    q.save
+    
+    # Create a new guidance group and guidance that is attached to a theme but NOT used by our template
+    t = Theme.create!(title: 'Test B')
+    gg = GuidanceGroup.create!(name: 'Tester', org: @creator.org)
+    g = Guidance.create!(text: 'Testing guidance', guidance_group: gg, themes: [t])
+    
+    pggs = @plan.get_guidance_group_options
+    assert pggs.include?(GuidanceGroup.first)
+    assert_not pggs.include?(gg)
+  end
+  
+  # ---------------------------------------------------
+  test "retrieves the selected guidance for a specific question" do
+    q = @template.phases.first.sections.first.questions.first
+    
+    ['By Template', 'By Org', 'Selected'].each do |txt|
+      t = Theme.create!(title: "Theme test for - #{txt}")
+      gg = GuidanceGroup.create!(name: "GuidanceGroup test for - #{txt}", org: @creator.org)
+      g = Guidance.create!(text: "Guidance test for - #{txt}", guidance_group: gg, themes: [t])
+      q = @template.phases.first.sections.first.questions.first
+      q.themes << t
+      q.save
+    end
+    
+    @template.org.guidance_groups << GuidanceGroup.find_by(name: "GuidanceGroup test for - By Template")
+    @template.org.save
+    @plan.owner.org.guidance_groups << GuidanceGroup.find_by(name: "GuidanceGroup test for - By Org")
+    @plan.owner.org.save
+    @plan.guidance_groups << GuidanceGroup.find_by(name: "GuidanceGroup test for - Selected")
+    @plan.save
+    @plan.reload    
 
-    guidances = @plan.guidance_for_question(@template.phases.first.sections.last.questions.last)
+    gs = @plan.guidance_for_question(q)
     
-    template_guidance.each do |hash|
-      assert guidances.include?(hash), "expected the guidance to include the following template guidance: #{hash.inspect}"
-    end
+    # Template org's themed guidance
+    hash = gs.select{|h| h[:guidance] == Guidance.find_by(text: "Guidance test for - By Template")}.first
+    assert_not hash.nil?, "expected to find the guidance by template"
+    assert hash[:theme].include?("Theme test for - By Template"), "expected to find the theme by template"
     
-    org_guidance.each do |hash|
-      assert guidances.include?(hash), "expected the guidance to include the following org guidance: #{hash.inspect}"
-    end
+    # User org's themed guidance
+    hash = gs.select{|h| h[:guidance] == Guidance.find_by(text: "Guidance test for - By Org")}.first
+    assert_not hash.nil?, "expected to find the guidance by org"
+    assert hash[:theme].include?("Theme test for - By Org"), "expected to find the theme by org"
     
-    plan_guidance.each do |hash|
-      assert guidances.include?(hash), "expected the guidance to include the following plan guidance: #{hash.inspect}"
-    end
-=end
+    # Selected guidance group's guidance
+    hash = gs.select{|h| h[:guidance] == Guidance.find_by(text: "Guidance test for - Selected")}.first
+    assert_not hash.nil?, "expected to find the guidance by selected"
+    assert hash[:theme].include?("Theme test for - Selected"), "expected to find the theme by selected"
   end
   
   # ---------------------------------------------------

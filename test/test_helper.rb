@@ -49,15 +49,17 @@ class ActiveSupport::TestCase
   # each of the possible Question Formats. 
   # ----------------------------------------------------------------------
   def scaffold_template
-    template = Template.new(title: 'Test template', description: 'My test template',
-                            published: true, org: Org.first, locale: nil, is_default: false,
-                            version: 1, visibility: 0)
+    template = Template.new(title: 'Test template', 
+                            description: 'My test template',
+                            org: Org.first)
     
-    template.phases << Phase.new(title: 'Test phase', description: 'My test phase', 
-                                 number: 1, modifiable: false)
+    template.phases << Phase.new(title: 'Test phase', 
+                                 description: 'My test phase', 
+                                 number: 1)
     
-    section = Section.new(title: 'Test section', description: 'My test section',
-                          number: 99, published: true, modifiable: false)
+    section = Section.new(title: 'Test section', 
+                          description: 'My test section',
+                          number: 99, phase: template.phases.first)
     
     i = 1
     # Add each type of Question to the new section
@@ -76,11 +78,17 @@ class ActiveSupport::TestCase
     end
     
     template.phases.first.sections << section
-    
-    assert template.valid?, "unable to create new Template: #{template.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+
     template.save!
+    assert template.valid?, "unable to create new Template: #{template.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
     
     @template = template.reload
+  end
+  
+  # Version the template
+  # ----------------------------------------------------------------------
+  def version_the_template
+    put admin_publish_template_path(@template)
   end
   
   # Scaffold a new Plan based on the scaffolded Template 

@@ -2,7 +2,7 @@
   **Project: DMPRoadmap
   **Description: this partial renders an answer when there is a conflict.
   **Arguments transferred: question, answer
-  **Copyright: Digital Curation Centre and University of California Curation Center
+  **Copyright: Digital Curation Centre and California Digital Library
 -->
 
 <% qformat = question.question_format %>
@@ -14,7 +14,7 @@
   right now you'd need to parameterise it with the form parameter which doesn't exist
   if you are coming from /answer/update -->
 
-<p><%= _("While you were editing #{answer.user.name} saved the following answer:") %> </p>
+<p><%= _("While you were editing ") + answer.user.name + _(" saved the following answer:") %> </p>
 
 <%= semantic_form_for answer, :url => {:controller => :answers, :action => :update }, :remote => true do |af| %>
   <%= af.inputs do %>
@@ -64,14 +64,14 @@
     <% end %>  <!-- if multiple choice -->
 
     <% if qformat.textfield? %>
-      <%= text_field_tag("answer-text-Ans#{question.id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
+      <%= text_field_tag("answer-text-Ans#{question.id}".to_sym, strip_tags(answer.text), class: "question_text_field", disabled: true) %>
     <% elsif qformat.textarea? %>
-      <%= text_area_tag("answer-text-Ans#{question["id"]}".to_sym, strip_tags(answer.text), class: "tinymce answer-notice") %>
+      <%= text_area_tag("answer-text-Ans#{question["id"]}".to_sym, strip_tags(answer.text), class: "tinymce answer-notice", disabled: true) %>
     <% end %>
 
   <% end %>   <!-- inputs -->
 <% end %>     <!-- form -->
 
-<p><%= _('Combine their changes with your answer below and then save the answer again.') %></p>
+<p><%= _('Combine their changes with your answer below and then save the answer again.') %><br /><%= _('The edits in the box below will overwrite the existing answer from ') + answer.user.name + _(' once you click save!')%></p>
 
 

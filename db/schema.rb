@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412143945) do
+ActiveRecord::Schema.define(version: 20170428083711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(version: 20170412143945) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo_url"
+    t.string   "user_landing_url"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -291,6 +293,7 @@ ActiveRecord::Schema.define(version: 20170412143945) do
     t.integer  "visibility"
     t.integer  "customization_of"
     t.integer  "dmptemplate_id"
+    t.boolean  "dirty",            default: false
   end
 
   create_table "themes", force: :cascade do |t|
@@ -327,8 +330,8 @@ ActiveRecord::Schema.define(version: 20170412143945) do
     t.string   "email",                  default: "", null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

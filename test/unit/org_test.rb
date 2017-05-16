@@ -115,7 +115,11 @@ class OrgTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "published_templates should return all published templates" do
     3.times do |i|
-      @org.templates << Template.new(version: 1, title: "Testing #{i}", published: (i < 2 ? true : false))
+      template = Template.create(org: @org, version: 1, title: "Testing #{i}")
+      if i < 2
+        template.published = true 
+        template.save!
+      end
     end
     
     assert_not @org.published_templates.select{|t| t.title == "Testing 0"}.empty?, "expected the 1st template to be included"

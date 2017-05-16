@@ -4,7 +4,6 @@ class PlansController < ApplicationController
   #Uncomment the line below in order to add authentication to this page - users without permission will not be able to add new plans
   #load_and_authorize_resource
   #
-	before_filter :get_plan_list_columns, only: %i( index )
   after_action :verify_authorized
 
 
@@ -38,8 +37,7 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-    @plan.save
-
+    
     message = ""
 
     # if we have a template_id we've been selcting between templates, otherwise funders
@@ -56,8 +54,12 @@ class PlansController < ApplicationController
         funder_templates = get_most_recent( funder.templates.where(published: true).all )
 
         # get org templates and index by customization id
-        orgtemplates = get_most_recent( current_user.org.templates.all )
-
+        if current_user.org.nil?
+          orgtemplates = []
+        else
+          orgtemplates = get_most_recent( current_user.org.templates.all )
+        end
+        
         orgt_by_customization = orgtemplates.collect{|t| [t.customization_of, t]}.to_h
 
         # go through funder templates and replace with org cusomizations if needed
@@ -69,6 +71,7 @@ class PlansController < ApplicationController
             @templates << ft
           end
         end
+        
       else # either didn't select funder or selected "No Funder"
 
         # get all org @templates which are not customisations
@@ -105,13 +108,13 @@ class PlansController < ApplicationController
 
     @plan.title = _('My plan')+' ('+@plan.template.title+')'  # We should use interpolated string since the order of the words from this message could vary among languages
 
-    @plan.assign_creator(current_user.id)
-
     @all_guidance_groups = @plan.get_guidance_group_options
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+    
 
     respond_to do |format|
       if @plan.save
+        @plan.assign_creator(current_user.id)
         flash.notice = _('Plan was successfully created.') + message
         format.html { redirect_to({:action => "show", :id => @plan.id, :editing => true }) }
       else
@@ -128,7 +131,24 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(params[:id])
     authorize @plan
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+
+    # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.get_guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+
+    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
+    @important_ggs = []
+    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      if org.organisation? 
+        @important_ggs << [org,ggs] 
+        @all_ggs_grouped_by_org.delete(org)
+      end
+    end
+
+    # Sort the rest by org name for the accordion
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
+
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
     @based_on = @plan.base_template
 

@@ -1,0 +1,11 @@
+<% FastGettext.with_locale FastGettext.default_locale do %>
+  <p><%= _('Welcome to ') %><%= Rails.configuration.branding[:application][:name] %></p>
+
+  <p><%= Rails.configuration.branding[:application][:name] %><%= _(' will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on ') %><%= Rails.configuration.branding[:application][:email] %></p>
+
+  <p>
+    <%=_('All the best,')%>
+    <br />
+    <%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.
+  </p>
+<% end %>

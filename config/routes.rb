@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :themes
     resources :notes
     resources :plans
-    resources :plan_guidance_groups
+    resources :plans_guidance_groups
     resources :identifier_schemes
     resources :exported_plans
     resources :regions
@@ -32,7 +32,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
         registrations: "registrations", 
-        confirmations: 'confirmations', 
         passwords: 'passwords', 
         sessions: 'sessions', 
         omniauth_callbacks: 'users/omniauth_callbacks'} do
@@ -41,9 +40,8 @@ Rails.application.routes.draw do
   end
   
   # WAYFless access point - use query param idp
-  get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
-  get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
-
+  #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
+  #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
   #post '/auth/:provider/callback' => 'sessions#oauth_create'
   
   # fix for activeadmin signout bug
@@ -130,6 +128,9 @@ Rails.application.routes.draw do
         delete 'admin_destroy'
         post 'admin_create'
         put 'admin_update'
+        put 'admin_customize'
+        put 'admin_publish'
+        put 'admin_unpublish'
       end
     end
 

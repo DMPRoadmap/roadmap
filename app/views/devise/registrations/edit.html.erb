@@ -65,7 +65,7 @@
 
       <% @identifier_schemes.each do |scheme| %>
         <tr>
-          <td class="first"><%= scheme.name %></td>
+          <td class="first"><%= scheme.description %></td>
           <td>
             <%= render partial: 'external_identifier', 
                        locals: {scheme: scheme, 
@@ -88,9 +88,10 @@
     </table>
     <br />
     <p>
-    <% if Rails.application.config.shibboleth_enabled %>
+<!--
+     <% if Rails.application.config.shibboleth_enabled %>
         <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
-            <%= link_to _('Link your %{application_name} account to your institutional credentials (UK users only)') % { :application_name => user_omniauth_shibboleth_path }, class: "a-orange" %>
+            <%= link_to _('Link your %{application_name} account to your institutional credentials (UK users only)') % { :application_name => user_shibboleth_omniauth_authorize_path }, class: "a-orange" %>
         <% else %>
             <%= _('Your account is linked to your institutional credentials.') %>
             <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
@@ -98,6 +99,7 @@
             </a>
         <% end %>
     <% end %>
+-->
     </p>
     <br />
     <div class="div_clear">
@@ -140,7 +142,7 @@
     <h3><%= _('Unlink institutional credentials alert') %></h3>
   </div>
   <div class="modal-body">
-    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_omniauth_shibboleth_path } %>
+    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
   </div>
   <div class="modal-footer">
     <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>

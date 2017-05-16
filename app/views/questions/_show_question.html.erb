@@ -2,7 +2,7 @@
 **Project: DMPRoadmap
 **Description: This block shows a question, its guidance, and options when multiple choice is selected.
 **Arguments transferred: 'question'
-**Copyright: Digital Curation Centre and University of California Curation Center
+**Copyright: Digital Curation Centre and California Digital Library
 -->
 
 <div class="question-div">
@@ -117,14 +117,13 @@
 
   <br/>
   <!-- edit question button-->
-  <% if (@edit && question.section.modifiable) || question.section.phase.template.customization_of.present? %>
+  <% if (@edit && question.modifiable) %>
     <div class="move_2_right">
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <%= link_to _('Edit question'), '# ', class: "btn btn-primary edit_question_button"%>
-      <% if !question.section.published? %>
-        <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
+
+      <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
         confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
-      <% end %>
     </div>
   <% elsif !@edit && question.modifiable %>
     <% example_answer = question.get_example_answer(current_user.org_id) %>

@@ -5,8 +5,10 @@
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [
-  {name: 'orcid', description: 'ORCID researcher identifiers', active: true},
-  {name: 'shibboleth', description: 'Shibboleth', active: false}
+  {name: 'orcid', description: 'ORCID', active: true, 
+   logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png', 
+   user_landing_url:'https://orcid.org' },
+  {name: 'shibboleth', description: 'Shibboleth', active: true}
 ]
 identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
 
@@ -346,19 +348,22 @@ templates = [
    published: true,
    org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
-   version: 1},
+   version: 0,
+   dmptemplate_id: 1},
   
   {title: "OLD - Department of Testing Award",
     published: false,
     org: Org.find_by(abbreviation: 'GA'),
     is_default: false,
-    version: 1},
+    version: 0,
+   dmptemplate_id: 2},
      
   {title: "Department of Testing Award",
    published: true,
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
-   version: 2}
+   version: 0,
+   dmptemplate_id: 3}
 ]
 templates.map{ |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
 

@@ -9,8 +9,7 @@
     <% @templates.each do |t| %>
       <li>
         <%= radio_button_tag(:template_id, t.id) %>
-        <% desc = strip_tags(t.description) %>
-        <%= label_tag("template_id_#{t.id}", "#{t.title} (#{desc})") %>
+        <%= label_tag("template_id_#{t.id}", t.title) %>
       </li>
     <% end %>
   </ul>

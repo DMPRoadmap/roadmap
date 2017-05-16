@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable, 
-         :rememberable, :trackable, :validatable, :confirmable, :omniauthable, 
+         :rememberable, :trackable, :validatable, :omniauthable, 
          :omniauth_providers => [:shibboleth, :orcid]
 
   ##
@@ -50,14 +50,6 @@ class User < ActiveRecord::Base
   #                :confirmed_at, :org_id
 
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
-
-  ##
-  # Settings
-  # FIXME: The duplication in the block is to set defaults. It might be better if
-  #        they could be set in Settings::PlanList itself, if possible.
-  has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
-    s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
-  end
 
   ##
   # Scopes

@@ -52,6 +52,7 @@ class RegistrationsController < Devise::RegistrationsController
           if resource.active_for_authentication?
             set_flash_message :notice, :signed_up if is_navigational_format?
             sign_up(resource_name, resource)
+            UserMailer.welcome_notification(current_user).deliver
             respond_with resource, location: after_sign_up_path_for(resource)
           else
             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
@@ -129,7 +130,7 @@ class RegistrationsController < Devise::RegistrationsController
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
       set_flash_message :notice, _('Details successfully updated.')
-      sign_in current_user, bypass_sign_in: true  # Sign in the user bypassing validation in case his password changed
+      sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
       redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
 
     else
