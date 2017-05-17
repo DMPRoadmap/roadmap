@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428083711) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20170516184429) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
@@ -40,8 +37,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.integer "question_option_id", null: false
   end
 
-  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index", using: :btree
-  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index", using: :btree
+  add_index "answers_question_options", ["answer_id", "question_option_id"], name: "answer_question_option_index"
+  add_index "answers_question_options", ["question_option_id", "answer_id"], name: "question_option_answer_index"
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -74,15 +71,15 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 40
+    t.string   "slug",           null: false
+    t.integer  "sluggable_id",   null: false
+    t.string   "sluggable_type"
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
@@ -103,8 +100,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   end
 
   create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",             limit: 255
+    t.string   "description",      limit: 255
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -162,8 +159,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
-  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "perms", ["name"], name: "index_perms_on_name"
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
 
   create_table "phases", force: :cascade do |t|
     t.string   "title"
@@ -238,8 +235,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.integer "theme_id",    null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index", using: :btree
-  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index", using: :btree
+  add_index "questions_themes", ["question_id", "theme_id"], name: "question_theme_index"
+  add_index "questions_themes", ["theme_id", "question_id"], name: "theme_question_index"
 
   create_table "regions", force: :cascade do |t|
     t.string  "abbreviation"
@@ -278,7 +275,7 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination"
@@ -365,12 +362,13 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "language_id"
+    t.string   "recovery_email"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"

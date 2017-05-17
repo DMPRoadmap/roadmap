@@ -1,36 +1,53 @@
-<%= form_for(resource, :as => "user", :url => user_session_path) do |f| %>
-<ul>
-	<li>
-		<%= devise_error_messages! %>
-	</li>
-	<li>
-		<%= f.email_field :email, placeholder: (_('Email address')  + ' *') , :as => :email%>
-	</li>
-	<li>
-		<%= f.password_field :password, placeholder: (_('Password') + ' *'), :as => :password %>
-	</li>
-	<li class="forgot_password_link">
-		<%= link_to _('Forgot your password?'), new_password_path('user'), :class => "a-orange" %>
-	</li>
-	<li class="remember_me_li">
-		<%= f.check_box :remember_me %><%= f.label :remember_me, :class => "remember_div" do %>
-			<%= _('Remember me') %>
-		<%end%>
-	</li>
-	<li>
-		<%= f.submit _('Sign in'), :class => "btn btn-primary" %>
-	</li>
-    <% if Rails.application.config.shibboleth_enabled %>
-        <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
-            <li>
-                <div class="institution_login_link">
-                    <%= link_to _('Or, sign in with your institutional credentials'), user_shibboleth_omniauth_authorize_path, :class => "a-orange" %>
-                    <%= _(' (UK users only)')%>
-                </div>
-            </li>
-        <%else%>
-            <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
-        <%end%> 
-    <% end %>
-</ul>
+<p class="centered primary-color"><%= _('Sign in with') %></p>
+
+<span class="omniauth-options centered">
+  <% if Rails.application.config.shibboleth_enabled %>
+    <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+      <button id="shibboleth-login" href="<%= user_shibboleth_omniauth_authorize_path %>" class="omniauth-login">
+        <%= _('Your Organization') %>
+      </button>
+    <%else%>
+      <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+    <%end%> 
+  <% end %>
+</span>
+
+<p class="centered"><strong>- <%= _('or') %> -</strong></p>
+  
+<%= form_for resource, as: 'user', url: user_session_path, html: {class: "roadmap-form"} do |f| %>
+  <%= devise_error_messages! %>
+  <fieldset id="sign-in-form" class="standard padded">
+    <div class="form-input">
+			<%= f.label :email, _('Email') %>
+	    <div id="user_email_tip" class="error-tooltip">
+	      <span class="error"><%= _('Invalid email address') %></span>
+	    </div>
+	    <%= f.email_field :email, as: :email, class: 'input-medium left-indent' %>
+		</div>
+
+		<div class="form-input">
+	    <%= f.label :password, _('Password') %>
+	    <div id="user_password_tip" class="error-tooltip">
+	      <span class="error"><%= _('Passwords must be at least 8 characters') %></span>
+	    </div>
+	    <%= f.password_field :password, as: :password, class: 'input-medium left-indent' %>
+    </div>
+   
+	  <br />
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me, _('Remember me'), class: "remember_div checkbox-label" %>
+    
+    <br />
+    <%= render partial: 'shared/accessible_submit_button',
+               locals: {id: 'sign-in-button', 
+                        val: 'Sign In', 
+                        disabled_initially: true,
+                        classes: 'small-input-button',
+                        tooltip: _('Enter your email and password.')} %>
+
+    <div id="forgot-password-link" class="left-indent inline">
+      <%= link_to _('Forgot password?'), new_password_path('user'), :class => "primary-color" %>
+    </div>
+  </fieldset>
+
 <% end %>

@@ -4,7 +4,10 @@ $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $header-font: "GillSansLight";
 
 $white: #FFF;
+$error-color: #CC0000;
+$error-background: #FFE6E6;
 $dark-grey: #333;
+$light-grey: #CCC;
 
 $primary-color: #F49700;
 $primary-admin-color: #0057A7;
@@ -16,6 +19,25 @@ $reverse-text: #FFF;
 @mixin icon($icon) {
   @extend .fa;
   @extend .fa-#{$icon}:before;
+}
+
+/* ========================================================= */
+/* NULL OUT OLD BOOTSTRAP_AND_OVERRIDES STYLING */
+/* ========================================================= */
+#new_user input {
+  width: 350px;
+}
+#new_user input[type="checkbox"]{
+  width: auto;
+}
+#new_user input[type="submit"] {
+  width: 150px;
+  margin-left: 15px;
+}
+/* ========================================================= */
+
+.primary-color {
+  color: $primary-color;
 }
 
 .arrow-left {
@@ -31,16 +53,105 @@ $reverse-text: #FFF;
   margin-bottom: 20px;
 }
 
-.content-box {
+.content-two-column {
+  width: 98%;
   
+  .column-left {
+    display: inline-block;
+    width: 55%;
+  }
+  .column-right {
+    display: inline-block;
+    width: 40%;
+    margin-left: 35px;
+    vertical-align: top;
+  }
 }
+
+.inline {
+  display: inline-block;
+}
+.centered {
+  text-align: center;
+}
+
+/* Roadmap Tab Styling */
+/* ------------------------------------------------ */
+.tabs {
+  list-style: none;
+  margin: 0;
+
+  li {
+    display: inline;
+    
+    a {
+      position: relative;
+      float: left;
+      display: block;
+      padding: 10px 35px;
+      margin-left: -1px;
+      left: 1px; 
+      color: $white;
+      background-color: $primary-color;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+  li a:hover,
+  li.active a,
+  li.active a:hover {
+    color: $primary-color;
+    background-color: $white;
+  }
+}
+.tabs:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: "";
+  clear: both;
+  height: 0;
+}
+.tab-panels {
+  position: relative;
+  min-height: 250px;
+}
+.tabbed-area div.tab-panel {
+  background: white;
+  padding: 20px;
+  min-height: 250px;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+}
+.tab-panel div.active {
+  z-index: 1;
+}
+
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
 form.roadmap-form {
+  text-align: left;
 
   fieldset.padded {
     padding: 10px 10px 25px 10px;
+  }
+
+  .red-border {
+    border: 1px solid $error-color;
+  }
+  span[class*='error'] {
+    float: right;
+    background-color: $error-background;
+    color: $error-color;
+    padding: 5px;
+    margin-bottom: 5px;
+    
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
   }
 
   /* Fieldset with labels over inputs */
@@ -151,9 +262,10 @@ form.roadmap-form {
   input.form-submit {
     background-color: $primary-color;
     color: $reverse-text;
-    font-size: 14px;
     padding: 4px 12px;
-
+    font-size: 14px;
+    margin-top: 15px;
+  
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -171,8 +283,8 @@ form.roadmap-form {
   button.form-cancel {
     background-color: $cancel-button-color;
     color: $reverse-text;
-    font-size: 14px;
     padding: 4px 12px;
+    font-size: 14px;
     
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -196,6 +308,24 @@ form.roadmap-form {
       border-radius: 5px;
     }
   }
+  input.small-input-button {
+    width: 250px;
+  }
+	
+	div.form-input {
+		position: relative;
+	}
+	.error-tooltip {
+		display: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 1;
+	}
+	.error-tooltip[role='tooltip'] {
+		display: inline-block;
+	}
+
 }
 
 /* Accessible JQuery combobox */
@@ -257,3 +387,54 @@ form.roadmap-form {
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
+
+
+
+/* ------------------------------------------------ */
+/* ------------------------------------------------ */
+/* Page specific styling */
+/* ------------------------------------------------ */
+/* ------------------------------------------------ */
+
+/* Login form */
+/* ------------------------------------------------ */
+.omniauth-options {
+  display: block;
+  width: 100%;
+
+  .omniauth-login {
+    width: 410px;
+    padding: 4px 12px;
+    background-color: $primary-color;
+    color: $white;
+    margin: 0 auto 10px auto;
+  
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+}
+#new_user fieldset {
+  input[type="password"],
+  input[type="email"] {
+    width: 392px;
+  }
+}
+#new_user.user-registration {
+  #user_firstname,
+  #user_surname {
+    width: 150px;
+  }
+  input[type="password"],
+  input[type="email"] {
+    width: 332px;
+  }
+}
+div#forgot-password-link {
+  vertical-align: bottom;
+  margin-bottom: 5px;
+  
+  a:hover {
+    color: $primary-color !important;  /* Remove the important once the bootstrap_and_overrides css is gone */
+  }
+}
