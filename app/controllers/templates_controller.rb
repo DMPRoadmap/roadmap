@@ -10,30 +10,30 @@ class TemplatesController < ApplicationController
   # -----------------------------------------------------
   def admin_index
     authorize Template
-    
+
     funder_templates, org_templates, customizations = [], [], []
-    
+
     # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
     funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
     org_ids = current_user.org.templates.collect{|t| t.dmptemplate_id }.flatten.uniq
-    
+
     org_ids.each do |id|
       current = Template.current(id)
       live = Template.live(id)
-      
+
       # If this isn't a customization of a funder template
       if current.customization_of.nil?
         org_templates << {current: current, live: live}
-        
+
       # This is a customization of a funder template
       else
         funder_live = Template.live(current.customization_of)
         customizations << current.customization_of
         # Mark the customization as stale if the funder has a newer version
-        funder_templates << {current: current, live: live, stale: funder_live.updated_at > current.created_at} 
+        funder_templates << {current: current, live: live, stale: funder_live.updated_at > current.created_at}
       end
     end
-    
+
     # Get the funder templates
     funder_ids.each do |id|
       # If the org has a customization we don't want to load the funder version
@@ -41,11 +41,11 @@ class TemplatesController < ApplicationController
         funder_templates << {current: Template.current(id), live: Template.live(id)}
       end
     end
-    
-    @funder_templates = funder_templates.sort{|x,y| 
+
+    @funder_templates = funder_templates.sort{|x,y|
       x[:current].title <=> y[:current].title
     }
-    @org_templates = org_templates.sort{|x,y| 
+    @org_templates = org_templates.sort{|x,y|
       x[:current].title <=> y[:current].title
     }
   end
@@ -55,7 +55,7 @@ class TemplatesController < ApplicationController
   def admin_customize
     @template = Template.find(params[:id])
     authorize @template
-    
+
     customisation = Template.deep_copy(@template)
     customisation.org = current_user.org
     customisation.version = 0
@@ -65,7 +65,7 @@ class TemplatesController < ApplicationController
       break random unless Template.exists?(dmptemplate_id: random)
     end
     customisation.save
-    
+
     customisation.phases.includes(:sections, :questions).each do |phase|
       phase.modifiable = false
       phase.save!
@@ -78,10 +78,10 @@ class TemplatesController < ApplicationController
         end
       end
     end
-    
+
     redirect_to admin_template_template_path(customisation)
   end
-  
+
   # PUT /org/admin/templates/:id/admin_publish
   # -----------------------------------------------------
   def admin_publish
@@ -89,7 +89,7 @@ class TemplatesController < ApplicationController
     authorize @template
 
     current = Template.current(@template.dmptemplate_id)
-    
+
     # Only allow the current version to be updated
     if current != @template
       redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
@@ -128,23 +128,32 @@ class TemplatesController < ApplicationController
       @template.save
       flash[:notice] = _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it')
     end
-    
+
     redirect_to admin_index_template_path(current_user.org)
   end
 
   # GET /org/admin/templates/:id/admin_template
   # -----------------------------------------------------
   def admin_template
-    @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format,
-          :suggested_answers]]]).find(params[:id])
+    @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format, :annotations]]]).find(params[:id])
     authorize @template
-    
+
     @current = Template.current(@template.dmptemplate_id)
-    
+
     unless @template == @current
       flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
     end
-    
+
+    # If the template is published
+    if @template.published?
+      # We need to create a new, editable version
+      new_version = Template.deep_copy(@template)
+      new_version.version = (@template.version + 1)
+      new_version.published = false
+      new_version.save
+      @template = new_version
+    end
+
     # once the correct template has been generated, we convert it to hash
     @hash = @template.to_hash
   end
@@ -155,40 +164,30 @@ class TemplatesController < ApplicationController
   def admin_update
     @template = Template.find(params[:id])
     authorize @template
-    
+
     current = Template.current(@template.dmptemplate_id)
-    
+
     # Only allow the current version to be updated
     if current != @template
       redirect_to admin_template_template_path(@template), notice: _('You can not edit a historical version of this template.')
 
     else
-      # If the template is published so we need to create a new version
-      if @template.published?
-        # Create a new version 
-        new_version = Template.deep_copy(@template)
-        new_version.version = (@template.version + 1)
-        new_version.published = false
-        new_version.save
-        @template = new_version
-      end
-      
       if @template.description != params["template-desc"] ||
               @template.title != params[:template][:title]
         @template.dirty = true
       end
-      
+
       @template.description = params["template-desc"]
       if @template.update_attributes(params[:template])
         flash[:notice] = _('Information was successfully updated.')
-        
+
       else
         flash[:notice] = failed_update_error(@template, _('template'))
       end
-      
+
       @hash = @template.to_hash
       render 'admin_template'
-    end      
+    end
   end
 
 
@@ -223,9 +222,9 @@ class TemplatesController < ApplicationController
   def admin_destroy
     @template = Template.find(params[:id])
     authorize @template
-    
+
     current = Template.current(@template.dmptemplate_id)
-    
+
     # Only allow the current version to be destroyed
     if current == @template
       if @template.destroy

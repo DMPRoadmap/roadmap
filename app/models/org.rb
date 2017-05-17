@@ -10,7 +10,7 @@ class Org < ActiveRecord::Base
   has_many :guidance_groups
   has_many :templates
   has_many :users
-  has_many :suggested_answers
+  has_many :annotations
   
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 

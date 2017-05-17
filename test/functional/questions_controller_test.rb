@@ -38,7 +38,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/templates/questions/:id/admin_create (admin_create_question_path)
   # ----------------------------------------------------------
   test "create a new question" do
-    params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id}
+    params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id, annotations_attributes: {0 => {text: "some text", org_id: Org.first.id}}}
     
     @section.phase.template.dirty = false
     @section.phase.template.save!
@@ -48,7 +48,11 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
-    
+    @new_question = Question.new
+    @new_question.number = @section.questions.count + 1
+    example_answer = @new_question.annotations.build
+    example_answer.type = :example_answer
+    example_answer.save
     post admin_create_question_path(@section), {question: params}
     assert_response :redirect
     assert assigns(:question)
