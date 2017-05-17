@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
-  
+
   ##
   # Associations
 	belongs_to :question
@@ -13,27 +13,40 @@ class Answer < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :text, :plan_id, :lock_version, :question_id, :user_id, :question_option_ids, 
+  attr_accessible :text, :plan_id, :lock_version, :question_id, :user_id, :question_option_ids,
                   :question, :user, :plan, :question_options, :notes, :note_ids, :id,
                   :as => [:default, :admin]
 
   ##
   # Validations
 #  validates :user, :plan, :question, presence: true
-#  
+#
 #  # Make sure there is only one answer per question!
-#  validates :question, uniqueness: {scope: [:plan], 
+#  validates :question, uniqueness: {scope: [:plan],
 #                                    message: I18n.t('helpers.answer.only_one_per_question')}
-#                                    
+#
 #  # The answer MUST have a text value if the question is NOT option based or a question_option if
-#  # it is option based. 
-#  validates :text, presence: true, if: Proc.new{|a| 
+#  # it is option based.
+#  validates :text, presence: true, if: Proc.new{|a|
 #    (a.question.nil? ? false : !a.question.question_format.option_based?)
 #  }
-#  validates :question_options, presence: true, if: Proc.new{|a| 
+#  validates :question_options, presence: true, if: Proc.new{|a|
 #    (a.question.nil? ? false : a.question.question_format.option_based?)
 #  }
-#  
+#
 #  # Make sure the plan and question are associated with the same template!
 #  validates :plan, :question, answer_for_correct_template: true
+
+
+
+  ##
+  # deep copy the given answer
+  #
+  # @params [Answer] question_option to be deep copied
+  # @return [Answer] the saved, copied answer
+  def self.deep_copy(answer)
+    answer_copy = answer.dup
+    answer_copy.save!
+    return answer_copy
+  end
 end

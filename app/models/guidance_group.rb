@@ -7,7 +7,7 @@ class GuidanceGroup < ActiveRecord::Base
   has_and_belongs_to_many :plans, join_table: :plans_guidance_groups
   # depricated but needed for migration "single_group_for_guidance"
   # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
-  
+
 
   ##
   # Possibly needed for active_admin
@@ -25,7 +25,7 @@ class GuidanceGroup < ActiveRecord::Base
 
 
 
-  
+
 
   ##
   # Converts the current guidance group to a string containing the display name.
@@ -49,7 +49,7 @@ class GuidanceGroup < ActiveRecord::Base
   # @return [Array<GuidanceGroup>] a list of guidance groups
   def self.guidance_groups_excluding(excluded_orgs)
     excluded_org_ids = Array.new
-    
+
     if excluded_orgs.is_a?(Array)
       excluded_orgs.each do |org|
         excluded_org_ids << org.id
@@ -57,7 +57,7 @@ class GuidanceGroup < ActiveRecord::Base
     else
       excluded_org_ids << excluded_orgs
     end
-    
+
     return_orgs =  GuidanceGroup.where("org_id NOT IN (?)", excluded_org_ids)
     return return_orgs
   end
