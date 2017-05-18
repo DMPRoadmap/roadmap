@@ -4,7 +4,7 @@
   <%= _('Phase details')%>
 
   <!-- edit phase details button -->
-  <% if @phase.modifiable %>
+  <% if @phase.modifiable && @edit %>
     <div class="move_2_right">
       <%= link_to _('Edit phase details'), '#', class: "btn btn-primary", id: "edit_phase_button"%>
     </div>

@@ -17,13 +17,11 @@
       <% if template == current && phase.modifiable %>
           <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
           confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
-      <% end %>
-      <% if !phase.modifiable %>
-          <% b_label = _('View phase')%>
-      <% else %>
           <% b_label = _('Edit phase')%>
+      <% else %>
+          <% b_label = _('View phase')%>
       <% end %>
-      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('org_admin.templates.edit_phase_label'))), class: "btn btn-primary" %>
+      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('Edit phase'))), class: "btn btn-primary" %>
 
   </div>
   <% if phase_hash[:sections].present? %>

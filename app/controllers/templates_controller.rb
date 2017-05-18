@@ -140,7 +140,18 @@ class TemplatesController < ApplicationController
 
     @current = Template.current(@template.dmptemplate_id)
 
-    unless @template == @current
+    if @template == @current
+      # If the template is published
+      if @template.published?
+        # We need to create a new, editable version
+        new_version = Template.deep_copy(@template)
+        new_version.version = (@template.version + 1)
+        new_version.published = false
+        new_version.save
+        @template = new_version
+#        @current = Template.current(@template.dmptemplate_id)
+       end
+    else
       flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
     end
 
