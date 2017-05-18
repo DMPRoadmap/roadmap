@@ -25,12 +25,6 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
     put admin_publish_template_path(@template)
     @template = Template.current(@dmptemplate_id)
 
-    assert_equal (@initial_version + 1), @template.version, "expected the version to have incremented"
-    assert_not_equal @initial_id, @template.id, "expected the id to have changed"
-    assert_equal @dmptemplate_id, @template.dmptemplate_id, "expected the dmptemplate_id to match"
-    assert_equal false, @template.published?, "expected the new version to be unpublished"
-    assert_equal @initial_title, @template.title, "expected the title to have been updated"
-    
     # Change the title after its been published
     put admin_update_template_path(@template), {template: {title: "Blah blah blah"}}
     @template = Template.current(@dmptemplate_id)

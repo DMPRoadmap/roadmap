@@ -89,6 +89,7 @@ class ActiveSupport::TestCase
   # ----------------------------------------------------------------------
   def version_the_template
     put admin_publish_template_path(@template)
+    put admin_update_template_path(@template), {template: {title: "#{@template.title} - VERSIONED"}}
   end
   
   # Scaffold a new Plan based on the scaffolded Template 

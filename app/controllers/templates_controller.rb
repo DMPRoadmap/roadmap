@@ -1,5 +1,5 @@
 # [+Project:+] DMPRoadmap
-# [+Description:+] This controller is responsible for all the actions in the admin interface under templates (e.g. phases, versions, sections, questions, annotations) (index; show; create; edit; delete)
+# [+Description:+] This controller is responsible for all the actions in the admin interface under templates (e.g. phases, versions, sections, questions, suggested answer) (index; show; create; edit; delete)
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class TemplatesController < ApplicationController
@@ -106,12 +106,6 @@ class TemplatesController < ApplicationController
       @template.published = true
       @template.save
 
-      # Create a new version
-      new_version = Template.deep_copy(@template)
-      new_version.version = (@template.version + 1)
-      new_version.published = false
-      new_version.save
-
       flash[:notice] = _('Your template has been published and is now available to users.')
 
       redirect_to admin_index_template_path(current_user.org)
@@ -148,6 +142,16 @@ class TemplatesController < ApplicationController
 
     unless @template == @current
       flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+    end
+
+    # If the template is published
+    if @template.published?
+      # We need to create a new, editable version
+      new_version = Template.deep_copy(@template)
+      new_version.version = (@template.version + 1)
+      new_version.published = false
+      new_version.save
+      @template = new_version
     end
 
     # once the correct template has been generated, we convert it to hash
