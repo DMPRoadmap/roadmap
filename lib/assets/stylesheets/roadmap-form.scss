@@ -1,133 +1,10 @@
-@import "font-awesome";
+@import "roadmap";
 
-$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-$header-font: "GillSansLight";
-
-$white: #FFF;
-$error-color: #CC0000;
-$error-background: #FFE6E6;
-$dark-grey: #333;
-$light-grey: #CCC;
-
-$primary-color: #F49700;
-$primary-admin-color: #0057A7;
-$disabled-button-color: #CCC;
-$cancel-button-color: #827D7E;
-$reverse-text: #FFF;
-
-/* See `.combobox-clear-button` for an example of this mixin in use */
-@mixin icon($icon) {
-  @extend .fa;
-  @extend .fa-#{$icon}:before;
-}
-
-/* ========================================================= */
-/* NULL OUT OLD BOOTSTRAP_AND_OVERRIDES STYLING */
-/* ========================================================= */
-#new_user input {
-  width: 350px;
-}
-#new_user input[type="checkbox"]{
-  width: auto;
-}
-#new_user input[type="submit"] {
-  width: 150px;
-  margin-left: 15px;
-}
-/* ========================================================= */
-
-.primary-color {
-  color: $primary-color;
-}
-
-.arrow-left {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-right: 12px solid $dark-grey;
-}
-
-.main_header {
-  margin-bottom: 20px;
-}
-
-.content-two-column {
-  width: 98%;
-  
-  .column-left {
-    display: inline-block;
-    width: 55%;
-  }
-  .column-right {
-    display: inline-block;
-    width: 40%;
-    margin-left: 35px;
-    vertical-align: top;
-  }
-}
-
-.inline {
-  display: inline-block;
-}
-.centered {
-  text-align: center;
-}
-
-/* Roadmap Tab Styling */
-/* ------------------------------------------------ */
-.tabs {
-  list-style: none;
-  margin: 0;
-
-  li {
-    display: inline;
-    
-    a {
-      position: relative;
-      float: left;
-      display: block;
-      padding: 10px 35px;
-      margin-left: -1px;
-      left: 1px; 
-      color: $white;
-      background-color: $primary-color;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  }
-  li a:hover,
-  li.active a,
-  li.active a:hover {
-    color: $primary-color;
-    background-color: $white;
-  }
-}
-.tabs:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: "";
-  clear: both;
-  height: 0;
-}
-.tab-panels {
-  position: relative;
-  min-height: 250px;
-}
-.tabbed-area div.tab-panel {
-  background: white;
-  padding: 20px;
-  min-height: 250px;
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-}
-.tab-panel div.active {
-  z-index: 1;
-}
+/* ================================================ */
+/* FORM Styling                                     */
+/* The top of this file is generic form styles and  */
+/* the bottom contains page specific changes to the generic */
+/* ================================================ */
 
 
 /* Roadmap Form Styling */
@@ -139,22 +16,8 @@ form.roadmap-form {
     padding: 10px 10px 25px 10px;
   }
 
-  .red-border {
-    border: 1px solid $error-color;
-  }
-  span[class*='error'] {
-    float: right;
-    background-color: $error-background;
-    color: $error-color;
-    padding: 5px;
-    margin-bottom: 5px;
-    
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-  }
-
   /* Fieldset with labels over inputs */
+  /* -------------------------------- */
   fieldset.standard {
     padding: 5px;
     background-color: $white;
@@ -164,34 +27,35 @@ form.roadmap-form {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    
+   
     label, 
     input[type="checkbox"], 
     .combobox-container, 
     .left-indent {
       margin-left: 15px;
     }
-    
+   
     input[type="text"], select {
       margin-bottom: 15px;
     }
-    
+   
     input[type="checkbox"] {
       vertical-align: top;
     }
-    
+   
     .checkbox-label {
       display: inline-block;
       margin-left: 5px;
     }
   }
-  
+ 
   /* Fieldset with labels to the left of inputs */
+  /* ------------------------------------------ */
   fieldset.side-by-side {
     .mce-tinymce {
       display: inline-block;
     }
-    
+   
     div {
       label,
       input[type="checkbox"], 
@@ -203,7 +67,7 @@ form.roadmap-form {
       .identifier-scheme-indent {
         margin-left: -5px;
       }
-      
+     
       label {
         width: 25%;
         text-align: right;
@@ -216,13 +80,13 @@ form.roadmap-form {
         font-size: 10pt;
       }
     }
-    
+   
     .button-spacer {
       display: inline-block;
       width: 21%;
     }
   }
-  
+ 
   /* Generic Fieldset Settings */
   fieldset legend {
     font-family: $header-font;
@@ -230,11 +94,15 @@ form.roadmap-form {
     font-size: 26px;
     font-weight: normal;
     text-decoration: none;
-  
+ 
     float: left; /* positions the legend within the fieldset box */
     border-bottom: none;
   }
-  
+ 
+  .form-input {
+    clear: both;
+  }
+ 
   div.inline {
     display: inline-block;
   }
@@ -257,15 +125,16 @@ form.roadmap-form {
   .fixed-width-large {
     width: 550px;
   }
-  
+   
   /* Accessible Form Buttons */
   input.form-submit {
+    clear: both;
     background-color: $primary-color;
     color: $reverse-text;
     padding: 4px 12px;
     font-size: 14px;
     margin-top: 15px;
-  
+ 
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -285,10 +154,20 @@ form.roadmap-form {
     color: $reverse-text;
     padding: 4px 12px;
     font-size: 14px;
-    
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+   
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+  }
+  
+  /* Tooltip */
+  .arrow-left {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 12px solid $dark-grey;
   }
   .submit-tooltip {
     display: none;
@@ -302,29 +181,48 @@ form.roadmap-form {
       color: $white;
       background-color: $dark-grey;
       padding: 5px 5px 8px 5px;
-  
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
     }
   }
   input.small-input-button {
     width: 250px;
   }
-	
-	div.form-input {
-		position: relative;
-	}
-	.error-tooltip {
-		display: none;
-		position: absolute;
-		top: 0;
-		right: 0;
-		z-index: 1;
-	}
-	.error-tooltip[role='tooltip'] {
-		display: inline-block;
-	}
+
+  div.form-input {
+    position: relative;
+  }
+
+  /* Input validation errors */
+  .red-border {
+    border: 1px solid $error-color;
+  }
+  .error-tooltip {
+    display: none;
+    position: absolute;
+    vertical-align: middle;
+    right: 0;
+    z-index: 1;
+    
+    .arrow-left {
+      height: auto;
+      border-right: 12px solid $error-background;
+    }
+    .error-msg {
+      float: right;
+      background-color: $error-background;
+      color: $error-color;
+      padding: 5px;
+      width: 100px;
+      text-align: right;
+      
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
+    }
+    
+  }
+  .error-tooltip[role='tooltip'] {
+    display: inline-block;
+  }
 
 }
 
@@ -344,7 +242,7 @@ form.roadmap-form {
 .combobox-container {
   position: relative;
   max-width: 585px;
-  
+ 
   font-family: $font-family;
 }
 
@@ -392,7 +290,7 @@ form.roadmap-form {
 
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
-/* Page specific styling */
+/* Page specific form styling                       */
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
 
@@ -408,7 +306,7 @@ form.roadmap-form {
     background-color: $primary-color;
     color: $white;
     margin: 0 auto 10px auto;
-  
+ 
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -417,7 +315,16 @@ form.roadmap-form {
 #new_user fieldset {
   input[type="password"],
   input[type="email"] {
-    width: 392px;
+    width: 292px;
+  }
+  
+  .checkbox-right {
+    width: 320px;
+    position: relative;
+    
+    #user_remember_me, input[type='checkbox'], .checkbox-label {
+      float: right;
+    }
   }
 }
 #new_user.user-registration {
@@ -433,7 +340,7 @@ form.roadmap-form {
 div#forgot-password-link {
   vertical-align: bottom;
   margin-bottom: 5px;
-  
+ 
   a:hover {
     color: $primary-color !important;  /* Remove the important once the bootstrap_and_overrides css is gone */
   }

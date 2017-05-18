@@ -17,25 +17,18 @@
 <%= form_for resource, as: 'user', url: user_session_path, html: {class: "roadmap-form"} do |f| %>
   <%= devise_error_messages! %>
   <fieldset id="sign-in-form" class="standard padded">
-    <div class="form-input">
-			<%= f.label :email, _('Email') %>
-	    <div id="user_email_tip" class="error-tooltip">
-	      <span class="error"><%= _('Invalid email address') %></span>
-	    </div>
-	    <%= f.email_field :email, as: :email, class: 'input-medium left-indent' %>
-		</div>
-
-		<div class="form-input">
-	    <%= f.label :password, _('Password') %>
-	    <div id="user_password_tip" class="error-tooltip">
-	      <span class="error"><%= _('Passwords must be at least 8 characters') %></span>
-	    </div>
-	    <%= f.password_field :password, as: :password, class: 'input-medium left-indent' %>
+    <%= render partial: 'shared/accessible_input',
+                locals: {type: 'email', id: 'user_email', name: 'user[email]', label: _("Email"),
+                         classes: 'required'} %>
+    
+    <div class="form-input checkbox-right">
+      <%= f.label :remember_me, _('Remember email'), class: "remember_div checkbox-label" %>
+      <%= f.check_box :remember_me %>
     </div>
-   
-	  <br />
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me, _('Remember me'), class: "remember_div checkbox-label" %>
+    
+    <%= render partial: 'shared/accessible_input',
+                locals: {type: 'password', id: 'user_password', name: 'user[password]', label: _("Password"),
+                         classes: 'required'} %>
     
     <br />
     <%= render partial: 'shared/accessible_submit_button',

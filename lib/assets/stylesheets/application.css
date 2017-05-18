@@ -14,5 +14,8 @@
  *= require bootstrap.css
  *= require select2.css
  *= require bootstrap_and_overrides.css.less
+ *= require roadmap-hacks.scss
+ *= require roadmap.scss
+ *= require roadmap-tabs.scss
  *= require roadmap-form.scss
  */

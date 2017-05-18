@@ -1,0 +1,79 @@
+<% tip = "#{id}_tip" %>
+<% error = "#{id}_error" %>
+
+<% tooltip = tooltip ||= '' %>
+<% error_handler = error_handler ||= '' %>
+
+<div class="form-input">
+  <label for="<%= id %>"><%= label ||= '' %></label>
+  <input type="<%= type %>" 
+         id="<%= id %>" 
+         name="<%= name %>" 
+         class="left-indent <%= classes ||= '' %>"
+         value="<%= val ||= '' %>" 
+         aria-describedby="<%= tooltip ||= '' %>" />
+
+  <% if type == 'password' %>
+    <div class="form-input checkbox-right">
+      <label for="<%= id %>_show" class="checkbox-label"><%= _('Show password') %></label>
+      <input type="checkbox" id="<%= id %>_show" />
+    </div>
+    <script type="text/javascript">
+      $("#<%= id %>_show").click(function(){
+console.log($(this).attr('id') + ': ' + $(this).parent('form-input').siblings("#<%= id %>").prop('type'));
+        $("#<%= id %>").prop('type', ($("#<%= id %>").prop('type') === 'password' ? 'text' : 'password'));
+      });
+    </script>
+  <% end %>
+
+  <% if !tooltip.blank? %>
+    <div role="" id="<%= tip %>" class="submit-tooltip">
+      <div class="arrow-left"></div>
+      <span class="tooltip-msg"><%= tooltip %></span>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#<%= id %>").focus(function(){
+          $('#<%= tip %>').attr('role', 'tooltip');
+        }).blur(function(){
+          $('#<%= tip %>').attr('role', '');
+        });
+      });
+    </script>
+  <% end %>
+
+  <% # If an error handler was passed in or the input type has a generic handler %>
+  <% if !error_handler.blank? || ['email', 'password'].include?(type) %>
+    <div role="" id="<%= id %>_error" class="error-tooltip">
+      <div class="arrow-left"></div>
+      <span class="error-msg"></span>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        let input = $("#<%= id %>");
+        
+        let validation = function(val){
+          let msg = <%= error_handler.blank? ? "validate#{type.capitalize}(val)" : "#{error_handler}(val)" %>;
+          if(msg === '' || val.trim().length <= 0){
+            $("#<%= id %>_error .error-msg").html('');
+            $("#<%= id %>_error").attr('role', '');
+            $("#<%= id %>").removeClass('red-border');
+          }else{
+            $("#<%= id %>_error .error-msg").html(msg);
+            $("#<%= id %>_error").attr('role', 'tooltip');
+            $("#<%= id %>").addClass('red-border');
+          }
+        }
+        // Run the validation on load to display errors on refresh
+        validation($(input).val());
+  
+        // Run validation check on blur, hide error message on focus
+        $(input).on('blur', function(){
+          validation($(input).val());
+        }).focus(function(){
+          $("#<%= id %>_error").attr('role', '');
+        });
+      });
+    </script>
+  <% end %>
+</div>

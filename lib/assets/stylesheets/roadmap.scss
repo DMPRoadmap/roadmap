@@ -1,0 +1,52 @@
+@import "font-awesome";
+
+$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$header-font: "GillSansLight";
+
+$white: #FFF;
+$error-color: #CC0000;
+$error-background: #FFE6E6;
+$dark-grey: #333;
+$light-grey: #CCC;
+
+$primary-color: #F49700;
+$primary-admin-color: #0057A7;
+$disabled-button-color: #CCC;
+$cancel-button-color: #827D7E;
+$reverse-text: #FFF;
+
+/* See `.combobox-clear-button` for an example of this mixin in use */
+@mixin icon($icon) {
+  @extend .fa;
+  @extend .fa-#{$icon}:before;
+}
+
+.primary-color {
+  color: $primary-color;
+}
+
+.main_header {
+  margin-bottom: 20px;
+}
+
+.content-two-column {
+  width: 98%;
+  
+  .column-left {
+    display: inline-block;
+    width: 55%;
+  }
+  .column-right {
+    display: inline-block;
+    width: 40%;
+    margin-left: 35px;
+    vertical-align: top;
+  }
+}
+
+.inline {
+  display: inline-block;
+}
+.centered {
+  text-align: center;
+}

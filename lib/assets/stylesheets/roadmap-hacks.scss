@@ -1,0 +1,13 @@
+/* ============================================================================================ */
+/* HACKS TO NULL OUT OLD BOOTSTRAP, BOOTSTRAP_AND_OVERRIDES.CSS.LESS and ADMIN.CSS.LESS STYLING */
+/* ============================================================================================ */
+#new_user input {
+  width: 350px;
+}
+#new_user input[type="checkbox"]{
+  width: auto;
+}
+#new_user input[type="submit"] {
+  width: 150px;
+  margin-left: 15px;
+}
