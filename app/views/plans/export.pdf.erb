@@ -21,9 +21,10 @@
         <h1><%= @plan.title %></h1>
         <% @exported_plan.admin_details.each do |field|
              value = @exported_plan.send(field)
-             if value.present?
-        %>
-          <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= value -%></p>
+             if value.present? %>
+                <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= value -%></p>
+          <% else %>
+                <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= _('-') %></p>
           <% end %>
         <% end %>
 
