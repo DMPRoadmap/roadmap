@@ -12,7 +12,7 @@ class AnnotationDashboard < Administrate::BaseDashboard
     question: Field::BelongsTo,
     id: Field::Number,
     text: Field::Text,
-    type: Field::integer,
+    type: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -51,10 +51,10 @@ class AnnotationDashboard < Administrate::BaseDashboard
     :type,
   ].freeze
 
-  # Overwrite this method to customize how suggested answers are displayed
+  # Overwrite this method to customize how annotations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(suggested_answer)
-  #   "SuggestedAnswer ##{suggested_answer.id}"
+  # def display_resource(annotation)
+  #   "Annotation ##{annotation.id}"
   # end
 end
