@@ -128,6 +128,8 @@ class ExportedPlan < ActiveRecord::Base
         value = self.send(at)
         if value.present?
           output += admin_field_t(at.to_s) + ": " + value + "\n"
+        else
+          output += admin_field_t(at.to_s) + ": " + _('-') + "\n"
         end
     end
 
