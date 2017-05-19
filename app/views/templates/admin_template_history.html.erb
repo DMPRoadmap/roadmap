@@ -36,6 +36,9 @@
         <tr>
           <td class="dmp_td_medium">
             <%= org_template.title%>
+            <% if org_template == @current && !org_template.published%>
+              &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
+            <% end %>
           </td>
             <td class="dmp_td_small">
               <%= org_template.version %>

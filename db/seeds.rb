@@ -671,17 +671,17 @@ radio_button_question = Question.find_by(text: "Please select the appropriate fo
 
 # Create suggested answers for a few questions
 # ------------------------------------------------------- 
-suggested_answers = [
+annotations = [
   {text: "We will preserve it in Dryad or a similar data repository service.",
-   is_example: true,
+   type: Annotation.types[:example_answer],
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What is your policy for long term access to your dataset?")},
   {text: "We recommend that you identify the type(s) of content as well as the type of file(s) involved",
-   is_example: false,
+   type: Annotation.types[:example_answer],
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
-suggested_answers.map{ |s| SuggestedAnswer.create!(s) if SuggestedAnswer.find_by(text: s[:text]).nil? }
+annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
 
 # Create options for the dropdown, multi-select and radio buttons
 # ------------------------------------------------------- 

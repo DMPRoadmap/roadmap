@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :questions
     resources :question_formats
     resources :question_options
-    resources :suggested_answers
+    resources :annotations
     resources :answers
     resources :guidances
     resources :guidance_groups
@@ -161,7 +161,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :suggested_answers, path: 'org/admin/templates/suggested_answers', only: [] do
+    resources :annotations, path: 'org/admin/templates/annotations', only: [] do
       member do
         post 'admin_create'
         put 'admin_update'

@@ -140,7 +140,7 @@ class PlansController < ApplicationController
     authorize @plan
     # If there was no phase specified use the template's 1st phase
     @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-    @readonly = @plan.editable_by?(current_user.id)
+    @readonly = !@plan.editable_by?(current_user.id)
     respond_to :html
   end
 

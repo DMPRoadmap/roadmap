@@ -114,20 +114,20 @@ in the admin interface.
 
         <!-- Suggested answer or Example-->
       <tr>
-        <td class="first_template"><%= _('Suggested answer/ Example')%></td>
+        <td class="first_template"><%= _('Example Answer')%></td>
         <td>
           <div class="div_left_icon">
-            <% suggested_answer = @new_question.suggested_answers.build %>
-            <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
+            <% example_answer = @new_question.annotations.build %>
+            <% example_answer.type = :example_answer %>
+            <%= f.fields_for :annotations, example_answer do |s|%>
               <%= s.hidden_field :org_id, value: current_user.org_id %>
               <ul>
-                <li><%= s.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
                 <li><%= s.text_area :text, rows: 5 %></li>
               </ul>
             <% end %>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
+            <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>

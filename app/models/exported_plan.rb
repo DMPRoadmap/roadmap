@@ -86,7 +86,7 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def questions_for_section(section_id)
-    questions.where(section_id: section_id).sort_by(&:number)
+    Question.where(id: questions).where(section_id: section_id).order(:number)
   end
 
   def admin_details
@@ -128,6 +128,8 @@ class ExportedPlan < ActiveRecord::Base
         value = self.send(at)
         if value.present?
           output += admin_field_t(at.to_s) + ": " + value + "\n"
+        else
+          output += admin_field_t(at.to_s) + ": " + _('-') + "\n"
         end
     end
 
@@ -162,18 +164,17 @@ class ExportedPlan < ActiveRecord::Base
 private
 
   def questions
-    @questions ||= begin
-      question_settings = self.settings(:export).fields[:questions]
-
-      return [] if question_settings.is_a?(Array) && question_settings.empty?
-
-      questions = if question_settings.present? && question_settings != :all
-        Question.where(id: question_settings)
+    question_settings = self.settings(:export).fields[:questions]
+    @questions ||= if question_settings.present?
+      if question_settings == :all
+        Question.where(section_id: self.plan.sections.collect { |s| s.id }).pluck(:id)
+      elsif question_settings.is_a?(Array)
+        question_settings
       else
-        Question.where(section_id: self.plan.sections.collect {|s| s.id })
+        []
       end
-
-      questions.order(:number)
+    else
+      []
     end
   end
 

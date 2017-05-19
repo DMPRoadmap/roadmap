@@ -1,4 +1,4 @@
-<!-- 
+<!--
   **Project: DMPRoadmap
   **Description: This block sets up the type of question, its guidance.
   **Arguments transferred: an instance of "question"
@@ -10,9 +10,10 @@
   <!--question format-->
   <% q_format = question.question_format%>
 
+  <!-- always evaluates to true? readonly isnt even passed to here -->
   <% if readonly != "always" then %>
     <div id="question-form-<%= question.id %>" class="question-form" <%= if readonly == "conditional" then "style='display:none;'" end %>>
-        <%= semantic_form_for answer, :url => {:controller => :answers, :action => :create }, :html=>{:method=>:post}, :remote => true do |f| %>
+        <%= semantic_form_for answer, :url => {:controller => :answers, :action => :update }, :html=>{:method=>:post}, :remote => true do |f| %>
           <%= f.inputs do %>
             <%= f.input :plan_id, :as => :hidden %>
             <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
@@ -20,22 +21,18 @@
 
             <!-- Question text -->
             <!-- need 'raw' to stop formtastic f.*ing up the formatastic formatting -->
-            <%= raw question.text %>
+            <h4><%= raw question.text %> </h4>
 
             <!--Suggested answer area-->
-            <% suggested_answer = question.suggested_answers.where(org_id: @plan.template.org_id).first %>
-            <% if suggested_answer.present? %>
+            <% if question.annotations.where('type <> ?',Annotation.types[:example_answer]).any? %>
+              <% annotation = question.annotations.where('type <> ?',Annotation.types[:example_answer]).order(:created_at).first %>
               <div class="suggested-answer-div">
                 <span class="suggested-answer-intro">
-                  <% if suggested_answer.is_example? then %>
-                    <%= _('Example of answer')%>
-                  <%else%>
-                    <%= _('Suggested answer')%>
-                  <%end%>
+                  <%= _('Example of answer')%>
                 </span>
                 <div class="suggested-answer-border">
                   <p class="suggested-answer">
-                  <%= raw suggested_answer.text %>
+                  <%= raw annotation.text %>
                   </p>
                 </div>
               </div>
@@ -45,21 +42,21 @@
             <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('helpers.dropdown') then%>
               <% options = question.options.order("number") %>
               <!--checkbox display-->
-              <% if q_format.title == _('Check box') then %>
-                <% if readonly then %>
+              <% if q_format.title == _('Check box') %>
+                <% if readonly  %>
                   <%= f.input :options, :as => :check_boxes, :collection => options, :label => false, input_html => { :disabled => true, :id => "options-#{question.id}" } %>
                 <% else %>
                   <%= f.input :options, :as => :check_boxes, :collection => options, :label => false, :input_html => { :id => "options-#{question.id}" } %>
                 <% end %>
                 <!--multi select box display-->
-              <% elsif q_format.title == _('Multi select box') then %>
+              <% elsif q_format.title == _('Multi select box') %>
                 <% if readonly then %>
                   <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true, :disabled => true , :id => "options-#{question.id}" } %>
                 <% else %>
                   <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => true , :id => "options-#{question.id}" } %>
                 <% end %>
                 <!--Radio buttons display-->
-              <% elsif q_format.title == _('Radio buttons') then%>
+              <% elsif q_format.title == _('Radio buttons') %>
                 <ol class="choices-group">
                   <% options.each do |op| %>
                     <li class= "choices-group">
@@ -67,31 +64,25 @@
                         <% if readonly then %>
                           <%= f.radio_button :option_ids, op.id, :checked => true, disabled: true, id: "answer_option_ids_#{op.id}"%>
                         <% else %>
-                          <%= f.radio_button :option_ids, op.id, :checked => true, id: "answer_option_ids_#{op.id}"%> 
+                          <%= f.radio_button :option_ids, op.id, :checked => true, id: "answer_option_ids_#{op.id}"%>
                         <% end %>
                       <%else%>
                         <% if readonly then %>
-                          <%= f.radio_button :option_ids,  op.id, :checked => false, disabled: true, id: "answer_option_ids_#{op.id}"%> 
+                          <%= f.radio_button :option_ids,  op.id, :checked => false, disabled: true, id: "answer_option_ids_#{op.id}"%>
                         <% else %>
-                          <%= f.radio_button :option_ids, op.id, :checked => false, id: "answer_option_ids_#{op.id}"%> 
+                          <%= f.radio_button :option_ids, op.id, :checked => false, id: "answer_option_ids_#{op.id}"%>
                         <% end %>
                       <% end %>
                       <%= op.text %> </li>
                   <% end %>
                 </ol>
                 <!--dropdown display-->
-              <% elsif q_format.title == _('Dropdown') then%>
-                <% if readonly then %>
+              <% elsif q_format.title == _('Dropdown') %>
+                <% if readonly  %>
                   <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :disabled => true, :id => "options-#{question.id}" } %>
                 <% else %>
                   <%= f.input :options, :as => :select, :collection => options, :label => false, :input_html => { :multiple => false, :id => "options-#{question.id}" } %>
                 <% end %>
-              <% end %>
-              <!-- Comment text area for the multiple choice answers-->
-              <% if question.option_comment_display == true then%>
-                <%= label_tag("answer-text-#{question.id}".to_sym, _('Comment')) %>
-                <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
-              <%end%>
 
               <!--text field display-->
             <% elsif q_format.title == _('Text field') then %>
@@ -100,16 +91,17 @@
             <% elsif q_format.title == _('Text area') then%>
               <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
             <% end %>
+            <!-- Comment text area for the multiple choice answers-->
+              <% if question.option_comment_display == true then%>
+                <%= label_tag("answer-text-#{question.id}".to_sym, _('Comment')) %>
+                <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
+              <%end%>
 
           <% end %>
 
           <!--action buttons-->
           <%= f.actions do %>
-            <% if readonly then %>
-              <%= f.action :submit, :label => _('Save'), :button_html => { :class => "btn btn-primary"}, :input_html => { :disabled => true } %>
-            <% else %>
-              <%= f.action :submit, :label => _('Save'), :button_html => { :class => "btn btn-primary"} %>
-            <% end %>
+
             <li id="saving-<%= question.id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></li>
           <% end %>
         <% end %>
@@ -117,7 +109,6 @@
   <% end %>
 
   <div id="question-readonly-<%= question.id %>" class="question-readonly" <%= if readonly == nil then "style='display:none;'" end %>>
-      <h4><%= question.text %></h4>
       <div class="answer-readonly">
         <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
           <ul class="options">
@@ -138,7 +129,7 @@
   <% if answer.created_at.nil? then %>
     <span id="<%= question.id %>-status" class="label label-warning answer-status"><%= _('Not answered yet') %></span>
   <% else %>
-    <span id="<%= question.id %>-status" class="label label-info answer-status"><%= _('Answered')%><abbr class="timeago" data-time="<%= answer.created_at.iso8601 %>" title="<%= answer.created_at.iso8601 %>"><%= answer.created_at %></abbr><%= _(' by')%><%= answer.user.name %></span>
+    <span id="<%= question.id %>-status" class="label label-info answer-status"><%= _('Answered ')%><abbr class="timeago" data-time="<%= answer.created_at.iso8601 %>" title="<%= answer.created_at.iso8601 %>"><%= answer.created_at %></abbr><%= _(' by ')%><%= answer.user.name %></span>
   <% end %>
   <span id="<%= question.id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
 </div>
@@ -147,12 +138,13 @@
 <!-- Question right column -->
 <div class="question-area-right-column">
   <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
-    <% @comments = Notes.where("question_id = ? AND plan_id = ?", question.id, answer.plan_id ) %>
+    <% @comments = answer.notes.all %>
     <%= hidden_field_tag :question_id, question.id, :class => "question_id" %>
 
     <ul class="question_right_column_ul">
       <!-- if we have some guidance on the question or by theme -->
-      <% if (!question.guidance.nil? && question.guidance != "") || !question_guidances.empty?  then %>
+      <% q_guidance = question.get_guidance_annotation(current_user.org) %>
+      <% if (q_guidance.present? && q_guidance.text.present?) || !question_guidances.empty? %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
@@ -160,8 +152,8 @@
           <%= link_to _('Guidance'), "#", :class => "guidance_accordion_button" %>
         </li>
         <li class="comment_tab_class">
-          <% if @comments.count > 0 then%>
-            <% comments_label_with_count = "#{_('Notes')} (#{@comments.count})"%>
+          <% if @comments.length > 0 %>
+            <% comments_label_with_count = "#{_('Notes')} (#{@comments.length})"%>
             <%= link_to comments_label_with_count , "#", :class => "comments_accordion_button" %>
           <%else%>
             <%= link_to _('Share note'), "#", :class => "comments_accordion_button" %>
@@ -188,58 +180,55 @@
   <div class="question-guidance" id="guidance-question-area-<%= question.id %>" style="<%= css_style_guidance_div%>" >
     <div class="accordion" id="<%= question.id %>-guidance">
       <!--guidance save with the question-->
-      <% if !question.guidance.nil? && question.guidance != "" then %>
+      <% q_guidance = question.get_guidance_annotation(current_user.org) %>
+      <% if q_guidance.present? && q_guidance.text.present %>
         <div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
               <div class="accordion_heading_text">
-                <%= question.section.organisation.abbreviation %> 
-                <%if question.section.organisation.abbreviation == "EPSRC" then %>
-                  <%= _('Policy Expectations')%>
-                <%else%>
-                  <%= _('Guidance')%>
-                <%end%>
+                <%= q_guidance.org.abbreviation %>
+                  <%= _(' Guidance')%>
               </div>
               <span class="plus-laranja"> </span></a>
           </div>
           <div id="collapse-guidance-<%= question.id%>" class="guidance-accordion-body collapse">
-            <div class="accordion-inner"><%= raw question.guidance %></div>
+            <div class="accordion-inner"><%= raw q_guidance.text %></div>
           </div>
         </div>
       <% end %>
       <!--guidance from themes -->
-      <% guidance_accordion_id = 1 %>
-      <% question_guidances.each_pair do |theme, group| %>
-          <% group.each do |gobj| %>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance_accordion_id %>">
-                  <div class="accordion_heading_text">
-                      <%= gobj[:org] %> guidance on <%= theme %>
-                    <% end %>
-                  </div>
-                  <span class="plus-laranja"> </span></a>
-              </div>
-              <div id="collapse-guidance-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
-                <div class="accordion-inner"><%= raw gobj[:text] %></div>
-              </div>
-              <% guidance_accordion_id += 1 %>
-            </div>
-          <% end %>
+      <% guidance_accordion_id = 0 %>
+       <% question_guidances.each_pair do |theme, group| %>
+         <% group.each do |gobj| %>
+           <div class="accordion-group">
+             <div class="accordion-heading">
+               <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>">
+                 <div class="accordion_heading_text">
+                   <%= gobj[:org] %> guidance on <%= theme %>
+                 </div>
+                 <span class="plus-laranja"> </span></a>
+             </div>
+             <div id="collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
+               <div class="accordion-inner"><%= raw gobj[:text] %></div>
+             </div>
+             <% guidance_accordion_id += 1 %>
+           </div>
+         <% end %>   <!-- group.each -->
+       <% end %>   <!-- question_guidances.each_pair -->
       <% end %>
     </div>
   </div>
 
   <!--comment area -->
   <div class="comment-area" id="comment-question-area-<%= question.id %>"  style="<%= css_style_comment_div%>">
-    <%= render :partial => "comments", locals: {questionId: question.id, plan_id: answer.plan_id }%>
+    <%= render :partial => "note", locals: {question: question, plan: @plan, answer: answer }%>
   </div>
 
 
 
 </div>
 <!--display or not the break line between questions-->
-<% if last_question_id == question.id then %>
+<% if last_question_id == question.id %>
   <div class="two-column-clear"></div>
 <% else %>
   <div class="two-column-clear question-divider"></div>
