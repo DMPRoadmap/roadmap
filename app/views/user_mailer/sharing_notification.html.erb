@@ -13,7 +13,7 @@
 %>
 <p><%= _('Hello ') %><%= @role.user.name %>,</p>
 <p><%= _('A colleague has invited you to contribute to their Data Management Plan at ') %><%= link_to Rails.configuration.branding[:application][:name], root_url %>.</p>
-<p><%= _('You have been given ') %><%= access_level %><%= _(' access to') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%=_(' by ')%><%= "#{@user.firstname} #{@user.surname}"%>.</p>
+<p><%= _('You have been given ') %><%= access_level %><%= _(' access to') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%=_('by ')%><%= "#{@user.name(false)}" %>.</p>
 <p><%= link_to _('Click here'), url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %><%= _(' to accept the invitation, (or copy ') %><%= url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %><%= _(' into your browser)')%></p>
 <p><%= _('If you don\'t want to accept the invitation, please ignore this email.') %></p>
 <p><%=_('All the best,')%><br /><%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.</p>

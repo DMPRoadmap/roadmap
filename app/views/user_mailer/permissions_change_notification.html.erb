@@ -12,7 +12,7 @@
   end
 %>
 <p><%= _('Hello ') %><%= @role.user.name %>,</p>
-<p><%= _('Your permissions relating to ') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%= _(' have been changed by') %><%=" #{@current_user.firstname} #{@current_user.surname}. " %><%= _('You now have ') %><%= access_level %><%= _(' access. ') %><%= permissions %></p>
+<p><%= _('Your permissions relating to ') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%= _(' have been changed by') %><%="#{@current_user.name(false)}. " %><%= _('You now have ') %><%= access_level %><%= _(' access. ') %><%= permissions %></p>
 <p><%=_('All the best,')%><br /><%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.</p>
 
 <% end %>

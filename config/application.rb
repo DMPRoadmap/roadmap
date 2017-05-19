@@ -81,6 +81,7 @@ module DMPRoadmap
     config.assets.precompile += %w(roadmap-form.scss)
     config.assets.precompile += %w(plans/new_plan.js)
     config.assets.precompile += %w(contacts/new_contact.js)
+    config.assets.precompile += %w(shared/register_form.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true

@@ -1,0 +1,15 @@
+<!--show annotations. annotation is passed as an argument-->
+<table class="dmp_details_table phase">
+	<tr>
+		<td class="first_template">
+				<%= _('Example of answer')%>
+		</td>
+		<td><%= raw annotation.text %></td>
+	</tr>
+</table>
+<br/>
+
+<div class="move_2_right">
+	<%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+	<%= link_to _('Edit Example of Answer'), '# ', class: "btn btn-primary edit_form_for_suggested_answer"%>
+</div>

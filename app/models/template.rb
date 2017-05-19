@@ -67,11 +67,11 @@ class Template < ActiveRecord::Base
 
   ##
   # convert the given template to a hash and return with all it's associations
-  # to use, please pre-fetch org, phases, section, questions, suggested_answers, 
+  # to use, please pre-fetch org, phases, section, questions, annotations, 
   #   question_options, question_formats, 
   # TODO: Themes & guidance?
   #
-  # @return [hash] hash of template, phases, sections, questions, question_options, suggested_answers
+  # @return [hash] hash of template, phases, sections, questions, question_options, annotations
   def to_hash
     hash = {}
     hash[:template] = {}
@@ -90,10 +90,10 @@ class Template < ActiveRecord::Base
         section.questions.each do |question|
           phases[phase.number][:sections][section.number][:questions][question.number] = {}
           phases[phase.number][:sections][section.number][:questions][question.number][:data] = question
-          phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers] = {}
-          question.suggested_answers.each do |suggested_answer|
-            phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers][suggested_answer.id] = {}
-            phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers][suggested_answer.id][:data] = suggested_answer
+          phases[phase.number][:sections][section.number][:questions][question.number][:annotations] = {}
+          question.annotations.each do |annotation|
+            phases[phase.number][:sections][section.number][:questions][question.number][:annotations][annotation.id] = {}
+            phases[phase.number][:sections][section.number][:questions][question.number][:annotations][annotation.id][:data] = annotation
           end
           phases[phase.number][:sections][section.number][:questions][question.number][:question_options] = {}
           question.question_options.each do |question_option|
