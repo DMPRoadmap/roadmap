@@ -8,10 +8,12 @@ class PhasesController < ApplicationController
     def edit
 
     @plan = Plan.eager_load2(params[:plan_id])
+    # authorization done on plan so found in plan_policy
     authorize @plan
 
     phase_id = params[:id].to_i
     @phase = @plan.template.phases.select {|p| p.id == phase_id}.first
+    @readonly = !@plan.editable_by?(current_user.id)
 
     # the eager_load pulls in ALL answers
     # need to restrict to just ones for this plan
