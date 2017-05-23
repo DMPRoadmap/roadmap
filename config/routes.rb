@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   
   # fix for activeadmin signout bug
   devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
+    delete '/users/sign_out' => 'devise/sessions#destroy'
   end
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
