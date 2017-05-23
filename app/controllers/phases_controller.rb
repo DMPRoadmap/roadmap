@@ -56,7 +56,7 @@ class PhasesController < ApplicationController
           end
           theme_guidance[title] << {
             text: guidance.text,
-            org: guidance_group.name
+            org: guidance_group.name + ':'
           }
         end
       end

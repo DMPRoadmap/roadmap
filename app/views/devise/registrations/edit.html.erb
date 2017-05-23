@@ -63,8 +63,14 @@
 
         <% @identifier_schemes.each do |scheme| %>
           <div>
-            <label><%= scheme.name %></label>
-            <div class="identifier-scheme identifier-scheme-indent">
+            <label>
+                <% if scheme.logo_url.nil? %>
+                    <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
+                <% else %>
+                    <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
+                <% end %>
+           </label>
+            <div class="identifier-scheme">
               <%= render partial: 'external_identifier', 
                          locals: {scheme: scheme, 
                                   id: current_user.identifier_for(scheme)} %>
