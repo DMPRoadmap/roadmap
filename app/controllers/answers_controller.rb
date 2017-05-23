@@ -6,7 +6,6 @@ class AnswersController < ApplicationController
 	# PUT/PATCH /[:locale]/answer/[:id]
 	def update
     # create a new answer based off the passed params
-
     ans_params = params[:answer]
     plan_id = ans_params[:plan_id]
     phase_id = ans_params[:phase_id]
@@ -21,8 +20,9 @@ class AnswersController < ApplicationController
 
     # This is the first answer for the question
     if @answer.nil?
-      @answer = Answer.new(params[:answer])
+      @answer = Answer.new(permitted_params)
       @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
+      
       authorize @answer
 
       @answer.save
@@ -46,7 +46,7 @@ class AnswersController < ApplicationController
       @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
       authorize @answer
       
-      @answer.update(params[:answer])
+      @answer.update(permitted_params)
       
       # The save was successful so get the lock version and nil the 
       # old answer
@@ -101,4 +101,7 @@ class AnswersController < ApplicationController
         end
     end
 
+    def permitted_params
+      params.require(:answer).permit(:id, :plan_id, :user_id, :question_id, :lock_version, :question_option_ids)
+    end
 end
