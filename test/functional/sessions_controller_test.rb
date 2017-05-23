@@ -53,7 +53,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     delete destroy_user_session_path
     assert_equal nil, session[:locale], "expected the locale to have been deleted from the session"
     assert_response :redirect
-    assert_redirected_to root_path
+    if Rails.application.config.shibboleth_enabled
+      assert_redirected_to Rails.application.config.shibboleth_logout_url + root_url
+    else 
+      assert_redirected_to root_path
+    end
   end
   
 end

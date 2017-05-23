@@ -50,8 +50,8 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
 
       ### Until ORCID login becomes supported.
       if scheme.name == 'shibboleth'
-        assert [I18n.t('devise.omniauth_callbacks.user.success').gsub('%{kind}', scheme.name).downcase,
-                I18n.t('devise.omniauth_callbacks.success').gsub('%{kind}', scheme.name).downcase].include?(flash[:notice].downcase), "Expected a success message when simulating a valid callback from #{scheme.name}"
+        assert [I18n.t('devise.omniauth_callbacks.user.success').gsub('%{kind}', scheme.description).downcase,
+                I18n.t('devise.omniauth_callbacks.success').gsub('%{kind}', scheme.description).downcase].include?(flash[:notice].downcase), "Expected a success message when simulating a valid callback from #{scheme.name}"
         assert @response.redirect_url.include?(root_url), "Expected a redirect to the root page, #{root_url}, when omniauth returns with a valid identifier!"
       else
          assert_equal I18n.t('identifier_schemes.new_login_success'), flash[:notice], "Expected a success message when simulating a valid callback from #{scheme.name}"
