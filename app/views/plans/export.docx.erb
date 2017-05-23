@@ -19,7 +19,9 @@
   <h3><%= section.title %></h3>
   <% questions = @exported_plan.questions_for_section(section.id) %>
   <% questions.each do |question| %>
-    <p><strong><%= raw question.text %></strong></p>
+    <p>
+      <%= raw question.text %>
+    </p>
 
     <% answer = @plan.answer(question.id, false) %>
     <% if answer.nil? then %>
