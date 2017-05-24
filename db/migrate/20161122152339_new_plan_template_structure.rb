@@ -124,6 +124,41 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       t.timestamps
     end
 
+
+    change_table :new_phases do |t|
+      t.index :template_id
+    end
+    change_table :new_sections do |t|
+      t.index :new_phase_id
+    end
+    change_table :new_questions do |t|
+      t.index :new_section_id
+    end
+    change_table :sections do |t|
+      t.index :version_id
+    end
+    change_table :plans do |t|
+      t.index :project_id
+    end
+    change_table :questions do |t|
+      t.index :section_id
+    end
+    change_table :answers do |t|
+      t.index :question_id
+      t.index :plan_id
+    end
+    change_table :options do |t|
+      t.index :question_id
+    end
+    change_table :suggested_answers do |t|
+      t.index :question_id
+    end
+    change_table :comments do |t|
+      t.index :question_id
+      t.index :plan_id
+    end
+
+
     # migrate all of the data from plans into templates (user facing)
     #   first migrate all "pure"(uncustomised) plans
     #     find template for plan
