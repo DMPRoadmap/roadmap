@@ -54,23 +54,27 @@
 
         <!-- if the question has multiple choices pull out the options -->
         <% if question.option_based? %>
-          <% options = question.question_options.order("number") %>
+          <% options = question.question_options.by_number %>
 
           <!-- work through the various format options -->
           <% if q_format.checkbox? %>
-            <%= f.input :options, as: :check_boxes, collection: options, label: false, input_html: { id: "options-#{question.id}" } %>
+            <ol class="choices-group">
+              <% options.each do |op| %>
+                <li>
+                  <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id) }, op.id, nil) %>
+                  <%= raw op.text %>
+                </li>
+              <% end %>
+            </ol>
           <% elsif q_format.multiselectbox? %>
             <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: true , id: "options-#{question.id}" } %>
           <% elsif q_format.radiobuttons? %>
             <ol class="choices-group">
               <% options.each do |op| %>
-                <li class= "choices-group">
-                  <% if answer.question_option_ids[0] == op.id then%>
-                    <%= f.radio_button :question_option_ids, op.id, checked: true, id: "answer_option_ids_#{op.id}"%> 
-                  <%else%>
-                    <%= f.radio_button :question_option_ids, op.id, checked: false, id: "answer_option_ids_#{op.id}"%> 
-                  <% end %>
-               <%= raw op.text %> </li>
+                <li>
+                  <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}" } %>
+                  <%= raw op.text %>
+                </li>
               <% end %>
             </ol>
           <% elsif q_format.dropdown? %>
