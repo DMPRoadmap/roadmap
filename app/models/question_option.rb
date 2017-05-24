@@ -12,6 +12,7 @@ class QuestionOption < ActiveRecord::Base
 
   validates :text, :question, :number, presence: {message: _("can't be blank")}
 
+  scope :by_number, -> { order(:number) }
   ##
   # deep copy the given question_option and all it's associations
   #
