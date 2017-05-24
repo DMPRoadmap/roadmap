@@ -23,7 +23,7 @@ $("#question-form-<%= @question.id %> #answer_id").val(<%= @answer.id %>);
 // update the answer status
 
 var q_status = $("#<%=@question.id%>-status");
-var timestamp = "<%=@timestamp%>";
+var timestamp = "<%= @timestamp.nil? ? "": @timestamp %>";
 
 if( timestamp != "") {
   q_status.text("");
