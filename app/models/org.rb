@@ -4,6 +4,11 @@ class Org < ActiveRecord::Base
   extend Dragonfly::Model::Validations
 
   ##
+  # Sort order: Name ASC
+  default_scope { order(name: :asc) }
+  
+
+  ##
   # Associations
 #  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
   belongs_to :language

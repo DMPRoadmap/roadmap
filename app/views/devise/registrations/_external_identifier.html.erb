@@ -1,6 +1,4 @@
-<div class="user-identifier" 
-     style="background-image: url(<%= "#{scheme.logo_url}" %>); background-size: 16px;">
-     
+<div>
   <% if id.nil? || id.identifier == '' %>
       <%= link_to "#{_("Create or Link your #{scheme.description} ID")}",
                   Rails.application.routes.url_helpers.send(
@@ -15,9 +13,9 @@
       <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 
           title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
     <% end %>
-    <%= link_to image_tag('remove.png', height: '16px', width: '16px'), 
+    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="false"></i>'.html_safe, 
                 destroy_user_identifier_path(id), method: :delete,
                 title: _("Unlink your account from #{scheme.description}. You can link again at any time."),
-                data: {confirm: _("Are you sure you want to unlink your #{scheme.description} ID?")} %>
+                data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
   <% end %>
 </div>

@@ -184,6 +184,7 @@ class PlansController < ApplicationController
       end
     end
     @plan.save
+    flash[:notice] = _('Guidance choices saved.')
     redirect_to action: "show"
   end
 

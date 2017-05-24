@@ -91,12 +91,12 @@ module DMPRoadmap
 
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
-    # See config/initializers/omniauth.rb
+    # See config/initializers/devise.rb
     config.shibboleth_enabled = true
 
-    # Absolute path to Shibboleth SSO Login
-    config.shibboleth_login = '/Shibboleth.sso/Login'
-    
+    # Relative path to Shibboleth SSO Logout
+    config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
+
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
