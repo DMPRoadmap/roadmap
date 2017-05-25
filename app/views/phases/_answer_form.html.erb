@@ -61,41 +61,62 @@
             <ol class="choices-group">
               <% options.each do |op| %>
                 <li>
-                  <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id) }, op.id, nil) %>
+                  <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id), disabled: readonly }, op.id, nil) %>
                   <%= raw op.text %>
                 </li>
               <% end %>
             </ol>
-          <% elsif q_format.multiselectbox? %>
-            <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: true , id: "options-#{question.id}" } %>
           <% elsif q_format.radiobuttons? %>
             <ol class="choices-group">
               <% options.each do |op| %>
                 <li>
-                  <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}" } %>
+                  <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}", disabled: readonly } %>
                   <%= raw op.text %>
                 </li>
               <% end %>
             </ol>
-          <% elsif q_format.dropdown? %>
-            <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: false, id: "options-#{question.id}" } %>
+          <% elsif q_format.dropdown? || q_format.multiselectbox? %>
+            <% 
+              options_html = ""
+              options.each do |op|
+                  options_html += answer.has_question_option(op.id) ?
+                    "<option value=#{op.id} selected=\"selected\">#{op.text}</option>" :
+                    "<option value=#{op.id}>#{op.text}</option>" 
+              end
+            %>
+              <%= select_tag('answer[question_option_ids]', raw(options_html),
+              {multiple: q_format.multiselectbox?, include_blank: q_format.dropdown?, disabled: readonly }) %>
           <% end %>
 
 
           <!-- Comment text area for the multiple choice answers-->
           <% if question.option_comment_display == true %>
             <%= label_tag("answer-text-#{question.id}".to_sym, _('Comment')) %>
-            <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
+            <% if readonly %>
+              <p><%= raw(answer.text) %></p>
+            <% else %>
+              <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
+            <% end %>
           <%end%>
         <% end %>  <!-- if multiple choice -->
 
         <% if q_format.textfield? %>
-          <%= text_field_tag("answer-text-#{question_id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
+          <% if readonly %>
+            <p><%= strip_tags(answer.text) %></p>
+          <% else %>
+            <%= text_field_tag("answer-text-#{question_id}".to_sym, strip_tags(answer.text), { class: "question_text_field" }) %>
+          <% end %>
         <% elsif q_format.textarea? %>
-          <%= text_area_tag("answer-text-#{question_id}".to_sym, answer.text, class: "tinymce") %>
+          <% if readonly %>
+            <p><%= raw(answer.text) %></p>
+          <% else %>
+            <%= text_area_tag("answer-text-#{question_id}".to_sym, answer.text, class: "tinymce") %>
+          <% end %>
         <% end %>
 
-				<input type="submit" class="form-submit" value="<%= _('Save') %>" />
+        <% if !readonly %>
+				  <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+        <% end %>
 				<div id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></div>
 				
 				<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
@@ -202,12 +223,10 @@
 
      </div>   <!-- accordion-questionid -->
     </div>   <!-- question-guidance -->
-
   <!--comment area -->
   <div class="comment-area" id="comment-question-area-<%= question_id %>"  style="<%= css_style_comment_div%>">
       <%= render partial: "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
   </div>
-
 </div> <!-- question area right column -->
 
 <!--display or not the break line between questions-->
