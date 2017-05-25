@@ -13,7 +13,8 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
       t.integer :version
       t.integer :visibility
       t.integer :customization_of
-      t.integer :dmptemplate_id     # remove on next migration
+      t.integer :dmptemplate_id
+      t.boolean :migrated
     end
 
     create_table :new_phases do |t|
@@ -360,6 +361,124 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           end
         end
       end
+
+      # transfer over the current published version and working copy of each
+      # dmptemplate.  Additionally take only those customizations for which there
+      # are sections
+      temps = 0
+      Dmptemplate.includes(phases: :versions).all.each do |dtemp|
+      #.includes(phases: {versions:{sections:{questions: [:themes, :options, :suggested_answers]}}})
+        puts "migrating template #{temps}: #{dtemp.title}"
+        temps = temps + 1
+        phases = dtemp.phases
+        # determine the most up to date version for each phase (published if exists)
+        version_ids = []
+        phases.each do |phase|
+          # should this be true,false or false,true
+          vers = get_version(phase, true, false)
+          version_ids << vers.id unless vers.nil?
+        end
+        # figure out which organisations have customised the template (or wrote it)
+        org_ids = Section.where(version_id: version_ids).pluck(:organisation_id)
+        # turns out that that alone dosent capture all customised templates
+        Version.where(id:version_ids).each do |vers|
+          vers.sections.each do |sec|
+            sec.questions.each do |q|
+              q.suggested_answers.each do |sa|
+                org_ids << sa.organisation_id
+              end
+            end
+          end
+        end
+        org_ids << dtemp.organisation_id
+        org_ids.uniq!
+        puts "#{org_ids}"
+        # need to come up with a unique dmptemplate_id for the non-legacy template
+        # to use.  otherwise version numbers will be confusing
+        dmptemplate_id = generate_dmptemplate_id()
+        # flag to check if we have already copied over the published
+        published_copied = false
+        # iterate over these orgs to generate the correct customised and
+        # un-customised templates
+        org_ids.each do |org_id|
+          # is this a customisation?
+          modifiable = org_id == dtemp.organisation_id
+          puts modifiable ? "  -Template by #{org_id}" : "  -Customised by #{org_id}"
+          customization_of = modifiable ? nil : dmptemplate_id
+          new_temp = initTemplate(dtemp, modifiable, org_id, false, dmptemplate_id, customization_of)
+          # newest version of template is always unpublished
+          if modifiable && published_copied
+            new_temp.published = false
+          end
+          new_temp.save!
+          # for each phase in the template
+          phases.each do |phase|
+            # for customised templates, we want published versions
+            # for non-customised templates we want two things:
+            #   - published version
+            #   - most recent version of everything
+            if !modifiable
+              version = get_version(phase,true,false)
+            elsif !published_copied
+              version = get_version(phase,true, false)
+            else published_copied
+              version = get_version(phase,false,false)
+            end
+            if version.present?
+              new_phase = initNewPhase(phase, version, new_temp, modifiable)
+              new_phase.save
+              Section.includes(questions: [:themes, :options, :suggested_answers]).where(version_id: version.id).each do |section|
+                sec_mod = section.organisation_id == org_id
+                new_section = initNewSection(section, new_phase, sec_mod)
+                new_section.save!
+                section.questions.each do |question|
+                  new_question = initNewQuestion(question, new_section, modifiable)
+                  new_question.save!
+                  question.themes.each do |theme|
+                    new_question.themes << theme
+                  end
+                  question.options.each do |option|
+                    question_option = initQuestionOption(option, new_question)
+                    question_option.save!
+                  end
+                  question.suggested_answers.each do |suggested_answer|
+                    # only bring suggested answers from the template creator or the
+                    # project's org(customizations)
+                    if suggested_answer.organisation_id == dtemp.organisation_id ||
+                      suggested_answer.organisation_id == org_id
+                      annotation = initAnnotationSA(suggested_answer, new_question)
+                      annotation.save!
+                    end
+                  end
+                  # question.guidance field to annotation if present
+                  if question.guidance.present?
+                    if new_question.modifiable
+                      q_org_id = org_id
+                    else
+                      q_org_id = dtemp.organisation_id
+                    end
+                    annotation = initAnnotationQuestion(question, new_question, q_org_id)
+                    annotation.save!
+                  end
+                  Guidance.where(question_id: question.id).each do |guidance|
+                    if guidance.guidance_groups.present?
+                      annotation = initAnnotationGuidance(guidance, new_question)
+                      annotation.save!
+                    end
+                  end
+                end
+              end
+            end
+          end
+          # repeat the loop for the creating organisation to copy over the most
+          # current version of their template which may not be published
+          if modifiable && !published_copied
+            published_copied = true
+            redo
+          end
+        end
+      end
+
     end
 
 
@@ -379,12 +498,39 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
     drop_table :annotations
     drop_table :new_plans
     drop_table :roles
+    drop_table :new_plans_guidance_groups
   end
 end
 
+def generate_dmptemplate_id()
+  return loop do
+    random = rand 2147483647  # max int field in psql
+    break random unless Template.exists?(dmptemplate_id: random) || Dmptemplate.exists?(id: random)
+  end
+end
 
+def get_version(phase, published, all)
+  # can return nill ONLY with published=true
+  version = nil
+  if published
+    pub_vers = phase.versions.where(published: true).order(updated_at: 'desc')
+    if pub_vers.any?
+      version = pub_vers.first
+    end
+  elsif all
+    pub_vers = phase.versions.where(published: true).order(updated_at: 'desc')
+    if pub_vers.any?
+      version = pub_vers.first
+    else
+      version = phase.versions.order(updated_at: 'desc').first
+    end
+  else
+    version = phase.versions.order(updated_at: 'desc').first
+  end
+  return version
+end
 
-def initTemplate(dmptemp, modifiable, organisation_id)
+def initTemplate(dmptemp, modifiable, organisation_id, legacy=true, dmptemplate_id=nil, customization_of=nil)
   template                  = Template.new
   template.title            = dmptemp.title
   template.description      = dmptemp.description
@@ -395,20 +541,22 @@ def initTemplate(dmptemp, modifiable, organisation_id)
   template.created_at       = dmptemp.created_at
   template.updated_at       = dmptemp.updated_at
   template.visibility       = 0                   # dummy value for private
-  template.customization_of = modifiable ? nil : dmptemp.id
+  if customization_of.nil?
+    template.customization_of = modifiable ? nil : dmptemp.id
+  else
+    template.customization_of = modifiable ? nil : customization_of
+  end
+  template.migrated         = legacy
   # needs to be dmptemp.id if not a customization
   # if it is a customization,
   if modifiable
-    template.dmptemplate_id = dmptemp.id
+    template.dmptemplate_id = dmptemplate_id.nil? ? dmptemp.id : dmptemplate_id
   else
     customization_temp = Template.where(customization_of: dmptemp.id, organisation_id: template.organisation_id).first
     if customization_temp.present?
       template.dmptemplate_id = customization_temp.dmptemplate_id
     else
-      template.dmptemplate_id = loop do
-          random = rand 2147483647  # max int field in psql
-          break random unless Template.exists?(dmptemplate_id: random)
-        end
+      template.dmptemplate_id = generate_dmptemplate_id()
     end
   end
   # if no templates with the same dmptemplate_id and organisation_id exist

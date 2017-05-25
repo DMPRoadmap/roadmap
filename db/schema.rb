@@ -16,6 +16,15 @@ ActiveRecord::Schema.define(version: 20161122152339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "annotations", force: :cascade do |t|
+    t.integer  "new_question_id"
+    t.integer  "organisation_id"
+    t.text     "text"
+    t.integer  "type",            default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "answers", force: :cascade do |t|
     t.text     "text"
     t.integer  "plan_id"
@@ -24,6 +33,9 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "answers", ["plan_id"], name: "index_answers_on_plan_id", using: :btree
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "answers_options", id: false, force: :cascade do |t|
     t.integer "answer_id", null: false
@@ -42,6 +54,9 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.integer  "plan_id"
     t.integer  "archived_by"
   end
+
+  add_index "comments", ["plan_id"], name: "index_comments_on_plan_id", using: :btree
+  add_index "comments", ["question_id"], name: "index_comments_on_question_id", using: :btree
 
   create_table "dmptemplates", force: :cascade do |t|
     t.string   "title"
@@ -160,6 +175,9 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.boolean  "modifiable"
   end
 
+  add_index "new_phases", ["template_id"], name: "index_new_phases_on_template_id", using: :btree
+  add_index "new_phases", ["vid"], name: "index_new_phases_on_vid", using: :btree
+
   create_table "new_plans", force: :cascade do |t|
     t.integer  "project_id"
     t.string   "title"
@@ -175,6 +193,8 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.string   "data_contact"
     t.string   "funder_name"
   end
+
+  add_index "new_plans", ["template_id"], name: "index_new_plans_on_template_id", using: :btree
 
   create_table "new_plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
@@ -195,6 +215,8 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.integer  "question_id"
   end
 
+  add_index "new_questions", ["new_section_id"], name: "index_new_questions_on_new_section_id", using: :btree
+
   create_table "new_questions_themes", id: false, force: :cascade do |t|
     t.integer "new_question_id", null: false
     t.integer "theme_id",        null: false
@@ -214,14 +236,7 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.boolean  "modifiable"
   end
 
-  create_table "new_suggested_answers", force: :cascade do |t|
-    t.integer  "new_question_id"
-    t.integer  "organisation_id"
-    t.text     "text"
-    t.boolean  "is_example"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "new_sections", ["new_phase_id"], name: "index_new_sections_on_new_phase_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id"
@@ -241,6 +256,8 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "options", ["question_id"], name: "index_options_on_question_id", using: :btree
 
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "organisation_id"
@@ -315,13 +332,16 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "plans", ["project_id"], name: "index_plans_on_project_id", using: :btree
+  add_index "plans", ["version_id"], name: "index_plans_on_version_id", using: :btree
+
   create_table "project_groups", force: :cascade do |t|
     t.boolean  "project_creator"
     t.boolean  "project_editor"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "project_administrator"
   end
 
@@ -348,6 +368,8 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.string   "funder_name"
   end
 
+  add_index "projects", ["dmptemplate_id"], name: "index_projects_on_dmptemplate_id", using: :btree
+  add_index "projects", ["organisation_id"], name: "index_projects_on_organisation_id", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
 
   create_table "question_formats", force: :cascade do |t|
@@ -380,6 +402,8 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.integer  "question_format_id"
     t.boolean  "option_comment_display", default: true
   end
+
+  add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
@@ -420,6 +444,8 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.boolean  "published"
   end
 
+  add_index "sections", ["version_id"], name: "index_sections_on_version_id", using: :btree
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false
     t.text     "value"
@@ -446,6 +472,9 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.boolean  "is_example"
   end
 
+  add_index "suggested_answers", ["organisation_id"], name: "index_suggested_answers_on_organisation_id", using: :btree
+  add_index "suggested_answers", ["question_id"], name: "index_suggested_answers_on_question_id", using: :btree
+
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -459,7 +488,11 @@ ActiveRecord::Schema.define(version: 20161122152339) do
     t.integer  "visibility"
     t.integer  "customization_of"
     t.integer  "dmptemplate_id"
+    t.boolean  "migrated"
   end
+
+  add_index "templates", ["organisation_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree
+  add_index "templates", ["organisation_id"], name: "index_templates_on_organisation_id", using: :btree
 
   create_table "themes", force: :cascade do |t|
     t.string   "title"
