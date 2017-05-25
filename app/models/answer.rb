@@ -36,4 +36,10 @@ class Answer < ActiveRecord::Base
 #  
 #  # Make sure the plan and question are associated with the same template!
 #  validates :plan, :question, answer_for_correct_template: true
+
+  # This method helps to decide if an answer option (:radiobuttons, :checkbox, etc ) in form views should be checked or not
+  # Returns true if the given option_id is present in question_options, otherwise returns false
+  def has_question_option(option_id)
+    self.question_option_ids.include?(option_id)
+  end
 end
