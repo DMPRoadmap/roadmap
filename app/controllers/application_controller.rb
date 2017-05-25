@@ -114,7 +114,10 @@ class ApplicationController < ActionController::Base
       if Rails.application.config.shibboleth_enabled
         return Rails.application.config.shibboleth_logout_url + root_url
         super
+      else
+        super
       end
     end
     # -------------------------------------------------------------
+
 end
