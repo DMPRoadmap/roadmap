@@ -14,8 +14,8 @@ class TemplatesController < ApplicationController
     funder_templates, org_templates, customizations = [], [], []
 
     # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
-    funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
-    org_ids = current_user.org.templates.collect{|t| t.dmptemplate_id }.flatten.uniq
+    funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.valid.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
+    org_ids = current_user.org.templates.valid.collect{|t| t.dmptemplate_id }.flatten.uniq
 
     org_ids.each do |id|
       current = Template.current(id)

@@ -9,7 +9,7 @@ class QuestionTest < ActiveSupport::TestCase
 
     @section = @template.phases.first.sections.first
 
-    @question = Question.create(text: 'Test question', default_value: 'ABCD', guidance: 'Hello',
+    @question = Question.create(text: 'Test question', default_value: 'ABCD',
                                 number: 999, section: @section,
                                 question_format: QuestionFormat.where(option_based: false).first,
                                 option_comment_display: true, modifiable: true,

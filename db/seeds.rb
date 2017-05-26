@@ -350,6 +350,7 @@ templates = [
    org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
    version: 0,
+   migrated: false,
    dmptemplate_id: 1},
   
   {title: "OLD - Department of Testing Award",
@@ -357,6 +358,7 @@ templates = [
     org: Org.find_by(abbreviation: 'GA'),
     is_default: false,
     version: 0,
+    migrated: false,
    dmptemplate_id: 2},
      
   {title: "Department of Testing Award",
@@ -364,6 +366,7 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
+   migrated:false,
    dmptemplate_id: 3}
 ]
 templates.map{ |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
@@ -612,7 +615,6 @@ questions = [
    question_format: QuestionFormat.find_by(title: "Text field"),
    modifiable: false,
    default_value: "on a server at my institution",
-   guidance: "Consider where your data will be stored after your research is complete.",
    themes: [Theme.find_by(title: "Preservation")]},
   {text: "What types of data will you collect and how will it be stored?",
    number: 1,

@@ -51,7 +51,7 @@ class ActiveSupport::TestCase
   def scaffold_template
     template = Template.new(title: 'Test template',
                             description: 'My test template',
-                            org: Org.first)
+                            org: Org.first, migrated: false)
 
     template.phases << Phase.new(title: 'Test phase',
                                  description: 'My test phase',
