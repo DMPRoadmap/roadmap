@@ -40,12 +40,10 @@
                         <% if answer.nil? then %>
                             <p><%= _('Question not answered.') -%></p>
                         <% else %>
-                            <% q_format = question.question_format%>
-                            <!-- display an answer for questions type 'checkbox','radio_buttons', 'multi_select_box' and 'dropdown'-->
-                            <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
-                                        q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') then%>
+                            <% q_format = question.question_format %>
+                            <% if q_format.option_based? %>
                                 <ul>
-                                    <% answer.options.each do |option| %>
+                                    <% answer.question_options.each do |option| %>
                                         <li><%= option.text %></li>
                                     <% end %>
                                 </ul>
