@@ -8,7 +8,7 @@
   <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
     <table id="dmp_table" class="dmp_table">
       <thead>
-        <tr>
+        <tr style="text-decoration: white dotted underline;">
           <% @perms.each do |perm| %>
             <% case perm.name when 'grant_permissions' %>
                 <th class="dmp_th_medium" title="
