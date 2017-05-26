@@ -103,22 +103,25 @@ class ExportedPlan < ActiveRecord::Base
     CSV.generate do |csv|
       csv << [_('Section'),_('Question'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
       self.sections.each do |section|
-        self.questions_for_section(section).each do |question|
-          answer = self.plan.answer(question.id)
-          q_format = question.question_format
-          if q_format.option_based?
-            options_string = answer.question_options.collect {|o| o.text}.join('; ')
-          else
-            options_string = ''
+        questions = self.questions_for_section(section)
+        if questions.present?
+          self.questions_for_section(section).each do |question|
+            answer = self.plan.answer(question.id)
+            q_format = question.question_format
+            if q_format.option_based?
+              options_string = answer.question_options.collect {|o| o.text}.join('; ')
+            else
+              options_string = ''
+            end
+            csv << [
+              section.title,
+              sanitize_text(question.text),
+              question.option_comment_display ? sanitize_text(answer.text) : '',
+              options_string,
+              user.name,
+              answer.updated_at
+            ]
           end
-          csv << [
-            section.title,
-            sanitize_text(question.text),
-            question.option_comment_display ? sanitize_text(answer.text) : '',
-            options_string,
-            user.name,
-            answer.updated_at
-          ]
         end
       end
     end
