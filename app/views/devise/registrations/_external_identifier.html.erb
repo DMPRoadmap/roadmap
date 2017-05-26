@@ -1,6 +1,6 @@
 <div>
   <% if id.nil? || id.identifier == '' %>
-      <%= link_to "#{_("Create or Link your #{scheme.description} ID")}",
+      <%= link_to "#{_("Link account with #{scheme.description} ID")}",
                   Rails.application.routes.url_helpers.send(
                     "user_#{scheme.name.downcase}_omniauth_authorize_path"
                   ),

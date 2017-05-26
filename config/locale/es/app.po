@@ -23,10 +23,6 @@ msgid " - "
 msgstr ""
 
 #, fuzzy
-msgid " Guidance"
-msgstr "Guía"
-
-#, fuzzy
 msgid " I accept the <a href=\"/terms\" target=\"_blank\">terms and conditions</a> *"
 msgstr " Acepto los <a href=\"/terms\" target=\"_blank\">términos y condiciones</a> *"
 
@@ -95,7 +91,7 @@ msgid " will help you to develop your Data Management Plan. If you have any quer
 msgstr ""
 
 #, fuzzy
-msgid "\"Are you sure you want to unlink your #{scheme.description} ID?\""
+msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
 msgstr "ID"
 
 msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
@@ -245,6 +241,9 @@ msgstr ""
 msgid "API Information"
 msgstr ""
 
+msgid "API rights"
+msgstr ""
+
 msgid "API token"
 msgstr ""
 
@@ -305,6 +304,22 @@ msgstr "Área de administración"
 msgid "All the best,"
 msgstr ""
 
+#, fuzzy
+msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
+msgstr "Organización"
+
+#, fuzzy
+msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
+msgstr "Organización"
+
+#, fuzzy
+msgid "Allows the user to create and edit guidance"
+msgstr "user"
+
+#, fuzzy
+msgid "Allows the user to create new institutional templates, edit existing ones and customise funder templates"
+msgstr "templates"
+
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
@@ -320,10 +335,6 @@ msgstr "Responder"
 
 #, fuzzy
 msgid "Answered"
-msgstr "Contestado "
-
-#, fuzzy
-msgid "Answered "
 msgstr "Contestado "
 
 #, fuzzy
@@ -384,12 +395,20 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancelar"
 
+#, fuzzy
+msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgstr "plans"
+
 msgid "Change language"
 msgstr ""
 
 #, fuzzy
 msgid "Change my password"
 msgstr "Cambiar su clave"
+
+#, fuzzy
+msgid "Change organisation details"
+msgstr "Organización"
 
 msgid "Check box"
 msgstr "Check box"
@@ -641,10 +660,17 @@ msgstr ""
 msgid "Grant number"
 msgstr "Título de subvención"
 
+msgid "Grant permissions"
+msgstr ""
+
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 msgstr "Número de referencia de la subvención si es aplicable [SÓLO PGDs YA ADJUDICADOS]"
 
 msgid "Guidance"
+msgstr "Guía"
+
+#, fuzzy
+msgid "Guidance choices saved."
 msgstr "Guía"
 
 msgid "Guidance group"
@@ -724,9 +750,6 @@ msgstr ""
 msgid "If you would like to change your password please complete the following fields."
 msgstr "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
 
-msgid "Impossible sharing plan with %{email} since that email matches with the owner of the plan."
-msgstr ""
-
 msgid "Included Elements"
 msgstr "Elementos incluídos"
 
@@ -751,7 +774,7 @@ msgstr "Tamaño de fuente inválido"
 msgid "Invalid maximum pages"
 msgstr "Número de páginas inválido"
 
-msgid "Invitation issued successfully."
+msgid "Invitation to %{email} issued successfully."
 msgstr ""
 
 msgid "Language"
@@ -799,6 +822,14 @@ msgstr "Yo"
 #, fuzzy
 msgid "Message"
 msgstr "Yo"
+
+#, fuzzy
+msgid "Modify guidance"
+msgstr "Añadir orientación"
+
+#, fuzzy
+msgid "Modify templates"
+msgstr "templates"
 
 msgid "Multi select box"
 msgstr "Multi select box"
@@ -970,8 +1001,14 @@ msgstr "Datos de contacto del plan"
 msgid "Plan details"
 msgstr "Detalles"
 
+msgid "Plan is already shared with %{email}."
+msgstr ""
+
 msgid "Plan name"
 msgstr "Nombre de proyecto"
+
+msgid "Plan shared with %{email}."
+msgstr ""
 
 #, fuzzy
 msgid "Plan was successfully deleted."
@@ -1059,6 +1096,10 @@ msgstr ""
 
 msgid "Project title"
 msgstr ""
+
+#, fuzzy
+msgid "Provides the user with an API token and grants rights to harvest information from the tool"
+msgstr "user"
 
 msgid "Public"
 msgstr "Público"
@@ -1370,9 +1411,6 @@ msgstr "Deshaciendo cambios"
 msgid "Upload a new logo file"
 msgstr ""
 
-msgid "User added to project"
-msgstr ""
-
 msgid "Users"
 msgstr "Usuarios"
 
@@ -1660,9 +1698,6 @@ msgid "guidance on"
 msgstr ""
 
 msgid "height must be less than 100px"
-msgstr ""
-
-msgid "helpers.dropdown"
 msgstr ""
 
 msgid "helpers.is_test"
