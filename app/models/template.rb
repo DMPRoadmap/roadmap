@@ -1,8 +1,8 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
-  
+
   before_validation :set_creation_defaults
-  
+  scope :valid,  -> {where(migrated: false)}
   ##
   # Associations
   belongs_to :org
@@ -30,17 +30,17 @@ class Template < ActiveRecord::Base
 
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
-    Template.all.distinct.pluck(:dmptemplate_id)
+    Template.all.valid.distinct.pluck(:dmptemplate_id)
   end
 
   # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
   def self.current(dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).first
+    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
   end
   
   # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
   def self.live(dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, published: true).first
+    Template.where(dmptemplate_id: dmptemplate_id, published: true).valid.first
   end
 
   ##

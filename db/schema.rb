@@ -176,8 +176,9 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.boolean  "modifiable"
   end
 
+  add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
+
   create_table "plans", force: :cascade do |t|
-    t.integer  "project_id"
     t.string   "title"
     t.integer  "template_id"
     t.datetime "created_at"
@@ -192,6 +193,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.string   "funder_name"
     t.integer  "visibility",                        default: 0, null: false
   end
+
+  add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
@@ -219,7 +222,6 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   create_table "questions", force: :cascade do |t|
     t.text     "text"
     t.text     "default_value"
-    t.text     "guidance"
     t.integer  "number"
     t.integer  "section_id"
     t.datetime "created_at"
@@ -228,6 +230,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.boolean  "option_comment_display", default: true
     t.boolean  "modifiable"
   end
+
+  add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
@@ -263,6 +267,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.boolean  "modifiable"
   end
 
+  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false
     t.text     "value"
@@ -293,8 +299,12 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.integer  "visibility"
     t.integer  "customization_of"
     t.integer  "dmptemplate_id"
+    t.boolean  "migrated"
     t.boolean  "dirty",            default: false
   end
+
+  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree
+  add_index "templates", ["org_id"], name: "index_templates_on_org_id", using: :btree
 
   create_table "themes", force: :cascade do |t|
     t.string   "title"
@@ -349,7 +359,6 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation"
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "org_id"
     t.string   "api_token"
