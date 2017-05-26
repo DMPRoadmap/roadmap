@@ -80,9 +80,8 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def sections
-    phase_id = self.phase_id ||= self.plan.template.phases.first.id # Use the first phase if none was specified
-    sections = Phase.find(phase_id).sections
-    sections.sort_by(&:number)
+    self.phase_id ||= self.plan.template.phases.first.id
+    Section.where({phase_id: phase_id}).order(:number)
   end
 
   def questions_for_section(section_id)
@@ -167,7 +166,7 @@ class ExportedPlan < ActiveRecord::Base
   end
 
 private
-
+  # Returns an Array of question_ids for the exported settings stored for a plan
   def questions
     question_settings = self.settings(:export).fields[:questions]
     @questions ||= if question_settings.present?
