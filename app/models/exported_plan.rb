@@ -105,7 +105,7 @@ class ExportedPlan < ActiveRecord::Base
       self.sections.each do |section|
         questions = self.questions_for_section(section)
         if questions.present?
-          self.questions_for_section(section).each do |question|
+          questions.each do |question|
             answer = self.plan.answer(question.id)
             q_format = question.question_format
             if q_format.option_based?
@@ -130,7 +130,6 @@ class ExportedPlan < ActiveRecord::Base
   def as_txt
     output = "#{self.plan.title}\n\n#{self.plan.template.title}\n"
     output += "\n"+_('Details')+"\n\n"
-    puts 'admin_details: '+self.admin_details.inspect
 
     self.admin_details.each do |at|
         value = self.send(at)
@@ -142,29 +141,30 @@ class ExportedPlan < ActiveRecord::Base
     end
 
     self.sections.each do |section|
-      output += "\n#{section.title}\n"
+      questions = self.questions_for_section(section)
+      if questions.present?
+        output += "\n#{section.title}\n"
+        questions.each do |question|
+          qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
+          output += "\n* #{qtext}"
+          answer = self.plan.answer(question.id, false)
 
-      self.questions_for_section(section).each do |question|
-        qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
-        output += "\n* #{qtext}"
-        answer = self.plan.answer(question.id, false)
-
-        if answer.nil?
-          output += _('Question not answered.')+ "\n"
-        else
-          q_format = question.question_format
-          if q_format.option_based?
-            output += answer.question_options.collect {|o| o.text}.join("\n")
-            if question.option_comment_display
+          if answer.nil?
+            output += _('Question not answered.')+ "\n"
+          else
+            q_format = question.question_format
+            if q_format.option_based?
+              output += answer.question_options.collect {|o| o.text}.join("\n")
+              if question.option_comment_display
+                output += "\n#{sanitize_text(answer.text)}\n"
+              end
+            else
               output += "\n#{sanitize_text(answer.text)}\n"
             end
-          else
-            output += "\n#{sanitize_text(answer.text)}\n"
           end
         end
       end
     end
-
     output
   end
 
