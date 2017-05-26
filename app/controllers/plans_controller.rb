@@ -59,6 +59,12 @@ class PlansController < ApplicationController
       
       if @plan.save
         @plan.assign_creator(current_user)
+        
+        # pre-select org's guidance
+        ggs = GuidanceGroup.where(org_id: plan_params[:org_id], 
+                                                     optional_subset: false, 
+                                                     published: true)
+        if !ggs.blank? then @plan.guidance_groups << ggs end 
     
         default = Template.find_by(is_default: true)
         
