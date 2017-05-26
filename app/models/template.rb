@@ -128,6 +128,7 @@ class Template < ActiveRecord::Base
     # Only run this before_validation because rails fires this before save/create
     if self.id.nil?
       self.published = false
+      self.migrated = false
       self.dirty = false
       self.visibility = 1
       self.is_default = false

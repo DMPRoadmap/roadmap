@@ -6,7 +6,7 @@ class Org < ActiveRecord::Base
   ##
   # Sort order: Name ASC
   default_scope { order(name: :asc) }
-  
+
 
   ##
   # Associations
