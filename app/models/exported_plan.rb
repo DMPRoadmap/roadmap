@@ -107,13 +107,19 @@ class ExportedPlan < ActiveRecord::Base
         self.questions_for_section(section).each do |question|
           answer = self.plan.answer(question.id)
           q_format = question.question_format
-          if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
-            q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')
-            options_string = answer.options.collect {|o| o.text}.join('; ')
+          if q_format.option_based?
+            options_string = answer.question_options.collect {|o| o.text}.join('; ')
           else
             options_string = ''
           end
-          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, user.name, answer.updated_at]
+          csv << [
+            section.title,
+            sanitize_text(question.text),
+            question.option_comment_display ? sanitize_text(answer.text) : '',
+            options_string,
+            user.name,
+            answer.updated_at
+          ]
         end
       end
     end
@@ -145,9 +151,8 @@ class ExportedPlan < ActiveRecord::Base
           output += _('Question not answered.')+ "\n"
         else
           q_format = question.question_format
-          if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
-            q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')
-            output += answer.options.collect {|o| o.text}.join("\n")
+          if q_format.option_based?
+            output += answer.question_options.collect {|o| o.text}.join("\n")
             if question.option_comment_display
               output += "\n#{sanitize_text(answer.text)}\n"
             end
