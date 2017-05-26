@@ -9,9 +9,8 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     scaffold_org_admin(@plan.template.org)
     
     # This should NOT be unnecessary! Owner should have full access
-    Role.create(user: @user, plan: @plan, access: 15)
+    @plan.roles << Role.create(user: @user, plan: @plan, access: 15)
     
-    @invitee = User.last
   end
 
 # TODO: Cleanup routes for this one. The controller currently only responds to create, update, destroy
@@ -26,21 +25,49 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 # POST /roles (roles_path)
   # ----------------------------------------------------------
   test "create a new role" do
+
     params = {plan_id: @plan.id, access_level: 4}
     
     # Should redirect user to the root path if they are not logged in!
     post roles_path, {role: params}
     assert_unauthorized_redirect_to_root_path
-    
+
     sign_in @user
     
+    # Known user
+    @invitee = User.where.not(id: [@plan.owner.id, @user.id]).first
     post roles_path, {user: @invitee.email, role: params}
-    assert_equal _('User added to project'), flash[:notice]
+    assert_equal _('Plan shared with %{email}.') % {email: @invitee.email}, flash[:notice]
     assert_response :redirect
     assert_redirected_to share_plan_path(@plan)
     assert_equal @invitee.id, Role.last.user_id, "expected the record to have been created!"
     assert assigns(:role)
-    
+
+    # Share to already invited user
+    post roles_path, {user: @invitee.email, role: params}
+    assert_equal _('Plan is already shared with %{email}.') % {email: @invitee.email}, flash[:notice]
+    assert_response :redirect
+    assert_redirected_to share_plan_path(@plan)
+    assert_equal @invitee.id, Role.last.user_id, "expected no record to have been created!"
+    assert assigns(:role)
+            
+    # Unknown user
+    post roles_path, {user: 'unknown_user@org.org', role: params}
+    assert_equal _('Invitation to unknown_user@org.org issued successfully.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to share_plan_path(@plan)
+    assert_equal User.find_by(email:'unknown_user@org.org').id, Role.last.user_id, "expected the record to have been created!"
+    assert assigns(:role)
+        
+    # Invite owner
+    @invitee = User.find_by(id: @plan.owner.id)
+    post roles_path, {user: @invitee.email, role: params}
+    assert_equal _('Cannot share plan with %{email} since that email matches with the owner of the plan.') % {email: @invitee.email}, flash[:notice]
+    assert_response :redirect
+    assert_redirected_to share_plan_path(@plan)
+    assert_not_equal @invitee.id, Role.last.user_id, "expected no record to have been created!"
+    assert assigns(:role)
+        
     # Missing email
     post roles_path, {role: {plan_id: @plan.id, access_level: 4}}
     assert_equal _('Please enter an email address'), flash[:notice]
@@ -52,6 +79,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   # PUT /role/:id (role_path)
   # ----------------------------------------------------------
   test "update the role" do
+    @invitee = User.last
     role = Role.create(user: @invitee, plan: @plan, access: 1)
     params = {access_level: 2}
     
@@ -81,6 +109,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   # DELETE /role/:id (role_path)
   # ----------------------------------------------------------
   test "delete the section" do
+    @invitee = User.last
     role = Role.create(user: @invitee, plan: @plan, access: 1)
     
     # Should redirect user to the root path if they are not logged in!
