@@ -23,10 +23,6 @@ msgid " - "
 msgstr " - "
 
 #, fuzzy
-msgid " Guidance"
-msgstr "Guidance"
-
-#, fuzzy
 msgid " I accept the <a href=\"/terms\" target=\"_blank\">terms and conditions</a> *"
 msgstr " I accept the <a href=\"/%{current_locale}/terms\" target=\"_blank\">terms and conditions</a> *"
 
@@ -94,7 +90,8 @@ msgstr " to accept the invitation, (or copy "
 msgid " will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on "
 msgstr " will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on "
 
-msgid "\"Are you sure you want to unlink your #{scheme.description} ID?\""
+#, fuzzy
+msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
 msgstr "\"Are you sure you want to unlink your #{scheme.description} ID?\""
 
 msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
@@ -240,6 +237,9 @@ msgstr ""
 msgid "API Information"
 msgstr "API Information"
 
+msgid "API rights"
+msgstr ""
+
 msgid "API token"
 msgstr "API token"
 
@@ -300,6 +300,22 @@ msgstr "Admin area"
 msgid "All the best,"
 msgstr ""
 
+#, fuzzy
+msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
+msgstr "organisation"
+
+#, fuzzy
+msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
+msgstr "organisation"
+
+#, fuzzy
+msgid "Allows the user to create and edit guidance"
+msgstr "guidance"
+
+#, fuzzy
+msgid "Allows the user to create new institutional templates, edit existing ones and customise funder templates"
+msgstr "template"
+
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
@@ -313,10 +329,6 @@ msgid "Answer questions"
 msgstr "Answer questions"
 
 msgid "Answered"
-msgstr "Answered"
-
-#, fuzzy
-msgid "Answered "
 msgstr "Answered"
 
 msgid "Answered at"
@@ -374,11 +386,19 @@ msgstr "By "
 msgid "Cancel"
 msgstr "Cancel"
 
+#, fuzzy
+msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgstr "plan"
+
 msgid "Change language"
 msgstr "Change language"
 
 msgid "Change my password"
 msgstr "Change my password"
+
+#, fuzzy
+msgid "Change organisation details"
+msgstr "organisation"
 
 msgid "Check box"
 msgstr "Check box"
@@ -626,10 +646,17 @@ msgstr "Get involved"
 msgid "Grant number"
 msgstr "Grant number"
 
+msgid "Grant permissions"
+msgstr ""
+
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 msgstr "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 
 msgid "Guidance"
+msgstr "Guidance"
+
+#, fuzzy
+msgid "Guidance choices saved."
 msgstr "Guidance"
 
 msgid "Guidance group"
@@ -708,9 +735,6 @@ msgstr ""
 msgid "If you would like to change your password please complete the following fields."
 msgstr "If you would like to change your password please complete the following fields."
 
-msgid "Impossible sharing plan with %{email} since that email matches with the owner of the plan."
-msgstr ""
-
 msgid "Included Elements"
 msgstr "Included Elements"
 
@@ -735,7 +759,8 @@ msgstr "Invalid font size"
 msgid "Invalid maximum pages"
 msgstr "Invalid maximum pages"
 
-msgid "Invitation issued successfully."
+#, fuzzy
+msgid "Invitation to %{email} issued successfully."
 msgstr "Invitation issued successfully."
 
 msgid "Language"
@@ -783,6 +808,14 @@ msgstr "Me"
 #, fuzzy
 msgid "Message"
 msgstr "Me"
+
+#, fuzzy
+msgid "Modify guidance"
+msgstr "guidance"
+
+#, fuzzy
+msgid "Modify templates"
+msgstr "template"
 
 msgid "Multi select box"
 msgstr "Multi select box"
@@ -953,8 +986,14 @@ msgstr "Plan data contact"
 msgid "Plan details"
 msgstr "Plan details"
 
+msgid "Plan is already shared with %{email}."
+msgstr ""
+
 msgid "Plan name"
 msgstr "Plan name"
+
+msgid "Plan shared with %{email}."
+msgstr ""
 
 msgid "Plan was successfully deleted."
 msgstr "Plan was successfully deleted."
@@ -1041,6 +1080,10 @@ msgstr "Privileges"
 
 msgid "Project title"
 msgstr ""
+
+#, fuzzy
+msgid "Provides the user with an API token and grants rights to harvest information from the tool"
+msgstr "API token"
 
 msgid "Public"
 msgstr "Public"
@@ -1350,9 +1393,6 @@ msgstr "Unsaved changes"
 msgid "Upload a new logo file"
 msgstr "Upload a new logo file"
 
-msgid "User added to project"
-msgstr "User added to project"
-
 msgid "Users"
 msgstr "Users"
 
@@ -1626,9 +1666,6 @@ msgid "guidance on"
 msgstr "guidance on"
 
 msgid "height must be less than 100px"
-msgstr ""
-
-msgid "helpers.dropdown"
 msgstr ""
 
 msgid "helpers.is_test"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-19 17:36+0100\n"
-"PO-Revision-Date: 2017-05-19 17:36+0100\n"
+"POT-Creation-Date: 2017-05-26 10:24+0100\n"
+"PO-Revision-Date: 2017-05-26 10:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -22,9 +22,6 @@ msgid " (UK users only)"
 msgstr ""
 
 msgid " - "
-msgstr ""
-
-msgid " Guidance"
 msgstr ""
 
 msgid " I accept the <a href=\"/terms\" target=\"_blank\">terms and conditions</a> *"
@@ -87,7 +84,7 @@ msgstr ""
 msgid " will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on "
 msgstr ""
 
-msgid "\"Are you sure you want to unlink your #{scheme.description} ID?\""
+msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
 msgstr ""
 
 msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
@@ -231,6 +228,9 @@ msgstr ""
 msgid "API Information"
 msgstr ""
 
+msgid "API rights"
+msgstr ""
+
 msgid "API token"
 msgstr ""
 
@@ -291,6 +291,18 @@ msgstr ""
 msgid "All the best,"
 msgstr ""
 
+msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
+msgstr ""
+
+msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
+msgstr ""
+
+msgid "Allows the user to create and edit guidance"
+msgstr ""
+
+msgid "Allows the user to create new institutional templates, edit existing ones and customise funder templates"
+msgstr ""
+
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
@@ -304,9 +316,6 @@ msgid "Answer questions"
 msgstr ""
 
 msgid "Answered"
-msgstr ""
-
-msgid "Answered "
 msgstr ""
 
 msgid "Answered at"
@@ -363,10 +372,16 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgstr ""
+
 msgid "Change language"
 msgstr ""
 
 msgid "Change my password"
+msgstr ""
+
+msgid "Change organisation details"
 msgstr ""
 
 msgid "Check box"
@@ -609,10 +624,16 @@ msgstr ""
 msgid "Grant number"
 msgstr ""
 
+msgid "Grant permissions"
+msgstr ""
+
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 msgstr ""
 
 msgid "Guidance"
+msgstr ""
+
+msgid "Guidance choices saved."
 msgstr ""
 
 msgid "Guidance group"
@@ -690,9 +711,6 @@ msgstr ""
 msgid "If you would like to change your password please complete the following fields."
 msgstr ""
 
-msgid "Impossible sharing plan with %{email} since that email matches with the owner of the plan."
-msgstr ""
-
 msgid "Included Elements"
 msgstr ""
 
@@ -717,7 +735,7 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-msgid "Invitation issued successfully."
+msgid "Invitation to %{email} issued successfully."
 msgstr ""
 
 msgid "Language"
@@ -763,6 +781,12 @@ msgid "Me"
 msgstr ""
 
 msgid "Message"
+msgstr ""
+
+msgid "Modify guidance"
+msgstr ""
+
+msgid "Modify templates"
 msgstr ""
 
 msgid "Multi select box"
@@ -930,7 +954,13 @@ msgstr ""
 msgid "Plan details"
 msgstr ""
 
+msgid "Plan is already shared with %{email}."
+msgstr ""
+
 msgid "Plan name"
+msgstr ""
+
+msgid "Plan shared with %{email}."
 msgstr ""
 
 msgid "Plan was successfully deleted."
@@ -1015,6 +1045,9 @@ msgid "Privileges"
 msgstr ""
 
 msgid "Project title"
+msgstr ""
+
+msgid "Provides the user with an API token and grants rights to harvest information from the tool"
 msgstr ""
 
 msgid "Public"
@@ -1320,9 +1353,6 @@ msgstr ""
 msgid "Upload a new logo file"
 msgstr ""
 
-msgid "User added to project"
-msgstr ""
-
 msgid "Users"
 msgstr ""
 
@@ -1582,9 +1612,6 @@ msgid "guidance on"
 msgstr ""
 
 msgid "height must be less than 100px"
-msgstr ""
-
-msgid "helpers.dropdown"
 msgstr ""
 
 msgid "helpers.is_test"
