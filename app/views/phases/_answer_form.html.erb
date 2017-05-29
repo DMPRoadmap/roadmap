@@ -117,20 +117,12 @@
         <% if !readonly %>
 				  <input type="submit" class="form-submit" value="<%= _('Save') %>" />
         <% end %>
-				<div id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></div>
-				
-				<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
-				
       </fieldset>   <!-- f.inputs -->
-      
+      <div id="<%= "answer-status-#{question_id}" %>">
+        <%= render(partial: 'answers/status', locals: { question_id: question_id, answer: answer }) %>
+      </div>
     <% end %>
   </div>   <!-- question-form -->
-
-  <% if answer.nil? || !answer.text.present? %>
-    <span id="<%= question_id %>-status" class="label label-warning answer-status"><%= _('Not answered yet') %></span>
-  <% else %>
-    <span id="<%= question_id %>-status" class="label label-info answer-status"><%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %></span>
-  <% end %>
 </div>   <!-- question-div -->
       
 <!-- Question right column -->
