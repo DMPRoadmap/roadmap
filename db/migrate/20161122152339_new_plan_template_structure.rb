@@ -298,8 +298,10 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                   # project's org(customizations)
                   if suggested_answer.organisation_id == template.organisation_id ||
                     suggested_answer.organisation_id == project.dmptemplate.organisation_id
-                    annotation = initAnnotationSA(suggested_answer, new_question)
-                    annotation.save!
+                    if suggested_answer.text.present?
+                      annotation = initAnnotationSA(suggested_answer, new_question)
+                      annotation.save!
+                    end
                   end
                 end
                 # question.guidance field to annotation if present
@@ -427,7 +429,8 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
             if version.present?
               new_phase = initNewPhase(phase, version, new_temp, modifiable)
               new_phase.save
-              Section.includes(questions: [:themes, :options, :suggested_answers]).where(version_id: version.id).each do |section|
+              # ISSUE: This just copies over all the sections
+              Section.includes(questions: [:themes, :options, :suggested_answers]).where(version_id: version.id, organisation_id: [org_id, dtemp.organisation_id]).each do |section|
                 sec_mod = section.organisation_id == org_id
                 new_section = initNewSection(section, new_phase, sec_mod)
                 new_section.save!
@@ -446,8 +449,10 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                     # project's org(customizations)
                     if suggested_answer.organisation_id == dtemp.organisation_id ||
                       suggested_answer.organisation_id == org_id
-                      annotation = initAnnotationSA(suggested_answer, new_question)
-                      annotation.save!
+                      if suggested_answer.text.present?
+                        annotation = initAnnotationSA(suggested_answer, new_question)
+                        annotation.save!
+                      end
                     end
                   end
                   # question.guidance field to annotation if present
@@ -522,10 +527,10 @@ def get_version(phase, published, all)
     if pub_vers.any?
       version = pub_vers.first
     else
-      version = phase.versions.order(updated_at: 'desc').first
+      version = phase.versions.order(created_at: 'desc').first
     end
   else
-    version = phase.versions.order(updated_at: 'desc').first
+    version = phase.versions.order(created_at: 'desc').first
   end
   return version
 end
@@ -575,8 +580,8 @@ def initNewPhase(phase, version, temp, modifiable)
   new_phase.description     = phase.description
   new_phase.number          = phase.number
   new_phase.template_id     = temp.id
-  new_phase.created_at      = phase.created_at
-  new_phase.updated_at      = phase.updated_at
+  new_phase.created_at      = version.created_at
+  new_phase.updated_at      = version.updated_at
   new_phase.slug            = phase.slug
   new_phase.vid             = version.id
   new_phase.modifiable      = modifiable
