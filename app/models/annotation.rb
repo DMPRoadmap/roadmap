@@ -1,5 +1,5 @@
 class Annotation < ActiveRecord::Base
-  enum type: [ :guidance, :example_answer]
+  enum type: [ :example_answer, :guidance]
   ##
   # Associations
   belongs_to :org
