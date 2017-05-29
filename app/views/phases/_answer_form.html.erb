@@ -32,8 +32,8 @@
         <%= raw question.text %>
 
         <!--Example Answer area-->
-        <% if question.annotations.where('type <> ?',Annotation.types[:example_answer]).any? %>
-          <% annotation = question.annotations.where('type <> ?',Annotation.types[:example_answer]).order(:created_at).first %>
+        <% if question.annotations.where(type: Annotation.types[:example_answer]).any? %>
+          <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
           <% if annotation.text.present? %>   <!-- could be present but empty -->
             <div class="suggested-answer-div">
               <span class="suggested-answer-intro">
