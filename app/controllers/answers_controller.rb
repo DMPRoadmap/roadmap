@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
       authorize @answer
 
       if @answer.save
-        @timestamp = Time.now.iso8601
+        @timestamp = @answer.updated_at.iso8601
       end
       @lock_version = @answer.lock_version
     elsif params[:answer][:id].blank? # Someone else already added an answer while the user was working
