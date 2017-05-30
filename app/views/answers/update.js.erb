@@ -23,7 +23,9 @@ if($.fn.init_answer_status)
     $.fn.init_answer_status();
 
 // update plan progress bar
-$(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: {nquestions: @nquestions, nanswers: @nanswers}) %>"); 
+$(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: { plan: @plan }) %>"); 
 
-// update the section progress message
-$("#<%=@section_id%>-status").html("(<%=@n_section_questions%> <%= _('questions') %>, <%=@n_section_answers%> <%= _('answered') %>)")
+
+// update the section progress
+$("#section-progress-<%= @section.id %>")
+    .html("<%= escape_javascript(render partial: '/sections/progress', locals: { section: @section, plan: @plan }) %>");
