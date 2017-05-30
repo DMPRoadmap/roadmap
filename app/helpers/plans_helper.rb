@@ -5,14 +5,14 @@ module PlansHelper
   def plan_list_column_heading(column)
     if column.kind_of?(Array)
       heading = (column.first.kind_of?(String) ? column.first : _(' - '))
-      
+
     elsif column.kind_of?(String)
       heading = column
 
     else
       heading = _(' - ')
     end
-    
+
     klass = (['name', 'description'].include?(heading) ? :dmp_th_big : :dmp_th_small)
 
     content_tag(:th, t("helpers.project.columns.#{heading}"), class: klass) # parametrised YAML keys are no longer possible with gettext, TODO
@@ -21,9 +21,9 @@ module PlansHelper
   # Populate a variable column for the project list
   # --------------------------------------------------------
   def plan_list_column_body(column, plan)
-    
+
     col = (column.kind_of?(Array) ? column[0] : column)
-    
+
     klass, content = case col
       when 'name'
         [ "dmp_td_big", link_to(plan.title, plan_path(plan), class: "dmp_table_link") ]
@@ -51,7 +51,7 @@ module PlansHelper
                 _('Test/Practice')
                elsif plan.visibility == 'privately_visible'
                 _('Private')
-               end  
+               end
         ["dmp_td_small", text ]
       when 'last_edited'
         [ "dmp_td_small", l(plan.latest_update.to_date, formats: :short) ]
@@ -85,6 +85,20 @@ module PlansHelper
     end
 
     content_tag(:small, t("helpers.settings.plans.#{key}"))
+  end
+
+
+  # display the role of the user for a given plan
+  def display_role(role)
+    case role.access_level
+      when 3
+        access = 'Co-owner'
+      when 2
+        access = 'Editor'
+      when 1
+        access = 'Read only'
+    end
+    return access
   end
 
 end
