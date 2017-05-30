@@ -1,4 +1,4 @@
-<!--edit suggested answer. question is passed as an argument-->
+<!--edit annotation. question is passed as an argument-->
 <%= form_for(suggested_answer, url: admin_update_suggested_answer_path(suggested_answer), html: { method: :put}) do |f| %>
   <%= f.hidden_field :org_id, value: current_user.org_id %>
 

@@ -17,7 +17,7 @@
 <div class="div_clear"></div>
 
 <!-- render navigation tabs for the template-->
-<%= render partial: "templates/admin_nav_tabs", locals: {template: @phase.template, active: @phase.id} %>
+<%= render partial: "templates/admin_nav_tabs", locals: {template: @phase.template, active: @phase.id, edit: @edit, current: @current} %>
 
 <!-- phase main container -->
 <div class="project-tabs-body">

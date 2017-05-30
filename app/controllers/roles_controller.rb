@@ -10,22 +10,26 @@ class RolesController < ApplicationController
     set_access_level(access_level)
     if params[:user].present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
-        flash[:notice] = _('Impossible sharing plan with %{email} since that email matches with the owner of the plan.') % {email: params[:user]}
-      else  
-        message = _('User added to project')
-        user = User.find_by(email: params[:user])
-        if user.nil?
-          registered = false
-          User.invite!(email: params[:user])
-          message = _('Invitation issued successfully.')
+        flash[:notice] = _('Cannot share plan with %{email} since that email matches with the owner of the plan.') % {email: params[:user]}
+      else
+        if Role.find_by(plan: @role.plan, user: User.find_by(email: params[:user])) # role already exists
+          flash[:notice] = _('Plan is already shared with %{email}.') % {email: params[:user]}
+        else  
+          message = _('Plan shared with %{email}.') % {email: params[:user]}
           user = User.find_by(email: params[:user])
-        end
-        @role.user = user
-        if @role.save
-          if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
-          flash[:notice] = message
-        else
-          flash[:notice] = failed_create_error(@role, _('role'))
+          if user.nil?
+            registered = false
+            User.invite!(email: params[:user])
+            message = _('Invitation to %{email} issued successfully.') % {email: params[:user]}
+            user = User.find_by(email: params[:user])
+          end
+          @role.user = user
+          if @role.save
+            if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
+            flash[:notice] = message
+          else
+            flash[:notice] = failed_create_error(@role, _('role'))
+          end
         end
       end
     else

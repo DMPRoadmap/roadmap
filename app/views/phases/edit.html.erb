@@ -1,6 +1,6 @@
 <%- model_class = Plan -%>
 <% javascript "plans.js" %>
-
+<% javascript "answers/status.js" %>
 <!--
   editing plan details is handled through plan#show
   so if we come this way then we are editing a phase
@@ -28,10 +28,10 @@
       <!-- verify if the session[:question_id_comments] has been created. -->
       <% if session[:question_id_comments].to_i != 0 then %>
         <% question_from_comment = Question.find(session[:question_id_comments])%>
-        <% if sectionid == question_from_comment.section_id then %>    
+        <% if sectionid == question_from_comment.section_id then %>
           <%= hidden_field_tag :comment_section_id, question_from_comment.section_id, :class => "comment_section_id" %>
-        <%end%>    
-      <% end%>     
+        <%end%>
+      <% end%>
 
       <div class="accordion-group">
 
@@ -86,24 +86,20 @@
               <% section.questions.each do |question| %>
                 <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
                 <div id="<%= id_css%>">
-                  <% partialname = "answer_form"
-                     if @readonly
-                       partialname += "_ro"
-                     end
-                  %>
-  
+
                   <% guidances = @question_guidance[question.id] %>
-  
-                  <%= render partial: partialname,
+
+                  <%= render partial: 'answer_form',
                       locals: {
                         plan: @plan,
                         phase_id: @phase.id,
                         question: question,
                         question_guidances: guidances,
                         last_question_id: section.questions.last.id,
+                        readonly: @readonly
                       }
                   %>
-                </div>   <!-- id_css -->    
+                </div>   <!-- id_css -->
               <% end %>   <!-- section.questions -->
             </div>   <!--  loaded -->
           </div>   <!--  accordion-inner -->

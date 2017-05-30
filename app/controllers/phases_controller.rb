@@ -4,14 +4,16 @@ class PhasesController < ApplicationController
   after_action :verify_authorized
 
 
-	# GET /plans/:plan_id/phases/:id/edit
-	def edit
+    # GET /plans/:plan_id/phases/:id/edit
+    def edit
 
     @plan = Plan.eager_load2(params[:plan_id])
+    # authorization done on plan so found in plan_policy
     authorize @plan
 
     phase_id = params[:id].to_i
     @phase = @plan.template.phases.select {|p| p.id == phase_id}.first
+    @readonly = !@plan.editable_by?(current_user.id)
 
     # the eager_load pulls in ALL answers
     # need to restrict to just ones for this plan
@@ -43,7 +45,7 @@ class PhasesController < ApplicationController
 
     # create a map from theme to array of guidances
     # where guidance is a hash with the text and the org name
-    theme_guidance = {} 
+    theme_guidance = {}
 
     guidance_groups.each do |guidance_group|
       guidance_group.guidances.each do |guidance|
@@ -54,7 +56,7 @@ class PhasesController < ApplicationController
           end
           theme_guidance[title] << {
             text: guidance.text,
-            org: guidance_group.name
+            org: guidance_group.name + ':'
           }
         end
       end
@@ -83,14 +85,14 @@ class PhasesController < ApplicationController
 
     if !user_signed_in? then
       respond_to do |format|
-				format.html { redirect_to edit_user_registration_path }
-			end
-		end
+                format.html { redirect_to edit_user_registration_path }
+            end
+        end
 
-	end
+    end
 
 
-	# GET /plans/PLANID/phases/PHASEID/status.json
+    # GET /plans/PLANID/phases/PHASEID/status.json
   def status
     @plan = Plan.eager_load(params[:plan_id])
     authorize @plan
@@ -110,9 +112,10 @@ class PhasesController < ApplicationController
     @phase = Phase.eager_load(:sections).find_by('phases.id = ?', params[:id])
     authorize @phase
 
-    @edit = (@phase.template.org == current_user.org)
+    @current = Template.current(@phase.template.dmptemplate_id)
+    @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
     #@edit = params[:edit] == "true" ? true : false
-    
+
         #verify if there are any sections if not create one
     @sections = @phase.sections
     if !@sections.any?() || @sections.count == 0
@@ -158,13 +161,13 @@ class PhasesController < ApplicationController
   def admin_create
     @phase = Phase.new(params[:phase])
     authorize @phase
-    
+
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
     if @phase.save
       @phase.template.dirty = true
       @phase.template.save!
-      
+
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
     else
       flash[:notice] = failed_create_error(@phase, _('phase'))
@@ -182,7 +185,7 @@ class PhasesController < ApplicationController
     if @phase.update_attributes(params[:phase])
       @phase.template.dirty = true
       @phase.template.save!
-      
+
       redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
     else
       @sections = @phase.sections
@@ -190,7 +193,7 @@ class PhasesController < ApplicationController
       # These params may not be available in this context so they may need
       # to be set to true without the check
       @edit = true
-      @open = !params[:section_id].nil? 
+      @open = !params[:section_id].nil?
       @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
       flash[:notice] = failed_update_error(@phase, _('phase'))
@@ -206,15 +209,15 @@ class PhasesController < ApplicationController
     if @phase.destroy
       @template.dirty = true
       @template.save!
-      
+
       redirect_to admin_template_template_path(@template), notice: _('Information was successfully deleted.')
     else
       @sections = @phase.sections
-      
+
       # These params may not be available in this context so they may need
       # to be set to true without the check
       @edit = true
-      @open = !params[:section_id].nil? 
+      @open = !params[:section_id].nil?
       @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
       flash[:notice] = failed_destroy_error(@phase, _('phase'))

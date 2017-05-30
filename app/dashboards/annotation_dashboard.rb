@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class SuggestedAnswerDashboard < Administrate::BaseDashboard
+class AnnotationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -12,7 +12,7 @@ class SuggestedAnswerDashboard < Administrate::BaseDashboard
     question: Field::BelongsTo,
     id: Field::Number,
     text: Field::Text,
-    is_example: Field::Boolean,
+    type: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -36,7 +36,7 @@ class SuggestedAnswerDashboard < Administrate::BaseDashboard
     :question,
     :id,
     :text,
-    :is_example,
+    :type,
     :created_at,
     :updated_at,
   ].freeze
@@ -48,13 +48,13 @@ class SuggestedAnswerDashboard < Administrate::BaseDashboard
     :org,
     :question,
     :text,
-    :is_example,
+    :type,
   ].freeze
 
-  # Overwrite this method to customize how suggested answers are displayed
+  # Overwrite this method to customize how annotations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(suggested_answer)
-  #   "SuggestedAnswer ##{suggested_answer.id}"
+  # def display_resource(annotation)
+  #   "Annotation ##{annotation.id}"
   # end
 end

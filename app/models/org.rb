@@ -4,13 +4,18 @@ class Org < ActiveRecord::Base
   extend Dragonfly::Model::Validations
 
   ##
+  # Sort order: Name ASC
+  default_scope { order(name: :asc) }
+
+
+  ##
   # Associations
 #  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
   belongs_to :language
   has_many :guidance_groups
   has_many :templates
   has_many :users
-  has_many :suggested_answers
+  has_many :annotations
   
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 

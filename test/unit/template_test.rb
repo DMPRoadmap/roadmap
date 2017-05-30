@@ -33,7 +33,7 @@ class TemplateTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "family_ids scope only returns the dmptemplate_ids for the specific Org" do
     Org.all.each do |org|
-      family_ids = Template.all.pluck(:dmptemplate_id).uniq
+      family_ids = Template.valid.all.pluck(:dmptemplate_id).uniq
       scoped = Template.dmptemplate_ids
       assert_equal family_ids.count, scoped.count
       

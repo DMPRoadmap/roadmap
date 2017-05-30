@@ -8,7 +8,8 @@ identifier_schemes = [
   {name: 'orcid', description: 'ORCID', active: true, 
    logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png', 
    user_landing_url:'https://orcid.org' },
-  {name: 'shibboleth', description: 'Shibboleth', active: true}
+  {name: 'shibboleth', description: 'your institutional credentials', active: true,
+  },
 ]
 identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
 
@@ -349,6 +350,7 @@ templates = [
    org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
    version: 0,
+   migrated: false,
    dmptemplate_id: 1},
   
   {title: "OLD - Department of Testing Award",
@@ -356,6 +358,7 @@ templates = [
     org: Org.find_by(abbreviation: 'GA'),
     is_default: false,
     version: 0,
+    migrated: false,
    dmptemplate_id: 2},
      
   {title: "Department of Testing Award",
@@ -363,6 +366,7 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
+   migrated:false,
    dmptemplate_id: 3}
 ]
 templates.map{ |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
@@ -611,7 +615,6 @@ questions = [
    question_format: QuestionFormat.find_by(title: "Text field"),
    modifiable: false,
    default_value: "on a server at my institution",
-   guidance: "Consider where your data will be stored after your research is complete.",
    themes: [Theme.find_by(title: "Preservation")]},
   {text: "What types of data will you collect and how will it be stored?",
    number: 1,
@@ -671,17 +674,17 @@ radio_button_question = Question.find_by(text: "Please select the appropriate fo
 
 # Create suggested answers for a few questions
 # ------------------------------------------------------- 
-suggested_answers = [
+annotations = [
   {text: "We will preserve it in Dryad or a similar data repository service.",
-   is_example: true,
+   type: Annotation.types[:example_answer],
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What is your policy for long term access to your dataset?")},
   {text: "We recommend that you identify the type(s) of content as well as the type of file(s) involved",
-   is_example: false,
+   type: Annotation.types[:example_answer],
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
-suggested_answers.map{ |s| SuggestedAnswer.create!(s) if SuggestedAnswer.find_by(text: s[:text]).nil? }
+annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
 
 # Create options for the dropdown, multi-select and radio buttons
 # ------------------------------------------------------- 

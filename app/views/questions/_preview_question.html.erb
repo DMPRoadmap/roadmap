@@ -57,19 +57,15 @@
         <% end %>
 
         <!--Suggested answer area-->
-        <% suggested_answer = question.suggested_answers.find_by(org_id: current_user.org_id) %>
-        <% if !suggested_answer.blank? %>
+        <% if question.annotations.where(type: Annotation.types[:example_answer]).any? %>
+          <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
           <div class="suggested-answer-div">
             <span class="suggested-answer-intro">
-              <% if suggested_answer.is_example? %>
                 <%= _('Example of answer')%>
-              <% else %>
-                <%= _('Suggested answer')%>
-              <% end %>
             </span>
             <div class="suggested-answer-border">
               <p class="suggested-answer">
-                <%= raw suggested_answer.text %>
+                <%= raw annotation.text %>
               </p>
             </div>
           </div>
@@ -80,19 +76,15 @@
       <% else %>
         <label class="text_colour"><%= raw question.text %></label>
         <!--Suggested answer area-->
-        <% suggested_answer = question.suggested_answers.find_by(org_id: current_user.org_id) %>
-        <% if !suggested_answer.blank? %>
+        <% annotations = question.annotations.find_by(org_id: current_user.org_id) %>
+        <% if !annotations.blank? %>
           <div class="suggested-answer-div">
             <span class="suggested-answer-intro">
-              <% if suggested_answer.is_example? %>
                 <%= _('Example of answer')%>
-              <% else %>
-                <%= _('Suggested answer')%>
-              <% end %>
             </span>
             <div class="suggested-answer-border">
               <p class="suggested-answer">
-                <%= raw suggested_answer.text %>
+                <%= raw annotations.text %>
               </p>
             </div>
           </div>
@@ -106,9 +98,9 @@
       <% if q_format.title == _('Text field') %>
         <input type ="text" style="width: 97%;"/>
       <!--text area display-->
-      <%elsif q_format.title == _('Text area') %>
+      <% elsif q_format.title == _('Text area') %>
         <textarea rows="4" style="width: 97%;" ><%= question.default_value[3..-5] unless question.default_value.nil? %></textarea>
-      <%end%>
+      <% end %>
       <br/>
       <!-- button without action-->
       <%= link_to _('Save'), "#", class: "btn btn-primary", onclick: "event.preventDefault();" %>

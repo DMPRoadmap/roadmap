@@ -3,10 +3,6 @@
 // On success this will be "" on error it will be the 
 // conflicting answer
 
-// go back from "Saving..." message to "Save" button
-$("#saving-<%=@question.id%>").hide();
-$("#saving-<%=@question.id%>").prev().show();
-
 <% if @old_answer %>
   $("#answer_notice_<%=@question.id%>").html("<%= escape_javascript(render partial: '/phases/answer', locals: { question: @question, answer: @old_answer}) %>"); 
 <% else %>
@@ -21,20 +17,13 @@ $("#answer_lock_version-<%=@question.id%>").val(<%= @lock_version %>);
 $("#question-form-<%= @question.id %> #answer_id").val(<%= @answer.id %>);
 
 // update the answer status
-
-var q_status = $("#<%=@question.id%>-status");
-var timestamp = "<%=@timestamp%>";
-
-if( timestamp != "") {
-  q_status.text("");
-  q_status.append("<%= _('Answered') %> <abbr class=\"timeago\" data-time=\"<%=@timestamp%>\" title=\"<%=@timestamp%>\"><%=@timestamp%></abbr> <%= _('by') %> <%=@username%>");
-	$('abbr.timeago').timeago();
-}
-
+$("#answer-status-<%= @question.id %>")
+    .html("<%= escape_javascript(render partial: '/answers/status', locals: { question_id: @question.id, answer: @answer}) %>");
+if($.fn.init_answer_status) 
+    $.fn.init_answer_status();
 
 // update plan progress bar
 $(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: {nquestions: @nquestions, nanswers: @nanswers}) %>"); 
-
 
 // update the section progress message
 $("#<%=@section_id%>-status").html("(<%=@n_section_questions%> <%= _('questions') %>, <%=@n_section_answers%> <%= _('answered') %>)")

@@ -107,14 +107,13 @@ class User < ActiveRecord::Base
   #
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
-=begin
-  def organisation_id=(new_organisation_id)
-    unless self.can_change_org? || new_organisation_id.nil? || self.organisation.nil?
+  def org_id=(new_org_id)
+    unless self.can_change_org? || new_org_id.nil? || self.org.nil? || (new_org_id.to_s == self.org.id.to_s)
       # rip all permissions from the user
       self.perms.delete_all
     end
     # set the user's new organisation
-    super(new_organisation_id)
+    super(new_org_id)
     self.save!
     # rip api permissions from the user
     self.remove_token!
@@ -124,10 +123,9 @@ class User < ActiveRecord::Base
   # sets a new organisation for the user
   #
   # @param new_organisation [Organisation] the new organisation for the user
-  def organisation=(new_organisation)
-    organisation_id = new_organisation.id unless new_organisation.nil?
+  def organisation=(new_org)
+    org_id = new_org.id unless new_org.nil?
   end
-=end
   
   ##
   # checks if the user is a super admin

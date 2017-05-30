@@ -8,6 +8,7 @@
 
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
+<h1> <%=@readonly%> </h1>
 
 <!-- progress bar -->
 <% status = @plan.status %>
