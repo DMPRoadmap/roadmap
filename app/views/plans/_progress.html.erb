@@ -1,3 +1,7 @@
+<%
+    nanswers = plan.num_answered_questions()
+    nquestions = plan.num_questions()
+%>
 <% answered = %(#{nanswers}/#{nquestions})%>
 <div class="bar-container">
   <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>

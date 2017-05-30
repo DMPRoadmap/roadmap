@@ -15,24 +15,6 @@ class PhasesController < ApplicationController
     @phase = @plan.template.phases.select {|p| p.id == phase_id}.first
     @readonly = !@plan.editable_by?(current_user.id)
 
-    # the eager_load pulls in ALL answers
-    # need to restrict to just ones for this plan
-    # at the same time count the questions and answers for the status
-    @nquestions = 0
-    @nanswers = 0
-
-    @plan.template.phases.each do |phase|
-      phase.sections.each do |section|
-        section.questions.each do |question|
-          @nquestions += 1
-          question.answers = question.answers.to_a.select {|answer| answer.plan_id == @plan.id}
-          if question.answers.present? && question.answers.first.text.present?
-            @nanswers += 1
-          end
-        end
-      end
-    end
-
     # Now we need to get all the themed guidance for the plan.
     # TODO: think this through again, there may be a better way to do this.
     #

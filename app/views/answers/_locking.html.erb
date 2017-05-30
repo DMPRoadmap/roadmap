@@ -1,0 +1,5 @@
+<div class="answer_notice">
+    <p><%= _('The following answer cannot be persisted') %></p>
+        <%= render partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: true } %>
+    <p><%= _('since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again.') % { name: user.name} %></p>
+</div>
