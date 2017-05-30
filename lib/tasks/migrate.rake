@@ -194,9 +194,9 @@ namespace :migrate do
     conn.execute "DELETE FROM users_roles WHERE user_id NOT IN (SELECT id FROM users);"
     conn.execute "DELETE FROM users_roles WHERE role_id NOT IN (SELECT id FROM roles);"
     
-    # Null out empty-string User names.
-    conn.execute "UPDATE users SET firstname = null where firstname = '';"
-    conn.execute "UPDATE users SET surname = null where surname = '';"
+    # Fill out empty User names.
+    conn.execute "UPDATE users SET firstname = 'FIRST NAME' WHERE firstname = '' OR firstname IS NULL;"
+    conn.execute "UPDATE users SET surname = 'LAST NAME' WHERE surname = '' OR surname IS NULL;"
     
     Rake::Task['migrate:remove_invalid_emails'].execute
   end
