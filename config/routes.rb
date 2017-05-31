@@ -125,10 +125,10 @@ Rails.application.routes.draw do
         get 'admin_template'
         get 'admin_new'
         get 'admin_template_history'
+        get 'admin_customize'
         delete 'admin_destroy'
         post 'admin_create'
         put 'admin_update'
-        put 'admin_customize'
         put 'admin_publish'
         put 'admin_unpublish'
       end
