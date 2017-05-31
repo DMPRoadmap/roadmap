@@ -44,7 +44,7 @@ in the admin interface.
 
     <!-- Suggested answer or Example-->
     <tr>
-      <td class="first_template"><%= _('Example of Answer')%></td>
+      <td class="first_template"><%= _('example answer')%></td>
       <td>
         <div class="div_left_icon">
           <% annotations = question.annotations.where(org_id: current_user.org_id).where(type: Annotation.types[:example_answer]).order(:created_at).first %>

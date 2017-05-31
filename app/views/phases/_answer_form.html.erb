@@ -37,7 +37,7 @@
           <% if annotation.text.present? %>   <!-- could be present but empty -->
             <div class="suggested-answer-div">
               <span class="suggested-answer-intro">
-                  <%="#{annotation.org.abbreviation} "%> <%=_('Example of answer')%>
+                  <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
               </span>
 
               <div class="suggested-answer-border">
@@ -132,7 +132,7 @@
       <% comments = answer.notes.all %> 
       <%= hidden_field_tag :question_id, question_id, class: "question_id" %>
       <ul class="question_right_column_ul">
-      <% annotations = question.annotations.where("type <> ?", Annotation.types[:guidance]) %>
+      <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
       <% if annotations.present? || question_guidances[question_id] %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
