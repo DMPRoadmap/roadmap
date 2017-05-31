@@ -319,9 +319,6 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                     annotation = initAnnotationGuidance(guidance, new_question)
                     annotation.save!
                   end
-                  # ported over the data, remove the old guidance record
-                  # also removes the orphaned guidances
-                  guidance.destroy!
                 end
               end
             end
