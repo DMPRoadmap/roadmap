@@ -14,7 +14,7 @@
 
       <%= link_to _('Duplicate'), duplicate_plan_path(plan), method: :post, :class => "dmp_table_link"%>
 
-      <% if plan.administerable_by?(current_user.id) then %>
+      <% if plan.owned_by?(current_user.id) then %>
         <%= link_to _('Delete'), plan_path(plan), :class => "dmp_table_link",
           :method => :delete, :data => {
             :confirm => _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')

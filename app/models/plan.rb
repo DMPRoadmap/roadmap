@@ -290,6 +290,16 @@ class Plan < ActiveRecord::Base
     return role.present? && role.administrator?
 	end
 
+  ##
+  # determines if the plan is owned by the specified user
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user can administer the plan
+  def owned_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
+    role = roles.where(user_id: user_id).first
+    return role.present? && role.creator?
+  end
 
   ##
   # defines and returns the status of the plan
