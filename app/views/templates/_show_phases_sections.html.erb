@@ -33,8 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <% (1..phase_hash[:sections].length).each do |section_no| %>
-          <% section = phase_hash[:sections][section_no] %>
+        <% (phase_hash[:sections].values.sort_by { |key| key[:data][:number] }).each do |section| %>
           <% if section.present? %>
             <tr >
               <th class="dmp_th_border" >
@@ -43,9 +42,9 @@
               <td class="dmp_td_border" >
                 <% if section[:questions].present? %>
                   <ul class="question_ul">
-                    <% (1..section[:questions].length).each do |question_no|%>
-                      <li>
-                        - <%= raw section[:questions][question_no][:data].text %>
+                    <% (section[:questions].values.sort_by { |key| key[:data][:number] }).each do |question| %>
+                      <li> 
+                        - <%= raw question[:data].text %>
                       </li>
                     <% end %>
                   </ul>
