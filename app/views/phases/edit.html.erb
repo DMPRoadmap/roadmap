@@ -73,11 +73,10 @@
                 <div id="<%= id_css%>">
 
                   <% guidances = @question_guidance[question.id] %>
-
+                  <!-- TODO Rename the partial view below to something more appropiate -->
                   <%= render partial: 'answer_form',
                       locals: {
                         plan: @plan,
-                        phase_id: @phase.id,
                         question: question,
                         question_guidances: guidances,
                         last_question_id: section.questions.last.id,

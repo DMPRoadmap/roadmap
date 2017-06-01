@@ -2,48 +2,29 @@ class AnswersController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
-	# PUT/PATCH /[:locale]/answer/[:id]
+	# PUT/PATCH /answers/[:id]
 	def update
-    question_id = params[:answer][:question_id]
-    plan_id = params[:answer][:plan_id]
-    @question = Question.find(question_id);
-    # If an answer id is present load that answer otherwise load by plan/question
-    @answer = Answer.find_by(plan_id: plan_id, question_id: question_id)
-
-    @old_answer = nil
-    @timestamp = nil
-
-    if @answer.nil? # If there is no answer for plan/question
-      @answer = Answer.new(permitted_params)
-      @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
-      
-      authorize @answer
-
-      if @answer.save
-        @timestamp = @answer.updated_at.iso8601
+    p_params = permitted_params()
+    @answer = Answer.find_by({plan_id: p_params[:plan_id], question_id: p_params[:question_id], })
+    begin
+      if @answer
+        authorize @answer
+        @answer.update(p_params)
+        if p_params[:question_option_ids].present?
+          @answer.touch() # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
+        end
+      else
+        @answer = Answer.new(p_params)
+        @answer.lock_version = 1
+        authorize @answer
+        @answer.save()  # NOTE, there is a chance to create multiple answer associated for a plan/question (IF any concurrent thread) INSERTS an answer after checking the existence of an answer (Line 8)
+        # In order to avoid that edge-case, it is recommended to create answers whenever a new plan is created (e.g. after_create callback)
       end
-      @lock_version = @answer.lock_version
-    elsif params[:answer][:id].blank? # Someone else already added an answer while the user was working
-      @old_answer = Marshal::load(Marshal.dump(@answer))
-      @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
-    
-      authorize @answer
-      
-      @lock_version = @answer.lock_version
-    else  # We're about updating an answer (let ActiveRecord check for a race condition)
-      @old_answer = Marshal::load(Marshal.dump(@answer))
-      @answer.text = params["answer-text-#{@answer.question_id}".to_sym]
-      
-      authorize @answer
-      
-      if @answer.update(permitted_params)
-        @answer.touch # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
-        @timestamp = @answer.updated_at.iso8601
-      end
-      @lock_version = @answer.lock_version
-      @old_answer = nil
+    rescue ActiveRecord::StaleObjectError
+      @stale_answer = @answer
+      @answer = Answer.find_by({plan_id: p_params[:plan_id], question_id: p_params[:question_id]})
     end
-
+    
     @plan = Plan.includes({
       sections: { 
         questions: [ 
@@ -51,28 +32,23 @@ class AnswersController < ApplicationController
           :question_format
         ]
       }
-    }).find(plan_id)
+    }).find(p_params[:plan_id])
+    @question = @answer.question
     @section = @plan.get_section(@question.section_id)
-    @username = @answer.user.name
 
     respond_to do |format|
       format.js {} 
     end
-
-    rescue ActiveRecord::StaleObjectError
-      @username = @old_answer.user.name
-      @lock_version = @old_answer.lock_version
-      respond_to do |format|
-        format.js {}
-      end
-
   end # End update
 
   private
     def permitted_params
-      permitted = params.require(:answer).permit(:id, :plan_id, :user_id, :question_id, :lock_version, :question_option_ids => [])
-      if !permitted[:question_option_ids].present?  #If question_option_ids has been filtered out because it was a scalar value (e.g. radiobutton answer)
+      permitted = params.require(:answer).permit(:id, :text, :plan_id, :user_id, :question_id, :lock_version, :question_option_ids => [])
+      if !params[:answer][:question_option_ids].nil? && !permitted[:question_option_ids].present? #If question_option_ids has been filtered out because it was a scalar value (e.g. radiobutton answer)
         permitted[:question_option_ids] = [params[:answer][:question_option_ids]] # then convert to an Array
+      end
+      if !permitted[:id].present?
+        permitted.delete(:id)
       end
       return permitted
     end # End permitted_params

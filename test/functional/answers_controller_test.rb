@@ -27,30 +27,33 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       plan.reload
                          
       referrer = "/#{FastGettext.locale}/plans/#{plan.id}/phases/#{question.section.phase.id}/edit"
-                         
-      answer = Answer.create(user: @user, plan: plan, question: question, 
-                             text: "#{format.title} Tester")
                              
       if format.option_based
       
       else
         # Try creating one first
-        form_attributes = {"answer-text-#{question.id}": "#{format.title} Tester", 
-                           answer: {user_id: @user.id, plan_id: plan.id, 
-                                    question_id: question.id}}
+        form_attributes = { 
+                           answer: {user_id: @user.id, 
+                                    plan_id: plan.id, 
+                                    question_id: question.id,
+                                    text: "#{format.title} Tester",
+                                    lock_version: 0}
+                          }
                                     
-        put_answer(answer, form_attributes, referrer)
+        put_answer(Answer.new(), form_attributes, referrer)
         
         answer = Answer.find_by(user: @user, plan: plan, question: question)
         assert_not answer.id.nil?, "expected the answer to have been created and for an id to be present after creating a #{format.title} question!"
                                     
         # Try editing it
-        form_attributes = {"answer-text-#{question.id}": "Tested",
+        form_attributes = {
                            answer: {id: answer.id,
                                     user_id: answer.user.id, 
                                     plan_id: answer.plan.id, 
                                     question_id: answer.question.id,
-                                    lock_version: answer.lock_version}}
+                                    text: "Tested",
+                                    lock_version: answer.lock_version}
+                          }
         
         put_answer(answer, form_attributes, referrer)
         
@@ -71,7 +74,6 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_equal "text/javascript", @response.content_type
 
-      # last line of JS updates section status with X questions, Y answered
-      assert_match /status"\).html\("\([0-9]+ questions, [0-9]+ answered/, @response.body
+      assert_match(/[^\$]*\$\("#answer-locking-[0-9]+"\).html\(""\);[^\$]*\$\("#answer-form-[0-9]+"\)[^\.]*.html\(".+"\);[^\$]*\$\("#answer-status-[0-9]+"\)[^.]*.html\(".+"\);[^\$]*\$.[^$]*\$.[^\$]*\$\(".progress"\).html\(".+"\);[^\$]*\$\("#section-progress-[0-9]+"\)[^.]*.html\(".+"\);/, @response.body)
     end
 end
