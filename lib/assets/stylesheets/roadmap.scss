@@ -3,6 +3,7 @@
 $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $header-font: "GillSansLight";
 
+$black: #000;
 $white: #FFF;
 $error-color: #CC0000;
 $error-background: #FFE6E6;
@@ -23,6 +24,11 @@ $reverse-text: #FFF;
 
 .primary-color {
   color: $primary-color;
+}
+
+/* Used to override standard h2,h3,h4,etc. sizing */
+.small-header {
+  font-size: 20px;
 }
 
 .main_header {

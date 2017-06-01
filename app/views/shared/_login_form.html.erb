@@ -1,20 +1,22 @@
-<p class="centered primary-color"><%= _('Sign in with') %></p>
+<% javascript "shared/login_form.js" %>
 
-<span class="omniauth-options centered">
-  <% if Rails.application.config.shibboleth_enabled %>
+<% if Rails.application.config.shibboleth_enabled %>
+  <h2 class="centered small-header"><%= _('Sign in with') %></h2>
+
+  <span class="omniauth-options centered">
     <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
       <button id="shibboleth-login" href="<%= user_shibboleth_omniauth_authorize_path %>" class="omniauth-login">
-        <%= _('Your Organization') %>
+        <%= _('Your Organisation') %>
       </button>
     <%else%>
       <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
     <%end%> 
-  <% end %>
-</span>
+  </span>
 
-<p class="centered"><strong>- <%= _('or') %> -</strong></p>
-  
-<%= form_for resource, as: 'user', url: user_session_path, html: {class: "roadmap-form"} do |f| %>
+  <h2 class="centered small-header">- <%= _('or') %> -</h2>
+<% end %>  
+
+<%= form_for resource, as: 'user', url: user_session_path, html: {class: "login-form roadmap-form"} do |f| %>
   <%= devise_error_messages! %>
   <fieldset id="sign-in-form" class="standard padded">
     <%= render partial: 'shared/accessible_input',

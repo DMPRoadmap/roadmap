@@ -70,16 +70,27 @@ module DMPRoadmap
 #    config.assets.precompile += %w(*.js *.scss *.css)
     
     config.assets.precompile += %w(plans.js)
-        config.assets.precompile += %w(projects.js)    
-        config.assets.precompile += %w(jquery.placeholder.js)
-        config.assets.precompile += %w(jquery.tablesorter.js)
-        config.assets.precompile += %w(export_configure.js)
-        config.assets.precompile += %w(toolbar.js)
-        config.assets.precompile += %w(admin.js)
+    config.assets.precompile += %w(projects.js)    
+    config.assets.precompile += %w(jquery.placeholder.js)
+    config.assets.precompile += %w(jquery.tablesorter.js)
+    config.assets.precompile += %w(export_configure.js)
+    config.assets.precompile += %w(toolbar.js)
+    config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
  
-    config.assets.precompile += %w(roadmap.scss roadmap-tabs.scss roadmap-form.scss roadmap-hacks.scss)
-    config.assets.precompile += %w(roadmap.js plans/new_plan.js registrations/sign_in_sign_up.js)
+    config.assets.precompile += %w(roadmap.css 
+                                   roadmap-tabs.css 
+                                   roadmap-form.css 
+                                   roadmap-hacks.css)
+                                   
+    config.assets.precompile += %w(roadmap.js 
+                                   answers/status.js
+                                   devise/passwords/new.js
+                                   plans/new_plan.js 
+                                   contacts/new_contact.js
+                                   home/index.js
+                                   shared/register_form.js
+                                   shared/login_form.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
@@ -90,10 +101,11 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.shibboleth_enabled = true
+    config.shibboleth_enabled = false
 
     # Relative path to Shibboleth SSO Logout
-    config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
+    config.shibboleth_login = '/Shibboleth.sso/Login'
+    config.shibboleth_logout_url = '/Shibboleth.sso/Logout'
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.

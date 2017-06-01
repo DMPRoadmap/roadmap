@@ -1,26 +1,29 @@
+<% javascript "devise/passwords/new.js" %>
+
+<% unless @user.errors[:email].nil? %>
+  <p class="alert alert-error"><%= _('The email address you entered is not registered.') %></p>
+<% end %>
+
 <h1><%= t('helpers.forgot_password') %></h1>
-	<div class="dmp_details_body">
 
-		<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-		  <%= devise_error_messages! %>
-			<div class="dmp_details">
-				<table class="dmp_details_table">
-					<tr>
-						<td class="first"><%= t("helpers.email") %>
-							<p><%= t("helpers.send_password_info")%></p>
-				
-						</td>
-						<td><%= f.email_field :email, :autofocus => true , :style => "width:95%;" %></td>
-					</tr>
-				</table>
-				
-				
-	  		</div>
-	  		<div class="div_right">
-					<%= f.submit t("helpers.send"), :class => "btn btn-primary", :id => "send_btn" %>
-				</div>
-		<% end %>
+<p><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
 
-<%= render "devise/shared/links" %>
-	
-</div>	
+<div class="dmp_details_body">
+  <%= form_for resource, as: 'user', url: user_password_path, html: {class: "password-reset roadmap-form", method: :post} do |f| %>
+
+    <fieldset id="password-reset-form" class="standard padded">
+      <%= render partial: 'shared/accessible_input',
+                 locals: {type: 'email', id: 'user_email', name: 'user[email]', label: _("Email"),
+                          classes: 'required', val: @user.email} %>
+
+      <br />
+      <%= render partial: 'shared/accessible_submit_button',
+                 locals: {id: 'password-reset-button', 
+                          val: _('Send'), 
+                          disabled_initially: true,
+                          classes: 'small-input-button',
+                          tooltip: _('Enter a valid email.')} %>
+    </fieldset>
+  <% end %>
+</div>
+

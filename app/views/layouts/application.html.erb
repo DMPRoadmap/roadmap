@@ -65,10 +65,10 @@
     <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
 
 		<div class="main_page_container">
-			<% if notice %>
+			<% if notice || flash[:notice] %>
   				<p class="alert alert-notice"><%= raw notice %></p>
 				<% end %>
-			<% if alert %>
+			<% if alert || flash[:alert] || flash[:error] %>
  				<p class="alert alert-error"><%= raw alert %></p>
 			<% end %>
 			

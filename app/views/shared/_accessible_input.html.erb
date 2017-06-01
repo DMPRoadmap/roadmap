@@ -28,7 +28,6 @@ console.log($(this).attr('id') + ': ' + $(this).parent('form-input').siblings("#
 
   <% if !tooltip.blank? %>
     <div role="" id="<%= tip %>" class="submit-tooltip">
-      <div class="arrow-left"></div>
       <span class="tooltip-msg"><%= tooltip %></span>
     </div>
     <script type="text/javascript">
@@ -44,10 +43,8 @@ console.log($(this).attr('id') + ': ' + $(this).parent('form-input').siblings("#
 
   <% # If an error handler was passed in or the input type has a generic handler %>
   <% if !error_handler.blank? || ['email', 'password'].include?(type) %>
-    <div role="" id="<%= id %>_error" class="error-tooltip">
-      <div class="arrow-left"></div>
-      <span class="error-msg"></span>
-    </div>
+    <span role="" id="<%= id %>_error" class="error-tooltip left-indent"></span>
+
     <script type="text/javascript">
       $(document).ready(function(){
         let input = $("#<%= id %>");
@@ -55,12 +52,10 @@ console.log($(this).attr('id') + ': ' + $(this).parent('form-input').siblings("#
         let validation = function(val){
           let msg = <%= error_handler.blank? ? "validate#{type.capitalize}(val)" : "#{error_handler}(val)" %>;
           if(msg === '' || val.trim().length <= 0){
-            $("#<%= id %>_error .error-msg").html('');
-            $("#<%= id %>_error").attr('role', '');
+            $("#<%= id %>_error").html('').attr('role', '');
             $("#<%= id %>").removeClass('red-border');
           }else{
-            $("#<%= id %>_error .error-msg").html(msg);
-            $("#<%= id %>_error").attr('role', 'tooltip');
+            $("#<%= id %>_error").html(__('Error: ') + msg).attr('role', 'tooltip');
             $("#<%= id %>").addClass('red-border');
           }
         }
