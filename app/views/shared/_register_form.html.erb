@@ -3,34 +3,34 @@
   
   <fieldset id="create-account-form" class="standard padded">
     <div class="inline">
-      <%= f.label :firstname, _('First Name') %>
-      <%= f.text_field :firstname, as: :firstname, class: 'input-small left-indent' %>
+	    <%= render partial: 'shared/accessible_input',
+	               locals: {type: 'text', id: 'user_firstname', name: 'user[firstname]', label: _("First Name"),
+	                        classes: 'required input-small'} %>
     </div>
     <div class="inline">
-      <%= f.label :surname, _('Last Name') %>
-      <%= f.text_field :surname, as: :surname, class: 'input-small left-indent' %>
+	    <%= render partial: 'shared/accessible_input',
+	               locals: {type: 'text', id: 'user_surname', name: 'user[surname]', label: _("Last Name"),
+	                        classes: 'required input-small'} %>
     </div>
     
-    <%= f.label :email, _('Email') %>
-    <%= f.email_field :email, as: :email, class: 'input-medium left-indent' %>
+    <%= render partial: 'shared/accessible_input',
+               locals: {type: 'email', id: 'user_email', name: 'user[email]', label: _("Email"),
+                        classes: 'required'} %>
     
-    <%= f.label :recovery_email, _('Recovery Email') %>
-    <%= f.email_field :recovery_email, as: :recovery_email, class: 'input-medium left-indent' %>
+    <%= render partial: 'shared/accessible_input',
+               locals: {type: 'email', id: 'user_recovery_email', name: 'user[recovery_email]', 
+								        label: _("Recovery Email"), classes: 'required'} %>
     
-    <%= f.label :password, _('Password') %>
-    <%= f.password_field :password, as: :password, class: 'input-medium left-indent' %>
+    <%= render partial: 'shared/accessible_input',
+                locals: {type: 'password', id: 'user_password', name: 'user[password]', label: _("Password"),
+                         classes: 'required'} %>
     
     <br />
-    <input type="checkbox" id="show-password" />
-    <label for="show-password" class="checkbox-label"><%= _('Show password') %></label>
-    
-    <br />
-		<input type="hidden" id="valid-form" value="false" />
     <%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'create-account-button', 
+               locals: {id: 'register-button', 
                         val: 'Create account', 
                         disabled_initially: true,
                         classes: 'small-input-button',
-                        tooltip: _('Enter your name, email and password.')} %>
+                        tooltip: _('Enter all of the information above')} %>
   </fieldset>
 <% end %>

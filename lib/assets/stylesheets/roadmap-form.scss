@@ -200,7 +200,7 @@ form.roadmap-form {
 
   .error-tooltip {
     display: none;
-    width: 397px;
+    width: 270px;
   }
 
   .error-tooltip[role='tooltip'] {
@@ -314,6 +314,7 @@ form.roadmap-form {
 }
 #new_user fieldset {
   input[type="password"],
+  #user_password,
   input[type="email"] {
     width: 395px;
   }

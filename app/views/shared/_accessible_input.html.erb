@@ -1,8 +1,13 @@
-<% tip = "#{id}_tip" %>
-<% error = "#{id}_error" %>
+<% 
+tip = "#{id}_tip"
+error = "#{id}_error"
 
-<% tooltip = tooltip ||= '' %>
-<% error_handler = error_handler ||= '' %>
+# Used to prevent JS bindings from affecting existing page elements
+js_id = SecureRandom.hex
+
+tooltip = tooltip ||= ''
+error_handler = error_handler ||= '' 
+%>
 
 <div class="form-input">
   <label for="<%= id %>"><%= label ||= '' %></label>
@@ -11,62 +16,71 @@
          name="<%= name %>" 
          class="left-indent <%= classes ||= '' %>"
          value="<%= val ||= '' %>" 
-         aria-describedby="<%= tooltip ||= '' %>" />
+         aria-describedby="<%= tooltip ||= '' %>" 
+         roadmap-js-id="<%= js_id %>" />
 
-  <% if type == 'password' %>
+  <% 
+  # If the field is a password then provide a 'show password' checkbox
+  if type == 'password' 
+  %>
     <div class="form-input checkbox-right">
       <label for="<%= id %>_show" class="checkbox-label"><%= _('Show password') %></label>
-      <input type="checkbox" id="<%= id %>_show" />
+      <input type="checkbox" id="<%= id %>_show" roadmap-js-id="<%= js_id %>_show" />
     </div>
     <script type="text/javascript">
-      $("#<%= id %>_show").click(function(){
-console.log($(this).attr('id') + ': ' + $(this).parent('form-input').siblings("#<%= id %>").prop('type'));
-        $("#<%= id %>").prop('type', ($("#<%= id %>").prop('type') === 'password' ? 'text' : 'password'));
+      $("input[roadmap-js-id='<%= js_id %>_show']").click(function(){
+        let typ = $(this).parent().siblings("input[roadmap-js-id='<%= js_id %>']").attr('type');
+        $(this).parent().siblings("input[roadmap-js-id='<%= js_id %>']").attr('type', (typ === 'password' ? 'text' : 'password'));
       });
     </script>
   <% end %>
 
-  <% if !tooltip.blank? %>
-    <div role="" id="<%= tip %>" class="submit-tooltip">
+  <% 
+  # If the field has a tooltip add it and wire it up for on focus/blur
+  if !tooltip.blank? 
+  %>
+    <div role="" id="<%= tip %>" class="tooltip" roadmap-js-id="<%= js_id %>_tip">
       <span class="tooltip-msg"><%= tooltip %></span>
     </div>
     <script type="text/javascript">
       $(document).ready(function(){
-        $("#<%= id %>").focus(function(){
-          $('#<%= tip %>').attr('role', 'tooltip');
+        $("input[roadmap-js-id='<%= js_id %>']").focus(function(){
+          $(this).siblings('.tooltip').attr('role', 'tooltip');
         }).blur(function(){
-          $('#<%= tip %>').attr('role', '');
+          $(this).siblings('.tooltip').attr('role', '');
         });
       });
     </script>
   <% end %>
 
-  <% # If an error handler was passed in or the input type has a generic handler %>
-  <% if !error_handler.blank? || ['email', 'password'].include?(type) %>
-    <span role="" id="<%= id %>_error" class="error-tooltip left-indent"></span>
+  <%
+  # If an error handler was passed in or the input type has a generic handler
+  if !error_handler.blank? || ['email', 'password'].include?(type) 
+  %>
+    <span role="" id="<%= id %>_error" class="error-tooltip left-indent <%= js_id %>_error"></span>
 
     <script type="text/javascript">
       $(document).ready(function(){
-        let input = $("#<%= id %>");
+        let input = $("input[roadmap-js-id='<%= js_id %>']");
         
-        let validation = function(val){
+        let validate_<%= js_id %> = function(val){
           let msg = <%= error_handler.blank? ? "validate#{type.capitalize}(val)" : "#{error_handler}(val)" %>;
           if(msg === '' || val.trim().length <= 0){
-            $("#<%= id %>_error").html('').attr('role', '');
-            $("#<%= id %>").removeClass('red-border');
+            $("span.<%= js_id %>_error").html('').attr('role', '');
+            $("input[roadmap-js-id='<%= js_id %>']").removeClass('red-border');
           }else{
-            $("#<%= id %>_error").html(__('Error: ') + msg).attr('role', 'tooltip');
-            $("#<%= id %>").addClass('red-border');
+            $("span.<%= js_id %>_error").html(__('Error: ') + msg).attr('role', 'tooltip');
+            $("input[roadmap-js-id='<%= js_id %>']").addClass('red-border');
           }
         }
         // Run the validation on load to display errors on refresh
-        validation($(input).val());
+        validate_<%= js_id %>($(input).val());
   
         // Run validation check on blur, hide error message on focus
         $(input).on('blur', function(){
-          validation($(input).val());
+          validate_<%= js_id %>($(input).val());
         }).focus(function(){
-          $("#<%= id %>_error").attr('role', '');
+          $("span.<%= js_id %>_error").attr('role', '');
         });
       });
     </script>
