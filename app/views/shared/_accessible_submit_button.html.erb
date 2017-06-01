@@ -1,6 +1,6 @@
 <input id="<%= id %>" 
        type="submit" 
-       class="form-submit <%= classes %>" 
+       class="form-submit <%= classes ||= '' %>" 
        value="<%= val %>"
        aria-disabled="<%= disabled_initially %>"
        aria-describedby="<%= id %>_tip" />

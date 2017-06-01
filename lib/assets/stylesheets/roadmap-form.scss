@@ -152,11 +152,12 @@ form.roadmap-form {
     background-color: $cancel-button-color;
     color: $reverse-text;
     padding: 4px 12px;
+    margin-top: 15px;
     font-size: 14px;
    
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
   }
   
   /* Tooltip */
@@ -329,11 +330,7 @@ form.roadmap-form {
 #new_user.user-registration {
   #user_firstname,
   #user_surname {
-    width: 150px;
-  }
-  input[type="password"],
-  input[type="email"] {
-    width: 332px;
+    width: 182px;
   }
 }
 div#forgot-password-link {
