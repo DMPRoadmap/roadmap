@@ -306,11 +306,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                 end
                 # question.guidance field to annotation if present
                 if question.guidance.present?
-                  if new_question.modifiable
-                    org_id = template.organisation_id
-                  else
-                    org_id = project.dmptemplate.organisation_id
-                  end
+                  org_id = section.organisation_id
                   annotation = initAnnotationQuestion(question, new_question, org_id)
                   annotation.save!
                 end
@@ -386,6 +382,11 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
               q.suggested_answers.each do |sa|
                 org_ids << sa.organisation_id
               end
+              Guidance.where(question_id: q.id).each do |g|
+                if g.guidance_groups.first.present?
+                  org_ids << g.guidance_groups.first.organisation_id
+                end
+              end
             end
           end
         end
@@ -454,11 +455,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                   end
                   # question.guidance field to annotation if present
                   if question.guidance.present?
-                    if new_question.modifiable
-                      q_org_id = org_id
-                    else
-                      q_org_id = dtemp.organisation_id
-                    end
+                    q_org_id = section.organisation_id
                     annotation = initAnnotationQuestion(question, new_question, q_org_id)
                     annotation.save!
                   end
