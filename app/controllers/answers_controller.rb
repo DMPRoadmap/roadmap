@@ -44,33 +44,16 @@ class AnswersController < ApplicationController
       @old_answer = nil
     end
 
-    @section_id = @answer.question.section.id
+    @plan = Plan.includes({
+      sections: { 
+        questions: [ 
+          :answers,
+          :question_format
+        ]
+      }
+    }).find(plan_id)
+    @section = @plan.get_section(@question.section_id)
     @username = @answer.user.name
-
-    @nquestions = 0
-    @nanswers = 0
-    @n_section_questions = 0
-    @n_section_answers = 0
-
-    plan = Plan.find(plan_id)
-    # Problem of N+1 queries below
-    plan.template.phases.each do |phase|
-      phase.sections.each do |section|
-        section.questions.each do |question|
-          @nquestions += 1
-          if section.id == @section_id
-            @n_section_questions += 1
-          end
-          question.answers = question.answers.to_a.select {|answer| answer.plan_id == plan.id}
-          if question.answers.present? && question.answers.first.text.present?
-            @nanswers += 1
-            if section.id == @section_id
-              @n_section_answers += 1
-            end
-          end
-        end
-      end
-    end
 
     respond_to do |format|
       format.js {} 
