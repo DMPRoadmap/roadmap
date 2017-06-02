@@ -60,9 +60,6 @@ msgstr ""
 msgid " on "
 msgstr ""
 
-msgid " once you click save!"
-msgstr ""
-
 msgid " or "
 msgstr ""
 
@@ -72,9 +69,6 @@ msgstr ""
 #, fuzzy
 msgid " provided by "
 msgstr " par "
-
-msgid " saved the following answer:"
-msgstr ""
 
 #, fuzzy
 msgid " team"
@@ -432,9 +426,6 @@ msgstr "Copropriétaire"
 msgid "Collaborators"
 msgstr "Collaborateurs"
 
-msgid "Combine their changes with your answer below and then save the answer again."
-msgstr ""
-
 msgid "Comment"
 msgstr "Commentaire"
 
@@ -595,6 +586,10 @@ msgstr "Erreur!"
 
 #, fuzzy
 msgid "Example Answer"
+msgstr "Exemple de réponse"
+
+#, fuzzy
+msgid "Example of answer"
 msgstr "Exemple de réponse"
 
 msgid "Export"
@@ -1296,10 +1291,10 @@ msgstr ""
 msgid "The "
 msgstr ""
 
-msgid "The edits in the box below will overwrite the existing answer from "
+msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr ""
 
-msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+msgid "The following answer cannot be persisted"
 msgstr ""
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1463,9 +1458,6 @@ msgstr "Quand vous créez une nouvelle phase dans votre modèle, une version ser
 #, fuzzy
 msgid "Which DMP template would you like to use?"
 msgstr "templates"
-
-msgid "While you were editing "
-msgstr ""
 
 msgid "Would you like to save them now?"
 msgstr "Voulez-vous faire la sauvegarde maintenant?"
@@ -1640,10 +1632,6 @@ msgid "ago"
 msgstr ""
 
 #, fuzzy
-msgid "answered"
-msgstr "Réponse "
-
-#, fuzzy
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr "env. %{space_used}% despace disponible utilisé (%{num_pages} pages maxi)"
 
@@ -1746,10 +1734,6 @@ msgstr ""
 msgid "question"
 msgstr "Question"
 
-#, fuzzy
-msgid "questions"
-msgstr "Questions"
-
 msgid "questions answered"
 msgstr "questions avec réponses"
 
@@ -1765,6 +1749,9 @@ msgid "select a guidance group"
 msgstr ""
 
 msgid "select at least one theme"
+msgstr ""
+
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
 msgstr ""
 
 #, fuzzy
