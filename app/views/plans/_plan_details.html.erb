@@ -220,9 +220,9 @@
 
   <p>
     <% if based_on.org != plan.template.org %>
-      <%= _('A version of ') %> "<%= based_on.title %>" <%= based_on.title.downcase.include?(_('template')) ? '' : _('template') %><%= _(' that has been customised by ') %> <%= plan.template.org.name %>
+      <%= _('A version of ') %> "<%= based_on.title %>" <%= based_on.title.downcase.include?(_('template')) ? '' : _('template') %><%= _(' that has been customised by ') %> <%= plan.template.org.name %>.
     <% else %>
-      <%= _('The')%> "<%= plan.template.title %>" <%= (plan.template.is_default ? _('generic template') : plan.template.title.downcase.include?(_('template')) ? '' : _('template')) %> <%= _(' provided by ') %><%= plan.template.org.name %>
+      <%= _('The')%> "<%= plan.template.title %>" <%= (plan.template.is_default ? _('generic template') : plan.template.title.downcase.include?(_('template')) ? '' : _('template')) %> <%= _(' provided by ') %><%= plan.template.org.name %>.
     <% end %>
   </p>
 

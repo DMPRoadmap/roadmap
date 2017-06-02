@@ -125,7 +125,7 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
 
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.live(@plan.template.customization_of))
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
     respond_to :html
   end
