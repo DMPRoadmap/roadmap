@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-26 15:50+0100\n"
-"PO-Revision-Date: 2017-05-26 15:50+0100\n"
+"POT-Creation-Date: 2017-05-31 12:56+0100\n"
+"PO-Revision-Date: 2017-05-31 12:56+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -501,7 +501,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-msgid "Edit Example of Answer"
+msgid "Edit Example Answer"
 msgstr ""
 
 msgid "Edit User Privileges"
@@ -565,12 +565,6 @@ msgid "Error!"
 msgstr ""
 
 msgid "Example Answer"
-msgstr ""
-
-msgid "Example of Answer"
-msgstr ""
-
-msgid "Example of answer"
 msgstr ""
 
 msgid "Export"
@@ -1573,9 +1567,6 @@ msgid "answered"
 msgstr ""
 
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
-msgstr ""
-
-msgid "by"
 msgstr ""
 
 msgid "by "

@@ -535,7 +535,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #, fuzzy
-msgid "Edit Example of Answer"
+msgid "Edit Example Answer"
 msgstr "Beispielantwort"
 
 msgid "Edit User Privileges"
@@ -601,13 +601,6 @@ msgstr "Fehler!"
 
 #, fuzzy
 msgid "Example Answer"
-msgstr "Beispielantwort"
-
-#, fuzzy
-msgid "Example of Answer"
-msgstr "Beispielantwort"
-
-msgid "Example of answer"
 msgstr "Beispielantwort"
 
 msgid "Export"
@@ -1671,9 +1664,6 @@ msgstr "Beantwortet "
 #, fuzzy
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr "annährend %{space_used}% des verfügbaren Platzes wird verwendet (max. %{num_pages} Seiten)"
-
-msgid "by"
-msgstr ""
 
 #, fuzzy
 msgid "by "
