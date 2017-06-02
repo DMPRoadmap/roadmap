@@ -23,10 +23,11 @@ class Section < ActiveRecord::Base
     "#{title}"
   end
 
+  # Returns the number of answered questions for a given plan id
   def num_answered_questions(plan_id)
     n = 0
     self.questions.each do |question|
-      n += question.plan_answers(plan_id).select{|answer| answer.text.present?}.count
+      n += question.plan_answers(plan_id).select{|answer| answer.is_valid?}.count
     end
     return n
   end
