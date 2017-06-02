@@ -86,11 +86,12 @@ module DMPRoadmap
     config.assets.precompile += %w(roadmap.js 
                                    answers/status.js
                                    devise/passwords/new.js
+                                   devise/registrations/edit.js
                                    plans/new_plan.js 
                                    contacts/new_contact.js
                                    home/index.js
-                                   shared/register_form.js
-                                   shared/login_form.js)
+                                   shared/login_form.js
+                                   shared/register_form.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true

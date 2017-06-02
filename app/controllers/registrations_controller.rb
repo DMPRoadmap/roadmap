@@ -36,9 +36,10 @@ class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     #logger.debug "#{sign_up_params}"
-    if sign_up_params[:accept_terms] != "1" then
+    if sign_up_params[:accept_terms] != "on" then
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     else
+      sign_up_params[:accept_terms] = "1" # Convert the html 'on' to '1'
       existing_user = User.find_by_email(sign_up_params[:email])
       if !existing_user.nil? # If email exists
         if (existing_user.password == "" || existing_user.password.nil?) && existing_user.confirmed_at.nil? # If user has not accepted invitation yet
@@ -165,8 +166,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :firstname, :surname,
-                                 :accept_terms, :org_id, :other_organisation)
+    params.require(:user).permit(:email, :password, :password_confirmation, 
+                                 :firstname, :surname, :recovery_email,
+                                 :accept_terms, :other_organisation)
   end
 
   def update_params

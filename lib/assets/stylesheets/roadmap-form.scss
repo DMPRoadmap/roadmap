@@ -108,6 +108,9 @@ form.roadmap-form {
   .left-indent {
     margin-left: 15px;
   }
+  .right-indent {
+    margin-right: 5px;
+  }
   .input-extra-large {
     width: 70%;
   }
@@ -169,6 +172,7 @@ form.roadmap-form {
     border-bottom: 6px solid transparent;
     border-right: 6px solid $dark-grey;
   }
+	/*
   .submit-tooltip {
     display: none;
     margin-left: 5px;
@@ -183,7 +187,7 @@ form.roadmap-form {
       padding: 5px 5px 8px 5px;
       border-radius: 2px;
     }
-  }
+  }*/
   input.small-input-button {
     width: 250px;
   }
@@ -198,23 +202,23 @@ form.roadmap-form {
     box-shadow: 0 0 6px $error-background;
   }
 
-  .error-tooltip {
+  .error-tooltip, .error-tooltip-right, .submit-tooltip {
     display: none;
-    width: 270px;
-  }
-
-  .error-tooltip[role='tooltip'] {
+    width: 45%;
     background: $error-background;
     border-radius: 3px;
-    top: 55px;
     color: $error-color;
     padding: 4px 6px;
-    display: inline;
+  }
+
+  .error-tooltip[role='tooltip'], .submit-tooltip[role='tooltip'] {
+    top: 55px;
     left: 0;
+    display: inline;
     position: absolute;
     z-index: 9;
   }
-  .error-tooltip[role='tooltip']:before {
+  .error-tooltip[role='tooltip']:before, .submit-tooltip[role='tooltip']:before {
     display: inline;
     position: absolute;
     top: -5px;
@@ -224,6 +228,22 @@ form.roadmap-form {
     border-right: 5px solid transparent;
     border-bottom: 5px solid $error-background;
   }
+
+	.error-tooltip-right[role="tooltip"] {
+    top: 0;
+    left: 500px;
+    display: inline;
+	}
+	.error-tooltip-right[role='tooltip']:before {
+    display: inline;
+    position: absolute;
+    left: -5px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid $error-background;
+	}
 }
 
 /* Accessible JQuery combobox */
@@ -313,14 +333,18 @@ form.roadmap-form {
   }
 }
 #new_user fieldset {
+  width: 90%;
+  
   input[type="password"],
   #user_password,
   input[type="email"] {
-    width: 395px;
+    width: 90%;
   }
-  
+}
+
+#new_user fieldset {
   .checkbox-right {
-    width: 425px;
+    width: 98%;
     position: relative;
     
     #user_remember_me, input[type='checkbox'], .checkbox-label {
@@ -328,10 +352,25 @@ form.roadmap-form {
     }
   }
 }
-#new_user.user-registration {
-  #user_firstname,
-  #user_surname {
-    width: 182px;
+#edit_user fieldset {
+  .checkbox-right {
+    width: 55%;
+    position: relative;
+    
+    #user_remember_me, input[type='checkbox'], .checkbox-label {
+      float: right;
+    }
+  }
+}
+
+#new_user.register-form {
+  .inline {
+    width: 46%;
+  
+    #user_firstname,
+    #user_surname {
+      width: 92%;
+    }
   }
 }
 div#forgot-password-link {
@@ -341,4 +380,7 @@ div#forgot-password-link {
   a:hover {
     color: $primary-color !important;  /* Remove the important once the bootstrap_and_overrides css is gone */
   }
+}
+#new_user #password-reset-form {
+  width: 50%;
 }

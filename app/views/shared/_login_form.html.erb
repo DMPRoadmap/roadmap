@@ -17,31 +17,43 @@
 <% end %>  
 
 <%= form_for resource, as: 'user', url: user_session_path, html: {class: "login-form roadmap-form"} do |f| %>
-  <%= devise_error_messages! %>
   <fieldset id="sign-in-form" class="standard padded">
-    <%= render partial: 'shared/accessible_input',
-                locals: {type: 'email', id: 'user_email', name: 'user[email]', label: _("Email"),
-                         classes: 'required'} %>
+    <!-- Login form email address -->
+    <div class="form-input">
+      <label for="user_email"><%= _('Email') %></label>
+      <input type="email" id="user_email" name="user[email]" class="left-indent required" />
+      <span role="" id="email_error" class="error-tooltip left-indent"></span>
     
-    <div class="form-input checkbox-right">
-      <%= f.label :remember_me, _('Remember email'), class: "remember_div checkbox-label" %>
-      <%= f.check_box :remember_me %>
+      <div class="form-input checkbox-right">
+        <%= f.label :remember_me, _('Remember email'), class: "remember_div checkbox-label" %>
+        <%= f.check_box :remember_me %>
+      </div>
     </div>
     
-    <%= render partial: 'shared/accessible_input',
-                locals: {type: 'password', id: 'user_password', name: 'user[password]', label: _("Password"),
-                         classes: 'required'} %>
+    <!-- Login form password -->
+    <div class="form-input">
+      <label for="user_password"><%= _('Password') %></label>
+      <input type="password" id="user_password" name="user[password]" 
+             class="left-indent required" value="" />
+      <span role="" id="password_error" class="error-tooltip left-indent"></span>
     
-    <br />
-    <%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'sign-in-button', 
-                        val: 'Sign In', 
-                        disabled_initially: true,
-                        classes: 'small-input-button',
-                        tooltip: _('Enter your email and password.')} %>
+      <div class="form-input checkbox-right">
+        <label for="password_show" class="checkbox-label"><%= _('Show password') %></label>
+        <input type="checkbox" id="password_show" />
+      </div>
+    </div>
+    
+    <div class="form-input">
+      <%= render partial: 'shared/accessible_submit_button',
+                 locals: {id: 'sign-in-button', 
+                          val: 'Sign In', 
+                          disabled_initially: true,
+                          classes: 'small-input-button',
+                          tooltip: _('Enter your email and password.')} %>
 
-    <div id="forgot-password-link" class="left-indent inline">
-      <%= link_to _('Forgot password?'), new_password_path('user'), :class => "primary-color" %>
+      <div id="forgot-password-link" class="left-indent inline">
+        <%= link_to _('Forgot password?'), new_password_path('user'), :class => "primary-color" %>
+      </div>
     </div>
   </fieldset>
 

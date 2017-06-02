@@ -1,6 +1,6 @@
 <% javascript "devise/passwords/new.js" %>
 
-<% unless @user.errors[:email].nil? %>
+<% unless @user.errors[:email].empty? %>
   <p class="alert alert-error"><%= _('The email address you entered is not registered.') %></p>
 <% end %>
 
@@ -12,17 +12,21 @@
   <%= form_for resource, as: 'user', url: user_password_path, html: {class: "password-reset roadmap-form", method: :post} do |f| %>
 
     <fieldset id="password-reset-form" class="standard padded">
-      <%= render partial: 'shared/accessible_input',
-                 locals: {type: 'email', id: 'user_email', name: 'user[email]', label: _("Email"),
-                          classes: 'required', val: @user.email} %>
+      <div class="form-input">
+				<label for="user_email"><%= _('Email') %></label>
+	      <input type="email" id="user_email" name="user[email]" 
+							 class="left-indent required input-medium" />
+	      <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
+      </div>
 
-      <br />
-      <%= render partial: 'shared/accessible_submit_button',
-                 locals: {id: 'password-reset-button', 
-                          val: _('Send'), 
-                          disabled_initially: true,
-                          classes: 'small-input-button',
-                          tooltip: _('Enter a valid email.')} %>
+      <div class="form-input">
+	      <%= render partial: 'shared/accessible_submit_button',
+	                 locals: {id: 'password-reset-button', 
+	                          val: _('Send'), 
+	                          disabled_initially: true,
+	                          classes: 'small-input-button',
+	                          tooltip: _('Enter a valid email.')} %>
+			</div>
     </fieldset>
   <% end %>
 </div>
