@@ -4,19 +4,23 @@
 <% q_format = question.question_format %>
 <%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form"}, remote: true do |f| %>
       <fieldset class="standard">
-        <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
-        <%= f.input :plan_id, as: :hidden, input_html: { value: answer.plan_id } %>
-        <%= f.input :user_id, as: :hidden, input_html: { value: answer.user_id } %>
-        <%= f.input :question_id, as: :hidden, input_html: { value: answer.question_id, class: "question_id" } %>
-        <%= f.input :lock_version, as: :hidden, input_html: { value: answer.lock_version } %>
+        <% if !readonly %>
+          <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
+          <%= f.input :plan_id, as: :hidden, input_html: { value: answer.plan_id } %>
+          <%= f.input :user_id, as: :hidden, input_html: { value: answer.user_id } %>
+          <%= f.input :question_id, as: :hidden, input_html: { value: answer.question_id } %>
+          <%= f.input :lock_version, as: :hidden, input_html: { value: answer.lock_version } %>
+        <% end %>
 
         <!-- Question text -->
-        <p><%= raw question.text %></p>
+        <p>
+          <strong><%= raw question.text %></strong>
+        </p>
 
         <!--Example Answer area-->
-        <% if question.annotations.where(type: Annotation.types[:example_answer]).any? %>
+        <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
           <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
-          <% if annotation.text.present? %>   <!-- could be present but empty -->
+          <% if annotation.text.present? %>
             <div class="suggested-answer-div">
               <span class="suggested-answer-intro">
                   <%="#{annotation.org.abbreviation} "%> <%=_('Example of answer')%>
@@ -31,11 +35,8 @@
           <% end %>
         <% end %>
 
-        <!-- if the question has multiple choices pull out the options -->
         <% if question.option_based? %>
           <% options = question.question_options.by_number %>
-
-          <!-- work through the various format options -->
           <% if q_format.checkbox? %>
             <ol class="choices-group">
               <% options.each do |op| %>
@@ -66,19 +67,18 @@
               <%= select_tag('answer[question_option_ids]', raw(options_html),
               {multiple: q_format.multiselectbox?, include_blank: q_format.dropdown?, disabled: readonly }) %>
           <% end %>
-
-
-          <!-- Comment text area for the multiple choice answers-->
+          <!-- Comment text area for option_based questions -->
           <% if question.option_comment_display == true %>
             <%= label_tag('answer[text]', _('Comment')) %>
             <% if readonly %>
               <p><%= raw(answer.text) %></p>
             <% else %>
-              <%= text_area_tag('answer[text]', answer.text, class: "tinymce") %>
+              <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
+              <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer") %>
             <% end %>
           <%end%>
-        <% end %>  <!-- if multiple choice -->
-
+        <% end %>
+        <!-- For non-option_based questions -->
         <% if q_format.textfield? %>
           <% if readonly %>
             <p><%= strip_tags(answer.text) %></p>
@@ -89,12 +89,13 @@
           <% if readonly %>
             <p><%= raw(answer.text) %></p>
           <% else %>
-            <%= text_area_tag('answer[text]', answer.text, class: "tinymce") %>
+            <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
+            <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer") %>
           <% end %>
         <% end %>
 
         <% if !readonly %>
             <input type="submit" class="form-submit" value="<%= _('Save') %>" />
         <% end %>
-      </fieldset>   <!-- f.inputs -->
+      </fieldset>
     <% end %>

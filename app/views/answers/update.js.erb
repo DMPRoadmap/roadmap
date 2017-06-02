@@ -7,6 +7,8 @@
 <% end %>
 
 // partial /answer/new_edit
+if(tinymce)
+    tinymce.remove("#answer-text-<%= @question.id %>");
 $("#answer-form-<%= @question.id%>")
     .html("<%= escape_javascript(render partial: '/answers/new_edit', locals: { question: @question, answer: @answer, readonly: false }) %>");
 
