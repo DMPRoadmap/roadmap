@@ -13,20 +13,20 @@
 
     <fieldset id="password-reset-form" class="standard padded">
       <div class="form-input">
-				<label for="user_email"><%= _('Email') %></label>
-	      <input type="email" id="user_email" name="user[email]" 
-							 class="left-indent required input-medium" />
-	      <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
+        <label for="user_email"><%= _('Email') %></label>
+        <input type="email" id="user_email" name="user[email]" 
+               class="left-indent required input-medium" />
+        <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
       </div>
 
       <div class="form-input">
-	      <%= render partial: 'shared/accessible_submit_button',
-	                 locals: {id: 'password-reset-button', 
-	                          val: _('Send'), 
-	                          disabled_initially: true,
-	                          classes: 'small-input-button',
-	                          tooltip: _('Enter a valid email.')} %>
-			</div>
+        <%= render partial: 'shared/accessible_submit_button',
+                   locals: {id: 'password-reset-button', 
+                            val: _('Send'), 
+                            disabled_initially: true,
+                            classes: 'small-input-button',
+                            tooltip: _('Enter a valid email.')} %>
+      </div>
     </fieldset>
   <% end %>
 </div>

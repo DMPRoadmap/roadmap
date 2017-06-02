@@ -23,11 +23,7 @@
             <% end %>
           <% end %>
           <li>
-						<% if Rails.application.config.shibboleth_enabled %>
-							<%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
-						<% else %>
-							<%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
-						<% end %>
+						<%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
 					</li>
         </ul>
       </li>

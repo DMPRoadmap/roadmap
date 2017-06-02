@@ -24,11 +24,6 @@ module ApplicationHelper
     "<script type=\"text/javascript\">var #{obj_name} = #{hash.to_json};</script>".html_safe
   end
 
-  # ---------------------------------------------------------------------------
-  def uuid
-    SecureRandom.hex
-  end
-
   # Determines whether or not the URL path passed matches with the full path (including params) of the last URL requested.
   # see http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-fullpath for details
   # ---------------------------------------------------------------------------
