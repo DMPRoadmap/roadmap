@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 12:56+0100\n"
-"PO-Revision-Date: 2017-05-31 12:56+0100\n"
+"POT-Creation-Date: 2017-06-02 19:14+0100\n"
+"PO-Revision-Date: 2017-06-02 19:14+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -57,9 +57,6 @@ msgstr ""
 msgid " on "
 msgstr ""
 
-msgid " once you click save!"
-msgstr ""
-
 msgid " or "
 msgstr ""
 
@@ -67,9 +64,6 @@ msgid " password. You can do this through the link below."
 msgstr ""
 
 msgid " provided by "
-msgstr ""
-
-msgid " saved the following answer:"
 msgstr ""
 
 msgid " team"
@@ -408,9 +402,6 @@ msgstr ""
 msgid "Collaborators"
 msgstr ""
 
-msgid "Combine their changes with your answer below and then save the answer again."
-msgstr ""
-
 msgid "Comment"
 msgstr ""
 
@@ -565,6 +556,9 @@ msgid "Error!"
 msgstr ""
 
 msgid "Example Answer"
+msgstr ""
+
+msgid "Example of answer"
 msgstr ""
 
 msgid "Export"
@@ -1245,10 +1239,10 @@ msgstr ""
 msgid "The "
 msgstr ""
 
-msgid "The edits in the box below will overwrite the existing answer from "
+msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr ""
 
-msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+msgid "The following answer cannot be persisted"
 msgstr ""
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1402,9 +1396,6 @@ msgid "When you create a new phase for your template, a version will automatical
 msgstr ""
 
 msgid "Which DMP template would you like to use?"
-msgstr ""
-
-msgid "While you were editing "
 msgstr ""
 
 msgid "Would you like to save them now?"
@@ -1563,9 +1554,6 @@ msgstr ""
 msgid "ago"
 msgstr ""
 
-msgid "answered"
-msgstr ""
-
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr ""
 
@@ -1656,9 +1644,6 @@ msgstr ""
 msgid "question"
 msgstr ""
 
-msgid "questions"
-msgstr ""
-
 msgid "questions answered"
 msgstr ""
 
@@ -1672,6 +1657,9 @@ msgid "select a guidance group"
 msgstr ""
 
 msgid "select at least one theme"
+msgstr ""
+
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
 msgstr ""
 
 msgid "template"

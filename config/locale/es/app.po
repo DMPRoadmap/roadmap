@@ -60,9 +60,6 @@ msgstr ""
 msgid " on "
 msgstr ""
 
-msgid " once you click save!"
-msgstr ""
-
 msgid " or "
 msgstr ""
 
@@ -72,9 +69,6 @@ msgstr ""
 #, fuzzy
 msgid " provided by "
 msgstr " por "
-
-msgid " saved the following answer:"
-msgstr ""
 
 #, fuzzy
 msgid " team"
@@ -434,9 +428,6 @@ msgstr "Co-propietario"
 msgid "Collaborators"
 msgstr "Colaboradores"
 
-msgid "Combine their changes with your answer below and then save the answer again."
-msgstr ""
-
 msgid "Comment"
 msgstr "Comentario"
 
@@ -597,6 +588,10 @@ msgstr "¡Error!"
 
 #, fuzzy
 msgid "Example Answer"
+msgstr "Respuesta de ejemplo"
+
+#, fuzzy
+msgid "Example of answer"
 msgstr "Respuesta de ejemplo"
 
 msgid "Export"
@@ -1299,10 +1294,10 @@ msgstr ""
 msgid "The "
 msgstr ""
 
-msgid "The edits in the box below will overwrite the existing answer from "
+msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr ""
 
-msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+msgid "The following answer cannot be persisted"
 msgstr ""
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1466,9 +1461,6 @@ msgstr "Cuando crea una fase nueva para su plantilla, se creará automáticament
 #, fuzzy
 msgid "Which DMP template would you like to use?"
 msgstr "templates"
-
-msgid "While you were editing "
-msgstr ""
 
 msgid "Would you like to save them now?"
 msgstr "¿Quere grabar los cambios ahora?"
@@ -1643,10 +1635,6 @@ msgid "ago"
 msgstr ""
 
 #, fuzzy
-msgid "answered"
-msgstr "Contestado "
-
-#, fuzzy
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr "aprox. %{space_used}% de disponibilidad del espacio usado (máx. %{num_pages} páginas)"
 
@@ -1749,10 +1737,6 @@ msgstr ""
 msgid "question"
 msgstr "Pregunta"
 
-#, fuzzy
-msgid "questions"
-msgstr "Preguntas"
-
 msgid "questions answered"
 msgstr "preguntas respondidas"
 
@@ -1768,6 +1752,9 @@ msgid "select a guidance group"
 msgstr ""
 
 msgid "select at least one theme"
+msgstr ""
+
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
 msgstr ""
 
 #, fuzzy

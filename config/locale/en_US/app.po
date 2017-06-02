@@ -60,9 +60,6 @@ msgstr " into your browser)."
 msgid " on "
 msgstr " on "
 
-msgid " once you click save!"
-msgstr " once you click save!"
-
 #, fuzzy
 msgid " or "
 msgstr " on "
@@ -73,9 +70,6 @@ msgstr " password. You can do this through the link below."
 #, fuzzy
 msgid " provided by "
 msgstr " by "
-
-msgid " saved the following answer:"
-msgstr " saved the following answer:"
 
 msgid " team"
 msgstr " team"
@@ -424,9 +418,6 @@ msgstr "Co-owner"
 msgid "Collaborators"
 msgstr "Collaborators"
 
-msgid "Combine their changes with your answer below and then save the answer again."
-msgstr ""
-
 msgid "Comment"
 msgstr "Comment"
 
@@ -584,6 +575,10 @@ msgstr "Error!"
 
 #, fuzzy
 msgid "Example Answer"
+msgstr "Example of answer"
+
+#, fuzzy
+msgid "Example of answer"
 msgstr "Example of answer"
 
 msgid "Export"
@@ -1283,11 +1278,12 @@ msgstr "The "
 msgid "The "
 msgstr "The "
 
-msgid "The edits in the box below will overwrite the existing answer from "
-msgstr "The edits in the box below will overwrite the existing answer from "
-
 msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr "The email address of an administrator at your organization. Your users will use this address if they have questions."
+
+#, fuzzy
+msgid "The following answer cannot be persisted"
+msgstr "The "
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
 msgstr "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1447,9 +1443,6 @@ msgstr "When you create a new phase for your template, a version will automatica
 #, fuzzy
 msgid "Which DMP template would you like to use?"
 msgstr "template"
-
-msgid "While you were editing "
-msgstr ""
 
 msgid "Would you like to save them now?"
 msgstr "Would you like to save them now?"
@@ -1613,9 +1606,6 @@ msgstr "add guidance text"
 msgid "ago"
 msgstr "ago"
 
-msgid "answered"
-msgstr "answered"
-
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 
@@ -1710,9 +1700,6 @@ msgstr ""
 msgid "question"
 msgstr "question"
 
-msgid "questions"
-msgstr "questions"
-
 msgid "questions answered"
 msgstr "questions answered"
 
@@ -1727,6 +1714,10 @@ msgstr "select a guidance group"
 
 msgid "select at least one theme"
 msgstr "select at least one theme"
+
+#, fuzzy
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgstr " on "
 
 msgid "template"
 msgstr "template"
