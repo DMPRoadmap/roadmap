@@ -71,13 +71,16 @@
 
         <!--question guidance-->
         <% if annotations.present? %>
+          <% num_annotations = 0 %>
           <% annotations.each do |annotation| %>
 
             <div class="accordion-group">
 
              <!-- accordion heading -->
               <div class="accordion-heading">
-               <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
+               <a class="accordion-guidance-link" data-toggle="collapse"
+               data-parent="#<%=question.id%>-guidance-<%=num_annotations%>"
+               href="#collapse-guidance-<%=question.id%>-<%=num_annotations%>">
                  <div class="accordion_heading_text">
                  <%= annotation.org.abbreviation %> <%= _('Guidance') %>
                  </div>
@@ -85,16 +88,16 @@
              </div>
 
              <!-- accordion body -->
-             <div id="collapse-guidance-<%= question.id%>" class="guidance-accordion-body collapse">
+             <div id="collapse-guidance-<%= question.id%>-<%=num_annotations%>" class="guidance-accordion-body collapse">
                <div class="accordion-inner"><%= raw annotation.text %></div>
              </div>
-
+             <% num_annotations += 1%>
            </div>   <!-- accordion-group -->
         <% end %>
        <% end %>   <!-- if question.guidance -->
 
        <!-- guidance by theme -->
-       <% guidance_accordion_id = 0 %>
+       <% guidance_accordion_id = num_annotations %>
        <% question_guidances.each_pair do |theme, group| %>
          <% group.each do |gobj| %>
            <div class="accordion-group">
