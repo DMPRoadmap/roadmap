@@ -42,4 +42,18 @@ class Answer < ActiveRecord::Base
   def has_question_option(option_id)
     self.question_option_ids.include?(option_id)
   end
+
+  # Returns true if the answer is valid and false otherwise. If the answer's question is option_based, it is checked if exist
+  # any question_option selected. For non option_based (e.g. textarea or textfield), it is checked the presence of text
+  def is_valid?
+    if self.question.present?
+      if self.question.question_format.option_based?
+        return !self.question_options.empty?
+      else  # (e.g. textarea or textfield question formats)
+        return self.text.present?
+      end
+    else
+      return false
+    end
+  end
 end

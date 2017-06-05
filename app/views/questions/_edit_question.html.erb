@@ -131,7 +131,8 @@ in the admin interface.
       <!-- Guidance for Question -->
       <tr>
         <td class="first_template"><%= _('Guidance')%></td>
-        <td><div class="div_left_icon">
+        <td class="tinymce">
+          <div class="div_left_icon">
             <% guidance = question.get_guidance_annotation(current_user.org_id) %>
             <% guidance_text = guidance.present? ? guidance.text : "" %>
             <%= text_area_tag("question-guidance-#{question.id}", guidance_text , class: "tinymce") %>

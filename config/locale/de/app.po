@@ -61,9 +61,6 @@ msgstr "into your browser)."
 msgid " on "
 msgstr ""
 
-msgid " once you click save!"
-msgstr ""
-
 msgid " or "
 msgstr ""
 
@@ -74,9 +71,6 @@ msgstr "password. You can do this through the link below."
 #, fuzzy
 msgid " provided by "
 msgstr " von "
-
-msgid " saved the following answer:"
-msgstr ""
 
 #, fuzzy
 msgid " team"
@@ -438,9 +432,6 @@ msgstr "Miteigentümer"
 msgid "Collaborators"
 msgstr "Mitarbeitende"
 
-msgid "Combine their changes with your answer below and then save the answer again."
-msgstr ""
-
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -601,6 +592,10 @@ msgstr "Fehler!"
 
 #, fuzzy
 msgid "Example Answer"
+msgstr "Beispielantwort"
+
+#, fuzzy
+msgid "Example of answer"
 msgstr "Beispielantwort"
 
 msgid "Export"
@@ -1306,11 +1301,11 @@ msgstr ""
 msgid "The "
 msgstr ""
 
-msgid "The edits in the box below will overwrite the existing answer from "
-msgstr ""
-
 msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr "Die E-Mail -Adresse des Administrators in Ihrer Org. Ihre Benutzer werden diese Adresse verwenden, wenn sie Fragen haben."
+
+msgid "The following answer cannot be persisted"
+msgstr ""
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
 msgstr "Die hier ausgewählten Einträge werden in der Tabelle unten angezeigt. Sie können die Daten durch jeden ihrer Tabellenköpfe sortieren oder filtern, indem Sie eine Zeichenkette in der Suchbox eingeben."
@@ -1473,9 +1468,6 @@ msgstr "Wenn Sie eine neue Phase in einer Vorlage anlegen, wird automatische ein
 #, fuzzy
 msgid "Which DMP template would you like to use?"
 msgstr "templates"
-
-msgid "While you were editing "
-msgstr ""
 
 msgid "Would you like to save them now?"
 msgstr "Wollen Sie sie jetzt sichern?"
@@ -1658,10 +1650,6 @@ msgid "ago"
 msgstr ""
 
 #, fuzzy
-msgid "answered"
-msgstr "Beantwortet "
-
-#, fuzzy
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr "annährend %{space_used}% des verfügbaren Platzes wird verwendet (max. %{num_pages} Seiten)"
 
@@ -1766,10 +1754,6 @@ msgstr ""
 msgid "question"
 msgstr "Frage"
 
-#, fuzzy
-msgid "questions"
-msgstr "Fragen"
-
 msgid "questions answered"
 msgstr "Fragen beantwortet"
 
@@ -1786,6 +1770,9 @@ msgstr "select a guidance group"
 
 msgid "select at least one theme"
 msgstr "select at least one theme"
+
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgstr ""
 
 #, fuzzy
 msgid "template"
