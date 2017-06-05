@@ -13,6 +13,7 @@ namespace :migrate do
     Rake::Task['db:migrate'].execute
     Rake::Task['migrate:seed'].execute
     Rake::Task['migrate:permissions'].execute
+    #Rake::Task['migrate:data_integrity'].execute
   end
 
   desc "seed database with default values for new data structures"
@@ -139,12 +140,12 @@ namespace :migrate do
     end
 
   end
-  
+
   desc "Remove orphaned records from the database"
   task data_integrity: :setup_logger do
     # Look for orphaned records in the join tables:
     conn = ActiveRecord::Base.connection
-    
+
     # Remove orphaned records from answers_options
     conn.execute "DELETE FROM answers_options WHERE answer_id IS NULL OR option_id IS NULL;"
     conn.execute "DELETE FROM answers_options WHERE answer_id NOT IN (SELECT id FROM answers);"
@@ -154,26 +155,26 @@ namespace :migrate do
     conn.execute "DELETE FROM dmptemplates_guidance_groups WHERE dmptemplate_id IS NULL OR guidance_group_id IS NULL;"
     conn.execute "DELETE FROM dmptemplates_guidance_groups WHERE dmptemplate_id NOT IN (SELECT id FROM dmptemplates);"
     conn.execute "DELETE FROM dmptemplates_guidance_groups WHERE guidance_group_id NOT IN (SELECT id FROM guidance_groups);"
-    
+
     # Remove orphaned records from guidance_in_group
     conn.execute "DELETE FROM guidance_in_group WHERE guidance_id IS NULL OR guidance_group_id IS NULL;"
     conn.execute "DELETE FROM guidance_in_group WHERE guidance_id NOT IN (SELECT id FROM guidances);"
     conn.execute "DELETE FROM guidance_in_group WHERE guidance_group_id NOT IN (SELECT id FROM guidance_groups);"
-    
+
     # Remove orphaned records from plan_sections
     conn.execute "DELETE FROM plan_sections WHERE plan_id IS NULL OR section_id IS NULL OR user_id IS NULL;"
     conn.execute "DELETE FROM plan_sections WHERE plan_id NOT IN (SELECT id FROM plans);"
     conn.execute "DELETE FROM plan_sections WHERE section_id NOT IN (SELECT id FROM sections);"
     conn.execute "DELETE FROM plan_sections WHERE user_id NOT IN (SELECT id FROM users);"
-    
-    # TODO: xsrust: does this one seem appropriate? I can't see a scenario 
-    #               where it would be valid for user_id or project_id to 
+
+    # TODO: xsrust: does this one seem appropriate? I can't see a scenario
+    #               where it would be valid for user_id or project_id to
     #               be null
     # Remove orphaned records from project_groups
     conn.execute "DELETE FROM project_groups WHERE user_id IS NULL OR project_id IS NULL;"
     conn.execute "DELETE FROM project_groups WHERE user_id NOT IN (SELECT id FROM users);"
     conn.execute "DELETE FROM project_groups WHERE project_id NOT IN (SELECT id FROM projects);"
-    
+
     # Remove orphaned records from project_guidance
     conn.execute "DELETE FROM project_guidance WHERE project_id IS NULL OR guidance_group_id IS NULL;"
     conn.execute "DELETE FROM project_guidance WHERE project_id NOT IN (SELECT id FROM projects);"
@@ -183,24 +184,40 @@ namespace :migrate do
     conn.execute "DELETE FROM questions_themes WHERE question_id IS NULL OR theme_id IS NULL;"
     conn.execute "DELETE FROM questions_themes WHERE question_id NOT IN (SELECT id FROM questions);"
     conn.execute "DELETE FROM questions_themes WHERE theme_id NOT IN (SELECT id FROM themes);"
-    
+
     # Remove orphaned records from themes_in_guidance
     conn.execute "DELETE FROM themes_in_guidance WHERE theme_id IS NULL OR guidance_id IS NULL;"
     conn.execute "DELETE FROM themes_in_guidance WHERE theme_id NOT IN (SELECT id FROM themes);"
     conn.execute "DELETE FROM themes_in_guidance WHERE guidance_id NOT IN (SELECT id FROM guidances);"
-    
-    # Remove orphaned records from users_roles 
+
+    # Remove orphaned records from users_roles
     conn.execute "DELETE FROM users_roles WHERE user_id IS NULL OR role_id IS NULL;"
     conn.execute "DELETE FROM users_roles WHERE user_id NOT IN (SELECT id FROM users);"
     conn.execute "DELETE FROM users_roles WHERE role_id NOT IN (SELECT id FROM roles);"
-    
+
     # Fill out empty User names.
     conn.execute "UPDATE users SET firstname = 'FIRST NAME' WHERE firstname = '' OR firstname IS NULL;"
     conn.execute "UPDATE users SET surname = 'LAST NAME' WHERE surname = '' OR surname IS NULL;"
-    
+
+    # Fix Sections table for validators
+    conn.execute "UPDATE Sections SET title = 'TITLE' WHERE title = '' OR title IS NULL"
+    conn.execute "UPDATE Sections SET number = '0' WHERE number IS NULL"
+
+    # Fix Phases Table for validators
+    conn.execute "UPDATE Phases SET title = 'TITLE' WHERE title = '' OR title IS NULL"
+    conn.execute "UPDATE Phases SET number = 0 WHERE number IS NULL"
+
+    # Fix Questions Table for validators
+    conn.execute "UPDATE Questions SET text = 'PLACEHOLDER' WHERE text = '' or text IS NULL"
+    conn.execute "UPDATE Questions SET number = 0 WHERE number IS NULL"
+
+    # Fix Options table for validators
+    conn.execute "UPDATE Options SET number = 0 WHERE number IS NULL"
+
+
     Rake::Task['migrate:remove_invalid_emails'].execute
   end
-  
+
   desc "Remove invalid user email addresses"
   task remove_invalid_emails: :setup_logger do
     adapter = ActiveRecord::Base.connection.instance_values["config"][:adapter]
@@ -211,7 +228,7 @@ namespace :migrate do
     else
       bad_emails = User.where("email !~ '@([-a-z0-9]+\.)+[a-z]{2,}'")
     end
-    
+
     unless bad_emails.empty?
       bad_emails.each do |usr|
         # Replace the invalid email address with a unique fake email
@@ -223,11 +240,11 @@ namespace :migrate do
       puts "Users with invalid email addresses were detected. Those emails have been replaced. See log/migration.log for more details."
     end
   end
-  
+
   desc "Setup the log/migration.log"
   task setup_logger: :environment do
     Dir.mkdir "#{Rails.root}/tmp" unless Dir.exists?("#{Rails.root}/tmp")
-    
+
     Rails.logger = Logger.new('log/migration.log')
     Rails.logger.level = Logger::INFO
   end
