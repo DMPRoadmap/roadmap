@@ -211,7 +211,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "customize a funder template" do
     # Make sure we are redirected if we're not logged in
-    put admin_customize_template_path(@template)
+    get admin_customize_template_path(@template)
     assert_unauthorized_redirect_to_root_path
 
     funder_template = Template.create(org: Org.funders.first, title: 'Testing integration')
