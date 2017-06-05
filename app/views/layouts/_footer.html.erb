@@ -1,43 +1,45 @@
 <!-- footer container -->
 <footer class="footer">
     <div class="left_side_footer">
-    	<div class="first_row">
-        	<ul class="footer-links">	
-	            <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
-	            <li class="muted">|</li>
-	            <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-       		</ul>
-       	</div>
-       	<div class="second_row">
-    		<p id="dcc_link">&copy; 2004 - <%= Time.now.year %><%= link_to " #{Rails.configuration.branding[:organisation][:copywrite_name]}", "#{Rails.configuration.branding[:organisation][:url]}"%>
-       		</p>
-    	</div>
-    </div>	
-   	<div class="right_side_footer">
-   		<p><%= link_to( image_tag("dcc_logo.png"),                       "http://www.dcc.ac.uk/",     title: "Digital Curation Centre", ) %>
-                   <%= link_to( image_tag("uc3_logo.jpg", class: "footer_logo"), "http://www.cdlib.org/uc3/", title: "California Digital Library", id: "footer_right_uc3", ) %></p>
-   	</div>	
+      <div class="first_row">
+          <ul class="footer-links">  
+              <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
+              <li class="muted">|</li>
+              <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
+           </ul>
+         </div>
+         <div class="second_row">
+        <p id="dcc_link">&copy; 2004 - <%= Time.now.year %><%= link_to " #{Rails.configuration.branding[:organisation][:copywrite_name]}", "#{Rails.configuration.branding[:organisation][:url]}"%>
+           </p>
+      </div>
+    </div>  
+     <div class="right_side_footer">
+       <p>
+         <%= link_to( image_tag("dcc_logo.png"),                       "http://www.dcc.ac.uk/",     title: "Digital Curation Centre", ) %>
+         <%= link_to( image_tag("uc3_logo.jpg", class: "footer_logo"), "http://www.cdlib.org/uc3/", title: "California Digital Library", id: "footer_right_uc3", ) %></p>
+     </div>  
     
 </footer>
 
 <% if !user_signed_in? then %>
-	<div id="header-login-form" class="modal hide fade">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3><%= _('Sign in')%></h3>
-		</div>
-		<div class="modal-body">
-			<%= render :partial => "shared/login_form" %>
-		</div>
-	</div>
-	<div id="header-register-form" class="modal hide fade">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3><%= _('Sign up')%></h3>
-		</div>
-		<div class="modal-body">
-			<%= render :partial => "shared/register_form", locals: {extended: false} %>
-		</div>
-	</div>
+  <div id="header-login-form" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3><%= _('Sign in')%></h3>
+    </div>
+    <div class="modal-body">
+      <%= render :partial => "shared/login_form" %>
+    </div>
+  </div>
+  <div id="header-register-form" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3><%= _('Sign up')%></h3>
+    </div>
+    <div class="modal-body">
+			<% javascript "shared/register_form.js" %>
+      <%= render :partial => "shared/register_form", locals: {extended: false} %>
+    </div>
+  </div>
 
 <% end %>
