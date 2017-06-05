@@ -312,8 +312,11 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                 end
                 Guidance.where(question_id: question.id).each do |guidance|
                   if guidance.guidance_groups.present?
-                    annotation = initAnnotationGuidance(guidance, new_question)
-                    annotation.save!
+                    guid_org_id = guidance.guidance_groups.first.organisation_id
+                    if guid_org_id == project.organisation_id || guid_org_id == dmptemplate.organisation_id
+                      annotation = initAnnotationGuidance(guidance, new_question)
+                      annotation.save!
+                    end
                   end
                 end
               end
@@ -461,8 +464,11 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
                   end
                   Guidance.where(question_id: question.id).each do |guidance|
                     if guidance.guidance_groups.present?
-                      annotation = initAnnotationGuidance(guidance, new_question)
-                      annotation.save!
+                      guid_org_id = guidance.guidance_groups.first.organisation_id
+                      if guid_org_id == org_id || guid_org_id == dtemp.organisation_id
+                        annotation = initAnnotationGuidance(guidance, new_question)
+                        annotation.save!
+                      end
                     end
                   end
                 end
@@ -473,7 +479,13 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
           # current version of their template which may not be published
           if modifiable && !published_copied
             published_copied = true
-            redo
+            unpublished_changes = false
+            phases.each do |p|
+              unpublished_changes = unpublished_changes || get_version(p,false,false).id != get_version(p,true,false).id
+            end
+            if unpublished_changes
+              redo
+            end
           end
         end
       end
