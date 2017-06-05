@@ -263,6 +263,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  ##
+  # Override devise_invitable email title
+  # --------------------------------------------------------------
+  def deliver_invitation(options = {})
+    super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
+  end
+
+
 # TODO: Remove this, its never called.
   # this generates a reset password link for a given user
   # which can then be sent to them with the appropriate host
