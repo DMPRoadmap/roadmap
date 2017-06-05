@@ -139,7 +139,7 @@
             <td class="dmp_td_small">
 							<% if hash[:current].customization_of.nil? %>
 								<% b_label = _('Customise') %>	
-								<%= link_to b_label, admin_customize_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+								<%= link_to b_label, admin_customize_template_path(hash[:current]), method: :get, class: "dmp_table_link" %>
               <% else %>
                 <% b_label = _('Edit customisation') %>
 								<%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
