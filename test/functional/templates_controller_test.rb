@@ -228,7 +228,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     template = Template.live(funder_template.dmptemplate_id)
 
-    put admin_customize_template_path(template)
+    get admin_customize_template_path(template)
 
     customization = Template.where(customization_of: template.dmptemplate_id).last
 
