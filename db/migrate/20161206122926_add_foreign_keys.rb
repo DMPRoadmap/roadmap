@@ -137,8 +137,8 @@ class AddForeignKeys < ActiveRecord::Migration
         if temp.org.nil? && temp.org_id.present?
           temp.org_id = nil
           i += 1
-        end
         temp.save!
+        end
       end
     end
     puts "#{i} templates scrubbed"
