@@ -74,6 +74,9 @@ form.roadmap-form {
         vertical-align: middle;
       }
 
+      label.align-top {
+        vertical-align: top;
+      }
       input.form-submit, 
       button.form-cancel {
         font-size: 10pt;
@@ -127,7 +130,7 @@ form.roadmap-form {
   .fixed-width-large {
     width: 550px;
   }
-   
+  
   /* Accessible Form Buttons */
   input.form-submit {
     clear: both;
