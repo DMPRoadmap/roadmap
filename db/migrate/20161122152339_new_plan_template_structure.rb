@@ -481,7 +481,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration
             published_copied = true
             unpublished_changes = false
             phases.each do |p|
-              unpublished_changes = unpublished_changes || get_version(p,false,false).id != get_version(p,true,false).id
+              unpublished_changes = unpublished_changes || get_version(p,false,false) != get_version(p,true,false)
             end
             if unpublished_changes
               redo
