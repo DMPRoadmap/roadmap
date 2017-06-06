@@ -1,4 +1,9 @@
 class Question < ActiveRecord::Base
+
+  ##
+  # Sort order: Number ASC
+  default_scope { order(number: :asc) }
+
   ##
   # Associations
   has_many :answers, :dependent => :destroy
