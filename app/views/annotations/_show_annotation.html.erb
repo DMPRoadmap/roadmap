@@ -1,15 +1,26 @@
 <!--show annotations. annotation is passed as an argument-->
+<h3><%= _('Annotations') %> </h3>
 <table class="dmp_details_table phase">
-	<tr>
-		<td class="first_template">
-				<%= _('Example Answer')%>
-		</td>
-		<td><%= raw annotation.text %></td>
-	</tr>
+  <% if example_answer.present? %>
+  	<tr>
+  		<td class="first_template">
+  				<%= _('Example Answer')%>
+  		</td>
+  		<td><%= raw example_answer.text %></td>
+  	</tr>
+  <% end %>
+  <% if guidance.present? %>
+    <tr>
+      <td class="first_template">
+          <%= _('Guidance')%>
+      </td>
+      <td><%= raw guidance.text %></td>
+    </tr>
+  <% end %>
 </table>
 <br/>
 
 <div class="move_2_right">
 	<%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-	<%= link_to _('Edit Example Answer'), '# ', class: "btn btn-primary edit_form_for_suggested_answer"%>
+	<%= link_to _('Edit Annotations'), '# ', class: "btn btn-primary edit_form_for_annotations"%>
 </div>
