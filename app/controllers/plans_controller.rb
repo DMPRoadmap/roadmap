@@ -392,15 +392,16 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         @plan.assign_creator(current_user)
-        format.html { redirect_to @plan, notice: _('Plan was successfully duplicated.') }
-        format.json { head :no_content }
+        flash[:notice] = 'Plan was successfully duplicated.'
+        format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
+        # format.html { redirect_to @plan, notice: _('Plan was successfully duplicated.') }
+        # format.json { head :no_content }
       else
-        flash[:notice] = failed_update_error(@plan, _('plan'))
-        format.html { render action: "edit" }
+        flash[:notice] = failed_create_error(@plan, 'Plan')
+        format.js {}
       end
     end
   end
-
 
   private
 
