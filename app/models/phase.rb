@@ -4,6 +4,12 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
+
+  ##
+  # Sort order: Number ASC
+  default_scope { order(number: :asc) }
+
+
 #	extend FriendlyId
 	##
   # Associations
