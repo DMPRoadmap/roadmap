@@ -37,7 +37,7 @@ $reverse-text: #FFF;
 
 .content-two-column {
   width: 98%;
-  
+
   .column-left {
     display: inline-block;
     width: 55%;
@@ -55,4 +55,13 @@ $reverse-text: #FFF;
 }
 .centered {
   text-align: center;
+}
+
+table.dmp_table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-bottom: 0px;
+  margin-bottom: 20px;
+  table-layout: fixed;
 }
