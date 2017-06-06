@@ -57,3 +57,9 @@ select {
 textarea {
   height: auto;
 }
+
+.modal-body {
+  overflow: hidden;
+  padding-bottom: 45px;
+  margin-bottom: 45px;
+}
