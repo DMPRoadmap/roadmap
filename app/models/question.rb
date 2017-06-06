@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   ##
   # Associations
   has_many :answers, :dependent => :destroy
-  has_many :question_options, :dependent => :destroy
+  has_many :question_options, :dependent => :destroy, :inverse_of => :question  # inverse_of needed for nester forms
   has_many :annotations, :dependent => :destroy
   has_and_belongs_to_many :themes, join_table: "questions_themes"
   belongs_to :section

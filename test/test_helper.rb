@@ -55,21 +55,22 @@ class ActiveSupport::TestCase
 
     template.phases << Phase.new(title: 'Test phase',
                                  description: 'My test phase',
-                                 number: 1)
+                                 number: 1, template: template)
 
-    section = Section.new(title: 'Test section',
+    template.phases.first.sections << Section.new(title: 'Test section',
                           description: 'My test section',
                           number: 99, phase: template.phases.first)
 
+    section = template.phases.first.sections.first
     i = 1
     # Add each type of Question to the new section
     QuestionFormat.all.each do |frmt|
       question = Question.new(text: "Test question - #{frmt.title}", number: i,
-                              question_format: frmt)
+                              question_format: frmt, section: section)
 
       if frmt.option_based?
         3.times do |j|
-          question.question_options << QuestionOption.new(text: "Option #{j}", number: j)
+          question.question_options << QuestionOption.new(text: "Option #{j}", number: j, question: question)
         end
       end
 
@@ -77,11 +78,8 @@ class ActiveSupport::TestCase
       i += 1
     end
 
-    template.phases.first.sections << section
-
     template.save!
     assert template.valid?, "unable to create new Template: #{template.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
-
     @template = template.reload
   end
 

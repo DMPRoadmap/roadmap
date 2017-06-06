@@ -14,6 +14,9 @@ class QuestionFormat < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :title, :description, :option_based, :questions, :as => [:default, :admin]
 
+  # Retrieves the id for a given formattype passed
+  scope :id_for, -> (formattype) { where(formattype: formattype).pluck(:id).first }
+  
   ##
   # Define Bit Field Values so we can test a format without doing string comps
   # Column type
