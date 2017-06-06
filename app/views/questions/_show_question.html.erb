@@ -100,17 +100,18 @@
   </table>
   <br/>
   <!-- Add suggested or example answers to a funders template-->
+  <% example_answer = question.get_example_answer(current_user.org_id) %>
+  <% guidance = question.get_guidance_annotation(current_user.org_id) %>
   <% if !question.modifiable %>
-    <% example_answer = question.get_example_answer(current_user.org_id) %>
-    <% if example_answer.present?  && example_answer.text.present? %>
-      <div id="show_suggested_answer_div_<%= question.id%>">
-        <%= render partial: 'annotations/show_annotation', locals: {annotation: example_answer, question: question} %>
+    <% if example_answer.present?  || guidance.present? %>
+      <div id="show_annotations_div_<%= question.id%>">
+        <%= render partial: 'annotations/show_annotation', locals: {example_answer: example_answer, guidance: guidance, question: question} %>
       </div>
-      <div id="edit_suggested_answer_div_<%= question.id%>" style="display: none">
-        <%= render partial: 'annotations/edit_annotation', locals: {annotation: example_answer, question: question} %>
+      <div id="edit_annotations_div_<%= question.id%>" style="display: none">
+        <%= render partial: 'annotations/edit_annotation', locals: {example_answer: example_answer, guidance: guidance, question: question} %>
       </div>
     <% end %>
-    <div id="add_suggested_answer_block_<%= question.id%>" style="display: none">
+    <div id="add_annotations_block_<%= question.id%>" style="display: none">
       <%= render partial: 'annotations/add_annotation', locals: {question: question} %>
     </div>
   <% end %>
@@ -125,13 +126,12 @@
       <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
         confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
     </div>
-  <% elsif !@edit && question.modifiable %>
-    <% example_answer = question.get_example_answer(current_user.org_id) %>
-    <% if example_answer.nil? %>
-      <div id="add_suggested_answer_button_<%= question.id%>">
+  <% else %>
+    <% if example_answer.nil? && guidance.nil? %>
+      <div id="add_annotations_button_<%= question.id%>">
         <div class="move_2_right">
           <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-          <%= link_to _('Add example answer'), '# ', class: "btn btn-primary add_suggested_answer_button"%>
+          <%= link_to _('Add Annotations'), '# ', class: "btn btn-primary add_annotations_button"%>
         </div>
       </div>
     <% end %>
