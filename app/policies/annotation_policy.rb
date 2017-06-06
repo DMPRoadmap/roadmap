@@ -14,11 +14,12 @@ class AnnotationPolicy < ApplicationPolicy
   ##
 
   def admin_create?
-    user.can_modify_templates?  &&  (annotation.question.section.phase.template.org_id == user.org_id)
+    # here we pass through a question instead of an annotation object
+    user.can_modify_templates?  &&  (annotation.section.phase.template.org_id == user.org_id)
   end
 
   def admin_update?
-    user.can_modify_templates?  &&  (annotation.question.section.phase.template.org_id == user.org_id)
+    user.can_modify_templates?  &&  (annotation.question.section.phase.template.org_id == user.org_id) && annotation.org_id == user.org_id
   end
 
   def admin_destroy?

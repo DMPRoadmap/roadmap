@@ -219,6 +219,10 @@ msgid ""
 "                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>"
 msgstr "DMPonline"
 
+#, fuzzy
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr "DMPonline"
+
 msgid "A colleague has invited you to contribute to their Data Management Plan at "
 msgstr ""
 
@@ -255,8 +259,9 @@ msgstr ""
 msgid "Actions"
 msgstr "Actions"
 
-msgid "Add an appropriate name for your guidance group e.g. Glasgow guidance. This name will be used to tell the end user where the guidance has come from e.g. 'Glasgow Guidance on Metadata'"
-msgstr "Ajoutez un nom adéquat à votre groupe de conseils, par ex. : Conseils de Glasgow. Ce nom sera utilié pour indiquer à lutilisateur final lorigine des conseils, par ex. : Glasgow Guidance on Metadata"
+#, fuzzy
+msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
+msgstr "Groupe de conseils"
 
 msgid "Add collaborator"
 msgstr "Ajouter le collaborateur"

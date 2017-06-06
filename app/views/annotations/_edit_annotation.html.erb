@@ -1,25 +1,43 @@
 <!--edit annotation. question is passed as an argument-->
-<%= form_for( annotation, url: admin_update_annotation_path(annotation.id), html: { method: :put}) do |f| %>
-  <%= f.hidden_field :org_id, value: current_user.org_id %>
+<%= form_tag admin_update_annotation_path, method: :put do %>
+  <% example_answer_text  = example_answer.present? ? example_answer.text : '' %>
+  <% guidance_text        = guidance.present?       ? guidance.text       : '' %>
+  <%= hidden_field_tag :example_answer_id, example_answer.present? ? example_answer.id : nil %>
+  <%= hidden_field_tag :guidance_id, guidance.present? ? guidance.id : nil %>
 
   <table class="dmp_details_table phase">
     <tr>
-      <td class="first_template"><%= _('example answer')%></td>
+      <td class="first_template"><%= _('Example Answer')%></td>
       <td>
         <ul>
-          <li><%= f.text_area :text, rows: 5 %></li>
+          <li><%= text_area_tag :example_answer_text, example_answer_text, rows: 5 %></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Guidance')%></td>
+      <td>
+        <ul>
+          <li><%= text_area_tag :guidance_text, guidance_text,  rows: 5 %></li>
         </ul>
       </td>
     </tr>
   </table>
   <br/>
 
-  <!-- submit buttons -->
+  <!-- submit/ delete buttons -->
   <div class="move_2_right">
-    <%= f.submit _('Save'), class: 'btn btn-primary' %>
-    <%= link_to _('Delete'), admin_destroy_annotation_path(id: annotation.id),
-      confirm: _("You are about to delete an example answer for '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
+    <%= submit_tag _('Save'), class: 'btn btn-primary' %>
+    <% if example_answer.present? %>
+      <%= link_to _('Delete Example Answer'), admin_destroy_annotation_path(id: example_answer.id),
+        confirm: _("You are about to delete an example answer for '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
+    <% end %>
+    <% if guidance.present? %>
+      <%= link_to _('Delete Example Answer'), admin_destroy_annotation_path(id: guidance.id),
+        confirm: _("You are about to delete a guidance for '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
+    <% end %>
+
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-    <%= link_to _('Cancel'), '#', class: 'btn cancel cancel_edit_suggested_answer' %>
+    <%= link_to _('Cancel'), '#', class: 'btn cancel cancel_edit_annotations' %>
   </div>
 <% end %>

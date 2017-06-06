@@ -50,7 +50,7 @@ class TemplatesController < ApplicationController
     }
   end
 
-  # PUT /org/admin/templates/:id/admin_customize
+  # GET /org/admin/templates/:id/admin_customize
   # -----------------------------------------------------
   def admin_customize
     @template = Template.find(params[:id])
