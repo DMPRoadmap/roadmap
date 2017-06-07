@@ -108,6 +108,13 @@ module DMPRoadmap
     config.shibboleth_login = '/Shibboleth.sso/Login'
     config.shibboleth_logout_url = '/Shibboleth.sso/Logout'
 
+    # If this value is set to true your users will be presented with a list of orgs that have a
+    # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
+    # will be driven out to your federation's discovery service
+    #
+    # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
+    config.shibboleth_use_filtered_discovery_service = false
+
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'

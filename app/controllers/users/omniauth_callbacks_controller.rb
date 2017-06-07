@@ -1,4 +1,16 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  # GET /users/auth/shibboleth (user_shibboleth_omniauth_authorize_path)
+  # -------------------------------------------------------------
+  def passthru
+    puts "HEADERS!!!!!!!!"
+    puts @request.headers.inspect
+    puts "BODY!!!!!!!!"
+    puts @request.body.inspect
+    puts "ENV!!!!!!!!"
+    puts @request.env.inspect
+  end
+
   ##
   # Dynamically build a handler for each omniauth provider
   # -------------------------------------------------------------
@@ -59,9 +71,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to edit_user_registration_path
     end
   end
+
   # -------------------------------------------------------------
-
-
   def failure
     redirect_to root_path
   end

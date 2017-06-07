@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516184429) do
-
+ActiveRecord::Schema.define(version: 20170607154433) do
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id", limit: 4
     t.integer  "org_id",      limit: 4
@@ -139,6 +138,18 @@ ActiveRecord::Schema.define(version: 20170516184429) do
 
   add_index "notes", ["answer_id"], name: "fk_rails_907f8d48bf", using: :btree
   add_index "notes", ["user_id"], name: "fk_rails_7f2323ad43", using: :btree
+
+  create_table "org_identifiers", force: :cascade do |t|
+    t.string   "identifier",           limit: 255
+    t.string   "attrs",                limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "org_id",               limit: 4
+    t.integer  "identifier_scheme_id", limit: 4
+  end
+
+  add_index "org_identifiers", ["identifier_scheme_id"], name: "fk_rails_189ad2e573", using: :btree
+  add_index "org_identifiers", ["org_id"], name: "fk_rails_36323c0674", using: :btree
 
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "org_id",                   limit: 4
@@ -426,6 +437,8 @@ ActiveRecord::Schema.define(version: 20170516184429) do
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
+  add_foreign_key "org_identifiers", "identifier_schemes"
+  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
