@@ -231,6 +231,9 @@
   <!-- If project has phases-->
   <% phases = plan.template.phases %>
     <% if phases.count == 1 %>
+      <div class="project_description">
+        <%= raw plan.template.description %>
+      </div>
       <% phases.each do |phase| %>
         <div class="move_2_right">
           <%= link_to _('Answer questions'), edit_plan_phase_path(plan,phase), :class => 'btn btn-primary'  %>
