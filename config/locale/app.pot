@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 12:18+0100\n"
-"PO-Revision-Date: 2017-06-06 12:18+0100\n"
+"POT-Creation-Date: 2017-06-07 12:24+0100\n"
+"PO-Revision-Date: 2017-06-07 12:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -246,13 +246,13 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+msgid "Add Annotations"
+msgstr ""
+
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
 msgstr ""
 
 msgid "Add collaborator"
-msgstr ""
-
-msgid "Add example answer"
 msgstr ""
 
 msgid "Add guidance"
@@ -301,6 +301,9 @@ msgid "Allows the user to create new institutional templates, edit existing ones
 msgstr ""
 
 msgid "An error has occurred while saving/resetting your export settings."
+msgstr ""
+
+msgid "Annotations"
 msgstr ""
 
 msgid "Answer"
@@ -459,6 +462,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Delete Example Answer"
+msgstr ""
+
 msgid "Delete question"
 msgstr ""
 
@@ -495,7 +501,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-msgid "Edit Example Answer"
+msgid "Edit Annotations"
 msgstr ""
 
 msgid "Edit User Privileges"
@@ -1245,7 +1251,7 @@ msgstr ""
 msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr ""
 
-msgid "The following answer cannot be persisted"
+msgid "The following answer cannot be saved"
 msgstr ""
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1420,6 +1426,9 @@ msgid "You are about to delete '%{question_text}'. Are you sure?"
 msgstr ""
 
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgstr ""
+
+msgid "You are about to delete a guidance for '%{question_text}'. Are you sure?"
 msgstr ""
 
 msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"

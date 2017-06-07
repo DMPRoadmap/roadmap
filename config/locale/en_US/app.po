@@ -256,15 +256,15 @@ msgstr "Access removed"
 msgid "Actions"
 msgstr "Actions"
 
+msgid "Add Annotations"
+msgstr ""
+
 #, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
 msgstr "guidance group"
 
 msgid "Add collaborator"
 msgstr "Add collaborator"
-
-msgid "Add example answer"
-msgstr ""
 
 msgid "Add guidance"
 msgstr "Add guidance"
@@ -316,6 +316,9 @@ msgid "Allows the user to create new institutional templates, edit existing ones
 msgstr "template"
 
 msgid "An error has occurred while saving/resetting your export settings."
+msgstr ""
+
+msgid "Annotations"
 msgstr ""
 
 msgid "Answer"
@@ -478,6 +481,10 @@ msgstr "Default value"
 msgid "Delete"
 msgstr "Delete"
 
+#, fuzzy
+msgid "Delete Example Answer"
+msgstr "Example of answer"
+
 msgid "Delete question"
 msgstr "Delete question"
 
@@ -515,8 +522,8 @@ msgid "Edit"
 msgstr "Edit"
 
 #, fuzzy
-msgid "Edit Example Answer"
-msgstr "Example of answer"
+msgid "Edit Annotations"
+msgstr "Edit"
 
 msgid "Edit User Privileges"
 msgstr "Edit User Permissions"
@@ -1287,7 +1294,7 @@ msgid "The email address of an administrator at your organisation. Your users wi
 msgstr "The email address of an administrator at your organization. Your users will use this address if they have questions."
 
 #, fuzzy
-msgid "The following answer cannot be persisted"
+msgid "The following answer cannot be saved"
 msgstr "The "
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1469,6 +1476,10 @@ msgstr "You are about to delete '%{question_text}'. Are you sure?"
 
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+
+#, fuzzy
+msgid "You are about to delete a guidance for '%{question_text}'. Are you sure?"
+msgstr "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
 
 msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
 msgstr "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
