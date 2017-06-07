@@ -11,44 +11,44 @@
       <!-- Edit Profile -->
       <fieldset class="side-by-side">
         <legend><%= _('You can edit any of the details below.') %></legend>
-        
+
         <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
 
         <div class="form-input">
           <label for="user_email"><%= _('Email') %>*</label>
-          <input type="email" id="user_email" name="user[email]" 
+          <input type="email" id="user_email" name="user[email]"
                  class="left-indent required input-medium"
-                 title="<%= _('Please enter your current password below when changing your email address.') %>" 
+                 title="<%= _('Please enter your current password below when changing your email address.') %>"
                  value="<%= @user.email %>" />
           <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
         </div>
-        
+
         <div class="form-input">
           <label for="user_firstname"><%= _('First Name') %>*</label>
-          <input type="text" id="user_firstname" name="user[firstname]" 
-                 class="input-small required left-indent" 
+          <input type="text" id="user_firstname" name="user[firstname]"
+                 class="input-small required left-indent"
                  value="<%= @user.firstname %>" />
         </div>
         <div class="form-input">
           <label for="user_surname"><%= _('Last Name') %>*</label>
-          <input type="text" id="user_surname" name="user[surname]" 
-                 class="input-small required left-indent" 
+          <input type="text" id="user_surname" name="user[surname]"
+                 class="input-small required left-indent"
                  value="<%= @user.surname %>" />
         </div>
 
         <div class="form-input">
           <label for="user_recovery_email"><%= _('Recovery Email') %>*</label>
-          <input type="email" id="user_recovery_email" name="user[recovery_email]" 
+          <input type="email" id="user_recovery_email" name="user[recovery_email]"
                  class="left-indent required input-medium"
-                 title="<%= _('This email will be used to recover your account if you change institutions') %>" 
+                 title="<%= _('This email will be used to recover your account if you change institutions') %>"
                  value="<%= @user.recovery_email %>" />
-          <span role="" id="recovery_email_error" 
+          <span role="" id="recovery_email_error"
                 class="error-tooltip-right left-indent"></span>
         </div>
 
         <div class="form-input">
           <label for="user_surname"><%= _('Organisation') %></label>
-          <%= render partial: "shared/accessible_combobox", 
+          <%= render partial: "shared/accessible_combobox",
                      locals: {name: "#{resource_name}[org_name]",
                               id: "#{resource_name}_org_name",
                               default_selection: @default_org,
@@ -56,12 +56,12 @@
                               attribute: 'name',
                               classes: 'fixed-width-large left-indent'} %>
         </div>
-        
+
         <% if MANY_LANGUAGES %>
           <div class="form-input">
             <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
             <label for="user_surname"><%= _('Language') %></label>
-            <select id="user_language_id" name="user[language_id]" 
+            <select id="user_language_id" name="user[language_id]"
                     class="input-medium left-indent">
               <%= @languages.each do |l| %>
                 <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
@@ -91,48 +91,48 @@
                                     id: current_user.identifier_for(scheme)} %>
               </div>
             </div>
-          <% end %>
+          </div>
         <% end %>
 
         <% unless @user.api_token.blank? %>
           <div class="form-input">
             <%= f.label :api_token, _('API token') %>
             <div class="input-medium"><%= @user.api_token %></div>
-          
+
             <label><%= _('API Information') %></label>
             <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
           </div>
         <% end %>
 
         <br />
-       
+
         <legend><%= _('If you would like to change your password please complete the following fields.') %></legend>
 
         <div class="form-input">
           <label for="user_current_password"><%= _('Current Password') %></label>
-          <input type="password" id="user_current_password" name="user[current_password]" 
+          <input type="password" id="user_current_password" name="user[current_password]"
                  class="left-indent required medium-input" value="" />
-          <span role="" id="current_password_error" 
+          <span role="" id="current_password_error"
                 class="error-tooltip-right left-indent"></span>
         </div>
-        
+
         <div class="form-input">
           <label for="user_new_password"><%= _('New Password') %></label>
-          <input type="password" id="user_new_password" name="user[new_password]" 
+          <input type="password" id="user_new_password" name="user[new_password]"
                  class="left-indent required medium-input" value="" />
-          <span role="" id="new_password_error" 
+          <span role="" id="new_password_error"
                 class="error-tooltip-right left-indent"></span>
         </div>
-        
+
         <div class="form-input">
           <label for="user_password_confirmation"><%= _('Password Confirmation') %></label>
-          <input type="password" id="user_password_confirmation" 
-                 name="user[password_confirmation]" 
+          <input type="password" id="user_password_confirmation"
+                 name="user[password_confirmation]"
                  class="left-indent required medium-input" value="" />
-          <span role="" id="password_confirmation_error" 
+          <span role="" id="password_confirmation_error"
                 class="error-tooltip-right left-indent"></span>
         </div>
-        
+
         <div class="form-input">
           <div class="form-input checkbox-right">
             <label for="passwords_show" class="checkbox-label">
@@ -141,12 +141,12 @@
             <input type="checkbox" id="passwords_show" />
           </div>
         </div>
-        
+
         <div class="form-input">
           <label></label>
           <%= render partial: 'shared/accessible_submit_button',
-                     locals: {id: 'update', 
-                              val: 'Save', 
+                     locals: {id: 'update',
+                              val: 'Save',
                               disabled_initially: true,
                               classes: 'small-input-button',
                               tooltip: _('Enter all of the required information above')} %>
