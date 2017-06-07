@@ -4,38 +4,36 @@ class QuestionsController < ApplicationController
 
   #create a question
   def admin_create
-    @question = Question.new(params[:question])
-    authorize @question
-    example = @question.annotations.first
-    if example.present?
-      example.org_id = current_user.org_id
-      example.example_answer!
-    end
-    if params["new-question-guidance"].present?
-      guidance = @question.annotations.build
-      guidance.text = params["new-question-guidance"]
-      guidance.org_id = current_user.org_id
-      guidance.guidance!
-      guidance.save
-    end
-    @question.default_value = params["new-question-default-value"]
-    @question.modifiable = true
-    if @question.save
-      @question.section.phase.template.dirty = true
-      @question.section.phase.template.save!
+    begin
+      @question = Question.new(question_params)
+      authorize @question
+      @question.modifiable = true
+      if @question.save
+        @question.section.phase.template.dirty = true
+        @question.section.phase.template.save!
+        if params[:example_answer].present?
+          example_answer = Annotation.new({question_id: @question.id, org_id: current_user.org_id, text: params[:example_answer], type: Annotation.types[:example_answer]})
+          example_answer.save
+        end
+        if params[:guidance].present?
+          guidance = Annotation.new({question_id: @question.id, org_id: current_user.org_id, text: params[:guidance], type: Annotation.types[:guidance]})
+          guidance.save
+        end
+        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
+      else
+        @edit = (@question.section.phase.template.org == current_user.org)
+        @open = true
+        @phase = @question.section.phase
+        @section = @question.section
+        @sections = @phase.sections
+        @section_id = @question.section.id
+        @question_id = @question.id
 
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
-    else
-      @edit = (@question.section.phase.template.org == current_user.org)
-      @open = true
-      @phase = @question.section.phase
-      @section = @question.section
-      @sections = @phase.sections
-      @section_id = @question.section.id
-      @question_id = @question.id
-
-      flash[:notice] = failed_create_error(@question, _('question'))
-      render template: 'phases/admin_show'
+        flash[:notice] = failed_create_error(@question, _('question'))
+        render template: 'phases/admin_show'
+      end
+    rescue ActionController::ParameterMissing => e
+      flash[:notice] = e.message    
     end
   end
 
@@ -89,4 +87,18 @@ class QuestionsController < ApplicationController
     end
   end
 
+  private
+    # Filters the valid attributes for a question according to each type.
+    # Note, that params[:question] and params[:question][:question_format_id] are required and their absence raises ActionController::ParameterMissing
+    def question_params
+      permitted = params.require(:question).except(:created_at, :updated_at).tap do |question_params|
+        question_params.require(:question_format_id)
+        q_format = QuestionFormat.find(question_params[:question_format_id])
+        if q_format.option_based
+          question_params.delete(:default_value)
+        else
+          question_params.delete(:question_options_attributes)
+        end
+      end
+    end
 end
