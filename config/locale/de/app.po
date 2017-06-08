@@ -1022,6 +1022,14 @@ msgstr "Plan wurde erfolgreich angelegt."
 msgid "Plan was successfully updated."
 msgstr ""
 
+#, fuzzy
+msgid "Please enter a First name."
+msgstr "Bitte geben Sie ihren Vornamen ein."
+
+#, fuzzy
+msgid "Please enter a Last name."
+msgstr "Bitte geben Sie ihren Vornamen ein."
+
 msgid "Please enter a password confirmation"
 msgstr ""
 
@@ -1033,6 +1041,10 @@ msgstr "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
 
 msgid "Please enter an email address"
 msgstr ""
+
+#, fuzzy
+msgid "Please enter an email address."
+msgstr "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
 
 msgid "Please enter the name of your organisation."
 msgstr "Bitte geben Sie den Namen Ihrer Organisation an."
@@ -1070,6 +1082,10 @@ msgstr "<p>Bitte beachten Sie, dass Ihre Email-Adresse als Nutzername verwendet 
 
 msgid "Please only enter up to 165 characters, you have used"
 msgstr "Please only enter up to 165 characters, you have used"
+
+#, fuzzy
+msgid "Please select an organisation, or select Other."
+msgstr "Organisation"
 
 msgid "Please select one"
 msgstr ""
@@ -1176,6 +1192,10 @@ msgid "Right"
 msgstr "Rechts"
 
 msgid "Save"
+msgstr "Speichern"
+
+#, fuzzy
+msgid "Save Unsuccessful."
 msgstr "Speichern"
 
 msgid "Saving..."

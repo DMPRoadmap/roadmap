@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 12:24+0100\n"
-"PO-Revision-Date: 2017-06-07 12:24+0100\n"
+"POT-Creation-Date: 2017-06-08 13:02+0100\n"
+"PO-Revision-Date: 2017-06-08 13:02+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -966,6 +966,12 @@ msgstr ""
 msgid "Plan was successfully updated."
 msgstr ""
 
+msgid "Please enter a First name."
+msgstr ""
+
+msgid "Please enter a Last name."
+msgstr ""
+
 msgid "Please enter a password confirmation"
 msgstr ""
 
@@ -976,6 +982,9 @@ msgid "Please enter a valid web address."
 msgstr ""
 
 msgid "Please enter an email address"
+msgstr ""
+
+msgid "Please enter an email address."
 msgstr ""
 
 msgid "Please enter the name of your organisation."
@@ -1012,6 +1021,9 @@ msgid "Please note that your email address is used as your username. If you chan
 msgstr ""
 
 msgid "Please only enter up to 165 characters, you have used"
+msgstr ""
+
+msgid "Please select an organisation, or select Other."
 msgstr ""
 
 msgid "Please select one"
@@ -1117,6 +1129,9 @@ msgid "Right"
 msgstr ""
 
 msgid "Save"
+msgstr ""
+
+msgid "Save Unsuccessful."
 msgstr ""
 
 msgid "Saving..."

@@ -1014,6 +1014,14 @@ msgstr "Création du plan effectuée."
 msgid "Plan was successfully updated."
 msgstr ""
 
+#, fuzzy
+msgid "Please enter a First name."
+msgstr "Entrez votre prénom, svp."
+
+#, fuzzy
+msgid "Please enter a Last name."
+msgstr "Entrez votre prénom, svp."
+
 msgid "Please enter a password confirmation"
 msgstr ""
 
@@ -1025,6 +1033,10 @@ msgstr "Formation à la rédaction de documents scientifiques en anglais une adr
 
 msgid "Please enter an email address"
 msgstr ""
+
+#, fuzzy
+msgid "Please enter an email address."
+msgstr "Formation à la rédaction de documents scientifiques en anglais une adresse web valide."
 
 msgid "Please enter the name of your organisation."
 msgstr "Veuillez saisir le nom de votre organisme.."
@@ -1062,6 +1074,10 @@ msgstr "<p>À noter que votre courriel est à utiliser comme nom dutilisateur. S
 
 msgid "Please only enter up to 165 characters, you have used"
 msgstr ""
+
+#, fuzzy
+msgid "Please select an organisation, or select Other."
+msgstr "Organisation"
 
 msgid "Please select one"
 msgstr ""
@@ -1168,6 +1184,10 @@ msgid "Right"
 msgstr "Droite"
 
 msgid "Save"
+msgstr "Enregistrer"
+
+#, fuzzy
+msgid "Save Unsuccessful."
 msgstr "Enregistrer"
 
 msgid "Saving..."

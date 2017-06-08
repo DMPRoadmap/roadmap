@@ -1001,6 +1001,14 @@ msgstr "Plan was successfully deleted."
 msgid "Plan was successfully updated."
 msgstr "Plan was successfully updated."
 
+#, fuzzy
+msgid "Please enter a First name."
+msgstr "Please enter your first name."
+
+#, fuzzy
+msgid "Please enter a Last name."
+msgstr "Please enter your first name."
+
 msgid "Please enter a password confirmation"
 msgstr ""
 
@@ -1011,6 +1019,10 @@ msgid "Please enter a valid web address."
 msgstr "Please enter a valid web address."
 
 msgid "Please enter an email address"
+msgstr "Please enter an email address"
+
+#, fuzzy
+msgid "Please enter an email address."
 msgstr "Please enter an email address"
 
 msgid "Please enter the name of your organisation."
@@ -1049,6 +1061,10 @@ msgstr "<p>Please note that your email address is used as your username. If you 
 
 msgid "Please only enter up to 165 characters, you have used"
 msgstr "Please only enter up to 165 characters, you have used"
+
+#, fuzzy
+msgid "Please select an organisation, or select Other."
+msgstr "organization"
 
 msgid "Please select one"
 msgstr ""
@@ -1155,6 +1171,10 @@ msgid "Right"
 msgstr "Right"
 
 msgid "Save"
+msgstr "Save"
+
+#, fuzzy
+msgid "Save Unsuccessful."
 msgstr "Save"
 
 msgid "Saving..."
