@@ -1,18 +1,20 @@
+<h2 aria-hidden="false" style="visibility: none"><%= _('Create account') %></h2>
+
 <%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", class: "roadmap-form register-form"} do |f| %>
   <fieldset id="create-account-form" class="standard padded">
     <div class="inline">
-			<div class="form-input">
-	      <label for="user_firstname"><%= _('First Name') %></label>
-	      <input type="text" id="user_firstname" name="user[firstname]" 
-							 class="input-small required left-indent" />
-			</div>
+      <div class="form-input">
+        <label for="user_firstname"><%= _('First Name') %></label>
+        <input type="text" id="user_firstname" name="user[firstname]" 
+               class="input-small required left-indent" />
+      </div>
     </div>
     <div class="inline">
-			<div class="form-input">
-	      <label for="user_surname"><%= _('Last Name') %></label>
-	      <input type="text" id="user_surname" name="user[surname]" 
-							 class="input-small required left-indent" />
-			</div>
+      <div class="form-input">
+        <label for="user_surname"><%= _('Last Name') %></label>
+        <input type="text" id="user_surname" name="user[surname]" 
+               class="input-small required left-indent" />
+      </div>
     </div>
     
     <!-- Register form email address -->

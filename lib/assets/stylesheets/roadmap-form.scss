@@ -317,14 +317,21 @@ form.roadmap-form {
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
 
-/* Login form */
+/* Home Page */
+/* ------------------------------------------------ */
+.main_page_content .content-two-column {
+  min-height: 400px;
+}
+
+
+/* Sign in/Create account forms */
 /* ------------------------------------------------ */
 .omniauth-options {
   display: block;
   width: 100%;
 
   .omniauth-login {
-    width: 410px;
+    width: 93%;
     padding: 4px 12px;
     background-color: $primary-color;
     color: $white;
@@ -335,19 +342,27 @@ form.roadmap-form {
     border-radius: 5px;
   }
 }
+#new_user {
+  margin-bottom: 10px;
+}
+
 #new_user fieldset {
   width: 90%;
+  padding-bottom: 15px;
+  margin-bottom: 5px;
   
   input[type="password"],
   #user_password,
   input[type="email"] {
     width: 90%;
   }
-}
 
-#new_user fieldset {
+  .small-header {
+    margin-top: 0;
+  }
+
   .checkbox-right {
-    width: 98%;
+    width: 97%;
     position: relative;
     
     #user_remember_me, input[type='checkbox'], .checkbox-label {

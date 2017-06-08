@@ -1,22 +1,26 @@
-<% if Rails.application.config.shibboleth_enabled %>
-  <h2 class="centered small-header"><%= _('Sign in with') %></h2>
-
-  <span class="omniauth-options centered">
-    <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
-      <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-      <button id="shibboleth-login" href="<%= target %>" class="omniauth-login">
-        <%= _('Your Organisation') %>
-      </button>
-    <%else%>
-      <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
-    <%end%> 
-  </span>
-
-  <h2 class="centered small-header">- <%= _('or') %> -</h2>
-<% end %>  
+<h2 aria-hidden="false" style="visibility: none"><%= _('Sign in') %></h2>
 
 <%= form_for resource, as: 'user', url: user_session_path, html: {class: "login-form roadmap-form"} do |f| %>
   <fieldset id="sign-in-form" class="standard padded">
+    <% if Rails.application.config.shibboleth_enabled %>
+      <h3 class="centered small-header"><%= _('Sign in with') %></h3>
+
+      <div class="form-input">
+        <span class="omniauth-options centered">
+          <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+            <button id="shibboleth-login" href="<%= user_shibboleth_omniauth_authorize_path %>" class="omniauth-login">
+              <%= _('Your Organisation') %>
+            </button>
+          <%else%>
+            <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+          <%end%> 
+        </span>
+      </div>
+      
+      <h3 class="centered small-header">- <%= _('or') %> -</h3>
+    <% end %>
+    
+    
     <!-- Login form email address -->
     <div class="form-input">
       <label for="user_email"><%= _('Email') %></label>
