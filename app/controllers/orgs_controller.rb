@@ -1,5 +1,5 @@
 class OrgsController < ApplicationController
-  after_action :verify_authorized
+  after_action :verify_authorized, except: ['shibboleth_ds']
   respond_to :html
 
   ##
@@ -42,6 +42,12 @@ class OrgsController < ApplicationController
       flash[:notice] = _('There seems to be a problem with your logo. Please upload it again.')
       render action: "admin_edit"
     end
+  end
+
+  # GET /orgs/shibboleth_ds
+  def shibboleth_ds
+    # Display the custom Shibboleth discovery service page. 
+    @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
   end
 
   private

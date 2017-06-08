@@ -90,6 +90,7 @@ module DMPRoadmap
                                    plans/new_plan.js 
                                    contacts/new_contact.js
                                    home/index.js
+                                   orgs/shibboleth_ds.js
                                    shared/login_form.js
                                    shared/register_form.js)
     
@@ -113,7 +114,7 @@ module DMPRoadmap
     # will be driven out to your federation's discovery service
     #
     # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
-    config.shibboleth_use_filtered_discovery_service = false
+    config.shibboleth_use_filtered_discovery_service = true
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.

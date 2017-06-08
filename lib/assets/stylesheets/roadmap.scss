@@ -8,6 +8,7 @@ $white: #FFF;
 $error-color: #CC0000;
 $error-background: #FFE6E6;
 $dark-grey: #333;
+$medium-grey: #827D7E;
 $light-grey: #CCC;
 
 $primary-color: #F49700;
@@ -33,6 +34,14 @@ $reverse-text: #FFF;
 
 .main_header {
   margin-bottom: 20px;
+}
+
+.content {
+  width: 98%;
+  background-color: $white;
+  border-radius: 3px;
+  margin-top: 25px;
+  padding: 10px 20px;
 }
 
 .content-two-column {
@@ -64,4 +73,14 @@ table.dmp_table{
   border-bottom: 0px;
   margin-bottom: 20px;
   table-layout: fixed;
+}
+
+div.three-column {
+  ul li.separator {
+    background-color: $medium-grey;
+    color: $white;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin-top: 5px;
+  }
 }

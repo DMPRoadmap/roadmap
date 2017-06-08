@@ -1,0 +1,37 @@
+<% javascript 'orgs/shibboleth_ds.js'%>
+
+<h1>Find your institution to sign in</h1>
+
+<div class="content">
+  <form class="roadmap-form" id="shibboleth-ds">
+    <fieldset class="standard padded">
+      <label for="org_name">
+        <%= _('Look up your institution here') %>
+      </label>
+    
+      <%= render partial: "shared/accessible_combobox", 
+                 locals: {name: 'org_name',
+                          id: 'org_name',
+                          default_selection: nil,
+                          models: @orgs,
+                          attribute: 'name',
+                          classes: 'fixed-width-large'} %>
+      
+      <p class="centered">
+        <strong>- <%= _('or') %> -</strong>
+        <br />
+        <a class="left-indent" id="show_list" href="#"><%= _('See the full list of partner institutions') %></a>
+      </p>
+
+      <div id="full_list" style="display: none">
+        <%= render partial: 'shibboleth_ds_list', locals: {orgs: @orgs} %>
+      </div>
+      
+      <hr />
+      
+      <p class="left-indent">
+        <%= _('Institution not a DMPTool partner?') %> <a href="#header-register-form"><%= _('Create an account with any email address')%></a>
+      </p>
+    </fieldset>
+  </form>
+</div>

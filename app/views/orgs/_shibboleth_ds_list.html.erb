@@ -1,0 +1,14 @@
+<div class="three-column">
+  <% letter = '' %>
+  <ul>
+    <% orgs.each do |org| %>
+      <% unless org.name[0].capitalize == letter %>
+        <li class="separator"><%= org.name[0].capitalize %></li>
+        <% letter = org.name[0].capitalize %>
+      <% end %>
+
+      <li><a href="#"><%= org.name %></a></li>
+
+    <% end %>
+  </ul>
+</div>
