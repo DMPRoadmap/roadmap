@@ -82,17 +82,3 @@ table.dmp_table{
   margin-bottom: 20px;
   table-layout: fixed;
 }
-
-div.three-column {
-  ul li {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
-  ul li.separator {
-    background-color: $medium-grey;
-    color: $white;
-    font-weight: bold;
-    padding: 4px 12px;
-  }
-}

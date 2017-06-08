@@ -133,7 +133,6 @@ form.roadmap-form {
   
   /* Accessible Form Buttons */
   input.form-submit {
-    clear: both;
     background-color: $primary-color;
     color: $reverse-text;
     padding: 4px 12px;
@@ -405,4 +404,45 @@ div#forgot-password-link {
 
 #shibboleth-ds {
   width: 50%;
+}
+
+/* Shibboleth Custom Discovery Service form */
+/* ------------------------------------------------ */
+form.shibboleth-ds-form {
+  width: 55%;
+  
+  select {
+    width: 85%;
+  }
+  
+  input.form-submit {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+}
+
+div.three-column, div.two-column, div.one-column {
+  display: inline-block;
+  vertical-align: top;
+  
+  ul li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  ul li.separator {
+    background-color: $medium-grey;
+    color: $white;
+    font-weight: bold;
+    padding: 4px 12px;
+  }
+}
+div.three-column {
+	width: 31%;
+} 
+div.two-column {
+  width: 47%;
+} 
+div.one-column {
+  width: 95%;
 }
