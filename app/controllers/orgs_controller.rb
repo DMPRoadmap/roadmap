@@ -1,5 +1,5 @@
 class OrgsController < ApplicationController
-  after_action :verify_authorized, except: ['shibboleth_ds']
+  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
   respond_to :html
 
   ##
@@ -46,8 +46,30 @@ class OrgsController < ApplicationController
 
   # GET /orgs/shibboleth_ds
   def shibboleth_ds
+    @user = User.new
     # Display the custom Shibboleth discovery service page. 
     @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
+  end
+
+  # POST /orgs/shibboleth_ds
+  def shibboleth_ds_passthru
+    if !params[:org_name].blank?
+      session['org_id'] = params[:org_name]
+    elsif session['org_id'].blank?
+      flash[:notice] = _('Please choose an institution')
+      render action: 'shibboleth_ds'
+    end
+    
+    scheme = IdentifierScheme.find_by(name: 'shibboleth')
+    shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
+    
+    if !shib_entity.empty?
+      #initiate shibboleth login sequence
+      redirect_to "#{request.base_url}#{Rails.application.config.shibboleth_login}?target=#{user_shibboleth_omniauth_callback_url}&entityID=#{shib_entity.first.identifier}"
+    else
+      flash[:notice] = _('Your institution does not seem to be properly configured.')
+      render action: 'shibboleth_ds'
+    end
   end
 
   private

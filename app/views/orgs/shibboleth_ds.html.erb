@@ -3,7 +3,7 @@
 <h1>Find your institution to sign in</h1>
 
 <div class="content">
-  <form class="roadmap-form" id="shibboleth-ds">
+  <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {class: "shibboleth-ds-form roadmap-form"} do |f| %>
     <fieldset class="standard padded">
       <label for="org_name">
         <%= _('Look up your institution here') %>
@@ -25,8 +25,6 @@
                           tooltip: _('Select an institution.'),
 													classes: 'inline'} %>
 
-      <input type="submit" class="form-submit inline" value="<%= _('Go') %>" />
-      
       <p class="centered left-indent">
         <strong>- <%= _('or') %> -</strong>
         <br />
@@ -43,5 +41,5 @@
         <%= _('Institution not a DMPTool partner?') %> <a href="#header-register-form"><%= _('Create an account with any email address')%></a>
       </p>
     </fieldset>
-  </form>
+  <% end %>
 </div>

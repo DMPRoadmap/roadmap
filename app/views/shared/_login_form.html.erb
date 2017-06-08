@@ -8,7 +8,8 @@
       <div class="form-input">
         <span class="omniauth-options centered">
           <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
-            <button id="shibboleth-login" href="<%= user_shibboleth_omniauth_authorize_path %>" class="omniauth-login">
+            <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
+            <button id="shibboleth-login" href="<%= target %>" class="omniauth-login">
               <%= _('Your Organisation') %>
             </button>
           <%else%>
