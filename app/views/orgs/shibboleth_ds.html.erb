@@ -10,7 +10,7 @@
           <%= _('Look up your institution here') %>
         </label>
     
-        <% if @orgs.count <= 2 %>
+        <% if @orgs.count <= 10 %>
           <select id="org_name" class="left-indent">
             <option value=""><%= _('Please select one') %></option>
             <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
@@ -34,7 +34,7 @@
                             tooltip: _('Select an institution.'),
                             classes: 'inline left-indent'} %>
 
-        <% if @orgs.count > 2 %>
+        <% if @orgs.count > 10 %>
           <p class="centered left-indent">
             <strong>- <%= _('or') %> -</strong>
             <br />
