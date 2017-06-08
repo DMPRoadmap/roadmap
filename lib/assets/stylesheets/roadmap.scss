@@ -23,6 +23,14 @@ $reverse-text: #FFF;
   @extend .fa-#{$icon}:before;
 }
 
+/* This class will ensure that the item is hidden for sighted users and that it does not take up space */
+/* For example:  <h2 aria-hidden="false" class="aria-only"><%= _('Create account') %></h2> */
+.aria-only {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
 .primary-color {
   color: $primary-color;
 }
