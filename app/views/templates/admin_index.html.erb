@@ -123,7 +123,7 @@
 									<!-- The template does not have a live version -->
 									<%= b_label = _('Un-published') %>
 									
-								<% elsif hash[:current].dirty? %>
+								<% elsif !hash[:current].published? %>
 									<%= _('You have un-published changes') %>
 									
 								<% else %>
@@ -141,8 +141,12 @@
 								<% b_label = _('Customise') %>	
 								<%= link_to b_label, admin_customize_template_path(hash[:current]), method: :get, class: "dmp_table_link" %>
               <% else %>
-                <% b_label = _('Edit customisation') %>
-								<%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
+                <% if hash[:stale] %>
+                  <% b_label = _('Transfer customisation') %>
+                <% else %>
+                  <% b_label = _('Edit customisation') %>
+                <% end %>
+                <%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
               <% end %>
 							
 							<% if !hash[:current].customization_of.nil? %>
