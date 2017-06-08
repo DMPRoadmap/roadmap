@@ -72,6 +72,7 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     if user_signed_in? then
       @orgs = Org.where(parent_id: nil).order("name")
+      @default_org = current_user.org
       @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
