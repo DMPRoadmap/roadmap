@@ -35,20 +35,19 @@ in the admin interface.
       <tr>
         <td class="first_template"><%= _('Answer format')%></td>
         <td><%= f.hidden_field :section_id, value: section.id, class: "section_id" %>
-          <div id="new-ques-format" class="ques_format">
+          <div id="new-ques-format">
             <div class="div_left_icon">
               <%= f.select :question_format_id,
-                options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.find_by_title(_('Text area')).id),
-                  {}, id: "new-select-format-#{section.id}"%>
+                options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, QuestionFormat.id_for(QuestionFormat.formattypes[:textarea])),
+                  {}, class: "question_format" %>
             </div>
             <div class="div_right_icon">
               <%= link_to( image_tag("help_button.png"), "#", class: "question_format_popover", rel: "popover", "data-html" => "true",  "data-content" => _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"))%>
             </div>
-
           </div>
           <div class="clearfix"></div>
           <!--display form to enter option from checkbox/radio button/ dropdown/ multi select box-->
-          <div id="new-options-<%= section.id%>" style="display:none;" class="ques_format_option">
+          <div style="display:none;" class="ques_format_option">
             <table class="options_table">
               <thead>
                 <tr>
@@ -64,7 +63,7 @@ in the admin interface.
                 <% 2.times {@new_question.question_options.build } %>
                   <% @new_question.question_options.each do |options_q|%>
                     <%= f.fields_for :question_options, options_q do |op|%>
-                      <% i = i + 1%>
+                      <% i = i + 1 %>
                       <% options_q.number = i %>
                       <%= render "/question_options/option_fields", f: op %>
                     <% end %>
@@ -83,64 +82,48 @@ in the admin interface.
             <%= f.check_box :option_comment_display, as: :check_boxes%><%= f.label _('Display additional comment area.'), class: "checkbox inline"%>
           </div>
           <div class="clearfix"></div>
-          <!--display for default value for text field label-->
-          <div id="new-default-text-field-<%= section.id%>" style="display:none;" class="ques_format">
+          <div class="border_bottom"></div>
+        </td>
+      </tr>
+      <!--Question default_value -->
+      <tr class="default_answer">
+        <td class="first_template"><%= _('Default answer')%></td>
+        <td>
+          <div class="div_left_icon">
             <div>
-              <%= _('Default answer')%>
+              <%= f.text_field(:default_value, class: "default_answer_textfield", style: 'display:none') %>
+              <%= text_area(:question, :default_value, class: "default_answer_textarea tinymce") %>
             </div>
           </div>
-          <div class="clearfix"></div>
-          <!--display for default value for text area label -->
-          <div id="new-default-text-area-<%= section.id%>" style="display:none;" class="ques_format">
-            <div>
-              <%= _('Default answer')%>
-            </div>
+          <div class="div_right_icon">
+            <%= link_to( image_tag("help_button.png"), "#", class: "default_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.'))%>
           </div>
-          <div class="clearfix"></div>
-          <div id="new-default-value-field-<%= section.id%>" style="display:none;" class="ques_format">
-            <div class="div_left_icon">
-              <%= text_area_tag("new-question-default-value", "", class: "tinymce") %>
-            </div>
-            <div class="div_right_icon">
-              <%= link_to( image_tag("help_button.png"), "#", class: "default_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.'))%>
-            </div>
-
-          </div>
-          <div class="add_space"></div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
         </td>
       </tr>
-
-        <!-- Suggested answer or Example-->
+      <!-- Suggested answer or Example for Question -->
       <tr>
-        <td class="first_template"><%= _('Example Answer')%></td>
-        <td>
+        <td class="first_template">
+          <%= _('Example Answer')%>
+        </td>
+        <td class="tinymce">
           <div class="div_left_icon">
-            <% example_answer = @new_question.annotations.build %>
-            <% example_answer.type = :example_answer %>
-            <%= f.fields_for :annotations, example_answer do |s|%>
-              <%= s.hidden_field :org_id, value: current_user.org_id %>
-              <ul>
-                <li><%= s.text_area :text, rows: 5 %></li>
-              </ul>
-            <% end %>
+            <%= text_area_tag(:example_answer, "", class: "tinymce") %>
           </div>
           <div class="div_right_icon">
             <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
-
         </td>
       </tr>
-
       <!-- Guidance for Question -->
       <tr>
         <td class="first_template"><%= _('Guidance')%></td>
-        <td>
+        <td class="tinymce">
           <div class="div_left_icon">
-            <%= text_area_tag("new-question-guidance", "", class: "tinymce") %>
+            <%= text_area_tag(:guidance, "", class: "tinymce") %>
           </div>
           <div class="div_right_icon">
             <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
@@ -149,7 +132,6 @@ in the admin interface.
           <div class="border_bottom"></div>
         </td>
       </tr>
-
       <!-- Themes -->
       <tr>
         <td class="first_template"><%= _('Themes')%></td>
@@ -162,8 +144,6 @@ in the admin interface.
           <div class="div_right_icon">
             <%= link_to( image_tag("help_button.png"), "#", class: "question_themes_popover", rel: "popover", "data-html" => "true", "data-content" => _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"))%>
           </div>
-
-
         </td>
       </tr>
     </table>

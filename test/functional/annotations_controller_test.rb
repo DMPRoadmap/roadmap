@@ -36,59 +36,72 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/templates/suggested_answers/:id/admin_create (admin_create_annotation_path)
   # ----------------------------------------------------------
   test "create a new annotation" do
-    params = {org_id: @user.org.id, question_id: @question.id, text: "Here's a suggestion"}
+    params_guid = {question_id: @question.id, guidance_text: "some guidance text"}
+    params_example = {question_id: @question.id, example_answer_text: "example answer text"}
+    params_both = {question_id: @question.id,  example_answer_text: "example answer text", guidance_text: "some guidance text"}
 
     # Should redirect user to the root path if they are not logged in!
-    post admin_create_annotation_path(@question.id), {annotation: params}
+    post admin_create_annotation_path(id: Annotation.first.id), params_both
     assert_unauthorized_redirect_to_root_path
 
     sign_in @user
 
-    post admin_create_annotation_path(@question.id), {annotation: params}
+    # both
+    post admin_create_annotation_path(id: Annotation.first.id), params_both
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
     assert_equal _('Information was successfully created.'), flash[:notice]
-    assert_equal "Here's a suggestion", Annotation.last.text, "expected the record to have been created!"
-    assert assigns(:example_answer)
+    assert_equal "some guidance text", Annotation.last.text, "expected the guidance to have been created!"
+    assert_equal "example answer text", Annotation.all[-2].text, "expected the example answer to have been created"
+    # just an example answer
+    post admin_create_annotation_path(id: Annotation.first.id), params_example
+    assert_response :redirect
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
+    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert_equal "example answer text", Annotation.last.text, "expected the record to have been created!"
+    # just some guidance
+    post admin_create_annotation_path(id: Annotation.first.id), params_guid
+    assert_response :redirect
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
+    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert_equal "some guidance text", Annotation.last.text, "expected the record to have been created!"
 
-    # Invalid object
-    post admin_create_annotation_path(@question.id), {annotation: {question_id: @question.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
-    assert_response :success
-    assert assigns(:example_answer)
   end
 
   # PUT /org/admin/templates/suggested_answers/:id/admin_update (admin_update_suggested_answer_path)
   # ----------------------------------------------------------
   test "update the annotation" do
-    params = {text: 'UPDATE'}
+    q = Annotation.first.question
+    params_guid = {question_id: q.id, guidance_id: Annotation.first.id ,guidance_text: 'UPDATE'}
+    params_example = {question_id: q.id, example_answer_id: Annotation.first.id, example_answer_text: 'UPDATE'}
+    params_both = {question_id: q.id, guidance_id: Annotation.first.id ,guidance_text: 'gUPDATE',example_answer_id: Annotation.last.id, example_answer_text: 'eUPDATE'}
 
     # Should redirect user to the root path if they are not logged in!
-    put admin_update_annotation_path(Annotation.first), {annotation: params}
+    put admin_update_annotation_path(id: Annotation.first.id), params_guid
     assert_unauthorized_redirect_to_root_path
 
     sign_in @user
 
-    # Valid save
-    put admin_update_annotation_path(Annotation.first), {annotation: params}
+    # Valid save for guidance only
+    put admin_update_annotation_path(id: Annotation.first.id), params_guid
     assert_equal _('Information was successfully updated.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
-    assert assigns(:example_answer)
-    assert assigns(:question)
-    assert assigns(:section)
-    assert assigns(:phase)
     assert_equal 'UPDATE', Annotation.first.text, "expected the record to have been updated"
+    # valid save for example only
+    put admin_update_annotation_path(id: Annotation.first.id), params_example
+    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
+    assert_equal 'UPDATE', Annotation.first.text, "expected the record to have been updated"
+    # valid save for both example answer and guidance
+    put admin_update_annotation_path(id: Annotation.first.id), params_both
+    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
+    assert_equal 'gUPDATE', Annotation.first.text, "expected the record to have been updated"
+    assert_equal 'eUPDATE', Annotation.last.text, "expected the record to have been updated"
 
-# TODO: We need to add in validation checks on the model and reactivate this test
-    # Invalid save
-#    put admin_update_suggested_answer_path(SuggestedAnswer.first), {suggested_answer: {text: nil}}
-#    assert flash[:notice].starts_with?(_('Could not update your'))
-#    assert_response :success
-#    assert assigns(:suggested_answer)
-#    assert assigns(:question)
-#    assert assigns(:section)
-#    assert assigns(:phase)
   end
 
   # DELETE /org/admin/templates/suggested_answers/:id/admin_destroy (admin_destroy_suggested_answer_path)

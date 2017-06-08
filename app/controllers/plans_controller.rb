@@ -18,7 +18,7 @@ class PlansController < ApplicationController
     authorize @plan
     
     # Get all of the available funders and non-funder orgs
-    @funders = Org.funders.sort{|x,y| x.name <=> y.name }
+    @funders = Org.funders.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
     @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
     
     # Get the current user's org
@@ -125,7 +125,7 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
 
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.live(@plan.template.customization_of))
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
     respond_to :html
   end

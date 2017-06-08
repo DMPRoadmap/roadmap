@@ -61,7 +61,7 @@
           <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
           <div class="suggested-answer-div">
             <span class="suggested-answer-intro">
-                <%= _('Example of answer')%>
+                <%= _('example answer')%>
             </span>
             <div class="suggested-answer-border">
               <p class="suggested-answer">
@@ -80,7 +80,7 @@
         <% if !annotations.blank? %>
           <div class="suggested-answer-div">
             <span class="suggested-answer-intro">
-                <%= _('Example of answer')%>
+                <%= _('example answer')%>
             </span>
             <div class="suggested-answer-border">
               <p class="suggested-answer">

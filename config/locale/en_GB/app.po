@@ -60,9 +60,6 @@ msgstr " into your browser)."
 msgid " on "
 msgstr " on "
 
-msgid " once you click save!"
-msgstr " once you click save!"
-
 #, fuzzy
 msgid " or "
 msgstr " on "
@@ -73,9 +70,6 @@ msgstr " password. You can do this through the link below."
 #, fuzzy
 msgid " provided by "
 msgstr " by "
-
-msgid " saved the following answer:"
-msgstr " saved the following answer:"
 
 msgid " team"
 msgstr " team"
@@ -222,6 +216,10 @@ msgid ""
 "                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>"
 msgstr "%{application_name}"
 
+#, fuzzy
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr "%{application_name}"
+
 msgid "A colleague has invited you to contribute to their Data Management Plan at "
 msgstr "A colleague has invited you to contribute to their Data Management Plan at "
 
@@ -258,14 +256,15 @@ msgstr "Access removed"
 msgid "Actions"
 msgstr "Actions"
 
-msgid "Add an appropriate name for your guidance group e.g. Glasgow guidance. This name will be used to tell the end user where the guidance has come from e.g. 'Glasgow Guidance on Metadata'"
-msgstr "Add an appropriate name for your guidance group e.g. Glasgow guidance. This name will be used to tell the end user where the guidance has come from e.g. 'Glasgow Guidance on Metadata'"
+msgid "Add Annotations"
+msgstr ""
+
+#, fuzzy
+msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
+msgstr "guidance group"
 
 msgid "Add collaborator"
 msgstr "Add collaborator"
-
-msgid "Add example answer"
-msgstr ""
 
 msgid "Add guidance"
 msgstr "Add guidance"
@@ -317,6 +316,9 @@ msgid "Allows the user to create new institutional templates, edit existing ones
 msgstr "template"
 
 msgid "An error has occurred while saving/resetting your export settings."
+msgstr ""
+
+msgid "Annotations"
 msgstr ""
 
 msgid "Answer"
@@ -424,9 +426,6 @@ msgstr "Co-owner"
 msgid "Collaborators"
 msgstr "Collaborators"
 
-msgid "Combine their changes with your answer below and then save the answer again."
-msgstr ""
-
 msgid "Comment"
 msgstr "Comment"
 
@@ -482,6 +481,10 @@ msgstr "Default value"
 msgid "Delete"
 msgstr "Delete"
 
+#, fuzzy
+msgid "Delete Example Answer"
+msgstr "Example of answer"
+
 msgid "Delete question"
 msgstr "Delete question"
 
@@ -519,8 +522,8 @@ msgid "Edit"
 msgstr "Edit"
 
 #, fuzzy
-msgid "Edit Example of Answer"
-msgstr "Example of answer"
+msgid "Edit Annotations"
+msgstr "Edit"
 
 msgid "Edit User Privileges"
 msgstr "Edit User Privileges"
@@ -587,9 +590,6 @@ msgid "Example Answer"
 msgstr "Example of answer"
 
 #, fuzzy
-msgid "Example of Answer"
-msgstr "Example of answer"
-
 msgid "Example of answer"
 msgstr "Example of answer"
 
@@ -1001,6 +1001,14 @@ msgstr "Plan was successfully deleted."
 msgid "Plan was successfully updated."
 msgstr "Plan was successfully updated."
 
+#, fuzzy
+msgid "Please enter a First name."
+msgstr "Please enter your first name."
+
+#, fuzzy
+msgid "Please enter a Last name."
+msgstr "Please enter your first name."
+
 msgid "Please enter a password confirmation"
 msgstr ""
 
@@ -1011,6 +1019,10 @@ msgid "Please enter a valid web address."
 msgstr "Please enter a valid web address."
 
 msgid "Please enter an email address"
+msgstr "Please enter an email address"
+
+#, fuzzy
+msgid "Please enter an email address."
 msgstr "Please enter an email address"
 
 msgid "Please enter the name of your organisation."
@@ -1049,6 +1061,10 @@ msgstr "<p>Please note that your email address is used as your username. If you 
 
 msgid "Please only enter up to 165 characters, you have used"
 msgstr "Please only enter up to 165 characters, you have used"
+
+#, fuzzy
+msgid "Please select an organisation, or select Other."
+msgstr "organisation"
 
 msgid "Please select one"
 msgstr ""
@@ -1155,6 +1171,10 @@ msgid "Right"
 msgstr "Right"
 
 msgid "Save"
+msgstr "Save"
+
+#, fuzzy
+msgid "Save Unsuccessful."
 msgstr "Save"
 
 msgid "Saving..."
@@ -1290,11 +1310,12 @@ msgstr "The "
 msgid "The "
 msgstr "The "
 
-msgid "The edits in the box below will overwrite the existing answer from "
-msgstr "The edits in the box below will overwrite the existing answer from "
-
 msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 msgstr "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+
+#, fuzzy
+msgid "The following answer cannot be saved"
+msgstr "The "
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
 msgstr "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1455,9 +1476,6 @@ msgstr "When you create a new phase for your template, a version will automatica
 msgid "Which DMP template would you like to use?"
 msgstr "template"
 
-msgid "While you were editing "
-msgstr ""
-
 msgid "Would you like to save them now?"
 msgstr "Would you like to save them now?"
 
@@ -1478,6 +1496,10 @@ msgstr "You are about to delete '%{question_text}'. Are you sure?"
 
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+
+#, fuzzy
+msgid "You are about to delete a guidance for '%{question_text}'. Are you sure?"
+msgstr "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
 
 msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
 msgstr "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
@@ -1620,14 +1642,8 @@ msgstr "add guidance text"
 msgid "ago"
 msgstr "ago"
 
-msgid "answered"
-msgstr "answered"
-
 msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
-
-msgid "by"
-msgstr ""
 
 #, fuzzy
 msgid "by "
@@ -1720,9 +1736,6 @@ msgstr ""
 msgid "question"
 msgstr "question"
 
-msgid "questions"
-msgstr "questions"
-
 msgid "questions answered"
 msgstr "questions answered"
 
@@ -1737,6 +1750,10 @@ msgstr "select a guidance group"
 
 msgid "select at least one theme"
 msgstr "select at least one theme"
+
+#, fuzzy
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgstr " on "
 
 msgid "template"
 msgstr "template"

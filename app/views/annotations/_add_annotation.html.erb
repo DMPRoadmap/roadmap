@@ -1,15 +1,21 @@
 <!--add annotation. question is passed as an argument-->
-<%= form_for :annotation, url: admin_create_annotation_path do |f| %>
-  <%= f.hidden_field :org_id, value: current_user.org_id %>
-  <%= f.hidden_field :question_id, value: question.id %>
-  <%= f.hidden_field :type, value: Annotation.types[:example_answer] %>
-
+<h3><%= _('Add Annotations') %></h3>
+<%= form_tag admin_create_annotation_path , class: 'add_annotation_form' do %>
   <table class="dmp_details_table phase">
     <tr>
       <td class="first_template"><%= _('Example Answer')%></td>
       <td>
         <ul>
-          <li><%= f.text_area :text, rows: 5 %>
+          <li><%= text_area_tag :example_answer_text, nil, rows: 5 %>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Guidance')%></td>
+      <td>
+        <ul>
+          <li><%= text_area_tag :guidance_text, nil, rows: 5 %>
           </li>
         </ul>
       </td>
@@ -19,7 +25,8 @@
 
   <!-- submit buttons -->
   <div class="move_2_right">
-    <%= f.submit _('Save'), class: "btn btn-primary" %>
-    <%= link_to _('Cancel'), "#", id: "cancel_suugested_answer", class: "btn cancel" %>
+    <%= submit_tag _('Save'), class: "btn btn-primary" %>
+    <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_add_annotations" %>
   </div>
 <%end%>

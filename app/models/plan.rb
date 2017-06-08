@@ -949,8 +949,29 @@ class Plan < ActiveRecord::Base
   end
 =end
   
+  # Returns the number of answered questions from the entire plan
+  def num_answered_questions
+    n = 0
+    self.sections.each do |s|
+      n+= s.num_answered_questions(self.id)
+    end
+    return n
+  end
 
+  # Returns a section given its id or nil if does not exist for the current plan
+  def get_section(section_id)
+    self.sections.find { |s| s.id == section_id }
+  end
 
+  # Returns the number of questions for a plan. Note, this method becomes useful
+  # for when sections and their questions are eager loaded so that avoids SQL queries.
+  def num_questions
+    n = 0
+    self.sections.each do |s|
+      n+= s.questions.size()
+    end
+    return n
+  end
   # the following two methods are for eager loading. One gets used for the plan/show
   # page and the oter for the plan/edit. The difference is just that one pulls in more than
   # the other.
