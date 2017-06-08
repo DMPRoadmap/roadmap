@@ -91,30 +91,53 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def do_update(require_password = true, confirm = false)
-    if require_password                              # user is changing email or password
-      if current_user.email != params[:user][:email]   # if user is changing email
-        if params[:user][:current_password].blank?       # password needs to be present
-          message = _('Please enter your password to change email address.')
-          successfully_updated = false
-        else
+    mandatory_params = true
+    message = _('Save Unsuccessful.') + '  ' # added to by below, overwritten otherwise
+    # ensure that the required fields are present
+    if params[:user][:email].blank?
+      message +=_('Please enter an email address.') + '  '
+      mandatory_params &&= false
+    end
+    if params[:user][:firstname].blank?
+      message +=_('Please enter a First name.') + '  '
+      mandatory_params &&= false
+    end
+    if params[:user][:surname].blank?
+      message +=_('Please enter a Last name.') + '  '
+      mandatory_params &&= false
+    end
+    if params[:user][:org_id].blank?
+      message += _('Please select an organisation, or select Other.')
+      mandatory_params &&= false
+    end
+    if mandatory_params   # has the user entered all the details
+      if require_password                              # user is changing email or password
+        if current_user.email != params[:user][:email]   # if user is changing email
+          if params[:user][:current_password].blank?       # password needs to be present
+            message = _('Please enter your password to change email address.')
+            successfully_updated = false
+          else
+            successfully_updated = current_user.update_with_password(password_update)
+          end
+        elsif params[:user][:password].present?          # if user is changing password
+          successfully_updated = false                     # shared across first 3 conditions
+          if params[:user][:current_password].blank?
+            message = _('Please enter your current password')
+          elsif params[:user][:password_confirmation].blank?
+            message = _('Please enter a password confirmation')
+          elsif params[:user][:password] != params[:user][:password_confirmation]
+            message = _('Password and comfirmation must match')
+          else
+            successfully_updated = current_user.update_with_password(password_update)
+          end
+        else                                           # potentially unreachable... but I dont like to leave off the else
           successfully_updated = current_user.update_with_password(password_update)
         end
-      elsif params[:user][:password].present?          # if user is changing password
-        successfully_updated = false                     # shared across first 3 conditions
-        if params[:user][:current_password].blank?
-          message = _('Please enter your current password')
-        elsif params[:user][:password_confirmation].blank?
-          message = _('Please enter a password confirmation')
-        elsif params[:user][:password] != params[:user][:password_confirmation]
-          message = _('Password and comfirmation must match')
-        else
-          successfully_updated = current_user.update_with_password(password_update)
-        end
-      else                                           # potentially unreachable... but I dont like to leave off the else
-        successfully_updated = current_user.update_with_password(password_update)
+      else                                             # password not required
+        successfully_updated = current_user.update_without_password(update_params)
       end
-    else                                             # password not required
-      successfully_updated = current_user.update_without_password(update_params)
+    else
+      successfully_updated = false
     end
 
     #unlink shibboleth from user's details
