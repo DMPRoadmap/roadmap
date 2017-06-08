@@ -16,14 +16,24 @@
                           models: @orgs,
                           attribute: 'name',
                           classes: 'fixed-width-large'} %>
+
+      <%= render partial: 'shared/accessible_submit_button',
+                 locals: {id: 'submit-button', 
+                          val: _('Go'), 
+                          disabled_initially: true,
+                          classes: 'small-input-button',
+                          tooltip: _('Select an institution.'),
+													classes: 'inline'} %>
+
+      <input type="submit" class="form-submit inline" value="<%= _('Go') %>" />
       
-      <p class="centered">
+      <p class="centered left-indent">
         <strong>- <%= _('or') %> -</strong>
         <br />
-        <a class="left-indent" id="show_list" href="#"><%= _('See the full list of partner institutions') %></a>
+        <a id="show_list" href="#"><%= _('See the full list of partner institutions') %></a>
       </p>
 
-      <div id="full_list" style="display: none">
+      <div id="full_list" style="display: none" class="left-indent">
         <%= render partial: 'shibboleth_ds_list', locals: {orgs: @orgs} %>
       </div>
       
