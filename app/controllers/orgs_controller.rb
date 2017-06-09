@@ -57,28 +57,26 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # ----------------------------------------------------------------
   def shibboleth_ds_passthru
-    org = params[:org_name]
-    org = params[:org_id] if org.nil?
+    if !params[:org_name].blank?
+      session['org_id'] = params[:org_name]
+
+      scheme = IdentifierScheme.find_by(name: 'shibboleth')
+      shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
     
-    if !org.blank?
-      session['org_id'] = org
-    elsif session['org_id'].blank?
-      flash[:notice] = _('Please choose an institution')
-      redirect_to shibboleth_ds_path
-    end
-    
-    scheme = IdentifierScheme.find_by(name: 'shibboleth')
-    shib_entity = OrgIdentifier.where(org_id: org, identifier_scheme: scheme)
-    
-    if !shib_entity.empty?
-      # Force SSL
-      url = "#{request.base_url.gsub('http:', 'https:')}#{Rails.application.config.shibboleth_login}"
-      target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
+      if !shib_entity.empty?
+        # Force SSL
+        url = "#{request.base_url.gsub('http:', 'https:')}#{Rails.application.config.shibboleth_login}"
+        target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
       
-      #initiate shibboleth login sequence
-      redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
+        #initiate shibboleth login sequence
+        redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
+      else
+        flash[:notice] = _('Your institution does not seem to be properly configured.')
+        redirect_to shibboleth_ds_path
+      end
+
     else
-      flash[:notice] = _('Your institution does not seem to be properly configured.')
+      flash[:notice] = _('Please choose an institution')
       redirect_to shibboleth_ds_path
     end
   end
