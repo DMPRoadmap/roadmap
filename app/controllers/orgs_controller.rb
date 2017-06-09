@@ -57,15 +57,18 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # ----------------------------------------------------------------
   def shibboleth_ds_passthru
-    if !params[:org_name].blank?
-      session['org_id'] = params[:org_name]
+    org = params[:org_name]
+    org = params[:org_id] if org.nil?
+    
+    if !org.blank?
+      session['org_id'] = org
     elsif session['org_id'].blank?
       flash[:notice] = _('Please choose an institution')
       redirect_to shibboleth_ds_path
     end
     
     scheme = IdentifierScheme.find_by(name: 'shibboleth')
-    shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
+    shib_entity = OrgIdentifier.where(org_id: org, identifier_scheme: scheme)
     
     if !shib_entity.empty?
       # Force SSL
