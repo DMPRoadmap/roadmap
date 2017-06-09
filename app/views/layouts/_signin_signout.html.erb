@@ -19,7 +19,7 @@
             <% elsif current_user.can_modify_org_details? %>
               <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
             <% elsif current_user.can_grant_permissions? %>
-              <li><%= link_to _("Admin area"), admin_index_user_path, class: "signIn_dropdown_link" %></li>
+              <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
             <% end %>
           <% end %>
           <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %></li>
@@ -37,3 +37,7 @@
     <% end %>
   </ul>
 </div>
+<!-- Quick'n'dirty touchscreen hack for Bootstrap's buggy dropdown -->
+  <style>
+    .dropdown-backdrop{ position: static; }
+  </style>

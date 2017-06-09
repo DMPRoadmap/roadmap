@@ -17,13 +17,11 @@
       <% if template == current && phase.modifiable %>
           <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
           confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
-      <% end %>
-      <% if !phase.modifiable %>
-          <% b_label = _('View phase')%>
-      <% else %>
           <% b_label = _('Edit phase')%>
+      <% else %>
+          <% b_label = _('View phase')%>
       <% end %>
-      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('org_admin.templates.edit_phase_label'))), class: "btn btn-primary" %>
+      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('Edit phase'))), class: "btn btn-primary" %>
 
   </div>
   <% if phase_hash[:sections].present? %>
@@ -35,8 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <% (1..phase_hash[:sections].length).each do |section_no| %>
-          <% section = phase_hash[:sections][section_no] %>
+        <% (phase_hash[:sections].values.sort_by { |key| key[:data][:number] }).each do |section| %>
           <% if section.present? %>
             <tr >
               <th class="dmp_th_border" >
@@ -45,9 +42,9 @@
               <td class="dmp_td_border" >
                 <% if section[:questions].present? %>
                   <ul class="question_ul">
-                    <% (1..section[:questions].length).each do |question_no|%>
-                      <li>
-                        - <%= raw section[:questions][question_no][:data].text %>
+                    <% (section[:questions].values.sort_by { |key| key[:data][:number] }).each do |question| %>
+                      <li> 
+                        - <%= raw question[:data].text %>
                       </li>
                     <% end %>
                   </ul>

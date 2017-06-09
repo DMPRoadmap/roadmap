@@ -1,40 +1,26 @@
-// after saving the answer (and possibly getting a conflict)
-// set the message div about the answer.
-// On success this will be "" on error it will be the 
-// conflicting answer
-
-// go back from "Saving..." message to "Save" button
-$("#saving-<%=@question.id%>").hide();
-$("#saving-<%=@question.id%>").prev().show();
-
-<% if @old_answer %>
-  $("#answer_notice_<%=@question.id%>").html("<%= escape_javascript(render partial: '/phases/answer', locals: { question: @question, answer: @old_answer}) %>"); 
+// partial /answers/locking
+<% if @stale_answer %>
+    $("#answer-locking-<%= @question.id%>")
+        .html("<%= escape_javascript(render partial: '/answers/locking', locals: { question: @question, answer: @stale_answer, user: @answer.user }) %>");
 <% else %>
-  $("#answer_notice_<%=@question.id%>").html(""); 
+    $("#answer-locking-<%= @question.id%>").html("");
 <% end %>
 
-// have to update the lock_version on success or failure
-// so that the next save can work. If you don't do
-// this it will fail forever. Also update the answer id
+// partial /answer/new_edit
+if(tinymce)
+    tinymce.remove("#answer-text-<%= @question.id %>");
+$("#answer-form-<%= @question.id%>")
+    .html("<%= escape_javascript(render partial: '/answers/new_edit', locals: { question: @question, answer: @answer, readonly: false }) %>");
 
-$("#answer_lock_version-<%=@question.id%>").val(<%= @lock_version %>);
-$("#question-form-<%= @question.id %> #answer_id").val(<%= @answer.id %>);
+// partial /answer/status
+$("#answer-status-<%= @question.id %>")
+    .html("<%= escape_javascript(render partial: '/answers/status', locals: { answer: @answer}) %>");
+if($.fn.init_answer_status) 
+    $.fn.init_answer_status();
 
-// update the answer status
+// partial /plans/progress
+$(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: { plan: @plan }) %>"); 
 
-var q_status = $("#<%=@question.id%>-status");
-var timestamp = "<%=@timestamp%>";
-
-if( timestamp != "") {
-  q_status.text("");
-  q_status.append("<%= _('Answered') %> <abbr class=\"timeago\" data-time=\"<%=@timestamp%>\" title=\"<%=@timestamp%>\"><%=@timestamp%></abbr> <%= _('by') %> <%=@username%>");
-	$('abbr.timeago').timeago();
-}
-
-
-// update plan progress bar
-$(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: {nquestions: @nquestions, nanswers: @nanswers}) %>"); 
-
-
-// update the section progress message
-$("#<%=@section_id%>-status").html("(<%=@n_section_questions%> <%= _('questions') %>, <%=@n_section_answers%> <%= _('answered') %>)")
+// partial /sections/progress
+$("#section-progress-<%= @section.id %>")
+    .html("<%= escape_javascript(render partial: '/sections/progress', locals: { section: @section, plan: @plan }) %>");

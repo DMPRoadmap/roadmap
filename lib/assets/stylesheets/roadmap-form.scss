@@ -45,6 +45,7 @@ form.roadmap-form {
 
   /* Fieldset with labels over inputs */
   fieldset.standard {
+    padding: 5px;
     background-color: $white;
 
     margin-bottom: 25px;
@@ -150,13 +151,12 @@ form.roadmap-form {
   input.form-submit {
     background-color: $primary-color;
     color: $reverse-text;
-    padding: 10px 30px;
-    font-size: 12pt;
-    margin-top: 15px;
-  
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    font-size: 14px;
+    padding: 4px 12px;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
   }
   /* Override the button color for the Org Admin sections */
   input[type="submit"].admin{
@@ -171,13 +171,12 @@ form.roadmap-form {
   button.form-cancel {
     background-color: $cancel-button-color;
     color: $reverse-text;
-    padding: 10px 30px;
-    font-size: 12pt;
-    margin-top: 15px;
+    font-size: 14px;
+    padding: 4px 12px;
     
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
   }
   .submit-tooltip {
     display: none;

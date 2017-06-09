@@ -16,6 +16,15 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "annotations", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "org_id"
+    t.text     "text"
+    t.integer  "type",        default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "answers", force: :cascade do |t|
     t.text     "text"
     t.integer  "plan_id"
@@ -167,8 +176,9 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.boolean  "modifiable"
   end
 
+  add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
+
   create_table "plans", force: :cascade do |t|
-    t.integer  "project_id"
     t.string   "title"
     t.integer  "template_id"
     t.datetime "created_at"
@@ -183,6 +193,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.string   "funder_name"
     t.integer  "visibility",                        default: 0, null: false
   end
+
+  add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
@@ -210,7 +222,6 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   create_table "questions", force: :cascade do |t|
     t.text     "text"
     t.text     "default_value"
-    t.text     "guidance"
     t.integer  "number"
     t.integer  "section_id"
     t.datetime "created_at"
@@ -219,6 +230,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.boolean  "option_comment_display", default: true
     t.boolean  "modifiable"
   end
+
+  add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
@@ -254,6 +267,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.boolean  "modifiable"
   end
 
+  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false
     t.text     "value"
@@ -271,15 +286,6 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "suggested_answers", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "org_id"
-    t.text     "text"
-    t.boolean  "is_example"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -293,8 +299,12 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.integer  "visibility"
     t.integer  "customization_of"
     t.integer  "dmptemplate_id"
+    t.boolean  "migrated"
     t.boolean  "dirty",            default: false
   end
+
+  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree
+  add_index "templates", ["org_id"], name: "index_templates_on_org_id", using: :btree
 
   create_table "themes", force: :cascade do |t|
     t.string   "title"
@@ -330,8 +340,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.string   "email",                  default: "", null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -349,7 +359,6 @@ ActiveRecord::Schema.define(version: 20170428083711) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation"
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "org_id"
     t.string   "api_token"
@@ -370,6 +379,8 @@ ActiveRecord::Schema.define(version: 20170428083711) do
 
   add_index "users_perms", ["user_id", "perm_id"], name: "index_users_perms_on_user_id_and_perm_id", using: :btree
 
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
@@ -395,8 +406,6 @@ ActiveRecord::Schema.define(version: 20170428083711) do
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
-  add_foreign_key "suggested_answers", "orgs"
-  add_foreign_key "suggested_answers", "questions"
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"

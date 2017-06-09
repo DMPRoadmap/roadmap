@@ -8,10 +8,10 @@ class PhasePolicy < ApplicationPolicy
   end
 
   ##
+  # Org-admin side
   # Users can modify phases if:
   #  - They can modify templates
   #  - The template which they are modifying belongs to their org
-  ##
 
   def admin_show?
     user.can_modify_templates?  && (phase.template.org_id == user.org_id)

@@ -1,8 +1,8 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
-  
+
   before_validation :set_creation_defaults
-  
+  scope :valid,  -> {where(migrated: false)}
   ##
   # Associations
   belongs_to :org
@@ -19,7 +19,7 @@ class Template < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of, 
                   :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
-                  :version, :visibility, :published, :as => [:default, :admin]
+                  :migrated, :version, :visibility, :published, :as => [:default, :admin]
 
   # defines the export setting for a template object
   has_settings :export, class_name: 'Settings::Template' do |s|
@@ -30,18 +30,31 @@ class Template < ActiveRecord::Base
 
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
-    Template.all.distinct.pluck(:dmptemplate_id)
+    Template.all.valid.distinct.pluck(:dmptemplate_id)
   end
 
   # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
   def self.current(dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).first
+    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
   end
   
   # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
   def self.live(dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, published: true).first
+    Template.where(dmptemplate_id: dmptemplate_id, published: true).valid.first
   end
+
+  ##
+  # Retrieves the most current customization of the template for the
+  # specified org and dmptemplate_id
+  # returns nil if no customizations found
+  #
+  # @params [integer] dmptemplate_id of the original template
+  # @params [integer] org_id for the customizing organisation
+  # @return [nil, Template] the customized template or nil
+  def self.org_customizations(dmptemplate_id, org_id)
+    Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
+  end
+
 
   ##
   # deep copy the given template and all of it's associations
@@ -67,11 +80,11 @@ class Template < ActiveRecord::Base
 
   ##
   # convert the given template to a hash and return with all it's associations
-  # to use, please pre-fetch org, phases, section, questions, suggested_answers, 
+  # to use, please pre-fetch org, phases, section, questions, annotations, 
   #   question_options, question_formats, 
   # TODO: Themes & guidance?
   #
-  # @return [hash] hash of template, phases, sections, questions, question_options, suggested_answers
+  # @return [hash] hash of template, phases, sections, questions, question_options, annotations
   def to_hash
     hash = {}
     hash[:template] = {}
@@ -90,10 +103,10 @@ class Template < ActiveRecord::Base
         section.questions.each do |question|
           phases[phase.number][:sections][section.number][:questions][question.number] = {}
           phases[phase.number][:sections][section.number][:questions][question.number][:data] = question
-          phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers] = {}
-          question.suggested_answers.each do |suggested_answer|
-            phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers][suggested_answer.id] = {}
-            phases[phase.number][:sections][section.number][:questions][question.number][:suggested_answers][suggested_answer.id][:data] = suggested_answer
+          phases[phase.number][:sections][section.number][:questions][question.number][:annotations] = {}
+          question.annotations.each do |annotation|
+            phases[phase.number][:sections][section.number][:questions][question.number][:annotations][annotation.id] = {}
+            phases[phase.number][:sections][section.number][:questions][question.number][:annotations][annotation.id][:data] = annotation
           end
           phases[phase.number][:sections][section.number][:questions][question.number][:question_options] = {}
           question.question_options.each do |question_option|
@@ -128,6 +141,7 @@ class Template < ActiveRecord::Base
     # Only run this before_validation because rails fires this before save/create
     if self.id.nil?
       self.published = false
+      self.migrated = false
       self.dirty = false
       self.visibility = 1
       self.is_default = false

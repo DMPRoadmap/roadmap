@@ -23,14 +23,15 @@
       <td><%= f.number_field :number, in: 0..5, class: "number_field has-tooltip", 'data-toggle' => "tooltip", 'title' => _('This allows you to order the phases of your template.') %></td>
     </tr>
     <tr>
-      <td class="first_template"><%= _('Description') %></td>
-      <td class="phase_table_last_column">
+      <td class="first_template"><%= _('Description') %> </td>
+      <td class="tinymce">
         <div class="div_left_icon">
           <%= text_area_tag("phase-desc", phase.description, class: "tinymce") %>
         </div>
         <div class="div_right_icon">
           <%= link_to( image_tag('help_button.png'), '#', class: 'phase_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."))%>
         </div>
+        <div class="clearfix"></div>
       </td>
     </tr>
   </table>

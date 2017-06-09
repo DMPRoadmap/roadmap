@@ -111,25 +111,19 @@
             <td class="dmp_td_small">
 							<!-- If this is a funder template -->
 							<% if hash[:current].customization_of.nil? %>
-								<%= _('Published') %>
-								
 							<!-- This is a customization of a funder template -->
 							<% else %>
 								<!-- If the original funder template has been changed -->
 								<% if hash[:stale] %>
 									<%= _('Original funder template has changed!')%>
-								
 								<% elsif hash[:live].nil? %>
 									<!-- The template does not have a live version -->
 									<%= b_label = _('Un-published') %>
-									
-								<% elsif hash[:current].dirty? %>
+								<% elsif !hash[:current].published? %>
 									<%= _('You have un-published changes') %>
-									
 								<% else %>
 									<%= _('Published') %>
 								<% end %>
-								
 							<% end %>
             </td>
             <td class="dmp_td_small">
@@ -138,13 +132,19 @@
             </td>
             <td class="dmp_td_small">
 							<% if hash[:current].customization_of.nil? %>
-								<% b_label = _('Customise') %>	
-								<%= link_to b_label, admin_customize_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+								<% b_label = _('Customise') %>
+								<%= link_to b_label, admin_customize_template_path(hash[:current]), method: :get, class: "dmp_table_link" %>
               <% else %>
-                <% b_label = _('Edit customisation') %>
-								<%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
+                <% if hash[:stale] %>
+                  <% b_label = _('Transfer customisation') %>
+                  <%= link_to b_label, admin_transfer_customization_template_path(hash[:funder_live]), class: "dmp_table_link" %>
+                <% else %>
+                  <% b_label = _('Edit customisation') %>
+                  <%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
+                <% end %>
+                
               <% end %>
-							
+
 							<% if !hash[:current].customization_of.nil? %>
 								<% if hash[:live].nil? || hash[:current].dirty? %>
 									<%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>

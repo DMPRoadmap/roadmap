@@ -12,14 +12,14 @@ Rails.application.routes.draw do
     resources :questions
     resources :question_formats
     resources :question_options
-    resources :suggested_answers
+    resources :annotations
     resources :answers
     resources :guidances
     resources :guidance_groups
     resources :themes
     resources :notes
     resources :plans
-    resources :plans_guidance_groups
+    # resources :plans_guidance_groups
     resources :identifier_schemes
     resources :exported_plans
     resources :regions
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
 
   # fix for activeadmin signout bug
   devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
+    delete '/users/sign_out' => 'devise/sessions#destroy'
   end
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
@@ -125,12 +125,13 @@ Rails.application.routes.draw do
         get 'admin_template'
         get 'admin_new'
         get 'admin_template_history'
+        get 'admin_customize'
         delete 'admin_destroy'
         post 'admin_create'
         put 'admin_update'
-        put 'admin_customize'
         put 'admin_publish'
         put 'admin_unpublish'
+        get 'admin_transfer_customization'
       end
     end
 
@@ -161,7 +162,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :suggested_answers, path: 'org/admin/templates/suggested_answers', only: [] do
+    resources :annotations, path: 'org/admin/templates/annotations', only: [] do
       member do
         post 'admin_create'
         put 'admin_update'

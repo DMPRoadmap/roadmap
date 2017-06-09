@@ -220,9 +220,9 @@
 
   <p>
     <% if based_on.org != plan.template.org %>
-      <%= _('A version of ') %> "<%= based_on.title %>" <%= based_on.title.downcase.include?(_('template')) ? '' : _('template') %><%= _(' that has been customised by ') %> <%= plan.template.org.name %>
+      <%= _('A version of ') %> "<%= based_on.title %>" <%= based_on.title.downcase.include?(_('template')) ? '' : _('template') %><%= _(' that has been customised by ') %> <%= plan.template.org.name %>.
     <% else %>
-      <%= _('The')%> "<%= plan.template.title %>" <%= (plan.template.is_default ? _('generic template') : plan.template.title.downcase.include?(_('template')) ? '' : _('template')) %> <%= _(' provided by ') %><%= plan.template.org.name %>
+      <%= _('The')%> "<%= plan.template.title %>" <%= (plan.template.is_default ? _('generic template') : plan.template.title.downcase.include?(_('template')) ? '' : _('template')) %> <%= _(' provided by ') %><%= plan.template.org.name %>.
     <% end %>
   </p>
 
@@ -231,6 +231,9 @@
   <!-- If project has phases-->
   <% phases = plan.template.phases %>
     <% if phases.count == 1 %>
+      <div class="project_description">
+        <%= raw plan.template.description %>
+      </div>
       <% phases.each do |phase| %>
         <div class="move_2_right">
           <%= link_to _('Answer questions'), edit_plan_phase_path(plan,phase), :class => 'btn btn-primary'  %>

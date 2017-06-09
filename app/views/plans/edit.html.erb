@@ -8,6 +8,7 @@
 
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
+<h1> <%=@readonly%> </h1>
 
 <!-- progress bar -->
 <% status = @plan.status %>
@@ -142,7 +143,7 @@
 				</div>
     	<% end %>
     </div>
-    <%= tinymce :content_css => asset_path("application.css"), :setup => "function(editor){editor.on('change', function(e){$.fn.check_textarea(editor)});}" %>
+    <%= tinymce %>
 </div>
 <div class="div_right">
 	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>

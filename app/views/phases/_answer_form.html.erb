@@ -6,120 +6,37 @@
 -->
 
 <div class="question-div">
-  <!--question format-->
   <%
      answers = question.plan_answers(plan.id)
      if answers.present?
        answer = answers.first
      else
-       answer = Answer.new
+       answer = Answer.new({ plan_id: plan.id, question_id: question.id, user_id: current_user.id })
+       if question.default_value.present?
+        answer.text = question.default_value
+      end
      end
-     question_id = question.id
-     q_format = question.question_format
    %>
-
-  <div id="question-form-<%= question_id %>" class="question-form">
-    <%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form"}, remote: true do |f| %>
-      <fieldset class="standard">
-        <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
-        <%= f.input :plan_id, as: :hidden, input_html: { value: @plan.id } %>
-        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-        <%= f.input :question_id, as: :hidden, input_html: { value: question_id, class: "question_id" } %>
-        <%= f.hidden_field :lock_version, id: "answer_lock_version-#{question_id}" %>
-
-        <!-- Question text -->
-        <!-- need 'raw' to stop formtastic f.*ing up the formatastic formatting -->
-        <%= raw question.text %>
-
-        <!--Suggested answer area-->
-        <% if question.suggested_answers.any? %>
-          <% suggested_answer = question.suggested_answers.first %>
-          <% if suggested_answer.text.present? %>   <!-- could be present but empty -->
-            <div class="suggested-answer-div">
-              <span class="suggested-answer-intro">
-                <% if suggested_answer.is_example? then %>
-                  <%= _('Example of answer')%>
-                <%else%>
-                  <%= _('Suggested answer')%>
-                <%end%>
-              </span>
-
-              <div class="suggested-answer-border">
-                <p class="suggested-answer">
-                  <%= raw suggested_answer.text %>
-                </p>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-
-        <!-- used for optimistic locking where a conflict is detected -->
-        <div id="answer_notice_<%=question_id%>" class="answer_notice"></div>
-
-        <!-- if the question has multiple choices pull out the options -->
-        <% if question.option_based? %>
-          <% options = question.question_options.order("number") %>
-
-          <!-- work through the various format options -->
-          <% if q_format.checkbox? %>
-            <%= f.input :options, as: :check_boxes, collection: options, label: false, input_html: { id: "options-#{question.id}" } %>
-          <% elsif q_format.multiselectbox? %>
-            <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: true , id: "options-#{question.id}" } %>
-          <% elsif q_format.radiobuttons? %>
-            <ol class="choices-group">
-              <% options.each do |op| %>
-                <li class= "choices-group">
-                  <% if answer.question_option_ids[0] == op.id then%>
-                    <%= f.radio_button :option_ids, op.id, checked: true, id: "answer_option_ids_#{op.id}"%> 
-                  <%else%>
-                    <%= f.radio_button :option_ids, op.id, checked: false, id: "answer_option_ids_#{op.id}"%> 
-                  <% end %>
-               <%= raw op.text %> </li>
-              <% end %>
-            </ol>
-          <% elsif q_format.dropdown? %>
-            <%= f.input :options, as: :select, collection: options, label: false, input_html: { multiple: false, id: "options-#{question.id}" } %>
-          <% end %>
-
-
-          <!-- Comment text area for the multiple choice answers-->
-          <% if question.option_comment_display == true %>
-            <%= label_tag("answer-text-#{question.id}".to_sym, _('Comment')) %>
-            <%= text_area_tag("answer-text-#{question.id}".to_sym, answer.text, class: "tinymce") %>
-          <%end%>
-        <% end %>  <!-- if multiple choice -->
-
-        <% if q_format.textfield? %>
-          <%= text_field_tag("answer-text-#{question_id}".to_sym, strip_tags(answer.text), class: "question_text_field") %>
-        <% elsif q_format.textarea? %>
-          <%= text_area_tag("answer-text-#{question_id}".to_sym, answer.text, class: "tinymce") %>
-        <% end %>
-
-				<input type="submit" class="form-submit" value="<%= _('Save') %>" />
-				<div id="saving-<%= question_id %>" class="saving-message" style="display:none;"><%= _('Saving...')%></div>
-				
-				<span id="<%= question_id %>-unsaved" class="label label-inverse answer-unsaved" style="display:none;"><%= _('Unsaved changes') %></span>
-				
-      </fieldset>   <!-- f.inputs -->
-      
-    <% end %>
+  <div class="question-form">
+    <div id="<%= "answer-locking-#{question.id}" %>"></div>
+    <div id="<%= "answer-form-#{question.id}" %>">
+      <%= render(partial: 'answers/new_edit', locals: { question: question, answer: answer, readonly: readonly }) %>
+    </div>
+    <div id="<%= "answer-status-#{question.id}" %>" class="answer-status">
+      <%= render(partial: 'answers/status', locals: { answer: answer }) %>
+    </div>
   </div>   <!-- question-form -->
-
-  <% if answer.nil? || !answer.text.present? %>
-    <span id="<%= question_id %>-status" class="label label-warning answer-status"><%= _('Not answered yet') %></span>
-  <% else %>
-    <span id="<%= question_id %>-status" class="label label-info answer-status"><%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %></span>
-  <% end %>
 </div>   <!-- question-div -->
       
 <!-- Question right column -->
 <div class="question-area-right-column">
 
-    <div id="right-area-tabs-<%= question_id %>" class="question_right_column_nav">
+    <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
       <% comments = answer.notes.all %> 
-      <%= hidden_field_tag :question_id, question_id, class: "question_id" %>
+      <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <ul class="question_right_column_ul">
-      <% if question.guidance.present? || question_guidances[question_id] %>
+      <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
+      <% if annotations.present? || question_guidances[question.id] %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
@@ -127,68 +44,74 @@
           <%= link_to _('Guidance'), "#", class: "guidance_accordion_button" %>
         </li>
         <li class="comment_tab_class">
-          <% if comments.count > 0 then%>
+          <% if comments.count > 0%>
             <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
-            <%= link_to comments_label_with_count , "#", id: "notes_number_#{question_id}", class: "comments_accordion_button" %>
-          <%else%>
-            <%= link_to _('Share note'), "#", id: "notes_number_#{question_id}", class: "comments_accordion_button" %>
-          <%end%>
+            <%= link_to comments_label_with_count , "#", id: "notes_number_#{question.id}", class: "comments_accordion_button" %>
+          <% else %>
+            <%= link_to _('Share note'), "#", id: "notes_number_#{question.id}", class: "comments_accordion_button" %>
+          <% end %>
         </li>
-        <%else%>
+        <% else %>
           <!-- remove the css from comment div-->
           <% css_style_comment_div = ""%>
           <% css_style_guidance_div = "display: none;"%>
           <li>
-            <% if comments.count > 0 then%>
+            <% if comments.count > 0 %>
               <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
-              <p id="notes_number_<%=question_id%>" class= "accordion_label"><%= comments_label_with_count %></p>
-            <%else%>
-              <p id="notes_number_<%=question_id%>" class= "accordion_label"><%= _('Share note') %></p>
-            <%end%>
+              <p id="notes_number_<%=question.id%>" class= "accordion_label"><%= comments_label_with_count %></p>
+            <% else %>
+              <p id="notes_number_<%=question.id%>" class= "accordion_label"><%= _('Share note') %></p>
+            <% end %>
           </li>
-        <%end%>
+        <% end %>
       </ul>
     </div>
 
 
     <!--guidance area -->
-    <div class="question-guidance" id="guidance-question-area-<%= question_id %>" style="<%= css_style_guidance_div%>" >
-     <div class="accordion" id="<%= question_id %>-guidance">
+    <div class="question-guidance" id="guidance-question-area-<%= question.id %>" style="<%= css_style_guidance_div%>" >
+     <div class="accordion" id="<%= question.id %>-guidance">
 
-       <!--question guidance-->
-       <% if question.guidance.present? %>
-         <div class="accordion-group">
+        <!--question guidance-->
+        <% num_annotations = 0 %>
+        <% if annotations.present? %>
+          <% annotations.each do |annotation| %>
 
-           <!-- accordion heading -->
-           <div class="accordion-heading">
-             <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question_id %>-guidance" href="#collapse-guidance-<%= question_id%>">
-               <div class="accordion_heading_text">
-               <%= plan.template.org.abbreviation %> <%= _('Guidance') %>
-               </div>
-               <span class="plus-laranja"> </span></a>
-           </div>
+            <div class="accordion-group">
 
-           <!-- accordion body -->
-           <div id="collapse-guidance-<%= question_id%>" class="guidance-accordion-body collapse">
-             <div class="accordion-inner"><%= raw question.guidance %></div>
-           </div>
+             <!-- accordion heading -->
+              <div class="accordion-heading">
+               <a class="accordion-guidance-link" data-toggle="collapse"
+               data-parent="#<%=question.id%>-guidance-<%=num_annotations%>"
+               href="#collapse-guidance-<%=question.id%>-<%=num_annotations%>">
+                 <div class="accordion_heading_text">
+                 <%= annotation.org.abbreviation %> <%= _('Guidance') %>
+                 </div>
+                 <span class="plus-laranja"> </span></a>
+             </div>
 
-         </div>   <!-- accordion-group -->
+             <!-- accordion body -->
+             <div id="collapse-guidance-<%= question.id%>-<%=num_annotations%>" class="guidance-accordion-body collapse">
+               <div class="accordion-inner"><%= raw annotation.text %></div>
+             </div>
+             <% num_annotations += 1%>
+           </div>   <!-- accordion-group -->
+        <% end %>
        <% end %>   <!-- if question.guidance -->
 
        <!-- guidance by theme -->
-       <% guidance_accordion_id = 0 %>
+       <% guidance_accordion_id = num_annotations %>
        <% question_guidances.each_pair do |theme, group| %>
          <% group.each do |gobj| %>
            <div class="accordion-group">
              <div class="accordion-heading">
-               <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance_accordion_id %>">
+               <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>">
                  <div class="accordion_heading_text">
                    <%= gobj[:org] %> guidance on <%= theme %>
                  </div>
                  <span class="plus-laranja"> </span></a>
              </div>
-             <div id="collapse-guidance-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
+             <div id="collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
                <div class="accordion-inner"><%= raw gobj[:text] %></div>
              </div>
              <% guidance_accordion_id += 1 %>
@@ -198,16 +121,14 @@
 
      </div>   <!-- accordion-questionid -->
     </div>   <!-- question-guidance -->
-
   <!--comment area -->
-  <div class="comment-area" id="comment-question-area-<%= question_id %>"  style="<%= css_style_comment_div%>">
+  <div class="comment-area" id="comment-question-area-<%= question.id %>"  style="<%= css_style_comment_div%>">
       <%= render partial: "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
   </div>
-
 </div> <!-- question area right column -->
 
 <!--display or not the break line between questions-->
-<% if last_question_id == question_id then %>
+<% if last_question_id == question.id then %>
   <div class="two-column-clear"></div>
 <% else %>
   <div class="two-column-clear question-divider"></div>

@@ -248,5 +248,22 @@ namespace :migrate do
       end
     end
   end
+
+  desc "enforce single published version for templates"
+  task single_published_template: :environment do
+    # for each group of versions of a template
+    Template.all.pluck(:dmptemplate_id).uniq.each do |dmptemplate_id|
+      published = false
+      Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).each do |template|
+        # leave the first published template we find alone
+        if !published && template.published
+          published = true
+        elsif published && template.published
+          template.published = false
+          template.save!
+        end
+      end
+    end
+  end
   
 end

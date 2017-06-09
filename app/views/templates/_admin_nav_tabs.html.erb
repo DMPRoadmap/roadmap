@@ -1,4 +1,5 @@
 <!-- templates navigation -->
+
 <div id="project-tabs" class="nav-project-tabs">
   <ul class="nav nav-tabs" data-tabs="tabs">
     <% if active == "show_template" %>
@@ -10,26 +11,28 @@
       </li>
     <!-- Phases -->
     <% template.phases.each do |phase| %>
-    <% if active == phase.id %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
-      <%= link_to phase.title, admin_show_phase_path(phase.id) %>
-    </li>
+      <% if active == phase.id %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to phase.title, admin_show_phase_path(phase.id) %>
+      </li>
     <% end %>
     <!-- Add another phase button -->
-    <% if current_user.can_org_admin? && 
-            (template.org.funder? || 
-             current_user.org.funder? || 
+    <% if current_user.can_org_admin? &&
+            (template.org.funder? ||
+             current_user.org.funder? ||
              (template.org == current_user.org)) %>
       <% if active == 'add_plan' %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
-      <%= link_to _('Add new phase +'), admin_add_phase_path(template) %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+      <% if (@template == @current || @edit) && template.customization_of.nil? %>
+        <%= link_to _('Add new phase +'), admin_add_phase_path(template) %>
+      <% end %>
     </li>
-    <%end%>
+    <% end %>
   </ul>
 </div>

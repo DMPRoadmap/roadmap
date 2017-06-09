@@ -80,13 +80,12 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def sections
-    phase_id = self.phase_id ||= self.plan.template.phases.first.id # Use the first phase if none was specified
-    sections = Phase.find(phase_id).sections
-    sections.sort_by(&:number)
+    self.phase_id ||= self.plan.template.phases.first.id
+    Section.where({phase_id: phase_id}).order(:number)
   end
 
   def questions_for_section(section_id)
-    questions.where(section_id: section_id).sort_by(&:number)
+    Question.where(id: questions).where(section_id: section_id).order(:number)
   end
 
   def admin_details
@@ -104,16 +103,25 @@ class ExportedPlan < ActiveRecord::Base
     CSV.generate do |csv|
       csv << [_('Section'),_('Question'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
       self.sections.each do |section|
-        self.questions_for_section(section).each do |question|
-          answer = self.plan.answer(question.id)
-          q_format = question.question_format
-          if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
-            q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')
-            options_string = answer.options.collect {|o| o.text}.join('; ')
-          else
-            options_string = ''
+        questions = self.questions_for_section(section)
+        if questions.present?
+          questions.each do |question|
+            answer = self.plan.answer(question.id)
+            q_format = question.question_format
+            if q_format.option_based?
+              options_string = answer.question_options.collect {|o| o.text}.join('; ')
+            else
+              options_string = ''
+            end
+            csv << [
+              section.title,
+              sanitize_text(question.text),
+              question.option_comment_display ? sanitize_text(answer.text) : '',
+              options_string,
+              user.name,
+              answer.updated_at
+            ]
           end
-          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, user.name, answer.updated_at]
         end
       end
     end
@@ -122,58 +130,58 @@ class ExportedPlan < ActiveRecord::Base
   def as_txt
     output = "#{self.plan.title}\n\n#{self.plan.template.title}\n"
     output += "\n"+_('Details')+"\n\n"
-    puts 'admin_details: '+self.admin_details.inspect
 
     self.admin_details.each do |at|
         value = self.send(at)
         if value.present?
           output += admin_field_t(at.to_s) + ": " + value + "\n"
+        else
+          output += admin_field_t(at.to_s) + ": " + _('-') + "\n"
         end
     end
 
     self.sections.each do |section|
-      output += "\n#{section.title}\n"
+      questions = self.questions_for_section(section)
+      if questions.present?
+        output += "\n#{section.title}\n"
+        questions.each do |question|
+          qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
+          output += "\n* #{qtext}"
+          answer = self.plan.answer(question.id, false)
 
-      self.questions_for_section(section).each do |question|
-        qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
-        output += "\n* #{qtext}"
-        answer = self.plan.answer(question.id, false)
-
-        if answer.nil?
-          output += _('Question not answered.')+ "\n"
-        else
-          q_format = question.question_format
-          if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
-            q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')
-            output += answer.options.collect {|o| o.text}.join("\n")
-            if question.option_comment_display
+          if answer.nil?
+            output += _('Question not answered.')+ "\n"
+          else
+            q_format = question.question_format
+            if q_format.option_based?
+              output += answer.question_options.collect {|o| o.text}.join("\n")
+              if question.option_comment_display
+                output += "\n#{sanitize_text(answer.text)}\n"
+              end
+            else
               output += "\n#{sanitize_text(answer.text)}\n"
             end
-          else
-            output += "\n#{sanitize_text(answer.text)}\n"
           end
         end
       end
     end
-
     output
   end
 
 private
-
+  # Returns an Array of question_ids for the exported settings stored for a plan
   def questions
-    @questions ||= begin
-      question_settings = self.settings(:export).fields[:questions]
-
-      return [] if question_settings.is_a?(Array) && question_settings.empty?
-
-      questions = if question_settings.present? && question_settings != :all
-        Question.where(id: question_settings)
+    question_settings = self.settings(:export).fields[:questions]
+    @questions ||= if question_settings.present?
+      if question_settings == :all
+        Question.where(section_id: self.plan.sections.collect { |s| s.id }).pluck(:id)
+      elsif question_settings.is_a?(Array)
+        question_settings
       else
-        Question.where(section_id: self.plan.sections.collect {|s| s.id })
+        []
       end
-
-      questions.order(:number)
+    else
+      []
     end
   end
 

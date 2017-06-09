@@ -53,6 +53,10 @@ class TemplatePolicy < ApplicationPolicy
     user.can_modify_templates? && (template.org_id == user.org_id)
   end
 
+  def admin_transfer_customization?
+    user.can_modify_templates?
+  end
+
 
   class Scope < Scope
     def resolve

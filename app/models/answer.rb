@@ -37,8 +37,6 @@ class Answer < ActiveRecord::Base
 #  # Make sure the plan and question are associated with the same template!
 #  validates :plan, :question, answer_for_correct_template: true
 
-
-
   ##
   # deep copy the given answer
   #
@@ -48,5 +46,24 @@ class Answer < ActiveRecord::Base
     answer_copy = answer.dup
     answer_copy.save!
     return answer_copy
+
+  # This method helps to decide if an answer option (:radiobuttons, :checkbox, etc ) in form views should be checked or not
+  # Returns true if the given option_id is present in question_options, otherwise returns false
+  def has_question_option(option_id)
+    self.question_option_ids.include?(option_id)
+  end
+
+  # Returns true if the answer is valid and false otherwise. If the answer's question is option_based, it is checked if exist
+  # any question_option selected. For non option_based (e.g. textarea or textfield), it is checked the presence of text
+  def is_valid?
+    if self.question.present?
+      if self.question.question_format.option_based?
+        return !self.question_options.empty?
+      else  # (e.g. textarea or textfield question formats)
+        return self.text.present?
+      end
+    else
+      return false
+    end
   end
 end

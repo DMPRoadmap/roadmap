@@ -181,9 +181,9 @@ class OrgTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with SuggestedAnswers" do
-    sa = SuggestedAnswer.new(question: Question.first, text: 'Test Suggested Answer')
-    verify_has_many_relationship(@org, sa, @org.suggested_answers.count)
+  test "can manage has_many relationship with Annotations" do
+    a = Annotation.new(question: Question.first, text: 'Test Annotation')
+    verify_has_many_relationship(@org, a, @org.annotations.count)
   end
   
   # ---------------------------------------------------

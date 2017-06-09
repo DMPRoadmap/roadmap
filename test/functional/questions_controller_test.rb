@@ -8,7 +8,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     scaffold_template
     @section = @template.phases.first.sections.first
     
-    # Get the first Org Admin
+     # Get the first Org Admin
     scaffold_org_admin(@template.org)
     
     @question_format = QuestionFormat.where(option_based: false).first
@@ -39,7 +39,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "create a new question" do
     params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id}
-    
+
     @section.phase.template.dirty = false
     @section.phase.template.save!
     
@@ -48,7 +48,11 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
-    
+    @new_question = Question.new
+    @new_question.number = @section.questions.count + 1
+    example_answer = @new_question.annotations.build
+    example_answer.type = :example_answer
+    example_answer.save
     post admin_create_question_path(@section), {question: params}
     assert_response :redirect
     assert assigns(:question)
@@ -60,7 +64,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert @section.phase.template.reload.dirty?, "expected the templates dirty flag to be true"
     
     # Invalid object
-    post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil}}
+    post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil, question_format_id: @question_format.id}}
     assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:question)

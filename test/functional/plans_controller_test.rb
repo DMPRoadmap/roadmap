@@ -107,20 +107,6 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:selected_guidance_groups)
   end
 
-  # GET /plan/:id/edit (edit_plan_path)
-  # ----------------------------------------------------------
-  test 'show the edit plan page' do
-    # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(edit_plan_path(@plan))
-
-    sign_in @user
-    get edit_plan_path(@plan)
-    assert_response :success
-    assert assigns(:plan)
-    assert assigns(:phase)
-    assert assigns(:readonly)
-  end
-
   # PUT /plan/:id (plan_path)
   # ----------------------------------------------------------
   test 'update the plan' do

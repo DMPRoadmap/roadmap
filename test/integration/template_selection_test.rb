@@ -14,13 +14,13 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     scaffold_org_admin(@template.org)
     
     @funder = Org.find_by(org_type: 2)
-    @funder_template = Template.create(title: 'Funder template', org: @funder)
+    @funder_template = Template.create(title: 'Funder template', org: @funder, migrated: false)
     # Template can't be published on creation so do it afterward
     @funder_template.published = true
     @funder_template.save
     
     @org = @researcher.org
-    @org_template = Template.create(title: 'Org template', org: @org)
+    @org_template = Template.create(title: 'Org template', org: @org, migrated: false)
     # Template can't be published on creation so do it afterward
     @org_template.published = true
     @org_template.save

@@ -44,19 +44,17 @@ in the admin interface.
 
     <!-- Suggested answer or Example-->
     <tr>
-      <td class="first_template"><%= _('Suggested answer/ Example')%></td>
+      <td class="first_template"><%= _('example answer')%></td>
       <td>
         <div class="div_left_icon">
-          <% suggested_answer = question.suggested_answers.find_by_org_id(current_user.org.id) %>
-          <% if suggested_answer.nil? %>
-            <% suggested_answer = question.suggested_answers.build %>
+          <% annotations = question.annotations.where(org_id: current_user.org_id).where(type: Annotation.types[:example_answer]).order(:created_at).first %>
+          <% if annotations.nil? %>
+            <% annotations = question.annotations.build %>
           <% end %>
-          <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
+          <%= f.fields_for :annotations, annotation do |s|%>
             <%= s.hidden_field :org_id, value: current_user.org.id %>
             <ul>
-              <li><%= s.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
-              <li><%= s.text_area :text, rows: 5 %>
-              </li>
+              <li><%= s.text_area :text, rows: 5 %></li>
             </ul>
           <% end %>
         </div>

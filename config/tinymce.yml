@@ -1,3 +1,5 @@
+content_css: /assets/application.css
+selector: 'textarea.tinymce'
 statusbar: false
 menubar: false
 toolbar: bold italic | bullist numlist | link | table

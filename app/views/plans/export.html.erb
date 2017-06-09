@@ -22,54 +22,55 @@
 					%>
 						<tr>
 							<th class="dmp_th_border"><p>- <%= admin_field_t(field.to_s) -%></p></th>
-							<td class="dmp_td_border"><%= value.present? ? value : _('-') -%></td>
+							<td class="dmp_td_border"><%= value.present? ? value : _('-') %></td>
 						</tr>
 						<% end %>
 					</tbody>
 				</table>
       		 <% end %>
 			<% @exported_plan.sections.each do |section| %>
-				<h3><%= section.title %></h3>
-				<table class="dmp_table">
-					<thead>
-					    <tr>
-					      	<th class="dmp_th_medium"><%= _('Questions')%></th>
-					      	<th class="dmp_th_big"><%= _('Answers')%></th>
-	   					</tr>
-   					</thead>
-   					<tbody>
-						<% questions = @exported_plan.questions_for_section(section.id) %>
-						<% questions.each do |question| %>
+			<% questions = @exported_plan.questions_for_section(section.id)
+				if questions.present? %>
+				   	<h3><%= section.title %></h3>
+				   	<table class="dmp_table">
+						<thead>
+					    	<tr>
+					      		<th class="dmp_th_medium"><%= _('Questions')%></th>
+					      		<th class="dmp_th_big"><%= _('Answers')%></th>
+	   						</tr>
+   						</thead>
+   						<tbody>
+   							<% questions.each do |question| %>
 							<tr>
 								<th class="dmp_th_border" >
 									<p>- <%= raw question.text %></p>
 								</th>
 	        					<td class="dmp_td_border" >	
 									<% answer = @plan.answer(question.id, false) %>
-									<% if answer.nil? then %>
+									<% if answer.nil? %>
 										<p><%= _('Question not answered') %></p>
 									<% else %>
                                         <% q_format = question.question_format %>
-										<% if q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
-                                        q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') then%>
+										<% if q_format.option_based? %>
 											<ul>
-												<% answer.options.each do |option| %>
+												<% answer.question_options.each do |option| %>
 													<li><%= option.text %></li>
 												<% end %>
 											</ul>
-                                            <% if question.option_comment_display == true then%>
+                                            <% if question.option_comment_display == true %>
                                                 <%= raw answer.text %>
                                             <% end %>
-										<%else%>
+										<% else%>
                                             <%= raw answer.text %>
-                                        <%end%>
+                                        <% end%>
 									<% end %>	
 								</td>
 							</tr>
 						<% end %>
-					</tbody>	
-				</table>			
-			<% end %>
+   						</tbody>
+   					</table>
+			 <% end %> <!-- end if question.present? -->
+			<% end %> <!-- end @exported_plan.sections.each -->
 		</div>	
 	</div>	
 </div>

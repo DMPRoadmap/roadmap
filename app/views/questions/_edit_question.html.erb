@@ -106,16 +106,16 @@ in the admin interface.
 
       <!-- Suggested answer or Example-->
       <tr>
-        <td class="first_template"><%= _('Suggested answer/ Example')%></td>
+        <td class="first_template"><%= _('Example Answer')%></td>
         <td><div class="div_left_icon">
-          <% suggested_answer = question.suggested_answers.find_by_org_id(current_user.org.id) %>
-          <% if suggested_answer.nil? %>
-             <% suggested_answer = question.suggested_answers.build %>
+          <% example_answer = question.get_example_answer(current_user.org.id) %>
+          <% if example_answer.nil? %>
+             <% example_answer = question.annotations.build %>
+             <% example_answer.type = :example_answer %>
           <% end %>
-          <%= f.fields_for :suggested_answers, suggested_answer do |s|%>
+          <%= f.fields_for :annotations, example_answer do |s|%>
             <%= s.hidden_field :org_id, value: current_user.org.id %>
             <ul>
-              <li><%= s.select :is_example, {_('Example of answer') => true, _('Suggested answer') => false} %></li>
               <li><%= s.text_area :text, rows: 5 %>
               </li>
             </ul>
@@ -131,8 +131,11 @@ in the admin interface.
       <!-- Guidance for Question -->
       <tr>
         <td class="first_template"><%= _('Guidance')%></td>
-        <td><div class="div_left_icon">
-            <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
+        <td class="tinymce">
+          <div class="div_left_icon">
+            <% guidance = question.get_guidance_annotation(current_user.org_id) %>
+            <% guidance_text = guidance.present? ? guidance.text : "" %>
+            <%= text_area_tag("question-guidance-#{question.id}", guidance_text , class: "tinymce") %>
           </div>
           <div class="div_right_icon">
             <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>

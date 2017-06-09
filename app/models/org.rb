@@ -4,24 +4,29 @@ class Org < ActiveRecord::Base
   extend Dragonfly::Model::Validations
 
   ##
+  # Sort order: Name ASC
+  default_scope { order(name: :asc) }
+
+
+  ##
   # Associations
 #  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
   belongs_to :language
   has_many :guidance_groups
   has_many :templates
   has_many :users
-  has_many :suggested_answers
-
+  has_many :annotations
+  
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-#	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
-#                  :logo_file_name, :name, :target_url,
-#                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-#                  :token_permission_type_ids, :language_id, :contact_email,
-#                  :language, :org_type, :region, :token_permission_types
+	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
+                  :logo_file_name, :name, :target_url,
+                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
+                  :token_permission_type_ids, :language_id, :contact_email, 
+                  :language, :org_type, :region, :token_permission_types
 
   ##
   # Validators

@@ -19,7 +19,7 @@
 <!-- body -->
 <div class="dmp_details_body">
   <div class="dmp_details">
-    <% if @template == @current %>
+    <% if @template == @current && @template.customization_of.nil? %>
       <div id="edit_template_div" style="display: none">
         <%= render partial: "templates/edit_template", locals: {template: @template, hash: @hash}%>
       </div>
@@ -59,4 +59,4 @@
   <% end %>
 </div>
 
-<%= tinymce content_css: asset_path('application.css') %>
+<%= tinymce %>

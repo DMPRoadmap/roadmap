@@ -13,7 +13,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def edit?
-    @plan.editable_by?(@user.id)
+    @plan.readable_by?(@user.id)
   end
 
   def update_guidance_choices?
