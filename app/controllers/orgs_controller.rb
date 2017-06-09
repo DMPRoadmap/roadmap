@@ -52,6 +52,11 @@ class OrgsController < ApplicationController
     @user = User.new
     # Display the custom Shibboleth discovery service page. 
     @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
+    
+    if @orgs.empty?
+      flash[:notice] = _('No institutions are currently registered.')
+      redirect_to user_shibboleth_omniauth_authorize_path 
+    end
   end
 
   # POST /orgs/shibboleth_ds
