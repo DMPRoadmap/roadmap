@@ -21,6 +21,10 @@ class UsersController < ApplicationController
     @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, Perm.use_api, Perm.change_org_details]
   end
 
+  def update_preferences
+
+  end
+
   ##
   # POST - updates the permissions for a user
   # redirects to the admin_index action
