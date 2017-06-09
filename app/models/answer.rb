@@ -46,7 +46,8 @@ class Answer < ActiveRecord::Base
     answer_copy = answer.dup
     answer_copy.save!
     return answer_copy
-
+  end
+  
   # This method helps to decide if an answer option (:radiobuttons, :checkbox, etc ) in form views should be checked or not
   # Returns true if the given option_id is present in question_options, otherwise returns false
   def has_question_option(option_id)
