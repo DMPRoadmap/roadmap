@@ -44,6 +44,19 @@ class Template < ActiveRecord::Base
   end
 
   ##
+  # Retrieves the most current customization of the template for the
+  # specified org and dmptemplate_id
+  # returns nil if no customizations found
+  #
+  # @params [integer] dmptemplate_id of the original template
+  # @params [integer] org_id for the customizing organisation
+  # @return [nil, Template] the customized template or nil
+  def self.org_customizations(dmptemplate_id, org_id)
+    Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
+  end
+
+
+  ##
   # deep copy the given template and all of it's associations
   #
   # @params [Template] template to be deep copied

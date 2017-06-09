@@ -1384,6 +1384,9 @@ msgstr "Superior"
 msgid "Top banner text"
 msgstr "Texto del banner superior"
 
+msgid "Transfer customisation"
+msgstr ""
+
 #, fuzzy
 msgid "Un-published"
 msgstr "Publicado"

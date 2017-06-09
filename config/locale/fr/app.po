@@ -1381,6 +1381,9 @@ msgstr "Haut"
 msgid "Top banner text"
 msgstr "Texte de la bannière en haut décran"
 
+msgid "Transfer customisation"
+msgstr ""
+
 #, fuzzy
 msgid "Un-published"
 msgstr "Publiée"
