@@ -10,7 +10,7 @@
           <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
             <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
             <button id="shibboleth-login" href="<%= target %>" class="omniauth-login">
-              <%= _('Your Organisation') %>
+              <%= _('Your Institution') %>
             </button>
           <%else%>
             <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
