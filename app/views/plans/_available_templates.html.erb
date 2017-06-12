@@ -1,16 +1,20 @@
 <legend><%= _('Which DMP template would you like to use?') %></legend>
 
-<label for="plan_template_selector">
-  <%= _('Select a template') %>
-</label>
+<div class="form-left-side">
+  <label for="plan_template_selector">
+    <%= _('Select a template') %>
+  </label>
 
-<select id="plan_template_selector" class="left-indent fixed-width-large">
-  <option value=""><%= _('Please select one') %></option>
-  <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
-</select>
+  <select id="plan_template_selector" class="left-indent fixed-width-large">
+    <option value=""><%= _('Please select one') %></option>
+    <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
+  </select>
+</div>
 
-<div class="left-indent">
-  <%= _('We found multiple DMP templates corresponding to your funder.') %>
+<div class="form-right-side">
+  <div class="left-indent">
+    <p><%= _('We found multiple DMP templates corresponding to your funder.') %></p>
+  </div>
 </div>
 
 <script type="text/javascript">
