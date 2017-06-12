@@ -101,4 +101,16 @@ module PlansHelper
     return access
   end
 
+  # display the visibility of the plan
+  def display_visibility(val)
+    case val
+    when 0
+      return 'My Org.'
+    when 1
+      return 'Public'
+    else
+      return 'Private'  # Both Test and Private
+    end
+  end
+
 end

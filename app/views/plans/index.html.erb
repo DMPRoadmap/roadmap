@@ -14,12 +14,50 @@
 	<%= render(partial: "toolbar") %>
 	<table id="dmp_table" class="dmp_table tablesorter">
 	  <thead>
-	    <%= render(partial: "plan_list_head") %>
+	    <th class="col-large"><%= _('Plan') %></th>
+	    <th><%= _('Template') %></th>
+	    <th><%= _('Edited') %></th>
+	    <th><%= _('Role') %></th>
+	    <th><%= _('Visibility') %></th>
+	    <th><%= _('Test') %></th>
+	    <th><%= _('Select an Action') %></th>
 	  </thead>
 	  <tbody>
-	      <% @plans.each do |plan| %>
-	        <%= render(partial: "plan_list_item", locals: { plan: plan } ) %>
-	      <% end %>
+      <% @plans.each do |plan| %>
+				<tr>
+					<td><%= plan.title %></td>
+					<td class="col-large"><%= plan.template.title %></td>
+					<td class="col-small"><%= l(plan.latest_update.to_date, formats: :short) %></td>
+					<td class="col-small"><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+					<td class="col-small"><%= display_visibility(plan.visibility) %></td>
+					<td class="col-tiny">
+						<input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === :is_test ? 'checked="true"' : '' %> />
+					</td>
+					<td class="col-medium">
+				    <% if plan.editable_by?(current_user.id) then %>
+				      <%= link_to _('Edit'), plan_path(plan), :class => "dmp_table_link"%>
+
+				      <% if plan.administerable_by?(current_user.id) then %>
+				        <%= link_to _('Share'), share_plan_path(plan), :class => "dmp_table_link"%>
+				      <% end %>
+
+				      <%= link_to _('Export'), show_export_plan_path(plan), :class => "dmp_table_link"%>
+
+				      <%= link_to _('Duplicate'), duplicate_plan_path(plan), method: :post, remote: true, :class => "dmp_table_link"%>
+
+				      <% if plan.owned_by?(current_user.id) then %>
+				        <%= link_to _('Delete'), plan_path(plan), :class => "dmp_table_link",
+				          :method => :delete, :data => {
+				            :confirm => _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')
+				          }%>
+				      <% end %>
+				    <% else %>
+				      <%= link_to _('View'), plan_path(plan), :class => "dmp_table_link"%>
+				      <%= link_to _('Export'), show_export_plan_path(plan), :class => "dmp_table_link"%>
+				    <% end %>
+				  </td>
+				</tr>
+      <% end %>
 	  </tbody>
 	</table>
 	

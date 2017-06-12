@@ -85,4 +85,18 @@ table.dmp_table{
   border-bottom: 0px;
   margin-bottom: 20px;
   table-layout: fixed;
+
+	.col-tiny {
+		min-width: 50px;
+	}
+	.col-small {
+		min-width: 100px;
+	}
+	.col-medium {
+		min-width: 150px;
+	}
+	th.col-large {
+		min-width: 200px;
+		width: 30%;
+	}
 }
