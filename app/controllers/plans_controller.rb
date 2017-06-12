@@ -24,6 +24,8 @@ class PlansController < ApplicationController
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
 
+    @is_test = params[:test] ||= false
+
     respond_to :html
   end
 

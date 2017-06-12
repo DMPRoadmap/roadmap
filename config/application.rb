@@ -123,5 +123,12 @@ module DMPRoadmap
     
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
+    
+    # The default visibility setting for new plans
+    #   0 = Institutional visibility
+    #   1 = Public visibility         - (NOT advisable because plans will show up in Public DMPs page by default)
+    #   2 = Test                      - (NOT advisable because test plans are excluded from statistics)
+    #   3 = Private
+    config.default_plan_visibility = 3
   end
 end

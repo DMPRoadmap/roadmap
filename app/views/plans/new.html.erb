@@ -88,6 +88,7 @@
     </div>
     
     <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
+    <input type="hidden" id="plan_visibility" name="plan[visibility" value="<%= @is_test ? 2 : Rails.application.config.default_plan_visibility %>"></input>
     
     <%= render partial: 'shared/accessible_submit_button',
                locals: {id: 'create_plan_submit', 

@@ -33,6 +33,11 @@
 <!-- link button to create a new project -->
 <p>
 	<%= link_to _('Create plan'),
-            new_plan_path,
-            :class => "btn btn-primary" %>
+              new_plan_path,
+              class: "btn btn-primary" %>
+
+  <%= link_to _('Create test plan'),
+              "#{new_plan_path}?test=true",
+              class: "left-indent",
+              id: "create-test" %>
 </p>
