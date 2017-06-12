@@ -36,7 +36,7 @@
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <ul class="question_right_column_ul">
       <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
-      <% if annotations.present? || question_guidances[question.id] %>
+      <% if annotations.present? || question_guidances.present? %>
         <!-- add css to comment div-->
         <% css_style_comment_div = "display: none;"%>
         <% css_style_guidance_div = ""%>
