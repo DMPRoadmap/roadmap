@@ -18,7 +18,7 @@ class PlansController < ApplicationController
     authorize @plan
     
     # Get all of the available funders and non-funder orgs
-    @funders = Org.funders.sort{|x,y| x.name <=> y.name }
+    @funders = Org.funders.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
     @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
     
     # Get the current user's org

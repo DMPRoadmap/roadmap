@@ -8,7 +8,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     scaffold_template
     @section = @template.phases.first.sections.first
     
-    # Get the first Org Admin
+     # Get the first Org Admin
     scaffold_org_admin(@template.org)
     
     @question_format = QuestionFormat.where(option_based: false).first
@@ -38,8 +38,8 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   # POST /org/admin/templates/questions/:id/admin_create (admin_create_question_path)
   # ----------------------------------------------------------
   test "create a new question" do
-    params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id, annotations_attributes: {0 => {text: "some text", org_id: Org.first.id}}}
-    
+    params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id}
+
     @section.phase.template.dirty = false
     @section.phase.template.save!
     
@@ -64,7 +64,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert @section.phase.template.reload.dirty?, "expected the templates dirty flag to be true"
     
     # Invalid object
-    post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil}}
+    post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil, question_format_id: @question_format.id}}
     assert flash[:notice].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:question)

@@ -34,7 +34,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     assert_equal @plan.owner.id, updated.user_id
     
     # Make sure the answers/locking partial is NOT displayed
-    assert_not @response.body.include?(_('The following answer cannot be persisted')), "expected there to be no lock error messaging"
+    assert_not @response.body.include?(_('The following answer cannot be saved')), "expected there to be no lock error messaging"
     assert @response.body.include?(_('Answered'))
     assert @response.body.include?("#{_(' by')} #{@plan.owner.name}"), "expected the messaging to say the plan was updated by the plan owner"
     
@@ -48,7 +48,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     assert_equal @plan.owner.id, updated.user_id
 
     # Make sure the answer-notice IS displayed
-    assert @response.body.include?(_('The following answer cannot be persisted')), "expected there to be lock error messaging"
+    assert @response.body.include?(_('The following answer cannot be saved')), "expected there to be lock error messaging"
     assert @response.body.include?(_('since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again.') % { name: @plan.owner.name}), "expected the messaging to STILL say the plan was updated by the plan owner"
     assert @response.body.include?(_('Answered')), "expected the messaging to include the status"
   end
@@ -71,7 +71,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     assert_equal @plan.owner.id, updated.user_id
     
     # Make sure the answers/locking partial is NOT displayed
-    assert_not @response.body.include?(_('The following answer cannot be persisted')), "expected there to be no lock error messaging"
+    assert_not @response.body.include?(_('The following answer cannot be saved')), "expected there to be no lock error messaging"
     assert @response.body.include?(_('Answered'))
     assert @response.body.include?("#{_(' by')} #{@plan.owner.name}"), "expected the messaging to say the plan was updated by the plan owner"
     
@@ -87,7 +87,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     assert_equal @plan.owner.id, updated.user_id
 
     # Make sure the answer-notice IS displayed
-    assert @response.body.include?(_('The following answer cannot be persisted')), "expected there to be lock error messaging"
+    assert @response.body.include?(_('The following answer cannot be saved')), "expected there to be lock error messaging"
     assert @response.body.include?(_('since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again.') % { name: @plan.owner.name}), "expected the messaging to STILL say the plan was updated by the plan owner"
     assert @response.body.include?(_('Answered')), "expected the messaging to include the status"
   end

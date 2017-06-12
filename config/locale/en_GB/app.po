@@ -167,8 +167,8 @@ msgstr "<p>First create a guidance group. This could be institution wide or a su
 msgid "<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>"
 msgstr "<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>"
 
-msgid "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Sign up'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
-msgstr "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Sign up'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
+msgid "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Create account'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
+msgstr "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Create account'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
 
 msgid "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
 msgstr "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
@@ -256,15 +256,15 @@ msgstr "Access removed"
 msgid "Actions"
 msgstr "Actions"
 
+msgid "Add Annotations"
+msgstr ""
+
 #, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
 msgstr "guidance group"
 
 msgid "Add collaborator"
 msgstr "Add collaborator"
-
-msgid "Add example answer"
-msgstr ""
 
 msgid "Add guidance"
 msgstr "Add guidance"
@@ -316,6 +316,9 @@ msgid "Allows the user to create new institutional templates, edit existing ones
 msgstr "template"
 
 msgid "An error has occurred while saving/resetting your export settings."
+msgstr ""
+
+msgid "Annotations"
 msgstr ""
 
 msgid "Answer"
@@ -478,6 +481,10 @@ msgstr "Default value"
 msgid "Delete"
 msgstr "Delete"
 
+#, fuzzy
+msgid "Delete Example Answer"
+msgstr "Example of answer"
+
 msgid "Delete question"
 msgstr "Delete question"
 
@@ -515,8 +522,8 @@ msgid "Edit"
 msgstr "Edit"
 
 #, fuzzy
-msgid "Edit Example Answer"
-msgstr "Example of answer"
+msgid "Edit Annotations"
+msgstr "Edit"
 
 msgid "Edit User Privileges"
 msgstr "Edit User Privileges"
@@ -848,8 +855,8 @@ msgstr "New section title"
 msgid "New template"
 msgstr "New template"
 
-msgid "New to %{application_name}? Sign up today."
-msgstr "New to %{application_name}? Sign up today."
+msgid "New to %{application_name}? Create an account today."
+msgstr "New to %{application_name}? Create an account today."
 
 msgid "No"
 msgstr "No"
@@ -994,6 +1001,14 @@ msgstr "Plan was successfully deleted."
 msgid "Plan was successfully updated."
 msgstr "Plan was successfully updated."
 
+#, fuzzy
+msgid "Please enter a First name."
+msgstr "Please enter your first name."
+
+#, fuzzy
+msgid "Please enter a Last name."
+msgstr "Please enter your first name."
+
 msgid "Please enter a password confirmation"
 msgstr ""
 
@@ -1004,6 +1019,10 @@ msgid "Please enter a valid web address."
 msgstr "Please enter a valid web address."
 
 msgid "Please enter an email address"
+msgstr "Please enter an email address"
+
+#, fuzzy
+msgid "Please enter an email address."
 msgstr "Please enter an email address"
 
 msgid "Please enter the name of your organisation."
@@ -1042,6 +1061,10 @@ msgstr "<p>Please note that your email address is used as your username. If you 
 
 msgid "Please only enter up to 165 characters, you have used"
 msgstr "Please only enter up to 165 characters, you have used"
+
+#, fuzzy
+msgid "Please select an organisation, or select Other."
+msgstr "organisation"
 
 msgid "Please select one"
 msgstr ""
@@ -1150,6 +1173,10 @@ msgstr "Right"
 msgid "Save"
 msgstr "Save"
 
+#, fuzzy
+msgid "Save Unsuccessful."
+msgstr "Save"
+
 msgid "Saving..."
 msgstr "Saving..."
 
@@ -1207,8 +1234,8 @@ msgstr "Sign in"
 msgid "Sign out"
 msgstr "Sign out"
 
-msgid "Sign up"
-msgstr "Sign up"
+msgid "Create account"
+msgstr "Create account"
 
 msgid "Signed in as "
 msgstr "Signed in as "
@@ -1287,7 +1314,7 @@ msgid "The email address of an administrator at your organisation. Your users wi
 msgstr "The email address of an administrator at your organisation. Your users will use this address if they have questions."
 
 #, fuzzy
-msgid "The following answer cannot be persisted"
+msgid "The following answer cannot be saved"
 msgstr "The "
 
 msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
@@ -1341,6 +1368,9 @@ msgstr "Top"
 
 msgid "Top banner text"
 msgstr "Top banner text"
+
+msgid "Transfer customisation"
+msgstr ""
 
 msgid "Un-published"
 msgstr "Un-published"
@@ -1469,6 +1499,10 @@ msgstr "You are about to delete '%{question_text}'. Are you sure?"
 
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+
+#, fuzzy
+msgid "You are about to delete a guidance for '%{question_text}'. Are you sure?"
+msgstr "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
 
 msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
 msgstr "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
