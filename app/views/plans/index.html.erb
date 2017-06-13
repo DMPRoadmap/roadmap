@@ -1,5 +1,7 @@
 <%- model_class = Plan -%>
 <% javascript "toolbar.js" %>
+<% javascript "plans/index.js" %>
+
 <h1>
 	<%= _('My plans') %>
 </h1>
@@ -15,25 +17,25 @@
 	<table id="dmp_table" class="dmp_table tablesorter">
 	  <thead>
 	    <th class="col-large"><%= _('Plan') %></th>
-	    <th><%= _('Template') %></th>
-	    <th><%= _('Edited') %></th>
-	    <th><%= _('Role') %></th>
-	    <th><%= _('Visibility') %></th>
-	    <th><%= _('Test') %></th>
-	    <th><%= _('Select an Action') %></th>
+	    <th class="col-large"><%= _('Template') %></th>
+	    <th class="col-small"><%= _('Edited') %></th>
+	    <th class="col-small"><%= _('Role') %></th>
+	    <th class="col-small"><%= _('Visibility') %></th>
+	    <th class="col-tiny"><%= _('Test') %></th>
+	    <th class="col-large"><%= _('Select an Action') %></th>
 	  </thead>
 	  <tbody>
       <% @plans.each do |plan| %>
 				<tr>
 					<td><%= plan.title %></td>
-					<td class="col-large"><%= plan.template.title %></td>
-					<td class="col-small"><%= l(plan.latest_update.to_date, formats: :short) %></td>
-					<td class="col-small"><%= display_role(plan.roles.find_by(user: current_user)) %></td>
-					<td class="col-small"><%= display_visibility(plan.visibility) %></td>
-					<td class="col-tiny">
-						<input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === :is_test ? 'checked="true"' : '' %> />
+					<td><%= plan.template.title %></td>
+					<td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+					<td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+					<td id="visibility-<%= plan.id %>"><%= display_visibility(plan.visibility) %></td>
+					<td class="centered">
+						<input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
 					</td>
-					<td class="col-medium">
+					<td>
 				    <% if plan.editable_by?(current_user.id) then %>
 				      <%= link_to _('Edit'), plan_path(plan), :class => "dmp_table_link"%>
 

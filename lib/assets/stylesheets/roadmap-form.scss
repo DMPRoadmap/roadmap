@@ -127,6 +127,9 @@ form.roadmap-form {
   .input-medium {
     width: 30%;
   }
+  select.input-medium {
+    width: 32%;
+  }
   .input-small {
     width: 10%;
   }
@@ -493,5 +496,21 @@ div.main_page_content p #create-test {
       margin-top: -2px;
       margin: -2px -5px 0 5px;
     }
+  }
+}
+
+/* Edit plan details */
+/* ------------------------------------------------ */
+.edit-plan-details form.roadmap-form fieldset.side-by-side div {
+  label.radio-label {
+    vertical-align: top;
+  }
+
+  .inline-radios {
+    margin-left: -5px;
+  }
+
+  input[type='radio'] {
+    margin: 0 10px 5px -5px;
   }
 }

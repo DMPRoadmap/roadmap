@@ -208,6 +208,7 @@ Rails.application.routes.draw do
         post 'duplicate'
         get 'export'
         post 'invite'
+        post 'visibility', constraints: {format: [:json]}
       end
 
       collection do
