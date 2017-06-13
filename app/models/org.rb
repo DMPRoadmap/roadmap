@@ -26,7 +26,8 @@ class Org < ActiveRecord::Base
                   :logo_file_name, :name, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id, :contact_email, 
-                  :language, :org_type, :region, :token_permission_types
+                  :language, :org_type, :region, :token_permission_types, 
+                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name
 
   ##
   # Validators
