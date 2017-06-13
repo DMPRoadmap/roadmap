@@ -51,6 +51,10 @@ class PlanPolicy < ApplicationPolicy
   def duplicate?
     @plan.editable_by?(@user.id)
   end
+  
+  def visibility?
+    @plan.administerable_by?(@user.id)
+  end
 
 # TODO: These routes are no lonmger used
 =begin

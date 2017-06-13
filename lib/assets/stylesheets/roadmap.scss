@@ -74,6 +74,33 @@ $reverse-text: #FFF;
   text-align: center;
 }
 
+.left-indent {
+  margin-left: 15px;
+}
+
+div.roadmap-info-box {
+  position: absolute;
+	float: right;
+  top: 200px;
+  right: 12%;
+  background-color: $white;
+  padding: 8px 20px;
+  border-radius: 5px;
+	vertical-align: middle;
+	
+	span {
+		padding-left: 30px;
+	}
+	.fa {
+		position: absolute;
+		top: 10px;
+	  background: transparent;
+	  color: $black;
+	  font-size: 16pt;
+		margin-right: 15px;
+	}
+}
+
 table.dmp_table{
   width: 100%;
   border-collapse: separate;
@@ -81,4 +108,22 @@ table.dmp_table{
   border-bottom: 0px;
   margin-bottom: 20px;
   table-layout: fixed;
+
+	thead th, tbody td {
+		padding: 6px 15px 6px 6px;
+		overflow: hidden;
+	}
+
+	.col-tiny {
+		width: 5%;
+	}
+	.col-small {
+		width: 10%;
+	}
+	.col-medium {
+		width: 20%;
+	}
+	th.col-large {
+		width: 35%;
+	}
 }

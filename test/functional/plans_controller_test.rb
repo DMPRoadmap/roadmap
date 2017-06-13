@@ -74,6 +74,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:orgs)
     assert assigns(:funders)
     assert assigns(:default_org)
+    assert assigns(:is_test)
   end
 
   # POST /plans (plans_path)
@@ -91,6 +92,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:plan)
     assert_equal "Testing Create", Plan.last.title, "expected the record to have been created"
+  
+    # assert that the default visibility is used when none is specified
+    assert_equal Rails.application.config.default_plan_visibility, Plan.last.visibility, "Expected the plan to have been assigned the default visibility"
   end
 
   # GET /plan/:id (plan_path)

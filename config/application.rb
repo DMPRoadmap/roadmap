@@ -87,10 +87,12 @@ module DMPRoadmap
                                    answers/status.js
                                    devise/passwords/new.js
                                    devise/registrations/edit.js
-                                   plans/new_plan.js 
                                    contacts/new_contact.js
                                    home/index.js
                                    orgs/shibboleth_ds.js
+                                   plans/edit.js 
+                                   plans/index.js 
+                                   plans/new.js 
                                    shared/login_form.js
                                    shared/register_form.js)
     
@@ -123,5 +125,12 @@ module DMPRoadmap
     
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
+    
+    # The default visibility setting for new plans
+    #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
+    #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
+    #   is_test                   - (NOT advisable because test plans are excluded from statistics)
+    #   privately_visible         - Only the owner and people they invite can access the plan
+    config.default_plan_visibility = 'organisationally_visible'
   end
 end
