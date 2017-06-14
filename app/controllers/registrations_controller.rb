@@ -15,9 +15,9 @@ class RegistrationsController < Devise::RegistrationsController
     IdentifierScheme.all.each do |scheme|
       oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
     end
-    
+
     @user = User.new
-    
+
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
       if oauth[:provider].nil? || oauth[:uid].nil?
@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
       else
         # Connect the new user with the identifier sent back by the OAuth provider
         flash[:notice] = t('identifier_schemes.new_login_success')
-        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase, 
+        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase,
                               identifier: oauth[:uid],
                               user: @user)
       end
@@ -78,6 +78,7 @@ class RegistrationsController < Devise::RegistrationsController
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       do_update(require_password=needs_password?(current_user, params))
+      update_preferences(current_user, params)
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
@@ -165,22 +166,43 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update_preferences(current_user, params)
+    prefs = params[:prefs]
+    # Set all preferences to false
+    current_user.prefs.each do |key, value|
+      value.each_key do |k|
+        current_user.prefs[key][k] = false
+      end
+    end
+
+    # Sets the preferences the user wants to true
+    if prefs
+      prefs.each_key do |key|
+        prefs[key].each_key do |k|
+          current_user.prefs[key.to_sym][k.to_sym] = true
+        end
+      end
+    end
+
+    current_user.save
+  end
+
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, 
+    params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :other_organisation)
+                                 :accept_terms, :other_organisation, :prefs)
   end
 
   def update_params
     params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname)
+                                :language_id, :surname, :prefs)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
                                 :org_id, :language_id, :password,
                                 :password_confirmation, :surname,
-                                :other_organisation)
+                                :other_organisation, :prefs)
   end
 
 end

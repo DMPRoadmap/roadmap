@@ -51,8 +51,6 @@ Rails.application.routes.draw do
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
 
-  post 'users/update_preferences/:id', to: 'user#update_preferences', as: 'user_update_preferences'
-
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'  # if an org id is present passthru to shib
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
