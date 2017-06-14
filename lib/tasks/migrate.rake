@@ -21,7 +21,7 @@ namespace :migrate do
     Rake::Task['migrate:single_published_template'].execute
   end
 
-  
+
   desc "seed database with default values for new data structures"
   task seed: :environment do
     # seed roles to database
