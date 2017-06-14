@@ -103,7 +103,7 @@ class GuidanceGroup < ActiveRecord::Base
     # @return [Array<GuidanceGroup>] a list of all "viewable" guidance groups to a user
   def self.all_viewable(user)
     # first find all groups owned by the Managing Curation Center
-    managing_org_groups = Org.includes(:guidance_groups).managing_orgs.collect{|org| org.guidance_groups}
+    managing_org_groups = Org.includes(guidance_groups: [guidances: :themes]).managing_orgs.collect{|org| org.guidance_groups}
 
     # find all groups owned by  a Funder organisation
     funder_groups = Org.includes(:guidance_groups).funders.collect{|org| org.guidance_groups}
@@ -112,7 +112,7 @@ class GuidanceGroup < ActiveRecord::Base
 
     # pass this organisation guidance groups to the view with respond_with @all_viewable_groups
     all_viewable_groups = managing_org_groups + funder_groups + organisation_groups
-    all_viewable_groups = all_viewable_groups.flatten.uniq{|x| x.id}
+    all_viewable_groups = all_viewable_groups.flatten.uniq
     return all_viewable_groups
   end
 end
