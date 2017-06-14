@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
 <h1>
@@ -8,6 +7,7 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
+    <div class="dmp_details_body">
 		<%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
 
 			<!-- table with org details-->
@@ -75,7 +75,7 @@
 				<%= link_to _('Cancel'), :back, class: 'btn btn-primary' %>
 			</div>
 		<% end %>
-
+    </div>
   </div>
 </div>
 

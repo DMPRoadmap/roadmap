@@ -83,8 +83,7 @@ module DMPRoadmap
                                    roadmap-form.css 
                                    roadmap-hacks.css)
                                    
-    config.assets.precompile += %w(roadmap.js 
-                                   answers/status.js
+    config.assets.precompile += %w(answers/status.js
                                    devise/passwords/new.js
                                    devise/registrations/edit.js
                                    contacts/new_contact.js

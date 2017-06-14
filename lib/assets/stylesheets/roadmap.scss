@@ -11,11 +11,13 @@ $dark-grey: #333;
 $medium-grey: #827D7E;
 $light-grey: #CCC;
 
-$primary-color: #36421A;
-$primary-admin-color: #36421A;
+$primary-color: #CC7A00;
+$primary-admin-color: #CC7A00;
 $disabled-button-color: #CCC;
 $cancel-button-color: #36421A;
 $reverse-text: #FFF;
+
+$header-height: 100px;
 
 /* See `.combobox-clear-button` for an example of this mixin in use */
 @mixin icon($icon) {
@@ -51,10 +53,18 @@ a, a:hover, a:visited, a:active, a:link {
 
 .main_header {
   margin-bottom: 20px;
+  
+  div.header_left {
+    width: auto;
+  
+    .home_logo {
+      margin: 25px 10px 30px 10px;
+    }
+  }
 }
 
 .content {
-  width: 98%;
+  width: 100%;
   background-color: $white;
   border-radius: 3px;
   margin-top: 25px;
@@ -62,7 +72,7 @@ a, a:hover, a:visited, a:active, a:link {
 }
 
 .content-two-column {
-  width: 98%;
+  width: 100%;
 
   .column-left {
     display: inline-block;
@@ -71,6 +81,7 @@ a, a:hover, a:visited, a:active, a:link {
   .column-right {
     display: inline-block;
     width: 40%;
+    height: auto;
     margin-left: 35px;
     vertical-align: top;
   }
@@ -90,7 +101,7 @@ a, a:hover, a:visited, a:active, a:link {
 div.roadmap-info-box {
   position: absolute;
 	float: right;
-  top: 200px;
+  top: 180px;
   right: 12%;
   background-color: $white;
   padding: 8px 20px;

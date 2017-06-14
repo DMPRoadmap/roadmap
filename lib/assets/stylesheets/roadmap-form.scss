@@ -333,6 +333,9 @@ form.roadmap-form {
 
 /* Sign in/Create account forms */
 /* ------------------------------------------------ */
+#sign-in-panel, #create-account-panel {
+  width: 375px;
+}
 .omniauth-options {
   display: block;
   width: 100%;
