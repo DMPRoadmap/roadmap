@@ -39,8 +39,8 @@ class PlansController < ApplicationController
     @plan.data_contact = current_user.email
     @plan.funder_name = plan_params[:funder_name]
 
-    @plan_params.visibility = (plan_params[:visibility].blank? ? Rails.application.config.default_plan_visibility :
-                                                                 plan_params[:visibility])
+    @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
+                                                           plan_params[:visibility])
 
     # If a template hasn't been identified look for the available templates
     if plan_params[:template_id].blank?

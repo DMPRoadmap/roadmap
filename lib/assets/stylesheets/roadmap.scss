@@ -5,22 +5,31 @@ $header-font: "GillSansLight";
 
 $black: #000;
 $white: #FFF;
-$error-color: #CC0000;
-$error-background: #FFE6E6;
+$error-color: #FFF;
+$error-background: #827D7E;
 $dark-grey: #333;
 $medium-grey: #827D7E;
 $light-grey: #CCC;
 
-$primary-color: #F49700;
-$primary-admin-color: #0057A7;
+$primary-color: #36421A;
+$primary-admin-color: #36421A;
 $disabled-button-color: #CCC;
-$cancel-button-color: #827D7E;
+$cancel-button-color: #36421A;
 $reverse-text: #FFF;
 
 /* See `.combobox-clear-button` for an example of this mixin in use */
 @mixin icon($icon) {
   @extend .fa;
   @extend .fa-#{$icon}:before;
+}
+
+html.dmponline {
+  background-color: $white;
+}
+
+h1, h2, h3, h4, h5,
+a, a:hover, a:visited, a:active, a:link {
+  color: $primary-color;
 }
 
 /* This class will ensure that the item is hidden for sighted users and that it does not take up space */

@@ -63,3 +63,82 @@ textarea {
   padding-bottom: 45px;
   margin-bottom: 45px;
 }
+
+html.dmponline {
+  background: none;
+}
+
+/* Override the color scheme settings in bootstrap_and_overrides and the admin css files */
+/* --------------------------------------------------------------------------------------------- */
+a:hover,
+#create-test:hover, 
+.dmp_table_link:hover,
+.signIn ul li a, .signIn ul li a:visited, .signIn ul li a:active, .signIn ul li a:hover, .signIn ul li a:link,
+ul.tabs li a:hover,
+.navbar {
+  color: $primary-color !important;
+}
+
+#main-nav-tabs ul {
+  border-bottom: none;
+}
+#main-nav-tabs li a,
+#project-tabs li a {
+  color: $white;
+  background-color: $primary-color;
+  border-bottom: 1px solid $primary-color;
+}
+#main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover, lang-dropdown-link:hover,
+#project-tabs li.active a, #project-tabs li.active a:active, #project-tabs li a:hover {
+  color: $primary-color !important;
+  background: $white;
+  border-left: 1px solid $primary-color;
+  border-top: 1px solid $primary-color;
+  border-right: 1px solid $primary-color;
+  border-bottom: none;
+}
+
+.caret, .caret-orange {
+  border-top: 4px solid $primary-color !important;
+  border-bottom-color: $primary-color !important;
+}
+
+.question-divider,
+#plan-guidance-accordion > .accordion-group > .accordion-heading {
+  border-bottom: 1px solid $primary-color;
+}
+
+ul#signIn_dropdown {
+  background-color: $light-grey !important;
+}
+
+body.dmponline {
+  .btn-primary, .btn-primary:focus, .btn-primary:active, .btn-primary:visited, .btn-primary:link, 
+  .dmp_toolbar,
+  .dmp_table thead,
+  .accordion-heading,
+  .progress .bar,
+  .section-status {
+    background: $primary-color;
+  }
+
+  .accordion-heading {
+    color: $white;
+    border: 1px solid $primary-color;
+  }
+
+  table.dmp_table tbody td, {
+    border-bottom: 1px solid $light-grey;
+  }
+
+  div.dmp_details_body,
+  div.roadmap-info-box,
+  .tab-panel,
+  #create_plan, #sign-in-panel, #create-account-panel {
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+  }
+  table.dmp_details_table tr td.first {
+    border-right: 1px solid $primary-color;
+  }
+}

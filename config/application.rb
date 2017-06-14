@@ -94,7 +94,8 @@ module DMPRoadmap
                                    plans/index.js 
                                    plans/new.js 
                                    shared/login_form.js
-                                   shared/register_form.js)
+                                   shared/register_form.js
+                                   static_pages/utils.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
