@@ -147,3 +147,19 @@ table.dmp_table{
 		width: 35%;
 	}
 }
+
+
+.checkbox-label {
+  display: inline-block;
+  font-size: 1em;
+  margin: 0;
+  padding: 2px;
+}
+
+.checkbox-input {
+  border: none;
+  vertical-align: middle;
+  height: 17px;
+  margin: 0 4px 0 0;
+  padding: 0;
+}
