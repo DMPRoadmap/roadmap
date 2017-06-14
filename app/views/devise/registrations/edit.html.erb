@@ -1,5 +1,5 @@
 <% javascript "devise/registrations/edit.js" %>
-<div class="user_profile">
+<div id="user_profile">
   <h1><%= _('Edit profile') %></h1>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
