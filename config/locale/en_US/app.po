@@ -366,6 +366,9 @@ msgstr "Background"
 msgid "Bad Credentials"
 msgstr ""
 
+msgid "Bad Parameters"
+msgstr ""
+
 msgid "Before submitting, please consider:"
 msgstr "Before submitting, please consider:"
 
@@ -453,6 +456,9 @@ msgstr "Create a new plan"
 
 msgid "Create a template"
 msgstr "Create a template"
+
+msgid "Create account"
+msgstr "Create account"
 
 msgid "Create plan"
 msgstr "Create plan"
@@ -1001,6 +1007,9 @@ msgstr "Plan was successfully deleted."
 msgid "Plan was successfully updated."
 msgstr "Plan was successfully updated."
 
+msgid "Please add an abbreviation to your org for display with annotations!"
+msgstr ""
+
 #, fuzzy
 msgid "Please enter a First name."
 msgstr "Please enter your first name."
@@ -1233,9 +1242,6 @@ msgstr "Sign in"
 
 msgid "Sign out"
 msgstr "Sign out"
-
-msgid "Create account"
-msgstr "Create account"
 
 msgid "Signed in as "
 msgstr "Signed in as "
@@ -1715,6 +1721,10 @@ msgid "must have access to guidances api"
 msgstr "must have access to guidances api"
 
 #, fuzzy
+msgid "must have access to plans api"
+msgstr "must have access to guidances api"
+
+#, fuzzy
 msgid "no research organisation is associated with this plan"
 msgstr "organization"
 
@@ -1764,14 +1774,6 @@ msgstr "template"
 msgid "user"
 msgstr "user"
 
-msgid "{\"Error\":\"Organisation does not exist\"}"
-msgstr "{\"Error\":\"Organization does not exist\"}"
-
-msgid "{\"Error\":\"Organisation has more than one template and template name unspecified or invalid\"}"
-msgstr "{\"Error\":\"Organization has more than one template and template name unspecified or invalid\"}"
-
-msgid "{\"Error\":\"Organisation specified is not a funder\"}"
-msgstr "{\"Error\":\"Organization specified is not a funder\"}"
-
-msgid "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
-msgstr "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
+#, fuzzy
+msgid "user must be in your organisation"
+msgstr "organization"

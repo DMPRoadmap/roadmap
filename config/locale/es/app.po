@@ -375,6 +375,9 @@ msgstr "Volver"
 msgid "Bad Credentials"
 msgstr ""
 
+msgid "Bad Parameters"
+msgstr ""
+
 msgid "Before submitting, please consider:"
 msgstr ""
 
@@ -465,6 +468,9 @@ msgstr "Crear un nuevo plan"
 
 msgid "Create a template"
 msgstr "Crear una plantilla"
+
+msgid "Create account"
+msgstr "Registrarse"
 
 msgid "Create plan"
 msgstr "Crear un plan"
@@ -1017,6 +1023,9 @@ msgstr "Plan creado con éxito"
 msgid "Plan was successfully updated."
 msgstr ""
 
+msgid "Please add an abbreviation to your org for display with annotations!"
+msgstr ""
+
 #, fuzzy
 msgid "Please enter a First name."
 msgstr "Por favor, introduzca su nombre."
@@ -1249,9 +1258,6 @@ msgstr "Conectar"
 
 msgid "Sign out"
 msgstr "Desconectar"
-
-msgid "Create account"
-msgstr "Registrarse"
 
 msgid "Signed in as "
 msgstr "Registrado como "
@@ -1747,6 +1753,10 @@ msgid "must have access to guidances api"
 msgstr "guidances"
 
 #, fuzzy
+msgid "must have access to plans api"
+msgstr "guidances"
+
+#, fuzzy
 msgid "no research organisation is associated with this plan"
 msgstr "Organización"
 
@@ -1803,14 +1813,6 @@ msgstr "templates"
 msgid "user"
 msgstr "user"
 
-msgid "{\"Error\":\"Organisation does not exist\"}"
-msgstr "{\"Error\":\"Organization does not exist\"}"
-
-msgid "{\"Error\":\"Organisation has more than one template and template name unspecified or invalid\"}"
-msgstr "{\"Error\":\"Organization has more than one template and template name unspecified or invalid\"}"
-
-msgid "{\"Error\":\"Organisation specified is not a funder\"}"
-msgstr "{\"Error\":\"Organization specified is not a funder\"}"
-
-msgid "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
-msgstr "{\"Error\":\"You do not have authorisation to view this endpoint\"}"
+#, fuzzy
+msgid "user must be in your organisation"
+msgstr "Organización"
