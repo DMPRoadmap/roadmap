@@ -11,8 +11,8 @@ module Api
       end
 
       def index
-      raise Pundit::NotAuthorizedError unless Api::V0::GuidanceGroupPolicy.new(@user, :guidance_group).index?
-       @all_viewable_groups = GuidanceGroup.all_viewable(@user)
+        raise Pundit::NotAuthorizedError unless Api::V0::GuidanceGroupPolicy.new(@user, :guidance_group).index?
+        @all_viewable_groups = GuidanceGroup.all_viewable(@user)
         respond_with @all_viewable_groups
       end
 

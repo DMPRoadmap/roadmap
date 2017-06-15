@@ -1164,7 +1164,7 @@ class Plan < ActiveRecord::Base
     # Only run this before_validation because rails fires this before save/create
     if self.id.nil?
       self.title = "My plan (#{self.template.title})" if self.title.nil? && !self.template.nil?
-      self.visibility = 1
+      self.visibility = 3
     end
   end
 

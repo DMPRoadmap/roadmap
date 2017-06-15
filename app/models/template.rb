@@ -55,7 +55,6 @@ class Template < ActiveRecord::Base
     Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
   end
 
-
   ##
   # deep copy the given template and all of it's associations
   #
