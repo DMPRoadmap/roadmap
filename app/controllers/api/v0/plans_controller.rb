@@ -1,104 +1,48 @@
 module Api
   module V0
-    class ProjectsController < Api::V0::BaseController
+    class PlansController < Api::V0::BaseController
       before_action :authenticate
 
-      swagger_controller :projects, 'Plans'
-
-      swagger_api :create do |api|
-        summary 'Returns a single guidance group item'
-        notes   'Notes...'
-        param :header, 'Authentication-Token', :string, :required, 'Authentication-Token'
-        response :unauthorized
-        response :not_found
-      end
-
       ##
-      # Creates a new project based on the information passed in JSON to the API
+      # Creates a new plan based on the information passed in JSON to the API
       def create
-        # find the user's api_token permissions
-        # then ensure that they have the permission associated with creating plans
-        if has_auth(constant("api_endpoint_types.plans"))
-          #params[:organization_id] = Org.where(name: params[:template][:organization])
-          # find_by returns nil if none found, find_by! raises an ActiveRecord error
-          org = Org.find_by name: params[:template][:organisation]
-          
-          # if organization exists
-          if !org.nil?
-            # if organization is funder
-            if org.funder?
-              # if organization has only 1 template
-              if org.templates.length == 1
-                # set template id
-                template = org.templates.first
-              # else if params.template.name specified && params.template.name == one of organization's tempates
-              elsif !org.templates.find_by title: params[:template][:name].nil?
-                # set template id
-                template = org.templates.find_by title: params[:template][:name]
-              # else error: organization has more than one template and template name unspecified
-              else
-                render json: _('{"Error":"Organisation has more than one template and template name unspecified or invalid"}'), status: 400 and return
-              end
-            # else error: organization specified is not a funder
-            else
-              render json: _('{"Error":"Organisation specified is not a funder"}'), status: 400 and return
-            end
-          # else error: organization does not exist
-          else
-            render json: _('{"Error":"Organisation does not exist"}'), status: 400 and return
-          end
+        @template = Template.live(params[:template_id])
+        raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, @template).create?
 
-          all_groups = []
-          # Check to see if the user specified guidances
-          if !params[:guidance].nil?
-          # for each specified guidance, see if it exists
-            params[:guidance][:name].each do |guidance_name|
-              group = GuidanceGroup.find_by(name: guidance_name)
-              # if it exists, add it to the guidances for the new project
-              if !group.nil?
-                all_groups = all_groups + [group]
-              end
-            end
-          end
+        plan_user = User.find_by(email: params[:plan][:email])
+        # ensure user exists
+        if plan_user.blank?
+          User.invite!({email: params[:plan][:email]}, ( @user))
+          plan_user = User.find_by(email: params[:plan][:email])
+          plan_user.org = @user.org
+          plan_user.save
+        end
+        # ensure user's organisation is the same as api user's 
+        raise Pundit::NotAuthorizedError, _("user must be in your organisation") unless plan_user.org == @user.org
 
-          # cant invite a user without having a current user because of devise :ivitable
-          # after we have auth, will be able to assign an :invited_by_id
-          user = User.find_by email: params[:project][:email]
-          # if user does not exist
-          if user.nil?
-            # invite user to DMPRoadmap
-            User.invite!({email: params[:project][:email]}, ( @user))
-            # set project owner to user associated w/email
-            user = (User.find_by email: params[:project][:email])
-          end
-
-          # create new project with specified parameters
-          @project = Plan.new
-          @project.title =  params[:project][:title]
-          @project.template = template
-          @project.slug = params[:project][:title]
-          #@project.organisation = @user.organisations.first
-          @project.assign_creator(user.id)
-          @project.guidance_groups = all_groups
-
-          # if save successful, render success, otherwise show error
-          if @project.save
-            #render json: @project ,status: :created
-            render :show, status: :created
-          else
-            render json: get_resource.errors, status: :unprocessable_entity
-          end
+        # initialize the plan
+        @plan = Plan.new
+        @plan.principal_investigator = plan_user.surname.blank? ? nil : "#{plan_user.firstname} #{plan_user.surname}"
+        @plan.data_contact = plan_user.email
+        # set funder name to template's org, or original template's org
+        if @template.customization_of.nil?
+          @plan.funder_name = @template.org.name
         else
-
-          render json: _('{"Error":"You do not have authorisation to view this endpoint"}'), status: 400 and return
+          @plan.funder_name = Template.where(dmptemplate_id: @template.customization_of).first.org.name
+        end
+        @plan.template = @template
+        @plan.title = params[:plan][:title]
+        if @plan.save
+          @plan.assign_creator(plan_user)
+          respond_with @plan
+        else
+          # the plan did not save 
+          self.headers['WWW-Authenticate'] = "Token realm=\"\""
+          render json: _("Bad Parameters"), status: 400
         end
       end
 
-      # private
-      #   def project_params
-      #     params.require(:template).permit(:organisation, :name)
-      #     params.require(:project).permit(:title, :email)
-      #   end
+
     end
   end
 end

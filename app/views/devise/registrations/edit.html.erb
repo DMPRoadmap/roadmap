@@ -80,11 +80,10 @@
 
         <% unless @user.api_token.blank? %>
           <div>
-            <%= f.label :api_token, _('API token') %>
-            <div class="input-medium"><%= @user.api_token %></div>
-          
-            <label><%= _('API Information') %></label>
-            <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+            <%= f.label :api_token, _('API token') %><%= @user.api_token %>
+          </div>
+          <div>
+            <label><%= _('API Information') %></label><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%>
           </div>
         <% end %>
 

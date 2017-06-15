@@ -26,10 +26,26 @@ module Api
       # @return the number of DMPs using the specified template between the optional specified dates
       # ensures that the template is owned/created by the caller's organisation
       def using_template
-        template = Template.find(params[:id])
-        raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, template).using_template?
-        @template_count = restrict_date_range(template.plans).count
-        respond_with @template_count
+        org_templates = @user.org.templates.where(customization_of: nil)
+        raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, org_templates.first).using_template?
+        @templates = {}
+        org_templates.each do |template|
+          if @templates[template.title].blank?
+            @templates[template.title] = {}
+            @templates[template.title][:title]  = template.title
+            @templates[template.title][:id]     = template.dmptemplate_id
+            if template.plans.present?
+              @templates[template.title][:uses] = restrict_date_range(template.plans).length
+            else
+              @templates[template.title][:uses] = 0
+            end
+          else
+            if template.plans.present?
+              @templates[template.title][:uses]  += restrict_date_range(template.plans).length
+            end
+          end
+        end
+        respond_with @templates
       end
 
       ##
@@ -39,16 +55,28 @@ module Api
       # as the user who ititiated the call
       def plans_by_template
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans_by_template?
-        @org_projects = []
+        org_projects = []
         @user.org.users.each do |user|
           user.plans.each do |plan|
-            unless @org_projects.include? plan
-              @org_projects += [plan]
+            unless org_projects.include? plan
+              org_projects += [plan]
             end
           end
         end
-        @org_projects = restrict_date_range(@org_projects)
-        respond_with @org_projects
+        org_projects = restrict_date_range(org_projects)
+        @templates = {}
+        org_projects.each do |plan|
+          # if hash exists
+          if @templates[plan.template.title].blank?
+            @templates[plan.template.title] = {}
+            @templates[plan.template.title][:title] = plan.template.title
+            @templates[plan.template.title][:id] = plan.template.dmptemplate_id
+            @templates[plan.template.title][:uses] = 1
+          else
+            @templates[plan.template.title][:uses] += 1
+          end
+        end
+        respond_with @templates
       end
 
       ##

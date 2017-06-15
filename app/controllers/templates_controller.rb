@@ -117,7 +117,7 @@ class TemplatesController < ApplicationController
           if section.modifiable
             # this is a custom section
             section_copy = Section.deep_copy(section)
-            customization_phase = new_customization.phases.includes(:sections.where(number: phase.number).first)
+            customization_phase = new_customization.phases.includes(:sections).where(number: phase.number).first
             section_copy.phase_id = customization_phase.id
             # custom sections get added to the end
             section_copy.number = customization_phase.sections.length + 1
