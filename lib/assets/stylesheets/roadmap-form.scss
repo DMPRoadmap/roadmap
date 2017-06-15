@@ -26,39 +26,39 @@ form.roadmap-form {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-   
-    label, 
-    input[type="checkbox"], 
-    .combobox-container, 
+
+    label,
+    input[type="checkbox"],
+    .combobox-container,
     .left-indent {
       margin-left: 15px;
     }
-   
+
     input[type="text"], select {
       margin-bottom: 15px;
     }
-   
+
     input[type="checkbox"] {
       vertical-align: top;
     }
-   
+
     .checkbox-label {
       display: inline-block;
       margin-left: 5px;
     }
   }
- 
+
   /* Fieldset with labels to the left of inputs */
   /* ------------------------------------------ */
   fieldset.side-by-side {
     .mce-tinymce {
       display: inline-block;
     }
-   
+
     div {
       label,
-      input[type="checkbox"], 
-      .combobox-container, 
+      input[type="checkbox"],
+      .combobox-container,
       .identifier-scheme {
         display: inline-block;
       }
@@ -66,7 +66,7 @@ form.roadmap-form {
       .identifier-scheme-indent {
         margin-left: -5px;
       }
-     
+
       label {
         width: 25%;
         text-align: right;
@@ -77,18 +77,19 @@ form.roadmap-form {
       label.align-top {
         vertical-align: top;
       }
-      input.form-submit, 
+      input.form-submit,
       button.form-cancel {
         font-size: 10pt;
+        text-decoration:none;
       }
     }
-   
+
     .button-spacer {
       display: inline-block;
       width: 21%;
     }
   }
- 
+
   /* Generic Fieldset Settings */
   fieldset legend {
     font-family: $header-font;
@@ -102,11 +103,11 @@ form.roadmap-form {
     float: left; /* positions the legend within the fieldset box */
     border-bottom: none;
   }
- 
+
   .form-input {
     clear: both;
   }
- 
+
   div.inline {
     display: inline-block;
   }
@@ -135,7 +136,7 @@ form.roadmap-form {
   .fixed-width-large {
     width: 550px;
   }
-  
+
   /* Accessible Form Buttons */
   input.form-submit {
     background-color: $primary-color;
@@ -143,7 +144,7 @@ form.roadmap-form {
     padding: 4px 12px;
     font-size: 14px;
     margin-top: 15px;
- 
+
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -164,12 +165,12 @@ form.roadmap-form {
     padding: 4px 12px;
     margin-top: 15px;
     font-size: 14px;
-   
+
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
-  
+
   /* Tooltip */
   .arrow-left {
     display: inline-block;
@@ -183,7 +184,7 @@ form.roadmap-form {
   .submit-tooltip {
     display: none;
     margin-left: 5px;
-    
+
     .arrow-left {
       vertical-align: middle;
       margin-right: -5px;
@@ -196,7 +197,7 @@ form.roadmap-form {
     }
   }*/
   input.small-input-button {
-    width: 250px;
+    width: 150px;
   }
 
   div.form-input {
@@ -340,7 +341,7 @@ form.roadmap-form {
     background-color: $primary-color;
     color: $white;
     margin: 0 auto 10px auto;
- 
+
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -354,7 +355,7 @@ form.roadmap-form {
   width: 90%;
   padding-bottom: 15px;
   margin-bottom: 5px;
-  
+
   input[type="password"],
   #user_password,
   input[type="email"] {
@@ -368,7 +369,7 @@ form.roadmap-form {
   .checkbox-right {
     width: 97%;
     position: relative;
-    
+
     #user_remember_me, input[type='checkbox'], .checkbox-label {
       float: right;
     }
@@ -378,7 +379,7 @@ form.roadmap-form {
   .checkbox-right {
     width: 55%;
     position: relative;
-    
+
     #user_remember_me, input[type='checkbox'], .checkbox-label {
       float: right;
     }
@@ -388,7 +389,7 @@ form.roadmap-form {
 #new_user.register-form {
   .inline {
     width: 46%;
-  
+
     #user_firstname,
     #user_surname {
       width: 92%;
@@ -398,7 +399,7 @@ form.roadmap-form {
 div#forgot-password-link {
   vertical-align: bottom;
   margin-bottom: 5px;
- 
+
   a:hover {
     color: $primary-color !important;  /* Remove the important once the bootstrap_and_overrides css is gone */
   }
@@ -415,11 +416,11 @@ div#forgot-password-link {
 /* ------------------------------------------------ */
 form.shibboleth-ds-form {
   width: 55%;
-  
+
   select {
     width: 85%;
   }
-  
+
   input.form-submit {
     margin-top: 0;
     margin-bottom: 15px;
@@ -429,12 +430,12 @@ form.shibboleth-ds-form {
 div.three-column, div.two-column, div.one-column {
   display: inline-block;
   vertical-align: top;
-  
+
   ul li {
     margin-top: 5px;
     margin-bottom: 5px;
   }
-  
+
   ul li.separator {
     background-color: $medium-grey;
     color: $white;
@@ -444,10 +445,10 @@ div.three-column, div.two-column, div.one-column {
 }
 div.three-column {
   width: 31%;
-} 
+}
 div.two-column {
   width: 47%;
-} 
+}
 div.one-column {
   width: 95%;
 }
@@ -458,12 +459,12 @@ div.one-column {
   fieldset {
     padding-bottom: 15px;
   }
-  
+
   #plan_title {
     margin-bottom: 5px;
     width: 90%;
   }
-  
+
   .form-left-side {
     position: relative;
     float: left;
@@ -476,7 +477,7 @@ div.one-column {
     padding-top: 20px;
     width: 45%;
     min-width: 400px;
-    
+
     label, input {
       display: inline-block;
     }

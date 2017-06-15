@@ -410,6 +410,7 @@ ActiveRecord::Schema.define(version: 20170607154433) do
     t.string   "invited_by_type",        limit: 255
     t.integer  "language_id",            limit: 4
     t.string   "recovery_email",         limit: 255
+    t.binary   "prefs",                  limit: 65535
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
