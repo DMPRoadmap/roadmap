@@ -14,7 +14,14 @@ namespace :migrate do
     Rake::Task['migrate:seed'].execute
     Rake::Task['migrate:permissions'].execute
   end
-  
+
+  desc "perform all post-migration tasks"
+  task cleanup: :environment do
+    Rake::Task['migrate:fix_languages'].execute
+    Rake::Task['migrate:single_published_template'].execute
+  end
+
+
   desc "seed database with default values for new data structures"
   task seed: :environment do
     # seed roles to database
@@ -150,25 +157,6 @@ namespace :migrate do
       end
     end
 
-  end
-
-  desc "enforces unique dmptemplate_id for templates"
-  task unique_dmptemplate_id: :environment do
-    Template.where('dmptemplate_id = customization_of').each do |temp|
-    # iterate over all templates ____WITH POTENTIALLY BAD DATA ______
-      same_dmptemp = Template.where(org_id: temp.org_id, customization_of: temp.customization_of).where('customization_of <> dmptemplate_id').first
-      if same_dmptemp.present?
-        temp.dmptemplate_id = same_dmptemp.dmptemplate_id
-        # use that dmptemplate_id
-      else
-        # generate a new dmptemplate_id
-        temp.dmptemplate_id = loop do
-          random = rand 2147483647  # max int field in psql
-          break random unless Template.exists?(dmptemplate_id: random)
-        end
-      end
-      temp.save!
-    end
   end
 
   desc "replaces languages in incorrect formats and seeds all correct formats"

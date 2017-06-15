@@ -85,6 +85,6 @@
   <hr />
   
   <p class="left-indent">
-    <%= _('Institution not a DMPTool partner?') %> <a href="#header-register-form" data-toggle="modal"><%= _('Create an account with any email address')%></a>
+    <%= _('Institution not a %{application_name} partner?') % {application_name: Rails.configuration.branding[:application][:name]} %> <a href="#header-register-form" data-toggle="modal"><%= _('Create an account with any email address')%></a>
   </p>
 </div>

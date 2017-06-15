@@ -63,7 +63,7 @@
 
     <!-- Suggested answer or Example-->
     <% if !question.section.phase.template.org.funder? %>
-      <% example_answer = question.get_example_answer(current_user.org_id) %>
+      <% example_answer = question.get_example_answer(@original_org.id) %>
       <% if example_answer.present?  && example_answer.text.present?  %>
         <tr>
           <td class="first_template">
@@ -74,7 +74,7 @@
       <% end %>
     <% end %>
     <!-- Guidance linked to this question -->
-    <% guidance = question.get_guidance_annotation(current_user.org_id) %>
+    <% guidance = question.get_guidance_annotation(@original_org.id) %>
     <% if guidance.present?  %>
       <tr>
         <td class="first_template"><%= _('Guidance')%></td>

@@ -2,7 +2,7 @@
 
 /* Roadmap Tab Styling */
 /* ------------------------------------------------ */
-.tabs #user_profile.tabs {
+.tabs {
   list-style: none;
   margin: 0;
 
@@ -33,7 +33,7 @@
     z-index: 1;
   }
 }
-.tabs:after #user_profile.tabs:after {
+.tabs:after {
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -41,11 +41,11 @@
   clear: both;
   height: 0;
 }
-.tab-panels #user_profile.tab-panels {
+.tab-panels {
   position: relative;
-  min-height: 400px;
+  min-height: 350px;
 }
-.tabbed-area div.tab-panel #user_profile.tabbed-area #user-profile.tab-panel {
+.tabbed-area div.tab-panel {
   padding: 10px 10px;
   min-height: 300px;
   position: absolute;
@@ -58,6 +58,6 @@
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.tab-panel div.active #user_profile.tab-panel {
+.tab-panel div.active {
   z-index: 1;
 }

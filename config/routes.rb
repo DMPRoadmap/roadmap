@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
-  get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'  # if an org id is present passthru to shib
+  get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
 
   #ActiveAdmin.routes(self)
@@ -255,8 +255,7 @@ Rails.application.routes.draw do
 
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
-        resources :guidance_groups, only: [:index, :show]
-        resources :guidances, only: [:index, :show]
+        resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
         resources :plans, only: :create
         resources :templates, only: :index
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do

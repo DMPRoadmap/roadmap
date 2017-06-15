@@ -17,12 +17,12 @@
       </ul>
 
       <div class="tab-panels" role="tabpanel">
-        <div id="personal-details-panel" class="tab-panel active centered" aria-hidden="false"
+        <div id="personal-details-panel" class="tab-panel active" aria-hidden="false"
              aria-labelledby="personal-details-tab">
           <%= render partial: 'devise/registrations/personal_details', f: f %>
         </div>
 
-        <div id="password-panel" aria-hidden="true" class="tab-panel" role="tabpanel"
+        <div id="password-details-panel" aria-hidden="true" class="tab-panel" role="tabpanel"
              aria-labelledby="password-tab">
           <%= render partial: 'devise/registrations/password_details', f: f %>
         </div>
@@ -36,7 +36,7 @@
 
     <br/>
 
-    <div class="form-input">
+    <div class='form-input'>
       <label></label>
       <%= render partial: 'shared/accessible_submit_button',
                  locals: {id: 'update',
@@ -44,6 +44,30 @@
                           disabled_initially: true,
                           classes: 'small-input-button',
                           tooltip: _('Enter all of the required information above')} %>
+      <%= link_to 'Cancel', '#', style: 'text-decoration:none;'  %>
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(".tab-panels div.tab-panel:not(.active)").hide();
+
+  $(".tabs li a").click(function(e){
+    e.preventDefault();
+
+    // Make the clicked tab the active tab
+    $(this).parent().addClass('active');
+    $(this).attr('aria-selected', 'true');
+    $.each($(this).parent().siblings(), function(i, sib){
+      $(sib).removeClass('active');
+      $(sib).find('> a').attr('aria-selected', 'false');
+    });
+
+    // Make the corresponding panel visible and the others hidden
+    let panel = $($(this).attr("href"));
+    panel.show().attr("aria-hidden", 'false');
+    $.each($(panel).siblings(), function(i, p){
+      $(p).hide().attr("aria-hidden", 'true');
+    });
+  });
+</script>
