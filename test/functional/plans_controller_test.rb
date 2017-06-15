@@ -74,7 +74,6 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:orgs)
     assert assigns(:funders)
     assert assigns(:default_org)
-    assert assigns(:is_test)
   end
 
   # POST /plans (plans_path)
@@ -161,8 +160,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     post duplicate_plan_path(@plan, format: :js)
     @duplicate_plan = Plan.last
     assert_equal _('Plan was successfully duplicated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to plan_url(@duplicate_plan)
+    assert_response :success
     assert assigns(:plan)
     assert_equal 'Copy of Test Plan', @duplicate_plan.title, "Copy of"
   end

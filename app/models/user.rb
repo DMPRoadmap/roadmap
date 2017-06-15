@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
 
 
   validates :prefs, presence: true
-  before_create :create_default_preferences
+  before_validation :create_default_preferences
 
   ##
   # Scopes
@@ -283,7 +283,8 @@ class User < ActiveRecord::Base
   ##
   # User Notification Preferences
   def create_default_preferences
-    self.prefs = self.class.create_default_preferences
+    # Set the default preferences if this is a new user
+    self.prefs = self.class.create_default_preferences if self.id.nil?
   end
 
   def self.create_default_preferences
