@@ -8,9 +8,7 @@
         <% letter = org.name[0].capitalize %>
       <% end %>
 
-      <li>
-        <a href="<%= "#{shibboleth_ds_path}/#{org.id}" %>"><%= org.name %></a>
-      </li>
+      <li><a href="<%= "#{shibboleth_ds_path}/#{org.id}" %>"><%= org.name %></a></li>
     <% end %>
   </ul>
 </div>
