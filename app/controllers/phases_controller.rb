@@ -120,9 +120,9 @@ class PhasesController < ApplicationController
     end
     if @phase.template.customization_of.present?
       @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
-    else 
-      @original_org = @phase.template.org 
-    end 
+    else
+      @original_org = @phase.template.org
+    end
   end
 
 
@@ -184,6 +184,11 @@ class PhasesController < ApplicationController
       @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
       flash[:notice] = failed_update_error(@phase, _('phase'))
+      if @phase.template.customization_of.present?
+        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+      else
+        @original_org = @phase.template.org
+      end
       render 'admin_show'
     end
   end
@@ -208,6 +213,11 @@ class PhasesController < ApplicationController
       @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
       flash[:notice] = failed_destroy_error(@phase, _('phase'))
+      if @phase.template.customization_of.present?
+        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+      else
+        @original_org = @phase.template.org
+      end
       render 'admin_show'
     end
   end
