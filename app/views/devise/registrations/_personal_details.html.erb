@@ -1,115 +1,122 @@
-<p>
-  <%= _("Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.") %>
-</p>
-<!-- Edit Profile -->
-<fieldset class="side-by-side">
-  <legend><%= _('You can edit any of the details below.') %></legend>
+<div style="width: 80%; float:left">
+  <!-- Edit Profile -->
+  <fieldset class="side-by-side">
+    <legend><%= _('You can edit any of the details below.') %></legend>
 
-  <%#= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
+    <%#= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
 
-  <div class="form-input">
-    <label for="user_email"><%= _('Email') %>*</label>
-    <input type="email" id="user_email" name="user[email]"
-           class="left-indent required input-medium"
-           title="<%= _('Please enter your current password below when changing your email address.') %>"
-           value="<%= @user.email %>" />
-    <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
-  </div>
-
-  <div class="form-input">
-    <label for="user_firstname"><%= _('First Name') %>*</label>
-    <input type="text" id="user_firstname" name="user[firstname]"
-           class="input-small required left-indent"
-           value="<%= @user.firstname %>" />
-  </div>
-  <div class="form-input">
-    <label for="user_surname"><%= _('Last Name') %>*</label>
-    <input type="text" id="user_surname" name="user[surname]"
-           class="input-small required left-indent"
-           value="<%= @user.surname %>" />
-  </div>
-
-  <div class="form-input">
-    <label for="user_recovery_email"><%= _('Recovery Email') %>*</label>
-    <input type="email" id="user_recovery_email" name="user[recovery_email]"
-           class="left-indent required input-medium"
-           title="<%= _('This email will be used to recover your account if you change institutions') %>"
-           value="<%= @user.recovery_email %>" />
-    <span role="" id="recovery_email_error"
-          class="error-tooltip-right left-indent"></span>
-  </div>
-
-  <div class="form-input">
-    <label for="user_surname"><%= _('Organisation') %></label>
-    <%= render partial: "shared/accessible_combobox",
-               locals: {name: "#{resource_name}[org_name]",
-                        id: "#{resource_name}_org_name",
-                        default_selection: @default_org,
-                        models: @orgs,
-                        attribute: 'name',
-                        classes: 'fixed-width-large left-indent'} %>
-  </div>
-
-  <% if MANY_LANGUAGES %>
     <div class="form-input">
-      <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
-      <label for="user_surname"><%= _('Language') %></label>
-      <select id="user_language_id" name="user[language_id]"
-              class="input-medium left-indent">
-        <%= @languages.each do |l| %>
-          <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
-            <%= l.name %>
-          </option>
-        <% end %>
-      </select>
+      <label for="user_email"><%= _('Email') %>*</label>
+      <input type="email" id="user_email" name="user[email]"
+             class="left-indent required input-medium"
+             title="<%= _('Please enter your current password below when changing your email address.') %>"
+             value="<%= @user.email %>" />
+      <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
     </div>
-  <% end %>
 
-  <% @identifier_schemes.each do |scheme| %>
-    <%
-    if scheme.name != 'shibboleth' ||
-       (scheme.name == 'shibboleth' && Rails.application.config.shibboleth_enabled)
-    %>
+    <div class="form-input">
+      <label for="user_firstname"><%= _('First Name') %>*</label>
+      <input type="text" id="user_firstname" name="user[firstname]"
+             class="input-small required left-indent"
+             value="<%= @user.firstname %>" />
+    </div>
+    <div class="form-input">
+      <label for="user_surname"><%= _('Last Name') %>*</label>
+      <input type="text" id="user_surname" name="user[surname]"
+             class="input-small required left-indent"
+             value="<%= @user.surname %>" />
+    </div>
+
+    <div class="form-input">
+      <label for="user_recovery_email"><%= _('Recovery Email') %>*</label>
+      <input type="email" id="user_recovery_email" name="user[recovery_email]"
+             class="left-indent required input-medium"
+             title="<%= _('This email will be used to recover your account if you change institutions') %>"
+             value="<%= @user.recovery_email %>" />
+      <span role="" id="recovery_email_error"
+            class="error-tooltip-right left-indent"></span>
+    </div>
+
+    <div class="form-input">
+      <label for="user_surname"><%= _('Organisation') %></label>
+      <%= render partial: "shared/accessible_combobox",
+                 locals: {name: "#{resource_name}[org_name]",
+                          id: "#{resource_name}_org_name",
+                          default_selection: @default_org,
+                          models: @orgs,
+                          attribute: 'name',
+                          classes: 'fixed-width-large left-indent'} %>
+    </div>
+
+    <% if MANY_LANGUAGES %>
       <div class="form-input">
-        <label>
-            <% if scheme.logo_url.nil? %>
-                <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
-            <% else %>
-                <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
-            <% end %>
-       </label>
-        <div class="identifier-scheme left-indent">
-          <%= render partial: 'external_identifier',
-                     locals: {scheme: scheme,
-                              id: current_user.identifier_for(scheme)} %>
-        </div>
+        <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
+        <label for="user_surname"><%= _('Language') %></label>
+        <select id="user_language_id" name="user[language_id]"
+                class="input-medium left-indent">
+          <%= @languages.each do |l| %>
+            <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
+              <%= l.name %>
+            </option>
+          <% end %>
+        </select>
       </div>
     <% end %>
-  <% end %>
 
-  <% unless @user.api_token.blank? %>
-    <div class="form-input">
-      <%= f.label :api_token, _('API token') %>
-      <div class="input-medium"><%= @user.api_token %></div>
+    <% @identifier_schemes.each do |scheme| %>
+      <%
+      if scheme.name != 'shibboleth' ||
+         (scheme.name == 'shibboleth' && Rails.application.config.shibboleth_enabled)
+      %>
+        <div class="form-input">
+          <label>
+              <% if scheme.logo_url.nil? %>
+                  <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
+              <% else %>
+                  <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
+              <% end %>
+         </label>
+          <div class="identifier-scheme left-indent">
+            <%= render partial: 'external_identifier',
+                       locals: {scheme: scheme,
+                                id: current_user.identifier_for(scheme)} %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 
-      <label><%= _('API Information') %></label>
-      <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+    <% unless @user.api_token.blank? %>
+      <div class="form-input">
+        <%= f.label :api_token, _('API token') %>
+        <div class="input-medium"><%= @user.api_token %></div>
+
+        <label><%= _('API Information') %></label>
+        <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+      </div>
+    <% end %>
+  </fieldset>
+
+
+
+  <!-- alert for the default template-->
+  <div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
+    <div class="modal-header">
+      <h3><%= _('Unlink institutional credentials alert') %></h3>
     </div>
-  <% end %>
-</fieldset>
-
-
-
-<!-- alert for the default template-->
-<div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
-  <div class="modal-header">
-    <h3><%= _('Unlink institutional credentials alert') %></h3>
-  </div>
-  <div class="modal-body">
-    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
-    <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
+    <div class="modal-body">
+      <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
+    </div>
+    <div class="modal-footer">
+      <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
+      <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
+    </div>
   </div>
 </div>
+
+<div style="width: 20%; float:right">
+  <p>
+    <%= _("Please note that your email address is used as your username.
+    If you change this, remember to use your new email address on sign in.") %>
+  </p>
+</div>
+
