@@ -28,6 +28,10 @@
 				<td class="first"><%= _('Abbreviation') %></td>
 				<td><%= @org.abbreviation %></td>
 			</tr>
+      <% else %>
+      <tr>
+        <td class="first"><%= _('Abbreviation') %></td>
+        <td><emph><%= _('Please add an abbreviation to your org for display with annotations!')%></emph></td>
 			<% end %>
 
       <% if @org.banner_text.present? then %>

@@ -35,10 +35,15 @@ class QuestionsController < ApplicationController
         @question_id = @question.id
 
         flash[:notice] = failed_create_error(@question, _('question'))
+        if @phase.template.customization_of.present?
+          @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        else
+          @original_org = @phase.template.org
+        end
         render template: 'phases/admin_show'
       end
     rescue ActionController::ParameterMissing => e
-      flash[:notice] = e.message    
+      flash[:notice] = e.message
     end
   end
 
@@ -46,7 +51,7 @@ class QuestionsController < ApplicationController
   def admin_update
     @question = Question.find(params[:id])
     authorize @question
-    guidance = @question.get_guidance_annotation(current_user.org_id) 
+    guidance = @question.get_guidance_annotation(current_user.org_id)
     if params["question-guidance-#{params[:id]}"].present?
       if guidance.blank?
         guidance = @question.annotations.build
@@ -76,6 +81,11 @@ class QuestionsController < ApplicationController
       @question_id = @question.id
 
       flash[:notice] = failed_update_error(@question, _('question'))
+      if @phase.template.customization_of.present?
+        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+      else
+        @original_org = @phase.template.org
+      end
       render template: 'phases/admin_show'
     end
   end
@@ -89,7 +99,7 @@ class QuestionsController < ApplicationController
     if @question.destroy
       @phase.template.dirty = true
       @phase.template.save!
-      
+
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
     else
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: failed_destroy_error(@question, 'question')

@@ -12,7 +12,9 @@
             <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li>
           <% end %>
           <% if current_user.can_org_admin? && !current_user.org_id.nil? %>
-            <% if current_user.can_modify_templates? %>
+            <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %>
+              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+            <% elsif  current_user.can_modify_templates?%>
               <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
             <% elsif current_user.can_modify_guidance? %>
               <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
