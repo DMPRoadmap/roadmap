@@ -58,8 +58,7 @@ class User < ActiveRecord::Base
 
 
   validates :prefs, presence: true
-  before_validation :create_default_preferences, if: Proc.new { |x| x.prefs.empty? }
-  ## user.prefs = create_default_preferences
+  before_create :create_default_preferences
 
   ##
   # Scopes
