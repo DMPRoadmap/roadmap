@@ -11,13 +11,15 @@ $dark-grey: #333;
 $medium-grey: #827D7E;
 $light-grey: #CCC;
 
-$primary-color: #CC7A00;
-$primary-admin-color: #CC7A00;
+$primary-color: #F17D04;
+$primary-admin-color: #F17D04;
 $disabled-button-color: #CCC;
-$cancel-button-color: #36421A;
+$cancel-button-color: #F17D04;
 $reverse-text: #FFF;
 
-$header-height: 100px;
+$header-gradient-light: #F59503;
+$header-gradient-dark: #ED6406;
+$header-height: 160px;
 
 /* See `.combobox-clear-button` for an example of this mixin in use */
 @mixin icon($icon) {
@@ -53,12 +55,13 @@ a, a:hover, a:visited, a:active, a:link {
 
 .main_header {
   margin-bottom: 20px;
-  
+  background: linear-gradient($header-gradient-dark, $header-gradient-light);
+
   div.header_left {
     width: auto;
   
     .home_logo {
-      margin: 25px 10px 30px 10px;
+      margin: 0 10px 0 0;
     }
   }
 }

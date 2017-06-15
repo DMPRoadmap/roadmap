@@ -90,6 +90,9 @@ ul.question_right_column_ul li.active a:hover, ul.question_right_column_ul li.ac
   background-color: $primary-color;
 }
 
+.header_org_banner_text,
+.header_org_banner_text a, .header_org_banner_text a:link, .header_org_banner_text a:visited,
+.header_org_banner_text a:active, .header_org_banner_text a:focus,
 .accordion_heading_text {
   color: $white;
 }
@@ -101,7 +104,6 @@ ul.question_right_column_ul li.active a:hover, ul.question_right_column_ul li.ac
   position: relative;
   height: auto;
   width: 100%;
-  background-color: $primary-color;  
 }
 div.header_left, div.header_right {
   position: relative;
@@ -116,6 +118,9 @@ div.header_right {
   width: 75%;
   position: absolute;
   bottom: 0;
+}
+div.header_org_banner_text_vertical_align {
+  margin-top: -20px;
 }
 div.signin_signout_header_link {
   position: absolute;

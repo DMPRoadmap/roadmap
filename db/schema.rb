@@ -381,16 +381,16 @@ ActiveRecord::Schema.define(version: 20170607154433) do
   create_table "users", force: :cascade do |t|
     t.string   "firstname",              limit: 255
     t.string   "surname",                limit: 255
-    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "email",                  limit: 255,   default: "", null: false
     t.string   "orcid_id",               limit: 255
     t.string   "shibboleth_id",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     limit: 255, default: ""
+    t.string   "encrypted_password",     limit: 255,   default: ""
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0
+    t.integer  "sign_in_count",          limit: 4,     default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -410,6 +410,7 @@ ActiveRecord::Schema.define(version: 20170607154433) do
     t.string   "invited_by_type",        limit: 255
     t.integer  "language_id",            limit: 4
     t.string   "recovery_email",         limit: 255
+    t.binary   "prefs",                  limit: 65535
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
