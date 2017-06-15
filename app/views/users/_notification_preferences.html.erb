@@ -1,0 +1,49 @@
+<p><%= link_to 'Select all', '#', id: 'select_all' %> |
+<%= link_to 'Deselect all', '#', id: 'deselect_all' %></p>
+
+<fieldset class="preferences">
+  <p><strong>All Users</strong></p>
+	<div>
+		<%=  check_box_tag 'prefs[users][permission_granted]', true, @user.prefs[:users][:permission_granted] %>
+		<%= label_tag 'prefs[users][permission_granted]', 'New permissions granted to me', :class => 'checkbox-label' %>
+	</div>
+  <div>
+		<%=  check_box_tag 'prefs[users][new_comment]', true, @user.prefs[:users][:new_comment] %>
+		<%= label_tag 'prefs[users][new_comment]', 'A new comment has been added to my DMP', :class => 'checkbox-label' %>
+	</div>
+	<br/>
+
+	<p><strong>DMP owners and co-owners</strong></p>
+  <div>
+    <%=  check_box_tag 'prefs[owners_and_coowners][visibility_changed]', true, @user.prefs[:owners_and_coowners][:visibility_changed] %>
+    <%= label_tag 'prefs[owners_and_coowners][visibility_changed]', "My DMP's visibility has changed", :class => 'checkbox-label' %>
+  </div>
+  <div>
+    <%=  check_box_tag 'prefs[owners_and_coowners][user_added]', true, @user.prefs[:owners_and_coowners][:user_added] %>
+    <%= label_tag 'prefs[owners_and_coowners][user_added]', 'I have been made a co-owner of a DMP', :class => 'checkbox-label' %>
+	</div>
+
+	<br/>
+	<p><strong>DMP administrators</strong></p>
+  <div>
+		<%=  check_box_tag 'prefs[admins][template_published]', true, @user.prefs[:admins][:template_published] %>
+		<%= label_tag 'prefs[admins][template_published]', 'An organisational template is published', :class => 'checkbox-label' %>
+	</div>
+  <div>
+		<%=  check_box_tag 'prefs[admins][template_unpublished]', true, @user.prefs[:admins][:template_unpublished] %>
+		<%= label_tag 'prefs[admins][template_unpublished]', 'An organisational template is unpublished', :class => 'checkbox-label' %>
+	</div>
+</fieldset>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#select_all").click(function() {
+		$('.preferences').find('input[type="checkbox"]').prop('checked', true);;
+	});
+
+	$("#deselect_all").click(function() {
+		$('.preferences').find('input[type="checkbox"]').prop('checked', false);;
+	});
+});
+</script>

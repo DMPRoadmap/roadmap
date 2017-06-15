@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   ##
   # Dynamically build a handler for each omniauth provider
   # -------------------------------------------------------------
@@ -59,9 +60,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to edit_user_registration_path
     end
   end
+
   # -------------------------------------------------------------
-
-
   def failure
     redirect_to root_path
   end

@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
 <h1>
@@ -16,6 +15,7 @@
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
+    <div class="dmp_details_body">
 		<%= form_for :guidance_group, url: {action: "admin_create"} do |f| %>
 
 				<table class="dmp_details_table guidance_table">
@@ -48,5 +48,6 @@
 				</div>
 			<br />
 		<% end %>
+  	</div>
 	</div>
 </div>

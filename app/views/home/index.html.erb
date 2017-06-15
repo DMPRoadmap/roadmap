@@ -1,56 +1,52 @@
-<div class="content">
-	<div class="home_left_column">	
-		<div class="welcome-message">
-			
-			<h2><%= _('Welcome.')%></h2>
-			<%= raw _('<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {:application_name => Rails.configuration.branding[:application][:name], :organisation_name => Rails.configuration.branding[:organisation][:name]} %>						
-			<div class="screencast_home_page">
-				<p><%= _('Screencast on how to use %{application_name}') % {:application_name => Rails.configuration.branding[:application][:name]} %></p>
-				<div class="clear"></div>				
-				<video controls="controls" poster="<%= asset_path('screencast.jpg')%>" style="width:100%; height:200" title="1662">
-					<source src="<%= asset_path('index.files/html5video/screencast.mp4')%>" type="video/mp4" />
-					<source src="<%= asset_path('index.files/html5video/screencast.webm')%>" type="video/webm" />
-					<source src="<%= asset_path('index.files/html5video/screencast.ogv')%>" type="video/ogg" />
-					<object type="application/x-shockwave-flash" data="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;">
-						<param name="movie" value="<%= asset_path('index.files/html5video/flashfox.swf')%>" />
-						<param name="allowFullScreen" value="true" />
-						<param name="flashVars" value="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>" />
-			 			<embed src="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;"  flashVars="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>"	allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
-						<img alt="screencast" src="<%= asset_path('screencast.jpg')%>" style="position:absolute;left:0;" width="100%" title="<%= _('Your browser does not support the video tag.')%>" />
-					</object>
-				</video>
-			</div>	
-		</div>
-	</div>
-	<div class="home_right_column">	
-		<div class="accordion" id="homepage-accordion">
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#homepage-accordion" href="#collapse-login">
-						<%= _('Sign in')%><span class="minus-laranja"> </span></a>
-				</div>
-				<div id="collapse-login" class="accordion-home collapse in">
-					<div class="accordion-inner">
-						<%= render :partial => 'shared/login_form' %>
-					</div>
-				</div>
-			</div>
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#homepage-accordion" href="#collapse-register">
-						<%= _('Create account') %><span class="plus-laranja"> </span></a>
-					<p>
-						<%= _('New to %{application_name}? Create an account today.') % {:application_name => Rails.configuration.branding[:application][:name]} %>
-					</p>
-					
-				</div>
-				<div id="collapse-register" class="accordion-home collapse">
-					<div class="accordion-inner">
-						<%= render :partial => 'shared/register_form', locals: {extended: false} %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
-	<div class="two-column-clear"></div>
+<%= javascript 'home/index.js' %>
+
+<h1><%= _('Welcome.')%></h1>
+
+<div class="content-two-column">
+  <div class="column-left">        
+    <%= raw _('<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {:application_name => Rails.configuration.branding[:application][:name], :organisation_name => Rails.configuration.branding[:organisation][:name]} %>            
+    <div class="screencast_home_page">
+      <p><%= _('Screencast on how to use %{application_name}') % {:application_name => Rails.configuration.branding[:application][:name]} %></p>
+      <div class="clear"></div>        
+      <video controls="controls" poster="<%= asset_path('screencast.jpg')%>" style="width:100%; height:200" title="1662">
+        <source src="<%= asset_path('index.files/html5video/screencast.mp4')%>" type="video/mp4" />
+        <source src="<%= asset_path('index.files/html5video/screencast.webm')%>" type="video/webm" />
+        <source src="<%= asset_path('index.files/html5video/screencast.ogv')%>" type="video/ogg" />
+        <object type="application/x-shockwave-flash" data="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;">
+          <param name="movie" value="<%= asset_path('index.files/html5video/flashfox.swf')%>" />
+          <param name="allowFullScreen" value="true" />
+          <param name="flashVars" value="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>" />
+           <embed src="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;"  flashVars="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>"  allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
+          <img alt="screencast" src="<%= asset_path('screencast.jpg')%>" style="position:absolute;left:0;" width="100%" title="<%= _('Your browser does not support the video tag.')%>" />
+        </object>
+      </video>  
+    </div>
+  </div>
+  
+  <div class="column-right">
+    <div class="tabbed-area">
+      <ul class="tabs" role="tablist">
+        <li id="sign-in-tab" class="active" role="tab" aria-controls="sign-in-panel">
+          <a href="#sign-in-panel" aria-selected="true"><%= _('Sign In') %></a>
+        </li>
+        <li id="create-account-tab" role="tab" aria-controls="create-account-panel">
+          <a href="#create-account-panel" aria-selected="false"><%= _('Create Account') %></a>
+        </li>
+      </ul>
+    
+      <div class="tab-panels" role="tabpanel">
+        <div id="sign-in-panel" class="tab-panel active centered" aria-hidden="false" 
+             aria-labelledby="sign-in-tab">
+          <%= render :partial => 'shared/login_form' %>
+        </div>
+        
+        <div id="create-account-panel" aria-hidden="true" class="tab-panel" role="tabpanel" 
+             aria-labelledby="create-account-tab">
+          <%= render :partial => 'shared/register_form', locals: {extended: false} %>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="two-column-clear"></div>
 </div>

@@ -16,14 +16,16 @@ class PlansController < ApplicationController
   def new
     @plan = Plan.new
     authorize @plan
-    
+
     # Get all of the available funders and non-funder orgs
     @funders = Org.funders.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
     @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
-    
+
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
-      
+
+    @is_test = params[:test] ||= false
+
     respond_to :html
   end
 
@@ -32,31 +34,34 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-    
+
     @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
     @plan.data_contact = current_user.email
     @plan.funder_name = plan_params[:funder_name]
-    
+
+    @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
+                                                           plan_params[:visibility])
+
     # If a template hasn't been identified look for the available templates
     if plan_params[:template_id].blank?
       template_options(plan_params[:org_id], plan_params[:funder_id])
 
       # Return the 'Select a template' section
       respond_to do |format|
-        format.js {} 
+        format.js {}
       end
-    
+
     # Otherwise create the plan
     else
       @plan.template = Template.find(plan_params[:template_id])
-      
+
       if plan_params[:title].blank?
-        @plan.title = current_user.firstname.blank? ? _('My Plan') + '(' + @plan.template.title + ')' : 
+        @plan.title = current_user.firstname.blank? ? _('My Plan') + '(' + @plan.template.title + ')' :
                                     current_user.firstname + "'s" + _(" Plan")
       else
         @plan.title = plan_params[:title]
       end
-      
+
       if @plan.save
         @plan.assign_creator(current_user)
         
@@ -67,13 +72,13 @@ class PlansController < ApplicationController
         if !ggs.blank? then @plan.guidance_groups << ggs end 
     
         default = Template.find_by(is_default: true)
-        
+
         msg = "#{_('Plan was successfully created.')} "
-        
+
         if !default.nil? && default == @plan.template
           # We used the generic/default template
           msg += _('This plan is based on the default template.')
-                 
+
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
           msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
@@ -82,9 +87,9 @@ class PlansController < ApplicationController
           # We used the specified org's or funder's template
           msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
         end
-        
+
         flash[:notice] = msg
-        
+
         respond_to do |format|
           format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
         end
@@ -93,7 +98,7 @@ class PlansController < ApplicationController
         # Something went wrong so report the issue to the user
         flash[:notice] = failed_create_error(@plan, 'Plan')
         respond_to do |format|
-          format.js {} 
+          format.js {}
         end
       end
     end
@@ -105,6 +110,7 @@ class PlansController < ApplicationController
   def show
     @plan = Plan.eager_load(params[:id])
     authorize @plan
+
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
@@ -115,8 +121,8 @@ class PlansController < ApplicationController
     @important_ggs = []
     @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
     @all_ggs_grouped_by_org.each do |org, ggs|
-      if org.organisation? 
-        @important_ggs << [org,ggs] 
+      if org.organisation?
+        @important_ggs << [org,ggs]
         @all_ggs_grouped_by_org.delete(org)
       end
     end
@@ -157,8 +163,11 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
+    attrs = plan_params
+    attrs['visibility'] = Rails.application.config.default_plan_visibility if plan_params['visibility'].blank?
+
     respond_to do |format|
-      if @plan.update_attributes(params[:plan])
+      if @plan.update_attributes(attrs)
         format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
         format.json { head :no_content }
       else
@@ -384,12 +393,42 @@ class PlansController < ApplicationController
     end
   end
 
-
+  def duplicate
+    plan = Plan.find(params[:id])
+    authorize plan
+    @plan = Plan.deep_copy(plan)
+    respond_to do |format|
+      if @plan.save
+        @plan.assign_creator(current_user)
+        flash[:notice] = 'Plan was successfully duplicated.'
+        format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
+        # format.html { redirect_to @plan, notice: _('Plan was successfully duplicated.') }
+        # format.json { head :no_content }
+      else
+        flash[:notice] = failed_create_error(@plan, 'Plan')
+        format.js {}
+      end
+    end
+  end
+  
+  # AJAX access to update the plan's visibility
+  # POST /plans/:id
+  def visibility
+    plan = Plan.find(params[:id])
+    authorize plan
+    plan.visibility = "#{plan_params[:visibility]}"
+    if plan.save
+      render json: {code: 1, msg: ''}
+    else
+      render json: {code: 0, msg: _("Unable to change the plan's Test status")}
+    end
+  end
+  
 
   private
 
-  def plan_params 
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title)
+  def plan_params
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility)
   end
 
   # different versions of the same template have the same dmptemplate_id
@@ -459,7 +498,7 @@ class PlansController < ApplicationController
   # --------------------------------------------------------------------------
   def template_options(org_id, funder_id)
     @templates = []
-    
+
     if !org_id.blank? || !funder_id.blank?
       if funder_id.blank?
         # Load the org's template(s)
@@ -468,7 +507,7 @@ class PlansController < ApplicationController
           @templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
           @msg = _("We found multiple DMP templates corresponding to the research organisation.") if @templates.count > 1
         end
-        
+
       else
         funder = Org.find(funder_id)
         # Load the funder's template(s)
@@ -476,7 +515,7 @@ class PlansController < ApplicationController
         
         unless org_id.blank?
           org = Org.find(org_id)
-          
+
           # Swap out any organisational cusotmizations of a funder template
           @templates.each do |tmplt|
             customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
@@ -486,17 +525,17 @@ class PlansController < ApplicationController
             end
           end
         end
-        
+
         msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
       end
     end
-    
+
     # If no templates were available use the generic templates
     if @templates.empty?
       @msg = _("Using the generic Data Management Plan")
       @templates << Template.find_by(is_default: true)
     end
-    
+
     @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
   end
 

@@ -8,64 +8,52 @@
                                      organisation_url: Rails.configuration.branding[:organisation][:url],
                                      application_name: Rails.configuration.branding[:application][:name]} %>
 </p>
-<div class="column_container">
+<div class="column_container" id="contact-us">
   <!-- left column  content -->
   <div class="column_left">
     <div class="white_background">
       <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
         <fieldset class="side-by-side">
           <% if ContactUs.require_name %>
-            <div>
-              <%= f.label :name, (_('Name') + content_tag(:abbr, "*", class: "required")).html_safe %>
-              <% if user_signed_in? then %>
-                <%= f.text_field :name, value: current_user.name(false) %>
-              <% else %>
-                <%= f.text_field :name %>
-              <% end %>
-              <% if f.object.errors[:name].present? %>
-                <p class="inline-error"><%= f.object.errors[:name].join(_(" and ")) %></p>
-              <% end %>
+            <div class="form-input">
+              <label for="contact_us_contact_name"><%= _('Name') %>*</label>
+              <input type="text" id="contact_us_contact_name" name="contact_us[contact_name]" 
+                     class="left-indent required" <%= current_user.nil? ? '' : "value=\"#{current_user.name}\" disabled=\"true\"" %> />
             </div>
           <% end %>
           
-          <div>
-            <%= f.label :email, (_('Email') + content_tag(:abbr, "*", class: "required")).html_safe %>
-            <% if user_signed_in? then %>
-              <%= f.email_field :email, value: current_user.email %>
-            <% else %>
-              <%= f.email_field :email %>
-            <% end %>
-            <% if f.object.errors[:email].present? %>
-              <p class="inline-error"><%= f.object.errors[:email].join(_(" and ")) %></p>
-            <% end %>
+          <div class="form-input">
+            <label for="contact_us_contact_email"><%= _('Email') %>*</label>
+            <input type="email" id="contact_us_contact_email" name="contact_us[contact_email]" 
+                   class="left-indent required" <%= current_user.nil? ? '' : 
+                                                    "value=\"#{current_user.name}\" disabled=\"true\"" %> />
+            <span role="" id="contact_us_contact_email_error" class="error-tooltip-right left-indent"></span>
           </div>
           
           <% if ContactUs.require_subject %>
-            <div>
-              <%= f.label :subject, (_('Subject') + content_tag(:abbr, "*", class: "required")).html_safe %>
-              <%= f.text_field :subject %>
-              <% if f.object.errors[:subject].present? %>
-                <p class="inline-error"><%= f.object.errors[:subject].join(_(" and ")) %></p>
-              <% end %>
+            <div class="form-input">
+              <label for="contact_us_contact_subject align-top"><%= _('Subject') %>*</label>
+              <input type="text" id="contact_us_contact_subject" name="contact_us[contact_subject]" 
+                     class="left-indent required" />
             </div>
           <% end %>
           
-          <div>
-            <%= f.label :message, (_('Message') + content_tag(:abbr, "*", class: "required")).html_safe %>
-            <%= f.text_area :message, rows: 10, class: "input-large" %>
-            <% if f.object.errors[:message].present? %>
-              <p class="inline-error"><%= f.object.errors[:message].join(_(" and ")) %></p>
-            <% end %>
+          <div class="form-input">
+            <label for="contact_us_contact_message align-top"><%= _('Message') %>*</label>
+            <textarea id="contact_us_contact_message" name="contact_us[contact_message]" rows="10" 
+                      class="left-indent required"></textarea>
           </div>
           
           <% if !user_signed_in? then %>
-            <div>
-              <%= t('helpers.security_check') %>
-              <%= recaptcha_tags %>
+            <div class="form-input">
+              <label class="align-top"><%= _('Security check') %>*</label>
+              <div class="inline left-indent">
+                <%= recaptcha_tags %>
+              </div>
             </div>
           <% end %>
           
-          <div>
+          <div class="form-input">
             <label></label>
             <%= render partial: 'shared/accessible_submit_button',
                        locals: {id: 'create_contact_submit', 

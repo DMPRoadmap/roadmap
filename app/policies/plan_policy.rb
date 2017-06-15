@@ -39,13 +39,21 @@ class PlanPolicy < ApplicationPolicy
   def destroy?
     @plan.editable_by?(@user.id)
   end
-  
+
   def status?
     @plan.readable_by?(@user.id)
   end
-  
+
   def possible_templates?
     @plan.id.nil?
+  end
+
+  def duplicate?
+    @plan.editable_by?(@user.id)
+  end
+  
+  def visibility?
+    @plan.administerable_by?(@user.id)
   end
 
 # TODO: These routes are no lonmger used

@@ -129,5 +129,4 @@ class Guidance < ActiveRecord::Base
     # pass the list of viewable guidances to the view
     return all_viewable_guidances.flatten
   end
-
 end

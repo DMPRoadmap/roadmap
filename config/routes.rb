@@ -31,26 +31,30 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: {
-        registrations: "registrations", 
-        passwords: 'passwords', 
-        sessions: 'sessions', 
+        registrations: "registrations",
+        passwords: 'passwords',
+        sessions: 'sessions',
         omniauth_callbacks: 'users/omniauth_callbacks'} do
-        
+
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
-  
+
   # WAYFless access point - use query param idp
   #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
   #post '/auth/:provider/callback' => 'sessions#oauth_create'
-  
+
   # fix for activeadmin signout bug
   devise_scope :user do
     delete '/users/sign_out' => 'devise/sessions#destroy'
   end
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
-  
+
+  get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
+  get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
+  post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
+
   #ActiveAdmin.routes(self)
 
   #organisation admin area
@@ -77,10 +81,10 @@ Rails.application.routes.draw do
     get "public_plans" => 'static_pages#public_plans'
     get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
     get "existing_users" => 'existing_users#index'
-  
+
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
-    
+
     resources :orgs, :path => 'org/admin', only: [] do
       member do
         get 'children'
@@ -201,8 +205,10 @@ Rails.application.routes.draw do
         get 'section_answers'
         get 'share'
         get 'show_export'
+        post 'duplicate'
         get 'export'
         post 'invite'
+        post 'visibility', constraints: {format: [:json]}
       end
 
       collection do

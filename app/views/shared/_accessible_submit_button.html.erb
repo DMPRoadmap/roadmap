@@ -1,14 +1,11 @@
 <input id="<%= id %>" 
        type="submit" 
-       class="form-submit" 
+       class="form-submit <%= classes ||= '' %>" 
        value="<%= val %>"
        aria-disabled="<%= disabled_initially %>"
        aria-describedby="<%= id %>_tip" />
 
-<div role="tooltip" id="<%= id %>_tip" class="submit-tooltip">
-  <div class="arrow-left"></div>
-  <span class="submit-tooltip-msg"><%= tooltip %></span>
-</div>
+<span role="" class="submit-tooltip left-indent"><%= tooltip %></span>
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -16,10 +13,12 @@
     $("#<%= id %>").on('click focus', function(e){
       if($(this).attr('aria-disabled') == 'true'){
         e.preventDefault();
-        $("#<%= id %>_tip").attr('role', 'tooltip');
+        $(this).siblings(".submit-tooltip").attr('role', 'tooltip');
       }else{
-        $("#<%= id %>_tip").attr('role', '');
+        $(this).siblings(".submit-tooltip").attr('role', '');
       }
+    }).on('blur', function(){
+      $(this).siblings(".submit-tooltip").attr('role', '');
     });
   });
 </script>

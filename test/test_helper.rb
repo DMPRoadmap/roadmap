@@ -117,7 +117,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select '.welcome-message h2', _('Welcome.')
+    assert_select 'h1', _('Welcome.')
   end
 
   # ----------------------------------------------------------------------

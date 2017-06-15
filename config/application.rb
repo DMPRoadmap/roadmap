@@ -67,22 +67,34 @@ module DMPRoadmap
     config.assets.paths << Rails.root.join("lib", "assets", "videos")
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
     config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
-
+#    config.assets.precompile += %w(*.js *.scss *.css)
+    
     config.assets.precompile += %w(plans.js)
     config.assets.precompile += %w(projects.js)    
     config.assets.precompile += %w(jquery.placeholder.js)
     config.assets.precompile += %w(jquery.tablesorter.js)
-    config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
     config.assets.precompile += %w(export_configure.js)
     config.assets.precompile += %w(toolbar.js)
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
-    
-    config.assets.precompile += %w(roadmap-form.scss)
-    config.assets.precompile += %w(plans/new_plan.js)
-    config.assets.precompile += %w(contacts/new_contact.js)
-    config.assets.precompile += %w(shared/register_form.js)
-    config.assets.precompile += %w(answers/status.js)
+ 
+    config.assets.precompile += %w(roadmap.css 
+                                   roadmap-tabs.css 
+                                   roadmap-form.css 
+                                   roadmap-hacks.css)
+                                   
+    config.assets.precompile += %w(answers/status.js
+                                   devise/passwords/new.js
+                                   devise/registrations/edit.js
+                                   contacts/new_contact.js
+                                   home/index.js
+                                   orgs/shibboleth_ds.js
+                                   plans/edit.js 
+                                   plans/index.js 
+                                   plans/new.js 
+                                   shared/login_form.js
+                                   shared/register_form.js
+                                   static_pages/utils.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
@@ -93,10 +105,18 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.shibboleth_enabled = true
+    config.shibboleth_enabled = false
 
     # Relative path to Shibboleth SSO Logout
-    config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
+    config.shibboleth_login = '/Shibboleth.sso/Login'
+    config.shibboleth_logout_url = '/Shibboleth.sso/Logout'
+
+    # If this value is set to true your users will be presented with a list of orgs that have a
+    # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
+    # will be driven out to your federation's discovery service
+    #
+    # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
+    config.shibboleth_use_filtered_discovery_service = false
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
@@ -105,5 +125,12 @@ module DMPRoadmap
     
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
+    
+    # The default visibility setting for new plans
+    #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
+    #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
+    #   is_test                   - (NOT advisable because test plans are excluded from statistics)
+    #   privately_visible         - Only the owner and people they invite can access the plan
+    config.default_plan_visibility = 'organisationally_visible'
   end
 end

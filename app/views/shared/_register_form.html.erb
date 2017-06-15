@@ -1,65 +1,65 @@
-<% javascript "shared/register_form.js" %>
+<h2 aria-hidden="false" class="aria-only"><%= _('Create account') %></h2>
 
-<%= form_for(resource, :as => "user", :url => registration_path("user"),  :htmlb => {:autocomplete =>"off"}, :html => {class: "roadmap-form"}) do |f| %>
-  <ul>
-	<li>
-		<%= devise_error_messages! %>
-	</li>
-	<li>
-		<%= f.email_field :email, placeholder: (_('Email') + ' *'), :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter your email') %>
-		<div class="alert alert-error" style="display:none">
-			<strong><%= _('Error!')%></strong> <%= _('You must enter a valid email address.')%>
-		</div>
-	</li>
-	<% if extended then %>
-		<% unless session[:shibboleth_data].nil? %>
-			<%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
-		<% end %>
-		<li>
-			<%= f.text_field :firstname, placeholder: _('First name'), :as => :string, :class => 'text_field' %>
-		</li>
-		<li>
-			<%= f.text_field :surname, placeholder: _('Last name'), :as => :string, :class => 'text_field' %>
-		</li>
-	<% end %>
-	<% if resource.user_identifiers.count > 0 %>
-		<% scheme = resource.user_identifiers.identifier_scheme.name %>
-		<%= f.hidden_field "user_identifiers[#{scheme}]", value: resource.user_identifiers.first.identifier%>
-	<% end %>
-	<li>
-		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up' }) %>
-	</li>
-  <div id="other-org-link"><a href="#"><%= _("My organisation isn't listed.") %></a></div>
-	<% other_organisations = Array.new %>
-	<% Org.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
-		<% other_organisations << org.id %>
-	<% end %>
-	<li id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
-		<%= f.text_field :other_organisation, placeholder: ( _('Organisation name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
-	</li>
-	<li>
-		<%= f.password_field :password, placeholder: (_('Password') + ' *'), :autocomplete => "off", :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
-		<div class="alert alert-error" style="display:none">
-			<strong><%= _('Error!')%></strong> <%= _('Your password must contain at least 8 characters.')%>
-		</div>
-	</li>
-	<li>
-		<%= f.password_field :password_confirmation, placeholder: (_('Password confirmation') + ' *'), :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
-		<div class="alert alert-error" style="display:none">
-			<strong><%= _('Error!')%></strong>&nbsp;<%= _('This must match what you entered in the previous field.')%>
-		</div>
-	</li>
-	<li class="remember_me_li">
-		<%= f.check_box :accept_terms %> <%= f.label :accept_terms, :class => "remember_div"  do %>
-		  <%= raw _(' I accept the <a href="/terms" target="_blank">terms and conditions</a> *') %>
-		<%end%>
-	</li>
-	<li>
-		<%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'sign_up_submit', 
-                         val: _('Create account'), 
-                        disabled_initially: true,
-                        tooltip: _('You can not continue until you have filled in all of the required information.')} %>
-	</li>
-</ul>
+<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", class: "roadmap-form register-form"} do |f| %>
+  <fieldset id="create-account-form" class="standard padded">
+    <div class="inline">
+      <div class="form-input">
+        <label for="user_firstname"><%= _('First Name') %></label>
+        <input type="text" id="user_firstname" name="user[firstname]" 
+               class="input-small required left-indent" />
+      </div>
+    </div>
+    <div class="inline">
+      <div class="form-input">
+        <label for="user_surname"><%= _('Last Name') %></label>
+        <input type="text" id="user_surname" name="user[surname]" 
+               class="input-small required left-indent" />
+      </div>
+    </div>
+    
+    <!-- Register form email address -->
+    <div class="form-input">
+      <label for="user_email"><%= _('Email') %></label>
+      <input type="email" id="user_email" name="user[email]" class="left-indent required" />
+      <span role="" id="email_error" class="error-tooltip left-indent"></span>
+    </div>
+    
+    <!-- Register form recovery email address -->
+    <div class="form-input">
+      <label for="user_email"><%= _('Recovery Email') %></label>
+      <input type="email" id="user_recovery_email" name="user[recovery_email]" 
+             class="left-indent required"
+              title="<%= _('We will only use this address to recover your account if you change institutions') %>"/>
+      <span role="" id="recovery_email_error" class="error-tooltip left-indent"></span>
+    </div>
+    
+    <!-- Register form password -->
+    <div class="form-input">
+      <label for="user_password"><%= _('Password') %></label>
+      <input type="password" id="user_password" name="user[password]" 
+             class="left-indent required" value="" />
+      <span role="" id="password_error" class="error-tooltip left-indent"></span>
+    
+      <div class="form-input checkbox-right">
+        <label for="password_show" class="checkbox-label"><%= _('Show password') %></label>
+        <input type="checkbox" id="password_show" />
+      </div>
+    </div>
+    
+    <!-- Register form terms -->
+    <div class="form-input">
+      <input type="checkbox" id="user_accept_terms" name="user[accept_terms]" 
+             class="required right-indent" />
+      <label for="user_accept_terms"><%= _('I accept the') %> <a href="<%= terms_path %>"><%= _('terms and conditions') %></a></label>
+    </div>          
+    
+    <div class="form-input">
+      <%= render partial: 'shared/accessible_submit_button',
+                 locals: {id: 'register-button', 
+                          val: _('Create account'), 
+                          disabled_initially: true,
+                          classes: 'small-input-button',
+                          tooltip: _('Enter all of the information above')} %>
+    </div>
+  </fieldset>
 <% end %>

@@ -19,6 +19,9 @@ class Org < ActiveRecord::Base
   
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
+  has_many :org_identifiers
+  has_many :identifier_schemes, through: :org_identifiers
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
@@ -63,7 +66,7 @@ class Org < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
   # Determines the locale set for the organisation
-  # @return String or nil 
+  # @return String or nil
   def get_locale
     if !self.language.nil?
       return self.language.abbreviation
@@ -134,7 +137,7 @@ class Org < ActiveRecord::Base
     end
     return children
   end
-  
+
   ##
   # returns a list of all guidance groups belonging to other organisations
   #
@@ -169,7 +172,7 @@ class Org < ActiveRecord::Base
 		end
 		return organisations_list
 	end
-  
+
   ##
   # returns a list of all sections of a given version from this organisation and it's parents
   #
@@ -186,7 +189,7 @@ class Org < ActiveRecord::Base
 			return sections.where("version_id = ? ", version_id).all + parent.all_sections(version_id)
 		end
 	end
-  
+
   ##
   # returns the guidance groups of this organisation and all of it's children
   #
@@ -198,7 +201,7 @@ class Org < ActiveRecord::Base
 		end
 		return ggs
 	end
-  
+
   ##
   # returns the highest parent organisation in the tree
   #
@@ -211,7 +214,7 @@ class Org < ActiveRecord::Base
 		end
 	end
 =end
-  
+
   ##
   # returns all published templates belonging to the organisation
   #
@@ -228,7 +231,7 @@ class Org < ActiveRecord::Base
       end
     end
   end
-  
+
   private
     ##
     # checks size of logo and resizes if necessary
@@ -239,5 +242,5 @@ class Org < ActiveRecord::Base
           self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
         end
       end
-    end 
+    end
 end

@@ -1,0 +1,90 @@
+<% javascript 'orgs/shibboleth_ds.js'%>
+
+<h1>Find your institution to sign in</h1>
+
+<div class="content">
+  <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {class: "shibboleth-ds-form roadmap-form"} do |f| %>
+    <fieldset class="standard padded">
+      <div class="form-input">
+        <label for="org_name">
+          <%= _('Look up your institution here') %>
+        </label>
+    
+        <% if @orgs.count <= 10 %>
+          <select id="org_name" class="left-indent">
+            <option value=""><%= _('Please select one') %></option>
+            <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
+          </select>
+          
+        <% else %>
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'org_name',
+                              id: 'org_name',
+                              default_selection: nil,
+                              models: @orgs,
+                              attribute: 'name',
+                              classes: 'fixed-width-large'} %>
+        <% end %>
+        
+        <%= render partial: 'shared/accessible_submit_button',
+                   locals: {id: 'submit-button', 
+                            val: _('Go'), 
+                            disabled_initially: true,
+                            classes: 'small-input-button',
+                            tooltip: _('Select an institution.'),
+                            classes: 'inline left-indent'} %>
+
+        <% if @orgs.count > 10 %>
+          <p class="centered left-indent">
+            <strong>- <%= _('or') %> -</strong>
+            <br />
+            <a id="show_list" href="#"><%= _('See the full list of participating institutions') %></a>
+          </p>
+        <% end %>
+
+      </div>
+    </fieldset>
+  <% end %>
+  
+  <div id="full_list" style="display: none" class="left-indent" aria-hidden="true">
+    <div id="org-list">
+      <% if @orgs.count > 49 %>
+        <% if @orgs.count > 99 %>
+          <% one_third = @orgs.count / 3 %>
+
+         <%= render partial: 'shibboleth_ds_list', 
+                     locals: {column_count: 'three', orgs: @orgs,
+                              column_start: 0, column_end: (one_third - 1)} %>
+         <%= render partial: 'shibboleth_ds_list', 
+                     locals: {column_count: 'three', orgs: @orgs,
+                              column_start: one_third, column_end: ((one_third * 2) - 1)} %>
+         <%= render partial: 'shibboleth_ds_list', 
+                     locals: {column_count: 'three', orgs: @orgs,
+                              column_start: (one_third * 2), column_end: @orgs.count} %>
+      
+        <% else %>
+          <% one_half = @orgs.count / 2 %>
+          
+          <%= render partial: 'shibboleth_ds_list', 
+                      locals: {column_count: 'two', orgs: @orgs,
+                               column_start: 0, column_end: (one_half - 1)} %>
+          <%= render partial: 'shibboleth_ds_list', 
+                      locals: {column_count: 'two', orgs: @orgs,
+                               column_start: one_half, column_end: @orgs.count} %>
+          
+        <% end %>
+    
+      <% else %>
+         <%= render partial: 'shibboleth_ds_list', 
+                     locals: {column_count: 'one', orgs: @orgs,
+                              column_start: 0, column_end: @orgs.count} %>
+      <% end %>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <p class="left-indent">
+    <%= _('Institution not a %{application_name} partner?') % {application_name: Rails.configuration.branding[:application][:name]} %> <a href="#header-register-form" data-toggle="modal"><%= _('Create an account with any email address')%></a>
+  </p>
+</div>

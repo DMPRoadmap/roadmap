@@ -17,7 +17,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   
   # -------------------------------------------------------------
   test "user receives proper error messaging if they have not accepted terms" do
-    post user_registration_path, {user: {accept_terms: false}}
+    post user_registration_path, {user: {accept_terms: "off"}}
     
     assert_response :redirect
     follow_redirect!
@@ -30,14 +30,12 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "user receives proper error messaging if they have not provided a valid email and/or password" do
     [ {}, 
       {email: 'foo.bar@test.org'},                    # No Password or Confirmation
-      {password: 'test12345'},                        # No Confirmation
-      {password_confirmation: 'test12345'},           # No Password
+      {password: 'test12345'},                        # No Email
       {password: 'test12345', password_confirmation: 'test12345'}, # No Email
-      {email: 'foo.bar@test.org', password: 'test', password_confirmation: 'test'}, # Password is too short
-      {email: 'foo.bar@test.org', password: 'test12345', password_confirmation: 'test123'}, # Passwords do not match
-      {email: 'foo.bar$test.org', password: 'test12345', password_confirmation: 'test12345'} # invalid email
+      {email: 'foo.bar@test.org', password: 'test'}, # Password is too short
+      {email: 'foo.bar$test.org', password: 'test12345'} # invalid email
     ].each do |params|
-      post user_registration_path, {user: {accept_terms: 1}.merge(params)}
+      post user_registration_path, {user: {accept_terms: "on"}.merge(params)}
     
       assert_response :redirect
       follow_redirect!
@@ -49,10 +47,9 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   
   # -------------------------------------------------------------
   test "user is able to register and is auto-logged in and brought to profile page" do
-    form = {accept_terms: 1, 
+    form = {accept_terms: "on", 
             email: 'foo.bar@test.org', 
-            password: 'Test12345', 
-            password_confirmation: 'Test12345'}
+            password: 'Test12345'}
     
     cntr = 1
     # Test the bare minimum requirements and then all options

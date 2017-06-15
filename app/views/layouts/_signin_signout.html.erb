@@ -1,6 +1,6 @@
 <!-- Sign in / out -->
 <div class="signIn">
-	<ul class="navbar">
+  <ul class="navbar">
     <% if user_signed_in? %>
       <li class="dropdown sign_in">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= _('Signed in as ')%>
@@ -24,7 +24,9 @@
               <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
             <% end %>
           <% end %>
-          <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %></li>
+          <li>
+            <%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
+          </li>
         </ul>
       </li>
     <% else %>
@@ -38,8 +40,9 @@
       </li>
     <% end %>
   </ul>
-</div>
+
 <!-- Quick'n'dirty touchscreen hack for Bootstrap's buggy dropdown -->
   <style>
     .dropdown-backdrop{ position: static; }
   </style>
+</div>
