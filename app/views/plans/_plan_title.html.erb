@@ -6,3 +6,10 @@
         </h2> 
     </div>
 </div>
+
+<% if @plan.visibility == 'is_test' %>
+  <div class="roadmap-info-box">
+    <i class="fa fa-exclamation-circle"></i>
+    <span><%= _('This is a') %> <strong><%= _('test plan') %></strong>.</span>
+  </div>
+<% end %>

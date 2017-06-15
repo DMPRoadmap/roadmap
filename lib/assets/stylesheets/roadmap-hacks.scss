@@ -63,3 +63,193 @@ textarea {
   padding-bottom: 45px;
   margin-bottom: 45px;
 }
+
+html.dmponline {
+  background: none;
+}
+
+/* Override the color scheme settings in bootstrap_and_overrides and the admin css files */
+/* --------------------------------------------------------------------------------------------- */
+a:hover, a:focus,
+p a:hover, p a:focus,
+li a:hover, li a:focus,
+.screencast_home_page, 
+#create-test:hover, 
+.dmp_table_link:hover,
+ul.tabs li a:hover,
+.navbar,
+ul.question_right_column_ul li.active a, ul.question_right_column_ul li.active a:active, 
+ul.question_right_column_ul li.active a:hover, ul.question_right_column_ul li.active a:focus,
+.question-guidance .accordion-heading a, .question-guidance .accordion-heading a:hover {
+  color: $primary-color !important;
+}
+
+.accordion-group,
+.accordion_heading_text, 
+.plan-export-settings h4 {
+  background-color: $primary-color;
+}
+
+.header_org_banner_text,
+.header_org_banner_text a, .header_org_banner_text a:link, .header_org_banner_text a:visited,
+.header_org_banner_text a:active, .header_org_banner_text a:focus,
+.accordion_heading_text {
+  color: $white;
+}
+
+#main-nav-tabs ul {
+  border-bottom: none;
+}
+.main_header {
+  position: relative;
+  height: auto;
+  width: 100%;
+}
+div.header_left, div.header_right {
+  position: relative;
+  float: none;
+  clear: none;
+  display: inline-block;
+  width: auto;
+}
+div.header_right {
+  margin-left: 20px;
+  height: auto;
+  width: 75%;
+  position: absolute;
+  bottom: 0;
+}
+div.header_org_banner_text_vertical_align {
+  margin-top: -20px;
+}
+div.signin_signout_header_link {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  
+  .signIn {
+    float: none;
+    position: relative;
+    top: auto;
+    right: auto;
+    
+    ul.navbar li,
+    ul.navbar li a, ul.navbar li a:link, ul.navbar li a:visited, ul.navbar li a:active, ul.navbar li a:focus {
+      color: $white !important;
+    }
+  }
+}
+
+#main-nav-tabs {
+  width: auto;
+}
+#main-nav-tabs li a {
+  color: $white;
+  background-color: $primary-color;
+  border: 1px solid $white;
+}
+#main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover, lang-dropdown-link:hover{
+  color: $primary-color !important;
+  background: $white;
+  border: 1px solid $white;
+}
+
+#project-tabs {
+  margin-bottom: 10px;
+}
+
+#project-tabs li a {
+  color: $white;
+  background-color: $primary-color;
+  border-bottom: 1px solid $primary-color;
+}
+#project-tabs li.active a, #project-tabs li.active a:active, #project-tabs li a:hover {
+  color: $primary-color !important;
+  background: $white;
+  border-left: 1px solid $primary-color;
+  border-top: 1px solid $primary-color;
+  border-right: 1px solid $primary-color;
+  border-bottom: none;
+}
+
+div.accordion-group {
+  border-color: $primary-color;
+  
+  .section_desc {
+    background-color: $primary-color;
+  }
+}
+div.accordion-heading a.accordion-toggle {
+  color: $white;
+}
+
+.label-info, 
+.badge-info, 
+ul.question_right_column_ul li a {
+  background-color: $dark-grey;
+}
+
+.comment-area, .question-guidance, 
+.question-guidance .guidance-accordion-body, 
+ul.question_right_column_ul li.active a, ul.question_right_column_ul li.active a:active, 
+ul.question_right_column_ul li.active a:hover, ul.question_right_column_ul li.active a:focus {
+  border: 1px solid $primary-color;
+}
+
+.caret, .caret-orange {
+  border-top: 4px solid $primary-color !important;
+  border-bottom-color: $primary-color !important;
+}
+
+hr.orange_break_line {
+  border-top: 1px solid $primary-color;
+}
+
+.question-divider,
+ul.question_right_column_ul li a, 
+#plan-guidance-accordion > .accordion-group > .accordion-heading {
+  border-bottom: 1px solid $primary-color;
+}
+
+p.alert, 
+ul#signIn_dropdown li a.signIn_dropdown_link:hover, ul#signIn_dropdown li a.signIn_dropdown_link:focus {
+  color: $black;
+  background-color: $light-grey !important;
+  border: none;
+}
+
+body.dmponline {
+  .btn-primary, .btn-primary:focus, .btn-primary:active, .btn-primary:visited, .btn-primary:link, 
+  .dmp_toolbar,
+  .dmp_table thead,
+  .accordion-heading,
+  .progress .bar,
+  .section-status,
+  .move_2_right input.btn-primary {
+    background: $primary-color !important;
+  }
+
+  .accordion-heading {
+    color: $white;
+    border: 1px solid $primary-color;
+  }
+
+  table.dmp_table tbody td, {
+    border-bottom: 1px solid $light-grey;
+  }
+
+  div.dmp_details_body,
+  div.phase_details_body,
+  div.roadmap-info-box,
+  .tab-panel,
+  #create_plan fieldset, #contact-us {
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+  }
+  table.dmp_details_table tr td.first {
+    border-right: 1px solid $primary-color;
+  }
+  div.phase_details_body {
+    padding: 0 6px 25px 6px;
+  }
+}

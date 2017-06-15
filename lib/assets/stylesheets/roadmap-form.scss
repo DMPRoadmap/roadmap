@@ -129,6 +129,9 @@ form.roadmap-form {
   .input-medium {
     width: 30%;
   }
+  select.input-medium {
+    width: 32%;
+  }
   .input-small {
     width: 10%;
   }
@@ -331,6 +334,9 @@ form.roadmap-form {
 
 /* Sign in/Create account forms */
 /* ------------------------------------------------ */
+#sign-in-panel, #create-account-panel {
+  width: 375px;
+}
 .omniauth-options {
   display: block;
   width: 100%;
@@ -453,6 +459,12 @@ div.one-column {
   width: 95%;
 }
 
+/* View plans */
+/* ------------------------------------------------ */
+div.main_page_content p #create-test {
+  vertical-align: middle;
+}
+
 /* Create plan */
 /* ------------------------------------------------ */
 #create_plan {
@@ -489,5 +501,21 @@ div.one-column {
       margin-top: -2px;
       margin: -2px -5px 0 5px;
     }
+  }
+}
+
+/* Edit plan details */
+/* ------------------------------------------------ */
+.edit-plan-details form.roadmap-form fieldset.side-by-side div {
+  label.radio-label {
+    vertical-align: top;
+  }
+
+  .inline-radios {
+    margin-left: -5px;
+  }
+
+  input[type='radio'] {
+    margin: 0 10px 5px -5px;
   }
 }

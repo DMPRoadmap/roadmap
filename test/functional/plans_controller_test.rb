@@ -91,6 +91,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:plan)
     assert_equal "Testing Create", Plan.last.title, "expected the record to have been created"
+  
+    # assert that the default visibility is used when none is specified
+    assert_equal Rails.application.config.default_plan_visibility, Plan.last.visibility, "Expected the plan to have been assigned the default visibility"
   end
 
   # GET /plan/:id (plan_path)
@@ -157,8 +160,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     post duplicate_plan_path(@plan, format: :js)
     @duplicate_plan = Plan.last
     assert_equal _('Plan was successfully duplicated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to plan_url(@duplicate_plan)
+    assert_response :success
     assert assigns(:plan)
     assert_equal 'Copy of Test Plan', @duplicate_plan.title, "Copy of"
   end

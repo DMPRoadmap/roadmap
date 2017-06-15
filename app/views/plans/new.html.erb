@@ -1,7 +1,14 @@
-<% javascript "plans/new_plan.js" %>
+<% javascript "plans/new.js" %>
 
 <div class="main">
   <h1><%= _('Create a new plan') %></h1>
+
+  <% if @is_test %>
+    <div class="roadmap-info-box">
+      <i class="fa fa-exclamation-circle"></i>
+      <span><%= _('This is a') %> <strong><%= _('test plan') %></strong>.</span>
+    </div>
+  <% end %>
 
   <p>
     <%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
@@ -88,6 +95,7 @@
     </div>
     
     <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
+    <input type="hidden" id="plan_visibility" name="plan[visibility" value="<%= @is_test ? 'is_test' : Rails.application.config.default_plan_visibility %>"></input>
     
     <%= render partial: 'shared/accessible_submit_button',
                locals: {id: 'create_plan_submit', 

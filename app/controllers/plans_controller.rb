@@ -24,6 +24,8 @@ class PlansController < ApplicationController
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
 
+    @is_test = params[:test] ||= false
+
     respond_to :html
   end
 
@@ -36,6 +38,9 @@ class PlansController < ApplicationController
     @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
     @plan.data_contact = current_user.email
     @plan.funder_name = plan_params[:funder_name]
+
+    @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
+                                                           plan_params[:visibility])
 
     # If a template hasn't been identified look for the available templates
     if plan_params[:template_id].blank?
@@ -158,8 +163,11 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
+    attrs = plan_params
+    attrs['visibility'] = Rails.application.config.default_plan_visibility if plan_params['visibility'].blank?
+
     respond_to do |format|
-      if @plan.update_attributes(params[:plan])
+      if @plan.update_attributes(attrs)
         format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
         format.json { head :no_content }
       else
@@ -402,11 +410,25 @@ class PlansController < ApplicationController
       end
     end
   end
+  
+  # AJAX access to update the plan's visibility
+  # POST /plans/:id
+  def visibility
+    plan = Plan.find(params[:id])
+    authorize plan
+    plan.visibility = "#{plan_params[:visibility]}"
+    if plan.save
+      render json: {code: 1, msg: ''}
+    else
+      render json: {code: 0, msg: _("Unable to change the plan's Test status")}
+    end
+  end
+  
 
   private
 
   def plan_params
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title)
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility)
   end
 
   # different versions of the same template have the same dmptemplate_id

@@ -18,6 +18,7 @@
       left: 1px;
       color: $white;
       background-color: $primary-color;
+      border-bottom: 2px solid $primary-color;
       text-decoration: none;
       font-weight: bold;
     }
@@ -27,6 +28,9 @@
   li.active a:hover {
     color: $primary-color;
     background-color: $white;
+    border: 1px solid $primary-color;
+    border-bottom: 2px solid $white;
+    z-index: 1;
   }
 }
 .tabs:after {
@@ -47,7 +51,12 @@
   position: absolute;
   top: -1px;
   left: 0;
-  width: 100%;
+  width: inherit;
+  border: 1px solid $primary-color;
+  border-top-left-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .tab-panel div.active {
   z-index: 1;
