@@ -2,6 +2,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
+    @user.create_default_preferences
     @languages = Language.all.order("name")
     @orgs = Org.where(parent_id: nil).order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
