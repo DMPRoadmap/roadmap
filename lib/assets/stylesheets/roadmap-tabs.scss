@@ -47,11 +47,11 @@
 }
 .tabbed-area div.tab-panel {
   padding: 10px 10px;
-  min-height: 300px;
+  min-height: 400px;
   position: absolute;
   top: -1px;
   left: 0;
-  width: inherit;
+  width: 100%;
   border: 1px solid $primary-color;
   border-top-left-radius: 0;
   border-top-right-radius: 5px;
