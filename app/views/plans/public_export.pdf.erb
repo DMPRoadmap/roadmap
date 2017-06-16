@@ -27,6 +27,8 @@
                 <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= _('-') %></p>
           <% end %>
         <% end %>
+				
+				<p><%= _("Copyright information: The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %></p>
 
         <% @exported_plan.sections.each do |section| %>
             <% questions = @exported_plan.questions_for_section(section.id)
