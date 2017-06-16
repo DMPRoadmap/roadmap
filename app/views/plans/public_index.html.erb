@@ -15,7 +15,7 @@
   <table id="dmp_table" class="dmp_table tablesorter">
     <thead>
       <tr>
-        <th class="col-large"><%= _('Plan') %></th>
+        <th class="col-large"><%= _('Plan Title') %></th>
         <th class="col-large"><%= _('Template') %></th>
         <th class="col-medium"><%= _('Organisation') %></th>
         <th class="col-medium"><%= _('Owner') %></th>
@@ -28,7 +28,7 @@
           <td><%= plan.title %></td>
           <td><%= plan.template.title %></td>
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
-          <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name) %></td>
+          <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
           <td class="dmp_td_medium centered">
             <%= link_to _('PDF'), 
                         public_export_path(plan, format: :pdf), 
