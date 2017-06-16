@@ -3,76 +3,100 @@
 <% javascript "plans/index.js" %>
 
 <h1>
-	<%= _('My plans') %>
+  <%= _('My plans') %>
 </h1>
 
 <!-- if the user has projects -->
 <% if @plans.count > 0 %>
 
-	<p>
-		<%= raw _('<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>')%>
-	</p>
+  <p>
+    <%= raw _('<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>')%>
+  </p>
     
-	<%= render(partial: "toolbar") %>
-	<table id="dmp_table" class="dmp_table tablesorter">
-	  <thead>
-	    <th class="col-large"><%= _('Plan') %></th>
-	    <th class="col-large"><%= _('Template') %></th>
-	    <th class="col-small"><%= _('Edited') %></th>
-	    <th class="col-small"><%= _('Role') %></th>
-	    <th class="col-small"><%= _('Visibility') %></th>
-	    <th class="col-tiny"><%= _('Test') %></th>
-	    <th class="col-large"><%= _('Select an Action') %></th>
-	  </thead>
-	  <tbody>
+  <%= render(partial: "toolbar") %>
+  <table id="dmp_table" class="dmp_table tablesorter">
+    <thead>
+      <tr>
+        <th class="col-large"><%= _('Plan') %></th>
+        <th class="col-large"><%= _('Template') %></th>
+        <th class="col-small"><%= _('Edited') %></th>
+        <th class="col-small"><%= _('Role') %></th>
+        <th class="col-small"><%= _('Visibility') %></th>
+        <th class="col-tiny"><%= _('Test') %></th>
+        <th class="col-large"><%= _('Select an Action') %></th>
+      </tr>
+    </thead>
+    <tbody>
       <% @plans.each do |plan| %>
-				<tr>
-					<td><%= plan.title %></td>
-					<td><%= plan.template.title %></td>
-					<td><%= l(plan.latest_update.to_date, formats: :short) %></td>
-					<td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
-					<td id="visibility-<%= plan.id %>"><%= display_visibility(plan.visibility) %></td>
-					<td class="centered">
-						<input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
-					</td>
-					<td>
-				    <% if plan.editable_by?(current_user.id) then %>
-				      <%= link_to _('Edit'), plan_path(plan), :class => "dmp_table_link"%>
+        <tr>
+          <td><%= plan.title %></td>
+          <td><%= plan.template.title %></td>
+          <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+          <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+          <td id="visibility-<%= plan.id %>"><%= display_visibility(plan.visibility) %></td>
+          <td class="centered">
+            <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
+          </td>
+          <td>
+            <% if plan.editable_by?(current_user.id) then %>
+              <%= link_to raw('<i class="fa fa-pencil-square"></i>'), 
+                          plan_path(plan), 
+                          class: "dmp_table_link",
+                          title: _('Edit') %>
 
-				      <% if plan.administerable_by?(current_user.id) then %>
-				        <%= link_to _('Share'), share_plan_path(plan), :class => "dmp_table_link"%>
-				      <% end %>
+              <% if plan.administerable_by?(current_user.id) then %>
+                <%= link_to raw('<i class="fa fa-user-plus"></i>'), 
+                            share_plan_path(plan), 
+                            class: "dmp_table_link",
+                            title: _('Share') %>
+              <% end %>
 
-				      <%= link_to _('Export'), show_export_plan_path(plan), :class => "dmp_table_link"%>
+              <%= link_to raw('<i class="fa fa-download"></i>'), 
+                          show_export_plan_path(plan), 
+                          class: "dmp_table_link",
+                          title: _('Export') %>
 
-				      <%= link_to _('Duplicate'), duplicate_plan_path(plan), method: :post, remote: true, :class => "dmp_table_link"%>
+              <%= link_to raw('<i class="fa fa-files-o"></i>'), 
+                          duplicate_plan_path(plan), 
+                          class: "dmp_table_link",
+                          title: _('Copy/Duplicate') %>
 
-				      <% if plan.owned_by?(current_user.id) then %>
-				        <%= link_to _('Delete'), plan_path(plan), :class => "dmp_table_link",
-				          :method => :delete, :data => {
-				            :confirm => _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')
-				          }%>
-				      <% end %>
-				    <% else %>
-				      <%= link_to _('View'), plan_path(plan), :class => "dmp_table_link"%>
-				      <%= link_to _('Export'), show_export_plan_path(plan), :class => "dmp_table_link"%>
-				    <% end %>
-				  </td>
-				</tr>
+              <% if plan.owned_by?(current_user.id) then %>
+                <%= link_to raw('<i class="fa fa-trash"></i>'), 
+                            plan_path(plan), 
+                            class: "dmp_table_link",
+                            title: _('Delete'),
+                            method: :delete, 
+                            data: {confirm: _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')} %>
+                            
+              <% end %>
+            <% else %>
+              <%= link_to raw('<i class="fa fa-pencil-square"></i>'), 
+                          plan_path(plan), 
+                          class: "dmp_table_link",
+                          title: _('View') %>
+                          
+              <%= link_to raw('<i class="fa fa-download"></i>'), 
+                          show_export_plan_path(plan), 
+                          class: "dmp_table_link",
+                          title: _('Export') %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-	  </tbody>
-	</table>
-	
+    </tbody>
+  </table>
+  
 <!-- if the user does not have projects -->
 <% else %>
-	<p>
-		<%= raw _("<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>")%>
-	</p>
+  <p>
+    <%= raw _("<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>")%>
+  </p>
 <% end %>
 
 <!-- link button to create a new project -->
 <p>
-	<%= link_to _('Create plan'),
+  <%= link_to _('Create plan'),
               new_plan_path,
               class: "btn btn-primary" %>
 

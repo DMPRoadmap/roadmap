@@ -78,8 +78,8 @@ Rails.application.routes.draw do
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
-    get "public_plans" => 'static_pages#public_plans'
-    get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
+    get "public_plans" => 'plans#public_index'
+    get "public_export/:id" => 'plans#public_export', as: 'public_export'
     get "existing_users" => 'existing_users#index'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'

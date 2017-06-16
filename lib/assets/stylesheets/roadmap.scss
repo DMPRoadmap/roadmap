@@ -103,25 +103,25 @@ a, a:hover, a:visited, a:active, a:link {
 
 div.roadmap-info-box {
   position: absolute;
-	float: right;
+  float: right;
   top: 180px;
   right: 12%;
   background-color: $white;
   padding: 8px 20px;
   border-radius: 5px;
-	vertical-align: middle;
-	
-	span {
-		padding-left: 30px;
-	}
-	.fa {
-		position: absolute;
-		top: 10px;
-	  background: transparent;
-	  color: $black;
-	  font-size: 16pt;
-		margin-right: 15px;
-	}
+  vertical-align: middle;
+  
+  span {
+    padding-left: 30px;
+  }
+  .fa {
+    position: absolute;
+    top: 10px;
+    background: transparent;
+    color: $black;
+    font-size: 16pt;
+    margin-right: 15px;
+  }
 }
 
 table.dmp_table{
@@ -132,23 +132,28 @@ table.dmp_table{
   margin-bottom: 20px;
   table-layout: fixed;
 
-	thead th, tbody td {
-		padding: 6px 15px 6px 6px;
-		overflow: hidden;
-	}
+  thead th, tbody td {
+    padding: 6px 15px 6px 6px;
+    overflow: hidden;
+  }
 
-	.col-tiny {
-		width: 5%;
-	}
-	.col-small {
-		width: 10%;
-	}
-	.col-medium {
-		width: 20%;
-	}
-	th.col-large {
-		width: 35%;
-	}
+  .col-tiny {
+    width: 5%;
+  }
+  .col-small {
+    width: 10%;
+  }
+  .col-medium {
+    width: 20%;
+  }
+  th.col-large {
+    width: 35%;
+  }
+
+  a.dmp_table_link i {
+    font-size: 14pt;
+    margin-right: 5px;
+  }
 }
 
 

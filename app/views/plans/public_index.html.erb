@@ -1,0 +1,46 @@
+<%- model_class = Plan -%>
+<% javascript "toolbar.js" %>
+
+<h1>
+  <%= raw _('Public DMPs') %>
+</h1>
+
+<!-- if the user has projects -->
+<% if @plans.count > 0 %>
+  <p>
+    <%= _('Public DMPs are plans created using the %{application_name} and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
+  </p>
+    
+  <%= render(partial: "toolbar") %>
+  <table id="dmp_table" class="dmp_table tablesorter">
+    <thead>
+      <tr>
+        <th class="col-large"><%= _('Plan') %></th>
+        <th class="col-large"><%= _('Template') %></th>
+        <th class="col-medium"><%= _('Organisation') %></th>
+        <th class="col-medium"><%= _('Owner') %></th>
+        <th class="col-small"><%= _('Download') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @plans.each do |plan| %>
+        <tr>
+          <td><%= plan.title %></td>
+          <td><%= plan.template.title %></td>
+          <td><%= plan.owner.org.name %></td>
+          <td><%= plan.owner.name %></td>
+          <td class="dmp_td_medium centered">
+            <%= link_to raw('<i class="fa fa-download"></i>'), 
+                        public_export_path(plan), 
+                        class: "dmp_table_link",
+                        title: _('Download PDF') %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>
+    <%= _("There are currently no public DMPs.")%>
+  </p>
+<% end %>
