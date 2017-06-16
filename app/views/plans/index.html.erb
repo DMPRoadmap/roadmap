@@ -39,47 +39,40 @@
           </td>
           <td>
             <% if plan.editable_by?(current_user.id) then %>
-              <%= link_to raw('<i class="fa fa-pencil-square"></i>'), 
+              <%= link_to _('Edit'), 
                           plan_path(plan), 
-                          class: "dmp_table_link",
-                          title: _('Edit') %>
+                          class: "dmp_table_link" %>
 
               <% if plan.administerable_by?(current_user.id) then %>
-                <%= link_to raw('<i class="fa fa-user-plus"></i>'), 
+                <%= link_to _('Share'), 
                             share_plan_path(plan), 
-                            class: "dmp_table_link",
-                            title: _('Share') %>
+                            class: "dmp_table_link" %>
               <% end %>
 
-              <%= link_to raw('<i class="fa fa-download"></i>'), 
+              <%= link_to _('Export'), 
                           show_export_plan_path(plan), 
-                          class: "dmp_table_link",
-                          title: _('Export') %>
+                          class: "dmp_table_link" %>
 
-              <%= link_to raw('<i class="fa fa-files-o"></i>'), 
+              <%= link_to _('Duplicate'), 
                           duplicate_plan_path(plan), 
-                          class: "dmp_table_link",
-                          title: _('Copy/Duplicate') %>
+                          class: "dmp_table_link" %>
 
               <% if plan.owned_by?(current_user.id) then %>
-                <%= link_to raw('<i class="fa fa-trash"></i>'), 
+                <%= link_to _('Delete'), 
                             plan_path(plan), 
                             class: "dmp_table_link",
-                            title: _('Delete'),
                             method: :delete, 
                             data: {confirm: _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')} %>
                             
               <% end %>
             <% else %>
-              <%= link_to raw('<i class="fa fa-pencil-square"></i>'), 
+              <%= link_to _('View'), 
                           plan_path(plan), 
-                          class: "dmp_table_link",
-                          title: _('View') %>
+                          class: "dmp_table_link" %>
                           
-              <%= link_to raw('<i class="fa fa-download"></i>'), 
+              <%= link_to _('Export'), 
                           show_export_plan_path(plan), 
-                          class: "dmp_table_link",
-                          title: _('Export') %>
+                          class: "dmp_table_link" %>
             <% end %>
           </td>
         </tr>

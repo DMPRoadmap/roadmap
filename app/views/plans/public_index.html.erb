@@ -30,10 +30,9 @@
           <td><%= plan.owner.org.name %></td>
           <td><%= plan.owner.name %></td>
           <td class="dmp_td_medium centered">
-            <%= link_to raw('<i class="fa fa-download"></i>'), 
-                        public_export_path(plan), 
-                        class: "dmp_table_link",
-                        title: _('Download PDF') %>
+            <%= link_to _('PDF'), 
+                        public_export_path(plan, format: :pdf), 
+                        class: "dmp_table_link" %>
           </td>
         </tr>
       <% end %>
