@@ -283,8 +283,10 @@ class User < ActiveRecord::Base
   ##
   # User Notification Preferences
   def create_default_preferences
-    # Set the default preferences if this is a new user
-    self.prefs = self.class.create_default_preferences if self.id.nil?
+    # Set the default preferences for a new user or if existing user if null
+    if self.id.nil? || self.prefs == {}
+      self.prefs = self.class.create_default_preferences
+    end
   end
 
   def self.create_default_preferences

@@ -2,6 +2,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
+    @user.create_default_preferences
     @languages = Language.all.order("name")
     @orgs = Org.where(parent_id: nil).order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
@@ -167,6 +168,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update_preferences(current_user, params)
+    byebug
     prefs = params[:prefs]
     # Set all preferences to false
     current_user.prefs.each do |key, value|
