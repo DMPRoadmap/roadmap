@@ -168,7 +168,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update_preferences(current_user, params)
-    byebug
     prefs = params[:prefs]
     # Set all preferences to false
     current_user.prefs.each do |key, value|
