@@ -8,147 +8,50 @@
 
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
-<h1> <%=@readonly%> </h1>
 
-<!-- progress bar -->
-<% status = @plan.status %>
-    <div class="progress">
-        <%space_used = status["space_used"].to_i
-          space_title = _('approx. %{space_used}%% of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
-          answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
-        <div class="bar-container">
-            <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>
-            <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= _('questions answered') %>"></span>
+<div class="dmp_details">
+  <div class="tabbed-area">
+    <ul class="tabs" role="tablist">
+      <li id="details-tab" class="active" role="tab" aria-controls="details-panel">
+        <a href="#details-panel" aria-selected="true"><%= _('Project Details') %></a>
+      </li>
+      <% i = 0 %>
+      <% @plan.template.phases.each do |phase| %>
+        <li id="phase-<%= i %>-tab" role="tab" aria-controls="phase-<%= i %>-panel">
+          <a href="#phase-<%= i %>-panel" aria-selected="false"><%= phase.title %></a>
+        </li>
+      <% end %>
+      <li id="share-tab" role="tab" aria-controls="share-panel">
+        <a href="#share-panel" aria-selected="true"><%= _('Share') %></a>
+      </li>
+      <li id="download-tab" role="tab" aria-controls="download-panel">
+        <a href="#download-panel" aria-selected="true"><%= _('Download') %></a>
+      </li>
+    </ul>
+  
+    <div class="tab-panels" role="tabpanel">
+      <div id="details-panel" class="tab-panel active" aria-hidden="false" 
+           aria-labelledby="details-tab">
+        <%= render :partial => 'details', locals: {plan: @plan} %>
+      </div>
+      <% i = 0 %>
+      <% @plan.template.phases.each do |phase| %>
+        <div id="phase-<%= i %>-panel" class="tab-panel" aria-hidden="false" 
+             aria-labelledby="phase-<%= i %>-tab">
+          <%= render :partial => 'phase', locals: {plan: @plan, phase: phase} %>
         </div>
-        <hr>
-        <div class="bar-container">
-            <span id="export-progress-title" <%= space_used >= 100 ? "class=bar-full-text" : "" -%>><%= space_title -%></span>
-            <span id="export-progress" class="bar <%= space_used >= 100 ? "full" : "space" -%>" style="width: <%= space_used -%>%;" title="<%= space_title -%>"></span>
-        </div>
+      <% end %>
+      <div id="share-panel" class="tab-panel" aria-hidden="false" 
+           aria-labelledby="share-tab">
+        <%= render :partial => 'share', locals: {plan: @plan} %>
+      </div>
+      <div id="download-panel" class="tab-panel" aria-hidden="false" 
+           aria-labelledby="download-tab">
+        <%= render :partial => 'download', locals: {plan: @plan} %>
+      </div>
     </div>
-
-<!-- render navigation tabs for the project-->
-<%= render :partial => "plan_nav_tabs", locals: {plan: @plan, active: @phase.id } %>
-
-<!--
-	Need to verify each section and group them by organisations (eg. funders, institutions)
-	-->
-    
-<!-- phase main container -->
-<div class="project-tabs-body">
-    <div class="accordion" id="sections-accordion">
-    	<% sections = @phase.sections %>
-    	<% sections.each do |section| %>
-                
-                <!-- verify if the session[:question_id_comments] has been created. -->
-                <% if session[:question_id_comments].to_i != 0 then %>
-                    <% question_from_comment = Question.find(session[:question_id_comments])%>
-                    <% if section.id == question_from_comment.section_id then %>    
-                        <%= hidden_field_tag :comment_section_id, question_from_comment.section_id, :class => "comment_section_id" %>
-                   <%end%>    
-                <% end%>     
-                
-                
-                
-    		<div class="accordion-group">
-          <!-- figure out the status line for this section -->
-    			<% num_section_questions = @plan.status["sections"][section.id]["num_questions"] %>
-    			<% num_section_answers = @plan.status["sections"][section.id]["num_answers"] %>
-    			<% question_word = "questions" %>
-    			<% if num_section_questions == 1 then %>
-    				<% question_word = "question" %>
-    			<% end %>
-    			<% section_status = "#{num_section_questions} #{question_word}, #{num_section_answers} answered" %>
-
-          <!-- section heading -->
-    			<div class="accordion-heading">
-    				<a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section.id%>">
-    					<div class="accordion_heading_text" id="section-header-<%= section.id %>">
-                <%= section.title %>
-                <% if num_section_questions.to_i > num_section_answers.to_i then %>
-                  <span id="<%= section.id %>-status" class="label label-warning section-status">(<%= section_status %>)</span>
-                <% else %>
-                  <span id="<%= section.id %>-status" class="label label-info section-status">(<%= section_status %>)</span>
-                <% end %>
-              </div>
-
-              <!-- + or - icon-->
-              <span class="icon-plus icon-white accordion-icon"> </span>
-    				</a>
-          </div>  <!-- section heading -->
-
-          <!-- section body -->
-    			<div id="collapse-<%= section.id%>" class="accordion-body collapse section-collapse">
-    				<div class="section_desc">
-              <%= raw section.description %>
-            </div>
-    				<div class="accordion-inner">
-
-              <!-- various loading/saving messages -->
-							<div class="loading">
-								<p><%= t ('helpers.loading')%></p>
-							</div>
-              <div class="saving" style="display: none">
-								<p><%= t ('helpers.saving')%></p>
-							</div>
-              <div class="removing" style="display: none">
-								<p><%= t ('helpers.removing')%></p>
-							</div>
-
-              <!-- the section body -->
-							<div class="loaded">
-                <% section.questions.order("number").each do |question| %>
-                  <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
-                  <div id="<%= id_css%>">
-                    <% partialname = "answer_form"
-                       if @readonly
-                         partialname += "_ro"
-                       end
-                     %>
-
-                   <%= render partial: partialname,
-                              locals: {
-                                plan: @plan,
-                                question: question,
-                                last_question_id: section.questions.order("number DESC").first.id
-                              }
-                   %>
-                  </div>    
-                <% end %>
-              </div>   <!-- the section body -->
-
-            </div>
-          </div>
-        </div>
-
-        <!-- pop up about unsaved answers -->
-    		<div id="section-<%= section.id %>-collapse-alert" data-container="body" class="modal hide fade">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3><%= _('Unsaved answers')%></h3>
-					</div>
-					<div class="modal-body">
-						<div id="section-<%= section.id %>-collapse-alert-plural">
-							<p><%= _('You have altered answers but have not saved them:')%></p>
-                            <ul id="unsaved-answers-<%= section.id %>"></ul>
-							<p><%= _('Would you like to save them now?')%></p>
-						</div>
-					</div>
-
-					<div class="modal-footer">
-						<a href="#" id="section-<%= section.id %>-collapse-cancel" data-section="<%= section.id %>" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
-						<a href="#" id="section-<%= section.id %>-collapse-discard" data-section="<%= section.id %>" class="discard-section-collapse btn"><%= _('Discard')%></a>
-						<a href="#" id="section-<%= section.id %>-collapse-save" data-section="<%= section.id %>" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
-					</div>
-				</div>
-    	<% end %>
-    </div>
-    <%= tinymce %>
-</div>
-<div class="div_right">
-	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
-</div>
-<%= render :partial => "export", locals: {plan: @plan, phase: @phase} %>
+  </div>
+</div>  
 
 <!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
 <% session.delete(:question_id_comments)%>

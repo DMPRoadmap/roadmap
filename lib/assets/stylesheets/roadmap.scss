@@ -21,12 +21,19 @@ $header-gradient-light: #F59503;
 $header-gradient-dark: #ED6406;
 $header-height: 160px;
 
+$footer-height: 300px;
+
 /* See `.combobox-clear-button` for an example of this mixin in use */
 @mixin icon($icon) {
   @extend .fa;
   @extend .fa-#{$icon}:before;
 }
 
+@import "roadmap-hacks";
+@import "roadmap-form";
+@import "roadmap-tabs";
+
+/* Main page layout: header, content, footer */
 html.dmponline {
   background-color: $white;
 }
@@ -169,4 +176,8 @@ table.dmp_table{
   height: 17px;
   margin: 0 4px 0 0;
   padding: 0;
+}
+
+.project-title-container {
+  width: 60%;
 }

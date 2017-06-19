@@ -111,6 +111,7 @@ class PlansController < ApplicationController
 
 
   # GET /plans/show
+=begin
   def show
     @plan = Plan.eager_load(params[:id])
     authorize @plan
@@ -139,7 +140,7 @@ class PlansController < ApplicationController
 
     respond_to :html
   end
-
+=end
 
 
   # we can go into this with the user able to edit or not able to edit
@@ -156,7 +157,27 @@ class PlansController < ApplicationController
     authorize @plan
     # If there was no phase specified use the template's 1st phase
     @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-    @readonly = !@plan.editable_by?(current_user.id)
+
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = @plan.get_guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+
+    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
+    @important_ggs = []
+    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      if org.organisation?
+        @important_ggs << [org,ggs]
+        @all_ggs_grouped_by_org.delete(org)
+      end
+    end
+
+    # Sort the rest by org name for the accordion
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
+
+    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
+
     respond_to :html
   end
 

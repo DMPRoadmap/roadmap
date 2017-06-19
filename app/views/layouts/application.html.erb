@@ -60,32 +60,33 @@
     <!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
       <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
 
+		<div class="roadmap">
       <!-- header renedering -->
       <%= render "layouts/header" %>
       
-    <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
+	    <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
 
-    <div class="main_page_container">
-      <% if notice || flash[:notice] %>
-        <div class="roadmap-info-box">
-          <i class="fa fa-check-circle-o"></i>
-          <span><%= raw notice %></span>
-        </div>
-      <% end %>
-      <% if alert || flash[:alert] || flash[:error] %>
-        <div class="roadmap-info-box">
-          <i class="fa fa-times-circle"></i>
-           <span><%= raw alert %></span>
-        </div>
-      <% end %>
+	    <div class="main_page_container">
+	      <% if notice || flash[:notice] %>
+	        <div class="roadmap-info-box">
+	          <i class="fa fa-check-circle-o"></i>
+	          <span><%= raw notice %></span>
+	        </div>
+	      <% end %>
+	      <% if alert || flash[:alert] || flash[:error] %>
+	        <div class="roadmap-info-box">
+	          <i class="fa fa-times-circle"></i>
+	           <span><%= raw alert %></span>
+	        </div>
+	      <% end %>
       
-        <div class="main_page_content">
-          <%= yield %>
-        </div>  
-    </div>
+	        <div class="main_page_content">
+	          <%= yield %>
+	        </div>  
+	    </div>
 
-    <!-- footer rendering -->
-    <%= render "layouts/footer" %>
-      
+	    <!-- footer rendering -->
+	    <%= render "layouts/footer" %>
+		</div>
   </body>
 </html>

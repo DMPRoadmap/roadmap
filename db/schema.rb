@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607154433) do
+ActiveRecord::Schema.define(version: 20170619173045) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id", limit: 4
@@ -221,6 +221,8 @@ ActiveRecord::Schema.define(version: 20170607154433) do
     t.string   "data_contact",                      limit: 255
     t.string   "funder_name",                       limit: 255
     t.integer  "visibility",                        limit: 4,     default: 0, null: false
+    t.string   "data_contact_email",                limit: 255
+    t.string   "data_contact_phone",                limit: 255
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree

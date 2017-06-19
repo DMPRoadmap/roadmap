@@ -40,7 +40,7 @@
           <td>
             <% if plan.editable_by?(current_user.id) then %>
               <%= link_to _('Edit'), 
-                          plan_path(plan), 
+                          edit_plan_path(plan), 
                           class: "dmp_table_link" %>
 
               <% if plan.administerable_by?(current_user.id) then %>
