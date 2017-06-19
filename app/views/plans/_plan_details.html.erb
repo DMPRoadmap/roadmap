@@ -32,9 +32,14 @@
             <label for="visibility" class="radio-label"><%= _('Visibility') %></label>
             
             <div class="inline-radios inline">
-	            <input type="radio" name="visibility" value="publicly_visible"<%= @plan.visibility == 'publicly_visible' ? ' checked="true"' : '' %> /> <%= _('Public anyone can view') %><br />
-	            <input type="radio" name="visibility" value="organisationally_visible"<%= @plan.visibility == 'organisationally_visible' ? ' checked="true"' : '' %> /> <%= _('Limited: anyone in my institution can view') %><br />
-	            <input type="radio" name="visibility" value="privately_visible"<%= @plan.visibility == 'privately_visible' ? ' checked="true"' : '' %> /> <%= _('Private: restricted to me and people I invite') %><br />
+              <% ['publicly_visible', 'organisationally_visible', 'privately_visible'].each do |visibility| %>
+                <input type="radio" 
+                       name="visibility" 
+                       value="<%= visibility %>"
+                       <%= @plan.visibility == visibility ? 'checked="true"' : '' %> 
+                       title="<%= visibility_tooltip(visibility) %>" /> 
+                <%= raw display_visibility(visibility) %><br />
+              <% end %>
             </div>
             <%= f.hidden_field :visibility %>
           </div>
@@ -110,20 +115,7 @@
           </tr>
           <tr>
             <td class="first"><%= _('Visibility') %></td>
-            <td>
-              <%= 
-              case @plan.visibility 
-              when 'publicly_visible'
-                _('Public: anyone can view')
-              when 'organisationally_visible'
-                _('Limited: anyone in my institution can view')
-              when 'is_test'
-                _('Not applicable: this is a test plan')
-              else
-                _('Private: restricted to me and people I invite')
-              end
-              %>
-            </td>
+            <td><%= raw display_visibility(@plan.visibility) %></td>
           </tr>
 
           <tr>
