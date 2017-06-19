@@ -74,7 +74,7 @@
               <p><%= raw(answer.text) %></p>
             <% else %>
               <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-              <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer") %>
+              <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer", content_css: asset_path('application.css')) %>
             <% end %>
           <%end%>
         <% end %>
@@ -90,7 +90,7 @@
             <p><%= raw(answer.text) %></p>
           <% else %>
             <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-            <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer") %>
+            <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer", content_css: asset_path('application.css')) %>
           <% end %>
         <% end %>
 
