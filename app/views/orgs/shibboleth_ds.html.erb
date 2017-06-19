@@ -48,9 +48,9 @@
   
   <div id="full_list" style="display: none" class="left-indent" aria-hidden="true">
     <div id="org-list">
-      <% if @orgs.count > 49 %>
-        <% if @orgs.count > 99 %>
-          <% one_third = @orgs.count / 3 %>
+      <% if @orgs.count > 50 %>
+        <% if @orgs.count > 100 %>
+          <% one_third = (@orgs.count / 3).to_i %>
 
          <%= render partial: 'shibboleth_ds_list', 
                      locals: {column_count: 'three', orgs: @orgs,

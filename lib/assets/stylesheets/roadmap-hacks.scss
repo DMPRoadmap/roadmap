@@ -97,9 +97,6 @@ ul.question_right_column_ul li.active a:hover, ul.question_right_column_ul li.ac
   color: $white;
 }
 
-#main-nav-tabs ul {
-  border-bottom: none;
-}
 .main_header {
   position: relative;
   height: auto;
@@ -143,10 +140,18 @@ div.signin_signout_header_link {
 #main-nav-tabs {
   width: auto;
 }
+#main-nav-tabs ul {
+  border-bottom: none;
+}
 #main-nav-tabs li a {
   color: $white;
   background-color: $primary-color;
   border: 1px solid $white;
+  
+  .caret-orange {
+    border-top-color: $white !important;
+    border-bottom-color: $white !important;
+  }
 }
 #main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover, lang-dropdown-link:hover{
   color: $primary-color !important;
