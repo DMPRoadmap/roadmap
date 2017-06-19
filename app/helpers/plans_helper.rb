@@ -39,12 +39,22 @@ module PlansHelper
   def display_visibility(val)
     case val
     when 'organisationally_visible'
-      return _('My Inst.')
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Institutional')}</span>"
     when 'publicly_visible'
-      return _('Public')
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
     else
-      return _('Private')  # Both Test and Private
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"  # Both Test and Private
     end
   end
-
+  
+  def visibility_tooltip(val)
+    case val
+    when 'organisationally_visible'
+      return _('Institutional: anyone logged in from your institution can view, copy, or download the plan.')
+    when 'publicly_visible'
+      return _('Public: anyone can view, copy, or download the plan. It will appear on the Public DMPs page of this site.')
+    else
+      return _('Private: only owners, co-owners, and others with whom you shared your plan can directly view the plan. Administrators at your institution can view all plans for program development purposes. See the Terms of Use.')
+    end
+  end
 end
