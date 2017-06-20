@@ -68,8 +68,7 @@ module DMPRoadmap
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
     config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
 
-    config.assets.precompile += %w(plans.js)
-    config.assets.precompile += %w(projects.js)    
+    config.assets.precompile += %w(plans.js)   
     config.assets.precompile += %w(jquery.placeholder.js)
     config.assets.precompile += %w(jquery.tablesorter.js)
     config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
