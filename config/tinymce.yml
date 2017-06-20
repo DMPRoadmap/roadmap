@@ -1,4 +1,3 @@
-content_css: /assets/application.css
 selector: 'textarea.tinymce'
 statusbar: false
 menubar: false
