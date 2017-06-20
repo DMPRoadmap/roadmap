@@ -58,7 +58,7 @@
 <% latest_note = notes_not_archived.sort { |x,y| y.updated_at <=> x.updated_at }.first %>
 <% if !latest_note.nil? then%>
   <div id = "latest_comment_div_<%= question_id %>" class ="view_comment_class">
-    <%= render :partial => "/phases/view_note", locals: {note: latest_note} %>
+    <%= render :partial => "/notes/view", locals: {note: latest_note} %>
     <div class="two-column-clear question-divider"></div>
   </div>
 <%end%>
@@ -66,19 +66,19 @@
 <%notes.each do |note|%>
   <!-- view note -->
   <div id = "view_comment_div_<%= note.id %>" class ="view_comment_class" style="display: none">
-    <%= render :partial => "/phases/view_note", locals: {note: note} %>
+    <%= render :partial => "/notes/view", locals: {note: note} %>
     <div class="two-column-clear question-divider"></div>
   </div>
 
   <!-- edit note block -->
   <div id = "edit_comment_div_<%= note.id %>"  class ="edit_comment_class" style="display: none">
-    <%= render :partial => "/phases/edit_note", locals: {note: note} %>
+    <%= render :partial => "/notes/edit", locals: {note: note} %>
     <div class="two-column-clear question-divider"></div>
   </div>
 
   <!-- archive note block -->
   <div id = "archive_comment_div_<%= note.id %>"  class ="archive_comment_class" style="display: none">
-    <%= render :partial => "/phases/archive_note", locals: {note: note, question_id: question_id} %>
+    <%= render :partial => "/notes/archive", locals: {note: note, question_id: question_id} %>
     <div class="two-column-clear question-divider"></div>
   </div>
 

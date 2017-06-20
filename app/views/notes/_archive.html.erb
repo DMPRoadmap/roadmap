@@ -1,4 +1,3 @@
-
 <%= form_for(note,
              url: archive_note_path(note),
              remote: true,
@@ -8,7 +7,7 @@
     <%= f.hidden_field :id, :value => note.id %>
     <%= f.hidden_field :archived_by, :value => current_user.id %>
 
-    <%= render :partial => "/phases/view_note", locals: {note: note} %>
+    <%= render :partial => "/notes/view", locals: {note: note} %>
 
     <p><%= _('Are you sure you want to remove this note?')%></p>
 
