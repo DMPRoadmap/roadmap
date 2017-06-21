@@ -18,3 +18,5 @@ paste_convert_middot_lists: true
 paste_remove_styles_if_webkit: true
 paste_remove_spans: true
 paste_strip_class_attributes: "all"
+table_default_attributes:
+  border: 1
