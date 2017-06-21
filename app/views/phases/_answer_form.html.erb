@@ -18,7 +18,7 @@
      end
    %>
   <div class="question-form">
-    <div id="<%= "answer-locking-#{question.id}" %>"></div>
+    <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
     <div id="<%= "answer-form-#{question.id}" %>">
       <%= render(partial: 'answers/new_edit', locals: { question: question, answer: answer, readonly: readonly }) %>
     </div>

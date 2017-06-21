@@ -86,6 +86,7 @@ module DMPRoadmap
     config.assets.precompile += %w(answers/status.js)
     config.assets.precompile += %w(notes/index.js)
     config.assets.precompile += %w(bootstrap_listeners.js)
+    config.assets.precompile += %w(Dmproadmap.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
