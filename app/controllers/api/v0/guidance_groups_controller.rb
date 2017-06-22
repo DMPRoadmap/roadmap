@@ -4,12 +4,6 @@ module Api
       before_action :authenticate
       #after_action :verify_authorized
 
-      def show
-        @guidance_group = GuidanceGroup.find(params[:id])
-        raise Pundit::NotAuthorizedError unless Api::V0::GuidanceGroupPolicy.new(@user, @guidance_group).show?
-        respond_with @guidance_group
-      end
-
       def index
       raise Pundit::NotAuthorizedError unless Api::V0::GuidanceGroupPolicy.new(@user, :guidance_group).index?
        @all_viewable_groups = GuidanceGroup.all_viewable(@user)
