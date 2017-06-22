@@ -4,11 +4,12 @@ menubar: false
 toolbar: bold italic | bullist numlist | link | table
 plugins:
   - table
-  #- autoresize
+  - autoresize
   - link
   - paste
-target_list: false 
+target_list: false
 autoresize_min_height: 130
+autoresize_bottom_margin: 10
 extended_valid_elements: "iframe[tooltip] , a[href|target=_blank]"
 extended_valid_elements: "a[href|target=_blank]"
 paste_auto_cleanup_on_paste : true
