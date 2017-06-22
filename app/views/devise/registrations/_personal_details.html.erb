@@ -1,4 +1,13 @@
-<div style="width: 80%; float:left">
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
+
+<div class="profile_text">
+  <p>
+    <%= _("Please note that your email address is used as your username.
+    If you change this, remember to use your new email address on sign in.") %>
+  </p>
+</div>
+
+<div>
   <!-- Edit Profile -->
   <fieldset class="side-by-side">
     <legend><%= _('You can edit any of the details below.') %></legend>
@@ -94,29 +103,34 @@
         <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
       </div>
     <% end %>
+
   </fieldset>
+  <div class='form-input'>
+    <label></label>
+    <%= render partial: 'shared/accessible_submit_button',
+               locals: {id: 'update',
+                        val: 'Save',
+                        disabled_initially: true,
+                        classes: 'small-input-button',
+                        tooltip: _('Enter all of the required information above')} %>
+    <%= link_to 'Cancel', '#', style: 'text-decoration:none;'  %>
+  </div>
+</div>
+<% end %>
 
-
-
-  <!-- alert for the default template-->
-  <div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
-    <div class="modal-header">
-      <h3><%= _('Unlink institutional credentials alert') %></h3>
-    </div>
-    <div class="modal-body">
-      <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
-    </div>
-    <div class="modal-footer">
-      <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
-      <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
-    </div>
+<!-- alert for the default template-->
+<div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
+  <div class="modal-header">
+    <h3><%= _('Unlink institutional credentials alert') %></h3>
+  </div>
+  <div class="modal-body">
+    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
+    <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
   </div>
 </div>
 
-<div style="width: 20%; float:right">
-  <p>
-    <%= _("Please note that your email address is used as your username.
-    If you change this, remember to use your new email address on sign in.") %>
-  </p>
-</div>
+
 

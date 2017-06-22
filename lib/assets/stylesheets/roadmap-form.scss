@@ -207,6 +207,12 @@ form.roadmap-form {
     position: relative;
   }
 
+  div.profile_text {
+    float: right; 
+    width: 20%;
+    padding: 40px;
+    margin: 5px;
+  }
   /* Input validation errors */
   .red-border {
     border: 1px solid $error-color;

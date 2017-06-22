@@ -2,7 +2,6 @@
 <div id="user_profile">
   <h1><%= _('Edit profile') %></h1>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
     <div class="tabbed-area">
       <ul class="tabs" role="tablist">
         <li id="personal-details-tab" class="active" role="tab" aria-controls="personal-details-panel">
@@ -19,12 +18,12 @@
       <div class="tab-panels" role="tabpanel">
         <div id="personal-details-panel" class="tab-panel active" aria-hidden="false"
              aria-labelledby="personal-details-tab">
-          <%= render partial: 'devise/registrations/personal_details', f: f %>
+          <%= render partial: 'devise/registrations/personal_details' %>
         </div>
 
         <div id="password-details-panel" aria-hidden="true" class="tab-panel" role="tabpanel"
              aria-labelledby="password-tab">
-          <%= render partial: 'devise/registrations/password_details', f: f %>
+          <%= render partial: 'devise/registrations/password_details' %>
         </div>
 
         <div id="notification-preferences-panel" aria-hidden="true" class="tab-panel"
@@ -34,16 +33,4 @@
       </div>
     </div>
 
-
-    <div class='form-input'>
-      <label></label>
-      <%= render partial: 'shared/accessible_submit_button',
-                 locals: {id: 'update',
-                          val: 'Save',
-                          disabled_initially: true,
-                          classes: 'small-input-button',
-                          tooltip: _('Enter all of the required information above')} %>
-      <%= link_to 'Cancel', '#', style: 'text-decoration:none;'  %>
-    </div>
-  <% end %>
 </div>

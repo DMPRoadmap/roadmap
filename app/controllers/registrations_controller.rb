@@ -2,7 +2,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
-    @user.create_default_preferences
+    @user.create_default_preferences if @user.prefs == {}
     @languages = Language.all.order("name")
     @orgs = Org.where(parent_id: nil).order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
@@ -70,7 +70,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-
   def update
     if user_signed_in? then
       @orgs = Org.where(parent_id: nil).order("name")
@@ -79,7 +78,6 @@ class RegistrationsController < Devise::RegistrationsController
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       do_update(require_password=needs_password?(current_user, params))
-      update_preferences(current_user, params)
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
@@ -165,27 +163,6 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
-  end
-
-  def update_preferences(current_user, params)
-    prefs = params[:prefs]
-    # Set all preferences to false
-    current_user.prefs.each do |key, value|
-      value.each_key do |k|
-        current_user.prefs[key][k] = false
-      end
-    end
-
-    # Sets the preferences the user wants to true
-    if prefs
-      prefs.each_key do |key|
-        prefs[key].each_key do |k|
-          current_user.prefs[key.to_sym][k.to_sym] = true
-        end
-      end
-    end
-
-    current_user.save
   end
 
   def sign_up_params

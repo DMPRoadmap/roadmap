@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
+  match '/users/update_preferences/' => 'users#update_preferences',  as: 'user_update_preferences', via: [:put, :post]
+
   # WAYFless access point - use query param idp
   #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
