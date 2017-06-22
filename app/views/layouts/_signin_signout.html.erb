@@ -1,48 +1,47 @@
 <!-- Sign in / out -->
-<div class="signIn">
-  <ul class="navbar">
-    <% if user_signed_in? %>
-      <li class="dropdown sign_in">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= _('Signed in as ')%>
-          <%= current_user.name %> <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu" id="signIn_dropdown">
-          <li><%= link_to _('Edit profile'), edit_user_registration_path, class: "signIn_dropdown_link" %></li>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li>
-          <% end %>
-          <% if current_user.can_org_admin? && !current_user.org_id.nil? %>
-            <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %>
-              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif  current_user.can_modify_templates?%>
-              <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif current_user.can_modify_guidance? %>
-              <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif current_user.can_modify_org_details? %>
-              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif current_user.can_grant_permissions? %>
-              <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
-            <% end %>
-          <% end %>
-          <li>
-            <%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
-          </li>
-        </ul>
-      </li>
-    <% else %>
-      <li>
-        <% unless controller_name == "home" && action_name == "index" then %>
-          <a href="#header-login-form" data-toggle="modal"><%= _('Sign in')%></a> /
-          <a href="#header-register-form" data-toggle="modal"><%= _('Create account')%></a>
-        <% else %>
-          <%= raw "&nbsp;" %>
-        <% end %>
-      </li>
+<% if user_signed_in? %>
+  <a href="#" class="dropdown" id="signin-signout">
+    <%= _('Signed in as') %> <%= current_user.name(false) %> <span class="caret"><span>
+  </a>
+  
+  <ul class="hidden dropdown-list" id="signin-signout-dropdown">
+    <li><%= link_to _('Edit profile'), edit_user_registration_path, class: "signIn_dropdown_link" %></li>
+    <% if current_user.can_super_admin? %>
+      <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li>
     <% end %>
+    <% if current_user.can_org_admin? && !current_user.org_id.nil? %>
+      <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %>
+        <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+      <% elsif  current_user.can_modify_templates?%>
+        <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+      <% elsif current_user.can_modify_guidance? %>
+        <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+      <% elsif current_user.can_modify_org_details? %>
+        <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+      <% elsif current_user.can_grant_permissions? %>
+        <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
+      <% end %>
+    <% end %>
+    <li>
+      <%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
+    </li>
   </ul>
 
-<!-- Quick'n'dirty touchscreen hack for Bootstrap's buggy dropdown -->
-  <style>
-    .dropdown-backdrop{ position: static; }
-  </style>
-</div>
+<% else %>
+  <% if !isActivePage(root_path) %>
+    <a href="#header-login-form" data-toggle="modal" dialog-width="450px"><%= _('Sign in')%></a> /
+    <a href="#header-register-form" data-toggle="modal" dialog-width="450px"><%= _('Create account')%></a>
+  <% end %>
+<% end %>
+
+<% if !user_signed_in? && !isActivePage(root_path) then %>
+  <div id="header-login-form" class="modal" style="display:none">
+    <%= render :partial => "shared/login_form" %>
+  </div>
+  <div id="header-register-form" class="modal" style="display:none">
+    <div class="modal-body">
+      <% javascript "shared/register_form.js" %>
+      <%= render :partial => "shared/register_form", locals: {extended: false} %>
+    </div>
+  </div>
+<% end %>

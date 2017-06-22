@@ -3,6 +3,7 @@
 .tabs {
   list-style: none;
   margin: 0;
+  padding-left: 0;
 
   li {
     display: inline;
@@ -41,20 +42,25 @@
 }
 .tab-panels {
   position: relative;
+  width: 100%;
   min-height: 350px;
 }
-.tabbed-area div.tab-panel {
-  padding: 10px 10px;
-  min-height: 400px;
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-  border: 1px solid $primary-color;
-  border-top-left-radius: 0;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+.tabbed-area {
+  position: relative;
+  
+  div.tab-panel {
+    padding: 10px 10px;
+    min-height: 400px;
+    position: relative;
+    top: -1px;
+    left: 0;
+    width: 98.5%;
+    border: 1px solid $primary-color;
+    border-top-left-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 }
 .tab-panel div.active {
   z-index: 1;

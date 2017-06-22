@@ -10,9 +10,13 @@
  *
  * require jquery.ui.all
  *= require_self
- *= require bootstrap_and_overrides
- *= require bootstrap.css
- *= require select2.css
- *= require bootstrap_and_overrides.css.less
- *= require roadmap.scss
  */
+
+@import "font-awesome";
+
+@import "roadmap";
+@import "roadmap/base";
+@import "roadmap/forms";
+@import "roadmap/tabs";
+@import "roadmap/tables";
+@import "roadmap/modals";

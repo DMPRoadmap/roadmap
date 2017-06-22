@@ -78,10 +78,13 @@ module DMPRoadmap
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
  
-    config.assets.precompile += %w(roadmap.css 
+    config.assets.precompile += %w(jquery-ui.min.css
+                                   jquery-ui.structure.min.css
+                                   jquery-ui.theme.min.css
+                                   roadmap.css 
                                    roadmap-tabs.css 
-                                   roadmap-form.css 
-                                   roadmap-hacks.css)
+                                   roadmap-forms.css
+                                   roadmap-tables.css)
                                    
     config.assets.precompile += %w(answers/status.js
                                    devise/passwords/new.js

@@ -4,79 +4,57 @@
   <%= _('Organisation details') %>
 </h1>
 
-<div class="white_background blue_border">
-	<!-- body -->
-	<div class="dmp_details">
-    <div class="dmp_details_body">
-		<%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
+<div class="content">
+  <%= form_for(@org, url: admin_update_org_path(@org), html: { class: "roadmap-form bordered", multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
 
-			<!-- table with org details-->
-			<table class="dmp_details_table">
-				<tr>
-					<td class="first"><%= _('Name') %></td>
-					<td><%= f.text_field :name, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _("Please enter your organisation's name.") %></td>
-				</tr>
+    <fieldset class="side-by-side">
+      <div class="form-input">
+        <%= f.label :name %>*
+        <%= f.text_field :name, class: "left-indent required input-large" %>
+      </div>
+      <div class="form-input">
+        <%= f.label :abbreviation %>*
+        <%= f.text_field :abbreviation, class: "left-indent required input-small" %>
+      </div>
+      
+      <div class="form-input">
+        <%= f.label :logo %>
+        <%= f.file_field :logo, class: 'left-indent' %>
+               
+        <% if @org.logo.present? %>
+          <div class="org-logo">
+            <%= image_tag @org.logo.url %>
+            <%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= _('If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo.') %>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="form-input">
+        <label><%= _('Top banner text') %></label>
+        <%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce left-indent top-indent") %>
+      </div>
+      
+      <div class="form-input">
+        <%= f.label :target_url %>
+        <%= f.text_field :target_url, class: "left-indent required input-large top-indent" %>
+      </div>
+      <div class="form-input">
+        <%= f.label :contact_email %>
+        <%= f.text_field :contact_email, class: "left-indent required input-medium" %>
+      </div>
+    </fieldset>
+    <div class="div_clear"></div>
 
-				<tr>
-					<td class="first"><%= _('Abbreviation') %></td>
-					<td>
-						<div class="div_left_icon_g">
-							<%= f.text_field :abbreviation, as: :string, class: 'text_field' %>
-						</div>
-						<div class="clearfix"></div>
-					</td>
-				</tr>
-
-				<!-- organisation logo -->
-				<% if @org.logo.present? %>
-					<tr>
-						<td class="first"><%= _('Logo') %></td>
-						<td><%= image_tag @org.logo.url %> </td>
-					</tr>
-					<tr>
-						<td class="first"></td>
-						<td><%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= _('If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo.') %></td>
-					</tr>
-				<%end%>
-				<tr class="blank_row"><td class="first"></td></tr>
-				<tr>
-					<td class="first"><%= _('Upload a new logo file') %></td>
-					<td><%= f.file_field :logo %></td>
-				</tr>
-
-				<tr class="blank_row"><td class="first"></td></tr>
-
-				<tr>
-					<td class="first"><%= _('Top banner text') %></td>
-					<td><%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce") %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Website') %></td>
-					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _('Please enter a valid web address.') %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Contact Email') %></td>
-					<td><%= f.text_field :contact_email, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _('The email address of an administrator at your organisation. Your users will use this address if they have questions.') %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Organisation type') %></td>
-          <td><%= @org.type %></td>
-				</tr>
-			</table>
-
-			<div class="div_clear"></div>
-
-			<!-- submit buttons -->
-			<div class="move_2_right">
-				<%= f.submit _('Save'), class: 'btn btn-primary' %>
-				<%= link_to _('Cancel'), :back, class: 'btn btn-primary' %>
-			</div>
-		<% end %>
+    <div class="form-input">
+      <label></label>
+      <%= render partial: 'shared/accessible_submit_button',
+                 locals: {id: 'save_org_submit', 
+                          val: 'Save', 
+                          disabled_initially: true,
+                          tooltip: _('Name and abbreviation are required'),
+                          classes: 'left-indent'} %>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <%= tinymce %>

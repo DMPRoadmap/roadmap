@@ -1,24 +1,17 @@
 <% javascript "plans/new.js" %>
 
-<div class="main">
-  <h1><%= _('Create a new plan') %></h1>
+<h1><%= _('Create a new plan') %></h1>
 
-  <% if @is_test %>
-    <div class="roadmap-info-box">
-      <i class="fa fa-exclamation-circle"></i>
-      <span><%= _('This is a') %> <strong><%= _('test plan') %></strong>.</span>
-    </div>
-  <% end %>
+<p>
+  <%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
+</p>
 
-  <p>
-    <%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
-  </p>
-
+<div class="content">
   <%= form_for @plan, html: {method: :post, class: "roadmap-form"}, remote: true do |f| %>
     <div id="create_plan">
 
       <!-- Plan name section -->
-      <fieldset class="standard padded">
+      <fieldset class="standard padded bordered">
         <legend><%= _('What research project are you planning?') %></legend>
         
         <div class="form-left-side">
@@ -34,7 +27,7 @@
       </fieldset>
 
       <!-- Organisation selection -->
-      <fieldset class="standard padded">
+      <fieldset class="standard padded bordered">
         <legend><%= _('Primary research organisation') %></legend>
       
         <div class="form-left-side">
@@ -63,7 +56,7 @@
       </fieldset>
     
       <!-- Funder selection -->
-      <fieldset class="standard padded">
+      <fieldset class="standard padded bordered">
         <legend><%= _('Funding organisation') %></legend>
       
         <div class="form-left-side">
@@ -89,7 +82,7 @@
       </fieldset>
 
       <!-- Template selection -->
-      <fieldset class="standard padded" id="available-templates">
+      <fieldset class="standard padded bordered" id="available-templates">
       </fieldset>
     
     </div>

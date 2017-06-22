@@ -28,6 +28,7 @@ class PlansController < ApplicationController
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
 
+    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
     @is_test = params[:test] ||= false
 
     respond_to :html
@@ -178,6 +179,9 @@ class PlansController < ApplicationController
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
+    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
+    @is_test = params[:test] ||= false
+    
     respond_to :html
   end
 

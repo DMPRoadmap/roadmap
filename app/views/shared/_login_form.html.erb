@@ -9,9 +9,7 @@
         <span class="omniauth-options centered">
           <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
             <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-            <button id="shibboleth-login" href="<%= target %>" class="omniauth-login">
-              <%= _('Your Institution') %>
-            </button>
+            <a href="<%= target %>" class="link-as-button omniauth-login"><%= _('Your Institution') %></a>
           <%else%>
             <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
           <%end%> 
@@ -47,12 +45,12 @@
       </div>
     </div>
     
-    <div class="form-input">
+    <div class="form-input top-indent">
       <%= render partial: 'shared/accessible_submit_button',
                  locals: {id: 'sign-in-button', 
                           val: _('Sign In'), 
                           disabled_initially: true,
-                          classes: 'small-input-button',
+                          classes: 'small-input-button left-indent',
                           tooltip: _('Enter your email and password.')} %>
 
       <div id="forgot-password-link" class="left-indent inline">

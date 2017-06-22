@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dmponline" lang="<%= FastGettext.locale %>">
+<html lang="<%= FastGettext.locale %>">
   <head>
     <title><%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %></title>
       <%= favicon_link_tag "favicon.ico" %>
@@ -21,18 +21,14 @@
         </style>
     <![endif]-->
     
+    <%= stylesheet_link_tag   "jquery-ui.min" %>
+    <%= stylesheet_link_tag   "jquery-ui.structure.min" %>
+    <%= stylesheet_link_tag   "jquery-ui.theme.min" %>
     <%= stylesheet_link_tag   "application" %>
+    
     <%= javascript_include_tag "application"%>
     
-    <%= javascript_include_tag "jquery.tablesorter"%>
-    
     <script>
-      $(function() {  
-        //function for sorting html tables
-        $("#dmp_table").tablesorter({dateFormat: "uk"}); 
-        $("#dmp_table_2").tablesorter({dateFormat: "uk"});
-      });
-         
       // Set the JS locale equal to the one Rails has
       I18n.defaultLocale = "<%= I18n.default_locale %>";
       I18n.locale = "<%= I18n.locale %>";
@@ -56,37 +52,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         
   </head>
-  <body class="dmponline" >
+  <body>
     <!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
       <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
 
-		<div class="roadmap">
+    <div class="roadmap">
       <!-- header renedering -->
-      <%= render "layouts/header" %>
+      <header>
+        <%= render "layouts/header" %>
+      </header>
       
-	    <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
+      <main>
+        <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
 
-	    <div class="main_page_container">
-	      <% if notice || flash[:notice] %>
-	        <div class="roadmap-info-box">
-	          <i class="fa fa-check-circle-o"></i>
-	          <span><%= raw notice %></span>
-	        </div>
-	      <% end %>
-	      <% if alert || flash[:alert] || flash[:error] %>
-	        <div class="roadmap-info-box">
-	          <i class="fa fa-times-circle"></i>
-	           <span><%= raw alert %></span>
-	        </div>
-	      <% end %>
+        <% if notice || flash[:notice] %>
+          <div class="roadmap-info-box">
+            <i class="fa fa-check-circle-o"></i>
+            <span><%= raw notice %></span>
+          </div>
+        <% end %>
+        <% if alert || flash[:alert] || flash[:error] %>
+          <div class="roadmap-alert-box">
+            <i class="fa fa-times-circle"></i>
+             <span><%= raw alert %></span>
+          </div>
+        <% end %>
       
-	        <div class="main_page_content">
-	          <%= yield %>
-	        </div>  
-	    </div>
+        <div class="page">
+          <%= yield %>
+        </div>  
+      </main>
 
-	    <!-- footer rendering -->
-	    <%= render "layouts/footer" %>
-		</div>
+      <!-- footer rendering -->
+      <footer>
+        <%= render "layouts/footer" %>
+      </footer>
+    </div>
   </body>
 </html>
