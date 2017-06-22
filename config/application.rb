@@ -78,9 +78,9 @@ module DMPRoadmap
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
  
-    config.assets.precompile += %w(jquery-ui.min.css
-                                   jquery-ui.structure.min.css
-                                   jquery-ui.theme.min.css
+    config.assets.precompile += %w(vendor/jquery-ui.min.css
+                                   vendor/jquery-ui.structure.min.css
+                                   vendor/jquery-ui.theme.min.css
                                    roadmap.css 
                                    roadmap-tabs.css 
                                    roadmap-forms.css
