@@ -18,7 +18,7 @@
      end
    %>
   <div class="question-form">
-    <div id="<%= "answer-locking-#{question.id}" %>"></div>
+    <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
     <div id="<%= "answer-form-#{question.id}" %>">
       <%= render(partial: 'answers/new_edit', locals: { question: question, answer: answer, readonly: readonly }) %>
     </div>
@@ -34,42 +34,30 @@
     <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
       <% comments = answer.notes.all %> 
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+      <% active_tab = nil %>
       <ul class="question_right_column_ul">
-      <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
-      <% if annotations.present? || question_guidances.present? %>
-        <!-- add css to comment div-->
-        <% css_style_comment_div = "display: none;"%>
-        <% css_style_guidance_div = ""%>
-        <li class="active guidance_tab_class">
-          <%= link_to _('Guidance'), "#", class: "guidance_accordion_button" %>
-        </li>
-        <li class="comment_tab_class">
-          <% if comments.count > 0%>
-            <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
-            <%= link_to comments_label_with_count , "#", id: "notes_number_#{question.id}", class: "comments_accordion_button" %>
+        <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
+        <% if annotations.present? || question_guidances.present? %>
+          <% active_tab = 'guidance_tab' %>
+          <li class="guidance_tab active">
+            <%= link_to _('Guidance'), "#", class: "right_column_tab_link" %>
+          </li>
+        <% else %>
+        <% active_tab = 'note_tab' %>
+        <% end %>
+        <li class="note_tab <%= "active" if active_tab == 'note_tab' %>">
+          <% if comments.count > 0 %>
+            <%= link_to "#{_('Notes')} (#{comments.count})" , "#", id: "notes_number_#{question.id}", class: "right_column_tab_link" %>
           <% else %>
-            <%= link_to _('Share note'), "#", id: "notes_number_#{question.id}", class: "comments_accordion_button" %>
+            <%= link_to _('Share note'), "#", id: "notes_number_#{question.id}", class: "right_column_tab_link" %>
           <% end %>
         </li>
-        <% else %>
-          <!-- remove the css from comment div-->
-          <% css_style_comment_div = ""%>
-          <% css_style_guidance_div = "display: none;"%>
-          <li>
-            <% if comments.count > 0 %>
-              <% comments_label_with_count = "#{_('Notes')} (#{comments.count})"%>
-              <p id="notes_number_<%=question.id%>" class= "accordion_label"><%= comments_label_with_count %></p>
-            <% else %>
-              <p id="notes_number_<%=question.id%>" class= "accordion_label"><%= _('Share note') %></p>
-            <% end %>
-          </li>
-        <% end %>
       </ul>
     </div>
 
 
-    <!--guidance area -->
-    <div class="question-guidance" id="guidance-question-area-<%= question.id %>" style="<%= css_style_guidance_div%>" >
+    <!--guidance content -->
+    <div class="question-guidance guidance_tab" id="guidance-question-area-<%= question.id %>" style="<%= active_tab == 'guidance_tab' ? '' : 'display:none;' %>">
      <div class="accordion" id="<%= question.id %>-guidance">
 
         <!--question guidance-->
@@ -120,9 +108,9 @@
        <% end %>   <!-- question_guidances.each_pair -->
 
      </div>   <!-- accordion-questionid -->
-    </div>   <!-- question-guidance -->
-  <!--comment area -->
-  <div class="comment-area" id="comment-question-area-<%= question.id %>"  style="<%= css_style_comment_div%>">
+  </div>   <!-- question-guidance -->
+  <!--note content -->
+  <div class="comment-area note_tab" id="comment-question-area-<%= question.id %>"  style="<%= active_tab == 'note_tab' ? '' : 'display:none;' %>">
       <%= render partial: "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
   </div>
 </div> <!-- question area right column -->

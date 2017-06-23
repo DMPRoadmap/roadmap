@@ -1,7 +1,7 @@
 <%- model_class = Phase -%>
 <% javascript 'admin.js' %>
 
-<%= tinymce %>
+<%= tinymce :content_css => asset_path('application.css') %>
 
 <h1>
   <%= @phase.template.title %>

@@ -26,7 +26,8 @@ in the admin interface.
       <!--Question text -->
       <tr>
         <td class="first_template"><%= _('Question text')%></td>
-        <td><%= f.text_area :text, rows: "5", id: "new_question_text_#{section.id}" %>
+        <td>
+          <%= text_area_tag('question[text]', "", id: "new_question_text_#{section.id}", class: "tinymce") %>
           <div class="border_bottom"></div>
         </td>
       </tr>
