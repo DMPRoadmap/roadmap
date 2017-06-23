@@ -1,0 +1,14 @@
+    <!-- Partial template for showing the progress for a section, i.e. the valid answers -->
+    <% num_section_questions = section.questions.size() %>
+    <% num_section_answers = section.num_answered_questions(plan.id) %>
+    <% question_word = "questions" %>
+    <% if num_section_questions == 1 then %>
+        <% question_word = "question" %>
+    <% end %>
+    <% section_status = "#{num_section_questions} #{question_word}, #{num_section_answers} answered" %>
+    <%= section.title %>
+    <% if num_section_questions.to_i > num_section_answers.to_i then %>
+        <span class="label label-warning section-status">(<%= section_status %>)</span>
+    <% else %>
+        <span class="label label-info section-status">(<%= section_status %>)</span>
+    <% end %>

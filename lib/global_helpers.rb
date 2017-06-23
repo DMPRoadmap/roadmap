@@ -2,7 +2,7 @@ module GlobalHelpers
 
   ##
   # takes in a string which is meant to be constant, and looks it up in the default
-  # (en-UK) locale.  This should ensure that the back-end remains constant and consistantly called
+  # (en_GB) locale.  This should ensure that the back-end remains constant and consistantly called
   #
   # @param [String] str the string which will be looked up in the localisation
   # @return [String] the constant which the string defines

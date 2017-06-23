@@ -1,142 +1,187 @@
 class ExportedPlan < ActiveRecord::Base
   include GlobalHelpers
+  include SettingsTemplateHelper
 
-  attr_accessible :plan_id, :user_id, :format, :as => [:default, :admin]
+# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
+  attr_accessible :plan_id, :user_id, :format, :user, :plan, :as => [:default, :admin]
 
   #associations between tables
   belongs_to :plan
   belongs_to :user
 
-  VALID_FORMATS = ['csv', 'html', 'json', 'pdf', 'text', 'xml', 'docx']
+  VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
 
-  validates :format, inclusion: { in: VALID_FORMATS, message: I18n.t('helpers.plan.export.not_valid_format') }
+  validates :format, inclusion: { 
+    in: VALID_FORMATS,
+    message: -> (object, data) do 
+      _('%{value} is not a valid format') % { :value => data[:value] } 
+    end 
+  }
+  validates :plan, :format, presence: {message: _("can't be blank")}
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a
   # given time can be lost)
-  has_settings :export, class_name: 'Settings::Dmptemplate' do |s|
-    s.key :export, defaults: Settings::Dmptemplate::DEFAULT_SETTINGS
+  has_settings :export, class_name: 'Settings::Template' do |s|
+    s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
-  # Getters to match Settings::Dmptemplate::VALID_ADMIN_FIELDS
+# TODO: Consider removing the accessor methods, they add no value. The view/controller could
+#       just access the value directly from the project/plan: exported_plan.plan.project.title
+
+  # Getters to match Settings::Template::VALID_ADMIN_FIELDS
   def project_name
-    name = self.plan.project.title
-    name += " - #{self.plan.title}" if self.plan.project.dmptemplate.phases.count > 1
+    name = self.plan.template.title
+    name += " - #{self.plan.title}" if self.plan.template.phases.count > 1
     name
   end
 
   def project_identifier
-    self.plan.project.identifier
+    self.plan.identifier
   end
 
   def grant_title
-    self.plan.project.grant_number
+    self.plan.grant_number
   end
 
   def principal_investigator
-    self.plan.project.principal_investigator
+    self.plan.principal_investigator
   end
 
   def project_data_contact
-    self.plan.project.data_contact
+    self.plan.data_contact
   end
 
   def project_description
-    self.plan.project.description
+    self.plan.description
+  end
+
+  def owner
+    self.plan.roles.to_a.select{ |role| role.creator? }.first.user
   end
 
   def funder
-    org = self.plan.project.dmptemplate.try(:organisation)
-    org.name if org.present? && org.organisation_type.try(:name) == constant("organisation_types.funder")
+    org = self.plan.template.try(:org)
+    org.name if org.present? && org.funder?
   end
 
   def institution
-    plan.project.organisation.try(:name)
+    plan.owner.org.try(:name)
   end
 
-  # sections taken from fields settings
+  def orcid
+    scheme = IdentifierScheme.find_by(name: 'orcid')
+    if self.owner.nil?
+      ''
+    else
+      orcid = self.owner.user_identifiers.where(identifier_scheme: scheme).first
+      (orcid.nil? ? '' : orcid.identifier)
+    end
+  end
+
   def sections
-    sections = self.plan.sections
-
-    return [] if questions.empty?
-
-    section_ids = questions.pluck(:section_id).uniq
-    sections = sections.select {|section| section_ids.member?(section.id) }
-
-    sections.sort_by(&:number)
+    self.phase_id ||= self.plan.template.phases.first.id
+    Section.where({phase_id: phase_id}).order(:number)
   end
 
   def questions_for_section(section_id)
-    questions.where(section_id: section_id)
+    Question.where(id: questions).where(section_id: section_id).order(:number)
   end
 
   def admin_details
     @admin_details ||= self.settings(:export).fields[:admin]
   end
 
+  # Retrieves the title field
+  def title
+    self.settings(:export).title
+  end
+
   # Export formats
 
   def as_csv
     CSV.generate do |csv|
-      csv << ["Section","Question","Answer","Selected option(s)","Answered by","Answered at"]
+      csv << [_('Section'),_('Question'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
       self.sections.each do |section|
-        self.questions_for_section(section).each do |question|
-          answer = self.plan.answer(question.id)
-          options_string = answer.options.collect {|o| o.text}.join('; ')
-
-          csv << [section.title, sanitize_text(question.text), sanitize_text(answer.text), options_string, answer.try(:user).try(:name), answer.created_at]
+        questions = self.questions_for_section(section)
+        if questions.present?
+          questions.each do |question|
+            answer = self.plan.answer(question.id)
+            q_format = question.question_format
+            if q_format.option_based?
+              options_string = answer.question_options.collect {|o| o.text}.join('; ')
+            else
+              options_string = ''
+            end
+            csv << [
+              section.title,
+              sanitize_text(question.text),
+              question.option_comment_display ? sanitize_text(answer.text) : '',
+              options_string,
+              user.name,
+              answer.updated_at
+            ]
+          end
         end
       end
     end
   end
 
   def as_txt
-    output = "#{self.plan.project.title}\n\n#{self.plan.version.phase.title}\n"
+    output = "#{self.plan.title}\n\n#{self.plan.template.title}\n"
+    output += "\n"+_('Details')+"\n\n"
 
-
-puts "SETTINGS: #{self.plan.inspect}"
-
-    output += "\nDetails:\n#{self.plan.settings[:export][:fields][:admin].collect{|f| f.to_s}.join('\n')}\n"
+    self.admin_details.each do |at|
+        value = self.send(at)
+        if value.present?
+          output += admin_field_t(at.to_s) + ": " + value + "\n"
+        else
+          output += admin_field_t(at.to_s) + ": " + _('-') + "\n"
+        end
+    end
 
     self.sections.each do |section|
-      output += "\n#{section.title}\n"
+      questions = self.questions_for_section(section)
+      if questions.present?
+        output += "\n#{section.title}\n"
+        questions.each do |question|
+          qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
+          output += "\n* #{qtext}"
+          answer = self.plan.answer(question.id, false)
 
-      self.questions_for_section(section).each do |question|
-        qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
-        output += "\n#{qtext}\n"
-        answer = self.plan.answer(question.id, false)
-
-        if answer.nil? || answer.text.nil? then
-          output += I18n.t('helpers.plan.export.pdf.question_not_answered')+ "\n"
-        else
-          output += answer.options.collect {|o| o.text}.join("\n")
-          if question.option_comment_display == true then
-            output += "\n#{sanitize_text(answer.text)}\n"
+          if answer.nil?
+            output += _('Question not answered.')+ "\n"
           else
-            output += "\n"
+            q_format = question.question_format
+            if q_format.option_based?
+              output += answer.question_options.collect {|o| o.text}.join("\n")
+              if question.option_comment_display
+                output += "\n#{sanitize_text(answer.text)}\n"
+              end
+            else
+              output += "\n#{sanitize_text(answer.text)}\n"
+            end
           end
         end
       end
     end
-
     output
   end
 
 private
-
+  # Returns an Array of question_ids for the exported settings stored for a plan
   def questions
-    @questions ||= begin
-      question_settings = self.settings(:export).fields[:questions]
-
-      return [] if question_settings.is_a?(Array) && question_settings.empty?
-
-      questions = if question_settings.present? && question_settings != :all
-        Question.where(id: question_settings)
+    question_settings = self.settings(:export).fields[:questions]
+    @questions ||= if question_settings.present?
+      if question_settings == :all
+        Question.where(section_id: self.plan.sections.collect { |s| s.id }).pluck(:id)
+      elsif question_settings.is_a?(Array)
+        question_settings
       else
-        Question.where(section_id: self.plan.sections.collect {|s| s.id })
+        []
       end
-
-      questions.order(:number)
+    else
+      []
     end
   end
 

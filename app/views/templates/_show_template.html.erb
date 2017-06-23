@@ -1,0 +1,50 @@
+<!-- show template details A template is passed as an argument-->
+
+<% if template == current then %>
+  <h3><!-- edit template button -->
+  <% if template.customization_of.nil? %>
+    <div class="move_2_right">
+      <%= link_to _('Edit template details'), '# ', class: "btn btn-primary", id: "edit_template_button"%>
+    </div>
+  <% end %>
+  </h3>
+<% end %>
+<br/>
+
+<table class="dmp_details_table">
+  <tr>
+    <td class="first_template"><%= _('Title') %></td>
+    <td><%= template.title %></td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= _('Description') %></td>
+    <td><% if !template.description.nil? && template.description != "" then %>
+        <%= raw template.description %>
+      <% else %>
+         -
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= _('Status') %></td>
+    <td>
+      <% if hash[:live].nil? %>
+        <%= _('Unpublished') %>
+        
+      <% elsif hash[:current].dirty? %>
+        <%= _('You have un-published changes') %>
+        
+      <% else %>
+        <%= _('Published') %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= _('Created at') %></td>
+    <td><%= l template.created_at.to_date, formats: :short %></td>
+  </tr>
+  <tr>
+    <td class="first_template"><%= _('Last updated') %></td>
+    <td class="phase_table_last_column"><%= l template.updated_at.to_date, formats: :short %></td>
+  </tr>
+</table>

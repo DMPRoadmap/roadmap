@@ -8,7 +8,7 @@ xml.plan("id" => @plan.id) do
 		xml.details do
 			details.each do |field|
 				value = @exported_plan.send(field)
-				xml.detail(value, title: t("helpers.plan.export.#{field}")) if value.present?
+				xml.detail(value, title: admin_field_t(field)) if value.present?
 			end
 		end
 	end
@@ -26,8 +26,8 @@ xml.plan("id" => @plan.id) do
 							answer = @plan.answer(question.id, false)
 							if ! answer.nil? then
 								xml.answer("id" => answer.id) do #should add user and date info here
-									if (q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") ||
-                                        q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown")) then
+									if (q_format.title == _('Check box') || q_format.title == _('Multi select box') ||
+                                        q_format.title == _('Radio buttons') || q_format.title == _('Dropdown')) then
 										xml.selections do
 											answer.options.each do |option|
 												xml.selection(option.text, "id" => option.id, "number" => option.number)

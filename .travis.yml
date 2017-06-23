@@ -5,7 +5,13 @@ rvm:
 before_script:
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
-  - bundle exec rake db:migrate RAILS_ENV=test
+  - cp config/branding_example.yml config/branding.yml
+  - cp config/initializers/devise.rb.example config/initializers/devise.rb
+  - cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+  - cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+  - bundle exec rake db:drop RAILS_ENV=test
+  - bundle exec rake db:create RAILS_ENV=test
+  - bundle exec rake db:schema:load RAILS_ENV=test
 
 script:
   - bundle exec rake test

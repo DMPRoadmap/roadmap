@@ -567,7 +567,6 @@ body.dmponline .btn-primary:hover{
 }
 
 
-
 /***********************************
             Home page
 ************************************/
@@ -1186,6 +1185,10 @@ table.dmp_details_table tr td.first{
   width: 250px;
 }
 
+table.dmp_details_table tr td.tinymce{
+  min-width: 400px;
+}
+
 table.dmp_details_table .text_area{
   width: 90%;
 } 
@@ -1667,7 +1670,7 @@ table.tablesorter thead tr th{
   padding-right: 20px;
 }
 table.tablesorter thead tr .header {
-  background-image: url(bg.gif);
+  background-image: asset-url("bg.gif");
   background-repeat: no-repeat;
   background-position: center right;
   background-color: @orange_lighter_colour;
@@ -1676,10 +1679,10 @@ table.tablesorter thead tr .header {
 
 
 table.tablesorter thead tr .headerSortUp {
-  background-image: url(asc.gif);
+  background-image: asset-url("asc.gif");
 }
 table.tablesorter thead tr .headerSortDown {
-  background-image: url(desc.gif);
+  background-image: asset-url("desc.gif");
 }
 
 

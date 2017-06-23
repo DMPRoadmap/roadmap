@@ -12,16 +12,16 @@ class UserPolicy < ApplicationPolicy
   end
 
   def admin_grant_permissions?
-    @user.can_grant_permissions? && (@users.organisation_id == @user.organisation_id)
+    @user.can_grant_permissions? && (@users.org_id == @user.org_id)
   end
 
   def admin_update_permissions?
-    @user.can_grant_permissions?  && (@users.organisation_id == @user.organisation_id)
+    @user.can_grant_permissions?  && (@users.org_id == @user.org_id)
   end
 
   class Scope < Scope
     def resolve
-      scope.where(organisation_id: user.organisation_id)
+      scope.where(org_id: user.org_id)
     end
   end
 

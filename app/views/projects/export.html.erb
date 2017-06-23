@@ -9,7 +9,7 @@
 <!-- main info to export -->
 <div class="dmp_details_body">
 	<!--Text describing page content-->
-	<%= raw t('helpers.project.export_text_html')%>
+	<%= raw _("<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>")%>
 	
 	<!-- If project has plans-->
 	<% if @project.plans.any? %>

@@ -1,22 +1,59 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords', :sessions => 'sessions', :omniauth_callbacks => 'users/omniauth_callbacks'} do
+  namespace :admin do
+    resources :users, only: [:new, :create, :edit, :update, :index, :show]
+    resources :orgs, only: [:new, :create, :edit, :update, :index, :show]
+    resources :perms, only: [:new, :create, :edit, :update, :index, :show]
+    resources :languages
+    resources :templates
+    resources :token_permission_types
+    resources :phases
+    resources :sections
+    resources :questions
+    resources :question_formats
+    resources :question_options
+    resources :annotations
+    resources :answers
+    resources :guidances
+    resources :guidance_groups
+    resources :themes
+    resources :notes
+    resources :plans
+    # resources :plans_guidance_groups
+    resources :identifier_schemes
+    resources :exported_plans
+    resources :regions
+    resources :roles
+    resources :splash_logs
+    resources :user_identifiers
+
+    root to: "users#index"
+  end
+
+  devise_for :users, controllers: {
+        registrations: "registrations", 
+        passwords: 'passwords', 
+        sessions: 'sessions', 
+        omniauth_callbacks: 'users/omniauth_callbacks'} do
+        
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
-
+  
   # WAYFless access point - use query param idp
-  get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
-  get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
-
+  #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
+  #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
+  #post '/auth/:provider/callback' => 'sessions#oauth_create'
+  
   # fix for activeadmin signout bug
   devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
+    delete '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  ActiveAdmin.routes(self)
+  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  
+  #ActiveAdmin.routes(self)
 
   #organisation admin area
-  #match "org/admin/users" => 'organisation_users#admin_index', :as => "org/admin/users"
   resources :users, :path => 'org/admin/users', only: [] do
     collection do
       get 'admin_index'
@@ -29,20 +66,22 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
-  get '/:locale' => 'home#index', :as => 'locale_root'
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  patch 'locale/:locale' => 'application#set_locale_session', as: 'locale'
+
+  root :to => 'home#index'
     get "about_us" => 'static_pages#about_us'
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
+    get "public_plans" => 'static_pages#public_plans'
+    get "public_export/:id" => 'static_pages#public_export', as: 'public_export'
     get "existing_users" => 'existing_users#index'
   
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
     
-    resources :organisations, :path => 'org/admin', only: [] do
+    resources :orgs, :path => 'org/admin', only: [] do
       member do
         get 'children'
         get 'templates'
@@ -80,85 +119,139 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :dmptemplates, :path => 'org/admin/templates', only: [] do
+    resources :templates, :path => 'org/admin/templates', only: [] do
       member do
         get 'admin_index'
         get 'admin_template'
         get 'admin_new'
-        get 'admin_addphase'
-        get 'admin_phase'
-        get 'admin_previewphase'
-        get 'admin_cloneversion'
+        get 'admin_template_history'
+        get 'admin_customize'
         delete 'admin_destroy'
-        delete 'admin_destroyversion'
-        delete 'admin_destroyphase'
-        delete 'admin_destroysection'
-        delete 'admin_destroyquestion'
-        delete 'admin_destroysuggestedanswer'
         post 'admin_create'
-        post 'admin_createphase'
-        post 'admin_createsection'
-        post 'admin_createquestion'
-        post 'admin_createsuggestedanswer'
         put 'admin_update'
-        put 'admin_updatephase'
-        put 'admin_updateversion'
-        put 'admin_updatesection'
-        put 'admin_updatequestion'
-        put 'admin_updatesuggestedanswer'
+        put 'admin_publish'
+        put 'admin_unpublish'
+        get 'admin_transfer_customization'
       end
     end
 
-    resources :answers, only: :create
-
-    resources :comments, only: [:create, :update] do
+    resources :phases, path: 'org/admin/templates/phases', only: [] do
       member do
-        put 'archive'
+        get 'admin_show'
+        get 'admin_preview'
+        get 'admin_add'
+        put 'admin_update'
+        post 'admin_create'
+        delete 'admin_destroy'
       end
     end
 
-    resources :projects do
-      resources :plans , only: [:edit, :update] do
+    resources :sections, path: 'org/admin/templates/sections', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :questions, path: 'org/admin/templates/questions', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :annotations, path: 'org/admin/templates/annotations', only: [] do
+      member do
+        post 'admin_create'
+        put 'admin_update'
+        delete 'admin_destroy'
+      end
+    end
+
+    resources :answers, only: :update
+
+    resources :notes, only: [:create, :update, :archive] do
+      member do
+        patch 'archive'
+      end
+    end
+
+    resources :plans do
+      resources :phases do
         member do
+          get 'edit'
           get 'status'
-          get 'locked'
-          get 'answer'
-          #get 'edit'
-          post 'delete_recent_locks'
-          post 'lock_section', constraints: {format: [:html, :json]}
-          post 'unlock_section', constraints: {format: [:html, :json]}
-          post 'unlock_all_sections'
-          get 'export'
-          get 'warning'
-          get 'section_answers'
+          post 'update'
         end
       end
 
+
       member do
+        get 'status'
+        get 'locked'
+        get 'answer'
+        put 'update_guidance_choices'
+        post 'delete_recent_locks'
+        post 'lock_section', constraints: {format: [:html, :json]}
+        post 'unlock_section', constraints: {format: [:html, :json]}
+        post 'unlock_all_sections'
+        get 'warning'
+        get 'section_answers'
         get 'share'
+        get 'show_export'
         get 'export'
         post 'invite'
       end
+
       collection do
         get 'possible_templates'
         get 'possible_guidance'
       end
     end
 
-    resources :project_groups, only: [:create, :update, :destroy]
+#    resources :projects do
+#      resources :plans , only: [:edit, :update] do
+#        member do
+#          get 'status'
+#          get 'locked'
+#          get 'answer'
+#          #get 'edit'
+#          post 'delete_recent_locks'
+#          post 'lock_section', constraints: {format: [:html, :json]}
+#          post 'unlock_section', constraints: {format: [:html, :json]}
+#          post 'unlock_all_sections'
+#          get 'export'
+#          get 'warning'
+#          get 'section_answers'
+#        end
+#      end
+#
+#      member do
+#        get 'share'
+#        get 'export'
+#        post 'invite'
+#      end
+#      collection do
+#        get 'possible_templates'
+#        get 'possible_guidance'
+#      end
+#    end
+
+    resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
-      resource :projects, only: [:show, :update]
-      resources :plans, only: [:show, :update]
+      resources :plans, only: [:update]
     end
 
     resources :token_permission_types, only: [:index]
 
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
-        resources :guidance_groups, only: [:index, :show]
-        resources :plans, only: :create, controller: "projects", path: "plans"
-        resources :templates, only: :index, controller: "dmptemplates", path: "templates"
+        resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
+        resources :plans, only: :create
+        resources :templates, only: :index
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do
           member do
             get :users_joined
@@ -223,5 +316,4 @@ Rails.application.routes.draw do
     # This is a legacy wild controller route that's not recommended for RESTful applications.
     # Note: This route will make all actions in every controller accessible via GET requests.
     # match ':controller(/:action(/:id))(.:format)'
-  end
 end

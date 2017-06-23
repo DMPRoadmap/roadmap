@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Project - DMPonline4 Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/project.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-projects_for_user">::projects_for_user</a>
+    
+    <li><a href="#method-i-add_user">#add_user</a>
+    
+    <li><a href="#method-i-administerable_by">#administerable_by</a>
+    
+    <li><a href="#method-i-assign_administrator">#assign_administrator</a>
+    
+    <li><a href="#method-i-assign_creator">#assign_creator</a>
+    
+    <li><a href="#method-i-assign_editor">#assign_editor</a>
+    
+    <li><a href="#method-i-assign_reader">#assign_reader</a>
+    
+    <li><a href="#method-i-create_plans">#create_plans</a>
+    
+    <li><a href="#method-i-created_by">#created_by</a>
+    
+    <li><a href="#method-i-editable_by">#editable_by</a>
+    
+    <li><a href="#method-i-funder">#funder</a>
+    
+    <li><a href="#method-i-funder_id">#funder_id</a>
+    
+    <li><a href="#method-i-funder_id-3D">#funder_id=</a>
+    
+    <li><a href="#method-i-funder_name">#funder_name</a>
+    
+    <li><a href="#method-i-funder_name-3D">#funder_name=</a>
+    
+    <li><a href="#method-i-institution_id">#institution_id</a>
+    
+    <li><a href="#method-i-institution_id-3D">#institution_id=</a>
+    
+    <li><a href="#method-i-last_edited">#last_edited</a>
+    
+    <li><a href="#method-i-latest_update">#latest_update</a>
+    
+    <li><a href="#method-i-name">#name</a>
+    
+    <li><a href="#method-i-owner">#owner</a>
+    
+    <li><a href="#method-i-readable_by">#readable_by</a>
+    
+    <li><a href="#method-i-shared">#shared</a>
+    
+    <li><a href="#method-i-shared-3F">#shared?</a>
+    
+    <li><a href="#method-i-template_owner">#template_owner</a>
+    
+    <li><a href="#method-i-unit_id">#unit_id</a>
+    
+    <li><a href="#method-i-unit_id-3D">#unit_id=</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./Settings/Dmptemplate.html">Settings::Dmptemplate</a>
+  
+    <li><a href="./Settings/PlanList.html">Settings::PlanList</a>
+  
+    <li><a href="./Settings/PlansController.html">Settings::PlansController</a>
+  
+    <li><a href="./Settings/ProjectsController.html">Settings::ProjectsController</a>
+  
+    <li><a href="./Settings/SettingsController.html">Settings::SettingsController</a>
+  
+    <li><a href="./ActiveAdmin.html">ActiveAdmin</a>
+  
+    <li><a href="./ActiveAdmin/Views.html">ActiveAdmin::Views</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages.html">ActiveAdmin::Views::Pages</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages/Base.html">ActiveAdmin::Views::Pages::Base</a>
+  
+    <li><a href="./Users.html">Users</a>
+  
+    <li><a href="./Users/OmniauthCallbacksController.html">Users::OmniauthCallbacksController</a>
+  
+    <li><a href="./Users/OmniauthShibbolethRequestController.html">Users::OmniauthShibbolethRequestController</a>
+  
+    <li><a href="./DMPonline4.html">DMPonline4</a>
+  
+    <li><a href="./DMPonline4/Application.html">DMPonline4::Application</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Answer.html">Answer</a>
+  
+    <li><a href="./AnswersController.html">AnswersController</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./ConfirmationsController.html">ConfirmationsController</a>
+  
+    <li><a href="./ContactsController.html">ContactsController</a>
+  
+    <li><a href="./CustomFailure.html">CustomFailure</a>
+  
+    <li><a href="./Dmptemplate.html">Dmptemplate</a>
+  
+    <li><a href="./DmptemplatesController.html">DmptemplatesController</a>
+  
+    <li><a href="./ExistingUsersController.html">ExistingUsersController</a>
+  
+    <li><a href="./ExportedPlan.html">ExportedPlan</a>
+  
+    <li><a href="./FileType.html">FileType</a>
+  
+    <li><a href="./FileUpload.html">FileUpload</a>
+  
+    <li><a href="./Guidance.html">Guidance</a>
+  
+    <li><a href="./GuidanceGroup.html">GuidanceGroup</a>
+  
+    <li><a href="./GuidanceGroupsController.html">GuidanceGroupsController</a>
+  
+    <li><a href="./GuidancesController.html">GuidancesController</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Option.html">Option</a>
+  
+    <li><a href="./OptionWarning.html">OptionWarning</a>
+  
+    <li><a href="./Org.html">Organisation</a>
+  
+    <li><a href="./OrganisationType.html">OrganisationType</a>
+  
+    <li><a href="./OrganisationUsersController.html">OrganisationUsersController</a>
+  
+    <li><a href="./OrganisationsController.html">OrganisationsController</a>
+  
+    <li><a href="./PasswordsController.html">PasswordsController</a>
+  
+    <li><a href="./Phase.html">Phase</a>
+  
+    <li><a href="./Plan.html">Plan</a>
+  
+    <li><a href="./PlanSection.html">PlanSection</a>
+  
+    <li><a href="./PlansController.html">PlansController</a>
+  
+    <li><a href="./PlansHelper.html">PlansHelper</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectGroup.html">ProjectGroup</a>
+  
+    <li><a href="./ProjectGroupsController.html">ProjectGroupsController</a>
+  
+    <li><a href="./ProjectPartner.html">ProjectPartner</a>
+  
+    <li><a href="./ProjectsController.html">ProjectsController</a>
+  
+    <li><a href="./Question.html">Question</a>
+  
+    <li><a href="./QuestionFormat.html">QuestionFormat</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./Section.html">Section</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SplashLog.html">SplashLog</a>
+  
+    <li><a href="./SplashLogsController.html">SplashLogsController</a>
+  
+    <li><a href="./StaticPagesController.html">StaticPagesController</a>
+  
+    <li><a href="./SuggestedAnswer.html">SuggestedAnswer</a>
+  
+    <li><a href="./Theme.html">Theme</a>
+  
+    <li><a href="./ThemesController.html">ThemesController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UserOrgRole.html">UserOrgRole</a>
+  
+    <li><a href="./UserOrgRolesController.html">UserOrgRolesController</a>
+  
+    <li><a href="./UserRoleType.html">UserRoleType</a>
+  
+    <li><a href="./UserRoleTypesController.html">UserRoleTypesController</a>
+  
+    <li><a href="./UserStatus.html">UserStatus</a>
+  
+    <li><a href="./UserStatusesController.html">UserStatusesController</a>
+  
+    <li><a href="./UserType.html">UserType</a>
+  
+    <li><a href="./UserTypesController.html">UserTypesController</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./Version.html">Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Project</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-projects_for_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">projects_for_user</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="projects_for_user-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">projects_for_user</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">projects</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">groups</span> = <span class="ruby-constant">ProjectGroup</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;user_id = ?&quot;</span>, <span class="ruby-identifier">user_id</span>)
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">group</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+                                <span class="ruby-identifier">projects</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">group</span>.<span class="ruby-identifier">project</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">projects</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- projects_for_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- projects_for_user-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-administerable_by" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">administerable_by</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="administerable_by-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">administerable_by</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">user</span> = <span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">find_by_user_id</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">project_administrator</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- administerable_by-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- administerable_by-method -->
+
+    
+      <div id="method-i-assign_administrator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assign_administrator</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assign_administrator-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assign_administrator</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">add_user</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-keyword">true</span>, <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- assign_administrator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- assign_administrator-method -->
+
+    
+      <div id="method-i-assign_creator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assign_creator</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assign_creator-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assign_creator</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">add_user</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-keyword">true</span>, <span class="ruby-keyword">true</span>, <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- assign_creator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- assign_creator-method -->
+
+    
+      <div id="method-i-assign_editor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assign_editor</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assign_editor-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assign_editor</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">add_user</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- assign_editor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- assign_editor-method -->
+
+    
+      <div id="method-i-assign_reader" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assign_reader</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assign_reader-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assign_reader</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">add_user</span>(<span class="ruby-identifier">user_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- assign_reader-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- assign_reader-method -->
+
+    
+      <div id="method-i-created_by" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">created_by</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="created_by-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">created_by</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">user</span> = <span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">find_by_user_id</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">project_creator</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- created_by-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- created_by-method -->
+
+    
+      <div id="method-i-editable_by" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">editable_by</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="editable_by-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">user</span> = <span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">find_by_user_id</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">project_editor</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- editable_by-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- editable_by-method -->
+
+    
+      <div id="method-i-funder" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">funder</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="funder-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">funder</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">template_org</span> = <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">organisation</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">template_org</span>.<span class="ruby-identifier">organisation_type</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.org_type.funder&#39;</span>).<span class="ruby-identifier">downcase</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-identifier">template_org</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- funder-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- funder-method -->
+
+    
+      <div id="method-i-funder_id" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">funder_id</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="funder_id-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">funder_id</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">template_org</span> = <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">organisation</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">template_org</span>.<span class="ruby-identifier">organisation_type</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.org_type.funder&#39;</span>).<span class="ruby-identifier">downcase</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-identifier">template_org</span>.<span class="ruby-identifier">id</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- funder_id-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- funder_id-method -->
+
+    
+      <div id="method-i-funder_id-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">funder_id=</span><span
+            class="method-args">(new_funder_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="funder_id-3D-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">funder_id=</span>(<span class="ruby-identifier">new_funder_id</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_funder_id</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">new_funder</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">new_funder_id</span>);
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_funder</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-keyword">then</span>
+                        <span class="ruby-identifier">dmptemplate</span> = <span class="ruby-identifier">new_funder</span>.<span class="ruby-identifier">dmptemplates</span>.<span class="ruby-identifier">first</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- funder_id-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- funder_id-3D-method -->
+
+    
+      <div id="method-i-funder_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">funder_name</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="funder_name-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">funder_name</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">funder</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-identifier">read_attribute</span>(<span class="ruby-value">:funder_name</span>)
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">funder</span>.<span class="ruby-identifier">name</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- funder_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- funder_name-method -->
+
+    
+      <div id="method-i-funder_name-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">funder_name=</span><span
+            class="method-args">(new_funder_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="funder_name-3D-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">funder_name=</span>(<span class="ruby-identifier">new_funder_name</span>)
+        <span class="ruby-identifier">write_attribute</span>(<span class="ruby-value">:funder_name</span>, <span class="ruby-identifier">new_funder_name</span>)
+        <span class="ruby-identifier">org_table</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">arel_table</span>
+        <span class="ruby-identifier">existing_org</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">org_table</span>[<span class="ruby-value">:name</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-identifier">new_funder_name</span>))
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">existing_org</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-identifier">existing_org</span> = <span class="ruby-constant">Organisation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">org_table</span>[<span class="ruby-value">:abbreviation</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-identifier">new_funder_name</span>))
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">existing_org</span>.<span class="ruby-identifier">empty?</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">funder_id</span>=<span class="ruby-identifier">existing_org</span>.<span class="ruby-identifier">id</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- funder_name-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- funder_name-3D-method -->
+
+    
+      <div id="method-i-institution_id" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">institution_id</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="institution_id-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">institution_id</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">id</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- institution_id-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- institution_id-method -->
+
+    
+      <div id="method-i-institution_id-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">institution_id=</span><span
+            class="method-args">(new_institution_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="institution_id-3D-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">institution_id=</span>(<span class="ruby-identifier">new_institution_id</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">organisation_id</span> = <span class="ruby-identifier">new_institution_id</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- institution_id-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- institution_id-3D-method -->
+
+    
+      <div id="method-i-last_edited" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">last_edited</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="last_edited-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">last_edited</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">latest_update</span>.<span class="ruby-identifier">to_date</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- last_edited-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- last_edited-method -->
+
+    
+      <div id="method-i-latest_update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">latest_update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="latest_update-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">latest_update</span>
+        <span class="ruby-identifier">latest_update</span> = <span class="ruby-identifier">updated_at</span>
+        <span class="ruby-identifier">plans</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plan</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">plan</span>.<span class="ruby-identifier">latest_update</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">latest_update</span> <span class="ruby-keyword">then</span>
+                        <span class="ruby-identifier">latest_update</span> = <span class="ruby-identifier">plan</span>.<span class="ruby-identifier">latest_update</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">latest_update</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- latest_update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- latest_update-method -->
+
+    
+      <div id="method-i-name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Getters to match &#39;My plans&#39; columns</p>
+          
+
+          
+          <div class="method-source-code" id="name-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name-method -->
+
+    
+      <div id="method-i-owner" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">owner</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="owner-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 179</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">owner</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">find_by_project_creator</span>(<span class="ruby-keyword">true</span>).<span class="ruby-identifier">try</span>(<span class="ruby-value">:user</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- owner-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- owner-method -->
+
+    
+      <div id="method-i-readable_by" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">readable_by</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="readable_by-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-identifier">user</span> = <span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">find_by_user_id</span>(<span class="ruby-identifier">user_id</span>)
+        <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- readable_by-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- readable_by-method -->
+
+    
+      <div id="method-i-shared" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">shared</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Project.html#method-i-shared-3F">shared?</a>
+        </div>
+        
+      </div><!-- shared-method -->
+
+    
+      <div id="method-i-shared-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">shared?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="shared-3F-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 187</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">shared?</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">project_groups</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- shared-3F-source -->
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Project.html#method-i-shared">shared</a>
+        </div>
+        
+
+        
+      </div><!-- shared-3F-method -->
+
+    
+      <div id="method-i-template_owner" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">template_owner</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="template_owner-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">template_owner</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:organisation</span>).<span class="ruby-identifier">try</span>(<span class="ruby-value">:abbreviation</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- template_owner-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- template_owner-method -->
+
+    
+      <div id="method-i-unit_id" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unit_id</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unit_id-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unit_id</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">organisation</span>.<span class="ruby-identifier">parent_id</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-identifier">organisation_id</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unit_id-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unit_id-method -->
+
+    
+      <div id="method-i-unit_id-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unit_id=</span><span
+            class="method-args">(new_unit_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unit_id-3D-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unit_id=</span>(<span class="ruby-identifier">new_unit_id</span>)
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">new_unit_id</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span><span class="ruby-identifier">new_unit_id</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">organisation_id</span> = <span class="ruby-identifier">new_unit_id</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unit_id-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unit_id-3D-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Private Instance Methods</h3>
+
+    
+      <div id="method-i-add_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_user</span><span
+            class="method-args">(user_id, is_editor = false, is_administrator = false, is_creator = false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_user-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_user</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">is_editor</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">is_administrator</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">is_creator</span> = <span class="ruby-keyword">false</span>)
+        <span class="ruby-identifier">group</span> = <span class="ruby-constant">ProjectGroup</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">group</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">user_id</span>
+        <span class="ruby-identifier">group</span>.<span class="ruby-identifier">project_creator</span> = <span class="ruby-identifier">is_creator</span>
+        <span class="ruby-identifier">group</span>.<span class="ruby-identifier">project_editor</span> = <span class="ruby-identifier">is_editor</span>
+        <span class="ruby-identifier">group</span>.<span class="ruby-identifier">project_administrator</span> = <span class="ruby-identifier">is_administrator</span>
+        <span class="ruby-identifier">project_groups</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">group</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_user-method -->
+
+    
+      <div id="method-i-create_plans" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_plans</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_plans-source">
+            <pre><span class="ruby-comment"># File app/models/project.rb, line 208</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_plans</span>
+        <span class="ruby-identifier">dmptemplate</span>.<span class="ruby-identifier">phases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">phase</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">latest_published_version</span> = <span class="ruby-identifier">phase</span>.<span class="ruby-identifier">latest_published_version</span>
+                <span class="ruby-keyword">unless</span> <span class="ruby-identifier">latest_published_version</span>.<span class="ruby-identifier">nil?</span>
+                        <span class="ruby-identifier">new_plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">new</span>
+                        <span class="ruby-identifier">new_plan</span>.<span class="ruby-identifier">version</span> = <span class="ruby-identifier">latest_published_version</span>
+                        <span class="ruby-identifier">plans</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">new_plan</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_plans-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_plans-method -->
+
+    
+    </section><!-- private-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

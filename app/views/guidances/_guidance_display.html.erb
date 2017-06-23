@@ -1,0 +1,36 @@
+<!--this block displays all guidance related with the question. question is passed as an argument-->
+
+<div class="question-guidance">
+  <div class="accordion" id="<%= question.id %>-guidance">
+    <% if !question.get_guidance_annotation(current_user.org).nil? && question.get_guidance_annotation(current_user.org) != "" %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
+            <div class="accordion_heading_text">
+            <%= question.section.phase.template.org.abbreviation %> <%= _('Guidance')%>
+            </div>
+            <span class="plus-laranja"> </span></a>
+        </div>
+        <div id="collapse-guidance-<%= question.id%>" class="guidance-accordion-body collapse">
+          <div class="accordion-inner"><%= raw question.get_guidance_annotation(current_user.org).text %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <% question.guidance_for_org(current_user.org).each_pair do |title,guidance| %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance.id%>-<%= question.id %>">
+            <div class="accordion_heading_text">
+            <%= title %>
+            </div>
+            <span class="plus-laranja"> </span></a>
+        </div>
+        <div id="collapse-guidance-<%= guidance.id%>-<%= question.id %>" class="guidance-accordion-body collapse">
+          <div class="accordion-inner"><%= raw guidance.text %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

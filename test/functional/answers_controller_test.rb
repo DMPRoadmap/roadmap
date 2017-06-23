@@ -1,51 +1,79 @@
 require 'test_helper'
 
-class AnswersControllerTest < ActionController::TestCase
-=begin
+class AnswersControllerTest < ActionDispatch::IntegrationTest
+  
+  include Devise::Test::IntegrationHelpers
+  
   setup do
-    @answer = answers(:one)
+    @user = User.last
+    
+    scaffold_plan
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:answers)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
+  # PUT/PATCH /[:locale]/answer/[:id]
+  # ----------------------------------------------------------
+  test "should be able to update an answer" do
+    sign_in @user
+    
+    # Test an answer for each Querstion Format
+    QuestionFormat.all.each do |format|
+      question = Question.find_by(question_format: format)
+      template = question.section.phase.template
+      
+      plan = Plan.create(title: "Testing Answer For #{format.title}", 
+                         template: template)
+      
+      Role.create!(user_id: @user.id, plan_id: plan.id, access: 4)
+      plan.reload
+                         
+      referrer = "/#{FastGettext.locale}/plans/#{plan.id}/phases/#{question.section.phase.id}/edit"
+                             
+      if format.option_based
+      
+      else
+        # Try creating one first
+        form_attributes = { 
+                           answer: {user_id: @user.id, 
+                                    plan_id: plan.id, 
+                                    question_id: question.id,
+                                    text: "#{format.title} Tester",
+                                    lock_version: 0}
+                          }
+                                    
+        put_answer(Answer.new(), form_attributes, referrer)
+        
+        answer = Answer.find_by(user: @user, plan: plan, question: question)
+        assert_not answer.id.nil?, "expected the answer to have been created and for an id to be present after creating a #{format.title} question!"
+                                    
+        # Try editing it
+        form_attributes = {
+                           answer: {id: answer.id,
+                                    user_id: answer.user.id, 
+                                    plan_id: answer.plan.id, 
+                                    question_id: answer.question.id,
+                                    text: "Tested",
+                                    lock_version: answer.lock_version}
+                          }
+        
+        put_answer(answer, form_attributes, referrer)
+        
+        answer.reload
+        
+        assert_not answer.id.nil?, "expected the answer to have been updated and for an id to be present after creating a #{format.title} question!"
+        assert_equal "Tested", answer.text, "expected the text to have been updated for a #{format.title} question!"        
+        
+      end
+    end
   end
   
-  test "should create answer" do
-    assert_difference('Answer.count') do
-      post :create, answer: { text: @answer.text, plan_id: @answer.plan_id, question_id: @answer.question_id, user_id: @answer.user_id }
+  
+  private
+    def put_answer(answer, attributes, referrer)
+      put answer_path(FastGettext.locale, answer, format: "js"), attributes, {'HTTP_REFERER': referrer}
+
+      assert_response :success
+      assert_equal "text/javascript", @response.content_type
+
+      assert_match(/[^\$]*\$\("#answer-locking-[0-9]+"\).html\(""\);[^\$]*\$\("#answer-form-[0-9]+"\)[^\.]*.html\(".+"\);[^\$]*\$\("#answer-status-[0-9]+"\)[^.]*.html\(".+"\);[^\$]*\$.[^$]*\$.[^\$]*\$\(".progress"\).html\(".+"\);[^\$]*\$\("#section-progress-[0-9]+"\)[^.]*.html\(".+"\);/, @response.body)
     end
-
-    assert_redirected_to answer_path(assigns(:answer))
-  end
-
-  test "should show answer" do
-    get :show, id: @answer
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @answer
-    assert_response :success
-  end
-
-  test "should update answer" do
-    put :update, id: @answer, answer: { text: @answer.text, plan_id: @answer.plan_id, question_id: @answer.question_id, user_id: @answer.user_id }
-    assert_redirected_to answer_path(assigns(:answer))
-  end
-
-  test "should destroy answer" do
-    assert_difference('Answer.count', -1) do
-      delete :destroy, id: @answer
-    end
-
-    assert_redirected_to answers_path
-  end
-=end
 end

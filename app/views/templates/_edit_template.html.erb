@@ -1,0 +1,59 @@
+<!-- edit template details A template is passed as an argument-->
+
+<%= form_for(template, url: admin_update_template_path(template), html: { method: :put}) do |f| %>
+  <br/>
+  <table class="dmp_details_table">
+    <tr>
+      <td class="first_template"><%= _('Title') %></td>
+      <td><%= f.text_field :title, as: :string,
+            class: 'text_field has-tooltip', 'data-toggle' => "tooltip", title: _('Please enter a title for your template.') %></td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Description') %></td>
+      <td class="tinymce">
+        <div class="div_left_icon">
+          <%= text_area_tag("template-desc", template.description, class: "tinymce") %>
+        </div>
+        <div class="div_right_icon">
+          <%= link_to( image_tag('help_button.png'), '#', class: 'template_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences'))%>
+        </div>
+        <div class="clearfix"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Status') %></td>
+      <td>
+        <% if hash[:live].nil? %>
+          <%= _('Unpublished') %>
+        
+        <% elsif hash[:current].dirty? %>
+          <%= _('You have un-published changes') %>
+        
+        <% else %>
+          <%= _('Published') %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Created at') %></td>
+      <td>
+        <%= l template.created_at.to_date, formats: :short %>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_template"><%= _('Last updated') %></td>
+      <td>
+        <%= l template.updated_at.to_date, formats: :short %>
+      </td>
+    </tr>
+  </table>
+  <!-- submit buttons -->
+
+    <div class="move_2_right">
+      <%= f.submit _('Save'), class: 'btn btn-primary' %>
+      <%= link_to _('Cancel'), admin_template_template_path(template), class: 'btn cancel' %>
+    </div>
+
+  <br />
+
+<% end %>

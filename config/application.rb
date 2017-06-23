@@ -68,14 +68,25 @@ module DMPRoadmap
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
     config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
 
-    config.assets.precompile += %w(plans.js)
-    config.assets.precompile += %w(projects.js)    
+    config.assets.precompile += %w(plans.js)   
     config.assets.precompile += %w(jquery.placeholder.js)
     config.assets.precompile += %w(jquery.tablesorter.js)
+    config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
     config.assets.precompile += %w(export_configure.js)
     config.assets.precompile += %w(toolbar.js)
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
+    
+    config.assets.precompile += %w(roadmap-form.scss)
+    config.assets.precompile += %w(plans/new_plan.js)
+    config.assets.precompile += %w(plans/edit.js)
+    config.assets.precompile += %w(plans/share.js)
+    config.assets.precompile += %w(contacts/new_contact.js)
+    config.assets.precompile += %w(shared/register_form.js)
+    config.assets.precompile += %w(answers/status.js)
+    config.assets.precompile += %w(notes/index.js)
+    config.assets.precompile += %w(bootstrap_listeners.js)
+    config.assets.precompile += %w(Dmproadmap.js)
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
@@ -85,12 +96,12 @@ module DMPRoadmap
 
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
-    # See config/initializers/omniauth.rb
-    config.shibboleth_enabled = false
+    # See config/initializers/devise.rb
+    config.shibboleth_enabled = true
 
-    # Absolute path to Shibboleth SSO Login
-    #config.shibboleth_login = 'https://localhost/Shibboleth.sso/Login'
-    
+    # Relative path to Shibboleth SSO Logout
+    config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
+
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
@@ -98,6 +109,5 @@ module DMPRoadmap
     
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
-    
   end
 end
