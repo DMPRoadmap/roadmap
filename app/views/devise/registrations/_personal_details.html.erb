@@ -12,7 +12,7 @@
   <fieldset class="side-by-side">
     <legend><%= _('You can edit any of the details below.') %></legend>
 
-    <%#= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
+    <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
 
     <div class="form-input">
       <label for="user_email"><%= _('Email') %>*</label>
@@ -73,25 +73,20 @@
     <% end %>
 
     <% @identifier_schemes.each do |scheme| %>
-      <%
-      if scheme.name != 'shibboleth' ||
-         (scheme.name == 'shibboleth' && Rails.application.config.shibboleth_enabled)
-      %>
         <div class="form-input">
-          <label>
-              <% if scheme.logo_url.nil? %>
-                  <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
-              <% else %>
-                  <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
-              <% end %>
-         </label>
+          <% if scheme.name == 'shibboleth' || Rails.application.config.shibboleth_enabled %>
+              <label>           
+                <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
+              </label>
+          <% else %>
+              <label for="scheme_name"><%= scheme.name.capitalize %></label>
+          <% end %>
           <div class="identifier-scheme left-indent">
-            <%= render partial: 'external_identifier',
-                       locals: {scheme: scheme,
-                                id: current_user.identifier_for(scheme)} %>
+            <%= render partial: "external_identifier_#{scheme.name}",
+                       locals: { scheme: scheme,
+                                 id: current_user.identifier_for(scheme)} %>
           </div>
         </div>
-      <% end %>
     <% end %>
 
     <% unless @user.api_token.blank? %>
@@ -131,6 +126,3 @@
     <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
   </div>
 </div>
-
-
-
