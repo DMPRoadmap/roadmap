@@ -25,7 +25,7 @@
 								<%= f.text_field :name, as: :string, class: "text_field" %>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag("help_button.png"), "#", class: 'guidance_group_title_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. "[guidance group name]: guidance on data sharing" so we suggest you just use the institution or department name.'))%>
+								<%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. "[guidance group name]: guidance on data sharing" so we suggest you just use the institution or department name.'))%>
 							</div>
 						</td>
 					</tr>
@@ -35,7 +35,7 @@
 								<%= f.check_box :optional_subset %> <%= _('e.g. School/ Department') %>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_group_subset_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."))%>
+								<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."))%>
 							</div>
 						</td>
 					</tr>
