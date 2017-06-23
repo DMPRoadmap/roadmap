@@ -359,7 +359,7 @@ class PlansController < ApplicationController
 
     begin
       @exported_plan.save!
-      file_name = @plan.title.gsub(/ /, "_")
+      file_name = @exported_plan.settings(:export)[:value]['title'].gsub(/ /, "_")
 
       respond_to do |format|
         format.html

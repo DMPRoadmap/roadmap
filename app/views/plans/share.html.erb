@@ -1,5 +1,5 @@
 <%- model_class = Plan -%>
-
+<% javascript('plans/share.js') %>
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
 
@@ -35,7 +35,7 @@
                 <% else %>
                   <%= form_for role, url: {controller: :roles, action: :update, id: role.id }, html: {method: :put} do |f| %>
                     <fieldset>
-                      <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-existing-user-access has-tooltip", 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
+                      <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-access-level has-tooltip", 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
                     </fieldset>
                   <% end %>
                 <% end %>

@@ -3,5 +3,8 @@
   <td class="small"><%= f.number_field :number, in: 1..20, class: "number_field option"%></td>
   <td class="medium"><%= f.text_field :text, as: :string, class: "small_text_field" %></td>
   <td class="small"><%= f.check_box :is_default %></td>
-  <td class="small"><%= f.hidden_field :_destroy %><span class="remove-option"><%= _('Remove') %></span></td>
+  <td class="small">
+    <%= f.hidden_field :_destroy %>
+    <span class="remove-option"><%= _('Remove') %></span>
+  </td>
 </tr>
