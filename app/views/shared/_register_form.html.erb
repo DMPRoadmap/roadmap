@@ -1,4 +1,4 @@
-<% javascript "shared/register_form.js" %>
+<% javascript('shared/register_form.js') %>
 
 <%= form_for(resource, :as => "user", :url => registration_path("user"),  :htmlb => {:autocomplete =>"off"}, :html => {class: "roadmap-form"}) do |f| %>
   <ul>

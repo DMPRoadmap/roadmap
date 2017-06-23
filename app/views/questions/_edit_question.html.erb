@@ -20,7 +20,8 @@ in the admin interface.
       <!--Question text -->
       <tr>
         <td class="first_template"><%= _('Question text')%></td>
-        <td><%= f.text_area :text, rows: "5" %>
+        <td>
+          <%= f.text_area(:text, class: "tinymce") %>
           <div class="border_bottom"></div>
         </td>
       </tr>
