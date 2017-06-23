@@ -2,7 +2,7 @@
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
 <% q_format = question.question_format %>
-<%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form"}, remote: true do |f| %>
+<%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form", 'data-autosave': question.id }, remote: true do |f| %>
       <fieldset class="standard">
         <% if !readonly %>
           <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
@@ -74,7 +74,7 @@
               <p><%= raw(answer.text) %></p>
             <% else %>
               <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-              <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer") %>
+              <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
             <% end %>
           <%end%>
         <% end %>
@@ -90,7 +90,7 @@
             <p><%= raw(answer.text) %></p>
           <% else %>
             <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-            <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.change_answer") %>
+            <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
           <% end %>
         <% end %>
 

@@ -1,5 +1,5 @@
 <%- model_class = Plan -%>
-
+<% javascript('plans/share.js') %>
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
 

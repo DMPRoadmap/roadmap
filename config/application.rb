@@ -67,10 +67,7 @@ module DMPRoadmap
     config.assets.paths << Rails.root.join("lib", "assets", "videos")
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
     config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
-#    config.assets.precompile += %w(*.js *.scss *.css)
-    
-    config.assets.precompile += %w(plans.js)
-    config.assets.precompile += %w(projects.js)    
+    config.assets.precompile += %w(plans.js)   
     config.assets.precompile += %w(jquery.placeholder.js)
     config.assets.precompile += %w(jquery.tablesorter.js)
     config.assets.precompile += %w(export_configure.js)
@@ -78,24 +75,29 @@ module DMPRoadmap
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(admin.css)
  
-    config.assets.precompile += %w(roadmap.css 
+    config.assets.precompile += %w(bootstrap_listeners.js
+                                   Dmproadmap.js
+                                   roadmap.css 
                                    roadmap-tabs.css 
                                    roadmap-form.css 
                                    roadmap-hacks.css)
                                    
     config.assets.precompile += %w(answers/status.js
+                                   contacts/new_contact.js
                                    devise/passwords/new.js
                                    devise/registrations/edit.js
                                    contacts/new_contact.js
                                    home/index.js
+                                   notes/index.js
                                    orgs/shibboleth_ds.js
                                    plans/edit.js 
                                    plans/index.js 
                                    plans/new.js 
+                                   plans/share.js
                                    shared/login_form.js
                                    shared/register_form.js
                                    static_pages/utils.js)
-    
+
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
 

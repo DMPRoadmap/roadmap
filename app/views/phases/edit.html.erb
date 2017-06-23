@@ -1,6 +1,7 @@
 <%- model_class = Plan -%>
-<% javascript "plans.js" %>
-<% javascript "answers/status.js" %>
+<% javascript('plans.js') %>
+<% javascript('answers/status.js') %>
+<% javascript ('notes/index.js') %>
 <!--
   editing plan details is handled through plan#show
   so if we come this way then we are editing a phase
@@ -24,14 +25,6 @@
     <% @phase.sections.order(:number).each do |section| %>
 
       <% sectionid = section.id %>
-
-      <!-- verify if the session[:question_id_comments] has been created. -->
-      <% if session[:question_id_comments].to_i != 0 then %>
-        <% question_from_comment = Question.find(session[:question_id_comments])%>
-        <% if sectionid == question_from_comment.section_id then %>
-          <%= hidden_field_tag :comment_section_id, question_from_comment.section_id, :class => "comment_section_id" %>
-        <%end%>
-      <% end%>
 
       <div class="accordion-group">
         <!-- section heading -->
@@ -123,6 +116,3 @@
 </div>
 
 <%= render :partial => "plans/export", locals: {plan: @plan, plan_data: @plan_data, phase: @phase } %>
-
-<!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
-<% session.delete(:question_id_comments)%>
