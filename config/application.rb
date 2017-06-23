@@ -85,7 +85,7 @@ module DMPRoadmap
 
     config.assets.precompile += %w(admin.css)
     config.assets.precompile += %w(admin.js)
-    config.assets.precompile += %w(Dmproadmap.js)
+    config.assets.precompile += %w(dmproadmap.js)
                                    
     config.assets.precompile += %w(views/answers/status.js
                                    views/contacts/new_contact.js
