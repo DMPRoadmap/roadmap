@@ -10,17 +10,16 @@ $header-font: "GillSansLight";
 
 $black: #000;
 $white: #FFF;
-$error-color: #FFF;
-$error-background: #827D7E;
 $dark-grey: #333;
 $medium-grey: #827D7E;
 $light-grey: #CCC;
 
-$primary-color: #F17D04;
-$primary-admin-color: #F17D04;
+$primary-color: #454545;
+
+$error-color: #FFF;
+$error-background: #827D7E;
 $disabled-button-color: #CCC;
 $cancel-button-color: #F17D04;
-$reverse-text: #FFF;
 
 /* See `.combobox-clear-button` for an example of this mixin in use */
 @mixin icon($icon) {
@@ -30,8 +29,10 @@ $reverse-text: #FFF;
 
 
 /* HEADER STYLING */
-$header-height: 160px;
-$header-gradient-light: #F59503;
-$header-gradient-dark: #ED6406;
-$header-background: linear-gradient($header-gradient-dark, $header-gradient-light);
+$header-height: 165px;
+$header-background: $primary-color;
+//$header-background: linear-gradient(#ED6406, #F59503);
 
+/* HEADER LOGO POSITIONING */
+$header-logo-top-margin: 70px;
+$header-logo-left-margin: 10px;

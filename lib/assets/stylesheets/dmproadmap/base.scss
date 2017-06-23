@@ -77,7 +77,7 @@ div.divider {
   height: 0;
 }
 .dropdown-list {
-  background-color: $dark-grey;
+  background-color: $medium-grey;
   color: $white;
   border-radius: 3px;
   padding: 6px 10px;
@@ -128,12 +128,13 @@ div.roadmap {
       height: $header-height;
       .home-logo {
         margin-right: 10px;
+        margin-top: $header-logo-top-margin;
+        margin-left: $header-logo-left-margin;
       }
     }
     .header-right {
       width: 80%;
       vertical-align: bottom;
-      padding-bottom: 4px;
       
       .org-branding {
         position: relative;

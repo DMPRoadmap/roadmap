@@ -1,13 +1,12 @@
 <!-- show template details A template is passed as an argument-->
 
 <% if template == current then %>
-  <h3><!-- edit template button -->
+	<!-- edit template button -->
   <% if template.customization_of.nil? %>
-    <div class="move_2_right">
+    <div class="right">
       <%= link_to _('Edit template details'), '# ', class: "btn btn-primary", id: "edit_template_button"%>
     </div>
   <% end %>
-  </h3>
 <% end %>
 <br/>
 
