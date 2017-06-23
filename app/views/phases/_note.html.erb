@@ -1,6 +1,3 @@
-<!-- if there are notes then list of notes and view last note
-  else display display add note form -->
-
   <% if answer.present? && answer.notes.any? %>
     <% notes = answer.notes.all.to_a.sort! {|x,y| y.updated_at <=> x.updated_at } %>
     <% questionid = question.id %>
@@ -18,15 +15,15 @@
     <div class="div_clear"></div>
 
     <!-- list of notes, view and edit a note -->
-    <%= render :partial => "/phases/list_notes", locals: {question_id: question.id, notes: notes, plan: plan} %>
+    <%= render :partial => "/notes/list", locals: {question_id: question.id, notes: notes, plan: plan} %>
 
 
     <div class="div_clear"></div>
 
     <!-- add a note block -->
     <div id="add_comment_block_div_<%= questionid %>" style="display: none">
-      <%= render :partial => "/phases/add_note", locals: {answer: answer, question: question, plan_id: plan.id }%>
+      <%= render :partial => "/notes/add", locals: {answer: answer, question: question, plan_id: plan.id }%>
     </div>
   <% else%>
-    <%= render :partial => "/phases/add_note", locals: {answer: answer, question: question, plan_id: plan.id }%>
+    <%= render :partial => "/notes/add", locals: {answer: answer, question: question, plan_id: plan.id }%>
   <% end%>

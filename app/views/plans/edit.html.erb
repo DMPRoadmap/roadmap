@@ -50,8 +50,12 @@
         <%= render :partial => 'download', locals: {plan: @plan} %>
       </div>
     </div>
-  </div>
-</div>  
+    <%= tinymce :content_css => asset_path('application.css') %>
+</div>
+<div class="div_right">
+	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
+</div>
+<%= render :partial => "export", locals: {plan: @plan, phase: @phase} %>
 
 <!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
 <% session.delete(:question_id_comments)%>
