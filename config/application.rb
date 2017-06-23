@@ -67,11 +67,11 @@ module DMPRoadmap
     config.assets.paths << Rails.root.join("lib", "assets", "videos")
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
     config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
-#    config.assets.precompile += %w(plans.js)   
 #    config.assets.precompile += %w(jquery.placeholder.js)
 #    config.assets.precompile += %w(jquery.tablesorter.js)
 #    config.assets.precompile += %w(dmproadmap/export_configure.js)
     config.assets.precompile += %w(admin.js)
+    config.assets.precompile += %w(plans.js)
      
     # Vendor CSS resources
     config.assets.precompile += %w(vendor/jquery-ui.min.css
