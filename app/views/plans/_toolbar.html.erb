@@ -1,8 +1,0 @@
-<div class="toolbar">
-  <form action="<%= plans_path -%>" method="get" id="filter_form">
-    <%= search_field_tag(:filter, params[:filter], placeholder: _('Filter plans')) %>
-		<a id="clear_filter" href="<%= plans_path -%>" title="<%= _('Cancel') -%>">
-      <i class="fa fa-times"></i>
-    </a>
-  </form>
-</div>

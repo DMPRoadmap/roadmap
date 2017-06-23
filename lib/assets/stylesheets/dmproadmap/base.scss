@@ -145,9 +145,12 @@ div.roadmap {
         
         .header-org-logo {
           width: 15%;
-          background-color: $white;
-          padding: 5px 0 5px 5px;
           margin-right: 10px;
+          
+          img {
+            background-color: $white;
+            padding: 5px 0 5px 5px;
+          }
         }
         .header-org-banner-text {
           width: 60%;
