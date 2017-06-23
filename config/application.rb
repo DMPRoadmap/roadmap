@@ -73,10 +73,15 @@ module DMPRoadmap
     config.assets.precompile += %w(admin.js)
     config.assets.precompile += %w(plans.js)
      
-    # Vendor CSS resources
+    # Vendor resources
     config.assets.precompile += %w(vendor/jquery-ui.min.css
+                                   vendor/jquery-ui.min.js
                                    vendor/jquery-ui.structure.min.css
-                                   vendor/jquery-ui.theme.min.css)
+                                   vendor/jquery-ui.theme.min.css
+                                   vendor/jquery-accessible-autocomplet-list-aria.js
+                                   vendor/jquery.placeholder.js
+                                   vendor/jquery.tablesorter.min.js
+                                   jquery.timeago.js)
 
     config.assets.precompile += %w(admin.css)
     config.assets.precompile += %w(admin.js)
@@ -89,6 +94,7 @@ module DMPRoadmap
                                    views/contacts/new_contact.js
                                    views/home/index.js
                                    views/notes/index.js
+                                   views/orgs/admin_edit.js
                                    views/orgs/shibboleth_ds.js
                                    views/plans/edit.js 
                                    views/plans/index.js 

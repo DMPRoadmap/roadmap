@@ -28,7 +28,7 @@ class OrgsController < ApplicationController
 
     begin
       if @org.update_attributes(org_params)
-        redirect_to admin_show_org_path(params[:id]), notice: _('Organisation was successfully updated.')
+        redirect_to admin_edit_path(params[:id]), notice: _('Organisation was successfully updated.')
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 
         # errors. We followed the example provided in the Rails guides when building the validator so

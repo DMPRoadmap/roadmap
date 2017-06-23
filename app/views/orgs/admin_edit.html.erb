@@ -1,4 +1,4 @@
-<% javascript 'admin.js' %>
+<% javascript 'views/orgs/admin_edit.js' %>
 
 <h1>
   <%= _('Organisation details') %>
@@ -31,7 +31,9 @@
       
       <div class="form-input">
         <label><%= _('Top banner text') %></label>
-        <%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce left-indent top-indent") %>
+        <div class="wysiwyg-textarea">
+          <%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce left-indent top-indent") %>
+        </div>
       </div>
       
       <div class="form-input">

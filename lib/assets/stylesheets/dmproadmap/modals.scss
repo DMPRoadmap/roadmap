@@ -1,6 +1,8 @@
 div.ui-dialog {
   width: 100%;
-  padding-bottom: 20px;
+  padding: 0 10px 20px 10px;
+  background-color: $white;
+  border-radius: 3px;
   
   .ui-dialog-titlebar {
     font-family: $header-font;
@@ -15,7 +17,7 @@ div.ui-dialog {
   
     .fa {
       position: absolute;
-      top: 25px;
+      top: 15px;
       right: 25px;
       cursor: pointer;
       width: 18px;

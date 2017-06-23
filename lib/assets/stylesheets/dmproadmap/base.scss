@@ -126,15 +126,38 @@ div.roadmap {
       }
     }
     .header-right {
+      width: 80%;
       vertical-align: bottom;
       padding-bottom: 4px;
       
       .org-branding {
+        position: relative;
+        display: inline-block;
         height: 60%;
+        
+        a {
+          color: white;
+        }
+        
+				.header-org-logo, .header-org-banner-text {
+					display: inline-block;
+				}
+				
+				.header-org-logo {
+					width: 15%;
+					background-color: $white;
+					padding: 5px 0 5px 5px;
+					margin-right: 10px;
+				}
+				.header-org-banner-text {
+					width: 60%;
+					vertical-align: top;
+				}
       }
       .main-nav {
         height: 40%;
-        
+				margin-top: 5px;
+				
         ul.nav {
           position: relative;
           padding-left: 0;
