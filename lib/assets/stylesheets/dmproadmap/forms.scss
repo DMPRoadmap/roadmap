@@ -5,7 +5,7 @@
 /* ================================================ */
 textarea, 
 input[type="text"], input[type="email"], input[type="password"],
-input[type="search"] {
+input[type="search"], select {
   font-family: $font-family;
   font-size: 14px;
   border-radius: 3px;
@@ -15,17 +15,22 @@ input[type="search"] {
   margin: 5px 15px 15px 0;
   border: 1px solid $medium-grey;
 }
-input[type="checkbox"], input[type="radio"] {
+input[type="checkbox"], input[type="radio"], select {
   border: 1px solid $medium-grey;
 }
 div.wysiwyg-textarea {
   display: inline-block;
   margin: 10px 10px 10px 15px;
 }
-textarea:focus, 
+textarea:focus, select:focus,
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
 input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
   box-shadow: 0 0 8px $light-grey;
+}
+
+select {
+  margin-top: 10px;
+  vertical-align: top;
 }
 
 .org-logo {

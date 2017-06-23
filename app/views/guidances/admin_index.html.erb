@@ -25,7 +25,7 @@
       </thead>
       <tbody>
         <% !@guidance_groups.each do |guidance_gr| %>
-          <tr>
+          <tr class="table-data">
             <td>
               <%= guidance_gr.name %>
             </td>
@@ -48,7 +48,6 @@
               <%= l guidance_gr.updated_at.to_date, formats: :short %>
             </td>
             <td>
-              <%= link_to _('View'), admin_show_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
               <%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
               <%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete, class: "dmp_table_link"%>
             </td>
@@ -76,6 +75,15 @@
   <% if @guidances.length > 0 then%>
     <table class="dmp_table tablesorter">
       <thead>
+        <% if @guidances.count > 10 %>
+          <tr>
+            <td colspan="5" class="td-as-th">
+              <%= render(partial: "shared/table_filter", 
+                         locals: {path: admin_index_guidance_path, 
+                                   placeholder: _('Filter guidance')}) %>
+            </td>
+          </tr>
+        <% end %>
         <tr>
             <th class="col-large"><%= _('Text') %></th>
             <th class="col-large"><%= _('Themes') %></th>
@@ -87,7 +95,7 @@
       <tbody>
         <% @guidances.each do |guidance| %>
           <% if guidance.in_group_belonging_to?(current_user.org_id) then %>
-            <tr>
+            <tr class="table-data">
               <td>
                 <%= guidance.text.html_safe%>
               </td>
@@ -115,7 +123,6 @@
                 <%= l guidance.updated_at.to_date, formats: :short %>
               </td>
               <td>
-                <%= link_to _('View'), admin_show_guidance_path(guidance), class: "dmp_table_link"%><br/>
             <%= link_to _('Edit'), admin_edit_guidance_path(guidance), class: "dmp_table_link"%><br/>
             <%= link_to _('Delete'), admin_destroy_guidance_path(guidance),
               data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class: "dmp_table_link"%>

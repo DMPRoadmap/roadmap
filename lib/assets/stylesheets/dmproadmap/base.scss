@@ -33,6 +33,11 @@ hr {
 .left-indent { margin-left: 15px; }
 .top-indent { margin-top: 25px; }
 
+.right {
+  position: relative;
+  right: 10px;
+}
+
 .bordered { 
   border: 1px solid $primary-color; 
   border-radius: 3px;

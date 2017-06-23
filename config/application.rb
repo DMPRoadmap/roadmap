@@ -92,6 +92,7 @@ module DMPRoadmap
                                    views/devise/passwords/new.js
                                    views/devise/registrations/edit.js
                                    views/contacts/new_contact.js
+                                   views/guidances/admin_edit.js
                                    views/home/index.js
                                    views/notes/index.js
                                    views/orgs/admin_edit.js
