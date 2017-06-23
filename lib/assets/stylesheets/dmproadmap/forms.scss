@@ -16,16 +16,31 @@ input[type="search"] {
   border: 1px solid $medium-grey;
 }
 input[type="checkbox"], input[type="radio"] {
-	border: 1px solid $medium-grey;
+  border: 1px solid $medium-grey;
 }
 div.wysiwyg-textarea {
   display: inline-block;
-  margin: 5px 0 10px 15px;
+  margin: 10px 10px 10px 15px;
 }
 textarea:focus, 
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
 input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
-	box-shadow: 0 0 8px $light-grey;
+  box-shadow: 0 0 8px $light-grey;
+}
+
+.org-logo {
+  position: absolute;
+  top: -35px;
+  left: 65%;
+  
+  span {
+    width: 150px;
+    vertical-align: top;
+    
+    label {
+      margin-top: 35px;
+    }
+  }
 }
 
 form, fieldset {
@@ -296,7 +311,7 @@ form.roadmap-form {
 
 .combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
   @include icon(times-circle);
-	cursor: pointer;
+  cursor: pointer;
   display: inline;
   position: absolute;
   border: none;
@@ -454,8 +469,8 @@ div.main_page_content p #create-test {
 /* Create plan */
 /* ------------------------------------------------ */
 #create_plan {
-	position: relative;
-	
+  position: relative;
+  
   fieldset {
     padding-bottom: 15px;
   }

@@ -3,13 +3,6 @@ class OrgsController < ApplicationController
   respond_to :html
 
   ##
-  # GET /organisations/1
-  def admin_show
-    @org = Org.find(params[:id])
-    authorize @org
-  end
-
-  ##
   # GET /organisations/1/edit
   def admin_edit
     @org = Org.find(params[:id])

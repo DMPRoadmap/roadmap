@@ -24,7 +24,10 @@
         <% if @org.logo.present? %>
           <div class="org-logo">
             <%= image_tag @org.logo.url %>
-            <%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= _('If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo.') %>
+            <span>
+							<%= f.check_box :remove_logo %>
+							<%= f.label _('Use the %{application_name} logo instead') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo %>
+						</span>
           </div>
         <% end %>
       </div>
@@ -44,18 +47,17 @@
         <%= f.label :contact_email %>
         <%= f.text_field :contact_email, class: "left-indent required input-medium" %>
       </div>
+      
+      <div class="form-input">
+        <label></label>
+        <%= render partial: 'shared/accessible_submit_button',
+                   locals: {id: 'save_org_submit', 
+                            val: 'Save', 
+                            disabled_initially: true,
+                            tooltip: _('Name and abbreviation are required'),
+                            classes: 'left-indent'} %>
+      </div>
     </fieldset>
-    <div class="div_clear"></div>
-
-    <div class="form-input">
-      <label></label>
-      <%= render partial: 'shared/accessible_submit_button',
-                 locals: {id: 'save_org_submit', 
-                          val: 'Save', 
-                          disabled_initially: true,
-                          tooltip: _('Name and abbreviation are required'),
-                          classes: 'left-indent'} %>
-    </div>
   <% end %>
 </div>
 
