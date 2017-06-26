@@ -130,6 +130,10 @@ div.roadmap {
         margin-right: 10px;
         margin-top: $header-logo-top-margin;
         margin-left: $header-logo-left-margin;
+        
+        img {
+          width: $header-logo-width;
+        }
       }
     }
     .header-right {

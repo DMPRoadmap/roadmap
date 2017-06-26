@@ -55,7 +55,8 @@ form, fieldset {
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
-form.roadmap-form {
+form.roadmap-form, 
+div.read-only-form {
   text-align: top;
 
   fieldset.padded {
@@ -94,7 +95,7 @@ form.roadmap-form {
   /* Fieldset with labels to the left of inputs */
   /* ------------------------------------------ */
   fieldset.side-by-side, 
-  div.read-only-side-by-side {
+  div.side-by-side {
     border: 0;
     
     .mce-tinymce {
@@ -103,6 +104,7 @@ form.roadmap-form {
 
     div {
       label,
+      div.read-only,
       input[type="checkbox"],
       .combobox-container,
       .identifier-scheme {
@@ -467,6 +469,44 @@ div.one-column {
   width: 95%;
 }
 
+/* Edit Profile */
+/* ------------------------------------------------ */
+#connect-orcid-button{
+  border: 1px solid #D3D3D3;
+  padding: 5px 5px 5px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px #999;
+  cursor: pointer;
+  color: #999;
+  font-weight: bold;
+  font-size: .8em;
+  line-height: 24px;
+  text-decoration: none;
+  vertical-align: right;
+  background-image: url('http://orcid.org/sites/default/files/images/orcid_16x16.png');
+  background-repeat: no-repeat;
+  background-position: left 5px;
+}
+
+#connect-orcid-button:hover{
+  border: 1px solid #338caf;
+  color: #338caf;
+}
+
+#orcid-id-logo{
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 3px;
+  float: left;
+}
+
+#orcid-id {
+  color: #338caf;
+  text-decoration: none;
+}
+
 /* View plans */
 /* ------------------------------------------------ */
 div.main_page_content p #create-test {
@@ -515,22 +555,46 @@ div.main_page_content p #create-test {
   }
 }
 
-/* Edit plan details */
+/* Show/Edit plan details */
 /* ------------------------------------------------ */
-.edit-plan-details form.roadmap-form fieldset.side-by-side div {
-  label.radio-label {
-    vertical-align: top;
-  }
-
-  .inline-radios {
-    margin-left: -5px;
-  }
-
-  input[type='radio'] {
-    margin: 0 10px 5px -5px;
+div.show-plan {
+  width: 60%;
+  
+  hr {
+    width: 45%;
+    margin: 5px 0 15px 0;
   }
   
-  button.form-cancel {
-    margin-top: 0;
+  div.side-by-side {
+    margin: 10px auto 0 auto;
+  }
+  
+  label {
+    margin-bottom: 15px;
+  }
+}
+.edit-plan-left {
+  display: inline-block;
+  width: 60%;
+  
+  hr {
+    width: 65%;
+  }
+}
+.edit-plan-right {
+  vertical-align: top;
+  display: inline-block;
+  width: 35%;
+  
+  .fa {
+    vertical-align: top;
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  
+  fieldset.standard {
+    label {
+      margin-left: 0;
+    }
   }
 }

@@ -112,7 +112,6 @@ class PlansController < ApplicationController
 
 
   # GET /plans/show
-=begin
   def show
     @plan = Plan.eager_load(params[:id])
     authorize @plan
@@ -141,7 +140,6 @@ class PlansController < ApplicationController
 
     respond_to :html
   end
-=end
 
 
   # we can go into this with the user able to edit or not able to edit

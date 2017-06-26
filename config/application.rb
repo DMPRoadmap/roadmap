@@ -98,6 +98,7 @@ module DMPRoadmap
                                    views/orgs/admin_edit.js
                                    views/orgs/shibboleth_ds.js
                                    views/plans/edit.js 
+                                   views/plans/export_configure.js
                                    views/plans/index.js 
                                    views/plans/new.js 
                                    views/plans/share.js
