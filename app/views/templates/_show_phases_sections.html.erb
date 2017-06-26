@@ -1,13 +1,10 @@
 <!-- Display of phases, sections and it's questions. A phase is passed as an argument-->
 
-<div class="div_clear"></div>
+<h2><%= phase.title %><span class="fa fa-plus"></span></h2>
 
 <div class="div_left admin_left_smaller">
   <p><%= raw phase.description %></p>
-</div>
-
-
-
+	
   <div class="div_right admin_right_bigger">
       <!--delete a phase button. only displays when template not published-->
 
@@ -56,6 +53,4 @@
       </tbody>
     </table>
   <% end %>
-
-
-<div class="div_clear"></div>
+</div>

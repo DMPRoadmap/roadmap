@@ -47,18 +47,18 @@
     </div>
     
     <!-- Register form terms -->
-    <div class="form-input">
+    <div class="form-input top-indent">
       <input type="checkbox" id="user_accept_terms" name="user[accept_terms]" 
              class="required right-indent" />
       <label for="user_accept_terms"><%= _('I accept the') %> <a href="<%= terms_path %>"><%= _('terms and conditions') %></a></label>
     </div>          
     
-    <div class="form-input">
+    <div class="form-input top-indent">
       <%= render partial: 'shared/accessible_submit_button',
                  locals: {id: 'register-button', 
                           val: _('Create account'), 
                           disabled_initially: true,
-                          classes: 'small-input-button',
+                          classes: 'small-input-button left-indent',
                           tooltip: _('Enter all of the information above')} %>
     </div>
   </fieldset>

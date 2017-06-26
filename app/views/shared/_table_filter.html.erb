@@ -1,0 +1,8 @@
+<div class="toolbar">
+  <form action="<%= path -%>" method="get" id="filter_form">
+    <%= search_field_tag(:filter, params[:filter], placeholder: placeholder) %>
+		<a id="clear_filter" href="<%= path -%>" title="<%= _('Cancel') -%>">
+      <i class="fa fa-times"></i>
+    </a>
+  </form>
+</div>

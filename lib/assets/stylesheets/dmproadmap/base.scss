@@ -1,0 +1,366 @@
+/* Main page layout: header, content, footer */
+body {
+  background-color: $white;
+  color: $black;
+  font-family: $font-family;
+  font-size: 14px;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $header-font;
+  font-style: normal;
+  font-weight: lighter;
+  text-rendering: optimizelegibility;
+  color: $primary-color;
+}
+
+h1 { font-size: 40px; }
+h2 { font-size: 32px; }
+h3 { font-size: 26px; }
+h4 { font-size: 20px; }
+h5 { font-size: 18px; }
+
+hr { 
+  color: $primary-color;
+  border-color: $primary-color;
+  background-color: $primary-color;
+}
+
+.hidden { visibility: hidden; }
+.inline { display: inline-block; }
+.centered { text-align: center; }
+.left-indent { margin-left: 15px; }
+.top-indent { margin-top: 25px; }
+
+.right {
+  position: relative;
+  right: 10px;
+}
+
+.bordered { 
+  border: 1px solid $primary-color; 
+  border-radius: 3px;
+  padding: 15px 10px;
+}
+
+ul.no-bullets {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* This class will ensure that the item is hidden for sighted users and that it does not take up space */
+/* For example:  <h2 aria-hidden="false" class="aria-only"><%= _('Create account') %></h2> */
+/* will be read on a screen reader for a tabbed section that opens but will be hidden visually */
+.aria-only {
+  visibility: hidden;
+  display: inline;
+  height: 0;
+  width: 0;
+}
+
+div.divider {
+  height: 0;
+  width: 100%;
+  border-bottom: 1px solid $primary-color;
+}
+
+/* General dropdown menu styling */
+.caret {
+  display: inline-block;
+  vertical-align: middle;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 4px solid $primary-color;
+  border-bottom: $primary-color;
+  width: 0;
+  height: 0;
+}
+.dropdown-list {
+  background-color: $medium-grey;
+  color: $white;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin-top: 0;
+  text-align: right;
+}
+
+/* General Anchor and Button styling */
+a, a:link, a:active, a:visited, a:hover, a:focus,
+button.button-as-link, button.button-as-link:hover, button.button-as-link:focus {
+  color: $primary-color;
+}
+
+button, button:hover, button:focus,
+input[type="file"], input[type="file"]:hover, input[type="file"]:focus,
+input[type="submit"], input[type="submit"]:hover, input[type="submit"]:focus,
+a.link-as-button, a.link-as-button:link, a.link-as-button:active, a.link-as-button:visited, 
+a.link-as-button:hover, a.link-as-button:focus {
+  background-color: $primary-color;
+  color: $white;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid $light-grey;
+  border-radius: 5px;
+}
+
+/* Basic page layout */
+/* =================================================================================== */
+div.roadmap {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  
+  /* HEADER SECTION */
+  /* ----------------------------------------------------- */
+  header {
+    background: $header-background;
+    color: white;
+    height: $header-height;
+    text-align: left;
+    
+    .header-left, .header-right, .signin-signout-menu {
+      display: inline-block;
+    }
+    
+    .header-left {
+      height: $header-height;
+      .home-logo {
+        margin-right: 10px;
+        margin-top: $header-logo-top-margin;
+        margin-left: $header-logo-left-margin;
+        
+        img {
+          width: $header-logo-width;
+        }
+      }
+    }
+    .header-right {
+      width: 80%;
+      vertical-align: bottom;
+      
+      .org-branding {
+        position: relative;
+        display: inline-block;
+        height: 60%;
+        
+        a {
+          color: white;
+        }
+        
+        .header-org-logo, .header-org-banner-text {
+          display: inline-block;
+        }
+        
+        .header-org-logo {
+          width: 15%;
+          margin-right: 10px;
+          
+          img {
+            background-color: $white;
+            padding: 5px 0 5px 5px;
+          }
+        }
+        .header-org-banner-text {
+          width: 60%;
+          vertical-align: top;
+        }
+      }
+      .main-nav {
+        height: 40%;
+        margin-top: 5px;
+        
+        ul.nav {
+          position: relative;
+          padding-left: 0;
+          margin: 0;
+          
+          li {
+            display: inline-block;
+            color: $white;
+            background-color: $primary-color;
+            border: 1px solid $white;
+            padding: 6px 10px;
+            margin-bottom: -1px;
+            font-size: 14px;
+            list-style: none;
+          
+            a, a:visited, a:active, a:link, a:hover {
+              color: $white;
+              text-decoration: none;
+              font-weight: bold;
+              line-height: 20px;
+            }
+          }
+          li.active, ul li:hover {
+            color: $primary-color;
+            background-color: $white;
+          
+            a, a:visited, a:active, a:link, a:hover {
+              color: $primary-color;
+              text-decoration: none;
+              font-weight: bold;
+              line-height: 20px;
+            }
+          }
+          .language-switcher {
+            .caret {
+              border-top: 4px solid $white;
+              border-bottom: $white;
+            }
+            
+            #change-language-dropdown {
+              position: absolute;
+              top: 32px;
+              
+              li {
+                background-color: $dark-grey;
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .signin-signout-menu {
+      position: absolute;
+      text-align: right;
+      top: 5px;
+      right: 10px;
+      color: white;
+      
+      ul li {
+        list-style: none;
+      
+      }
+      a {
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .caret {
+        border-top-color: $white;
+        border-bottom-color: $white;
+      }
+    }
+  }
+  
+  /* MAIN CONTENT */
+  /* ----------------------------------------------------- */
+  main {
+    /* INFORMATION/ERROR MESSAGE BOX */ 
+    div.roadmap-info-box, 
+    div.roadmap-alert-box {
+      position: relative;
+      float: right;
+      background-color: $white;
+      padding: 8px 20px;
+      border: 1px solid $primary-color;
+      border-radius: 5px;
+      vertical-align: middle;
+
+      span {
+        padding-left: 30px;
+      }
+      .fa {
+        position: absolute;
+        top: 6px;
+        background: transparent;
+        color: $black;
+        font-size: 16pt;
+        margin-right: 15px;
+      }
+    }
+    
+    div.page {
+      width: 100%;
+      background-color: $white;
+      border-radius: 3px;
+      
+      div.content {
+        
+        /* By default, page content is one column, but use the below styles to create a 2 column style */
+        div.column-left {
+          display: inline-block;
+          width: 55%;
+        }
+        div.column-right {
+          display: inline-block;
+          width: 40%;
+          height: auto;
+          margin-left: 35px;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+  
+  /* FOOTER SECTION */
+  /* ----------------------------------------------------- */
+  footer {
+    width: 100%;
+    border-top: .5px solid $medium-grey;
+    margin-top: 35px;
+    
+    .footer-left, .footer-right {
+      display: inline-block;
+    }
+    
+    .footer-left {
+      width: 65%;
+      
+      p {
+        color: $medium-grey;
+      }
+      
+      ul.footer-links {
+        padding-left: 0;
+        
+        li a {
+          color: $medium-grey;
+        }
+        
+        li {
+          display: inline-block;
+        
+          a {
+            text-decoration: none;
+          }
+        }
+        li.muted {
+          margin: 0 5px;
+        }
+      }
+    }
+    .footer-right {
+      text-align: right;
+      width: 30%;
+    }
+  }
+}
+
+
+
+
+
+
+
+.checkbox-label {
+  display: inline-block;
+  font-size: 1em;
+  margin: 0;
+  padding: 2px;
+}
+
+.checkbox-input {
+  border: none;
+  vertical-align: middle;
+  height: 17px;
+  margin: 0 4px 0 0;
+  padding: 0;
+}
+
+.project-title-container {
+  width: 60%;
+}

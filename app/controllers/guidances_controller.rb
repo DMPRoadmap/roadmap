@@ -10,13 +10,6 @@ class GuidancesController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id)
   end
 
-  ##
-  # GET /guidances/1
-  def admin_show
-    @guidance = Guidance.eager_load(:guidance_group, :themes).find(params[:id])
-    authorize @guidance
-  end
-
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
@@ -54,7 +47,7 @@ class GuidancesController < ApplicationController
     end
 
     if @guidance.save
-      redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
+      redirect_to admin_edit_guidance_path(@guidance), notice: _('Guidance was successfully created.')
     else
       flash[:notice] = failed_create_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
@@ -71,7 +64,7 @@ class GuidancesController < ApplicationController
 		@guidance.text = params["guidance-text"]
 
     if @guidance.save(guidance_params)
-      redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
+      redirect_to admin_edit_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
       flash[:notice] = failed_update_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')

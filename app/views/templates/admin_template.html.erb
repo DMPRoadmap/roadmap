@@ -1,61 +1,59 @@
+<%= stylesheet_link_tag "admin" %>
 <% javascript 'admin.js' %>
 
 <h1>
   <%= @template.title %>
-  <!-- link button to add new guidance -->
-  <div class="move_2_right">
-    <%= link_to _('View all templates'),
-                admin_index_template_path,
-                class: 'btn btn-primary' %>
-  </div>
 </h1>
 
-<div class="div_clear"></div>
+<div class="content">
+  
+  <div class="tabbed-area">
+    <!-- render navigation tabs for the template-->
+    <%= render partial: "templates/admin_nav_tabs", locals: {template: @template, hash: @hash, active: "show_template"} %>
 
-<!-- render navigation tabs for the template-->
-<%= render partial: "templates/admin_nav_tabs", locals: {template: @template, hash: @hash, active: "show_template"} %>
+    <div class="tab-panels dmp_details_body" role="tabpanel">
+      <!-- phase main container -->
+      <div id="details-panel" class="tab-panel active dmp_details_body"
+           aria-hidden="false" aria-labelledby="details-tab">
 
-<!-- body -->
-<div class="dmp_details_body">
-  <div class="dmp_details">
-    <% if @template == @current && @template.customization_of.nil? %>
-      <div id="edit_template_div" style="display: none">
-        <%= render partial: "templates/edit_template", locals: {template: @template, hash: @hash}%>
-      </div>
-    <% end %>
-    <div id="show_template_div">
-      <%= render partial: "templates/show_template", locals: {template: @template, current: @current, hash: @hash}%>
-    </div>
-  </div>
-  <!-- If template has phases-->
-  <% if @hash[:template][:phases].present? %>
-    <% if @hash[:template][:phases].length == 1 %>
-      <% @hash[:template][:phases].each do |phase_no, phase| %>
-        <!--render the display block with the phase, sections and questions information-->
-        <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current} %>
-      <% end %>
-    <% else %>
-      <% (1..@hash[:template][:phases].length).each do |phase_no| %>
-        <% phase = @hash[:template][:phases][phase_no] %>
-        <div class="accordion" id="project-accordion">
-          <div class="accordion-group">
-            <div class="accordion-heading">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= phase[:data][:id] %>">
-                <h3><%= phase[:data].title %><span class="plus-laranja"> </span>
-                </h3>
-              </a>
-            </div>
-            <div id="<%= phase[:data][:id] %>" class="accordion-project collapse">
-              <div class="accordion-inner">
-                <!--render the display block with the phase, sections and questions information-->
-                <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current}%>
+        <div class="accordion">
+          <h2><%= _('Template details')%><span class="fa fa-minus"> </span></h2>
+          
+          <div class="dmp_details">
+            <% if @template == @current && @template.customization_of.nil? %>
+              <div id="edit_template_div" style="display: none">
+                <%= render partial: "templates/edit_template", locals: {template: @template, hash: @hash}%>
               </div>
+            <% end %>
+            <div id="show_template_div">
+              <%= render partial: "templates/show_template", locals: {template: @template, current: @current, hash: @hash}%>
             </div>
           </div>
-        </div>
-      <% end %>
-    <% end %>
-  <% end %>
+          
+          <!-- If template has phases-->
+          <% if @hash[:template][:phases].present? %>
+            <% if @hash[:template][:phases].length == 1 %>
+              <% @hash[:template][:phases].each do |phase_no, phase| %>
+                <!--render the display block with the phase, sections and questions information-->
+                <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current} %>
+              <% end %>
+              
+            <% else %>
+              <% (1..@hash[:template][:phases].length).each do |phase_no| %>
+                <% phase = @hash[:template][:phases][phase_no] %>
+                <h2><%= phase[:data].title %><span class="fa fa-plus"></span></h2>
+      
+                <div id="<%= phase[:data][:id] %>">
+                  <!--render the display block with the phase, sections and questions information-->
+                  <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current}%>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div><!-- close accordion -->
+        
+      </div><!-- close panel -->
+    </div><!-- close panels -->
+  </div><!-- tabbed area -->
 </div>
-
 <%= tinymce :content_css => asset_path('application.css') %>

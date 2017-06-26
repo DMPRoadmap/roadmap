@@ -1,0 +1,31 @@
+.accordion {
+  position: relative;
+  width: 100%;
+  
+  h2, h3, 
+	h2.ui-accordion-header, h3.ui-accordion-header {
+    position: relative;
+    color: $white;
+    font-size: 24px;
+    background-color: $primary-color;
+    padding: 6px 0 10px 10px;
+    border: none;
+    border-radius: 3px;
+    
+    .ui-accordion-header-active, 
+    .ui-accordion-header-collapsed {
+      position: relative;
+    }
+    
+    .fa {
+      position: absolute;
+      font-size: 18px;
+      right: 15px;
+      top: 10px;
+    }
+  }
+  
+  div.accordion-section {
+    
+  }
+}

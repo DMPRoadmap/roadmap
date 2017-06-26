@@ -1,7 +1,8 @@
-<% javascript "devise/registrations/edit.js" %>
-<div id="user_profile">
-  <h1><%= _('Edit profile') %></h1>
+<% javascript "views/devise/registrations/edit.js" %>
 
+<h1><%= _('Edit profile') %></h1>
+
+<div id="user_profile" class="content">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
     <div class="tabbed-area">
       <ul class="tabs" role="tablist">
