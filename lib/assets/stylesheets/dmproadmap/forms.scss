@@ -93,7 +93,8 @@ form.roadmap-form {
 
   /* Fieldset with labels to the left of inputs */
   /* ------------------------------------------ */
-  fieldset.side-by-side {
+  fieldset.side-by-side, 
+  div.read-only-side-by-side {
     border: 0;
     
     .mce-tinymce {
@@ -350,13 +351,14 @@ form.roadmap-form {
 .omniauth-options {
   display: block;
   width: 100%;
-
+  margin-bottom: 10px;
+  
   .omniauth-login {
-    width: 93%;
+    display: inline-block;
+    width: 90%;
     padding: 4px 12px;
     background-color: $primary-color;
     color: $white;
-    margin: 0 auto 10px auto;
     border-radius: 5px;
   }
 }
@@ -446,13 +448,13 @@ div.three-column, div.two-column, div.one-column {
   ul li {
     margin-top: 5px;
     margin-bottom: 5px;
+    padding: 4px 12px;
   }
 
   ul li.separator {
     background-color: $medium-grey;
     color: $white;
     font-weight: bold;
-    padding: 4px 12px;
   }
 }
 div.three-column {

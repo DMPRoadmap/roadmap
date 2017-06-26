@@ -48,36 +48,30 @@
   
   <div id="full_list" style="display: none" class="left-indent" aria-hidden="true">
     <div id="org-list">
-      <% if @orgs.count > 50 %>
-        <% if @orgs.count > 100 %>
-          <% one_third = (@orgs.count / 3).to_i %>
+			<%
+      increment, cols, letter, total, row = 50, 1, '', @orgs.count, 0
 
-         <%= render partial: 'shibboleth_ds_list', 
-                     locals: {column_count: 'three', orgs: @orgs,
-                              column_start: 0, column_end: (one_third - 1)} %>
-         <%= render partial: 'shibboleth_ds_list', 
-                     locals: {column_count: 'three', orgs: @orgs,
-                              column_start: one_third, column_end: ((one_third * 2) - 1)} %>
-         <%= render partial: 'shibboleth_ds_list', 
-                     locals: {column_count: 'three', orgs: @orgs,
-                              column_start: (one_third * 2), column_end: @orgs.count} %>
-      
-        <% else %>
-          <% one_half = @orgs.count / 2 %>
-          
-          <%= render partial: 'shibboleth_ds_list', 
-                      locals: {column_count: 'two', orgs: @orgs,
-                               column_start: 0, column_end: (one_half - 1)} %>
-          <%= render partial: 'shibboleth_ds_list', 
-                      locals: {column_count: 'two', orgs: @orgs,
-                               column_start: one_half, column_end: @orgs.count} %>
-          
+      # Determine how many letter separators 
+      total += @orgs.collect{|o| o.name[0]}.uniq.count
+      cols = (total > 100 ? 3 : (total > 50 ? 2 : 1))
+      increment = (total / cols)
+      %>
+      <% @orgs.each do |org| %>
+        <% if row == 0 || (row % increment == 0) %>
+          <% if row > 0 %>
+            </ul></div>
+          <% end %>
+          <div class="<%= (cols == 3 ? 'three' : (cols == 2 ? 'two' : 'one')) %>-column"><ul>
         <% end %>
-    
-      <% else %>
-         <%= render partial: 'shibboleth_ds_list', 
-                     locals: {column_count: 'one', orgs: @orgs,
-                              column_start: 0, column_end: @orgs.count} %>
+
+        <% unless org.name[0].capitalize == letter %>
+          <li class="separator"><%= org.name[0].capitalize %></li>
+          <% row += 1 %>
+          <% letter = org.name[0].capitalize %>
+        <% end %>
+
+        <li><a href="<%= "#{shibboleth_ds_path}/#{org.id}" %>"><%= org.name %></a></li>
+        <% row += 1 %>
       <% end %>
     </div>
   </div>
