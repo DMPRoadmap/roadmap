@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   def admin_index
     authorize User
-    @users = current_user.org.users.includes(:roles)
+    @users = @user.org.users.includes(:roles)
   end
 
   ##
@@ -17,20 +17,20 @@ class UsersController < ApplicationController
   def admin_grant_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
-    user_perms = current_user.perms
+    user_perms = @user.perms
     @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, Perm.use_api, Perm.change_org_details]
   end
 
   ##
   # POST - updates the permissions for a user
   # redirects to the admin_index action
-  # should add validation that the perms given are current perms of the current_user
+  # should add validation that the perms given are current perms of the @user
   def admin_update_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
     perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
     perms = Perm.where( id: perms_ids)
-    current_user.perms.each do |perm|
+    @user.perms.each do |perm|
       if @user.perms.include? perm
         if ! perms.include? perm
           @user.perms.delete(perm)
@@ -53,6 +53,30 @@ class UsersController < ApplicationController
     else
       flash[:notice] = failed_update_error(@user, _('user'))
     end
+  end
+
+  def update_preferences
+    @user = User.find(params[:user_id])
+    prefs = params[:prefs]
+    authorize @user, :update?
+    # Set all preferences to false
+    @user.prefs.each do |key, value|
+      value.each_key do |k|
+        @user.prefs[key][k] = false
+      end
+    end
+
+    # Sets the preferences the user wants to true
+    if prefs
+      prefs.each_key do |key|
+        prefs[key].each_key do |k|
+          @user.prefs[key.to_sym][k.to_sym] = true
+        end
+      end
+    end
+
+    @user.save
+    redirect_to edit_user_registration_path(@user), notice: _('Preferences successfully updated.')
   end
 
 end
