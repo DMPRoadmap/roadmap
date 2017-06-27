@@ -77,7 +77,11 @@ class RegistrationsController < Devise::RegistrationsController
       @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
-      do_update(require_password=needs_password?(current_user, params))
+      if params[:skip_personal_details] == true
+        do_update_password(current_user, params)
+      else
+        do_update(require_password=needs_password?(current_user, params))
+      end
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
@@ -115,20 +119,9 @@ class RegistrationsController < Devise::RegistrationsController
     if mandatory_params   # has the user entered all the details
       if require_password                              # user is changing email or password
         if current_user.email != params[:user][:email]   # if user is changing email
-          if params[:user][:current_password].blank?       # password needs to be present
+          if params[:user][:password].blank?       # password needs to be present
             message = _('Please enter your password to change email address.')
             successfully_updated = false
-          else
-            successfully_updated = current_user.update_with_password(password_update)
-          end
-        elsif params[:user][:password].present?          # if user is changing password
-          successfully_updated = false                     # shared across first 3 conditions
-          if params[:user][:current_password].blank?
-            message = _('Please enter your current password')
-          elsif params[:user][:password_confirmation].blank?
-            message = _('Please enter a password confirmation')
-          elsif params[:user][:password] != params[:user][:password_confirmation]
-            message = _('Password and comfirmation must match')
           else
             successfully_updated = current_user.update_with_password(password_update)
           end
@@ -162,6 +155,18 @@ class RegistrationsController < Devise::RegistrationsController
     else
       flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
+    end
+  end
+
+  def do_update_password(current_user, params)
+    if params[:user][:current_password].blank?
+      message = _('Please enter your current password')
+    elsif params[:user][:password_confirmation].blank?
+      message = _('Please enter a password confirmation')
+    elsif params[:user][:new_password] != params[:user][:password_confirmation]
+      message = _('Password and comfirmation must match')
+    else
+      successfully_updated = current_user.update_with_password(password_update)
     end
   end
 

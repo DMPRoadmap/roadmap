@@ -13,6 +13,7 @@
     <legend><%= _('You can edit any of the details below.') %></legend>
 
     <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
+    <%= hidden_field_tag :skip_personal_details, "false" %>
 
     <div class="form-input">
       <label for="user_email"><%= _('Email') %>*</label>
@@ -47,6 +48,14 @@
     </div>
 
     <div class="form-input">
+      <label for="user_password"><%= _('Password') %></label>
+      <input type="password" id="user_password" name="user[password]"
+             class="left-indent required input-medium" value="" />
+      <span role="" id="password_error"
+            class="error-tooltip-right left-indent"></span>
+    </div>
+
+    <div class="form-input">
       <label for="user_surname"><%= _('Organisation') %></label>
       <%= render partial: "shared/accessible_combobox",
                  locals: {name: "#{resource_name}[org_name]",
@@ -74,7 +83,7 @@
 
     <% @identifier_schemes.each do |scheme| %>
         <div class="form-input">
-          <% if scheme.name == 'shibboleth' || Rails.application.config.shibboleth_enabled %>
+          <% if scheme.name == 'shibboleth' %>
               <label>           
                 <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
               </label>
