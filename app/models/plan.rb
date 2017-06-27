@@ -139,7 +139,8 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group
+              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              # only show published guidance groups
             end
           end
         end
@@ -163,7 +164,8 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group
+              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              # only show published guidance groups
             end
           end
         end

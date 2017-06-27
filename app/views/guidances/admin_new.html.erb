@@ -24,7 +24,7 @@
 								<%= text_area_tag("guidance-text", "", class: "tinymce") %>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_text_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Enter your guidance here. You can include links where needed.'))%>
+								<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Enter your guidance here. You can include links where needed.'))%>
 							</div>
 							<div class="clearfix"></div>
 						</td>
@@ -38,7 +38,7 @@
 									:id, :title, {prompt: false, include_blank: 'None'}, {multiple: true})%>
 								</div>
 								<div class="div_right_icon_g">
-									<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_by_themes_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
+									<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -51,7 +51,7 @@
                       <%= f.check_box :published , as: :check_boxes%>
                   </div>
                   <div class="div_right_icon_g">
-                    <%= link_to( image_tag('help_button.png'), '#', class: 'guidance_group_subset_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("Check this box when you are ready for this guidance to appear on user's plans."))%>
+                    <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("Check this box when you are ready for this guidance to appear on user's plans."))%>
                   </div>
               </td>
           </tr>
@@ -62,7 +62,7 @@
 								:id, :name, {prompt: false, include_blank: 'None'}, {multiple: false})%>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_group_select_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Select which group this guidance relates to.'))%>
+								<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which group this guidance relates to.'))%>
 							</div>
 							<div class="clearfix"></div>
 

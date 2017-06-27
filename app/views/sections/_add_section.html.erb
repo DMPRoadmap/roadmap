@@ -25,7 +25,8 @@
           <tr>
             <td class="first_template"><%= _('Order of display') %></td>
             <td>
-              <%= f.number_field :number, in: 1..15, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: _('This allows you to order sections.') %>
+              <% range = @phase.template.customization_of.present? ? 0..15 : 1..15 %>
+              <%= f.number_field :number, in: range, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: _('This allows you to order sections.') %>
             </td>
           </tr>
           <tr>
@@ -35,7 +36,7 @@
                 <%= text_area_tag("section-desc", "" , class: "tinymce") %>
               </div>
               <div class="div_right_icon">
-                <%= link_to( image_tag("help_button.png"), "#", class: "section_desc_popover", rel: "popover", "data-html" => "true", "data-content" => _("<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"))%>
+                <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"))%>
               </div>
             </td>
           </tr>

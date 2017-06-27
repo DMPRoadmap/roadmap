@@ -153,10 +153,10 @@
   <!-- Selection of guidance groups -->
   <%= form_tag( update_guidance_choices_plan_path(@plan), method: :put) do %>
   <div id="plan-guidance-important">
-      <h3>Guidance Choices</h3>
+      <h3><%=_('Guidance Choices')%></h3>
       <table id="dmp_table" class="dmp_table tablesorter">
       <tbody>
-          <% @important_ggs.each do |org, groups| %>                                                                                                                                                                  
+          <% @important_ggs.each do |org, groups| %>
               <tr>
               <td class="dmp_td_medium">
                   <% if groups && groups.size == 1 %>
