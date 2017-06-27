@@ -27,14 +27,11 @@
 		<%= f.hidden_field "user_identifiers[#{scheme}]", value: resource.user_identifiers.first.identifier%>
 	<% end %>
 	<li>
-		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up' }) %>
+		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up', 'data-allow-clear': false }) %>
 	</li>
-  <div id="other-org-link"><a href="#"><%= _("My organisation isn't listed.") %></a></div>
-	<% other_organisations = Array.new %>
-	<% Org.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
-		<% other_organisations << org.id %>
-	<% end %>
-	<li id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
+  	<div id="other-org-link"><a href="#"><%= _("My organisation isn't listed.") %></a></div>
+	<% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
+	<li id="other-org-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
 		<%= f.text_field :other_organisation, placeholder: ( _('Organisation name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
 	</li>
 	<li>
