@@ -1,11 +1,5 @@
-<h1><%= @plan.title %></h1> 
-
-<% if @plan.visibility == 'is_test' %>
-  <div class="roadmap-info-box">
-    <i class="fa fa-exclamation-circle"></i>
-    <span><%= _('This is a') %> <strong><%= _('test plan') %></strong>.</span>
-  </div>
-<% end %>
+<!-- render the project title -->
+<%= render :partial => "plan_title", locals: {plan: @plan} %>
 
 <div class="content">
   <div class="tabbed-area">

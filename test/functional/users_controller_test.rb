@@ -31,6 +31,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     sign_in @user
     
+puts "USER: #{@user.org.inspect}"
+puts "ORG: #{Org.last.inspect}"
+    
     get admin_index_users_path
     assert_response :success
     assert assigns(:users)

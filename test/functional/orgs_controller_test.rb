@@ -29,20 +29,6 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
     scaffold_org_admin(@org)
   end
 
-  # GET /org/admin/:id/admin_show (admin_show_org_path)
-  # ----------------------------------------------------------
-  test 'show the org' do
-    # Should redirect user to the root path if they are not logged in!
-    get admin_show_org_path(@org)
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_org_path(@org)
-    assert_response :success
-    assert assigns(:org)
-  end
-
   # GET /org/admin/:id/admin_edit (admin_edit_org_path)
   # ----------------------------------------------------------
   test 'load the edit org page' do
@@ -71,14 +57,13 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
     
     put admin_update_org_path(@org), {org: params}
     assert_equal _('Organisation was successfully updated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to admin_show_org_path(@org)
+    assert_response :success
     assert assigns(:org)
     assert_equal 'Testing UPDATE', @org.reload.name, "expected the record to have been updated"
     
     # Invalid object
-    put admin_update_org_path(@org), {org: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    put admin_update_org_path(@org), {org: {contact_email: 'abcdefg'}}
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:org)
   end
