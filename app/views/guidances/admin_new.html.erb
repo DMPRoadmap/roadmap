@@ -2,55 +2,55 @@
 <% javascript 'views/guidances/admin_edit.js' %>
 
 <h1>
-	<%= _('New guidance') %>
+  <%= _('New guidance') %>
 </h1>
 
 <div class="content">
-	<%= form_for :guidance, url: {action: 'admin_create'}, html: {id: 'edit_guidance_form', class: 'roadmap-form bordered'} do |f| %>
-		<fieldset class="side-by-side">
-			<div class="form-input">
-				<%= f.label :text %>
-				<%= text_area_tag("guidance-text", "", class: "tinymce") %>
-				<div class="inline">
-					<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_text_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Enter your guidance here. You can include links where needed.'))%>
-				</div>
-			</div>
-			<div class="form-input">
-				<%= f.label _('Themes'), for: :theme_ids %>
-				<%= f.collection_select(:theme_ids, @themes,
-									:id, :title, {prompt: false, include_blank: 'None'}, {multiple: true}) %>
-				<div class="inline">
-					<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_by_themes_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
-				</div>
-			</div>
+  <%= form_for :guidance, url: {action: 'admin_create'}, html: {id: 'edit_guidance_form', class: 'roadmap-form bordered'} do |f| %>
+    <fieldset class="side-by-side">
+      <div class="form-input">
+        <%= f.label :text %>
+        <%= text_area_tag("guidance-text", "", class: "tinymce") %>
+        <div class="inline">
+          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Enter your guidance here. You can include links where needed.'))%>
+        </div>
+      </div>
+      <div class="form-input">
+        <%= f.label _('Themes'), for: :theme_ids %>
+        <%= f.collection_select(:theme_ids, @themes,
+                  :id, :title, {prompt: false, include_blank: 'None'}, {multiple: true}) %>
+        <div class="inline">
+          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
+        </div>
+      </div>
       <div class="form-input">
         <%= f.label :published %>
         <%= f.check_box :published , as: :check_boxes%>
         <div class="inline">
-          <%= link_to( image_tag('help_button.png'), '#', class: 'guidance_group_subset_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("Check this box when you are ready for this guidance to appear on user's plans."))%>
+          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("Check this box when you are ready for this guidance to appear on user's plans."))%>
         </div>
       </div>
-			<div class="form-input">
-				<%= f.label _('Guidance group'), for: :guidance_group_id %>
-				<%= f.collection_select(:guidance_group_id, @guidance_groups,
-								:id, :name, {prompt: false, include_blank: 'None'}, {multiple: false})%>
-				<div class="inline">
-					<%= link_to( image_tag('help_button.png'), '#', class: 'guidance_group_select_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Select which group this guidance relates to.'))%>
-				</div>
-			</div>
-		
-	    <br />
-	    <div class="form-input">
-				<label></label>
-				<input type="submit" id="edit_guidance_submit" href="#edit_guidance_alert_dialog" class="btn btn-primary" value="<%= _('Save')%>" />
-	    </div>
-		</fieldset>
-	<% end %>
+      <div class="form-input">
+        <%= f.label _('Guidance group'), for: :guidance_group_id %>
+        <%= f.collection_select(:guidance_group_id, @guidance_groups,
+                :id, :name, {prompt: false, include_blank: 'None'}, {multiple: false})%>
+        <div class="inline">
+          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which group this guidance relates to.'))%>
+        </div>
+      </div>
+    
+      <br />
+      <div class="form-input">
+        <label></label>
+        <input type="submit" id="edit_guidance_submit" href="#edit_guidance_alert_dialog" class="btn btn-primary" value="<%= _('Save')%>" />
+      </div>
+    </fieldset>
+  <% end %>
 </div>
 
 <%= tinymce :content_css => asset_path('application.css') %>
 
 <!-- alert for guidance-->
 <div id="edit_guidance_alert_dialog" class="modal" style="display:none">
-	<ul id="missing_fields_edit_guidance"></ul>
+  <ul id="missing_fields_edit_guidance"></ul>
 </div>

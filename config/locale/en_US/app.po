@@ -44,9 +44,6 @@ msgstr " on "
 msgid " by"
 msgstr " by"
 
-msgid " by "
-msgstr " by "
-
 msgid " has been removed by "
 msgstr " has been removed by "
 
@@ -193,9 +190,6 @@ msgstr "<p>To create a new template, first enter a title and description. Once y
 
 msgid "<p>When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p> <h3>Create a plan</h3> <p>To create a plan, click the 'Create plan' button from the 'My plans' page or  the top menu. Select options from the drop-down menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Yes, create plan'</p> <h3>Write your plan</h3> <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p> <ul> <li>- 'Plan details' includes basic administrative details, tells you what sets of questions and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li> <li>- The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award.</li> <li>- The 'Share' tab allows you to invite others to read or contribute to your plan.</li> <li>- The 'Export' tab allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li> </ul> <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p> <p>Guidance is displayed in the right-hand panel. Click the '+' symbol to view this.</p> <p>Remember to 'save' your responses before moving on.</p> <h3>Share plans</h3> <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the drop-down options and click to 'Add collaborator'</p> <h3>Export plans</h3> <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to export. When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>"
 msgstr "<p>When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p> <h3>Create a plan</h3> <p>To create a plan, click the 'Create plan' button from the 'My plans' page or  the top menu. Select options from the drop-down menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Yes, create plan'</p> <h3>Write your plan</h3> <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p> <ul> <li>- 'Plan details' includes basic administrative details, tells you what sets of questions and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li> <li>- The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award.</li> <li>- The 'Share' tab allows you to invite others to read or contribute to your plan.</li> <li>- The 'Export' tab allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li> </ul> <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p> <p>Guidance is displayed in the right-hand panel. Click the '+' symbol to view this.</p> <p>Remember to 'save' your responses before moving on.</p> <h3>Share plans</h3> <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the drop-down options and click to 'Add collaborator'</p> <h3>Export plans</h3> <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to export. When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>"
-
-msgid "<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>"
-msgstr "<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>"
 
 msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with \"read only\" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking \"Add collaborator\".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
 msgstr "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with \"read only\" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking \"Add collaborator\".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
@@ -540,9 +534,6 @@ msgstr "Edit customisation"
 msgid "Edit phase"
 msgstr "Edit phase"
 
-msgid "Edit phase details"
-msgstr "Edit phase details"
-
 msgid "Edit plan details"
 msgstr "Edit plan details"
 
@@ -659,6 +650,10 @@ msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 msgstr "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 
 msgid "Guidance"
+msgstr "Guidance"
+
+#, fuzzy
+msgid "Guidance Choices"
 msgstr "Guidance"
 
 #, fuzzy
@@ -1363,9 +1358,6 @@ msgstr "template"
 msgid "This plan is based on:"
 msgstr "This plan is based on:"
 
-msgid "This section is locked for editing by "
-msgstr "This section is locked for editing by "
-
 msgid "Title"
 msgstr "Title"
 
@@ -1395,12 +1387,6 @@ msgstr "Unknown formatting setting"
 
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
 msgstr "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
-
-msgid "Unlink account"
-msgstr "Unlink account"
-
-msgid "Unlink institutional credentials alert"
-msgstr "Unlink institutional credentials alert"
 
 msgid "Unlock my account"
 msgstr "Unlock my account"
@@ -1559,9 +1545,6 @@ msgid "You have been granted permission by your organisation to use our API. You
 msgstr "You have been granted permission by your organization to use our API. Your API token and instructions for using the API endpoints can be found "
 
 msgid "You have un-published changes"
-msgstr ""
-
-msgid "You have unsaved answers in the following sections:"
 msgstr ""
 
 msgid "You must accept the terms and conditions to register."
