@@ -69,8 +69,7 @@ class GuidancesController < ApplicationController
  		@guidance = Guidance.find(params[:id])
     authorize @guidance
 		@guidance.text = params["guidance-text"]
-
-    if @guidance.save(guidance_params)
+    if @guidance.update_attributes(guidance_params)
       redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
     else
       flash[:notice] = failed_update_error(@guidance, _('guidance'))
