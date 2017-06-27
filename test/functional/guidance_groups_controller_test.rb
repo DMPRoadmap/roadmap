@@ -31,19 +31,6 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     scaffold_org_admin(GuidanceGroup.first.org)
   end
   
-  # GET /org/admin/guidancegroup/:id/admin_show (admin_show_guidance_group_path)
-  # ----------------------------------------------------------
-  test 'show the guidance_group' do
-    # Should redirect user to the root path if they are not logged in!
-    get admin_show_guidance_group_path(GuidanceGroup.find_by(org: @user.org))
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_guidance_group_path(GuidanceGroup.find_by(org: @user.org))
-    assert_response :success
-  end
-
   # GET /org/admin/guidancegroup/:id/admin_new (admin_new_guidance_group_path)
   # ----------------------------------------------------------
   test 'load the new guidance_group page' do

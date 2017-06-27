@@ -117,7 +117,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select 'h1', _('Welcome.')
+    assert_select 'main .page h1', _('Welcome.')
   end
 
   # ----------------------------------------------------------------------
@@ -129,7 +129,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select '.main_page_content h1', _('My plans')
+    assert_select 'main .page h1', _('My plans')
   end
 
   # ----------------------------------------------------------------------

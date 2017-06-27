@@ -49,21 +49,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:guidances)
     assert assigns(:guidance_groups)
   end
-
-  # GET /org/admin/guidance/:id/admin_show (admin_show_guidance_path)
-  # ----------------------------------------------------------
-  test 'load the guidance page' do
-    # Should redirect user to the root path if they are not logged in!
-    # TODO: Why is there an id here!? its a new guidance_group!
-    get admin_show_guidance_path(guidance_group_id: @guidance_group.id, id: @guidance_group.guidances.first.id)
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_guidance_path(guidance_group_id: @guidance_group.id, id: @guidance_group.guidances.first.id)
-    assert_response :success
-    assert assigns(:guidance)
-  end
   
   # /org/admin/guidance/:id/admin_new (admin_new_guidance_path)
   # ----------------------------------------------------------
@@ -110,7 +95,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     post admin_create_guidance_path(@user.org), params
     assert_response :redirect
-    assert_redirected_to admin_show_guidance_path(Guidance.last)
+    assert_redirected_to admin_edit_guidance_path(Guidance.last)
     assert_equal _('Guidance was successfully created.'), flash[:notice]
     assert assigns(:guidance)
     assert_equal 'Testing create', Guidance.last.text, "expected the record to have been created!"
@@ -136,7 +121,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     put admin_update_guidance_path(Guidance.first), params
     assert_response :redirect
     assert_equal _('Guidance was successfully updated.'), flash[:notice]
-    assert_redirected_to "#{admin_show_guidance_path(Guidance.first)}?guidance_group_id=#{GuidanceGroup.first.id}"
+    assert_redirected_to "#{admin_edit_guidance_path(Guidance.first)}?guidance_group_id=#{GuidanceGroup.first.id}"
     assert assigns(:guidance)
     assert_equal 'Testing UPDATE', Guidance.first.text, "expected the record to have been updated"
     
