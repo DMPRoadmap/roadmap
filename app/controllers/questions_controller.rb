@@ -62,7 +62,7 @@ class QuestionsController < ApplicationController
       guidance.save
     end
     example_answer = @question.get_example_answer(current_user.org_id)
-    if params["question"]["annotations_attributes"]["0"]["id"].present?
+    if params["question"]["annotations_attributes"].present? && params["question"]["annotations_attributes"]["0"]["id"].present?
       if example_answer.blank?
         example_answer = @question.annotations.build
         example_answer.type = :example_answer
