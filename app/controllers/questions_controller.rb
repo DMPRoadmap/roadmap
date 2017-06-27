@@ -56,9 +56,20 @@ class QuestionsController < ApplicationController
       if guidance.blank?
         guidance = @question.annotations.build
         guidance.type = :guidance
+        guidance.org_id = current_user.org_id
       end
       guidance.text = params["question-guidance-#{params[:id]}"]
       guidance.save
+    end
+    example_answer = @question.get_example_answer(current_user.org_id)
+    if params["question"]["annotations_attributes"].present? && params["question"]["annotations_attributes"]["0"]["id"].present?
+      if example_answer.blank?
+        example_answer = @question.annotations.build
+        example_answer.type = :example_answer
+        example_answer.org_id = current_user.org_id
+      end
+      example_answer.text = params["question"]["annotations_attributes"]["0"]["text"]
+      example_answer.save
     end
     if @question.question_format.textfield?
       @question.default_value = params["question-default-value-textfield"]

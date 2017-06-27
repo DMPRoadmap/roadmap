@@ -24,6 +24,18 @@
       <span role="" id="email_error" class="error-tooltip left-indent"></span>
     </div>
     
+    <div class="form-input">
+      <%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up', 'data-allow-clear': false }) %>
+    </div>
+    <div id="other-org-link form-input">
+      <a href="#"><%= _("My organisation isn't listed.") %></a>
+    </div>
+    <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
+    <div id="other-org-name" class="form-input" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
+      <%= f.label _('Organisation Name'), for: :other_organisation %>
+      <%= f.text_field :other_organisation, :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
+    </div>
+    
     <!-- Register form recovery email address -->
     <div class="form-input">
       <label for="user_email"><%= _('Recovery Email') %></label>

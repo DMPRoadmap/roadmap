@@ -30,7 +30,6 @@ class PlansController < ApplicationController
 
     flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
     @is_test = params[:test] ||= false
-
     respond_to :html
   end
 
@@ -69,13 +68,13 @@ class PlansController < ApplicationController
 
       if @plan.save
         @plan.assign_creator(current_user)
-        
+
         # pre-select org's guidance
-        ggs = GuidanceGroup.where(org_id: plan_params[:org_id], 
-                                                     optional_subset: false, 
+        ggs = GuidanceGroup.where(org_id: plan_params[:org_id],
+                                                     optional_subset: false,
                                                      published: true)
-        if !ggs.blank? then @plan.guidance_groups << ggs end 
-    
+        if !ggs.blank? then @plan.guidance_groups << ggs end
+
         default = Template.find_by(is_default: true)
 
         msg = "#{_('Plan was successfully created.')} "
@@ -495,7 +494,7 @@ class PlansController < ApplicationController
         funder = Org.find(funder_id)
         # Load the funder's template(s)
         @templates = Template.valid.where(published: true, org: funder).to_a
-        
+
         unless org_id.blank?
           org = Org.find(org_id)
 
