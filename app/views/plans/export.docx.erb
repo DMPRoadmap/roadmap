@@ -21,9 +21,7 @@
   %>
       <h3><%= section.title %></h3>
       <% questions.each do |question| %>
-        <p>
           <%= raw question.text %>
-        </p>
         <% answer = @plan.answer(question.id, false) %>
         <% if answer.nil? %>
           <p><%= _('Question not answered') %></p>
@@ -42,6 +40,7 @@
             <%= raw answer.text %>
           <% end %> <!-- end if q_format.option_based? -->
         <% end%> <!-- end if answer.nil? --> 
+        <p></p>
     <% end %>	<!-- end questions.each -->
   <% end %> <!-- end if questions.present? -->
 <% end %> <!-- end @exported_plan.sections.each -->
