@@ -1,41 +1,53 @@
 <h1>
     <%= _('List of users') %>
 </h1>
+<p>
+  <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
+</p>
 
-<%= raw _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
-  <table id="dmp_table" class="dmp_table tablesorter">
+<div class="content">
+  <table class="dmp_table tablesorter">
     <thead>
+      <% if @users.count > 10 %>
+        <tr>
+          <td colspan="5" class="td-as-th">
+            <%= render(partial: "shared/table_filter", 
+                       locals: {path: admin_index_users_path, 
+                                 placeholder: _('Filter users')}) %>
+          </td>
+        </tr>
+      <% end %>
       <tr>
-          <th class="dmp_th_big"><%= _('Name') %></th>
-          <th class="dmp_th_medium"><%= _('Email address') %></th>
-          <th class="dmp_th_small"><%= _('Last logged in') %></th>
-          <th class="dmp_th_small"><%= _('How many plans?') %></th>
-          <th class="dmp_th_small"><%= _('Privileges') %></th>
+          <th class="col-medium"><%= _('Name') %></th>
+          <th class="col-medium"><%= _('Email address') %></th>
+          <th class="col-small"><%= _('Last logged in') %></th>
+          <th class="col-small"><%= _('How many plans?') %></th>
+          <th class="col-small sorter-false"><%= _('Privileges') %></th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
           <% if !user.nil? then%>
-            <tr>
-              <td class="dmp_td_big">
+            <tr class="table-data">
+              <td>
                   <% if !user.name.nil? then%>
-                      <%= user.name %>
+                      <%= user.name(false) %>
                   <% end %>
               </td>
-              <td class="dmp_td_medium">
+              <td>
                   <%= user.email %>
               </td>
-              <td class="dmp_td_small">
+              <td>
                   <% if !user.last_sign_in_at.nil? then%>
                   <%= l user.last_sign_in_at.to_date, :formats => :short %>
                   <% end %>
               </td>
-              <td class="dmp_td_small">
+              <td class="centered">
                   <% if !user.roles.nil? then%>
                   <%= user.roles.length %>
                   <% end %>
               </td>
-              <td class="dmp_td_small">
+              <td class="centered">
                 <% unless current_user == user %>
                   <% b_label = _('Edit')%>
                   <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
@@ -46,3 +58,4 @@
       <% end %>
     </tbody>
   </table>
+</div>

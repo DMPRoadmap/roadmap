@@ -2,62 +2,61 @@
   <%= _('About %{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
 </h1>
 
-<div class="tabbed-area">
-  <ul class="tabs" role="tablist">
-    <li id="background-tab" class="active" role="tab" aria-controls="background-panel">
-      <a href="#background-panel" aria-selected="true"><%= _('Background') %></a>
-    </li>
-    <li id="latest-news-tab" role="tab" aria-controls="latest-news-panel">
-      <a href="#latest-news-panel" aria-selected="false"><%= _('Latest news') %></a>
-    </li>
-  </ul>
+<div class="content">
+	<div class="tabbed-area">
+	  <ul class="tabs" role="tablist">
+	    <li id="background-tab" class="active" role="tab" aria-controls="background-panel">
+	      <a href="#background-panel" aria-selected="true"><%= _('Background') %></a>
+	    </li>
+	    <li id="latest-news-tab" role="tab" aria-controls="latest-news-panel">
+	      <a href="#latest-news-panel" aria-selected="false"><%= _('Latest news') %></a>
+	    </li>
+	  </ul>
 
-  <div class="tab-panels" role="tabpanel">
-    <div id="background-panel" class="tab-panel active" aria-hidden="false" 
-         aria-labelledby="background-tab">
+	  <div class="tab-panels" role="tabpanel">
+	    <div id="background-panel" class="tab-panel active" aria-hidden="false" 
+	         aria-labelledby="background-tab">
       
-      <p><%= raw _("Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.") % {:organisation_name => Rails.configuration.branding[:organisation][:name],
-                                      :organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation],
-                                      :application_name => Rails.configuration.branding[:application][:name]} %></p> 
-      <p><%= raw _("The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.") %></p><br /> 
-      <h3><%= _('How the tool works') %></h3> 
-      <p><%= _("There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.") %></p><br /> 
-      <h3><%= _('Getting Started') %></h3> 
-      <p><%= _("If you have an account please sign in and start creating or editing your DMP.") %></p> 
-      <p><%= _("If you do not have a %{application_name} account, click on")  % {:application_name => Rails.configuration.branding[:application][:name]} %> <a href="<%= root_path %>"><%= _('Sign up') %></a> <%= _("on the homepage.") %></p> 
-      <p><%= _("Please visit the") %> <a href="<%= help_path %>">'<%= _('Help') %>'</a> <%= _("page for guidance.") %></p><br /> 
-      <h3><%= _("Additional Information") %></h3>
-      <p><%= _("We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing") % {:application_name => Rails.configuration.branding[:application][:name]} %> <a href='mailto:<%= Rails.configuration.branding[:organisation][:email] %>?Subject=<%= Rails.configuration.branding[:application][:name] %> inquiry' target='_top'><%= Rails.configuration.branding[:organisation][:email] %></a>. <%= _("You can also report bugs and request new features directly on") %> <a href='<%= Rails.configuration.branding[:application][:url] %>' target='_top'><%= _('GitHub') %></a></p>
-    </div>
+	      <p><%= raw _("Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.") % {:organisation_name => Rails.configuration.branding[:organisation][:name],
+	                                      :application_name => Rails.configuration.branding[:application][:name]} %></p> 
+	      <p><%= raw _("The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.") % {:organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation]} %></p>
+	      <h3><%= _('How the tool works') %></h3> 
+	      <p><%= _("There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.") %></p>
+	      <h3><%= _('Getting Started') %></h3> 
+	      <p><%= _("If you have an account please sign in and start creating or editing your DMP.") %></p> 
+	      <p><%= _("If you do not have a %{application_name} account, click on")  % {:application_name => Rails.configuration.branding[:application][:name]} %> <a href="<%= root_path %>"><%= _('Sign up') %></a> <%= _("on the homepage.") %></p> 
+	      <p><%= _("Please visit the") %> <a href="<%= help_path %>">'<%= _('Help') %>'</a> <%= _("page for guidance.") %></p>
+	      <h3><%= _("Additional Information") %></h3>
+	      <p><%= _("We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing") % {:application_name => Rails.configuration.branding[:application][:name]} %> <a href='mailto:<%= Rails.configuration.branding[:organisation][:email] %>?Subject=<%= Rails.configuration.branding[:application][:name] %> inquiry' target='_top'><%= Rails.configuration.branding[:organisation][:email] %></a>. <%= _("You can also report bugs and request new features directly on") %> <a href='<%= Rails.configuration.branding[:application][:url] %>' target='_top'><%= _('GitHub') %></a></p>
+	    </div>
     
-    <div id="latest-news-panel" aria-hidden="true" class="tab-panel" role="tabpanel" 
-         aria-labelledby="latest-news-tab">
-      <p><%= raw _('%{application_name} stories from the %{organisation_abbreviation} website') % {
-                  :organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation],
-                  :application_name => Rails.configuration.branding[:application][:name] } %></p><br />
-       <% news_left = @dcc_news_feed.entries.count %>
-       <% @dcc_news_feed.entries.each do |entry| %>
-         <h3><%= entry.title.sanitize %></h3>
-         <% summary = entry.summary.sanitize %>
-         <% summary = summary.gsub(/\A<img([^>])+>/, "") %>
-         <% summary = summary.gsub(/\A<div([^>])+>/, "") %>
-         <% name = summary[/\A[\s\w]*([^,])/].strip %>
-         <% summary = summary.gsub(/\A.*div>/, "") %>
-         <% summary = summary.gsub(/<p>.*\z/, "") %>
-         <p><%= raw summary.strip %></p>
-         <% author = entry.author.blank? ? 'anonymous' : entry.author %>
-         <p><%= _('By ') %> <%= author %> <%= _(' on ') %> <%= entry.published.strftime("%d/%m/%Y") %></p>
-         <p><%= _('Read more on the ') %><%= link_to 'DCC Website', entry.url %></p>
-         <br />
-         <!--verify how many news are left -->
-         <%if news_left.to_i > 1 then %>
-           <div class="two-column-clear question-divider"></div>
-         <%else%>
-           <div class="two-column-clear"></div>
-         <%end%>
-         <% news_left = news_left - 1 %>
-       <% end %>
-    </div>
-    </div>
-  </div>
+	    <div id="latest-news-panel" aria-hidden="true" class="tab-panel" role="tabpanel" 
+	         aria-labelledby="latest-news-tab">
+	      <p><%= raw _('%{application_name} stories from the %{organisation_abbreviation} website') % {
+	                  :organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation],
+	                  :application_name => Rails.configuration.branding[:application][:name] } %></p>
+	       <% news_left = @dcc_news_feed.entries.count %>
+	       <% @dcc_news_feed.entries.each do |entry| %>
+	         <h3><%= entry.title.sanitize %></h3>
+	         <% summary = entry.summary.sanitize %>
+	         <% summary = summary.gsub(/\A<img([^>])+>/, "") %>
+	         <% summary = summary.gsub(/\A<div([^>])+>/, "") %>
+	         <% name = summary[/\A[\s\w]*([^,])/].strip %>
+	         <% summary = summary.gsub(/\A.*div>/, "") %>
+	         <% summary = summary.gsub(/<p>.*\z/, "") %>
+	         <p><%= raw summary.strip %></p>
+	         <% author = entry.author.blank? ? 'anonymous' : entry.author %>
+	         <p><%= _('By ') %> <%= author %> <%= _(' on ') %> <%= entry.published.strftime("%d/%m/%Y") %></p>
+	         <p><%= _('Read more on the ') %><%= link_to 'DCC Website', entry.url %></p>
+	         <!--verify how many news are left -->
+	         <%if news_left.to_i > 1 then %>
+	           <div class="two-column-clear divider"></div>
+	         <%else%>
+	           <div class="two-column-clear"></div>
+	         <%end%>
+	         <% news_left = news_left - 1 %>
+	       <% end %>
+	    </div>
+	  </div>
+	</div>
 </div>

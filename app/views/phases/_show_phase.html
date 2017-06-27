@@ -1,15 +1,5 @@
 <!-- show phase details -->
 
-<h3>
-  <%= _('Phase details')%>
-
-  <!-- edit phase details button -->
-  <% if @phase.modifiable && @edit %>
-    <div class="move_2_right">
-      <%= link_to _('Edit phase details'), '#', class: "btn btn-primary", id: "edit_phase_button"%>
-    </div>
-  <% end %>
-</h3>
 
 <% if @phase.template.org.not_funder %>
   <div class="div_left">

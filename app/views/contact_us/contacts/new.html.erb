@@ -1,99 +1,95 @@
-<% javascript "contacts/new_contact.js" %>
+<% javascript "views/contacts/new_contact.js" %>
 
 <h1>
   <%= _("Contact Us") %>
 </h1>
 <p>
-  <%= raw _('%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
+  <%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
                                      organisation_url: Rails.configuration.branding[:organisation][:url],
                                      application_name: Rails.configuration.branding[:application][:name]} %>
 </p>
-<div class="column_container" id="contact-us">
-  <!-- left column  content -->
-  <div class="column_left">
-    <div class="white_background">
-      <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
-        <fieldset class="side-by-side">
-          <% if ContactUs.require_name %>
-            <div class="form-input">
-              <label for="contact_us_contact_name"><%= _('Name') %>*</label>
-              <input type="text" id="contact_us_contact_name" name="contact_us[contact_name]" 
-                     class="left-indent required" <%= current_user.nil? ? '' : "value=\"#{current_user.name}\" disabled=\"true\"" %> />
-            </div>
-          <% end %>
-          
-          <div class="form-input">
-            <label for="contact_us_contact_email"><%= _('Email') %>*</label>
-            <input type="email" id="contact_us_contact_email" name="contact_us[contact_email]" 
-                   class="left-indent required" <%= current_user.nil? ? '' : 
-                                                    "value=\"#{current_user.name}\" disabled=\"true\"" %> />
-            <span role="" id="contact_us_contact_email_error" class="error-tooltip-right left-indent"></span>
-          </div>
-          
-          <% if ContactUs.require_subject %>
-            <div class="form-input">
-              <label for="contact_us_contact_subject align-top"><%= _('Subject') %>*</label>
-              <input type="text" id="contact_us_contact_subject" name="contact_us[contact_subject]" 
-                     class="left-indent required" />
-            </div>
-          <% end %>
-          
-          <div class="form-input">
-            <label for="contact_us_contact_message align-top"><%= _('Message') %>*</label>
-            <textarea id="contact_us_contact_message" name="contact_us[contact_message]" rows="10" 
-                      class="left-indent required"></textarea>
-          </div>
-          
-          <% if !user_signed_in? then %>
-            <div class="form-input">
-              <label class="align-top"><%= _('Security check') %>*</label>
-              <div class="inline left-indent">
-                <%= recaptcha_tags %>
-              </div>
-            </div>
-          <% end %>
-          
-          <div class="form-input">
-            <label></label>
-            <%= render partial: 'shared/accessible_submit_button',
-                       locals: {id: 'create_contact_submit', 
-                                val: 'Submit', 
-                                disabled_initially: true,
-                                tooltip: _('Fill in the required fields')} %>
-          </div>
-        </fieldset>
 
-      <% end %>
-    </div>
+<div class="content bordered" id="contact-us">
+  <!-- left column  content -->
+  <div class="column-left">
+    <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
+      <fieldset class="side-by-side">
+        <% if ContactUs.require_name %>
+          <div class="form-input">
+            <label for="contact_us_contact_name"><%= _('Name') %>*</label>
+            <input type="text" id="contact_us_contact_name" name="contact_us[contact_name]" 
+                   class="left-indent required input-large" value="<%= current_user.nil? ? '' : current_user.name(false) %>"<%= current_user.nil? ? '' : 'disabled="true"' %> />
+          </div>
+        <% end %>
+        
+        <div class="form-input">
+          <label for="contact_us_contact_email"><%= _('Email') %>*</label>
+          <input type="email" id="contact_us_contact_email" name="contact_us[contact_email]" 
+                 class="left-indent required input-large" value="<%= current_user.nil? ? '' : current_user.email %>"<%= current_user.nil? ? '' : 'disabled="true"' %> />
+          <span role="" id="contact_us_contact_email_error" class="error-tooltip-right left-indent"></span>
+        </div>
+        
+        <% if ContactUs.require_subject %>
+          <div class="form-input">
+            <label for="contact_us_contact_subject align-top"><%= _('Subject') %>*</label>
+            <input type="text" id="contact_us_contact_subject" name="contact_us[contact_subject]" 
+                   class="left-indent required input-large" />
+          </div>
+        <% end %>
+        
+        <div class="form-input">
+          <label for="contact_us_contact_message" class="align-top"><%= _('Message') %>*</label>
+          <textarea id="contact_us_contact_message" name="contact_us[contact_message]" rows="10" 
+                    class="left-indent required input-large"></textarea>
+        </div>
+        
+        <% if !user_signed_in? then %>
+          <div class="form-input">
+            <label class="align-top"><%= _('Security check') %>*</label>
+            <div class="inline left-indent">
+              <%= recaptcha_tags %>
+            </div>
+          </div>
+        <% end %>
+        
+        <div class="form-input">
+          <label></label>
+          <%= render partial: 'shared/accessible_submit_button',
+                     locals: {id: 'create_contact_submit', 
+                              val: 'Submit', 
+                              disabled_initially: true,
+                              tooltip: _('Fill in the required fields'),
+                              classes: 'left-indent'} %>
+        </div>
+      </fieldset>
+
+    <% end %>
   </div>
   
   <!-- right column information -->
-  <div class="column_right">
-    <div class="white_background">
-      <%= raw _("<ul><li>%{organisation_name}</li>
-                     <li>%{organisation_address_line1}</li>
-                     <li>%{organisation_address_line2}</li>
-                     <li>%{organisation_address_line3}</li>
-                     <li>%{organisation_address_line4}</li>
-                     <li>%{organisation_address_country}</li>
-                 </ul>
-                 <p>Helpline: %{organisation_telephone}</p>
-                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>") %
-                  { organisation_name: Rails.configuration.branding[:organisation][:name],
-                    organisation_address_line1: Rails.configuration.branding[:organisation][:address_line1],
-                    organisation_address_line2: Rails.configuration.branding[:organisation][:address_line2],
-                    organisation_address_line3: Rails.configuration.branding[:organisation][:address_line3],
-                    organisation_address_line4: Rails.configuration.branding[:organisation][:address_line4],
-                    organisation_address_country: Rails.configuration.branding[:organisation][:address_country],
-                    organisation_telephone: Rails.configuration.branding[:organisation][:telephone],
-                    organisation_email: Rails.configuration.branding[:organisation][:email],
-                    application_name: Rails.configuration.branding[:application][:name]} %>
-        <!-- map -->
-        <div class="div_map">
-          <iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<%= Rails.configuration.branding[:organisation][:google_maps_link] %>"></iframe>
+  <div class="column-right">
+    <ul class="no-bullets">
+      <% [Rails.configuration.branding[:organisation][:name],
+          Rails.configuration.branding[:organisation][:address_line1],
+          Rails.configuration.branding[:organisation][:address_line2],
+          Rails.configuration.branding[:organisation][:address_line3],
+          Rails.configuration.branding[:organisation][:address_line4],
+          Rails.configuration.branding[:organisation][:address_country]].each do |addr_line| %>
+         
+        <% if addr_line %>
+          <li><%= addr_line %></li>
+        <% end %>
+      <% end %>
+    </ul>
+    
+    <p><%= "#{_('Helpline')} #{Rails.configuration.branding[:organisation][:telephone]}" %></p> 
+    <p><%= _('Email') %> <a href="mailto:<%= Rails.configuration.branding[:organisation][:email] %>?Subject=<%= Rails.configuration.branding[:application][:name] %> <%= _('inquiry') %>"><%= Rails.configuration.branding[:organisation][:email] %></a></p>
 
-        </div>
-      </div>
+    <!-- map -->
+    <div class="div_map">
+      <iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<%= Rails.configuration.branding[:organisation][:google_maps_link] %>"></iframe>
+
+    </div>
   </div>
   
 </div>
