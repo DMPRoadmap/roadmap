@@ -76,13 +76,24 @@ div.divider {
   width: 0;
   height: 0;
 }
-.dropdown-list {
+ul.dropdown-list {
+  position: absolute;
   background-color: $medium-grey;
   color: $white;
   border-radius: 3px;
-  padding: 6px 10px;
-  margin-top: 0;
-  text-align: right;
+  padding: 10px 25px;
+  text-align: left;
+  z-index: 2;
+  top: 5px;
+  
+  li {
+    list-style: none;
+    margin-bottom: 10px;
+    
+    a {
+      color: $white;
+    }
+  }
 }
 
 /* General Anchor and Button styling */
@@ -215,7 +226,8 @@ div.roadmap {
               top: 32px;
               
               li {
-                background-color: $dark-grey;
+                display: block;
+                background-color: $medium-grey;
                 border: none;
               }
             }
@@ -225,15 +237,10 @@ div.roadmap {
     }
     .signin-signout-menu {
       position: absolute;
-      text-align: right;
       top: 5px;
       right: 10px;
       color: white;
       
-      ul li {
-        list-style: none;
-      
-      }
       a {
         color: white;
         font-size: 14px;
@@ -338,29 +345,4 @@ div.roadmap {
       width: 30%;
     }
   }
-}
-
-
-
-
-
-
-
-.checkbox-label {
-  display: inline-block;
-  font-size: 1em;
-  margin: 0;
-  padding: 2px;
-}
-
-.checkbox-input {
-  border: none;
-  vertical-align: middle;
-  height: 17px;
-  margin: 0 4px 0 0;
-  padding: 0;
-}
-
-.project-title-container {
-  width: 60%;
 }
