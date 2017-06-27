@@ -39,18 +39,10 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.new(guidance_params)
     authorize @guidance
     @guidance.text = params["guidance-text"]
-    
+
     @guidance.themes = []
     if !guidance_params[:theme_ids].nil?
       guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
-    end
-    
-    if @guidance.published == true then
-      @gg = GuidanceGroup.find(@guidance.guidance_group_id)
-      if @gg.published == false || @gg.published.nil? then
-        @gg.published = true
-        @gg.save
-      end
     end
 
     if @guidance.save
