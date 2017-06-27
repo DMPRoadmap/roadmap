@@ -292,16 +292,17 @@ class User < ActiveRecord::Base
   def self.create_default_preferences
     default_prefs = {
         users:           {
-            permission_granted: true,
-            new_comment: true
+            new_comment: true,
+            admin_privileges: true,
+            added_as_coowner: true
         },
         owners_and_coowners:       {
-            visibility_changed:   true,
-            user_added:  true
+            visibility_changed:   true
         },
         admins:      {
             template_published:  true,
-            template_unpublished: true
+            template_unpublished: true,
+            feedback_requested: true
         }
     }
   end

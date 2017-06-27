@@ -1,9 +1,19 @@
-<div style="width: 80%; float:left">
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
+
+<div class="profile_text">
+  <p>
+    <%= _("Please note that your email address is used as your username.
+    If you change this, remember to use your new email address on sign in.") %>
+  </p>
+</div>
+
+<div>
   <!-- Edit Profile -->
   <fieldset class="side-by-side">
     <legend><%= _('You can edit any of the details below.') %></legend>
 
-    <%#= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
+    <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
+    <%= hidden_field_tag :skip_personal_details, "false" %>
 
     <div class="form-input">
       <label for="user_email"><%= _('Email') %>*</label>
@@ -38,6 +48,14 @@
     </div>
 
     <div class="form-input">
+      <label for="user_password"><%= _('Password') %></label>
+      <input type="password" id="user_password" name="user[password]"
+             class="left-indent required input-medium" value="" />
+      <span role="" id="password_error"
+            class="error-tooltip-right left-indent"></span>
+    </div>
+
+    <div class="form-input">
       <label for="user_surname"><%= _('Organisation') %></label>
       <%= render partial: "shared/accessible_combobox",
                  locals: {name: "#{resource_name}[org_name]",
@@ -64,25 +82,20 @@
     <% end %>
 
     <% @identifier_schemes.each do |scheme| %>
-      <%
-      if scheme.name != 'shibboleth' ||
-         (scheme.name == 'shibboleth' && Rails.application.config.shibboleth_enabled)
-      %>
         <div class="form-input">
-          <label>
-              <% if scheme.logo_url.nil? %>
-                  <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
-              <% else %>
-                  <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
-              <% end %>
-         </label>
+          <% if scheme.name == 'shibboleth' %>
+              <label>           
+                <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
+              </label>
+          <% else %>
+              <label for="scheme_name"><%= scheme.name.capitalize %></label>
+          <% end %>
           <div class="identifier-scheme left-indent">
-            <%= render partial: 'external_identifier',
-                       locals: {scheme: scheme,
-                                id: current_user.identifier_for(scheme)} %>
+            <%= render partial: "external_identifier_#{scheme.name}",
+                       locals: { scheme: scheme,
+                                 id: current_user.identifier_for(scheme)} %>
           </div>
         </div>
-      <% end %>
     <% end %>
 
     <% unless @user.api_token.blank? %>
@@ -94,29 +107,31 @@
         <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
       </div>
     <% end %>
+
   </fieldset>
-
-
-
-  <!-- alert for the default template-->
-  <div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
-    <div class="modal-header">
-      <h3><%= _('Unlink institutional credentials alert') %></h3>
-    </div>
-    <div class="modal-body">
-      <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
-    </div>
-    <div class="modal-footer">
-      <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
-      <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
-    </div>
+  <div class='form-input'>
+    <label></label>
+    <%= render partial: 'shared/accessible_submit_button',
+               locals: {id: 'update',
+                        val: 'Save',
+                        disabled_initially: true,
+                        classes: 'small-input-button',
+                        tooltip: _('Enter all of the required information above')} %>
+    <%= link_to 'Cancel', '#', style: 'text-decoration:none;'  %>
   </div>
 </div>
+<% end %>
 
-<div style="width: 20%; float:right">
-  <p>
-    <%= _("Please note that your email address is used as your username.
-    If you change this, remember to use your new email address on sign in.") %>
-  </p>
+<!-- alert for the default template-->
+<div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
+  <div class="modal-header">
+    <h3><%= _('Unlink institutional credentials alert') %></h3>
+  </div>
+  <div class="modal-body">
+    <%= raw _('<p>You are about to unlink %{application_name} of your institutional credentials, would you like to continue?</p>') % { :application_name => user_shibboleth_omniauth_authorize_path } %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
+    <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
+  </div>
 </div>
-

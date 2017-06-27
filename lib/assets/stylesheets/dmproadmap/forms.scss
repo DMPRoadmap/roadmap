@@ -33,6 +33,21 @@ select {
   vertical-align: top;
 }
 
+.checkbox-label {
+  display: inline-block;
+  font-size: 1em;
+  margin: 0;
+  padding: 2px;
+}
+
+.checkbox-input {
+  border: none;
+  vertical-align: middle;
+  height: 17px;
+  margin: 0 4px 0 0;
+  padding: 0;
+}
+
 .org-logo {
   position: absolute;
   top: -35px;
@@ -469,7 +484,8 @@ div.one-column {
   width: 95%;
 }
 
-/* Edit Profile */
+/* ------------------------------------------------ */
+/* Orcid Component */
 /* ------------------------------------------------ */
 #connect-orcid-button{
   border: 1px solid #D3D3D3;
@@ -511,6 +527,19 @@ div.one-column {
 /* ------------------------------------------------ */
 div.main_page_content p #create-test {
   vertical-align: middle;
+}
+td.plan-edit-actions {
+  position: absolute;
+  overflow: visible;
+
+  ul {
+    top: 8px;
+    left: 0;
+    
+    li a {
+      text-decoration: none;
+    }
+  }
 }
 
 /* Create plan */
@@ -557,6 +586,9 @@ div.main_page_content p #create-test {
 
 /* Show/Edit plan details */
 /* ------------------------------------------------ */
+.project-title-container {
+  width: 60%;
+}
 div.show-plan {
   width: 60%;
   

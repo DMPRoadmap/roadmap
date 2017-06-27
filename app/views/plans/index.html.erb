@@ -34,59 +34,62 @@
           <th class="col-large"><%= _('Template') %></th>
           <th class="col-small"><%= _('Edited') %></th>
           <th class="col-small"><%= _('Role') %></th>
-          <th class="col-small"><%= _('Visibility') %></th>
           <th class="col-tiny sorter-false centered"><%= _('Test') %></th>
-          <th class="col-large sorter-false"><%= _('Select an Action') %></th>
+          <th class="col-small"><%= _('Visibility') %></th>
+          <th class="col-small sorter-false">
+            <span aria-hidden="false" class="aria-only"><%= _('Actions') %></span>
+          </th>
         </tr>
       </thead>
       <tbody>
         <% @plans.each do |plan| %>
           <tr class="table-data">
-            <td><%= plan.title %></td>
+            <td>
+              <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", 
+                  edit_plan_path(plan) %>
+            </td>
             <td><%= plan.template.title %></td>
             <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
             <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
-            <td id="visibility-<%= plan.id %>"><%= raw display_visibility(plan.visibility) %></td>
             <td class="centered">
               <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
             </td>
-            <td>
-              <% if plan.editable_by?(current_user.id) then %>
-                <%= link_to _('Edit'), 
-                            edit_plan_path(plan), 
-                            class: "dmp_table_link" %>
+            <td id="visibility-<%= plan.id %>"><%= raw display_visibility(plan.visibility) %></td>
+            <td class="plan-edit-actions">
+              <a class="dropdown" id="plan-<%= plan.id %>-actions" href="#">
+                <%= _('Actions') %> <span class="caret"><span>
+              </a>
+              <ul class="hidden dropdown-list" id="plan-<%= plan.id %>-actions-dropdown">
+                <% if plan.editable_by?(current_user.id) then %>
+                  <li><%= link_to _('Edit'), 
+                              edit_plan_path(plan) %></li>
 
-                <% if plan.administerable_by?(current_user.id) then %>
-                  <%= link_to _('Share'), 
-                              share_plan_path(plan), 
-                              class: "dmp_table_link" %>
-                <% end %>
+                  <% if plan.administerable_by?(current_user.id) then %>
+                    <li><%= link_to _('Share'), 
+                                share_plan_path(plan) %></li>
+                  <% end %>
 
-                <%= link_to _('Export'), 
-                            show_export_plan_path(plan), 
-                            class: "dmp_table_link" %>
+                  <li><%= link_to _('Download'), 
+                              show_export_plan_path(plan) %></li>
 
-                <%= link_to _('Duplicate'), 
-                            duplicate_plan_path(plan), 
-                            class: "dmp_table_link" %>
+                  <li><%= link_to _('Duplicate'), 
+                              duplicate_plan_path(plan) %></li>
 
-                <% if plan.owned_by?(current_user.id) then %>
-                  <%= link_to _('Delete'), 
-                              plan_path(plan), 
-                              class: "dmp_table_link",
-                              method: :delete, 
-                              data: {confirm: _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')} %>
+                  <% if plan.owned_by?(current_user.id) then %>
+                    <li><%= link_to _('Delete'), 
+                                plan_path(plan), 
+                                method: :delete, 
+                                data: {confirm: _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')} %></li>
                             
-                <% end %>
-              <% else %>
-                <%= link_to _('View'), 
-                            plan_path(plan), 
-                            class: "dmp_table_link" %>
+                  <% end %>
+                <% else %>
+                  <li><%= link_to _('View'), 
+                              plan_path(plan) %></li>
                           
-                <%= link_to _('Export'), 
-                            show_export_plan_path(plan), 
-                            class: "dmp_table_link" %>
-              <% end %>
+                  <li><%= link_to _('Download'), 
+                              show_export_plan_path(plan) %></li>
+                <% end %>
+              </ul>
             </td>
           </tr>
         <% end %>
