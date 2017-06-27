@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     if FastGettext.default_available_locales.include?(params[:locale])
       session[:locale] = params[:locale]
     end
-    redirect_to root_path
+    redirect_to(request.referer || root_path) #redirects the user to URL where she/he was when the request to this resource was made or root if none is encountered
   end
 
   def store_location
