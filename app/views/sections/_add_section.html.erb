@@ -25,7 +25,8 @@
           <tr>
             <td class="first_template"><%= _('Order of display') %></td>
             <td>
-              <%= f.number_field :number, in: 1..15, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: _('This allows you to order sections.') %>
+              <% range = @phase.template.customization_of.present? ? 0..15 : 1..15 %>
+              <%= f.number_field :number, in: range, class: "number_field has-tooltip", "data-toggle" => "tooltip", title: _('This allows you to order sections.') %>
             </td>
           </tr>
           <tr>
