@@ -84,7 +84,8 @@ ul.dropdown-list {
   padding: 10px 25px;
   text-align: left;
   z-index: 2;
-  top: 5px;
+  top: 0;
+  margin-top: -5px;
   
   li {
     list-style: none;
