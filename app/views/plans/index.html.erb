@@ -73,7 +73,7 @@
                               show_export_plan_path(plan) %></li>
 
                   <li><%= link_to _('Make a copy'), 
-                              duplicate_plan_path(plan) %></li>
+                              duplicate_plan_path(plan), method: :post, remote: true %></li>
 
                   <% if plan.owned_by?(current_user.id) then %>
                     <li><%= link_to _('Delete'), 
