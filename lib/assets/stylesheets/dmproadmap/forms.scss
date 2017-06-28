@@ -31,6 +31,7 @@ input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:fo
 select {
   margin-top: 10px;
   vertical-align: top;
+  height: 25px;
 }
 
 .checkbox-label {
@@ -353,6 +354,21 @@ div.read-only-form {
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
 
+/* Allows for an auto-complete box in a side-by-side form */
+div.accessible-combobox-smaller {
+  position: relative;
+  
+  .combobox-container {
+    width: 65%;
+  }
+  .js-combobox {
+    width: 95%;
+  }
+  .combobox-suggestions {
+    margin-left: 15px;
+    width: 98%
+  }
+}
 
 
 /* ------------------------------------------------ */
@@ -368,7 +384,7 @@ div.read-only-form {
 }
 
 
-/* Sign in/Create account forms */
+/* Sign in/Create account and edit profile forms */
 /* ------------------------------------------------ */
 .omniauth-options {
   display: block;
@@ -411,13 +427,24 @@ div.read-only-form {
   }
 }
 #edit_user fieldset {
-  .checkbox-right {
-    width: 55%;
+  div.identifier-scheme {
+    margin-bottom: 15px;
+  }
+
+  .checkbox-right,
+  .checkbox-right-side-by-side {
     position: relative;
 
     #user_remember_me, input[type='checkbox'], .checkbox-label {
       float: right;
     }
+  }
+  
+  .checkbox-right-side-by-side {
+    width: 65%;
+  }
+  .checkbox-right {
+    width: 55%;
   }
 }
 
