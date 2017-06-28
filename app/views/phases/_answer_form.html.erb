@@ -5,7 +5,7 @@
   **Copyright: Digital Curation Centre and California Digital Library
 -->
 
-<div class="question-div">
+<div class="question-div edit-plan-left">
   <%
      answers = question.plan_answers(plan.id)
      if answers.present?
@@ -29,61 +29,57 @@
 </div>   <!-- question-div -->
       
 <!-- Question right column -->
-<div class="question-area-right-column">
+<div class="question-area-right-column edit-plan-right">
 
-    <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
-      <% comments = answer.notes.all %> 
-      <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-      <% active_tab = nil %>
-      <ul class="question_right_column_ul">
-        <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
-        <% if annotations.present? || question_guidances.present? %>
-          <% active_tab = 'guidance_tab' %>
-          <li class="guidance_tab active">
-            <%= link_to _('Guidance'), "#", class: "right_column_tab_link" %>
-          </li>
-        <% else %>
-        <% active_tab = 'note_tab' %>
-        <% end %>
-        <li class="note_tab <%= "active" if active_tab == 'note_tab' %>">
-          <% if comments.count > 0 %>
-            <%= link_to "#{_('Notes')} (#{comments.count})" , "#", id: "notes_number_#{question.id}", class: "right_column_tab_link" %>
-          <% else %>
-            <%= link_to _('Share note'), "#", id: "notes_number_#{question.id}", class: "right_column_tab_link" %>
-          <% end %>
+  <div id="right-area-tabs-<%= question.id %>" class="tabbed-area question_right_column_nav">
+    <% comments = answer.notes.all %> 
+    <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
+    <% active_tab = nil %>
+    
+    <!-- render navigation tabs for the project-->
+    <ul class="tabs question_right_column_ul" role="tablist">
+      <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
+      <% if annotations.present? || question_guidances.present? %>
+        <% active_tab = 'guidance_tab' %>
+        <li class="guidance_tab active" role="tab" aria-controls="guidance-question-area-<%= question.id %>">
+          <a href="#guidance-question-area-<%= question.id %>" aria-selected="true"><%= _('Guidance') %></a>
         </li>
-      </ul>
-    </div>
+      <% else %>
+      <% active_tab = 'note_tab' %>
+      <% end %>
+      <li class="note_tab <%= "active" if active_tab == 'note_tab' %>" role="tab" aria-controls="comment-question-area-<%= question.id %>">
+        <% if comments.count > 0 %>
+          <a href="#comment-question-area-<%= question.id %>" id="notes_number_<%= question.id %>" aria-selected="<%= active_tab == 'note_tab' %>"><%= _('Notes') %></a>
+        <% else %>
+          <a href="#comment-question-area-<%= question.id %>" id="notes_number_<%= question.id %>" aria-selected="<%= active_tab == 'note_tab' %>"><%= _(' Share note') %></a>
+        <% end %>
+      </li>
+    </ul>
+
+    <div class="tab-panels question-guidance guidance_tab" role="tabpanel">
+      <div id="guidance-question-area-<%= question.id %>" class="tab-panel<%= active_tab == 'guidance_tab' ? ' active' : '' %>" aria-hidden="false" aria-labelledby="guidance_tab">
 
 
     <!--guidance content -->
-    <div class="question-guidance guidance_tab" id="guidance-question-area-<%= question.id %>" style="<%= active_tab == 'guidance_tab' ? '' : 'display:none;' %>">
      <div class="accordion" id="<%= question.id %>-guidance">
 
         <!--question guidance-->
         <% num_annotations = 0 %>
+        <% i = 0 %>
         <% if annotations.present? %>
           <% annotations.each do |annotation| %>
 
-            <div class="accordion-group">
-
-             <!-- accordion heading -->
-              <div class="accordion-heading">
-               <a class="accordion-guidance-link" data-toggle="collapse"
-               data-parent="#<%=question.id%>-guidance-<%=num_annotations%>"
-               href="#collapse-guidance-<%=question.id%>-<%=num_annotations%>">
-                 <div class="accordion_heading_text">
-                 <%= annotation.org.abbreviation %> <%= _('Guidance') %>
-                 </div>
-                 <span class="plus-laranja"> </span></a>
-             </div>
+            <h3>
+              <%= annotation.org.abbreviation %> <%= _('Guidance') %>
+              <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>"></span>
+            </h3>
 
              <!-- accordion body -->
              <div id="collapse-guidance-<%= question.id%>-<%=num_annotations%>" class="guidance-accordion-body collapse">
                <div class="accordion-inner"><%= raw annotation.text %></div>
              </div>
              <% num_annotations += 1%>
-           </div>   <!-- accordion-group -->
+             <% i += 1 %>
         <% end %>
        <% end %>   <!-- if question.guidance -->
 
@@ -91,33 +87,36 @@
        <% guidance_accordion_id = num_annotations %>
        <% question_guidances.each_pair do |theme, group| %>
          <% group.each do |gobj| %>
-           <div class="accordion-group">
-             <div class="accordion-heading">
-               <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>">
-                 <div class="accordion_heading_text">
-                   <%= gobj[:org] %> guidance on <%= theme %>
-                 </div>
-                 <span class="plus-laranja"> </span></a>
-             </div>
+           <h3>
+             <%= gobj[:org] %> guidance on <%= theme %>
+             <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>"></span>
+           </h3>
+
              <div id="collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
                <div class="accordion-inner"><%= raw gobj[:text] %></div>
              </div>
              <% guidance_accordion_id += 1 %>
-           </div>
+             <% i += 1 %>
          <% end %>   <!-- group.each -->
        <% end %>   <!-- question_guidances.each_pair -->
 
      </div>   <!-- accordion-questionid -->
-  </div>   <!-- question-guidance -->
+     
+       </div> <!-- question tab panel -->
+
+       <div id="comment-question-area-<%= question.id %>" class="tab-panel comment-area note_tab<%= active_tab == 'note_tab' ? ' active' : '' %>" aria-hidden="false" aria-labelledby="note_tab">
+         
   <!--note content -->
-  <div class="comment-area note_tab" id="comment-question-area-<%= question.id %>"  style="<%= active_tab == 'note_tab' ? '' : 'display:none;' %>">
       <%= render partial: "note", locals: {question: question, answer: answer, plan: plan, suffix: "" }%>
-  </div>
-</div> <!-- question area right column -->
+  
+      </div> <!-- note tab panel -->
+    </div> <!-- tab panels -->
+  </div> <!-- tabbed area -->
+</div> <!-- right column -->
 
 <!--display or not the break line between questions-->
 <% if last_question_id == question.id then %>
   <div class="two-column-clear"></div>
 <% else %>
-  <div class="two-column-clear question-divider"></div>
+  <hr />
 <% end %>

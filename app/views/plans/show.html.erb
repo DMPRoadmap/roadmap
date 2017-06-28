@@ -11,43 +11,26 @@
   
       <% @plan.template.phases.each do |phase| %>
         <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel">
-          <a href="#phase-#<%= phase.id %>-panel" aria-selected="true"><%= phase.title %></a>
+          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="false"><%= phase.title %></a>
         </li>
       <% end %>
   
       <li id="share-tab" role="tab" aria-controls="share-panel">
-        <a href="#share-panel" aria-selected="false"><%= _('Share') %></a>
+        <a href="<%= share_plan_path(@plan) %>" aria-selected="false"><%= _('Share') %></a>
       </li>
       <li id="download-tab" role="tab" aria-controls="download-panel">
-        <a href="#download-panel" aria-selected="false"><%= _('Download') %></a>
+        <a href="<%= show_export_plan_path(@plan) %>" aria-selected="false"><%= _('Download') %></a>
       </li>
     </ul>
 
     <!-- project details -->
     <div class="tab-panels" role="tabpanel">
-      <div id="details-panel" class="tab-panel active" aria-hidden="false" 
-           aria-labelledby="details-tab">
-        <%= render partial: 'show_details', locals: {plan: @plan} %>
-      </div>
-      
-      <% i = 0 %>
-      <% @plan.template.phases.each do |phase| %>
-        <div id="phase-<%= phase.id %>-panel" class="tab-panel" aria-hidden="false" 
-             aria-labelledby="phase-<%= i %>-tab">
-          <%= render partial: 'show_phase', locals: {plan: @plan, phase: phase} %>
-        </div>
-      <% end %>
-      
-      <div id="share-panel" class="tab-panel" aria-hidden="false" 
-           aria-labelledby="share-tab">
-        <%= render partial: 'share', locals: {plan: @plan} %>
-      </div>
-      <div id="download-panel" class="tab-panel" aria-hidden="false" 
-           aria-labelledby="download-tab">
-        <div class="div_right">
-          <a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
-        </div>
-        <%= render partial: "download", locals: {plan: @plan, phase: @phase} %>
+      <div id="details-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="details-tab">
+				<% if @plan.editable_by?(current_user) %>
+					<%= render partial: 'edit_details', locals: {plan: @plan} %>
+				<% else %>
+        	<%= render partial: 'show_details', locals: {plan: @plan} %>
+				<% end %>
       </div>
     </div>
 </div>

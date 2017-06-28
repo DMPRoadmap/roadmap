@@ -3,56 +3,48 @@
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
 
-
 <div class="content">
   <div class="tabbed-area">
     <!-- render navigation tabs for the project-->
     <ul class="tabs" role="tablist">
-      <li id="details-tab" role="tab" aria-controls="details-panel" class="active">
-        <a href="#details-panel" aria-selected="true"><%= _('Project Details') %></a>
+      <li id="details-tab" role="tab" aria-controls="details-panel">
+        <a href="<%= plan_path(@plan) %>" aria-selected="false"><%= _('Project Details') %></a>
       </li>
   
       <% @plan.template.phases.each do |phase| %>
         <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel">
-          <a href="#phase-#<%= phase.id %>-panel" aria-selected="true"><%= phase.title %></a>
+          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="false"><%= phase.title %></a>
         </li>
       <% end %>
   
       <li id="share-tab" role="tab" aria-controls="share-panel">
-        <a href="#share-panel" aria-selected="false"><%= _('Share') %></a>
+        <a href="<%= share_plan_path(@plan) %>" aria-selected="false"><%= _('Share') %></a>
       </li>
-      <li id="download-tab" role="tab" aria-controls="download-panel">
-        <a href="#download-panel" aria-selected="false"><%= _('Download') %></a>
+      <li id="download-tab" role="tab" aria-controls="download-panel" class="active">
+        <a href="#download-panel" aria-selected="true"><%= _('Download') %></a>
       </li>
     </ul>
 
     <!-- project details -->
     <div class="tab-panels" role="tabpanel">
       <!-- main info to export -->
-      <div class="dmp_details_body">
+      <div class="tab-panel active" aria-hidden="false">
         <!--Text describing page content-->
-        <%= raw _("<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>")%>
+        <p><%= _("From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.") %></p>
+        <p><%= _(" Select what format you wish to use and click to 'Export'.") %></p>
 
         <% if @plan.template.phases.count == 1 %>
           <%= render :partial => "/shared/export_links", locals: {plan: @plan, phase: @plan.template.phases.first} %>
           
         <%else%>    
-          <% @plan.template.phases.each do |phase| %>
-            <div class="accordion" id="project-accordion">
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= phase.id %>">
-                    <h3><%= phase.title %><span class="plus-laranja"> </span></h3>
-                  </a>
-                </div>
-                <div id="<%= phase.id %>" class="accordion-project collapse">
-                  <div class="accordion-inner">
-                    <%= render :partial => "/shared/export_links", locals: {plan: @plan, phase: phase} %>
-                  </div>
-                </div>
+          <div class="accordion" id="project-accordion">
+            <% @plan.template.phases.each do |phase| %>
+              <h2><%= phase.title %></h2>
+              <div>
+                <%= render :partial => "/shared/export_links", locals: {plan: @plan, phase: phase} %>
               </div>
-            </div>
-          <%end%> 
+            <%end%> 
+          </div>
         <%end%>
       </div> 
     </div>

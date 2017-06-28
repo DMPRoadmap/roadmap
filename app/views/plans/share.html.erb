@@ -8,97 +8,96 @@
   <div class="tabbed-area">
     <!-- render navigation tabs for the project-->
     <ul class="tabs" role="tablist">
-      <li id="details-tab" role="tab" aria-controls="details-panel" class="active">
-        <a href="#details-panel" aria-selected="true"><%= _('Project Details') %></a>
+      <li id="details-tab" role="tab" aria-controls="details-panel">
+        <a href="<%= plan_path(@plan) %>" aria-selected="false"><%= _('Project Details') %></a>
       </li>
   
       <% @plan.template.phases.each do |phase| %>
         <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel">
-          <a href="#phase-#<%= phase.id %>-panel" aria-selected="true"><%= phase.title %></a>
+          <a href="<%= "#{edit_plan_phase_path(@plan, phase)}" %>" aria-selected="false"><%= phase.title %></a>
         </li>
       <% end %>
   
-      <li id="share-tab" role="tab" aria-controls="share-panel">
-        <a href="#share-panel" aria-selected="false"><%= _('Share') %></a>
+      <li id="share-tab" role="tab" aria-controls="share-panel" class="active">
+        <a href="#share-panel" aria-selected="true"><%= _('Share') %></a>
       </li>
       <li id="download-tab" role="tab" aria-controls="download-panel">
-        <a href="#download-panel" aria-selected="false"><%= _('Download') %></a>
+        <a href="<%= show_export_plan_path(@plan) %>" aria-selected="false"><%= _('Download') %></a>
       </li>
     </ul>
 
     <!-- project details -->
     <div class="tab-panels" role="tabpanel">
-      <div class="dmp_details_body">
+      <div class="tab-panel active" aria-hidden="false">
+        <h2><%= _('Collaborators')%></h2>
 
         <!--Text describing page content-->
-        <%= raw _('<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with "read only" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don\'t already have an account. A notification is also issued when a user\'s permission level is changed.</p>') % { application_name: Rails.configuration.branding[:application][:name] } %>
+        <p><%= _('You can give other people access to your plan here. There are three permission levels.') %>
+          <ul>
+            <li><%= _('Users with "read only" access can only read the plan.') %></li>
+            <li><%= _('Editors can contribute to the plan.') %></li>
+            <li><%= _('Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.') %></li>
+          </ul>
+        </p>
+        <p><%= _('Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".') %></p>
+        <p><%= _('Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don\'t already have an account. A notification is also issued when a user\'s permission level is changed.') % { application_name: Rails.configuration.branding[:application][:name] } %></p>
 
-        <div class="dmp_details">
-          <h3><%= _('Collaborators')%></h3>
-          <div>
-            <% if @plan.roles.any? then %>
-              <table class="dmp_table">
-                <thead>
-                  <tr>
-                    <th><%= _('Email address')%></th>
-                    <th><%= _('Permissions')%></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% plan_roles = @plan.roles.all %>
-                  <%  plan_roles.each do |role| %>
-                    <tr>
-                      <th class="dmp_th_border" ><%= role.user.name %></th>
-                      <td class="dmp_td_border">
-                        <% if role.creator? %>
-                          <%= 'Owner' %>
-                        <% elsif !role.creator? && role.user == current_user %>
-                          <%= display_role(role) %>
-                        <% elsif !role.creator? && role.user != current_user %>
-                          <%= form_for role, url: {controller: :roles, action: :update, id: role.id }, html: {method: :put} do |f| %>
-                            <fieldset>
-                              <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-existing-user-access has-tooltip", 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
-                            </fieldset>
-                          <% end %>
-                        <% end %>
-                      </td>
-                      <td class="dmp_td_border">
-                        <% unless role.creator? || role.user == current_user then %>
-                          <%= link_to _('Remove user access'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
-                        <% end %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
+        <% if @plan.roles.any? then %>
+          <table class="dmp_table">
+            <thead>
+              <tr>
+                <th class="col-large"><%= _('Email address')%></th>
+                <th class="col-medium"><%= _('Permissions')%></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% plan_roles = @plan.roles.all %>
+              <%  plan_roles.each do |role| %>
+                <tr class="table-data">
+                  <td><%= role.user.name %></td>
+                  <td>
+                    <% if role.creator? %>
+                      <%= 'Owner' %>
+                    <% elsif !role.creator? && role.user == current_user %>
+                      <%= display_role(role) %>
+                    <% elsif !role.creator? && role.user != current_user %>
+                      <%= form_for role, url: {controller: :roles, action: :update, id: role.id }, html: {method: :put} do |f| %>
+                        <fieldset>
+                          <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-existing-user-access has-tooltip", 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
+                        </fieldset>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% unless role.creator? || role.user == current_user then %>
+                      <%= link_to _('Remove user access'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      
+        <h3><%= _('Add collaborator') %></h3>
+        <% new_role = Role.new %>
+        <% new_role.plan = @plan %>
+        <%= form_for new_role, url: {controller: :roles, action: :create },
+                               html: {method: :post, class: 'roadmap-form'} do |f| %><h3>
+          <fieldset>
+            <%= f.hidden_field :plan_id %>
+
+            <%= f.fields_for :user do |user| %>
+              <%= user.label :email, _('Email') %>
+              <%= user.email_field :email, for: :user, name: "user", class: "left-indent" %>
             <% end %>
-          </div>
 
-          <hr class="orange_break_line">
-
-          <div>
-            <% new_role = Role.new %>
-            <% new_role.plan = @plan %>
-            <%= form_for new_role, url: {controller: :roles, action: :create },
-                                   html: {method: :post, class: 'roadmap-form'} do |f| %>
-              <fieldset class="standard">
-                <legend><%= _('Add collaborator') %></legend>
-
-                <%= f.hidden_field :plan_id %>
-
-                <%= f.fields_for :user do |user| %>
-                  <%= user.label :email, _('Email') %>
-                  <%= user.email_field :email, for: :user, name: "user", class: "left-indent" %>
-                <% end %>
-
-                <%= f.label :access_level, _('Permissions') %>
-                <%= f.select :access_level, [[_('Co-owner'), 3], [ _('Editor') , 2], [ _('Read only'), 1]], {}, {class: 'has-tooltip left-indent', 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
-                <input type="submit" class="form-submit" value="<%= _('Add collaborator') %>" />
-              </fieldset>
-            <% end %>
-          </div>
-        </div>
+            <%= f.label :access_level, _('Permissions') %>
+            <%= f.select :access_level, [[_('Co-owner'), 3], [ _('Editor') , 2], [ _('Read only'), 1]], {}, {class: 'has-tooltip left-indent', 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
+            <input type="submit" class="form-submit" value="<%= _('Add collaborator') %>" />
+          </fieldset>
+        <% end %>
       </div>
     </div>
   </div>

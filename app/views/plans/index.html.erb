@@ -46,7 +46,7 @@
           <tr class="table-data">
             <td>
               <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", 
-                  edit_plan_path(plan) %>
+                  plan_path(plan) %>
             </td>
             <td><%= plan.template.title %></td>
             <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
@@ -59,10 +59,10 @@
               <a class="dropdown" id="plan-<%= plan.id %>-actions" href="#">
                 <%= _('Actions') %> <span class="caret"><span>
               </a>
-              <ul class="hidden dropdown-list" id="plan-<%= plan.id %>-actions-dropdown">
+              <ul class="hidden dropdown-list dropdown-small" id="plan-<%= plan.id %>-actions-dropdown">
                 <% if plan.editable_by?(current_user.id) then %>
                   <li><%= link_to _('Edit'), 
-                              edit_plan_path(plan) %></li>
+                              plan_path(plan) %></li>
 
                   <% if plan.administerable_by?(current_user.id) then %>
                     <li><%= link_to _('Share'), 
@@ -73,7 +73,7 @@
                               show_export_plan_path(plan) %></li>
 
                   <li><%= link_to _('Make a copy'), 
-                              duplicate_plan_path(plan) %></li>
+                              duplicate_plan_path(plan, format: :js), method: :post %></li>
 
                   <% if plan.owned_by?(current_user.id) then %>
                     <li><%= link_to _('Delete'), 
@@ -95,11 +95,11 @@
         <% end %>
       </tbody>
     </table>
-    
-    <div>
-      <a href="<%= new_plan_path %>" class="link-as-button"><%= _('Create plan') %></a>
-      <a href="<%= new_plan_path %>?test=true" class="left-indent"><%= _('Create test plan') %></a>
-    </div>
   <% end %>
+  
+  <div>
+    <a href="<%= new_plan_path %>" class="link-as-button"><%= _('Create plan') %></a>
+    <a href="<%= new_plan_path %>?test=true" class="left-indent"><%= _('Create test plan') %></a>
+  </div>
 </div>
 

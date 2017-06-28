@@ -155,7 +155,9 @@ class PlansController < ApplicationController
     authorize @plan
     # If there was no phase specified use the template's 1st phase
     @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-
+    @show_phase_tab = params[:phase]
+    @readonly = !@plan.editable_by?(current_user.id)
+    
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.get_guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)

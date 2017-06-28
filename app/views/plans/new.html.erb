@@ -14,15 +14,14 @@
       <fieldset class="standard padded bordered">
         <legend><%= _('What research project are you planning?') %></legend>
         
-        <div class="form-left-side">
+        <div class="form-left-side left-indent">
           <label for="plan_title">
             <%= _('Project title') %>
           </label>
   
-          <input type="text" id="plan_title" name="plan[title]" class="input-full-width left-indent" />
-          <div class="left-indent" aria-describedby="org-tip" required>
-            <%= _('If applying for funding, state the title exactly as in the proposal.') %>
-          </div>
+          <input type="text" id="plan_title" name="plan[title]" class="left-indent" 
+                 data-toggle="tooltip" 
+                 data-content="<%= _('If applying for funding, state the title exactly as in the proposal.') %>" />
         </div>
       </fieldset>
 
@@ -30,7 +29,7 @@
       <fieldset class="standard padded bordered">
         <legend><%= _('Primary research organisation') %></legend>
       
-        <div class="form-left-side">
+        <div class="form-left-side left-indent">
           <label for="plan_org_name">
             <%= _('Select the primary research organisation responsible') %>
           </label>
@@ -59,7 +58,7 @@
       <fieldset class="standard padded bordered">
         <legend><%= _('Funding organisation') %></legend>
       
-        <div class="form-left-side">
+        <div class="form-left-side left-indent">
           <label for="plan_funder_name">
             <%= _('Select the funding organisation') %>
           </label>

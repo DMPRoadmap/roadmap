@@ -160,7 +160,8 @@ div.read-only-form {
     font-size: 26px;
     font-weight: normal;
     text-decoration: none;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     padding-left: 5px;
 
     float: left; /* positions the legend within the fieldset box */
@@ -337,6 +338,10 @@ div.read-only-form {
   cursor: pointer;
   display: inline;
   position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 8px;
+  margin-right: -25px;
   border: none;
   background: transparent;
   color: $black;
@@ -550,8 +555,9 @@ td.plan-edit-actions {
   fieldset {
     padding-bottom: 15px;
   }
-
+  
   #plan_title {
+    display: block;
     margin-bottom: 5px;
     width: 90%;
   }

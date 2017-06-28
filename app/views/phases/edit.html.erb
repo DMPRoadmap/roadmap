@@ -11,52 +11,60 @@
 <%= render :partial => "/plans/plan_title", locals: {plan: @plan} %>
 
 
-<div class="progress">
+<div class="progress inline bordered left-indent">
   <%= render :partial => "/plans/progress", locals: { plan: @plan } %>
 </div> <!-- progess -->
 
-<!-- render navigation tabs for the plan phases -->
-<%= render :partial => "/plans/plan_nav_tabs", locals: {plan: @plan, active: @phase.title} %>
+<div class="content">
+  <div class="tabbed-area">
+    <!-- render navigation tabs for the project-->
+    <ul class="tabs" role="tablist">
+      <li id="details-tab" role="tab" aria-controls="details-panel">
+        <a href="<%= plan_path(@plan) %>" aria-selected="false"><%= _('Project Details') %></a>
+      </li>
+  
+      <% @plan.template.phases.each do |phase| %>
+        <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel"<%= @phase.id == phase.id ? ' class=active' : '' %>>
+          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="<%= @phase.id == phase.id %>"><%= phase.title %></a>
+        </li>
+      <% end %>
+  
+      <li id="share-tab" role="tab" aria-controls="share-panel">
+        <a href="<%= share_plan_path(@plan) %>" aria-selected="false"><%= _('Share') %></a>
+      </li>
+      <li id="download-tab" role="tab" aria-controls="download-panel">
+        <a href="<%= show_export_plan_path(@plan) %>" aria-selected="false"><%= _('Download') %></a>
+      </li>
+    </ul>
 
-<!-- phase main container -->
-<div class="project-tabs-body">
+    <!-- project details -->
+    <div class="tab-panels" role="tabpanel">
+      <div id="details-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="details-tab">
 
   <div class="accordion" id="sections-accordion">
+    <% i = 0 %>
     <% @phase.sections.order(:number).each do |section| %>
 
       <% sectionid = section.id %>
-
+      <h2 class="accordion_heading_text" id="section-progress-<%= sectionid %>">
+        <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
+        <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>"></span>
+      </h2>
       <div class="accordion-group">
-        <!-- section heading -->
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= sectionid %>">
-            <div class="accordion_heading_text" id="section-progress-<%= sectionid %>">
-              <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
-            </div>
-
-            <!-- + or - icon-->
-            <span class="icon-plus icon-white accordion-icon"> </span>
-          </a>
-        </div>  <!-- accordion heading -->
-
         <!-- accordion body -->
-        <div id="collapse-<%= sectionid %>" class="accordion-body collapse section-collapse">
-          <div class="section_desc">
-            <%= raw section.description %>
-          </div>
+          <p><%= raw section.description %></p>
 
-          <div class="accordion-inner">
-
+          <div>
             <!-- various loading/saving messages -->
               <!-- This should be completely unnecessary!!
                 div class="loading">
               <p><%= t ('helpers.loading')%></p>
             </div> -->
             <div class="saving" style="display: none">
-              <p><%= t ('helpers.saving')%></p>
+              <p><%= _('Saving ...') %></p>
             </div>
             <div class="removing" style="display: none">
-              <p><%= t ('helpers.removing')%></p>
+              <p><%= _('Removing ...') %></p>
             </div>
 
             <!-- the section body -->
@@ -79,40 +87,47 @@
                 </div>   <!-- id_css -->
               <% end %>   <!-- section.questions -->
             </div>   <!--  loaded -->
-          </div>   <!--  accordion-inner -->
-        </div>   <!-- collapse-sectionid -->
-      </div>   <!-- accordion group -->
-
-      <!-- pop up about unsaved answers -->
-      <div id="section-<%= sectionid %>-collapse-alert" data-container="body" class="modal hide fade">
-
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3><%= _('Unsaved answers')%></h3>
-        </div>
-
-        <div class="modal-body">
-          <div id="section-<%= sectionid %>-collapse-alert-plural">
-            <p><%= _('You have altered answers but have not saved them:')%></p>
-            <ul id="unsaved-answers-<%= sectionid %>"></ul>
-            <p><%= _('Would you like to save them now?')%></p>
           </div>
-        </div>
 
-        <div class="modal-footer">
-          <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
-          <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" class="discard-section-collapse btn"><%= _('Discard')%></a>
-          <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
-        </div>
+          <!-- pop up about unsaved answers -->
+          <div id="section-<%= sectionid %>-collapse-alert" data-container="body" class="modal" style="display: none;">
 
-      </div>  <!-- section-sectionid-collapse-alert -->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3><%= _('Unsaved answers')%></h3>
+            </div>
 
+            <div class="modal-body">
+              <div id="section-<%= sectionid %>-collapse-alert-plural">
+                <p><%= _('You have altered answers but have not saved them:')%></p>
+                <ul id="unsaved-answers-<%= sectionid %>"></ul>
+                <p><%= _('Would you like to save them now?')%></p>
+              </div>
+            </div>
+
+            <div class="modal-foote  r">
+              <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
+              <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" class="discard-section-collapse btn"><%= _('Discard')%></a>
+              <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
+            </div>
+
+          </div>  <!-- section-sectionid-collapse-alert -->
+
+        <% i += 1 %>
+      </div>   <!-- accordion group -->
+      
     <% end %>   <!-- sections.each do -->
   </div>   <!-- sections-accordion -->
-</div>   <!-- project-tabs-body -->
 
-<div class="div_right">
+      </div> <!-- tab panel -->
+    </div> <!-- tab panels -->
+  </div> <!-- tabbed area -->
+</div>   <!-- content -->
+
+<div class="div_right" style="display: none;">
   <a href="#<%= @phase.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
 </div>
 
+<div style="display: none;">
 <%= render :partial => "plans/export", locals: {plan: @plan, plan_data: @plan_data, phase: @phase } %>
+</div>
