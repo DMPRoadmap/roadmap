@@ -77,7 +77,7 @@ class RegistrationsController < Devise::RegistrationsController
       @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
-      if params[:skip_personal_details] == true
+      if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
       else
         do_update(require_password=needs_password?(current_user, params))
@@ -163,10 +163,26 @@ class RegistrationsController < Devise::RegistrationsController
       message = _('Please enter your current password')
     elsif params[:user][:password_confirmation].blank?
       message = _('Please enter a password confirmation')
-    elsif params[:user][:new_password] != params[:user][:password_confirmation]
+    elsif params[:user][:password] != params[:user][:password_confirmation]
       message = _('Password and comfirmation must match')
     else
       successfully_updated = current_user.update_with_password(password_update)
+    end
+    #render the correct page
+    if successfully_updated
+      if confirm
+        current_user.skip_confirmation! # will error out if confirmable is turned off in user model
+        current_user.save!
+      end
+      session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
+      set_gettext_locale  #Method defined at controllers/application_controller.rb
+      set_flash_message :notice, _('Details successfully updated.')
+      sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
+      redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
+
+    else
+      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      render "edit"
     end
   end
 
