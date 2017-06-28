@@ -1,3 +1,9 @@
+/* See `.combobox-clear-button` for an example of this mixin in use */
+@mixin icon($icon) {
+  @extend .fa;
+  @extend .fa-#{$icon}:before;
+}
+
 /* Main page layout: header, content, footer */
 body {
   background-color: $white;
@@ -84,7 +90,8 @@ ul.dropdown-list {
   padding: 10px 25px;
   text-align: left;
   z-index: 2;
-  top: 5px;
+  top: 0;
+  margin-top: -5px;
   
   li {
     list-style: none;
@@ -94,6 +101,41 @@ ul.dropdown-list {
       color: $white;
     }
   }
+}
+.dropdown-large { width: 200px; }
+.dropdown-medium { width: 150px; }
+.dropdown-small { width: 100px; }
+
+[data-toggle='popover']{
+  position: relative;
+}
+div.popover-message {
+  position: absolute;
+  font-family: $font-family;
+  font-size: 14px;
+  color: $white;
+  background-color: $dark-grey;
+  border-radius: 3px;
+  padding: 15px 20px;
+  a {
+    color: $white;
+  }
+}
+.popover-left { top: -20px; right: 0; }
+.popover-right { left: 0; }
+.popover-large { width: 350px; }
+.popover-medium { width: 250px; }
+.popover-small { width: 150px; }
+
+div.tooltip-message {
+  position: absolute;
+  top: 15px;
+  width: 300px;
+  background-color: $dark-grey;
+  color: $white;
+  padding: 6px 10px;
+  border-radius: 3px;
+  z-index: 9;
 }
 
 /* General Anchor and Button styling */
@@ -114,6 +156,15 @@ a.link-as-button:hover, a.link-as-button:focus {
   padding: 6px 10px;
   border: 1px solid $light-grey;
   border-radius: 5px;
+}
+
+.progress {
+  position: absolute;
+  top: $header-height;
+  right: 0;
+  margin-top: 25px;
+  width: 350px;
+  z-index: 2;
 }
 
 /* Basic page layout */

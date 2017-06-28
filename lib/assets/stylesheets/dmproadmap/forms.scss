@@ -31,6 +31,7 @@ input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:fo
 select {
   margin-top: 10px;
   vertical-align: top;
+  height: 25px;
 }
 
 .checkbox-label {
@@ -160,7 +161,8 @@ div.read-only-form {
     font-size: 26px;
     font-weight: normal;
     text-decoration: none;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     padding-left: 5px;
 
     float: left; /* positions the legend within the fieldset box */
@@ -337,6 +339,10 @@ div.read-only-form {
   cursor: pointer;
   display: inline;
   position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 8px;
+  margin-right: -25px;
   border: none;
   background: transparent;
   color: $black;
@@ -348,6 +354,21 @@ div.read-only-form {
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
 
+/* Allows for an auto-complete box in a side-by-side form */
+div.accessible-combobox-smaller {
+  position: relative;
+  
+  .combobox-container {
+    width: 65%;
+  }
+  .js-combobox {
+    width: 95%;
+  }
+  .combobox-suggestions {
+    margin-left: 15px;
+    width: 98%
+  }
+}
 
 
 /* ------------------------------------------------ */
@@ -363,7 +384,7 @@ div.read-only-form {
 }
 
 
-/* Sign in/Create account forms */
+/* Sign in/Create account and edit profile forms */
 /* ------------------------------------------------ */
 .omniauth-options {
   display: block;
@@ -406,13 +427,24 @@ div.read-only-form {
   }
 }
 #edit_user fieldset {
-  .checkbox-right {
-    width: 55%;
+  div.identifier-scheme {
+    margin-bottom: 15px;
+  }
+
+  .checkbox-right,
+  .checkbox-right-side-by-side {
     position: relative;
 
     #user_remember_me, input[type='checkbox'], .checkbox-label {
       float: right;
     }
+  }
+  
+  .checkbox-right-side-by-side {
+    width: 65%;
+  }
+  .checkbox-right {
+    width: 55%;
   }
 }
 
@@ -550,8 +582,9 @@ td.plan-edit-actions {
   fieldset {
     padding-bottom: 15px;
   }
-
+  
   #plan_title {
+    display: block;
     margin-bottom: 5px;
     width: 90%;
   }

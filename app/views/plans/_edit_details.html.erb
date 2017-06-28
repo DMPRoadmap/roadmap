@@ -1,0 +1,81 @@
+<% javascript('views/plans/edit.js') %>
+
+<%= form_for plan, html: {method: :put, class: "roadmap-form"} do |f| %>
+  <div class="edit-plan-left">
+    <fieldset class="side-by-side">
+      <div class="form-input">
+        <%= f.label "#{_('Project Title')} #{_('(required)')}", for: :title %>
+        <%= f.text_field :title, class: "input-large has-tooltip", 'data-toggle': "tooltip", 
+                'title': _('If applying for funding, state the name exactly as in the grant proposal.') %>
+      </div>
+  
+      <div class="form-input">
+        <%= f.label :grant_number %>
+        <%= f.text_field :grant_number, class: 'input-small has-tooltip', 'data-toggle': "tooltip", 
+                'title': _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
+      </div>
+  
+      <div class="form-input">
+        <%= f.label :principal_investigator %>
+        <%= f.text_field :principal_investigator, class: 'input-medium has-tooltip', 'data-toggle': "tooltip", 
+                'title': _('Name of Principal Investigator(s) or main researcher(s) on the project.') %>
+      </div>
+  
+      <div class="form-input">
+        <%= f.label _('Project Abstract'), for: :description %>
+        <%= f.text_area :description, { rows: 7, class: 'input-large has-tooltip', 
+                'data-toggle': "tooltip", 'data-html': "true", 
+                'title': _("<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>")} %>
+      </div>
+  
+      <hr />
+  
+      <div class="form-input">
+        <%= f.label _('Plan ID'), for: :identifier %>
+        <%= f.text_field :identifier, class: 'input-medium has-tooltip', 'data-toggle': "tooltip", 
+                'title': _('A pertinent ID as determined by the funder and/or institution.') %>
+      </div>
+  
+      <br />
+      <div>
+        <label><strong><%= _('Data Contact Person') %></strong></label>
+      </div>
+      <div class="form-input">
+        <%= f.label _('Name'), for: :data_contact %>
+        <%= f.text_field :data_contact, class: 'input-medium has-tooltip', 'data-toggle': "tooltip", 
+                'title': _('Name (if different to above), telephone and email contact details') %>
+      </div>
+      
+      <br />
+      <br />
+      <div class="form-input">
+        <label></label>
+        <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="edit-plan-right">
+    <fieldset class="standard">
+      <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= visibility %>" />
+      <span class="fa fa-question-circle"></span>
+      <div class="left-indent inline">
+        <label for="visibility"> <%= _('Plan Visibility') %></label>
+        <div class="left-indent">(<%= _('Limited to finished plans') %>)</div>
+        <br />
+        <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(visibility) ? ' checked=true' : '' %> /><%= raw display_visibility('privately_visible') %></div>
+        <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('organisationally_visible') %></div>
+        <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('publicly_visible') %></div>
+      </div>
+    </fieldset>
+    
+    <div class="bordered left-indent">
+      <div class="bordered"><strong><%= _('Plan Guidance Configuration') %></strong></div>
+      <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % {application_name: Rails.configuration.branding[:application][:name]} %></p>
+      <br />
+      <p><% _('Select up to 3 organisations to see their guidance.') %></p>
+      
+<%= @important_ggs.inspect %>
+    </div>
+  </div>
+<% end %>

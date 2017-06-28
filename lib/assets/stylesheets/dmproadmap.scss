@@ -21,13 +21,6 @@ $error-background: #827D7E;
 $disabled-button-color: #CCC;
 $cancel-button-color: #F17D04;
 
-/* See `.combobox-clear-button` for an example of this mixin in use */
-@mixin icon($icon) {
-  @extend .fa;
-  @extend .fa-#{$icon}:before;
-}
-
-
 /* HEADER STYLING */
 $header-height: 165px;
 $header-logo-width: 165px;

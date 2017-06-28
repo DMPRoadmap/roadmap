@@ -1,67 +1,66 @@
 <p>
-	<%= link_to 'Select all', '#', id: 'select_all' %> |
-	<%= link_to 'Deselect all', '#', id: 'deselect_all' %>
+  <%= link_to 'Select all', '#', id: 'select_all' %> |
+  <%= link_to 'Deselect all', '#', id: 'deselect_all' %>
 </p>
 
 
 <fieldset class="preferences">
-	<%= form_tag(user_update_preferences_path, html: {method: :put, class: "roadmap-form"}) do |f| %>
+  <%= form_tag(user_update_preferences_path, html: {method: :put, class: "roadmap-form"}) do |f| %>
 
-		<%= hidden_field_tag :user_id, @user.id %>
+    <%= hidden_field_tag :user_id, @user.id %>
 
-	  <p><strong>All Users</strong></p>
-	  <div class="form-input">
-			<%=  check_box_tag 'prefs[users][new_comment]', true, @user.prefs[:users][:new_comment] %>
-			<%= label_tag 'prefs[users][new_comment]', 'A new comment has been added to my DMP', :class => 'checkbox-label' %>
-		</div>
-	  	<div class="form-input">
-	    <%=  check_box_tag 'prefs[users][added_as_coowner]', true, @user.prefs[:users][:added_as_coowner] %>
-	    <%= label_tag 'prefs[users][added_as_coowner]', 'A plan has been shared with me', :class => 'checkbox-label' %>
-		</div>
-		<div class="form-input">
-			<%=  check_box_tag 'prefs[users][admin_privileges]', true, @user.prefs[:users][:admin_privileges] %>
-			<%= label_tag 'prefs[users][admin_privileges]', 'Admin privileges granted to me', :class => 'checkbox-label' %>
-		</div>
+    <p><strong>All Users</strong></p>
+    <div class="form-input">
+      <%=  check_box_tag 'prefs[users][new_comment]', true, @user.prefs[:users][:new_comment] %>
+      <%= label_tag 'prefs[users][new_comment]', 'A new comment has been added to my DMP', :class => 'checkbox-label' %>
+    </div>
+      <div class="form-input">
+      <%=  check_box_tag 'prefs[users][added_as_coowner]', true, @user.prefs[:users][:added_as_coowner] %>
+      <%= label_tag 'prefs[users][added_as_coowner]', 'A plan has been shared with me', :class => 'checkbox-label' %>
+    </div>
+    <div class="form-input">
+      <%=  check_box_tag 'prefs[users][admin_privileges]', true, @user.prefs[:users][:admin_privileges] %>
+      <%= label_tag 'prefs[users][admin_privileges]', 'Admin privileges granted to me', :class => 'checkbox-label' %>
+    </div>
 
-		<br/>
-		<p><strong>DMP owners and co-owners</strong></p>
-	  <div class="form-input">
-	    <%=  check_box_tag 'prefs[owners_and_coowners][visibility_changed]', true, @user.prefs[:owners_and_coowners][:visibility_changed] %>
-	    <%= label_tag 'prefs[owners_and_coowners][visibility_changed]', "My DMP's visibility has changed", :class => 'checkbox-label' %>
-	  </div>
+    <br/>
+    <p><strong>DMP owners and co-owners</strong></p>
+    <div class="form-input">
+      <%=  check_box_tag 'prefs[owners_and_coowners][visibility_changed]', true, @user.prefs[:owners_and_coowners][:visibility_changed] %>
+      <%= label_tag 'prefs[owners_and_coowners][visibility_changed]', "My DMP's visibility has changed", :class => 'checkbox-label' %>
+    </div>
 
-		<br/>
-		<p><strong>DMP administrators</strong></p>
-	  <div class="form-input">
-			<%=  check_box_tag 'prefs[admins][template_published]', true, @user.prefs[:admins][:template_published] %>
-			<%= label_tag 'prefs[admins][template_published]', 'An organisational template is published', :class => 'checkbox-label' %>
-		</div>
-	  <div class="form-input">
-			<%=  check_box_tag 'prefs[admins][template_unpublished]', true, @user.prefs[:admins][:template_unpublished] %>
-			<%= label_tag 'prefs[admins][template_unpublished]', 'An organisational template is unpublished', :class => 'checkbox-label' %>
-		</div>
-	  <div class="form-input">
-			<%=  check_box_tag 'prefs[admins][feedback_requested]', true, @user.prefs[:admins][:feedback_requested] %>
-			<%= label_tag 'prefs[admins][feedback_requested]', 'A user has requested feedback on a DMP', :class => 'checkbox-label' %>
-		</div>
+    <br/>
+    <p><strong>DMP administrators</strong></p>
+    <div class="form-input">
+      <%=  check_box_tag 'prefs[admins][template_published]', true, @user.prefs[:admins][:template_published] %>
+      <%= label_tag 'prefs[admins][template_published]', 'An organisational template is published', :class => 'checkbox-label' %>
+    </div>
+    <div class="form-input">
+      <%=  check_box_tag 'prefs[admins][template_unpublished]', true, @user.prefs[:admins][:template_unpublished] %>
+      <%= label_tag 'prefs[admins][template_unpublished]', 'An organisational template is unpublished', :class => 'checkbox-label' %>
+    </div>
+    <div class="form-input">
+      <%=  check_box_tag 'prefs[admins][feedback_requested]', true, @user.prefs[:admins][:feedback_requested] %>
+      <%= label_tag 'prefs[admins][feedback_requested]', 'A user has requested feedback on a DMP', :class => 'checkbox-label' %>
+    </div>
 
-		<br/>
-		<div class='form-input'>
-			<label></label>
-			<%= submit_tag 'Save', class: 'btn btn-primary' %>
-			<%= link_to 'Cancel', '#', style: 'text-decoration:none;' %>
-		</div>
-	<% end %>
+    <br/>
+    <div class='form-input'>
+      <label></label>
+      <%= submit_tag 'Save', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 </fieldset>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#select_all").click(function() {
-		$('.preferences').find('input[type="checkbox"]').prop('checked', true);
-	});
+  $("#select_all").click(function() {
+    $('.preferences').find('input[type="checkbox"]').prop('checked', true);
+  });
 
-	$("#deselect_all").click(function() {
-		$('.preferences').find('input[type="checkbox"]').prop('checked', false);
-	});
+  $("#deselect_all").click(function() {
+    $('.preferences').find('input[type="checkbox"]').prop('checked', false);
+  });
 });
 </script>
