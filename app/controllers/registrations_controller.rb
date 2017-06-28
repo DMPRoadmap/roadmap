@@ -170,10 +170,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
     #render the correct page
     if successfully_updated
-      if confirm
-        current_user.skip_confirmation! # will error out if confirmable is turned off in user model
-        current_user.save!
-      end
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
       set_flash_message :notice, _('Details successfully updated.')
@@ -189,19 +185,19 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :other_organisation, :prefs)
+                                 :accept_terms, :other_organisation)
   end
 
   def update_params
     params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname, :prefs)
+                                :language_id, :surname)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
                                 :org_id, :language_id, :password,
                                 :password_confirmation, :surname,
-                                :other_organisation, :prefs)
+                                :other_organisation)
   end
 
 end
