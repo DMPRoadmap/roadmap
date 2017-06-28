@@ -25,7 +25,7 @@
           <tr>
             <td colspan="7" class="td-as-th">
               <%= render(partial: "shared/table_filter", 
-                         locals: {path: plan_path, placeholder: _('Filter plans')}) %>
+                         locals: {path: plans_path, placeholder: _('Filter plans')}) %>
             </td>
           </tr>
         <% end %>
@@ -66,13 +66,13 @@
 
                   <% if plan.administerable_by?(current_user.id) then %>
                     <li><%= link_to _('Share'), 
-                                share_plan_path(plan) %></li>
+                              share_plan_path(plan) %></li>
                   <% end %>
 
                   <li><%= link_to _('Download'), 
                               show_export_plan_path(plan) %></li>
 
-                  <li><%= link_to _('Duplicate'), 
+                  <li><%= link_to _('Make a copy'), 
                               duplicate_plan_path(plan) %></li>
 
                   <% if plan.owned_by?(current_user.id) then %>
