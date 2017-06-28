@@ -26,11 +26,11 @@
     <!-- project details -->
     <div class="tab-panels" role="tabpanel">
       <div id="details-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="details-tab">
-				<% if @plan.editable_by?(current_user) %>
-					<%= render partial: 'edit_details', locals: {plan: @plan} %>
-				<% else %>
-        	<%= render partial: 'show_details', locals: {plan: @plan} %>
-				<% end %>
+        <% if @plan.editable_by?(current_user) %>
+          <%= render partial: 'edit_details', locals: {plan: @plan, visibility: @visibility} %>
+        <% else %>
+          <%= render partial: 'show_details', locals: {plan: @plan, visibility: @visibility} %>
+        <% end %>
       </div>
     </div>
 </div>

@@ -115,6 +115,8 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(params[:id])
     authorize @plan
 
+    @visibility = @plan.visibility.blank? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
@@ -153,6 +155,9 @@ class PlansController < ApplicationController
   def edit
     @plan = Plan.find(params[:id])
     authorize @plan
+    
+    @visibility = @plan.visibility.blank? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+    
     # If there was no phase specified use the template's 1st phase
     @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
     @show_phase_tab = params[:phase]

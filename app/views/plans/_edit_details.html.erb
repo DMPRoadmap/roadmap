@@ -57,14 +57,15 @@
 
   <div class="edit-plan-right">
     <fieldset class="standard">
+      <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= visibility %>" />
       <span class="fa fa-question-circle"></span>
       <div class="left-indent inline">
-        <label for="plan_visibility"> <%= _('Plan Visibility') %></label>
+        <label for="visibility"> <%= _('Plan Visibility') %></label>
         <div class="left-indent">(<%= _('Limited to finished plans') %>)</div>
         <br />
-        <div><input type="radio" id="plan_visibility" name="plan[visibility]" class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(plan.visibility) ? ' checked=true' : '' %> /><%= raw display_visibility('privately_visible') %></div>
-        <div><input type="radio" id="plan_visibility" name="plan[visibility]" class="right-indent"<%= 'organisationally_visible' == plan.visibility ? ' checked=true' : '' %> /><%= raw display_visibility('organisationally_visible') %></div>
-        <div><input type="radio" id="plan_visibility" name="plan[visibility]" class="right-indent"<%= 'publicly_visible' == plan.visibility ? ' checked=true' : '' %> /><%= raw display_visibility('publicly_visible') %></div>
+        <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(visibility) ? ' checked=true' : '' %> /><%= raw display_visibility('privately_visible') %></div>
+        <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('organisationally_visible') %></div>
+        <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('publicly_visible') %></div>
       </div>
     </fieldset>
     
