@@ -41,13 +41,15 @@
                     <%= f.label :description %>
                     <%= text_area_tag("phase-desc","" , class: "tinymce") %>
                     <div class="inline">
-                      <%= link_to( image_tag("help_button.png"), "#", 'data-toggle': 'popover', rel: "popover", "data-html" => "true", "data-content" => _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."))%>
+                      <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+                         data-content="<%= _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") %>">
+                      <span class="fa fa-question-circle"></span></a>
                     </div>
                   </div>
                   
                   <br />
                   <div class="form-input">
-                    <label></label>
+                    <div class="button-spacer">&nbsp;</div>
                     <%= f.submit _('Save'), class: "btn btn-primary" %>
                     <%= link_to _('Cancel'), admin_template_template_path(@template), class: "btn cancel" %>
                   </div>

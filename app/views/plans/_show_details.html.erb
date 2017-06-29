@@ -1,39 +1,19 @@
-<div class="read-only-form show-plan">
-  <div class="side-by-side">
-    <div>
-      <label><%= _('Project Title') %></label>
-      <div class="read-only left-indent"><%= plan.title %></div>
-    </div>
-
-    <div>
-      <label><%= _('Grant Number') %></label>
-      <div class="read-only left-indent"><%= plan.grant_number %></div>
-    </div>
-
-    <div>
-      <label><%= _('Principal Investigator') %></label>
-      <div class="read-only left-indent"><%= plan.principal_investigator %></div>
-    </div>
-
-    <div>
-      <label><%= _('Project Abstract') %></label>
-      <div class="read-only left-indent"><%= raw plan.description %></div>
-    </div>
-
-    <hr />
-
-    <div>
-      <label><%= _('Plan ID') %></label>
-      <div class="read-only left-indent"><%= plan.identifier %></div>
-    </div>
-
-    <br />
-    <div>
-      <label><strong><%= _('Data Contact Person') %></strong></label>
-    </div>
-    <div>
-      <label><%= _('Name') %></label>
-      <div class="read-only left-indent"><%= plan.data_contact %></div>
-    </div>
-  </div>
-</div>
+<dl>
+  <dt><%= _('Project Title') %></dt>
+  <dd><%= plan.title %></dd>
+  <dt><%= _('Grant Number') %></dt>
+  <dd><%= plan.grant_number %></dd>
+  <dt><%= _('Principal Investigator') %></dt>
+  <dd><%= plan.principal_investigator %></dd>
+  <dt><%= _('Project Abstract') %></dt>
+  <dd><%= raw plan.description %></dd>
+</dl>
+<hr />
+<dl>
+  <dt><%= _('Plan ID') %></dt>
+  <dd><%= plan.identifier %></dd>
+	<dt><%= _('Data Contact Person') %></dt>
+	<dd></dd>
+	<dt><%= _('Name') %></dt>
+	<dd><%= plan.data_contact %></dd>
+</dl>

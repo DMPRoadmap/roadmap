@@ -21,7 +21,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
     user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
-    
+    identifier = UserIdentifier.where(identifier: request.env["omniauth.auth"].uid).first
+
     # If the user isn't logged in
     if current_user.nil? 
       # If the uid didn't have a match in the system send them to register
@@ -55,7 +56,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           flash[:notice] = _('Unable to link your account to %{scheme}.') % { scheme: scheme.description }
         end
       end
-      
+
+      if identifier.user.id != current_user.id
+        flash[:notice] =  _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+      end
+
       # Redirect to the User Profile page
       redirect_to edit_user_registration_path
     end

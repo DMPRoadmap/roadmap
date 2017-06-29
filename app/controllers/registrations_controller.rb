@@ -77,6 +77,7 @@ class RegistrationsController < Devise::RegistrationsController
       @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
+      @tab = params[:tab]
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
       else
@@ -150,7 +151,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_gettext_locale  #Method defined at controllers/application_controller.rb
       set_flash_message :notice, _('Details successfully updated.')
       sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
-      redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
+      redirect_to edit_user_registration_path(tab: @tab), notice: _('Details successfully updated.')
 
     else
       flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
@@ -174,7 +175,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_gettext_locale  #Method defined at controllers/application_controller.rb
       set_flash_message :notice, _('Details successfully updated.')
       sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
-      redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
+      redirect_to edit_user_registration_path(tab: @tab), notice: _('Details successfully updated.')
 
     else
       flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message

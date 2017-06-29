@@ -5,7 +5,7 @@
 
 
 <fieldset class="preferences">
-  <%= form_tag(user_update_preferences_path, html: {method: :put, class: "roadmap-form"}) do |f| %>
+  <%= form_tag( url_for(controller: 'users', action: 'update_preferences', tab: 'notification-preferences-tab', escape: false), html: {method: :put, class: "roadmap-form"}) do |f| %>
 
     <%= hidden_field_tag :user_id, @user.id %>
 
@@ -47,7 +47,7 @@
 
     <br/>
     <div class='form-input'>
-      <label></label>
+      <div class="button-spacer">&nbsp;</div>
       <%= submit_tag 'Save', class: 'btn btn-primary' %>
     </div>
   <% end %>

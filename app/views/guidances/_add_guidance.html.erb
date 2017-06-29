@@ -9,7 +9,9 @@
             <%= text_area_tag("guidance-text", "", class: "tinymce") %>
           </div>
           <div class="div_right_icon_g">
-            <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('Enter your guidance here. You can include links where needed.'))%>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+               data-content="<%= _('Enter your guidance here. You can include links where needed.') %>">
+              <span class="fa fa-question-circle"></span></a>
           </div>
           <div class="clearfix"></div>
         </td>
@@ -23,8 +25,10 @@
                     Theme.all.order("title"),
                     :id, :title, {prompt: false, include_blank: _('None')}, {multiple: true})%>
             </div>
-            <div class="div_right_icon_g">
-              <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('Select which theme(s) this guidance relates to.'))%>
+            <div class="inline">
+              <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+                 data-content="<%= _('Select which theme(s) this guidance relates to.') %>">
+              <span class="fa fa-question-circle"></span></a>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -47,7 +51,9 @@
                             :id, :name, {prompt: false, include_blank: _('None')}, {multiple: false})%>
           </div>
           <div class="div_right_icon_g">
-            <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('Select which group this guidance relates to.'))%>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+               data-content="<%= _('Select which group this guidance relates to.') %>">
+            <span class="fa fa-question-circle"></span></a>
           </div>
           <div class="clearfix"></div>
         </td>

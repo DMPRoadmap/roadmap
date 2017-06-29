@@ -5,7 +5,7 @@
        aria-disabled="<%= disabled_initially %>"
        aria-describedby="<%= id %>_tip" />
 
-<span role="" class="submit-tooltip left-indent"><%= tooltip %></span>
+<span role="" class="error-tooltip-right left-indent"><%= tooltip %></span>
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -13,12 +13,12 @@
     $("#<%= id %>").on('click focus', function(e){
       if($(this).attr('aria-disabled') == 'true'){
         e.preventDefault();
-        $(this).siblings(".submit-tooltip").attr('role', 'tooltip');
+        $(this).siblings(".error-tooltip-right").attr('role', 'tooltip');
       }else{
-        $(this).siblings(".submit-tooltip").attr('role', '');
+        $(this).siblings(".error-tooltip-right").attr('role', '');
       }
     }).on('blur', function(){
-      $(this).siblings(".submit-tooltip").attr('role', '');
+      $(this).siblings(".error-tooltip-right").attr('role', '');
     });
   });
 </script>
