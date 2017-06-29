@@ -26,7 +26,7 @@
 			
       <br />
       <div class="form-input">
-        <label></label>
+        <div class="button-spacer">&nbsp;</div>
         <%= s.submit _('Save'), class: 'btn btn-primary' %>
         <% if section.modifiable %>
           <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),

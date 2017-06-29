@@ -40,7 +40,8 @@ hr {
 .top-indent { margin-top: 25px; }
 
 .right {
-  position: relative;
+  position: absolute;
+  top: 15px;
   right: 10px;
 }
 
@@ -108,6 +109,10 @@ ul.dropdown-list {
 
 [data-toggle='popover']{
   position: relative;
+  
+  .fa {
+    font-size: 18px;
+  }
 }
 div.popover-message {
   position: absolute;
@@ -226,7 +231,8 @@ div.roadmap {
         }
         .header-org-banner-text {
           width: 60%;
-          vertical-align: top;
+          vertical-align: bottom;
+          margin-left: 25px;
         }
       }
       .main-nav {
@@ -332,6 +338,7 @@ div.roadmap {
     }
     
     div.page {
+      position: relative;
       width: 100%;
       background-color: $white;
       border-radius: 3px;
@@ -349,6 +356,36 @@ div.roadmap {
           height: auto;
           margin-left: 35px;
           vertical-align: top;
+        }
+        
+        /* Description Lists - Used to display the read-only version of forms */
+        dl {
+          width: 100%;
+          margin: 0 auto;
+          
+          dt {
+            display: inline-block;
+            width: 15%;
+            text-align: right;
+            margin-right: 10px;
+            font-weight: bold;
+          }
+          dt:not(.dl-buttons):after {
+            content: " :";
+          }
+          
+          dd {
+            display: inline-block;
+            width: 65%;
+          }
+          dd:after {
+            display: block;
+            content: " ";
+            margin-bottom: 10px;
+          }
+          dt.dl-buttons {
+            margin-top: 25px;
+          }
         }
       }
     }

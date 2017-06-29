@@ -37,7 +37,7 @@
       <!-- submit buttons -->
       <br />
       <div class="form-input">
-        <label></label>
+        <div class="button-spacer">&nbsp;</div>
         <%= f.submit _('Save'), class: 'btn btn-primary' %>
         <% if @guidance_group.published == false then %>
           <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary" %>

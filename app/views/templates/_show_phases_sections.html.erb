@@ -2,23 +2,23 @@
 
 <h2><%= phase.title %><span class="fa fa-plus"></span></h2>
 
-<div class="div_left admin_left_smaller">
+<div class="accordion-section">
   <p><%= raw phase.description %></p>
 	
-  <div class="div_right admin_right_bigger">
+  <div class="right">
       <!--delete a phase button. only displays when template not published-->
-
       <% if phase_hash[:sections].length > 0 %>
-          <%= link_to _('Preview'), admin_preview_phase_path(id: phase.id), class: 'btn btn-primary'%>
+        <%= link_to _('Preview'), admin_preview_phase_path(id: phase.id), class: "link-as-button" %>
       <% end %>
+      
       <% if template == current && phase.modifiable %>
           <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
-          confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { :phase_title => phase.title }, method: :delete, class: "btn btn-primary"%>
+          confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % {phase_title: phase.title}, method: :delete, class: "link-as-button" %>
           <% b_label = _('Edit phase')%>
       <% else %>
           <% b_label = _('View phase')%>
       <% end %>
-      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('Edit phase'))), class: "btn btn-primary" %>
+      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('Edit phase'))), class: "link-as-button" %>
 
   </div>
   <% if phase_hash[:sections].present? %>
