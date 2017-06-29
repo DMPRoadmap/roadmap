@@ -5,13 +5,13 @@
 <div class="content">
   <div class="tabbed-area">
     <ul class="tabs" role="tablist">
-      <li id="personal-details-tab" name="personal" class="active" role="tab" aria-controls="personal-details-panel">
+      <li id="personal-details-tab" class="active" role="tab" aria-controls="personal-details-panel">
         <a href="#personal-details-panel" aria-selected="true">Personal Details</a>
       </li>
-      <li id="password-details-tab" name="password" role="tab" aria-controls="password-details-panel">
+      <li id="password-details-tab" role="tab" aria-controls="password-details-panel">
         <a href="#password-details-panel" aria-selected="false">Password</a>
       </li>
-      <li id="notification-preferences-tab" name= "preferences" role="tab" aria-controls="notification-preferences-panel">
+      <li id="notification-preferences-tab" role="tab" aria-controls="notification-preferences-panel">
         <a href="#notification-preferences-panel" aria-selected="false">Notification Preferences</a>
       </li>
     </ul>
@@ -34,3 +34,7 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  selectActiveTab();
+</script>
