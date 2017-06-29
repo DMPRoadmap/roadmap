@@ -5,7 +5,7 @@
     <%= _('Select a template') %>
   </label>
 
-  <select id="plan_template_selector" class="left-indent fixed-width-large">
+  <select id="plan_template_selector" class="left-indent input-extra-large">
     <option value=""><%= _('Please select one') %></option>
     <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
   </select>

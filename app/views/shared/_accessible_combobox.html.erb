@@ -21,6 +21,8 @@
   <!-- the selected id is found after the combobox loses focus by finding the selected item in the crosswalk json -->
   <input type="hidden" id="<%= id.gsub("_#{attribute}", "_id") %>" name="<%= name.gsub("_#{attribute}]", "_id]") %>"
          value="<%= default_selection.id unless default_selection.nil? %>" />
+
+  <span role="" id="<%= id.gsub("_#{attribute}", "_error") %>" class="error-tooltip left-indent"></span>
  
 
   <script type="text/javascript">

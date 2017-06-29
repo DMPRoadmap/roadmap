@@ -71,8 +71,7 @@ form, fieldset {
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
-form.roadmap-form, 
-div.read-only-form {
+form.roadmap-form {
   text-align: top;
 
   fieldset.padded {
@@ -110,8 +109,7 @@ div.read-only-form {
 
   /* Fieldset with labels to the left of inputs */
   /* ------------------------------------------ */
-  fieldset.side-by-side, 
-  div.side-by-side {
+  fieldset.side-by-side {
     border: 0;
     
     .mce-tinymce {
