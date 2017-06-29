@@ -41,7 +41,7 @@ hr {
 
 .right {
   position: absolute;
-  top: 5px;
+  top: 15px;
   right: 10px;
 }
 
@@ -231,7 +231,8 @@ div.roadmap {
         }
         .header-org-banner-text {
           width: 60%;
-          vertical-align: top;
+          vertical-align: bottom;
+          margin-left: 25px;
         }
       }
       .main-nav {
