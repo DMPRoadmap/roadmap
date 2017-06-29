@@ -1,39 +1,35 @@
 <!-- show template details A template is passed as an argument-->
-<div class="read-only-form">
-  <div class="side-by-side">
-		<dl>
-			<dt><%= _('Title') %></dt>
-			<dd><%= template.title %></dd>
-			<dt><%= _('Description') %></dt>
-			<dd>
-				<%= (!template.description.nil? && template.description != "" ? raw( template.description) : '-') %>
-			</dd>
-			<dt><%= _('Status') %></dt>
-			<dd>
-	      <% if hash[:live].nil? %>
-	        <%= _('Unpublished') %>
-        
-	      <% elsif hash[:current].dirty? %>
-	        <%= _('You have un-published changes') %>
-        
-	      <% else %>
-	        <%= _('Published') %>
-	      <% end %>
-			</dd>
-			<dt><%= _('Created at') %></dt>
-			<dd><%= l template.created_at.to_date, formats: :short %></dd>
-			<dt><%= _('Last updated') %></dt>
-			<dd><%= l template.updated_at.to_date, formats: :short %></dd>
-			
-			<dt class="dl-buttons"></dt>
-			<dd>
-				<% if template == current then %>
-					<!-- edit template button -->
-		  		<% if template.customization_of.nil? %>
-		    		<a href="#" class="link-as-button" id="edit_template_button"><%= _('Edit template details') %></a>
-		  		<% end %>
-				<% end %>
-			</dd>
-		</dl>
-	</div>
-</div>
+<dl>
+  <dt><%= _('Title') %></dt>
+  <dd><%= template.title %></dd>
+  <dt><%= _('Description') %></dt>
+  <dd>
+    <%= (!template.description.nil? && template.description != "" ? raw( template.description) : '-') %>
+  </dd>
+  <dt><%= _('Status') %></dt>
+  <dd>
+    <% if hash[:live].nil? %>
+      <%= _('Unpublished') %>
+    
+    <% elsif hash[:current].dirty? %>
+      <%= _('You have un-published changes') %>
+    
+    <% else %>
+      <%= _('Published') %>
+    <% end %>
+  </dd>
+  <dt><%= _('Created at') %></dt>
+  <dd><%= l template.created_at.to_date, formats: :short %></dd>
+  <dt><%= _('Last updated') %></dt>
+  <dd><%= l template.updated_at.to_date, formats: :short %></dd>
+  
+  <dt class="dl-buttons"></dt>
+  <dd>
+    <% if template == current then %>
+      <!-- edit template button -->
+      <% if template.customization_of.nil? %>
+        <a href="#" class="link-as-button" id="edit_template_button"><%= _('Edit template details') %></a>
+      <% end %>
+    <% end %>
+  </dd>
+</dl>

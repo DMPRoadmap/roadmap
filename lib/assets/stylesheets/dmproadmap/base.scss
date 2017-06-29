@@ -109,6 +109,10 @@ ul.dropdown-list {
 
 [data-toggle='popover']{
   position: relative;
+  
+  .fa {
+    font-size: 18px;
+  }
 }
 div.popover-message {
   position: absolute;
@@ -366,7 +370,7 @@ div.roadmap {
             font-weight: bold;
           }
           dt:not(.dl-buttons):after {
-            content: ":";
+            content: " :";
           }
           
           dd {

@@ -18,10 +18,12 @@ input[type="search"], select {
 input[type="checkbox"], input[type="radio"], select {
   border: 1px solid $medium-grey;
 }
-div.wysiwyg-textarea {
-  display: inline-block;
-  margin: 10px 10px 10px 15px;
+
+/* Tinymce control hover (e.g. bold, italic, etc.) */
+.mce-btn button:hover {
+  background-color: $white;
 }
+
 textarea:focus, select:focus,
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
 input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
@@ -114,10 +116,13 @@ form.roadmap-form {
     
     .mce-tinymce {
       display: inline-block;
+      margin-bottom: 15px;
+      width: 51%;
     }
 
     div {
       label,
+      .button-spacer,
       div.read-only,
       input[type="checkbox"],
       .combobox-container,
@@ -129,7 +134,7 @@ form.roadmap-form {
         margin-left: -5px;
       }
 
-      label {
+      label, .button-spacer {
         width: 25%;
         text-align: right;
         margin-right: 10px;
@@ -144,11 +149,9 @@ form.roadmap-form {
         font-size: 10pt;
         text-decoration:none;
       }
-    }
-
-    .button-spacer {
-      display: inline-block;
-      width: 21%;
+      div.read-only{
+        margin-bottom: 15px;
+      }
     }
   }
 
@@ -166,7 +169,17 @@ form.roadmap-form {
     float: left; /* positions the legend within the fieldset box */
     border-bottom: none;
   }
-
+  
+  label {
+    font-weight: bold;
+  }
+  label:not(.no-colon):after {
+    content: " :";
+  }
+  label.required:after {
+    content: " * :";
+  }
+  
   .form-input {
     clear: both;
   }
