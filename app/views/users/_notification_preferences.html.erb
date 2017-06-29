@@ -5,7 +5,7 @@
 
 
 <fieldset class="preferences">
-  <%= form_tag(user_update_preferences_path, html: {method: :put, class: "roadmap-form"}) do |f| %>
+  <%= form_tag( url_for(controller: 'users', action: 'update_preferences', tab: 'preferences', escape: false), html: {method: :put, class: "roadmap-form"}) do |f| %>
 
     <%= hidden_field_tag :user_id, @user.id %>
 
