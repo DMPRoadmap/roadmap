@@ -7,23 +7,25 @@
 
 <h3><%= _('Section details') %></h3>
 <div id="collapse-sec-<%= section.id %>">
-	<%= form_for(section, url: admin_update_section_path(section, phase: phase, edit: edit), html: { method: :put, class: 'roadmap-form bordered'}) do |s| %>
-		<fieldset class="side-by-side">
-			<div class="form-input">
-      	<%= s.label :title %>
-				<%= s.text_field :title, as: :string, class: 'input-large', placeholder: _('New section title') %>
-			</div>
-			<div class="form-input">
-				<%= s.label _('Order of display'), for: :number %>
+  <%= form_for(section, url: admin_update_section_path(section, phase: phase, edit: edit), html: { method: :put, class: 'roadmap-form bordered'}) do |s| %>
+    <fieldset class="side-by-side">
+      <div class="form-input">
+        <%= s.label :title %>
+        <%= s.text_field :title, as: :string, class: 'input-large', placeholder: _('New section title') %>
+      </div>
+      <div class="form-input">
+        <%= s.label _('Order of display'), for: :number %>
         <%= s.number_field :number, in: 1..15, class: "input-small has-tooltip", 'data-toggle' => "tooltip", 'title' => _('This allows you to order sections.') %>
       <div class="form-input">
-				<%= s.label :description %>
+        <%= s.label :description %>
         <%= text_area_tag("section-desc-#{section.id}", section.description , class: "tinymce") %>
         <div class="inline">
-          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+             data-content="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
+          <span class="fa fa-question-circle"></span></a>
         </div>
-			</div>
-			
+      </div>
+      
       <br />
       <div class="form-input">
         <div class="button-spacer">&nbsp;</div>
@@ -34,16 +36,16 @@
         <% end %>
         <%= link_to _('Cancel'), :back, class: 'btn cancel' %>
       </div>
-		</fieldset>
-	<% end %>
+    </fieldset>
+  <% end %>
 </div>
-	
+  
 <h3><%= _('Questions') %></h3>
 <% @questions = section.questions.order("number")%>
 <% if @questions.length > 0 %>
-	<% @questions.each do |question| %>
-		<div class="question_guidance_block">
-			<div id="show_question_div_<%= question.id%>" class="<%= if question.id == @question_id then "current_question" end %>">
+  <% @questions.each do |question| %>
+    <div class="question_guidance_block">
+      <div id="show_question_div_<%= question.id%>" class="<%= if question.id == @question_id then "current_question" end %>">
         <!-- render the show question block-->
         <%= render partial: 'questions/show_question', locals: {question: question} %>
       </div>
@@ -52,19 +54,19 @@
         <!-- render the edit question block-->
         <%= render partial: 'questions/edit_question', locals: {question: question} %>
       </div>
-		</div>
+    </div>
   <% end %>
 <% end %>
         
 <!-- Add a new question if the version is not published-->
 <% if section.modifiable %>
-	<!-- add question block -->
-	<div id="add_question_block_div_<%= section.id%>" style="display: none">
-		<%= render partial: 'questions/add_question', locals: {section: section} %>
-	</div>
+  <!-- add question block -->
+  <div id="add_question_block_div_<%= section.id%>" style="display: none">
+    <%= render partial: 'questions/add_question', locals: {section: section} %>
+  </div>
 
   <!-- add question button-->
-	<div id="add_question_button_div_<%= section.id%>">
+  <div id="add_question_button_div_<%= section.id%>">
     <div class="div_left">
       <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
       <%= link_to _('Add question'), '#', class: "btn btn-primary add_question_button" %>

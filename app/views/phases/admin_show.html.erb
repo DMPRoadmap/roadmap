@@ -43,18 +43,18 @@
                 <%= render partial: 'sections/show_section', locals: {section: section}%>
               <% end %>
             </div>
-					<% end %>
-					
-					<% if @edit || @phase.template.customization_of.present? %>
-						<h2><%= _('Add section') %><span class="fa fa-plus"></span></h2>
-					  <!-- add section block -->
-					  <div id="add_section_block_div" style="display: none">
-					    <%= render partial: 'sections/add_section', locals: {phase: @phase} %>
-					  </div>
-					<% end %>
+          <% end %>
+          
+          <% if @edit || @phase.template.customization_of.present? %>
+            <h2><%= _('Add section') %><span class="fa fa-plus"></span></h2>
+            <!-- add section block -->
+            <div id="add_section_block_div" style="display: none">
+              <%= render partial: 'sections/add_section', locals: {phase: @phase} %>
+            </div>
+          <% end %>
         </div>
-			</div>
-		</div>
+      </div>
+    </div>
   </div>
 </div>
 

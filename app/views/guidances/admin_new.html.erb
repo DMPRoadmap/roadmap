@@ -12,7 +12,9 @@
         <%= f.label :text %>
         <%= text_area_tag("guidance-text", "", class: "tinymce") %>
         <div class="inline">
-          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Enter your guidance here. You can include links where needed.'))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+             data-content="<%= _('Enter your guidance here. You can include links where needed.') %>">
+          <span class="fa fa-question-circle"></span></a>
         </div>
       </div>
       <div class="form-input">
@@ -20,14 +22,18 @@
         <%= f.collection_select(:theme_ids, @themes,
                   :id, :title, {prompt: false, include_blank: 'None'}, {multiple: true}) %>
         <div class="inline">
-          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+             data-content="<%= _('Select which theme(s) this guidance relates to.') %>">
+          <span class="fa fa-question-circle"></span></a>
         </div>
       </div>
       <div class="form-input">
         <%= f.label :published %>
         <%= f.check_box :published , as: :check_boxes%>
         <div class="inline">
-          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("Check this box when you are ready for this guidance to appear on user's plans."))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+             data-content="<%= _("Check this box when you are ready for this guidance to appear on user's plans.") %>">
+          <span class="fa fa-question-circle"></span></a>
         </div>
       </div>
       <div class="form-input">
@@ -35,7 +41,9 @@
         <%= f.collection_select(:guidance_group_id, @guidance_groups,
                 :id, :name, {prompt: false, include_blank: 'None'}, {multiple: false})%>
         <div class="inline">
-          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which group this guidance relates to.'))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+             data-content="<%= _('Select which group this guidance relates to.') %>">
+          <span class="fa fa-question-circle"></span></a>
         </div>
       </div>
     
