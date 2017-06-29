@@ -76,9 +76,9 @@ class UsersController < ApplicationController
         end
       end
     end
-
+    @tab = params[:tab]
     @user.save
-    redirect_to edit_user_registration_path(@user), notice: _('Preferences successfully updated.')
+    redirect_to edit_user_registration_path(tab: @tab), notice: _('Preferences successfully updated.')
   end
 
 end
