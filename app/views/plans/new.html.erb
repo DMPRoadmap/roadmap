@@ -7,33 +7,30 @@
 </p>
 
 <div class="content">
-  <%= form_for @plan, html: {method: :post, class: "roadmap-form"}, remote: true do |f| %>
+  <%= form_for @plan, html: {method: :post, class: "roadmap-form padded bordered"}, remote: true do |f| %>
     <div id="create_plan">
 
       <!-- Plan name section -->
-      <fieldset class="standard padded bordered">
+      <fieldset class="standard">
         <legend><%= _('What research project are you planning?') %></legend>
         
-        <div class="form-left-side left-indent">
-          <label for="plan_title">
-            <%= _('Project title') %>
-          </label>
-  
+        <div class="form-left-side">
           <input type="text" id="plan_title" name="plan[title]" class="left-indent" 
                  data-toggle="tooltip" 
-                 data-content="<%= _('If applying for funding, state the title exactly as in the proposal.') %>" />
+                 data-content="<%= _('If applying for funding, state the project title exactly as in the proposal.') %>" />
+
+          <input type="checkbox" id="is_test" class="left-indent" />
+          <label class="inline checkbox-label" for="is_test">
+            <%= _('mock project for testing, practice, or educational purposes') %>
+          </label>
         </div>
       </fieldset>
 
       <!-- Organisation selection -->
-      <fieldset class="standard padded bordered">
-        <legend><%= _('Primary research organisation') %></legend>
+      <fieldset class="standard">
+        <legend><%= _('Select the primary research organisation') %></legend>
       
-        <div class="form-left-side left-indent">
-          <label for="plan_org_name">
-            <%= _('Select the primary research organisation responsible') %>
-          </label>
-      
+        <div class="form-left-side">
           <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[org_name]',
                               id: 'plan_org_name',
@@ -55,14 +52,10 @@
       </fieldset>
     
       <!-- Funder selection -->
-      <fieldset class="standard padded bordered">
-        <legend><%= _('Funding organisation') %></legend>
+      <fieldset class="standard">
+        <legend><%= _('Select the primary funding organisation') %></legend>
       
-        <div class="form-left-side left-indent">
-          <label for="plan_funder_name">
-            <%= _('Select the funding organisation') %>
-          </label>
-      
+        <div class="form-left-side">
           <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[funder_name]',
                               id: 'plan_funder_name',
@@ -81,20 +74,24 @@
       </fieldset>
 
       <!-- Template selection -->
-      <fieldset class="standard padded bordered" id="available-templates">
+      <fieldset class="standard" id="available-templates">
       </fieldset>
     
     </div>
     
-    <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
-    <input type="hidden" id="plan_visibility" name="plan[visibility" value="<%= @is_test ? 'is_test' : Rails.application.config.default_plan_visibility %>"></input>
+    <fieldset class="standard" id="available-templates">
+      <div class="form-left-side">
+        <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
+        <input type="hidden" id="plan_visibility" name="plan[visibility" value="<%= @is_test ? 'is_test' : Rails.application.config.default_plan_visibility %>"></input>
     
-    <%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'create_plan_submit', 
-                        val: 'Create Plan', 
-                        disabled_initially: true,
-                        tooltip: _('You can not continue until you have filled in all of the required information.')} %>
-
+        <%= render partial: 'shared/accessible_submit_button',
+                   locals: {id: 'create_plan_submit', 
+                            val: 'Create Plan', 
+                            disabled_initially: true,
+														classes: "left-indent",
+                            tooltip: _('You can not continue until you have filled in all of the required information.')} %>
+      </div>
+    </fieldset>
   <% end %>
 </div>
 
