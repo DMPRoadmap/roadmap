@@ -21,8 +21,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
     user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
-    identifier = UserIdentifier.where(identifier: request.env["omniauth.auth"].uid).first
-
+    
     # If the user isn't logged in
     if current_user.nil? 
       # If the uid didn't have a match in the system send them to register
@@ -38,7 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
           sign_in_and_redirect user, event: :authentication
         else
-          flash[:notice] = t('identifier_schemes.new_login_success')
+          flash[:notice] = _('Successfully signed in')
           redirect_to new_user_registration_url
         end
       end
@@ -53,12 +52,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                
           flash[:notice] = _('Your account has been successfully linked to %{scheme}.') % { scheme: scheme.description }
         else
-          flash[:notice] = _('Unable to link your account to %{scheme}.') % { scheme: scheme.description }
+          flash[:alert] = _('Unable to link your account to %{scheme}.') % { scheme: scheme.description }
         end
-      end
-
-      if identifier.user.id != current_user.id
-        flash[:notice] =  _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+        
+      else
+        # If a user was found but does NOT match the current user then the identifier has
+        # already been attached to another account (likely the user has 2 accounts)
+        identifier = UserIdentifier.where(identifier: request.env["omniauth.auth"].uid).first
+        if identifier.user.id != current_user.id
+          flash[:alert] =  _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+        end
+        
+        # Otherwise, the identifier was found and it matches the one already associated 
+        # with the current user so nothing else needs to be done
       end
 
       # Redirect to the User Profile page
