@@ -1,6 +1,6 @@
 <div>
   <% if id.nil? || id.identifier == '' %>
-      <%= link_to 'Create or Connect your Orcid iD', Rails.application.routes.url_helpers.send("user_#{scheme.name.downcase}_omniauth_authorize_path"), id:"connect-orcid-button", target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
+      <%= link_to 'Create or connect your ORCID iD', Rails.application.routes.url_helpers.send("user_#{scheme.name.downcase}_omniauth_authorize_path"), id:"connect-orcid-button", target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
   <% else %>
     <% if scheme.user_landing_url.nil? %>
       <%= _("Your account has been linked to #{scheme.description}.") %>
