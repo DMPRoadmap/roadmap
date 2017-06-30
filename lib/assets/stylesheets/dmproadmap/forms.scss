@@ -11,6 +11,7 @@ input[type="search"], select {
   border-radius: 3px;
   line-height: 30px;
   min-width: 150px;
+  height: 30px;
   padding-left: 10px;
   margin: 5px 15px 15px 0;
   border: 1px solid $medium-grey;
@@ -173,7 +174,7 @@ form.roadmap-form {
   label {
     font-weight: bold;
   }
-  label:not(.no-colon):after {
+  label:not(.no-colon):not(.checkbox-label):after {
     content: " :";
   }
   label.required:after {
@@ -532,7 +533,7 @@ div.one-column {
 /* ------------------------------------------------ */
 #connect-orcid-button{
   border: 1px solid #D3D3D3;
-  padding: 5px 5px 5px 20px;
+  padding: 5px 10px 5px 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 1px 1px 3px #999;
@@ -545,7 +546,7 @@ div.one-column {
   vertical-align: right;
   background-image: url('http://orcid.org/sites/default/files/images/orcid_16x16.png');
   background-repeat: no-repeat;
-  background-position: left 5px;
+  background-position: 2px;
 }
 
 #connect-orcid-button:hover{
