@@ -105,6 +105,7 @@ form.roadmap-form {
     }
 
     .checkbox-label {
+      font-weight: normal;
       display: inline-block;
       margin-left: 5px;
     }
@@ -533,7 +534,7 @@ div.one-column {
 /* ------------------------------------------------ */
 #connect-orcid-button{
   border: 1px solid #D3D3D3;
-  padding: 5px 10px 5px 20px;
+  padding: 5px 5px 5px 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 1px 1px 3px #999;
@@ -546,7 +547,7 @@ div.one-column {
   vertical-align: right;
   background-image: url('http://orcid.org/sites/default/files/images/orcid_16x16.png');
   background-repeat: no-repeat;
-  background-position: 2px;
+  background-position: left 5px;
 }
 
 #connect-orcid-button:hover{
