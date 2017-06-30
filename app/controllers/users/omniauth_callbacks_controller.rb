@@ -58,7 +58,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
 
       if identifier.user.id != current_user.id
-        flash[:notice] =  _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+        flash[:notice] =  _("The current #{scheme.description} iD has already been linked to a user with email #{identifier.user.email}")
       end
 
       # Redirect to the User Profile page

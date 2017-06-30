@@ -17,9 +17,14 @@
       left: 1px;
       color: $white;
       background-color: $primary-color;
-      border-bottom: 2px solid $primary-color;
       text-decoration: none;
       font-weight: bold;
+      box-sizing: border-box;
+      border-width: 2px;
+      border-style: solid;
+      border-color: inherit;
+      border-bottom: 0px;
+      border-radius: 0px;
     }
   }
   li a:hover,
