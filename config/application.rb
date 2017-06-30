@@ -141,6 +141,6 @@ module DMPRoadmap
     #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
     #   is_test                   - (NOT advisable because test plans are excluded from statistics)
     #   privately_visible         - Only the owner and people they invite can access the plan
-    config.default_plan_visibility = 'organisationally_visible'
+    config.default_plan_visibility = 'privately_visible'
   end
 end
