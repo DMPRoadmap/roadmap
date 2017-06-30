@@ -28,6 +28,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     visibility: Field::Number,
     customization_of: Field::Number,
     dmptemplate_id: Field::Number,
+    migrated: Field::Boolean,
+    dirty: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -36,8 +38,6 @@ class TemplateDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :title,
-    :description,
     :org,
     :plans,
     :phases,
@@ -67,6 +67,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     :visibility,
     :customization_of,
     :dmptemplate_id,
+    :migrated,
+    :dirty,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -90,6 +92,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     :visibility,
     :customization_of,
     :dmptemplate_id,
+    :migrated,
+    :dirty,
   ].freeze
 
   # Overwrite this method to customize how templates are displayed

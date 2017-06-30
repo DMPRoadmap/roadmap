@@ -60,4 +60,7 @@ class ThemeDashboard < Administrate::BaseDashboard
   # def display_resource(theme)
   #   "Theme ##{theme.id}"
   # end
+  def display_resource(theme)
+    "Theme: #{theme.title} (##{theme.id})"
+  end
 end

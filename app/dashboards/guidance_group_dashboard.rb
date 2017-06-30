@@ -10,6 +10,7 @@ class GuidanceGroupDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     org: Field::BelongsTo,
     guidances: Field::HasMany,
+    plans: Field::HasMany,
     id: Field::Number,
     name: Field::String,
     created_at: Field::DateTime,
@@ -26,8 +27,8 @@ class GuidanceGroupDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :org,
     :guidances,
+    :plans,
     :id,
-    :name,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -35,6 +36,7 @@ class GuidanceGroupDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :org,
     :guidances,
+    :plans,
     :id,
     :name,
     :created_at,
@@ -49,6 +51,7 @@ class GuidanceGroupDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :org,
     :guidances,
+    :plans,
     :name,
     :optional_subset,
     :published,
@@ -60,8 +63,4 @@ class GuidanceGroupDashboard < Administrate::BaseDashboard
   # def display_resource(guidance_group)
   #   "GuidanceGroup ##{guidance_group.id}"
   # end
-
-  def display_resource(guidance_group)
-    guidance_group.name
-  end
 end
