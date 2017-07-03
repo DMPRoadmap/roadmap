@@ -44,6 +44,9 @@ class Answer < ActiveRecord::Base
   # @return [Answer] the saved, copied answer
   def self.deep_copy(answer)
     answer_copy = answer.dup
+    answer.question_options.each do |opt|
+      answer_copy.question_options << opt
+    end
     answer_copy.save!
     return answer_copy
   end
