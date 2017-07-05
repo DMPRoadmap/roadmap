@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       else
         if perms.include? perm
           @user.perms << perm
-          if perm.name == Perm.use_api.id
+          if perm.id == Perm.use_api.id
             @user.keep_or_generate_token!
           end
         end
