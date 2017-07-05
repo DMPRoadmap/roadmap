@@ -8,8 +8,9 @@ class UsersController < ApplicationController
   def admin_index
     authorize User
     # Sets the user to the currently logged in user if it is undefined
-    @user = current_user if @user.nil?
-    @users = @user.org.users.includes(:roles)
+#    @user = current_user if @user.nil?
+#    @users = @user.org.users.includes(:roles)
+    @users = current_user.org.users.includes(:roles)
   end
 
   ##
@@ -19,20 +20,20 @@ class UsersController < ApplicationController
   def admin_grant_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
-    user_perms = @user.perms
+    user_perms = current_user.perms
     @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, Perm.use_api, Perm.change_org_details]
   end
 
   ##
   # POST - updates the permissions for a user
   # redirects to the admin_index action
-  # should add validation that the perms given are current perms of the @user
+  # should add validation that the perms given are current perms of the current_user
   def admin_update_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
     perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
     perms = Perm.where( id: perms_ids)
-    @user.perms.each do |perm|
+    current_user.perms.each do |perm|
       if @user.perms.include? perm
         if ! perms.include? perm
           @user.perms.delete(perm)

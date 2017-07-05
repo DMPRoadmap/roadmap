@@ -115,7 +115,7 @@ class PlansController < ApplicationController
     @plan = Plan.eager_load(params[:id])
     authorize @plan
 
-    @visibility = @plan.visibility.blank? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
 
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
@@ -156,7 +156,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     
-    @visibility = @plan.visibility.blank? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
     
     # If there was no phase specified use the template's 1st phase
     @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
@@ -195,9 +195,7 @@ class PlansController < ApplicationController
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
-
     attrs = plan_params
-    attrs['visibility'] = Rails.application.config.default_plan_visibility if plan_params['visibility'].blank?
 
     respond_to do |format|
       if @plan.update_attributes(attrs)

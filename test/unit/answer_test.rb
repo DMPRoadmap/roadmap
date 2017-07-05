@@ -113,6 +113,23 @@ class AnswerTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "can copy an Answer" do
+    qf = QuestionFormat.where(option_based: true).first
+    q = @plan.template.questions.select{|q| q.question_format == qf }.first
+    
+    assert_not q.nil?, "expected the test template to have a question of type: #{qf.title}"
+    answr = Answer.create(user: @user, plan: @plan, question: q, question_options: [q.question_options.first])
+    
+    copy = Answer.deep_copy(answr)
+    
+    assert_equal answr.text, copy.text, "expected the answer text to be the same"
+    assert_equal answr.question.id, copy.question.id, "expected the question to be the same"
+    answr.question_options.each do |opt|
+      assert copy.question_options.include?(opt), "expected the copy to have question options"
+    end
+  end
+  
+  # ---------------------------------------------------
   test "can manage belongs_to relationship with User" do
     verify_belongs_to_relationship(@answer, User.last)
   end
