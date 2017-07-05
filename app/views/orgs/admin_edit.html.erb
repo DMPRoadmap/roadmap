@@ -23,7 +23,7 @@
                
         <% if @org.logo.present? %>
           <div class="org-logo">
-            <%= image_tag @org.logo.url %>
+            <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}" %>
             <span>
               <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
               <%= f.label _('Use the %{application_name} logo instead') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo %>

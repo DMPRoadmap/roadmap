@@ -84,8 +84,9 @@
       <% @identifier_schemes.each do |scheme| %>
           <div class="form-input">
             <% if scheme.name == 'shibboleth' %>
-                <label>           
-                  <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
+                <label>
+                  <span class="aria-only" aria-hidden="false"><%= scheme.description %></span>
+                  <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
                 </label>
             <% else %>
                 <label for="scheme_name"><%= scheme.name.capitalize %></label>

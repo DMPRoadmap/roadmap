@@ -9,35 +9,38 @@
   <fieldset class="side-by-side">
     <div class="form-input">
       <%= f.label _('Text'), for: @guidance.text %>
-      <%= text_area_tag("guidance-text", @guidance.text, class: "tinymce") %>
+      <%= text_area_tag("guidance-text", @guidance.text, class: "tinymce", title: _('Enter your guidance here. You can include links where needed.')) %>
       <div class="inline">
         <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-           data-content="<%= _('Enter your guidance here. You can include links where needed.') %>">
-        <span class="fa fa-question-circle"></span></a>
+           data-content="<%= _('Enter your guidance here. You can include links where needed.') %>",
+           aria-label="<%= %>">
+        <span class="fa fa-question-circle" aria-hidden="true"></span></a>
       </div>
     </div>
     <div class="form-input">
       <%= f.label _('Themes'), for: :theme_ids %>
       <%= f.collection_select(:theme_ids, @themes, :id, :title,
-                  {prompt: false, include_blank: 'None'}, {multiple: true})%>
+                  {prompt: false, include_blank: 'None'}, {multiple: true, title: _('Select which theme(s) this guidance relates to.'), size: 30})%>
       <div class="inline">
         <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-           data-content="<%= _('Select which theme(s) this guidance relates to.') %>">
-        <span class="fa fa-question-circle"></span></a>
+           data-content="<%= _('Select which theme(s) this guidance relates to.') %>",
+           aria-label="<%= %>">
+        <span class="fa fa-question-circle" aria-hidden="true"></span></a>
       </div>
     </div>
     <div class="form-input">
-      <%= f.label :published %>
+      <%= f.label _('Published'), for: :published %>
       <%= f.check_box :published , as: :check_boxes%>
     </div>
     <div class="form-input">
       <%= f.label _('Guidance group'), for: :guidance_group_id %>
       <%= f.collection_select(:guidance_group_id, @guidance_groups,
-                :id, :name, {prompt: false, include_blank: 'None'}, {multiple: false})%>
+                :id, :name, {prompt: false, include_blank: 'None'}, {multiple: false, title: _('Select which group this guidance relates to.')})%>
       <div class="inline">
         <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-           data-content="<%= _('Select which group this guidance relates to.') %>">
-        <span class="fa fa-question-circle"></span></a>
+           data-content="<%= _('Select which group this guidance relates to.') %>",
+           aria-label="<%= _('Select which group this guidance ') %>">
+        <span class="fa fa-question-circle" aria-hidden="true"></span></a>
       </div>
     </div>
     

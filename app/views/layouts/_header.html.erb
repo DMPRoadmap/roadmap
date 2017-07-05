@@ -1,7 +1,7 @@
 <!-- header information -->
 <div class="header-left">
   <div class="home-logo">
-    <%= link_to(image_tag("logo.png"), root_path)%>
+    <%= link_to(image_tag("logo.png", alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}"), root_path, title: Rails.configuration.branding[:application][:name]) %>
   </div>
 </div>
 <div class="header-right">  

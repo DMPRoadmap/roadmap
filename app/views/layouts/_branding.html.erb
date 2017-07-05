@@ -5,7 +5,7 @@
       <!-- Organisation Logo -->
       <% if current_user.org.logo.present? %>
         <div class="header-org-logo">
-          <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url), current_user.org.target_url) %>
+          <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url, alt: current_user.org.name), current_user.org.target_url) %>
         </div>
       <% end %>
 
