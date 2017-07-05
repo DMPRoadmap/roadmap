@@ -43,7 +43,7 @@ class OrgDashboard < Administrate::BaseDashboard
     :abbreviation,
     :language,
     :guidance_groups,
-    :templates,
+#    :templates,
     :contact_email,
     :org_type,
   ].freeze
@@ -55,7 +55,7 @@ class OrgDashboard < Administrate::BaseDashboard
     :abbreviation,
     :language,
     :guidance_groups,
-    :templates,
+#    :templates,
     :contact_email,
     :org_type,
     :users,

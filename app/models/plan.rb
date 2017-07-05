@@ -139,7 +139,8 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group
+              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              # only show published guidance groups
             end
           end
         end
@@ -158,12 +159,13 @@ class Plan < ActiveRecord::Base
     # find all the themes in this plan
     # and get the guidance groups they belong to
     ggroups = []
-    self.template.phases.each do |phase|
+    Template.includes(phases: [sections: [questions: [themes: [guidances: [guidance_group: :org]]]]]).find(self.template_id).phases.each do |phase|
       phase.sections.each do |section|
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group
+              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              # only show published guidance groups
             end
           end
         end

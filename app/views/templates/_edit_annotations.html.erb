@@ -59,7 +59,7 @@ in the admin interface.
           <% end %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag("help_button.png"), "#", class: "suggested_answer_popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
+          <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
@@ -74,7 +74,7 @@ in the admin interface.
           <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag("help_button.png"), "#", class: "question_guidance_popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
+          <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>

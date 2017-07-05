@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
   ##
   # Scopes
-  default_scope { includes(:org, :perms, :plans) }
+  default_scope { includes(:org, :perms) }
 
 
 

@@ -23,23 +23,25 @@ class PhasesController < ApplicationController
     # get the ids of the dynamically selected guidance groups
     # and keep a map of them so we can extract the names later
     guidance_groups_ids = @plan.guidance_groups.map{|pgg| pgg.id}
-    guidance_groups =  GuidanceGroup.includes({guidances: :themes}).find(guidance_groups_ids)
+    guidance_groups =  GuidanceGroup.includes({guidances: :themes}).where(published: true, id: guidance_groups_ids)
 
     # create a map from theme to array of guidances
     # where guidance is a hash with the text and the org name
     theme_guidance = {}
 
-    guidance_groups.each do |guidance_group|
+    guidance_groups.includes(guidances:[:themes]).each do |guidance_group|
       guidance_group.guidances.each do |guidance|
-        guidance.themes.each do |theme|
-          title = theme.title
-          if !theme_guidance.has_key?(title)
-            theme_guidance[title] = Array.new
+        if guidance.published
+          guidance.themes.each do |theme|
+            title = theme.title
+            if !theme_guidance.has_key?(title)
+              theme_guidance[title] = Array.new
+            end
+            theme_guidance[title] << {
+              text: guidance.text,
+              org: guidance_group.name + ':'
+            }
           end
-          theme_guidance[title] << {
-            text: guidance.text,
-            org: guidance_group.name + ':'
-          }
         end
       end
     end

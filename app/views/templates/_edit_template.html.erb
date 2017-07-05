@@ -15,7 +15,7 @@
           <%= text_area_tag("template-desc", template.description, class: "tinymce") %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag('help_button.png'), '#', class: 'template_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences'))%>
+          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences'))%>
         </div>
         <div class="clearfix"></div>
       </td>

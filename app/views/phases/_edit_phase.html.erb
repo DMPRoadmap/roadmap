@@ -29,7 +29,7 @@
           <%= text_area_tag("phase-desc", phase.description, class: "tinymce") %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag('help_button.png'), '#', class: 'phase_desc_popover', rel: "popover", 'data-html' => "true", 'data-content' => _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."))%>
+          <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."))%>
         </div>
         <div class="clearfix"></div>
       </td>
