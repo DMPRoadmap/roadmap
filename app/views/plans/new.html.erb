@@ -3,7 +3,7 @@
 <h1><%= _('Create a new plan') %></h1>
 
 <p>
-  <%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
+  <%= _("Before you get started, we need some information about your research project to set you up with the best DMP template for your needs.") %>
 </p>
 
 <div class="content">
@@ -62,6 +62,7 @@
                               default_selection: nil,
                               models: @funders,
                               attribute: 'name',
+                              tooltip: _('Please select a valid funding organisation from the list'),
                               classes: 'input-full-width'} %>
         </div>
         <div class="form-right-side">
