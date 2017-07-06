@@ -42,8 +42,9 @@
                     <%= text_area_tag("phase-desc","" , class: "tinymce") %>
                     <div class="inline">
                       <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-                         data-content="<%= _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") %>">
-                      <span class="fa fa-question-circle"></span></a>
+                         data-content="<%= _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") %>"
+                         aria-label="<%= _('More information: Phase descriptions') %>">
+                      <span class="fa fa-question-circle" aria-hidden="true"></span></a>
                     </div>
                   </div>
                   

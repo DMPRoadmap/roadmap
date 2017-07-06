@@ -68,13 +68,15 @@
 
         <% if notice || flash[:notice] %>
           <div class="roadmap-info-box">
-            <i class="fa fa-check-circle-o"></i>
+            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+            <span class="aria-only"><%= _('Notice:') %> </span>
             <span><%= raw notice %></span>
           </div>
         <% end %>
         <% if alert || flash[:alert] || flash[:error] %>
           <div class="roadmap-alert-box">
-            <i class="fa fa-times-circle"></i>
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+             <span class="aria-only"><%= _('Alert:') %> </span>
              <span><%= raw alert %></span>
           </div>
         <% end %>

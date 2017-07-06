@@ -44,7 +44,7 @@
       
       // Initialize the clear buttons on load
       // Replace the default js-combobox clear button [X] with a fontawesome icon
-      $(clear).html('<i class="fa fa-times-circle"></i>');
+      $(clear).html('<i class="fa fa-times-circle" aria-hidden="true"></i>');
       $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
   
       // Function to hide/show the clear button when text changed in the dropdown

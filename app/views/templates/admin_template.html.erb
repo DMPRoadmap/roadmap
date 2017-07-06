@@ -17,7 +17,7 @@
            aria-hidden="false" aria-labelledby="details-tab">
 
         <div class="accordion">
-          <h2><%= _('Template details')%><span class="fa fa-minus"> </span></h2>
+          <h2><%= _('Template details')%><span class="fa fa-minus" aria-hidden="true"> </span></h2>
           
           <div class="dmp_details">
             <% if @template == @current && @template.customization_of.nil? %>
@@ -41,7 +41,7 @@
             <% else %>
               <% (1..@hash[:template][:phases].length).each do |phase_no| %>
                 <% phase = @hash[:template][:phases][phase_no] %>
-                <h2><%= phase[:data].title %><span class="fa fa-plus"></span></h2>
+                <h2><%= phase[:data].title %><span class="fa fa-plus" aria-hidden="true"></span></h2>
       
                 <div id="<%= phase[:data][:id] %>">
                   <!--render the display block with the phase, sections and questions information-->

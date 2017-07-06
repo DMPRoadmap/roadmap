@@ -39,8 +39,9 @@ in the admin interface.
             </div>
             <div class="div_right_icon">
               <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-                 data-content="<%= _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>") %>">
-              <span class="fa fa-question-circle"></span></a>
+                 data-content="<%= _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>") %>"
+                 aria-label="<%= _('More information: Answer format') %>">
+              <span class="fa fa-question-circle" aria-hidden="true"></span></a>
             </div>
 
           </div>
@@ -55,8 +56,9 @@ in the admin interface.
                   <th nowrap class="small"><%= _('Default')%></th>
                   <th nowrap class="small">
                     <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-                       data-content="<%= _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.') %>">
-                    <span class="fa fa-question-circle"></span></a>
+                       data-content="<%= _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.') %>"
+                       aria-label="<%= _('More information: Question options') %>">
+                    <span class="fa fa-question-circle" aria-hidden="true"></span></a>
                   </th>
                 </tr>
               </thead>
@@ -99,8 +101,9 @@ in the admin interface.
           </div>
           <div class="div_right_icon">
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-               data-content="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
-            <span class="fa fa-question-circle"></span></a>
+               data-content="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>"
+               aria-label="<%= _('More information: Default answer') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -125,8 +128,9 @@ in the admin interface.
           </div>
           <div class="div_right_icon">
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-               data-content="<%= _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>">
-            <span class="fa fa-question-circle"></span></a>
+               data-content="<%= _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>"
+               aria-label="<%= _('More information: Example answers') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -143,8 +147,9 @@ in the admin interface.
           </div>
           <div class="div_right_icon">
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-               data-content="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>">
-            <span class="fa fa-question-circle"></span></a>
+               data-content="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>"
+               aria-label="<%= _('More information: Guidance') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -160,8 +165,9 @@ in the admin interface.
           </div>
           <div class="div_right_icon">
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-               data-content="<%= _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>") %>">
-            <span class="fa fa-question-circle"></span></a>
+               data-content="<%= _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>") %>"
+               aria-label="<%= _('More information: Themes') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
         </td>
       </tr>

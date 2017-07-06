@@ -71,7 +71,7 @@
 
             <h3>
               <%= annotation.org.abbreviation %> <%= _('Guidance') %>
-              <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>"></span>
+              <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>" aria-hidden="true"></span>
             </h3>
 
              <!-- accordion body -->
@@ -89,7 +89,7 @@
          <% group.each do |gobj| %>
            <h3>
              <%= gobj[:org] %> guidance on <%= theme %>
-             <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>"></span>
+             <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>" aria-hidden="true"></span>
            </h3>
 
              <div id="collapse-guidance-<%=question.id%>-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
