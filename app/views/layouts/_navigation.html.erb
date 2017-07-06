@@ -1,74 +1,63 @@
 <ul class="nav">
-  <!-- Navigation for organisation admin -->
-  <% if (user_signed_in? && current_user.can_org_admin? && ( action_name.include? "admin_" ) ) %>
-    <% if current_user.can_modify_templates? %>
-        <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
-          <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
-        </li>
-    <% end %>
-    <% if current_user.can_modify_guidance? %>
-        <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
-          <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
-        </li>
-    <% end %>
-    <% if current_user.can_modify_org_details? %>
-        <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-          <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %> 
-        </li>
-    <% end %>
-    <% if current_user.can_grant_permissions? %>
-        <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>
-          <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
-        </li>
-    <% end %>
-  <% else %>
-    <% if user_signed_in? %>
-        <li <%= 'class=active' if isActivePage(plans_path) %>>
-          <%= link_to _('View plans'), plans_path %>
-        </li>
-        <li <%= 'class=active' if isActivePage(new_plan_path) || isActivePage("#{new_plan_path}?test=true") %>>
-          <%= link_to _('Create plan'), new_plan_path %>
-        </li>
-    <% else %>
-      <!-- Home page -->
-        <li <%= 'class=active' if isActivePage(root_path) %>>
+  
+  <li>
+    <a class="dropdown left-indent" id="explore" href="#"><%= _('Explore') %> <span class="fa fa-sort-desc" style="color: inherit;"><span></a>
+
+    <ul class="hidden dropdown-list" id="explore-dropdown">
+      <% if !user_signed_in? %>
+        <li <%= 'class=active' if isActivePage(root_path) || isActivePage(plans_path) %>>
           <%= link_to _('Home'), root_path %>
         </li>
-    <% end %>
-    <!-- help page -->
+      <% end %>
       <li <%= 'class=active' if isActivePage(public_plans_path) %>>
         <%= link_to _('Public DMPs'), public_plans_path %>
       </li>
-    <!-- about_us page -->
-      <li <%= 'class=active' if isActivePage(about_us_path) %>>
-        <%= link_to _('About'), about_us_path %>
+    </ul>
+  </li>
+  
+  <% if user_signed_in? %>
+  
+    <!-- Navigation for organisation admin -->
+    <% if (user_signed_in? && current_user.can_org_admin? && ( action_name.include? "admin_" ) ) %>
+      <% if current_user.can_modify_templates? %>
+          <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
+            <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
+          </li>
+      <% end %>
+      <% if current_user.can_modify_guidance? %>
+          <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
+            <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+          </li>
+      <% end %>
+      <% if current_user.can_modify_org_details? %>
+          <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
+            <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %> 
+          </li>
+      <% end %>
+      <% if current_user.can_grant_permissions? %>
+          <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>
+            <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
+          </li>
+      <% end %>
+    <% else %>
+      <li <%= 'class=active' if isActivePage(new_plan_path) %>>
+        <%= link_to _('Create plans'), new_plan_path %>
       </li>
-    <!-- roadmap page -->
-      <li <%= 'class=active' if isActivePage(roadmap_path) %>>
-        <%= link_to _('Future plans'), roadmap_path %>
-      </li>
-    <!-- help page -->
-      <li <%= 'class=active' if isActivePage(help_path) %>>
-        <%= link_to _('Help'), help_path %>
-      </li>
-    
-      <% if !user_signed_in? %>
-        <% if MANY_LANGUAGES %>
-            <!-- language dropdown -->
-            <li class="language-switcher">
-              <a class="dropdown" id="change-language" href="#">
-                <%= _('Change language') %> <span class="caret"><span>
-              </a>
-              
-              <ul class="hidden dropdown-list" id="change-language-dropdown">
-                <% LANGUAGES.each do |l| %>
-                  <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
-                    <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'main_nav lang-dropdown-link'%>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-        <% end %>
+      <!-- roadmap page -->
+        <!-- <li <%= 'class=active' if isActivePage(roadmap_path) %>> -->
+          <!-- <%= link_to _('Future plans'), roadmap_path %> -->
+        <!-- </li> -->
+      <!-- help page -->
+        <!-- <li <%= 'class=active' if isActivePage(help_path) %>> -->
+          <!-- <%= link_to _('Help'), help_path %> -->
+        <!-- </li> -->
+    <% end %>
+
+
+    <li class="highlight-color-button left-indent"><%= link_to _('My Dashboard'), plans_path %></li>
+
+    <% if current_user.can_org_admin? %>
+      <li class="highlight-color-button"><%= link_to _('Admin'), plans_path %></li>
     <% end %>
   <% end %>
 </ul>

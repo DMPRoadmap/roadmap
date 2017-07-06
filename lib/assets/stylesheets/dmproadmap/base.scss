@@ -37,7 +37,13 @@ hr {
 .inline { display: inline-block; }
 .centered { text-align: center; }
 .left-indent { margin-left: 15px; }
+.right-indent { margin-right: 15px; }
 .top-indent { margin-top: 25px; }
+
+.highlight-color-button {
+  background-color: $highlight-background-color;
+  color: $highlight-color;
+}
 
 .right {
   position: absolute;
@@ -97,15 +103,21 @@ ul.dropdown-list {
   text-align: left;
   z-index: 2;
   top: 0;
+  right: 5px;
   margin-top: -5px;
   
   li {
     list-style: none;
     margin-bottom: 10px;
+    padding: 6px 15px;
     
     a {
       color: $white;
     }
+  }
+  li.active, li:hover, li:focus {
+    background-color: $dark-grey;
+    border-radius: 3px;
   }
 }
 .dropdown-large { width: 200px; }
@@ -251,6 +263,7 @@ div.roadmap {
           margin: 0;
           
           li {
+            position: relative;
             display: inline-block;
             color: $white;
             background-color: $primary-color;
@@ -278,20 +291,32 @@ div.roadmap {
               line-height: 20px;
             }
           }
-          .language-switcher {
+          #explore {
+            padding-right: 15px;
+            
             .caret {
               border-top: 4px solid $white;
               border-bottom: $white;
             }
+          }
+          #explore-dropdown {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 150px;
             
-            #change-language-dropdown {
-              position: absolute;
-              top: 32px;
+            li {
+              display: block;
+              background-color: $medium-grey;
+              border: none;
+            }
+            li.active, li:hover, li:focus {
+              background-color: $dark-grey;
+              border-radius: 3px;
               
-              li {
-                display: block;
-                background-color: $medium-grey;
-                border: none;
+              a {
+                width: 100%;
+                color: $white;
               }
             }
           }
@@ -303,6 +328,7 @@ div.roadmap {
       top: 5px;
       right: 10px;
       color: white;
+      margin-top: 5px;
       
       a {
         color: white;

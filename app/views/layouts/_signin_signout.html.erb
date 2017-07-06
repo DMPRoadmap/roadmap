@@ -1,44 +1,61 @@
 <!-- Sign in / out -->
 <% if user_signed_in? %>
-  <a href="#" class="dropdown" id="signin-signout">
-    <%= _('Signed in as') %> <%= current_user.name(false) %> <span class="caret"><span>
+  <a href="#" class="dropdown right-indent" id="signin-signout">
+    <%= _('Signed in as') %> <%= current_user.name(false) %> <span class="fa fa-user" style="color: inherit;"><span>
   </a>
-  
-  <ul class="hidden dropdown-list" id="signin-signout-dropdown">
-    <li><%= link_to _('Edit profile'), edit_user_registration_path, class: "signIn_dropdown_link" %></li>
-    <% if current_user.can_super_admin? %>
-      <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li>
-    <% end %>
-    <% if current_user.can_org_admin? && !current_user.org_id.nil? %>
-      <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %>
-        <li><%= link_to _("Admin area"), admin_edit_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-      <% elsif  current_user.can_modify_templates?%>
-        <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-      <% elsif current_user.can_modify_guidance? %>
-        <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-      <% elsif current_user.can_modify_org_details? %>
-        <li><%= link_to _("Admin area"), admin_edit_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-      <% elsif current_user.can_grant_permissions? %>
-        <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
-      <% end %>
-    <% end %>
-    <li>
-      <%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %>
-    </li>
-  </ul>
+  <span class="muted">|</span>
+
+  <!-- <ul class="hidden dropdown-list" id="signin-signout-dropdown"> -->
+    <!-- <li><%= link_to _('Edit profile'), edit_user_registration_path, class: "signIn_dropdown_link" %></li> -->
+    <!-- <% if current_user.can_super_admin? %> -->
+      <!-- <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li> -->
+    <!-- <% end %> -->
+    <!-- <% if current_user.can_org_admin? && !current_user.org_id.nil? %> -->
+      <!-- <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %> -->
+        <!-- <li><%= link_to _("Admin area"), admin_edit_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li> -->
+      <!-- <% elsif  current_user.can_modify_templates?%> -->
+        <!-- <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li> -->
+      <!-- <% elsif current_user.can_modify_guidance? %> -->
+        <!-- <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li> -->
+      <!-- <% elsif current_user.can_modify_org_details? %> -->
+        <!-- <li><%= link_to _("Admin area"), admin_edit_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li> -->
+      <!-- <% elsif current_user.can_grant_permissions? %> -->
+        <!-- <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li> -->
+      <!-- <% end %> -->
+    <!-- <% end %> -->
+    <!-- <li> -->
+      <!-- <%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %> -->
+    <!-- </li> -->
+  <!-- </ul> -->
+
+  <%= link_to _('Logout'), destroy_user_session_path, method: :delete, class: "left-indent right-indent" %>
+  <span class="muted">|</span>
 
 <% else %>
   <% if !isActivePage(root_path) %>
-    <a href="#header-login-form" data-toggle="modal" dialog-width="450px"><%= _('Sign in')%></a> /
-    <a href="#header-register-form" data-toggle="modal" dialog-width="450px"><%= _('Create account')%></a>
+    <a href="#header-signin" data-toggle="modal" dialog-width="700px" class="link-as-button no-header right-indent">
+      <%= _('Sign in')%>
+    </a>
+    <span class="muted">|</span>
   <% end %>
 <% end %>
 
+<% if MANY_LANGUAGES %>
+  <!-- language dropdown -->
+  <a class="dropdown left-indent" id="change-language" href="#">
+    <%= _('Choose your language') %> <span class="fa fa-sort-desc" style="color: inherit;"><span>
+  </a>
+  <ul class="hidden dropdown-list" id="change-language-dropdown">
+    <% LANGUAGES.each do |l| %>
+      <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+        <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: "main_nav lang-dropdown-link" %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if !user_signed_in? && !isActivePage(root_path) then %>
-  <div id="header-login-form" class="modal" style="display:none">
-    <%= render :partial => "shared/login_form" %>
-  </div>
-  <div id="header-register-form" class="modal" style="display:none">
-    <%= render :partial => "shared/register_form", locals: {extended: false} %>
+  <div id="header-signin" class="modal" style="display:none">
+    <%= render partial: 'shared/signin' %>
   </div>
 <% end %>
