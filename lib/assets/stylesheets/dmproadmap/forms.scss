@@ -37,6 +37,10 @@ select {
   height: 25px;
 }
 
+select[multiple="true"], select[multiple="multiple"] {
+  height: 65px;
+}
+
 .checkbox-label {
   display: inline-block;
   font-size: 1em;
