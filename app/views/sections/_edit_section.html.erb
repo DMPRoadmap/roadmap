@@ -20,7 +20,7 @@
         <%= s.label :description %>
         <%= text_area_tag("section-desc-#{section.id}", section.description , class: "tinymce") %>
         <div class="inline">
-          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
              data-content="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>" aria-label="<%= _('More information: Section descriptions') %>">
           <span class="fa fa-question-circle" aria-hidden="true"></span></a>
         </div>

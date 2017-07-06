@@ -13,7 +13,7 @@
         <%= text_area_tag("guidance-text", "", class: "tinymce") %>
         <div class="inline">
           <% lbl = _('Enter your guidance here. You can include links where needed.') %>
-          <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
              data-content="<%= _('Enter your guidance here. You can include links where needed.') %>" 
              aria-label="<%= _('More information: Guidance') %>">
           <span class="fa fa-question-circle" aria-hidden="true"></span></a>
