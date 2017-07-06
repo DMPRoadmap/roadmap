@@ -1,6 +1,5 @@
 <% if !models.nil? %>
   <% json = {} %>
-  <% tooltip = tooltip ||= _('Please select a valid %{entity} from the list.' % {entity: attribute}) %>
   <% models.map{|m| json[m[attribute]] = m.id} %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
@@ -10,9 +9,7 @@
          data-combobox-case-sensitive="no"
          data-combobox-search-option="containing"
          data-combobox-allow-suggestion-on-empty="true"
-         value="<%= default_selection[attribute] unless default_selection.nil? %>"
-         data-toggle="tooltip" 
-         data-content="<%= tooltip %>" />
+         value="<%= default_selection[attribute] unless default_selection.nil? %>" />
   <datalist id="<%= id %>_list">
     <% models.each do |model| %>
       <option value="<%= model[attribute] %>" />
