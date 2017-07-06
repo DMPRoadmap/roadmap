@@ -29,16 +29,16 @@
 
 <% else %>
   <% if !isActivePage(root_path) %>
-    <a href="#header-login-form" data-toggle="modal" dialog-width="450px"><%= _('Sign in')%></a> /
-    <a href="#header-register-form" data-toggle="modal" dialog-width="450px"><%= _('Create account')%></a>
+    <a id="sign_in_modal" href="#header-login-form" data-toggle="modal" dialog-width="450px"><%= _('Sign in')%></a> /
+    <a id="create_account_modal" href="#header-register-form" data-toggle="modal" dialog-width="450px"><%= _('Create account')%></a>
   <% end %>
 <% end %>
 
 <% if !user_signed_in? && !isActivePage(root_path) then %>
-  <div id="header-login-form" class="modal" style="display:none">
+  <div id="header-login-form" class="modal" role="dialog" aria-labelledby="#sign_in_modal" style="display:none">
     <%= render :partial => "shared/login_form" %>
   </div>
-  <div id="header-register-form" class="modal" style="display:none">
+  <div id="header-register-form" class="modal" role="dialog" aria-labelledby="#create_account_modal" style="display:none">
     <%= render :partial => "shared/register_form", locals: {extended: false} %>
   </div>
 <% end %>
