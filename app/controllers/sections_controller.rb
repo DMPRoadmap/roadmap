@@ -21,7 +21,7 @@ class SectionsController < ApplicationController
       @sections = @phase.sections
       @section_id = @section.id
       @question_id = nil
-      flash[:notice] = failed_create_error(@section, _('section'))
+      flash[:alert] = failed_create_error(@section, _('section'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else
@@ -49,7 +49,7 @@ class SectionsController < ApplicationController
       @sections = @phase.sections
       @section_id = @section.id
       @question_id = nil
-      flash[:notice] = failed_update_error(@section, _('section'))
+      flash[:alert] = failed_update_error(@section, _('section'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else
@@ -78,7 +78,7 @@ class SectionsController < ApplicationController
       @section_id = @section.id
       @question_id = nil
 
-      flash[:notice] = failed_destroy_error(@section, _('section'))
+      flash[:alert] = failed_destroy_error(@section, _('section'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else

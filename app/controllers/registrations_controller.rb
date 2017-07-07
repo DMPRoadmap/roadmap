@@ -22,7 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
       if oauth[:provider].nil? || oauth[:uid].nil?
-        flash[:notice] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
+        flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
 
       else
         # Connect the new user with the identifier sent back by the OAuth provider
@@ -154,7 +154,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('profile'), _('saved'))
 
     else
-      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
   end
@@ -178,7 +178,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('password'), _('saved'))
 
     else
-      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
   end

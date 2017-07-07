@@ -155,7 +155,7 @@ class TemplatesController < ApplicationController
 
     # Only allow the current version to be updated
     if current != @template
-      redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
+      redirect_to admin_template_template_path(@template), alert: _('You can not publish a historical version of this template.')
 
     else
       # Unpublish the older published version if there is one
@@ -185,7 +185,7 @@ class TemplatesController < ApplicationController
     @template = Template.live(template.dmptemplate_id)
 
     if @template.nil?
-      flash[:notice] = _('That template is not currently published.')
+      flash[:alert] = _('That template is not currently published.')
     else
       @template.published = false
       @template.save
@@ -256,7 +256,7 @@ class TemplatesController < ApplicationController
         flash[:notice] = success_message(_('template'), _('saved'))
 
       else
-        flash[:notice] = failed_update_error(@template, _('template'))
+        flash[:alert] = failed_update_error(@template, _('template'))
       end
 
       @hash = @template.to_hash
@@ -285,7 +285,7 @@ class TemplatesController < ApplicationController
       redirect_to admin_template_template_path(@template), notice: success_message(_('template'), _('created'))
     else
       @hash = @template.to_hash
-      flash[:notice] = failed_create_error(@template, _('template'))
+      flash[:alert] = failed_create_error(@template, _('template'))
       render action: "admin_new"
     end
   end
@@ -309,7 +309,7 @@ class TemplatesController < ApplicationController
         render admin_template_template_path(@template)
       end
     else
-      flash[:notice] = _('You cannot delete historical versions of this template.')
+      flash[:alert] = _('You cannot delete historical versions of this template.')
       redirect_to admin_index_template_path
     end
   end

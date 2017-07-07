@@ -157,7 +157,7 @@ class PhasesController < ApplicationController
 
       redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: success_message(_('phase'), _('created'))
     else
-      flash[:notice] = failed_create_error(@phase, _('phase'))
+      flash[:alert] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
       render "admin_add"
     end
@@ -183,7 +183,7 @@ class PhasesController < ApplicationController
       @open = !params[:section_id].nil?
       @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
-      flash[:notice] = failed_update_error(@phase, _('phase'))
+      flash[:alert] = failed_update_error(@phase, _('phase'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else
@@ -212,7 +212,7 @@ class PhasesController < ApplicationController
       @open = !params[:section_id].nil?
       @section_id = (params[:section_id].nil? ? nil : params[:section_id].to_i)
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
-      flash[:notice] = failed_destroy_error(@phase, _('phase'))
+      flash[:alert] = failed_destroy_error(@phase, _('phase'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else

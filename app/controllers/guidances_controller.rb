@@ -41,7 +41,7 @@ class GuidancesController < ApplicationController
     if @guidance.save
       redirect_to admin_edit_guidance_path(@guidance), notice: success_message(_('guidance'), _('created'))
     else
-      flash[:notice] = failed_create_error(@guidance, _('guidance'))
+      flash[:alert] = failed_create_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
       render action: "admin_new"
@@ -58,7 +58,7 @@ class GuidancesController < ApplicationController
     if @guidance.update_attributes(guidance_params)
       redirect_to admin_edit_guidance_path(params[:guidance]), notice: success_message(_('guidance'), _('saved'))
     else
-      flash[:notice] = failed_update_error(@guidance, _('guidance'))
+      flash[:alert] = failed_update_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
 
@@ -74,7 +74,7 @@ class GuidancesController < ApplicationController
     if @guidance.destroy
       redirect_to admin_index_guidance_path, notice: success_message(_('guidance'), _('deleted'))
     else
-      redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance, _('guidance'))
+      redirect_to admin_index_guidance_path, alert: failed_destroy_error(@guidance, _('guidance'))
     end
   end
 

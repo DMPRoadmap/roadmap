@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
         @section_id = @question.section.id
         @question_id = @question.id
 
-        flash[:notice] = failed_create_error(@question, _('question'))
+        flash[:alert] = failed_create_error(@question, _('question'))
         if @phase.template.customization_of.present?
           @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
         else
@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
         render template: 'phases/admin_show'
       end
     rescue ActionController::ParameterMissing => e
-      flash[:notice] = e.message
+      flash[:alert] = e.message
     end
   end
 
@@ -91,7 +91,7 @@ class QuestionsController < ApplicationController
       @section_id = @section.id
       @question_id = @question.id
 
-      flash[:notice] = failed_update_error(@question, _('question'))
+      flash[:alert] = failed_update_error(@question, _('question'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else
@@ -113,7 +113,7 @@ class QuestionsController < ApplicationController
 
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: success_message(_('question'), _('deleted'))
     else
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: failed_destroy_error(@question, 'question')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), alert: failed_destroy_error(@question, 'question')
     end
   end
 

@@ -28,12 +28,12 @@ class AnnotationsController < ApplicationController
       @section_id = @section.id
       @question_id = @example_answer.question
       if !ex_save && !guid_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer')) + '\n' +
+        flash[:alert] = failed_create_error(example_answer, _('example answer')) + '\n' +
                           failed_create_error(gudiance, _('guidance'))
       elsif !guid_save
-        flash[:notice] = failed_create_error(gudiance, _('guidance'))
+        flash[:alert] = failed_create_error(gudiance, _('guidance'))
       elsif !ex_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer'))
+        flash[:alert] = failed_create_error(example_answer, _('example answer'))
       end
       render "phases/admin_show"
     end
@@ -79,12 +79,12 @@ class AnnotationsController < ApplicationController
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('saved'))
     else
       if !ex_save && !guid_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer')) + '\n' +
+        flash[:alert] = failed_create_error(example_answer, _('example answer')) + '\n' +
                           failed_create_error(gudiance, _('guidance'))
       elsif !guid_save
-        flash[:notice] = failed_create_error(gudiance, _('guidance'))
+        flash[:alert] = failed_create_error(gudiance, _('guidance'))
       elsif !ex_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer'))
+        flash[:alert] = failed_create_error(example_answer, _('example answer'))
       end
       render action: "phases/admin_show"
     end
@@ -100,7 +100,7 @@ class AnnotationsController < ApplicationController
     if @example_answer.destroy
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: success_message(_('information'), _('deleted'))
     else
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:notice] = failed_destroy_error(@example_answer, _('example answer'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:alert] = failed_destroy_error(@example_answer, _('example answer'))
     end
   end
 

@@ -52,7 +52,7 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: success_message(_('guidance group'), _('saved'))
     else
-      flash[:notice] = failed_update_error(@guidance_group, _('guidance group'))
+      flash[:alert] = failed_update_error(@guidance_group, _('guidance group'))
       render 'admin_edit'
     end
   end
@@ -68,7 +68,7 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.update_attributes(params[:guidance_group])
       redirect_to admin_index_guidance_path(params[:guidance_group]), notice: success_message(_('guidance group'), _('saved'))
     else
-      redirect_to admin_index_guidance_path(@guidance_group), notice: failed_update_error(@guidance_group, _('guidance group'))
+      redirect_to admin_index_guidance_path(@guidance_group), alert: failed_update_error(@guidance_group, _('guidance group'))
     end
   end
 
@@ -81,7 +81,7 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.destroy
       redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('deleted'))
     else
-      redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance_group, _('guidance group'))
+      redirect_to admin_index_guidance_path, alert: failed_destroy_error(@guidance_group, _('guidance group'))
     end
   end
 
