@@ -6,7 +6,7 @@ matrix:
         - git clone https://github.com/docker-library/official-images.git ~/official-images
 
       before_script:
-        - image="ualbertalib/DMP_roadmap:latest"
+        - image="ualbertalib/dmp_roadmap:latest"
 
       script:
         - docker build -t "$image" .
@@ -17,7 +17,7 @@ matrix:
 
     - language: ruby
       rvm:
-        - 2.3.4
+        - 2.2.2
 
       before_script:
         - cp config/database_example.yml config/database.yml
