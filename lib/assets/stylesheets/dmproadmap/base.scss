@@ -330,6 +330,11 @@ div.roadmap {
         font-size: 14px;
         text-decoration: none;
       }
+      a.link-as-button {
+        color: $header-text-color;
+        background-color: $header-background;
+        border: 1px solid $black;
+      }
       ul li a {
         color: $white;
       }

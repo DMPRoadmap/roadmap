@@ -167,8 +167,8 @@ form.roadmap-form {
   label:not(.no-colon):not(.checkbox-label):after {
     content: " :";
   }
-  label.required:after {
-    content: " * :";
+  label.required:before {
+    content: "* ";
   }
   
   .form-input {
