@@ -155,7 +155,7 @@ class PhasesController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: _('Information was successfully created.')
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: success_message(_('phase'), _('created'))
     else
       flash[:notice] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
@@ -173,7 +173,7 @@ class PhasesController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(@phase), notice: _('Information was successfully updated.')
+      redirect_to admin_show_phase_path(@phase), notice: success_message(_('phase'), _('saved'))
     else
       @sections = @phase.sections
       @template = @phase.template
@@ -202,7 +202,7 @@ class PhasesController < ApplicationController
       @template.dirty = true
       @template.save!
 
-      redirect_to admin_template_template_path(@template), notice: _('Information was successfully deleted.')
+      redirect_to admin_template_template_path(@template), notice: success_message(_('phase'), _('deleted'))
     else
       @sections = @phase.sections
 

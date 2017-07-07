@@ -77,7 +77,7 @@ class PlansController < ApplicationController
 
         default = Template.find_by(is_default: true)
 
-        msg = "#{_('Plan was successfully created.')} "
+        msg = success_message(_('plan'), _('created'))
 
         if !default.nil? && default == @plan.template
           # We used the generic/default template
@@ -199,7 +199,7 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       if @plan.update_attributes(attrs)
-        format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
+        format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
         format.json { head :no_content }
       else
         flash[:notice] = failed_update_error(@plan, _('plan'))
@@ -230,7 +230,7 @@ class PlansController < ApplicationController
       end
     end
     @plan.save
-    flash[:notice] = _('Guidance choices saved.')
+    flash[:notice] = success_message(_('guidance choices'), _('saved'))
     redirect_to action: "show"
   end
 
@@ -246,7 +246,7 @@ class PlansController < ApplicationController
     authorize @plan
     if @plan.destroy
       respond_to do |format|
-        format.html { redirect_to plans_url, notice: _('Plan was successfully deleted.') }
+        format.html { redirect_to plans_url, notice: success_message(_('plan'), _('deleted')) }
       end
     else
       respond_to do |format|
@@ -387,7 +387,7 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         @plan.assign_creator(current_user)
-        flash[:notice] = 'Plan was successfully duplicated.'
+        flash[:notice] = success_message(_('plan'), _('copied'))
         format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
         # format.html { redirect_to @plan, notice: _('Plan was successfully duplicated.') }
         # format.json { head :no_content }

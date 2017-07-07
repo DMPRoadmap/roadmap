@@ -14,7 +14,7 @@ class SectionsController < ApplicationController
       @section.phase.template.save!
 
       redirect_to admin_show_phase_path(id: @section.phase_id,
-        :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
+        :section_id => @section.id, edit: 'true'), notice: success_message(_('section'), _('created'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -42,7 +42,7 @@ class SectionsController < ApplicationController
       @section.phase.template.dirty = true
       @section.phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: _('Information was successfully updated.')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: success_message(_('section'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -70,7 +70,7 @@ class SectionsController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: _('Information was successfully deleted.')
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: success_message(_('section'), _('deleted'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true

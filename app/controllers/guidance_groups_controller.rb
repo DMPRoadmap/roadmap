@@ -27,7 +27,7 @@ class GuidanceGroupsController < ApplicationController
     end
 
     if @guidance_group.save
-      redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully created.')
+      redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('created'))
     else
       flash[:notice] = failed_create_error(@guidance_group, _('guidance group'))
       render 'admin_new'
@@ -50,7 +50,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.published = true unless params[:save_publish].nil?
 
     if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
+      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: success_message(_('guidance group'), _('saved'))
     else
       flash[:notice] = failed_update_error(@guidance_group, _('guidance group'))
       render 'admin_edit'
@@ -66,7 +66,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.published = true
 
     if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
+      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: success_message(_('guidance group'), _('saved'))
     else
       redirect_to admin_index_guidance_path(@guidance_group), notice: failed_update_error(@guidance_group, _('guidance group'))
     end
@@ -79,7 +79,7 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     if @guidance_group.destroy
-      redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully deleted.')
+      redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('deleted'))
     else
       redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance_group, _('guidance group'))
     end

@@ -76,7 +76,7 @@ class OrgTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "should resize logo to a height of 100" do
+  test "should resize logo to a height of 165" do
     ['logo.jpg', # this one is at 160x160
      'logo_300x300.jpg', 
      'logo_100x100.jpg'].each do |file|

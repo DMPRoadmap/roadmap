@@ -39,7 +39,7 @@ class GuidancesController < ApplicationController
     end
 
     if @guidance.save
-      redirect_to admin_edit_guidance_path(@guidance), notice: _('Guidance was successfully created.')
+      redirect_to admin_edit_guidance_path(@guidance), notice: success_message(_('guidance'), _('created'))
     else
       flash[:notice] = failed_create_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
@@ -56,7 +56,7 @@ class GuidancesController < ApplicationController
     @guidance.text = params["guidance-text"]
     
     if @guidance.update_attributes(guidance_params)
-      redirect_to admin_edit_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
+      redirect_to admin_edit_guidance_path(params[:guidance]), notice: success_message(_('guidance'), _('saved'))
     else
       flash[:notice] = failed_update_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
@@ -72,7 +72,7 @@ class GuidancesController < ApplicationController
      @guidance = Guidance.find(params[:id])
     authorize @guidance
     if @guidance.destroy
-      redirect_to admin_index_guidance_path, notice: _('Guidance was successfully deleted.')
+      redirect_to admin_index_guidance_path, notice: success_message(_('guidance'), _('deleted'))
     else
       redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance, _('guidance'))
     end

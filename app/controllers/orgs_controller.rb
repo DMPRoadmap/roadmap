@@ -21,7 +21,7 @@ class OrgsController < ApplicationController
 
     begin
       if @org.update_attributes(org_params)
-        flash[:notice] = _('Organisation was successfully updated.')
+        flash[:notice] = success_message(_('organisation'), _('saved'))
         render action: "admin_edit" 
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 

@@ -80,6 +80,10 @@ class ApplicationController < ActionController::Base
   def failed_destroy_error(obj, obj_name)
     "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
+  
+  def success_message(obj_name, action)
+    "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
+  end
 
   private
     # Override rails default render action to look for a branded version of a

@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
           guidance = Annotation.new({question_id: @question.id, org_id: current_user.org_id, text: params[:guidance], type: Annotation.types[:guidance]})
           guidance.save
         end
-        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
+        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: success_message(_('question'), _('created'))
       else
         @edit = (@question.section.phase.template.org == current_user.org)
         @open = true
@@ -83,7 +83,7 @@ class QuestionsController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: success_message(_('question'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -111,7 +111,7 @@ class QuestionsController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: success_message(_('question'), _('deleted'))
     else
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: failed_destroy_error(@question, 'question')
     end

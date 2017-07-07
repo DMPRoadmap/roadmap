@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     end
 
     if @user.save!
-      redirect_to({controller: 'users', action: 'admin_index'}, {notice: _('Information was successfully updated.')})  # helpers.success key does not exist, replaced with a generic string
+      redirect_to({controller: 'users', action: 'admin_index'}, {notice: success_message(_('permissions'), _('saved'))})  # helpers.success key does not exist, replaced with a generic string
     else
       flash[:notice] = failed_update_error(@user, _('user'))
     end
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
     end
     @tab = params[:tab]
     @user.save
-    redirect_to edit_user_registration_path(tab: @tab), notice: _('Preferences successfully updated.')
+    redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('preferences'), _('saved'))
   end
 
 end
