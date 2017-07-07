@@ -18,7 +18,8 @@ class AnnotationsController < ApplicationController
     guid_save = guidance.present? ? guidance.save : true
 
     if ex_save && guid_save
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
+      typ = (!ex_save && !guid_save ? 'example answer and guidance' : (!guid_save ? 'guidance' : 'example answer'))
+      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('created'))
     else
       @section = @question.section
       @phase = @section.phase
@@ -74,7 +75,8 @@ class AnnotationsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if ex_save && guid_save
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
+      typ = (!ex_save && !guid_save ? 'example answer and guidance' : (!guid_save ? 'guidance' : 'example answer'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('saved'))
     else
       if !ex_save && !guid_save
         flash[:notice] = failed_create_error(example_answer, _('example answer')) + '\n' +
@@ -96,7 +98,7 @@ class AnnotationsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if @example_answer.destroy
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: success_message(_('information'), _('deleted'))
     else
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:notice] = failed_destroy_error(@example_answer, _('example answer'))
     end

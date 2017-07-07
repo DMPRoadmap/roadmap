@@ -85,7 +85,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     
     # Change name
     put user_registration_path, {user: {email: @user.email, firstname: 'Testing', surname: 'UPDATE', org_id: Org.first.id}}
-    assert_equal _('Details successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully')
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
     

@@ -253,7 +253,7 @@ class TemplatesController < ApplicationController
 
       @template.description = params["template-desc"]
       if @template.update_attributes(params[:template])
-        flash[:notice] = _('Information was successfully updated.')
+        flash[:notice] = success_message(_('template'), _('saved'))
 
       else
         flash[:notice] = failed_update_error(@template, _('template'))
@@ -282,7 +282,7 @@ class TemplatesController < ApplicationController
     @template.description = params['template-desc']
 
     if @template.save
-      redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
+      redirect_to admin_template_template_path(@template), notice: success_message(_('template'), _('created'))
     else
       @hash = @template.to_hash
       flash[:notice] = failed_create_error(@template, _('template'))

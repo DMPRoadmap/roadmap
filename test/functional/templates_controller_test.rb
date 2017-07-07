@@ -149,7 +149,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     post admin_create_template_path(@user.org), {template: params}
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
     assert assigns(:template)
@@ -192,7 +192,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Make sure we get the right response when editing an unpublished template
     put admin_update_template_path(current), {template: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :success
     assert assigns(:template)
     assert assigns(:hash)

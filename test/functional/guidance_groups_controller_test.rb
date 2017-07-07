@@ -59,7 +59,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     post admin_create_guidance_group_path(@user.org), {guidance_group: params}
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path(@user.org)
-    assert_equal _('Guidance group was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert assigns(:guidance_group)
     assert_equal 'Testing create', GuidanceGroup.last.name, "expected the record to have been created!"
     
@@ -95,7 +95,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: params}
-    assert_equal _('Guidance group was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to "#{admin_index_guidance_path(@user.org)}?name=Testing+UPDATE"
     assert assigns(:guidance_group)
@@ -121,7 +121,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_guidance_group_path(GuidanceGroup.first)
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path
-    assert_equal _('Guidance group was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       GuidanceGroup.find(id).nil?
     end
