@@ -119,7 +119,7 @@ module DMPRoadmap
 
     # Relative path to Shibboleth SSO Logout
     config.shibboleth_login = '/Shibboleth.sso/Login'
-    config.shibboleth_logout_url = '/Shibboleth.sso/Logout'
+    config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
 
     # If this value is set to true your users will be presented with a list of orgs that have a
     # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
