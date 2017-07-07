@@ -16,36 +16,31 @@
       <fieldset class="side-by-side">
         <% if ContactUs.require_name %>
           <div class="form-input">
-            <label for="contact_us_contact_name"><%= _('Name') %>*</label>
-            <input type="text" id="contact_us_contact_name" name="contact_us[contact_name]" 
-                   class="left-indent required input-large" value="<%= current_user.nil? ? '' : current_user.name(false) %>"<%= current_user.nil? ? '' : 'disabled="true"' %> />
+            <%= f.label(:name, _('Name')+'*') %>
+            <%= f.text_field(:name, class: "left-indent required input-large", value: current_user.nil? ? '' : current_user.name(false), readonly: !current_user.nil?) %>
           </div>
         <% end %>
         
         <div class="form-input">
-          <label for="contact_us_contact_email"><%= _('Email') %>*</label>
-          <input type="email" id="contact_us_contact_email" name="contact_us[contact_email]" 
-                 class="left-indent required input-large" value="<%= current_user.nil? ? '' : current_user.email %>"<%= current_user.nil? ? '' : 'disabled="true"' %> />
+          <%= f.label(:email, _('Email')+'*') %>
+          <%= f.text_field(:email, class: "left-indent required input-large", value: current_user.nil? ? '' : current_user.email, readonly: !current_user.nil?) %>
           <span role="" id="contact_us_contact_email_error" class="error-tooltip-right left-indent"></span>
         </div>
         
         <% if ContactUs.require_subject %>
           <div class="form-input">
-            <label for="contact_us_contact_subject align-top"><%= _('Subject') %>*</label>
-            <input type="text" id="contact_us_contact_subject" name="contact_us[contact_subject]" 
-                   class="left-indent required input-large" />
+            <%= f.label(:subject, _('Subject')+'*') %>
+            <%= f.text_field(:subject, class: "left-indent required input-large") %>
           </div>
         <% end %>
         
         <div class="form-input">
-          <label for="contact_us_contact_message" class="align-top"><%= _('Message') %>*</label>
-          <textarea id="contact_us_contact_message" name="contact_us[contact_message]" rows="10" 
-                    class="left-indent required input-large"></textarea>
+          <%= f.label(:message, _('Message')+'*', class: "align-top") %>
+          <%= f.text_area(:message, class: "left-indent required input-large", rows: 10) %>
         </div>
-        
         <% if !user_signed_in? then %>
           <div class="form-input">
-            <label class="align-top"><%= _('Security check') %>*</label>
+            <%= label_tag(nil, _('Security check')+'*', class: "align-top") %>
             <div class="inline left-indent">
               <%= recaptcha_tags %>
             </div>
