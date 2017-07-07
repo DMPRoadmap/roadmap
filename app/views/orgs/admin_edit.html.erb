@@ -9,32 +9,42 @@
 
     <fieldset class="side-by-side">
       <div class="form-input">
-        <%= f.label :name %>*
+        <%= f.label :name, class: 'required' %>
         <%= f.text_field :name, class: "left-indent required input-large" %>
       </div>
       <div class="form-input">
-        <%= f.label :abbreviation %>*
+        <%= f.label :abbreviation, class: 'required' %>
         <%= f.text_field :abbreviation, class: "left-indent required input-small" %>
       </div>
       
-      <div class="form-input">
-        <%= f.label :logo %>
-        <%= f.file_field :logo, class: 'left-indent' %>
-               
-        <% if @org.logo.present? %>
-          <div class="org-logo">
-            <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}" %>
-            <span>
-              <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
-              <%= f.label _('Use the %{application_name} logo instead') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo %>
-            </span>
+      <% if @org.logo.present? %>
+        <div class="org-logo form-input">
+          <%= f.label :logo %>
+          <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}", class: 'left-indent' %>
+          <div class="inline left-indent" id="logo-controls">
+            <%= f.label _('Remove logo') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo %>
+            <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
+            <br />
+            <div class="inline" id="logo-controls-separator">
+              <strong> - <%= _('or') %> - </strong>
+            </div>
+            <br />
+            <%= f.file_field :logo %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <div class="form-input">
+          <%= f.label :logo %>
+          <%= f.file_field :logo, class: 'left-indent' %>
+        </div>
+      <% end %>
       
-      <div class="form-input">
+      <div class="form-input" id="banner-text">
         <%= f.label _('Top banner text'), for: @org.banner_text %>
-        <%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce left-indent top-indent") %>
+        <div class="left-indent inline">
+          <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text") %>
+          <%= tinymce(selector: "#org_banner_text", content_css: asset_path('application.css')) %>
+        </div>
       </div>
       
       <div class="form-input">
