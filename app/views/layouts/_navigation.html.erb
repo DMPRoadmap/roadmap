@@ -43,21 +43,39 @@
       <li <%= 'class=active' if isActivePage(new_plan_path) %>>
         <%= link_to _('Create plans'), new_plan_path %>
       </li>
-      <!-- roadmap page -->
-        <!-- <li <%= 'class=active' if isActivePage(roadmap_path) %>> -->
-          <!-- <%= link_to _('Future plans'), roadmap_path %> -->
-        <!-- </li> -->
+
       <!-- help page -->
-        <!-- <li <%= 'class=active' if isActivePage(help_path) %>> -->
-          <!-- <%= link_to _('Help'), help_path %> -->
-        <!-- </li> -->
+      <li <%= 'class=active' if isActivePage(help_path) %>>
+        <%= link_to _('Help'), help_path %>
+      </li>
     <% end %>
 
 
-    <li class="highlight-color-button left-indent"><%= link_to _('My Dashboard'), plans_path %></li>
+    <li class="highlight-color-button left-indent<%= ' active' if isActivePage(root_path) %>">
+      <%= link_to _('My Dashboard'), plans_path %>
+    </li>
 
-    <% if current_user.can_org_admin? %>
-      <li class="highlight-color-button"><%= link_to _('Admin'), plans_path %></li>
+    <% 
+    if current_user.can_org_admin? && !current_user.org_id.nil? && !action_name.include?("admin_")
+      link = nil
+      
+      if current_user.can_modify_org_details? && current_user.org.abbreviation.blank?
+        link = admin_edit_org_path(current_user.org_id)
+      elsif  current_user.can_modify_templates?
+        link = admin_index_template_path(current_user.org_id)
+      elsif current_user.can_modify_guidance?
+        link = admin_index_guidance_path(current_user.org_id)
+      elsif current_user.can_modify_org_details?
+        link = admin_edit_org_path(current_user.org_id)
+      elsif current_user.can_grant_permissions?
+        link = admin_index_users_path
+      end
+    end
+    %>
+    <% unless link.nil? %>
+      <li class="highlight-color-button<%= ' active' if isActivePage(link) %>">
+        <%= link_to _('Admin'), link %>
+      </li>
     <% end %>
   <% end %>
 </ul>

@@ -280,6 +280,10 @@ div.roadmap {
               line-height: 20px;
             }
           }
+          li.highlight-color-button {
+            color: $highlight-color;
+            background-color: $highlight-background-color;
+          }
           li.active, ul li:hover {
             color: $primary-color;
             background-color: $white;
