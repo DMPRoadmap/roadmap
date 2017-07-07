@@ -330,6 +330,9 @@ div.roadmap {
         font-size: 14px;
         text-decoration: none;
       }
+      ul li a {
+        color: $white;
+      }
       .caret {
         border-top-color: $header-text-color;
         border-bottom-color: $header-text-color;
