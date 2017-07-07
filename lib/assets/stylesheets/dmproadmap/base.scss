@@ -201,7 +201,7 @@ div.roadmap {
   /* ----------------------------------------------------- */
   header {
     background: $header-background;
-    color: white;
+    color: $header-text-color;
     height: $header-height;
     text-align: left;
     
@@ -231,7 +231,7 @@ div.roadmap {
         height: 60%;
         
         a {
-          color: white;
+          color: $header-text-color;
         }
         
         .header-org-logo, .header-org-banner-text {
@@ -248,9 +248,8 @@ div.roadmap {
           }
         }
         .header-org-banner-text {
-          width: 60%;
+          width: 80%;
           vertical-align: bottom;
-          margin-left: 25px;
         }
       }
       .main-nav {
@@ -265,9 +264,9 @@ div.roadmap {
           li {
             position: relative;
             display: inline-block;
-            color: $white;
+            color: $header-text-color;
             background-color: $primary-color;
-            border: 1px solid $white;
+            border: 1px solid $black;
             padding: 6px 10px;
             margin-bottom: -1px;
             font-size: 14px;
@@ -299,8 +298,8 @@ div.roadmap {
             padding-right: 15px;
             
             .caret {
-              border-top: 4px solid $white;
-              border-bottom: $white;
+              border-top: 4px solid $header-text-color;
+              border-bottom: $header-text-color;
             }
           }
           #explore-dropdown {
@@ -331,17 +330,17 @@ div.roadmap {
       position: absolute;
       top: 5px;
       right: 10px;
-      color: white;
+      color: $header-text-color;
       margin-top: 5px;
       
       a {
-        color: white;
+        color: $header-text-color;
         font-size: 14px;
         text-decoration: none;
       }
       .caret {
-        border-top-color: $white;
-        border-bottom-color: $white;
+        border-top-color: $header-text-color;
+        border-bottom-color: $header-text-color;
       }
     }
   }
