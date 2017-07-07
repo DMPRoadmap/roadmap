@@ -85,7 +85,7 @@ class OrgTest < ActiveSupport::TestCase
        @org.logo = Dragonfly.app.fetch_file("#{path}")
        
        assert @org.valid?, "expected the logo to have been attached to the org"
-       assert_equal 100, @org.logo.height, "expected the logo to have been resized properly"
+       assert_equal 165, @org.logo.height, "expected the logo to have been resized properly"
     end
   end
   
