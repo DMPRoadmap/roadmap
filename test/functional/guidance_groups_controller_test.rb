@@ -65,7 +65,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_guidance_group_path(@user.org), {guidance_group: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].start_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:guidance_group)
   end
@@ -103,7 +103,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:guidance_group)
   end

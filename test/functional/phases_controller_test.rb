@@ -164,7 +164,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:phase)
     assert assigns(:template)
@@ -197,7 +197,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:phase)
     assert assigns(:template)

@@ -59,7 +59,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_section_path(@phase), {section: {phase_id: @phase.id, title: nil}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:section)
     assert assigns(:phase)
@@ -94,7 +94,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_section_path(@phase.sections.first), {section: {title: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:section)
     assert assigns(:phase)

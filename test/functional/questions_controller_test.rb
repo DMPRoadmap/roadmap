@@ -65,7 +65,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil, question_format_id: @question_format.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:question)
     assert assigns(:section)
@@ -105,7 +105,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_question_path(@section.questions.first), {question: {text: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:question)
     assert assigns(:section)

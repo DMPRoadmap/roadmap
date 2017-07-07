@@ -29,7 +29,7 @@ class GuidanceGroupsController < ApplicationController
     if @guidance_group.save
       redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('created'))
     else
-      flash[:notice] = failed_create_error(@guidance_group, _('guidance group'))
+      flash[:alert] = failed_create_error(@guidance_group, _('guidance group'))
       render 'admin_new'
     end
   end
