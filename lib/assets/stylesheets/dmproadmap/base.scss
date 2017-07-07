@@ -213,12 +213,16 @@ div.roadmap {
       height: $header-height;
       .home-logo {
         margin-right: 10px;
-        margin-top: $header-logo-top-margin;
+        /* margin-top: $header-logo-top-margin; */
         margin-left: $header-logo-left-margin;
+        vertical-align: middle;
         
         img {
           width: $header-logo-width;
         }
+      }
+      .roadmap-logo {
+        margin-top: 70px;
       }
     }
     .header-right {
@@ -234,20 +238,8 @@ div.roadmap {
           color: $header-text-color;
         }
         
-        .header-org-logo, .header-org-banner-text {
-          display: inline-block;
-        }
-        
-        .header-org-logo {
-          width: 15%;
-          margin-right: 10px;
-          
-          img {
-            background-color: $white;
-            padding: 5px 0 5px 5px;
-          }
-        }
         .header-org-banner-text {
+          display: inline-block;
           width: 80%;
           vertical-align: bottom;
         }
