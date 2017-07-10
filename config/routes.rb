@@ -137,6 +137,7 @@ Rails.application.routes.draw do
         put 'admin_update'
         put 'admin_publish'
         put 'admin_unpublish'
+        put 'admin_copy'
         get 'admin_transfer_customization'
       end
     end
