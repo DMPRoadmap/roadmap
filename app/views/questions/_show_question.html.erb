@@ -121,17 +121,17 @@
   <% if (@edit && question.modifiable) %>
     <div class="move_2_right">
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-      <%= link_to _('Edit question'), '# ', class: "btn btn-primary edit_question_button"%>
+      <%= link_to _('Edit question'), '# ', class: "btn btn-primary edit_question_button", role:"button"%>
 
       <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
-        confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
+        confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary", role:"button"%>
     </div>
   <% else %>
     <% if example_answer.nil? && guidance.nil? %>
       <div id="add_annotations_button_<%= question.id%>">
         <div class="move_2_right">
           <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-          <%= link_to _('Add Annotations'), '# ', class: "btn btn-primary add_annotations_button"%>
+          <%= link_to _('Add Annotations'), '# ', class: "btn btn-primary add_annotations_button", role:"button"%>
         </div>
       </div>
     <% end %>

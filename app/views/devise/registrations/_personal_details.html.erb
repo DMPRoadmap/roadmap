@@ -126,6 +126,6 @@
 <!-- alert for the default template-->
 <div id="unlink-institutional-credentials-dialog" class="modal" style="display: none;">
   <p><%= _('You are about to unlink %{application_name} of your institutional credentials, would you like to continue?') % { :application_name => user_shibboleth_omniauth_authorize_path } %></p>
-  <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= _('Cancel') %></a>
-  <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= _('Unlink account') %></a>
+  <a href="#" id="unlink-shibboleth-cancelled" class="btn" role="button"><%= _('Cancel')%></a>
+  <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary" role="button"><%= _('Unlink account') %></a>
 </div>
