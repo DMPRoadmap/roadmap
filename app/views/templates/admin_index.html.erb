@@ -63,6 +63,7 @@
                 <% else %>
                   <br /><%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
                 <% end %>
+                <%= link_to _('Copy'), admin_copy_template_path(id: hash[:current].id), method: :put, class: "dmp_table_link" %>
               </td>
            </tr>
           <% end %>
