@@ -18,7 +18,7 @@
   <% if user_signed_in? %>
   
     <!-- Navigation for organisation admin -->
-    <% if (user_signed_in? && current_user.can_org_admin? && ( action_name.include? "admin_" ) ) %>
+    <% if current_user.can_org_admin? && action_name.include?("admin_") %>
       <% if current_user.can_modify_templates? %>
           <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
             <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
