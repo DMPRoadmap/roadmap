@@ -18,7 +18,7 @@ class AnnotationsController < ApplicationController
     guid_save = guidance.present? ? guidance.save : true
 
     if ex_save && guid_save
-      typ = (!ex_save && !guid_save ? 'example answer and guidance' : (!guid_save ? 'guidance' : 'example answer'))
+      typ = (example_answer.present? && guidance.present? ? 'example answer and guidance' : (guidance.present? ? 'guidance' : 'example answer'))
       redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('created'))
     else
       @section = @question.section
@@ -75,7 +75,7 @@ class AnnotationsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     if ex_save && guid_save
-      typ = (!ex_save && !guid_save ? 'example answer and guidance' : (!guid_save ? 'guidance' : 'example answer'))
+      typ = (example_answer.present? && guidance.present? ? 'example answer and guidance' : (guidance.present? ? 'guidance' : 'example answer'))
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('saved'))
     else
       if !ex_save && !guid_save
