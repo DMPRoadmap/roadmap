@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if user_signed_in?
-      redirect_to plans_url, notice: _('You are not authorized to perform this action.')
+      redirect_to plans_url, alert: _('You are not authorized to perform this action.')
     else
       redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
     end
