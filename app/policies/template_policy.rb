@@ -57,6 +57,9 @@ class TemplatePolicy < ApplicationPolicy
     user.can_modify_templates?
   end
 
+  def admin_copy?
+    user.can_modify_templates?  &&  (template.org_id == user.org_id)
+  end
 
   class Scope < Scope
     def resolve
