@@ -329,7 +329,6 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     authorize @template
 
-    # Unpublish the live version
     new_copy = Template.deep_copy(@template)
     new_copy.title = "Copy of " + @template.title
     new_copy.version = 0
@@ -343,7 +342,7 @@ class TemplatesController < ApplicationController
       flash[:notice] = 'Template was successfully copied.'
       redirect_to admin_template_template_path(id: new_copy.id, edit: true), notice: _('Information was successfully created.')
     else
-      flash[:notice] = failed_create_error(new_copy, _('template'))
+      flash[:alert] = failed_create_error(new_copy, _('template'))
     end
 
   end
