@@ -121,7 +121,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who is does not have access to the plan
     sign_in User.first
     put plan_path(@plan), {plan: params}
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
@@ -152,7 +152,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who is does not have access to the plan
     sign_in User.first
     put plan_path(@plan, format: :js)
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
@@ -177,7 +177,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who is does not have access to the plan
     sign_in User.first
     delete plan_path(@plan)
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
@@ -209,7 +209,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who does not have access to the plan
     sign_in User.first
     put update_guidance_choices_plan_path(@plan, format: :json), params
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
@@ -295,7 +295,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
       # User who is does not have access to the plan
       sign_in User.first
       get target
-      assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+      assert_equal _('You are not authorized to perform this action.'), flash[:alert]
       assert_response :redirect
       assert_redirected_to plans_url
     end
