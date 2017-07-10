@@ -59,6 +59,6 @@
 <%= tinymce :content_css => asset_path('application.css') %>
 
 <!-- alert for guidance-->
-<div id="edit_guidance_alert_dialog" class="modal" style="display:none">
+<div id="edit_guidance_alert_dialog" class="modal" role="dialog" aria-label="<%=_("Missing Fields Alert")%>" style="display:none">
   <ul id="missing_fields_edit_guidance"></ul>
 </div>
