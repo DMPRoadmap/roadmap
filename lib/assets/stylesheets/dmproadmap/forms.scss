@@ -665,6 +665,14 @@ div.show-plan {
   display: inline-block;
   width: 35%;
   
+  h2 {
+    margin-top: 0;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
   .fa {
     vertical-align: top;
     font-size: 18px;

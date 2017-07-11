@@ -126,7 +126,8 @@ class PlansController < ApplicationController
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.get_guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-
+    @selected_guidance_groups = @plan.guidance_groups
+    
     # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
     @important_ggs = []
     @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
@@ -135,11 +136,18 @@ class PlansController < ApplicationController
         @important_ggs << [org,ggs]
         @all_ggs_grouped_by_org.delete(org)
       end
+      
+      # If this is one of the already selected guidance groups its important!
+      if !(ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org,ggs]
+        @all_ggs_grouped_by_org.delete(org)
+      end
     end
 
     # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by{|org,gg| org.name}
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+    @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
     
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
@@ -156,6 +164,7 @@ class PlansController < ApplicationController
   # if we have a phase then we are editing that phase.
   #
   # GET /plans/1/edit
+=begin
   def edit
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -192,7 +201,7 @@ class PlansController < ApplicationController
     
     respond_to :html
   end
-
+=end
 
   # PUT /plans/1
   # PUT /plans/1.json
@@ -200,6 +209,10 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     attrs = plan_params
+
+    # Save the guidance group selections
+    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
+    save_guidance_selections(guidance_group_ids)
 
     respond_to do |format|
       if @plan.update_attributes(attrs)
@@ -213,31 +226,17 @@ class PlansController < ApplicationController
   end
 
 
-
+# TODO: Do we need this is selections are saved with rest of form?
   def update_guidance_choices
     @plan = Plan.find(params[:id])
     authorize @plan
     guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
-    all_guidance_groups = @plan.get_guidance_group_options
-    plan_groups = @plan.guidance_groups
-    guidance_groups = GuidanceGroup.where( id: guidance_group_ids)
-    all_guidance_groups.each do |group|
-      # case where plan group exists but not in selection
-      if plan_groups.include?(group) && ! guidance_groups.include?(group)
-      #   remove from plan groups
-        @plan.guidance_groups.delete(group)
-      end
-      #  case where plan group dosent exist and in selection
-      if !plan_groups.include?(group) && guidance_groups.include?(group)
-      #   add to plan groups
-        @plan.guidance_groups << group
-      end
-    end
+    save_guidance_selections(guidance_group_ids)
     @plan.save
     flash[:notice] = success_message(_('guidance choices'), _('saved'))
     redirect_to action: "show"
   end
-
+  
   def share
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -419,8 +418,31 @@ class PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility)
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
+                                 :grant_number, :description, :identifier, :principal_investigator,
+                                 :principal_investigator_email, :principal_investigator_identifier,
+                                 :data_contact, :data_contact_email, :guidance_group_ids)
   end
+
+  def save_guidance_selections(guidance_group_ids)
+    all_guidance_groups = @plan.get_guidance_group_options
+    plan_groups = @plan.guidance_groups
+    guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+    all_guidance_groups.each do |group|
+      # case where plan group exists but not in selection
+      if plan_groups.include?(group) && ! guidance_groups.include?(group)
+      #   remove from plan groups
+        @plan.guidance_groups.delete(group)
+      end
+      #  case where plan group dosent exist and in selection
+      if !plan_groups.include?(group) && guidance_groups.include?(group)
+      #   add to plan groups
+        @plan.guidance_groups << group
+      end
+    end
+    @plan.save
+  end
+  
 
   # different versions of the same template have the same dmptemplate_id
   # but different version numbers so for each set of templates with the

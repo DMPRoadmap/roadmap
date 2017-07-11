@@ -8,7 +8,7 @@
         <%= f.text_field :title, class: "input-extra-large left-indent", 'data-toggle': "tooltip", 
                 'data-content': _('If applying for funding, state the name exactly as in the grant proposal.') %>
         <div class="under-input">
-          <input type="checkbox" id="is_test" class="left-indent" />
+          <input type="checkbox" id="is_test" class="left-indent"<%= @plan.is_test? ? ' checked=true' : '' %> />
           <label class="inline checkbox-label regular-text" for="is_test">
             <%= _('mock project for testing, practice, or educational purposes') %>
           </label>
@@ -28,8 +28,8 @@
   
       <div class="form-input">
         <%= f.label _('Project Abstract'), for: :description %>
-        <%= text_area_tag('abstract', :description, id: "abstract", class: 'left-indent') %>
-        <%= tinymce(selector: "#abstract", content_css: asset_path('application.css')) %>
+        <%= f.text_area :description, class: "left-indent" %>
+        <%= tinymce(selector: "#plan_description", content_css: asset_path('application.css')) %>
         <div class="inline">
           <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
              data-content="<%= _("<h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>") %>"
@@ -99,44 +99,54 @@
       <h2><%= _('Plan Guidance Configuration') %></h2>
       <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % {application_name: Rails.configuration.branding[:application][:name]} %></p>
       <p><%= _('Select up to 3 organisations to see their guidance.') %></p>
-Important
-      <% @important_ggs.each do |org, groups| %>
-        <div>
+
+      <ul id="priority-guidance-orgs">
+        <% @important_ggs.each do |org, groups| %>
           <% if groups && groups.size == 1 %>
-            <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
-            <%= f.label org.name, for: groups[0].id, class: 'inline checkbox-label regular-text' %>
-          <% elsif groups %>
-            <input type="checkbox" disabled>
-            <label class="inline checkbox-label"><%= org.name %></label>
-            <% groups.each do |group| %>
-              <div class="under-input">
-                <span>└─ </span> 
-                <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
-                <%= f.label group.name, for: group.id %>
-              </div>
-            <% end %>
-          <% end%>
-        </div>
-      <% end %>
-Others
-      <% @all_ggs_grouped_by_org.each do |org, groups| %>
-        <div>
-          <% if groups && groups.size == 1 %>
+						<li>
               <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
-              <%= f.label org.name, for: groups[0].id, class: "left-indent checkbox-label regular-text" %>
+              <%= f.label org.name, for: groups[0].id, class: 'inline checkbox-label regular-text' %>
+						</li>
           <% elsif groups %>
+						<li>
               <input type="checkbox" disabled>
               <label class="inline checkbox-label regular-text"><%= org.name %></label>
-              <% groups.each do |group| %>
-                 <div class="under-input">
-                   <span>└─ </span>
-                   <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
-                   <%= f.label group.name, for: group.id, class: "left-indent checkbox-label regular-text" %>
-                 </div>
-              <% end %>
+						</li>
+            <% groups.each do |group| %>
+              <li class="under-input">
+                <span>└─ </span> 
+                <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
+                <%= f.label group.name, for: group.id, class: "left-indent checkbox-label regular-text" %>
+              </li>
+            <% end %>
+          <% end%>
+        <% end %>
+			</ul>
+
+      <a href="#" id="show-other-guidance-orgs"><%= _('See guidance from additional organisations') %></a>
+
+      <ul id="other-guidance-orgs" style="display: none;">
+        <% @all_ggs_grouped_by_org.each do |org, groups| %>
+          <% if groups && groups.size == 1 %>
+						<li>
+              <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
+              <%= f.label org.name, for: groups[0].id, class: "left-indent checkbox-label regular-text" %>
+						</li>
+          <% elsif groups %>
+						<li>
+              <input type="checkbox" disabled>
+              <label class="inline checkbox-label regular-text"><%= org.name %></label>
+						</li>
+            <% groups.each do |group| %>
+              <li class="under-input">
+                <span>└─ </span>
+                <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
+                <%= f.label group.name, for: group.id, class: "left-indent checkbox-label regular-text" %>
+              </li>
+            <% end %>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+			</ul>
     </div>
   </div>
 <% end %>
