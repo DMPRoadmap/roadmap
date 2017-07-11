@@ -37,6 +37,10 @@ select {
   height: 25px;
 }
 
+select[multiple="true"], select[multiple="multiple"] {
+  height: 65px;
+}
+
 .checkbox-label {
   display: inline-block;
   font-size: 1em;
@@ -50,21 +54,6 @@ select {
   height: 17px;
   margin: 0 4px 0 0;
   padding: 0;
-}
-
-.org-logo {
-  position: absolute;
-  top: -35px;
-  left: 65%;
-  
-  span {
-    width: 150px;
-    vertical-align: top;
-    
-    label {
-      margin-top: 35px;
-    }
-  }
 }
 
 form, fieldset {
@@ -178,8 +167,8 @@ form.roadmap-form {
   label:not(.no-colon):not(.checkbox-label):after {
     content: " :";
   }
-  label.required:after {
-    content: " * :";
+  label.required:before {
+    content: "* ";
   }
   
   .form-input {
@@ -390,12 +379,6 @@ div.accessible-combobox-smaller {
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
 
-/* Home Page */
-/* ------------------------------------------------ */
-.main_page_content .content-two-column {
-/*  min-height: 400px; */
-}
-
 
 /* Sign in/Create account and edit profile forms */
 /* ------------------------------------------------ */
@@ -593,7 +576,7 @@ td.plan-edit-actions {
   position: relative;
   
   fieldset {
-    padding-bottom: 15px;
+    margin-bottom: 10px;
   }
   
   #plan_title {
@@ -674,5 +657,39 @@ div.show-plan {
     label {
       margin-left: 0;
     }
+  }
+}
+
+/* Org edit */
+/* ------------------------------------------------ */
+#edit_org_details {
+  .org-logo {
+    margin-bottom: 10px;
+
+    label, div {
+      vertical-align: top;
+    }
+    
+    img {
+      border: 1px dashed $medium-grey;
+    }
+    
+    #logo-controls {
+      width: 50%;
+      label {
+        text-align: left;
+      }
+      label {
+        width: auto;
+      }
+      #logo-controls-separator {
+        margin-left: 50px;
+        padding: 10px 0 15px 0;
+        text-align: center;
+      }
+    }
+  }
+  #banner-text div.inline {
+    width: 70%;
   }
 }

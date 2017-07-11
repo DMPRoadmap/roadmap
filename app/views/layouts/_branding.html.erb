@@ -2,13 +2,6 @@
 <div class="branding-container">
   <% if user_signed_in? %>
     <% if !current_user.org.nil? %>
-      <!-- Organisation Logo -->
-      <% if current_user.org.logo.present? %>
-        <div class="header-org-logo">
-          <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url), current_user.org.target_url) %>
-        </div>
-      <% end %>
-
       <!-- Banner text -->
       <% if current_user.org.banner_text.present? %>
         <div class="header-org-banner-text">

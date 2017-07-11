@@ -22,11 +22,11 @@ class RegistrationsController < Devise::RegistrationsController
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
       if oauth[:provider].nil? || oauth[:uid].nil?
-        flash[:notice] = t('identifier_schemes.new_login_failure')
+        flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
 
       else
         # Connect the new user with the identifier sent back by the OAuth provider
-        flash[:notice] = t('identifier_schemes.new_login_success')
+        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
         UserIdentifier.create(identifier_scheme: oauth[:provider].upcase,
                               identifier: oauth[:uid],
                               user: @user)
@@ -149,12 +149,12 @@ class RegistrationsController < Devise::RegistrationsController
       end
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
-      set_flash_message :notice, _('Details successfully updated.')
+      set_flash_message :notice, success_message(_('profile'), _('saved'))
       sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
-      redirect_to edit_user_registration_path(tab: @tab), notice: _('Details successfully updated.')
+      redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('profile'), _('saved'))
 
     else
-      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
   end
@@ -173,12 +173,12 @@ class RegistrationsController < Devise::RegistrationsController
     if successfully_updated
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
-      set_flash_message :notice, _('Details successfully updated.')
+      set_flash_message :notice, success_message(_('password'), _('saved'))
       sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
-      redirect_to edit_user_registration_path(tab: @tab), notice: _('Details successfully updated.')
+      redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('password'), _('saved'))
 
     else
-      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
   end

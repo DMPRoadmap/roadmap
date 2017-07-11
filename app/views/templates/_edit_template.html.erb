@@ -12,9 +12,9 @@
       <%= f.label _('Description'), for: template.description %>
       <%= text_area_tag("template-desc", template.description, class: "input-large tinymce") %>
       <div class="inline">
-        <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-           data-content="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
-        <span class="fa fa-question-circle"></span></a>
+        <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+           data-content="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>" aria-label="<% _('More information: Template descriptions') %>">
+        <span class="fa fa-question-circle" aria-hidden="true"></span></a>
       </div>
     </div>
     <div class="form-input">

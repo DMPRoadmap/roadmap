@@ -5,11 +5,11 @@
     <% if scheme.user_landing_url.nil? %>
       <%= _("Your account has been linked to #{scheme.description}.") %>
     <% else %>
-      <%= link_to (image_tag("#{scheme.logo_url}", id: 'orcid-id-logo')) + "#{scheme.user_landing_url}/#{id.identifier}", "#{scheme.user_landing_url}/#{id.identifier}", id: 'orcid-id', target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
+      <%= link_to (image_tag("#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description)) + "#{scheme.user_landing_url}/#{id.identifier}", "#{scheme.user_landing_url}/#{id.identifier}", id: 'orcid-id', target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
     <% end %>
-    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="false"></i>'.html_safe, 
-                destroy_user_identifier_path(id), method: :delete,
-                title: _("Unlink your account from #{scheme.description}. You can link again at any time."),
+    <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
+    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
+                destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title,
                 data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
   <% end %>
 </div>

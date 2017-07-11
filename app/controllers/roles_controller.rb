@@ -28,7 +28,7 @@ class RolesController < ApplicationController
             if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
             flash[:notice] = message
           else
-            flash[:notice] = failed_create_error(@role, _('role'))
+            flash[:alert] = failed_create_error(@role, _('role'))
           end
         end
       end
@@ -45,11 +45,11 @@ class RolesController < ApplicationController
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if @role.update_attributes(role_params)
-      flash[:notice] = _('Sharing details successfully updated.')
+      flash[:notice] = success_message(_('sharing details'), _('saved'))
       UserMailer.permissions_change_notification(@role, current_user).deliver_now
       redirect_to controller: 'plans', action: 'share', id: @role.plan.id
     else
-      flash[:notice] = failed_create_error(@role, _('role'))
+      flash[:alert] = failed_create_error(@role, _('role'))
       render action: "edit"
     end
   end

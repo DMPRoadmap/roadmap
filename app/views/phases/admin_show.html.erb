@@ -15,7 +15,7 @@
            aria-hidden="false" aria-labelledby="phase-<%= @phase.id %>-tab">
 
         <div class="accordion">
-          <h2><%= _('Phase details')%><span class="fa fa-minus"> </span></h2>
+          <h2><%= _('Phase details')%><span class="fa fa-minus" aria-hidden="true"> </span></h2>
           
           <!--phase details -->
           <div class="phase_details">
@@ -35,7 +35,7 @@
           
           <!-- sections, questions and guidance details-->
           <% @sections.order("number ASC").each do |section| %>
-            <h2><%= section.title %><span class="fa fa-plus"></span></h2>
+            <h2><%= section.title %><span class="fa fa-plus" aria-hidden="true"></span></h2>
             <div>
               <% if @edit && section.modifiable %>
                 <%= render partial: 'sections/edit_section', locals: {section: section, edit: @edit, phase: @phase} %>
@@ -46,7 +46,7 @@
           <% end %>
           
           <% if @edit || @phase.template.customization_of.present? %>
-            <h2><%= _('Add section') %><span class="fa fa-plus"></span></h2>
+            <h2><%= _('Add section') %><span class="fa fa-plus" aria-hidden="true"></span></h2>
             <!-- add section block -->
             <div id="add_section_block_div" style="display: none">
               <%= render partial: 'sections/add_section', locals: {phase: @phase} %>

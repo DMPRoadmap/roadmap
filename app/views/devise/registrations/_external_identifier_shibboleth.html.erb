@@ -13,10 +13,10 @@
       <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 
           title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
     <% end %>
-    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="false"></i>'.html_safe, 
-                destroy_user_identifier_path(id), method: :delete,
-                title: _("Unlink your account from #{scheme.description}. You can link again at any time."),
-								'data-toggle': "modal", 'dialog-width': "450px",
+    <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
+    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
+                destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title,
+                'data-toggle': "modal", 'dialog-width': "450px",
                 data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
   <% end %>
 </div>

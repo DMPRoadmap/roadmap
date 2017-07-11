@@ -48,7 +48,7 @@
       <% sectionid = section.id %>
       <h2 class="accordion_heading_text" id="section-progress-<%= sectionid %>">
         <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
-        <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>"></span>
+        <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>" aria-hidden="true"></span>
       </h2>
       <div class="accordion-group">
         <!-- accordion body -->

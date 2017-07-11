@@ -31,9 +31,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     sign_in @user
     
-puts "USER: #{@user.org.inspect}"
-puts "ORG: #{Org.last.inspect}"
-    
     get admin_index_users_path
     assert_response :success
     assert assigns(:users)
@@ -67,7 +64,7 @@ puts "ORG: #{Org.last.inspect}"
 
     # Valid save
     put admin_update_permissions_user_path(@user.org.users.last), {user: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully')
     assert_response :redirect
     assert_redirected_to admin_index_users_url
     @user.org.users.last.perms.each do |perm|

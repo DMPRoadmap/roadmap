@@ -96,13 +96,13 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     post admin_create_guidance_path(@user.org), params
     assert_response :redirect
     assert_redirected_to admin_edit_guidance_path(Guidance.last)
-    assert_equal _('Guidance was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert assigns(:guidance)
     assert_equal 'Testing create', Guidance.last.text, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_guidance_path(@user.org), {'guidance-text': nil, guidance: {published: false}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:guidance)
   end
@@ -120,14 +120,14 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     put admin_update_guidance_path(Guidance.first), params
     assert_response :redirect
-    assert_equal _('Guidance was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_redirected_to "#{admin_edit_guidance_path(Guidance.first)}?guidance_group_id=#{GuidanceGroup.first.id}"
     assert assigns(:guidance)
     assert_equal 'Testing UPDATE', Guidance.first.text, "expected the record to have been updated"
     
     # Invalid object
     put admin_update_guidance_path(Guidance.first), {'guidance-text': nil, guidance: {guidance_group_id: GuidanceGroup.first.id}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:guidance)
   end
@@ -145,7 +145,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_guidance_path(Guidance.first)
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path
-    assert_equal _('Guidance was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert assigns(:guidance)
     assert_raise ActiveRecord::RecordNotFound do 
       Guidance.find(id).nil?

@@ -91,7 +91,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
     # Valid save
     put role_path(role), {role: params}
-    assert_equal _('Sharing details successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to share_plan_path(@plan)
     assert assigns(:role)

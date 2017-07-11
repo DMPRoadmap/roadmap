@@ -50,20 +50,20 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     post admin_create_annotation_path(id: Annotation.first.id), params_both
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal "some guidance text", Annotation.last.text, "expected the guidance to have been created!"
     assert_equal "example answer text", Annotation.all[-2].text, "expected the example answer to have been created"
     # just an example answer
     post admin_create_annotation_path(id: Annotation.first.id), params_example
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal "example answer text", Annotation.last.text, "expected the record to have been created!"
     # just some guidance
     post admin_create_annotation_path(id: Annotation.first.id), params_guid
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal "some guidance text", Annotation.last.text, "expected the record to have been created!"
 
   end
@@ -84,19 +84,19 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
 
     # Valid save for guidance only
     put admin_update_annotation_path(id: Annotation.first.id), params_guid
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
     assert_equal 'UPDATE', Annotation.first.text, "expected the record to have been updated"
     # valid save for example only
     put admin_update_annotation_path(id: Annotation.first.id), params_example
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
     assert_equal 'UPDATE', Annotation.first.text, "expected the record to have been updated"
     # valid save for both example answer and guidance
     put admin_update_annotation_path(id: Annotation.first.id), params_both
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&question_id=#{@question.id}&section_id=#{@question.section.id}"
     assert_equal 'gUPDATE', Annotation.first.text, "expected the record to have been updated"
@@ -115,7 +115,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     delete admin_destroy_annotation_path(id: id)
-    assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_response :redirect
     assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?edit=true&section_id=#{@question.section.id}"
     assert assigns(:question)

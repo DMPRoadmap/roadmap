@@ -1,8 +1,14 @@
 <!-- header information -->
 <div class="header-left">
-  <div class="home-logo">
-    <%= link_to(image_tag("logo.png"), root_path)%>
-  </div>
+  <% if user_signed_in? && !current_user.org.nil? && current_user.org.logo.present? %>
+    <div class="home-logo">
+      <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url, alt: current_user.org.name), current_user.org.target_url) %>
+    </div>
+  <% else %>
+    <div class="home-logo roadmap-logo">
+      <%= link_to(image_tag("logo.png", alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}"), root_path, title: Rails.configuration.branding[:application][:name]) %>
+    </div>
+  <% end %>
 </div>
 <div class="header-right">  
   <div class="org-branding">

@@ -21,7 +21,7 @@ class OrgsController < ApplicationController
 
     begin
       if @org.update_attributes(org_params)
-        flash[:notice] = _('Organisation was successfully updated.')
+        flash[:notice] = success_message(_('organisation'), _('saved'))
         render action: "admin_edit" 
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 
@@ -48,7 +48,7 @@ class OrgsController < ApplicationController
     @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
     
     if @orgs.empty?
-      flash[:notice] = _('No institutions are currently registered.')
+      flash[:alert] = _('No institutions are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path 
     end
   end
@@ -70,7 +70,7 @@ class OrgsController < ApplicationController
         #initiate shibboleth login sequence
         redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
       else
-        flash[:notice] = _('Your institution does not seem to be properly configured.')
+        flash[:alert] = _('Your institution does not seem to be properly configured.')
         redirect_to shibboleth_ds_path
       end
 

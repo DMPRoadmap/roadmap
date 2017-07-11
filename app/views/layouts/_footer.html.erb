@@ -2,6 +2,8 @@
 <div class="footer-left">
   <div>
     <ul class="footer-links">  
+      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
+      <li class="muted">|</li>
       <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
       <li class="muted">|</li>
       <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
@@ -12,6 +14,6 @@
 
 
 <div class="footer-right">
-  <p><%= link_to( image_tag("dcc_logo.png"), "http://www.dcc.ac.uk/", title: "Digital Curation Centre", ) %> 
-<%= link_to( image_tag("uc3_logo.jpg", class: "footer_logo"), "http://www.cdlib.org/uc3/", title: "California Digital Library", id: "footer_right_uc3", ) %></p>
+  <p><%= link_to( image_tag("dcc_logo.png", alt: 'Digital Curation Centre'), "http://www.dcc.ac.uk/", title: "Digital Curation Centre") %> 
+<%= link_to( image_tag("uc3_logo.jpg", class: "footer_logo", alt: 'University of California Curation Center'), "http://www.cdlib.org/uc3/", title: "University of California Curation Center", id: "footer_right_uc3", ) %></p>
 </div>  

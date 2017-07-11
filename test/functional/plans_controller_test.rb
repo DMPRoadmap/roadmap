@@ -87,7 +87,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     post plans_path(format: :js), params
-    assert flash[:notice].include?(_('Plan was successfully created.'))
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :success
     assert assigns(:plan)
     assert_equal "Testing Create", Plan.last.title, "expected the record to have been created"
@@ -121,14 +121,14 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who is does not have access to the plan
     sign_in User.first
     put plan_path(@plan), {plan: params}
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
     sign_in @user
 
     put plan_path(@plan), {plan: params}
-    assert_equal _('Plan was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to plan_url(@plan)
     assert assigns(:plan)
@@ -152,14 +152,14 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who is does not have access to the plan
     sign_in User.first
     put plan_path(@plan, format: :js)
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
     sign_in @user
     post duplicate_plan_path(@plan, format: :js)
     @duplicate_plan = Plan.last
-    assert_equal _('Plan was successfully duplicated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('copied')
     assert_response :success
     assert assigns(:plan)
     assert_equal 'Copy of Test Plan', @duplicate_plan.title, "Copy of"
@@ -177,13 +177,13 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who is does not have access to the plan
     sign_in User.first
     delete plan_path(@plan)
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
     sign_in @user
     delete plan_path(@plan)
-    assert_equal _('Plan was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_response :redirect
     assert assigns(:plan)
     assert_redirected_to plans_path
@@ -209,7 +209,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     # User who does not have access to the plan
     sign_in User.first
     put update_guidance_choices_plan_path(@plan, format: :json), params
-    assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+    assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
@@ -295,7 +295,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
       # User who is does not have access to the plan
       sign_in User.first
       get target
-      assert_equal _('You are not authorized to perform this action.'), flash[:notice]
+      assert_equal _('You are not authorized to perform this action.'), flash[:alert]
       assert_response :redirect
       assert_redirected_to plans_url
     end

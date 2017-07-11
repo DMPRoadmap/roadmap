@@ -56,7 +56,7 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     put admin_update_org_path(@org), {org: params}
-    assert_equal _('Organisation was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :success
     assert assigns(:org)
     assert_equal 'Testing UPDATE', @org.reload.name, "expected the record to have been updated"

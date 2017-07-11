@@ -62,23 +62,18 @@
       <header>
         <%= render "layouts/header" %>
       </header>
-      
-      <main>
-        <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
 
-        <% if notice || flash[:notice] %>
-          <div class="roadmap-info-box">
-            <i class="fa fa-check-circle-o"></i>
-            <span><%= raw notice %></span>
-          </div>
-        <% end %>
-        <% if alert || flash[:alert] || flash[:error] %>
-          <div class="roadmap-alert-box">
-            <i class="fa fa-times-circle"></i>
-             <span><%= raw alert %></span>
-          </div>
-        <% end %>
-      
+      <div class="roadmap-info-box" style="visibility: <%= (notice || flash[:notice]) ? 'visible' : 'hidden' %>;"<%= (notice || flash[:notice]) ? ' role=status' : '' %>>
+        <i class="fa fa-check-circle" aria-hidden="true"></i>
+        <span class="aria-only"><%= _('Notice:') %> </span>
+        <span><%= raw notice %></span>
+      </div>
+      <div class="roadmap-alert-box" style="visibility: <%= (alert || flash[:alert] || flash[:error]) ? 'visible' : 'hidden' %>;"<%= (alert || flash[:alert] || flash[:error]) ? ' role=alert' : '' %>>
+        <i class="fa fa-times-circle" aria-hidden="true"></i>
+        <span><%= raw alert %></span>
+      </div>
+
+      <main>
         <div class="page">
           <%= yield %>
         </div>  
