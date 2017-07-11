@@ -323,4 +323,28 @@ class TemplatesController < ApplicationController
     @current = Template.current(@template.dmptemplate_id)
   end
 
+  # PUT /org/admin/templates/:id/admin_copy
+  # -----------------------------------------------------
+  def admin_copy
+    @template = Template.find(params[:id])
+    authorize @template
+
+    new_copy = Template.deep_copy(@template)
+    new_copy.title = "Copy of " + @template.title
+    new_copy.version = 0
+    new_copy.published = false
+    new_copy.dmptemplate_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
+
+    if new_copy.save
+      flash[:notice] = 'Template was successfully copied.'
+      redirect_to admin_template_template_path(id: new_copy.id, edit: true), notice: _('Information was successfully created.')
+    else
+      flash[:alert] = failed_create_error(new_copy, _('template'))
+    end
+
+  end
+
 end
