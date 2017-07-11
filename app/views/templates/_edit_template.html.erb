@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="form-input">
-      <label for="status"><%= _('Status') %></label>
+      <%= label_tag(:status, _('Status')) %>
       <div id="status" class="read-only">
         <% if hash[:live].nil? %>
           <%= _('Unpublished') %>
@@ -32,13 +32,13 @@
       </div>
     </div>
     <div class="form-input">
-      <label for="created"><%= _('Created at') %></label>
+      <%= label_tag(:created, _('Created at')) %>
       <div id="created" class="read-only">
         <%= l template.created_at.to_date, formats: :short %>
       </div>
     </div>
     <div class="form-input">
-      <label for="updated"><%= _('Last updated') %></label>
+      <%= label_tag(:updated, _('Last updated')) %>
       <div id="updated" class="read-only">
         <%= l template.updated_at.to_date, formats: :short %>
       </div>

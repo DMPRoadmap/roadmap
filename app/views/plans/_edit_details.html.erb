@@ -38,7 +38,7 @@
   
       <br />
       <div>
-        <label><strong><%= _('Data Contact Person') %></strong></label>
+        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>"), class: 'no-colon') %>
       </div>
       <div class="form-input">
         <%= f.label _('Name'), for: :data_contact %>
@@ -50,22 +50,37 @@
       <br />
       <div class="form-input">
         <div class="button-spacer">&nbsp;</div>
-        <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+        <%= submit_tag(_('Save'), class: 'form-submit') %>
       </div>
     </fieldset>
   </div>
 
   <div class="edit-plan-right">
     <fieldset class="standard">
-      <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= visibility %>" />
+      <%= f.hidden_field(:visibility, value: visibility) %>
       <span class="fa fa-question-circle"></span>
       <div class="left-indent inline">
-        <label for="visibility"> <%= _('Plan Visibility') %></label>
+        <%= f.label(:visibility, _('Plan Visibility')) %>
         <div class="left-indent">(<%= _('Limited to finished plans') %>)</div>
         <br />
-        <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(visibility) ? ' checked=true' : '' %> /><%= raw display_visibility('privately_visible') %></div>
-        <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('organisationally_visible') %></div>
-        <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('publicly_visible') %></div>
+        <div>
+          <%= radio_button_tag(:vis, 0, !['publicly_visible', 'organisationally_visible'].include?(visibility),
+              class: 'right-indent',
+              id:'privately_visible') %>
+          <%= raw display_visibility('privately_visible') %>
+        </div>
+        <div>
+          <%= radio_button_tag(:vis, 0, 'organisationally_visible' == visibility,
+              class: 'right-indent',
+              id: 'organisationally_visible') %>
+          <%= raw display_visibility('organisationally_visible') %>
+        </div>
+        <div>
+          <%= radio_button_tag(:vis, 0, 'publicly_visible' == visibility,
+              class: 'right-indent',
+              id: 'publicly_visible') %>
+          <%= raw display_visibility('publicly_visible') %>
+        </div>
       </div>
     </fieldset>
     
@@ -74,8 +89,7 @@
       <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % {application_name: Rails.configuration.branding[:application][:name]} %></p>
       <br />
       <p><% _('Select up to 3 organisations to see their guidance.') %></p>
-      
-<%= @important_ggs.inspect %>
+      <% #@important_ggs.inspect %>
     </div>
   </div>
 <% end %>

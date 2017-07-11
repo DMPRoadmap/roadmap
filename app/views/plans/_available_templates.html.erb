@@ -1,14 +1,13 @@
 <legend><%= _('Which DMP template would you like to use?') %></legend>
 
 <div class="form-left-side left-indent">
-  <label for="plan_template_selector">
-    <%= _('Select a template') %>
-  </label>
+  <%= label_tag(:plan_template_selector, _('Select a template')) %>
 
-  <select id="plan_template_selector" class="left-indent input-extra-large">
-    <option value=""><%= _('Please select one') %></option>
-    <%= raw @templates.collect{|t| "<option value=\"#{t.id}\">#{t.title}</option>" }.join('') %>
-  </select>
+  <%= select_tag(:plan_template_selector,
+    options_from_collection_for_select(@templates, 'id', 'title'),
+    class: 'left-indent input-extra-large',
+    prompt: _('Please select one'))
+  %>
 </div>
 
 <div class="form-right-side">

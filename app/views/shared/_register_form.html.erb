@@ -4,23 +4,21 @@
   <fieldset id="create-account-form" class="standard padded">
     <div class="inline">
       <div class="form-input">
-        <label for="user_firstname"><%= _('First Name') %></label>
-        <input type="text" id="user_firstname" name="user[firstname]" 
-               class="input-small required left-indent" />
+        <%= f.label(:firstname, _('First Name'), class: 'required') %>
+        <%= f.text_field(:firstname, class: 'input-small required left-indent') %>
       </div>
     </div>
     <div class="inline">
       <div class="form-input">
-        <label for="user_surname"><%= _('Last Name') %></label>
-        <input type="text" id="user_surname" name="user[surname]" 
-               class="input-small required left-indent" />
+        <%= f.label(:surname, _('Last Name'), class: 'required') %>
+        <%= f.text_field(:surname, class: 'input-small required left-indent') %>
       </div>
     </div>
     
     <!-- Register form email address -->
     <div class="form-input">
-      <label for="user_email"><%= _('Email') %></label>
-      <input type="email" id="user_email" name="user[email]" class="left-indent required" />
+      <%= f.label(:email, _('Email'), class: 'required') %>
+      <%= f.email_field(:email, class: 'left-indent required') %>
       <span role="" id="email_error" class="error-tooltip left-indent"></span>
     </div>
     
@@ -38,31 +36,31 @@
     
     <!-- Register form recovery email address -->
     <div class="form-input">
-      <label for="user_email"><%= _('Recovery Email') %></label>
-      <input type="email" id="user_recovery_email" name="user[recovery_email]" 
-             class="left-indent required"
-              title="<%= _('We will only use this address to recover your account if you change institutions') %>"/>
+      <%= f.label(:recovery_email, _('Recovery Email'), class: 'required') %>
+      <%= f.email_field(:recovery_email,
+        class: 'left-indent required',
+        title: _('We will only use this address to recover your account if you change institutions')) %>
       <span role="" id="recovery_email_error" class="error-tooltip left-indent"></span>
     </div>
     
     <!-- Register form password -->
     <div class="form-input">
-      <label for="user_password"><%= _('Password') %></label>
-      <input type="password" id="user_password" name="user[password]" 
-             class="left-indent required" value="" />
+      <%= f.label(:password, _('Password'), class: 'required') %>
+      <%= f.password_field(:password, class: 'left-indent required') %>
       <span role="" id="password_error" class="error-tooltip left-indent"></span>
     
       <div class="form-input checkbox-right">
-        <label for="password_show" class="checkbox-label"><%= _('Show password') %></label>
-        <input type="checkbox" id="password_show" />
+        <%= label_tag(:password_show, _('Show password'), class: 'checkbox-label') %>
+        <%= check_box_tag(:password_show, "1", false) %>
       </div>
     </div>
     
     <!-- Register form terms -->
     <div class="form-input top-indent">
-      <input type="checkbox" id="user_accept_terms" name="user[accept_terms]" 
-             class="required right-indent" />
-      <label for="user_accept_terms"><%= _('I accept the') %> <a href="<%= terms_path %>"><%= _('terms and conditions') %></a></label>
+      <%= f.check_box(:accept_terms, class: 'required right-indent') %>
+      <%= f.label(:accept_terms,
+          raw("#{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>"),
+          class: 'no-colon') %>
     </div>          
     
     <div class="form-input top-indent">

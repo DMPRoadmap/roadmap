@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user.create_default_preferences if @user.prefs == {}
-    @languages = Language.all.order("name")
+    @languages = Language.sorted_by_abbreviation
     @orgs = Org.where(parent_id: nil).order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
