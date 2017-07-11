@@ -171,9 +171,9 @@ in the admin interface.
     <!-- submit buttons -->
     <div class="move_2_right">
       <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
-      <%= f.submit _('Save'), class: "btn btn-primary new_question_save_button" %>
+      <%= f.submit _('Save'), class: "btn btn-primary new_question_save_button", role:'button' %>
       <%= hidden_field_tag :section_id, section.id, class: "section_id_new" %>
-      <%= link_to _('Cancel'), '#', class: "btn cancel cancel_add_new_question" %>
+      <%= link_to _('Cancel'), '#', class: "btn cancel cancel_add_new_question", role: 'button' %>
     </div>
   </div>
 

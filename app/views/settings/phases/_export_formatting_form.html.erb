@@ -10,8 +10,8 @@
 
 <%= form_for(@export_settings, url: settings_plan_path(plan), method: :put, as: :export) do |f| %>
   <div class="div_right">
-    <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
-    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}") %>
+    <%= submit_tag(_('Reset'), class: "btn btn-primary", role:'button')%>
+    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}", role:'button') %>
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= _('Unsaved changes') %></span>
   <div id="custom-export-title">
@@ -31,7 +31,9 @@
   <h3><%= _('Included Elements') %></h3>
   <div class="div_clear"> </div>
   <fieldset class="check_select">
-    <legend><label for="admin_details_toggle"><%= _('Details') %></label></legend>
+    <legend>
+      <%= label_tag(:admin_details_toggle, _('Details')) %>
+    </legend>
     <ol>
     <% Settings::Template::VALID_ADMIN_FIELDS.each do |field|
          name = "export[fields][admin][#{field}]"
@@ -44,13 +46,15 @@
     </ol>
   </fieldset>
   <fieldset class="check_select sections">
-    <legend><label for="sections_toggle"><%= _('Sections') %></label></legend>
+    <legend>
+      <%= label_tag(:sections_toggle, _('Sections')) %>
+    </legend>
     <ol>
         <% phase.sections.each do |section| %>
           <li>
             <fieldset class="check_select">
               <legend title="<%= section.title -%>">
-                <label for="section_toggle_<%= section.id -%>"><%= section.title -%></label>
+                <%= label_tag("section_toggle_#{section.id}", section.title) %>
               </legend>
               <ol>
                 <% section.questions.each do |question|
@@ -102,8 +106,8 @@
     </fieldset>
   </div>
   <div class="div_right">
-    <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
-    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}") %>
+    <%= submit_tag(_('Reset'), class: "btn btn-primary", role:'button') %>
+    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}", role:"button") %>
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= _('Unsaved changes') %></span>
   <div class="div_clear"> </div>

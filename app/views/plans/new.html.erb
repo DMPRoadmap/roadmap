@@ -15,14 +15,11 @@
         <legend><%= _('What research project are you planning?') %></legend>
         
         <div class="form-left-side">
-          <input type="text" id="plan_title" name="plan[title]" class="left-indent" 
-                 data-toggle="tooltip" 
-                 data-content="<%= _('If applying for funding, state the project title exactly as in the proposal.') %>" />
-
-          <input type="checkbox" id="is_test" class="left-indent" />
-          <label class="inline checkbox-label" for="is_test">
-            <%= _('mock project for testing, practice, or educational purposes') %>
-          </label>
+          <%= f.text_field(:title, class: 'left-indent',
+              'data-toggle': 'tooltip',
+              'data-content': _('If applying for funding, state the project title exactly as in the proposal.')) %>
+          <%= check_box_tag(:is_test, "1", false, class: 'left-indent') %>
+          <%= label_tag(:is_test, _('mock project for testing, practice, or educational purposes'), class: 'inline checkbox-label') %>
         </div>
       </fieldset>
 
@@ -42,12 +39,12 @@
         
         <div class="form-right-side">
           <p class="inline"><strong>- <%= _('or') %> -</strong></p>
-          <input type="checkbox" id="plan_no_org">
-          <label for="plan_no_org" class="checkbox-label">
-            <%= _('My research organisation is not on the list') %>
-            <em><%= _(' or ') %></em><br />
-            <%= _('no research organisation is associated with this plan')%>
-          </label>
+          <%= check_box_tag(:plan_no_org) %>
+          <%= label_tag(:plan_no_org, raw("
+            #{_('My research organisation is not on the list')}
+            <em>#{_(' or ')}</em>
+            #{_('no research organisation is associated with this plan')}
+            "), class: 'checkbox-label') %>
         </div>
       </fieldset>
     
@@ -67,10 +64,8 @@
         </div>
         <div class="form-right-side">
           <p class="inline"><strong>- <%= _('or') %> -</strong></p>
-          <input type="checkbox" id="plan_no_funder" />
-          <label for="plan_no_funder" class="checkbox-label">
-            <%= _('No funder associated with this plan')%>
-          </label>
+          <%= check_box_tag(:plan_no_funder) %>
+          <%= label_tag(:plan_no_funder, _('No funder associated with this plan'), class: 'checkbox-label') %>
         </div>
       </fieldset>
 
@@ -82,9 +77,8 @@
     
     <fieldset class="standard" id="available-templates">
       <div class="form-left-side">
-        <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
-        <input type="hidden" id="plan_visibility" name="plan[visibility" value="<%= @is_test ? 'is_test' : Rails.application.config.default_plan_visibility %>"></input>
-    
+        <%= f.hidden_field(:template_id) %>
+        <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
         <%= render partial: 'shared/accessible_submit_button',
                    locals: {id: 'create_plan_submit', 
                             val: 'Create Plan', 

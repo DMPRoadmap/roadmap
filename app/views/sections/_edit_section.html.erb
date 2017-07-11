@@ -29,12 +29,12 @@
       <br />
       <div class="form-input">
         <div class="button-spacer">&nbsp;</div>
-        <%= s.submit _('Save'), class: 'btn btn-primary' %>
+        <%= s.submit _('Save'), class: 'btn btn-primary', role:'button' %>
         <% if section.modifiable %>
           <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
-          confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: "btn btn-primary"%>
+          confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: "btn btn-primary", role:'button'%>
         <% end %>
-        <%= link_to _('Cancel'), :back, class: 'btn cancel' %>
+        <%= link_to _('Cancel'), :back, class: 'btn cancel', role:'button' %>
       </div>
     </fieldset>
   <% end %>
@@ -69,7 +69,7 @@
   <div id="add_question_button_div_<%= section.id%>">
     <div class="div_left">
       <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
-      <%= link_to _('Add question'), '#', class: "btn btn-primary add_question_button" %>
+      <%= link_to _('Add question'), '#', class: "btn btn-primary add_question_button", role:'button'%>
     </div>
   </div>
 <% end %>
