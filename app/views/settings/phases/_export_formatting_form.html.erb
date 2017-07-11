@@ -10,8 +10,8 @@
 
 <%= form_for(@export_settings, url: settings_plan_path(plan), method: :put, as: :export) do |f| %>
   <div class="div_right">
-    <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
-    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}") %>
+    <%= submit_tag(_('Reset'), class: "btn btn-primary", role:'button')%>
+    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.id}", role:'button') %>
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= _('Unsaved changes') %></span>
   <div id="custom-export-title">
@@ -102,8 +102,8 @@
     </fieldset>
   </div>
   <div class="div_right">
-    <%= submit_tag(_('Reset'), class: "btn btn-primary") %>
-    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}") %>
+    <%= submit_tag(_('Reset'), class: "btn btn-primary", role:'button') %>
+    <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}", role:"button") %>
   </div>
   <span class="label label-inverse unsaved_changes_alert" style="display:none;"><%= _('Unsaved changes') %></span>
   <div class="div_clear"> </div>

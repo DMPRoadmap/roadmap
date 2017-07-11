@@ -39,9 +39,9 @@
       <br />
       <div class="form-input">
         <div class="button-spacer">&nbsp;</div>
-        <%= f.submit _('Save'), class: 'btn btn-primary' %>
+        <%= f.submit _('Save'), class: 'btn btn-primary', role:"button" %>
         <% if @guidance_group.published == false then %>
-          <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary" %>
+          <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary", role:"button" %>
         <% end %>
       </div>
     </fieldset>
