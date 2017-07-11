@@ -1,81 +1,143 @@
-<% javascript('views/plans/edit.js') %>
+<% javascript('views/plans/show.js') %>
 
 <%= form_for plan, html: {method: :put, class: "roadmap-form"} do |f| %>
   <div class="edit-plan-left">
-    <fieldset class="side-by-side">
+    <fieldset class="standard padded">
       <div class="form-input">
-        <%= f.label "#{_('Project Title')} #{_('(required)')}", for: :title %>
-        <%= f.text_field :title, class: "input-large has-tooltip", 'data-toggle': "tooltip", 
-                'title': _('If applying for funding, state the name exactly as in the grant proposal.') %>
+        <%= f.label "#{_('Project Title')}", for: :title, class: 'required' %>
+        <%= f.text_field :title, class: "input-extra-large left-indent", 'data-toggle': "tooltip", 
+                'data-content': _('If applying for funding, state the name exactly as in the grant proposal.') %>
+        <div class="under-input">
+          <input type="checkbox" id="is_test" class="left-indent" />
+          <label class="inline checkbox-label regular-text" for="is_test">
+            <%= _('mock project for testing, practice, or educational purposes') %>
+          </label>
+        </div>
       </div>
-  
+      
+      <div class="form-input">
+        <%= f.label "#{_('Funder')}", for: :funder_name %>
+        <%= f.text_field :funder_name, class: "input-large left-indent" %>
+      </div>
+      
       <div class="form-input">
         <%= f.label :grant_number %>
-        <%= f.text_field :grant_number, class: 'input-small has-tooltip', 'data-toggle': "tooltip", 
-                'title': _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
-      </div>
-  
-      <div class="form-input">
-        <%= f.label :principal_investigator %>
-        <%= f.text_field :principal_investigator, class: 'input-medium has-tooltip', 'data-toggle': "tooltip", 
-                'title': _('Name of Principal Investigator(s) or main researcher(s) on the project.') %>
+        <%= f.text_field :grant_number, class: 'input-small left-indent', 'data-toggle': "tooltip", 
+                'data-content': _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
       </div>
   
       <div class="form-input">
         <%= f.label _('Project Abstract'), for: :description %>
-        <%= f.text_area :description, { rows: 7, class: 'input-large has-tooltip', 
-                'data-toggle': "tooltip", 'data-html': "true", 
-                'title': _("<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>")} %>
+        <%= text_area_tag('abstract', :description, id: "abstract", class: 'left-indent') %>
+        <%= tinymce(selector: "#abstract", content_css: asset_path('application.css')) %>
+        <div class="inline">
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+             data-content="<%= _("<h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>") %>"
+             aria-label="<%= _('More information: Guidance') %>">
+          <span class="fa fa-question-circle" aria-hidden="true"></span></a>
+        </div>
       </div>
-  
-      <hr />
   
       <div class="form-input">
-        <%= f.label _('Plan ID'), for: :identifier %>
-        <%= f.text_field :identifier, class: 'input-medium has-tooltip', 'data-toggle': "tooltip", 
-                'title': _('A pertinent ID as determined by the funder and/or institution.') %>
+        <%= f.label _('ID'), for: :identifier %>
+        <%= f.text_field :identifier, class: 'input-medium left-indent', 'data-toggle': "tooltip", 
+                'data-content': _('A pertinent ID as determined by the funder and/or institution.') %>
       </div>
   
+      <div class="form-separator"></div>
+  
+      <div>
+        <label class="no-colon"><strong><%= _('Principal Investigator') %></strong></label>
+      </div>
+
+      <div class="form-input">
+        <%= f.label _('Name'), for: :principal_investigator, 'aria-label': _('Principal Investigator Name') %>
+        <%= f.text_field :principal_investigator, class: 'input-medium left-indent' %>
+      </div>
+
+      <div class="form-input">
+        <%= f.label _('ORCID ID'), for: :principal_investigator_identifier, 'aria-label': _('Principal Investigator ORCID ID') %>
+        <%= f.text_field :principal_investigator_identifier, class: 'input-medium left-indent' %>
+      </div>
+
+      <div class="form-input">
+        <%= f.label _('Email'), for: :principal_investigator_email, 'aria-label': _('Principal Investigator Email') %>
+        <%= f.email_field :principal_investigator_email, class: 'input-medium left-indent' %>
+      </div>
+
       <br />
       <div>
-        <label><strong><%= _('Data Contact Person') %></strong></label>
+        <label class="no-colon"><strong><%= _('Data Contact Person') %></strong></label>
       </div>
-      <div class="form-input">
-        <%= f.label _('Name'), for: :data_contact %>
-        <%= f.text_field :data_contact, class: 'input-medium has-tooltip', 'data-toggle': "tooltip", 
-                'title': _('Name (if different to above), telephone and email contact details') %>
+      <div>
+        <input type="checkbox" id="show-data-contact" class="left-indent"<%= (@plan.data_contact.blank? && @plan.data_contact_email.blank? ? ' checked="checked"' : '') %> />
+        <label class="inline checkbox-label" for="show-data-contact">
+          <%= _('Same as Principal Investigator') %>
+        </label>
+      </div>
+      <div class="form-input data-contact-info">
+        <%= f.label _('Name'), for: :data_contact, 'aria-label': _('Data Contact Name') %>
+        <%= f.text_field :data_contact, class: 'input-medium left-indent' %>
+      </div>
+      
+      <div class="form-input data-contact-info">
+        <%= f.label _('Email'), for: :data_contact_email, 'aria-label': _('Data Contact Email') %>
+        <%= f.email_field :data_contact_email, class: 'input-medium left-indent' %>
       </div>
       
       <br />
       <br />
       <div class="form-input">
-        <div class="button-spacer">&nbsp;</div>
-        <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+        <input type="submit" class="form-submit left-indent" value="<%= _('Save') %>" />
       </div>
     </fieldset>
   </div>
 
   <div class="edit-plan-right">
-    <fieldset class="standard">
-      <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= visibility %>" />
-      <span class="fa fa-question-circle" aria-hidden="true"></span>
-      <div class="left-indent inline">
-        <label for="visibility"> <%= _('Plan Visibility') %></label>
-        <div class="left-indent">(<%= _('Limited to finished plans') %>)</div>
-        <br />
-        <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(visibility) ? ' checked=true' : '' %> /><%= raw display_visibility('privately_visible') %></div>
-        <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('organisationally_visible') %></div>
-        <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('publicly_visible') %></div>
-      </div>
-    </fieldset>
-    
     <div class="bordered left-indent">
-      <div class="bordered"><strong><%= _('Plan Guidance Configuration') %></strong></div>
+      <h2><%= _('Plan Guidance Configuration') %></h2>
       <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % {application_name: Rails.configuration.branding[:application][:name]} %></p>
-      <br />
-      <p><% _('Select up to 3 organisations to see their guidance.') %></p>
-      
-<%= @important_ggs.inspect %>
+      <p><%= _('Select up to 3 organisations to see their guidance.') %></p>
+Important
+      <% @important_ggs.each do |org, groups| %>
+        <div>
+          <% if groups && groups.size == 1 %>
+            <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
+            <%= f.label org.name, for: groups[0].id, class: 'inline checkbox-label regular-text' %>
+          <% elsif groups %>
+            <input type="checkbox" disabled>
+            <label class="inline checkbox-label"><%= org.name %></label>
+            <% groups.each do |group| %>
+              <div class="under-input">
+                <span>└─ </span> 
+                <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
+                <%= f.label group.name, for: group.id %>
+              </div>
+            <% end %>
+          <% end%>
+        </div>
+      <% end %>
+Others
+      <% @all_ggs_grouped_by_org.each do |org, groups| %>
+        <div>
+          <% if groups && groups.size == 1 %>
+              <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
+              <%= f.label org.name, for: groups[0].id, class: "left-indent checkbox-label regular-text" %>
+          <% elsif groups %>
+              <input type="checkbox" disabled>
+              <label class="inline checkbox-label regular-text"><%= org.name %></label>
+              <% groups.each do |group| %>
+                 <div class="under-input">
+                   <span>└─ </span>
+                   <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
+                   <%= f.label group.name, for: group.id, class: "left-indent checkbox-label regular-text" %>
+                 </div>
+              <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>
+
+<%= tinymce :content_css => asset_path('application.css') %>

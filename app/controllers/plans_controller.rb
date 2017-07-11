@@ -38,9 +38,13 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-
+    
     @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
-    @plan.data_contact = current_user.email
+    @plan.principal_investigator_email = current_user.email
+    
+    orcid = current_user.identifier_for(IdentifierScheme.find_by(name: 'orcid'))
+    @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
+    
     @plan.funder_name = plan_params[:funder_name]
 
     @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
@@ -135,8 +139,8 @@ class PlansController < ApplicationController
 
     # Sort the rest by org name for the accordion
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
-
     @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+    
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
     respond_to :html

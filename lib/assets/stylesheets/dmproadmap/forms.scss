@@ -60,11 +60,25 @@ form, fieldset {
   border: 0;
 }
 
+div.under-input {
+  display: block;
+  margin: -5px 0 10px;
+  
+  label {
+    font-weight: normal;
+  }
+}
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
 form.roadmap-form {
   text-align: top;
+
+  div.form-separator {
+    width: 75%;
+    margin: 25px auto;
+    border-bottom: 1px solid $dark-grey;
+  }
 
   fieldset.padded {
     padding: 10px 10px 25px 10px;
@@ -78,6 +92,16 @@ form.roadmap-form {
     text-align: left;
     margin-bottom: 25px;
 
+    div.form-separator {
+      margin-left: 15px;
+    }
+
+    .mce-tinymce {
+      display: inline-block;
+      margin: 10px 5px 15px 15px;
+      width: 70%;
+    }
+    
     label,
     input[type="checkbox"],
     .combobox-container,
@@ -91,6 +115,14 @@ form.roadmap-form {
 
     input[type="checkbox"] {
       vertical-align: top;
+    }
+
+    label:not(.checkbox-label) {
+      display: block;
+    }
+
+    input, select {
+      margin-bottom: 15px;
     }
 
     .checkbox-label {
@@ -109,6 +141,14 @@ form.roadmap-form {
       display: inline-block;
       margin-bottom: 15px;
       width: 51%;
+    }
+
+    div.under-input {
+      margin-left: 25%;
+      
+      label {
+        width: auto;
+      }
     }
 
     div {
@@ -161,7 +201,7 @@ form.roadmap-form {
     border-bottom: none;
   }
   
-  label {
+  label:not(.regular-text) {
     font-weight: bold;
   }
   label:not(.no-colon):not(.checkbox-label):after {
@@ -175,15 +215,6 @@ form.roadmap-form {
     clear: both;
   }
 
-  div.inline {
-    display: inline-block;
-  }
-  .left-indent {
-    margin-left: 15px;
-  }
-  .right-indent {
-    margin-right: 5px;
-  }
   .input-full-width {
     width: 95%;
   }
@@ -207,10 +238,6 @@ form.roadmap-form {
     width: 550px;
   }
 
-  /* Override the button color for the Org Admin sections */
-  input[type="submit"].admin{
-    background-color: $primary-color;
-  }
   input.form-submit[aria-disabled='true'] {
     background-color: $disabled-button-color;
   }
@@ -621,11 +648,6 @@ td.plan-edit-actions {
 div.show-plan {
   width: 60%;
   
-  hr {
-    width: 45%;
-    margin: 5px 0 15px 0;
-  }
-  
   div.side-by-side {
     margin: 10px auto 0 auto;
   }
@@ -637,10 +659,6 @@ div.show-plan {
 .edit-plan-left {
   display: inline-block;
   width: 60%;
-  
-  hr {
-    width: 65%;
-  }
 }
 .edit-plan-right {
   vertical-align: top;
