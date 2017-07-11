@@ -6,9 +6,7 @@
   <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {class: "shibboleth-ds-form roadmap-form"} do |f| %>
     <fieldset class="standard padded">
       <div class="form-input">
-        <label for="org_name">
-          <%= _('Look up your institution here') %>
-        </label>
+        <%= f.label(:org_name, _('Look up your institution here')) %>
     
         <% if @orgs.length <= 10 %>
           <select id="org_name" class="left-indent">

@@ -22,8 +22,8 @@
     
     <!-- Login form email address -->
     <div class="form-input">
-      <label for="user_email"><%= _('Email') %></label>
-      <input type="email" id="user_email" name="user[email]" class="left-indent required" />
+      <%= f.label(:email, _('Email'), class: 'required') %>
+      <%= f.email_field(:email, class: 'left-indent required') %>
       <span role="" id="email_error" class="error-tooltip left-indent"></span>
     
       <div class="form-input checkbox-right">
@@ -34,14 +34,13 @@
     
     <!-- Login form password -->
     <div class="form-input">
-      <label for="user_password"><%= _('Password') %></label>
-      <input type="password" id="user_password" name="user[password]" 
-             class="left-indent required" value="" />
+      <%= f.label(:password, _('Password'), class: 'required') %>
+      <%= f.password_field(:password, class: 'left-indent required') %>
       <span role="" id="password_error" class="error-tooltip left-indent"></span>
     
       <div class="form-input checkbox-right">
-        <label for="password_show" class="checkbox-label"><%= _('Show password') %></label>
-        <input type="checkbox" id="password_show" />
+        <%= label_tag(:password_show, _('Show password'), class: 'checkbox-label') %>
+        <%= check_box_tag(:password_show, "1", false) %>
       </div>
     </div>
     

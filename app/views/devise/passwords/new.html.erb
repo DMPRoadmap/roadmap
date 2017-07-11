@@ -4,7 +4,7 @@
   <p class="alert alert-error"><%= _('The email address you entered is not registered.') %></p>
 <% end %>
 
-<h1><%= t('helpers.forgot_password') %></h1>
+<h1><%= _('Forgot your password?') %></h1>
 
 <p><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
 
@@ -13,9 +13,8 @@
 
     <fieldset id="password-reset-form" class="standard padded">
       <div class="form-input">
-        <label for="user_email"><%= _('Email') %></label>
-        <input type="email" id="user_email" name="user[email]" 
-               class="left-indent required input-small" />
+        <%= f.label(:email, _('Email'), class: 'required') %>
+        <%= f.email_field(:email, class: 'left-indent required input-small') %>
         <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
       </div>
 
@@ -30,4 +29,3 @@
     </fieldset>
   <% end %>
 </div>
-

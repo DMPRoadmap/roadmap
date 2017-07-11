@@ -67,7 +67,7 @@
 
       <br />
       <div>
-        <label class="no-colon"><strong><%= _('Data Contact Person') %></strong></label>
+        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>"), class: 'no-colon') %>
       </div>
       <div>
         <input type="checkbox" id="show-data-contact" class="left-indent"<%= (@plan.data_contact.blank? && @plan.data_contact_email.blank? ? ' checked="checked"' : '') %> />
@@ -88,7 +88,8 @@
       <br />
       <br />
       <div class="form-input">
-        <input type="submit" class="form-submit left-indent" value="<%= _('Save') %>" />
+        <div class="button-spacer">&nbsp;</div>
+        <%= submit_tag(_('Save'), class: 'form-submit') %>
       </div>
     </fieldset>
   </div>
