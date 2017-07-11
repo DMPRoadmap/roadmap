@@ -25,8 +25,8 @@
 
   <!-- submit buttons -->
   <div class="move_2_right">
-    <%= submit_tag _('Save'), class: "btn btn-primary" %>
+    <%= submit_tag _('Save'), class: "btn btn-primary", role: 'button' %>
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_add_annotations" %>
+    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_add_annotations", role: 'button' %>
   </div>
 <%end%>

@@ -8,7 +8,8 @@
       <%= link_to _('Add note'),
           "#question-form-#{questionid}",
           class: "btn btn-primary add_comment_button",
-          onclick: "add_note_button(#{questionid})"
+          onclick: "add_note_button(#{questionid})",
+          role: "button"
       %>
     </div>
 
