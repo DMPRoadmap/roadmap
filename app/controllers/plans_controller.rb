@@ -240,7 +240,7 @@ class PlansController < ApplicationController
   def share
     @plan = Plan.find(params[:id])
     authorize @plan
-    #@plan_data = @plan.to_hash
+    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
   end
 
 

@@ -6,6 +6,7 @@ class RolesController < ApplicationController
     registered = true
     @role = Role.new(role_params)
     authorize @role
+    
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if params[:user].present?

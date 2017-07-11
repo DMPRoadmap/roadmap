@@ -1,5 +1,5 @@
-<%- model_class = Plan -%>
 <% javascript('views/plans/share.js') %>
+
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
 
@@ -30,33 +30,24 @@
     <div class="tab-panels" role="tabpanel">
       <div class="tab-panel active" aria-hidden="false">
         
-        <%= form_for plan, html: {method: :put, class: "roadmap-form"} do |f| %>
+        <h2><%= _('Set plan visibility') %></h2>
+        <p><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
+        
+        <%= form_for @plan, html: {method: :put, class: "roadmap-form"} do |f| %>
           <fieldset class="standard">
-            <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= visibility %>" />
-            <span class="fa fa-question-circle" aria-hidden="true"></span>
-            <div class="left-indent inline">
-              <label for="visibility"> <%= _('Plan Visibility') %></label>
-              <div class="left-indent">(<%= _('Limited to finished plans') %>)</div>
-              <br />
-              <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(visibility) ? ' checked=true' : '' %> /><%= raw display_visibility('privately_visible') %></div>
-              <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('organisationally_visible') %></div>
-              <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == visibility ? ' checked=true' : '' %> /><%= raw display_visibility('publicly_visible') %></div>
+            <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= @visibility %>" />
+            <div class="inline">
+              <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(@visibility) ? ' checked=true' : '' %> /><%= _('Private: restricted to me and my collaborators') %></div>
+              <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == @visibility ? ' checked=true' : '' %> /><%= _('Organisation: anyone at my organisation can view') %></div>
+              <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == @visibility ? ' checked=true' : '' %> /><%= _('Public: anyone can view') %></div>
             </div>
           </fieldset>
         <% end %>
         
-        <h2><%= _('Collaborators')%></h2>
+        <h2><%= _('Manage collaborators')%></h2>
 
         <!--Text describing page content-->
-        <p><%= _('You can give other people access to your plan here. There are three permission levels.') %>
-          <ul>
-            <li><%= _('Users with "read only" access can only read the plan.') %></li>
-            <li><%= _('Editors can contribute to the plan.') %></li>
-            <li><%= _('Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.') %></li>
-          </ul>
-        </p>
-        <p><%= _('Add each collaborator in turn by entering their email address below, choosing a permission level and clicking "Add collaborator".') %></p>
-        <p><%= _('Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don\'t already have an account. A notification is also issued when a user\'s permission level is changed.') % { application_name: Rails.configuration.branding[:application][:name] } %></p>
+        <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
 
         <% if @plan.roles.any? then %>
           <table class="dmp_table">
@@ -64,7 +55,7 @@
               <tr>
                 <th class="col-large"><%= _('Email address')%></th>
                 <th class="col-medium"><%= _('Permissions')%></th>
-                <th></th>
+                <th class="col-small"><%= _('Action') %></th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +78,7 @@
                   </td>
                   <td>
                     <% unless role.creator? || role.user == current_user then %>
-                      <%= link_to _('Remove user access'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+                      <%= link_to _('Remove'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
                     <% end %>
                   </td>
                 </tr>
@@ -96,22 +87,42 @@
           </table>
         <% end %>
       
-        <h3><%= _('Add collaborator') %></h3>
+        <h2><%= _('Invite collaborators') %></h2>
         <% new_role = Role.new %>
         <% new_role.plan = @plan %>
         <%= form_for new_role, url: {controller: :roles, action: :create },
-                               html: {method: :post, class: 'roadmap-form'} do |f| %><h3>
-          <fieldset>
+                               html: {method: :post, class: 'roadmap-form'} do |f| %>
+          <fieldset class="standard">
             <%= f.hidden_field :plan_id %>
 
             <%= f.fields_for :user do |user| %>
               <%= user.label :email, _('Email') %>
-              <%= user.email_field :email, for: :user, name: "user", class: "left-indent" %>
+              <%= user.email_field :email, for: :user, name: "user", class: "left-indent input-medium" %>
+              <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
             <% end %>
 
-            <%= f.label :access_level, _('Permissions') %>
-            <%= f.select :access_level, [[_('Co-owner'), 3], [ _('Editor') , 2], [ _('Read only'), 1]], {}, {class: 'has-tooltip left-indent', 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
-            <input type="submit" class="form-submit" value="<%= _('Add collaborator') %>" />
+            <label><%= _('Permissions') %></label>
+            <p></p>
+            <div class="left-indent">
+              <%= f.radio_button :access_level, 1 %>
+              <%= f.label :access_level, _('Read Only: can view but not make changes'), class: 'checkbox-label regular-text' %>
+            </div>
+            <div class="left-indent">
+              <%= f.radio_button :access_level, 2 %>
+              <%= f.label :access_level, _('Editor: can comment and make changes'), class: 'checkbox-label regular-text' %>
+            </div>
+            <div class="left-indent">
+              <%= f.radio_button :access_level, 3 %>
+              <%= f.label :access_level, _('Co-owner: can edit project details, change visibility, and add collaborators'), class: 'checkbox-label regular-text' %>
+            </div>
+            <div class="left-indent">
+              <%= render partial: 'shared/accessible_submit_button',
+                         locals: {id: 'add-collaborator-button', 
+                                  val: _('Add collaborator'), 
+                                  disabled_initially: true,
+                                  classes: 'small-input-button left-indent',
+                                  tooltip: _('Enter a valid email and permission level.')} %>
+            </div>
           </fieldset>
         <% end %>
       </div>

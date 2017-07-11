@@ -63,6 +63,7 @@
       <div class="form-input">
         <%= f.label _('Email'), for: :principal_investigator_email, 'aria-label': _('Principal Investigator Email') %>
         <%= f.email_field :principal_investigator_email, class: 'input-medium left-indent' %>
+				<span role="" id="principal_investigator_email_error" class="error-tooltip left-indent"></span>
       </div>
 
       <br />
@@ -83,6 +84,7 @@
       <div class="form-input data-contact-info">
         <%= f.label _('Email'), for: :data_contact_email, 'aria-label': _('Data Contact Email') %>
         <%= f.email_field :data_contact_email, class: 'input-medium left-indent' %>
+				<span role="" id="data_contact_email_error" class="error-tooltip left-indent"></span>
       </div>
       
       <br />
