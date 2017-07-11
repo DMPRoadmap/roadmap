@@ -31,7 +31,9 @@
   <h3><%= _('Included Elements') %></h3>
   <div class="div_clear"> </div>
   <fieldset class="check_select">
-    <legend><label for="admin_details_toggle"><%= _('Details') %></label></legend>
+    <legend>
+      <%= label_tag(:admin_details_toggle, _('Details')) %>
+    </legend>
     <ol>
     <% Settings::Template::VALID_ADMIN_FIELDS.each do |field|
          name = "export[fields][admin][#{field}]"
@@ -44,13 +46,15 @@
     </ol>
   </fieldset>
   <fieldset class="check_select sections">
-    <legend><label for="sections_toggle"><%= _('Sections') %></label></legend>
+    <legend>
+      <%= label_tag(:sections_toggle, _('Sections')) %>
+    </legend>
     <ol>
         <% phase.sections.each do |section| %>
           <li>
             <fieldset class="check_select">
               <legend title="<%= section.title -%>">
-                <label for="section_toggle_<%= section.id -%>"><%= section.title -%></label>
+                <%= label_tag("section_toggle_#{section.id}", section.title) %>
               </legend>
               <ol>
                 <% section.questions.each do |question|
