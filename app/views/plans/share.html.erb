@@ -35,11 +35,18 @@
         
         <%= form_for @plan, html: {method: :put, class: "roadmap-form"} do |f| %>
           <fieldset class="standard">
-            <input type="hidden" id="plan_visibility" name="plan[visibility]" value="<%= @visibility %>" />
-            <div class="inline">
-              <div><input type="radio" name="vis" id='privately_visible' class="right-indent"<%= !['publicly_visible', 'organisationally_visible'].include?(@visibility) ? ' checked=true' : '' %> /><%= _('Private: restricted to me and my collaborators') %></div>
-              <div><input type="radio" name="vis" id="organisationally_visible" class="right-indent"<%= 'organisationally_visible' == @visibility ? ' checked=true' : '' %> /><%= _('Organisation: anyone at my organisation can view') %></div>
-              <div><input type="radio" name="vis" id="publicly_visible" class="right-indent"<%= 'publicly_visible' == @visibility ? ' checked=true' : '' %> /><%= _('Public: anyone can view') %></div>
+            <%= f.hidden_field :id %>
+            <div class="left-indent">
+              <%= f.radio_button :visibility, :privately_visible %>
+              <%= f.label :visibility, _('Private: restricted to me and my collaborators'), class: 'checkbox-label regular-text' %>
+            </div>
+            <div class="left-indent">
+              <%= f.radio_button :visibility, :organisationally_visible %>
+              <%= f.label :visibility, _('Organisation: anyone at my organisation can view'), class: 'checkbox-label regular-text' %>
+            </div>
+            <div class="left-indent">
+              <%= f.radio_button :visibility, :publicly_visible %>
+              <%= f.label :visibility, _('Public: anyone can view'), class: 'checkbox-label regular-text' %>
             </div>
           </fieldset>
         <% end %>
@@ -65,12 +72,13 @@
                   <td><%= role.user.name %></td>
                   <td>
                     <% if role.creator? %>
-                      <%= 'Owner' %>
+                      <span class="left-indent"><%= 'Owner' %></span>
                     <% elsif !role.creator? && role.user == current_user %>
-                      <%= display_role(role) %>
+                      <span class="left-indent"><%= display_role(role) %></span>
                     <% elsif !role.creator? && role.user != current_user %>
                       <%= form_for role, url: {controller: :roles, action: :update, id: role.id }, html: {method: :put} do |f| %>
                         <fieldset>
+                          <%= f.hidden_field :id %>
                           <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-existing-user-access has-tooltip", 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
                         </fieldset>
                       <% end %>
@@ -115,7 +123,7 @@
               <%= f.radio_button :access_level, 3 %>
               <%= f.label :access_level, _('Co-owner: can edit project details, change visibility, and add collaborators'), class: 'checkbox-label regular-text' %>
             </div>
-            <div class="left-indent">
+            <div>
               <%= render partial: 'shared/accessible_submit_button',
                          locals: {id: 'add-collaborator-button', 
                                   val: _('Add collaborator'), 

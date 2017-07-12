@@ -139,7 +139,7 @@ class PlansController < ApplicationController
       
       # If this is one of the already selected guidance groups its important!
       if !(ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org,ggs]
+        @important_ggs << [org,ggs] unless @important_ggs.include?([org,ggs])
         @all_ggs_grouped_by_org.delete(org)
       end
     end
@@ -164,44 +164,42 @@ class PlansController < ApplicationController
   # if we have a phase then we are editing that phase.
   #
   # GET /plans/1/edit
-=begin
-  def edit
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    
-    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
-    
-    # If there was no phase specified use the template's 1st phase
-    @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-    @show_phase_tab = params[:phase]
-    @readonly = !@plan.editable_by?(current_user.id)
-    
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.get_guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-
-    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
-    @important_ggs = []
-    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      if org.organisation?
-        @important_ggs << [org,ggs]
-        @all_ggs_grouped_by_org.delete(org)
-      end
-    end
-
-    # Sort the rest by org name for the accordion
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
-
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
-
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
-    @is_test = params[:test] ||= false
-    
-    respond_to :html
-  end
-=end
+#  def edit
+#    @plan = Plan.find(params[:id])
+#    authorize @plan
+#    
+#    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+#    
+#    # If there was no phase specified use the template's 1st phase
+#    @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
+#    @show_phase_tab = params[:phase]
+#    @readonly = !@plan.editable_by?(current_user.id)
+#    
+#    # Get all Guidance Groups applicable for the plan and group them by org
+#    @all_guidance_groups = @plan.get_guidance_group_options
+#    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+#
+#    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
+#    @important_ggs = []
+#    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
+#    @all_ggs_grouped_by_org.each do |org, ggs|
+#      if org.organisation?
+#        @important_ggs << [org,ggs]
+#        @all_ggs_grouped_by_org.delete(org)
+#      end
+#    end
+#
+#    # Sort the rest by org name for the accordion
+#    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
+#
+#    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+#    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
+#
+#    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
+#    @is_test = params[:test] ||= false
+#    
+#    respond_to :html
+#  end
 
   # PUT /plans/1
   # PUT /plans/1.json
@@ -408,9 +406,9 @@ class PlansController < ApplicationController
     authorize plan
     plan.visibility = "#{plan_params[:visibility]}"
     if plan.save
-      render json: {code: 1, msg: ''}
+      render json: {code: 1, msg: success_message(_('plan\'s visibility'), _('changed'))}
     else
-      render json: {code: 0, msg: _("Unable to change the plan's Test status")}
+      render json: {code: 0, msg: _("Unable to change the plan's status")}
     end
   end
   
