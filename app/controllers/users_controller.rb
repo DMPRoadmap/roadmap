@@ -58,28 +58,36 @@ class UsersController < ApplicationController
     end
   end
 
-  def update_preferences
-    @user = User.find(params[:user_id])
+  def update_email_preferences
     prefs = params[:prefs]
-    authorize @user, :update?
-    # Set all preferences to false
-    @user.prefs.each do |key, value|
-      value.each_key do |k|
-        @user.prefs[key][k] = false
-      end
+    authorize current_user, :update?
+    pref = current_user.pref
+    # does user not have prefs?
+    if pref.blank?
+      pref = Pref.new
+      pref.settings = {}
+      pref.user = current_user
     end
+    pref.settings[:email] = booleanize_hash(prefs)
+    pref.save
 
-    # Sets the preferences the user wants to true
-    if prefs
-      prefs.each_key do |key|
-        prefs[key].each_key do |k|
-          @user.prefs[key.to_sym][k.to_sym] = true
-        end
-      end
-    end
     @tab = params[:tab]
-    @user.save
     redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('preferences'), _('saved'))
+  end
+
+  private
+
+  ##
+  # html forms return our boolean values as strings, this converts them to true/false
+  def booleanize_hash(node)
+    #leaf: convert to boolean and return
+    #hash: iterate over leaves
+    unless node.is_a?(Hash)
+      return node == "true"
+    end
+    node.each do |key, value|
+      node[key] = booleanize_hash(value)
+    end
   end
 
 end
