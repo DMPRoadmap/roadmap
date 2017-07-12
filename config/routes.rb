@@ -39,7 +39,6 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-  match '/users/update_preferences/' => 'users#update_preferences',  as: 'user_update_preferences', via: [:put, :post]
 
   # WAYFless access point - use query param idp
   #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
@@ -57,7 +56,11 @@ Rails.application.routes.draw do
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
 
-  #ActiveAdmin.routes(self)
+  resources :users, path: 'users', only: [] do
+    member do
+      put 'update_email_preferences'
+    end
+  end
 
   #organisation admin area
   resources :users, :path => 'org/admin/users', only: [] do
@@ -220,34 +223,6 @@ Rails.application.routes.draw do
       end
     end
 
-#    resources :projects do
-#      resources :plans , only: [:edit, :update] do
-#        member do
-#          get 'status'
-#          get 'locked'
-#          get 'answer'
-#          #get 'edit'
-#          post 'delete_recent_locks'
-#          post 'lock_section', constraints: {format: [:html, :json]}
-#          post 'unlock_section', constraints: {format: [:html, :json]}
-#          post 'unlock_all_sections'
-#          get 'export'
-#          get 'warning'
-#          get 'section_answers'
-#        end
-#      end
-#
-#      member do
-#        get 'share'
-#        get 'export'
-#        post 'invite'
-#      end
-#      collection do
-#        get 'possible_templates'
-#        get 'possible_guidance'
-#      end
-#    end
-
     resources :roles, only: [:create, :update, :destroy]
 
     namespace :settings do
@@ -272,57 +247,4 @@ Rails.application.routes.draw do
       end
     end
 
-    # The priority is based upon order of creation:
-    # first created -> highest priority.
-
-    # Sample of regular route:
-    #   match 'products/:id' => 'catalog#view'
-    # Keep in mind you can assign values other than :controller and :action
-
-    # Sample of named route:
-    #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-    # This route can be invoked with purchase_url(:id => product.id)
-
-    # Sample resource route (maps HTTP verbs to controller actions automatically):
-    #   resources :products
-
-    # Sample resource route with options:
-    #   resources :products do
-    #     member do
-    #       get 'short'
-    #       post 'toggle'
-    #     end
-    #
-    #     collection do
-    #       get 'sold'
-    #     end
-    #   end
-
-    # Sample resource route with sub-resources:
-    #   resources :products do
-    #     resources :comments, :sales
-    #     resource :seller
-    #   end
-
-    # Sample resource route with more complex sub-resources
-    #   resources :products do
-    #     resources :comments
-    #     resources :sales do
-    #       get 'recent', :on => :collection
-    #     end
-    #   end
-
-    # Sample resource route within a namespace:
-    #   namespace :admin do
-    #     # Directs /admin/products/* to Admin::ProductsController
-    #     # (app/controllers/admin/products_controller.rb)
-    #     resources :products
-    #   end
-
-
-    # See how all your routes lay out with "rake routes"
-
-    # This is a legacy wild controller route that's not recommended for RESTful applications.
-    # Note: This route will make all actions in every controller accessible via GET requests.
-    # match ':controller(/:action(/:id))(.:format)'
 end

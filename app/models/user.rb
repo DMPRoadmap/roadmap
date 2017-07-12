@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  include GlobalHelpers
 
   ##
   # Devise
@@ -20,6 +19,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :perms, join_table: :users_perms
   belongs_to :language
   belongs_to :org
+  has_one  :pref
   has_many :answers
   has_many :notes
   has_many :exported_plans
@@ -42,23 +42,7 @@ class User < ActiveRecord::Base
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  #accepts_nested_attributes_for :roles
-  #attr_accessible :password_confirmation, :encrypted_password, :remember_me,
-  #                :id, :email, :firstname, :last_login,:login_count, :orcid_id,
-  #                :password, :shibboleth_id, :user_status_id, :surname,
-  #                :user_type_id, :org_id, :skip_invitation, :other_organisation,
-  #                :accept_terms, :role_ids, :dmponline3, :api_token,
-  #                :organisation, :language, :language_id, :org, :perms,
-  #                :confirmed_at, :org_id
-
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
-
-
-  validates :prefs, presence: true
-  before_validation :create_default_preferences
 
   ##
   # Scopes
@@ -223,17 +207,6 @@ class User < ActiveRecord::Base
   end
 
   ##
-  # checks what type the user's organisation is
-  #
-  # @return [String] the organisation type
-=begin
-  def org_type
-    org_type = org.organisation_type
-    return org_type
-  end
-=end
-
-  ##
   # removes the api_token from the user
   # modifies the user model
   def remove_token!
@@ -273,53 +246,22 @@ class User < ActiveRecord::Base
   end
 
   ##
+  # Return the user's preferences for a given base key
+  #
+  # @return [JSON] with symbols as keys
+  def get_preferences(key)
+    if self.pref.present? && self.pref.settings[key.to_s].present?
+      return self.pref.settings[key.to_s].deep_symbolize_keys
+    else
+      return Pref.default_settings[key]
+    end
+  end
+
+  ##
   # Override devise_invitable email title
   # --------------------------------------------------------------
   def deliver_invitation(options = {})
     super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
   end
-
-
-  ##
-  # User Notification Preferences
-  def create_default_preferences
-    # Set the default preferences for a new user or if existing user if null
-    if self.id.nil? || self.prefs == {}
-      self.prefs = self.class.create_default_preferences
-    end
-  end
-
-  def self.create_default_preferences
-    default_prefs = {
-        users:           {
-            new_comment: true,
-            admin_privileges: true,
-            added_as_coowner: true
-        },
-        owners_and_coowners:       {
-            visibility_changed:   true
-        },
-        admins:      {
-            template_published:  true,
-            template_unpublished: true,
-            feedback_requested: true
-        }
-    }
-  end
-
-# TODO: Remove this, its never called.
-  # this generates a reset password link for a given user
-  # which can then be sent to them with the appropriate host
-  # prepended.
-=begin
-  def reset_password_link
-    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
-    self.reset_password_token   = enc
-    self.reset_password_sent_at = Time.now.utc
-    save(validate: false)
-
-    edit_user_password_path  + '?reset_password_token=' + raw
-  end
-=end
 
 end
