@@ -5,43 +5,49 @@
 
 
 <fieldset class="preferences">
-  <%= form_tag( url_for(controller: 'users', action: 'update_preferences', tab: 'notification-preferences-tab', escape: false), html: {method: :put, class: "roadmap-form"}) do |f| %>
+  <%= form_tag( update_email_preferences_user_path(@user), method: :put, html: {class: "roadmap-form"}) do |f| %>
 
-    <%= hidden_field_tag :user_id, @user.id %>
-
+    <%= hidden_field_tag :tab, 'notification-preferences-tab' %>
     <p><strong>All Users</strong></p>
     <div class="form-input">
-      <%=  check_box_tag 'prefs[users][new_comment]', true, @user.prefs[:users][:new_comment] %>
+      <%= hidden_field_tag 'prefs[users][new_comment]', false %>
+      <%= check_box_tag 'prefs[users][new_comment]', true, @prefs[:users][:new_comment] %>
       <%= label_tag 'prefs[users][new_comment]', 'A new comment has been added to my DMP', :class => 'checkbox-label' %>
     </div>
       <div class="form-input">
-      <%=  check_box_tag 'prefs[users][added_as_coowner]', true, @user.prefs[:users][:added_as_coowner] %>
+      <%= hidden_field_tag 'prefs[users][added_as_coowner]', false %>
+      <%=  check_box_tag 'prefs[users][added_as_coowner]', true, @prefs[:users][:added_as_coowner] %>
       <%= label_tag 'prefs[users][added_as_coowner]', 'A plan has been shared with me', :class => 'checkbox-label' %>
     </div>
     <div class="form-input">
-      <%=  check_box_tag 'prefs[users][admin_privileges]', true, @user.prefs[:users][:admin_privileges] %>
+      <%= hidden_field_tag 'prefs[users][admin_privileges]', false %>
+      <%=  check_box_tag 'prefs[users][admin_privileges]', true, @prefs[:users][:admin_privileges] %>
       <%= label_tag 'prefs[users][admin_privileges]', 'Admin privileges granted to me', :class => 'checkbox-label' %>
     </div>
 
     <br/>
     <p><strong>DMP owners and co-owners</strong></p>
     <div class="form-input">
-      <%=  check_box_tag 'prefs[owners_and_coowners][visibility_changed]', true, @user.prefs[:owners_and_coowners][:visibility_changed] %>
+      <%= hidden_field_tag 'prefs[owners_and_coowners][visibility_changed]', false %>
+      <%=  check_box_tag 'prefs[owners_and_coowners][visibility_changed]', true, @prefs[:owners_and_coowners][:visibility_changed] %>
       <%= label_tag 'prefs[owners_and_coowners][visibility_changed]', "My DMP's visibility has changed", :class => 'checkbox-label' %>
     </div>
 
     <br/>
     <p><strong>DMP administrators</strong></p>
     <div class="form-input">
-      <%=  check_box_tag 'prefs[admins][template_published]', true, @user.prefs[:admins][:template_published] %>
+      <%= hidden_field_tag 'prefs[admins][template_published]', false %>
+      <%=  check_box_tag 'prefs[admins][template_published]', true, @prefs[:admins][:template_published] %>
       <%= label_tag 'prefs[admins][template_published]', 'An organisational template is published', :class => 'checkbox-label' %>
     </div>
     <div class="form-input">
-      <%=  check_box_tag 'prefs[admins][template_unpublished]', true, @user.prefs[:admins][:template_unpublished] %>
+      <%= hidden_field_tag 'prefs[admins][template_unpublished]', false %>
+      <%=  check_box_tag 'prefs[admins][template_unpublished]', true, @prefs[:admins][:template_unpublished] %>
       <%= label_tag 'prefs[admins][template_unpublished]', 'An organisational template is unpublished', :class => 'checkbox-label' %>
     </div>
     <div class="form-input">
-      <%=  check_box_tag 'prefs[admins][feedback_requested]', true, @user.prefs[:admins][:feedback_requested] %>
+      <%= hidden_field_tag 'prefs[admins][feedback_requested]', false %>
+      <%=  check_box_tag 'prefs[admins][feedback_requested]', true, @prefs[:admins][:feedback_requested] %>
       <%= label_tag 'prefs[admins][feedback_requested]', 'A user has requested feedback on a DMP', :class => 'checkbox-label' %>
     </div>
 

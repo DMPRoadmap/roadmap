@@ -327,10 +327,4 @@ class UserTest < ActiveSupport::TestCase
     verify_belongs_to_relationship(@user, language)
   end
 
-  # ---------------------------------------------------
-  test "can create default notification preferences when user is created" do
-    user = User.create(email: 'test@testing.org', password: 'testing1234')
-    user.save
-    assert_not_nil(user.prefs)
-  end
 end
