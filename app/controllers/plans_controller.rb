@@ -85,15 +85,15 @@ class PlansController < ApplicationController
 
         if !default.nil? && default == @plan.template
           # We used the generic/default template
-          msg += _('This plan is based on the default template.')
+          msg += " #{_('This plan is based on the default template.')}"
 
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
-          msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
 
         else
           # We used the specified org's or funder's template
-          msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
+          msg += " #{_('This plan is based on the')} #{@plan.template.org.name} template."
         end
 
         flash[:notice] = msg
@@ -208,6 +208,8 @@ class PlansController < ApplicationController
     authorize @plan
     attrs = plan_params
 
+#    attrs[:visibility] = attrs[:visibility].to_sym
+
     # Save the guidance group selections
     guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
     save_guidance_selections(guidance_group_ids)
@@ -239,6 +241,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+    @allow_visibility = (@plan.num_answered_questions >= 1 && !@plan.is_test?)
   end
 
 
@@ -409,6 +412,17 @@ class PlansController < ApplicationController
       render json: {code: 1, msg: success_message(_('plan\'s visibility'), _('changed'))}
     else
       render json: {code: 0, msg: _("Unable to change the plan's status")}
+    end
+  end
+  
+  def set_test
+    plan = Plan.find(params[:id])
+    authorize plan
+    plan.visibility = "#{plan_params[:visibility]}"
+    if plan.save
+      render json: {code: 1, msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
+    else
+      render json: {code: 0, msg: _("Unable to change the plan's test status")}
     end
   end
   

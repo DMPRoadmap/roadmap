@@ -56,6 +56,10 @@ class PlanPolicy < ApplicationPolicy
     @plan.administerable_by?(@user.id)
   end
 
+  def set_test?
+    @plan.administerable_by?(@user.id)
+  end
+
 # TODO: These routes are no lonmger used
 =begin
   def section_answers?

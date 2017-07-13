@@ -41,6 +41,10 @@ select[multiple="true"], select[multiple="multiple"] {
   height: 65px;
 }
 
+label.disabled {
+  color: $disabled-button-color;
+}
+
 .checkbox-label {
   display: inline-block;
   font-size: 1em;
@@ -277,43 +281,41 @@ form.roadmap-form {
     display: none;
     width: 45%;
     background: $error-background;
-    border-radius: 3px;
+    border-radius: 6px;
     color: $error-color;
-    padding: 4px 6px;
+    padding: 6px 25px 7px 10px;
   }
 
-  .error-tooltip[role='tooltip'], .submit-tooltip[role='tooltip'] {
-    top: 55px;
+  .error-tooltip[role='alert'], .submit-tooltip[role='tooltip'] {
+    top: 65px;
     left: 0;
     display: inline;
     position: absolute;
     z-index: 9;
   }
-  .error-tooltip[role='tooltip']:before, .submit-tooltip[role='tooltip']:before {
+  .error-tooltip[role='alert']:before, .submit-tooltip[role='tooltip']:before {
     display: inline;
     position: absolute;
-    top: -5px;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid $error-background;
+    top: -30px;
+    margin: 0 auto;
+    @include icon(caret-up);
+    color: $error-background;
+    font-size: 44px;
   }
 
-  .error-tooltip-right[role="tooltip"] {
+  .error-tooltip-right[role="alert"], .error-tooltip-right[role="tooltip"] {
     top: 0;
-    left: 500px;
+    left: 400px;
     display: inline;
   }
-  .error-tooltip-right[role='tooltip']:before {
+  .error-tooltip-right[role='alert']:before, .error-tooltip-right[role="tooltip"] {
     display: inline;
-    position: absolute;
-    left: -5px;
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid $error-background;
+    position: relative;
+    left: -23px;
+    top: 11px;
+    @include icon(caret-left);
+    color: $error-background;
+    font-size: 44px;
   }
 }
 

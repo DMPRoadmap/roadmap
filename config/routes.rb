@@ -215,6 +215,7 @@ Rails.application.routes.draw do
         get 'export'
         post 'invite'
         post 'visibility', constraints: {format: [:json]}
+        post 'set_test', constraints: {format: [:json]}
       end
 
       collection do

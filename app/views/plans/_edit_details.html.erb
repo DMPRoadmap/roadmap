@@ -5,9 +5,11 @@
     <fieldset class="standard padded">
       <div class="form-input">
         <%= f.label "#{_('Project Title')}", for: :title, class: 'required' %>
-        <%= f.text_field :title, class: "input-extra-large left-indent", 'data-toggle': "tooltip", 
+        <%= f.text_field :title, class: "input-extra-large left-indent required", 'data-toggle': "tooltip", 
                 'data-content': _('If applying for funding, state the name exactly as in the grant proposal.') %>
+        <span role="" id="plan_title_error" class="error-tooltip-right left-indent"></span>
         <div class="under-input">
+          <%= f.hidden_field :visibility %>
           <input type="checkbox" id="is_test" class="left-indent"<%= @plan.is_test? ? ' checked=true' : '' %> />
           <label class="inline checkbox-label regular-text" for="is_test">
             <%= _('mock project for testing, practice, or educational purposes') %>
@@ -63,7 +65,7 @@
       <div class="form-input">
         <%= f.label _('Email'), for: :principal_investigator_email, 'aria-label': _('Principal Investigator Email') %>
         <%= f.email_field :principal_investigator_email, class: 'input-medium left-indent' %>
-				<span role="" id="principal_investigator_email_error" class="error-tooltip left-indent"></span>
+        <span role="" id="principal_investigator_email_error" class="error-tooltip-right left-indent"></span>
       </div>
 
       <br />
@@ -84,14 +86,18 @@
       <div class="form-input data-contact-info">
         <%= f.label _('Email'), for: :data_contact_email, 'aria-label': _('Data Contact Email') %>
         <%= f.email_field :data_contact_email, class: 'input-medium left-indent' %>
-				<span role="" id="data_contact_email_error" class="error-tooltip left-indent"></span>
+        <span role="" id="data_contact_email_error" class="error-tooltip-right left-indent"></span>
       </div>
       
       <br />
       <br />
       <div class="form-input">
-        <div class="button-spacer">&nbsp;</div>
-        <%= submit_tag(_('Save'), class: 'form-submit') %>
+        <%= render partial: 'shared/accessible_submit_button',
+                   locals: {id: 'save-details-button', 
+                            val: _('Save'), 
+                            disabled_initially: true,
+                            classes: 'small-input-button left-indent',
+                            tooltip: _('You must provide a project title and any email addresses must be valid.')} %>
       </div>
     </fieldset>
   </div>
@@ -105,15 +111,15 @@
       <ul id="priority-guidance-orgs">
         <% @important_ggs.each do |org, groups| %>
           <% if groups && groups.size == 1 %>
-						<li>
+            <li>
               <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
               <%= f.label org.name, for: groups[0].id, class: 'inline checkbox-label regular-text' %>
-						</li>
+            </li>
           <% elsif groups %>
-						<li>
+            <li>
               <input type="checkbox" disabled>
               <label class="inline checkbox-label regular-text"><%= org.name %></label>
-						</li>
+            </li>
             <% groups.each do |group| %>
               <li class="under-input">
                 <span>└─ </span> 
@@ -123,22 +129,22 @@
             <% end %>
           <% end%>
         <% end %>
-			</ul>
+      </ul>
 
       <a href="#" id="show-other-guidance-orgs"><%= _('See guidance from additional organisations') %></a>
 
       <ul id="other-guidance-orgs" style="display: none;">
         <% @all_ggs_grouped_by_org.each do |org, groups| %>
           <% if groups && groups.size == 1 %>
-						<li>
+            <li>
               <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
               <%= f.label org.name, for: groups[0].id, class: "left-indent checkbox-label regular-text" %>
-						</li>
+            </li>
           <% elsif groups %>
-						<li>
+            <li>
               <input type="checkbox" disabled>
               <label class="inline checkbox-label regular-text"><%= org.name %></label>
-						</li>
+            </li>
             <% groups.each do |group| %>
               <li class="under-input">
                 <span>└─ </span>
@@ -148,7 +154,7 @@
             <% end %>
           <% end %>
         <% end %>
-			</ul>
+      </ul>
     </div>
   </div>
 <% end %>

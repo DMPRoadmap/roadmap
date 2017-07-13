@@ -6,7 +6,7 @@
 
 /* Main page layout: header, content, footer */
 body {
-  background-color: $white;
+  background: $body-background;
   color: $black;
   font-family: $font-family;
   font-size: 14px;
@@ -140,8 +140,8 @@ div.popover-message {
   position: absolute;
   font-family: $font-family;
   font-size: 14px;
-  color: $white;
-  background-color: $dark-grey;
+  color: $tooltip-color;
+  background: $tooltip-background;
   border-radius: 3px;
   padding: 15px 20px;
   z-index: 10;
@@ -160,8 +160,8 @@ div.tooltip-message {
   position: absolute;
   top: 15px;
   width: 300px;
-  background-color: $dark-grey;
-  color: $white;
+  background: $tooltip-background;
+  color: $tooltip-color;
   padding: 6px 10px;
   border-radius: 3px;
   z-index: 9;
@@ -357,8 +357,7 @@ div.roadmap {
     position: relative;
     float: right;
     margin-top: 10px;
-    padding: 8px 30px;
-    border: 1px solid $dark-grey;
+    padding: 8px 30px 10px 60px;
     border-radius: 5px;
     vertical-align: middle;
     width: auto;
@@ -378,17 +377,17 @@ div.roadmap {
     }
   }
   div.roadmap-info-box {
-    color: $black;
-    background-color: $white;
+    color: $notice-color;
+    background: $notice-background;
     .fa {
-      color: green;
+      color: $notice-color;
     }
   }
   div.roadmap-alert-box {
-    color: $black;
-    background-color: $white;
+    color: $error-color;
+    background: $error-background;
     .fa {
-      color: red;
+      color: $error-color;
     }
   }
   
@@ -400,10 +399,13 @@ div.roadmap {
     div.page {
       position: relative;
       width: 100%;
-      background-color: $white;
+      background: $body-background;
       border-radius: 3px;
       
       div.content {
+        background-color: $white;
+        border-radius: 3px;
+        padding: 10px 15px 25px 15px;
         
         /* By default, page content is one column, but use the below styles to create a 2 column style */
         div.column-left {

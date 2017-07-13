@@ -37,16 +37,19 @@
           <fieldset class="standard">
             <%= f.hidden_field :id %>
             <div class="left-indent">
-              <%= f.radio_button :visibility, :privately_visible %>
-              <%= f.label :visibility, _('Private: restricted to me and my collaborators'), class: 'checkbox-label regular-text' %>
+              <%= f.radio_button :visibility, :privately_visible, disabled: !@allow_visibility %>
+              <%= f.label :visibility, _('Private: restricted to me and my collaborators'), 
+                          class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
             <div class="left-indent">
-              <%= f.radio_button :visibility, :organisationally_visible %>
-              <%= f.label :visibility, _('Organisation: anyone at my organisation can view'), class: 'checkbox-label regular-text' %>
+              <%= f.radio_button :visibility, :organisationally_visible, disabled: !@allow_visibility %>
+              <%= f.label :visibility, _('Organisation: anyone at my organisation can view'), 
+                          class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
             <div class="left-indent">
-              <%= f.radio_button :visibility, :publicly_visible %>
-              <%= f.label :visibility, _('Public: anyone can view'), class: 'checkbox-label regular-text' %>
+              <%= f.radio_button :visibility, :publicly_visible, disabled: !@allow_visibility %>
+              <%= f.label :visibility, _('Public: anyone can view'), 
+                          class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
           </fieldset>
         <% end %>
