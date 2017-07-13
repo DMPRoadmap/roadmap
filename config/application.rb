@@ -97,11 +97,11 @@ module DMPRoadmap
                                    views/notes/index.js
                                    views/orgs/admin_edit.js
                                    views/orgs/shibboleth_ds.js
-                                   views/plans/edit.js 
                                    views/plans/export_configure.js
                                    views/plans/index.js 
                                    views/plans/new.js 
                                    views/plans/share.js
+                                   views/plans/show.js 
                                    views/shared/login_form.js
                                    views/shared/register_form.js
                                    views/static_pages/utils.js)

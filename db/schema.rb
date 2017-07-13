@@ -142,11 +142,11 @@ ActiveRecord::Schema.define(version: 20170712084314) do
 
   create_table "org_identifiers", force: :cascade do |t|
     t.string   "identifier",           limit: 255
+    t.integer  "identifier_scheme_id", limit: 4
     t.string   "attrs",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "org_id",               limit: 4
-    t.integer  "identifier_scheme_id", limit: 4
   end
 
   add_index "org_identifiers", ["identifier_scheme_id"], name: "fk_rails_189ad2e573", using: :btree
@@ -392,8 +392,8 @@ ActiveRecord::Schema.define(version: 20170712084314) do
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "orcid_id",               limit: 255
     t.string   "shibboleth_id",          limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "encrypted_password",     limit: 255, default: ""
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"

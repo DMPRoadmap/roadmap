@@ -41,6 +41,10 @@ select[multiple="true"], select[multiple="multiple"] {
   height: 65px;
 }
 
+label.disabled {
+  color: $disabled-button-color;
+}
+
 .checkbox-label {
   display: inline-block;
   font-size: 1em;
@@ -60,11 +64,25 @@ form, fieldset {
   border: 0;
 }
 
+div.under-input {
+  display: block;
+  margin: -5px 0 10px;
+  
+  label {
+    font-weight: normal;
+  }
+}
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
 form.roadmap-form {
   text-align: top;
+
+  div.form-separator {
+    width: 75%;
+    margin: 25px auto;
+    border-bottom: 1px solid $dark-grey;
+  }
 
   fieldset.padded {
     padding: 10px 10px 25px 10px;
@@ -78,6 +96,16 @@ form.roadmap-form {
     text-align: left;
     margin-bottom: 25px;
 
+    div.form-separator {
+      margin-left: 15px;
+    }
+
+    .mce-tinymce {
+      display: inline-block;
+      margin: 10px 5px 15px 15px;
+      width: 70%;
+    }
+    
     label,
     input[type="checkbox"],
     .combobox-container,
@@ -91,6 +119,14 @@ form.roadmap-form {
 
     input[type="checkbox"] {
       vertical-align: top;
+    }
+
+    label:not(.checkbox-label) {
+      display: block;
+    }
+
+    input, select {
+      margin-bottom: 15px;
     }
 
     .checkbox-label {
@@ -109,6 +145,14 @@ form.roadmap-form {
       display: inline-block;
       margin-bottom: 15px;
       width: 51%;
+    }
+
+    div.under-input {
+      margin-left: 25%;
+      
+      label {
+        width: auto;
+      }
     }
 
     div {
@@ -161,7 +205,7 @@ form.roadmap-form {
     border-bottom: none;
   }
   
-  label {
+  label:not(.regular-text) {
     font-weight: bold;
   }
   label:not(.no-colon):not(.checkbox-label):after {
@@ -175,15 +219,6 @@ form.roadmap-form {
     clear: both;
   }
 
-  div.inline {
-    display: inline-block;
-  }
-  .left-indent {
-    margin-left: 15px;
-  }
-  .right-indent {
-    margin-right: 5px;
-  }
   .input-full-width {
     width: 95%;
   }
@@ -207,10 +242,6 @@ form.roadmap-form {
     width: 550px;
   }
 
-  /* Override the button color for the Org Admin sections */
-  input[type="submit"].admin{
-    background-color: $primary-color;
-  }
   input.form-submit[aria-disabled='true'] {
     background-color: $disabled-button-color;
   }
@@ -250,43 +281,41 @@ form.roadmap-form {
     display: none;
     width: 45%;
     background: $error-background;
-    border-radius: 3px;
+    border-radius: 6px;
     color: $error-color;
-    padding: 4px 6px;
+    padding: 6px 25px 7px 10px;
   }
 
-  .error-tooltip[role='tooltip'], .submit-tooltip[role='tooltip'] {
-    top: 55px;
+  .error-tooltip[role='alert'], .submit-tooltip[role='tooltip'] {
+    top: 65px;
     left: 0;
     display: inline;
     position: absolute;
     z-index: 9;
   }
-  .error-tooltip[role='tooltip']:before, .submit-tooltip[role='tooltip']:before {
+  .error-tooltip[role='alert']:before, .submit-tooltip[role='tooltip']:before {
     display: inline;
     position: absolute;
-    top: -5px;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid $error-background;
+    top: -30px;
+    margin: 0 auto;
+    @include icon(caret-up);
+    color: $error-background;
+    font-size: 44px;
   }
 
-  .error-tooltip-right[role="tooltip"] {
+  .error-tooltip-right[role="alert"], .error-tooltip-right[role="tooltip"] {
     top: 0;
-    left: 500px;
+    left: 400px;
     display: inline;
   }
-  .error-tooltip-right[role='tooltip']:before {
+  .error-tooltip-right[role='alert']:before, .error-tooltip-right[role="tooltip"] {
     display: inline;
-    position: absolute;
-    left: -5px;
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid $error-background;
+    position: relative;
+    left: -23px;
+    top: 11px;
+    @include icon(caret-left);
+    color: $error-background;
+    font-size: 44px;
   }
 }
 
@@ -621,11 +650,6 @@ td.plan-edit-actions {
 div.show-plan {
   width: 60%;
   
-  hr {
-    width: 45%;
-    margin: 5px 0 15px 0;
-  }
-  
   div.side-by-side {
     margin: 10px auto 0 auto;
   }
@@ -637,15 +661,19 @@ div.show-plan {
 .edit-plan-left {
   display: inline-block;
   width: 60%;
-  
-  hr {
-    width: 65%;
-  }
 }
 .edit-plan-right {
   vertical-align: top;
   display: inline-block;
   width: 35%;
+  
+  h2 {
+    margin-top: 0;
+  }
+  
+  ul {
+    list-style: none;
+  }
   
   .fa {
     vertical-align: top;
