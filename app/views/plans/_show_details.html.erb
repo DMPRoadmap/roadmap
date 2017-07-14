@@ -1,19 +1,32 @@
-<dl>
+<dl class="project-dl">
   <dt><%= _('Project Title') %></dt>
   <dd><%= plan.title %></dd>
+  <dt><%= _('Funder') %></dt>
+  <dd><%= plan.funder_name %></dd>
   <dt><%= _('Grant Number') %></dt>
   <dd><%= plan.grant_number %></dd>
-  <dt><%= _('Principal Investigator') %></dt>
-  <dd><%= plan.principal_investigator %></dd>
   <dt><%= _('Project Abstract') %></dt>
   <dd><%= raw plan.description %></dd>
+  <dt><%= _('Id') %></dt>
+  <dd><%= plan.identifier %></dd>
+</dl>
+<hr />
+<dl class="project-dl">
+  <dt><%= _('Principal Investigator') %></dt>
+  <dd></dd>
+  <dt><span class="left-indent"><%= _('Name') %></span></dt>
+  <dd><span class="left-indent"><%= plan.principal_investigator %></span></dd>
+  <dt><span class="left-indent"><%= _('ORCID') %></span></dt>
+  <dd><span class="left-indent"><%= plan.principal_investigator_identifier %></span></dd>
+  <dt><span class="left-indent"><%= _('Email') %></span></dt>
+  <dd><span class="left-indent"><%= plan.principal_investigator_email %></span></dd>
 </dl>
 <hr />
 <dl>
-  <dt><%= _('Plan ID') %></dt>
-  <dd><%= plan.identifier %></dd>
 	<dt><%= _('Data Contact Person') %></dt>
 	<dd></dd>
 	<dt><%= _('Name') %></dt>
 	<dd><%= plan.data_contact %></dd>
+  <dt><%= _('Email') %></dt>
+  <dd><%= plan.data_contact_email %></dd>
 </dl>

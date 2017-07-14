@@ -647,15 +647,10 @@ td.plan-edit-actions {
 .project-title-container {
   width: 60%;
 }
-div.show-plan {
-  width: 60%;
-  
-  div.side-by-side {
-    margin: 10px auto 0 auto;
-  }
-  
-  label {
-    margin-bottom: 15px;
+#details-panel {
+
+  hr {
+    width: 40%;
   }
 }
 .edit-plan-left {

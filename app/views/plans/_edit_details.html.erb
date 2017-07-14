@@ -7,7 +7,7 @@
         <%= f.label "#{_('Project Title')}", for: :title, class: 'required' %>
         <%= f.text_field :title, class: "input-extra-large left-indent required", 'data-toggle': "tooltip", 
                 'data-content': _('If applying for funding, state the name exactly as in the grant proposal.') %>
-        <span role="" id="plan_title_error" class="error-tooltip-right left-indent"></span>
+        <span role="" id="plan_title_error" class="error-tooltip left-indent"></span>
         <div class="under-input">
           <%= f.hidden_field :visibility %>
           <input type="checkbox" id="is_test" class="left-indent"<%= @plan.is_test? ? ' checked=true' : '' %> />
@@ -19,7 +19,7 @@
       
       <div class="form-input">
         <%= f.label "#{_('Funder')}", for: :funder_name %>
-        <%= f.text_field :funder_name, class: "input-large left-indent" %>
+        <%= f.text_field :funder_name, class: "input-extra-large left-indent" %>
       </div>
       
       <div class="form-input">
@@ -64,8 +64,8 @@
 
       <div class="form-input">
         <%= f.label _('Email'), for: :principal_investigator_email, 'aria-label': _('Principal Investigator Email') %>
-        <%= f.email_field :principal_investigator_email, class: 'input-medium left-indent' %>
-        <span role="" id="principal_investigator_email_error" class="error-tooltip-right left-indent"></span>
+        <%= f.email_field :principal_investigator_email, class: 'input-large left-indent' %>
+        <span role="" id="principal_investigator_email_error" class="error-tooltip left-indent"></span>
       </div>
 
       <br />
@@ -85,8 +85,8 @@
       
       <div class="form-input data-contact-info">
         <%= f.label _('Email'), for: :data_contact_email, 'aria-label': _('Data Contact Email') %>
-        <%= f.email_field :data_contact_email, class: 'input-medium left-indent' %>
-        <span role="" id="data_contact_email_error" class="error-tooltip-right left-indent"></span>
+        <%= f.email_field :data_contact_email, class: 'input-large left-indent' %>
+        <span role="" id="data_contact_email_error" class="error-tooltip left-indent"></span>
       </div>
       
       <br />
@@ -109,51 +109,17 @@
       <p><%= _('Select up to 3 organisations to see their guidance.') %></p>
 
       <ul id="priority-guidance-orgs">
-        <% @important_ggs.each do |org, groups| %>
-          <% if groups && groups.size == 1 %>
-            <li>
-              <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
-              <%= f.label org.name, for: groups[0].id, class: 'inline checkbox-label regular-text' %>
-            </li>
-          <% elsif groups %>
-            <li>
-              <input type="checkbox" disabled>
-              <label class="inline checkbox-label regular-text"><%= org.name %></label>
-            </li>
-            <% groups.each do |group| %>
-              <li class="under-input">
-                <span>└─ </span> 
-                <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
-                <%= f.label group.name, for: group.id, class: "left-indent checkbox-label regular-text" %>
-              </li>
-            <% end %>
-          <% end%>
-        <% end %>
+        <%= render partial: "guidance_choices", 
+                   locals: {choices: @important_ggs, form: f,
+                            current_selections: @selected_guidance_groups} %>
       </ul>
 
       <a href="#" id="show-other-guidance-orgs"><%= _('See guidance from additional organisations') %></a>
 
       <ul id="other-guidance-orgs" style="display: none;">
-        <% @all_ggs_grouped_by_org.each do |org, groups| %>
-          <% if groups && groups.size == 1 %>
-            <li>
-              <%= check_box_tag "guidance_group_ids[]", groups[0].id, @selected_guidance_groups.include?(groups[0].id) %>
-              <%= f.label org.name, for: groups[0].id, class: "left-indent checkbox-label regular-text" %>
-            </li>
-          <% elsif groups %>
-            <li>
-              <input type="checkbox" disabled>
-              <label class="inline checkbox-label regular-text"><%= org.name %></label>
-            </li>
-            <% groups.each do |group| %>
-              <li class="under-input">
-                <span>└─ </span>
-                <%= check_box_tag "guidance_group_ids[]", group.id, @selected_guidance_groups.include?(group.id) %>
-                <%= f.label group.name, for: group.id, class: "left-indent checkbox-label regular-text" %>
-              </li>
-            <% end %>
-          <% end %>
-        <% end %>
+        <%= render partial: "guidance_choices", 
+                   locals: {choices: @all_ggs_grouped_by_org, form: f, 
+                            current_selections: @selected_guidance_groups} %>
       </ul>
     </div>
   </div>

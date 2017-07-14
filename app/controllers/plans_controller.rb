@@ -145,8 +145,8 @@ class PlansController < ApplicationController
     end
 
     # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by{|org,gg| org.name}
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
+    @important_ggs = @important_ggs.sort_by{|org,gg| (org.nil? ? '' : org.name)}
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
     @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
     
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
@@ -154,61 +154,12 @@ class PlansController < ApplicationController
     respond_to :html
   end
 
-
-  # we can go into this with the user able to edit or not able to edit
-  # the same edit form gets rendered but then different partials get used
-  # to render the answers depending on whether it is readonly or not
-  #
-  # we may or may not have a phase param.
-  # if we have none then we are editing/displaying the plan details
-  # if we have a phase then we are editing that phase.
-  #
-  # GET /plans/1/edit
-#  def edit
-#    @plan = Plan.find(params[:id])
-#    authorize @plan
-#    
-#    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
-#    
-#    # If there was no phase specified use the template's 1st phase
-#    @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-#    @show_phase_tab = params[:phase]
-#    @readonly = !@plan.editable_by?(current_user.id)
-#    
-#    # Get all Guidance Groups applicable for the plan and group them by org
-#    @all_guidance_groups = @plan.get_guidance_group_options
-#    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-#
-#    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
-#    @important_ggs = []
-#    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
-#    @all_ggs_grouped_by_org.each do |org, ggs|
-#      if org.organisation?
-#        @important_ggs << [org,ggs]
-#        @all_ggs_grouped_by_org.delete(org)
-#      end
-#    end
-#
-#    # Sort the rest by org name for the accordion
-#    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
-#
-#    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-#    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
-#
-#    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
-#    @is_test = params[:test] ||= false
-#    
-#    respond_to :html
-#  end
-
   # PUT /plans/1
   # PUT /plans/1.json
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
     attrs = plan_params
-
-#    attrs[:visibility] = attrs[:visibility].to_sym
 
     # Save the guidance group selections
     guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
@@ -223,18 +174,6 @@ class PlansController < ApplicationController
         format.html { render action: "edit" }
       end
     end
-  end
-
-
-# TODO: Do we need this is selections are saved with rest of form?
-  def update_guidance_choices
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
-    save_guidance_selections(guidance_group_ids)
-    @plan.save
-    flash[:notice] = success_message(_('guidance choices'), _('saved'))
-    redirect_to action: "show"
   end
   
   def share
@@ -409,9 +348,9 @@ class PlansController < ApplicationController
     authorize plan
     plan.visibility = "#{plan_params[:visibility]}"
     if plan.save
-      render json: {code: 1, msg: success_message(_('plan\'s visibility'), _('changed'))}
+      render json: {msg: success_message(_('plan\'s visibility'), _('changed'))}
     else
-      render json: {code: 0, msg: _("Unable to change the plan's status")}
+      render status: :bad_request, json: {msg: _("Unable to change the plan's status")}
     end
   end
   
@@ -420,9 +359,9 @@ class PlansController < ApplicationController
     authorize plan
     plan.visibility = "#{plan_params[:visibility]}"
     if plan.save
-      render json: {code: 1, msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
+      render json: {msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
     else
-      render json: {code: 0, msg: _("Unable to change the plan's test status")}
+      render status: :bad_request, json: {msg: _("Unable to change the plan's test status")}
     end
   end
   
