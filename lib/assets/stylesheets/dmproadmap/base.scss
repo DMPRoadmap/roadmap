@@ -283,7 +283,7 @@ div.roadmap {
           }
           li.active, ul li:hover {
             color: $primary-color;
-            background-color: $white;
+            background-color: $header-text-color;
           
             a, a:visited, a:active, a:link, a:hover {
               color: $primary-color;
