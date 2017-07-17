@@ -283,6 +283,8 @@ class PlansController < ApplicationController
   def show_export
     @plan = Plan.find(params[:id])
     authorize @plan
+    @phase_options = @plan.phases.order(:number).pluck(:title,:id)
+    @export_settings = @plan.settings(:export)
     render 'show_export'
   end
 
@@ -291,10 +293,14 @@ class PlansController < ApplicationController
   def export
     @plan = Plan.find(params[:id])
     authorize @plan
+    # what if the user passes a phase which is not in the plan? hard to auth with pundit
+    raise Pundit::NotAuthorizedError, "invalid phase" unless @plan.phases.pluck(:id).include?(params[:phase_id])
 
     # If no format is specified, default to PDF
     params[:format] = 'pdf' if params[:format].nil?
 
+    # We should re-work this into something more useful than creating a new one
+    # every time a plan gets exported
     @exported_plan = ExportedPlan.new.tap do |ep|
       ep.plan = @plan
       ep.phase_id = params[:phase_id]
@@ -329,6 +335,7 @@ class PlansController < ApplicationController
         end
       end
     rescue ActiveRecord::RecordInvalid => e
+      @phase_options = @plan.phases.order(:number).pluck(:title,:id)
       redirect_to show_export_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
       {format: params[:format], available_formats: ExportedPlan::VALID_FORMATS.to_s}
     end
@@ -375,6 +382,7 @@ class PlansController < ApplicationController
           end
         end
       rescue ActiveRecord::RecordInvalid => e
+        @phase_options = @plan.phases.order(:number).pluck(:title,:id)
         redirect_to show_export_plan_path(@plan), alert: _('Unable to download the DMP at this time.')
       end
     end

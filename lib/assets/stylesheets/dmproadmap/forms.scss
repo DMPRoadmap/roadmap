@@ -693,3 +693,20 @@ div.show-plan {
     width: 70%;
   }
 }
+
+/* Plan Export Page */
+/* ------------------------------------------------ */
+#pdf-format-options {
+  select, label{
+    display: block;
+    height: 30px;
+    width: 100%;
+    min-width: initial;
+  }
+  .font, .margins {
+    display: inline-block;
+    div{
+      display: inline-block;
+    }
+  }
+}
