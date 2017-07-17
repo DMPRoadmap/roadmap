@@ -1,6 +1,7 @@
 <% if !models.nil? %>
   <% json = {} %>
   <% models.map{|m| json[m[attribute]] = m.id} %>
+  <% err_msg = error ||= __('Please select an item from the list.') %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
          class="js-combobox <%= classes %>" list="<%= id %>_list" 
@@ -64,7 +65,7 @@
       // Display the error message if the value in the auto complete is not an item from the list
       $(combo).on('keyup', function(){
         if(<%= id %>_crosswalk[$(this).val().trim()] == undefined && $(this).val().trim().length > 1){
-          $("#<%= id %>_error").html("<%= error %>").attr('role', 'alert');
+          $("#<%= id %>_error").html("<%= err_msg %>").attr('role', 'alert');
           $("#<%= id %>").addClass('red-border');
         }else{
           $("#<%= id %>_error").html("").attr('role', '');
@@ -76,7 +77,7 @@
           $("#<%= id %>_error").html("").attr('role', '');
           $("#<%= id %>").removeClass('red-border');
         }else{
-          $("#<%= id %>_error").html("<%= error %>").attr('role', 'alert');
+          $("#<%= id %>_error").html("<%= err_msg %>").attr('role', 'alert');
           $("#<%= id %>").addClass('red-border');
         }
       });
