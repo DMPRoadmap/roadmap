@@ -38,9 +38,13 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-
+    
     @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
-    @plan.data_contact = current_user.email
+    @plan.principal_investigator_email = current_user.email
+    
+    orcid = current_user.identifier_for(IdentifierScheme.find_by(name: 'orcid'))
+    @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
+    
     @plan.funder_name = plan_params[:funder_name]
 
     @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
@@ -81,15 +85,15 @@ class PlansController < ApplicationController
 
         if !default.nil? && default == @plan.template
           # We used the generic/default template
-          msg += _('This plan is based on the default template.')
+          msg += " #{_('This plan is based on the default template.')}"
 
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
-          msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
 
         else
           # We used the specified org's or funder's template
-          msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
+          msg += " #{_('This plan is based on the')} #{@plan.template.org.name} template."
         end
 
         flash[:notice] = msg
@@ -122,7 +126,8 @@ class PlansController < ApplicationController
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.get_guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-
+    @selected_guidance_groups = @plan.guidance_groups
+    
     # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
     @important_ggs = []
     @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
@@ -131,64 +136,23 @@ class PlansController < ApplicationController
         @important_ggs << [org,ggs]
         @all_ggs_grouped_by_org.delete(org)
       end
-    end
-
-    # Sort the rest by org name for the accordion
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
-
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
-
-    respond_to :html
-  end
-
-
-  # we can go into this with the user able to edit or not able to edit
-  # the same edit form gets rendered but then different partials get used
-  # to render the answers depending on whether it is readonly or not
-  #
-  # we may or may not have a phase param.
-  # if we have none then we are editing/displaying the plan details
-  # if we have a phase then we are editing that phase.
-  #
-  # GET /plans/1/edit
-  def edit
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    
-    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
-    
-    # If there was no phase specified use the template's 1st phase
-    @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-    @show_phase_tab = params[:phase]
-    @readonly = !@plan.editable_by?(current_user.id)
-    
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.get_guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-
-    # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
-    @important_ggs = []
-    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      if org.organisation?
-        @important_ggs << [org,ggs]
+      
+      # If this is one of the already selected guidance groups its important!
+      if !(ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org,ggs] unless @important_ggs.include?([org,ggs])
         @all_ggs_grouped_by_org.delete(org)
       end
     end
 
     # Sort the rest by org name for the accordion
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
-
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+    @important_ggs = @important_ggs.sort_by{|org,gg| (org.nil? ? '' : org.name)}
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
+    @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
+    
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
-    @is_test = params[:test] ||= false
-    
     respond_to :html
   end
-
 
   # PUT /plans/1
   # PUT /plans/1.json
@@ -196,6 +160,10 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     attrs = plan_params
+
+    # Save the guidance group selections
+    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
+    save_guidance_selections(guidance_group_ids)
 
     respond_to do |format|
       if @plan.update_attributes(attrs)
@@ -207,37 +175,12 @@ class PlansController < ApplicationController
       end
     end
   end
-
-
-
-  def update_guidance_choices
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
-    all_guidance_groups = @plan.get_guidance_group_options
-    plan_groups = @plan.guidance_groups
-    guidance_groups = GuidanceGroup.where( id: guidance_group_ids)
-    all_guidance_groups.each do |group|
-      # case where plan group exists but not in selection
-      if plan_groups.include?(group) && ! guidance_groups.include?(group)
-      #   remove from plan groups
-        @plan.guidance_groups.delete(group)
-      end
-      #  case where plan group dosent exist and in selection
-      if !plan_groups.include?(group) && guidance_groups.include?(group)
-      #   add to plan groups
-        @plan.guidance_groups << group
-      end
-    end
-    @plan.save
-    flash[:notice] = success_message(_('guidance choices'), _('saved'))
-    redirect_to action: "show"
-  end
-
+  
   def share
     @plan = Plan.find(params[:id])
     authorize @plan
-    #@plan_data = @plan.to_hash
+    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+    @allow_visibility = (@plan.num_answered_questions >= 1 && !@plan.is_test?)
   end
 
 
@@ -413,9 +356,20 @@ class PlansController < ApplicationController
     authorize plan
     plan.visibility = "#{plan_params[:visibility]}"
     if plan.save
-      render json: {code: 1, msg: ''}
+      render json: {msg: success_message(_('plan\'s visibility'), _('changed'))}
     else
-      render json: {code: 0, msg: _("Unable to change the plan's Test status")}
+      render status: :bad_request, json: {msg: _("Unable to change the plan's status")}
+    end
+  end
+  
+  def set_test
+    plan = Plan.find(params[:id])
+    authorize plan
+    plan.visibility = "#{plan_params[:visibility]}"
+    if plan.save
+      render json: {msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
+    else
+      render status: :bad_request, json: {msg: _("Unable to change the plan's test status")}
     end
   end
   
@@ -423,8 +377,31 @@ class PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility)
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
+                                 :grant_number, :description, :identifier, :principal_investigator,
+                                 :principal_investigator_email, :principal_investigator_identifier,
+                                 :data_contact, :data_contact_email, :guidance_group_ids)
   end
+
+  def save_guidance_selections(guidance_group_ids)
+    all_guidance_groups = @plan.get_guidance_group_options
+    plan_groups = @plan.guidance_groups
+    guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+    all_guidance_groups.each do |group|
+      # case where plan group exists but not in selection
+      if plan_groups.include?(group) && ! guidance_groups.include?(group)
+      #   remove from plan groups
+        @plan.guidance_groups.delete(group)
+      end
+      #  case where plan group dosent exist and in selection
+      if !plan_groups.include?(group) && guidance_groups.include?(group)
+      #   add to plan groups
+        @plan.guidance_groups << group
+      end
+    end
+    @plan.save
+  end
+  
 
   # different versions of the same template have the same dmptemplate_id
   # but different version numbers so for each set of templates with the

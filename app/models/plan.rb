@@ -32,7 +32,7 @@ class Plan < ActiveRecord::Base
                   :exported_plans, :project, :title, :template, :grant_number,
                   :identifier, :principal_investigator, :principal_investigator_identifier,
                   :description, :data_contact, :funder_name, :visibility, :exported_plans,
-                  :roles, :users, :org, :data_contact_email, :data_contact_phone,
+                  :roles, :users, :org, :data_contact_email, :principal_investigator_email,
                   :as => [:default, :admin]
   accepts_nested_attributes_for :roles
 

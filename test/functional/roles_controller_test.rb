@@ -90,11 +90,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     # Valid save
-    put role_path(role), {role: params}
-    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
-    assert_response :redirect
-    assert_redirected_to share_plan_path(@plan)
-    assert assigns(:role)
+    put role_path(role, format: :json), {role: params}
     assert_equal 13, role.reload.access, "expected the record to have been updated"
     
 # TODO: Role should require a user, plan and an access level :/

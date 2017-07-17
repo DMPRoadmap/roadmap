@@ -52,7 +52,11 @@
             <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
             <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
             <td class="centered">
-              <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
+              <% if plan.administerable_by?(current_user.id) then %>
+                <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
+              <% else %>
+                <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
+              <% end %>
             </td>
             <td id="visibility-<%= plan.id %>"><%= raw display_visibility(plan.visibility) %></td>
             <td class="plan-edit-actions">
