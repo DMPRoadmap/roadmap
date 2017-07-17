@@ -19,9 +19,18 @@ $primary-color: #4f5253;
 $highlight-color: $black;
 $highlight-background-color: #F36F24;
 
-$error-color: #FFF;
-$error-background: #827D7E;
-$disabled-button-color: #CCC;
+/* MESSAGES */
+$error-color: $white;
+$error-background: #990000;
+
+$notice-color: $white;
+$notice-background: #196719;
+
+$tooltip-color: $white;
+$tooltip-background: #333;
+
+/* BUTTONS */
+$disabled-button-color: #808080;
 $cancel-button-color: #F17D04;
 
 /* HEADER STYLING */
@@ -34,3 +43,5 @@ $header-text-color: $black;
 /* HEADER LOGO POSITIONING */
 $header-logo-top-margin: 20px;
 $header-logo-left-margin: 10px;
+
+$body-background: $white;

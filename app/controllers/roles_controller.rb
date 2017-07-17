@@ -6,6 +6,7 @@ class RolesController < ApplicationController
     registered = true
     @role = Role.new(role_params)
     authorize @role
+    
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if params[:user].present?
@@ -45,12 +46,12 @@ class RolesController < ApplicationController
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if @role.update_attributes(role_params)
-      flash[:notice] = success_message(_('sharing details'), _('saved'))
       UserMailer.permissions_change_notification(@role, current_user).deliver_now
-      redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+      render json: {code: 1, msg: "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."}
     else
-      flash[:alert] = failed_create_error(@role, _('role'))
-      render action: "edit"
+#      flash[:alert] = failed_create_error(@role, _('role'))
+      #format.html{ render action: "edit" }
+      render json: {code: 1, msg: flash[:alert]}
     end
   end
 

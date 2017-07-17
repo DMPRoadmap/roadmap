@@ -1,5 +1,5 @@
 <!-- render the project title -->
-<%= render :partial => "plan_title", locals: {plan: @plan} %>
+<h1><%= @plan.title %></h1> 
 
 <div class="content">
   <div class="tabbed-area">
@@ -11,7 +11,9 @@
   
       <% @plan.template.phases.each do |phase| %>
         <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel">
-          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="false"><%= (@plan.template.phases.length > 1 ? phase.title : _('Write Plan')) %></a>
+          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="false">
+            <%= (@plan.template.phases.length > 1 ? phase.title : _('Write Plan')) %>
+          </a>
         </li>
       <% end %>
   

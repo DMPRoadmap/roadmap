@@ -195,7 +195,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # PUT /plans/:id/update_guidance_choices (update_guidance_choices_plan_path)
   # ----------------------------------------------------------
   test "update the selected guidance" do
-    params = {guidance_group_ids: [GuidanceGroup.first.id, GuidanceGroup.last.id]}
+    ids = [GuidanceGroup.first.id, GuidanceGroup.last.id]
 
     # Make sure the guidance is attached to the template first so that its a valid selection!
     q = @template.phases.first.sections.first.questions.first
@@ -203,23 +203,24 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     q.themes << GuidanceGroup.last.guidances.first.themes.first
     q.save
 
-    put update_guidance_choices_plan_path(@plan, format: :json), params
+    put plan_path(@plan), {plan: {}, guidance_group_ids: ids}
     assert_unauthorized_redirect_to_root_path
 
     # User who does not have access to the plan
     sign_in User.first
-    put update_guidance_choices_plan_path(@plan, format: :json), params
+    put plan_path(@plan), {plan: {}, guidance_group_ids: ids}
     assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
     sign_in @user
-    put update_guidance_choices_plan_path(@plan, format: :json), params
+    put plan_path(@plan), {plan: {id: @plan.id}, guidance_group_ids: ids}
     assert_response :redirect
     assert_redirected_to plan_path(@plan)
 
     @plan.reload
     ggs = @plan.guidance_groups.ids
+
     assert ggs.include?(GuidanceGroup.first.id), "expected the plan to have the first GuidanceGroup selected"
     assert ggs.include?(GuidanceGroup.last.id), "expected the plan to have the last GuidanceGroup selected"
   end

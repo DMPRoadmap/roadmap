@@ -42,8 +42,10 @@ module PlansHelper
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Institution')}</span>"
     when 'publicly_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
+    when 'privately_visible'
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
     else
-      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"  # Both Test and Private
+      return "<span>#{_('N/A')}</span>" # Test Plans
     end
   end
   

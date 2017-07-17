@@ -14,7 +14,7 @@
     $("#<%= id %>").on('click focus', function(e){
       if($(this).attr('aria-disabled') == 'true'){
         e.preventDefault();
-        $(this).siblings(".error-tooltip-right").attr('role', 'tooltip');
+        $(this).siblings(".error-tooltip-right").attr('role', 'alert');
       }else{
         $(this).siblings(".error-tooltip-right").attr('role', '');
       }
