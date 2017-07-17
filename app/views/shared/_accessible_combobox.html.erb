@@ -1,6 +1,7 @@
 <% if !models.nil? %>
   <% json = {} %>
   <% models.map{|m| json[m[attribute]] = m.id} %>
+  <%= tip = tooltip ||= '' %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
          class="js-combobox <%= classes %>" list="<%= id %>_list" 
@@ -23,7 +24,6 @@
          value="<%= default_selection.id unless default_selection.nil? %>" />
 
   <span role="" id="<%= id.gsub("_#{attribute}", "_error") %>" class="error-tooltip left-indent"></span>
- 
 
   <script type="text/javascript">
     var <%= id %>_crosswalk = <%= raw JSON.generate(json) %>;
