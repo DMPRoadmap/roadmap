@@ -1,7 +1,6 @@
 <% if !models.nil? %>
   <% json = {} %>
   <% models.map{|m| json[m[attribute]] = m.id} %>
-  <%= tip = tooltip ||= '' %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
          class="js-combobox <%= classes %>" list="<%= id %>_list" 
@@ -23,7 +22,7 @@
   <input type="hidden" id="<%= id.gsub("_#{attribute}", "_id") %>" name="<%= name.gsub("_#{attribute}]", "_id]") %>"
          value="<%= default_selection.id unless default_selection.nil? %>" />
 
-  <span role="" id="<%= id.gsub("_#{attribute}", "_error") %>" class="error-tooltip left-indent"></span>
+  <span role="" id="<%= id %>_error" class="error-tooltip left-indent"></span>
 
   <script type="text/javascript">
     var <%= id %>_crosswalk = <%= raw JSON.generate(json) %>;
@@ -61,6 +60,27 @@
         $(this).css("display", 'none');
         $(combo).val("").focus();//.keyup();
       });
+      
+      // Display the error message if the value in the auto complete is not an item from the list
+      $(combo).on('keyup', function(){
+        if(<%= id %>_crosswalk[$(this).val().trim()] == undefined && $(this).val().trim().length > 1){
+          $("#<%= id %>_error").html("<%= error %>").attr('role', 'alert');
+          $("#<%= id %>").addClass('red-border');
+        }else{
+          $("#<%= id %>_error").html("").attr('role', '');
+          $("#<%= id %>").removeClass('red-border');
+        }
+      });
+      $("#<%= id %>").on('change', function(){
+        if($(this).val().trim().length > 1){
+          $("#<%= id %>_error").html("").attr('role', '');
+          $("#<%= id %>").removeClass('red-border');
+        }else{
+          $("#<%= id %>_error").html("<%= error %>").attr('role', 'alert');
+          $("#<%= id %>").addClass('red-border');
+        }
+      });
+      
     });
   </script>
 <% else %>
