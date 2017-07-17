@@ -73,9 +73,10 @@ class RemovingIntermediaryTables < ActiveRecord::Migration
       t.rename :new_question_id, :question_id
     end
     drop_table :suggested_answers
-    change_table :users do |t|
-      t.remove :dmponline3
-    end
+# Only needed for DMPonline service migration.
+#    change_table :users do |t|
+#      t.remove :dmponline3
+#    end
 
     #drop_table :projects
 
