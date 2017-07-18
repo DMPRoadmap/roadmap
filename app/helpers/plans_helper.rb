@@ -45,7 +45,7 @@ module PlansHelper
     when 'privately_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
     else
-      return "<span>#{_('N/A')}</span>" # Test Plans
+      return "<span>#{_('Private')}</span>" # Test Plans
     end
   end
   
