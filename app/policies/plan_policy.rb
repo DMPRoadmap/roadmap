@@ -12,14 +12,6 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
-  def edit?
-    @plan.readable_by?(@user.id)
-  end
-
-  def update_guidance_choices?
-    @plan.editable_by?(@user.id)
-  end
-
   def share?
     @plan.readable_by?(@user.id)
   end
@@ -53,6 +45,10 @@ class PlanPolicy < ApplicationPolicy
   end
   
   def visibility?
+    @plan.administerable_by?(@user.id)
+  end
+
+  def set_test?
     @plan.administerable_by?(@user.id)
   end
 

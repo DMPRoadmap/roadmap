@@ -63,14 +63,17 @@
         <%= render "layouts/header" %>
       </header>
 
-      <div class="roadmap-info-box" style="visibility: <%= (notice || flash[:notice]) ? 'visible' : 'hidden' %>;"<%= (notice || flash[:notice]) ? ' role=status' : '' %>>
-        <i class="fa fa-check-circle" aria-hidden="true"></i>
-        <span class="aria-only"><%= _('Notice:') %> </span>
-        <span><%= raw notice %></span>
-      </div>
-      <div class="roadmap-alert-box" style="visibility: <%= (alert || flash[:alert] || flash[:error]) ? 'visible' : 'hidden' %>;"<%= (alert || flash[:alert] || flash[:error]) ? ' role=alert' : '' %>>
-        <i class="fa fa-times-circle" aria-hidden="true"></i>
-        <span><%= raw alert %></span>
+      <% 
+      has_alert = (alert || flash[:alert] || flash[:error])
+      has_notice = (notice || flash[:notice])
+      %>
+
+      <div id="notification-area"
+           class="roadmap-<%= has_alert ? 'alert' : 'info' %>-box" 
+           style="visibility: <%= (has_alert || has_notice) ? 'visible' : 'hidden' %>;"<%= (has_notice ? ' role=status' : (has_alert ? ' role=alert' : '')) %>>
+        <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+        <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+        <span><%= raw (has_alert ? alert : notice) %></span>
       </div>
 
       <main>
