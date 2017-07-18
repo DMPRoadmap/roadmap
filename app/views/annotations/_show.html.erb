@@ -1,0 +1,10 @@
+<!--show annotations. annotation is passed as an argument-->
+<% if annotation.type == :example_answer %>
+  <h3><%= _('Example Answer') %> </h3>
+<% elsif annotation.type == :guidance %>
+  <h3><%= _('Guidance') %> </h3>
+<% else %>
+  <h3><%= _('Annotation') %> </h3>
+<% end %>
+
+<p><%= raw annotation.text %></p>
