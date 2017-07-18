@@ -1,7 +1,7 @@
 <% if !models.nil? %>
   <% json = {} %>
   <% models.map{|m| json[m[attribute]] = m.id} %>
-  <% err_msg = error ||= __('Please select an item from the list.') %>
+  <% err_msg = error ||= _('Please select an item from the list.') %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
          class="js-combobox <%= classes %>" list="<%= id %>_list" 
