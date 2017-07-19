@@ -497,7 +497,7 @@ class PlansController < ApplicationController
     # If no templates were available use the generic templates
     if @templates.empty?
       @msg = _("Using the generic Data Management Plan")
-      @templates << Template.find_by(is_default: true)
+      @templates << Template.where(is_default: true, plublished: true)
     end
 
     @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
