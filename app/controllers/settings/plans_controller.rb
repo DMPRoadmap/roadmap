@@ -36,6 +36,7 @@ module Settings
         flash[:alert] = _('An error has occurred while saving/resetting your export settings.')
       end
       respond_to do |format|
+        @phase_options = @plan.phases.order(:number).pluck(:title,:id)
         format.html { redirect_to(show_export_plan_path(@plan.id)) }
         # format.json { render json: settings_json }
       end
