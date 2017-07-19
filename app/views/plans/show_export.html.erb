@@ -37,7 +37,10 @@
           <%= form_tag( export_plan_path(@plan), method: :get, html: {class: "roadmap-form"}) do |f| %>
             <% if @phase_options.length > 1 %>
               <p><legend><strong><%= _("Select Phase to Download") %></strong></legend></p>
-              <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0])) %>
+              <div class="form-input">
+                <%= label_tag(:phase_id, _("Phase")) %>
+                <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0])) %>
+              </div>
             <% else %>
               <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
             <% end %>

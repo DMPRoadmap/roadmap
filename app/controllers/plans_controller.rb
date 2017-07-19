@@ -236,11 +236,6 @@ class PlansController < ApplicationController
   def export
     @plan = Plan.find(params[:id])
     authorize @plan
-    # what if the user passes a phase which is not in the plan? hard to auth with pundit
-    raise Pundit::NotAuthorizedError, "invalid phase" unless @plan.phases.pluck(:id).include?(params[:phase_id])
-
-    # If no format is specified, default to PDF
-    params[:format] = 'pdf' if params[:format].nil?
 
     # We should re-work this into something more useful than creating a new one
     # every time a plan gets exported
@@ -256,14 +251,23 @@ class PlansController < ApplicationController
       end
     end
 
+    # setup some variables we will need in the export views
+    #   here, if custom sections are included, we want all sections, otherwise,
+    #   we only want those which are not modifiable, as they are the original template
+    @sections = params[:export][:custom_sections].present? || @plan.template.customization_of.nil? ? @exported_plan.sections.order(:number) : Phase.find(params[:phase_id]).sections.where(modifiable: false) # prefetch questions?
+    @unanswered_questions = params[:export][:unanswered_questions].present?
+    @question_headings = params[:export][:question_headings].present?
+    @show_details = params[:export][:project_details].present?
+
+
     begin
       @exported_plan.save!
       file_name = @exported_plan.settings(:export)[:value]['title'].gsub(/ /, "_")
 
       respond_to do |format|
         format.html
-        format.csv  { send_data @exported_plan.as_csv,  filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt,  filename: "#{file_name}.txt" }
+        format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
         format.docx { render docx: 'export', filename: "#{file_name}.docx" }
         format.pdf do
           @formatting = @plan.settings(:export).formatting

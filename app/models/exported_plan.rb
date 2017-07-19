@@ -99,24 +99,40 @@ class ExportedPlan < ActiveRecord::Base
 
   # Export formats
 
-  def as_csv
+  def as_csv(sections, unanswered_questions, question_headings)
     CSV.generate do |csv|
-      csv << [_('Section'),_('Question'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
-      self.sections.each do |section|
-        questions = self.questions_for_section(section)
-        if questions.present?
-          questions.each do |question|
-            answer = self.plan.answer(question.id)
-            q_format = question.question_format
-            if q_format.option_based?
-              options_string = answer.question_options.collect {|o| o.text}.join('; ')
-            else
-              options_string = ''
-            end
+      if question_headings
+        csv << [_('Section'),_('Question'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
+      else
+        csv << [_('Section'),_('Answer'),_('Selected option(s)'),_('Answered by'),_('Answered at')]
+      end
+      sections.each do |section|
+        section.questions.each do |question|
+          answer = Answer.where(plan_id: self.plan_id, question_id: question.id).first
+          # skip unansewered questions
+          if answer.blank? && !unanswered_questions
+            next
+          end
+          answer_text = answer.present? ? answer.text : ''
+          q_format = question.question_format
+          if q_format.option_based?
+            options_string = answer.question_options.collect {|o| o.text}.join('; ')
+          else
+            options_string = ''
+          end
+          if question_headings
             csv << [
               section.title,
               sanitize_text(question.text),
-              question.option_comment_display ? sanitize_text(answer.text) : '',
+              question.option_comment_display ? sanitize_text(answer_text) : '',
+              options_string,
+              user.name,
+              answer.updated_at
+            ]
+          else
+            csv << [
+              section.title,
+              question.option_comment_display ? sanitize_text(answer_text) : '',
               options_string,
               user.name,
               answer.updated_at
@@ -127,40 +143,42 @@ class ExportedPlan < ActiveRecord::Base
     end
   end
 
-  def as_txt
+  def as_txt(sections, unanswered_questions, question_headings, details)
     output = "#{self.plan.title}\n\n#{self.plan.template.title}\n"
     output += "\n"+_('Details')+"\n\n"
-
-    self.admin_details.each do |at|
-        value = self.send(at)
-        if value.present?
-          output += admin_field_t(at.to_s) + ": " + value + "\n"
-        else
-          output += admin_field_t(at.to_s) + ": " + _('-') + "\n"
-        end
+    if details
+      self.admin_details.each do |at|
+          value = self.send(at)
+          if value.present?
+            output += admin_field_t(at.to_s) + ": " + value + "\n"
+          else
+            output += admin_field_t(at.to_s) + ": " + _('-') + "\n"
+          end
+      end
     end
 
-    self.sections.each do |section|
-      questions = self.questions_for_section(section)
-      if questions.present?
-        output += "\n#{section.title}\n"
-        questions.each do |question|
+    sections.each do |section|
+      output += "\n#{section.title}\n"
+      section.questions.each do |question|
+        answer = self.plan.answer(question.id, false)
+        #skip if question un-answered
+        if answer.nil? && !unanswered_questions then next end
+
+        if question_headings
           qtext = sanitize_text( question.text.gsub(/<li>/, '  * ') )
           output += "\n* #{qtext}"
-          answer = self.plan.answer(question.id, false)
-
-          if answer.nil?
-            output += _('Question not answered.')+ "\n"
-          else
-            q_format = question.question_format
-            if q_format.option_based?
-              output += answer.question_options.collect {|o| o.text}.join("\n")
-              if question.option_comment_display
-                output += "\n#{sanitize_text(answer.text)}\n"
-              end
-            else
+        end
+        if answer.nil?
+          output += _('Question not answered.')+ "\n"
+        else
+          q_format = question.question_format
+          if q_format.option_based?
+            output += answer.question_options.collect {|o| o.text}.join("\n")
+            if question.option_comment_display
               output += "\n#{sanitize_text(answer.text)}\n"
             end
+          else
+            output += "\n#{sanitize_text(answer.text)}\n"
           end
         end
       end
