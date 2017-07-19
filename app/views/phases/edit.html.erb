@@ -52,7 +52,7 @@
               <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>" aria-hidden="true"></span>
             </h2>
 
-            <div class="accordion-group">
+            <div class="accordion-section">
               <!-- accordion body -->
               <p><%= raw section.description %></p>
 
@@ -69,178 +69,68 @@
                   <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
                   <div id="<%= id_css%>">
 
+                    <%
+                    # Load the answer or create a new one
+                    answers = question.plan_answers(@plan.id)
+                    if answers.present?
+                      answer = answers.first
+                    else
+                      answer = Answer.new({plan_id: @plan.id, 
+                                           question_id: question.id, 
+                                           user_id: current_user.id })
+                      if question.default_value.present?
+                        answer.text = question.default_value
+                      end
+                    end
+                    %>
+                    
                     <!-- Answer Section -->
                     <div class="question-div edit-plan-left">
-                      <%
-                      # Load the answer or create a new one
-                      answers = question.plan_answers(@plan.id)
-                      if answers.present?
-                        answer = answers.first
-                      else
-                        answer = Answer.new({plan_id: @plan.id, 
-                                             question_id: question.id, 
-                                             user_id: current_user.id })
-                        if question.default_value.present?
-                          answer.text = question.default_value
-                        end
-                      end
-                      %>
-                      <div class="question-form">
-                        <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                        <div id="<%= "answer-form-#{question.id}" %>">
-                          <%= render(partial: 'answers/new_edit', 
-                                     locals: { question: question, answer: answer, readonly: @readonly }) %>
-                        </div>
-                        <div id="<%= "answer-status-#{question.id}" %>" class="answer-status">
-                          <%= render(partial: 'answers/status', locals: { answer: answer }) %>
-                        </div>
-                      </div>   <!-- question-form -->
+                      <%= render partial: 'answer_section', 
+                                 locals: {plan: @plan, question: question, answer: answer, readonly: @readonly}%>
+                     
                     </div> <!-- edit-plan-left -->
+
 
                     <!-- Guidance and Notes Section (includes Annotations) -->
                     <div class="question-area-right-column edit-plan-right">
-                      <div id="right-area-tabs-<%= question.id %>" class="tabbed-area question_right_column_nav">
-                        <% comments = answer.notes.all %> 
-                        <% active_tab = nil %>
-                        <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-    
-                        <!-- render navigation tabs for the Guidance/Notes section -->
-                        <ul class="tabs question_right_column_ul" role="tablist">
-                          <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
-                          <% if annotations.present? || question_guidances.present? %>
-                            <% active_tab = 'guidance_tab' %>
-                            <li class="guidance_tab active" role="tab" 
-                                aria-controls="guidance-question-area-<%= question.id %>">
-                              <a href="#guidance-question-area-<%= question.id %>" aria-selected="true">
-                                <%= _('Guidance') %>
-                              </a>
-                            </li>
-                          <% else %>
-                            <% active_tab = 'note_tab' %>
-                          <% end %>
-                        
-                          <li class="note_tab <%= "active" if active_tab == 'note_tab' %>" role="tab" 
-                              aria-controls="comment-question-area-<%= question.id %>">
-                            <% if comments.length > 0 %>
-                              <a href="#comment-question-area-<%= question.id %>" id="notes_number_<%= question.id %>" 
-                                 aria-selected="<%= active_tab == 'note_tab' %>"><%= _('Notes') %></a>
-                            <% else %>
-                              <a href="#comment-question-area-<%= question.id %>" id="notes_number_<%= question.id %>" 
-                                 aria-selected="<%= active_tab == 'note_tab' %>"> <%= _('Share note') %></a>
-                            <% end %>
-                          </li>
-                        </ul>
-
-                        <div class="tab-panels question-guidance guidance_tab" role="tabpanel">
-                          <div id="guidance-question-area-<%= question.id %>" 
-                               class="tab-panel<%= active_tab == 'guidance_tab' ? ' active' : '' %>" 
-                               aria-hidden="false" aria-labelledby="guidance_tab">
-
-                            <!--guidance content -->
-                             <div class="accordion" id="<%= question.id %>-guidance">
-                              <!--question guidance-->
-                              <% num_annotations = 0 %>
-                              <% i = 0 %>
-                              <% if annotations.present? %>
-                                <% annotations.each do |annotation| %>
-                                  <%= render partial: 'annotations/show', locals: {annotation: annotation} %>
-                                  <% num_annotations += 1%>
-                                  <% i += 1 %>
-                                <% end %>
-                              <% end %> 
-
-                              <!-- guidance by theme -->
-                              <% guidances = @question_guidance[question.id] %>
-                              <% guidance_accordion_id = num_annotations %>
-                              <% guidances.each_pair do |theme, groups| %>
-                                <% groups.each do |group| %>
-                                  <%= render partial: 'guidance_groups/show', 
-                                             locals: {group: group, theme: theme, i: i, question: question,
-                                              guidance_accordion_id: guidance_accordion_id} %>
-                             
-                                  <% guidance_accordion_id += 1 %>
-                                  <% i += 1 %>
-                                <% end %> 
-                              <% end %>   
-                            </div>   <!-- accordion guidance/annotations -->
-     
-                          </div> <!-- question tab panel -->
-
-                          <div id="comment-question-area-<%= question.id %>" 
-                               aria-hidden="false" aria-labelledby="note_tab"
-                               class="tab-panel comment-area note_tab<%= active_tab == 'note_tab' ? ' active' : '' %>">
-         
-                            <!--note content -->
-                            <% if answer.present? && answer.notes.any? %>
-                              <% notes = answer.notes.all.to_a.sort! {|x,y| y.updated_at <=> x.updated_at } %>
-                              <% questionid = question.id %>
-                              <%= hidden_field_tag :question_id, questionid, class: "question_id" %>
-
-                              <!-- add note -->
-                              <div id="add_comment_button_top_div_<%= questionid %>" class="move_2_right" >
-                                <%= link_to _('Add note'), "#question-form-#{questionid}",
-                                    class: "btn btn-primary add_comment_button",
-                                    onclick: "add_note_button(#{questionid})",
-                                    role: "button" %>
-                              </div>
-
-                              <div class="div_clear"></div>
-
-                              <!-- list of notes, view and edit a note -->
-                              <%= render partial: "/notes/list", 
-                                         locals: {question_id: question.id, notes: notes, plan: @plan} %>
-
-                              <div class="div_clear"></div>
-
-                              <!-- add a note block -->
-                              <div id="add_comment_block_div_<%= questionid %>" style="display: none">
-                                <%= render partial: "/notes/add", 
-                                           locals: {answer: answer, question: question, plan_id: @plan.id }%>
-                              </div>
-                            <% else %>
-                              <%= render partial: "/notes/add", 
-                                         locals: {answer: answer, question: question, plan_id: @plan.id }%>
-                            <% end%>  
-                          </div> <!-- note tab panel -->
-                        
-                        </div> <!-- tab panels -->
-                      </div> <!-- tabbed area -->
+                      <%= render partial: 'guidance_section', 
+                                 locals: {plan: @plan, question: question, answer: answer} %>
                     </div>
-
-                  </div>  <!-- edit-plan-right -->
-                </div>   <!-- id_css -->
-              <% end %> <!-- section.questions -->
+                  </div>   <!-- id_css -->
+                <% end %> <!-- section.questions -->
             
               </div>   <!--  loaded -->
-            </div> <!-- accordion group -->
+              
+              <!-- pop up about unsaved answers -->
+              <div id="section-<%= sectionid %>-collapse-alert" data-container="body" class="modal" 
+                   role="dialog" aria-label="<%= _("Unsaved Answers Alert") %>" 
+                   aria-describedby="#section-<%= sectionid %>-collapse-alert-plural" style="display: none;">
 
-            <!-- pop up about unsaved answers -->
-            <div id="section-<%= sectionid %>-collapse-alert" data-container="body" class="modal" 
-                 role="dialog" aria-label="<%= _("Unsaved Answers Alert") %>" 
-                 aria-describedby="#section-<%= sectionid %>-collapse-alert-plural" style="display: none;">
-
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3><%= _('Unsaved answers')%></h3>
-              </div>
-
-              <div class="modal-body">
-                <div id="section-<%= sectionid %>-collapse-alert-plural">
-                  <p><%= _('You have altered answers but have not saved them:')%></p>
-                  <ul id="unsaved-answers-<%= sectionid %>"></ul>
-                  <p><%= _('Would you like to save them now?')%></p>
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h3><%= _('Unsaved answers')%></h3>
                 </div>
-              </div>
 
-              <div class="modal-footer">
-                <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" 
-                   role="button" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
-                <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" 
-                   role="button" class="discard-section-collapse btn"><%= _('Discard')%></a>
-                <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" 
-                   role="button" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
-              </div>
-            </div>  <!-- section-sectionid-collapse-alert -->
+                <div class="modal-body">
+                  <div id="section-<%= sectionid %>-collapse-alert-plural">
+                    <p><%= _('You have altered answers but have not saved them:')%></p>
+                    <ul id="unsaved-answers-<%= sectionid %>"></ul>
+                    <p><%= _('Would you like to save them now?')%></p>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" 
+                     role="button" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
+                  <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" 
+                     role="button" class="discard-section-collapse btn"><%= _('Discard')%></a>
+                  <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" 
+                     role="button" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
+                </div>
+              </div>  <!-- section-sectionid-collapse-alert -->
+              
+            </div> <!-- accordion group -->
 
             <% i += 1 %>
       
