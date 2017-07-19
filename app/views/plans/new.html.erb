@@ -34,6 +34,8 @@
                               default_selection: @default_org,
                               models: @orgs,
                               attribute: 'name',
+                              tooltip: _('Please select a valid research organisation from the list.'),
+                              error: _('You must select a research organisation from the list.'),
                               classes: 'input-full-width'} %>
         </div>
         
@@ -59,7 +61,8 @@
                               default_selection: nil,
                               models: @funders,
                               attribute: 'name',
-                              tooltip: _('Please select a valid funding organisation from the list'),
+                              tooltip: _('Please select a valid funding organisation from the list.'),
+                              error: _('You must select a funding organisation from the list.'),
                               classes: 'input-full-width'} %>
         </div>
         <div class="form-right-side">

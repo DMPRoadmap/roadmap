@@ -277,7 +277,7 @@ form.roadmap-form {
     box-shadow: 0 0 6px $error-background;
   }
 
-  .error-tooltip, .error-tooltip-right, .submit-tooltip {
+  .error-tooltip, .error-tooltip-right, .error-tooltip-top, .submit-tooltip {
     display: none;
     width: 45%;
     background: $error-background;
@@ -293,12 +293,30 @@ form.roadmap-form {
     position: absolute;
     z-index: 9;
   }
+  
   .error-tooltip[role='alert']:before, .submit-tooltip[role='tooltip']:before {
     display: inline;
     position: absolute;
     top: -30px;
     margin: 0 auto;
     @include icon(caret-up);
+    color: $error-background;
+    font-size: 44px;
+  }
+  
+  .error-tooltip-top[role='alert'] {
+    top: -35px;
+    left: 0;
+    display: inline;
+    position: absolute;
+    z-index: 9;
+  }
+  .error-tooltip-top[role='alert']:before {
+    display: inline;
+    position: absolute;
+    margin: 0 auto;
+    top: 30px;
+    @include icon(caret-down);
     color: $error-background;
     font-size: 44px;
   }
