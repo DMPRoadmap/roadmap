@@ -35,6 +35,12 @@
          class="tab-panel<%= active_tab == 'guidance_tab' ? ' active' : '' %>" 
          aria-hidden="false" aria-labelledby="guidance_tab">
 
+      <div class="expand-collapse-all inline left-indent">
+        <a href="#<%= question.id %>-guidance" class="expand-accordions">expand all</a>
+        <span class="muted">|</span>
+        <a href="#<%= question.id %>-guidance" class="collapse-accordions">collapse all</a>
+      </div>
+
       <!--guidance content -->
        <div class="accordion" id="<%= question.id %>-guidance">
         <!--question guidance-->
@@ -42,7 +48,7 @@
         <% i = 0 %>
         <% if annotations.present? %>
           <% annotations.each do |annotation| %>
-            <%= render partial: 'annotations/show', locals: {annotation: annotation} %>
+            <%= render partial: 'annotations/show', locals: {plan: plan, annotation: annotation} %>
             <% num_annotations += 1%>
             <% i += 1 %>
           <% end %>

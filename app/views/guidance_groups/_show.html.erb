@@ -1,8 +1,8 @@
-<h3>
+<h3 class="accordion_heading_text">
   <%= group[:org] %> guidance on <%= theme %>
-  <span class="fa <%= i == 0 ? 'fa-minus' : 'fa-plus' %>" aria-hidden="true"></span>
+  <span class="fa fa-plus" aria-hidden="true"></span>
 </h3>
 
-<div id="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>" class="guidance-accordion-body collapse">
-  <div class="accordion-inner"><%= raw group[:text] %></div>
+<div id="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>" class="accordion-section collapse">
+  <%= raw group[:text] %>
 </div>

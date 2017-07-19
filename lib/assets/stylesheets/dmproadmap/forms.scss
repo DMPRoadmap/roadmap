@@ -703,9 +703,105 @@ td.plan-edit-actions {
 
 /* Write plan */
 /* ------------------------------------------------ */
+#sections-accordion-controls {
+  width: 55%;
+  margin: 15px 0 15px 45px;
+  
+  a {
+    text-decoration: none;
+  }
+  .expand-collapse-all, .progress {
+    width: 45%;
+  }
+  .progress {
+    position: relative;
+    width: 52%;
+
+    .bar-container {
+      position: relative;
+      top: 0;
+      margin: 0 -10px 0 auto;
+      padding: 5px;
+      border-radius: 5px;
+      width: 200px;
+
+      .bar {
+        position: relative;
+        left: 0;
+      
+        .bar-fill {
+          height: 100%;
+          width: 100%;
+          background-color: $light-grey;
+        }
+      }
+    }
+  }
+}
 #sections-accordion {
+  /* Section title / progress */
   h2 {
     font-size: 18px;
+    
+    .section-status {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      width: 55%;
+      text-align: right;
+      font-size: 16px;
+      
+      .fa {
+        font-size: 14px;
+        position: absolute;
+        top: 3px;
+        right: -19px;
+      }
+      .fa-check-circle {
+        color: $notice-background;
+      }
+    }
+  }
+
+  /* Example Answers */
+  div.suggested-answer-div {
+    width: 80%;
+    margin-top: 20px;
+    margin-left: 15px;
+    border: 0.5px solid $light-grey;
+    border-radius: 3px;
+    padding: 5px 15px;
+    
+    .suggested-answer-intro {
+      position: relative;
+      top: -17px;
+      left: 10px;
+      font-weight: bold;
+      background-color: $white;
+      padding: 0 10px;
+    }
+    .suggested-answer-border {
+      margin-top: -20px;
+    }
+  }
+  
+  .form-input {
+    margin-top: -10px;
+
+    ol, ul {
+      list-style: none;
+    }
+  }
+  
+  div.mce-tinymce {
+    width: 84%;
+  }
+
+  .guidance_tab h3 {
+    font-size: 16px;
+    .fa {
+      font-size: 14px;
+    }
   }
 }
 
