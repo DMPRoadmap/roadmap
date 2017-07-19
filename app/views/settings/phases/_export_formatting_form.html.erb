@@ -1,5 +1,5 @@
 <%
-   
+   @export_settings ||= plan.settings(:export)
    admin_settings = @export_settings.fields[:admin]
    question_settings = @export_settings.fields[:questions] || :all
    filename = @export_settings.title.present? ? @export_settings.title : plan.title
@@ -72,7 +72,39 @@
         <% end %>
     </ol>
   </fieldset>
-  
+  <div id="pdf-format-options">
+    <h3><%= _('PDF Formatting') %></h3>
+    <fieldset class="font">
+      <legend><%= _('Font') -%></legend>
+      <div>
+      <%= label_tag("export[formatting][font_face]", _('Face')) %>
+      <%= select_tag("export[formatting][font_face]", options_for_select(Settings::Template::VALID_FONT_FACES, @export_settings.formatting[:font_face]), { "data-default" => plan.template.settings(:export).formatting[:font_face] }) %>
+      </div>
+      <div>
+        <%= label_tag("export[formatting][font_size]", _('Size') + " (pt)") %>
+        <%= select_tag("export[formatting][font_size]", options_for_select(Settings::Template::VALID_FONT_SIZE_RANGE.to_a, @export_settings.formatting[:font_size]), { "data-default" => plan.template.settings(:export).formatting[:font_size] }) %>
+      </div>
+    </fieldset>
+    <fieldset class="margins">
+      <legend><%= _('Margin') -%> (mm)</legend>
+        <div>
+          <%= label_tag("export[formatting][margin][top]", _('Top')) %>
+          <%= select_tag("export[formatting][margin][top]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:top]), { "data-default" => plan.template.settings(:export).formatting[:margin][:top] }) %>
+        </div>
+        <div>
+          <%= label_tag("export[formatting][margin][bottom]", _('Bottom')) %>
+          <%= select_tag("export[formatting][margin][bottom]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:bottom]), { "data-default" => plan.template.settings(:export).formatting[:margin][:bottom] }) %>
+        </div>
+        <div>
+          <%= label_tag("export[formatting][margin][left]", _('Left')) %>
+          <%= select_tag("export[formatting][margin][left]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:left]), { "data-default" => plan.template.settings(:export).formatting[:margin][:left] }) %>
+        </div>
+        <div>
+          <%= label_tag("export[formatting][margin][right]", _('Right')) %>
+          <%= select_tag("export[formatting][margin][right]", options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a, @export_settings.formatting[:margin][:right]), { "data-default" => plan.template.settings(:export).formatting[:margin][:rigth] }) %>
+        </div>
+    </fieldset>
+  </div>
   <div class="div_right">
     <%= submit_tag(_('Reset'), class: "btn btn-primary", role:'button') %>
     <%= submit_tag(_('Save'), class: "btn btn-primary", "data-toggle" => "collapse", "data-target" => "#settings-accordion-plan-#{plan.template.id}", role:"button") %>
