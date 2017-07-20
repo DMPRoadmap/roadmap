@@ -19,50 +19,51 @@
     </head>
     <body>
         <h1><%= @plan.title %></h1>
-        <% @exported_plan.admin_details.each do |field|
-             value = @exported_plan.send(field)
-             if value.present? %>
-                <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= value -%></p>
-          <% else %>
-                <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= _('-') %></p>
+        <% if @show_details %>
+          <% @exported_plan.admin_details.each do |field|
+               value = @exported_plan.send(field)
+               if value.present? %>
+                  <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= value -%></p>
+            <% else %>
+                  <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= _('-') %></p>
+            <% end %>
           <% end %>
         <% end %>
 
-        <% @exported_plan.sections.each do |section| %>
-            <% questions = @exported_plan.questions_for_section(section.id)
-               if questions.present?
-            %>
-                <h2><%= section.title %></h2>
-                <% questions.each do |question| %>
-                    <div class="question">
-                        <h3><%= raw question.text %></h3>
-                        <% answer = @plan.answer(question.id, false) %>
-                            <% if answer.nil? then %>
-                                <p><%= _('Question not answered.') -%></p>
-                            <% else %>
-                                <% q_format = question.question_format %>
-                                <% if q_format.option_based? %>
-                                    <ul>
-                                        <% answer.question_options.each do |option| %>
-                                            <li><%= option.text %></li>
-                                        <% end %>
-                                    </ul>
-                                    <!-- Validates if this question has comments-->
-                                    <% if question.option_comment_display == true then%>
-                                        <% if !answer.text.nil? then %>
-                                            <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
-                                        <%end%>
-                                    <%end%>
-                                <%else%>
-                                    <!-- display an answer for questions type 'text area' and 'text field'-->
-                                    <% if !answer.text.nil? then %>
-                                        <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
-                                    <%end%>
-                                <% end %>
-                        <% end %>
-                    </div>
+        <% @sections.each do |section| %>
+          <h2><%= section.title %></h2>
+          <% section.questions.each do |question| %>
+            <% answer = @plan.answer(question.id, false) %>
+            <% if answer.nil? && !@unanswered_questions then next end %>
+            <div class="question">
+              <% if @question_headings %>
+                <h3><%= raw question.text %></h3>
+              <% end %>
+              <% if answer.nil? %>
+                <p><%= _('Question not answered.') -%></p>
+              <% else %>
+                <% q_format = question.question_format %>
+                <% if q_format.option_based? %>
+                  <ul>
+                  <% answer.question_options.each do |option| %>
+                    <li><%= option.text %></li>
+                  <% end %>
+                  </ul>
+                  <!-- Validates if this question has comments-->
+                  <% if question.option_comment_display == true %>
+                    <% if !answer.text.nil? %>
+                      <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <!-- display an answer for questions type 'text area' and 'text field'-->
+                  <% if !answer.text.nil? %>
+                    <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
+                  <% end %>
                 <% end %>
-            <% end %>
-        <% end %>
+              <% end %>
+            </div>
+          <% end %>
+      <% end %>
     </body>
 </html>

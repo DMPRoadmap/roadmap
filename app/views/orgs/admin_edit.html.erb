@@ -21,7 +21,7 @@
         <div class="org-logo form-input">
           <%= f.label :logo %>
           <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}", class: 'left-indent' %>
-          <div class="inline left-indent" id="logo-controls">
+          <div class="inline" id="logo-controls">
             <%= f.label _('Remove logo') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo %>
             <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
             <br />
@@ -35,13 +35,13 @@
       <% else %>
         <div class="form-input">
           <%= f.label :logo %>
-          <%= f.file_field :logo, class: 'left-indent' %>
+          <%= f.file_field :logo %>
         </div>
       <% end %>
       
       <div class="form-input" id="banner-text">
         <%= f.label _('Top banner text'), for: @org.banner_text %>
-        <div class="left-indent inline">
+        <div class="inline">
           <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text") %>
           <%= tinymce(selector: "#org_banner_text", content_css: asset_path('application.css')) %>
         </div>
