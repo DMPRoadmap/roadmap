@@ -724,16 +724,22 @@ td.plan-edit-actions {
       padding: 5px;
       border-radius: 5px;
       width: 200px;
+      height: 20px;
 
-      .bar {
-        position: relative;
+      #questions-progress-title {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 3;
+      }
+      #questions-progress {
+        position: absolute;
+        top: 0;
         left: 0;
-      
-        .bar-fill {
-          height: 100%;
-          width: 100%;
-          background-color: $light-grey;
-        }
+        height: 98%;
+        border-radius: 3px;
+        background-color: $light-grey;
+        z-index: 1;
       }
     }
   }
@@ -768,6 +774,20 @@ td.plan-edit-actions {
         }
       }
     }
+  }
+  
+  .answer-unsaved {
+    position: relative;
+    right: -205px;
+    top: 18px;
+    color: $error-color;
+    background: $error-background;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  
+  .section-description {
+    width: 60%;
   }
 
   /* Example Answers */

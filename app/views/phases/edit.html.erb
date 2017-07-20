@@ -55,12 +55,18 @@
             <% sectionid = section.id %>
 
             <h2 class="accordion_heading_text" id="section-progress-<%= sectionid %>">
-              <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
+              <div class="inline section-title">
+                <%= section.title %>
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                <div class="inline progress-bar-<%= sectionid %>">
+                  <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
+                </div>
+              </div>
             </h2>
 
             <div class="accordion-section">
               <!-- accordion body -->
-              <p><%= raw section.description %></p>
+              <div class="section-description"><%= raw section.description %></div>
 
               <div class="saving" style="display: none">
                 <p><%= _('Saving ...') %></p>
@@ -98,7 +104,7 @@
                           <%= render(partial: 'answers/new_edit', 
                                      locals: { question: question, answer: answer, readonly: @readonly }) %>
                         </div>
-                      </div>   <!-- question-form -->                     
+                      </div>   <!-- question-form -->
                     </div> <!-- edit-plan-left -->
 
 
