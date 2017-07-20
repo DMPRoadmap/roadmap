@@ -266,9 +266,24 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   test "export the plan" do
     # Should redirect user to the root path if they are not logged in!
     try_no_user_and_unauthorized(export_plan_path(@plan))
-
+    export_params = {"utf8"=>"✓",
+       "phase_id"=>"5470",
+       "export"=>{"project_details"=>"true",
+       "question_headings"=>"true",
+       "unanswered_questions"=>"true",
+       "formatting"=>{"font_face"=>"Arial,
+       Helvetica,
+       Sans-Serif",
+       "font_size"=>"12",
+       "margin"=>{"top"=>"20",
+       "bottom"=>"20",
+       "left"=>"20",
+       "right"=>"20"}}},
+       "format"=>"docx",
+       "commit"=>"Download Plan",
+       "id"=>"18009"}
     sign_in @user
-    get export_plan_path(@plan)
+    get export_plan_path(@plan), export_params
     assert_response :success
     assert assigns(:plan)
 
