@@ -34,7 +34,7 @@ input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:fo
 select {
   margin-top: 10px;
   vertical-align: top;
-  height: 25px;
+  height: 30px;
 }
 
 select[multiple="true"], select[multiple="multiple"] {
@@ -733,5 +733,22 @@ td.plan-edit-actions {
   #banner-text div.inline {
     width: 70%;
     margin-top: 15px;
+  }
+}
+
+/* Plan Export Page */
+/* ------------------------------------------------ */
+#pdf-format-options {
+  select, label{
+    display: block;
+    height: 30px;
+    width: 100%;
+    min-width: initial;
+  }
+  .font, .margins {
+    display: inline-block;
+    div{
+      display: inline-block;
+    }
   }
 }

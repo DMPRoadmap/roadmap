@@ -226,6 +226,8 @@ class PlansController < ApplicationController
   def show_export
     @plan = Plan.find(params[:id])
     authorize @plan
+    @phase_options = @plan.phases.order(:number).pluck(:title,:id)
+    @export_settings = @plan.settings(:export)
     render 'show_export'
   end
 
@@ -235,9 +237,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
-    # If no format is specified, default to PDF
-    params[:format] = 'pdf' if params[:format].nil?
-
+    # We should re-work this into something more useful than creating a new one
+    # every time a plan gets exported
     @exported_plan = ExportedPlan.new.tap do |ep|
       ep.plan = @plan
       ep.phase_id = params[:phase_id]
@@ -250,14 +251,23 @@ class PlansController < ApplicationController
       end
     end
 
+    # setup some variables we will need in the export views
+    #   here, if custom sections are included, we want all sections, otherwise,
+    #   we only want those which are not modifiable, as they are the original template
+    @sections = params[:export][:custom_sections].present? || @plan.template.customization_of.nil? ? @exported_plan.sections.order(:number) : Phase.find(params[:phase_id]).sections.where(modifiable: false) # prefetch questions?
+    @unanswered_questions = params[:export][:unanswered_questions].present?
+    @question_headings = params[:export][:question_headings].present?
+    @show_details = params[:export][:project_details].present?
+
+
     begin
       @exported_plan.save!
       file_name = @exported_plan.settings(:export)[:value]['title'].gsub(/ /, "_")
 
       respond_to do |format|
         format.html
-        format.csv  { send_data @exported_plan.as_csv,  filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt,  filename: "#{file_name}.txt" }
+        format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
         format.docx { render docx: 'export', filename: "#{file_name}.docx" }
         format.pdf do
           @formatting = @plan.settings(:export).formatting
@@ -272,6 +282,7 @@ class PlansController < ApplicationController
         end
       end
     rescue ActiveRecord::RecordInvalid => e
+      @phase_options = @plan.phases.order(:number).pluck(:title,:id)
       redirect_to show_export_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
       {format: params[:format], available_formats: ExportedPlan::VALID_FORMATS.to_s}
     end
@@ -318,6 +329,7 @@ class PlansController < ApplicationController
           end
         end
       rescue ActiveRecord::RecordInvalid => e
+        @phase_options = @plan.phases.order(:number).pluck(:title,:id)
         redirect_to show_export_plan_path(@plan), alert: _('Unable to download the DMP at this time.')
       end
     end
