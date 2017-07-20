@@ -743,22 +743,29 @@ td.plan-edit-actions {
   h2 {
     font-size: 18px;
     
-    .section-status {
-      position: absolute;
-      top: 5px;
-      left: 0;
+    .section-title {
+      color: $white;
+      background-color: $primary-color;
       width: 55%;
-      text-align: right;
-      font-size: 16px;
+      height: 100%;
+      padding: 0 0 10px 10px;
+      margin-bottom: -10px;
       
-      .fa {
-        font-size: 14px;
+      .section-status {
         position: absolute;
-        top: 3px;
-        right: -19px;
-      }
-      .fa-check-circle {
-        color: $notice-background;
+        top: 10px;
+        left: 0;
+        width: 55%;
+        text-align: right;
+        font-size: 16px;
+      
+        .fa {
+          font-size: 14px;
+          position: absolute;
+          top: 5px;
+          right: -19px;
+          color: $white;
+        }
       }
     }
   }
@@ -766,8 +773,7 @@ td.plan-edit-actions {
   /* Example Answers */
   div.suggested-answer-div {
     width: 80%;
-    margin-top: 20px;
-    margin-left: 15px;
+    margin: 10px 15px;
     border: 0.5px solid $light-grey;
     border-radius: 3px;
     padding: 5px 15px;
@@ -797,10 +803,38 @@ td.plan-edit-actions {
     width: 84%;
   }
 
-  .guidance_tab h3 {
-    font-size: 16px;
-    .fa {
-      font-size: 14px;
+  .guidance_tab {
+    h3 {
+      font-size: 16px;
+      .fa {
+        font-size: 14px;
+      }
+    }
+    .tab-panel {
+      min-height: auto;
+    }
+  }
+  
+  .comment-area {
+    .div-table-content {
+      max-height: 200px; 
+      overflow-y: auto;
+      border-bottom: 1px solid $primary-color;
+      
+      .dmp_table {
+        margin-top: 40px;
+        border: none;
+        border-top: 1px solid $primary-color;
+        
+        tr {
+          border-bottom: 1px solid $light-grey;
+        }
+      }
+    }
+    .view_comment_class {
+      ul {
+        padding-left: 0;
+      }
     }
   }
 }

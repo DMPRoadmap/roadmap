@@ -16,9 +16,9 @@
 	<%= f.hidden_field :plan_id, value: plan_id %>
 
 	<fieldset class="standard">
-		<%= label_tag "#{questionid}new_note_text", _('Share note with collaborators') %>
+		<%= label_tag "#{questionid}new_note_text", _('Add comments to share with collaborators') %>
 	  <%= text_area_tag "#{questionid}new_note_text", nil, class: "tinymce" %>
 	  <%= tinymce :content_css => asset_path('application.css') %>
-		<input type="submit" class="form-submit new_comment_submit_button" value="<%= _('Save') %>" />
+		<input type="submit" class="form-submit new_comment_submit_button left-indent" value="<%= _('Save') %>" />
 	</fieldset>
 <% end %>

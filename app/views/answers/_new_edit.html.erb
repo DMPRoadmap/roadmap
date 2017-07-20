@@ -19,23 +19,7 @@
       <% else %>
         <%= f.label raw(question.text), for: :text, class: "no-colon" %>
       <% end %>
-          
-      <!--Example Answer area-->
-      <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
-        <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
-        <% if annotation.text.present? %>
-          <div class="suggested-answer-div lefgt-indent">
-            <span class="suggested-answer-intro">
-              <%="#{annotation.org.abbreviation} "%> <%=_('Example of answer')%>
-            </span>
-
-            <div class="suggested-answer-border">
-              <p class="suggested-answer"><%= raw annotation.text %></p>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-
+      
       <% if question.option_based? %>
             <% options = question.question_options.by_number %>
             <% if q_format.checkbox? %>
@@ -93,6 +77,22 @@
         <% else %>
           <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
           <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
+        <% end %>
+      <% end %>
+
+      <!--Example Answer area-->
+      <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
+        <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
+        <% if annotation.text.present? %>
+          <div class="suggested-answer-div lefgt-indent">
+            <span class="suggested-answer-intro">
+              <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+            </span>
+
+            <div class="suggested-answer-border">
+              <p class="suggested-answer"><%= raw annotation.text %></p>
+            </div>
+          </div>
         <% end %>
       <% end %>
 

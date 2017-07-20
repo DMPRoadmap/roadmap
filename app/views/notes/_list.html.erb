@@ -1,14 +1,7 @@
 <!--table displaying notes for this question and actions-->
-
-<% if notes.count > 1 then%>
-  <% style_to_add =  "height:150px; overflow-y:auto;" %>
-<%else%>
-  <% style_to_add = "" %>
-<%end%>
-
 <div class="two-column-clear question-divider"></div>
 
-<div class="div-table-content" style ="<%= style_to_add %>">
+<div class="div-table-content">
   <table class="dmp_table" id="dmp_table">
     <tbody class= "comment_table_body">
       <% notes.each do |note|%>
@@ -23,10 +16,10 @@
             <% if note.archived  %>
 
               <% if note.archived_by == current_user.id %>
-                <%= _('Note removed by you')%>
+                <%= _('Comment removed by you')%>
               <% else %>
                 <% archived_by_user = User.find(note.archived_by) %>
-                <%= _('Note removed by')%> <%= archived_by_user.name %>
+                <%= _('Comment removed by')%> <%= archived_by_user.name %>
               <%end%>
 
             <%else%>   <!-- not archived -->
