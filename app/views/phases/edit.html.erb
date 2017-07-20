@@ -20,7 +20,9 @@
   
       <% @plan.template.phases.each do |phase| %>
         <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel"<%= @phase.id == phase.id ? ' class=active' : '' %>>
-          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="<%= @phase.id == phase.id %>"><%= phase.title %></a>
+          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="<%= @phase.id == phase.id %>">
+            <%= (@plan.template.phases.length > 1 ? @phase.title : _('Write Plan')) %>
+          </a>
         </li>
       <% end %>
   
