@@ -82,6 +82,19 @@ class User < ActiveRecord::Base
   end
 
   ##
+  # returns all active plans for a user
+  #
+  # @return [Plans]
+  def active_plans
+    plans = []
+    self.roles.includes(:plan).where(active: true).each do |r|
+      plans << r.plan
+    end
+    return plans
+  end
+
+
+  ##
   # Returns the user's identifier for the specified scheme name
   #
   # @param the identifier scheme name (e.g. ORCID)

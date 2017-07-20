@@ -7,24 +7,24 @@
 
 <!-- if the user has projects -->
 <p>
-<% if @plans.count > 0 %>
+<% if @plans.length > 0 %>
     <%= _('The table below lists the plans that you have created, and any that have been shared with you by others.') %><br />
     <%= _('These can be edited, shared, exported or deleted at anytime.')%>
 <% else %>
-    <strong><%= _("Welcome.") %></strong><br /> 
+    <strong><%= _("Welcome.") %></strong><br />
     <%= _("You are now ready to create your first DMP.") %><br />
     <%= _("Click the 'Create plan' button below to begin.")%>
 <% end %>
 </p>
-    
+
 <div class="content">
-  <% if @plans.count > 0 %>
+  <% if @plans.length > 0 %>
     <table class="dmp_table tablesorter">
       <thead>
-        <% if @plans.count > 10 %>
+        <% if @plans.length > 10 %>
           <tr>
             <td colspan="7" class="td-as-th">
-              <%= render(partial: "shared/table_filter", 
+              <%= render(partial: "shared/table_filter",
                          locals: {path: plans_path, placeholder: _('Filter plans')}) %>
             </td>
           </tr>
@@ -45,7 +45,7 @@
         <% @plans.each do |plan| %>
           <tr class="table-data">
             <td>
-              <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", 
+              <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
                   plan_path(plan) %>
             </td>
             <td><%= plan.template.title %></td>
@@ -65,34 +65,32 @@
               </a>
               <ul class="hidden dropdown-list dropdown-small" id="plan-<%= plan.id %>-actions-dropdown">
                 <% if plan.editable_by?(current_user.id) then %>
-                  <li><%= link_to _('Edit'), 
+                  <li><%= link_to _('Edit'),
                               plan_path(plan) %></li>
 
                   <% if plan.administerable_by?(current_user.id) then %>
-                    <li><%= link_to _('Share'), 
+                    <li><%= link_to _('Share'),
                               share_plan_path(plan) %></li>
                   <% end %>
 
-                  <li><%= link_to _('Download'), 
+                  <li><%= link_to _('Download'),
                               show_export_plan_path(plan) %></li>
 
-                  <li><%= link_to _('Make a copy'), 
+                  <li><%= link_to _('Make a copy'),
                               duplicate_plan_path(plan), method: :post, remote: true %></li>
-
-                  <% if plan.owned_by?(current_user.id) then %>
-                    <li><%= link_to _('Delete'), 
-                                plan_path(plan), 
-                                method: :delete, 
-                                data: {confirm: _('Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well')} %></li>
-                            
-                  <% end %>
                 <% else %>
-                  <li><%= link_to _('View'), 
+                  <li><%= link_to _('View'),
                               plan_path(plan) %></li>
-                          
-                  <li><%= link_to _('Download'), 
+
+                  <li><%= link_to _('Download'),
                               show_export_plan_path(plan) %></li>
                 <% end %>
+                <% role = plan.roles.where(user_id: current_user.id).first %>
+                <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
+                <li><%= link_to _('Remove'),
+                    archive_role_path(role),
+                    method: :put,
+                    data: {confirm: conf} %></li>
               </ul>
             </td>
           </tr>
@@ -100,7 +98,7 @@
       </tbody>
     </table>
   <% end %>
-  
+
   <div>
     <a href="<%= new_plan_path %>" class="link-as-button"><%= _('Create plan') %></a>
   </div>

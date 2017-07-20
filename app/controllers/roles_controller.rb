@@ -66,6 +66,21 @@ class RolesController < ApplicationController
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
 
+  def archive
+    role = Role.find(params[:id])
+    authorize role
+    role.active = false
+    # if creator, remove from public plans list
+    if role.creator? && role.plan.publicly_visible?
+      role.plan.visibility = Plan.visibilities[:privately_visible]
+      role.plan.save
+    end
+    role.save
+    @plans = current_user.active_plans
+    flash[:notice] = _('Plan removed')
+    render "plans/index"
+  end
+
   private
 
   def role_params

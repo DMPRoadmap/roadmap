@@ -6,7 +6,7 @@ class PlansController < ApplicationController
 
   def index
     authorize Plan
-    @plans = current_user.plans
+    @plans = current_user.active_plans
   end
 
   # GET /plans/public_index
