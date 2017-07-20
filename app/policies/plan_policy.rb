@@ -9,31 +9,31 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def show?
-    @plan.readable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def share?
-    @plan.readable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def export?
-    @plan.readable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def show_export?
-    @plan.readable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def update?
-    @plan.editable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def destroy?
-    @plan.editable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def status?
-    @plan.readable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def possible_templates?
@@ -41,15 +41,15 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def duplicate?
-    @plan.editable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
   
   def visibility?
-    @plan.administerable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.administerable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def set_test?
-    @plan.administerable_by?(@user.id)&& Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.administerable_by?(@user.id)&& Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
 # TODO: These routes are no lonmger used
@@ -80,7 +80,7 @@ class PlanPolicy < ApplicationPolicy
 =end
 
   def answer?
-    @plan.readable_by?(@user.id) && Role.where(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
 end
