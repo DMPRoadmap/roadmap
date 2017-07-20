@@ -63,17 +63,8 @@
       });
       
       // Display the error message if the value in the auto complete is not an item from the list
-      $(combo).on('keyup', function(){
-        if(<%= id %>_crosswalk[$(this).val().trim()] == undefined && $(this).val().trim().length > 1){
-          $("#<%= id %>_error").html("<%= err_msg %>").attr('role', 'alert');
-          $("#<%= id %>").addClass('red-border');
-        }else{
-          $("#<%= id %>_error").html("").attr('role', '');
-          $("#<%= id %>").removeClass('red-border');
-        }
-      });
-      $("#<%= id %>").on('change', function(){
-        if($(this).val().trim().length > 1){
+      $("#<%= id.gsub("_#{attribute}", "_id") %>").on('change', function(){
+        if($(this).val().trim().length > 1 || $(combo).val().trim().length < 1){
           $("#<%= id %>_error").html("").attr('role', '');
           $("#<%= id %>").removeClass('red-border');
         }else{
@@ -81,7 +72,6 @@
           $("#<%= id %>").addClass('red-border');
         }
       });
-      
     });
   </script>
 <% else %>
