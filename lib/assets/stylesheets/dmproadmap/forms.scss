@@ -701,6 +701,164 @@ td.plan-edit-actions {
   }
 }
 
+/* Write plan */
+/* ------------------------------------------------ */
+#sections-accordion-controls {
+  width: 55%;
+  margin: 15px 0 15px 45px;
+  
+  a {
+    text-decoration: none;
+  }
+  .expand-collapse-all, .progress {
+    width: 45%;
+  }
+  .progress {
+    position: relative;
+    width: 52%;
+
+    .bar-container {
+      position: relative;
+      top: 0;
+      margin: 0 -10px 0 auto;
+      padding: 5px;
+      border-radius: 5px;
+      width: 200px;
+      height: 20px;
+
+      #questions-progress-title {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 3;
+      }
+      #questions-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 98%;
+        border-radius: 3px;
+        background-color: $light-grey;
+        z-index: 1;
+      }
+    }
+  }
+}
+#sections-accordion {
+  /* Section title / progress */
+  h2 {
+    font-size: 18px;
+    
+    .section-title {
+      color: $white;
+      background-color: $primary-color;
+      width: 55%;
+      height: 100%;
+      padding: 0 0 10px 10px;
+      margin-bottom: -10px;
+      
+      .section-status {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        width: 55%;
+        text-align: right;
+        font-size: 16px;
+      
+        .fa {
+          font-size: 14px;
+          position: absolute;
+          top: 5px;
+          right: -19px;
+          color: $white;
+        }
+      }
+    }
+  }
+  
+  .answer-unsaved {
+    position: relative;
+    right: -205px;
+    top: 18px;
+    color: $error-color;
+    background: $error-background;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  
+  .section-description {
+    width: 60%;
+  }
+
+  /* Example Answers */
+  div.suggested-answer-div {
+    width: 80%;
+    margin: 10px 15px;
+    border: 0.5px solid $light-grey;
+    border-radius: 3px;
+    padding: 5px 15px;
+    
+    .suggested-answer-intro {
+      position: relative;
+      top: -17px;
+      left: 10px;
+      font-weight: bold;
+      background-color: $white;
+      padding: 0 10px;
+    }
+    .suggested-answer-border {
+      margin-top: -20px;
+    }
+  }
+  
+  .form-input {
+    margin-top: -10px;
+
+    ol, ul {
+      list-style: none;
+    }
+  }
+  
+  div.mce-tinymce {
+    width: 84%;
+  }
+
+  .guidance_tab {
+    h3 {
+      font-size: 16px;
+      .fa {
+        font-size: 14px;
+      }
+    }
+    .tab-panel {
+      min-height: auto;
+    }
+  }
+  
+  .comment-area {
+    .div-table-content {
+      max-height: 200px; 
+      overflow-y: auto;
+      border-bottom: 1px solid $primary-color;
+      
+      .dmp_table {
+        margin-top: 40px;
+        border: none;
+        border-top: 1px solid $primary-color;
+        
+        tr {
+          border-bottom: 1px solid $light-grey;
+        }
+      }
+    }
+    .view_comment_class {
+      ul {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
 /* Org edit */
 /* ------------------------------------------------ */
 #edit_org_details {
@@ -732,6 +890,7 @@ td.plan-edit-actions {
   }
   #banner-text div.inline {
     width: 70%;
+    margin-top: 15px;
   }
 }
 

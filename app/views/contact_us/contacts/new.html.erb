@@ -3,13 +3,13 @@
 <h1>
   <%= _("Contact Us") %>
 </h1>
-<p>
+<p class="left-indent">
   <%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
                                      organisation_url: Rails.configuration.branding[:organisation][:url],
                                      application_name: Rails.configuration.branding[:application][:name]} %>
 </p>
 
-<div class="content bordered" id="contact-us">
+<div class="content bordered left-indent" id="contact-us">
   <!-- left column  content -->
   <div class="column-left">
     <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
@@ -36,7 +36,7 @@
         
         <div class="form-input">
           <%= f.label(:message, _('Message'), class: "align-top required") %>
-          <%= f.text_area(:message, class: "left-indent required input-large", rows: 10) %>
+          <%= f.text_area(:message, class: "required input-large", rows: 10, style: "height: 160px;") %>
         </div>
         <% if !user_signed_in? then %>
           <div class="form-input">
@@ -53,8 +53,7 @@
                      locals: {id: 'create_contact_submit', 
                               val: 'Submit', 
                               disabled_initially: true,
-                              tooltip: _('Fill in the required fields'),
-                              classes: 'left-indent'} %>
+                              tooltip: _('Fill in the required fields')} %>
         </div>
       </fieldset>
 

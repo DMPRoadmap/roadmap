@@ -1,7 +1,7 @@
 
 // rewrite the number of notes heading e.g. Notes(3)
 <% noteslabel = "#notes_number_#{@question.id}" %>
-$("<%=noteslabel%>").html("Notes (<%= @num_notes %>)");
+$("<%=noteslabel%>").html("Comments (<%= @num_notes %>)");
 
 // need to remove the existing tinymce editor otherwise
 tinymce.remove(".tinymce");

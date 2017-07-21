@@ -6,8 +6,9 @@
 </h1>
 
 <!-- if the user has projects -->
-<p>
-<% if @plans.length > 0 %>
+<p class="left-indent">
+<% if @plans.count > 0 %>
+
     <%= _('The table below lists the plans that you have created, and any that have been shared with you by others.') %><br />
     <%= _('These can be edited, shared, exported or deleted at anytime.')%>
 <% else %>
