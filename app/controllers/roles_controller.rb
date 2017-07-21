@@ -66,7 +66,7 @@ class RolesController < ApplicationController
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
 
-  def archive
+  def deactivate
     role = Role.find(params[:id])
     authorize role
     role.active = false

@@ -88,7 +88,7 @@
                 <% role = plan.roles.where(user_id: current_user.id).first %>
                 <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
                 <li><%= link_to _('Remove'),
-                    archive_role_path(role),
+                    deactivate_role_path(role),
                     method: :put,
                     data: {confirm: conf} %></li>
               </ul>

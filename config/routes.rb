@@ -226,7 +226,7 @@ Rails.application.routes.draw do
 
     resources :roles, only: [:create, :update, :destroy] do
       member do
-        put :archive
+        put :deactivate
       end
     end
 
