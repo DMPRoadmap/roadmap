@@ -408,13 +408,12 @@ div.accessible-combobox-smaller {
   position: relative;
   
   .combobox-container {
-    width: 65%;
+    width: 30%;
   }
   .js-combobox {
     width: 95%;
   }
   .combobox-suggestions {
-    margin-left: 15px;
     width: 98%
   }
 }
@@ -452,6 +451,7 @@ div.accessible-combobox-smaller {
 
   input[type="password"],
   #user_password,
+  #user_other_organisation,
   input[type="email"] {
     width: 90%;
   }
