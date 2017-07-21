@@ -1,7 +1,7 @@
 <% javascript('views/plans/share.js') %>
 
 <!-- render the project title -->
-<h1><%= @plan.title %></h1> 
+<h1><%= @plan.title %></h1>
 
 
 <div class="content">
@@ -11,13 +11,13 @@
       <li id="details-tab" role="tab" aria-controls="details-panel">
         <a href="<%= plan_path(@plan) %>" aria-selected="false"><%= _('Project Details') %></a>
       </li>
-  
+
       <% @plan.template.phases.each do |phase| %>
         <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel">
           <a href="<%= "#{edit_plan_phase_path(@plan, phase)}" %>" aria-selected="false"><%= (@plan.template.phases.length > 1 ? phase.title : _('Write Plan')) %></a>
         </li>
       <% end %>
-  
+
       <li id="share-tab" role="tab" aria-controls="share-panel" class="active">
         <a href="#share-panel" aria-selected="true"><%= _('Share') %></a>
       </li>
@@ -29,31 +29,31 @@
     <!-- project details -->
     <div class="tab-panels" role="tabpanel">
       <div class="tab-panel active" aria-hidden="false">
-        
+
         <h2><%= _('Set plan visibility') %></h2>
         <p><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
-        
+
         <%= form_for @plan, html: {method: :put, class: "roadmap-form"} do |f| %>
           <fieldset class="standard">
             <%= f.hidden_field :id %>
             <div class="left-indent">
               <%= f.radio_button :visibility, :privately_visible, disabled: !@allow_visibility %>
-              <%= f.label :visibility, _('Private: restricted to me and my collaborators'), 
+              <%= f.label :visibility, _('Private: restricted to me and my collaborators'),
                           class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
             <div class="left-indent">
               <%= f.radio_button :visibility, :organisationally_visible, disabled: !@allow_visibility %>
-              <%= f.label :visibility, _('Organisation: anyone at my organisation can view'), 
+              <%= f.label :visibility, _('Organisation: anyone at my organisation can view'),
                           class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
             <div class="left-indent">
               <%= f.radio_button :visibility, :publicly_visible, disabled: !@allow_visibility %>
-              <%= f.label :visibility, _('Public: anyone can view'), 
+              <%= f.label :visibility, _('Public: anyone can view'),
                           class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
           </fieldset>
         <% end %>
-        
+
         <h2><%= _('Manage collaborators')%></h2>
 
         <!--Text describing page content-->
@@ -69,7 +69,7 @@
               </tr>
             </thead>
             <tbody>
-              <% plan_roles = @plan.roles.all %>
+              <% plan_roles = @plan.roles.where(active: true) %>
               <%  plan_roles.each do |role| %>
                 <tr class="table-data">
                   <td><%= role.user.name %></td>
@@ -97,7 +97,7 @@
             </tbody>
           </table>
         <% end %>
-      
+
         <h2><%= _('Invite collaborators') %></h2>
         <% new_role = Role.new %>
         <% new_role.plan = @plan %>
@@ -128,8 +128,8 @@
             </div>
             <div>
               <%= render partial: 'shared/accessible_submit_button',
-                         locals: {id: 'add-collaborator-button', 
-                                  val: _('Add collaborator'), 
+                         locals: {id: 'add-collaborator-button',
+                                  val: _('Add collaborator'),
                                   disabled_initially: true,
                                   classes: 'small-input-button left-indent',
                                   tooltip: _('Enter a valid email and permission level.')} %>

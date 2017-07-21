@@ -224,7 +224,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :roles, only: [:create, :update, :destroy]
+    resources :roles, only: [:create, :update, :destroy] do
+      member do
+        put :deactivate
+      end
+    end
 
     namespace :settings do
       resources :plans, only: [:update]
