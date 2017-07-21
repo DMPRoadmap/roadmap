@@ -3,7 +3,7 @@
 /* The top of this file is generic form styles and  */
 /* the bottom contains page specific changes to the generic */
 /* ================================================ */
-textarea, 
+textarea,
 input[type="text"], input[type="email"], input[type="password"],
 input[type="search"], select {
   font-family: $font-family;
@@ -67,7 +67,7 @@ form, fieldset {
 div.under-input {
   display: block;
   margin: -5px 0 10px;
-  
+
   label {
     font-weight: normal;
   }
@@ -105,7 +105,7 @@ form.roadmap-form {
       margin: 10px 5px 15px 15px;
       width: 70%;
     }
-    
+
     label,
     input[type="checkbox"],
     .combobox-container,
@@ -140,7 +140,7 @@ form.roadmap-form {
   /* ------------------------------------------ */
   fieldset.side-by-side {
     border: 0;
-    
+
     .mce-tinymce {
       display: inline-block;
       margin-bottom: 15px;
@@ -149,7 +149,7 @@ form.roadmap-form {
 
     div.under-input {
       margin-left: 25%;
-      
+
       label {
         width: auto;
       }
@@ -204,17 +204,11 @@ form.roadmap-form {
     float: left; /* positions the legend within the fieldset box */
     border-bottom: none;
   }
-  
-  label:not(.regular-text) {
-    font-weight: bold;
-  }
-  label:not(.no-colon):not(.checkbox-label):after {
-    content: " :";
-  }
+
   label.required:before {
     content: "* ";
   }
-  
+
   .form-input {
     clear: both;
   }
@@ -293,7 +287,7 @@ form.roadmap-form {
     position: absolute;
     z-index: 9;
   }
-  
+
   .error-tooltip[role='alert']:before, .submit-tooltip[role='tooltip']:before {
     display: inline;
     position: absolute;
@@ -303,7 +297,7 @@ form.roadmap-form {
     color: $error-background;
     font-size: 44px;
   }
-  
+
   .error-tooltip-top[role='alert'] {
     top: -35px;
     left: 0;
@@ -406,7 +400,7 @@ form.roadmap-form {
 /* Allows for an auto-complete box in a side-by-side form */
 div.accessible-combobox-smaller {
   position: relative;
-  
+
   .combobox-container {
     width: 65%;
   }
@@ -433,7 +427,7 @@ div.accessible-combobox-smaller {
   display: block;
   width: 100%;
   margin-bottom: 10px;
-  
+
   .omniauth-login {
     display: inline-block;
     width: 90%;
@@ -482,7 +476,7 @@ div.accessible-combobox-smaller {
       float: right;
     }
   }
-  
+
   .checkbox-right-side-by-side {
     width: 65%;
   }
@@ -610,7 +604,7 @@ td.plan-edit-actions {
   ul {
     top: 8px;
     left: 0;
-    
+
     li a {
       text-decoration: none;
     }
@@ -621,11 +615,11 @@ td.plan-edit-actions {
 /* ------------------------------------------------ */
 #create_plan {
   position: relative;
-  
+
   fieldset {
     margin-bottom: 10px;
   }
-  
+
   #plan_title {
     display: block;
     margin-bottom: 5px;
@@ -679,21 +673,21 @@ td.plan-edit-actions {
   vertical-align: top;
   display: inline-block;
   width: 35%;
-  
+
   h2 {
     margin-top: 0;
   }
-  
+
   ul {
     list-style: none;
   }
-  
+
   .fa {
     vertical-align: top;
     font-size: 18px;
     margin-left: 5px;
   }
-  
+
   fieldset.standard {
     label {
       margin-left: 0;
@@ -706,7 +700,7 @@ td.plan-edit-actions {
 #sections-accordion-controls {
   width: 55%;
   margin: 15px 0 15px 45px;
-  
+
   a {
     text-decoration: none;
   }
@@ -748,7 +742,7 @@ td.plan-edit-actions {
   /* Section title / progress */
   h2 {
     font-size: 18px;
-    
+
     .section-title {
       color: $white;
       background-color: $primary-color;
@@ -756,7 +750,7 @@ td.plan-edit-actions {
       height: 100%;
       padding: 0 0 10px 10px;
       margin-bottom: -10px;
-      
+
       .section-status {
         position: absolute;
         top: 10px;
@@ -764,7 +758,7 @@ td.plan-edit-actions {
         width: 55%;
         text-align: right;
         font-size: 16px;
-      
+
         .fa {
           font-size: 14px;
           position: absolute;
@@ -775,7 +769,7 @@ td.plan-edit-actions {
       }
     }
   }
-  
+
   .answer-unsaved {
     position: relative;
     right: -205px;
@@ -785,7 +779,7 @@ td.plan-edit-actions {
     padding: 5px 10px;
     border-radius: 3px;
   }
-  
+
   .section-description {
     width: 60%;
   }
@@ -797,7 +791,7 @@ td.plan-edit-actions {
     border: 0.5px solid $light-grey;
     border-radius: 3px;
     padding: 5px 15px;
-    
+
     .suggested-answer-intro {
       position: relative;
       top: -17px;
@@ -810,7 +804,7 @@ td.plan-edit-actions {
       margin-top: -20px;
     }
   }
-  
+
   .form-input {
     margin-top: -10px;
 
@@ -818,7 +812,7 @@ td.plan-edit-actions {
       list-style: none;
     }
   }
-  
+
   div.mce-tinymce {
     width: 84%;
   }
@@ -834,18 +828,18 @@ td.plan-edit-actions {
       min-height: auto;
     }
   }
-  
+
   .comment-area {
     .div-table-content {
-      max-height: 200px; 
+      max-height: 200px;
       overflow-y: auto;
       border-bottom: 1px solid $primary-color;
-      
+
       .dmp_table {
         margin-top: 40px;
         border: none;
         border-top: 1px solid $primary-color;
-        
+
         tr {
           border-bottom: 1px solid $light-grey;
         }
@@ -868,11 +862,11 @@ td.plan-edit-actions {
     label, div {
       vertical-align: top;
     }
-    
+
     img {
       border: 1px dashed $medium-grey;
     }
-    
+
     #logo-controls {
       width: 50%;
       label {
