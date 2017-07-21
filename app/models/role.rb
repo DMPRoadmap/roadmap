@@ -1,4 +1,5 @@
 class Role < ActiveRecord::Base
+  after_initialize :set_defaults
   include FlagShihTzu
 
   ##
@@ -35,6 +36,10 @@ class Role < ActiveRecord::Base
     elsif self.commenter?
       return 1
     end
+  end
+
+  def set_defaults
+    self.active = true if self.new_record?
   end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712084314) do
+ActiveRecord::Schema.define(version: 20170719114516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,7 +280,8 @@ ActiveRecord::Schema.define(version: 20170712084314) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access",     default: 0, null: false
+    t.integer  "access",     default: 0,    null: false
+    t.boolean  "active",     default: true
   end
 
   add_index "roles", ["plan_id"], name: "index_roles_on_plan_id", using: :btree

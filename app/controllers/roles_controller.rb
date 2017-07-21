@@ -65,6 +65,22 @@ class RolesController < ApplicationController
     UserMailer.project_access_removed_notification(user, plan, current_user).deliver_now
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
+    
+  # This function makes user's role on a plan inactive - i.e. "removes" this from their plans
+  def deactivate
+    role = Role.find(params[:id])
+    authorize role
+    role.active = false
+    # if creator, remove from public plans list
+    if role.creator? && role.plan.publicly_visible?
+      role.plan.visibility = Plan.visibilities[:privately_visible]
+      role.plan.save
+    end
+    role.save
+    @plans = current_user.active_plans
+    flash[:notice] = _('Plan removed')
+    render "plans/index"
+  end
 
   private
 

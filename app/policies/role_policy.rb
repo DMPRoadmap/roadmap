@@ -19,4 +19,8 @@ class RolePolicy < ApplicationPolicy
   def destroy?
     @role.plan.owned_by?(@user.id)
   end
+
+  def archive?
+    @role.user_id = @user.id
+  end
 end
