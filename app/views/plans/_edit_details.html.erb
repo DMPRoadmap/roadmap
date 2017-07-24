@@ -49,7 +49,7 @@
       <div class="form-separator"></div>
   
       <div>
-        <label class="no-colon"><strong><%= _('Principal Investigator') %></strong></label>
+        <label><strong><%= _('Principal Investigator') %></strong></label>
       </div>
 
       <div class="form-input">
@@ -70,7 +70,7 @@
 
       <br />
       <div>
-        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>"), class: 'no-colon') %>
+        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>")) %>
       </div>
       <div>
         <input type="checkbox" id="show-data-contact" class="left-indent"<%= (@plan.data_contact.blank? && @plan.data_contact_email.blank? ? ' checked="checked"' : '') %> />

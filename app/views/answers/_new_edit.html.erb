@@ -15,9 +15,9 @@
     <div class="form-input">
       <!-- Question text -->
       <% if question.option_based? %>
-        <%= f.label raw(question.text), for: :question_option_ids, class: "no-colon" %>
+        <%= f.label raw(question.text), for: :question_option_ids %>
       <% else %>
-        <%= f.label raw(question.text), for: :text, class: "no-colon" %>
+        <%= f.label raw(question.text), for: :text %>
       <% end %>
       
       <% if question.option_based? %>
