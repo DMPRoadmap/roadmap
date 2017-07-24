@@ -308,6 +308,12 @@ class PlansController < ApplicationController
     @a_s_ids = Question.where(id: @a_q_ids).pluck(:section_id).uniq
     a_p_ids = Section.where(id: @a_s_ids).pluck(:phase_id).uniq
     @phases = Phase.includes(sections: :questions).where(id: a_p_ids).order(:number)
+    @creator_text = @plan.owner.name(false)
+    @plan.roles.administrator.not_creator.each do |co_owner|
+      @creator_text += ", " + co_owner.name(false)
+    end
+    @affiliation = @plan.owner.org.abbreviation
+
 
     begin
       @exported_plan.save!
