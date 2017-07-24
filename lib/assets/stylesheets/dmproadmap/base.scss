@@ -25,7 +25,8 @@ h1, h2, h3, h4, h5 {
 
 h1 {
   width: 65%;
-  font-size: 40px; 
+  font-size: 40px;
+  margin-left: 15px;
 }
 h2 { font-size: 32px; }
 h3 { font-size: 26px; }
@@ -185,15 +186,6 @@ a.link-as-button:hover, a.link-as-button:focus {
   padding: 6px 10px;
   border: 1px solid $light-grey;
   border-radius: 5px;
-}
-
-.progress {
-  position: absolute;
-  top: $header-height;
-  right: 0;
-  margin-top: 25px;
-  width: 350px;
-  z-index: 2;
 }
 
 /* Basic page layout */

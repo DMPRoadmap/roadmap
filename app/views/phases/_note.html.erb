@@ -5,9 +5,9 @@
 
     <!-- add note -->
     <div id="add_comment_button_top_div_<%= questionid %>" class="move_2_right" >
-      <%= link_to _('Add note'),
+      <%= link_to _('Add a comment'),
           "#question-form-#{questionid}",
-          class: "btn btn-primary add_comment_button",
+          class: "link-as-button add_comment_button right",
           onclick: "add_note_button(#{questionid})",
           role: "button"
       %>

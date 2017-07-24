@@ -6,7 +6,7 @@
 
 <h1><%= _('Forgot your password?') %></h1>
 
-<p><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
+<p class="left-indent"><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
 
 <div class="content">
   <%= form_for resource, as: 'user', url: user_password_path, html: {class: "password-reset roadmap-form", method: :post} do |f| %>

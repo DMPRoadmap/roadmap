@@ -22,5 +22,5 @@ if($.fn.init_answer_status)
 $(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: { plan: @plan }) %>"); 
 
 // partial /sections/progress
-$("#section-progress-<%= @section.id %>")
+$(".progress-bar-<%= @section.id %>")
     .html("<%= escape_javascript(render partial: '/sections/progress', locals: { section: @section, plan: @plan }) %>");

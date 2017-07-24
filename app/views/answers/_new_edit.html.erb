@@ -2,100 +2,109 @@
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
 <% q_format = question.question_format %>
-<%= semantic_form_for answer, :url => {controller: :answers, action: :update }, html: {method: "put", class: "roadmap-form", 'data-autosave': question.id }, remote: true do |f| %>
-      <fieldset class="standard">
-        <% if !readonly %>
-          <%= f.input :id, as: :hidden, input_html: { value: answer.id } %>
-          <%= f.input :plan_id, as: :hidden, input_html: { value: answer.plan_id } %>
-          <%= f.input :user_id, as: :hidden, input_html: { value: answer.user_id } %>
-          <%= f.input :question_id, as: :hidden, input_html: { value: answer.question_id } %>
-          <%= f.input :lock_version, as: :hidden, input_html: { value: answer.lock_version } %>
-        <% end %>
-
-        <!-- Question text -->
-        <p>
-          <strong><%= raw question.text %></strong>
-        </p>
-
-        <!--Example Answer area-->
-        <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
-          <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
-          <% if annotation.text.present? %>
-            <div class="suggested-answer-div">
-              <span class="suggested-answer-intro">
-                  <%="#{annotation.org.abbreviation} "%> <%=_('Example of answer')%>
-              </span>
-
-              <div class="suggested-answer-border">
-                <p class="suggested-answer">
-                  <%= raw annotation.text %>
-                </p>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-
-        <% if question.option_based? %>
-          <% options = question.question_options.by_number %>
-          <% if q_format.checkbox? %>
-            <ol class="choices-group">
-              <% options.each do |op| %>
-                <li>
-                  <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id), disabled: readonly }, op.id, nil) %>
-                  <%= raw op.text %>
-                </li>
-              <% end %>
-            </ol>
-          <% elsif q_format.radiobuttons? %>
-            <ol class="choices-group">
-              <% options.each do |op| %>
-                <li>
-                  <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}", disabled: readonly } %>
-                  <%= raw op.text %>
-                </li>
-              <% end %>
-            </ol>
-          <% elsif q_format.dropdown? || q_format.multiselectbox? %>
-            <% 
-              options_html = ""
-              options.each do |op|
-                  options_html += answer.has_question_option(op.id) ?
-                    "<option value=#{op.id} selected=\"selected\">#{op.text}</option>" :
-                    "<option value=#{op.id}>#{op.text}</option>" 
-              end
-            %>
-              <%= select_tag('answer[question_option_ids]', raw(options_html),
-              {multiple: q_format.multiselectbox?, include_blank: q_format.dropdown?, disabled: readonly }) %>
-          <% end %>
-          <!-- Comment text area for option_based questions -->
-          <% if question.option_comment_display == true %>
-            <%= label_tag('answer[text]', _('Comment')) %>
-            <% if readonly %>
-              <p><%= raw(answer.text) %></p>
-            <% else %>
-              <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-              <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
-            <% end %>
-          <%end%>
-        <% end %>
-        <!-- For non-option_based questions -->
-        <% if q_format.textfield? %>
-          <% if readonly %>
-            <p><%= strip_tags(answer.text) %></p>
-          <% else %>
-            <%= text_field_tag('answer[text]', strip_tags(answer.text)) %>
-          <% end %>
-        <% elsif q_format.textarea? %>
-          <% if readonly %>
-            <p><%= raw(answer.text) %></p>
-          <% else %>
-            <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-            <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
-          <% end %>
-        <% end %>
-
-        <% if !readonly %>
-            <input type="submit" class="form-submit" value="<%= _('Save') %>" />
-        <% end %>
-      </fieldset>
+<%= form_for answer, url: {controller: :answers, action: :update}, html: {method: :put, class: "roadmap-form", 'data-autosave': question.id}, remote: true do |f| %>
+  <fieldset class="standard">
+    <% if !readonly %>
+      <%= f.hidden_field :id %>
+      <%= f.hidden_field :plan_id %>
+      <%= f.hidden_field :user_id %>
+      <%= f.hidden_field :question_id %>
+      <%= f.hidden_field :lock_version %>
     <% end %>
+
+    <div class="form-input">
+      <!-- Question text -->
+      <% if question.option_based? %>
+        <%= f.label raw(question.text), for: :question_option_ids, class: "no-colon" %>
+      <% else %>
+        <%= f.label raw(question.text), for: :text, class: "no-colon" %>
+      <% end %>
+      
+      <% if question.option_based? %>
+            <% options = question.question_options.by_number %>
+            <% if q_format.checkbox? %>
+              <ol class="choices-group">
+                <% options.each do |op| %>
+                  <li>
+                    <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id), disabled: readonly }, op.id, nil) %>
+                    <%= raw op.text %>
+                  </li>
+                <% end %>
+              </ol>
+            <% elsif q_format.radiobuttons? %>
+              <ol class="choices-group">
+                <% options.each do |op| %>
+                  <li>
+                    <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}", disabled: readonly } %>
+                    <%= raw op.text %>
+                  </li>
+                <% end %>
+              </ol>
+            <% elsif q_format.dropdown? || q_format.multiselectbox? %>
+              <% 
+                options_html = ""
+                options.each do |op|
+                    options_html += answer.has_question_option(op.id) ?
+                      "<option value=#{op.id} selected=\"selected\">#{op.text}</option>" :
+                      "<option value=#{op.id}>#{op.text}</option>" 
+                end
+              %>
+                <%= select_tag('answer[question_option_ids]', raw(options_html),
+                {multiple: q_format.multiselectbox?, include_blank: q_format.dropdown?, disabled: readonly }) %>
+            <% end %>
+            <!-- Comment text area for option_based questions -->
+            <% if question.option_comment_display == true %>
+              <%= label_tag('answer[text]', _('Comment')) %>
+              <% if readonly %>
+                <p><%= raw(answer.text) %></p>
+              <% else %>
+                <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
+                <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
+              <% end %>
+            <%end%>
+
+        
+      <% elsif q_format.textfield? %>
+        <% if readonly %>
+          <p><%= strip_tags(answer.text) %></p>
+        <% else %>
+          <%= text_field_tag('answer[text]', strip_tags(answer.text)) %>
+        <% end %>
+      
+      <% elsif q_format.textarea? %>
+        <% if readonly %>
+          <p><%= raw(answer.text) %></p>
+        <% else %>
+          <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
+          <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
+        <% end %>
+      <% end %>
+
+      <!--Example Answer area-->
+      <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
+        <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
+        <% if annotation.text.present? %>
+          <div class="suggested-answer-div lefgt-indent">
+            <span class="suggested-answer-intro">
+              <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+            </span>
+
+            <div class="suggested-answer-border">
+              <p class="suggested-answer"><%= raw annotation.text %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+    </div> <!-- form-input -->
+
+    <div class="form-input">
+      <% if !readonly %>
+        <input type="submit" class="form-submit left-indent" value="<%= _('Save') %>" />
+      <% end %>
+      <div id="<%= "answer-status-#{question.id}" %>" class="answer-status inline left-indent">
+        <%= render(partial: 'answers/status', locals: { answer: answer }) %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
