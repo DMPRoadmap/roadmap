@@ -20,7 +20,7 @@ class RolePolicy < ApplicationPolicy
     @role.plan.owned_by?(@user.id)
   end
 
-  def archive?
+  def deactivate?
     @role.user_id = @user.id
   end
 end
