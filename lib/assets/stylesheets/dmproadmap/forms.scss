@@ -220,7 +220,7 @@ form.roadmap-form {
     width: 70%;
   }
   .input-large {
-    width: 50%;
+    width: 350px; /* 50%; */
   }
   .input-medium {
     width: 30%;
@@ -229,7 +229,7 @@ form.roadmap-form {
     width: 32%;
   }
   .input-small {
-    width: 10%;
+    width: 150px; /* 10%; */
   }
   /* Used for the jquery autocomplete combobox on side-by-side fieldsets */
   .fixed-width-large {
@@ -346,8 +346,7 @@ form.roadmap-form {
 
 .combobox-container {
   position: relative;
-  width: 95%;
-  min-width: 325px;
+  width: 370px; /* 95%; */
   font-family: $font-family;
 }
 
@@ -396,21 +395,6 @@ form.roadmap-form {
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
-
-/* Allows for an auto-complete box in a side-by-side form */
-div.accessible-combobox-smaller {
-  position: relative;
-
-  .combobox-container {
-    width: 30%;
-  }
-  .js-combobox {
-    width: 95%;
-  }
-  .combobox-suggestions {
-    width: 98%
-  }
-}
 
 
 /* ------------------------------------------------ */
@@ -623,21 +607,20 @@ td.plan-edit-actions {
   #plan_title {
     display: block;
     margin-bottom: 5px;
-    width: 90%;
   }
 
   div.form-left-side {
     position: relative;
     clear: both;
     float: left;
-    width: 40%;
+    width: 35%;
   }
   div.form-right-side {
     position: relative;
     float: left;
     margin-left: 20px;
     padding-top: 20px;
-    width: 45%;
+    width: 50%;
     min-width: 400px;
 
     label, input {
@@ -852,6 +835,15 @@ td.plan-edit-actions {
     }
   }
 }
+
+/* Share plan */
+/* ------------------------------------------------ */
+#collaborator-table {
+  min-width: 450px;
+  max-width: 850px;
+  width: 60%;
+}
+
 
 /* Org edit */
 /* ------------------------------------------------ */

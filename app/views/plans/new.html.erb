@@ -15,7 +15,7 @@
         <legend><%= _('What research project are you planning?') %></legend>
         
         <div class="form-left-side">
-          <%= f.text_field(:title, class: 'left-indent',
+          <%= f.text_field(:title, class: 'left-indent input-large',
               'data-toggle': 'tooltip',
               'data-content': _('If applying for funding, state the project title exactly as in the proposal.')) %>
           <%= check_box_tag(:is_test, "1", false, class: 'left-indent') %>
@@ -36,7 +36,7 @@
                               attribute: 'name',
                               tooltip: _('Please select a valid research organisation from the list.'),
                               error: _('You must select a research organisation from the list.'),
-                              classes: 'input-full-width'} %>
+                              classes: 'input-large'} %>
         </div>
         
         <div class="form-right-side">
@@ -63,7 +63,7 @@
                               attribute: 'name',
                               tooltip: _('Please select a valid funding organisation from the list.'),
                               error: _('You must select a funding organisation from the list.'),
-                              classes: 'input-full-width'} %>
+                              classes: 'input-large'} %>
         </div>
         <div class="form-right-side">
           <p class="inline"><strong>- <%= _('or') %> -</strong></p>

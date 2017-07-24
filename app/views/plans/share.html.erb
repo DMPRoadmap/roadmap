@@ -30,8 +30,8 @@
     <div class="tab-panels" role="tabpanel">
       <div class="tab-panel active" aria-hidden="false">
 
-        <h2><%= _('Set plan visibility') %></h2>
-        <p><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
+        <h2 class="left-indent"><%= _('Set plan visibility') %></h2>
+        <p class="left-indent"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
 
         <%= form_for @plan, html: {method: :put, class: "roadmap-form"} do |f| %>
           <fieldset class="standard">
@@ -54,13 +54,13 @@
           </fieldset>
         <% end %>
 
-        <h2><%= _('Manage collaborators')%></h2>
+        <h2 class="left-indent"><%= _('Manage collaborators')%></h2>
 
         <!--Text describing page content-->
-        <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
+        <p class="left-indent"><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
 
         <% if @plan.roles.any? then %>
-          <table class="dmp_table">
+          <table class="dmp_table left-indent" id="collaborator-table">
             <thead>
               <tr>
                 <th class="col-large"><%= _('Email address')%></th>
@@ -98,7 +98,7 @@
           </table>
         <% end %>
 
-        <h2><%= _('Invite collaborators') %></h2>
+        <h2 class="left-indent"><%= _('Invite collaborators') %></h2>
         <% new_role = Role.new %>
         <% new_role.plan = @plan %>
         <%= form_for new_role, url: {controller: :roles, action: :create },
@@ -116,7 +116,7 @@
             <p></p>
             <div class="left-indent">
               <%= f.radio_button :access_level, 1 %>
-              <%= f.label :access_level, _('Read Only: can view but not make changes'), class: 'checkbox-label regular-text' %>
+              <%= f.label :access_level, _('Read only: can view but not make changes'), class: 'checkbox-label regular-text' %>
             </div>
             <div class="left-indent">
               <%= f.radio_button :access_level, 2 %>
