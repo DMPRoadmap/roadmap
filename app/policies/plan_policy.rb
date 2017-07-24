@@ -3,7 +3,7 @@ class PlanPolicy < ApplicationPolicy
   attr_reader :plan
 
   def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user || plan.publicly_visible?
     @user = user
     @plan = plan
   end
@@ -52,32 +52,9 @@ class PlanPolicy < ApplicationPolicy
     @plan.administerable_by?(@user.id)&& Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
-# TODO: These routes are no lonmger used
-=begin
-  def section_answers?
-    @plan.readable_by?(@user.id)
+  def public_export?
+    @plan.publicly_visible?
   end
-
-  def locked?
-    @plan.readable_by?(@user.id)
-  end
-
-  def delete_recent_locks?
-    @plan.editable_by?(@user.id)
-  end
-
-  def unlock_all_sections?
-    @plan.editable_by?(@user.id)
-  end
-
-  def lock_section?
-    @plan.editable_by?(@user.id)
-  end
-
-  def unlock_section?
-    @plan.editable_by?(@user.id)
-  end
-=end
 
   def answer?
     @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
