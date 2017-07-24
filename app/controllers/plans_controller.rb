@@ -2,7 +2,7 @@ class PlansController < ApplicationController
   require 'pp'
   helper SettingsTemplateHelper
 
-  after_action :verify_authorized, except: ['public_index', 'public_export']
+  after_action :verify_authorized, except: ['public_index']
 
   def index
     authorize Plan
@@ -292,6 +292,7 @@ class PlansController < ApplicationController
   # -------------------------------------------------------------
   def public_export
     @plan = Plan.find(params[:id])
+    authorize @plan
     # If the plan has multiple phases we should export each
     @exported_plan = ExportedPlan.new.tap do |ep|
       ep.plan = @plan
