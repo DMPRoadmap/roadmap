@@ -5,7 +5,7 @@
   <% elsif annotation.type == :guidance %>
     <%= _('Guidance') %>
   <% else %>
-    <%= plan.template.org.abbreviation %>
+    <%= (plan.template.org.abbreviation.present? ? plan.template.org.abbreviation : plan.template.org.name) %>
   <% end %>
   <span class="fa fa-plus" aria-hidden="true"></span>
 </h3>
