@@ -754,9 +754,9 @@ td.plan-edit-actions {
   }
 
   .answer-unsaved {
-    position: relative;
-    right: -205px;
-    top: 18px;
+    width: auto;
+    max-width: 200px;
+    text-align: center;
     color: $error-color;
     background: $error-background;
     padding: 5px 10px;
