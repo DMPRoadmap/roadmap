@@ -38,13 +38,13 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-    
+
     @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
     @plan.principal_investigator_email = current_user.email
-    
+
     orcid = current_user.identifier_for(IdentifierScheme.find_by(name: 'orcid'))
     @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
-    
+
     @plan.funder_name = plan_params[:funder_name]
 
     @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
@@ -127,7 +127,7 @@ class PlansController < ApplicationController
     @all_guidance_groups = @plan.get_guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
     @selected_guidance_groups = @plan.guidance_groups
-    
+
     # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
     @important_ggs = []
     @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
@@ -136,7 +136,7 @@ class PlansController < ApplicationController
         @important_ggs << [org,ggs]
         @all_ggs_grouped_by_org.delete(org)
       end
-      
+
       # If this is one of the already selected guidance groups its important!
       if !(ggs & @selected_guidance_groups).empty?
         @important_ggs << [org,ggs] unless @important_ggs.include?([org,ggs])
@@ -148,7 +148,7 @@ class PlansController < ApplicationController
     @important_ggs = @important_ggs.sort_by{|org,gg| (org.nil? ? '' : org.name)}
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
     @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
-    
+
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
     respond_to :html
@@ -175,7 +175,7 @@ class PlansController < ApplicationController
       end
     end
   end
-  
+
   def share
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -288,12 +288,16 @@ class PlansController < ApplicationController
     end
   end
 
-  # GET /plans/[:plan_slug]/public_export
+  # GET /plans/[:plan_id]/public_export
   # -------------------------------------------------------------
   def public_export
     @plan = Plan.find(params[:id])
     authorize @plan
-    # If the plan has multiple phases we should export each
+    # This creates exported_plans with no user.
+    # Note for reviewers, The ExportedPlan model actually serves no purpose, except
+    # to store preferences for PDF export.  These preferences could be moved into
+    # the prefs table for individual users, and a more semsible structure implimented
+    # to track the exports & formats(html/pdf/ect) of users.
     @exported_plan = ExportedPlan.new.tap do |ep|
       ep.plan = @plan
       ep.phase_id = @plan.phases.first.id
@@ -309,11 +313,18 @@ class PlansController < ApplicationController
     @a_s_ids = Question.where(id: @a_q_ids).pluck(:section_id).uniq
     a_p_ids = Section.where(id: @a_s_ids).pluck(:phase_id).uniq
     @phases = Phase.includes(sections: :questions).where(id: a_p_ids).order(:number)
+    # name of owner and any co-owners
     @creator_text = @plan.owner.name(false)
     @plan.roles.administrator.not_creator.each do |co_owner|
       @creator_text += ", " + co_owner.name(false)
     end
-    @affiliation = @plan.owner.org.abbreviation
+    # Org name of plan owner
+    @affiliation = @plan.owner.org.name
+    # set the funder name
+    @funder = @plan.template.org.funder? ? @plan.template.org.name : nil
+    # set the template name and customizer name if applicable
+    @template = @plan.template.title
+    @customizer = @plan.template.customization_of.present? ? _(" Customised By: ") + @plan.template.org.name : ""
 
 
     begin
@@ -356,7 +367,7 @@ class PlansController < ApplicationController
       end
     end
   end
-  
+
   # AJAX access to update the plan's visibility
   # POST /plans/:id
   def visibility
@@ -369,7 +380,7 @@ class PlansController < ApplicationController
       render status: :bad_request, json: {msg: _("Unable to change the plan's status")}
     end
   end
-  
+
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
@@ -380,7 +391,7 @@ class PlansController < ApplicationController
       render status: :bad_request, json: {msg: _("Unable to change the plan's test status")}
     end
   end
-  
+
 
   private
 
@@ -409,7 +420,7 @@ class PlansController < ApplicationController
     end
     @plan.save
   end
-  
+
 
   # different versions of the same template have the same dmptemplate_id
   # but different version numbers so for each set of templates with the
