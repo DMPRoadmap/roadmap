@@ -2,7 +2,7 @@ class TemplatePolicy < ApplicationPolicy
   attr_reader :user, :template
 
   def initialize(user, template)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user || template.is_default || template.org.funder?
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @template = template
   end
@@ -17,22 +17,18 @@ class TemplatePolicy < ApplicationPolicy
     user.can_modify_templates?
   end
 
-  def admin_export?
-
-  end
-
   def admin_template?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end
-  
+
   def admin_customize?
     user.can_modify_templates?
   end
-  
+
   def admin_publish?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end
-  
+
   def admin_unpublish?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end

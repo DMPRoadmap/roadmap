@@ -3,7 +3,7 @@ class PlanPolicy < ApplicationPolicy
   attr_reader :plan
 
   def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user || plan.publicly_visible?
+    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @plan = plan
   end
@@ -43,17 +43,13 @@ class PlanPolicy < ApplicationPolicy
   def duplicate?
     @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
-  
+
   def visibility?
     @plan.administerable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def set_test?
     @plan.administerable_by?(@user.id)&& Role.find_by(user_id: @user.id, plan_id: @plan.id).active
-  end
-
-  def public_export?
-    @plan.publicly_visible?
   end
 
   def answer?
