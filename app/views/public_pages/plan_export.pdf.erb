@@ -28,13 +28,13 @@
     <% if @funder.present? %>
       <p><%= _("Funder: ") + @funder %></p>   <br>
     <% else %>
-      <p><%= _("Template: ") + @template + @customizer %></p>
+      <p><%= _("Template: ") + @template + @customizer %></p> <br>
     <% end %>
     <% if @plan.grant_number.present? %>
-      <p><%= _("Grant Number: ") + @plan.grant_number %></p>
+      <p><%= _("Grant Number: ") + @plan.grant_number %></p> <br>
     <% end %>
     <% if @plan.description.present? %>
-      <p><%= _("Description: ") + @plan.description %></p>
+      <p><%= _("Description: ") + @plan.description %></p> <br>
     <% end %>
     <p><%= _("Last Updated: ") + @plan.updated_at.to_date.to_s %></p> <br>
 

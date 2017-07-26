@@ -15,14 +15,14 @@
   </p>
 <% end %>
 
-<% if @plans.count > 0 %>    
+<% if @plans.count > 0 %>
 <div class="content">
   <table id="dmp_table" class="dmp_table tablesorter">
     <thead>
       <% if @plans.count > 10 %>
         <tr>
           <td colspan="5" class="td-as-th">
-            <%= render(partial: "shared/table_filter", 
+            <%= render(partial: "shared/table_filter",
                        locals: {path: public_plans_path, placeholder: _('Filter plans')}) %>
           </td>
         </tr>
@@ -43,8 +43,8 @@
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
           <td class="dmp_td_medium centered">
-            <%= link_to _('PDF'), 
-                        public_export_path(plan, format: :pdf), 
+            <%= link_to _('PDF'),
+                        plan_export_path(plan, format: :pdf), 
                         class: "dmp_table_link" %>
           </td>
         </tr>
