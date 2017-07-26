@@ -85,7 +85,12 @@ class PublicPagesController < ApplicationController
     @funder = @plan.template.org.funder? ? @plan.template.org.name : nil
     # set the template name and customizer name if applicable
     @template = @plan.template.title
-    @customizer = @plan.template.customization_of.present? ? _(" Customised By: ") + @plan.template.org.name : ""
+    @customizer = ""
+    cust_questions = @plan.questions.where(modifiable: true).pluck(:id)
+    # if the template is customized, and has custom answered questions
+    if @plan.template.customization_of.present? && Answer.where(plan_id: @plan.id, question_id: cust_questions).present?
+      @customizer = _(" Customised By: ") + @plan.template.org.name
+    end
 
 
     begin
