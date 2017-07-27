@@ -24,7 +24,7 @@
     
       
     <div class="form-input">
-      <%= f.label _('Organisation'), for: :user_org_name %>
+      <%= f.label _('Organisation'), for: :user_org_name, class: 'required' %>
       <%= render partial: "shared/accessible_combobox", 
                  locals: {name: 'user[org_name]',
                           id: 'user_org_name',
