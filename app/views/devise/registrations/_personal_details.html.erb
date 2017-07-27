@@ -17,7 +17,7 @@
 
       <div class="form-input">
         <%= f.label(:email, _('Email'), class: 'required') %>
-        <%= f.email_field(:email, class: 'left-indent required input-large',
+        <%= f.email_field(:email, class: 'left-indent required input-small',
           title: _('Please enter your current password below when changing your email address.'),
           value: @user.email) %>
         <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
@@ -34,7 +34,7 @@
 
       <div class="form-input">
         <%= f.label(:recovery_email, _('Recovery email'), class: 'required') %>
-        <%= f.email_field(:recovery_email, class: 'left-indent required input-large',
+        <%= f.email_field(:recovery_email, class: 'left-indent required input-small',
           title: _('This email will be used to recover your account if you change institutions'),
           value: @user.recovery_email) %>
         <span role="" id="recovery_email_error"
@@ -43,7 +43,7 @@
 
       <div class="form-input">
         <%= f.label(:password, _('Password'), class: 'required') %>
-        <%= f.password_field(:password, class: 'left-indent required input-large') %>
+        <%= f.password_field(:password, class: 'left-indent required input-small') %>
         <span role="" id="password_error"
               class="error-tooltip-right left-indent"></span>
       </div>

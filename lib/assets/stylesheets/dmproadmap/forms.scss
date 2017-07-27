@@ -5,7 +5,7 @@
 /* ================================================ */
 textarea,
 input[type="text"], input[type="email"], input[type="password"],
-input[type="search"], select {
+input[type="search"], input[type="tel"], select {
   font-family: $font-family;
   font-size: 14px;
   border-radius: 3px;
@@ -26,7 +26,7 @@ input[type="checkbox"], input[type="radio"], select {
 }
 
 textarea:focus, select:focus,
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
 input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
   box-shadow: 0 0 8px $light-grey;
 }
@@ -103,7 +103,9 @@ form.roadmap-form {
     .mce-tinymce {
       display: inline-block;
       margin: 10px 5px 15px 15px;
-      width: 70%;
+      min-width: 350px;
+      max-width: 550px;
+      width: 78%;
     }
 
     label,
@@ -220,7 +222,9 @@ form.roadmap-form {
     width: 70%;
   }
   .input-large {
-    width: 350px; /* 50%; */
+    min-width: 340px;
+    max-width: 540px; 
+    width: 75%;
   }
   .input-medium {
     width: 30%;
@@ -229,7 +233,9 @@ form.roadmap-form {
     width: 32%;
   }
   .input-small {
-    width: 150px; /* 10%; */
+    min-width: 180px;
+    max-width: 340px; 
+    width: 45%;
   }
   /* Used for the jquery autocomplete combobox on side-by-side fieldsets */
   .fixed-width-large {
@@ -472,11 +478,17 @@ form.roadmap-form {
 #new_user.register-form {
   .inline {
     width: 46%;
-
+    margin-right: 5px;
     #user_firstname,
     #user_surname {
       width: 92%;
     }
+  }
+  #user_org_name {
+    width: 78%;
+  }
+  #other-org-link {
+    margin-bottom: 5px;
   }
 }
 div#forgot-password-link {
