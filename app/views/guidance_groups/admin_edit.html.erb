@@ -33,20 +33,17 @@
               </div>
             </td>
           </tr>
-          <!-- if guidance group published then display check_box -->
-          <% if @guidance_group.published == true then %>
-              <tr>
-                <td class="first"><%= _('Published') %></td>
-                <td>
-                  <div class="div_left_icon_g">
-                    <%= f.check_box :published %>
-                  </div>
-                  <div class="div_right_icon_g">
-                    <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => _('If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.'))%-->
-                  </div>
-                </td>
-              </tr>
-          <% end %>
+          <tr>
+            <td class="first"><%= _('Published') %></td>
+            <td>
+              <div class="div_left_icon_g">
+                <%= f.check_box :published %>
+              </div>
+              <div class="div_right_icon_g">
+                <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => _('If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.'))%-->
+              </div>
+            </td>
+          </tr>
 
           <tr>
             <td class="first"><%= _('Optional subset') %></td>
