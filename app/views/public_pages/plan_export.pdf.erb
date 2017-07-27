@@ -18,11 +18,29 @@
       </style>
   </head>
   <body>
-    <h1><%= @plan.title %></h1>
+    <div style="text-align:center;">
+      <h1><%= @plan.title %></h1>
+      <p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] + "." %></em></p>
+    </div>
+    </br>
+    <p><%= _("Creator(s): ") + @creator_text %></p>    <br>
+    <p><%= _("Affiliation: ") + @affiliation %></p>    <br>
+    <% if @funder.present? %>
+      <p><%= _("Funder: ") + @funder %></p>   <br>
+    <% else %>
+      <p><%= _("Template: ") + @template + @customizer %></p> <br>
+    <% end %>
+    <% if @plan.grant_number.present? %>
+      <p><%= _("Grant Number: ") + @plan.grant_number %></p> <br>
+    <% end %>
+    <% if @plan.description.present? %>
+      <p><%= _("Description: ") + @plan.description %></p> <br>
+    <% end %>
+    <p><%= _("Last Updated: ") + @plan.updated_at.to_date.to_s %></p> <br>
 
 		<p><%= _("Copyright information: The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %></p>
     <% @phases.each do |phase| %>
-      <div style="page-break-before:always;"></div> <!-- Page break before each phase, keeping cover sheet in mind -->
+      <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <h1><%= phase.title %></h1>
       <% Section.where(phase_id: phase.id, id: @a_s_ids).order(:number).each do |section| %>
         <h2><%= section.title %></h2>

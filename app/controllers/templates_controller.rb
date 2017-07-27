@@ -3,7 +3,7 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class TemplatesController < ApplicationController
-  respond_to :html
+  #respond_to :html
   after_action :verify_authorized
 
   # GET /org/admin/templates/:id/admin_index
