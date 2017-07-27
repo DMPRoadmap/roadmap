@@ -1,5 +1,5 @@
 <ul class="nav">
-  
+
   <li>
     <a class="dropdown left-indent" id="explore" href="#"><%= _('Explore') %> <span class="fa fa-sort-desc" style="color: inherit;"><span></a>
 
@@ -12,11 +12,14 @@
       <li <%= 'class=active' if isActivePage(public_plans_path) %>>
         <%= link_to _('Public DMPs'), public_plans_path %>
       </li>
+      <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+        <%= link_to _('DMP Templates'), public_templates_path %>
+      </li>
     </ul>
   </li>
-  
+
   <% if user_signed_in? %>
-  
+
     <!-- Navigation for organisation admin -->
     <% if current_user.can_org_admin? && action_name.include?("admin_") %>
       <% if current_user.can_modify_templates? %>
@@ -31,7 +34,7 @@
       <% end %>
       <% if current_user.can_modify_org_details? %>
           <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-            <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %> 
+            <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
           </li>
       <% end %>
       <% if current_user.can_grant_permissions? %>
@@ -55,10 +58,10 @@
       <%= link_to _('My Dashboard'), plans_path %>
     </li>
 
-    <% 
+    <%
     if current_user.can_org_admin? && !current_user.org_id.nil? && !action_name.include?("admin_")
       link = nil
-      
+
       if current_user.can_modify_org_details? && current_user.org.abbreviation.blank?
         link = admin_edit_org_path(current_user.org_id)
       elsif  current_user.can_modify_templates?
