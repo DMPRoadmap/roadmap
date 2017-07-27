@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   ##
   # Dynamically build a handler for each omniauth provider
   # -------------------------------------------------------------
@@ -26,7 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # If the uid didn't have a match in the system send them to register
       if user.nil?
         session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
-        flash[:notice] = t('identifier_schemes.new_login_success')
+        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
         redirect_to new_user_registration_url
         
       # Otherwise sign them in
@@ -36,7 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
           sign_in_and_redirect user, event: :authentication
         else
-          flash[:notice] = t('identifier_schemes.new_login_success')
+          flash[:notice] = _('Successfully signed in')
           redirect_to new_user_registration_url
         end
       end
@@ -51,17 +52,27 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                
           flash[:notice] = _('Your account has been successfully linked to %{scheme}.') % { scheme: scheme.description }
         else
-          flash[:notice] = _('Unable to link your account to %{scheme}.') % { scheme: scheme.description }
+          flash[:alert] = _('Unable to link your account to %{scheme}.') % { scheme: scheme.description }
         end
+        
+      else
+        # If a user was found but does NOT match the current user then the identifier has
+        # already been attached to another account (likely the user has 2 accounts)
+        identifier = UserIdentifier.where(identifier: request.env["omniauth.auth"].uid).first
+        if identifier.user.id != current_user.id
+          flash[:alert] =  _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+        end
+        
+        # Otherwise, the identifier was found and it matches the one already associated 
+        # with the current user so nothing else needs to be done
       end
-      
+
       # Redirect to the User Profile page
       redirect_to edit_user_registration_path
     end
   end
+
   # -------------------------------------------------------------
-
-
   def failure
     redirect_to root_path
   end

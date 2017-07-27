@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702012742) do
+ActiveRecord::Schema.define(version: 20170719114516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,15 @@ ActiveRecord::Schema.define(version: 20170702012742) do
 
   add_index "notes", ["answer_id"], name: "index_notes_on_answer_id", using: :btree
 
+  create_table "org_identifiers", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "attrs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "org_id"
+    t.integer  "identifier_scheme_id"
+  end
+
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "org_id"
     t.integer  "token_permission_type_id"
@@ -201,6 +210,9 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.string   "data_contact"
     t.string   "funder_name"
     t.integer  "visibility",                        default: 0, null: false
+    t.string   "data_contact_email"
+    t.string   "data_contact_phone"
+    t.string   "principal_investigator_email"
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
@@ -208,6 +220,11 @@ ActiveRecord::Schema.define(version: 20170702012742) do
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
+  end
+
+  create_table "prefs", force: :cascade do |t|
+    t.string  "settings"
+    t.integer "user_id"
   end
 
   create_table "question_formats", force: :cascade do |t|
@@ -263,7 +280,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access",     default: 0, null: false
+    t.integer  "access",     default: 0,    null: false
+    t.boolean  "active",     default: true
   end
 
   add_index "roles", ["plan_id"], name: "index_roles_on_plan_id", using: :btree
@@ -383,6 +401,7 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "language_id"
+    t.string   "recovery_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -406,6 +425,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
+  add_foreign_key "org_identifiers", "identifier_schemes"
+  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"

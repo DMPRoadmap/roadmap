@@ -14,14 +14,14 @@ class SectionsController < ApplicationController
       @section.phase.template.save!
 
       redirect_to admin_show_phase_path(id: @section.phase_id,
-        :section_id => @section.id, edit: 'true'), notice: _('Information was successfully created.')
+        :section_id => @section.id, edit: 'true'), notice: success_message(_('section'), _('created'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
       @sections = @phase.sections
       @section_id = @section.id
       @question_id = nil
-      flash[:notice] = failed_create_error(@section, _('section'))
+      flash[:alert] = failed_create_error(@section, _('section'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else
@@ -42,14 +42,14 @@ class SectionsController < ApplicationController
       @section.phase.template.dirty = true
       @section.phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: _('Information was successfully updated.')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: success_message(_('section'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
       @sections = @phase.sections
       @section_id = @section.id
       @question_id = nil
-      flash[:notice] = failed_update_error(@section, _('section'))
+      flash[:alert] = failed_update_error(@section, _('section'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else
@@ -70,7 +70,7 @@ class SectionsController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: _('Information was successfully deleted.')
+      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: success_message(_('section'), _('deleted'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -78,7 +78,7 @@ class SectionsController < ApplicationController
       @section_id = @section.id
       @question_id = nil
 
-      flash[:notice] = failed_destroy_error(@section, _('section'))
+      flash[:alert] = failed_destroy_error(@section, _('section'))
       if @phase.template.customization_of.present?
         @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
       else

@@ -1,4 +1,17 @@
 namespace :migrate do
+
+  desc "migrate to 0.4" 
+  task to_04: :environment do
+    # Default all plans.visibility to the value specified in application.rb
+    Rake::Task['migrate:init_plan_visibility'].execute
+    # Move old plans.data_contact to plans.data_contact_email if value is an email
+    Rake::Task['migrate:plan_data_contacts'].execute
+    # Move users.orcid_id to the user_identifiers table
+    Rake::Task['migrate:move_orcids'].execute
+    # Move users.shibboleth_id to the user_identifiers table
+    Rake::Task['migrate:move_shibs'].execute
+  end
+
   desc "TODO"
   task permissions: :environment do
     User.update_user_permissions
@@ -214,29 +227,6 @@ namespace :migrate do
 
   end
 
-  desc "move old ORCID from user table to user_identifiers"
-  task move_orcids: :environment do
-    if IdentifierScheme.find_by(name: 'orcid').nil?
-      IdentifierScheme.create!(name: 'orcid', description: 'ORCID', active: true)
-    end
-    
-    scheme = IdentifierScheme.find_by(name: 'orcid')
-      
-    unless scheme.nil?
-      User.all.each do |u|
-        if u.respond_to?(:orcid_id)
-          if u.orcid_id.present? 
-            if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
-              u.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, 
-                                                       identifier: u.orcid_id.gsub('orcid.org/', ''))
-              u.save!
-            end
-          end
-        end
-      end
-    end
-  end
-
   desc "enforce single published version for templates"
   task single_published_template: :environment do
     # for each group of versions of a template
@@ -253,5 +243,97 @@ namespace :migrate do
       end
     end
   end
+
+# Tasks required to migrate to 0.4.x
+# -----------------------------------------------
+  desc "Initialize plans.visibility to the default specified in application.rb"
+  task init_plan_visibility: :environment do
+    default = Rails.configuration.default_plan_visibility.to_sym
+    Plan.all.each{ |p| p.update_attributes(visibility: default) unless p.visibility == default }
+  end
+
+  desc "Move old plans.data_contact to data_contact_email and data_contact_phone"
+  task plan_data_contacts: :environment do
+    email_regex = /([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})/i
+    phone_regex = /\+?[0-9\-\(\)]{7,}/i
+    Plan.where('data_contact IS NOT NULL').each do |p|
+      email = p.data_contact[email_regex]
+      phone = p.data_contact[phone_regex]
+
+      # Remove the email, phone and any prefixes from the oriignal contact
+      contact = p.data_contact
+      contact = contact.gsub(email, '') unless email.nil?
+      contact = contact.gsub(phone, '') unless phone.nil?
+      contact = contact.gsub(/([Ee]mail|[Pp]hone|[Mm]obile|[Cc]ell|[Oo]ffice|[Hh]ome|[Ww]ork|[Tt]|[Ee]):?/, '')
+      contact = contact.gsub(' , ', '').strip
+      contact = contact[0..(contact.length - 2)] if contact.ends_with?(',')
+      contact = nil if contact == ','
+      
+      p.update_attributes(data_contact_email: email, data_contact_phone: phone, 
+                          data_contact: contact)
+    end
+  end
+
+  desc "Move old ORCID from users table to user_identifiers"
+  task move_orcids: :environment do
+    users = User.includes(:user_identifiers).where('users.orcid_id IS NOT NULL')
+    
+    # If we have users with orcid ids
+    if users.length > 0
+      # If orcid isn't defined in the identifier_schemes table add it
+      if IdentifierScheme.find_by(name: 'orcid').nil?
+        IdentifierScheme.create!(name: 'orcid', 
+                                 description: 'ORCID', 
+                                 active: true,
+                                 logo_url: 'http://orcid.org/sites/default/files/images/orcid_16x16.png',
+                                 user_landing_url: 'https://orcid.org')
+      end
+    
+      scheme = IdentifierScheme.find_by(name: 'orcid')
+      
+      unless scheme.nil?
+        users.each do |u|
+          if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
+            schemes = u.user_identifiers.collect{|i| i.identifier_scheme_id}
+            
+            unless schemes.include?(scheme.id)
+              UserIdentifier.create(user: u, identifier_scheme: scheme,
+                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
+            end
+          end
+        end
+      end
+    end
+  end
   
+  desc "Move old Shibboleth Ids from users table to user_identifiers"
+  task move_shibs: :environment do
+    if Rails.configuration.shibboleth_enabled
+      users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
+    
+      # If we have users with orcid ids
+      if users.length > 0
+        # If orcid isn't defined in the identifier_schemes table add it
+        if IdentifierScheme.find_by(name: 'shibboleth').nil?
+          IdentifierScheme.create!(name: 'shibboleth', 
+                                   description: "Your institution credentials", 
+                                   active: true)
+        end
+    
+        scheme = IdentifierScheme.find_by(name: 'shibboleth')
+      
+        unless scheme.nil?
+          users.each do |u|
+            schemes = u.user_identifiers.collect{|i| i.identifier_scheme_id}
+            
+            unless schemes.include?(scheme.id)
+# TODO: Add logic to move shib identifiers over
+#              UserIdentifier.create(user: u, identifier_scheme: scheme,
+#                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
+            end
+          end
+        end
+      end
+    end
+  end
 end

@@ -43,7 +43,10 @@ in the admin interface.
                   {}, class: "question_format" %>
             </div>
             <div class="div_right_icon">
-              <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true",  "data-content" => _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"))%>
+              <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+                 data-content="<%= _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>") %>"
+                 aria-label="<%= _('More information: Answer formats') %>">
+              <span class="fa fa-question-circle" aria-hidden="true"></span></a>
             </div>
           </div>
           <div class="clearfix"></div>
@@ -55,7 +58,11 @@ in the admin interface.
                   <th nowrap class="small"><%= _('Order')%></th>
                   <th nowrap class="medium"><%= _('Text')%></th>
                   <th nowrap class="small"><%= _('Default')%></th>
-                  <th nowrap class="small"><%= link_to( image_tag("help_button.png"), "#", class: "question_options_popover", "data-toggle": "popover",rel: "popover", "data-html" => "true", "data-content" => _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.'))%></th>
+                  <th nowrap class="small">
+                    <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+                       data-content="<%= _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.') %>"
+                        aria-label="<%= _('More information: Question options') %>">
+                    <span class="fa fa-question-circle" aria-hidden="true"></span></a></th>
                 </tr>
               </thead>
               <tbody class="options_tbody">
@@ -97,7 +104,10 @@ in the admin interface.
             </div>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.'))%>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+               data-content="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>"
+                aria-label="<%= _('More information: Default answer') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -113,7 +123,10 @@ in the admin interface.
             <%= text_area_tag(:example_answer, "", class: "tinymce") %>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+               data-content="<%= _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>"
+                aria-label="<%= _('More information: Example answers') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -127,7 +140,10 @@ in the admin interface.
             <%= text_area_tag(:guidance, "", class: "tinymce") %>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+               data-content="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>"
+                aria-label="<%= _('More information: Guidance') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -143,7 +159,9 @@ in the admin interface.
                 :id, :title, {prompt: false, include_blank: _('None')}, {multiple: true})%>
           </div>
           <div class="div_right_icon">
-            <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"))%>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+               data-content="<%= _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>") %>" aria-label="<%= _('More information: Themes') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
         </td>
       </tr>
@@ -153,9 +171,9 @@ in the admin interface.
     <!-- submit buttons -->
     <div class="move_2_right">
       <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
-      <%= f.submit _('Save'), class: "btn btn-primary new_question_save_button" %>
+      <%= f.submit _('Save'), class: "btn btn-primary new_question_save_button", role:'button' %>
       <%= hidden_field_tag :section_id, section.id, class: "section_id_new" %>
-      <%= link_to _('Cancel'), '#', class: "btn cancel cancel_add_new_question" %>
+      <%= link_to _('Cancel'), '#', class: "btn cancel cancel_add_new_question", role: 'button' %>
     </div>
   </div>
 

@@ -174,7 +174,7 @@ GEM
       activerecord (>= 3.1)
     less (2.6.0)
       commonjs (~> 0.2.7)
-    less-rails (2.7.1)
+    less-rails (2.8.0)
       actionpack (>= 4.0)
       less (~> 2.6.0)
       sprockets (> 2, < 4)
@@ -322,11 +322,6 @@ GEM
     tilt (2.0.5)
     tinymce-rails (4.4.3)
       railties (>= 3.1.1)
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.2)
@@ -399,7 +394,6 @@ DEPENDENCIES
   therubyracer (>= 0.11.4)
   thin
   tinymce-rails
-  twitter-bootstrap-rails (= 2.2.8)
   uglifier
   web-console (~> 2.0)
   webmock

@@ -153,7 +153,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     post admin_create_phase_path(@template.phases.first), {phase: params}
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
     assert_redirected_to admin_show_phase_path(id: Phase.last.id, edit: 'true')
     assert assigns(:phase)
@@ -164,7 +164,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:phase)
     assert assigns(:template)
@@ -186,7 +186,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Valid save
     put admin_update_phase_path(@template.phases.first), {phase: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(@template.phases.first)
     assert assigns(:phase)
@@ -197,7 +197,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:phase)
     assert assigns(:template)
@@ -223,7 +223,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_response :redirect
     assert_redirected_to admin_template_template_path(@template)
-    assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Phase.find(id).nil?
     end

@@ -34,7 +34,7 @@ class NotesController < ApplicationController
 
     if @note.save
       @status = true
-      @notice = _('Comment was successfully created.')
+      @notice = success_message(_('comment'), _('created'))
     else
       @status = false
       @notice = failed_create_error(@note, _('note'))
@@ -55,7 +55,7 @@ class NotesController < ApplicationController
     @plan = @answer.plan
 
     if @note.update_attributes(params[:note])
-      @notice = _('Comment was successfully saved.')
+      @notice = success_message(_('comment'), _('saved'))
     else
       @notice = failed_update_error(@note, _('note'))
     end
@@ -74,7 +74,7 @@ class NotesController < ApplicationController
     @plan = @answer.plan
 
     if @note.update_attributes(params[:note])
-      @notice = _('Comment removed.')
+      @notice = success_message(_('comment'), _('removed'))
     else
       @notice = failed_destroy_error(@note, _('note'))
     end

@@ -1,0 +1,13 @@
+<!--show annotations. annotation is passed as an argument-->
+<h3 class="accordion_heading_text">
+  <% if annotation.type == :example_answer %>
+    <%= _('Example Answer') %>
+  <% elsif annotation.type == :guidance %>
+    <%= _('Guidance') %>
+  <% else %>
+    <%= plan.template.org.abbreviation %>
+  <% end %>
+  <span class="fa fa-plus" aria-hidden="true"></span>
+</h3>
+
+<div class="accordion-section"><%= raw annotation.text %></div>

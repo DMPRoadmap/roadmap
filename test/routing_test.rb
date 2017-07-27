@@ -34,12 +34,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing terms_path, target
   end
   test 'GET /public_plans should resolve to StaticPagesController#public_plans' do
-    target = {controller: "static_pages", action: "public_plans"}
+    target = {controller: "plans", action: "public_index"}
     assert_routing public_plans_path, target
   end
   test 'GET /public_export should resolve to StaticPagesController#public_export' do
     plan = Plan.first
-    target = {controller: "static_pages", action: "public_export", id: plan.id.to_s}
+    target = {controller: "plans", action: "public_export", id: plan.id.to_s}
     
     assert_routing public_export_path(id: plan), target
   end

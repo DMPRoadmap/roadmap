@@ -6,6 +6,7 @@ class RolesController < ApplicationController
     registered = true
     @role = Role.new(role_params)
     authorize @role
+    
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if params[:user].present?
@@ -28,7 +29,7 @@ class RolesController < ApplicationController
             if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
             flash[:notice] = message
           else
-            flash[:notice] = failed_create_error(@role, _('role'))
+            flash[:alert] = failed_create_error(@role, _('role'))
           end
         end
       end
@@ -45,12 +46,12 @@ class RolesController < ApplicationController
     access_level = params[:role][:access_level].to_i
     set_access_level(access_level)
     if @role.update_attributes(role_params)
-      flash[:notice] = _('Sharing details successfully updated.')
       UserMailer.permissions_change_notification(@role, current_user).deliver_now
-      redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+      render json: {code: 1, msg: "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."}
     else
-      flash[:notice] = failed_create_error(@role, _('role'))
-      render action: "edit"
+#      flash[:alert] = failed_create_error(@role, _('role'))
+      #format.html{ render action: "edit" }
+      render json: {code: 1, msg: flash[:alert]}
     end
   end
 
@@ -63,6 +64,22 @@ class RolesController < ApplicationController
     flash[:notice] = _('Access removed')
     UserMailer.project_access_removed_notification(user, plan, current_user).deliver_now
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+  end
+    
+  # This function makes user's role on a plan inactive - i.e. "removes" this from their plans
+  def deactivate
+    role = Role.find(params[:id])
+    authorize role
+    role.active = false
+    # if creator, remove from public plans list
+    if role.creator? && role.plan.publicly_visible?
+      role.plan.visibility = Plan.visibilities[:privately_visible]
+      role.plan.save
+    end
+    role.save
+    @plans = current_user.active_plans
+    flash[:notice] = _('Plan removed')
+    render "plans/index"
   end
 
   private

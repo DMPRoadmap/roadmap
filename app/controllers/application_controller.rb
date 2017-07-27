@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if user_signed_in?
-      redirect_to plans_url, notice: _('You are not authorized to perform this action.')
+      redirect_to plans_url, alert: _('You are not authorized to perform this action.')
     else
       redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
     end
@@ -79,6 +79,10 @@ class ApplicationController < ActionController::Base
   
   def failed_destroy_error(obj, obj_name)
     "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+  
+  def success_message(obj_name, action)
+    "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
   end
 
   private

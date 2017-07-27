@@ -7,6 +7,9 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   def admin_index
     authorize User
+    # Sets the user to the currently logged in user if it is undefined
+#    @user = current_user if @user.nil?
+#    @users = @user.org.users.includes(:roles)
     @users = current_user.org.users.includes(:roles)
   end
 
@@ -49,9 +52,41 @@ class UsersController < ApplicationController
     end
 
     if @user.save!
-      redirect_to({controller: 'users', action: 'admin_index'}, {notice: _('Information was successfully updated.')})  # helpers.success key does not exist, replaced with a generic string
+      redirect_to({controller: 'users', action: 'admin_index'}, {notice: success_message(_('permissions'), _('saved'))})  # helpers.success key does not exist, replaced with a generic string
     else
-      flash[:notice] = failed_update_error(@user, _('user'))
+      flash[:alert] = failed_update_error(@user, _('user'))
+    end
+  end
+
+  def update_email_preferences
+    prefs = params[:prefs]
+    authorize current_user, :update?
+    pref = current_user.pref
+    # does user not have prefs?
+    if pref.blank?
+      pref = Pref.new
+      pref.settings = {}
+      pref.user = current_user
+    end
+    pref.settings[:email] = booleanize_hash(prefs)
+    pref.save
+
+    @tab = params[:tab]
+    redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('preferences'), _('saved'))
+  end
+
+  private
+
+  ##
+  # html forms return our boolean values as strings, this converts them to true/false
+  def booleanize_hash(node)
+    #leaf: convert to boolean and return
+    #hash: iterate over leaves
+    unless node.is_a?(Hash)
+      return node == "true"
+    end
+    node.each do |key, value|
+      node[key] = booleanize_hash(value)
     end
   end
 

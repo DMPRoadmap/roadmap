@@ -57,7 +57,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert assigns(:question)
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: Question.last.id)
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal 'Test Question', Question.last.text, "expected the record to have been created!"
     
     # Make sure that the template's dirty flag got set
@@ -65,7 +65,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil, question_format_id: @question_format.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:question)
     assert assigns(:section)
@@ -92,7 +92,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Valid save
     put admin_update_question_path(@section.questions.first), {question: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id, question_id: @section.questions.first.id)
     assert assigns(:phase)
@@ -105,7 +105,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_question_path(@section.questions.first), {question: {text: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:question)
     assert assigns(:section)
@@ -137,7 +137,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:section)
     assert assigns(:question)
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, edit: 'true', section_id: @section.id)
-    assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Question.find(id).nil?
     end

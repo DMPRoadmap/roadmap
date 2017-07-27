@@ -36,15 +36,17 @@
                 <%= text_area_tag("section-desc", "" , class: "tinymce") %>
               </div>
               <div class="div_right_icon">
-                <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"))%>
+                <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+                   data-content="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>" aria-label="<%= _('More information: Section descriptions') %>">
+                <span class="fa fa-question-circle" aria-hidden="true"></span></a>
               </div>
             </td>
           </tr>
         </table>
         <!-- save buttons-->
         <div class="move_2_right">
-          <%= f.submit _('Save'), class: "btn btn-primary" %>
-          <%= link_to _('Cancel'), "#", id: "", class: "btn cancel" %>
+          <%= f.submit _('Save'), class: "btn btn-primary", role:"button" %>
+          <%= link_to _('Cancel'), "#", id: "", class: "btn cancel", role:"button" %>
         </div>
         <div class="two-column-clear"></div>
       </div>

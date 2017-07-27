@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag "admin" %>
 <% javascript "admin.js" %>
 
 <h1>
@@ -30,7 +29,9 @@
               <%= text_area_tag("template-desc", "", class: "tinymce") %>
             </div>
             <div class="div_right_icon">
-              <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"))%>
+              <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+                 data-content="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>" aria-label="<%= _('More information: Template descriptions') %>">
+              <span class="fa fa-question-circle" aria-hidden="true"></span></a>
             </div>
           </td>
         </tr>
@@ -38,8 +39,8 @@
       </table>
       <!-- submit buttons -->
       <div class="move_2_right">
-        <%= f.submit _('Save'), class: "btn btn-primary" %>
-        <%= link_to _('Cancel'), admin_index_template_path, class: "btn cancel" %>
+        <%= f.submit _('Save'), class: "btn btn-primary", role:"button" %>
+        <%= link_to _('Cancel'), admin_index_template_path, class: "btn cancel", role:"button" %>
       </div>
       <br />
     <% end %>
