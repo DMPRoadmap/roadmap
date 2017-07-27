@@ -6,11 +6,11 @@
 
 <!-- if the user has projects -->
 <% if @plans.count > 0 %>
-  <p>
+  <p class="left-indent">
     <%= _('Public DMPs are plans created using the %{application_name} and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
   </p>
 <% else %>
-  <p>
+  <p class="left-indent">
     <%= _("There are currently no public DMPs.")%>
   </p>
 <% end %>

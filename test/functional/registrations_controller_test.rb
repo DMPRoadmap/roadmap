@@ -17,7 +17,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   
   # -------------------------------------------------------------
   test "user receives proper error messaging if they have not accepted terms" do
-    post user_registration_path, {user: {accept_terms: "off"}}
+    post user_registration_path, {user: {accept_terms: nil}}
     
     assert_response :redirect
     follow_redirect!

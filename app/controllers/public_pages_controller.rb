@@ -1,16 +1,16 @@
 class PublicPagesController < ApplicationController
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:template_index, :plan_index]
 
   # GET template_index
   # -----------------------------------------------------
   def template_index
-    authorize :public_page
-    template_ids = Template.where(org_id: Org.funders.pluck(:id)).valid.pluck(:dmptemplate_id).uniq << Template.where(is_default: true).pluck(:dmptemplate_id)
+    template_ids = Template.where(org_id: Org.funders.pluck(:id)).valid.pluck(:dmptemplate_id).uniq << Template.where(is_default: true, published: true).pluck(:dmptemplate_id)
     @templates = []
-    template_ids.each do |tid|
+    template_ids.flatten.each do |tid|
       t = Template.live(tid)
       @templates << t unless t.nil?
     end
+    @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
   end
 
   # GET template_export/:id
@@ -119,7 +119,7 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    authorize :public_page
     @plans = Plan.publicly_visible
+    @plans = @plans.sort{|x,y| x.title <=> y.title } if @plans.count > 1
   end
 end

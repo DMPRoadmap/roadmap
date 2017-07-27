@@ -3,7 +3,8 @@ class PlanPolicy < ApplicationPolicy
   attr_reader :plan
 
   def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user || plan.publicly_visible?
+    raise Pundit::NotAuthorizedError, _("must be logged in") unless user 
+    raise Pundit::NotAuthorizedError, _("are not authorized to view that plan") unless plan || plan.publicly_visible?
     @user = user
     @plan = plan
   end
