@@ -282,31 +282,6 @@ class PlansController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
-=======
-  # GET /plans/[:plan_slug]/public_export
-  # -------------------------------------------------------------
-  def public_export
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    # If the plan has multiple phases we should export each
-    @exported_plan = ExportedPlan.new.tap do |ep|
-      ep.plan = @plan
-      ep.phase_id = @plan.phases.first.id
-      ep.format = :pdf
-      plan_settings = @plan.settings(:export)
-
-      Settings::Template::DEFAULT_SETTINGS.each do |key, value|
-        ep.settings(:export).send("#{key}=", plan_settings.send(key))
-      end
-    end
-    # need to determine which phases to export
-    @a_q_ids = Answer.where(plan_id: @plan.id).pluck(:question_id).uniq
-    @a_s_ids = Question.where(id: @a_q_ids).pluck(:section_id).uniq
-    a_p_ids = Section.where(id: @a_s_ids).pluck(:phase_id).uniq
-    @phases = Phase.includes(sections: :questions).where(id: a_p_ids).order(:number)
->>>>>>> upstream/CDL-MVP
-
 
   def duplicate
     plan = Plan.find(params[:id])
