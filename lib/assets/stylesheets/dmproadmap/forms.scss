@@ -753,16 +753,6 @@ td.plan-edit-actions {
     }
   }
 
-  .answer-unsaved {
-    width: auto;
-    max-width: 200px;
-    text-align: center;
-    color: $error-color;
-    background: $error-background;
-    padding: 5px 10px;
-    border-radius: 3px;
-  }
-
   .section-description {
     width: 60%;
   }
@@ -785,6 +775,8 @@ td.plan-edit-actions {
     }
     .suggested-answer-border {
       margin-top: -20px;
+      max-height: 200px;
+      overflow: scroll;
     }
   }
 
@@ -809,6 +801,9 @@ td.plan-edit-actions {
     }
     .tab-panel {
       min-height: auto;
+    }
+    .question-guidance .expand-collapse-all {
+      margin-bottom: 5px;
     }
   }
 
