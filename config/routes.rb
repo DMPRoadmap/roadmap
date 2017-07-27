@@ -1,31 +1,31 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    resources :users, only: [:new, :create, :edit, :update, :index, :show]
-    resources :orgs, only: [:new, :create, :edit, :update, :index, :show]
-    resources :perms, only: [:new, :create, :edit, :update, :index, :show]
-    resources :languages
-    resources :templates
-    resources :token_permission_types
-    resources :phases
-    resources :sections
-    resources :questions
-    resources :question_formats
-    resources :question_options
-    resources :annotations
-    resources :answers
-    resources :guidances
-    resources :guidance_groups
-    resources :themes
-    resources :notes
-    resources :plans
-    # resources :plans_guidance_groups
-    resources :identifier_schemes
-    resources :exported_plans
-    resources :regions
-    resources :roles
-    resources :splash_logs
-    resources :user_identifiers
+    resources :users,              only: [:new, :create, :edit, :update, :index, :show]
+    resources :orgs,               only: [:new, :create, :edit, :update, :index, :show]
+    resources :perms,              only: [:new, :create, :edit, :update, :index, :show]
+    resources :languages,          only: [:new, :create, :edit, :update, :index, :show]
+    resources :templates,          only: [:new, :create, :edit, :update, :index, :show]
+    resources :phases,             only: [:new, :create, :edit, :update, :index, :show]
+    resources :sections,           only: [:new, :create, :edit, :update, :index, :show]
+    resources :questions,          only: [:new, :create, :edit, :update, :index, :show]
+    resources :question_formats,   only: [:new, :create, :edit, :update, :index, :show]
+    resources :question_options,   only: [:new, :create, :edit, :update, :index, :show]
+    resources :annotations,        only: [:new, :create, :edit, :update, :index, :show]
+    resources :answers,            only: [:new, :create, :edit, :update, :index, :show]
+    resources :guidances,          only: [:new, :create, :edit, :update, :index, :show]
+    resources :guidance_groups,    only: [:new, :create, :edit, :update, :index, :show]
+    resources :themes,             only: [:new, :create, :edit, :update, :index, :show]
+    resources :notes,              only: [:new, :create, :edit, :update, :index, :show]
+    resources :plans,              only: [:new, :create, :edit, :update, :index, :show]
+    resources :identifier_schemes, only: [:new, :create, :edit, :update, :index, :show]
+    resources :exported_plans,     only: [:new, :create, :edit, :update, :index, :show]
+    resources :regions,            only: [:new, :create, :edit, :update, :index, :show]
+    resources :roles,              only: [:new, :create, :edit, :update, :index, :show]
+    resources :splash_logs,        only: [:new, :create, :edit, :update, :index, :show]
+    resources :user_identifiers,   only: [:new, :create, :edit, :update, :index, :show]
+resources :token_permission_types, only: [:new, :create, :edit, :update, :index, :show]
+#resources :plans_guidance_groups
 
     root to: "users#index"
   end
@@ -39,7 +39,6 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-
   # WAYFless access point - use query param idp
   #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
@@ -52,6 +51,7 @@ Rails.application.routes.draw do
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
 
+  #ActiveAdmin.routes(self)
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
