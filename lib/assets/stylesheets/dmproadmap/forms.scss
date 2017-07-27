@@ -439,6 +439,16 @@ form.roadmap-form {
   input[type="email"] {
     width: 90%;
   }
+  .js-container {
+    width: 100%;
+    #user_org_name {
+      width: 90%;
+      margin-bottom: 5px;
+    }
+  }
+  #other-org-link {
+    margin-bottom: 15px;
+  }
 
   .small-header {
     margin-top: 0;
@@ -451,6 +461,10 @@ form.roadmap-form {
     #user_remember_me, input[type='checkbox'], .checkbox-label {
       float: right;
     }
+  }
+  #user_accept_terms {
+    margin-right: 5px;
+    
   }
 }
 #edit_user fieldset {
@@ -483,12 +497,6 @@ form.roadmap-form {
     #user_surname {
       width: 92%;
     }
-  }
-  #user_org_name {
-    width: 78%;
-  }
-  #other-org-link {
-    margin-bottom: 5px;
   }
 }
 div#forgot-password-link {
