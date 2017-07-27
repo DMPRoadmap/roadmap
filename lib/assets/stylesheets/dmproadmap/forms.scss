@@ -838,6 +838,10 @@ td.plan-edit-actions {
   max-width: 850px;
   width: 60%;
 }
+.share-plan input, 
+.share-plan form.roadmap-form fieldset.standard label {
+  margin-left: 10px;
+}
 
 
 /* Org edit */

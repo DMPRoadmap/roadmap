@@ -28,7 +28,7 @@
 
     <!-- project details -->
     <div class="tab-panels" role="tabpanel">
-      <div class="tab-panel active" aria-hidden="false">
+      <div class="tab-panel active share-plan" aria-hidden="false">
 
         <h2 class="left-indent"><%= _('Set plan visibility') %></h2>
         <p class="left-indent"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
@@ -36,17 +36,17 @@
         <%= form_for @plan, html: {method: :put, class: "roadmap-form"} do |f| %>
           <fieldset class="standard">
             <%= f.hidden_field :id %>
-            <div class="left-indent">
+            <div>
               <%= f.radio_button :visibility, :privately_visible, disabled: !@allow_visibility %>
               <%= f.label :visibility, _('Private: restricted to me and my collaborators'),
                           class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
-            <div class="left-indent">
+            <div>
               <%= f.radio_button :visibility, :organisationally_visible, disabled: !@allow_visibility %>
               <%= f.label :visibility, _('Organisation: anyone at my organisation can view'),
                           class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
             </div>
-            <div class="left-indent">
+            <div>
               <%= f.radio_button :visibility, :publicly_visible, disabled: !@allow_visibility %>
               <%= f.label :visibility, _('Public: anyone can view'),
                           class: "checkbox-label regular-text#{(@allow_visibility ? '' : ' disabled')}" %>
@@ -108,21 +108,21 @@
 
             <%= f.fields_for :user do |user| %>
               <%= user.label :email, _('Email') %>
-              <%= user.email_field :email, for: :user, name: "user", class: "left-indent input-medium" %>
-              <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
+              <%= user.email_field :email, for: :user, name: "user", class: "input-medium" %>
+              <span role="" id="email_error" class="error-tooltip-right"></span>
             <% end %>
 
             <label><%= _('Permissions') %></label>
             <p></p>
-            <div class="left-indent">
+            <div>
               <%= f.radio_button :access_level, 1 %>
               <%= f.label :access_level, _('Read only: can view but not make changes'), class: 'checkbox-label regular-text' %>
             </div>
-            <div class="left-indent">
+            <div>
               <%= f.radio_button :access_level, 2 %>
               <%= f.label :access_level, _('Editor: can comment and make changes'), class: 'checkbox-label regular-text' %>
             </div>
-            <div class="left-indent">
+            <div>
               <%= f.radio_button :access_level, 3 %>
               <%= f.label :access_level, _('Co-owner: can edit project details, change visibility, and add collaborators'), class: 'checkbox-label regular-text' %>
             </div>
@@ -131,7 +131,7 @@
                          locals: {id: 'add-collaborator-button',
                                   val: _('Add collaborator'),
                                   disabled_initially: true,
-                                  classes: 'small-input-button left-indent',
+                                  classes: 'small-input-button',
                                   tooltip: _('Enter a valid email and permission level.')} %>
             </div>
           </fieldset>
