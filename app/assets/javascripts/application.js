@@ -10,22 +10,26 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
 
+// Internasionalisation JS files
 //= require i18n
 //= require i18n/translations
 //= require_tree ./locale
 //= require gettext/all
 
+// Unknown library, needs further checking, meanwhile remains at app/assets/javascripts/vendor/v1.js
 //= require vendor/v1.js
-//= require vendor/jquery-ui.min.js
-//= require vendor/jquery-accessible-autocomplet-list-aria.js
-//= require vendor/jquery.placeholder.js
-//= require vendor/jquery.tablesorter.min.js
-//= require jquery.timeago.js
-//= require tinymce-jquery
 
+// Third party libraries located at vendor/node_modules
+//= require jquery/dist/jquery.min.js
+//= require jquery-ujs/src/rails.js
+//= require jquery-ui-dist/jquery-ui.min.js
+//= require jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria.js
+//= require placeholder/dist/placeholder.min.js
+//= require tablesorter/dist/js/jquery.tablesorter.min.js
+//= require timeago/jquery.timeago.js
+
+// JS files used across multiple pages
 //= require dmproadmap.js
 //= require dmproadmap/utils.js
 //= require dmproadmap/accordions.js
@@ -33,10 +37,10 @@
 //= require dmproadmap/modals.js
 //= require dmproadmap/tables.js
 //= require dmproadmap/tabs.js
-
-// We pull the ones below in here because they were not functioning for the modals unless
-// the were loaded at this level
 //= require views/shared/login_form.js
 //= require views/shared/register_form.js
+
+// Third party libraries STILL using ruby gems
+//= require tinymce-jquery
 
 
