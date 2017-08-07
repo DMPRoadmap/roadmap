@@ -105,9 +105,6 @@
       <div id="<%= "answer-status-#{question.id}" %>" class="answer-status inline left-indent">
         <%= render(partial: 'answers/status', locals: { answer: answer }) %>
       </div>
-      <% if !readonly %>
-        <div class="left-indent answer-unsaved" style="visibility: hidden;"><%= _('Unsaved changes') %></div>
-      <% end %>
     </div>
   </fieldset>
 <% end %>
