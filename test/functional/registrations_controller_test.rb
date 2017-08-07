@@ -75,7 +75,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     get edit_user_registration_path
     
     assert_response :success
-    assert_select 'main .page h1', _('Edit profile')
+    assert_select 'main h1', _('Edit profile')
     
   end
   
