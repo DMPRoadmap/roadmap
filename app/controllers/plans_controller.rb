@@ -332,7 +332,7 @@ class PlansController < ApplicationController
     params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
                                  :grant_number, :description, :identifier, :principal_investigator,
                                  :principal_investigator_email, :principal_investigator_identifier,
-                                 :data_contact, :data_contact_email, :guidance_group_ids)
+                                 :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
   end
 
   def save_guidance_selections(guidance_group_ids)

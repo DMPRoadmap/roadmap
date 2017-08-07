@@ -5,7 +5,7 @@
 /* ================================================ */
 textarea,
 input[type="text"], input[type="email"], input[type="password"],
-input[type="search"], select {
+input[type="search"], input[type="tel"], select {
   font-family: $font-family;
   font-size: 14px;
   border-radius: 3px;
@@ -26,7 +26,7 @@ input[type="checkbox"], input[type="radio"], select {
 }
 
 textarea:focus, select:focus,
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
 input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
   box-shadow: 0 0 8px $light-grey;
 }
@@ -103,7 +103,9 @@ form.roadmap-form {
     .mce-tinymce {
       display: inline-block;
       margin: 10px 5px 15px 15px;
-      width: 70%;
+      min-width: 350px;
+      max-width: 550px;
+      width: 78%;
     }
 
     label,
@@ -220,7 +222,9 @@ form.roadmap-form {
     width: 70%;
   }
   .input-large {
-    width: 50%;
+    min-width: 340px;
+    max-width: 540px; 
+    width: 75%;
   }
   .input-medium {
     width: 30%;
@@ -229,7 +233,9 @@ form.roadmap-form {
     width: 32%;
   }
   .input-small {
-    width: 10%;
+    min-width: 180px;
+    max-width: 340px; 
+    width: 45%;
   }
   /* Used for the jquery autocomplete combobox on side-by-side fieldsets */
   .fixed-width-large {
@@ -346,8 +352,7 @@ form.roadmap-form {
 
 .combobox-container {
   position: relative;
-  width: 95%;
-  min-width: 325px;
+  width: 370px; /* 95%; */
   font-family: $font-family;
 }
 
@@ -397,21 +402,6 @@ form.roadmap-form {
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
 
-/* Allows for an auto-complete box in a side-by-side form */
-div.accessible-combobox-smaller {
-  position: relative;
-
-  .combobox-container {
-    width: 30%;
-  }
-  .js-combobox {
-    width: 95%;
-  }
-  .combobox-suggestions {
-    width: 98%
-  }
-}
-
 
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
@@ -449,6 +439,16 @@ div.accessible-combobox-smaller {
   input[type="email"] {
     width: 90%;
   }
+  .js-container {
+    width: 100%;
+    #user_org_name {
+      width: 90%;
+      margin-bottom: 5px;
+    }
+  }
+  #other-org-link {
+    margin-bottom: 15px;
+  }
 
   .small-header {
     margin-top: 0;
@@ -461,6 +461,10 @@ div.accessible-combobox-smaller {
     #user_remember_me, input[type='checkbox'], .checkbox-label {
       float: right;
     }
+  }
+  #user_accept_terms {
+    margin-right: 5px;
+    
   }
 }
 #edit_user fieldset {
@@ -488,7 +492,7 @@ div.accessible-combobox-smaller {
 #new_user.register-form {
   .inline {
     width: 46%;
-
+    margin-right: 5px;
     #user_firstname,
     #user_surname {
       width: 92%;
@@ -623,21 +627,20 @@ td.plan-edit-actions {
   #plan_title {
     display: block;
     margin-bottom: 5px;
-    width: 90%;
   }
 
   div.form-left-side {
     position: relative;
     clear: both;
     float: left;
-    width: 40%;
+    width: 35%;
   }
   div.form-right-side {
     position: relative;
     float: left;
     margin-left: 20px;
     padding-top: 20px;
-    width: 45%;
+    width: 50%;
     min-width: 400px;
 
     label, input {
@@ -770,16 +773,6 @@ td.plan-edit-actions {
     }
   }
 
-  .answer-unsaved {
-    position: relative;
-    right: -205px;
-    top: 18px;
-    color: $error-color;
-    background: $error-background;
-    padding: 5px 10px;
-    border-radius: 3px;
-  }
-
   .section-description {
     width: 60%;
   }
@@ -802,6 +795,8 @@ td.plan-edit-actions {
     }
     .suggested-answer-border {
       margin-top: -20px;
+      max-height: 200px;
+      overflow: scroll;
     }
   }
 
@@ -826,6 +821,9 @@ td.plan-edit-actions {
     }
     .tab-panel {
       min-height: auto;
+    }
+    .question-guidance .expand-collapse-all {
+      margin-bottom: 5px;
     }
   }
 
@@ -852,6 +850,19 @@ td.plan-edit-actions {
     }
   }
 }
+
+/* Share plan */
+/* ------------------------------------------------ */
+#collaborator-table {
+  min-width: 450px;
+  max-width: 850px;
+  width: 60%;
+}
+.share-plan input, 
+.share-plan form.roadmap-form fieldset.standard label {
+  margin-left: 10px;
+}
+
 
 /* Org edit */
 /* ------------------------------------------------ */

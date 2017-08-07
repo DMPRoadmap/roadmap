@@ -17,24 +17,24 @@
 
       <div class="form-input">
         <%= f.label(:email, _('Email'), class: 'required') %>
-        <%= f.email_field(:email, class: 'left-indent required input-medium',
+        <%= f.email_field(:email, class: 'left-indent required input-small',
           title: _('Please enter your current password below when changing your email address.'),
           value: @user.email) %>
         <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
       </div>
 
       <div class="form-input">
-        <%= f.label(:firstname, _('First Name'), class: 'required') %>
+        <%= f.label(:firstname, _('First name'), class: 'required') %>
         <%= f.text_field(:firstname, class: 'input-small required left-indent', value: @user.firstname) %>
       </div>
       <div class="form-input">
-        <%= f.label(:surname, _('Last Name'), class: 'required') %>
+        <%= f.label(:surname, _('Last name'), class: 'required') %>
         <%= f.text_field(:surname, class: 'input-small required left-indent', value: @user.surname) %>
       </div>
 
       <div class="form-input">
-        <%= f.label(:recovery_email, _('Recovery Email'), class: 'required') %>
-        <%= f.email_field(:recovery_email, class: 'left-indent required input-medium',
+        <%= f.label(:recovery_email, _('Recovery email'), class: 'required') %>
+        <%= f.email_field(:recovery_email, class: 'left-indent required input-small',
           title: _('This email will be used to recover your account if you change institutions'),
           value: @user.recovery_email) %>
         <span role="" id="recovery_email_error"
@@ -43,7 +43,7 @@
 
       <div class="form-input">
         <%= f.label(:password, _('Password'), class: 'required') %>
-        <%= f.password_field(:password, class: 'left-indent required input-medium') %>
+        <%= f.password_field(:password, class: 'left-indent required input-small') %>
         <span role="" id="password_error"
               class="error-tooltip-right left-indent"></span>
       </div>
@@ -56,14 +56,14 @@
                             default_selection: @default_org,
                             models: @orgs,
                             attribute: 'name',
-                            classes: 'left-indent input-medium'} %>
+                            classes: 'left-indent input-large'} %>
       <div id="other-org-link">
         <div style="width: 25%; text-align: right; display: inline-block; margin-right: 10px">&nbsp;</div>
         <a href="#"><%= _("My organisation isn't listed.") %></a>
       </div>
       <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
       <div id="other-org-name" class="form-input" style="display: <%= @other_organisations.nil? ? 'block' : 'none' %> " data-orgs="<%= other_organisations.join(',') %>">
-        <%= f.label _('Organisation Name'), for: :other_organisation %>
+        <%= f.label _('Organisation name'), for: :other_organisation %>
         <%= f.text_field :other_organisation, :autocomplete => "off", :class => 'left-indent input-medium has-tooltip', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
       </div>
       </div>
@@ -74,7 +74,7 @@
           <%= f.label(:language_id, _('Language')) %> 
           <%= select_tag("user[language_id]",
             options_from_collection_for_select(@languages, "id", "name", lang_id),
-            class: 'input-small left-indent') %>
+            class: 'input-small') %>
         </div>
       <% end %>
 
@@ -88,7 +88,7 @@
             <% else %>
                 <%= label_tag(:scheme_name, scheme.name.capitalize ) %>
             <% end %>
-            <div class="identifier-scheme left-indent">
+            <div class="identifier-scheme">
               <%= render partial: "external_identifier_#{scheme.name}",
                          locals: { scheme: scheme,
                                    id: current_user.identifier_for(scheme)} %>
@@ -112,7 +112,7 @@
                    locals: {id: 'update',
                             val: 'Save',
                             disabled_initially: true,
-                            classes: 'small-input-button left-indent',
+                            classes: 'small-input-button',
                             tooltip: _('Enter all of the required information above')} %>
       </div>
 

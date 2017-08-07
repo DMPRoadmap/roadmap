@@ -5,7 +5,7 @@
     <fieldset class="standard padded">
       <div class="form-input">
         <%= f.label "#{_('Project Title')}", for: :title, class: 'required' %>
-        <%= f.text_field :title, class: "input-extra-large left-indent required", 'data-toggle': "tooltip", 
+        <%= f.text_field :title, class: "input-large left-indent required", 'data-toggle': "tooltip", 
                 'data-content': _('If applying for funding, state the name exactly as in the grant proposal.') %>
         <span role="" id="plan_title_error" class="error-tooltip left-indent"></span>
         <div class="under-input">
@@ -19,7 +19,7 @@
       
       <div class="form-input">
         <%= f.label "#{_('Funder')}", for: :funder_name %>
-        <%= f.text_field :funder_name, class: "input-extra-large left-indent" %>
+        <%= f.text_field :funder_name, class: "input-large left-indent" %>
       </div>
       
       <div class="form-input">
@@ -42,35 +42,35 @@
   
       <div class="form-input">
         <%= f.label _('ID'), for: :identifier %>
-        <%= f.text_field :identifier, class: 'input-medium left-indent', 'data-toggle': "tooltip", 
+        <%= f.text_field :identifier, class: 'input-small left-indent', 'data-toggle': "tooltip", 
                 'data-content': _('A pertinent ID as determined by the funder and/or institution.') %>
       </div>
   
       <div class="form-separator"></div>
   
       <div>
-        <label class="no-colon"><strong><%= _('Principal Investigator') %></strong></label>
+        <label><strong><%= _('Principal Investigator') %></strong></label>
       </div>
 
       <div class="form-input">
         <%= f.label _('Name'), for: :principal_investigator, 'aria-label': _('Principal Investigator Name') %>
-        <%= f.text_field :principal_investigator, class: 'input-medium left-indent' %>
+        <%= f.text_field :principal_investigator, class: 'input-small left-indent' %>
       </div>
 
       <div class="form-input">
-        <%= f.label _('ORCID ID'), for: :principal_investigator_identifier, 'aria-label': _('Principal Investigator ORCID ID') %>
-        <%= f.text_field :principal_investigator_identifier, class: 'input-medium left-indent' %>
+        <%= f.label _('ORCID iD'), for: :principal_investigator_identifier, 'aria-label': _('Principal Investigator ORCID iD') %>
+        <%= f.text_field :principal_investigator_identifier, class: 'input-small left-indent' %>
       </div>
 
       <div class="form-input">
         <%= f.label _('Email'), for: :principal_investigator_email, 'aria-label': _('Principal Investigator Email') %>
-        <%= f.email_field :principal_investigator_email, class: 'input-large left-indent' %>
+        <%= f.email_field :principal_investigator_email, class: 'input-small left-indent' %>
         <span role="" id="principal_investigator_email_error" class="error-tooltip left-indent"></span>
       </div>
 
       <br />
       <div>
-        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>"), class: 'no-colon') %>
+        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>")) %>
       </div>
       <div>
         <input type="checkbox" id="show-data-contact" class="left-indent"<%= (@plan.data_contact.blank? && @plan.data_contact_email.blank? ? ' checked="checked"' : '') %> />
@@ -80,12 +80,15 @@
       </div>
       <div class="form-input data-contact-info">
         <%= f.label _('Name'), for: :data_contact, 'aria-label': _('Data Contact Name') %>
-        <%= f.text_field :data_contact, class: 'input-medium left-indent' %>
+        <%= f.text_field :data_contact, class: 'input-small left-indent' %>
       </div>
-      
+      <div class="form-input data-contact-info">
+        <%= f.label _('Phone'), for: :data_contact_phone, 'aria-label': _('Data Contact Phone') %>
+        <%= f.telephone_field :data_contact_phone, class: 'input-small left-indent' %>
+      </div>
       <div class="form-input data-contact-info">
         <%= f.label _('Email'), for: :data_contact_email, 'aria-label': _('Data Contact Email') %>
-        <%= f.email_field :data_contact_email, class: 'input-large left-indent' %>
+        <%= f.email_field :data_contact_email, class: 'input-small left-indent' %>
         <span role="" id="data_contact_email_error" class="error-tooltip left-indent"></span>
       </div>
       

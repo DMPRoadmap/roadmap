@@ -36,9 +36,8 @@
         <fieldset>
           <%= form_tag( export_plan_path(@plan), method: :get, html: {class: "roadmap-form"}) do |f| %>
             <% if @phase_options.length > 1 %>
-              <p><legend><strong><%= _("Select Phase to Download") %></strong></legend></p>
               <div class="form-input">
-                <%= label_tag(:phase_id, _("Phase")) %>
+                <%= label_tag(:phase_id, _("Select phase to download")) %>
                 <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0])) %>
               </div>
             <% else %>
@@ -51,7 +50,7 @@
             </div>
             <div class="form-input">
               <%= check_box_tag 'export[question_headings]', true, true, class: 'question-headings'%>
-              <%= label_tag 'export[question_headings]', _('questions as headings'), class: 'checkbox-label' %>
+              <%= label_tag 'export[question_headings]', _('question text and section headings'), class: 'checkbox-label' %>
             </div>
             <div class="form-input">
               <%= check_box_tag 'export[unanswered_questions]', true, true, class: 'unanswered-questions' %>
@@ -60,7 +59,7 @@
             <% if @plan.template.customization_of.present? %>
             <div class="form-input">
               <%= check_box_tag 'export[custom_sections]', true, false %>
-              <%= label_tag 'export[custom_sections]', _('supplimental section(s) not requested by funding organisation'), class: 'checkbox-label' %>
+              <%= label_tag 'export[custom_sections]', _('supplementary section(s) not requested by funding organisation'), class: 'checkbox-label' %>
             </div>
             <% end %>
 

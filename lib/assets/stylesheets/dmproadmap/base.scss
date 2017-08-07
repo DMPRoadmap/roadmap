@@ -28,10 +28,10 @@ h1 {
   font-size: 40px;
   margin-left: 15px;
 }
-h2 { font-size: 32px; }
-h3 { font-size: 26px; }
-h4 { font-size: 20px; }
-h5 { font-size: 18px; }
+h2 { font-size: 26px; }
+h3 { font-size: 20px; }
+h4 { font-size: 18px; }
+h5 { font-size: 16px; }
 
 hr { 
   color: $primary-color;
@@ -220,7 +220,7 @@ div.roadmap {
         }
       }
       .roadmap-logo {
-        margin-top: 70px;
+        margin-top: $header-logo-top-margin;
       }
     }
     .header-right {
