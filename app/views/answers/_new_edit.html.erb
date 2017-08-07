@@ -59,7 +59,7 @@
                 <p><%= raw(answer.text) %></p>
               <% else %>
                 <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-                <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
+                <%= tinymce(selector: "#answer-text-#{question.id}", setup: "function(editor) { $(document).ready(function(){ $.fn.tinymce_answer_events(editor); }); }") %>
               <% end %>
             <%end%>
 
@@ -76,7 +76,7 @@
           <p><%= raw(answer.text) %></p>
         <% else %>
           <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-          <%= tinymce(selector: "#answer-text-#{question.id}", setup: "$.fn.tinymce_answer_events", content_css: asset_path('application.css')) %>
+          <%= tinymce(selector: "#answer-text-#{question.id}", setup: "function(editor) { $(document).ready(function(){ $.fn.tinymce_answer_events(editor); }); }") %>
         <% end %>
       <% end %>
 

@@ -1,5 +1,3 @@
-//= require jquery.timeago.js
-
 $(document).ready(function(){
     /*--------------
         START Autosaving
