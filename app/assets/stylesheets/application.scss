@@ -12,6 +12,12 @@
  *= require_self
  */
 
+/* CSSs files for jquery-ui. TODO, remove when bootstrap is re-introduced
+*= require jquery-ui-dist/jquery-ui.min
+*= require jquery-ui-dist/jquery-ui.structure.min
+*= require jquery-ui-dist/jquery-ui.theme.min
+*/
+
 @import "font-awesome";
 
 @import "dmproadmap";

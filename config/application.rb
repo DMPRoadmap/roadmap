@@ -53,58 +53,6 @@ module DMPRoadmap
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     #config.active_record.whitelist_attributes = true	
-	
-	# Enable the asset pipeline
-    config.assets.enabled = true
-
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-
-    # Even though the Rails docs state that it looks in lib/assets/images, the
-    # site errors out with messages saying '[image].[extension] not precompiled'
-    # This forces Rails to add the lib/assets/images dir to precompilation
-    config.assets.paths << Rails.root.join("lib", "assets", "images")
-    config.assets.paths << Rails.root.join("lib", "assets", "videos")
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
-    config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
-#    config.assets.precompile += %w(jquery.placeholder.js)
-#    config.assets.precompile += %w(jquery.tablesorter.js)
-#    config.assets.precompile += %w(dmproadmap/export_configure.js)
-    config.assets.precompile += %w(admin.js)
-    config.assets.precompile += %w(plans.js)
-     
-    # Vendor resources
-    config.assets.precompile += %w(vendor/jquery-ui.min.css
-                                   vendor/jquery-ui.min.js
-                                   vendor/jquery-ui.structure.min.css
-                                   vendor/jquery-ui.theme.min.css
-                                   vendor/jquery-accessible-autocomplet-list-aria.js
-                                   vendor/jquery.placeholder.js
-                                   vendor/jquery.tablesorter.min.js
-                                   jquery.timeago.js)
-
-    config.assets.precompile += %w(admin.css)
-    config.assets.precompile += %w(admin.js)
-    config.assets.precompile += %w(dmproadmap.js)
-                                   
-    config.assets.precompile += %w(views/answers/status.js
-                                   views/contacts/new_contact.js
-                                   views/devise/passwords/new.js
-                                   views/devise/registrations/edit.js
-                                   views/contacts/new_contact.js
-                                   views/guidances/admin_edit.js
-                                   views/home/index.js
-                                   views/notes/index.js
-                                   views/orgs/admin_edit.js
-                                   views/orgs/shibboleth_ds.js
-                                   views/plans/export_configure.js
-                                   views/plans/index.js 
-                                   views/plans/new.js 
-                                   views/plans/share.js
-                                   views/plans/show.js 
-                                   views/shared/login_form.js
-                                   views/shared/register_form.js
-                                   views/static_pages/utils.js)
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true

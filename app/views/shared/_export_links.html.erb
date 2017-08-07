@@ -1,4 +1,3 @@
-<% javascript("dmproadmap/export_configure") %>
 <form method="get" action="<%= export_plan_path(plan) -%>" target="_blank" id="select-form-format">
   <%= label_tag(:format, _('Format')) %>
   <%= select_tag(:format, options_for_select(ExportedPlan::VALID_FORMATS, :pdf), class: 'export-format-selection') %>
