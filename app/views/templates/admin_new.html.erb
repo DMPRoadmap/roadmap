@@ -1,5 +1,4 @@
 <% javascript "admin.js" %>
-
 <h1>
   <%= _('New template') %>
   <!-- link button to add new guidance -->
@@ -9,41 +8,43 @@
   </div>
 </h1>
 
-<div class="div_clear"></div>
-<div class="white_background blue_border">
-  <!-- body -->
-  <div class="dmp_details">
-    <%= raw _('<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>')%>
-    <br/>
-    <%= form_for :template, url: {action: "admin_create"} do |f| %>
-      <table class="dmp_details_table">
-        <tr>
-          <td class="first_template"><%= _('Title') %></td>
-          <td><%= f.text_field :title, as: :string,
-                class: "text_field has-tooltip", "data-toggle" => "tooltip", title: _('Please enter a title for your template.') %></td>
-        </tr>
-        <tr>
-          <td class="first_template"><%= _('Description') %></td>
-          <td class="tinymce">
-            <div class="div_left_icon">
-              <%= text_area_tag("template-desc", "", class: "tinymce") %>
-            </div>
-            <div class="div_right_icon">
-              <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-                 data-content="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>" aria-label="<%= _('More information: Template descriptions') %>">
-              <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-            </div>
-          </td>
-        </tr>
+<div class="row">
+  <div class="col-md-12">
 
-      </table>
-      <!-- submit buttons -->
-      <div class="move_2_right">
-        <%= f.submit _('Save'), class: "btn btn-primary", role:"button" %>
-        <%= link_to _('Cancel'), admin_index_template_path, class: "btn cancel", role:"button" %>
-      </div>
-      <br />
-    <% end %>
+    <!-- body -->
+    <div class="dmp_details">
+      <%= raw _('<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>')%>
+      <br/>
+      <%= form_for :template, url: {action: "admin_create"} do |f| %>
+        <table class="dmp_details_table">
+          <tr>
+            <td class="first_template"><%= _('Title') %></td>
+            <td><%= f.text_field :title, as: :string,
+                  class: "text_field has-tooltip", "data-toggle" => "tooltip", title: _('Please enter a title for your template.') %></td>
+          </tr>
+          <tr>
+            <td class="first_template"><%= _('Description') %></td>
+            <td class="tinymce">
+              <div class="div_left_icon">
+                <%= text_area_tag("template-desc", "", class: "tinymce") %>
+              </div>
+              <div class="div_right_icon">
+                <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+                   data-content="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>" aria-label="<%= _('More information: Template descriptions') %>">
+                <span class="fa fa-question-circle" aria-hidden="true"></span></a>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+        <!-- submit buttons -->
+        <div class="move_2_right">
+          <%= f.submit _('Save'), class: "btn btn-primary", role:"button" %>
+          <%= link_to _('Cancel'), admin_index_template_path, class: "btn cancel", role:"button" %>
+        </div>
+        <br />
+      <% end %>
+    </div>
   </div>
 </div>
 <%= tinymce :content_css => asset_path('application.css') %>

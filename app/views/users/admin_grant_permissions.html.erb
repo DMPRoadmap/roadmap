@@ -2,54 +2,56 @@
     <%= _('Edit User Privileges') %>
 </h1>
 
-<div class="content">
-  <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
-    <table class="dmp_table">
-      <thead>
-        <tr style="text-decoration: white dotted underline;">
-          <th class="col-large"><%= _('Name') %></th>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
+      <table class="dmp_table">
+        <thead>
+          <tr style="text-decoration: white dotted underline;">
+            <th class="col-large"><%= _('Name') %></th>
           
-          <% @perms.each do |perm| %>
-            <% case perm.name when 'grant_permissions' %>
-                <th class="col-small centered" title="
-                  <%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
-                  <%= _('Grant permissions') %>
-                </th>
-              <% when 'modify_templates' %>
-                <th class="col-small centered" title="
-                  <%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
-                  <%= _('Modify templates') %>
-                </th>
-              <% when 'modify_guidance' %>
-                <th class="col-small centered" title="
-                  <%= _('Allows the user to create and edit guidance') %>">
-                  <%= _('Modify guidance') %>
-                </th>
-              <% when 'use_api' %>
-                <th class="col-small centered" title="
-                  <%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
-                  <%= _('API rights') %>
-                </th>
-              <% when 'change_org_details' %>
-                <th class="col-small centered" title="
-                  <%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
-                  <%= _('Change organisation details') %>
-                </th>
+            <% @perms.each do |perm| %>
+              <% case perm.name when 'grant_permissions' %>
+                  <th class="col-small centered" title="
+                    <%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
+                    <%= _('Grant permissions') %>
+                  </th>
+                <% when 'modify_templates' %>
+                  <th class="col-small centered" title="
+                    <%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
+                    <%= _('Modify templates') %>
+                  </th>
+                <% when 'modify_guidance' %>
+                  <th class="col-small centered" title="
+                    <%= _('Allows the user to create and edit guidance') %>">
+                    <%= _('Modify guidance') %>
+                  </th>
+                <% when 'use_api' %>
+                  <th class="col-small centered" title="
+                    <%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
+                    <%= _('API rights') %>
+                  </th>
+                <% when 'change_org_details' %>
+                  <th class="col-small centered" title="
+                    <%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
+                    <%= _('Change organisation details') %>
+                  </th>
+              <% end %>
             <% end %>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="table-data">
-          <td><%= @user.name(false) %></td>
-          <% @perms.each do |perm| %>
-            <td class="centered">
-              <%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm) %>
-            </td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
-    <%= submit_tag _('Save') %>
-  <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-data">
+            <td><%= @user.name(false) %></td>
+            <% @perms.each do |perm| %>
+              <td class="centered">
+                <%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm) %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <%= submit_tag _('Save') %>
+    <% end %>
+  </div>
 </div>

@@ -1,55 +1,56 @@
 <%- model_class = Plan -%>
+<h1><%= raw _('Public DMPs') %></h1>
 
-<h1>
-  <%= raw _('Public DMPs') %>
-</h1>
+<div class="row">
+  <div class="col-md-12">
+    <!-- if the user has projects -->
+    <% if @plans.count > 0 %>
+      <p class="left-indent">
+        <%= _('Public DMPs are plans created using the %{application_name} and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
+      </p>
+    <% else %>
+      <p class="left-indent">
+        <%= _("There are currently no public DMPs.")%>
+      </p>
+    <% end %>
 
-<!-- if the user has projects -->
-<% if @plans.count > 0 %>
-  <p class="left-indent">
-    <%= _('Public DMPs are plans created using the %{application_name} and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
-  </p>
-<% else %>
-  <p class="left-indent">
-    <%= _("There are currently no public DMPs.")%>
-  </p>
-<% end %>
-
-<% if @plans.count > 0 %>
-<div class="content">
-  <table id="dmp_table" class="dmp_table tablesorter">
-    <thead>
-      <% if @plans.count > 10 %>
-        <tr>
-          <td colspan="5" class="td-as-th">
-            <%= render(partial: "shared/table_filter",
-                       locals: {path: public_plans_path, placeholder: _('Filter plans')}) %>
-          </td>
-        </tr>
-      <% end %>
-      <tr>
-        <th class="col-large"><%= _('Project Title') %></th>
-        <th class="col-large"><%= _('Template') %></th>
-        <th class="col-medium"><%= _('Institution') %></th>
-        <th class="col-medium"><%= _('Owner') %></th>
-        <th class="col-small sorter-false centered"><%= _('Download') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @plans.each do |plan| %>
-        <tr class="table-data">
-          <td><%= plan.title %></td>
-          <td><%= plan.template.title %></td>
-          <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
-          <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
-          <td class="dmp_td_medium centered">
-            <%= link_to _('PDF'),
-                        plan_export_path(plan, format: :pdf), 
-                        class: "dmp_table_link" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% if @plans.count > 0 %>
+      <div class="content">
+        <table id="dmp_table" class="dmp_table tablesorter">
+          <thead>
+            <% if @plans.count > 10 %>
+              <tr>
+                <td colspan="5" class="td-as-th">
+                  <%= render(partial: "shared/table_filter",
+                             locals: {path: public_plans_path, placeholder: _('Filter plans')}) %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <th class="col-large"><%= _('Project Title') %></th>
+              <th class="col-large"><%= _('Template') %></th>
+              <th class="col-medium"><%= _('Institution') %></th>
+              <th class="col-medium"><%= _('Owner') %></th>
+              <th class="col-small sorter-false centered"><%= _('Download') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @plans.each do |plan| %>
+              <tr class="table-data">
+                <td><%= plan.title %></td>
+                <td><%= plan.template.title %></td>
+                <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
+                <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
+                <td class="dmp_td_medium centered">
+                  <%= link_to _('PDF'),
+                              plan_export_path(plan, format: :pdf), 
+                              class: "dmp_table_link" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
 </div>
-<% end %>

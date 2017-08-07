@@ -1,46 +1,46 @@
 <% javascript 'views/guidances/admin_edit.js' %>
 
-<h1>
-  <%= _('Guidance') %>
-</h1>
+<h1><%= _('Guidance') %></h1>
 
-<div class="content">
-  <%= form_for(@guidance, url: admin_update_guidance_path(@guidance), html: { method: :put , id: 'edit_guidance_form', class: 'roadmap-form bordered'}) do |f| %>
-  <fieldset class="side-by-side">
-    <div class="form-input">
-      <%= f.label _('Text'), for: @guidance.text %>
-      <%= text_area_tag("guidance-text", @guidance.text, class: "tinymce") %>
-      <div class="inline">
-        <% lbl =  %>
-        <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-           data-content="<%= _('Enter your guidance here. You can include links where needed.') %>" 
-           aria-label="<%= _('More information: Guidance') %>">
-        <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-      </div>
-    </div>
-    <div class="form-input">
-      <%= f.label _('Themes'), for: :theme_ids %>
-      <%= f.collection_select(:theme_ids, @themes, :id, :title,
-                  {prompt: false, include_blank: 'None'}, {multiple: true, title: _('Select which theme(s) this guidance relates to.')})%>
-    </div>
-    <div class="form-input">
-      <%= f.label _('Published'), for: :published %>
-      <%= f.check_box :published , as: :check_boxes, title: _("Check this box when you are ready for this guidance to appear on user's plans.") %>
-    </div>
-    <div class="form-input">
-      <%= f.label _('Guidance group'), for: :guidance_group_id %>
-      <%= f.collection_select(:guidance_group_id, @guidance_groups,
-                :id, :name, {prompt: false, include_blank: 'None'}, {multiple: false, title: _('Select which group this guidance relates to.')})%>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(@guidance, url: admin_update_guidance_path(@guidance), html: { method: :put , id: 'edit_guidance_form', class: 'roadmap-form bordered'}) do |f| %>
+      <fieldset class="side-by-side">
+        <div class="form-input">
+          <%= f.label _('Text'), for: @guidance.text %>
+          <%= text_area_tag("guidance-text", @guidance.text, class: "tinymce") %>
+          <div class="inline">
+            <% lbl =  %>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+               data-content="<%= _('Enter your guidance here. You can include links where needed.') %>" 
+               aria-label="<%= _('More information: Guidance') %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
+          </div>
+        </div>
+        <div class="form-input">
+          <%= f.label _('Themes'), for: :theme_ids %>
+          <%= f.collection_select(:theme_ids, @themes, :id, :title,
+                      {prompt: false, include_blank: 'None'}, {multiple: true, title: _('Select which theme(s) this guidance relates to.')})%>
+        </div>
+        <div class="form-input">
+          <%= f.label _('Published'), for: :published %>
+          <%= f.check_box :published , as: :check_boxes, title: _("Check this box when you are ready for this guidance to appear on user's plans.") %>
+        </div>
+        <div class="form-input">
+          <%= f.label _('Guidance group'), for: :guidance_group_id %>
+          <%= f.collection_select(:guidance_group_id, @guidance_groups,
+                    :id, :name, {prompt: false, include_blank: 'None'}, {multiple: false, title: _('Select which group this guidance relates to.')})%>
+        </div>
     
-    <br />
-    <div class="form-input">
-      <div class="button-spacer">&nbsp;</div>
-      <input type="submit" id="edit_guidance_submit" href="#edit_guidance_alert_dialog" class="btn btn-primary" role="button" value="<%= _('Save')%>" />
-    </div>
-  </fieldset>
-<%end%>
-
+        <br />
+        <div class="form-input">
+          <div class="button-spacer">&nbsp;</div>
+          <input type="submit" id="edit_guidance_submit" href="#edit_guidance_alert_dialog" class="btn btn-primary" role="button" value="<%= _('Save')%>" />
+        </div>
+      </fieldset>
+    <%end%>
+  </div>
+</div>
 <%= tinymce :content_css => asset_path('application.css') %>
 
 <!-- alert for the default template-->

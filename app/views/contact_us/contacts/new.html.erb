@@ -1,19 +1,15 @@
 <% javascript "views/contacts/new_contact.js" %>
-<div class="row">
-	<div class="col-md-12">
-	  <h1><%= _("Contact Us") %></h1>
-	  <p class="left-indent">
-	  <%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
-	                                     organisation_url: Rails.configuration.branding[:organisation][:url],
-	                                     application_name: Rails.configuration.branding[:application][:name]} %>
-	  </p>
-	</div>
-</div>
+<h1><%= _("Contact Us") %></h1>
+<p class="left-indent">
+<%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
+                                   organisation_url: Rails.configuration.branding[:organisation][:url],
+                                   application_name: Rails.configuration.branding[:application][:name]} %>
+</p>
 
 <div class="row">
-	<!-- left column  content -->
-	<div class="col-md-6" id="contact-us">
-	  
+  <!-- left column  content -->
+  <div class="col-md-6" id="contact-us">
+    
     <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
       <fieldset class="side-by-side">
         <% if ContactUs.require_name %>
@@ -59,11 +55,11 @@
         </div>
       </fieldset>
     <% end %>
-		
-	</div>
+    
+  </div>
   
-	<!-- right column information -->
-	<div class="col-md-6">
+  <!-- right column information -->
+  <div class="col-md-6">
     <ul class="no-bullets">
       <% [Rails.configuration.branding[:organisation][:name],
           Rails.configuration.branding[:organisation][:address_line1],
@@ -86,5 +82,5 @@
       <iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<%= Rails.configuration.branding[:organisation][:google_maps_link] %>"></iframe>
 
     </div>
-	</div>
+  </div>
 </div>
