@@ -1,17 +1,15 @@
 <% javascript "views/contacts/new_contact.js" %>
-
-<h1>
-  <%= _("Contact Us") %>
-</h1>
+<h1><%= _("Contact Us") %></h1>
 <p class="left-indent">
-  <%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
-                                     organisation_url: Rails.configuration.branding[:organisation][:url],
-                                     application_name: Rails.configuration.branding[:application][:name]} %>
+<%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
+                                   organisation_url: Rails.configuration.branding[:organisation][:url],
+                                   application_name: Rails.configuration.branding[:application][:name]} %>
 </p>
 
-<div class="content bordered left-indent" id="contact-us">
+<div class="row">
   <!-- left column  content -->
-  <div class="column-left">
+  <div class="col-md-6" id="contact-us">
+    
     <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
       <fieldset class="side-by-side">
         <% if ContactUs.require_name %>
@@ -20,20 +18,20 @@
             <%= f.text_field(:name, class: "left-indent required input-large", value: current_user.nil? ? '' : current_user.name(false), readonly: !current_user.nil?) %>
           </div>
         <% end %>
-        
+      
         <div class="form-input">
           <%= f.label(:email, _('Email'), class: 'required') %>
           <%= f.text_field(:email, class: "left-indent required input-large", value: current_user.nil? ? '' : current_user.email, readonly: !current_user.nil?) %>
           <span role="" id="contact_us_contact_email_error" class="error-tooltip-right left-indent"></span>
         </div>
-        
+      
         <% if ContactUs.require_subject %>
           <div class="form-input">
             <%= f.label(:subject, _('Subject'), class: 'required') %>
             <%= f.text_field(:subject, class: "left-indent required input-large") %>
           </div>
         <% end %>
-        
+      
         <div class="form-input">
           <%= f.label(:message, _('Message'), class: "align-top required") %>
           <%= f.text_area(:message, class: "required input-large", rows: 10, style: "height: 160px;") %>
@@ -46,7 +44,7 @@
             </div>
           </div>
         <% end %>
-        
+      
         <div class="form-input">
           <div class="button-spacer">&nbsp;</div>
           <%= render partial: 'shared/accessible_submit_button',
@@ -56,12 +54,12 @@
                               tooltip: _('Fill in the required fields')} %>
         </div>
       </fieldset>
-
     <% end %>
+    
   </div>
   
   <!-- right column information -->
-  <div class="column-right">
+  <div class="col-md-6">
     <ul class="no-bullets">
       <% [Rails.configuration.branding[:organisation][:name],
           Rails.configuration.branding[:organisation][:address_line1],
@@ -69,13 +67,13 @@
           Rails.configuration.branding[:organisation][:address_line3],
           Rails.configuration.branding[:organisation][:address_line4],
           Rails.configuration.branding[:organisation][:address_country]].each do |addr_line| %>
-         
+       
         <% if addr_line %>
           <li><%= addr_line %></li>
         <% end %>
       <% end %>
     </ul>
-    
+  
     <p><%= "#{_('Helpline')} #{Rails.configuration.branding[:organisation][:telephone]}" %></p> 
     <p><%= _('Email') %> <a href="mailto:<%= Rails.configuration.branding[:organisation][:email] %>?Subject=<%= Rails.configuration.branding[:application][:name] %> <%= _('inquiry') %>"><%= Rails.configuration.branding[:organisation][:email] %></a></p>
 
@@ -85,5 +83,4 @@
 
     </div>
   </div>
-  
 </div>

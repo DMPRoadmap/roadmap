@@ -53,6 +53,7 @@ $(document).ready(function(){
   });
 
   toggleSubmit();
+  selectActiveTab();
   
   function validateEmailsDoNotMatch(){
     var email = $("form.register-form #user_email").val().trim();
