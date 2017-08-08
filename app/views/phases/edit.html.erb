@@ -1,5 +1,3 @@
-<%- model_class = Plan -%>
-
 <% javascript('views/answers/status.js') %>
 <% javascript('views/notes/index.js') %>
 <!--
@@ -10,150 +8,153 @@
 <!-- render the project title -->
 <h1><%= @plan.title %></h1> 
 
-<div class="content">
-  <div class="tabbed-area">
-    <!-- render navigation tabs for the project-->
-    <ul class="tabs" role="tablist">
-      <li id="details-tab" role="tab" aria-controls="details-panel">
-        <a href="<%= plan_path(@plan) %>" aria-selected="false"><%= _('Project Details') %></a>
-      </li>
-  
-      <% @plan.template.phases.each do |phase| %>
-        <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel"<%= @phase.id == phase.id ? ' class=active' : '' %>>
-          <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="<%= @phase.id == phase.id %>">
-            <%= (@plan.template.phases.length > 1 ? @phase.title : _('Write Plan')) %>
-          </a>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="tabbed-area">
+      <!-- render navigation tabs for the project-->
+      <ul class="tabs" role="tablist">
+        <li id="details-tab" role="tab" aria-controls="details-panel">
+          <a href="<%= plan_path(@plan) %>" aria-selected="false"><%= _('Project Details') %></a>
         </li>
-      <% end %>
   
-      <li id="share-tab" role="tab" aria-controls="share-panel">
-        <a href="<%= share_plan_path(@plan) %>" aria-selected="false"><%= _('Share') %></a>
-      </li>
-      <li id="download-tab" role="tab" aria-controls="download-panel">
-        <a href="<%= show_export_plan_path(@plan) %>" aria-selected="false"><%= _('Download') %></a>
-      </li>
-    </ul>
+        <% @plan.template.phases.each do |phase| %>
+          <li id="phase-#<%= phase.id %>-tab" role="tab" aria-controls="phase-#<%= phase.id %>-panel"<%= @phase.id == phase.id ? ' class=active' : '' %>>
+            <a href="<%= edit_plan_phase_path(@plan, phase) %>" aria-selected="<%= @phase.id == phase.id %>">
+              <%= (@plan.template.phases.length > 1 ? @phase.title : _('Write Plan')) %>
+            </a>
+          </li>
+        <% end %>
+  
+        <li id="share-tab" role="tab" aria-controls="share-panel">
+          <a href="<%= share_plan_path(@plan) %>" aria-selected="false"><%= _('Share') %></a>
+        </li>
+        <li id="download-tab" role="tab" aria-controls="download-panel">
+          <a href="<%= show_export_plan_path(@plan) %>" aria-selected="false"><%= _('Download') %></a>
+        </li>
+      </ul>
 
-    <!-- project details -->
-    <div class="tab-panels" role="tabpanel">
-      <div id="phase-#<%= @phase.id %>-panel" class="tab-panel active" aria-hidden="false" 
-           aria-labelledby="phase-#<%= @phase.id %>-tab">
+      <!-- project details -->
+      <div class="tab-panels" role="tabpanel">
+        <div id="phase-#<%= @phase.id %>-panel" class="tab-panel active" aria-hidden="false" 
+             aria-labelledby="phase-#<%= @phase.id %>-tab">
 
-        <div id="sections-accordion-controls">
-          <div class="expand-collapse-all inline">
-            <a href="#sections-accordion" class="expand-accordions">expand all</a>
-            <span class="muted">|</span>
-            <a href="#sections-accordion" class="collapse-accordions">collapse all</a>
+          <div id="sections-accordion-controls">
+            <div class="expand-collapse-all inline">
+              <a href="#sections-accordion" class="expand-accordions">expand all</a>
+              <span class="muted">|</span>
+              <a href="#sections-accordion" class="collapse-accordions">collapse all</a>
+            </div>
+            <div class="progress inline">
+              <%= render :partial => "/plans/progress", locals: { plan: @plan } %>
+            </div> <!-- progess -->
           </div>
-          <div class="progress inline">
-            <%= render :partial => "/plans/progress", locals: { plan: @plan } %>
-          </div> <!-- progess -->
-        </div>
         
-        <div class="accordion" id="sections-accordion">
-          <% @phase.sections.order(:number).each do |section| %>
-            <% sectionid = section.id %>
+          <div class="accordion" id="sections-accordion">
+            <% @phase.sections.order(:number).each do |section| %>
+              <% sectionid = section.id %>
 
-            <h2 class="accordion_heading_text" id="section-progress-<%= sectionid %>">
-              <div class="inline section-title">
-                <%= section.title %>
-                <span class="fa fa-plus" aria-hidden="true"></span>
-                <div class="inline progress-bar-<%= sectionid %>">
-                  <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
-                </div>
-              </div>
-            </h2>
-
-            <div class="accordion-section">
-              <!-- accordion body -->
-              <div class="section-description"><%= raw section.description %></div>
-
-              <div class="saving" style="display: none">
-                <p><%= _('Saving ...') %></p>
-              </div>
-              <div class="removing" style="display: none">
-                <p><%= _('Removing ...') %></p>
-              </div>
-
-              <!-- the section body -->
-              <div class="loaded">
-                <% section.questions.each do |question| %>
-                  <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
-                  <div id="<%= id_css%>">
-
-                    <%
-                    # Load the answer or create a new one
-                    answers = question.plan_answers(@plan.id)
-                    if answers.present?
-                      answer = answers.first
-                    else
-                      answer = Answer.new({plan_id: @plan.id, 
-                                           question_id: question.id, 
-                                           user_id: current_user.id })
-                      if question.default_value.present?
-                        answer.text = question.default_value
-                      end
-                    end
-                    %>
-
-                    <!-- Answer Section -->
-                    <div class="question-div edit-plan-left">
-                      <div class="question-form">
-                        <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                        <div id="<%= "answer-form-#{question.id}" %>">
-                          <%= render(partial: 'answers/new_edit', 
-                                     locals: { question: question, answer: answer, readonly: @readonly }) %>
-                        </div>
-                      </div>   <!-- question-form -->
-                    </div> <!-- edit-plan-left -->
-
-
-                    <!-- Guidance and Notes Section (includes Annotations) -->
-                    <div class="question-area-right-column edit-plan-right">
-                      <%= render partial: 'guidance_section', 
-                                 locals: {plan: @plan, question: question, answer: answer, 
-                                          question_guidances: @question_guidances} %>
-                    </div>
-                  </div>   <!-- id_css -->
-                <% end %> <!-- section.questions -->
-
-              </div>   <!--  loaded -->
-
-              <div id="section-<%= sectionid %>-collapse-alert" data-container="body" class="modal" 
-                   role="dialog" aria-label="<%= _("Unsaved Answers Alert") %>" 
-                   aria-describedby="#section-<%= sectionid %>-collapse-alert-plural" style="display: none;">
-
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h3><%= _('Unsaved answers')%></h3>
-                </div>
-
-                <div class="modal-body">
-                  <div id="section-<%= sectionid %>-collapse-alert-plural">
-                    <p><%= _('You have altered answers but have not saved them:')%></p>
-                    <ul id="unsaved-answers-<%= sectionid %>"></ul>
-                    <p><%= _('Would you like to save them now?')%></p>
+              <h2 class="accordion_heading_text" id="section-progress-<%= sectionid %>">
+                <div class="inline section-title">
+                  <%= section.title %>
+                  <span class="fa fa-plus" aria-hidden="true"></span>
+                  <div class="inline progress-bar-<%= sectionid %>">
+                    <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
                   </div>
                 </div>
+              </h2>
 
-                <div class="modal-footer">
-                  <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" 
-                     role="button" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
-                  <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" 
-                     role="button" class="discard-section-collapse btn"><%= _('Discard')%></a>
-                  <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" 
-                     role="button" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
+              <div class="accordion-section">
+                <!-- accordion body -->
+                <div class="section-description"><%= raw section.description %></div>
+
+                <div class="saving" style="display: none">
+                  <p><%= _('Saving ...') %></p>
                 </div>
-              </div>  <!-- section-sectionid-collapse-alert -->
+                <div class="removing" style="display: none">
+                  <p><%= _('Removing ...') %></p>
+                </div>
+
+                <!-- the section body -->
+                <div class="loaded">
+                  <% section.questions.each do |question| %>
+                    <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
+                    <div id="<%= id_css%>">
+
+                      <%
+                      # Load the answer or create a new one
+                      answers = question.plan_answers(@plan.id)
+                      if answers.present?
+                        answer = answers.first
+                      else
+                        answer = Answer.new({plan_id: @plan.id, 
+                                             question_id: question.id, 
+                                             user_id: current_user.id })
+                        if question.default_value.present?
+                          answer.text = question.default_value
+                        end
+                      end
+                      %>
+
+                      <!-- Answer Section -->
+                      <div class="question-div edit-plan-left">
+                        <div class="question-form">
+                          <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
+                          <div id="<%= "answer-form-#{question.id}" %>">
+                            <%= render(partial: 'answers/new_edit', 
+                                       locals: { question: question, answer: answer, readonly: @readonly }) %>
+                          </div>
+                        </div>   <!-- question-form -->
+                      </div> <!-- edit-plan-left -->
+
+
+                      <!-- Guidance and Notes Section (includes Annotations) -->
+                      <div class="question-area-right-column edit-plan-right">
+                        <%= render partial: 'guidance_section', 
+                                   locals: {plan: @plan, question: question, answer: answer, 
+                                            question_guidances: @question_guidances} %>
+                      </div>
+                    </div>   <!-- id_css -->
+                  <% end %> <!-- section.questions -->
+
+                </div>   <!--  loaded -->
+
+                <div id="section-<%= sectionid %>-collapse-alert" data-container="body" class="modal" 
+                     role="dialog" aria-label="<%= _("Unsaved Answers Alert") %>" 
+                     aria-describedby="#section-<%= sectionid %>-collapse-alert-plural" style="display: none;">
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3><%= _('Unsaved answers')%></h3>
+                  </div>
+
+                  <div class="modal-body">
+                    <div id="section-<%= sectionid %>-collapse-alert-plural">
+                      <p><%= _('You have altered answers but have not saved them:')%></p>
+                      <ul id="unsaved-answers-<%= sectionid %>"></ul>
+                      <p><%= _('Would you like to save them now?')%></p>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <a href="#" id="section-<%= sectionid %>-collapse-cancel" data-section="<%= sectionid %>" 
+                       role="button" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
+                    <a href="#" id="section-<%= sectionid %>-collapse-discard" data-section="<%= sectionid %>" 
+                       role="button" class="discard-section-collapse btn"><%= _('Discard')%></a>
+                    <a href="#" id="section-<%= sectionid %>-collapse-save" data-section="<%= sectionid %>" 
+                       role="button" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
+                  </div>
+                </div>  <!-- section-sectionid-collapse-alert -->
               
-            </div> <!-- accordion group -->
+              </div> <!-- accordion group -->
 
-          <% end %>   <!-- sections.each do -->
-        </div>   <!-- sections-accordion -->
+            <% end %>   <!-- sections.each do -->
+          </div>   <!-- sections-accordion -->
 
-      </div> <!-- tab panel -->
-    </div> <!-- tab panels -->
-  </div> <!-- tabbed area -->
+        </div> <!-- tab panel -->
+      </div> <!-- tab panels -->
+    </div> <!-- tabbed area -->
+  </div>
 </div>   <!-- content -->
 
 <div class="div_right" style="display: none;">

@@ -1,5 +1,5 @@
-<!-- header information -->
-<div class="header-left">
+<!-- header information (bootstrap 3 column layout) -->
+<div class="col-md-4">
   <% if user_signed_in? && !current_user.org.nil? && current_user.org.logo.present? %>
     <div class="home-logo">
       <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url, alt: current_user.org.name), current_user.org.target_url) %>
@@ -10,8 +10,9 @@
     </div>
   <% end %>
 </div>
-<div class="header-right">  
+<div class="col-md-4">  
   <div class="org-branding">
+    <p>Placeholder text to help visual column layout</p>
     <%= render "layouts/branding" %>
   </div>
   
@@ -19,6 +20,6 @@
     <%= render "layouts/navigation" %>
   </div> 
 </div>  
-<div class="signin-signout-menu">
+<div class="col-md-4">
   <%= render "layouts/signin_signout" %>
 </div>

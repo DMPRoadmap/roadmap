@@ -68,4 +68,5 @@ config/locale/*/app.edit.po
 config/locale/*/app.po.time_stamp
 
 # ignore front-end dependencies
+vendor/package-lock.json
 vendor/node_modules
