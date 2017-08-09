@@ -1,0 +1,12 @@
+/* This file contains overrides to the core Bootstrap 3.x styling */
+/* -------------------------------------------------------------- */
+
+/* Footer Section */
+footer {
+  margin-top: $footer-margin-top;
+  background: $footer-background;
+  color: $footer-color;
+
+  a { color: $footer-color; }
+	
+}
