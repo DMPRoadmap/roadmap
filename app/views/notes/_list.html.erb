@@ -24,16 +24,16 @@
 
             <%else%>   <!-- not archived -->
 
-              <%= link_to _('View'),"#question-form-#{question_id}", onclick: "view_note_button(#{note.id}, #{question_id})", :class => "dmp_table_link view_comment_button" %>
+              <%= link_to _('View'),"#question-form-#{question_id}", onclick: "dmproadmap.notes.show(#{note.id}, #{question_id})", :class => "dmp_table_link view_comment_button" %>
 
               <% if current_user.id == note.user_id %>
-                <%= link_to _('Edit'),"#question-form-#{question_id}", onclick: "edit_note(#{note.id}, #{question_id})", :class => "dmp_table_link edit_comment_button" %>
-                <%= link_to _('Remove'),"#question-form-#{question_id}", onclick: "archive_note(#{note.id}, #{question_id})", :class => "dmp_table_link archive_comment_button" %>
+                <%= link_to _('Edit'),"#question-form-#{question_id}", onclick: "dmproadmap.notes.edit(#{note.id}, #{question_id})", :class => "dmp_table_link edit_comment_button" %>
+                <%= link_to _('Remove'),"#question-form-#{question_id}", onclick: "dmproadmap.notes.archive(#{note.id}, #{question_id})", :class => "dmp_table_link archive_comment_button" %>
               <% end%>   <!-- if current user -->
 
               <% if plan.administerable_by?(current_user.id) && current_user.id != note.user_id %>
                 <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
-                <%= link_to _('Remove'),"#question-form-#{question_id}", onclick: "archive_note(#{note.id}, #{question_id})", :class => "dmp_table_link archive_comment_button" %>
+                <%= link_to _('Remove'),"#question-form-#{question_id}", onclick: "dmproadmap.notes.archive(#{note.id}, #{question_id})", :class => "dmp_table_link archive_comment_button" %>
               <% end%>
             <%end%>   <!-- archived -->
 
