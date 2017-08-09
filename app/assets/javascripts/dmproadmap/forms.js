@@ -85,7 +85,6 @@ function toggleFormElementError(input, errorMessage, blankAsError){
     if(err.length <= 0){
         err = $(idbox).siblings("span.error-tooltip-right");
     }
-    console.log(err.length + ' - ' + errorMessage + ' - ' + $(input).val().trim().length);
 
     // If an error element is available and the error message is not empty and the field
     // is not empty (unless its a required field!)
@@ -97,4 +96,3 @@ function toggleFormElementError(input, errorMessage, blankAsError){
         $(input).addClass('red-border');
     }
 }
-

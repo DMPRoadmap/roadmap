@@ -14,7 +14,10 @@ $dark-grey: #333;
 $medium-grey: #827D7E;
 $light-grey: #CCC;
 
+$border-radius: 0;
+
 $primary-color: #4f5253;
+$primary-reverse-color: $white;  /* Typically used for the font color when using $primary-color as the background-color */
 
 $highlight-color: $black;
 $highlight-background-color: #F36F24;
