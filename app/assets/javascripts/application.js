@@ -29,6 +29,8 @@
 //= require tablesorter/dist/js/jquery.tablesorter.min.js
 //= require timeago/jquery.timeago.js
 
+//= require bootstrap/dist/js/bootstrap.min
+
 // JS files used across multiple pages
 //= require dmproadmap.js
 //= require dmproadmap/utils.js
