@@ -14,8 +14,9 @@ public/apidocs/*
 
 # Ignore branded content
 app/views/branded/*
-app/assets/**/*
+#app/assets/**/*
 config/locales/static_pages/*.yml
+app/assets/stylesheets/*-branded.scss
 
 # Ignore gemfile.lock
 #Gemfile.lock
