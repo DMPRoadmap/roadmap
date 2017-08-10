@@ -19,14 +19,18 @@
 *= require jquery-ui-dist/jquery-ui.structure.min
 *= require jquery-ui-dist/jquery-ui.theme.min
 */
-
 @import "font-awesome";
 
+/* SASS Variables */
 @import "dmproadmap";
-@import "dmproadmap/base";
 
+/* These will eventually go away once Boostrap is in place */
+@import "dmproadmap/base";
 @import "dmproadmap/tabs";
 @import "dmproadmap/accordions";
 @import "dmproadmap/modals";
 @import "dmproadmap/tables";
 @import "dmproadmap/forms";
+
+/* Overrides to Bootstrap styling */
+@import "overrides";

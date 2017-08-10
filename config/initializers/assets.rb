@@ -10,8 +10,8 @@
     Rails.application.config.assets.version = '1.0'
     Rails.application.config.assets.unknown_asset_fallback = false  # An error will be raised when an asset cannot be found
     Rails.application.config.assets.paths << Rails.root.join("vendor","node_modules")
-    Rails.application.config.assets.paths << Rails.root.join("app", "assets", "images")
-    Rails.application.config.assets.paths << Rails.root.join("app", "assets", "videos")
+    Rails.application.config.assets.paths << Rails.root.join("lib", "assets", "images")
+    Rails.application.config.assets.paths << Rails.root.join("lib", "assets", "videos")
     Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
     Rails.application.config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
     Rails.application.config.assets.precompile += %w(admin.js)  # TODO, remove when file is refactored into the adequate view or views

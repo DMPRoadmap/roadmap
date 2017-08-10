@@ -5,18 +5,16 @@
 <% else %>
     $("#answer-locking-<%= @question.id%>").html("");
 <% end %>
-
+// Destroys a tinymce editor whose id is defined below
+dmproadmap.utils.tinymce.destroyEditorById('<%= "answer-text-#{@question.id}" %>');
 // partial /answer/new_edit
-if(tinymce)
-    tinymce.remove("#answer-text-<%= @question.id %>");
 $("#answer-form-<%= @question.id%>")
     .html("<%= escape_javascript(render partial: '/answers/new_edit', locals: { question: @question, answer: @answer, readonly: false }) %>");
-
+// Adds listeners for a tinyMCE editor with target element id passed
+dmproadmap.answers.status.reloadEditorListeners('<%= "answer-text-#{@question.id}" %>');
 // partial /answer/status
 $("#answer-status-<%= @question.id %>")
     .html("<%= escape_javascript(render partial: '/answers/status', locals: { answer: @answer}) %>");
-if($.fn.init_answer_status) 
-    $.fn.init_answer_status();
 
 // partial /plans/progress
 $(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: { plan: @plan }) %>"); 

@@ -42,7 +42,10 @@
           <%= f.label _('Top banner text'), for: @org.banner_text %>
           <div class="inline">
             <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text") %>
-            <%= tinymce(selector: "#org_banner_text", content_css: asset_path('application.css')) %>
+            <script>
+              /* Initialises an editor for textarea defined above with id org_banner_text */
+              dmproadmap.utils.tinymce.init({ selector: '#org_banner_text' });
+            </script>
           </div>
         </div>
       
@@ -68,6 +71,4 @@
     <% end %>
   </div>
 </div>
-
-<%= tinymce :content_css => asset_path('application.css') %>
 

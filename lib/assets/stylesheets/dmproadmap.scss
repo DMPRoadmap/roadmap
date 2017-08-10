@@ -5,14 +5,15 @@
   font-weight: normal;
 }
 
-$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-$header-font: "GillSansLight";
-
 $black: #000;
 $white: #FFF;
 $dark-grey: #333;
 $medium-grey: #827D7E;
 $light-grey: #CCC;
+
+$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+
 
 $primary-color: #4f5253;
 
@@ -44,4 +45,15 @@ $header-text-color: $black;
 $header-logo-top-margin: 20px;
 $header-logo-left-margin: 10px;
 
+
+
+/* EVERYTHING BELOW THIS LINE IS SPECIFIC TO THE BOOSTRAP 3.x IMPLEMENTATION OF ROADMAP */
+/* ------------------------------------------------------------------------------------ */
+/* SASS variables */
 $body-background: $white;
+
+$header-font: "GillSansLight";
+
+$footer-background: $body-background;
+$footer-color: $dark-grey;
+$footer-margin-top: 40px;
