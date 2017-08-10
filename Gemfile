@@ -5,32 +5,32 @@ ruby '>= 2.2.2'
 # ------------------------------------------------
 #    RAILS
 gem 'rails', '4.2.7'
-gem 'railties'
+gem 'railties', '~> 4.2'
 
 #    GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 #    THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN FUTURE VERSIONS
 #    WE SHOULD CONSIDER BRINGING THE CODE UP TO DATE INSTEAD
-gem 'protected_attributes'  # Provides attr_accessor functions
+gem 'protected_attributes', '~> 1.1.3'  # Provides attr_accessor functions
 gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in controllers
 
 # ------------------------------------------------
 #    DATABASE/SERVER
 gem 'mysql2', '~> 0.3.18'
-gem 'pg'
-gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
+gem 'pg', '~> 0.19.0'
+gem 'flag_shih_tzu', '~> 0.3'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
 #    JS <-> RUBY BRIDGE
-gem 'libv8'
+gem 'libv8', '~> 3.16'
 gem 'therubyracer', '>=0.11.4', platforms: :ruby
 
 # ------------------------------------------------
 #    JSON DSL - USED BY API
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.6.0'
 
 # ------------------------------------------------
 #    SLUGS/PERMALINKS
-gem 'friendly_id'
+gem 'friendly_id', '~> 5.1.0'
 
 # ------------------------------------------------
 #    SUPER ADMIN SECTION
@@ -39,38 +39,38 @@ gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 # ------------------------------------------------
 #    USERS
 # devise for user authentication
-gem 'devise'
-gem 'devise_invitable'
-gem 'omniauth'
-gem 'omniauth-shibboleth'
-gem 'omniauth-orcid'
+gem 'devise', '~> 4.2.0'
+gem 'devise_invitable', '~> 1.7.0'
+gem 'omniauth', '~> 1.3.1'
+gem 'omniauth-shibboleth', '~> 1.2.1'
+gem 'omniauth-orcid', '~> 1.2.1'
 
 #rolify for roles
-gem 'rolify'
+gem 'rolify', '~> 5.1.0'
 # Gems for repository integration
-gem 'pundit'
+gem 'pundit', '~> 1.1.0'
 
 # ------------------------------------------------
 #    SETTINGS FOR TEMPLATES AND PLANS (FONTS, COLUMN LAYOUTS, ETC)
-gem 'ledermann-rails-settings'
+gem 'ledermann-rails-settings', '~> 2.4.2'
 
 # ------------------------------------------------
 #    VIEWS
-gem 'sass-rails'
-gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
-gem 'font-awesome-rails'
-gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
-gem 'recaptcha', '>= 4.0'
-gem 'dragonfly'                         # LOGO UPLOAD
-gem 'formtastic'
+gem 'sass-rails', '~> 5.0.6'
+gem 'less-rails', '~> 2.8.0'                        # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
+gem 'font-awesome-rails', '~> 4.7.0'
+gem 'contact_us', '~> 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
+gem 'recaptcha', '~> 4.1.0'
+gem 'dragonfly', '~> 1.0.12'                         # LOGO UPLOAD
+gem 'formtastic', '~> 3.1.4'
 
 # ------------------------------------------------
 #     EXPORTING
-gem 'wkhtmltopdf-binary'
-gem 'thin'
-gem 'wicked_pdf'
-gem 'htmltoword'
-gem 'feedjira'
+gem 'wkhtmltopdf-binary', '~> 0.12.3'
+gem 'thin', '~> 1.7'
+gem 'wicked_pdf', '~> 1.1.0'
+gem 'htmltoword', '~> 0.5.1'
+gem 'feedjira', '~> 2.0.0'
 gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
 # ------------------------------------------------
@@ -82,40 +82,40 @@ gem 'gettext', '>=3.0.2', :require => false, :group => :development
 
 # ------------------------------------------------
 #     API
-gem 'swagger-docs'
+gem 'swagger-docs', '>= 0.2.9 '
 
 # ------------------------------------------------
 #    CODE DOCUMENTATION
-gem 'yard'
-gem 'redcarpet'
+gem 'yard', '>= 0.9.5'
+gem 'redcarpet', '>= 3.3.4'
 
 
 # ------------------------------------------------
 #     ENVIRONMENT SPECIFIC DEPENDENCIES
 
 group :development, :test do
-  gem "byebug"
+  gem "byebug", '~> 9.0'
 end
 
 group :test do
-  gem 'minitest-rails-capybara'
-  gem 'minitest-reporters'
-  gem 'rack-test'
-  gem 'webmock'
-  gem 'sqlite3'
-  gem 'simplecov', require: false
+  gem 'minitest-rails-capybara', '~> 2.1.2'
+  gem 'minitest-reporters', '~> 1.1.11'
+  gem 'rack-test', '~> 0.6.3'
+  gem 'webmock', '~> 2.1.0'
+  gem 'sqlite3', '~> 1.3.12'
+  gem 'simplecov', '~> 0.12', require: false
 end
 
 group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
-  gem 'web-console', '~>2.0'
-  gem 'rack-mini-profiler'
+  gem "better_errors", '~> 2.1.1'
+  gem "binding_of_caller", '~> 0.7.2'
+  gem 'web-console', '~> 2.3.0'
+  gem 'rack-mini-profiler', '~> 0.10.1'
   #gem 'flamegraph'
 end
 
 group :production do
-  gem 'uglifier'    # JS minifier
+  gem 'uglifier', '~> 3.0.2'    # JS minifier
 end
 
 # ------------------------------------------------
