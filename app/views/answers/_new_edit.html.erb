@@ -58,8 +58,7 @@
               <% if readonly %>
                 <p><%= raw(answer.text) %></p>
               <% else %>
-                <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-                <%= tinymce(selector: "#answer-text-#{question.id}", setup: "function(editor) { $(document).ready(function(){ $.fn.tinymce_answer_events(editor); }); }") %>
+                <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}", class: "tinymce_answer") %>
               <% end %>
             <%end%>
 
@@ -75,11 +74,13 @@
         <% if readonly %>
           <p><%= raw(answer.text) %></p>
         <% else %>
-          <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}") %>
-          <%= tinymce(selector: "#answer-text-#{question.id}", setup: "function(editor) { $(document).ready(function(){ $.fn.tinymce_answer_events(editor); }); }") %>
+          <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}", class: "tinymce_answer") %>
         <% end %>
       <% end %>
-
+      <!-- Initialises an editor for a textarea defined above -->
+      <%= 
+        raw("<script>dmproadmap.utils.tinymce.init({ selector: '#answer-text-#{question.id}' });</script>")
+      %>
       <!--Example Answer area-->
       <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
         <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>

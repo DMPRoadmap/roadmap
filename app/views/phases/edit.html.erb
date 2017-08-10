@@ -1,5 +1,4 @@
 <% javascript('views/answers/status.js') %>
-<% javascript('views/notes/index.js') %>
 <!--
   editing plan details is handled through plan#show
   so if we come this way then we are editing a phase
@@ -150,13 +149,15 @@
 
             <% end %>   <!-- sections.each do -->
           </div>   <!-- sections-accordion -->
-
+          <script>
+            /* Initialises an editor for each textarea defined at (notes/_add.html.erb, notes/_edit.html.erb) whose class is tinymce_notes */
+            dmproadmap.utils.tinymce.init({ selector: '.tinymce_notes'});
+          </script>
         </div> <!-- tab panel -->
       </div> <!-- tab panels -->
     </div> <!-- tabbed area -->
   </div>
 </div>   <!-- content -->
-
 <div class="div_right" style="display: none;">
   <a href="#<%= @phase.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
 </div>

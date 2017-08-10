@@ -320,8 +320,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
-    tinymce-rails (4.4.3)
-      railties (>= 3.1.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.2)
@@ -348,62 +346,60 @@ PLATFORMS
 
 DEPENDENCIES
   administrate!
-  better_errors
-  binding_of_caller
-  byebug
-  contact_us (>= 1.2.0)
-  devise
-  devise_invitable
-  dragonfly
-  feedjira
-  flag_shih_tzu
-  font-awesome-rails
-  formtastic
-  friendly_id
+  better_errors (~> 2.1.1)
+  binding_of_caller (~> 0.7.2)
+  byebug (~> 9.0)
+  contact_us (~> 1.2.0)
+  devise (~> 4.2.0)
+  devise_invitable (~> 1.7.0)
+  dragonfly (~> 1.0.12)
+  feedjira (~> 2.0.0)
+  flag_shih_tzu (~> 0.3)
+  font-awesome-rails (~> 4.7.0)
+  formtastic (~> 3.1.4)
+  friendly_id (~> 5.1.0)
   gettext (>= 3.0.2)
   gettext_i18n_rails (~> 1.8)
   gettext_i18n_rails_js (~> 1.2.0)
-  htmltoword
+  htmltoword (~> 0.5.1)
   i18n-js (>= 3.0.0.rc11)
-  jbuilder
-  jquery-rails
-  ledermann-rails-settings
-  less-rails
-  libv8
-  minitest-rails-capybara
-  minitest-reporters
+  jbuilder (~> 2.6.0)
+  ledermann-rails-settings (~> 2.4.2)
+  less-rails (~> 2.8.0)
+  libv8 (~> 3.16)
+  minitest-rails-capybara (~> 2.1.2)
+  minitest-reporters (~> 1.1.11)
   mysql2 (~> 0.3.18)
-  omniauth
-  omniauth-orcid
-  omniauth-shibboleth
-  pg
-  protected_attributes
-  pundit
-  rack-mini-profiler
-  rack-test
+  omniauth (~> 1.3.1)
+  omniauth-orcid (~> 1.2.1)
+  omniauth-shibboleth (~> 1.2.1)
+  pg (~> 0.19.0)
+  protected_attributes (~> 1.1.3)
+  pundit (~> 1.1.0)
+  rack-mini-profiler (~> 0.10.1)
+  rack-test (~> 0.6.3)
   rails (= 4.2.7)
-  railties
-  recaptcha (>= 4.0)
-  redcarpet
+  railties (~> 4.2)
+  recaptcha (~> 4.1.0)
+  redcarpet (>= 3.3.4)
   responders (~> 2.0)
-  rolify
-  sass-rails
-  simplecov
-  sqlite3
-  swagger-docs
+  rolify (~> 5.1.0)
+  sass-rails (~> 5.0.6)
+  simplecov (~> 0.12)
+  sqlite3 (~> 1.3.12)
+  swagger-docs (>= 0.2.9)
   therubyracer (>= 0.11.4)
-  thin
-  tinymce-rails
-  uglifier
-  web-console (~> 2.0)
-  webmock
-  wicked_pdf
-  wkhtmltopdf-binary
+  thin (~> 1.7)
+  uglifier (~> 3.0.2)
+  web-console (~> 2.3.0)
+  webmock (~> 2.1.0)
+  wicked_pdf (~> 1.1.0)
+  wkhtmltopdf-binary (~> 0.12.3)
   yaml_db!
-  yard
+  yard (>= 0.9.5)
 
 RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.14.6
+   1.13.0

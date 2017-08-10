@@ -13,8 +13,8 @@
 
 	  <!-- submit buttons -->
 	  <div class="move_2_right">
-      <%= f.submit _('Remove'), onclick: "archive_note(#{note.id}, #{question_id})", class: "btn btn-primary archive_comment_submit_button", role:"button" %>
-      <%= link_to _('Cancel'), "#", onclick: "cancel_archive_note(#{note.id})", class: "cancel_archive_comment btn cancel", role:"button" %>
+      <%= f.submit _('Remove'), class: "btn btn-primary archive_comment_submit_button", role:"button" %>
+      <%= link_to _('Cancel'), "#", onclick: "dmproadmap.notes.archive.cancel(event,#{note.id})", class: "cancel_archive_comment btn cancel", role:"button" %>
 	  </div>
     <br>
 <% end %>

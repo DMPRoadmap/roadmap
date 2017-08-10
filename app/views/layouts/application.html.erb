@@ -83,6 +83,10 @@
       <footer class="row">
         <%= render "layouts/footer" %>
       </footer>
+      <script>
+        /* Initialises an editor for each textarea whose class name is tinymce */
+        dmproadmap.utils.tinymce.init({ selector: '.tinymce' });
+      </script>
     </div>
   </body>
 </html>

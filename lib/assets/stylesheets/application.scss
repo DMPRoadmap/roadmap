@@ -23,7 +23,6 @@
 
 /* SASS Variables */
 @import "dmproadmap";
-@import "dmproadmap-branded"; /* Place your customizations to the SASS variables in this file */
 
 /* These will eventually go away once Boostrap is in place */
 @import "dmproadmap/base";
@@ -35,4 +34,3 @@
 
 /* Overrides to Bootstrap styling */
 @import "overrides";
-@import "overrides-branded"; /* Place your customizations to the general CSS in this file */

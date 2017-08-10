@@ -8,8 +8,7 @@
 
 	<fieldset class="standard">
     <%= f.hidden_field :id, :value => note.id %>
-
-    <%= text_area_tag("#{note.id}_note_text".to_sym, note.text , class: "tinymce") %>
-		<%= f.submit _('Save'), :class => "form-submit edit_note_submit_button" %>
+    <%= text_area_tag("#{note.id}_note_text".to_sym, note.text , class: "tinymce_notes") %>
+	<%= f.submit _('Save'), :class => "form-submit edit_note_submit_button" %>
 	</fieldset>
 <%end%>
