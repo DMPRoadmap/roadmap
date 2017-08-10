@@ -32,7 +32,10 @@
 	      <div class="form-input">
 	        <%= f.label _('Project Abstract'), for: :description %>
 	        <%= f.text_area :description, class: "left-indent" %>
-	        <%= tinymce(selector: "#plan_description", content_css: asset_path('application.css')) %>
+	        <script>
+              /* Initialises an editor for textarea defined above with id plan_description */
+              dmproadmap.utils.tinymce.init({ selector: '#plan_description' });
+            </script>
 	        <div class="inline">
 	          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
 	             data-content="<%= _("<h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>") %>"
@@ -129,5 +132,3 @@
 		</div>
   </div>
 <% end %>
-
-<%= tinymce :content_css => asset_path('application.css') %>

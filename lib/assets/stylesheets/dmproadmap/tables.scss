@@ -1,5 +1,6 @@
 /* Tables */
 /* ------------------------------------------- */
+/*
 table {
   width: 100%;
   border: 1px solid $primary-color;
@@ -42,13 +43,16 @@ table {
     td { border-right: 1px solid $light-grey; }
     td:last-child { border: none; }
   }
+*/
 	
 /* TODO: THIS ISN'T WORKING PARTIALLY DUE TO ROW ADDED BY JQUERY TABLESORTER */
+/*
   tbody tr.table-data:last-child {
     border-bottom: none;
   }
-
+*/
   /* TABLE SEARCH BAR */ 
+/*
   .toolbar {
     position: relative;
     text-align: right;
@@ -64,3 +68,4 @@ table {
     }
   }
 }
+*/
