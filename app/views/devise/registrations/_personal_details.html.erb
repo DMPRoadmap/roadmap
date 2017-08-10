@@ -71,7 +71,7 @@
       <% if MANY_LANGUAGES %>
         <div class="form-input">
           <% lang_id = current_user.language.nil? ? Language.id_for(FastGettext.default_locale) : current_user.language.id %>
-          <%= f.label(:language_id, _('Language')) %> 
+          <%= f.label(:language_id, _('Language')) %>
           <%= select_tag("user[language_id]",
             options_from_collection_for_select(@languages, "id", "name", lang_id),
             class: 'input-small') %>
@@ -80,11 +80,13 @@
 
       <% @identifier_schemes.each do |scheme| %>
           <div class="form-input">
-            <% if scheme.name == 'shibboleth' %>
+            <% if scheme.name.downcase == 'shibboleth' %>
                 <label>
                   <span class="aria-only" aria-hidden="false"><%= scheme.description %></span>
                   <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
                 </label>
+            <% elsif scheme.name.downcase == 'orcid' %>
+                <%= label_tag(:scheme_name, 'ORCID iD') %>
             <% else %>
                 <%= label_tag(:scheme_name, scheme.name.capitalize ) %>
             <% end %>
