@@ -3,6 +3,7 @@
 /* The top of this file is generic form styles and  */
 /* the bottom contains page specific changes to the generic */
 /* ================================================ */
+/*
 textarea,
 input[type="text"], input[type="email"], input[type="password"],
 input[type="search"], input[type="tel"], select {
@@ -19,8 +20,10 @@ input[type="search"], input[type="tel"], select {
 input[type="checkbox"], input[type="radio"], select {
   border: 1px solid $medium-grey;
 }
+*/
 
 /* Tinymce control hover (e.g. bold, italic, etc.) */
+/*
 .mce-btn button:hover {
   background-color: $white;
 }
@@ -72,9 +75,11 @@ div.under-input {
     font-weight: normal;
   }
 }
+*/
 
 /* Roadmap Form Styling */
 /* ------------------------------------------------ */
+/*
 form.roadmap-form {
   text-align: top;
 
@@ -87,9 +92,10 @@ form.roadmap-form {
   fieldset.padded {
     padding: 10px 10px 25px 10px;
   }
-
+*/
   /* Fieldset with labels over inputs */
   /* -------------------------------- */
+/*
   fieldset.standard {
     padding: 5px;
     background-color: $white;
@@ -137,9 +143,10 @@ form.roadmap-form {
       margin-left: 5px;
     }
   }
-
+*/
   /* Fieldset with labels to the left of inputs */
   /* ------------------------------------------ */
+/*
   fieldset.side-by-side {
     border: 0;
 
@@ -191,8 +198,9 @@ form.roadmap-form {
       }
     }
   }
-
+*/
   /* Generic Fieldset Settings */
+/*
   fieldset legend {
     font-family: $header-font;
     color: $primary-color;
@@ -203,7 +211,7 @@ form.roadmap-form {
     margin-bottom: 20px;
     padding-left: 5px;
 
-    float: left; /* positions the legend within the fieldset box */
+    float: left;
     border-bottom: none;
   }
 
@@ -237,7 +245,9 @@ form.roadmap-form {
     max-width: 340px; 
     width: 45%;
   }
+*/
   /* Used for the jquery autocomplete combobox on side-by-side fieldsets */
+/*
   .fixed-width-large {
     width: 550px;
   }
@@ -252,8 +262,9 @@ form.roadmap-form {
     background-color: $cancel-button-color;
     color: $white;
   }
-
+*/
   /* Tooltip */
+/*
   .arrow-left {
     display: inline-block;
     width: 0;
@@ -270,8 +281,10 @@ form.roadmap-form {
   div.form-input {
     position: relative;
   }
+*/
 
   /* Input validation errors */
+/*
   .red-border {
     border: 1px solid $error-color;
     box-shadow: 0 0 6px $error-background;
@@ -336,9 +349,11 @@ form.roadmap-form {
     font-size: 44px;
   }
 }
-
+*/
+	
 /* Accessible JQuery combobox */
 /* ------------------------------------------------------ */
+/*
 .invisible {
   border: 0;
   clip: rect(0 0 0 0);
@@ -352,7 +367,7 @@ form.roadmap-form {
 
 .combobox-container {
   position: relative;
-  width: 370px; /* 95%; */
+  width: 370px;
   font-family: $font-family;
 }
 
@@ -397,11 +412,13 @@ form.roadmap-form {
   padding-top: 3px;
   font-size: 16pt;
 }
-
+*/
+	
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
+/*
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
-
+*/
 
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
@@ -412,6 +429,7 @@ form.roadmap-form {
 
 /* Sign in/Create account and edit profile forms */
 /* ------------------------------------------------ */
+/*
 .omniauth-options {
   display: block;
   width: 100%;
@@ -504,16 +522,17 @@ div#forgot-password-link {
   margin-bottom: 5px;
 
   a:hover {
-    color: $primary-color !important;  /* Remove the important once the bootstrap_and_overrides css is gone */
+    color: $primary-color !important;
   }
 }
 #new_user #password-reset-form {
   width: 50%;
 }
-
+*/
 
 /* Shibboleth Custom Discovery Service form */
 /* ------------------------------------------------ */
+/*
 #shibboleth-ds {
   width: 50%;
 }
@@ -556,10 +575,12 @@ div.two-column {
 div.one-column {
   width: 95%;
 }
+*/
 
 /* ------------------------------------------------ */
 /* Orcid Component */
 /* ------------------------------------------------ */
+/*
 #connect-orcid-button{
   border: 1px solid #D3D3D3;
   padding: 5px 5px 5px 20px;
@@ -595,9 +616,11 @@ div.one-column {
   color: #338caf;
   text-decoration: none;
 }
-
+*/
+	
 /* View plans */
 /* ------------------------------------------------ */
+/*
 div.main_page_content p #create-test {
   vertical-align: middle;
 }
@@ -614,9 +637,11 @@ td.plan-edit-actions {
     }
   }
 }
-
+*/
+	
 /* Create plan */
 /* ------------------------------------------------ */
+/*
 #create_plan {
   position: relative;
 
@@ -656,9 +681,11 @@ td.plan-edit-actions {
     }
   }
 }
+*/
 
 /* Show/Edit plan details */
 /* ------------------------------------------------ */
+/*
 .project-title-container {
   width: 60%;
 }
@@ -697,9 +724,11 @@ td.plan-edit-actions {
     }
   }
 }
+*/
 
 /* Write plan */
 /* ------------------------------------------------ */
+/*
 #sections-accordion-controls {
   width: 55%;
   margin: 15px 0 15px 45px;
@@ -741,8 +770,11 @@ td.plan-edit-actions {
     }
   }
 }
+*/
+	
+/* Section title / progress */
+/*
 #sections-accordion {
-  /* Section title / progress */
   h2 {
     font-size: 18px;
 
@@ -776,8 +808,10 @@ td.plan-edit-actions {
   .section-description {
     width: 60%;
   }
+*/
 
   /* Example Answers */
+/*
   div.suggested-answer-div {
     width: 80%;
     margin: 10px 15px;
@@ -850,9 +884,11 @@ td.plan-edit-actions {
     }
   }
 }
+*/
 
 /* Share plan */
 /* ------------------------------------------------ */
+/*
 #collaborator-table {
   min-width: 450px;
   max-width: 850px;
@@ -862,10 +898,11 @@ td.plan-edit-actions {
 .share-plan form.roadmap-form fieldset.standard label {
   margin-left: 10px;
 }
-
+*/
 
 /* Org edit */
 /* ------------------------------------------------ */
+/*
 #edit_org_details {
   .org-logo {
     margin-bottom: 10px;
@@ -898,9 +935,10 @@ td.plan-edit-actions {
     margin-top: 15px;
   }
 }
-
+*/
 /* Plan Export Page */
 /* ------------------------------------------------ */
+/*
 #pdf-format-options {
   select, label{
     display: block;
@@ -915,3 +953,4 @@ td.plan-edit-actions {
     }
   }
 }
+*/

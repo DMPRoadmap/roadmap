@@ -5,6 +5,7 @@
 }
 
 /* Main page layout: header, content, footer */
+/*
 body {
   background: $body-background;
   color: $black;
@@ -67,10 +68,12 @@ ul.no-bullets {
   list-style: none;
   padding-left: 0;
 }
+*/
 
 /* This class will ensure that the item is hidden for sighted users and that it does not take up space */
 /* For example:  <h2 aria-hidden="false" class="aria-only"><%= _('Create account') %></h2> */
 /* will be read on a screen reader for a tabbed section that opens but will be hidden visually */
+/*
 .aria-only {
   visibility: hidden;
   display: inline;
@@ -88,8 +91,9 @@ div.divider {
   width: 100%;
   border-bottom: 1px solid $primary-color;
 }
-
+*/
 /* General dropdown menu styling */
+/*
 .caret {
   display: inline-block;
   vertical-align: middle;
@@ -167,8 +171,10 @@ div.tooltip-message {
   border-radius: 3px;
   z-index: 9;
 }
+*/
 
 /* General Anchor and Button styling */
+/*
 a, a:link, a:active, a:visited, a:hover, a:focus,
 button.button-as-link, button.button-as-link:hover, button.button-as-link:focus {
   color: $primary-color;
@@ -187,16 +193,19 @@ a.link-as-button:hover, a.link-as-button:focus {
   border: 1px solid $light-grey;
   border-radius: 5px;
 }
+*/
 
 /* Basic page layout */
 /* =================================================================================== */
+/*
 div.roadmap {
   position: relative;
   width: 90%;
   margin: 0 auto;
-  
+*/
   /* HEADER SECTION */
   /* ----------------------------------------------------- */
+	/*
   header {
     background: $header-background;
     color: $header-text-color;
@@ -211,7 +220,6 @@ div.roadmap {
       height: $header-height;
       .home-logo {
         margin-right: 10px;
-        /* margin-top: $header-logo-top-margin; */
         margin-left: $header-logo-left-margin;
         vertical-align: middle;
         
@@ -342,8 +350,9 @@ div.roadmap {
       }
     }
   }
-  
+*/
   /* INFORMATION/ERROR MESSAGE BOX */ 
+/*
   div.roadmap-info-box, 
   div.roadmap-alert-box {
     position: relative;
@@ -382,9 +391,11 @@ div.roadmap {
       color: $error-color;
     }
   }
-  
+*/
+	
   /* MAIN CONTENT */
   /* ----------------------------------------------------- */
+/*
   main {
     clear: both;
     
@@ -399,7 +410,6 @@ div.roadmap {
         border-radius: 3px;
         padding: 10px 15px 25px 15px;
         
-        /* By default, page content is one column, but use the below styles to create a 2 column style */
         div.column-left {
           display: inline-block;
           width: 55%;
@@ -412,7 +422,6 @@ div.roadmap {
           vertical-align: top;
         }
         
-        /* Description Lists - Used to display the read-only version of forms */
         dl {
           width: 85%;
           margin: 0 auto;
@@ -445,47 +454,5 @@ div.roadmap {
       }
     }
   }
-  
-  /* FOOTER SECTION */
-  /* ----------------------------------------------------- */
-  footer {
-    width: 100%;
-    border-top: .5px solid $medium-grey;
-    margin-top: 35px;
-    
-    .footer-left, .footer-right {
-      display: inline-block;
-    }
-    
-    .footer-left {
-      width: 65%;
-      
-      p {
-        color: $medium-grey;
-      }
-      
-      ul.footer-links {
-        padding-left: 0;
-        
-        li a {
-          color: $medium-grey;
-        }
-        
-        li {
-          display: inline-block;
-        
-          a {
-            text-decoration: none;
-          }
-        }
-        li.muted {
-          margin: 0 5px;
-        }
-      }
-    }
-    .footer-right {
-      text-align: right;
-      width: 30%;
-    }
-  }
 }
+*/

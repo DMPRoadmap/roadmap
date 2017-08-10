@@ -1,0 +1,6 @@
+/* This file is intended for you to use to override the sites SASS variables           */
+/*    This file is loaded immediately after dmproadmap.scss and before dmproadmap.scss */
+/* ----------------------------------------------------------------------------------- */
+
+$background-color: #FFF;
+$color: $dark-grey;          /* This example makes use of one of the variables defined in dmproadmap.scss */
