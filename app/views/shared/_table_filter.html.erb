@@ -1,7 +1,10 @@
-<div class="toolbar">
+<div class="tablefilter form-group pull-right">
   <form action="<%= path -%>" method="get" id="filter_form">
-    <%= search_field_tag(:filter, params[:filter], placeholder: placeholder) %>
-    <a id="clear_filter" href="<%= path -%>" title="<%= _('Remove the filter') -%>" aria-label="<%= _('Remove the filter') %>">
+    <%= label_tag :filter, _('Filter plans'), class: "sr-only" %>
+    <%= search_field_tag(:filter, params[:filter], placeholder: placeholder, class: "form-control") %>
+    <a id="clear_filter" href="<%= path -%>" 
+       title="<%= _('Remove the filter') -%>" 
+       aria-label="<%= _('Remove the filter') %>">
       <i class="fa fa-times" aria-hidden="true"></i>
     </a>
   </form>
