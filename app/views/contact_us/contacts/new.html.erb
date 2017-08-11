@@ -1,86 +1,20 @@
-<% javascript "views/contacts/new_contact.js" %>
-<h1><%= _("Contact Us") %></h1>
-<p class="left-indent">
-<%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
-                                   organisation_url: Rails.configuration.branding[:organisation][:url],
-                                   application_name: Rails.configuration.branding[:application][:name]} %>
-</p>
-
 <div class="row">
-  <!-- left column  content -->
-  <div class="col-md-6" id="contact-us">
-    
-    <%= form_for @contact, url: contacts_path, html: {class: "roadmap-form"} do |f| %>
-      <fieldset class="side-by-side">
-        <% if ContactUs.require_name %>
-          <div class="form-input">
-            <%= f.label(:name, _('Name'), class: 'required') %>
-            <%= f.text_field(:name, class: "left-indent required input-large", value: current_user.nil? ? '' : current_user.name(false), readonly: !current_user.nil?) %>
-          </div>
-        <% end %>
-      
-        <div class="form-input">
-          <%= f.label(:email, _('Email'), class: 'required') %>
-          <%= f.text_field(:email, class: "left-indent required input-large", value: current_user.nil? ? '' : current_user.email, readonly: !current_user.nil?) %>
-          <span role="" id="contact_us_contact_email_error" class="error-tooltip-right left-indent"></span>
-        </div>
-      
-        <% if ContactUs.require_subject %>
-          <div class="form-input">
-            <%= f.label(:subject, _('Subject'), class: 'required') %>
-            <%= f.text_field(:subject, class: "left-indent required input-large") %>
-          </div>
-        <% end %>
-      
-        <div class="form-input">
-          <%= f.label(:message, _('Message'), class: "align-top required") %>
-          <%= f.text_area(:message, class: "required input-large", rows: 10, style: "height: 160px;") %>
-        </div>
-        <% if !user_signed_in? then %>
-          <div class="form-input">
-            <%= label_tag(nil, _('Security check'), class: "align-top required") %>
-            <div class="inline left-indent">
-              <%= recaptcha_tags %>
-            </div>
-          </div>
-        <% end %>
-      
-        <div class="form-input">
-          <div class="button-spacer">&nbsp;</div>
-          <%= render partial: 'shared/accessible_submit_button',
-                     locals: {id: 'create_contact_submit', 
-                              val: 'Submit', 
-                              disabled_initially: true,
-                              tooltip: _('Fill in the required fields')} %>
-        </div>
-      </fieldset>
-    <% end %>
-    
+  <div class="col-md-12">
+    <h1><%= _("Contact Us") %></h1>
+    <p>
+      <%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
+        organisation_url: Rails.configuration.branding[:organisation][:url],
+        application_name: Rails.configuration.branding[:application][:name]} %>
+    </p>
   </div>
-  
-  <!-- right column information -->
-  <div class="col-md-6">
-    <ul class="no-bullets">
-      <% [Rails.configuration.branding[:organisation][:name],
-          Rails.configuration.branding[:organisation][:address_line1],
-          Rails.configuration.branding[:organisation][:address_line2],
-          Rails.configuration.branding[:organisation][:address_line3],
-          Rails.configuration.branding[:organisation][:address_line4],
-          Rails.configuration.branding[:organisation][:address_country]].each do |addr_line| %>
-       
-        <% if addr_line %>
-          <li><%= addr_line %></li>
-        <% end %>
-      <% end %>
-    </ul>
-  
-    <p><%= "#{_('Helpline')} #{Rails.configuration.branding[:organisation][:telephone]}" %></p> 
-    <p><%= _('Email') %> <a href="mailto:<%= Rails.configuration.branding[:organisation][:email] %>?Subject=<%= Rails.configuration.branding[:application][:name] %> <%= _('inquiry') %>"><%= Rails.configuration.branding[:organisation][:email] %></a></p>
-
-    <!-- map -->
-    <div class="div_map">
-      <iframe width="90%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<%= Rails.configuration.branding[:organisation][:google_maps_link] %>"></iframe>
-
+</div>
+<div class="row">
+  <div class="col-md-6"><!-- Left column container -->
+      <%= render :partial => "contact_us/contacts/new_left" %>
+  </div><!-- Left column container -->
+  <div class="col-md-6"><!-- Right column container -->
+    <div class="pull-right">
+      <%= render :partial => "contact_us/contacts/new_right" %>
     </div>
-  </div>
+ </div><!-- Right column container -->
 </div>

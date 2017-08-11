@@ -21,16 +21,15 @@
 */
 @import "font-awesome";
 
-/* SASS Variables */
+/* Overrides to Bootstrap styling */
 @import "dmproadmap";
 
 /* These will eventually go away once Boostrap is in place */
+/*
 @import "dmproadmap/base";
-@import "dmproadmap/tabs";
+@import "dmproadmap/tabs"; 
 @import "dmproadmap/accordions";
 @import "dmproadmap/modals";
 @import "dmproadmap/tables";
 @import "dmproadmap/forms";
-
-/* Overrides to Bootstrap styling */
-@import "overrides";
+*/

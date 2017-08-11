@@ -4,23 +4,15 @@
   src: font-url('GillSansLight.ttf') format('truetype');
   font-weight: normal;
 }
-
+/*
 $black: #000;
 $white: #FFF;
-$dark-grey: #333;
-$medium-grey: #827D7E;
-$light-grey: #CCC;
-
-$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-
-
-
-$primary-color: #4f5253;
-
 $highlight-color: $black;
 $highlight-background-color: #F36F24;
+*/
 
 /* MESSAGES */
+/*
 $error-color: $white;
 $error-background: #990000;
 
@@ -29,31 +21,95 @@ $notice-background: #196719;
 
 $tooltip-color: $white;
 $tooltip-background: #333;
+*/
 
 /* BUTTONS */
+/*
 $disabled-button-color: #808080;
 $cancel-button-color: #F17D04;
+*/
 
 /* HEADER STYLING */
+/*
 $header-height: 165px;
 $header-logo-width: 165px;
 $header-background: $white;
 $header-text-color: $black;
+*/
 /* $header-background: linear-gradient(#ED6406, #F59503); */
 
 /* HEADER LOGO POSITIONING */
+/*
 $header-logo-top-margin: 20px;
 $header-logo-left-margin: 10px;
+*/
 
 
-
-/* EVERYTHING BELOW THIS LINE IS SPECIFIC TO THE BOOSTRAP 3.x IMPLEMENTATION OF ROADMAP */
-/* ------------------------------------------------------------------------------------ */
+/* EVERYTHING BELOW THIS LINE IS SPECIFIC TO THE BOOSTRAP 3.x IMPLEMENTATION OF ROADMAP      */
+/*   we unfortunately need to use `!important` throughout to get it to override consistently */
+/* ----------------------------------------------------------------------------------------- */
 /* SASS variables */
-$body-background: $white;
+$dark-grey: #333;
+$medium-grey: #827D7E;
+$light-grey: #CCC;
+
+$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+$primary-color: #4f5253;
+$primary-reverse-color: #FFF;  /* Typically used for the font color when using $primary-color as the background-color */
+
+$body-background: #FFF;
 
 $header-font: "GillSansLight";
 
 $footer-background: $body-background;
 $footer-color: $dark-grey;
-$footer-margin-top: 40px;
+$footer-margin-top: 30px;
+
+$tab-borders: 2px solid $primary-color;
+
+
+
+/* GENERIC PAGE STYLING */
+/* ------------------------------------------ */
+a, a:visited, a:hover, a:focus {
+  color: $primary-color !important;
+}
+footer {
+  margin-top: $footer-margin-top;
+}
+
+/* GENERIC TAB STYLING */
+/* ------------------------------------------ */
+/* Make sure the active tab is the primarycolor and that it has a border */ 
+.nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:hover, 
+.nav-tabs > li.active > a:focus {
+  color: $primary-reverse-color !important;
+  background-color: $primary-color !important;
+  border: $tab-borders;
+  border-bottom: none;
+}
+/* make sure that inactive tabs have a border */
+.nav-tabs > li:not(.active) > a {
+  border: 1px solid $light-grey;
+  border-bottom: none;
+}
+/* make sure that inactive tabs become the primary color when they receive focus/hover */
+.nav-tabs > li:not(.active) > a:hover,
+.nav-tabs > li:not(.active) > a:focus {
+  color: $primary-reverse-color !important;
+  background-color: $primary-color !important;
+  border: $tab-borders;
+  border-bottom: none;
+}
+/* Make user that the tab content is surrounded by a border and has adequate padding */
+.tab-content {
+  border: $tab-borders;
+  margin-top: -1px;
+
+  .tab-pane {
+    padding: 15px 15px 25px 15px;
+  }
+}
+
