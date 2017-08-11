@@ -1,12 +1,20 @@
-<h2><%= t('custom_devise.resend_confirmation') %></h2>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= t('custom_devise.resend_confirmation') %></h1>
+  </div>
+</div>
 
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+      <div><%= f.label :email %><br />
+      <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.submit t('custom_devise.resend_confirmation') %></div>
-<% end %>
+      <div><%= f.submit t('custom_devise.resend_confirmation') %></div>
+    <% end %>
 
-<%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

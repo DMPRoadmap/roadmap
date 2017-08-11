@@ -1,26 +1,31 @@
-<h1><%= t('helpers.change_password') %></h1>
-<div class="dmp_details_body">
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= t('helpers.change_password') %></h1>
+  </div>
+</div>
 
-	<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-	  	<%= devise_error_messages! %>
-  		<%= f.hidden_field :reset_password_token %>
-		<div class="dmp_details">
-			<table class="dmp_details_table">
-				<tr>
-					<td class="first"><%= t('helpers.new_password') %></td>
-					<td><%= f.password_field :password, :autofocus => true %></td>
-				</tr>
-				<tr>
-					<td class="first"><%= t('helpers.password') %></td>
-					<td><%= f.password_field :password_confirmation %></td>
-				</tr>
-			</table>
-		  	<div class="div_right">
-		  		<%= f.submit t('helpers.save'), :class => 'btn btn-primary', role: 'button'%>
-		  	</div>
-		</div>
-	<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+        <%= devise_error_messages! %>
+        <%= f.hidden_field :reset_password_token %>
+      <div class="dmp_details">
+        <table class="dmp_details_table">
+          <tr>
+            <td class="first"><%= t('helpers.new_password') %></td>
+            <td><%= f.password_field :password, :autofocus => true %></td>
+          </tr>
+          <tr>
+            <td class="first"><%= t('helpers.password') %></td>
+            <td><%= f.password_field :password_confirmation %></td>
+          </tr>
+        </table>
+          <div class="div_right">
+            <%= f.submit t('helpers.save'), :class => 'btn btn-primary', role: 'button'%>
+          </div>
+      </div>
+    <% end %>
 
-	<%= render "devise/shared/links" %>
-
-</div>	
+    <%= render "devise/shared/links" %>
+  </div>
+</div>  
