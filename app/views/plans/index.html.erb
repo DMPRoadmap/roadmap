@@ -1,104 +1,105 @@
-<% javascript "views/plans/index.js" %>
-<h1><%= _('My Dashboard') %></h1>
+<div class="row">
+  <div class="col-md-12">    
+    <h1><%= _('My Dashboard') %></h1>
 
-<!-- if the user has projects -->
-<p class="left-indent">
-<% if @plans.count > 0 %>
-
-    <%= _('The table below lists the plans that you have created, and any that have been shared with you by others.') %><br />
-    <%= _('These can be edited, shared, exported or deleted at anytime.')%>
-<% else %>
-    <strong><%= _("Welcome.") %></strong><br />
-    <%= _("You are now ready to create your first DMP.") %><br />
-    <%= _("Click the 'Create plan' button below to begin.")%>
-<% end %>
-</p>
+    <!-- if the user has projects -->
+    <p>
+      <% if @plans.count > 0 %>
+        <%= _('The table below lists the plans that you have created, and any that have been shared with you by others.') %><br />
+        <%= _('These can be edited, shared, exported or deleted at anytime.')%>
+      <% else %>
+        <strong><%= _("Welcome.") %></strong><br />
+        <%= _("You are now ready to create your first DMP.") %><br />
+        <%= _("Click the 'Create plan' button below to begin.")%>
+      <% end %>
+    </p>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
     <% if @plans.length > 0 %>
-      <table class="dmp_table tablesorter">
-        <thead>
-          <% if @plans.length > 10 %>
+      <div class="table-responsive">
+        <table class="table table-hover tablesorter">
+          <thead>
+            <% if @plans.length > 10 %>
+              <tr>
+                <th colspan="7" class="sorter-false">
+                  <%= render(partial: "shared/table_filter",
+                             locals: {path: plans_path, placeholder: _('Filter plans')}) %>
+                </th>
+              </tr>
+            <% end %>
             <tr>
-              <td colspan="7" class="td-as-th">
-                <%= render(partial: "shared/table_filter",
-                           locals: {path: plans_path, placeholder: _('Filter plans')}) %>
-              </td>
+              <th><%= _('Project Title') %></th>
+              <th><%= _('Template') %></th>
+              <th><%= _('Edited') %></th>
+              <th><%= _('Role') %></th>
+              <th class="text-center sorter-false"><%= _('Test') %></th>
+              <th><%= _('Visibility') %></th>
+              <th class="sorter-false">
+                <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
+              </th>
             </tr>
-          <% end %>
-          <tr>
-            <th class="col-large"><%= _('Project Title') %></th>
-            <th class="col-large"><%= _('Template') %></th>
-            <th class="col-small"><%= _('Edited') %></th>
-            <th class="col-small"><%= _('Role') %></th>
-            <th class="col-tiny sorter-false centered"><%= _('Test') %></th>
-            <th class="col-small"><%= _('Visibility') %></th>
-            <th class="col-small sorter-false">
-              <span aria-hidden="false" class="aria-only"><%= _('Actions') %></span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @plans.each do |plan| %>
-            <tr class="table-data">
-              <td>
-                <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
-                    plan_path(plan) %>
-              </td>
-              <td><%= plan.template.title %></td>
-              <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
-              <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
-              <td class="centered">
-                <% if plan.administerable_by?(current_user.id) then %>
-                  <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
-                <% else %>
-                  <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
-                <% end %>
-              </td>
-              <td id="visibility-<%= plan.id %>"><%= raw display_visibility(plan.visibility) %></td>
-              <td class="plan-edit-actions">
-                <a class="dropdown" id="plan-<%= plan.id %>-actions" href="#">
-                  <%= _('Actions') %> <span class="caret"><span>
-                </a>
-                <ul class="hidden dropdown-list dropdown-small" id="plan-<%= plan.id %>-actions-dropdown">
-                  <% if plan.editable_by?(current_user.id) then %>
-                    <li><%= link_to _('Edit'),
-                                plan_path(plan) %></li>
-
-                    <% if plan.administerable_by?(current_user.id) then %>
-                      <li><%= link_to _('Share'),
-                                share_plan_path(plan) %></li>
-                    <% end %>
-
-                    <li><%= link_to _('Download'),
-                                show_export_plan_path(plan) %></li>
-
-                    <li><%= link_to _('Make a copy'),
-                                duplicate_plan_path(plan), method: :post, remote: true %></li>
+          </thead>
+          <tbody>
+            <% @plans.each do |plan| %>
+              <tr>
+                <td>
+                  <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
+                      plan_path(plan) %>
+                </td>
+                <td><%= plan.template.title %></td>
+                <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+                <td class="text-center">
+                  <% if plan.administerable_by?(current_user.id) then %>
+                    <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
                   <% else %>
-                    <li><%= link_to _('View'),
-                                plan_path(plan) %></li>
-
-                    <li><%= link_to _('Download'),
-                                show_export_plan_path(plan) %></li>
+                    <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
                   <% end %>
-                  <% role = plan.roles.where(user_id: current_user.id).first %>
-                  <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
-                  <li><%= link_to _('Remove'),
-                      deactivate_role_path(role),
-                      method: :put,
-                      data: {confirm: conf} %></li>
-                </ul>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+                </td>
+                <td id="visibility-<%= plan.id %>"><%= raw display_visibility(plan.visibility) %></td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button"
+                            id="plan-<%= plan.id %>-actions" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                      <%= _('Actions') %><span class="caret"><span>
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
+                    <% if plan.editable_by?(current_user.id) then %>
+                      <li><%= link_to _('Edit'), plan_path(plan) %></li>
+
+                      <% if plan.administerable_by?(current_user.id) then %>
+                        <li><%= link_to _('Share'), share_plan_path(plan) %></li>
+                      <% end %>
+
+                      <li><%= link_to _('Download'), show_export_plan_path(plan) %></li>
+
+                      <li><%= link_to _('Make a copy'), duplicate_plan_path(plan), 
+                                      method: :post, remote: true %></li>
+                    <% else %>
+                      <li><%= link_to _('View'), plan_path(plan) %></li>
+
+                      <li><%= link_to _('Download'), show_export_plan_path(plan) %></li>
+                    <% end %>
+                    <% role = plan.roles.where(user_id: current_user.id).first %>
+                    <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
+                    <li><%= link_to _('Remove'), deactivate_role_path(role),
+                                    method: :put, data: {confirm: conf} %></li>
+                  </ul>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     <% end %>
 
     <div>
-      <a href="<%= new_plan_path %>" class="link-as-button"><%= _('Create plan') %></a>
+      <%= link_to _('Create plan'), new_plan_path, class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
