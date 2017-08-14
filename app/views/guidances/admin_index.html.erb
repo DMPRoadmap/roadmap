@@ -78,7 +78,7 @@
     <% if @guidances.length > 0 then%>
       <table class="dmp_table tablesorter">
         <thead>
-          <% if @guidances.length > 10 %>
+          <% if @guidances.length > TABLE_FILTER_MIN_ROWS %>
             <tr>
               <td colspan="5" class="td-as-th">
                 <%= render(partial: "shared/table_filter", 

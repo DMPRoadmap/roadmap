@@ -16,7 +16,7 @@
       <div class="content">
       <table id="dmp_table" class="dmp_table tablesorter">
         <thead>
-          <% if @templates.count > 10 %>
+          <% if @templates.count > TABLE_FILTER_MIN_ROWS %>
             <tr>
               <td colspan="5" class="td-as-th">
                 <%= render(partial: "shared/table_filter",

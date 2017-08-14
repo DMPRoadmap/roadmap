@@ -11,7 +11,7 @@
   <div class="col-md-12">
     <table class="dmp_table tablesorter">
       <thead>
-        <% if @users.count > 10 %>
+        <% if @users.count > TABLE_FILTER_MIN_ROWS %>
           <tr>
             <td colspan="5" class="td-as-th">
               <%= render(partial: "shared/table_filter", 
