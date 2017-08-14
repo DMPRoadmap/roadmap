@@ -10,9 +10,7 @@
 
 <% else %>
   <% if !isActivePage(root_path) %>
-    <a href="#header-signin" data-toggle="modal" dialog-width="700px" class="link-as-button no-header right-indent">
-      <%= _('Sign in')%>
-    </a>
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin"><%= _('Sign in')%></button>
     <span class="muted">|</span>
   <% end %>
 <% end %>
@@ -32,7 +30,5 @@
 <% end %>
 
 <% if !user_signed_in? && !isActivePage(root_path) then %>
-  <div id="header-signin" class="modal" style="display:none">
-    <%= render partial: 'shared/signin' %>
-  </div>
+  <%= render partial: 'shared/login_form', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in') } %>
 <% end %>

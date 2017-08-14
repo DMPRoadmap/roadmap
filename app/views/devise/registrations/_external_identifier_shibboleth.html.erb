@@ -16,7 +16,6 @@
     <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
     <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
                 destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title,
-                'data-toggle': "modal", 'dialog-width': "450px",
                 data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
   <% end %>
 </div>
