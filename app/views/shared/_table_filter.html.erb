@@ -1,4 +1,4 @@
-<div id="tablefilter-<%= SecureRandom.hex %>" class="tablefilter form-group pull-right">
+<div class="tablefilter form-group pull-right">
   <form action="<%= path -%>" method="get" id="filter_form">
     <%= label_tag :filter, _('Filter plans'), class: "sr-only" %>
     <%= search_field_tag(:filter, params[:filter], placeholder: placeholder, class: "form-control") %>
