@@ -6,26 +6,22 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-        <%= devise_error_messages! %>
-        <%= f.hidden_field :reset_password_token %>
-      <div class="dmp_details">
-        <table class="dmp_details_table">
-          <tr>
-            <td class="first"><%= t('helpers.new_password') %></td>
-            <td><%= f.password_field :password, :autofocus => true %></td>
-          </tr>
-          <tr>
-            <td class="first"><%= t('helpers.password') %></td>
-            <td><%= f.password_field :password_confirmation %></td>
-          </tr>
-        </table>
-          <div class="div_right">
-            <%= f.submit t('helpers.save'), :class => 'btn btn-primary', role: 'button'%>
-          </div>
-      </div>
-    <% end %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, id: "user_reset_password"}) do |f| %>
+      <%= devise_error_messages! %>
+      <%= f.hidden_field :reset_password_token %>
 
-    <%= render "devise/shared/links" %>
+      <div class="form-group">
+        <%= f.label(:email, _('New password'), class: 'control-label') %>
+        <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+      </div>
+      <div class="form-group">
+        <%= f.label(:email, _('Confirm password'), class: 'control-label') %>
+        <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
+      </div>
+
+      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+
+      <%= render "devise/shared/links" %>
+    <% end %>
   </div>
 </div>  

@@ -1,5 +1,3 @@
-<% javascript "views/devise/passwords/new.js" %>
-
 <div class="row">
   <div class="col-md-12">
     <% unless @user.errors[:email].empty? %>
@@ -14,24 +12,13 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for resource, as: 'user', url: user_password_path, html: {class: "password-reset roadmap-form", method: :post} do |f| %>
+    <%= form_for resource, as: 'user', url: user_password_path, html: {method: :post, id: "user_request_reset_password"} do |f| %>
+      <div class="form-group">
+        <%= f.label(:email, _('Email'), class: 'control-label') %>
+        <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+      </div>
 
-      <fieldset id="password-reset-form" class="standard padded">
-        <div class="form-input">
-          <%= f.label(:email, _('Email'), class: 'required') %>
-          <%= f.email_field(:email, class: 'left-indent required input-small') %>
-          <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
-        </div>
-
-        <div class="form-input">
-          <%= render partial: 'shared/accessible_submit_button',
-                     locals: {id: 'password-reset-button', 
-                              val: _('Send'), 
-                              disabled_initially: true,
-                              classes: 'left-indent',
-                              tooltip: _('Enter a valid email.')} %>
-        </div>
-      </fieldset>
+      <%= f.button(_('Send'), class: "btn btn-default", type: "submit") %>
     <% end %>
   </div>
 </div>
