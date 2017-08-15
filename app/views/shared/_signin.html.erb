@@ -7,15 +7,11 @@
       <a href="#create-account-panel" aria-selected="false"><%= _('Create Account') %></a>
     </li>
   </ul>
-
   <div class="tab-panels" role="tabpanel">
-    <div id="sign-in-panel" class="tab-panel active centered" aria-hidden="false" 
-         aria-labelledby="sign-in-tab">
+    <div id="sign-in-panel" class="tab-panel active centered" aria-hidden="false" aria-labelledby="sign-in-tab">
       <%= render :partial => 'shared/login_form' %>
     </div>
-    
-    <div id="create-account-panel" aria-hidden="true" class="tab-panel" role="tabpanel" 
-         aria-labelledby="create-account-tab">
+    <div id="create-account-panel" aria-hidden="true" class="tab-panel" role="tabpanel" aria-labelledby="create-account-tab">
       <%= render :partial => 'shared/register_form', locals: {extended: false} %>
     </div>
   </div>
