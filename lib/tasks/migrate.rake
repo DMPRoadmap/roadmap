@@ -256,10 +256,12 @@ namespace :migrate do
 
   desc "remove duplicate annotations caused by bug"
   task remove_duplicate_annotations: :environment do
-    Question.joins(:annotations).group("questions.id").having("count(annotations.id) > count(DISTINCT annotations.text)")
-    Annotation.all.each do |a|
-      conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: a.id)
-      conflicts.each {|c| matches += 1 }
+    questions = Question.joins(:annotations).group("questions.id").having("count(annotations.id) > count(DISTINCT annotations.text)")
+    questions.each do |q|
+      q.annotations.each do |a|
+        conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: a.id)
+        conflicts.each {|c| matches += 1 }
+      end
     end
   end
 
