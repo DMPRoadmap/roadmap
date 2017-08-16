@@ -260,7 +260,7 @@ namespace :migrate do
     questions.each do |q|
       q.annotations.each do |a|
         conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: a.id)
-        conflicts.each {|c| matches += 1 }
+        conflicts.each {|c| c.destroy }
       end
     end
   end
