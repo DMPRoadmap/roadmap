@@ -28,6 +28,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     visibility: Field::Number,
     customization_of: Field::Number,
     dmptemplate_id: Field::Number,
+    migrated: Field::Boolean,
+    dirty: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -67,6 +69,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     :visibility,
     :customization_of,
     :dmptemplate_id,
+    :migrated,
+    :dirty,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -90,6 +94,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     :visibility,
     :customization_of,
     :dmptemplate_id,
+    :migrated,
+    :dirty,
   ].freeze
 
   # Overwrite this method to customize how templates are displayed
