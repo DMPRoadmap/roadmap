@@ -219,15 +219,15 @@ namespace :migrate do
     if IdentifierScheme.find_by(name: 'orcid').nil?
       IdentifierScheme.create!(name: 'orcid', description: 'ORCID', active: true)
     end
-    
+
     scheme = IdentifierScheme.find_by(name: 'orcid')
-      
+
     unless scheme.nil?
       User.all.each do |u|
         if u.respond_to?(:orcid_id)
-          if u.orcid_id.present? 
+          if u.orcid_id.present?
             if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
-              u.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, 
+              u.user_identifiers << UserIdentifier.new(identifier_scheme: scheme,
                                                        identifier: u.orcid_id.gsub('orcid.org/', ''))
               u.save!
             end
@@ -253,5 +253,16 @@ namespace :migrate do
       end
     end
   end
-  
+
+  desc "remove duplicate annotations caused by bug"
+  task remove_duplicate_annotations: :environment do
+    questions = Question.joins(:annotations).group("questions.id").having("count(annotations.id) > count(DISTINCT annotations.text)")
+    questions.each do |q|
+      q.annotations.each do |a|
+        conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: a.id)
+        conflicts.each {|c| c.destroy }
+      end
+    end
+  end
+
 end

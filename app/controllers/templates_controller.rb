@@ -11,7 +11,7 @@ class TemplatesController < ApplicationController
   def admin_index
     authorize Template
 
-    funder_templates, org_templates, customizations = [], [], []
+    funder_templates, org_templates = [], []
 
     # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
     funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.where(published: true).valid.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
@@ -131,7 +131,7 @@ class TemplatesController < ApplicationController
               # find corresponding question in new template
               customization_question = customization_section.questions.where(number: question.number).first
               # apply annotations
-              question.annotations.each do |annotation|
+              question.annotations.where(org_id: current_user.org_id).each do |annotation|
                 annotation_copy = Annotation.deep_copy(annotation)
                 annotation_copy.question_id = customization_question.id
                 annotation_copy.save!
@@ -213,7 +213,7 @@ class TemplatesController < ApplicationController
         new_version.save
         @template = new_version
 #        @current = Template.current(@template.dmptemplate_id)
-       end
+      end
     else
       flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
     end
