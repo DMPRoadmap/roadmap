@@ -18,12 +18,13 @@ class UsersController < ApplicationController
     @user = User.includes(:perms).find(params[:id])
     authorize @user
     user_perms = current_user.perms
-    @perms = user_perms & Perm.where(name: [constant("user_role_types.change_org_details"),constant("user_role_types.use_api"), constant("user_role_types.modify_guidance"), constant("user_role_types.modify_templates"), constant("user_role_types.grant_permissions")])
+    @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, Perm.use_api, Perm.change_org_details]
   end
 
   ##
   # POST - updates the permissions for a user
   # redirects to the admin_index action
+  # should add validation that the perms given are current perms of the current_user
   def admin_update_permissions
     @user = User.includes(:perms).find(params[:id])
     authorize @user
@@ -33,21 +34,25 @@ class UsersController < ApplicationController
       if @user.perms.include? perm
         if ! perms.include? perm
           @user.perms.delete(perm)
-          if perm.name == constant("user_role_types.use_api")
+          if perm.id == Perm.use_api.id
             @user.remove_token!
           end
         end
       else
         if perms.include? perm
           @user.perms << perm
-          if perm.name == constant("user_role_types.use_api")
+          if perm.id == Perm.use_api.id
             @user.keep_or_generate_token!
           end
         end
       end
     end
-    @user.save!
-    redirect_to({controller: 'users', action: 'admin_index'}, {notice: I18n.t('helpers.success')})
+
+    if @user.save!
+      redirect_to({controller: 'users', action: 'admin_index'}, {notice: _('Information was successfully updated.')})  # helpers.success key does not exist, replaced with a generic string
+    else
+      flash[:notice] = failed_update_error(@user, _('user'))
+    end
   end
 
 end

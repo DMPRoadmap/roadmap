@@ -1,3 +1,6 @@
-<p><%= t('custom_devise.hello') %><%= @user.name %></p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+<p><%= _('Hello ') %><%= @user.email %>,</p>
+<p><%= _('Your access to ') %>"<%= @plan.title %>"<%= _(' has been removed by ') %><%= "#{@current_user.name(false)}"%>.</p>
+<p><%=_('All the best,')%><br /><%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.</p>
 
-<p><%= t('helpers.mailer.access_to') %>"<%= @project.title %>"<%= t('helpers.mailer.removed') %></p>
+<% end %>

@@ -6,5 +6,9 @@ class Language < ActiveRecord::Base
   
   ##
   # Validations
-  validates :abbreviation, presence: true, uniqueness: true
+  # Cannot do FastGettext translations here because we constantize LANGUAGES in initializers/constants.rb
+  validates :abbreviation, presence: {message: "can't be blank"}, uniqueness: {message: "must be unique"}
+
+  scope :sorted_by_abbreviation, -> { all.order(:abbreviation) }
+  scope :default, -> { where(default_language: true).first }
 end

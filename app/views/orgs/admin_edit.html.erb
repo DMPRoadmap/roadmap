@@ -2,7 +2,7 @@
 <% javascript 'admin.js' %>
 
 <h1>
-  <%= t('org_admin.org_details_label') %>
+  <%= _('Organisation details') %>
 </h1>
 
 <div class="white_background blue_border">
@@ -13,12 +13,12 @@
 			<!-- table with org details-->
 			<table class="dmp_details_table">
 				<tr>
-					<td class="first"><%= t('org_admin.org_name') %></td>
-					<td><%= f.text_field :name, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: t('org_admin.name_help_text') %></td>
+					<td class="first"><%= _('Name') %></td>
+					<td><%= f.text_field :name, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _("Please enter your organisation's name.") %></td>
 				</tr>
 
 				<tr>
-					<td class="first"><%= t('org_admin.org_abbr') %></td>
+					<td class="first"><%= _('Abbreviation') %></td>
 					<td>
 						<div class="div_left_icon_g">
 							<%= f.text_field :abbreviation, as: :string, class: 'text_field' %>
@@ -30,40 +30,40 @@
 				<!-- organisation logo -->
 				<% if @org.logo.present? %>
 					<tr>
-						<td class="first"><%= t('org_admin.org_logo') %></td>
+						<td class="first"><%= _('Logo') %></td>
 						<td><%= image_tag @org.logo.url %> </td>
 					</tr>
 					<tr>
 						<td class="first"></td>
-						<td><%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= t('org_admin.remove_logo') %></td>
+						<td><%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= _('If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo.') %></td>
 					</tr>
 				<%end%>
 				<tr class="blank_row"><td class="first"></td></tr>
 				<tr>
-					<td class="first"><%= t('org_admin.new_org_logo') %></td>
+					<td class="first"><%= _('Upload a new logo file') %></td>
 					<td><%= f.file_field :logo %></td>
 				</tr>
 
 				<tr class="blank_row"><td class="first"></td></tr>
 
 				<tr>
-					<td class="first"><%= t('org_admin.org_banner_text') %></td>
+					<td class="first"><%= _('Top banner text') %></td>
 					<td><%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce") %></td>
 				</tr>
 
 				<tr>
-					<td class="first"><%= t('org_admin.org_target_url') %></td>
-					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: t('org_admin.target_url_help_text') %></td>
+					<td class="first"><%= _('Website') %></td>
+					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _('Please enter a valid web address.') %></td>
 				</tr>
 
 				<tr>
-					<td class="first"><%= t('org_admin.org_contact_email') %></td>
-					<td><%= f.text_field :contact_email, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: t('org_admin.org_contact_email_help_text') %></td>
+					<td class="first"><%= _('Contact Email') %></td>
+					<td><%= f.text_field :contact_email, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _('The email address of an administrator at your organisation. Your users will use this address if they have questions.') %></td>
 				</tr>
 
 				<tr>
-					<td class="first"><%= t('org_admin.org_type') %></td>
-          <td><%= @org.organisation_type %></td>
+					<td class="first"><%= _('Organisation type') %></td>
+          <td><%= @org.type %></td>
 				</tr>
 			</table>
 
@@ -71,13 +71,13 @@
 
 			<!-- submit buttons -->
 			<div class="move_2_right">
-				<%= f.submit t('helpers.submit.save'), class: 'btn btn-primary' %>
-				<%= link_to t('helpers.submit.cancel'), :back, class: 'btn btn-primary' %>
+				<%= f.submit _('Save'), class: 'btn btn-primary' %>
+				<%= link_to _('Cancel'), :back, class: 'btn btn-primary' %>
 			</div>
 		<% end %>
 
   </div>
 </div>
 
-<%= tinymce content_css: asset_path('application.css') %>
+<%= tinymce :content_css => asset_path('application.css') %>
 

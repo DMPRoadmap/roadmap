@@ -15,38 +15,32 @@
 
 
 <h1>
-	<%= t("about_page.title", application_name: Rails.configuration.branding[:application][:name])%>
+	<%= _('About %{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
 </h1>
 <div id="project-tabs" class="nav-project-tabs">
 	<ul class="nav nav-tabs" data-tabs="tabs">
 		<li class="active">
-            <%= link_to t("about_page.tab_1"), "#Background", :data => { :toggle => "tab"} %>
+            <%= link_to _('Background'), "#Background", :data => { :toggle => "tab"} %>
         </li>
-        <%if t("about_page.tab_2") != "" %>
-            <li><%= link_to t("about_page.tab_2"), "#News", :data => { :toggle => "tab"} %></li>
-        <%end%>
+        <li>
+            <%= link_to _('Latest news'), "#News", :data => { :toggle => "tab"} %>
+        </li>
 	</ul>
 </div>
 <div class="dmp_details_body">
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="Background">
-			<%= raw t("about_page.body_text_tab_1_html", 
-								organisation_name: Rails.configuration.branding[:organisation][:name],
-								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
-								organisation_email: Rails.configuration.branding[:organisation][:email],
-								organisation_url: Rails.configuration.branding[:organisation][:url],
-								application_name: Rails.configuration.branding[:application][:name],
-								application_home: Rails.configuration.branding[:application][:home],
-                                application_url: Rails.configuration.branding[:application][:url],
-                                current_locale: I18n.locale)%>
+			<%= raw _("<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Create account'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>") % { 
+								:organisation_name => Rails.configuration.branding[:organisation][:name],
+								:organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation],
+								:application_name => Rails.configuration.branding[:application][:name],
+                                :application_url => Rails.configuration.branding[:application][:url] } %>
 		</div>	
 		<div class="tab-pane" id="News">
-			<%= raw t("about_page.body_text_tab_2_html",
-								organisation_abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
-								application_name: Rails.configuration.branding[:application][:name])%>
-			
+			<%= raw _('<p>%{application_name} stories from the %{organisation_abbreviation} website</p></br>') % {
+								:organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation],
+								:application_name => Rails.configuration.branding[:application][:name] } %>
             <% news_left = @dcc_news_feed.entries.count %>
-            
             <% @dcc_news_feed.entries.each do |entry| %>
                 <h3><%= entry.title.sanitize %></h3>
                 <% summary = entry.summary.sanitize %>
@@ -57,8 +51,8 @@
                 <% summary = summary.gsub(/<p>.*\z/, "") %>
                 <p><%= raw summary.strip %></p>
                 <% author = entry.author.blank? ? 'anonymous' : entry.author %>
-                <p><%= t('helpers.about.by') %> <%= author %> <%= t('helpers.about.on') %> <%= entry.published.strftime("%d/%m/%Y") %></p>
-                <p><%= t('helpers.about.read_more') %><%= link_to "DCC Website", entry.url %></p>
+                <p><%= _('By ') %> <%= author %> <%= _(' on ') %> <%= entry.published.strftime("%d/%m/%Y") %></p>
+                <p><%= _('Read more on the ') %><%= link_to 'DCC Website', entry.url %></p>
                 </br>
                 <!--verify how many news are left -->
                 <%if news_left.to_i > 1 then %>
@@ -67,7 +61,7 @@
                     <div class="two-column-clear"></div>
                 <%end%>
                 <% news_left = news_left - 1 %>
-            <% end %>
+            <% end %>			
 		</div>		
 	</div>
 </div>	

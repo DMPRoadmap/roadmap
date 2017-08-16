@@ -115,7 +115,11 @@ class OrgTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "published_templates should return all published templates" do
     3.times do |i|
-      @org.templates << Template.new(version: 1, title: "Testing #{i}", published: (i < 2 ? true : false))
+      template = Template.create(org: @org, version: 1, title: "Testing #{i}")
+      if i < 2
+        template.published = true 
+        template.save!
+      end
     end
     
     assert_not @org.published_templates.select{|t| t.title == "Testing 0"}.empty?, "expected the 1st template to be included"
@@ -177,9 +181,9 @@ class OrgTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "can manage has_many relationship with SuggestedAnswers" do
-    sa = SuggestedAnswer.new(question: Question.first, text: 'Test Suggested Answer')
-    verify_has_many_relationship(@org, sa, @org.suggested_answers.count)
+  test "can manage has_many relationship with Annotations" do
+    a = Annotation.new(question: Question.first, text: 'Test Annotation')
+    verify_has_many_relationship(@org, a, @org.annotations.count)
   end
   
   # ---------------------------------------------------

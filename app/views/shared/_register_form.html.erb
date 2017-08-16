@@ -1,10 +1,12 @@
-<%= form_for(resource, :as => "user", :url => registration_path("user"),  :htmlb => {:autocomplete =>"off"}) do |f| %>
+<% javascript('shared/register_form.js') %>
+
+<%= form_for(resource, :as => "user", :url => registration_path("user"),  :htmlb => {:autocomplete =>"off"}, :html => {class: "roadmap-form"}) do |f| %>
   <ul>
 	<li>
 		<%= devise_error_messages! %>
 	</li>
 	<li>
-		<%= f.email_field :email, placeholder: (_('Email') + ' *'), :required => true, :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('This must be a valid email address - a message will be sent to it for confirmation.') %>
+		<%= f.email_field :email, placeholder: (_('Email') + ' *'), :as => :email, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter your email') %>
 		<div class="alert alert-error" style="display:none">
 			<strong><%= _('Error!')%></strong> <%= _('You must enter a valid email address.')%>
 		</div>
@@ -25,35 +27,36 @@
 		<%= f.hidden_field "user_identifiers[#{scheme}]", value: resource.user_identifiers.first.identifier%>
 	<% end %>
 	<li>
-		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up' }) %>
+		<%= collection_select(:user, :org_id, Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), :id, :name, {include_blank: _('Organisation')}, { :class => 'typeahead org_sign_up', 'data-allow-clear': false }) %>
 	</li>
-  <div id="other-org-link"><a href="#"><%= _("My organisation isn't listed.") %></a></div>
-	<% other_organisations = Array.new %>
-	<% Org.where("parent_id IS ? AND is_other = ?", nil, true).each do |org| %>
-		<% other_organisations << org.id %>
-	<% end %>
-	<li id="other-organisation-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
+  	<div id="other-org-link"><a href="#"><%= _("My organisation isn't listed.") %></a></div>
+	<% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
+	<li id="other-org-name" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
 		<%= f.text_field :other_organisation, placeholder: ( _('Organisation name') + ' *'), :as => :string , :autocomplete => "off", :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
 	</li>
 	<li>
-		<%= f.password_field :password, placeholder: (_('Password') + ' *'), :autocomplete => "off", :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
+		<%= f.password_field :password, placeholder: (_('Password') + ' *'), :autocomplete => "off", :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
 		<div class="alert alert-error" style="display:none">
 			<strong><%= _('Error!')%></strong> <%= _('Your password must contain at least 8 characters.')%>
 		</div>
 	</li>
 	<li>
-		<%= f.password_field :password_confirmation, placeholder: (_('Password confirmation') + ' *'), :required => true, :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
+		<%= f.password_field :password_confirmation, placeholder: (_('Password confirmation') + ' *'), :as => :password, :class => 'text_field has-tooltip reg-input', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Your password must contain at least 8 characters.') %>
 		<div class="alert alert-error" style="display:none">
 			<strong><%= _('Error!')%></strong>&nbsp;<%= _('This must match what you entered in the previous field.')%>
 		</div>
 	</li>
 	<li class="remember_me_li">
-		<%= f.check_box :accept_terms, :required => true %> <%= f.label :accept_terms, :class => "remember_div"  do %>
-		  <%= raw _(' I accept the <a href="/%{current_locale}/terms" target="_blank">terms and conditions</a> *') % { :current_locale => FastGettext.locale } %>
+		<%= f.check_box :accept_terms %> <%= f.label :accept_terms, :class => "remember_div"  do %>
+		  <%= raw _(' I accept the <a href="/terms" target="_blank">terms and conditions</a> *') %>
 		<%end%>
 	</li>
 	<li>
-		<%= f.submit _('Sign up'), :class => "btn btn-primary" %>
+		<%= render partial: 'shared/accessible_submit_button',
+               locals: {id: 'sign_up_submit', 
+                         val: _('Create account'), 
+                        disabled_initially: true,
+                        tooltip: _('You can not continue until you have filled in all of the required information.')} %>
 	</li>
 </ul>
 <% end %>

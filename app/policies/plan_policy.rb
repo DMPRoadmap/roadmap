@@ -7,13 +7,13 @@ class PlanPolicy < ApplicationPolicy
     @user = user
     @plan = plan
   end
-  
+
   def show?
     @plan.readable_by?(@user.id)
   end
 
   def edit?
-    @plan.editable_by?(@user.id)
+    @plan.readable_by?(@user.id)
   end
 
   def update_guidance_choices?
@@ -28,14 +28,28 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
+  def show_export?
+    @plan.readable_by?(@user.id)
+  end
+
   def update?
     @plan.editable_by?(@user.id)
   end
 
+  def destroy?
+    @plan.editable_by?(@user.id)
+  end
+  
   def status?
     @plan.readable_by?(@user.id)
   end
+  
+  def possible_templates?
+    @plan.id.nil?
+  end
 
+# TODO: These routes are no lonmger used
+=begin
   def section_answers?
     @plan.readable_by?(@user.id)
   end
@@ -59,6 +73,7 @@ class PlanPolicy < ApplicationPolicy
   def unlock_section?
     @plan.editable_by?(@user.id)
   end
+=end
 
   def answer?
     @plan.readable_by?(@user.id)

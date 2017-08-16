@@ -5,9 +5,11 @@
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [
-  {name: 'orcid', description: 'ORCID researcher identifiers', active: true},
-  {name: 'shibboleth', description: 'Shibboleth', active: false},
-  {name: 'facebook', description: 'Facebook OAuth', active: false}
+  {name: 'orcid', description: 'ORCID', active: true, 
+   logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png', 
+   user_landing_url:'https://orcid.org' },
+  {name: 'shibboleth', description: 'your institutional credentials', active: true,
+  },
 ]
 identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
 
@@ -27,25 +29,25 @@ question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en_UK',
-   description: 'UK English',
-   name: 'English (UK)',
+  {abbreviation: 'en_GB',
+   description: '',
+   name: 'English (GB)',
    default_language: true},
   {abbreviation: 'en_US',
-   description: 'US English',
+   description: '',
    name: 'English (US)',
    default_language: false},
   {abbreviation: 'fr',
-   description: 'French',
-   name: 'French',
+   description: '',
+   name: 'Français',
    default_language: false},
   {abbreviation: 'de',
-   description: 'German',
-   name: 'German',
+   description: '',
+   name: 'Deutsch',
    default_language: false},
   {abbreviation: 'es',
-   description: 'Spanish',
-   name: 'Spanish',
+   description: '',
+   name: 'Español',
    default_language: false}
 ]
 languages.map{ |l| Language.create!(l) if Language.find_by(abbreviation: l[:abbreviation]).nil? }
@@ -159,20 +161,20 @@ token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermi
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
 orgs = [
-  {name: GlobalHelpers.constant("organisation_types.managing_organisation"),
-   abbreviation: 'CC',
+  {name: Rails.configuration.branding[:organisation][:name],
+   abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
    banner_text: 'This is an example organisation',
    org_type: 3,
-   language_id: Language.find_by(abbreviation: I18n.locale).id,
+   language_id: Language.find_by(abbreviation: 'en_GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2,
-   language: Language.find_by(abbreviation: 'en-UK')},
+   language: Language.find_by(abbreviation: 'en_GB')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1,
-   language: Language.find_by(abbreviation: 'en-UK')}
+   language: Language.find_by(abbreviation: 'en_GB')}
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
 
@@ -185,8 +187,8 @@ users = [
    surname: "Admin",
    password: "password123",
    password_confirmation: "password123",
-   org: Org.find_by(abbreviation: 'CC'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.all,
    accept_terms: true,
    confirmed_at: Time.zone.now},
@@ -196,7 +198,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'GA'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    confirmed_at: Time.zone.now},
@@ -206,7 +208,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    confirmed_at: Time.zone.now},
@@ -216,7 +218,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: I18n.locale),
+   language: Language.find_by(abbreviation: FastGettext.locale),
    accept_terms: true,
    confirmed_at: Time.zone.now}
 ]
@@ -226,7 +228,7 @@ users.map{ |u| User.create!(u) if User.find_by(email: u[:email]).nil? }
 # ------------------------------------------------------- 
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    optional_subset: true,
    published: true},
   {name: "Government Agency Advice (Funder specific guidance)",
@@ -345,21 +347,27 @@ templates = [
   {title: "My Curation Center's Default Template",
    description: "The default template",
    published: true,
-   org: Org.find_by(abbreviation: 'CC'),
+   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
-   version: 1},
+   version: 0,
+   migrated: false,
+   dmptemplate_id: 1},
   
   {title: "OLD - Department of Testing Award",
     published: false,
     org: Org.find_by(abbreviation: 'GA'),
     is_default: false,
-    version: 1},
+    version: 0,
+    migrated: false,
+   dmptemplate_id: 2},
      
   {title: "Department of Testing Award",
    published: true,
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
-   version: 2}
+   version: 0,
+   migrated:false,
+   dmptemplate_id: 3}
 ]
 templates.map{ |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
 
@@ -607,7 +615,6 @@ questions = [
    question_format: QuestionFormat.find_by(title: "Text field"),
    modifiable: false,
    default_value: "on a server at my institution",
-   guidance: "Consider where your data will be stored after your research is complete.",
    themes: [Theme.find_by(title: "Preservation")]},
   {text: "What types of data will you collect and how will it be stored?",
    number: 1,
@@ -667,17 +674,17 @@ radio_button_question = Question.find_by(text: "Please select the appropriate fo
 
 # Create suggested answers for a few questions
 # ------------------------------------------------------- 
-suggested_answers = [
+annotations = [
   {text: "We will preserve it in Dryad or a similar data repository service.",
-   is_example: true,
+   type: Annotation.types[:example_answer],
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What is your policy for long term access to your dataset?")},
   {text: "We recommend that you identify the type(s) of content as well as the type of file(s) involved",
-   is_example: false,
+   type: Annotation.types[:example_answer],
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
-suggested_answers.map{ |s| SuggestedAnswer.create!(s) if SuggestedAnswer.find_by(text: s[:text]).nil? }
+annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
 
 # Create options for the dropdown, multi-select and radio buttons
 # ------------------------------------------------------- 

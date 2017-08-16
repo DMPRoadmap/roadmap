@@ -1,16 +1,41 @@
 <%= stylesheet_link_tag "admin" %>
 
 <h1>
-    <%= t('org_admin.edit_user_privileges') %>
+    <%= _('Edit User Privileges') %>
 </h1>
 
 <div class="white_background">
   <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
-    <table id="dmp_table" class="dmp_table tablesorter">
+    <table id="dmp_table" class="dmp_table">
       <thead>
-        <tr>
+        <tr style="text-decoration: white dotted underline;">
           <% @perms.each do |perm| %>
-          <th class="dmp_th_medium"> <%= perm.name %> </th>
+            <% case perm.name when 'grant_permissions' %>
+                <th class="dmp_th_medium" title="
+                  <%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
+                  <%= _('Grant permissions') %>
+                </th>
+              <% when 'modify_templates' %>
+                <th class="dmp_th_medium" title="
+                  <%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
+                  <%= _('Modify templates') %>
+                </th>
+              <% when 'modify_guidance' %>
+                <th class="dmp_th_medium" title="
+                  <%= _('Allows the user to create and edit guidance') %>">
+                  <%= _('Modify guidance') %>
+                </th>
+              <% when 'use_api' %>
+                <th class="dmp_th_medium" title="
+                  <%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
+                  <%= _('API rights') %>
+                </th>
+              <% when 'change_org_details' %>
+                <th class="dmp_th_medium" title="
+                  <%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
+                  <%= _('Change organisation details') %>
+                </th>
+            <% end %>
           <% end %>
         </tr>
       </thead>
@@ -24,6 +49,6 @@
         </tr>
       </tbody>
     </table>
-    <%= submit_tag t('helpers.submit.save') %>
+    <%= submit_tag _('Save') %>
   <% end %>
 </div>

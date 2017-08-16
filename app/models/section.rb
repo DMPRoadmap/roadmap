@@ -1,5 +1,4 @@
 class Section < ActiveRecord::Base
-
   ##
   # Associations
   belongs_to :phase
@@ -14,7 +13,7 @@ class Section < ActiveRecord::Base
                   :questions_attributes, :organisation, :phase, :modifiable,
                   :as => [:default, :admin]
 
-  validates :phase, :title, :number, presence: true
+  validates :phase, :title, :number, presence: {message: _("can't be blank")}
 
   ##
   # return the title of the section
@@ -22,6 +21,15 @@ class Section < ActiveRecord::Base
   # @return [String] the title of the section
   def to_s
     "#{title}"
+  end
+
+  # Returns the number of answered questions for a given plan id
+  def num_answered_questions(plan_id)
+    n = 0
+    self.questions.each do |question|
+      n += question.plan_answers(plan_id).select{|answer| answer.is_valid?}.count
+    end
+    return n
   end
 
   ##
@@ -39,5 +47,4 @@ class Section < ActiveRecord::Base
     end
     return section_copy
   end
-
 end

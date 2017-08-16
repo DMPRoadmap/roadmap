@@ -1,6 +1,12 @@
-<p><% t('custom_devise.hello') %><%= @user.name %></p>
-
-
-<p>
-<% t('helpers.api_granted') %>"<%= link_to t('helpers.api_view_token'), controller: "users", action: "edit" %>".
-</p>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+  <p><% _('Hello ') %><%= @user.name %></p>
+  
+  <p><%= _('You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found ')%><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation">here</a>.
+  </p>
+  
+  <p>
+    <%=_('All the best,')%>
+    <br />
+    <%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.
+  </p>
+<% end %>

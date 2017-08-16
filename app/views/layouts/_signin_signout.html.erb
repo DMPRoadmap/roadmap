@@ -12,7 +12,17 @@
             <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li>
           <% end %>
           <% if current_user.can_org_admin? && !current_user.org_id.nil? %>
-            <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+            <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %>
+              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+            <% elsif  current_user.can_modify_templates?%>
+              <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+            <% elsif current_user.can_modify_guidance? %>
+              <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+            <% elsif current_user.can_modify_org_details? %>
+              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
+            <% elsif current_user.can_grant_permissions? %>
+              <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
+            <% end %>
           <% end %>
           <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %></li>
         </ul>
@@ -21,7 +31,7 @@
       <li>
         <% unless controller_name == "home" && action_name == "index" then %>
           <a href="#header-login-form" data-toggle="modal"><%= _('Sign in')%></a> /
-          <a href="#header-register-form" data-toggle="modal"><%= _('Sign up')%></a>
+          <a href="#header-register-form" data-toggle="modal"><%= _('Create account')%></a>
         <% else %>
           <%= raw "&nbsp;" %>
         <% end %>
@@ -29,3 +39,7 @@
     <% end %>
   </ul>
 </div>
+<!-- Quick'n'dirty touchscreen hack for Bootstrap's buggy dropdown -->
+  <style>
+    .dropdown-backdrop{ position: static; }
+  </style>

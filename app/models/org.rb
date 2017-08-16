@@ -4,13 +4,18 @@ class Org < ActiveRecord::Base
   extend Dragonfly::Model::Validations
 
   ##
+  # Sort order: Name ASC
+  default_scope { order(name: :asc) }
+
+
+  ##
   # Associations
-  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
+#  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
   belongs_to :language
   has_many :guidance_groups
   has_many :templates
   has_many :users
-  has_many :suggested_answers
+  has_many :annotations
   
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
@@ -21,19 +26,20 @@ class Org < ActiveRecord::Base
                   :logo_file_name, :name, :target_url,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id, :contact_email, 
-                  :language, :org_type, :region, :token_permission_types
+                  :language, :org_type, :region, :token_permission_types, 
+                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name
 
   ##
   # Validators
   validates :contact_email, email: true, allow_nil: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do
     after_assign :resize_image
   end
-  validates_property :height, of: :logo, in: (0..100)
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp']
-  validates_size_of :logo, maximum: 500.kilobytes
+  validates_property :height, of: :logo, in: (0..100), message: _("height must be less than 100px")
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   ##
   # Define Bit Field values
@@ -47,15 +53,24 @@ class Org < ActiveRecord::Base
             column: 'org_type'
 
   # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> { where(name: GlobalHelpers.constant("organisation_types.managing_organisation")) }
+  scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
   scope :funders, -> { where(org_type: 2) }
-  scope :institutions, -> { where(org_type: 3) }
+  scope :institutions, -> { where(org_type: 1) }
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
 
+  # Determines the locale set for the organisation
+  # @return String or nil 
+  def get_locale
+    if !self.language.nil?
+      return self.language.abbreviation
+    else
+      return nil
+    end
+  end
 
 # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at one time.
 #       For example you can do: funder = true; project = true; school = true

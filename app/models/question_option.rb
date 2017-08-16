@@ -10,8 +10,9 @@ class QuestionOption < ActiveRecord::Base
   attr_accessible :text, :question_id, :is_default, :number, :question, 
                   :as => [:default, :admin]
 
-  validates :text, :question, :number, presence: true
+  validates :text, :question, :number, presence: {message: _("can't be blank")}
 
+  scope :by_number, -> { order(:number) }
   ##
   # deep copy the given question_option and all it's associations
   #

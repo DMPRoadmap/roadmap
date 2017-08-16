@@ -7,7 +7,7 @@
 		<% else %>
 			<li>
 		<% end %>
-		<%= link_to t("helpers.project.tab_plan"), project_path(project) %>
+		<%= link_to _('Plan details'), project_path(project) %>
 	   		</li>
     <!-- Plans (phases) -->
     <% pplans = project.plans.sort { |x,y| x.version.phase.number <=> y.version.phase.number} %>
@@ -31,7 +31,7 @@
 		<% else %>
 			<li>
 		<% end %>
-		<%= link_to t("helpers.project.share.tab_share"), ["share", project] %>
+		<%= link_to _('Share'), ["share", project] %>
 		</li>
 	<% end %>
 	<!-- Export page that display all plans options to export-->
@@ -40,7 +40,7 @@
 		<% else %>
 			<li>
 		<% end %>
-		<%= link_to t("helpers.project.tab_export"), ["export",project] %>
+		<%= link_to _('Export'), ["export",project] %>
 	   		</li>
 	</ul>
 </div>

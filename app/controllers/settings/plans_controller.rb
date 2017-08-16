@@ -1,7 +1,6 @@
 module Settings
   class PlansController < SettingsController
 
-    before_filter :get_plan_list_columns
     before_filter :get_settings
 
     after_action :verify_authorized
@@ -23,6 +22,7 @@ module Settings
         if params[:commit] == 'Reset'
           s.formatting = nil
           s.fields = nil
+          s.title = nil
         else
           s.formatting = export_params[:formatting]
           s.fields = export_params[:fields]
@@ -31,13 +31,13 @@ module Settings
       end
 
       if settings.save
-        respond_to do |format|
-          format.html { redirect_to(export_project_path(@plan.project)) }
-        end
+        flash[:notice] = _('Export settings updated successfully.')
       else
-        settings.formatting = nil
-        @export_settings = settings
-        render(action: :show)
+        flash[:alert] = _('An error has occurred while saving/resetting your export settings.')
+      end
+      respond_to do |format|
+        format.html { redirect_to(show_export_plan_path(@plan.id)) }
+        # format.json { render json: settings_json }
       end
     end
 

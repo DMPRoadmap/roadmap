@@ -8,44 +8,42 @@ class ApplicationController < ActionController::Base
   include Pundit
   helper_method GlobalHelpers.instance_methods
 
-  # Override build_footer method in ActiveAdmin::Views::Pages
-  require 'active_admin_views_pages_base.rb'
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    redirect_to root_url, alert: I18n.t('unauthorized')
+    if user_signed_in?
+      redirect_to plans_url, notice: _('You are not authorized to perform this action.')
+    else
+      redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
+    end
   end
 
   before_filter :set_gettext_locale
 
   after_filter :store_location
 
+  # Sets FastGettext locale for every request made
   def set_gettext_locale
-    if params[:locale] and FastGettext.default_available_locales.include?(params[:locale])
-      FastGettext.locale = params[:locale]
-    elsif user_signed_in? and !current_user[:language_id].nil?
-      FastGettext.locale = Language.find_by_id(current_user[:language_id]).abbreviation #Relies on successful db call
-    elsif user_signed_in? and current_user.org.present? and !current_user.org[:language_id].nil?
-      FastGettext.locale = Language.find_by_id(current_user.org[:language_id]).abbreviation #Relies on successful db call
-    else
-      FastGettext.locale = FastGettext.default_locale
-    end
-    puts 'FastGettext.locale = '+FastGettext.locale
+    FastGettext.locale = session[:locale] || FastGettext.default_locale
   end
 
-  # Added setting for passing local params across pages
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
+  # PATCH /locale/:locale REST method
+  def set_locale_session
+    if FastGettext.default_available_locales.include?(params[:locale])
+      session[:locale] = params[:locale]
+    end
+    redirect_to(request.referer || root_path) #redirects the user to URL where she/he was when the request to this resource was made or root if none is encountered
   end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
-    if (request.fullpath != "/users/sign_in" && \
-			 request.fullpath != "/users/sign_up" && \
-			 request.fullpath != "/users/password" && \
-            request.fullpath != "/users/sign_up?nosplash=true" && \
-			 !request.xhr?) # don't store ajax calls
+    unless ["/users/sign_in",
+            "/users/sign_up",
+            "/users/password",
+            "/users/invitation/accept",
+           ].any? { |ur| request.fullpath.include?(ur) } \
+    or request.xhr? # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
   end
@@ -71,23 +69,16 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless user_signed_in? && (current_user.can_add_orgs? || current_user.can_change_org? || current_user.can_super_admin?)
   end
 
-  def get_plan_list_columns
-    if user_signed_in?
-      @selected_columns = current_user.settings(:plan_list).columns
+  def failed_create_error(obj, obj_name)
+    "#{_('Could not create your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
 
-      # handle settings saved and stored using an older version of the settings gem
-      if @selected_columns.kind_of? Hash
-        unless @selected_columns['elements'].nil?
-          @selected_columns = @selected_columns['elements'].collect{|k,v| puts "#{k} - #{v}"; k}
-        end
-      end
-      
-      # If the settings are missing or stored in the wrong format for some reason 
-      # then use the defaults columns
-      @selected_columns = Settings::PlanList::DEFAULT_COLUMNS if @selected_columns.empty?
-      
-      @all_columns = Settings::PlanList::ALL_COLUMNS
-    end
+  def failed_update_error(obj, obj_name)
+    "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+  
+  def failed_destroy_error(obj, obj_name)
+    "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
 
   private
@@ -101,4 +92,32 @@ class ApplicationController < ActionController::Base
     def prepend_view_paths
       prepend_view_path "app/views/branded"
     end
+    
+    def errors_to_s(obj)
+      if obj.errors.count > 0
+        msg = "<br />"
+        obj.errors.each do |e,m|
+          if m.include?('empty') || m.include?('blank')
+            msg += "#{_(e)} - #{_(m)}<br />"
+          else
+            msg += "'#{obj[e]}' - #{_(m)}<br />"
+          end 
+        end
+        msg
+      end
+    end
+
+    ##
+    # Sign out of Shibboleth SP local session too.
+    # -------------------------------------------------------------
+    def after_sign_out_path_for(resource_or_scope)
+      if Rails.application.config.shibboleth_enabled
+        return Rails.application.config.shibboleth_logout_url + root_url
+        super
+      else
+        super
+      end
+    end
+    # -------------------------------------------------------------
+
 end

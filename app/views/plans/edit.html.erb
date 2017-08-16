@@ -8,16 +8,17 @@
 
 <!-- render the project title -->
 <%= render :partial => "plan_title", locals: {plan: @plan} %>
+<h1> <%=@readonly%> </h1>
 
 <!-- progress bar -->
 <% status = @plan.status %>
     <div class="progress">
         <%space_used = status["space_used"].to_i
-          space_title = t("helpers.plan.export.space_used", space_used: space_used, num_pages: @plan.template.settings(:export).max_pages)
+          space_title = _('approx. %{space_used}%% of available space used (max %{num_pages} pages)') % { space_used: space_used, num_pages: @plan.template.settings(:export).max_pages }
           answered = %(#{status["num_answers"]}/#{status["num_questions"]})%>
         <div class="bar-container">
-            <span id="questions-progress-title"><%= answered -%> <%= t("helpers.project.questions_answered")%></span>
-            <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= t("helpers.project.questions_answered")%>"></span>
+            <span id="questions-progress-title"><%= answered -%> <%= _('questions answered')%></span>
+            <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(status["num_answers"].to_f/status["num_questions"].to_f*100) %>;" title="<%= answered -%> <%= _('questions answered') %>"></span>
         </div>
         <hr>
         <div class="bar-container">
@@ -50,10 +51,9 @@
                 
                 
     		<div class="accordion-group">
-
           <!-- figure out the status line for this section -->
-    			<% num_section_questions = @section.status["sections"][section.id]["num_questions"] %>
-    			<% num_section_answers = @section.status["sections"][section.id]["num_answers"] %>
+    			<% num_section_questions = @plan.status["sections"][section.id]["num_questions"] %>
+    			<% num_section_answers = @plan.status["sections"][section.id]["num_answers"] %>
     			<% question_word = "questions" %>
     			<% if num_section_questions == 1 then %>
     				<% question_word = "question" %>
@@ -125,30 +125,30 @@
     		<div id="section-<%= section.id %>-collapse-alert" data-container="body" class="modal hide fade">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3><%= t("helpers.project.not_saved_answers_header")%></h3>
+						<h3><%= _('Unsaved answers')%></h3>
 					</div>
 					<div class="modal-body">
 						<div id="section-<%= section.id %>-collapse-alert-plural">
-							<p><%= t("helpers.project.not_saved_answers_text_alert")%></p>
+							<p><%= _('You have altered answers but have not saved them:')%></p>
                             <ul id="unsaved-answers-<%= section.id %>"></ul>
-							<p><%= t("helpers.project.not_saved_answers_confirmation_alert")%></p>
+							<p><%= _('Would you like to save them now?')%></p>
 						</div>
 					</div>
 
 					<div class="modal-footer">
-						<a href="#" id="section-<%= section.id %>-collapse-cancel" data-section="<%= section.id %>" class="cancel-section-collapse btn"><%= t("helpers.submit.cancel")%></a>
-						<a href="#" id="section-<%= section.id %>-collapse-discard" data-section="<%= section.id %>" class="discard-section-collapse btn"><%= t("helpers.submit.discard")%></a>
-						<a href="#" id="section-<%= section.id %>-collapse-save" data-section="<%= section.id %>" class="save-section-collapse btn btn-primary"><%= t("helpers.submit.save")%></a>
+						<a href="#" id="section-<%= section.id %>-collapse-cancel" data-section="<%= section.id %>" class="cancel-section-collapse btn"><%= _('Cancel')%></a>
+						<a href="#" id="section-<%= section.id %>-collapse-discard" data-section="<%= section.id %>" class="discard-section-collapse btn"><%= _('Discard')%></a>
+						<a href="#" id="section-<%= section.id %>-collapse-save" data-section="<%= section.id %>" class="save-section-collapse btn btn-primary"><%= _('Save')%></a>
 					</div>
 				</div>
     	<% end %>
     </div>
-    <%= tinymce :content_css => asset_path("application.css"), :setup => "function(editor){editor.on('change', function(e){$.fn.check_textarea(editor)});}" %>
+    <%= tinymce :content_css => asset_path('application.css') %>
 </div>
 <div class="div_right">
-	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= t("helpers.export") %></a>
+	<a href="#<%= @plan.id %>-export-dialog" data-toggle="modal" class="btn btn-primary"><%= _('Export') %></a>
 </div>
-<%= render :partial => "export", locals: {plan: @plan} %>
+<%= render :partial => "export", locals: {plan: @plan, phase: @phase} %>
 
 <!-- this session is created when a comment is created, edited or deleted. After the view is loaded this session variable can be deleted-->
 <% session.delete(:question_id_comments)%>

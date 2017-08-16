@@ -471,6 +471,12 @@ hr.orange_break_line{
   border-top-color: @orange_lighter_colour;
 }
 
+div.answer_notice {
+    background-color: #fee;
+    margin-bottom: 4px;
+    padding: 5px;
+}
+
 
 /*************************/
 .formtastic{
@@ -754,6 +760,10 @@ input#user_remember_me, input#user_accept_terms{
   margin-left: 10px;
 }
 
+#choose-template label {
+    display: inline
+}
+
 
 .sign_up_org_label{
   margin: 0 0 6px 0;
@@ -984,6 +994,10 @@ li.choice label input{
   padding-left: 0px;
   margin-bottom: 10px;
   text-shadow: none;
+}
+
+.answer-notice {
+  width: 90%;
 }
 
 ol .choices-group{
@@ -1838,15 +1852,15 @@ ul.help_ul li{
 table.tablesorter thead  {
   th.header {
     cursor: pointer;
-    background: url('/assets/bg.gif') no-repeat center right;
+    background: asset-url('bg.gif') no-repeat center right;
   }
 
   th.headerSortDown {
-    background: @orange_lighter_colour url('/assets/desc.gif') no-repeat center right;
+    background: @orange_lighter_colour asset-url('desc.gif') no-repeat center right;
   }
 
   th.headerSortUp {
-    background: @orange_lighter_colour url('/assets/asc.gif') no-repeat center right;
+    background: @orange_lighter_colour asset-url('asc.gif') no-repeat center right;
   }
 }
 

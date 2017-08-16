@@ -6,416 +6,321 @@ class TemplatesController < ApplicationController
   respond_to :html
   after_action :verify_authorized
 
-  # GET /dmptemplates
+  # GET /org/admin/templates/:id/admin_index
+  # -----------------------------------------------------
   def admin_index
     authorize Template
-    # institutional templates
-    all_versions_own_templates = Template.where(org_id: current_user.org_id, customization_of: nil).order(version: :desc)
-    current_templates = {}
-    # take most recent version of each template
-    all_versions_own_templates.each do |temp|
-      if current_templates[temp.dmptemplate_id].nil?
-        current_templates[temp.dmptemplate_id] = temp
-      end
+
+    funder_templates, org_templates = [], []
+
+    # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
+    funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.where(published: true).valid.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
+    org_ids = current_user.org.templates.where(customization_of: nil).valid.collect{|t| t.dmptemplate_id }.flatten.uniq
+
+    org_ids.each do |id|
+      current = Template.current(id)
+      live = Template.live(id)
+      org_templates << {current: current, live: live}
     end
-    @templates_own = current_templates.values
-    @other_published_version = {}
-    current_templates.keys.each do |dmptemplate_id|
-      @other_published_version[dmptemplate_id] = Template.where(org_id: current_user.org_id, dmptemplate_id: dmptemplate_id, published: true).present?
+    funder_ids.each do |id|
+      funder_live = Template.live(id)
+      current = Template.org_customizations(id, current_user.org_id)
+      # if we have a current template, check to see if there is a live version
+      live = current.nil? ? nil : Template.live(current.dmptemplate_id)
+      # need a current version, default to funder live if no custs exist
+      current = funder_live unless current.present?
+
+      funder_templates << {current: current, live: live, funder_live: funder_live,  stale: funder_live.updated_at > current.created_at}
     end
 
-    # funders templates
-    funders_templates = {}
-    Org.includes(:templates).funder.each do |org|
-      org.templates.where(customization_of: nil, published: true).order(version: :desc).each do |temp|
-        if funders_templates[temp.dmptemplate_id].nil?
-          funders_templates[temp.dmptemplate_id] = temp
-        end
-      end
-    end
-
-    @templates_funders = funders_templates.values
-    # are any funder templates customized
-    @templates_customizations = {}
-    Template.where(org_id: current_user.org_id, customization_of: funders_templates.keys).order(version: :desc).each do |temp|
-      if @templates_customizations[temp.customization_of].nil?
-        @templates_customizations[temp.customization_of] = {}
-        @templates_customizations[temp.customization_of][:temp] = temp
-        @templates_customizations[temp.customization_of][:published] = temp.published
-      else
-        @templates_customizations[temp.customization_of][:published] = @templates_customizations[temp.customization_of][:published] || temp.published
-      end
-    end
+    @funder_templates = funder_templates.sort{|x,y|
+      x[:current].title <=> y[:current].title
+    }
+    @org_templates = org_templates.sort{|x,y|
+      x[:current].title <=> y[:current].title
+    }
   end
 
-
-  # GET /dmptemplates/1
-  def admin_template
+  # GET /org/admin/templates/:id/admin_customize
+  # -----------------------------------------------------
+  def admin_customize
     @template = Template.find(params[:id])
-    # check to see if this is a funder template needing customized
-    if @template.org_id != current_user.org_id
-      # definitely need to deep_copy the given template
-      new_customization = Template.deep_copy(@template)
-      new_customization.org_id = current_user.org_id
-      new_customization.published = false
-      new_customization.customization_of = @template.dmptemplate_id
-      # need to mark all Phases, questions, sections as not-modifiable
-      new_customization.phases.includes(sections: :questions).each do |phase|
-        phase.modifiable = false
-        phase.save!
-        phase.sections.each do |section|
-          section.modifiable = false
-          section.save!
-          section.questions.each do |question|
-            question.modifiable = false
-            question.save!
-          end
+    authorize @template
+
+    customisation = Template.deep_copy(@template)
+    customisation.org = current_user.org
+    customisation.version = 0
+    customisation.customization_of = @template.dmptemplate_id
+    customisation.dmptemplate_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
+    customisation.save
+
+    customisation.phases.includes(:sections, :questions).each do |phase|
+      phase.modifiable = false
+      phase.save!
+      phase.sections.each do |section|
+        section.modifiable = false
+        section.save!
+        section.questions.each do |question|
+          question.modifiable = false
+          question.save!
         end
       end
-      customizations = Template.includes(phases: [sections: [questions: :suggested_answers ]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
-      if customizations.present?
-        # existing customization to port over
-        max_version = customizations.first
-        new_customization.dmptemplate_id = max_version.dmptemplate_id
-        new_customization.version = max_version.version + 1
-        # here we rip the customizations out of the old template
-        # First, we find any customized phases or sections
-        max_version.phases.each do |phase|
-          # check if the phase was added as a customization
-          if phase.modifiable
-            # deep copy the phase and add it to the template
-            phase_copy = Phase.deep_copy(phase)
-            phase_copy.number = new_customization.phases.length + 1
-            phase_copy.template_id = new_customization.id
-            phase_copy.save!
+    end
+
+    redirect_to admin_template_template_path(customisation)
+  end
+
+  # GET /org/admin/templates/:id/admin_transfer_customization
+  # the funder template's id is passed through here
+  # -----------------------------------------------------
+  def admin_transfer_customization
+    @template = Template.includes(:org).find(params[:id])
+    authorize @template
+    new_customization = Template.deep_copy(@template)
+    new_customization.org_id = current_user.org_id
+    new_customization.published = false
+    new_customization.customization_of = @template.dmptemplate_id
+    new_customization.dirty = true
+    new_customization.phases.includes(sections: :questions).each do |phase|
+      phase.modifiable = false
+      phase.save
+      phase.sections.each do |section|
+        section.modifiable = false
+        section.save
+        section.questions.each do |question|
+          question.modifiable = false
+          question.save
+        end
+      end
+    end
+    customizations = Template.includes(:org, phases:[sections: [questions: :annotations]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+    # existing version to port over
+    max_version = customizations.first
+    new_customization.dmptemplate_id = max_version.dmptemplate_id
+    new_customization.version = max_version.version + 1
+    # here we rip the customizations out of the old template
+    # First, we find any customzed phases or sections
+    max_version.phases.each do |phase|
+      # check if the phase was added as a customization
+      if phase.modifiable
+        # deep copy the phase and add it to the template
+        phase_copy = Phase.deep_copy(phase)
+        phase_copy.number = new_customization.phases.length + 1
+        phase_copy.template_id = new_customization.id
+        phase_copy.save!
+      else
+        # iterate over the sections to see if any of them are customizations
+        phase.sections.each do |section|
+          if section.modifiable
+            # this is a custom section
+            section_copy = Section.deep_copy(section)
+            customization_phase = new_customization.phases.includes(:sections).where(number: phase.number).first
+            section_copy.phase_id = customization_phase.id
+            # custom sections get added to the end
+            section_copy.number = customization_phase.sections.length + 1
+            # section from phase with corresponding number in the main_template
+            section_copy.save!
           else
-            # iterate over the sections to see if any of them are customizations
-            phase.sections.each do |section|
-              if section.modifiable
-                # this is a custom section
-                section_copy = Section.deep_copy(section)
-                customization_phase = new_customization.phases.includes(:sections).where(number: phase.number).first
-                section_copy.phase_id = customization_phase.id
-                # custom sections get added to the end
-                section_copy.number = customization_phase.sections.length + 1
-                # section from phase with corresponding number in the main_template
-                section_copy.save!
-              else
-                # not a customized section, iterate over questions
-                customization_phase = new_customization.phases.includes(sections: [questions: :suggested_answers]).where(number: phase.number).first
-                customization_section = customization_phase.sections.where(number: section.number).first
-                section.questions.each do |question|
-                  # find corresponding question in new template
-                  customization_question = customization_section.questions.where(number: question.number).first
-                  # apply suggested_answers
-                  question.suggested_answers.each do |suggested_answer|
-                    suggested_answer_copy = SuggestedAnswer.deep_copy(suggested_answer)
-                    suggested_answer_copy.org_id = current_user.org_id
-                    suggested_answer_copy.question_id = customization_question.id
-                    suggested_answer_copy.save!
-                  end
-                  # guidance attached to a question is also a form of customization
-                  # It will soon become an annotation of the question, and be combined with
-                  # suggested answers
-                  customization_question.guidance = customization_question.guidance + question.guidance
-                  customization_question.save!
-                end
+            # not a customized section, iterate over questions
+            customization_phase = new_customization.phases.includes(sections: [questions: :annotations]).where(number: phase.number).first
+            customization_section = customization_phase.sections.where(number: section.number).first
+            section.questions.each do |question|
+              # find corresponding question in new template
+              customization_question = customization_section.questions.where(number: question.number).first
+              # apply annotations
+              question.annotations.where(org_id: current_user.org_id).each do |annotation|
+                annotation_copy = Annotation.deep_copy(annotation)
+                annotation_copy.question_id = customization_question.id
+                annotation_copy.save!
               end
             end
           end
         end
-      else
-        # first time customization
-        new_customization.version = 0
-        new_customization.dmptemplate_id = loop do
-          random = rand 2147483647  # max int field in psql
-          break random unless Template.exists?(dmptemplate_id: random)
-        end
       end
-      new_customization.save!
-      @template = new_customization
     end
-    # needed for some post-migration edge cases
-    # some customized templates which were edited
-    if @template.published
+    new_customization.save
+    redirect_to admin_template_template_path(new_customization)
+  end
+
+  # PUT /org/admin/templates/:id/admin_publish
+  # -----------------------------------------------------
+  def admin_publish
+    @template = Template.find(params[:id])
+    authorize @template
+
+    current = Template.current(@template.dmptemplate_id)
+
+    # Only allow the current version to be updated
+    if current != @template
+      redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
+
+    else
+      # Unpublish the older published version if there is one
+      live = Template.live(@template.dmptemplate_id)
+      if !live.nil? and self != live
+        live.published = false
+        live.save!
+      end
+      # Set the dirty flag to false
+      @template.dirty = false
+      @template.published = true
+      @template.save
+
+      flash[:notice] = _('Your template has been published and is now available to users.')
+
+      redirect_to admin_index_template_path(current_user.org)
+    end
+  end
+
+  # PUT /org/admin/templates/:id/admin_unpublish
+  # -----------------------------------------------------
+  def admin_unpublish
+    template = Template.find(params[:id])
+    authorize template
+
+    # Unpublish the live version
+    @template = Template.live(template.dmptemplate_id)
+
+    if @template.nil?
+      flash[:notice] = _('That template is not currently published.')
+    else
+      @template.published = false
+      @template.save
+      flash[:notice] = _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it')
+    end
+
+    redirect_to admin_index_template_path(current_user.org)
+  end
+
+  # GET /org/admin/templates/:id/admin_template
+  # -----------------------------------------------------
+  def admin_template
+    @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format, :annotations]]]).find(params[:id])
+    authorize @template
+
+    @current = Template.current(@template.dmptemplate_id)
+
+    if @template == @current
+      # If the template is published
+      if @template.published?
+        # We need to create a new, editable version
+        new_version = Template.deep_copy(@template)
+        new_version.version = (@template.version + 1)
+        new_version.published = false
+        new_version.save
+        @template = new_version
+#        @current = Template.current(@template.dmptemplate_id)
+      end
+    else
+      flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+    end
+
+    # If the template is published
+    if @template.published?
+      # We need to create a new, editable version
       new_version = Template.deep_copy(@template)
-      new_version.version = @template.version + 1
+      new_version.version = (@template.version + 1)
       new_version.published = false
-      new_version.save!
+      new_version.save
       @template = new_version
     end
-    authorize @template
+
+    # once the correct template has been generated, we convert it to hash
+    @hash = @template.to_hash
   end
 
 
-  # PUT /dmptemplates/1
+  # PUT /org/admin/templates/:id/admin_update
+  # -----------------------------------------------------
   def admin_update
     @template = Template.find(params[:id])
     authorize @template
-    if @template.published?
-      # published templates cannot be edited
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.read_only') and return
-    end
-    @template.description = params["template-desc"]
-    if @template.update_attributes(params[:template])
-      if @template.published
-        # create a new template version if this template became published
-        new_version = Template.deep_copy(@template)
-        new_version.version = @template.version + 1
-        new_version.published = false
-        new_version.save!
-      end
-      redirect_to admin_index_template_path(), notice: I18n.t('org_admin.templates.updated_message')
+
+    current = Template.current(@template.dmptemplate_id)
+
+    # Only allow the current version to be updated
+    if current != @template
+      redirect_to admin_template_template_path(@template), notice: _('You can not edit a historical version of this template.')
+
     else
-      render action: "edit"
+      if @template.description != params["template-desc"] ||
+              @template.title != params[:template][:title]
+        @template.dirty = true
+      end
+
+      @template.description = params["template-desc"]
+      if @template.update_attributes(params[:template])
+        flash[:notice] = _('Information was successfully updated.')
+
+      else
+        flash[:notice] = failed_update_error(@template, _('template'))
+      end
+
+      @hash = @template.to_hash
+      render 'admin_template'
     end
   end
 
 
-  # GET /dmptemplates/new
+  # GET /org/admin/templates/:id/admin_new
+  # -----------------------------------------------------
   def admin_new
     authorize Template
   end
 
 
-  # POST /dmptemplates
-  # creates a new template with version 0 and new dmptemplate_id
+  # POST /org/admin/templates/:id/admin_create
+  # -----------------------------------------------------
   def admin_create
+    # creates a new template with version 0 and new dmptemplate_id
     @template = Template.new(params[:template])
-    @template.org_id = current_user.org_id
-    @template.description = params['template-desc']
-    @template.published = false
-    @template.version = 0
-    # Generate a unique identifier for the dmptemplate_id
-    @template.dmptemplate_id = loop do
-      random = rand 2147483647
-      break random unless Template.exists?(dmptemplate_id: random)
-    end
     authorize @template
+    @template.org_id = current_user.org.id
+    @template.description = params['template-desc']
+
     if @template.save
-      redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.created_message')
+      redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
     else
+      @hash = @template.to_hash
+      flash[:notice] = failed_create_error(@template, _('template'))
       render action: "admin_new"
     end
   end
 
 
-  # DELETE /dmptemplates/1
+  # DELETE /org/admin/templates/:id/admin_destroy
+  # -----------------------------------------------------
   def admin_destroy
     @template = Template.find(params[:id])
     authorize @template
-    @template.destroy
-    redirect_to admin_index_template_path
+
+    current = Template.current(@template.dmptemplate_id)
+
+    # Only allow the current version to be destroyed
+    if current == @template
+      if @template.destroy
+        redirect_to admin_index_template_path
+      else
+        @hash = @template.to_hash
+        flash[:notice] = failed_destroy_error(@template, _('template'))
+        render admin_template_template_path(@template)
+      end
+    else
+      flash[:notice] = _('You cannot delete historical versions of this template.')
+      redirect_to admin_index_template_path
+    end
   end
 
-  # GET /templates/1
+  # GET /org/admin/templates/:id/admin_template_history
+  # -----------------------------------------------------
   def admin_template_history
     @template = Template.find(params[:id])
     authorize @template
     @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
-  end
-
-
-
-  # PHASES
-
-  #show and edit a phase of the template
-  def admin_phase
-    @phase = Phase.find(params[:id])
-    authorize @phase.template
-    @edit = params[:edit] == "true" ? true : false
-        #verify if there are any sections if not create one
-    @sections = @phase.sections
-    if !@sections.any?() || @sections.count == 0
-      @section = @phase.sections.build
-      @section.phase = @phase
-      @section.title = ''
-      @section.number = 1
-      @section.published = true
-      @section.modifiable = true
-      @section.save
-      @new_sec = true
-    end
-    #verify if section_id has been passed, if so then open that section
-    if params.has_key?(:section_id)
-      @open = true
-      @section_id = params[:section_id].to_i
-    end
-    if params.has_key?(:question_id)
-      @question_id = params[:question_id].to_i
-    end
-  end
-
-
-  #preview a phase
-  def admin_previewphase
-    @phase = Phase.find(params[:id])
-    authorize @phase.template
-    @template = @phase.template
-  end
-
-
-  #add a new phase to a template
-  def admin_addphase
-    @template = Template.find(params[:id])
-    @phase = Phase.new
-    authorize @template
-    @phase.number = @template.phases.count + 1
-  end
-
-
-  #create a phase
-  def admin_createphase
-    @phase = Phase.new(params[:phase])
-    authorize @phase.template
-    @phase.description = params["phase-desc"]
-    @phase.modifiable = true
-    if @phase.save
-      redirect_to admin_phase_template_path(id: @phase.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-
-  #update a phase of a template
-  def admin_updatephase
-    @phase = Phase.find(params[:id])
-    authorize @phase.template
-    @phase.description = params["phase-desc"]
-    if @phase.update_attributes(params[:phase])
-      redirect_to admin_phase_template_path(@phase), notice: I18n.t('org_admin.templates.updated_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-  #delete a phase
-  def admin_destroyphase
-    @phase = Phase.find(params[:phase_id])
-    authorize @phase.template
-    @template = @phase.template
-    @phase.destroy
-    redirect_to admin_template_template_path(@template), notice: I18n.t('org_admin.templates.destroyed_message')
-  end
-
-# SECTIONS
-  #create a section
-  def admin_createsection
-    @section = Section.new(params[:section])
-    authorize @section.phase.template
-    @section.description = params["section-desc"]
-    @section.modifiable = true
-    if @section.save
-      redirect_to admin_phase_template_path(id: @section.phase_id,
-        :section_id => @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-
-  #update a section of a template
-  def admin_updatesection
-    @section = Section.find(params[:id])
-    authorize @section.phase.template
-    @section.description = params["section-desc-#{params[:id]}"]
-    @phase = @section.phase
-    if @section.update_attributes(params[:section])
-      redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-
-  #delete a section and questions
-  def admin_destroysection
-    @section = Section.find(params[:section_id])
-    authorize @section.phase.template
-    @phase = @section.phase
-    @section.destroy
-    redirect_to admin_phase_template_path(id: @phase.id, edit: 'true' ), notice: I18n.t('org_admin.templates.destroyed_message')
-  end
-
-
-#  QUESTIONS
-
-  #create a question
-  def admin_createquestion
-    @question = Question.new(params[:question])
-    authorize @question.section.phase.template
-    @question.guidance = params["new-question-guidance"]
-    @question.default_value = params["new-question-default-value"]
-    if @question.save!
-      redirect_to admin_phase_template_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-  #update a question of a template
-  def admin_updatequestion
-    @question = Question.find(params[:id])
-    authorize @question.section.phase.template
-    @question.guidance = params["question-guidance-#{params[:id]}"]
-    @question.default_value = params["question-default-value-#{params[:id]}"]
-    @section = @question.section
-    @phase = @section.phase
-    if @question.update_attributes(params[:question])
-      redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-  #delete question
-  def admin_destroyquestion
-    @question = Question.find(params[:question_id])
-    authorize @question.section.phase.template
-    @section = @question.section
-    @phase = @section.phase
-    @question.destroy
-    redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.destroyed_message')
-  end
-
-
-  #SUGGESTED ANSWERS
-  #create suggested answers
-  def admin_createsuggestedanswer
-    @suggested_answer = SuggestedAnswer.new(params[:suggested_answer])
-    authorize @suggested_answer.question.section.phase.template
-    if @suggested_answer.save
-      redirect_to admin_phase_template_path(id: @suggested_answer.question.section.phase_id, section_id: @suggested_answer.question.section_id, question_id: @suggested_answer.question.id, edit: 'true'), notice: I18n.t('org_admin.templates.created_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-
-  #update a suggested answer of a template
-  def admin_updatesuggestedanswer
-    @suggested_answer = SuggestedAnswer.find(params[:id])
-    authorize @suggested_answer.question.section.phase.template
-    @question = @suggested_answer.question
-    @section = @question.section
-    @phase = @section.phase
-    if @suggested_answer.update_attributes(params[:suggested_answer])
-      redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: I18n.t('org_admin.templates.updated_message')
-    else
-      render action: "admin_phase"
-    end
-  end
-
-  #delete a suggested answer
-  def admin_destroysuggestedanswer
-    @suggested_answer = SuggestedAnswer.find(params[:suggested_answer])
-    authorize @suggested_answer.question.section.phase.template
-    @question = @suggested_answer.question
-    @section = @question.section
-    @phase = @section.phase
-    @suggested_answer.destroy
-    redirect_to admin_phase_template_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: I18n.t('org_admin.templates.destroyed_message')
+    @current = Template.current(@template.dmptemplate_id)
   end
 
 end

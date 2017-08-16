@@ -15,6 +15,13 @@ namespace :migrate do
     Rake::Task['migrate:permissions'].execute
   end
 
+  desc "perform all post-migration tasks"
+  task cleanup: :environment do
+    Rake::Task['migrate:fix_languages'].execute
+    Rake::Task['migrate:single_published_template'].execute
+  end
+
+
   desc "seed database with default values for new data structures"
   task seed: :environment do
     # seed roles to database
@@ -78,23 +85,35 @@ namespace :migrate do
 
     # seed languages to database
     languages = {
-        'English(UK)' => {
-            abbreviation: 'en-UK',
-            description: 'UK English language used as default',
-            name: 'English(UK)',
-            default_language: true
+        'English(GB)' => {
+          abbreviation: 'en_GB',
+          description: '',
+          name: 'English (GB)',
+          default_language: true
+        },
+        'English(US)' => {
+          abbreviation: 'en_US',
+          description: '',
+          name: 'English (US)',
+          default_language: false
         },
         'FR' => {
-            abbreviation: 'fr',
-            description: '',
-            name: 'fr',
-            default_language: false
+          abbreviation: 'fr',
+          description: '',
+          name: 'Français',
+          default_language: false
         },
         'DE' => {
             abbreviation: 'de',
             description: '',
-            name: 'de',
+            name: 'Deutsch',
             default_language: false
+        },
+        'Español' => {
+          abbreviation: 'es',
+          description: '',
+          name: 'Español',
+          default_language: false
         }
     }
 
@@ -139,4 +158,111 @@ namespace :migrate do
     end
 
   end
+
+  desc "replaces languages in incorrect formats and seeds all correct formats"
+  task fix_languages: :environment do
+    languages = [
+      { abbreviation: 'en_GB',
+        old_abbreviation: 'en-UK',
+        description: '',
+        name: 'English (GB)',
+        default_language: true},
+      { abbreviation: 'en_US',
+        old_abbreviation: 'en-US',
+        description: '',
+        name: 'English (US)',
+        default_language: false},
+      { abbreviation: 'fr',
+        old_abbreviation: 'fr',
+        description: '',
+        name: 'Français',
+        default_language: false},
+      { abbreviation: 'de',
+        old_abbreviation: 'de',
+        description: '',
+        name: 'Deutsch',
+        default_language: false},
+      { abbreviation: 'es',
+        old_abbreviation: 'es',
+        description: '',
+        name: 'Español',
+        default_language: false}
+    ]
+
+    languages.each do |lang_data|
+      # if the old abbreviation exists, remove and replace the data
+      lang = Language.find_by(abbreviation: lang_data[:old_abbreviation])
+      if lang.present?
+        lang.abbreviation = lang_data[:abbreviation]
+        lang.description = lang_data[:description]
+        lang.name = lang_data[:name]
+        lang.default_language = lang_data[:default_language]
+        lang.save!
+      else
+        # if nothing batching either abbreviation exists, replace with new abbreviation
+        lang = Language.find_by(abbreviation: lang_data[:abbreviation])
+        if lang.blank?
+          lang = Language.new
+          lang.abbreviation = lang_data[:abbreviation]
+          lang.description = lang_data[:description]
+          lang.name = lang_data[:name]
+          lang.default_language = lang_data[:default_language]
+          lang.save!
+        end
+      end
+    end
+
+  end
+
+  desc "move old ORCID from user table to user_identifiers"
+  task move_orcids: :environment do
+    if IdentifierScheme.find_by(name: 'orcid').nil?
+      IdentifierScheme.create!(name: 'orcid', description: 'ORCID', active: true)
+    end
+
+    scheme = IdentifierScheme.find_by(name: 'orcid')
+
+    unless scheme.nil?
+      User.all.each do |u|
+        if u.respond_to?(:orcid_id)
+          if u.orcid_id.present?
+            if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
+              u.user_identifiers << UserIdentifier.new(identifier_scheme: scheme,
+                                                       identifier: u.orcid_id.gsub('orcid.org/', ''))
+              u.save!
+            end
+          end
+        end
+      end
+    end
+  end
+
+  desc "enforce single published version for templates"
+  task single_published_template: :environment do
+    # for each group of versions of a template
+    Template.all.pluck(:dmptemplate_id).uniq.each do |dmptemplate_id|
+      published = false
+      Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).each do |template|
+        # leave the first published template we find alone
+        if !published && template.published
+          published = true
+        elsif published && template.published
+          template.published = false
+          template.save!
+        end
+      end
+    end
+  end
+
+  desc "remove duplicate annotations caused by bug"
+  task remove_duplicate_annotations: :environment do
+    questions = Question.joins(:annotations).group("questions.id").having("count(annotations.id) > count(DISTINCT annotations.text)")
+    questions.each do |q|
+      q.annotations.each do |a|
+        conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: a.id)
+        conflicts.each {|c| c.destroy }
+      end
+    end
+  end
+
 end

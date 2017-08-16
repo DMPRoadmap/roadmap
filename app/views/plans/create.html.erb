@@ -1,14 +1,20 @@
 
 <div class="new-plan-container">
 
-<h1>Choose one of these templates</h1>
+<h1>Choose one of these templates:</h1>
 
-<%= debug @templates %>
 
-<% @templates.each do |t| %>
-    <p><%= t %>
+<%= form_tag(controller: "plans", action: "create", method: "post", class: "choose_template_form") do %>
+  <ul id="choose-template">
+    <% @templates.each do |t| %>
+      <li>
+        <%= radio_button_tag(:template_id, t.id) %>
+        <%= label_tag("template_id_#{t.id}", t.title) %>
+      </li>
+    <% end %>
+  </ul>
+  <%= submit_tag("Create Plan") %>
 <% end %>
 
+
 </div>
-
-

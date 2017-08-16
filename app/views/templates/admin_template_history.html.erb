@@ -5,14 +5,14 @@
 </h1>
 <div class="div_clear"></div>
 <h2>
-  <%= t('org_admin.templates.template_history') %>
+  <%= _('Template History') %>
 </h2>
 
 <div class="div_left">
-  <%= raw t('org_admin.templates.template_history_text_html')%>
+  <%= raw _('<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>')%>
 </div>
 <div class="move_2_right">
-  <%= link_to t("org_admin.templates.view_all_templates"),
+  <%= link_to _('View all templates'),
       admin_index_template_path,
       class: 'btn btn-primary' %>
 </div>
@@ -24,11 +24,11 @@
   <table id="dmp_table" class="dmp_table tablesorter">
     <thead>
       <tr>
-        <th class="dmp_th_medium"><%= t('org_admin.templates.title_label') %></th>
-        <th class="dmp_th_small"><%= "Version" %></th>
-        <th class="dmp_th_small"><%= t('org_admin.templates.published_label') %></th>
-        <th class="dmp_th_small"><%= t('org_admin.templates.last_updated') %></th>
-        <td class="dmp_th_small"><%= t('org_admin.templates.actions') %></td>
+        <th class="dmp_th_medium"><%= _('Title') %></th>
+        <th class="dmp_th_small"><%= _('Version') %></th> <!-- TODO: Add this entry into locale/app.pot and any .po file-->
+        <th class="dmp_th_small"><%= _('Published') %></th>
+        <th class="dmp_th_small"><%= _('Last updated') %></th>
+        <td class="dmp_th_small"><%= _('Actions') %></td>
       </tr>
     </thead>
     <tbody>
@@ -36,12 +36,15 @@
         <tr>
           <td class="dmp_td_medium">
             <%= org_template.title%>
+            <% if org_template == @current && !org_template.published%>
+              &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
+            <% end %>
           </td>
             <td class="dmp_td_small">
               <%= org_template.version %>
             </td>
             <td class="dmp_td_small">
-              <%= org_template.published %>
+              <%= (org_template.published? ? _('Yes') : _('No')) %>
           </td>
           <td class="dmp_td_small">
             <% last_temp_updated = org_template.updated_at %>
@@ -53,7 +56,7 @@
             <%= l last_temp_updated.to_date, formats: :short %>
           </td>
             <td class="dmp_td_small">
-            <%= link_to t('helpers.view'), admin_template_template_path(id: org_template), class: "dmp_table_link"%>
+            <%= link_to (org_template == @current ? _('Edit') : _('View')), admin_template_template_path(id: org_template), class: "dmp_table_link"%>
             </td>
          </tr>
         <%end%>

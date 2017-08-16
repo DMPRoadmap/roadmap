@@ -2,10 +2,10 @@
 <% javascript 'admin.js' %>
 
 <h1>
-  <%= t('org_admin.guidance.guidance_group_label') %>
+  <%= _('Guidance group') %>
   <!-- link button to add new guidance -->
   <div class="move_2_right">
-    <%= link_to t("org_admin.guidance.view_all_guidance"),
+    <%= link_to _('View all guidance'),
                 admin_index_guidance_path,
                 class: 'btn btn-primary' %>
   </div>
@@ -20,7 +20,7 @@
 
         <table class="dmp_details_table guidance_table">
           <tr>
-            <td class="first"><%= t('org_admin.guidance_group.name_label') %></td>
+            <td class="first"><%= _('Name') %></td>
             <td>
               <div class="div_left_icon_g">
                 <%= f.text_field :name,
@@ -29,33 +29,30 @@
 
               </div>
               <div class="div_right_icon_g">
-                <%= link_to(image_tag('help_button.png'), '#', class: 'guidance_group_title_popover', rel: "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.title_help_text_html')) %>
+                <%= link_to(image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. "[guidance group name]: guidance on data sharing" so we suggest you just use the institution or department name.')) %>
               </div>
             </td>
           </tr>
-          <!-- if guidance group published then display check_box -->
-          <% if @guidance_group.published == true then %>
-              <tr>
-                <td class="first"><%= t('org_admin.templates.published_label') %></td>
-                <td>
-                  <div class="div_left_icon_g">
-                    <%= f.check_box :published %>
-                  </div>
-                  <div class="div_right_icon_g">
-                    <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text'))%-->
-                  </div>
-                </td>
-              </tr>
-          <% end %>
-
           <tr>
-            <td class="first"><%= t('org_admin.guidance_group.subset') %></td>
+            <td class="first"><%= _('Published') %></td>
             <td>
               <div class="div_left_icon_g">
-                <%= f.check_box :optional_subset %> <%= t('org_admin.guidance_group.subset_eg') %>
+                <%= f.check_box :published %>
               </div>
               <div class="div_right_icon_g">
-                <%= link_to(image_tag('help_button.png'), '#', class: 'guidance_group_subset_popover', rel: "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance_group.subset_option_help_text')) %>
+                <!--%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => _('If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.'))%-->
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="first"><%= _('Optional subset') %></td>
+            <td>
+              <div class="div_left_icon_g">
+                <%= f.check_box :optional_subset %> <%= _('e.g. School/ Department') %>
+              </div>
+              <div class="div_right_icon_g">
+                <%= link_to(image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.")) %>
               </div>
             </td>
           </tr>
@@ -65,11 +62,11 @@
         <!-- submit buttons -->
 
         <div class="move_2_right">
-          <%= f.submit t('helpers.submit.save'), class: 'btn btn-primary' %>
+          <%= f.submit _('Save'), class: 'btn btn-primary' %>
           <% if @guidance_group.published == false then %>
-              <%= f.submit t('helpers.submit.publish'), name: "save_publish", class: "btn btn-primary" %>
+              <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary" %>
           <% end %>
-          <%= link_to t('helpers.submit.cancel'), :back, class: 'btn cancel' %>
+          <%= link_to _('Cancel'), :back, class: 'btn cancel' %>
         </div>
 
         <br/>

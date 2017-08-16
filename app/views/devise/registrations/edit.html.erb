@@ -1,146 +1,117 @@
-<h1><%= t("helpers.edit_profile") %></h1>
-<!-- information about content in the page-->
-<%= raw t("helpers.user_details_text_html") %>
+<div class="main">
+  <h1><%= _('Edit profile') %></h1>
 
-<div class="white_background">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
-      <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
-      <!-- body -->
-      <div class="dmp_details">
+  <p>
+    <%= _("Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.") %>
+  </p>
 
-        <p><%= raw t("helpers.user_details_paragraph_html") %></p>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
+      <!-- Edit Profile -->
+      <fieldset class="side-by-side">
+        <legend><%= _('You can edit any of the details below.') %></legend>
+        
+        <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
 
-    <table class="dmp_details_table">
-      <tr>
-        <td class="first"><%= (t("helpers.email") + " *") %></td>
-        <td><%= f.email_field :email, as: :email %></td>
-      </tr>
-      <tr>
-        <td class="first"><%= t("helpers.first_name") %></td>
-        <td><%= f.text_field :firstname, as: :string,
-              id: "first_time_login_firstname",
-              autofocus: true,
-              class: "text_field has-tooltip",
-              "data-toggle" => "tooltip",
-              "data-trigger" => "focus" ,
-              "title" => t("helpers.first_name_help_text") %></td>
-      </tr>
-      <tr>
-        <td class="first"><%= t("helpers.last_name") %></td>
-        <td><%= f.text_field :surname,
-          as: :string, id: "first_time_login_surname",
-          class: "text_field has-tooltip",
-          "data-toggle" => "tooltip",
-          "data-trigger" => "focus" ,
-          "title" => t("helpers.surname_help_text") %></td>
-      </tr>
-      <tr>
-        <td class="first"><%= t("helpers.org_type.organisation") %></td>
-        <td><%= collection_select(:user,
-            :org_id, @orgs,
-            :id, :name, {include_blank: constant("organisation_types.organisation")},
-            { class: "typeahead org_sign_up" }) %></td>
-      </tr>
-      <tr id="other-organisation-name" style="display:none" data-orgs="<%= @other_organisations.join(",") %>">
-        <td class="first"><%= t("helpers.org_type.org_name")%></td>
-        <td><%= f.text_field :other_organisation,
-            as: :string,
-            class: "text_field has-tooltip reg-input", "data-toggle" => "tooltip", "data-container" => "body", "title" => t("helpers.org_type.other_org_help_text") %></td>
-      </tr>
-      <tr>
-        <td class="first"><%= t('helpers.user_details_language') %></td>
-        <td class="force-left">
-          <!-- For some reason the rails collection_select and f.select would not 'select' the current language, so reverting to HTML -->
-          <select id="user_language_id" name="user[language_id]" class="typeahead org_sign_up">
-            <%= @languages.each do |l| %>
-              <option value="<%= l.id %>"<%= (current_user.language_id == l.id || (current_user.language_id.nil? && l.default_language) ? ' selected="selected"' : '') %>><%= l.name %></option>
-            <% end %>
-          </select>
-
-        </td>
-      </tr>
-
-      <% @identifier_schemes.each do |scheme| %>
-        <tr>
-          <td class="first"><%= scheme.name %></td>
-          <td>
-            <%= render partial: 'external_identifier', 
-                       locals: {scheme: scheme, 
-                                id: current_user.identifier_for(scheme)} %>
-          </td>
-        </tr>
-      <% end %>
-      
-      
-      <% unless @user.api_token.blank? %>
-      <tr>
-        <td class="first"><%= t("helpers.api_token") %></td>
-        <td><%= @user.api_token %></td>
-      </tr>
-      <tr>
-        <td class="first"><%= t("helpers.api_info") %></td>
-        <td><%= link_to( t("helpers.api_use"), controller: "token_permission_types", action: "index")%></td>
-      </tr>
-      <% end %>
-    </table>
-    <br />
-    <p>
-    <% if Rails.application.config.shibboleth_enabled %>
-        <% if resource.shibboleth_id.nil? || resource.shibboleth_id.length == 0 then %>
-            <%= link_to t("helpers.shibboleth_to_link_text"), user_omniauth_shibboleth_path, class: "a-orange" %>
-        <% else %>
-            <%= t("helpers.shibboleth_linked_text") %>
-            <a id="unlink-shibboleth-button" data-toggle="modal" href="#unlink-institutional-credentials-dialog">
-                <%= t("helpers.shibboleth_unlink_label")%>
-            </a>
+        <div>
+          <%= f.label :email, _('Email') + " *" %>
+          <%= f.email_field :email, as: :email, class: "input-medium has-tooltip",
+                             "data-toggle": "tooltip", "data-trigger": "focus", 
+                            "title": _('Please enter your current password below when changing your email address.') %>
+        </div>
+        <div>
+          <%= f.label :firstname, _('First name')+ " *" %>
+          <%= f.text_field :firstname, as: :string,
+                            id: "first_time_login_firstname",
+                            autofocus: true,
+                            class: "input-medium has-tooltip",
+                            "data-toggle" => "tooltip",
+                            "data-trigger" => "focus" ,
+                            "title" => _('Please enter your first name.') %>
+        </div>
+        <div>
+          <%= f.label :surname, _('Last name') + " *" %>
+          <%= f.text_field :surname, as: :string, id: "first_time_login_surname",
+                    class: "input-medium has-tooltip", "data-toggle" => "tooltip",
+                    "data-trigger" => "focus" ,
+                    "title" => _('Please enter your surname or family name.') %>
+        </div>
+        <div>
+          <%= f.label :org, _('Organisation') + " *" %>
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: "#{resource_name}[org_name]",
+                              id: "#{resource_name}_org_name",
+                              default_selection: @default_org,
+                              models: @orgs,
+                              attribute: 'name',
+                              classes: 'fixed-width-large'} %>
+        </div>
+        
+        <% if MANY_LANGUAGES %>
+          <div>
+            <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
+            <%= f.label :language, _('Language') %>
+            <select id="user_language_id" name="user[language_id]" 
+                    class="input-medium">
+              <%= @languages.each do |l| %>
+                <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
+                  <%= l.name %>
+                </option>
+              <% end %>
+            </select>
+          </div>
         <% end %>
-    <% end %>
-    </p>
-    <br />
-    <div class="div_clear">
-    </div>
-    <p>
-      <%= raw t("helpers.edit_password_info")%>
-    </p>
-    <table class="dmp_details_table">
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div><%= t('custom_devise.waiting_for_confirmation') %><%= resource.unconfirmed_email %></div>
-      <% end %>
-      <tr>
-        <td class="first"><%= t("helpers.current_password") %></td>
-        <td>
-           <%= f.password_field :current_password, as: :password %>
-        </td>
-      </tr>
-      <tr>
-        <td class="first"><%= t("helpers.new_password") %></td>
-        <td><%= f.password_field :password, as: :password, autocomplete: "off" %>
-        </td>
-      </tr>
-      <tr>
-        <td class="first"><%= t("helpers.password_conf") %></td>
-        <td><%= f.password_field :password_confirmation, as: :password, autocomplete: "off" %></td>
-      </tr>
-    </table>
-    <div class="move_2_right">
-      <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
-      <%= link_to t("helpers.submit.cancel"), :back, class: "btn btn-primary" %>
-    </div>
+
+        <% @identifier_schemes.each do |scheme| %>
+          <div>
+            <label>
+                <% if scheme.logo_url.nil? %>
+                    <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
+                <% else %>
+                    <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
+                <% end %>
+           </label>
+            <div class="identifier-scheme">
+              <%= render partial: 'external_identifier', 
+                         locals: {scheme: scheme, 
+                                  id: current_user.identifier_for(scheme)} %>
+            </div>
+          </div>
+        <% end %>
+
+        <% unless @user.api_token.blank? %>
+          <div>
+            <%= f.label :api_token, _('API token') %><%= @user.api_token %>
+          </div>
+          <div>
+            <label><%= _('API Information') %></label><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%>
+          </div>
+        <% end %>
+
+        <br />
+       
+        <legend><%= _('If you would like to change your password please complete the following fields.') %></legend>
+
+        <div>
+          <%= f.label :current_password,  _('Current password') %>
+          <%= f.password_field :current_password, as: :password, class: 'input-medium' %>
+        </div>
+        
+        <div>
+          <%= f.label :password, _('New password') %>
+          <%= f.password_field :password, as: :password, autocomplete: "off", class: 'input-medium' %>
+        </div>
+        
+        <div>
+          <%= f.label :password_confirmation, _('Password confirmation') %>
+          <%= f.password_field :password_confirmation, as: :password, autocomplete: "off", 
+                      class: 'input-medium' %>
+        </div>
+        
+        <div>
+          <label></label>
+          <input type="submit" class="form-submit" value="<%= _('Save') %>" />
+        </div>
+      </fieldset>
+
   <% end %>
-  </div>
-</div>
-
-
-<!-- alert for the default template-->
-<div id="unlink-institutional-credentials-dialog" data-container="body" data-backdrop="static" class="modal hide fade">
-  <div class="modal-header">
-    <h3><%= t("helpers.shibboleth_unlink_alert") %></h3>
-  </div>
-  <div class="modal-body">
-    <%= raw t("helpers.shibboleth_unlink_dialog_text") %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" id="unlink-shibboleth-cancelled" class="btn"><%= t("helpers.submit.cancel") %></a>
-    <a href="#" id="unlink-shibboleth-confirmed" class="btn btn-primary"><%= t("helpers.unlink_account") %></a>
-  </div>
 </div>

@@ -45,7 +45,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.negative_margin'),
+      assert_equal(_('Margin cannot be negative'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -61,7 +61,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.unknown_margin'),
+      assert_equal(_('Unknown margin. Can only be \'top\', \'bottom\', \'left\' or \'right\''),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -77,7 +77,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_size'),
+      assert_equal(_('Invalid font size'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -92,7 +92,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.unknown_key'),
+      assert_equal(_('Unknown formatting setting'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -107,7 +107,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.missing_key'),
+      assert_equal(_('A required setting has not been provided'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -122,7 +122,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.missing_key'),
+      assert_equal(_('A required setting has not been provided'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -137,7 +137,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.missing_key'),
+      assert_equal(_('A required setting has not been provided'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -154,7 +154,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_margin'),
+      assert_equal(_('Margin value is invalid'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -171,7 +171,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_size'),
+      assert_equal(_('Invalid font size'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -188,7 +188,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_face'),
+      assert_equal(_('Invalid font face'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload
@@ -205,7 +205,7 @@ module Settings
       assert(!@template.valid?)
       assert(!@template.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_face'),
+      assert_equal(_('Invalid font face'),
                    @template.errors.messages[:'setting_objects.formatting'].first)
 
       @template.reload

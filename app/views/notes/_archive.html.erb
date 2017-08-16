@@ -1,0 +1,20 @@
+<%= form_for(note,
+             url: archive_note_path(note),
+             remote: true,
+             class: "archive_note_form",
+             id: "archive_note_form_#{note.id}") do |f| %>
+
+    <%= f.hidden_field :id, :value => note.id %>
+    <%= f.hidden_field :archived_by, :value => current_user.id %>
+
+    <%= render :partial => "/notes/view", locals: {note: note} %>
+
+    <p><%= _('Are you sure you want to remove this note?')%></p>
+
+	  <!-- submit buttons -->
+	  <div class="move_2_right">
+      <%= f.submit _('Remove'), onclick: "archive_note(#{note.id}, #{question_id})", :class => "btn btn-primary archive_comment_submit_button" %>
+      <%= link_to _('Cancel'), "#", onclick: "cancel_archive_note(#{note.id})", :class => "cancel_archive_comment btn cancel" %>
+	  </div>
+    <br>
+<% end %>

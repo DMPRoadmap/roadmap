@@ -45,8 +45,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.negative_margin'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Margin cannot be negative'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
       assert_equal(default_formatting, @plan.settings(:export).formatting)
@@ -61,8 +61,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.unknown_margin'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Unknown margin. Can only be \'top\', \'bottom\', \'left\' or \'right\''),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
       assert_equal(default_formatting, @plan.settings(:export).formatting)
@@ -77,8 +77,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_size'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Invalid font size'),
+                   @plan.errors.messages[:"template.setting_objects.formatting"].first)
 
       @plan.reload
 
@@ -92,8 +92,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.unknown_key'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Unknown formatting setting'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -107,8 +107,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.missing_key'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('A required setting has not been provided'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -122,8 +122,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.missing_key'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('A required setting has not been provided'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -137,8 +137,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.missing_key'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('A required setting has not been provided'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -154,8 +154,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_margin'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Margin value is invalid'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -171,8 +171,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_size'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Invalid font size'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -188,8 +188,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_face'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Invalid font face'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 
@@ -205,8 +205,8 @@ module Settings
       assert(!@plan.valid?)
       assert(!@plan.save)
 
-      assert_equal(I18n.t('helpers.settings.plans.errors.invalid_font_face'),
-                   @plan.errors.messages[:'setting_objects.formatting'].first)
+      assert_equal(_('Invalid font face'),
+                   @plan.errors.messages[:'template.setting_objects.formatting'].first)
 
       @plan.reload
 

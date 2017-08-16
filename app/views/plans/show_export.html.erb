@@ -1,0 +1,34 @@
+<%- model_class = Plan -%>
+
+<!-- render the project title -->
+<%= render :partial => "plan_title", locals: {plan: @plan} %>
+
+<!-- render navigation tabs for the project-->
+<%= render :partial => "plan_nav_tabs", locals: {plan: @plan, active: "export"} %>
+
+<!-- main info to export -->
+<div class="dmp_details_body">
+    <!--Text describing page content-->
+    <%= raw _("<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>")%>
+
+    <% if @plan.template.phases.count == 1 %>
+        <%= render :partial => "/shared/export_links", locals: {plan: @plan, phase: @plan.template.phases.first} %>
+    <%else%>    
+        <% @plan.template.phases.each do |phase| %>
+            <div class="accordion" id="project-accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= phase.id %>">
+                            <h3><%= phase.title %><span class="plus-laranja"> </span></h3>
+                        </a>
+                    </div>
+                    <div id="<%= phase.id %>" class="accordion-project collapse">
+                        <div class="accordion-inner">
+                            <%= render :partial => "/shared/export_links", locals: {plan: @plan, phase: phase} %>
+                        </div>
+                    </div>
+                </div>
+            </div>              
+        <%end%> 
+    <%end%>
+</div>  

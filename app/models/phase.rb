@@ -4,12 +4,17 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
-#	extend FriendlyId
 
+  ##
+  # Sort order: Number ASC
+  default_scope { order(number: :asc) }
+
+
+#	extend FriendlyId
 	##
   # Associations
 	belongs_to :template
-	has_many :sections, dependent: :destroy
+	has_many :sections, -> { order(:number => :asc) }, dependent: :destroy
   has_many :questions, :through => :sections, dependent: :destroy
 
 	##
@@ -23,13 +28,9 @@ class Phase < ActiveRecord::Base
 	#friendly_id :title, use: [:slugged, :history, :finders]
 
 
-  validates :title, :number, :template, presence: true
+  validates :title, :number, :template, presence: {message: _("can't be blank")}
 
-
-
-
-
-
+  
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -104,4 +105,5 @@ class Phase < ActiveRecord::Base
     end
     return phase_copy
   end
+
 end

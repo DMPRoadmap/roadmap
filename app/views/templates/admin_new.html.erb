@@ -2,10 +2,10 @@
 <% javascript "admin.js" %>
 
 <h1>
-  <%= t("org_admin.templates.new_label") %>
+  <%= _('New template') %>
   <!-- link button to add new guidance -->
   <div class="move_2_right">
-    <%= link_to t("org_admin.templates.view_all_templates"),
+    <%= link_to _('View all templates'),
                 admin_index_template_path, class: "btn btn-primary" %>
   </div>
 </h1>
@@ -14,22 +14,23 @@
 <div class="white_background blue_border">
   <!-- body -->
   <div class="dmp_details">
-    <%= raw t("org_admin.templates.create_new_template_text_html")%>
+    <%= raw _('<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>')%>
     <br/>
     <%= form_for :template, url: {action: "admin_create"} do |f| %>
       <table class="dmp_details_table">
         <tr>
-          <td class="first_template"><%= t("org_admin.templates.title_label") %></td>
+          <td class="first_template"><%= _('Title') %></td>
           <td><%= f.text_field :title, as: :string,
-                class: "text_field has-tooltip", "data-toggle" => "tooltip", title: t("org_admin.templates.title_help_text") %></td>
+                class: "text_field has-tooltip", "data-toggle" => "tooltip", title: _('Please enter a title for your template.') %></td>
         </tr>
         <tr>
-          <td class="first_template"><%= t("org_admin.templates.desc_label") %></td>
-          <td><div class="div_left_icon">
+          <td class="first_template"><%= _('Description') %></td>
+          <td class="tinymce">
+            <div class="div_left_icon">
               <%= text_area_tag("template-desc", "", class: "tinymce") %>
             </div>
             <div class="div_right_icon">
-              <%= link_to( image_tag("help_button.png"), "#", class: "template_desc_popover", rel: "popover", "data-html" => "true", "data-content" => t("org_admin.template_desc_help_text_html"))%>
+              <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"))%>
             </div>
           </td>
         </tr>
@@ -37,11 +38,11 @@
       </table>
       <!-- submit buttons -->
       <div class="move_2_right">
-        <%= f.submit t("helpers.submit.save"), class: "btn btn-primary" %>
-        <%= link_to t("helpers.submit.cancel"), admin_index_template_path, class: "btn cancel" %>
+        <%= f.submit _('Save'), class: "btn btn-primary" %>
+        <%= link_to _('Cancel'), admin_index_template_path, class: "btn cancel" %>
       </div>
       <br />
     <% end %>
   </div>
 </div>
-<%= tinymce content_css: asset_path("application.css") %>
+<%= tinymce :content_css => asset_path('application.css') %>

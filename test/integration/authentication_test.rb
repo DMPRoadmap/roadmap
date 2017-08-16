@@ -31,11 +31,15 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     delete destroy_user_session_path
     
     assert_response :redirect
-    follow_redirect!
+    if Rails.application.config.shibboleth_enabled
+      assert_redirected_to Rails.application.config.shibboleth_logout_url + root_url
+    else
+      assert_redirected_to root_path
+    end
+    get root_path
     
     # Make sure that the user is sent to the page that lists their plans
-    assert_response :success
-    assert_select '.welcome-message h2', I18n.t('welcome_title')
+    assert_select '.welcome-message h2', _('Welcome.')
   end
   
   # ----------------------------------------------------------
@@ -54,7 +58,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     
       # Make sure that the user is sent to the page that lists their plans
       assert_response :success
-      assert_select '.welcome-message h2', I18n.t('welcome_title')
+      assert_select '.welcome-message h2', _('Welcome.')
     end
   end
 

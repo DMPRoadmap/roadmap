@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable, 
-         :rememberable, :trackable, :validatable, :confirmable, :omniauthable, 
+         :rememberable, :trackable, :validatable, :omniauthable, 
          :omniauth_providers => [:shibboleth, :orcid]
 
   ##
@@ -40,25 +40,20 @@ class User < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  accepts_nested_attributes_for :roles
-  attr_accessible :password_confirmation, :encrypted_password, :remember_me, 
-                  :id, :email, :firstname, :last_login,:login_count, :orcid_id, 
-                  :password, :shibboleth_id, :user_status_id, :surname, 
-                  :user_type_id, :org_id, :skip_invitation, :other_organisation, 
-                  :accept_terms, :role_ids, :dmponline3, :api_token,
-                  :organisation, :language, :language_id, :org, :perms, 
-                  :confirmed_at, :org_id
+  #accepts_nested_attributes_for :roles
+  #attr_accessible :password_confirmation, :encrypted_password, :remember_me, 
+  #                :id, :email, :firstname, :last_login,:login_count, :orcid_id, 
+  #                :password, :shibboleth_id, :user_status_id, :surname, 
+  #                :user_type_id, :org_id, :skip_invitation, :other_organisation, 
+  #                :accept_terms, :role_ids, :dmponline3, :api_token,
+  #                :organisation, :language, :language_id, :org, :perms, 
+  #                :confirmed_at, :org_id
 
-  validates :email, email: true, allow_nil: true, uniqueness: true
+  validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
   ##
-  # Settings
-  # FIXME: The duplication in the block is to set defaults. It might be better if
-  #        they could be set in Settings::PlanList itself, if possible.
-  has_settings :plan_list, class_name: 'Settings::PlanList' do |s|
-    s.key :plan_list, defaults: { columns: Settings::PlanList::DEFAULT_COLUMNS }
-  end
-
+  # Scopes
+  default_scope { includes(:org, :perms) }
 
 
 
@@ -66,8 +61,17 @@ class User < ActiveRecord::Base
   #
   # What do they do? do they do it efficiently, and do we need them?
 
-
-
+  # Determines the locale set for the user or the organisation he/she belongs
+  # @return String or nil 
+  def get_locale
+    if !self.language.nil?
+      return self.language.abbreviation
+    elsif !self.org.nil?
+      return self.org.get_locale
+    else 
+      return nil
+    end
+  end
 
 
   ##
@@ -103,14 +107,13 @@ class User < ActiveRecord::Base
   #
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
-=begin
-  def organisation_id=(new_organisation_id)
-    unless self.can_change_org? || new_organisation_id.nil? || self.organisation.nil?
+  def org_id=(new_org_id)
+    unless self.can_change_org? || new_org_id.nil? || self.org.nil? || (new_org_id.to_s == self.org.id.to_s)
       # rip all permissions from the user
       self.perms.delete_all
     end
     # set the user's new organisation
-    super(new_organisation_id)
+    super(new_org_id)
     self.save!
     # rip api permissions from the user
     self.remove_token!
@@ -120,10 +123,9 @@ class User < ActiveRecord::Base
   # sets a new organisation for the user
   #
   # @param new_organisation [Organisation] the new organisation for the user
-  def organisation=(new_organisation)
-    organisation_id = new_organisation.id unless new_organisation.nil?
+  def organisation=(new_org)
+    org_id = new_org.id unless new_org.nil?
   end
-=end
   
   ##
   # checks if the user is a super admin
@@ -151,7 +153,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can add new organisations
   def can_add_orgs?
-    perms.include? Perm.find_by(name: constant("roles.add_organisations"))
+    perms.include? Perm.add_orgs
   end
 
   ##
@@ -159,7 +161,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can change their organisation affiliations
   def can_change_org?
-    perms.include? Perm.find_by(name: constant("roles.change_org_affiliation"))
+    perms.include? Perm.change_affiliation
   end
 
   ##
@@ -167,7 +169,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant their permissions to others
   def can_grant_permissions?
-    perms.include? Perm.find_by(name: constant("roles.grant_permissions"))
+    perms.include? Perm.grant_permissions
   end
 
   ##
@@ -175,7 +177,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organisation templates
   def can_modify_templates?
-    perms.include? Perm.find_by(name: constant("roles.modify_templates"))
+    self.perms.include? Perm.modify_templates
   end
 
   ##
@@ -183,7 +185,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify organistion guidance
   def can_modify_guidance?
-    perms.include? Perm.find_by(name: constant("roles.modify_guidance"))
+    perms.include? Perm.modify_guidance
   end
 
   ##
@@ -191,7 +193,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can use the api
   def can_use_api?
-    perms.include? Perm.find_by(name: constant("roles.use_api"))
+    perms.include? Perm.use_api
   end
 
   ##
@@ -199,7 +201,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can modify the org's details
   def can_modify_org_details?
-    perms.include? Perm.find_by(name: constant("roles.change_org_details"))
+    perms.include? Perm.change_org_details
   end
 
 
@@ -208,7 +210,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user can grant api permissions to organisations
   def can_grant_api_to_orgs?
-    perms.include? Perm.find_by(name: constant('roles.grant_api_to_orgs'))
+    perms.include? Perm.grant_api
   end
 
   ##
@@ -260,6 +262,14 @@ class User < ActiveRecord::Base
                    'user_identifiers.identifier_scheme_id': scheme.id).first
     end
   end
+
+  ##
+  # Override devise_invitable email title
+  # --------------------------------------------------------------
+  def deliver_invitation(options = {})
+    super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
+  end
+
 
 # TODO: Remove this, its never called.
   # this generates a reset password link for a given user

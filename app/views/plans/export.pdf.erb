@@ -3,11 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>
-            <% if @plan.project.dmptemplate.phases.count > 1 then %>
-                <%= "#{@plan.project.title} - #{@plan.title}" %>
-            <% else %>
-                <%= @plan.project.title %>
-            <% end %>
+            <%= @plan.title %>
         </title>
         <style>
             html { font-family: <%= @formatting[:font_face].tr('"', '') -%>; font-size: <%= @formatting[:font_size] -%>pt; }
@@ -25,47 +21,47 @@
         <h1><%= @plan.title %></h1>
         <% @exported_plan.admin_details.each do |field|
              value = @exported_plan.send(field)
-             if value.present?
-        %>
-          <p><strong><%= t("helpers.plan.export.#{field}") -%></strong> <%= value -%></p>
+             if value.present? %>
+                <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= value -%></p>
+          <% else %>
+                <p><strong><%= admin_field_t(field.to_s) -%></strong> <%= _('-') %></p>
           <% end %>
         <% end %>
 
         <% @exported_plan.sections.each do |section| %>
-            <h2><%= section.title %></h2>
-            <% questions = @exported_plan.questions_for_section(section.id) %>
-            <% questions.each_with_index do |question, idx| %>
-                <div class="question">
-                    <% unless idx == 0 && question.text == section.title %>
+            <% questions = @exported_plan.questions_for_section(section.id)
+               if questions.present?
+            %>
+                <h2><%= section.title %></h2>
+                <% questions.each do |question| %>
+                    <div class="question">
                         <h3><%= raw question.text %></h3>
-                    <% end %>
-                    <% answer = @plan.answer(question.id, false) %>
-                        <% if answer.nil? then %>
-                            <p><%= t('helpers.plan.export.pdf.question_not_answered') -%></p>
-                        <% else %>
-                            <% q_format = question.question_format%>
-                            <!-- display an answer for questions type 'checkbox','radio_buttons', 'multi_select_box' and 'dropdown'-->
-                            <% if q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") ||
-                                        q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown") then%>
-                                <ul>
-                                    <% answer.options.each do |option| %>
-                                        <li><%= option.text %></li>
-                                    <% end %>
-                                </ul>
-                                <!-- Validates if this question has comments-->
-                                <% if question.option_comment_display == true then%>
+                        <% answer = @plan.answer(question.id, false) %>
+                            <% if answer.nil? then %>
+                                <p><%= _('Question not answered.') -%></p>
+                            <% else %>
+                                <% q_format = question.question_format %>
+                                <% if q_format.option_based? %>
+                                    <ul>
+                                        <% answer.question_options.each do |option| %>
+                                            <li><%= option.text %></li>
+                                        <% end %>
+                                    </ul>
+                                    <!-- Validates if this question has comments-->
+                                    <% if question.option_comment_display == true then%>
+                                        <% if !answer.text.nil? then %>
+                                            <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
+                                        <%end%>
+                                    <%end%>
+                                <%else%>
+                                    <!-- display an answer for questions type 'text area' and 'text field'-->
                                     <% if !answer.text.nil? then %>
                                         <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
                                     <%end%>
-                                <%end%>
-                            <%else%>
-                                <!-- display an answer for questions type 'text area' and 'text field'-->
-                                <% if !answer.text.nil? then %>
-                                    <%= raw answer.text.gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %>
-                                <%end%>
-                            <% end %>
-                    <% end %>
-                </div>
+                                <% end %>
+                        <% end %>
+                    </div>
+                <% end %>
             <% end %>
         <% end %>
     </body>

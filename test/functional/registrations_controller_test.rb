@@ -23,7 +23,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     
     assert_response :success
-    assert_equal I18n.t('helpers.you_must_accept'), flash[:alert]
+    assert_equal _('You must accept the terms and conditions to register.'), flash[:alert]
   end
   
   # -------------------------------------------------------------
@@ -43,7 +43,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       follow_redirect!
     
       assert_response :success
-      assert_equal I18n.t('helpers.error_registration_check'), flash[:alert]
+      assert_equal _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.'), flash[:alert]
     end
   end
   
@@ -61,12 +61,11 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       post user_registration_path, {user: params}
     
       assert_response :redirect
-      assert_redirected_to "#{root_url}?locale=#{I18n.locale}"
+      assert_redirected_to root_url
     
       follow_redirect!
-      assert_response :success
-      assert_equal I18n.t('devise.registrations.signed_up_but_unconfirmed'), flash[:notice]
-      assert_select '.welcome-message h2', I18n.t('welcome_title')
+      assert_response :redirect
+      assert_redirected_to plans_path
       
       cntr += 1
     end
@@ -79,7 +78,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     get edit_user_registration_path
     
     assert_response :success
-    assert_select '.main_page_content h1', I18n.t('helpers.edit_profile')
+    assert_select '.main_page_content h1', _('Edit profile')
     
   end
   
@@ -87,11 +86,47 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "user is able to edit their profile" do
     sign_in @user
     
-    put user_registration_path, {user: {firstname: 'Foo', surname: 'Bar'}}
-  
+    # Change name
+    put user_registration_path, {user: {email: @user.email, firstname: 'Testing', surname: 'UPDATE', org_id: Org.first.id}}
+    assert_equal _('Details successfully updated.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to edit_user_registration_url
+    
+    # Change email but didn't provide password
+    put user_registration_path, {user: {email: 'something@else.org', firstname: @user.firstname, surname: @user.surname, org_id: Org.first.id}}
     assert_response :success
-    assert_equal nil, flash[:notice]
-    assert_select '.main_page_content h1', I18n.t('helpers.edit_profile')
+    assert_equal _('Please enter your password to change email address.'), flash[:notice]
+
+# TODO: These don't seem to be behaving as expected. There were several typos in the controller that have been fixed
+#       (succesfully_updated vs successfully_updated)
+=begin
+    # Change email
+    put user_registration_path, {user: {email: 'something@else.org', current_password: 'password123', firstname: @user.firstname, surname: @user.surname}}
+    assert_equal _('Details successfully updated.'), flash[:notice]
+    assert_response :redirect
+    assert_redirected_to edit_user_registration_url
+    
+    # Change password but neglected to provide the password
+    put user_registration_path, {user: {password_confirmation: 'testing123', current_password: 'password123', firstname: @user.firstname, surname: @user.surname, email: @user.email}}
+    assert_response :success
+    assert flash[:notice].starts_with?(_('Unable to save your changes.'))
+    
+    # Change password but neglected to provide the password confirmation
+    put user_registration_path, {user: {password: 'testing123', current_password: 'password123', firstname: @user.firstname, surname: @user.surname, email: @user.email}}
+    assert_equal _('Please enter a password confirmation'), flash[:notice]
+    assert_response :success
+    
+    # Change password but the password and confirmation do not match
+    put user_registration_path, {user: {password: 'test123', password_confirmation: 'testing123', current_password: 'password123', firstname: @user.firstname, surname: @user.surname, email: @user.email}}
+    assert_equal _('Password and comfirmation must match'), flash[:notice]
+    assert_response :success
+    
+    # Change password
+    put user_registration_path, {user: {password: 'testing123', password_confirmation: 'testing123', current_password: 'password123', firstname: @user.firstname, surname: @user.surname, email: @user.email}}
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
+=end
+
   end
   
 # INVALID AUTH REROUTING CHECKS

@@ -13,11 +13,11 @@ class NotePolicy < ApplicationPolicy
   end
 
   def update?
-    Plan.find(@note.plan_id).readable_by?(@user.id)
+    Plan.find(@note.answer.plan_id).readable_by?(@user.id)
   end
 
   def archive?
-    Plan.find(@note.plan_id).readable_by?(@user.id)
+    Plan.find(@note.answer.plan_id).readable_by?(@user.id)
   end
 
 end

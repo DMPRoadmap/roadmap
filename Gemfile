@@ -34,7 +34,7 @@ gem 'friendly_id'
 
 # ------------------------------------------------
 #    SUPER ADMIN SECTION
-gem 'activeadmin', github: 'activeadmin'
+gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 
 # ------------------------------------------------
 #    USERS
@@ -59,11 +59,13 @@ gem 'ledermann-rails-settings'
 gem 'sass-rails'
 gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
 gem 'jquery-rails'
+gem 'font-awesome-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
 gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
-gem 'recaptcha'
+gem 'recaptcha', '>= 4.0'
 gem 'dragonfly'                         # LOGO UPLOAD
+gem 'formtastic'
 
 # ------------------------------------------------
 #     EXPORTING
@@ -72,14 +74,14 @@ gem 'thin'
 gem 'wicked_pdf'
 gem 'htmltoword'
 gem 'feedjira'
-gem 'caracal'                           # WORD DOC EXPORTING
-gem 'caracal-rails'
 gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
 # ------------------------------------------------
 #     INTERNATIONALIZATION
 gem "i18n-js", ">= 3.0.0.rc11"          #damodar added TODO: explain
 gem 'gettext_i18n_rails', '~> 1.8'
+gem "gettext_i18n_rails_js", "~> 1.2.0"
+gem 'gettext', '>=3.0.2', :require => false, :group => :development
 
 # ------------------------------------------------
 #     API

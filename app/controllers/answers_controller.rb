@@ -2,49 +2,54 @@ class AnswersController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
-  ##
-	# PUT/PATCH /[:locale]/answer/[:id]
+	# PUT/PATCH /answers/[:id]
 	def update
-    # create a new answer based off the passed params
-
-    ans_params = params[:answer]
-    plan_id = ans_params[:plan_id]
-    user_id = ans_params[:user_id]
-    question_id = ans_params[:question_id]
-		@answer = Answer.find_by(
-                        plan_id: plan_id,
-                        user_id: user_id,
-                        question_id: question_id)
-    if @answer.nil?
-      @answer = Answer.new(params[:answer])
+    p_params = permitted_params()
+    @answer = Answer.find_by({plan_id: p_params[:plan_id], question_id: p_params[:question_id], })
+    begin
+      if @answer
+        authorize @answer
+        @answer.update(p_params)
+        if p_params[:question_option_ids].present?
+          @answer.touch() # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
+        end
+      else
+        @answer = Answer.new(p_params)
+        @answer.lock_version = 1
+        authorize @answer
+        @answer.save()  # NOTE, there is a chance to create multiple answer associated for a plan/question (IF any concurrent thread) INSERTS an answer after checking the existence of an answer (Line 8)
+        # In order to avoid that edge-case, it is recommended to create answers whenever a new plan is created (e.g. after_create callback)
+      end
+    rescue ActiveRecord::StaleObjectError
+      @stale_answer = @answer
+      @answer = Answer.find_by({plan_id: p_params[:plan_id], question_id: p_params[:question_id]})
     end
+    
+    @plan = Plan.includes({
+      sections: { 
+        questions: [ 
+          :answers,
+          :question_format
+        ]
+      }
+    }).find(p_params[:plan_id])
+    @question = @answer.question
+    @section = @plan.get_section(@question.section_id)
 
-    authorize @answer
+    respond_to do |format|
+      format.js {} 
+    end
+  end # End update
 
-puts params.inspect
-
-		@answer.text = params["answer-text-#{@answer.question_id}".to_sym]
-
-    #TODO: check for optimistic locking
-
-    # Is this validation necessary?
-#		if (@answer.question.question_format.title == I18n.t("helpers.checkbox") ||
-#        @answer.question.question_format.title == I18n.t("helpers.multi_select_box") ||
-#        @answer.question.question_format.title == I18n.t("helpers.radio_buttons") ||
-#        @answer.question.question_format.title == I18n.t("helpers.dropdown")) then
-#			if (old_answer.nil? && @answer.option_ids.count > 0) || ((!old_answer.nil?) && (old_answer.option_ids - @answer.option_ids).count != 0 && (@answer.option_ids - old_answer.option_ids).count != 0) then
-#				proceed = true
-#			end
-#		end
-
-#		if proceed
-			if @answer.save
-				redirect_to :back, status: :found, notice: I18n.t('helpers.project.answer_recorded')
-			else
-				redirect_to :back, notice: I18n.t('helpers.project.answer_error')
-			end
-#		else
-#			redirect_to :back, notice: I18n.t('helpers.project.answer_no_change')
-#		end
-  end
+  private
+    def permitted_params
+      permitted = params.require(:answer).permit(:id, :text, :plan_id, :user_id, :question_id, :lock_version, :question_option_ids => [])
+      if !params[:answer][:question_option_ids].nil? && !permitted[:question_option_ids].present? #If question_option_ids has been filtered out because it was a scalar value (e.g. radiobutton answer)
+        permitted[:question_option_ids] = [params[:answer][:question_option_ids]] # then convert to an Array
+      end
+      if !permitted[:id].present?
+        permitted.delete(:id)
+      end
+      return permitted
+    end # End permitted_params
 end

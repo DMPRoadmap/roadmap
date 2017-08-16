@@ -1,4 +1,7 @@
 class Plan < ActiveRecord::Base
+
+  before_validation :set_creation_defaults
+
   ##
   # Associations
   belongs_to :template
@@ -10,13 +13,14 @@ class Plan < ActiveRecord::Base
   has_many :notes, through: :answers
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
-  has_many :plan_guidance_groups, dependent: :destroy
-  has_many :guidance_groups, through: :plan_guidance_groups
+  has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
   accepts_nested_attributes_for :template
   has_many :exported_plans
 
   has_many :roles
+
+
 # COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
 #  has_many :users, through: :roles
 
@@ -45,6 +49,10 @@ class Plan < ActiveRecord::Base
   ROUNDING = 5 #round estimate up to nearest 5%
   FONT_HEIGHT_CONVERSION_FACTOR = 0.35278 #convert font point size to mm
   FONT_WIDTH_HEIGHT_RATIO = 0.4 #Assume glyph width averages 2/5 the height
+
+  # Scope queries
+  # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
+  scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
 
   ##
   # Settings for the template
@@ -76,6 +84,17 @@ class Plan < ActiveRecord::Base
 		#self.project.try(:dmptemplate) || Dmptemplate.new
 		self.template
 	end
+
+
+
+  def base_template
+    base = nil
+    t = self.template
+    if t.customization_of.present?
+      base = Template.where("dmptemplate_id = ? and created_at < ?", t.customization_of, self.created_at).order(version: :desc).first
+    end
+    return base
+  end
 
 
 
@@ -120,7 +139,8 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group
+              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              # only show published guidance groups
             end
           end
         end
@@ -130,10 +150,34 @@ class Plan < ActiveRecord::Base
     self.guidance_groups = ggroups.uniq
   end
 
-
-
-
   ##
+  # returns all of the possible guidance groups for the plan (all options to
+  # be selected by the user to display)
+  #
+  # @return Array<Guidance>
+  def get_guidance_group_options
+    # find all the themes in this plan
+    # and get the guidance groups they belong to
+    ggroups = []
+    Template.includes(phases: [sections: [questions: [themes: [guidances: [guidance_group: :org]]]]]).find(self.template_id).phases.each do |phase|
+      phase.sections.each do |section|
+        section.questions.each do |question|
+          question.themes.each do |theme|
+            theme.guidances.each do |guidance|
+              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              # only show published guidance groups
+            end
+          end
+        end
+      end
+    end
+    return ggroups.uniq
+  end
+
+
+
+
+   ##
   # returns the guidances associated with the project's organisation, for a specified question
   #
   # @param question [Question] the question to find guidance for
@@ -168,8 +212,7 @@ class Plan < ActiveRecord::Base
     end
     
     # Get guidance by theme from any guidance groups currently selected
-    self.plan_guidance_groups.where(selected: true).each do |pgg|
-      group = pgg.guidance_group
+    self.guidance_groups.each do |group|
       group.guidances.each do |guidance|
         common_themes = guidance.themes.all & question.themes.all
         if common_themes.length > 0
@@ -180,6 +223,9 @@ class Plan < ActiveRecord::Base
 
     return guidances
   end
+
+
+
 
   ##
   # adds the given guidance to a hash indexed by a passed guidance group and theme
@@ -217,6 +263,7 @@ class Plan < ActiveRecord::Base
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if user can edit the plan
 	def editable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present? && role.editor?
 	end
@@ -229,6 +276,7 @@ class Plan < ActiveRecord::Base
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if the user can read the plan
 	def readable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present?
 	end
@@ -239,6 +287,7 @@ class Plan < ActiveRecord::Base
   # @param user_id [Integer] the id for the user
   # @return [Boolean] true if the user can administer the plan
 	def administerable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present? && role.administrator?
 	end
@@ -247,65 +296,140 @@ class Plan < ActiveRecord::Base
   ##
   # defines and returns the status of the plan
   # status consists of a hash of the num_questions, num_answers, sections, questions, and spaced used.
-  # For each section, it contains theid's of each of the questions
+  # For each section, it contains the id's of each of the questions
   # for each question, it contains the answer_id, answer_created_by, answer_text, answer_options_id, aand answered_by
   #
   # @return [Status]
-	def status
-		status = {
-			"num_questions" => 0,
-			"num_answers" => 0,
-			"sections" => {},
-			"questions" => {},
-			"space_used" => 0 # percentage of available space in pdf used
-		}
 
-		space_used = height_of_text(self.title, 2, 2)
+  def status
+    status = {
+      "num_questions" => 0,
+      "num_answers" => 0,
+      "sections" => {},
+      "questions" => {},
+      "space_used" => 0 # percentage of available space in pdf used
+    }
 
-		sections.each do |s|
-			space_used += height_of_text(s.title, 1, 1)
-			section_questions = 0
-			section_answers = 0
-			status["sections"][s.id] = {}
-			status["sections"][s.id]["questions"] = Array.new
-			s.questions.each do |q|
-				status["num_questions"] += 1
-				section_questions += 1
-				status["sections"][s.id]["questions"] << q.id
-				status["questions"][q.id] = {}
-				answer = answer(q.id, false)
+    space_used = height_of_text(self.title, 2, 2)
 
-				space_used += height_of_text(q.text) unless q.text == s.title
-				space_used += height_of_text(answer.try(:text) || I18n.t('helpers.plan.export.pdf.question_not_answered'))
+    section_ids = sections.map {|s| s.id}
 
-				if ! answer.nil? then
-					status["questions"][q.id] = {
-						"answer_id" => answer.id,
-						"answer_created_at" => answer.created_at.to_i,
-						"answer_text" => answer.text,
-						"answer_option_ids" => answer.question_options.pluck(:id),
-						"answered_by" => answer.user.name
-					}
-                    q_format = q.question_format
-          status["num_answers"] += 1 if (q_format.title == I18n.t("helpers.checkbox") || q_format.title == I18n.t("helpers.multi_select_box") ||
-                                        q_format.title == I18n.t("helpers.radio_buttons") || q_format.title == I18n.t("helpers.dropdown")) || answer.text.present?
-          section_answers += 1
-          #TODO: include selected options in space estimate
-        else
-          status["questions"][q.id] = {
-            "answer_id" => nil,
-            "answer_created_at" => nil,
-            "answer_text" => nil,
-            "answer_option_ids" => nil,
-            "answered_by" => nil
-          }
-        end
-         status["sections"][s.id]["num_questions"] = section_questions
-         status["sections"][s.id]["num_answers"] = section_answers
+    # we retrieve this is 2 joins:
+    #   1. sections and questions
+    #   2. questions and answers
+    # why? because Rails 4 doesn't have any sensible left outer join.
+    # when we change to RAILS 5 it is meant to have so this can be fixed then
+
+    records = Section.joins(questions: :question_format)
+                     .select('sections.id as sectionid,
+                              sections.title as stitle,
+                              questions.id as questionid,
+                              questions.text as questiontext,
+                              question_formats.title as qformat')
+                     .where("sections.id in (?) ", section_ids)
+                     .to_a
+
+    # extract question ids to get answers
+    question_ids = records.map {|r| r.questionid}.uniq
+    status["num_questions"] = question_ids.count
+
+    arecords = Question.joins(answers: :user)
+                       .select('questions.id as questionid,
+                                answers.id as answerid,
+                                answers.plan_id as plan_id,
+                                answers.text as answertext,
+                                answers.updated_at as updated,
+                                users.email as username')
+                       .where("questions.id in (?) and answers.plan_id = ?",question_ids, self.id)
+                       .to_a
+
+    # we want answerids to extract options later
+    answer_ids = arecords.map {|r| r.answerid}.uniq
+    status["num_answers"] = answer_ids.count
+
+    # create map from questionid to answer structure
+    qa_map = {}
+    arecords.each do |rec|
+      qa_map[rec.questionid] = {
+        plan: rec.plan_id,
+        id: rec.answerid,
+        text: rec.answertext,
+        updated: rec.updated,
+        user: rec.username
+      }
+    end
+
+
+    # build main status structure
+    records.each do |rec|
+      sid = rec.sectionid
+      stitle = rec.stitle
+      qid = rec.questionid
+      qtext = rec.questiontext
+      format = rec.qformat
+
+      answer = nil
+      if qa_map.has_key?(qid) 
+        answer = qa_map[qid]
       end
+
+      aid = answer.nil? ? nil : answer[:id]
+      atext = answer.nil? ? nil : answer[:text]
+      updated = answer.nil? ? nil : answer[:updated]
+      uname = answer.nil? ? nil : answer[:user]
+
+      space_used += height_of_text(stitle, 1, 1)
+
+      shash = status["sections"]
+      if !shash.has_key?(sid)
+        shash[sid] = {}
+        shash[sid]["num_questions"] = 0
+        shash[sid]["num_answers"] = 0
+        shash[sid]["questions"] = Array.new
+      end
+
+      shash[sid]["questions"] << qid
+      shash[sid]["num_questions"] += 1
+
+      space_used += height_of_text(qtext) unless qtext == stitle
+      if atext.present?
+        space_used += height_of_text(atext)
+      else
+        space_used += height_of_text(_('Question not answered.'))
+      end
+
+      if answer.present? then
+        shash[sid]["num_answers"] += 1
+      end
+
+      status["questions"][qid] = {
+        "format" => format,
+        "answer_id" => aid,
+        "answer_updated_at" => updated.to_i,
+        "answer_text" => atext,
+        "answered_by" => uname
+      }
+
+    end
+
+    records = Answer.joins(:question_options).select('answers.id as answerid, question_options.id as optid').where(id: answer_ids).to_a
+    opt_hash = {}
+    records.each do |rec|
+      aid = rec.answerid
+      optid = rec.optid
+      if !opt_hash.has_key?(aid)
+        opt_hash[aid] = Array.new
+      end
+      opt_hash[aid] << optid
+    end
+
+    status["questions"].each_key do |questionid| 
+      answerid = status["questions"][questionid]["answer_id"]
+      status["questions"][questionid]["answer_option_ids"] = opt_hash[answerid]
     end
 
     status['space_used'] = estimate_space_used(space_used)
+
     return status
   end
 
@@ -509,6 +633,7 @@ class Plan < ActiveRecord::Base
   #
   # @param user_id [Integer] the user to be given priveleges' id
   def assign_creator(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
     add_user(user_id, true, true, true)
   end
   
@@ -587,6 +712,7 @@ class Plan < ActiveRecord::Base
       end
     end
   end
+=end
 
   ##
   # returns the funder id for the plan
@@ -598,7 +724,6 @@ class Plan < ActiveRecord::Base
     end
     return self.template.org
   end
-=end
 
   ##
   # returns the funder organisation for the project or nil if none is specified
@@ -826,171 +951,61 @@ class Plan < ActiveRecord::Base
   end
 =end
   
+  # Returns the number of answered questions from the entire plan
+  def num_answered_questions
+    n = 0
+    self.sections.each do |s|
+      n+= s.num_answered_questions(self.id)
+    end
+    return n
+  end
 
+  # Returns a section given its id or nil if does not exist for the current plan
+  def get_section(section_id)
+    self.sections.find { |s| s.id == section_id }
+  end
 
-  ##
+  # Returns the number of questions for a plan. Note, this method becomes useful
+  # for when sections and their questions are eager loaded so that avoids SQL queries.
+  def num_questions
+    n = 0
+    self.sections.each do |s|
+      n+= s.questions.size()
+    end
+    return n
+  end
+  # the following two methods are for eager loading. One gets used for the plan/show
+  # page and the oter for the plan/edit. The difference is just that one pulls in more than
+  # the other.
+  # TODO: revisit this and work out for sure that maintaining the difference is worthwhile.
+  # it may not be. Also make sure nether is doing more thanit needs to.
   #
-  # The following method is to help optimise data access.
-  # Even using includes or joins the data access gets performed lazily
-  # and the caching appears to be forgotten at times over view/partial boundaries
-  # To get round it we can pull everything out into a hash and use that
-  # which guarantees no further DB accesses.
-  #
-  # The serializable_hash method only pulls in one level but this includes
-  # attributes which are "through" other attributes. So we do a basic 
-  # conversion to hash and then a "fixup" which knits the pieces together into
-  # the structure which we really want.
-  #
-  def to_hash
-    plan_data = self.serializable_hash(
-        include: [ :template, :phases, :sections,
-                   :answers, :notes, :roles, :users, :questions, 
-                   :plan_guidance_groups, :guidance_groups]
-      )
+  def self.eager_load(id)
+    Plan.includes(
+      [{template: [
+                   {phases: {sections: {questions: :answers}}},
+                   {customizations: :org}
+                  ]},
+       {plans_guidance_groups: {guidance_group: :guidances}}
+      ]).find(id)
+  end
 
-    question_hash = {}
-
-    plan_data["questions"].each do |q|
-      question_hash[q["id"]] = q
-    end
-
-    question_ids = question_hash.keys
-
-    suggested_answers = SuggestedAnswer.where(question_id: question_ids).where.not(text: '')
-    suggested_answers.each do |sa|
-      question_hash[sa.question_id]["suggested_answer"] = sa.serializable_hash
-    end
-
-    qf_hash = {}
-    QuestionFormat.all.each do |qf|
-      qf_hash[qf.id] = qf.serializable_hash
-    end
-    question_hash.values.each do |q|
-      q["question_format"] = qf_hash[q["question_format_id"]]
-    end
-
-    gg_ids = plan_data["plan_guidance_groups"].select{|pgg| pgg["selected"]}.map{|pgg| pgg["guidance_group_id"]}
-    gg_hash = {}
-
-    theme_guidance = {} 
-
-    ggs = GuidanceGroup.find(gg_ids).each do |gg|
-       gg_hash[gg.id] = gg.serializable_hash
-    end
-
-    guidances = Guidance.joins(:themes).select('guidances.guidance_group_id, guidances.text, themes.title').where(guidance_group: gg_ids).to_a
-    guidances.each do |g|
-      title = g.title
-      if !theme_guidance.has_key?(title)
-        theme_guidance[title] = Array.new
-      end
-        theme_guidance[title] << {
-          "text" => g.text,
-          "org" => gg_hash[g.guidance_group_id]["name"]
-        }
-    end
-
-    plan_data["questions"].each do |q|
-      qg = {}
-      if q.has_key?("themes")
-        q["themes"].each do |t|
-          title = t["title"]
-          qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
-        end
-        q["theme_guidance"] = qg
-      end
-    end
-
-    fixup_hash(plan_data)
-
-    return plan_data
+  def self.eager_load2(id)
+    Plan.includes(
+      [{template: [
+                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
+                   {customizations: :org},
+                   :org
+                  ]},
+       {plans_guidance_groups: {guidance_group: {guidances: :themes}}},
+       {questions: :themes}
+      ]).find(id)
   end
 
 
 
   private
 
-  # reconnect the various parts of the hash so that:
-  # plan = {
-  #           template:
-  #           phases:
-  #           sections:
-  #           questions:
-  #           answers
-  #         }
-  #
-  # becomes a nested structure like so
-  #
-  # plan = { template: {
-  #                      phases: [ {
-  #                                   sections: [ {
-  #                                                questions: [ {
-  #                                                              answers: [...]
-  #
-  def fixup_hash(plan)
-    # sort out guidance first so we can add it to the questions
-    # before rolling up
-    ghash = {}
-    plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
-    plan["plan_guidance_groups"].each do |pgg|
-      pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
-    end
-
-    rollup(plan, "notes", "answer_id", "answers")
-    rollup(plan, "answers", "question_id", "questions")
-    rollup(plan, "questions", "section_id", "sections", true)
-    rollup(plan, "sections", "phase_id", "phases", true)
-
-    plan["template"]["phases"] = plan.delete("phases")
-    plan["template"]["phases"].sort! { |x,y| x["number"].to_i <=> y["number"].to_i }
-
-    plan["template"]["org"] = Org.find(plan["template"]["org_id"]).serializable_hash()
-
-    # when editing phases we want the number of questions answered
-    # so calculate that now
-    plan["template"]["phases"].each do |phase|
-      phase["sections"].each do |section|
-        nanswers = 0
-        section["questions"].each do |question|
-          if question.has_key?("answers") && question["answers"].first["text"].present?
-            nanswers += 1
-          end
-        end
-        section["nanswers"] = nanswers
-      end
-    end
-
-  end
-
-
-  # find all object under src_plan_key
-  # merge them into the items under obj_plan_key using
-  # super_id = id
-  # so we have answers which each have a question_id
-  # rollup(plan, "answers", "quesiton_id", "questions")
-  # will put the answers into the right questions.
-  # sort determines whether the items being rolled up should be sorted by number field
-  def rollup(plan, src_plan_key, super_id, obj_plan_key, sort = false)
-    id_to_obj = Hash.new()
-    plan[src_plan_key].each do |o|
-      id = o[super_id]
-      if !id_to_obj.has_key?(id)
-        id_to_obj[id] = Array.new
-      end
-      id_to_obj[id]  << o
-    end
-
-    plan[obj_plan_key].each do |o|
-      id = o["id"]
-      if id_to_obj.has_key?(id)
-        if sort
-          id_to_obj[ id ].sort! { |x,y| x["number"].to_i <=> y["number"].to_i }
-        end
-        o[src_plan_key] = id_to_obj[ id ]
-      end
-    end
-    plan.delete(src_plan_key)
-  end
 
   ##
   # adds a user to the project
@@ -1014,9 +1029,25 @@ class Plan < ActiveRecord::Base
     role.user_id = user_id
     role.plan_id = id
 
-    role.creator= is_creator
-    role.editor= is_editor
-    role.administrator= is_administrator
+    # if you get assigned a role you can comment
+    role.commenter= true
+
+    # the rest of the roles are inclusing so creator => administrator => editor
+    if is_creator
+      role.creator =  true
+      role.administrator = true
+      role.editor = true
+    end
+
+    if is_administrator
+      role.administrator = true
+      role.editor = true
+    end
+
+    if is_editor
+      role.editor = true
+    end
+
     role.save
     
     # This is necessary because we're creating the associated record but not assigning it 
@@ -1098,5 +1129,15 @@ class Plan < ActiveRecord::Base
 
 		(num_lines * font_height) + vertical_margin + leading
 	end
+
+  # Initialize the title and dirty flags for new templates
+  # --------------------------------------------------------
+  def set_creation_defaults
+    # Only run this before_validation because rails fires this before save/create
+    if self.id.nil? 
+      self.title = "My plan (#{self.template.title})" if self.title.nil? && !self.template.nil?
+      self.visibility = 3
+    end
+  end
 
 end

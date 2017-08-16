@@ -3,7 +3,7 @@
 #   This class keeps the information organisations enter to support users when answering questions.
 #   It always belongs to a guidance group class and it can be linked directly to a question or through one or more themes
 # [+Created:+] 07/07/2014
-# [+Copyright:+] Digital Curation Centre and University of California Curation Center
+# [+Copyright:+] Digital Curation Centre and California Digital Library
 
 
 
@@ -13,12 +13,9 @@ class Guidance < ActiveRecord::Base
   ##
   # Associations
   belongs_to :guidance_group
-#  belongs_to :question
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
 # depricated, but required for migration "single_group_for_guidance"
-  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
-
-
+  #has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -28,7 +25,7 @@ class Guidance < ActiveRecord::Base
 
 
 
-  validates :text, presence: true
+  validates :text, presence: {message: _("can't be blank")}
 
 
   ##
@@ -91,7 +88,7 @@ class Guidance < ActiveRecord::Base
 
     unless guidance.nil?
       unless guidance.guidance_group.nil?
-        # guidances are viewable if they are owned by any of the user's organisations
+        # guidances are viewable if they are owned by the user's org
         if guidance.guidance_group.org == user.org
           viewable = true
         end
@@ -99,14 +96,14 @@ class Guidance < ActiveRecord::Base
         if Org.managing_orgs.include?(guidance.guidance_group.org)
           viewable = true
         end
-        
+
         # guidance groups are viewable if they are owned by a funder
         if Org.funders.include?(guidance.guidance_group.org)
           viewable = true
         end
       end
     end
-    
+
     return viewable
   end
 
@@ -120,24 +117,17 @@ class Guidance < ActiveRecord::Base
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    managing_groups = Org.managing_orgs.collect{|o| o.guidance_groups}
+    managing_groups = Org.includes(guidance_groups: :guidances).managing_orgs.collect{|o| o.guidance_groups}
     # find all groups owned by a Funder organisation
-    funder_groups = []
-    funders = Org.funders
-    funders.each do |funder|
-      funder_groups += funder.guidance_groups
-    end
+    funder_groups = Org.includes(guidance_groups: :guidances).funders.collect{|org| org.guidance_groups}
     # find all groups owned by any of the user's organisations
     organisation_groups = user.org.guidance_groups
-    
+
     # find all guidances belonging to any of the viewable groups
-    all_viewable_guidances = []
-    all_viewable_groups = managing_groups + funder_groups + organisation_groups
-    all_viewable_groups.flatten.each do |group|
-      all_viewable_guidances += group.guidances
-    end
+    all_viewable_groups = (managing_groups + funder_groups + organisation_groups).flatten
+    all_viewable_guidances = all_viewable_groups.collect{|group| group.guidances}
     # pass the list of viewable guidances to the view
-    return all_viewable_guidances
+    return all_viewable_guidances.flatten
   end
 
 end
