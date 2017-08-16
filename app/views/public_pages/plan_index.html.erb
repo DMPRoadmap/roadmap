@@ -1,5 +1,10 @@
 <%- model_class = Plan -%>
-<h1><%= raw _('Public DMPs') %></h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= raw _('Public DMPs') %></h1>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
@@ -18,7 +23,7 @@
       <div class="content">
         <table id="dmp_table" class="dmp_table tablesorter">
           <thead>
-            <% if @plans.count > 10 %>
+            <% if @plans.count > TABLE_FILTER_MIN_ROWS %>
               <tr>
                 <td colspan="5" class="td-as-th">
                   <%= render(partial: "shared/table_filter",

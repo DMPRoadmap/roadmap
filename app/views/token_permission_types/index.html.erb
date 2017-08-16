@@ -1,14 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <% @token_types.each do |token_type|%>
+      <h1>
+          <%= token_type.token_type %>
+      </h1>
+      <div class="div_clear"></div>
 
-<% @token_types.each do |token_type|%>
-<h1>
-    <%= token_type.token_type %>
-</h1>
-<div class="div_clear"></div>
+      <div class="dmp_details_body">
+          <%= token_type.text_description %>
+      </div>
 
-<div class="dmp_details_body">
-
-    <%= token_type.text_description %>
-
+    <% end %>
+  </div>
 </div>
-
-<% end %>

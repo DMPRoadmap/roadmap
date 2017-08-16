@@ -1,6 +1,13 @@
 <!-- This file might not be used! -->
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('File Name') -%> - <%= @plan.title -%></h1>
+    <p><%= _('Description') -%></p>
+  </div>
+</div>
 
-<h1><%= _('File Name') -%> - <%= @plan.title -%></h1>
-<p><%= _('Description') -%></p>
-
-<%= render "export_formatting_form" %>
+<div class="row">
+  <div class="col-md-12">
+    <%= render "export_formatting_form" %>
+  </div>
+</div>
