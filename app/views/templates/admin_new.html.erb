@@ -1,12 +1,16 @@
 <% javascript "admin.js" %>
-<h1>
-  <%= _('New template') %>
-  <!-- link button to add new guidance -->
-  <div class="move_2_right">
-    <%= link_to _('View all templates'),
-                admin_index_template_path, class: "btn btn-primary" %>
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= _('New template') %>
+      <!-- link button to add new guidance -->
+      <div class="move_2_right">
+        <%= link_to _('View all templates'),
+                    admin_index_template_path, class: "btn btn-primary" %>
+      </div>
+    </h1>
   </div>
-</h1>
+</div>
 
 <div class="row">
   <div class="col-md-12">
