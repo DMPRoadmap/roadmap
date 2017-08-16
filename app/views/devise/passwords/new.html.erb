@@ -1,31 +1,37 @@
 <% javascript "views/devise/passwords/new.js" %>
 
-<% unless @user.errors[:email].empty? %>
-  <p class="alert alert-error"><%= _('The email address you entered is not registered.') %></p>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <% unless @user.errors[:email].empty? %>
+      <p class="alert alert-error"><%= _('The email address you entered is not registered.') %></p>
+    <% end %>
+    
+    <h1><%= _('Forgot your password?') %></h1>
 
-<h1><%= _('Forgot your password?') %></h1>
+    <p class="left-indent"><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
+  </div>
+</div>
 
-<p class="left-indent"><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for resource, as: 'user', url: user_password_path, html: {class: "password-reset roadmap-form", method: :post} do |f| %>
 
-<div class="content">
-  <%= form_for resource, as: 'user', url: user_password_path, html: {class: "password-reset roadmap-form", method: :post} do |f| %>
+      <fieldset id="password-reset-form" class="standard padded">
+        <div class="form-input">
+          <%= f.label(:email, _('Email'), class: 'required') %>
+          <%= f.email_field(:email, class: 'left-indent required input-small') %>
+          <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
+        </div>
 
-    <fieldset id="password-reset-form" class="standard padded">
-      <div class="form-input">
-        <%= f.label(:email, _('Email'), class: 'required') %>
-        <%= f.email_field(:email, class: 'left-indent required input-small') %>
-        <span role="" id="email_error" class="error-tooltip-right left-indent"></span>
-      </div>
-
-      <div class="form-input">
-        <%= render partial: 'shared/accessible_submit_button',
-                   locals: {id: 'password-reset-button', 
-                            val: _('Send'), 
-                            disabled_initially: true,
-                            classes: 'left-indent',
-                            tooltip: _('Enter a valid email.')} %>
-      </div>
-    </fieldset>
-  <% end %>
+        <div class="form-input">
+          <%= render partial: 'shared/accessible_submit_button',
+                     locals: {id: 'password-reset-button', 
+                              val: _('Send'), 
+                              disabled_initially: true,
+                              classes: 'left-indent',
+                              tooltip: _('Enter a valid email.')} %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
 </div>

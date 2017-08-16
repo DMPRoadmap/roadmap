@@ -1,10 +1,14 @@
 <% javascript "admin.js" %>
 
-<h1><%= _('Guidance') %></h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Guidance') %></h1>
 
-<p class="left-indent">
-  <%= _("First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.") %>
-</p>
+    <p class="left-indent">
+      <%= _("First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.") %>
+    </p>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
@@ -74,7 +78,7 @@
     <% if @guidances.length > 0 then%>
       <table class="dmp_table tablesorter">
         <thead>
-          <% if @guidances.length > 10 %>
+          <% if @guidances.length > TABLE_FILTER_MIN_ROWS %>
             <tr>
               <td colspan="5" class="td-as-th">
                 <%= render(partial: "shared/table_filter", 

@@ -1,15 +1,17 @@
-<h1>
-    <%= _('List of users') %>
-</h1>
-<p class="left-indent">
-  <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('List of users') %></h1>
+    <p class="left-indent">
+      <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
+    </p>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
     <table class="dmp_table tablesorter">
       <thead>
-        <% if @users.count > 10 %>
+        <% if @users.count > TABLE_FILTER_MIN_ROWS %>
           <tr>
             <td colspan="5" class="td-as-th">
               <%= render(partial: "shared/table_filter", 

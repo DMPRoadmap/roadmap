@@ -1,7 +1,8 @@
-<% javascript 'views/guidances/admin_edit.js' %>
-
-<h1><%= _('Guidance') %></h1>
-
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Guidance') %></h1>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <%= form_for(@guidance, url: admin_update_guidance_path(@guidance), html: { method: :put , id: 'edit_guidance_form', class: 'roadmap-form bordered'}) do |f| %>
@@ -42,7 +43,7 @@
   </div>
 </div>
 
-<!-- alert for the default template-->
+<!-- alert for the default template. TODO remove when above form is using ariatiseForm, also remove lib/assets/javascripts/views/guidances/admin_edit.js file -->
 <div id="edit_guidance_alert_dialog" class="modal" role="dialog" aria-label="<%=_("Missing Fields Alert")%>" style="display:none">
   <ul id="missing_fields_edit_guidance"></ul>
 </div>

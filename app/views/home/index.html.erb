@@ -2,7 +2,11 @@
 <div class="row">
   <div class="col-md-8">
     <h1><%= _('Welcome.')%></h1>
+	</div>
+</div>
 
+<div class="row">
+  <div class="col-md-12">
     <%= raw _('<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {:application_name => Rails.configuration.branding[:application][:name], :organisation_name => Rails.configuration.branding[:organisation][:name]} %>            
     <div class="screencast_home_page">
       <p><%= _('Screencast on how to use %{application_name}') % {:application_name => Rails.configuration.branding[:application][:name]} %></p>

@@ -1,10 +1,11 @@
 /**** font configuration ****/
+/*
 @font-face {
   font-family: 'GillSansLight';
   src: font-url('GillSansLight.ttf') format('truetype');
   font-weight: normal;
 }
-/*
+
 $black: #000;
 $white: #FFF;
 $highlight-color: $black;
@@ -43,73 +44,3 @@ $header-text-color: $black;
 $header-logo-top-margin: 20px;
 $header-logo-left-margin: 10px;
 */
-
-
-/* EVERYTHING BELOW THIS LINE IS SPECIFIC TO THE BOOSTRAP 3.x IMPLEMENTATION OF ROADMAP      */
-/*   we unfortunately need to use `!important` throughout to get it to override consistently */
-/* ----------------------------------------------------------------------------------------- */
-/* SASS variables */
-$dark-grey: #333;
-$medium-grey: #827D7E;
-$light-grey: #CCC;
-
-$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-
-$primary-color: #4f5253;
-$primary-reverse-color: #FFF;  /* Typically used for the font color when using $primary-color as the background-color */
-
-$body-background: #FFF;
-
-$header-font: "GillSansLight";
-
-$footer-background: $body-background;
-$footer-color: $dark-grey;
-$footer-margin-top: 30px;
-
-$tab-borders: 2px solid $primary-color;
-
-
-
-/* GENERIC PAGE STYLING */
-/* ------------------------------------------ */
-a, a:visited, a:hover, a:focus {
-  color: $primary-color !important;
-}
-footer {
-  margin-top: $footer-margin-top;
-}
-
-/* GENERIC TAB STYLING */
-/* ------------------------------------------ */
-/* Make sure the active tab is the primarycolor and that it has a border */ 
-.nav-tabs > li.active > a, 
-.nav-tabs > li.active > a:hover, 
-.nav-tabs > li.active > a:focus {
-  color: $primary-reverse-color !important;
-  background-color: $primary-color !important;
-  border: $tab-borders;
-  border-bottom: none;
-}
-/* make sure that inactive tabs have a border */
-.nav-tabs > li:not(.active) > a {
-  border: 1px solid $light-grey;
-  border-bottom: none;
-}
-/* make sure that inactive tabs become the primary color when they receive focus/hover */
-.nav-tabs > li:not(.active) > a:hover,
-.nav-tabs > li:not(.active) > a:focus {
-  color: $primary-reverse-color !important;
-  background-color: $primary-color !important;
-  border: $tab-borders;
-  border-bottom: none;
-}
-/* Make user that the tab content is surrounded by a border and has adequate padding */
-.tab-content {
-  border: $tab-borders;
-  margin-top: -1px;
-
-  .tab-pane {
-    padding: 15px 15px 25px 15px;
-  }
-}
-
