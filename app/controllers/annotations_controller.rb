@@ -16,6 +16,7 @@ class AnnotationsController < ApplicationController
     # if they dont exist, no requirement for them to be saved
     ex_save = example_answer.present? ? example_answer.save : true
     guid_save = guidance.present? ? guidance.save : true
+    @question.section.phase.template.dirty = true
 
     if ex_save && guid_save
       redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
@@ -73,6 +74,8 @@ class AnnotationsController < ApplicationController
 
     @section = @question.section
     @phase = @section.phase
+    @phase.template.dirty = true
+
     if ex_save && guid_save
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
     else
@@ -95,6 +98,7 @@ class AnnotationsController < ApplicationController
     @question = @example_answer.question
     @section = @question.section
     @phase = @section.phase
+    @phase.template.dirty = true
     if @example_answer.destroy
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
     else
