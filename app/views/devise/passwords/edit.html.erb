@@ -11,12 +11,12 @@
       <%= f.hidden_field :reset_password_token %>
 
       <div class="form-group">
-        <%= f.label(:email, _('New password'), class: 'control-label') %>
-        <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+        <%= f.label(:password, _('New password'), class: 'control-label') %>
+        <%= f.password_field(:password, class: 'form-control', "aria-required": true, "data-validation": "password") %>
       </div>
       <div class="form-group">
-        <%= f.label(:email, _('Confirm password'), class: 'control-label') %>
-        <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
+        <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
+        <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true, "data-validation": "password") %>
       </div>
 
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
