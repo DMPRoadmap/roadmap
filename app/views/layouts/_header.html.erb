@@ -1,25 +1,9 @@
 <!-- header information (bootstrap 3 column layout) -->
-<div class="col-md-4">
-  <% if user_signed_in? && !current_user.org.nil? && current_user.org.logo.present? %>
-    <div class="home-logo">
-      <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url, alt: current_user.org.name), current_user.org.target_url) %>
-    </div>
-  <% else %>
-    <div class="home-logo roadmap-logo">
-      <%= link_to(image_tag("logo.png", alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}"), root_path, title: Rails.configuration.branding[:application][:name]) %>
-    </div>
-  <% end %>
+<div class="main-nav">
+  <%= render partial: "layouts/navigation" %>
 </div>
-<div class="col-md-4">  
-  <div class="org-branding">
-    <p>Placeholder text to help visual column layout</p>
-    <%= render "layouts/branding" %>
-  </div>
-  
-  <div class="main-nav">
-    <%= render "layouts/navigation" %>
-  </div> 
-</div>  
-<div class="col-md-4">
-  <%= render "layouts/signin_signout" %>
+<div class="org-branding">
+  <% if user_signed_in? && !current_user.org.nil? %>
+    <%= render partial: "layouts/branding" %>
+  <% end %>
 </div>

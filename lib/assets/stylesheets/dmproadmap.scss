@@ -1,11 +1,12 @@
 /**** font configuration ****/
-/*
+
 @font-face {
   font-family: 'GillSansLight';
   src: font-url('GillSansLight.ttf') format('truetype');
   font-weight: normal;
 }
 
+/*
 $black: #000;
 $white: #FFF;
 $highlight-color: $black;
@@ -36,8 +37,63 @@ $header-height: 165px;
 $header-logo-width: 165px;
 $header-background: $white;
 $header-text-color: $black;
+$header-background: linear-gradient(#ED6406, #F59503);
 */
-/* $header-background: linear-gradient(#ED6406, #F59503); */
+
+#main-navbar {
+  border-radius: 0px;
+  height: 50px;
+}
+
+#org-navbar {
+  border-radius: 0px;
+  margin-top: -20px;
+  height: 100px;
+}
+
+@media (min-width: 768px) {
+  #navbar2 .navbar-nav li a {
+    line-height: 100px;
+    height: 100px;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  #admin-dropdown ul li a, #super-admin-dropdown ul li a {
+    line-height: 26px !important;
+    height: 26px !important;
+    margin-top: 3px !important;
+  }
+}
+
+.inverse-dropdown {
+  background-color: #222 !important;
+  border-color: #080808 !important;
+  & > li > a {
+    color: #999 !important;
+    &:hover {
+      color: #fff !important;
+      background-color: #000 !important;
+    }
+  }
+  .active a {
+      color: #fff !important;
+      background-color: #000 !important;
+  }
+}
+
+/* FOOTER STYLING */
+  #footer-navbar {
+    margin-bottom: 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius:0px;
+    ul {
+      padding-right:15px;
+    }
+  }
 
 /* HEADER LOGO POSITIONING */
 /*

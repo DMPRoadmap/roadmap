@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="<%= FastGettext.locale %>">
+<html lang="<%= FastGettext.locale %>"   style="position: relative;
+  min-height: 100%; ">
   <head>
     <title>
       <%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
@@ -8,13 +9,13 @@
     <!--[ if lte IE 9]>
       <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
-         <style type="text/css"> 
-           .navbar { 
-             filter:none !important; 
-           } 
-         </style> 
+         <style type="text/css">
+           .navbar {
+             filter:none !important;
+           }
+         </style>
     <![endif]-->
-      
+
     <!--[if gte IE 9]>
         <style type="text/css">
           .gradient {
@@ -24,9 +25,9 @@
     <![endif]-->
 
     <%= stylesheet_link_tag   "application" %>
-    
+
     <%= javascript_include_tag "application"%>
-    
+
     <script>
       // Set the JS locale equal to the one Rails has
       I18n.defaultLocale = "<%= I18n.default_locale %>";
@@ -39,9 +40,9 @@
               // Invoke the plugin
               $('input, textarea').placeholder();
               $('input, iframe').placeholder();
-          });    
+          });
         </script>
-    <![endif]-->  
+    <![endif]-->
 
     <%= yield(:head) %>
     <%= csrf_meta_tags %>
@@ -49,44 +50,45 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        
+
   </head>
-  <body>
+  <body style="margin-bottom:75px;">
     <!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
       <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
 
-    <div class="container">
-
       <!-- header renedering -->
-      <header class="row">
-        <%= render "layouts/header" %>
+      <header>
+        <%= render partial: "layouts/header" %>
       </header>
 
-      <% 
+      <%
       has_alert = (alert || flash[:alert] || flash[:error])
       has_notice = (notice || flash[:notice])
       %>
 
-      <div id="notification-area"
-           class="roadmap-<%= has_alert ? 'alert' : 'info' %>-box" 
-           style="visibility: <%= (has_alert || has_notice) ? 'visible' : 'hidden' %>;"<%= (has_notice ? ' role=status' : (has_alert ? ' role=alert' : '')) %>>
-        <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
-        <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
-        <span><%= raw (has_alert ? alert : notice) %></span>
-      </div>
-
-      <main>
+      <main class="container" style="<% if !user_signed_in? or current_user.org.nil? %>padding-top:75px;<% end %>">
+        <div id="notification-area"
+             class="roadmap-<%= has_alert ? 'alert' : 'info' %>-box"
+             style="visibility: <%= (has_alert || has_notice) ? 'visible' : 'hidden' %>;"<%= (has_notice ? ' role=status' : (has_alert ? ' role=alert' : '')) %>>
+          <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+          <span><%= raw (has_alert ? alert : notice) %></span>
+        </div>
         <%= yield %>
       </main>
 
       <!-- footer rendering -->
-      <footer class="row">
+      <footer >
         <%= render "layouts/footer" %>
       </footer>
+
+      <!-- Navbar triggered modals need to be outside of every other element at the top level of <body> -->
+
+
       <script>
         /* Initialises an editor for each textarea whose class name is tinymce */
         dmproadmap.utils.tinymce.init({ selector: '.tinymce' });
       </script>
-    </div>
+
   </body>
 </html>
