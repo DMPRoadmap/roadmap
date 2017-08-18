@@ -8,9 +8,16 @@
 # Ignore all logfiles, tempfiles, public assets,
 /log/*.log
 /tmp
-public/system/*
-public/assets/*
+
+# Ignore public subdirectories
 public/apidocs/*
+public/assets/*
+public/fonts/*
+public/images/*
+public/javascripts/*
+public/stylesheets/*
+public/system/*
+public/videos/*
 
 # Ignore branded content
 app/views/branded/*
@@ -42,6 +49,7 @@ config/branding.yml
 config/initializers/recaptcha.rb
 config/initializers/devise.rb
 config/initializers/wicked_pdf.rb
+config/initializers/fingerprint.rb
 
 # Ignore enviroments settings
 #config/environments/development.rb
@@ -67,6 +75,7 @@ config/initializers/wicked_pdf.rb
 config/locale/*/app.edit.po
 config/locale/*/app.po.time_stamp
 
-# ignore front-end dependencies
-vendor/package-lock.json
-vendor/node_modules
+# Front-end related
+lib/assets/node_modules
+lib/assets/npm-debug.log
+!.keep

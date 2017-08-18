@@ -1,0 +1,50 @@
+{
+  "name": "roadmap",
+  "version": "1.0.0",
+  "description": "Roadmap front-end dependencies",
+  "main": "null",
+  "scripts": {
+    "test": "echo \"There are no test in place yet\" && exit 0",
+    "bundle": "node_modules/.bin/webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMPRoadmap/roadmap.git"
+  },
+  "author": "California Digital Library (CDL)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DMPRoadmap/roadmap/issues"
+  },
+  "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "jquery": "3.2.1",
+    "jquery-accessible-autocomplete-list-aria": "1.5.5",
+    "jquery-ui-dist": "1.12.1",
+    "jquery-ujs": "1.2.2",
+    "placeholder": "1.0.2",
+    "tablesorter": "2.28.15",
+    "timeago": "1.6.1",
+    "tinymce": "4.6.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.4",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.4"
+  }
+}
