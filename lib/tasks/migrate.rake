@@ -200,19 +200,19 @@ namespace :migrate do
     conn.execute "UPDATE users SET surname = 'LAST NAME' WHERE surname = '' OR surname IS NULL;"
 
     # Fix Sections table for validators
-    conn.execute "UPDATE Sections SET title = 'TITLE' WHERE title = '' OR title IS NULL"
-    conn.execute "UPDATE Sections SET number = '0' WHERE number IS NULL"
+    conn.execute "UPDATE sections SET title = 'TITLE' WHERE title = '' OR title IS NULL"
+    conn.execute "UPDATE sections SET number = '0' WHERE number IS NULL"
 
     # Fix Phases Table for validators
-    conn.execute "UPDATE Phases SET title = 'TITLE' WHERE title = '' OR title IS NULL"
-    conn.execute "UPDATE Phases SET number = 0 WHERE number IS NULL"
+    conn.execute "UPDATE phases SET title = 'TITLE' WHERE title = '' OR title IS NULL"
+    conn.execute "UPDATE phases SET number = 0 WHERE number IS NULL"
 
     # Fix Questions Table for validators
-    conn.execute "UPDATE Questions SET text = 'PLACEHOLDER' WHERE text = '' or text IS NULL"
-    conn.execute "UPDATE Questions SET number = 0 WHERE number IS NULL"
+    conn.execute "UPDATE questions SET text = 'PLACEHOLDER' WHERE text = '' or text IS NULL"
+    conn.execute "UPDATE questions SET number = 0 WHERE number IS NULL"
 
     # Fix Options table for validators
-    conn.execute "UPDATE Options SET number = 0 WHERE number IS NULL"
+    conn.execute "UPDATE options SET number = 0 WHERE number IS NULL"
 
 
     Rake::Task['migrate:remove_invalid_emails'].execute
