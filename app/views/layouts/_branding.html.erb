@@ -1,16 +1,95 @@
-<!-- Org branding info -->
-<div class="branding-container">
-  <% if user_signed_in? %>
-    <% if !current_user.org.nil? %>
-      <!-- Banner text -->
-      <% if current_user.org.banner_text.present? %>
-        <div class="header-org-banner-text">
-          <span class="header-org-banner-text-vertical-align">
-            <%= raw current_user.org.banner_text %>
-          </span>
-        </div>
-      <%end%>
-      
-    <%end%>
-  <%end%>
-</div>
+<nav id="org-navbar" class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header" >
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#org-navbar-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% if user_signed_in? && !current_user.org.nil? && current_user.org.logo.present? %>
+        <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
+                              alt: current_user.org.name,
+                              class: "org-logo",
+                              title: current_user.org.name),
+                    current_user.org.target_url) %>
+      <% end %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="org-navbar-menu">
+      <% if user_signed_in? && !current_user.org.nil? %>
+          <ul class="nav navbar-nav">
+            <li>
+              <a><%= current_user.org.name %></a>
+            </li>
+            <li>
+              <%= link_to _('RDM Info'), root_path %>
+            </li>
+            <li>
+              <%= link_to _('RDM Policy'), root_path %>
+            </li>
+          </ul>
+      <% end %>
+
+    <!-- Navigation for organisation admin -->
+    <ul class="nav navbar-nav navbar-right">
+
+      <!-- if org admin -->
+      <% if current_user.can_org_admin? %>
+        <li class="dropdown navbar-default" id="admin-dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
+            <i class="fa fa-lock" aria-hidden="true">&nbsp;</i>
+            <%= _('Admin') %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="admin-menu">
+            <% if current_user.can_modify_templates? %>
+                <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
+                  <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
+                </li>
+            <% end %>
+            <% if current_user.can_modify_guidance? %>
+                <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
+                  <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+                </li>
+            <% end %>
+            <% if current_user.can_modify_org_details? %>
+                <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
+                  <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
+                </li>
+            <% end %>
+            <% if current_user.can_grant_permissions? %>
+                <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>
+                  <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
+                </li>
+            <% end %>
+          </ul>
+      <% end %> <!-- if org admin -->
+
+      <!-- if super admin -->
+      <% if current_user.can_super_admin? %>
+        <li class="dropdown navbar-default" id="super-admin-dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="super-admin-menu" href="#">
+            <i class="fa fa-lock" aria-hidden="true">&nbsp;</i>
+            <%= _('Super Admin') %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="super-admin-menu">
+            <% if true %>
+                <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
+                  <%= link_to _('Super admin page A'), "#" %>
+                </li>
+            <% end %>
+            <% if true %>
+                <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
+                  <%= link_to _('Super admin page B'), "#" %>
+                </li>
+            <% end %>
+          </ul>
+      <% end %> <!-- if super admin -->
+    </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

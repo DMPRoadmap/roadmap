@@ -1,34 +1,48 @@
+<!-- language dropdown -->
+<% if MANY_LANGUAGES %>
+  <li class="dropdown" id="change-language">
+    <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-language" aria-hidden="true">&nbsp;</i>
+      <%= _('Language') %>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
+      <% LANGUAGES.each do |l| %>
+        <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+          <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+
 <!-- Sign in / out -->
 <% if user_signed_in? %>
-  <a href="<%= edit_user_registration_path %>" class="right-indent" id="signin-signout">
-    <%= _('Signed in as') %> <%= current_user.name(false) %> <span class="fa fa-user" style="color: inherit;"><span>
-  </a>
-  <span class="muted">|</span>
-
-  <%= link_to _('Logout'), destroy_user_session_path, method: :delete, class: "left-indent right-indent" %>
-  <span class="muted">|</span>
-
+  <li class="dropdown" id="signin-signout">
+      <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user" aria-hidden="true">&nbsp;</i>
+        <%= current_user.name(false) %>
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu inverse-dropdown" aria-labelledby="user-menu">
+        <li>
+          <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to '<i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+        </li>
+      </ul>
+    </a>
+  </li>
 <% else %>
   <% if !isActivePage(root_path) %>
-    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin"><%= _('Sign in')%></button>
-    <span class="muted">|</span>
+    <li>
+      <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
+        <i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>
+        <%= _('Sign in') %>
+      </a>
+    </li>
+          <%= render partial: 'shared/login_form', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
+
   <% end %>
-<% end %>
-
-<% if MANY_LANGUAGES %>
-  <!-- language dropdown -->
-  <a class="dropdown left-indent" id="change-language" href="#">
-    <%= _('Choose your language') %> <span class="fa fa-sort-desc" style="color: inherit;"><span>
-  </a>
-  <ul class="hidden dropdown-list" id="change-language-dropdown">
-    <% LANGUAGES.each do |l| %>
-      <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
-        <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: "main_nav lang-dropdown-link" %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-
-<% if !user_signed_in? && !isActivePage(root_path) then %>
-  <%= render partial: 'shared/login_form', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in') } %>
 <% end %>
