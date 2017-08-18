@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= FastGettext.locale %>"   style="position: relative;
-  min-height: 100%; ">
+<html lang="<%= FastGettext.locale %>">
   <head>
     <title>
       <%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
@@ -52,11 +51,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
   </head>
-  <body style="margin-bottom:75px;">
+  <body>
     <!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
       <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
 
-      <!-- header renedering -->
+      <!-- header rendering -->
       <header>
         <%= render partial: "layouts/header" %>
       </header>
@@ -66,10 +65,12 @@
       has_notice = (notice || flash[:notice])
       %>
 
-      <main class="container" style="<% if !user_signed_in? or current_user.org.nil? %>padding-top:75px;<% end %>">
+      <!-- main page content rendering -->
+      <main class="container">
         <div id="notification-area"
-             class="roadmap-<%= has_alert ? 'alert' : 'info' %>-box"
-             style="visibility: <%= (has_alert || has_notice) ? 'visible' : 'hidden' %>;"<%= (has_notice ? ' role=status' : (has_alert ? ' role=alert' : '')) %>>
+             class="<%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+                    <%= (has_alert or has_notice) ? 'alert show' : 'hide' %>"
+             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
           <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
           <span><%= raw (has_alert ? alert : notice) %></span>

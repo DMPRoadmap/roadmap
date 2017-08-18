@@ -1,26 +1,26 @@
-<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
+<nav id="app-navbar" class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid" >
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="not_navbar-brand" href="#">
-        <div class="RRhome-logo RRroadmap-logo img-responsive">
-          <%= link_to(image_tag("logo.png", alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}", height: "50px", style: "padding-right:15px"), root_path, title: Rails.configuration.branding[:application][:name]) %>
-        </div>
-      </a>
+      <%= link_to(image_tag("logo.png",
+                            alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                            class: "app-logo",
+                            title: Rails.configuration.branding[:application][:name]),
+                  root_path) %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar">
+    <div class="collapse navbar-collapse" id="app-navbar-menu">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
           <li class="<%= ' active' if isActivePage(root_path) %>">
-            <%= link_to _('Dashboard'), plans_path %>
+            <%= link_to _('My Dashboard'), plans_path %>
           </li>
           <li <%= 'class=active' if isActivePage(new_plan_path) %>>
             <%= link_to _('Create plans'), new_plan_path %>

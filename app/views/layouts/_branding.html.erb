@@ -1,27 +1,26 @@
-<nav id="org-navbar" class="navbar navbar-default" role="navigation" style="">
+<nav id="org-navbar" class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" >
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#org-navbar-menu" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="not_navbar-brand" href="#">
-
-        <div class="RRhome-logo img-responsive">
-          <% if user_signed_in? && !current_user.org.nil? && current_user.org.logo.present? %>
-            <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url, alt: current_user.org.name, height: "100", style: "padding-right:15px"), current_user.org.target_url) %>
-          <% end %>
-        </div>
-      </a>
+      <% if user_signed_in? && !current_user.org.nil? && current_user.org.logo.present? %>
+        <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
+                              alt: current_user.org.name,
+                              class: "org-logo",
+                              title: current_user.org.name),
+                    current_user.org.target_url) %>
+      <% end %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar2">
+    <div class="collapse navbar-collapse" id="org-navbar-menu">
       <% if user_signed_in? && !current_user.org.nil? %>
-          <ul class="nav navbar-nav" style="line-height:100px; height:100px; padding-top:0">
+          <ul class="nav navbar-nav">
             <li>
               <a><%= current_user.org.name %></a>
             </li>
@@ -94,4 +93,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
