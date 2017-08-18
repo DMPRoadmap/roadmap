@@ -15,6 +15,7 @@ class ExportedPlanDashboard < Administrate::BaseDashboard
     format: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    phase_id: Field::Number,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -39,6 +40,7 @@ class ExportedPlanDashboard < Administrate::BaseDashboard
     :format,
     :created_at,
     :updated_at,
+    :phase_id,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -49,6 +51,7 @@ class ExportedPlanDashboard < Administrate::BaseDashboard
     :user,
     :setting_objects,
     :format,
+    :phase_id,
   ].freeze
 
   # Overwrite this method to customize how exported plans are displayed

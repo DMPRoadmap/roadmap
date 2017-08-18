@@ -1,18 +1,24 @@
-<!-- footer container (bootstrap 2 column layout)  -->
-<div class="col-md-8">
-  <div role="navigation">
-    <ul class="unstyled list-inline">
+<!-- footer container -->
+<div id="footer-navbar" class="navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><%= link_to "&copy; 2004 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:name]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
+      <li>•</li>
       <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
-      <li>|</li>
       <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
+      <li><a href="#"><%= _('Privacy policy') %></a></li>
+      <li><a href="#"><%= _('Accessibility') %></a></li>
+      <li><a href="https://github.com/DMPRoadmap/roadmap"><%= _('Github') %></a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <%= link_to( image_tag("uc3_logo.jpg", class: "img-responsive", alt: 'University of California Curation Center'),
+                               "http://www.cdlib.org/uc3/", title: "University of California Curation Center", id: "footer_right_uc3", ) %>
+      </li>
+      <li>
+        <%= link_to( image_tag("dcc_logo.png", class: "img-responsive", alt: 'Digital Curation Centre'),
+                     "http://www.dcc.ac.uk/", title: "Digital Curation Centre") %>
+      </li>
     </ul>
   </div>
-
-  <p>&copy; 2004 - <%= Time.now.year %><%= link_to " #{Rails.configuration.branding[:organisation][:name]}", "#{Rails.configuration.branding[:organisation][:url]}"%></p>
-</div>
-
-<div class="col-md-4">
-  <p class="pull-right">
-    <%= link_to( image_tag("dcc_logo.png", alt: 'Digital Curation Centre'), "http://www.dcc.ac.uk/", title: "Digital Curation Centre") %><%= link_to( image_tag("uc3_logo.jpg", class: "footer_logo", alt: 'University of California Curation Center'),"http://www.cdlib.org/uc3/", title: "University of California Curation Center", id: "footer_right_uc3", ) %>
-  </p>
 </div>

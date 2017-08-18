@@ -29,17 +29,19 @@ class PhasesController < ApplicationController
     # where guidance is a hash with the text and the org name
     theme_guidance = {}
 
-    guidance_groups.each do |guidance_group|
-      guidance_group.guidances.where(published: true).each do |guidance|
-        guidance.themes.each do |theme|
-          title = theme.title
-          if !theme_guidance.has_key?(title)
-            theme_guidance[title] = Array.new
+    guidance_groups.includes(guidances:[:themes]).each do |guidance_group|
+      guidance_group.guidances.each do |guidance|
+        if guidance.published
+          guidance.themes.each do |theme|
+            title = theme.title
+            if !theme_guidance.has_key?(title)
+              theme_guidance[title] = Array.new
+            end
+            theme_guidance[title] << {
+              text: guidance.text,
+              org: guidance_group.name + ':'
+            }
           end
-          theme_guidance[title] << {
-            text: guidance.text,
-            org: guidance_group.name + ':'
-          }
         end
       end
     end
