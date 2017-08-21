@@ -238,7 +238,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 0, customization.version
     assert_not customization.published?
-    assert_not customization.dirty?
+    assert customization.dirty?
 
     # Make sure the funder templates data is not modifiable!
     customization.phases.each do |p|

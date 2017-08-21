@@ -82,7 +82,11 @@
     <hr />
   
     <p class="left-indent">
-      <%= _('Institution not in the list?') %> <a href="#header-register-form" data-toggle="modal"><%= _('Create an account with any email address')%></a>
+      <%= _('Institution not in the list?') %>&nbsp;
+      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin">
+        <%= _('Create an account with any email address')%>
+      </button>
     </p>
+    <%= render partial: 'shared/signin' %>
   </div>
 </div>

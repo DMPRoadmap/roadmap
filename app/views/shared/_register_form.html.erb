@@ -36,7 +36,7 @@
         <a href="#"><%= _("My organisation isn't listed.") %></a>
       </div>
       <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-      <div id="other-org-name" class="form-input" style="display:none" data-orgs="<%= other_organisations.join(',') %>">
+      <div id="other-org-name" class="form-input hide" data-orgs="<%= other_organisations.join(',') %>">
         <%= f.label _('Organisation Name'), for: :other_organisation %>
         <%= f.text_field :other_organisation, :autocomplete => "off", :class => 'left-indent has-tooltip', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
       </div>

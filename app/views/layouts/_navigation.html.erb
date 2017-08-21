@@ -1,84 +1,66 @@
-<ul class="nav">
+<nav id="app-navbar" class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid" >
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to(image_tag("logo.png",
+                            alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                            class: "app-logo",
+                            title: Rails.configuration.branding[:application][:name]),
+                  root_path) %>
+    </div>
 
-  <li>
-    <a class="dropdown left-indent" id="explore" href="#"><%= _('Explore') %> <span class="fa fa-sort-desc" style="color: inherit;"><span></a>
-
-    <ul class="hidden dropdown-list" id="explore-dropdown">
-      <% if !user_signed_in? %>
-        <li <%= 'class=active' if isActivePage(root_path) || isActivePage(plans_path) %>>
-          <%= link_to _('Home'), root_path %>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="app-navbar-menu">
+      <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          <li class="<%= ' active' if isActivePage(root_path) %>">
+            <%= link_to _('My Dashboard'), plans_path %>
+          </li>
+          <li <%= 'class=active' if isActivePage(new_plan_path) %>>
+            <%= link_to _('Create plans'), new_plan_path %>
+          </li>
+            <li class="dropdown" id="reference-dropdown">
+              <a href="#" class="dropdown-toggle" role="button" id="reference-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-book" aria-hidden="true">&nbsp;</i>
+                <%= _("Reference") %>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu inverse-dropdown" aria-labelledby="reference-menu">
+                <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+                  <%= link_to _('Public DMPs'), public_plans_path %>
+                </li>
+                <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+                  <%= link_to _('DMP Templates'), public_templates_path %>
+              </ul>
+            </a>
+          </li>
+        <% else %>
+          <li <%= 'class=active' if isActivePage(root_path) || isActivePage(plans_path) %>>
+            <%= link_to _('Home'), root_path %>
+          </li>
+          <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+            <%= link_to _('Public DMPs'), public_plans_path %>
+          </li>
+          <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+            <%= link_to _('DMP Templates'), public_templates_path %>
+          </li>
+        <% end %>
+        <!-- help page -->
+        <li <%= 'class=active' if isActivePage(help_path) %>>
+          <%= link_to _('Help'), help_path %>
         </li>
-      <% end %>
-      <li <%= 'class=active' if isActivePage(public_plans_path) %>>
-        <%= link_to _('Public DMPs'), public_plans_path %>
-      </li>
-      <li <%= 'class=active' if isActivePage(public_templates_path) %>>
-        <%= link_to _('DMP Templates'), public_templates_path %>
-      </li>
-    </ul>
-  </li>
-
-  <% if user_signed_in? %>
-
-    <!-- Navigation for organisation admin -->
-    <% if current_user.can_org_admin? && action_name.include?("admin_") %>
-      <% if current_user.can_modify_templates? %>
-          <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
-            <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
-          </li>
-      <% end %>
-      <% if current_user.can_modify_guidance? %>
-          <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
-            <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
-          </li>
-      <% end %>
-      <% if current_user.can_modify_org_details? %>
-          <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-            <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
-          </li>
-      <% end %>
-      <% if current_user.can_grant_permissions? %>
-          <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>
-            <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
-          </li>
-      <% end %>
-    <% else %>
-      <li <%= 'class=active' if isActivePage(new_plan_path) %>>
-        <%= link_to _('Create plans'), new_plan_path %>
-      </li>
-
-      <!-- help page -->
-      <li <%= 'class=active' if isActivePage(help_path) %>>
-        <%= link_to _('Help'), help_path %>
-      </li>
-    <% end %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <%= render "layouts/signin_signout" %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 
-    <li class="highlight-color-button left-indent<%= ' active' if isActivePage(root_path) %>">
-      <%= link_to _('My Dashboard'), plans_path %>
-    </li>
-
-    <%
-    if current_user.can_org_admin? && !current_user.org_id.nil? && !action_name.include?("admin_")
-      link = nil
-
-      if current_user.can_modify_org_details? && current_user.org.abbreviation.blank?
-        link = admin_edit_org_path(current_user.org_id)
-      elsif  current_user.can_modify_templates?
-        link = admin_index_template_path(current_user.org_id)
-      elsif current_user.can_modify_guidance?
-        link = admin_index_guidance_path(current_user.org_id)
-      elsif current_user.can_modify_org_details?
-        link = admin_edit_org_path(current_user.org_id)
-      elsif current_user.can_grant_permissions?
-        link = admin_index_users_path
-      end
-    end
-    %>
-    <% unless link.nil? %>
-      <li class="highlight-color-button<%= ' active' if isActivePage(link) %>">
-        <%= link_to _('Admin'), link %>
-      </li>
-    <% end %>
-  <% end %>
-</ul>

@@ -20,19 +20,16 @@
           </div>
         </div>
     
-        <!-- if guidance group published then display check_box -->
-        <% if @guidance_group.published == true then %>
-          <div class="form-input">
-            <%= f.label _('Published'), for: :published %>
-            <%= f.check_box :published %>
-            <div class="inline">
-              <% lbl = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.") %>
-              <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
-                 data-content="<%= lbl %>" aria-label="<%= lbl %>">
-              <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-            </div>
+        <div class="form-input">
+          <%= f.label _('Published'), for: :published %>
+          <%= f.check_box :published %>
+          <div class="inline">
+            <% lbl = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.") %>
+            <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
+               data-content="<%= lbl %>" aria-label="<%= lbl %>">
+            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
-        <% end %>
+        </div>
 
         <div class="form-input">
           <%= f.label _('Optional Subset'), for: :optional_subset %>
