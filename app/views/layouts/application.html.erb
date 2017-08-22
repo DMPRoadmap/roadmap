@@ -23,16 +23,6 @@
         </style>
     <![endif]-->
 
-    <%= stylesheet_link_tag   "application" %>
-
-    <%= javascript_include_tag "application"%>
-
-    <script>
-      // Set the JS locale equal to the one Rails has
-      I18n.defaultLocale = "<%= I18n.default_locale %>";
-      I18n.locale = "<%= I18n.locale %>";
-    </script>
-
     <!--[if IE]>
           <script>
             $(function() {
@@ -43,13 +33,14 @@
         </script>
     <![endif]-->
 
-    <%= yield(:head) %>
+    <%= stylesheet_link_tag fingerprinted_asset('application') %>
+    <%= javascript_include_tag fingerprinted_asset('vendor') %>
+    <%= javascript_include_tag fingerprinted_asset('application') %> 
+    <%= render "layouts/es5_scripts" %>
     <%= csrf_meta_tags %>
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
   </head>
   <body>
     <!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
@@ -82,14 +73,5 @@
       <footer >
         <%= render "layouts/footer" %>
       </footer>
-
-      <!-- Navbar triggered modals need to be outside of every other element at the top level of <body> -->
-
-
-      <script>
-        /* Initialises an editor for each textarea whose class name is tinymce */
-        dmproadmap.utils.tinymce.init({ selector: '.tinymce' });
-      </script>
-
   </body>
 </html>
