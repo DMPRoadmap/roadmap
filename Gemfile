@@ -56,9 +56,6 @@ gem 'ledermann-rails-settings', '~> 2.4.2'
 
 # ------------------------------------------------
 #    VIEWS
-gem 'sass-rails', '~> 5.0.6'
-gem 'less-rails', '~> 2.8.0'                        # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
-gem 'font-awesome-rails', '~> 4.7.0'
 gem 'contact_us', '~> 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha', '~> 4.1.0'
 gem 'dragonfly', '~> 1.0.12'                         # LOGO UPLOAD
@@ -75,7 +72,6 @@ gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
 # ------------------------------------------------
 #     INTERNATIONALIZATION
-gem "i18n-js", ">= 3.0.0.rc11"          #damodar added TODO: explain
 gem 'gettext_i18n_rails', '~> 1.8'
 gem "gettext_i18n_rails_js", "~> 1.2.0"
 gem 'gettext', '>=3.0.2', :require => false, :group => :development
@@ -112,10 +108,6 @@ group :development do
   gem 'web-console', '~> 2.3.0'
   gem 'rack-mini-profiler', '~> 0.10.1'
   #gem 'flamegraph'
-end
-
-group :production do
-  gem 'uglifier', '~> 3.0.2'    # JS minifier
 end
 
 # ------------------------------------------------

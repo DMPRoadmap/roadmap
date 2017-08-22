@@ -1,29 +1,14 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- * require jquery.ui.all
- *= require_self
- *
- *= require bootstrap-sass/assets/stylesheets/_bootstrap.scss
- *= require tablesorter/dist/css/theme.bootstrap_3.min.css
- */
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+$fa-font-path: "~font-awesome/fonts/";
+@import "~font-awesome/scss/font-awesome";
 
 /* CSSs files for jquery-ui. TODO, remove when bootstrap is re-introduced
 *= require jquery-ui-dist/jquery-ui.min
 *= require jquery-ui-dist/jquery-ui.structure.min
 *= require jquery-ui-dist/jquery-ui.theme.min
 */
-@import "font-awesome";
-
-/* Overrides to Bootstrap styling */
-@import "dmproadmap";
 
 /* These will eventually go away once Boostrap is in place */
 /*
