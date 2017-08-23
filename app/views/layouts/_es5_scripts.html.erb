@@ -1,0 +1,77 @@
+<!-- Scripts written in ES5 that have to be migrated to ES6. Needed here since Rails assets pipeline has been already switched off in favour of Webpack -->
+
+<!-- START third party libraries -->
+    <%= javascript_include_tag 'jquery.min.js' %>
+    <%= javascript_include_tag 'rails.js' %>
+    <%= javascript_include_tag 'jquery-ui.min.js' %>
+    <%= javascript_include_tag 'jquery-accessible-autocomplete-list-aria.js' %>
+    <%= javascript_include_tag 'placeholder.min.js' %>
+    <%= javascript_include_tag 'jquery.tablesorter.min.js' %>
+    <%= javascript_include_tag 'jquery.tablesorter.widgets.min.js' %>
+    <%= javascript_include_tag 'jquery.timeago.js' %>
+    <%= javascript_include_tag 'tinymce.min.js' %>
+    <%= javascript_include_tag 'bootstrap.min.js' %>
+<!-- END third party libraries -->
+
+<!-- START utils scripts -->
+    <%= javascript_include_tag 'utils_es5/define.js' %>
+    <%= javascript_include_tag 'utils_es5/debounce.js' %>
+    <%= javascript_include_tag 'utils_es5/tinymce.js' %>
+    <%= javascript_include_tag 'utils_es5/validate.js' %>
+    <%= javascript_include_tag 'utils_es5/ariatiseForm.js' %>
+    <%= javascript_include_tag 'utils_es5/filteriseTable.js' %>
+    <%= javascript_include_tag 'utils_es5/collateTable.js' %>
+<!-- END utils scripts -->
+
+<!-- START dmproadmap scripts -->
+    <%= javascript_include_tag 'dmproadmap/accordions.js' %>
+    <%= javascript_include_tag 'dmproadmap/admin.js' %>
+    <%= javascript_include_tag 'dmproadmap/forms.js' %>
+    <%= javascript_include_tag 'dmproadmap/utils.js' %>
+<!-- END dmproadmap scripts -->
+
+<!-- START views scripts -->
+    <%= javascript_include_tag 'views/answers/status.js' %>
+    <%= javascript_include_tag 'views/contacts/new.js' %>
+    <%= javascript_include_tag'views/devise/passwords/new.js' %> <!-- (app/views/devise/passwords/new.html.erb) -->
+    <%= javascript_include_tag'views/devise/registrations/edit.js' %> <!-- (app/views/devise/registrations/edit.html.erb) BROKEN since selectActiveTab functions is missing -->
+    <%= javascript_include_tag 'views/guidances/admin_edit.js' %>   <!-- (app/views/guidances/admin_new.html.erb) -->
+    <%= javascript_include_tag 'views/home/index.js' %> <!-- (app/views/home/index.html.erb) -->
+    <%= javascript_include_tag 'views/notes/add.js' %>  <!-- -->
+    <%= javascript_include_tag 'views/notes/archive.js' %>  <!-- -->
+    <%= javascript_include_tag 'views/notes/edit.js' %> <!-- -->
+    <%= javascript_include_tag 'views/notes/show.js' %> <!-- -->
+    <%= javascript_include_tag 'views/orgs/admin_edit.js' %>    <!-- (app/views/orgs/admin_edit.html.erb) -->
+    <%= javascript_include_tag 'views/orgs/shibboleth_ds.js' %> <!-- (app/views/orgs/shibboleth_ds.html.erb) -->
+    <%= javascript_include_tag 'views/phases/edit.js' %>    <!-- -->
+    <%= javascript_include_tag 'views/plans/available_templates.js' %>  <!-- (app/views/plans/_available_templates.html.erb) -->
+    <%= javascript_include_tag 'views/plans/export_configure.js' %> <!-- (app/views/plans/show_export.html.erb) -->
+    <%= javascript_include_tag 'views/plans/index.js' %>    <!-- -->
+    <%= javascript_include_tag 'views/plans/new.js' %>  <!-- (app/views/plans/new.html.erb) -->
+    <%= javascript_include_tag 'views/plans/share.js' %>    <!-- (app/views/plans/share.html.erb) -->
+    <%= javascript_include_tag 'views/plans/show.js' %> <!-- (app/views/plans/_edit_details.html.erb) -->
+    <%= javascript_include_tag 'views/registrations/sign_in_sign_up.js' %>  <!-- -->
+    <%#= javascript_include_tag 'views/shared/accessible_combobox.js' %> <!-- (app/views/shared/_accessible_combobox.html.erb)    BROKEN since uses rails templating for setting values for JS variables -->
+    <%#= javascript_include_tag 'views/shared/accessible_submit_button.js' %>    <!-- (app/views/shared/_accessible_submit_button.html.erb)  BROKEN since uses rails templating for setting values for JS variables -->
+    <%= javascript_include_tag 'views/shared/login_form.js' %>  <!-- -->
+    <%= javascript_include_tag 'views/shared/register_form.js' %>   <!-- -->
+    <%= javascript_include_tag 'views/users/notification_preferences.js' %> <!-- (app/views/users/_notification_preferences.html.erb) -->
+<!-- END views scripts -->
+
+<!-- START admin pages JS -->
+    <%= javascript_include_tag 'admin.js' %>    <!-- (app/views/guidance_groups/admin_edit.html.erb, app/views/guidance_groups/admin_new.html.erb, app/views/guidances/admin_index.html.erb, app/views/phases/admin_add.html.erb, app/views/phases/admin_show.html.erb, app/views/templates/admin_new.html.erb, app/views/templates/admin_template.html.erb) -->
+<!-- END admin pages JS -->
+
+<script>
+    /* Initialises an editor for each textarea whose class name is tinymce */
+    dmproadmap.utils.tinymce.init({ selector: '.tinymce' });
+</script>
+
+<!-- TODO by https://github.com/DMPRoadmap/roadmap/issues/599
+//= require i18n
+//= require i18n/translations
+//= require_tree ./locale
+//= require gettext/all
+//  I18n.defaultLocale = "<%#= I18n.default_locale %>";
+//  I18n.locale = "<%#= I18n.locale %>";
+-->

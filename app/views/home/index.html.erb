@@ -1,4 +1,3 @@
-<%= javascript 'views/home/index.js' %>
 <div class="row">
   <div class="col-md-8">
     <h1><%= _('Welcome.')%></h1>
@@ -11,16 +10,16 @@
     <div class="screencast_home_page">
       <p><%= _('Screencast on how to use %{application_name}') % {:application_name => Rails.configuration.branding[:application][:name]} %></p>
       <div class="clear"></div>        
-      <video controls="controls" poster="<%= asset_path('screencast.jpg')%>" style="width:100%; height:200" title="1662">
-        <source src="<%= asset_path('index.files/html5video/screencast.mp4')%>" type="video/mp4" />
-        <source src="<%= asset_path('index.files/html5video/screencast.webm')%>" type="video/webm" />
-        <source src="<%= asset_path('index.files/html5video/screencast.ogv')%>" type="video/ogg" />
-        <object type="application/x-shockwave-flash" data="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;">
-          <param name="movie" value="<%= asset_path('index.files/html5video/flashfox.swf')%>" />
+      <video controls="controls" poster="<%= image_path('screencast.jpg')%>" style="width:100%; height:200" title="1662">
+        <source src="<%= video_path('index.files/html5video/screencast.mp4')%>" type="video/mp4" />
+        <source src="<%= video_path('index.files/html5video/screencast.webm')%>" type="video/webm" />
+        <source src="<%= video_path('index.files/html5video/screencast.ogv')%>" type="video/ogg" />
+        <object type="application/x-shockwave-flash" data="<%= video_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;">
+          <param name="movie" value="<%= video_path('index.files/html5video/flashfox.swf')%>" />
           <param name="allowFullScreen" value="true" />
-          <param name="flashVars" value="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>" />
-           <embed src="<%= asset_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;"  flashVars="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= asset_path('screencast.jpg')%>&amp;src=<%= asset_path('index.files/html5video/screencast.mp4')%>"  allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
-          <img alt="screencast" src="<%= asset_path('screencast.jpg')%>" style="position:absolute;left:0;" width="100%" title="<%= _('Your browser does not support the video tag.')%>" />
+          <param name="flashVars" value="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= image_path('screencast.jpg')%>&amp;src=<%= video_path('index.files/html5video/screencast.mp4')%>" />
+           <embed src="<%= video_path('index.files/html5video/flashfox.swf')%>" width="100%" height="200" style="position:relative;"  flashVars="autoplay=true&amp;controls=true&amp;fullScreenEnabled=true&amp;posterOnEnd=true&amp;loop=false&amp;poster=<%= image_path('screencast.jpg')%>&amp;src=<%= video_path('index.files/html5video/screencast.mp4')%>"  allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
+          <img alt="screencast" src="<%= image_path('screencast.jpg')%>" style="position:absolute;left:0;" width="100%" title="<%= _('Your browser does not support the video tag.')%>" />
         </object>
       </video>  
     </div>
