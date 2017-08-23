@@ -1,6 +1,6 @@
 <h2 aria-hidden="false" class="aria-only"><%= _('Sign in') %></h2>
 
-<%= form_for resource, as: 'user', url: user_session_path, html: {class: "login-form roadmap-form"} do |f| %>
+<%= form_for resource, as: 'user', url: user_session_path, html: {class: "login-form roadmap-form", id: "sign_in"} do |f| %>
   <fieldset id="sign-in-form" class="standard padded">
     <% if Rails.application.config.shibboleth_enabled %>
       <h3 class="centered small-header"><%= _('Sign in with') %></h3>

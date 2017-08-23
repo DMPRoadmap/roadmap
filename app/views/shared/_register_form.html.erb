@@ -1,6 +1,6 @@
 <h2 aria-hidden="false" class="aria-only"><%= _('Create account') %></h2>
 
-<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", class: "roadmap-form register-form"} do |f| %>
+<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", class: "roadmap-form register-form", id: "create_account"} do |f| %>
   <fieldset id="create-account-form" class="standard padded">
     <div class="inline">
       <div class="form-input">
