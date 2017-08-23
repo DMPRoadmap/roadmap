@@ -1,10 +1,31 @@
-## Bundle for development
+## Set up
+We use WebPack to pre-compile all our assets. Before executing any bundling, please make sure that all the dependencies are installed first by typing:
+
 ```
-    npm run bundle
+npm install
+```
+within lib/assets
+
+## Assets Bundling
+
+We have set up two environments, one for development which watching for changes at any .js or .css file to pre-compile on the fly and another for production. For a development environment, i.e. if the developer is making changes, please type:
+
+```
+npm run bundle
 ```
 
-## Bundle for production:
+and for production, please type:
+
 ```
-    npm run bundle -- -p
+npm run bundle -- -p
 ```
-Remember this will generated output files with a new hash associated in order to prevent browser to use a previous cached version. You will need to stop and start the rails server.
+
+Note, the above commands have to run within lib/assets directory.
+
+## Testing
+
+We use jasmine to write unit tests together with karma for testing in real browser our functionality. Please type the following command to execute every test for JavaScript modules.
+
+```
+npm test
+```

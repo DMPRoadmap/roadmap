@@ -4,7 +4,7 @@
   "description": "Roadmap front-end dependencies",
   "main": "null",
   "scripts": {
-    "test": "echo \"There are no test in place yet\" && exit 0",
+    "test": "node_modules/.bin/karma start",
     "bundle": "node_modules/.bin/webpack"
   },
   "repository": {
@@ -42,6 +42,11 @@
     "eslint-plugin-import": "^2.7.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
+    "jasmine-core": "^2.7.0",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-webpack": "^2.0.4",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
