@@ -370,10 +370,10 @@ class PlansController < ApplicationController
   def template_options(org_id, funder_id)
     @templates = []
 
-    if !org_id.blank? || !funder_id.blank?
+    if org_id.present? || funder_id.present?
       if funder_id.blank?
         # Load the org's template(s)
-        unless org_id.nil?
+        if org_id.present?
           org = Org.find(org_id)
           @templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
           @msg = _("We found multiple DMP templates corresponding to the research organisation.") if @templates.count > 1
@@ -384,20 +384,20 @@ class PlansController < ApplicationController
         # Load the funder's template(s)
         @templates = Template.valid.where(published: true, org: funder).to_a
 
-        unless org_id.blank?
+        if org_id.present?
           org = Org.find(org_id)
 
           # Swap out any organisational cusotmizations of a funder template
           @templates.each do |tmplt|
             customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
-            unless customization.nil?
+            if customization.present? && tmplt.updated_at < customization.created_at
               @templates.delete(tmplt)
               @templates << customization
             end
           end
         end
 
-        msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
+        @msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
       end
     end
 
