@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :put, id: "invitation_create_account"} do |f| %>
+    <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :put, id: "invitation_create_account_form"} do |f| %>
       <%= devise_error_messages! %>
       <%= f.hidden_field :invitation_token %>
 

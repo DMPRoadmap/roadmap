@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, id: "user_reset_password"}) do |f| %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, id: "user_reset_password_form"}) do |f| %>
       <%= devise_error_messages! %>
       <%= f.hidden_field :reset_password_token %>
 

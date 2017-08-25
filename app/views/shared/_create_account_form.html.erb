@@ -1,0 +1,53 @@
+<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+
+  <div class="form-group">
+    <%= f.label(:firstname, _('First Name'), class: 'control-label') %>
+    <%= f.text_field(:firstname, class: 'form-control', "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:surname, _('Last Name'), class: 'control-label') %>
+    <%= f.text_field(:surname, class: 'form-control', "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: 'control-label') %>
+    <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label _('Organisation'), for: :user_org_name, class: 'control-label' %>
+    <%= render partial: "shared/accessible_combobox", 
+               locals: {name: 'user[org_name]',
+                        id: 'user_org_name',
+                        default_selection: @default_org,
+                        models: Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"),
+                        attribute: 'name',
+                        classes: 'form-control'} %>
+  </div>
+  <div class="form-group">
+    <a href="#"><%= _("My organisation isn't listed.") %></a>
+    <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
+    <div id="other-org-name" class="hide" data-orgs="<%= other_organisations.join(',') %>">
+      <%= f.label _('Organisation Name'), for: :other_organisation, class: 'control-label' %>
+      <%= f.text_field :other_organisation, :autocomplete => "off", :class => 'form-control', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label(:recovery_email, _('Recovery Email'), class: 'control-label') %>
+    <%= f.email_field(:recovery_email, class: 'form-control', "aria-required": false) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: 'control-label') %>
+    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+    <%= check_box_tag(:password_show, "1", false, class: 'form-control') %>
+    <%= label_tag(:password_show, _('Show password'), class: 'control-label') %>
+  </div>
+  <div class="form-group">
+    <%= f.check_box(:accept_terms, class: 'form-control') %>
+    <%= f.label(:accept_terms,
+        raw("#{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>"), 
+        class: "control-label") %>
+  </div>
+  
+  <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
+<% end %>
