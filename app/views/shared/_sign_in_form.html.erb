@@ -26,8 +26,6 @@
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: 'control-label') %>
     <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
-    <%= check_box_tag(:password_show, "1", false, class: 'form-control') %>
-    <%= label_tag(:password_show, _('Show password'), class: 'control-label') %>
   </div>
 
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>

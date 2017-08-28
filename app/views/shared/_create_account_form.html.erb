@@ -22,25 +22,19 @@
                         models: Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"),
                         attribute: 'name',
                         classes: 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <a href="#"><%= _("My organisation isn't listed.") %></a>
+
     <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-    <div id="other-org-name" class="hide" data-orgs="<%= other_organisations.join(',') %>">
-      <%= f.label _('Organisation Name'), for: :other_organisation, class: 'control-label' %>
-      <%= f.text_field :other_organisation, :autocomplete => "off", :class => 'form-control', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
-    </div>
+    <%= f.text_field :other_organisation, autocomplete: "off", class: 'form-control', 'data-toggle': "tooltip", 'data-placement': "right", title: _('Please enter the name of your organisation.'), style: 'display: none;' %>
+    <a href="#" id="other_org_link"><%= _("My organisation isn't listed.") %></a>
   </div>
   
   <div class="form-group">
     <%= f.label(:recovery_email, _('Recovery Email'), class: 'control-label') %>
-    <%= f.email_field(:recovery_email, class: 'form-control', "aria-required": false) %>
+    <%= f.email_field(:recovery_email, class: 'form-control', "aria-required": false, "data-validation": 'email') %>
   </div>
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: 'control-label') %>
     <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
-    <%= check_box_tag(:password_show, "1", false, class: 'form-control') %>
-    <%= label_tag(:password_show, _('Show password'), class: 'control-label') %>
   </div>
   <div class="form-group">
     <%= f.check_box(:accept_terms, class: 'form-control') %>
