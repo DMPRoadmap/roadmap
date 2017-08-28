@@ -1,7 +1,7 @@
-<div id='<%= phase.id %>-export-dialog' data-container="body" class='modal hide fade'>
+<div id='<%= phase.id %>-export-dialog' role="dialog" aria-labeledby="#id="export_plan_label"" data-container="body" class='modal hide fade'>
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3><%= _('Export') %> <%= plan.title %>: <%= plan.template.title %></h3>
+		<h3 id="export_plan_label"><%= _('Export') %> <%= plan.title %>: <%= plan.template.title %></h3>
 	</div>
 	<div class="modal-body">
 		<%= render :partial => "/shared/export_links", locals: {plan: plan, phase: phase} %>

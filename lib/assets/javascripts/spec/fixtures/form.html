@@ -1,0 +1,40 @@
+<html>
+  <title>Test Form</title>
+  <script></script>
+</html>
+<body>
+  <form id="test-form">
+    <!-- Text field that does not specifically define its required status and has no validation -->
+    <div class="form-group">
+      <label class="control-label" for="text1">Text 1:</label>
+      <input type="text" id="text1" class="form-control" />
+    </div>
+    <!-- Text field that does not specifically define its required status and has validation -->
+    <div class="form-group">
+      <label class="control-label" for="text2">Text 2:</label>
+      <input type="text" id="text2" class="form-control" data-validation="text" />
+    </div>
+    <!-- Text field that specifically states that it is NOT required and has no validation -->
+    <div class="form-group">
+      <label class="control-label" for="text3">Text 3:</label>
+      <input type="text" id="text3" class="form-control" aria-required="false" />
+    </div>
+    <!-- Text field that is required and has no validation -->
+    <div class="form-group">
+      <label class="control-label" for="text4">Text 4:</label>
+      <input type="text" id="text4" class="form-control" aria-required="true" />
+    </div>
+    <!-- Text field that is NOT required and has validation -->
+    <div class="form-group">
+      <label class="control-label" for="text5">Text 5:</label>
+      <input type="text" id="text5" class="form-control" aria-required="false" data-validation="text" />
+    </div>
+    <!-- Text field that is required and has validation -->
+    <div class="form-group">
+      <label class="control-label" for="text6">Text 6:</label>
+      <input type="text" id="text6" class="form-control" aria-required="true" data-validation="text" />
+    </div>
+
+    <input type="submit" value="Save" />
+  </form>
+</body>

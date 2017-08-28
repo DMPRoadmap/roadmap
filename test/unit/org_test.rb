@@ -76,7 +76,7 @@ class OrgTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "should resize logo to a height of 100" do
+  test "should resize logo to a height of 165" do
     ['logo.jpg', # this one is at 160x160
      'logo_300x300.jpg', 
      'logo_100x100.jpg'].each do |file|
@@ -85,7 +85,7 @@ class OrgTest < ActiveSupport::TestCase
        @org.logo = Dragonfly.app.fetch_file("#{path}")
        
        assert @org.valid?, "expected the logo to have been attached to the org"
-       assert_equal 100, @org.logo.height, "expected the logo to have been resized properly"
+       assert_equal 165, @org.logo.height, "expected the logo to have been resized properly"
     end
   end
   

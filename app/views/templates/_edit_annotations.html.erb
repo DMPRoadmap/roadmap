@@ -59,7 +59,9 @@ in the admin interface.
           <% end %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+             data-content="<%= _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>" aria-label="<%= _('More information: Example answers') %>">
+          <span class="fa fa-question-circle" aria-hidden="true"></span></a>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
@@ -74,7 +76,9 @@ in the admin interface.
           <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
         </div>
         <div class="div_right_icon">
-          <%= link_to( image_tag("help_button.png"), "#", "data-toggle": "popover", rel: "popover", "data-html" => "true", "data-content" => _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."))%>
+          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
+             data-content="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>" aria-label="<%= _('More information: Guidance') %>">
+          <span class="fa fa-question-circle" aria-hidden="true"></span></a>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
@@ -84,13 +88,13 @@ in the admin interface.
   <br />
   <!-- submit buttons -->
   <div class="move_2_right">
-    <%= f.submit _('Save'), class: "btn btn-primary" %>
+    <%= f.submit _('Save'), class: "btn btn-primary", role:"button" %>
     <% if !question.section.phase.template.published? %>
       <%= link_to _('Delete'), admin_destroy_question_path(question_id: question.id),
-                  confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
+                  confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary", role:"button"%>
     <% end %>
     <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_edit_question" %>
+    <%= link_to _('Cancel'), "#", class: "btn cancel cancel_edit_question", role:"button" %>
   </div>
 </div>
 

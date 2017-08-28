@@ -35,4 +35,5 @@ class SessionsController < Devise::SessionsController
     session[:locale] = nil
     set_gettext_locale  #Method defined at controllers/application_controller.rb
   end
+  
 end

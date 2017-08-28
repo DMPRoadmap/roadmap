@@ -51,7 +51,7 @@ class ActiveSupport::TestCase
   def scaffold_template
     template = Template.new(title: 'Test template',
                             description: 'My test template',
-                            org: Org.first, migrated: false)
+                            org: Org.first, migrated: false, dmptemplate_id: "0000009999")
 
     template.phases << Phase.new(title: 'Test phase',
                                  description: 'My test phase',
@@ -117,7 +117,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select '.welcome-message h2', _('Welcome.')
+    assert_select 'main h1', _('Welcome.')
   end
 
   # ----------------------------------------------------------------------
@@ -129,7 +129,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select '.main_page_content h1', _('My plans')
+    assert_select 'main h1', _('My Dashboard')
   end
 
   # ----------------------------------------------------------------------

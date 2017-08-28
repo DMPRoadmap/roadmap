@@ -10,19 +10,12 @@ class GuidancesController < ApplicationController
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id)
   end
 
-  ##
-  # GET /guidances/1
-  def admin_show
-    @guidance = Guidance.eager_load(:guidance_group, :themes).find(params[:id])
-    authorize @guidance
-  end
-
   def admin_new
     @guidance = Guidance.new
     authorize @guidance
     @themes = Theme.all.order('title')
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
-	end
+  end
 
   ##
   # GET /guidances/1/edit
@@ -46,9 +39,9 @@ class GuidancesController < ApplicationController
     end
 
     if @guidance.save
-      redirect_to admin_show_guidance_path(@guidance), notice: _('Guidance was successfully created.')
+      redirect_to admin_edit_guidance_path(@guidance), notice: success_message(_('guidance'), _('created'))
     else
-      flash[:notice] = failed_create_error(@guidance, _('guidance'))
+      flash[:alert] = failed_create_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
       render action: "admin_new"
@@ -58,13 +51,14 @@ class GuidancesController < ApplicationController
   ##
   # PUT /guidances/1
   def admin_update
- 		@guidance = Guidance.find(params[:id])
+    @guidance = Guidance.find(params[:id])
     authorize @guidance
-		@guidance.text = params["guidance-text"]
+    @guidance.text = params["guidance-text"]
+    
     if @guidance.update_attributes(guidance_params)
-      redirect_to admin_show_guidance_path(params[:guidance]), notice: _('Guidance was successfully updated.')
+      redirect_to admin_edit_guidance_path(params[:guidance]), notice: success_message(_('guidance'), _('saved'))
     else
-      flash[:notice] = failed_update_error(@guidance, _('guidance'))
+      flash[:alert] = failed_update_error(@guidance, _('guidance'))
       @themes = Theme.all.order('title')
       @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
 
@@ -75,14 +69,14 @@ class GuidancesController < ApplicationController
   ##
   # DELETE /guidances/1
   def admin_destroy
-   	@guidance = Guidance.find(params[:id])
+     @guidance = Guidance.find(params[:id])
     authorize @guidance
     if @guidance.destroy
-      redirect_to admin_index_guidance_path, notice: _('Guidance was successfully deleted.')
+      redirect_to admin_index_guidance_path, notice: success_message(_('guidance'), _('deleted'))
     else
-      redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance, _('guidance'))
+      redirect_to admin_index_guidance_path, alert: failed_destroy_error(@guidance, _('guidance'))
     end
-	end
+  end
 
 
   private

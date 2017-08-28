@@ -8,13 +8,21 @@
 # Ignore all logfiles, tempfiles, public assets,
 /log/*.log
 /tmp
-public/system/*
-public/assets/*
+/vendor
+
+# Ignore public subdirectories
 public/apidocs/*
+public/assets/*
+public/fonts/*
+public/images/*
+public/javascripts/*
+public/stylesheets/*
+public/system/*
+public/videos/*
 
 # Ignore branded content
 app/views/branded/*
-app/assets/**/*
+app/assets
 config/locales/static_pages/*.yml
 
 # Ignore gemfile.lock
@@ -28,6 +36,7 @@ db/data.yml
 
 # Ignore the test DB
 db/test.sqlite3
+db/test.sqlite3-journal
 
 # Ignore the SimpleCov output
 coverage
@@ -41,6 +50,7 @@ config/branding.yml
 config/initializers/recaptcha.rb
 config/initializers/devise.rb
 config/initializers/wicked_pdf.rb
+config/initializers/fingerprint.rb
 
 # Ignore enviroments settings
 #config/environments/development.rb
@@ -65,3 +75,8 @@ config/initializers/wicked_pdf.rb
 # ignore auto-generated gettext files when running gettext:find
 config/locale/*/app.edit.po
 config/locale/*/app.po.time_stamp
+
+# Front-end related
+lib/assets/node_modules
+lib/assets/npm-debug.log
+!.keep

@@ -1,0 +1,21 @@
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+$fa-font-path: "~font-awesome/fonts/";
+@import "~font-awesome/scss/font-awesome";
+
+/* CSSs files for jquery-ui. TODO, remove when bootstrap is re-introduced
+*= require jquery-ui-dist/jquery-ui.min
+*= require jquery-ui-dist/jquery-ui.structure.min
+*= require jquery-ui-dist/jquery-ui.theme.min
+*/
+
+/* These will eventually go away once Boostrap is in place */
+/*
+@import "dmproadmap/base";
+@import "dmproadmap/tabs"; 
+@import "dmproadmap/accordions";
+@import "dmproadmap/modals";
+@import "dmproadmap/tables";
+@import "dmproadmap/forms";
+*/

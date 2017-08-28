@@ -1,0 +1,7 @@
+$("form").html("<%= escape_javascript(render partial: '/edit_details', locals: {plan: @plan}) %>");
+
+<% if flash[:alert].present? %>
+  animateNotification("<%= flash[:alert] %>", true);
+<% else %>
+  animateNotification("<%= flash[:notice] %>", true);
+<% end %>

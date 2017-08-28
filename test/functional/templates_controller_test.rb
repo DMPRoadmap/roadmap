@@ -121,7 +121,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Try to delete a historical version should fail
     delete admin_destroy_template_path(prior)
-    assert_equal _('You cannot delete historical versions of this template.'), flash[:notice]
+    assert_equal _('You cannot delete historical versions of this template.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to admin_index_template_path
     assert_not Template.find(prior.id).nil?
@@ -149,7 +149,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     post admin_create_template_path(@user.org), {template: params}
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
     assert_redirected_to admin_template_template_url(Template.last.id)
     assert assigns(:template)
@@ -157,7 +157,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Invalid object
     post admin_create_template_path(@user.org), {template: {title: nil, org_id: @user.org.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:template)
     assert assigns(:hash)
@@ -192,7 +192,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Make sure we get the right response when editing an unpublished template
     put admin_update_template_path(current), {template: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :success
     assert assigns(:template)
     assert assigns(:hash)
@@ -201,7 +201,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Make sure we get the right response when providing an invalid template
     put admin_update_template_path(current), {template: {title: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:template)
     assert assigns(:hash)
@@ -270,7 +270,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # We shouldn't be able to edit a historical version
     put admin_publish_template_path(prior)
-    assert_equal _('You can not publish a historical version of this template.'), flash[:notice]
+    assert_equal _('You can not publish a historical version of this template.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to admin_template_template_url(prior)
     assert assigns(:template)

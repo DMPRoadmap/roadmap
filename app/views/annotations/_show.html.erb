@@ -1,0 +1,12 @@
+<!--show annotations. annotation is passed as an argument-->
+<h3 class="accordion_heading_text">
+  <%= (plan.template.org.abbreviation.present? ? plan.template.org.abbreviation : plan.template.org.name) %>
+  <% if annotation.example_answer? %>
+    <%= _('Example Answer') %>
+  <% else %>
+    <%= _('Guidance') %>
+  <% end %>
+  <span class="fa fa-plus" aria-hidden="true"></span>
+</h3>
+
+<div class="accordion-section"><%= raw annotation.text %></div>

@@ -19,7 +19,8 @@ class AnnotationsController < ApplicationController
     @question.section.phase.template.dirty = true
 
     if ex_save && guid_save
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully created.')
+      typ = (example_answer.present? && guidance.present? ? 'example answer and guidance' : (guidance.present? ? 'guidance' : 'example answer'))
+      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('created'))
     else
       @section = @question.section
       @phase = @section.phase
@@ -28,12 +29,12 @@ class AnnotationsController < ApplicationController
       @section_id = @section.id
       @question_id = @example_answer.question
       if !ex_save && !guid_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer')) + '\n' +
+        flash[:alert] = failed_create_error(example_answer, _('example answer')) + '\n' +
                           failed_create_error(gudiance, _('guidance'))
       elsif !guid_save
-        flash[:notice] = failed_create_error(gudiance, _('guidance'))
+        flash[:alert] = failed_create_error(gudiance, _('guidance'))
       elsif !ex_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer'))
+        flash[:alert] = failed_create_error(example_answer, _('example answer'))
       end
       render "phases/admin_show"
     end
@@ -77,15 +78,16 @@ class AnnotationsController < ApplicationController
     @phase.template.dirty = true
 
     if ex_save && guid_save
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: _('Information was successfully updated.')
+      typ = (example_answer.present? && guidance.present? ? 'example answer and guidance' : (guidance.present? ? 'guidance' : 'example answer'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('saved'))
     else
       if !ex_save && !guid_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer')) + '\n' +
+        flash[:alert] = failed_create_error(example_answer, _('example answer')) + '\n' +
                           failed_create_error(gudiance, _('guidance'))
       elsif !guid_save
-        flash[:notice] = failed_create_error(gudiance, _('guidance'))
+        flash[:alert] = failed_create_error(gudiance, _('guidance'))
       elsif !ex_save
-        flash[:notice] = failed_create_error(example_answer, _('example answer'))
+        flash[:alert] = failed_create_error(example_answer, _('example answer'))
       end
       render action: "phases/admin_show"
     end
@@ -100,9 +102,9 @@ class AnnotationsController < ApplicationController
     @phase = @section.phase
     @phase.template.dirty = true
     if @example_answer.destroy
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: _('Information was successfully deleted.')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: success_message(_('information'), _('deleted'))
     else
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:notice] = failed_destroy_error(@example_answer, _('example answer'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:alert] = failed_destroy_error(@example_answer, _('example answer'))
     end
   end
 

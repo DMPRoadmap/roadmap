@@ -3,7 +3,7 @@
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
 class TemplatesController < ApplicationController
-  respond_to :html
+  #respond_to :html
   after_action :verify_authorized
 
   # GET /org/admin/templates/:id/admin_index
@@ -156,7 +156,7 @@ class TemplatesController < ApplicationController
 
     # Only allow the current version to be updated
     if current != @template
-      redirect_to admin_template_template_path(@template), notice: _('You can not publish a historical version of this template.')
+      redirect_to admin_template_template_path(@template), alert: _('You can not publish a historical version of this template.')
 
     else
       # Unpublish the older published version if there is one
@@ -186,7 +186,7 @@ class TemplatesController < ApplicationController
     @template = Template.live(template.dmptemplate_id)
 
     if @template.nil?
-      flash[:notice] = _('That template is not currently published.')
+      flash[:alert] = _('That template is not currently published.')
     else
       @template.published = false
       @template.save
@@ -254,10 +254,10 @@ class TemplatesController < ApplicationController
 
       @template.description = params["template-desc"]
       if @template.update_attributes(params[:template])
-        flash[:notice] = _('Information was successfully updated.')
+        flash[:notice] = success_message(_('template'), _('saved'))
 
       else
-        flash[:notice] = failed_update_error(@template, _('template'))
+        flash[:alert] = failed_update_error(@template, _('template'))
       end
 
       @hash = @template.to_hash
@@ -283,10 +283,10 @@ class TemplatesController < ApplicationController
     @template.description = params['template-desc']
 
     if @template.save
-      redirect_to admin_template_template_path(@template), notice: _('Information was successfully created.')
+      redirect_to admin_template_template_path(@template), notice: success_message(_('template'), _('created'))
     else
       @hash = @template.to_hash
-      flash[:notice] = failed_create_error(@template, _('template'))
+      flash[:alert] = failed_create_error(@template, _('template'))
       render action: "admin_new"
     end
   end
@@ -310,7 +310,7 @@ class TemplatesController < ApplicationController
         render admin_template_template_path(@template)
       end
     else
-      flash[:notice] = _('You cannot delete historical versions of this template.')
+      flash[:alert] = _('You cannot delete historical versions of this template.')
       redirect_to admin_index_template_path
     end
   end
@@ -322,6 +322,30 @@ class TemplatesController < ApplicationController
     authorize @template
     @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
     @current = Template.current(@template.dmptemplate_id)
+  end
+
+  # PUT /org/admin/templates/:id/admin_copy
+  # -----------------------------------------------------
+  def admin_copy
+    @template = Template.find(params[:id])
+    authorize @template
+
+    new_copy = Template.deep_copy(@template)
+    new_copy.title = "Copy of " + @template.title
+    new_copy.version = 0
+    new_copy.published = false
+    new_copy.dmptemplate_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(dmptemplate_id: random)
+    end
+
+    if new_copy.save
+      flash[:notice] = 'Template was successfully copied.'
+      redirect_to admin_template_template_path(id: new_copy.id, edit: true), notice: _('Information was successfully created.')
+    else
+      flash[:alert] = failed_create_error(new_copy, _('template'))
+    end
+
   end
 
 end

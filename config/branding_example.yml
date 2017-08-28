@@ -17,6 +17,19 @@ defaults: &defaults
     issue_list_url: 'https://github.com/DMPRoadmap/roadmap/issues'
     user_group_subscription_url: 'http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1'
 
+  preferences:
+    email:
+      users:
+        new_comment: true
+        admin_privileges: true
+        added_as_coowner: true
+      owners_and_coowners:
+        visibility_changed: true
+      admins:
+        template_published: true
+        template_unpublished: true
+        feedback_requested: true
+
 development:
   <<: *defaults
 
