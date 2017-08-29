@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <h1><%= t('helpers.change_password') %></h1>
+    <h1><%= _('Change your password') %></h1>
   </div>
 </div>
 
@@ -17,6 +17,11 @@
       <div class="form-group">
         <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
         <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true, "data-validation": "password") %>
+      </div>
+      <div class="checkbox">
+        <label for="passwords_toggle">
+          <input type="checkbox" id="passwords_toggle" /><%= _('Show passwords') %>
+        </label>
       </div>
 
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
