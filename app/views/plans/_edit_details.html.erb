@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-8">
-    <%= form_for plan, html: {method: :put, class: 'form-horizontal' } do |f| %>
+    <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
       <div class="form-group"><!-- title -->
         <div class="col-md-12">
           <%= f.label(:title, _('Project Title'), class: 'control-label') %>
@@ -142,7 +142,8 @@
           <%= f.email_field(
             :principal_investigator_email,
             class: 'form-control',
-            "aria-required": false) %>
+            "aria-required": false,
+            "data-validation": "email") %>
         </div>
       </div>
       <hr />
@@ -177,7 +178,8 @@
           <%= f.email_field(
             :data_contact_email,
             class: 'form-control',
-            "aria-required": false) %>
+            "aria-required": false,
+            "data-validation": "email") %>
         </div>
       </div>
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
