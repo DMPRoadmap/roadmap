@@ -1,132 +1,206 @@
-<%= form_for plan, html: {method: :put, class: "roadmap-form"} do |f| %>
-	<div class="row">
-  	<div class="col-md-8">
-	    <fieldset class="standard padded">
-	      <div class="form-input">
-	        <%= f.label "#{_('Project Title')}", for: :title, class: 'required' %>
-	        <%= f.text_field :title, class: "input-large left-indent required", 'data-toggle': "tooltip", 
-	                'data-content': _('If applying for funding, state the name exactly as in the grant proposal.') %>
-	        <span role="" id="plan_title_error" class="error-tooltip left-indent"></span>
-	        <div class="under-input">
-	          <%= f.hidden_field :visibility %>
-	          <input type="checkbox" id="is_test" class="left-indent"<%= @plan.is_test? ? ' checked=true' : '' %> />
-	          <label class="inline checkbox-label regular-text" for="is_test">
-	            <%= _('mock project for testing, practice, or educational purposes') %>
-	          </label>
-	        </div>
-	      </div>
-      
-	      <div class="form-input">
-	        <%= f.label "#{_('Funder')}", for: :funder_name %>
-	        <%= f.text_field :funder_name, class: "input-large left-indent" %>
-	      </div>
-      
-	      <div class="form-input">
-	        <%= f.label :grant_number %>
-	        <%= f.text_field :grant_number, class: 'input-small left-indent', 'data-toggle': "tooltip", 
-	                'data-content': _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
-	      </div>
-  
-	      <div class="form-input">
-	        <%= f.label _('Project Abstract'), for: :description %>
-	        <%= f.text_area :description, class: "left-indent" %>
-	        <script>
-              /* Initialises an editor for textarea defined above with id plan_description */
-              dmproadmap.utils.tinymce.init({ selector: '#plan_description' });
-            </script>
-	        <div class="inline">
-	          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-	             data-content="<%= _("<h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>") %>"
-	             aria-label="<%= _('More information: Guidance') %>">
-	          <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-	        </div>
-	      </div>
-  
-	      <div class="form-input">
-	        <%= f.label _('ID'), for: :identifier %>
-	        <%= f.text_field :identifier, class: 'input-small left-indent', 'data-toggle': "tooltip", 
-	                'data-content': _('A pertinent ID as determined by the funder and/or institution.') %>
-	      </div>
-  
-	      <div class="form-separator"></div>
-  
-	      <div>
-	        <label><strong><%= _('Principal Investigator') %></strong></label>
-	      </div>
-
-	      <div class="form-input">
-	        <%= f.label _('Name'), for: :principal_investigator, 'aria-label': _('Principal Investigator Name') %>
-	        <%= f.text_field :principal_investigator, class: 'input-small left-indent' %>
-	      </div>
-
-	      <div class="form-input">
-	        <%= f.label _('ORCID iD'), for: :principal_investigator_identifier, 'aria-label': _('Principal Investigator ORCID iD') %>
-	        <%= f.text_field :principal_investigator_identifier, class: 'input-small left-indent' %>
-	      </div>
-
-	      <div class="form-input">
-	        <%= f.label _('Email'), for: :principal_investigator_email, 'aria-label': _('Principal Investigator Email') %>
-	        <%= f.email_field :principal_investigator_email, class: 'input-small left-indent' %>
-	        <span role="" id="principal_investigator_email_error" class="error-tooltip left-indent"></span>
-	      </div>
-
-	      <br />
-	      <div>
-	        <%= f.label(:data_contact, raw("<strong>#{_('Data Contact Person')}</strong>")) %>
-	      </div>
-	      <div>
-	        <input type="checkbox" id="show-data-contact" class="left-indent"<%= (@plan.data_contact.blank? && @plan.data_contact_email.blank? ? ' checked="checked"' : '') %> />
-	        <label class="inline checkbox-label" for="show-data-contact">
-	          <%= _('Same as Principal Investigator') %>
-	        </label>
-	      </div>
-	      <div class="form-input data-contact-info">
-	        <%= f.label _('Name'), for: :data_contact, 'aria-label': _('Data Contact Name') %>
-	        <%= f.text_field :data_contact, class: 'input-small left-indent' %>
-	      </div>
-	      <div class="form-input data-contact-info">
-	        <%= f.label _('Phone'), for: :data_contact_phone, 'aria-label': _('Data Contact Phone') %>
-	        <%= f.telephone_field :data_contact_phone, class: 'input-small left-indent' %>
-	      </div>
-	      <div class="form-input data-contact-info">
-	        <%= f.label _('Email'), for: :data_contact_email, 'aria-label': _('Data Contact Email') %>
-	        <%= f.email_field :data_contact_email, class: 'input-small left-indent' %>
-	        <span role="" id="data_contact_email_error" class="error-tooltip left-indent"></span>
-	      </div>
-      
-	      <br />
-	      <br />
-	      <div class="form-input">
-	        <%= render partial: 'shared/accessible_submit_button',
-	                   locals: {id: 'save-details-button', 
-	                            val: _('Save'), 
-	                            disabled_initially: true,
-	                            classes: 'small-input-button left-indent',
-	                            tooltip: _('You must provide a project title and any email addresses must be valid.')} %>
-	      </div>
-	    </fieldset>
-		</div>
-
-		<div class="col-md-4">
-	    <div class="bordered left-indent">
-	      <h2><%= _('Plan Guidance Configuration') %></h2>
-	      <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % {application_name: Rails.configuration.branding[:application][:name]} %></p>
-	      <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
-
-	      <ul id="priority-guidance-orgs">
-	        <%= render partial: "guidance_choices", 
-	                   locals: {choices: @important_ggs, form: f,
-	                            current_selections: @selected_guidance_groups} %>
-	      </ul>
-
-	      <a href="#" id="show-other-guidance-orgs"><%= _('See guidance from additional organisations') %></a>
-
-	      <ul id="other-guidance-orgs" style="display: none;">
-	        <%= render partial: "guidance_choices", 
-	                   locals: {choices: @all_ggs_grouped_by_org, form: f, 
-	                            current_selections: @selected_guidance_groups} %>
-	      </ul>
-	    </div>
-		</div>
+<div class="row">
+    <div class="col-md-8">
+    <%= form_for plan, html: {method: :put, class: 'form-horizontal' } do |f| %>
+      <div class="form-group"><!-- title -->
+        <div class="col-md-12">
+          <%= f.label(:title, _('Project Title'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :title,
+            class: 'form-control',
+            "aria-required": true) %>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-link"
+            aria-label="<%= _('Project Title') %>"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="<%= _('If applying for funding, state the name exactly as in the grant proposal.') %>">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="form-group"><!-- visibility -->
+        <%= f.hidden_field :visibility %>
+        <div class="col-md-12">
+          <%= f.label(:is_test, _('mock project for testing, practice, or educational purposes'), class: 'control-label') %>
+        </div>
+        <div class="col-md-12">
+          <%= check_box_tag(:is_test,1, @plan.is_test?) %>
+        </div>
+      </div>
+      <div class="form-group"><!-- funder_name -->
+        <div class="col-md-12">
+          <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :funder_name,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <div class="form-group"><!-- grant_number -->
+        <div class="col-md-12">
+          <%= f.label(:grant_number, _('Grant Number'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :grant_number,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-link"
+            aria-label="<%= _('Grant Number') %>"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="<%= _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="form-group"><!-- description -->
+        <div class="col-md-12">
+          <%= f.label(:description, _('Project Abstract'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_area(
+            :description,
+            class: 'form-control tinymce',
+            "aria-required": false) %>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-link"
+            aria-label="<%= _('Project Abstract') %>"
+            data-toggle="popover"
+            data-placement="top"
+            title="<%= _('More information: Guidance') %>"
+            data-content="<%= _("<h4>Questions to consider:</h4><ul><li>What is the nature of your research project?</li><li>What research questions are you addressing? </li><li>For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>") %>">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="form-group"><!-- identifier -->
+        <div class="col-md-12">
+          <%= f.label(:identifier, _('ID'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :identifier,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-link"
+            aria-label="<%= _('ID') %>"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="<%= _('A pertinent ID as determined by the funder and/or institution.') %>">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <hr />
+      <h3><%= _('Principal Investigator') %></h3>
+      <div class="form-group"><!-- principal_investigator -->
+        <div class="col-md-12">
+          <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :principal_investigator,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <div class="form-group"><!-- principal_investigator_identifier -->
+        <div class="col-md-12">
+          <%= f.label(:principal_investigator_identifier, _('ORCID iD'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :principal_investigator_identifier,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <div class="form-group"><!-- principal_investigator_email -->
+        <div class="col-md-12">
+          <%= f.label(:principal_investigator_email, _('Email'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.email_field(
+            :principal_investigator_email,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <hr />
+      <h3><%= _('Data Contact Person') %></h3>
+      <div class="form-group"><!-- data_contact -->
+        <div class="col-md-12">
+          <%= f.label(:data_contact, _('Name'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :data_contact,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <div class="form-group"><!-- data_contact_phone -->
+        <div class="col-md-12">
+          <%= f.label(:data_contact_phone, _('Phone'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field(
+            :data_contact_phone,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <div class="form-group"><!-- data_contact_email -->
+        <div class="col-md-12">
+          <%= f.label(:data_contact_email, _('Email'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.email_field(
+            :data_contact_email,
+            class: 'form-control',
+            "aria-required": false) %>
+        </div>
+      </div>
+      <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
+    <% end %>
   </div>
-<% end %>
+  <div class="col-md-4">
+    <h2><%= _('Plan Guidance Configuration') %></h2>
+    <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
+    {application_name: Rails.configuration.branding[:application][:name]} %>
+    </p>
+    <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
+    <!--ul id="priority-guidance-orgs">
+          <%#= render partial: "guidance_choices", 
+                     locals: {choices: @important_ggs, form: f,
+                              current_selections: @selected_guidance_groups} %>
+        </ul>
+
+        <a href="#" id="show-other-guidance-orgs"><%#= _('See guidance from additional organisations') %></a>
+
+        <ul id="other-guidance-orgs" style="display: none;">
+          <%#= render partial: "guidance_choices", 
+                     locals: {choices: @all_ggs_grouped_by_org, form: f, 
+                              current_selections: @selected_guidance_groups} %>
+        </ul-->
+  </div>
+</div>
