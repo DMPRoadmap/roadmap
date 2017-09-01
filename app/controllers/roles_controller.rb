@@ -12,11 +12,11 @@ class RolesController < ApplicationController
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
         flash[:notice] = _('Cannot share plan with %{email} since that email matches with the owner of the plan.') % {email: params[:user]}
       else
-        if Role.find_by(plan: @role.plan, user: User.find_by(email: params[:user])) # role already exists
+        user = User.where_case_insensitive('email',params[:user]).first
+        if Role.find_by(plan: @role.plan, user: user) # role already exists
           flash[:notice] = _('Plan is already shared with %{email}.') % {email: params[:user]}
-        else  
-          message = _('Plan shared with %{email}.') % {email: params[:user]}
-          user = User.find_by(email: params[:user])
+        else
+          message = _('Plan shared with %{email}.') % {email: user.email}
           if user.nil?
             registered = false
             User.invite!(email: params[:user])
