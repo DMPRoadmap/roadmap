@@ -12,11 +12,11 @@
 
       <div class="form-group">
         <%= f.label(:password, _('New password'), class: 'control-label') %>
-        <%= f.password_field(:password, class: 'form-control', "aria-required": true, "data-validation": "password") %>
+        <%= f.password_field(:password, class: 'form-control', "aria-required": true %>
       </div>
       <div class="form-group">
         <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
-        <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true, "data-validation": "password") %>
+        <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true %>
       </div>
       <div class="checkbox">
         <label for="passwords_toggle">
