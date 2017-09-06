@@ -1,11 +1,11 @@
 module Settings
   class Template < RailsSettings::SettingObject
-  
+
   #attr_accessible :var, :target, :target_id, :target_type
 
     VALID_FONT_FACES = [
-      'Arial, Helvetica, Sans-Serif',
-      '"Times New Roman", Times, Serif'
+      '"Times New Roman", Times, Serif',
+      'Arial, Helvetica, Sans-Serif'
     ]
 
     VALID_FONT_SIZE_RANGE = (8..14)
@@ -17,13 +17,13 @@ module Settings
     DEFAULT_SETTINGS = {
       formatting: {
         margin: { # in millimeters
-          top:    20,
-          bottom: 20,
-          left:   20,
-          right:  20
+          top:    10,
+          bottom: 10,
+          left:   10,
+          right:  10
         },
         font_face: VALID_FONT_FACES.first,
-        font_size: 12 # pt
+        font_size: 10 # pt
       },
       max_pages: 3,
       fields: {
