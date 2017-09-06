@@ -276,5 +276,13 @@ class User < ActiveRecord::Base
   def deliver_invitation(options = {})
     super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
   end
+  ##
+  # Case insensitive search over User model
+  # @param field [string] The name of the field being queried
+  # @param val [string] The string to search for, case insensitive
+  # @return [ActiveRecord::Relation] The result of the search
+  def self.where_case_insensitive(field, val)
+    User.where("lower(#{field}) = ?", val.downcase)
+  end
 
 end
