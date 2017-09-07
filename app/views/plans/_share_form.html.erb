@@ -64,8 +64,8 @@
   <div class="form-group">
     <%= f.hidden_field :plan_id %>
     <%= f.fields_for :user do |user| %>
-      <%= user.label :email, _('Email') %>
-      <%= user.email_field :email, for: :user, name: "user", class: "input-medium" %>
+      <%= user.label :email, _('Email'), class: 'control-label' %>
+      <%= user.email_field :email, for: :user, name: "user", class: "form-control", "aria-required": true %>
     <% end %>
   </div>
 
@@ -77,7 +77,7 @@
     <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
   </div>
   <div class="radio">
-    <%= f.label :access_level, raw("#{f.radio_button :access_level, 3} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
+    <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
   </div>
 
   <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
