@@ -30,20 +30,22 @@
          class="tab-panel<%= active_tab == 'guidance_tab' ? ' active' : '' %>" 
          aria-hidden="false" aria-labelledby="guidance_tab">
 
-      <div class="expand-collapse-all inline left-indent">
-        <a href="#<%= question.id %>-guidance" class="expand-accordions">expand all</a>
-        <span class="muted">|</span>
-        <a href="#<%= question.id %>-guidance" class="collapse-accordions">collapse all</a>
+      <div class="accordion-controls" data-parent="<%= question.id %>-guidance">
+        <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+        <span>|</span>
+        <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
       </div>
 
       <!--guidance content -->
-       <div class="accordion" id="<%= question.id %>-guidance">
+      <div class="panel-group" id="<%= question.id %>-guidance" 
+           role="tablist" aria-multiselectable="true">
+
         <!--question guidance-->
         <% num_annotations = 0 %>
         <% i = 0 %>
         <% if annotations.present? %>
           <% annotations.each do |annotation| %>
-            <%= render partial: 'annotations/show', locals: {plan: plan, annotation: annotation} %>
+            <%= render partial: 'annotations/show', locals: {plan: plan, annotation: annotation, question: question} %>
             <% num_annotations += 1%>
             <% i += 1 %>
           <% end %>
@@ -62,9 +64,9 @@
             <% i += 1 %>
           <% end %> 
         <% end %>   
-      </div>   <!-- accordion guidance/annotations -->
+      </div>   <!-- panel-group -->
 
-    </div> <!-- question tab panel -->
+    </div> <!-- guidance-question-area- -->
 
     <div id="comment-question-area-<%= question.id %>" 
          aria-hidden="false" aria-labelledby="note_tab"
