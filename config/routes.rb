@@ -212,7 +212,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         get 'warning'
         get 'section_answers'
         get 'share'
-        get 'show_export'
+        get 'download'
         post 'duplicate'
         get 'export'
         post 'invite'

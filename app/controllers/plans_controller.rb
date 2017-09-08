@@ -217,12 +217,12 @@ class PlansController < ApplicationController
     end
   end
 
-  def show_export
+  def download
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title,:id)
     @export_settings = @plan.settings(:export)
-    render 'show_export'
+    render 'download'
   end
 
 
