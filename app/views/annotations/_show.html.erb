@@ -1,12 +1,27 @@
-<!--show annotations. annotation is passed as an argument-->
-<h3 class="accordion_heading_text">
-  <%= (plan.template.org.abbreviation.present? ? plan.template.org.abbreviation : plan.template.org.name) %>
-  <% if annotation.example_answer? %>
-    <%= _('Example Answer') %>
-  <% else %>
-    <%= _('Guidance') %>
-  <% end %>
-  <span class="fa fa-plus" aria-hidden="true"></span>
-</h3>
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-annotation-<%= annotation.id %>">
+    <h2 class="panel-title">
+      <a role="button" data-toggle="collapse" 
+         data-parent="<%= question.id %>-guidance" 
+         href="#collapse-annotation-<%= annotation.id %>" 
+         aria-controls="collapse-annotation-<%= annotation.id %>">
 
-<div class="accordion-section"><%= raw annotation.text %></div>
+        <%= (plan.template.org.abbreviation.present? ? plan.template.org.abbreviation : plan.template.org.name) %>
+        <% if annotation.example_answer? %>
+          <%= _('Example Answer') %>
+        <% else %>
+          <%= _('Guidance') %>
+        <% end %>
+
+        <span class="fa fa-plus" aria-hidden="true"></span>
+      </a>
+    </h2>
+  </div>
+</div>
+
+<div id="collapse-annotation-<%= annotation.id %>" class="panel-collapse collapse" 
+     role="tabpanel" aria-labelledby="heading-annotation-<%= annotation.id %>">
+  <div class="panel-body">
+    <%= raw annotation.text %>
+  </div>
+</div>
