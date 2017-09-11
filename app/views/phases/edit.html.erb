@@ -41,89 +41,103 @@
              aria-labelledby="phase-#<%= @phase.id %>-tab">
 
           <div id="sections-accordion-controls">
-            <div class="expand-collapse-all inline">
-              <a href="#sections-accordion" class="expand-accordions">expand all</a>
-              <span class="muted">|</span>
-              <a href="#sections-accordion" class="collapse-accordions">collapse all</a>
+            <div class="accordion-controls" data-parent="sections-accordion">
+              <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+              <span>|</span>
+              <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
             </div>
+
             <div class="progress inline">
               <%= render :partial => "/plans/progress", locals: { plan: @plan } %>
             </div> <!-- progess -->
           </div>
-        
-          <div class="accordion" id="sections-accordion">
+
+          <div class="panel-group" id="sections-accordion" 
+               role="tablist" aria-multiselectable="true">
             <% @phase.sections.order(:number).each do |section| %>
               <% sectionid = section.id %>
 
-              <h2 class="accordion_heading_text" id="section-progress-<%= sectionid %>">
-                <div class="inline section-title">
-                  <%= section.title %>
-                  <span class="fa fa-plus" aria-hidden="true"></span>
-                  <div class="inline progress-bar-<%= sectionid %>">
-                    <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
+                  <h2 class="panel-title">
+                    <a role="button" data-toggle="collapse" 
+                       data-parent="sections-accordion" 
+                       href="#collapse-<%= sectionid %>" 
+                       aria-controls="collapse-<%= sectionid %>">
+
+                      <%= section.title %>
+                      <span class="fa fa-plus" aria-hidden="true"></span>
+                    </a>
+                    <div class="inline progress-bar-<%= sectionid %>">
+                      <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %>
+                    </div>
+                  </h2>
+                </div>
+              </div>
+
+              <div id="collapse-<%= sectionid %>" class="panel-collapse collapse" 
+                   role="tabpanel" aria-labelledby="heading-<%= sectionid %>">
+                <div class="panel-body">
+                  <!-- accordion body -->
+                  <div class="section-description"><%= raw section.description %></div>
+
+                  <div class="saving" style="display: none">
+                    <p><%= _('Saving ...') %></p>
                   </div>
-                </div>
-              </h2>
+                  <div class="removing" style="display: none">
+                    <p><%= _('Removing ...') %></p>
+                  </div>
 
-              <div class="accordion-section">
-                <!-- accordion body -->
-                <div class="section-description"><%= raw section.description %></div>
+                  <!-- the section body -->
+                  <div class="loaded">
+                    <% section.questions.each do |question| %>
+                      <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
+                      <div id="<%= id_css%>">
 
-                <div class="saving" style="display: none">
-                  <p><%= _('Saving ...') %></p>
-                </div>
-                <div class="removing" style="display: none">
-                  <p><%= _('Removing ...') %></p>
-                </div>
-
-                <!-- the section body -->
-                <div class="loaded">
-                  <% section.questions.each do |question| %>
-                    <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
-                    <div id="<%= id_css%>">
-
-                      <%
-                      # Load the answer or create a new one
-                      answers = question.plan_answers(@plan.id)
-                      if answers.present?
-                        answer = answers.first
-                      else
-                        answer = Answer.new({plan_id: @plan.id, 
-                                             question_id: question.id, 
-                                             user_id: current_user.id })
-                        if question.default_value.present?
-                          answer.text = question.default_value
+                        <%
+                        # Load the answer or create a new one
+                        answers = question.plan_answers(@plan.id)
+                        if answers.present?
+                          answer = answers.first
+                        else
+                          answer = Answer.new({plan_id: @plan.id, 
+                                               question_id: question.id, 
+                                               user_id: current_user.id })
+                          if question.default_value.present?
+                            answer.text = question.default_value
+                          end
                         end
-                      end
-                      %>
+                        %>
 
-                      <!-- Answer Section -->
-                      <div class="question-div edit-plan-left">
-                        <div class="question-form">
-                          <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                          <div id="<%= "answer-form-#{question.id}" %>">
-                            <%= render(partial: 'answers/new_edit', 
-                                       locals: { question: question, answer: answer, readonly: @readonly }) %>
-                          </div>
-                        </div>   <!-- question-form -->
-                      </div> <!-- edit-plan-left -->
+                        <!-- Answer Section -->
+                        <div class="question-div edit-plan-left">
+                          <div class="question-form">
+                            <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
+                            <div id="<%= "answer-form-#{question.id}" %>">
+                              <%= render(partial: 'answers/new_edit', 
+                                         locals: { question: question, answer: answer, readonly: @readonly }) %>
+                            </div>
+                          </div>   <!-- question-form -->
+                        </div> <!-- edit-plan-left -->
 
 
-                      <!-- Guidance and Notes Section (includes Annotations) -->
-                      <div class="question-area-right-column edit-plan-right">
-                        <%= render partial: 'guidance_section', 
-                                   locals: {plan: @plan, question: question, answer: answer, 
-                                            question_guidances: @question_guidances} %>
-                      </div>
-                    </div>   <!-- id_css -->
-                  <% end %> <!-- section.questions -->
+                        <!-- Guidance and Notes Section (includes Annotations) -->
+                        <div class="question-area-right-column edit-plan-right">
+                          <%= render partial: 'guidance_section', 
+                                     locals: {plan: @plan, question: question, answer: answer, 
+                                              question_guidances: @question_guidances} %>
+                        </div>
+                      </div>   <!-- id_css -->
+                    <% end %> <!-- section.questions -->
 
-                </div>   <!--  loaded -->
+                  </div>   <!--  loaded -->
               
-              </div> <!-- accordion group -->
+                </div> <!-- panel-body -->
+              </div> <!-- panel-collapse -->
 
             <% end %>   <!-- sections.each do -->
-          </div>   <!-- sections-accordion -->
+          </div>   <!-- panel-group -->
+
           <script>
             /* Initialises an editor for each textarea defined at (notes/_add.html.erb, notes/_edit.html.erb) whose class is tinymce_notes */
             dmproadmap.utils.tinymce.init({ selector: '.tinymce_notes'});
