@@ -26,9 +26,9 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
         
     # Signin as UserA and insert the new answer
     sign_in @plan.owner
-    put answer_path(FastGettext.locale, userA, format: "js"), obj_to_params(userA.attributes)
+    put answer_path(FastGettext.locale, userA, format: "json"), obj_to_params(userA.attributes)
     assert_response :success
-    assert_equal "text/javascript", @response.content_type
+    assert_equal "application/json", @response.content_type
     updated = Answer.find_by(plan: @plan, question: @question)
     assert_equal "Initial answer - by UserA", updated.text
     assert_equal @plan.owner.id, updated.user_id
@@ -40,9 +40,9 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     
     # Signin as UserB and try to insert the new answer but fail
     sign_in @collaborator
-    put answer_path(FastGettext.locale, userB, format: "js"), obj_to_params(userB.attributes)
+    put answer_path(FastGettext.locale, userB, format: "json"), obj_to_params(userB.attributes)
     assert_response :success
-    assert_equal "text/javascript", @response.content_type
+    assert_equal "application/json", @response.content_type
     updated = Answer.find_by(plan: @plan, question: @question)
     assert_equal "Initial answer - by UserA", updated.text
     assert_equal @plan.owner.id, updated.user_id
@@ -63,9 +63,9 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     sign_in @plan.owner
     userA['text'] += " - Updated by userA"
     
-    put answer_path(FastGettext.locale, userA['id'], format: "js"), obj_to_params(userA)
+    put answer_path(FastGettext.locale, userA['id'], format: "json"), obj_to_params(userA)
     assert_response :success
-    assert_equal "text/javascript", @response.content_type
+    assert_equal "application/json", @response.content_type
     updated = Answer.find_by(plan: @plan, question: @question)
     assert_equal "Initial answer - by UserA - Updated by userA", updated.text
     assert_equal @plan.owner.id, updated.user_id
@@ -79,9 +79,9 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     sign_in @collaborator
     userB['text'] += " - Updated by userB"
     
-    put answer_path(FastGettext.locale, userB['id'], format: "js"), obj_to_params(userB)
+    put answer_path(FastGettext.locale, userB['id'], format: "json"), obj_to_params(userB)
     assert_response :success
-    assert_equal "text/javascript", @response.content_type
+    assert_equal "application/json", @response.content_type
     updated = Answer.find_by(plan: @plan, question: @question)
     assert_equal "Initial answer - by UserA - Updated by userA", updated.text
     assert_equal @plan.owner.id, updated.user_id
