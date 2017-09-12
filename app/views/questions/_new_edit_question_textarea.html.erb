@@ -1,0 +1,8 @@
+<div class="form-group">
+    <%= f.label(:text, raw(question.text), class: 'control-label') %>
+    <% if readonly %>
+        <p><%= raw(answer.text) %></p>
+    <% else %>
+        <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+    <% end %>
+</div>

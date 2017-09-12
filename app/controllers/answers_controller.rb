@@ -36,9 +36,24 @@ class AnswersController < ApplicationController
     @question = @answer.question
     @section = @plan.get_section(@question.section_id)
 
-    respond_to do |format|
-      format.js {} 
-    end
+    render json: {
+      "question" => {
+        "id" => @question.id,
+        "answer_lock_version" => @answer.lock_version,
+        "locking" => @stale_answer ?
+          render_to_string(partial: 'answers/locking', locals: { question: @question, answer: @stale_answer, user: @answer.user }, formats: [:html]) :
+          nil,
+        "answer_status" => render_to_string(partial: 'answers/status', locals: { answer: @answer}, formats: [:html])
+      },
+      "section" => {
+        "id" => @section.id,
+        "progress" => render_to_string(partial: '/sections/progress', locals: { section: @section, plan: @plan }, formats: [:html])
+      },
+      "plan" => {
+        "id" => @plan.id,
+        "progress" => render_to_string(:partial => 'plans/progress', locals: { plan: @plan }, formats: [:html])
+      }
+    }.to_json
   end # End update
 
   private

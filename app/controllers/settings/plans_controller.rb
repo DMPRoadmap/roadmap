@@ -37,7 +37,7 @@ module Settings
       end
       respond_to do |format|
         @phase_options = @plan.phases.order(:number).pluck(:title,:id)
-        format.html { redirect_to(show_export_plan_path(@plan.id)) }
+        format.html { redirect_to(download_plan_path(@plan.id)) }
         # format.json { render json: settings_json }
       end
     end

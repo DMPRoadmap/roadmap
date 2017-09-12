@@ -21,7 +21,7 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
-  def show_export?
+  def download?
     @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
