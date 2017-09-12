@@ -277,7 +277,7 @@ class PlansController < ApplicationController
       end
     rescue ActiveRecord::RecordInvalid => e
       @phase_options = @plan.phases.order(:number).pluck(:title,:id)
-      redirect_to show_export_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
+      redirect_to download_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
       {format: params[:format], available_formats: ExportedPlan::VALID_FORMATS.to_s}
     end
   end
