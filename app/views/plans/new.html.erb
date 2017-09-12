@@ -10,89 +10,71 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for @plan, html: {method: :post, class: "roadmap-form padded bordered"}, remote: true do |f| %>
-      <div id="create_plan">
-
-        <!-- Plan name section -->
-        <fieldset class="standard">
-          <legend><%= _('What research project are you planning?') %></legend>
-      
-          <div class="form-left-side">
-            <%= f.text_field(:title, class: 'left-indent input-large',
+    <%= form_for @plan, html: {method: :post, id: 'create-plan'}, remote: true do |f| %>
+      <!-- Plan name section -->
+      <h2 id="project-title"><%= _('What research project are you planning?') %></h2>
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
                 'data-toggle': 'tooltip',
                 'data-content': _('If applying for funding, state the project title exactly as in the proposal.')) %>
-            <%= check_box_tag(:is_test, "1", false, class: 'left-indent') %>
-            <%= label_tag(:is_test, _('mock project for testing, practice, or educational purposes'), class: 'inline checkbox-label') %>
-          </div>
-        </fieldset>
+        </div>
+        <div class="col-xs-6 checkbox">
+          <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{_('mock project for testing, practice, or educational purposes')}")) %>
+        </div>
+      </div>
 
-        <!-- Organisation selection -->
-        <fieldset class="standard">
-          <legend><%= _('Select the primary research organisation') %></legend>
-    
-          <div class="form-left-side">
-            <%= render partial: "shared/accessible_combobox", 
-                       locals: {name: 'plan[org_name]',
-                                id: 'plan_org_name',
-                                default_selection: @default_org,
-                                models: @orgs,
-                                attribute: 'name',
-                                tooltip: _('Please select a valid research organisation from the list.'),
-                                error: _('You must select a research organisation from the list.'),
-                                classes: 'input-large'} %>
-          </div>
-      
-          <div class="form-right-side">
-            <p class="inline"><strong>- <%= _('or') %> -</strong></p>
-            <%= check_box_tag(:plan_no_org) %>
-            <%= label_tag(:plan_no_org, raw("
-              #{_('My research organisation is not on the list')}
-              <em>#{_(' or ')}</em>
-              #{_('no research organisation is associated with this plan')}
-              "), class: 'checkbox-label') %>
-          </div>
-        </fieldset>
-  
-        <!-- Funder selection -->
-        <fieldset class="standard">
-          <legend><%= _('Select the primary funding organisation') %></legend>
-    
-          <div class="form-left-side">
-            <%= render partial: "shared/accessible_combobox", 
-                       locals: {name: 'plan[funder_name]',
-                                id: 'plan_funder_name',
-                                default_selection: nil,
-                                models: @funders,
-                                attribute: 'name',
-                                tooltip: _('Please select a valid funding organisation from the list.'),
-                                error: _('You must select a funding organisation from the list.'),
-                                classes: 'input-large'} %>
-          </div>
-          <div class="form-right-side">
-            <p class="inline"><strong>- <%= _('or') %> -</strong></p>
-            <%= check_box_tag(:plan_no_funder) %>
-            <%= label_tag(:plan_no_funder, _('No funder associated with this plan'), class: 'checkbox-label') %>
-          </div>
-        </fieldset>
-
-        <!-- Template selection -->
-        <fieldset class="standard" id="available-templates">
-        </fieldset>
-  
+      <!-- Organisation selection -->
+      <h2 id="research-org"><%= _('Select the primary research organisation') %></h2>
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'plan[org_name]',
+                              id: 'plan_org_name',
+                              default_selection: @default_org,
+                              models: @orgs,
+                              attribute: 'name',
+                              required: true,
+                              error: _('You must select a research organisation from the list.'),
+                              tooltip: _('Please select a valid research organisation from the list.')} %>
+        </div>
+        <div class="col-xs-6 checkbox">
+          <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{_('My research organisation is not on the list')} <em>#{_(' or ')}</em> #{_('no research organisation is associated with this plan')}")) %>
+        </div>
       </div>
   
-      <fieldset class="standard" id="available-templates">
-        <div class="form-left-side">
-          <%= f.hidden_field(:template_id) %>
-          <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
-          <%= render partial: 'shared/accessible_submit_button',
-                     locals: {id: 'create_plan_submit', 
-                              val: 'Create Plan', 
-                              disabled_initially: true,
-                              classes: "left-indent",
-                              tooltip: _('You can not continue until you have filled in all of the required information.')} %>
+      <!-- Funder selection -->
+      <h2 id="funder-org"><%= _('Select the primary funding organisation') %></h2>
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'plan[funder_name]',
+                              id: 'plan_funder_name',
+                              default_selection: nil,
+                              models: @funders,
+                              attribute: 'name',
+                              required: true,
+                              error: _('You must select a funding organisation from the list.'),
+                              tooltip: _('Please select a valid funding organisation from the list.')} %>
         </div>
-      </fieldset>
+        <div class="col-xs-6 checkbox">
+          <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{_('No funder associated with this plan')}")) %>
+        </div>
+      </div>
+
+      <!-- Template selection -->
+      <div class="form-group row" id="available-templates">
+        <div class="col-xs-6">
+
+        </div>
+        <div class="col-xs-6">
+
+        </div>
+      </div>
+
+      <%= f.hidden_field(:template_id) %>
+      <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
+      <%= f.button(_('Create plan'), class: "btn btn-primary", type: "submit") %>
     <% end %>
   </div>
 </div>
