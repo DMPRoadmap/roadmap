@@ -69,11 +69,9 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
   
   private
     def put_answer(answer, attributes, referrer)
-      put answer_path(FastGettext.locale, answer, format: "js"), attributes, {'HTTP_REFERER': referrer}
+      put answer_path(FastGettext.locale, answer, format: "json"), attributes, {'HTTP_REFERER': referrer}
 
       assert_response :success
-      assert_equal "text/javascript", @response.content_type
-
-#      assert_match(/[^\$]*\$\("#answer-locking-[0-9]+"\).html\(""\);[^\$]*\$\("#answer-form-[0-9]+"\)[^\.]*.html\(".+"\);[^\$]*\$\("#answer-status-[0-9]+"\)[^.]*.html\(".+"\);[^\$]*\$.[^$]*\$.[^\$]*\$\(".progress"\).html\(".+"\);[^\$]*\$\("#section-progress-[0-9]+"\)[^.]*.html\(".+"\);/, @response.body)
+      assert_equal "application/json", @response.content_type
     end
 end

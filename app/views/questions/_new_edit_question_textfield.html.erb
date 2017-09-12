@@ -1,0 +1,8 @@
+<div class="form-group">
+    <%= f.label(:text, raw(question.text), class: 'control-label') %>
+    <% if readonly %>
+        <p><%= strip_tags(answer.text) %></p>
+    <% else %>
+        <%= text_field_tag('answer[text]', strip_tags(answer.text), class: 'form-control') %>
+    <% end %>
+</div>

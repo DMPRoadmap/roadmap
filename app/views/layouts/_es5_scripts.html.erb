@@ -4,12 +4,11 @@
     <%= javascript_include_tag 'jquery.min.js' %>
     <%= javascript_include_tag 'rails.js' %>
     <%= javascript_include_tag 'jquery-ui.min.js' %>
-    <%= javascript_include_tag 'jquery-accessible-autocomplete-list-aria.js' %>
     <%= javascript_include_tag 'placeholder.min.js' %>
     <%= javascript_include_tag 'jquery.tablesorter.min.js' %>
     <%= javascript_include_tag 'jquery.tablesorter.widgets.min.js' %>
     <%= javascript_include_tag 'jquery.timeago.js' %>
-    <%= javascript_include_tag 'bootstrap.min.js' %>
+    <%#= javascript_include_tag 'bootstrap.min.js' %>
 <!-- END third party libraries -->
 
 <!-- START utils scripts -->
@@ -30,7 +29,6 @@
 <!-- END dmproadmap scripts -->
 
 <!-- START views scripts -->
-    <%= javascript_include_tag 'views/answers/status.js' %>
     <%= javascript_include_tag 'views/guidances/admin_edit.js' %>   <!-- (app/views/guidances/admin_new.html.erb) -->
     <%= javascript_include_tag 'views/home/index.js' %> <!-- (app/views/home/index.html.erb) -->
     <%= javascript_include_tag 'views/notes/add.js' %>  <!-- -->
@@ -40,12 +38,8 @@
     <%= javascript_include_tag 'views/orgs/admin_edit.js' %>    <!-- (app/views/orgs/admin_edit.html.erb) -->
     <%= javascript_include_tag 'views/orgs/shibboleth_ds.js' %> <!-- (app/views/orgs/shibboleth_ds.html.erb) -->
     <%= javascript_include_tag 'views/plans/available_templates.js' %>  <!-- (app/views/plans/_available_templates.html.erb) -->
-    <%= javascript_include_tag 'views/plans/export_configure.js' %> <!-- (app/views/plans/show_export.html.erb) -->
     <%= javascript_include_tag 'views/plans/index.js' %>    <!-- -->
-    <%= javascript_include_tag 'views/plans/new.js' %>  <!-- (app/views/plans/new.html.erb) -->
     <%= javascript_include_tag 'views/registrations/sign_in_sign_up.js' %>  <!-- -->
-    <%#= javascript_include_tag 'views/shared/accessible_combobox.js' %> <!-- (app/views/shared/_accessible_combobox.html.erb)    BROKEN since uses rails templating for setting values for JS variables -->
-    <%#= javascript_include_tag 'views/shared/accessible_submit_button.js' %>    <!-- (app/views/shared/_accessible_submit_button.html.erb)  BROKEN since uses rails templating for setting values for JS variables -->
     <%= javascript_include_tag 'views/shared/login_form.js' %>  <!-- -->
     <%= javascript_include_tag 'views/shared/register_form.js' %>   <!-- -->
     <%= javascript_include_tag 'views/users/notification_preferences.js' %> <!-- (app/views/users/_notification_preferences.html.erb) -->

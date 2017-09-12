@@ -1,10 +1,13 @@
 <% if !models.nil? %>
+  <% required = required ||= false %>
+  <% classes = classes ||= '' %>
+  <% error = error ||= _('Please select an item from the list.') %>
+
   <% json = {} %>
   <% models.map{|m| json[m[attribute]] = m.id} %>
-  <% err_msg = error ||= _('Please select an item from the list.') %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
-         class="js-combobox <%= classes %>" list="<%= id %>_list" 
+         class="js-combobox form-control <%= classes %>" list="<%= id %>_list" 
          placeholder="<%= _('Begin typing to see a filtered list') %>"
          data-combobox-prefix-class="combobox"
          data-combobox-case-sensitive="no"
@@ -17,14 +20,16 @@
     <% end %>
   </datalist>
 
+  <!-- Complete content of combobox -->
+  <input type="hidden" id="<%= id %>_crosswalk" value="<%= escape_javascript json.to_json %>" />
+
   <!-- The JQuery accessible combobox doesn't allow for an id to be present in the value attribute -->
   <!-- so we use this hidden input to store the selected id -->
   <!-- the selected id is found after the combobox loses focus by finding the selected item in the crosswalk json -->
   <input type="hidden" id="<%= id.gsub("_#{attribute}", "_id") %>" name="<%= name.gsub("_#{attribute}]", "_id]") %>"
-         value="<%= default_selection.id unless default_selection.nil? %>" />
+         value="<%= default_selection.id unless default_selection.nil? %>" aria-required="<%= required %>"
+         data-validation="js-combobox" data-validation-error="<%= error %>" />
 
-  <span role="" id="<%= id %>_error" class="error-tooltip left-indent"></span>
-  
 <% else %>
   <span id="<%= id %>_no_items"><%= _('No items available.') %></span>
 <% end %>
