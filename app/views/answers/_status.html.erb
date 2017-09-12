@@ -1,8 +1,13 @@
 <!-- Partial for handling the answer status (e.g. Saving, Unsaved, Not Answered, Answered) -->
-<span class="saving-message" style="display:none"><%= _('Saving...')%></span>
-<br/>
+<p class="bg-primary saving-message" style="display:none">
+    <%= _('Saving...')%>
+</p>
 <% if answer.updated_at.blank? %>
-    <span class="label label-warning answer-status not-answered"><%= _('Not answered yet') %></span>
+    <p class="bg-warning not-answered">
+        <%= _('Not answered yet') %>
+    </p>
 <% else %>
-    <span class="label label-info answer-status"><%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %></span>
+    <p class="bg-info">
+        <%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %>
+    </p>
 <% end %>

@@ -3,6 +3,6 @@
 <% num_section_answers = section.num_answered_questions(plan.id) %>
 
 <span class="right section-status">
-  <%= num_section_answers %> / <%= num_section_questions %>
+  (<%= num_section_answers %> / <%= num_section_questions %>)
   <span class="fa <%= num_section_answers > 0 ? 'fa-check-circle' : 'fa-circle-o' %>"></span>
 </span>

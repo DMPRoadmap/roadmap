@@ -1,9 +1,11 @@
 <%
     nanswers = plan.num_answered_questions()
     nquestions = plan.num_questions()
+    value=(nanswers.to_f/nquestions*100).round(2)
 %>
-<% answered = %(#{nanswers}/#{nquestions})%>
-<div class="bar-container bordered right">
-  <span id="questions-progress" class="bar" style="width: <%= number_to_percentage(nanswers.to_f/nquestions.to_f*100) %>;" title="<%= answered -%> <%= _('questions answered')%>"><div class="bar-fill inline">&nbsp;</div></span>
-  <span id="questions-progress-title" class="inline"><%= answered -%> <%= _(' answered')%></span>
+<div class="progress-bar" role="progressbar"
+    aria-valuenow="<%= value %>"
+    aria-valuemin="0" aria-valuemax="100"
+    style="min-width: 3em; width: <%= "#{value}%" %>;">
+    <%= "#{value} % #{_('answered')}" %>
 </div>

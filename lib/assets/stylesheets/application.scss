@@ -19,3 +19,7 @@ $fa-font-path: "~font-awesome/fonts/";
 @import "dmproadmap/tables";
 @import "dmproadmap/forms";
 */
+
+[class^="bg-"] {
+    padding: 15px;
+}
