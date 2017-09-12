@@ -12,8 +12,8 @@
   <li role="presentation" class="<%= (isActivePage(share_plan_path(@plan)) ? 'active' : '') %>">
     <a href="<%= share_plan_path(@plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
   </li>
-  <li role="presentation" class="<%= (isActivePage(show_export_plan_path(@plan)) ? 'active' : '') %>">
-    <a href="<%= show_export_plan_path(@plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
+  <li role="presentation" class="<%= (isActivePage(download_plan_path(@plan)) ? 'active' : '') %>">
+    <a href="<%= download_plan_path(@plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
   </li>
 </ul>
 <div class="tab-content">
