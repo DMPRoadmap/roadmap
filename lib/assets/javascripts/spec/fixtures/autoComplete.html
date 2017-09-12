@@ -1,0 +1,35 @@
+<form id="test-form">
+  <!-- JQuery autocomplete tester -->
+  <h2>JQuery Accessible Auto-complete Combobox</h2>
+  <div class="form-group">
+    <label for="combobox" class="control-label">Combobox</label>
+    
+    <input type="text" name="form[combobox_name]" id="form_combobox_name" 
+           class="js-combobox form-control" list="combobox_list" 
+           placeholder="Begin typing to see a filtered list"
+           data-combobox-prefix-class="combobox"
+           data-combobox-case-sensitive="no"
+           data-combobox-search-option="containing"
+           data-combobox-allow-suggestion-on-empty="true"
+           value="" />
+    <datalist id="combobox_list">
+     <option value="Test A" />
+     <option value="Test B" />
+     <option value="test C" />
+     <option value="testing D" />
+     <option value="Foo" />
+     <option value="Bar" />
+     <option value="Tester 123" />
+    </datalist>
+
+    <!-- Complete content of combobox -->
+    <input type="hidden" id="form_combobox_crosswalk" 
+           value='{"Test A":0,"Test B":1,"test C":2,"testing D":3,"Foo":4,"Bar":5,"Tester 123":6}' />
+
+    <!-- The JQuery accessible combobox doesn't allow for an id to be present in the value attribute -->
+    <!-- so we use this hidden input to store the selected id -->
+    <!-- the selected id is found after the combobox loses focus by finding the selected item in the crosswalk json -->
+    <input type="hidden" id="form_combobox_id" name="form[combobox_id]"
+           value="" aria-required="true" data-validation="js-combobox" data-validation-error="Please select an item!" />
+  </div>
+</form>
