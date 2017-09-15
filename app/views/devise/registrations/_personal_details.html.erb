@@ -4,8 +4,7 @@
     If you change this, remember to use your new email address on sign in.") %>
   </p>
 
-  <!-- Edit Profile -->
-  <%= _('You can edit any of the details below.') %>
+  <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
   <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
   <%= hidden_field_tag :skip_personal_details, "false" %>
 
@@ -115,12 +114,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'update',
-                        val: 'Save',
-                        disabled_initially: false,
-                        classes: 'btn btn-default',
-                        tooltip: _('Enter all of the required information above')} %>
+      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
     </div>
   </div>
 <% end %>
