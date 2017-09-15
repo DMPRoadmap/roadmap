@@ -1,21 +1,19 @@
-<div>
-  <% if id.nil? || id.identifier == '' %>
-      <%= link_to "#{_("Link account with #{scheme.description} ID")}",
-                  Rails.application.routes.url_helpers.send(
-                    "user_#{scheme.name.downcase}_omniauth_authorize_path"
-                  ),
-                  title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "")
-      %>
+<% if id.nil? || id.identifier == '' %>
+    <%= link_to "#{_("Link account with #{scheme.description} ID")}",
+                Rails.application.routes.url_helpers.send(
+                  "user_#{scheme.name.downcase}_omniauth_authorize_path"
+                ),
+                title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "")
+    %>
+<% else %>
+  <% if scheme.user_landing_url.nil? %>
+    <%= _("Your account has been linked to #{scheme.description}.") %>
   <% else %>
-    <% if scheme.user_landing_url.nil? %>
-      <%= _("Your account has been linked to #{scheme.description}.") %>
-    <% else %>
-      <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 
-          title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
-    <% end %>
-    <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
-    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
-                destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title,
-                data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
+    <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 
+        title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
   <% end %>
-</div>
+  <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
+  <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
+              destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title,
+              data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
+<% end %>
