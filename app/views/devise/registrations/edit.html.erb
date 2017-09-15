@@ -6,35 +6,31 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="tabbed-area">
-      <ul class="tabs" role="tablist">
-        <li id="personal-details-tab" class="active" role="tab" aria-controls="personal-details-panel">
-          <a href="#personal-details-panel" aria-selected="true"><%= _('Personal Details') %></a>
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="personal-details" class="active">
+          <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
         </li>
-        <li id="password-details-tab" role="tab" aria-controls="password-details-panel">
-          <a href="#password-details-panel" aria-selected="false"><%= _('Password') %></a>
+        <li role="password-details">
+          <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
         </li>
-        <li id="notification-preferences-tab" role="tab" aria-controls="notification-preferences-panel">
-          <a href="#notification-preferences-panel" aria-selected="false"><%= _('Notification Preferences') %></a>
+        <li role="notification-preferences">
+          <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
       </ul>
     
-      <div class="tab-panels" role="tabpanel">
-        <div id="personal-details-panel" class="tab-panel active" aria-hidden="false"
-             aria-labelledby="personal-details-tab">
+      <div class="tab-content">
+        <div id="personal-details" role="tabpanel" class="tab-pane active px-2">
           <%= render partial: 'devise/registrations/personal_details' %>
         </div>
 
-        <div id="password-details-panel" aria-hidden="true" class="tab-panel" role="tabpanel"
-             aria-labelledby="password-tab">
+        <div id="password-details" role="tabpanel" class="tab-pane">
           <%= render partial: 'devise/registrations/password_details' %>
         </div>
 
-        <div id="notification-preferences-panel" aria-hidden="true" class="tab-panel"
-             role="tabpanel" aria-labelledby="notification-preferences-tab">
+        <div id="notification-preferences" role="tabpanel" class="tab-pane">
           <%= render partial: 'users/notification_preferences' %>
         </div>
       </div>
-    </div>
+
   </div>
 </div>
