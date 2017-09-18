@@ -1,20 +1,13 @@
-<%= form_for(note,
-             url: archive_note_path(note),
-             remote: true,
-             class: "archive_note_form",
-             id: "archive_note_form_#{note.id}") do |f| %>
-
-    <%= f.hidden_field :id, :value => note.id %>
+<% if !note.nil? %>
+  <%= form_for(note, url: archive_note_path(note), method: :patch, html: { class: 'archive_note' }) do |f| %>
     <%= f.hidden_field :archived_by, :value => current_user.id %>
 
-    <%= render :partial => "/notes/view", locals: {note: note} %>
+    <%= render partial: "notes/show", locals: { note: note }, formats: [:html] %>
 
     <p><%= _('Are you sure you want to remove this note?')%></p>
-
-	  <!-- submit buttons -->
-	  <div class="move_2_right">
-      <%= f.submit _('Remove'), class: "btn btn-primary archive_comment_submit_button", role:"button" %>
-      <%= link_to _('Cancel'), "#", onclick: "dmproadmap.notes.archive.cancel(event,#{note.id})", class: "cancel_archive_comment btn cancel", role:"button" %>
-	  </div>
-    <br>
+    <div class="pull-right">
+      <%= f.button(_('Destroy'), class: "btn btn-default", type: "submit") %>
+      <%= f.button(_('Cancel'), class: "btn btn-default", type: "button") %>
+    </div>
+  <% end %>
 <% end %>
