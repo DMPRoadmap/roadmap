@@ -32,29 +32,30 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
+    
+    # We set these ids to -1 on the page to trick ariatiseForm into allowing the autocomplete to be blank if
+    # the no org/funder checkboxes are checked off
+    org_id = (plan_params[:org_id] == '-1' ? '' : plan_params[:org_id])
+    funder_id = (plan_params[:funder_id] == '-1' ? '' : plan_params[:funder_id])
 
-    @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
-    @plan.principal_investigator_email = current_user.email
-
-    orcid = current_user.identifier_for(IdentifierScheme.find_by(name: 'orcid'))
-    @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
-
-    @plan.funder_name = plan_params[:funder_name]
-
-    @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
-                                                           plan_params[:visibility])
-
-    # If a template hasn't been identified look for the available templates
+    # If the template_id is blank then we need to look up the available templates and return JSON
     if plan_params[:template_id].blank?
-      template_options(plan_params[:org_id], plan_params[:funder_id])
-
-      # Return the 'Select a template' section
-      respond_to do |format|
-        format.js {}
-      end
-
-    # Otherwise create the plan
+      templates = template_options(org_id, funder_id)
+      render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
+      
     else
+      # Otherwise create the plan
+      @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
+      @plan.principal_investigator_email = current_user.email
+
+      orcid = current_user.identifier_for(IdentifierScheme.find_by(name: 'orcid'))
+      @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
+
+      @plan.funder_name = plan_params[:funder_name]
+
+      @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
+                                                             plan_params[:visibility])
+
       @plan.template = Template.find(plan_params[:template_id])
 
       if plan_params[:title].blank?
@@ -68,9 +69,8 @@ class PlansController < ApplicationController
         @plan.assign_creator(current_user)
 
         # pre-select org's guidance
-        ggs = GuidanceGroup.where(org_id: plan_params[:org_id],
-                                                     optional_subset: false,
-                                                     published: true)
+        ggs = GuidanceGroup.where(org_id: org_id, optional_subset: false, published: true)
+                                                       
         if !ggs.blank? then @plan.guidance_groups << ggs end
 
         default = Template.find_by(is_default: true)
@@ -90,17 +90,14 @@ class PlansController < ApplicationController
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name} template."
         end
 
-        flash[:notice] = msg
-
         respond_to do |format|
-          format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
+          format.html { redirect_to plan_path(@plan), notice: msg }
         end
 
       else
         # Something went wrong so report the issue to the user
-        flash[:alert] = failed_create_error(@plan, 'Plan')
         respond_to do |format|
-          format.js {}
+          format.html { redirect_to new_plan_path, alert: failed_create_error(@plan, 'Plan') }
         end
       end
     end
@@ -327,7 +324,6 @@ class PlansController < ApplicationController
 
 
   private
-
   def plan_params
     params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
                                  :grant_number, :description, :identifier, :principal_investigator,
@@ -421,46 +417,42 @@ class PlansController < ApplicationController
   # Collect all of the templates available for the org+funder combination
   # --------------------------------------------------------------------------
   def template_options(org_id, funder_id)
-    @templates = []
+    templates = []
 
     if org_id.present? || funder_id.present?
       if funder_id.blank?
         # Load the org's template(s)
         if org_id.present?
           org = Org.find(org_id)
-          @templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
-          @msg = _("We found multiple DMP templates corresponding to the research organisation.") if @templates.count > 1
+          templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
         end
 
       else
         funder = Org.find(funder_id)
         # Load the funder's template(s)
-        @templates = Template.valid.where(published: true, org: funder).to_a
+        templates = Template.valid.where(published: true, org: funder).to_a
 
         if org_id.present?
           org = Org.find(org_id)
 
           # Swap out any organisational cusotmizations of a funder template
-          @templates.each do |tmplt|
+          templates.each do |tmplt|
             customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
             if customization.present? && tmplt.updated_at < customization.created_at
-              @templates.delete(tmplt)
-              @templates << customization
+              templates.delete(tmplt)
+              templates << customization
             end
           end
         end
-
-        @msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
       end
     end
 
     # If no templates were available use the generic templates
-    if @templates.empty?
-      @msg = _("Using the generic Data Management Plan")
-      @templates << Template.where(is_default: true, published: true).first
+    if templates.empty?
+      templates << Template.where(is_default: true, published: true).first
     end
 
-    @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
+    templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
   end
 
 end
