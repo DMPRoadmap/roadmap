@@ -1,11 +1,10 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
-
-    <p class="left-indent">
+    <p class="form-control-static">
       <%= _("If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.") %>
     </p> 
-    <p class="left-indent">
+    <p class="form-control-static">
       <%= _("Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.") %>
     </p>
   </div>
@@ -13,151 +12,164 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h2>
-      <%= _('Own templates') %>
-    </h2>
-  
-    <!-- List of own templates -->
-    <% if @org_templates.length > 0 then %>
-      <table class="dmp_table tablesorter">
+    <h3><%= _('Own templates') %></h3>
+
+    <div class="table-responsive">
+      <!-- List of own templates -->
+      <% if @org_templates.length > 0 then %>
+        <table class="table table-hover tablesorter">
           <thead>
             <tr>
-                <th class="col-large"><%= _('Title') %></th>
-                <th class="col-large"><%= _('Description') %></th>
-                <th class="col-small"><%= _('Status') %></th>
-                <th class="col-small"><%= _('Last updated') %></th>
-                <th class="col-small sorter-false"><%= _('Actions') %></td>
+                <th><%= _('Title') %></th>
+                <th><%= _('Description') %></th>
+                <th><%= _('Status') %></th>
+                <th><%= _('Last updated') %></th>
             </tr>
           </thead>
           <tbody>
           <% @org_templates.each do |hash| %>
-            <tr class="table-data">
+            <tr>
+
               <td>
                 <%= hash[:current].title %>
               </td>
-                <td>
-                  <%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) unless hash[:current].description.nil? %>
-                </td>
-                <td>
-                  <% if hash[:live].nil? %>
-                    <%= _('Unpublished') %>
-                
-                  <% elsif hash[:current].dirty? %>
-                    <%= _('Unpublished changes') %>
-                
-                  <% else %>
-                    <%= _('Published') %>
-                  <% end %>
-                </td>
-                <td>
-                  <% last_temp_updated = hash[:current].updated_at %>
-                    <%= l last_temp_updated.to_date, formats: :short %>
-                </td>
+
+              <td>
+                <%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) unless hash[:current].description.nil? %>
+              </td>
+
+              <td>
+                <% if hash[:live].nil? %>
+                  <%= _('Unpublished') %>
+              
+                <% elsif hash[:current].dirty? %>
+                  <%= _('Unpublished changes') %>
+              
+                <% else %>
+                  <%= _('Published') %>
+                <% end %>
+              </td>
+
+              <td>
+                <% last_temp_updated = hash[:current].updated_at %>
+                  <%= l last_temp_updated.to_date, formats: :short %>
+              </td>
             
-                <td>
-                  <%= link_to _('Edit'), admin_template_template_path(id: hash[:current].id, edit: "true"), class: "dmp_table_link" %>
-                  <%= link_to _('History'), admin_template_history_template_path(id: hash[:current].id), class: "dmp_table_link" %>
+              <td>
+                <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                  <%= _('Actions') %><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><%= link_to _('Edit'), admin_template_template_path(id: hash[:current].id, edit: "true") %></li>
+                  <li><%= link_to _('History'), admin_template_history_template_path(id: hash[:current].id) %></li>
                   <!-- If the template has never been published or it has changed -->
                   <% if hash[:live].nil? %>
-                    <br /><%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+                    <li><%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put %></li>
                   <% elsif hash[:current].dirty? %>
-                    <br /><%= link_to _('Publish changes'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+                    <li><%= link_to _('Publish changes'), admin_publish_template_path(hash[:current]), method: :put %></li>
                   <% else %>
-                    <br /><%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+                    <li><%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put %></li>
                   <% end %>
-                  <%= link_to _('Copy'), admin_copy_template_path(id: hash[:current].id), method: :put, class: "dmp_table_link" %>
-                </td>
-             </tr>
+                  <li><%= link_to _('Copy'), admin_copy_template_path(id: hash[:current].id), method: :put %></li>
+                </ul>
+              </td>
+
+            </tr>
             <% end %>
           </tbody>
         </table>
-
-    <% end %>
+      <% end %>
+    </div>
 
     <!-- link button to add new template -->
     <div>
-      <a href="<%= admin_new_template_path %>" class="link-as-button"><%= _('Create a template') %></a>
+      <a href="<%= admin_new_template_path %>" class="btn btn-primary"><%= _('Create a template') %></a>
     </div>
     <br />
-  
     <!-- display this only if the organisation is not a funder-->
     <% if !current_user.org.funder? then %>
-      <h2 class="float-left">
-        <%= _('Funders templates') %>
-      </h2>
+      <h2 class="float-left"><%= _('Funders templates') %></h2>
 
       <!-- List of funders templates -->
       <% if @funder_templates.length > 0 then %>
-        <table class="dmp_table tablesorter">
+        <table class="table table-hover tablesorter">
           <thead>
             <tr>
-              <th class="col-large"><%= _('Title') %></th>
-              <th class="col-large"><%= _('Description') %></th>
-              <th class="col-small"><%= _('Status') %></th>
-              <th class="col-small"><%= _('Last updated') %></th>
-              <th class="col-small sorter-false"><%= _('Actions') %></td>
+              <th><%= _('Title') %></th>
+              <th><%= _('Description') %></th>
+              <th><%= _('Status') %></th>
+              <th><%= _('Last updated') %></th>
             </tr>
           </thead>
           <tbody>
             <% @funder_templates.each do |hash| %>
-              <tr class="table-data">
-                <td>
-                  <%= hash[:current].title%>
-                </td>
-                <td>
-                  <%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) %>
-                </td>
-                <td>
-                  <!-- If this is a funder template -->
-                  <% if hash[:current].customization_of.nil? %>
-                  <!-- This is a customization of a funder template -->
-                  <% else %>
-                    <!-- If the original funder template has been changed -->
-                    <% if hash[:stale] %>
-                      <%= _('Original funder template has changed!')%>
-                    <% elsif hash[:live].nil? %>
-                      <!-- The template does not have a live version -->
-                      <%= b_label = _('Un-published') %>
-                    <% elsif hash[:current].dirty? %>
-                      <%= _('You have un-published changes') %>
-                    <% else %>
-                      <%= _('Published') %>
-                    <% end %>
-                  <% end %>
-                </td>
-                <td>
-                  <% last_updated = hash[:current].updated_at %>
-                  <%= l last_updated.to_date, formats: :short %>
-                </td>
-                <td>
-                  <% if hash[:current].customization_of.nil? %>
-                    <% b_label = _('Customise') %>
-                    <%= link_to b_label, admin_customize_template_path(hash[:current]), method: :get, class: "dmp_table_link" %>
-                  <% else %>
-                    <% if hash[:stale] %>
-                      <% b_label = _('Transfer customisation') %>
-                      <%= link_to b_label, admin_transfer_customization_template_path(hash[:funder_live]), class: "dmp_table_link" %>
-                    <% else %>
-                      <% b_label = _('Edit customisation') %>
-                      <%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
-                    <% end %>
-                
-                  <% end %>
+            <tr>
+              <td>
+                <%= hash[:current].title%>
+              </td>
 
-                  <% if !hash[:current].customization_of.nil? && !hash[:stale] %>
-                    <% if hash[:live].nil? || hash[:current].dirty? %>
-                      <%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
-                    <% end %>
-                    <% if hash[:live].present? %>
-                      <%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
-                    <% end %>
+              <td>
+                <%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) %>
+              </td>
+
+              <td>
+                <!-- If this is a funder template -->
+                <% if hash[:current].customization_of.nil? %>
+                <!-- This is a customization of a funder template -->
+                <% else %>
+                  <!-- If the original funder template has been changed -->
+                  <% if hash[:stale] %>
+                    <%= _('Original funder template has changed!')%>
+                  <% elsif hash[:live].nil? %>
+                    <!-- The template does not have a live version -->
+                    <%= b_label = _('Un-published') %>
+                  <% elsif hash[:current].dirty? %>
+                    <%= _('You have un-published changes') %>
+                  <% else %>
+                    <%= _('Published') %>
                   <% end %>
-                </td>
-              </tr>
+                <% end %>
+              </td>
+
+              <td>
+                <% last_updated = hash[:current].updated_at %>
+                <%= l last_updated.to_date, formats: :short %>
+              </td>
+
+              <td>
+                <% if hash[:current].customization_of.nil? %>
+                  <% b_label = _('Customise') %>
+                  <%= link_to b_label, admin_customize_template_path(hash[:current]), method: :get, class: "dmp_table_link" %>
+                <% else %>
+
+                  <% if hash[:stale] %>
+                    <% b_label = _('Transfer customisation') %>
+                    <%= link_to b_label, admin_transfer_customization_template_path(hash[:funder_live]), class: "dmp_table_link" %>
+                  <% else %>
+                    <% b_label = _('Edit customisation') %>
+                    <%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
+                  <% end %>
+        
+                <% end %>
+
+                <% if !hash[:current].customization_of.nil? && !hash[:stale] %>
+                  <% if hash[:live].nil? || hash[:current].dirty? %>
+                    <%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+                  <% end %>
+                  <% if hash[:live].present? %>
+                    <%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
             <% end %>
           </tbody>
         </table>
       <% end %>
     <% end %>
+
   </div>
 </div>
