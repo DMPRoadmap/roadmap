@@ -2,16 +2,12 @@
   <div class="panel-heading" role="tab" id="heading-annotation-<%= annotation.id %>">
     <h2 class="panel-title">
       <a role="button" data-toggle="collapse" 
-         data-parent="<%= question.id %>-guidance" 
+         data-parent="accordion-guidances-<%= question.id %>" 
          href="#collapse-annotation-<%= annotation.id %>" 
          aria-controls="collapse-annotation-<%= annotation.id %>">
 
         <%= (plan.template.org.abbreviation.present? ? plan.template.org.abbreviation : plan.template.org.name) %>
-        <% if annotation.example_answer? %>
-          <%= _('Example Answer') %>
-        <% else %>
-          <%= _('Guidance') %>
-        <% end %>
+        <%= _('Guidance') %>
 
         <span class="fa fa-plus" aria-hidden="true"></span>
       </a>

@@ -70,4 +70,12 @@ class Answer < ActiveRecord::Base
       return false
     end
   end
+  # Returns all the notes for an instance answer whose archived is nil or false. The Array is ordered by updated_at (descending)
+  def non_archived_notes
+    answer = Answer.includes(:notes).where({ id: self.id, notes: { archived: [nil, false] } }).order('notes.updated_at DESC').first
+    if !answer.nil?
+      return answer.notes.to_a
+    end
+    return []
+  end
 end
