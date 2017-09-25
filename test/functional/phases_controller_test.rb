@@ -155,7 +155,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     post admin_create_phase_path(@template.phases.first), {phase: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
-    assert_redirected_to admin_show_phase_path(id: Phase.last.id, edit: 'true')
+    assert_redirected_to admin_show_phase_path(id: Phase.last.id)
     assert assigns(:phase)
     assert_equal 'Phase: Tester 2', Phase.last.title, "expected the record to have been created!"
     
@@ -165,7 +165,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
     assert flash[:alert].starts_with?(_('Could not create your'))
-    assert_response :success
+    assert_response :redirect
     assert assigns(:phase)
     assert assigns(:template)
   end
@@ -198,7 +198,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
     assert flash[:alert].starts_with?(_('Could not update your'))
-    assert_response :success
+    assert_response :redirect
     assert assigns(:phase)
     assert assigns(:template)
     assert assigns(:sections)

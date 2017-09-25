@@ -1,5 +1,5 @@
 <!-- show template details A template is passed as an argument-->
-<dl>
+<dl class="dl-horizontal">
   <dt><%= _('Title') %></dt>
   <dd><%= template.title %></dd>
   <dt><%= _('Description') %></dt>
@@ -8,10 +8,10 @@
   </dd>
   <dt><%= _('Status') %></dt>
   <dd>
-    <% if hash[:live].nil? %>
+    <% if template_hash[:live].nil? %>
       <%= _('Unpublished') %>
     
-    <% elsif hash[:current].dirty? %>
+    <% elsif template_hash[:current].dirty? %>
       <%= _('You have un-published changes') %>
     
     <% else %>
@@ -22,14 +22,10 @@
   <dd><%= l template.created_at.to_date, formats: :short %></dd>
   <dt><%= _('Last updated') %></dt>
   <dd><%= l template.updated_at.to_date, formats: :short %></dd>
-  
-  <dt class="dl-buttons"></dt>
-  <dd>
-    <% if template == current then %>
-      <!-- edit template button -->
-      <% if template.customization_of.nil? %>
-        <a href="#" class="link-as-button" id="edit_template_button"><%= _('Edit template details') %></a>
-      <% end %>
-    <% end %>
-  </dd>
 </dl>
+
+<% if template == current && template.customization_of.nil? %>
+  <div class="pull-right">
+    <%= link_to(_('Edit template details'), '#', { class: "btn btn-default template_edit_link", role: "button" }) %>
+  </div>
+<% end %>

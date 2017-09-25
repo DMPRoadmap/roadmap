@@ -1,23 +1,16 @@
-<!-- templates navigation -->
-<ul class="tabs" role="tablist">
-  <li id="details-tab" role="tab" aria-controls="details-panel"<%= active == "show_template" ? ' class=active' : '' %>>
-    <a href="<%= admin_template_template_path(template) %>"<%= active == "show_template" ? ' aria-selected=true' : '' %>><%= _('Template details') %></a>
-  </li>
-	
-  <!-- Phases -->
-  <% template.phases.each do |phase| %>
-	  <li id="phase-<%= phase.id %>-tab" role="tab" aria-controls="phase-<%= phase.id %>-panel"<%= active == phase.id ? ' class=active' : '' %>>
-	    <a href="<%= admin_show_phase_path(phase.id) %>"<%= active == phase.id ? ' aria-selected=true' : '' %>><%= phase.title %></a>
-	  </li>
-	<% end %>
-	
-  <!-- Add another phase button -->
-  <% if current_user.can_org_admin? &&
-          (template.org.funder? ||
-           current_user.org.funder? ||
-           (template.org == current_user.org)) %>
-	  <li id="add-phase-tab" role="tab" aria-controls="add-phase-panel"<%= active == "add_plan" ? ' class=active' : '' %>>
-	    <a href="<%= admin_add_phase_path(template) %>"<%= active == "add_plan" ? ' aria-selected=true' : '' %>><%= _('Add new phase') %></a>
-	  </li>
-	<% end %>
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" <%= isActivePage(admin_template_template_path(template)) ? ' class=active' : '' %>>
+        <%= link_to(_('Template details'), admin_template_template_path(template), { 'aria-controls': 'show_template', role: 'tab' }) %>
+    </li>
+    <% template.phases.each do |phase| %>
+        <li role="presentation" <%= isActivePage(admin_show_phase_path(phase.id)) ? ' class=active' : '' %>>
+            <%= link_to(phase.title, admin_show_phase_path(phase.id), { 'aria-controls': "#{phase.id}", role: 'tab' }) %>
+        </li>
+    <% end %>
+    <!-- Add another phase button -->
+    <% if current_user.can_org_admin? && (template.org.funder? || current_user.org.funder? || (template.org == current_user.org)) %>
+        <li role="presentation" <%= isActivePage(admin_add_phase_path(template)) ? ' class=active' : '' %>>
+        <%= link_to(_('Add new phase'), admin_add_phase_path(template), { 'aria-controls': 'add_phase', role: 'tab' }) %>
+        </li>
+    <% end %>
 </ul>
