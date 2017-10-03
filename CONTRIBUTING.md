@@ -3,7 +3,7 @@ The goal of the DMPRoadmap project is to provide the community with a reliable a
 
 These guidelines are an attempt to ensure that we are able to provide the community with a reliable system, stable APIs, a clear roadmap, and a predictable release schedule. 
 
-* If you would like to contribute to the project. Please follow these steps to submit a contribution:
+* If you would like to contribute to the project, please follow these steps to submit a contribution:
   * Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
   * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`development`** branch
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
@@ -25,7 +25,7 @@ These guidelines are an attempt to ensure that we are able to provide the commun
     ```bash
     git push origin <feature branch>
     ```
-  * Then create a new Pull Request (PR) to this project's **`contributions`** branch in GitHub
+  * Then create a new Pull Request (PR) to this project's **`contributions`** branch on GitHub.
   * The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
   * Delete your feature branch if it is not required anymore.
 
