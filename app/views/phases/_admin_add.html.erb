@@ -1,4 +1,8 @@
-<%= form_for :phase, { url: admin_update_phase_path(phase.id), html: { method: :put, class: 'form-horizontal' }} do |f| %>
+<%- model_class = Phase -%>
+<h2><%= _('Phase details') %></h2>
+<p><%= _('When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions.') %></p>
+<%= form_for :phase, { url: admin_create_phase_path, html: { class: 'form-horizontal' }} do |f| %>
+  <%= f.hidden_field :template_id, value: @template.id%>
     <div class="form-group">
       <%= f.label(:title, _('Title') ,class: 'col-md-2 control-label') %>
       <div class="col-md-8">
@@ -20,7 +24,7 @@
     <div class="form-group">
       <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
       <div class="col-md-8">
-        <%= text_area_tag('phase-desc', phase.description, class: 'tinymce') %>
+        <%= text_area_tag('phase-desc', '', class: 'tinymce') %>
       </div>
       <div class="col-md-2">
         <%= render partial: '/shared/popover', locals: { aria_label: _('Description'), placement: 'top', title: _('More information: Phase descriptions'), content: _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") } %>
@@ -28,6 +32,6 @@
     </div>
     <div class="pull-right">
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-      <%= link_to _('Cancel'), '#', class: 'btn btn-default phase_show_link', role: 'button' %>
+      <%= link_to(_('Cancel'), admin_template_template_path(@template), { class: "btn btn-default", role: "button" }) %>
     </div>
 <% end %>

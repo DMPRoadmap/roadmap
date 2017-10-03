@@ -1,56 +1,56 @@
-<!-- Display of phases, sections and it's questions. A phase is passed as an argument-->
-
-<h2><%= phase.title %><span class="fa fa-plus" aria-hidden="true"></span></h2>
-
-<div class="accordion-section">
-  <p><%= raw phase.description %></p>
-	
-  <div class="right">
-      <!--delete a phase button. only displays when template not published-->
-      <% if phase_hash[:sections].length > 0 %>
-        <%= link_to _('Preview'), admin_preview_phase_path(id: phase.id), class: "link-as-button" %>
-      <% end %>
-      
-      <% if template == current && phase.modifiable %>
-          <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id),
-          confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % {phase_title: phase.title}, method: :delete, class: "link-as-button" %>
-          <% b_label = _('Edit phase')%>
-      <% else %>
-          <% b_label = _('View phase')%>
-      <% end %>
-      <%= link_to b_label, admin_show_phase_path(id: phase.id, edit: (b_label == _('Edit phase'))), class: "link-as-button" %>
-
+<!-- Display of phase, sections and its questions. A phase is passed as an argument -->
+<div class="row">
+  <div class="col-md-12">
+    <p class="text-justify">
+      <%= raw phase.description %>
+    </p>
   </div>
-  <% if phase_hash[:sections].present? %>
-    <table class="dmp_table">
-      <thead>
-          <tr>
-              <th class="dmp_th_medium"><%= _('Sections')%></th>
-              <th class="dmp_th_big"><%= _('Questions')%></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% (phase_hash[:sections].values.sort_by { |key| key[:data][:number] }).each do |section| %>
-          <% if section.present? %>
-            <tr >
-              <th class="dmp_th_border" >
-                <p><%= section[:data].title %></p>
-              </th>
-              <td class="dmp_td_border" >
-                <% if section[:questions].present? %>
-                  <ul class="question_ul">
-                    <% (section[:questions].values.sort_by { |key| key[:data][:number] }).each do |question| %>
-                      <li> 
-                        - <%= raw question[:data].text %>
-                      </li>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to _('Show Phase'), admin_show_phase_path(id: phase.id), { class: "btn btn-default", role: 'button' } %>
+      <% if template == current && phase.modifiable %>
+          <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id), {
+            confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { phase_title: phase.title },
+            method: :delete,  
+            class: "btn btn-default", role: "button" } 
+          %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <% if phase_hash[:sections].length > 0 %>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= _('Sections')%></th>
+                <th><%= _('Questions')%></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% (phase_hash[:sections].values.sort_by { |key| key[:data][:number] }).each do |section| %>
+                <tr>
+                  <td>
+                    <p><%= section[:data].title %></p>
+                  </td>
+                  <td>
+                    <% if section[:questions].present? %>
+                      <ul>
+                        <% (section[:questions].values.sort_by { |key| key[:data][:number] }).each do |question| %>
+                          <li><%= raw question[:data].text %></li>
+                        <% end %>
+                      </ul>
                     <% end %>
-                  </ul>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      </div>
+    <% end %>
+  </div>
 </div>
