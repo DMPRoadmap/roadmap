@@ -18,14 +18,14 @@
     <!-- List of own templates -->
     <% if @org_templates.length > 0 then %>
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover table-striped">
           <thead>
             <tr>
               <th><%= _('Title') %></th>
               <th><%= _('Description') %></th>
               <th><%= _('Status') %></th>
               <th><%= _('Last updated') %></th>
-              <th><%= _('Actions') %></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -53,19 +53,26 @@
                     <%= l last_temp_updated.to_date, formats: :short %>
                 </td>
                 <td>
-                  <ul class="list-inline">
-                    <li><%= link_to _('Edit'), admin_template_template_path(id: hash[:current].id) %></li>
-                    <li><%= link_to _('History'), admin_template_history_template_path(id: hash[:current].id) %></li>
-                    <% if hash[:live].nil? %>
-                      <li><%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put %></li>
-                    <% elsif hash[:current].dirty? %>
-                      <li><%= link_to _('Publish changes'), admin_publish_template_path(hash[:current]), method: :put %></li>
-                    <% else %>
-                      <li><%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put %></li>
-                    <% end %>
-                    <li><%= link_to _('Copy'), admin_copy_template_path(id: hash[:current].id), method: :put %></li>
-                  </ul>   
-                </td>
+                <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                  <%= _('Actions') %><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><%= link_to _('Edit'), admin_template_template_path(id: hash[:current].id, edit: "true") %></li>
+                  <li><%= link_to _('History'), admin_template_history_template_path(id: hash[:current].id) %></li>
+                  <!-- If the template has never been published or it has changed -->
+                  <% if hash[:live].nil? %>
+                    <li><%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put %></li>
+                  <% elsif hash[:current].dirty? %>
+                    <li><%= link_to _('Publish changes'), admin_publish_template_path(hash[:current]), method: :put %></li>
+                  <% else %>
+                    <li><%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put %></li>
+                  <% end %>
+                  <li><%= link_to _('Copy'), admin_copy_template_path(id: hash[:current].id), method: :put %></li>
+                </ul>
+              </td>
              </tr>
             <% end %>
           </tbody>
@@ -73,7 +80,7 @@
       </div>
     <% end %>
     <!-- link button to add new template -->
-    <a href="<%= admin_new_template_path %>" class="btn btn-default" role="button">
+    <a href="<%= admin_new_template_path %>" class="btn btn-primary" role="button">
       <%= _('Create a template') %>
     </a>
     <!-- display this only if the organisation is not a funder-->
@@ -84,14 +91,14 @@
       <!-- List of funders templates -->
       <% if @funder_templates.length > 0 then %>
         <div class="table-responsive">
-          <table class="table table-hover">
+          <table class="table table-hover table-striped">
             <thead>
               <tr>
                 <th><%= _('Title') %></th>
                 <th><%= _('Description') %></th>
                 <th><%= _('Status') %></th>
                 <th><%= _('Last updated') %></th>
-                <th><%= _('Actions') %></td>
+                <th></td>
               </tr>
             </thead>
             <tbody>
@@ -123,35 +130,42 @@
                     <%= l last_updated.to_date, formats: :short %>
                   </td>
                   <td>
-                    <ul class="list-inline">
-                    <% if hash[:current].customization_of.nil? %>
-                      <li>
-                        <%= link_to _('Customise'), admin_customize_template_path(hash[:current]), method: :get %>
-                      </li>
-                    <% else %>
-                      <% if hash[:stale] %>
-                        <li>
-                          <%= link_to _('Transfer customisation'), admin_transfer_customization_template_path(hash[:funder_live]) %>
-                        </li>
-                      <% else %>
-                        <li>
-                          <%= link_to _('Edit customisation'), admin_template_template_path(hash[:current]) %>
-                        </li>
-                      <% end %>
-                    <% end %>
-                    <% if !hash[:current].customization_of.nil? && !hash[:stale] %>
-                      <% if hash[:live].nil? || hash[:current].dirty? %>
-                        <li>
-                          <%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put %>
-                        </li>
-                      <% end %>
-                      <% if hash[:live].present? %>
-                        <li>
-                          <%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put %>
-                        </li>
-                      <% end %>
-                    <% end %>
-                    </ul>
+                    <div class="dropdown">
+                      <button class="btn btn-link dropdown-toggle" type="button"
+                              data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="true">
+                        <%= _('Actions') %><span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <% if hash[:current].customization_of.nil? %>
+                          <li>
+                            <%= link_to _('Customise'), admin_customize_template_path(hash[:current]), method: :get %>
+                          </li>
+                        <% else %>
+                          <% if hash[:stale] %>
+                            <li>
+                              <%= link_to _('Transfer customisation'), admin_transfer_customization_template_path(hash[:funder_live]) %>
+                            </li>
+                          <% else %>
+                            <li>
+                              <%= link_to _('Edit customisation'), admin_template_template_path(hash[:current]) %>
+                            </li>
+                          <% end %>
+                        <% end %>
+                        <% if !hash[:current].customization_of.nil? && !hash[:stale] %>
+                          <% if hash[:live].nil? || hash[:current].dirty? %>
+                            <li>
+                              <%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put %>
+                            </li>
+                          <% end %>
+                          <% if hash[:live].present? %>
+                            <li>
+                              <%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put %>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
               <% end %>
