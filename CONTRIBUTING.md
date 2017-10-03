@@ -9,7 +9,7 @@ These guidelines are an attempt to ensure that we are able to provide the commun
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
   * Make your changes in the new branch. When you have finished your work, squash all the commits on the branch that you are working on:
     ```bash
-    git squash -i <feature branch>
+    git rebase -i <feature branch>
     ```
   * To make sure that your version of the **`development`** branch is still up to date with this project, switch to it and synchronise:
     ```bash
