@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('List of users') %></h1>
-    <p class="left-indent">
+    <h2><%= _('List of users') %></h2>
+    <p class="form-control-static">
       <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
     </p>
   </div>
@@ -9,57 +9,59 @@
 
 <div class="row">
   <div class="col-md-12">
-    <table class="dmp_table tablesorter">
-      <thead>
-        <% if @users.count > TABLE_FILTER_MIN_ROWS %>
+    <div class="table-responsive">
+      <table class="table tablesorter table-hover table-striped">
+        <thead>
+          <% if @users.count > TABLE_FILTER_MIN_ROWS %>
+            <tr>
+              <td>
+                <%= render(partial: "shared/table_filter", 
+                           locals: {path: admin_index_users_path, 
+                                     placeholder: _('Filter users')}) %>
+              </td>
+            </tr>
+          <% end %>
           <tr>
-            <td colspan="5" class="td-as-th">
-              <%= render(partial: "shared/table_filter", 
-                         locals: {path: admin_index_users_path, 
-                                   placeholder: _('Filter users')}) %>
-            </td>
+              <th><%= _('Name') %></th>
+              <th><%= _('Email address') %></th>
+              <th class="text-center"><%= _('Last logged in') %></th>
+              <th class="text-center"><%= _('How many plans?') %></th>
+              <th class="text-center"><%= _('Privileges') %></th>
           </tr>
-        <% end %>
-        <tr>
-            <th class="col-medium"><%= _('Name') %></th>
-            <th class="col-medium"><%= _('Email address') %></th>
-            <th class="col-small"><%= _('Last logged in') %></th>
-            <th class="col-small"><%= _('How many plans?') %></th>
-            <th class="col-small sorter-false"><%= _('Privileges') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-            <% if !user.nil? then%>
-              <tr class="table-data">
-                <td>
-                    <% if !user.name.nil? then%>
-                        <%= user.name(false) %>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+              <% if !user.nil? then%>
+                <tr>
+                  <td>
+                      <% if !user.name.nil? then%>
+                          <%= user.name(false) %>
+                      <% end %>
+                  </td>
+                  <td>
+                      <%= user.email %>
+                  </td>
+                  <td class="text-center">
+                      <% if !user.last_sign_in_at.nil? then%>
+                      <%= l user.last_sign_in_at.to_date, :formats => :short %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                      <% if !user.roles.nil? then%>
+                      <%= user.roles.length %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% unless current_user == user %>
+                      <% b_label = _('Edit')%>
+                      <%= link_to b_label, admin_grant_permissions_user_path(user)%>
                     <% end %>
-                </td>
-                <td>
-                    <%= user.email %>
-                </td>
-                <td>
-                    <% if !user.last_sign_in_at.nil? then%>
-                    <%= l user.last_sign_in_at.to_date, :formats => :short %>
-                    <% end %>
-                </td>
-                <td class="centered">
-                    <% if !user.roles.nil? then%>
-                    <%= user.roles.length %>
-                    <% end %>
-                </td>
-                <td class="centered">
-                  <% unless current_user == user %>
-                    <% b_label = _('Edit')%>
-                    <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-        <% end %>
-      </tbody>
-    </table>
+                  </td>
+                </tr>
+              <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
