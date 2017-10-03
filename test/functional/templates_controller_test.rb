@@ -67,7 +67,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert assigns(:template)
-    assert assigns(:hash)
+    assert assigns(:template_hash)
     assert assigns(:current)
   end
 
@@ -193,18 +193,18 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     # Make sure we get the right response when editing an unpublished template
     put admin_update_template_path(current), {template: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
-    assert_response :success
+    assert_response :redirect
+    assert_redirected_to admin_template_template_path
     assert assigns(:template)
-    assert assigns(:hash)
+    #assert assigns(:template_hash)
     assert_equal 'ABCD', current.reload.title, "expected the record to have been updated"
     assert current.reload.dirty?
 
     # Make sure we get the right response when providing an invalid template
     put admin_update_template_path(current), {template: {title: nil}}
     assert flash[:alert].starts_with?(_('Could not update your'))
-    assert_response :success
+    assert_response :redirect
     assert assigns(:template)
-    assert assigns(:hash)
   end
 
   # GET /org/admin/templates/:id/admin_customize (admin_customize_template_path)

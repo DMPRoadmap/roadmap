@@ -1,54 +1,58 @@
 <!-- edit template details A template is passed as an argument-->
-
-<%= form_for(template, url: admin_update_template_path(template), html: { method: :put, class: 'roadmap-form'}) do |f| %>
-  <fieldset class="side-by-side">
-    <div class="form-input">
-      <%= f.label :title, class: 'required' %>
-      <%= f.text_field :title, as: :string, class: 'input-large has-tooltip', 
-                       'data-toggle': "tooltip", 
-                       title: _('Please enter a title for your template.') %>
+<%= form_for(template, url: admin_update_template_path(template), html: { method: :put, class: 'form-horizontal' }) do |f| %>
+  <div class="form-group">
+    <%= f.label(:title, _('Title'), class: 'col-md-2 control-label') %>
+    <div class="col-md-8">
+      <%= f.text_field(
+      :title,
+      class: "form-control",
+      "aria-required": false) %>
     </div>
-    <div class="form-input">
-      <%= f.label _('Description'), for: template.description %>
-      <%= text_area_tag("template-desc", template.description, class: "input-large tinymce") %>
-      <div class="inline">
-        <a href="#" data-toggle="popover" rel="popover" data-html="true" role="button" 
-           data-content="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>" aria-label="<% _('More information: Template descriptions') %>">
-        <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-      </div>
+    <div class="col-md-2">
+      <%= render partial: '/shared/tooltip', locals: { aria_label: _('Title'), placement: 'top', title: _('Add tooltip Please enter a title for your template.') } %>
     </div>
-    <div class="form-input">
-      <%= label_tag(:status, _('Status')) %>
-      <div id="status" class="read-only">
-        <% if hash[:live].nil? %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
+    <div class="col-md-8">
+      <%= text_area_tag("template-desc", template.description, { class: 'form-control tinymce', "aria-required": false }) %>
+    </div>
+    <div class="col-md-2">
+      <%= render partial: '/shared/popover', locals: { aria_label: _('Description'), placement: 'top', title: _('More information: Template descriptions'), content: _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:status, _('Status'), class: 'col-md-2 control-label') %>
+    <div class="col-md-10">
+      <p class="form-control-static">
+        <% if template_hash[:live].nil? %>
           <%= _('Unpublished') %>
-    
-        <% elsif hash[:current].dirty? %>
+        <% elsif template_hash[:current].dirty? %>
           <%= _('You have un-published changes') %>
-    
         <% else %>
           <%= _('Published') %>
         <% end %>
-      </div>
+      </p>
     </div>
-    <div class="form-input">
-      <%= label_tag(:created, _('Created at')) %>
-      <div id="created" class="read-only">
+  </div>
+  <div class="form-group">
+    <%= label_tag(:created_at, _('Created at'), class: 'col-md-2 control-label') %>
+    <div class="col-md-10">
+      <p class="form-control-static">
         <%= l template.created_at.to_date, formats: :short %>
-      </div>
+      </p>
     </div>
-    <div class="form-input">
-      <%= label_tag(:updated, _('Last updated')) %>
-      <div id="updated" class="read-only">
+  </div>
+  <div class="form-group">
+    <%= label_tag(:updated, _('Last updated'), class: 'col-md-2 control-label') %>
+    <div class="col-md-10">
+      <p class="form-control-static">
         <%= l template.updated_at.to_date, formats: :short %>
-      </div>
+      </p>
     </div>
-    
-    <br />
-    <div class="form-input">
-      <div class="button-spacer">&nbsp;</div>
-      <%= f.submit _('Save'), class: 'form-submit' %>
-      <%= link_to _('Cancel'), admin_template_template_path(template) %>
-    </div>
-  </fieldset>
+  </div>
+  <div class="pull-right">
+    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+    <%= link_to(_('Cancel'), '#', { class: "btn btn-default template_show_link", role: "button" }) %>
+  </div>
 <% end %>
