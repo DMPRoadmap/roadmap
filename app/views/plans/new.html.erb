@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for @plan, html: {method: :post, id: 'create-plan'}, remote: true do |f| %>
+    <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
       <h2 id="project-title"><%= _('What research project are you planning?') %></h2>
       <div class="form-group row">
@@ -63,16 +63,20 @@
       </div>
 
       <!-- Template selection -->
-      <div class="form-group row" id="available-templates">
-        <div class="col-xs-6">
-
-        </div>
-        <div class="col-xs-6">
-
+      <div id="available-templates" style="visibility: none;">
+        <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
+        <div class="form-group row">
+          <div class="col-xs-6">
+            <%= select_tag(:plan_template_id, "<option value=\"\">#{_('Please select a template')}</option>", name: 'plan[template_id]',
+                           class: 'form-control', 'aria-describedby': 'template-selection') %>
+          </div>
+          <div class="col-xs-6">
+            <span id="single-template"><%= _('Only one DMP template is available for those research and funding organisations.') %></span>
+            <span id="multiple-templates"><%= _('We found multiple DMP templates corresponding to your funder.') %></span>
+          </div>
         </div>
       </div>
 
-      <%= f.hidden_field(:template_id) %>
       <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
       <%= f.button(_('Create plan'), class: "btn btn-primary", type: "submit") %>
     <% end %>

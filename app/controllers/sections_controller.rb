@@ -14,7 +14,7 @@ class SectionsController < ApplicationController
       @section.phase.template.save!
 
       redirect_to admin_show_phase_path(id: @section.phase_id,
-        :section_id => @section.id, edit: 'true'), notice: success_message(_('section'), _('created'))
+        :section_id => @section.id), notice: success_message(_('section'), _('created'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -27,7 +27,7 @@ class SectionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render template: 'phases/admin_show'
+      redirect_to admin_show_phase_path(id: @phase.id)
     end
   end
 
@@ -36,13 +36,13 @@ class SectionsController < ApplicationController
   def admin_update
     @section = Section.includes(phase: :template).find(params[:id])
     authorize @section
-    @section.description = params["section-desc-#{params[:id]}"]
+    @section.description = params["section-desc"]
     @phase = @section.phase
     if @section.update_attributes(params[:section])
       @section.phase.template.dirty = true
       @section.phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id , edit: 'true'), notice: success_message(_('section'), _('saved'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id), notice: success_message(_('section'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -55,7 +55,7 @@ class SectionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render template: 'phases/admin_show'
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id)
     end
   end
 
@@ -70,7 +70,7 @@ class SectionsController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true' ), notice: success_message(_('section'), _('deleted'))
+      redirect_to admin_show_phase_path(id: @phase.id), notice: success_message(_('section'), _('deleted'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true

@@ -3,14 +3,32 @@ The goal of the DMPRoadmap project is to provide the community with a reliable a
 
 These guidelines are an attempt to ensure that we are able to provide the community with a reliable system, stable APIs, a clear roadmap, and a predictable release schedule. 
 
-* If you would like to contribute to the project. Please follow these steps to submit a contribution:
+* If you would like to contribute to the project, please follow these steps to submit a contribution:
   * Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
-  * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's '_**development**_' branch
+  * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`development`** branch
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
-  * Make your changes in the new branch
-  * When you have finished your work, make sure that your version of the '_**development**_' branch is still up to date with this project. Then merge your new branch into your '_**development**_' branch.
-  * Then create a new Pull Request (PR) to this project's '_**contributions**_' branch in GitHub 
+  * Make your changes in the new branch. When you have finished your work (e.g. 3 commits), squash all the commits on the branch that you are working on:
+    ```bash
+    git rebase -i HEAD~3  # If you have added 3 commits
+    ```
+    Then, change `pick` to `squash` for the 2nd and 3rd commits (to squash them into the single first commit).
+  * To make sure that your version of the **`development`** branch is still up to date with this project, switch to it and synchronise:
+    ```bash
+    git checkout development
+    git pull origin development
+    ```
+  * Switch back to your feature branch and rebase:
+    ```bash
+    git checkout <feature branch>
+    git rebase development
+    ```
+  * Fix merge conflicts (if any encountered) and then push to your fork:
+    ```bash
+    git push origin <feature branch>
+    ```
+  * Then create a new Pull Request (PR) to this project's **`contributions`** branch on GitHub.
   * The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
+  * Delete your feature branch if it is not required anymore.
 
 Table of contents:
 * [Github Workflow](#github-workflow)
@@ -21,14 +39,14 @@ Table of contents:
 ## GitHub Workflow
 A contribution consists of any work that is voluntarily submitted to the project. This includes bug fixes, enhancements and documentation that is intended as an improvement to the DMP Roadmap system.
 
-Any individual with a GitHub account may propose a Contribution by submitting a Pull Request (PR) to this project's '_**contributions**_' branch. The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the development roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
+Any individual with a GitHub account may propose a Contribution by submitting a Pull Request (PR) to this project's **`contributions`** branch. The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the development roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
 
 ![GitHub Workflow ](https://github.com/DMPRoadmap/roadmap/blob/master/public/github-contributor-infographic-final.png)
 
 ## Pull Requests
 Please use these checklists to help you prepare your Pull Request for submission. 
 
-ALL Pull Requests MUST be made to the '_**contributions**_' branch!
+ALL Pull Requests MUST be made to the **`contributions`** branch!
 
 #### Checklist for changes to a database table and/or its corresponding model
 * Did you include the appropriate database migration? ```> rails g migration AddTwitterIdToUsers```

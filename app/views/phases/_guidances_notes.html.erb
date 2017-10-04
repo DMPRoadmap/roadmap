@@ -1,0 +1,60 @@
+<!-- local variables: plan, question, answer, question_guidances -->
+<% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
+<% guidances = question_guidance[question.id] %>
+<% guidances_active = annotations.present? || guidances.present? %>
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <% if guidances_active %>
+            <li role="presentation" class="active">
+                <a href="#guidances-<%= question.id %>" aria-controls="guidances-<%= question.id %>" role="tab" data-toggle="tab">
+                    <%= _('Guidance') %>
+                </a>
+            </li>
+        <% end %>
+        <li role="presentation" class="<%= 'active' if !guidances_active %>">
+            <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="tab">
+                <span id="notes-title-<%= question.id %>">
+                    <%= render partial: '/notes/title', locals: { answer: answer } %>
+                </span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if guidances_active %>">
+            <div class="accordion-controls" data-parent="accordion-guidances-<%= question.id %>">
+                <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+                <span>|</span>
+                <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+            </div>
+            <!--guidance accordion -->
+            <div class="panel-group" id="accordion-guidances-<%= question.id %>" role="tablist" aria-multiselectable="true">
+                <!-- annotations with type guidance -->
+                <% num_annotations = 0 %>
+                <% i = 0 %>
+                <% if annotations.present? %>
+                  <% annotations.each do |annotation| %>
+                    <%= render partial: 'annotations/show', locals: {plan: plan, annotation: annotation, question: question} %>
+                    <% num_annotations += 1%>
+                    <% i += 1 %>
+                  <% end %>
+                <% end %>
+                <!-- guidance by theme -->
+                <% guidance_accordion_id = num_annotations %>
+                <% guidances.each_pair do |theme, groups| %>
+                  <% groups.each do |group| %>
+                    <%= render partial: 'guidance_groups/show', 
+                               locals: {group: group, theme: theme, i: i, question: question,
+                                guidance_accordion_id: guidance_accordion_id} %>
+               
+                    <% guidance_accordion_id += 1 %>
+                    <% i += 1 %>
+                  <% end %> 
+                <% end %>   
+            </div>
+        </div>
+        <div id="notes-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
+            <%= render partial: '/notes/layout', locals: {plan: plan, question: question, answer: answer } %>
+        </div>
+    </div>
+</div>

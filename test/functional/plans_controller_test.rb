@@ -86,14 +86,16 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
 
     sign_in @user
 
-    post plans_path(format: :js), params
+    post plans_path(), params
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
-    assert_response :success
-    assert assigns(:plan)
-    assert_equal "Testing Create", Plan.last.title, "expected the record to have been created"
+    assert_response :redirect
+    
+    new_plan = Plan.last
+    assert_redirected_to plan_url(new_plan)
+    assert_equal "Testing Create", new_plan.title, "expected the record to have been created"
   
     # assert that the default visibility is used when none is specified
-    assert_equal Rails.application.config.default_plan_visibility, Plan.last.visibility, "Expected the plan to have been assigned the default visibility"
+    assert_equal Rails.application.config.default_plan_visibility, new_plan.visibility, "Expected the plan to have been assigned the default visibility"
   end
 
   # GET /plan/:id (plan_path)

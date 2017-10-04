@@ -230,7 +230,14 @@ class TemplatesController < ApplicationController
     end
 
     # once the correct template has been generated, we convert it to hash
-    @hash = @template.to_hash
+    @template_hash = @template.to_hash
+    render('container',
+      locals: { 
+        partial_path: 'admin_template',
+        template: @template,
+        current: @current,
+        template_hash: @template_hash
+      })
   end
 
 
@@ -260,8 +267,7 @@ class TemplatesController < ApplicationController
         flash[:alert] = failed_update_error(@template, _('template'))
       end
 
-      @hash = @template.to_hash
-      render 'admin_template'
+      redirect_to action: 'admin_template', id: params[:id]
     end
   end
 
