@@ -54,12 +54,16 @@
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>
-                    <input type="checkbox" id="is_test-<%= plan.id %>"<%= plan.visibility === 'is_test' ? 'checked="true"' : '' %><%= plan.administerable_by?(current_user.id) ? '' : 'disabled="true"' %> />
+                    <%= form_for plan, url: set_test_plan_url(plan), html: {method: :post, id: 'update-test-plan'} do |f| %>
+                      <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test')) %>
+                    <% end %>
                   <% else %>
                     <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
                   <% end %>
                 </td>
-                <td id="visibility-<%= plan.id %>"><%= raw display_visibility(plan.visibility) %></td>
+                <td class="plan-visibility">
+                  <%= plan.visibility === 'is_test' ? _('N/A') : raw(display_visibility(plan.visibility)) %>
+                </td>
                 <td>
                   <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button"
