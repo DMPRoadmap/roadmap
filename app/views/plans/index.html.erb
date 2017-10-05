@@ -69,7 +69,7 @@
                     <button class="btn btn-link dropdown-toggle" type="button"
                             id="plan-<%= plan.id %>-actions" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="true">
-                      <%= _('Actions') %><span class="caret"><span>
+                      <%= _('Actions') %><span class="caret"></span>
                     </button>
 
                     <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
@@ -94,6 +94,7 @@
                     <li><%= link_to _('Remove'), deactivate_role_path(role),
                                     method: :put, data: {confirm: conf} %></li>
                   </ul>
+                </div>
                 </td>
               </tr>
             <% end %>
