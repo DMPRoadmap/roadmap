@@ -54,14 +54,9 @@ in the admin interface.
           <%= f.fields_for :annotations, annotation do |s|%>
             <%= s.hidden_field :org_id, value: current_user.org.id %>
             <ul>
-              <li><%= s.text_area :text, rows: 5 %></li>
+              <li><%= s.text_area :text, rows: 5, 'data-toggle': 'tooltip', title: _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %></li>
             </ul>
           <% end %>
-        </div>
-        <div class="div_right_icon">
-          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-             data-content="<%= _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>" aria-label="<%= _('More information: Example answers') %>">
-          <span class="fa fa-question-circle" aria-hidden="true"></span></a>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
@@ -72,13 +67,8 @@ in the admin interface.
     <tr>
       <td class="first_template"><%= _('Guidance')%></td>
       <td>
-        <div class="div_left_icon">
+        <div class="div_left_icon" data-toggle="tooltip" title="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>">
           <%= text_area_tag("question-guidance-#{question.id}", question.guidance , class: "tinymce") %>
-        </div>
-        <div class="div_right_icon">
-          <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-             data-content="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>" aria-label="<%= _('More information: Guidance') %>">
-          <span class="fa fa-question-circle" aria-hidden="true"></span></a>
         </div>
         <div class="clearfix"></div>
         <div class="border_bottom"></div>
