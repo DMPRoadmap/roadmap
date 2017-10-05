@@ -75,7 +75,7 @@ class PlansController < ApplicationController
 
         default = Template.find_by(is_default: true)
 
-        msg = success_message(_('plan'), _('created'))
+        msg = "#{success_message(_('plan'), _('created'))}<br />"
 
         if !default.nil? && default == @plan.template
           # We used the generic/default template
@@ -83,21 +83,23 @@ class PlansController < ApplicationController
 
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
-          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
 
         else
           # We used the specified org's or funder's template
-          msg += " #{_('This plan is based on the')} #{@plan.template.org.name} template."
+          msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
         end
 
         respond_to do |format|
-          format.html { redirect_to plan_path(@plan), notice: msg }
+          flash[:notice] = msg
+          format.html { redirect_to plan_path(@plan) }
         end
 
       else
         # Something went wrong so report the issue to the user
         respond_to do |format|
-          format.html { redirect_to new_plan_path, alert: failed_create_error(@plan, 'Plan') }
+          flash[:alert] = failed_create_error(@plan, 'Plan')
+          format.html { redirect_to new_plan_path }
         end
       end
     end
