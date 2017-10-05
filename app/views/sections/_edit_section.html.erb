@@ -8,29 +8,20 @@
     <%= form_for(section, url: admin_update_section_path(section, phase: phase), html: { method: :put, class: 'form-horizontal'}) do |f| %>
       <div class="form-group">
           <%= f.label(:title, _('Title'), { class: 'col-md-2 control-label' }) %>
-        <div class="col-md-8">
-          <%= f.text_field(:title, { class: 'form-control', 'aria-required': false, placeholder: _('Enter a title for the section') } ) %>
-        </div>
-        <div class="col-md-2">
-          <%= render partial: '/shared/tooltip', locals: { aria_label: _('Title'), placement: 'top', title: _('Enter a title for the section') } %>
+        <div class="col-md-10">
+          <%= f.text_field(:title, { class: 'form-control', 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section')} ) %>
         </div>
       </div>
       <div class="form-group">
         <%= f.label(:number, _('Order of display'), class: 'col-md-2 control-label') %>
-        <div class="col-md-8">
-          <%= f.number_field(:number, in: 1..15, class: 'form-control', 'aria-required': false) %>
-        </div>
-        <div class="col-md-2">
-          <%= render partial: '/shared/tooltip', locals: { aria_label: _('Order of display'), placement: 'top', title: _('This allows you to order sections.') } %>
+        <div class="col-md-10">
+          <%= f.number_field(:number, in: 1..15, class: 'form-control', 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
         </div>
       </div>
       <div class="form-group">
         <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
-        <div class="col-md-8">
+        <div class="col-md-10" data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
           <%= text_area_tag('section-desc', section.description, class: 'tinymce') %>
-        </div>
-        <div class="col-md-2">
-          <%= render partial: '/shared/popover', locals: { aria_label: _('Description'), placement: 'top', title: _('More information: Section descriptions'), content: _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") } %>
         </div>
       </div>
       <div class="pull-right">

@@ -8,45 +8,38 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {class: "shibboleth-ds-form roadmap-form"} do |f| %>
-      <fieldset class="standard padded">
-        <div class="form-input">
-          <%= f.label(:org_name, _('Look up your institution here')) %>
-    
-          <% if @orgs.length <= 10 %>
-            <select id="org_name" class="left-indent">
-              <option value=""><%= _('Please select one') %></option>
-              <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
-            </select>
-          
-          <% else %>
-            <%= render partial: "shared/accessible_combobox", 
-                       locals: {name: 'org_name',
-                                id: 'org_name',
-                                default_selection: nil,
-                                models: @orgs,
-                                attribute: 'name',
-                                classes: 'fixed-width-large'} %>
-          <% end %>
+    <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {id: 'shibboleth_ds'} do |f| %>
+      <div class="form-group">
+        <%= f.label(:org_name, _('Look up your institution here')) %>
+  
+        <% if @orgs.length <= 10 %>
+          <select id="org_name" class="left-indent">
+            <option value=""><%= _('Please select one') %></option>
+            <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
+          </select>
         
-          <%= render partial: 'shared/accessible_submit_button',
-                     locals: {id: 'submit-button', 
-                              val: _('Go'), 
-                              disabled_initially: true,
-                              classes: 'small-input-button',
-                              tooltip: _('Select an institution.'),
-                              classes: 'inline left-indent'} %>
+        <% else %>
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'org_name',
+                              id: 'org_name',
+                              default_selection: nil,
+                              models: @orgs,
+                              attribute: 'name',
+                              required: true,
+                              classes: ''} %>
+        <% end %>
+      
+        <%= f.button(_('Go'), class: "btn btn-default", type: "submit") %>
 
-          <% if @orgs.length > 10 %>
-            <p class="centered left-indent">
-              <strong>- <%= _('or') %> -</strong>
-              <br />
-              <a id="show_list" href="#"><%= _('See the full list of participating institutions') %></a>
-            </p>
-          <% end %>
+        <% if @orgs.length > 10 %>
+          <p class="centered left-indent">
+            <strong>- <%= _('or') %> -</strong>
+            <br />
+            <a id="show_list" href="#"><%= _('See the full list of participating institutions') %></a>
+          </p>
+        <% end %>
 
-        </div>
-      </fieldset>
+      </div>
     <% end %>
   
     <div id="full_list" style="display: none" class="left-indent" aria-hidden="true">

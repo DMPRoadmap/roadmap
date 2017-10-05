@@ -6,21 +6,8 @@
           <%= f.label(:title, _('Project Title'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(
-            :title,
-            class: 'form-control',
-            "aria-required": true) %>
-        </div>
-        <div class="col-md-4">
-          <button
-            type="button"
-            class="btn btn-link"
-            aria-label="<%= _('Project Title') %>"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="<%= _('If applying for funding, state the name exactly as in the grant proposal.') %>">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-          </button>
+          <%= f.text_field(:title, class: 'form-control', "aria-required": true, 'data-toggle': 'tooltip', 
+            title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
         </div>
       </div>
       <div class="form-group"><!-- visibility -->
@@ -48,44 +35,19 @@
           <%= f.label(:grant_number, _('Grant Number'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(
-            :grant_number,
-            class: 'form-control',
-            "aria-required": false) %>
-        </div>
-        <div class="col-md-4">
-          <button
-            type="button"
-            class="btn btn-link"
-            aria-label="<%= _('Grant Number') %>"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="<%= _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-          </button>
+          <%= f.text_field(:grant_number, class: 'form-control', "aria-required": false, 'data-toggle': 'tooltip', 
+            title: _('Grant reference number if applicable [POST-AWARD DMPs ONLY]')) %>
         </div>
       </div>
       <div class="form-group"><!-- description -->
         <div class="col-md-12">
           <%= f.label(:description, _('Project Abstract'), class: 'control-label') %>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" data-toggle="tooltip" data-html="true" title="<%= _("<h4>Questions to consider:</h4><ul><li>What is the nature of your research project?</li><li>What research questions are you addressing? </li><li>For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>").html_safe %>">
           <%= f.text_area(
             :description,
             class: 'form-control tinymce',
             "aria-required": false) %>
-        </div>
-        <div class="col-md-4">
-          <button
-            type="button"
-            class="btn btn-link"
-            aria-label="<%= _('Project Abstract') %>"
-            data-toggle="popover"
-            data-placement="top"
-            title="<%= _('More information: Guidance') %>"
-            data-content="<%= _("<h4>Questions to consider:</h4><ul><li>What is the nature of your research project?</li><li>What research questions are you addressing? </li><li>For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p>") %>">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-          </button>
         </div>
       </div>
       <div class="form-group"><!-- identifier -->
@@ -93,21 +55,8 @@
           <%= f.label(:identifier, _('ID'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(
-            :identifier,
-            class: 'form-control',
-            "aria-required": false) %>
-        </div>
-        <div class="col-md-4">
-          <button
-            type="button"
-            class="btn btn-link"
-            aria-label="<%= _('ID') %>"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="<%= _('A pertinent ID as determined by the funder and/or institution.') %>">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-          </button>
+          <%= f.text_field(:identifier, class: 'form-control', "aria-required": false, 'data-toggle': "tooltip", 
+                           title: _('A pertinent ID as determined by the funder and/or institution.')) %>
         </div>
       </div>
       <hr />

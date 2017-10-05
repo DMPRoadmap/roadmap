@@ -3,6 +3,7 @@
     <%= label_tag :filter, _('Filter plans'), class: "sr-only" %>
     <%= search_field_tag(:filter, params[:filter], placeholder: placeholder, class: "form-control") %>
     <a id="clear_filter" href="<%= path -%>" 
+       data-toggle="tooltip"
        title="<%= _('Remove the filter') -%>" 
        aria-label="<%= _('Remove the filter') %>">
       <i class="fa fa-times" aria-hidden="true"></i>
