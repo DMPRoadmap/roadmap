@@ -1,6 +1,7 @@
 <% if !models.nil? %>
   <% required = required ||= false %>
   <% classes = classes ||= '' %>
+  <% title = tooltip ||= '' %>
   <% error = error ||= _('Please select an item from the list.') %>
 
   <% json = {} %>
@@ -13,6 +14,8 @@
          data-combobox-case-sensitive="no"
          data-combobox-search-option="containing"
          data-combobox-allow-suggestion-on-empty="true"
+         data-toggle="<%= title == '' ? '' : 'tooltip' %>"
+         title="<%= title %>"
          value="<%= default_selection[attribute] unless default_selection.nil? %>" />
   <datalist id="<%= id %>_list">
     <% models.each do |model| %>
