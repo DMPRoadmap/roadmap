@@ -1,0 +1,46 @@
+<h1><%= @plan.title %></h1>
+<h2><%= @plan.template.title %></h2>
+
+<% details = @exported_plan.admin_details %>
+<% if details.present? %>
+  <h3><%= _('Admin Details') %></h3>
+  <% details.each do |field| %>
+    <% value = @exported_plan.send(field) %>
+    <p>
+      <strong><%= admin_field_t(field.to_s) %>:</strong>
+      <%= value.present? ? value : _('-') %>
+    </p>
+  <% end %>
+<% end %>
+
+
+
+<% @exported_plan.sections.each do |section| %>
+  <% questions = @exported_plan.questions_for_section(section.id)
+    if questions.present?
+  %>
+      <h3><%= section.title %></h3>
+      <% questions.each do |question| %>
+          <p><%= raw question.text %></p>
+        <% answer = @plan.answer(question.id, false) %>
+        <% if answer.nil? %>
+          <p><%= _('Question not answered') %></p>
+        <% else %>
+          <% q_format = question.question_format %>
+          <% if q_format.option_based? %>
+              <ul>
+                <% answer.question_options.each do |option| %>
+                  <li><%= raw option.text %></li>
+                <% end %>
+              </ul>
+            <% if question.option_comment_display %>
+              <p><%= raw answer.text %></p>
+            <% end %>
+          <% else %>
+            <p><%= raw answer.text %></p>
+          <% end %> <!-- end if q_format.option_based? -->
+        <% end%> <!-- end if answer.nil? -->
+        <p></p>
+    <% end %>	<!-- end questions.each -->
+  <% end %> <!-- end if questions.present? -->
+<% end %> <!-- end @exported_plan.sections.each -->

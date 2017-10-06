@@ -1,0 +1,86 @@
+<%= stylesheet_link_tag "admin" %>
+
+<h1>
+	<%= _('Organisation details') %>
+</h1>
+<%= _('These are the basic details for your organisation.')%>
+<br/>
+<div class="clear"></div>
+<div class="white_background blue_border">
+	<!-- body -->
+	<div class="dmp_details" >
+
+        <!-- table with org details-->
+		<table class="dmp_details_table">
+			<% if @org.name.present? then %>
+			<tr>
+				<td class="first"><%= _('Name') %></td>
+				<td><%= @org.name %></td>
+
+				<% if @org.logo.present? then %>
+					<td rowspan="8" class="organisation-logo"><%= image_tag @org.logo.thumb('100x100%').url %></td>
+				<% end %>
+			</tr>
+			<% end %>
+
+			<% if @org.abbreviation.present? then %>
+			<tr>
+				<td class="first"><%= _('Abbreviation') %></td>
+				<td><%= @org.abbreviation %></td>
+			</tr>
+      <% else %>
+      <tr>
+        <td class="first"><%= _('Abbreviation') %></td>
+        <td><emph><%= _('Please add an abbreviation to your org for display with annotations!')%></emph></td>
+			<% end %>
+
+      <% if @org.banner_text.present? then %>
+			<tr>
+				<td class="first"><%= _('Top banner text') %></td>
+				<td><%= raw @org.banner_text %></td>
+			</tr>
+			<% end %>
+
+			<% if @org.target_url.present? then %>
+			<tr>
+				<td class="first"><%= _('Website') %></td>
+				<td><%= @org.target_url %></td>
+			</tr>
+			<% end %>
+
+			<% if @org.contact_email.present? then %>
+			<tr>
+				<td class="first"><%= _('Contact Email') %></td>
+				<td><%= @org.contact_email %></td>
+			</tr>
+			<% end %>
+
+			<% if @org.org_type != 0 then %>
+			<tr>
+				<td class="first"><%= _('Organisation type') %></td>
+				<td><%= @org.type %></td>
+			</tr>
+			<% end %>
+
+			<% if @org.parent_id.present? then %>
+				<tr>
+					<td class="first"><%= _('Main organisation') %></td>
+					<td><%= @org.parent.name %></td>
+				</tr>
+			<% end %>
+
+			<tr>
+				<td class="first"><%= _('Last updated') %></td>
+				<td><%= l @org.updated_at.to_date, formats: :short %></td>
+			</tr>
+		</table>
+
+    <div class="div_clear">
+  	</div>
+
+		<div class="move_2_right">
+			<%= link_to _('Edit'), admin_edit_org_path(current_user.org), class: 'btn btn-primary'%>
+		</div>
+		<br />
+	</div>
+</div>

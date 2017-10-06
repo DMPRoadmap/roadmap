@@ -12,6 +12,7 @@
  *= require_self
  *= require bootstrap_and_overrides
  *= require bootstrap.css
- *= require bootstrap_and_overrides.css.less
  *= require select2.css
+ *= require bootstrap_and_overrides.css.less
+ *= require roadmap-form.scss
  */

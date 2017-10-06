@@ -117,28 +117,9 @@ module Api
 
       def render_bad_credentials
         self.headers['WWW-Authenticate'] = "Token realm=\"\""
-        render json: I18n.t("api.bad_credentials"), status: 401
+        render json: _("Bad Credentials"), status: 401
       end
 
-      def has_auth (auth_type)
-        auth = false
-        # not sure if initial if is necissary, but it works with it there... refactor later?
-        # if !TokenPermission.where(api_token: @token).nil?
-        #   TokenPermission.where(api_token: @token).find_each do |permission|
-        #     if permission.token_permission_type.token_type == auth_type
-        #       auth = true
-        #       logger.info "we have auth"
-        #     end
-        #   end
-        # end
-        OrgTokenPermission.where(organisation_id: @user.organisation_id).find_each do |org_token_permission|
-          logger.debug "#{org_token_permission.token_permission_type.token_type}"
-          if org_token_permission.token_permission_type.token_type == auth_type
-            auth= true
-          end
-        end
-        return auth
-      end
 
     end
   end

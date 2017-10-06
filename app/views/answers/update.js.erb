@@ -1,0 +1,26 @@
+// partial /answers/locking
+<% if @stale_answer %>
+    $("#answer-locking-<%= @question.id%>")
+        .html("<%= escape_javascript(render partial: '/answers/locking', locals: { question: @question, answer: @stale_answer, user: @answer.user }) %>");
+<% else %>
+    $("#answer-locking-<%= @question.id%>").html("");
+<% end %>
+
+// partial /answer/new_edit
+if(tinymce)
+    tinymce.remove("#answer-text-<%= @question.id %>");
+$("#answer-form-<%= @question.id%>")
+    .html("<%= escape_javascript(render partial: '/answers/new_edit', locals: { question: @question, answer: @answer, readonly: false }) %>");
+
+// partial /answer/status
+$("#answer-status-<%= @question.id %>")
+    .html("<%= escape_javascript(render partial: '/answers/status', locals: { answer: @answer}) %>");
+if($.fn.init_answer_status) 
+    $.fn.init_answer_status();
+
+// partial /plans/progress
+$(".progress").html("<%= escape_javascript(render :partial => '/plans/progress', locals: { plan: @plan }) %>"); 
+
+// partial /sections/progress
+$("#section-progress-<%= @section.id %>")
+    .html("<%= escape_javascript(render partial: '/sections/progress', locals: { section: @section, plan: @plan }) %>");

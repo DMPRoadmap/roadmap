@@ -1,277 +1,299 @@
 <!-- Project title = default title is the template title plus date of creation -->
 <div class="dmp_details_body">
-	<div class="view-project <%= if @show_form && @project.administerable_by(current_user.id) then "project-hide" end %>">
-		<div class="div_left">
-			<p>
-				<%= t('helpers.project.project_details_text_html')%>
-			</p>
-		</div>
+  <div class="view-project <%= if @show_form && @project.administerable_by(current_user.id) then "project-hide" end %>">
+    <div class="div_left">
+      <p>
+        <%= _('This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked.')%>
+      </p>
+    </div>
 
-		<!-- edit project button -->
-		<div class="div_right">
-			<% if @project.administerable_by(current_user.id) then %>
-				<a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.project.edit") %></a>
-			<% end %>
-		</div>
-		<!-- display project details -->
-		<div class="dmp_details">
-			<table class="dmp_details_table">
-				<tr>
-					<td class="first"><%= t('helpers.project.project_name') %></td>
-					<td><%= @project.title %></td>
-				</tr>
-				<tr>
-					<td class="first"><%= t('helpers.project.project_identifier') %></td>
-					<td>
-						<% if !@project.identifier.nil? && @project.identifier != "" then %>
-							<%= @project.identifier %>
-						<%else%>
-							 -
-						<%end%>
-					</td>
-				</tr>
-				<tr>
-					<td class="first"><%= t('helpers.project.grant_title') %></td>
-					<td>
-						<% if !@project.grant_number.nil? && @project.grant_number!= "" then %>
-							<%= @project.grant_number %>
-						<%else%>
-							-
-						<%end%>
-					</td>
-				</tr>
-				<tr>
-					<td class="first"><%= t('helpers.project.principal_investigator') %></td>
-					<td><% if !@project.principal_investigator.nil? && @project.principal_investigator != "" then %>
-							<%= @project.principal_investigator %>
-						<%else%>
-							 -
-						<%end%>
-					</td>
-				</tr>
-				<% if !@project.principal_investigator_identifier.nil? && @project.principal_investigator_identifier != "" then %>
-					<tr>
-						<td class="first"><%= t('helpers.project.principal_investigator_id') %></td>
-						<td>
-							<%= @project.principal_investigator_identifier %>
-						</td>
-					</tr>
-				<%end%>
-				<tr>
-					<td class="first"><%= t('helpers.project.project_data_contact') %></td>
-					<td><% if !@project.data_contact.nil? && @project.data_contact != "" then%>
-							<%= @project.data_contact %>
-						<%else%>
-							 -
-						<%end%>
-					</td>
-				</tr>
-				<tr>
-					<td class="first"><%= t('helpers.desc') %></td>
-					<td><% if !@project.description.nil? && @project.description != "" then%>
-							<%= @project.description %>
-						<%else%>
-							 -
-						<%end%>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	<% if @project.administerable_by(current_user.id) then %>
-		<div class="edit-project <%= unless @show_form then "project-hide" end %>">
-			<!-- edit project button -->
-			<div class="div_left">
-				<p>
-					<%= raw t('helpers.project.project_details_editing_text_html')%>
-				</p>
-			</div>
-			<div class="div_right">
-				<a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.links.cancel") %></a>
-			</div>
-			<div class="div_clear"> </div>
-			<%= semantic_form_for @project, :url => {:controller => :projects, :action => :update }, :html=>{:method=>:put} do |f| %>
-			<%= f.inputs do %>
-				<div class="dmp_details">
+    <!-- edit project button -->
+    <div class="div_right">
+      <% if @project.administerable_by(current_user.id) then %>
+        <a href='#' class='btn btn-primary show-edit-toggle'><%= _('Edit plan details') %></a>
+      <% end %>
+    </div>
+    <!-- display project details -->
+    <div class="dmp_details">
+      <table class="dmp_details_table">
+        <tr>
+          <td class="first"><%= _('Plan name') %></td>
+          <td><%= @project.title %></td>
+        </tr>
+        <tr>
+          <td class="first"><%= _('ID') %></td>
+          <td>
+            <% if !@project.identifier.nil? && @project.identifier != "" then %>
+              <%= @project.identifier %>
+            <%else%>
+               -
+            <%end%>
+          </td>
+        </tr>
+        <tr>
+          <td class="first"><%= _('Grant number') %></td>
+          <td>
+            <% if !@project.grant_number.nil? && @project.grant_number!= "" then %>
+              <%= @project.grant_number %>
+            <%else%>
+              -
+            <%end%>
+          </td>
+        </tr>
+        <tr>
+          <td class="first"><%= _('Principal Investigator/Researcher') %></td>
+          <td><% if !@project.principal_investigator.nil? && @project.principal_investigator != "" then %>
+              <%= @project.principal_investigator %>
+            <%else%>
+               -
+            <%end%>
+          </td>
+        </tr>
+        <% if !@project.principal_investigator_identifier.nil? && @project.principal_investigator_identifier != "" then %>
+          <tr>
+            <td class="first"><%= _('Principal Investigator/Researcher ID') %></td>
+            <td>
+              <%= @project.principal_investigator_identifier %>
+            </td>
+          </tr>
+        <%end%>
+        <tr>
+          <td class="first"><%= _('Plan data contact') %></td>
+          <td><% if !@project.data_contact.nil? && @project.data_contact != "" then%>
+              <%= @project.data_contact %>
+            <%else%>
+               -
+            <%end%>
+          </td>
+        </tr>
+        <tr>
+          <td class="first"><%= _('Description') %></td>
+          <td><% if !@project.description.nil? && @project.description != "" then%>
+              <%= @project.description %>
+            <%else%>
+               -
+            <%end%>
+          </td>
+        </tr>
+        <tr>
+          <td class="first"><%= _('Visibility') %></td>
+          <td><%= (@project.is_test? ? _('Test/Practice (your plan is not visible to other users) See our Terms of Use.') : (@project.organisationally_visible? ? _('Organisational (visibile to others within your organisation)') : (@project.publicly_visible? ? _('Public (Your DMP will appear on the Public DMPs page of this site)') : (@project.privately_visible? ? _('Private (owners, co-owners, and administrators only) See our Terms of Use.') : "Defaulting to: #{_('Not specified (will be visible to others within your organisation by default)')}")))) %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <% if @project.administerable_by(current_user.id) then %>
+    <div class="edit-project <%= unless @show_form then "project-hide" end %>">
+      <!-- edit project button -->
+      <div class="div_left">
+        <p>
+          <%= raw _("Please fill in the basic project details below and click 'Update' to save")%>
+        </p>
+      </div>
+      <div class="div_right">
+        <a href='#' class='btn btn-primary show-edit-toggle'><%= _('Cancel') %></a>
+      </div>
+      <div class="div_clear"> </div>
+      <%= semantic_form_for @project, :url => {:controller => :projects, :action => :update }, :html=>{:method=>:put} do |f| %>
+      <%= f.inputs do %>
+        <div class="dmp_details">
 
-					<!-- If not first time login in or editing project details -->
-					<table class="dmp_details_table">
-						<tr>
-							<td class="first"><%= t('helpers.project.project_name') %></td>
-							<td>
-								<%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_name_help_text') %>
-							</td>
-						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.project.project_identifier') %></td>
-							<td>
-								<%= f.text_field :identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_identifier_help_text') %>
-							</td>
-						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.project.grant_title') %></td>
-							<td>
-								<%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.grant_help_text') %>
-							</td>
-						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.project.principal_investigator') %></td>
-							<td>
-								<%= f.text_field :principal_investigator, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.principal_investigator_help_text') %>
-							</td>
-						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.project.principal_investigator_id') %></td>
-							<td>
-								<%= f.text_field :principal_investigator_identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.principal_investigator_id_help_text') %>
-							</td>
-						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.project.project_data_contact') %></td>
-							<td>
-								<%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => t('helpers.project.project_data_contact_help_text') %>
-							</td>
-						</tr>
-						<tr>
-							<td class="first"><%= t('helpers.desc') %></td>
-							<td>
-								<%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> t('helpers.project.project_desc_help_text_html')} %>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<% end %>
-				<!-- submit buttons -->
-				<%= f.actions do %>
-					<div class="move_2_right">
-						<%= f.submit t("helpers.submit.save"), :class => 'btn btn-primary' %>
-						<a href='#' class='btn btn-primary show-edit-toggle'><%= t("helpers.links.cancel") %></a>
-					</div>
-				<%end%>
-			<%end%>
-	</div>
-	<% end %>
-	<h3><%= t('helpers.project.project_static_info')%></h3>
-	<table class="dmp_details_table">
-		<!-- get the funder name if there is one -->
-		<%if @project.dmptemplate.organisation.organisation_type.name == constant("organisation_types.funder")%>
-			<tr>
-				<td class="first"><%= constant("organisation_types.funder") %></td>
-				<td><%= @project.dmptemplate.organisation.name %></td>
-			</tr>
-		<%end%>
-		<%if !@project.organisation_id.nil?	%>
-			<tr>
-				<td class="first"><%= constant("organisation_types.institution") %></td>
-				<td><%= @project.organisation.name %></td>
-			</tr>
-		<%end%>
-	</table>
+          <!-- If not first time login in or editing project details -->
+          <table class="dmp_details_table">
+            <tr>
+              <td class="first"><%= _('Plan name') %></td>
+              <td>
+                <%= f.text_field :title, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('If applying for funding, state the name exactly as in the grant proposal.') %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('ID') %></td>
+              <td>
+                <%= f.text_field :identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('A pertinent ID as determined by the funder and/or institution.') %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('Grant number') %></td>
+              <td>
+                <%= f.text_field :grant_number, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Grant reference number if applicable [POST-AWARD DMPs ONLY]') %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('Principal Investigator/Researcher') %></td>
+              <td>
+                <%= f.text_field :principal_investigator, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Name of Principal Investigator(s) or main researcher(s) on the project.') %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('Principal Investigator/Researcher ID') %></td>
+              <td>
+                <%= f.text_field :principal_investigator_identifier, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('E.g ORCID http://orcid.org/.') %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('Plan data contact') %></td>
+              <td>
+                <%= f.text_field :data_contact, :class => 'text_field has-tooltip', 'data-toggle' => "tooltip", 'title' => _('Name (if different to above), telephone and email contact details') %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('Description') %></td>
+              <td>
+                <%= f.text_area :description, { :rows => 7, :class => 'text_area has-tooltip', 'data-toggle' => "tooltip", 'data-html' => "true", 'title'=> _("<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>")} %>
+              </td>
+            </tr>
+            <tr>
+              <td class="first"><%= _('Visibility') %></td>
+              <td>
+                <div>
+                  <input type="radio" id="project_publicly_visible" name="project[visibility]" value="publicly_visible"<%= @project.publicly_visible? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= _('Public (Your DMP will appear on the Public DMPs page of this site)') %></span>
+                </div>
+                <div>
+                  <input type="radio" id="project_organisationally_visible" name="project[visibility]" value="organisationally_visible"<%= @project.organisationally_visible? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= _('Organisational (visibile to others within your organisation)') %></span>
+                </div>
+                <div>
+                  <input type="radio" id="project_is_test" name="project[visibility]" value="is_test"<%= @project.is_test? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= _('Test/Practice (your plan is not visible to other users) See our Terms of Use.') %></span>
+                </div>
+                <div>
+                  <input type="radio" id="project_privately_visible" name="project[visibility]" value="privately_visible"<%= @project.privately_visible? ? ' checked="checked"' : '' %> /><span class="radio-label"><%= _('Private (owners, co-owners, and administrators only) See our Terms of Use.') %></span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <% end %>
+        <!-- submit buttons -->
+        <%= f.actions do %>
+          <div class="move_2_right">
+            <%= f.submit _('Save'), :class => 'btn btn-primary' %>
+            <a href='#' class='btn btn-primary show-edit-toggle'><%= _('Cancel') %></a>
+          </div>
+        <%end%>
+      <%end%>
+  </div>
+  <% end %>
+  <h3><%= _('This plan is based on:')%></h3>
+  <table class="dmp_details_table">
+    <!-- get the funder name if there is one -->
+    <%if @project.dmptemplate.organisation.organisation_type.name == constant("organisation_types.funder")%>
+      <tr>
+        <td class="first"><%= constant("organisation_types.funder") %></td>
+        <td><%= @project.dmptemplate.organisation.name %></td>
+      </tr>
+    <%end%>
+    <%if !@project.organisation_id.nil?  %>
+      <tr>
+        <td class="first"><%= constant("organisation_types.institution") %></td>
+        <td><%= @project.organisation.name %></td>
+      </tr>
+    <%end%>
+  </table>
+>>>>>>> final_schema
 
-	<!-- If project has plans-->
-	<% if @project.plans.any? %>
-		<% if @project.plans.count == 1 then %>
-			<% @project.plans.each do |plan| %>
+  <!-- If project has plans-->
+  <% if @project.plans.any? %>
+    <% if @project.plans.count == 1 then %>
+      <% @project.plans.each do |plan| %>
 
-				<div class="move_2_right">
-					<%= link_to t('helpers.answer_questions'), [:edit, @project, plan], :class => 'btn btn-primary'  %>
-					<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= t('helpers.export') %></a>
-				</div>
-				<%= render :partial => "plans/export", locals: {plan: plan} %>
-				<div class="div_clear"></div>
-				<p><%= raw plan.version.phase.description %></p>
-				<% if !plan.sections.nil? %>
-					<table class="dmp_table">
-						<thead>
-						    <tr>
-						      	<th class="dmp_th_medium"><%= t('helpers.sections_label')%></th>
-						      	<th class="dmp_th_big"><%= t('helpers.questions_label')%></th>
-		   					</tr>
-	   					</thead>
-	   					<tbody>
-	   						<% plan.sections.each do |section| %>
-								<tr >
-									<th class="dmp_th_border" >
-										<p><%= section.title %></p>
-									</th>
-	        						<td class="dmp_td_border" >
-										<% if section.questions.any? %>
-											<% questions = section.questions.sort_by(&:number) %>
-											<ul class="question_ul">
-												<% questions.each do |ques|%>
-													<li>
-														<%= raw ques.text %>
-													</li>
-												<%end%>
-											</ul>
-										<%end%>
-									</td>
-								</tr>
-							<%end%>
-						</tbody>
-					</table>
-				<%end%>
-			<%end%>
-		<%else%>
-			<div class="project_description">
-				<%= raw @project.dmptemplate.description %>
-			</div>
-			<% @project.plans.each do |plan| %>
-				<div class="accordion" id="project-accordion">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= plan.version.phase.id %>">
-								<h3><%= plan.version.phase.title %><span class="plus-laranja"> </span>
-								</h3>
-							</a>
-						</div>
-						<div id="<%= plan.version.phase.id %>" class="accordion-project collapse">
-							<div class="accordion-inner">
-								<div class="div_right">
-									<%= link_to t('helpers.answer_questions'), [:edit, @project, plan], :class => 'btn btn-primary'  %>
-									<a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= t('helpers.export') %></a>
-								</div>
-								<%= render :partial => "plans/export", locals: {plan: plan} %>
-								<div class="div_clear"></div>
-									<p><%= raw plan.version.phase.description %>
-								</p>
+        <div class="move_2_right">
+          <%= link_to _('Answer questions'), [:edit, @project, plan], :class => 'btn btn-primary'  %>
+          <a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
+        </div>
+        <%= render :partial => "plans/export", locals: {plan: plan} %>
+        <div class="div_clear"></div>
+        <p><%= raw plan.version.phase.description %></p>
+        <% if !plan.sections.nil? %>
+          <table class="dmp_table">
+            <thead>
+                <tr>
+                    <th class="dmp_th_medium"><%= _('Sections')%></th>
+                    <th class="dmp_th_big"><%= _('Questions')%></th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <% plan.sections.each do |section| %>
+                <tr >
+                  <th class="dmp_th_border" >
+                    <p><%= section.title %></p>
+                  </th>
+                      <td class="dmp_td_border" >
+                    <% if section.questions.any? %>
+                      <% questions = section.questions.sort_by(&:number) %>
+                      <ul class="question_ul">
+                        <% questions.each do |ques|%>
+                          <li>
+                            <%= raw ques.text %>
+                          </li>
+                        <%end%>
+                      </ul>
+                    <%end%>
+                  </td>
+                </tr>
+              <%end%>
+            </tbody>
+          </table>
+        <%end%>
+      <%end%>
+    <%else%>
+      <div class="project_description">
+        <%= raw @project.dmptemplate.description %>
+      </div>
+      <% @project.plans.each do |plan| %>
+        <div class="accordion" id="project-accordion">
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#project-accordion" href="#<%= plan.version.phase.id %>">
+                <h3><%= plan.version.phase.title %><span class="plus-laranja"> </span>
+                </h3>
+              </a>
+            </div>
+            <div id="<%= plan.version.phase.id %>" class="accordion-project collapse">
+              <div class="accordion-inner">
+                <div class="div_right">
+                  <%= link_to _('Answer questions'), [:edit, @project, plan], :class => 'btn btn-primary'  %>
+                  <a href="#<%= plan.id %>-export-dialog" data-toggle="modal" class='btn btn-primary'><%= _('Export') %></a>
+                </div>
+                <%= render :partial => "plans/export", locals: {plan: plan} %>
+                <div class="div_clear"></div>
+                  <p><%= raw plan.version.phase.description %>
+                </p>
 
-								<% if !plan.sections.nil? %>
-									<table class="dmp_table">
-										<thead>
-										    <tr>
-										      	<th class="dmp_th_medium"><%= t('helpers.sections_label')%></th>
-										      	<th class="dmp_th_big"><%= t('helpers.questions_label')%></th>
-						   					</tr>
-					   					</thead>
-					   					<tbody>
-					   						<% plan.sections.each do |section| %>
-												<tr >
-													<th class="dmp_th_border" >
-														<p><%= section.title %></p>
-													</th>
-					        						<td class="dmp_td_border" >
-														<% if section.questions.any? %>
-															<% questions = section.questions.sort_by(&:number) %>
-															<ul class="question_ul">
-																<% questions.each do |ques|%>
-																	<li>
-																		- <%= ques.text %>
-																	</li>
-																<%end%>
-															</ul>
-														<%end%>
-													</td>
-												</tr>
-											<%end%>
-										</tbody>
-									</table>
-								<%end%>
-							</div>
-						</div>
-					</div>
-				</div>
-			<%end%>
-		<%end%>
-	<%end%>
+                <% if !plan.sections.nil? %>
+                  <table class="dmp_table">
+                    <thead>
+                        <tr>
+                            <th class="dmp_th_medium"><%= _('Sections')%></th>
+                            <th class="dmp_th_big"><%= _('Questions')%></th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <% plan.sections.each do |section| %>
+                        <tr >
+                          <th class="dmp_th_border" >
+                            <p><%= section.title %></p>
+                          </th>
+                              <td class="dmp_td_border" >
+                            <% if section.questions.any? %>
+                              <% questions = section.questions.sort_by(&:number) %>
+                              <ul class="question_ul">
+                                <% questions.each do |ques|%>
+                                  <li>
+                                    - <%= ques.text %>
+                                  </li>
+                                <%end%>
+                              </ul>
+                            <%end%>
+                          </td>
+                        </tr>
+                      <%end%>
+                    </tbody>
+                  </table>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    <%end%>
+  <%end%>
 </div>

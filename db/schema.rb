@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102221313) do
+ActiveRecord::Schema.define(version: 20170702012742) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "annotations", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "org_id"
+    t.text     "text"
+    t.integer  "type",        default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "annotations", ["question_id"], name: "index_annotations_on_question_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -20,49 +34,23 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "lock_version", default: 0
   end
 
-  create_table "answers_options", id: false, force: :cascade do |t|
-    t.integer "answer_id", null: false
-    t.integer "option_id", null: false
+  create_table "answers_question_options", id: false, force: :cascade do |t|
+    t.integer "answer_id",          null: false
+    t.integer "question_option_id", null: false
   end
 
-  add_index "answers_options", ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id"
-
-  create_table "comments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "question_id"
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "archived"
-    t.integer  "plan_id"
-    t.integer  "archived_by"
-  end
-
-  create_table "dmptemplates", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "published"
-    t.integer  "user_id"
-    t.integer  "organisation_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "locale"
-    t.boolean  "is_default"
-  end
-
-  create_table "dmptemplates_guidance_groups", id: false, force: :cascade do |t|
-    t.integer "dmptemplate_id"
-    t.integer "guidance_group_id"
-  end
+  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
     t.integer  "user_id"
     t.string   "format"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "phase_id"
   end
 
   create_table "file_types", force: :cascade do |t|
@@ -70,8 +58,8 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.string   "icon_name"
     t.integer  "icon_size"
     t.string   "icon_location"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "file_uploads", force: :cascade do |t|
@@ -82,8 +70,8 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.boolean  "published"
     t.string   "location"
     t.integer  "file_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -93,33 +81,40 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
-    t.integer  "organisation_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "org_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.boolean  "optional_subset"
     t.boolean  "published"
   end
 
-  create_table "guidance_in_group", id: false, force: :cascade do |t|
-    t.integer "guidance_id",       null: false
-    t.integer "guidance_group_id", null: false
-  end
-
-  add_index "guidance_in_group", ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
+  add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id", using: :btree
 
   create_table "guidances", force: :cascade do |t|
     t.text     "text"
     t.integer  "guidance_group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "question_id"
     t.boolean  "published"
+  end
+
+  add_index "guidances", ["guidance_group_id"], name: "index_guidances_on_guidance_group_id", using: :btree
+
+  create_table "identifier_schemes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "logo_url"
+    t.string   "user_landing_url"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -129,15 +124,102 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.boolean "default_language"
   end
 
-  create_table "option_warnings", force: :cascade do |t|
-    t.integer  "organisation_id"
-    t.integer  "option_id"
+  create_table "notes", force: :cascade do |t|
+    t.integer  "user_id"
     t.text     "text"
+    t.boolean  "archived"
+    t.integer  "answer_id"
+    t.integer  "archived_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "options", force: :cascade do |t|
+  add_index "notes", ["answer_id"], name: "index_notes_on_answer_id", using: :btree
+
+  create_table "org_token_permissions", force: :cascade do |t|
+    t.integer  "org_id"
+    t.integer  "token_permission_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id", using: :btree
+
+  create_table "orgs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "abbreviation"
+    t.string   "target_url"
+    t.string   "wayfless_entity"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "parent_id"
+    t.boolean  "is_other"
+    t.string   "sort_name"
+    t.text     "banner_text"
+    t.string   "logo_file_name"
+    t.integer  "region_id"
+    t.integer  "language_id"
+    t.string   "logo_uid"
+    t.string   "logo_name"
+    t.string   "contact_email"
+    t.integer  "org_type",        default: 0, null: false
+  end
+
+  create_table "perms", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+
+  create_table "phases", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "number"
+    t.integer  "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.boolean  "modifiable"
+  end
+
+  add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
+
+  create_table "plans", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.string   "grant_number"
+    t.string   "identifier"
+    t.text     "description"
+    t.string   "principal_investigator"
+    t.string   "principal_investigator_identifier"
+    t.string   "data_contact"
+    t.string   "funder_name"
+    t.integer  "visibility",                        default: 0, null: false
+  end
+
+  add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
+
+  create_table "plans_guidance_groups", force: :cascade do |t|
+    t.integer "guidance_group_id"
+    t.integer "plan_id"
+  end
+
+  create_table "question_formats", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "option_based", default: false
+    t.integer  "formattype",   default: 0
+  end
+
+  create_table "question_options", force: :cascade do |t|
     t.integer  "question_id"
     t.string   "text"
     t.integer  "number"
@@ -146,200 +228,102 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.datetime "updated_at"
   end
 
-  create_table "org_token_permissions", force: :cascade do |t|
-    t.integer  "organisation_id"
-    t.integer  "token_permission_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "organisation_types", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "organisations", force: :cascade do |t|
-    t.string   "name"
-    t.string   "abbreviation"
-    t.string   "target_url"
-    t.integer  "organisation_type_id"
-    t.string   "domain"
-    t.string   "wayfless_entity"
-    t.integer  "stylesheet_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "parent_id"
-    t.boolean  "is_other"
-    t.string   "sort_name"
-    t.text     "banner_text"
-    t.integer  "region_id"
-    t.integer  "language_id"
-    t.string   "logo_uid"
-    t.string   "logo_name"
-    t.string   "contact_email"
-  end
-
-  create_table "phases", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "number"
-    t.integer  "dmptemplate_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-  end
-
-  add_index "phases", ["dmptemplate_id"], name: "index_phases_on_dmptemplate_id"
-  add_index "phases", ["slug"], name: "index_phases_on_slug", unique: true
-
-  create_table "plan_sections", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "section_id"
-    t.integer  "plan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "release_time"
-  end
-
-  create_table "plans", force: :cascade do |t|
-    t.boolean  "locked"
-    t.integer  "project_id"
-    t.integer  "version_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "project_groups", force: :cascade do |t|
-    t.boolean  "project_creator"
-    t.boolean  "project_editor"
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "project_administrator"
-  end
-
-  create_table "project_guidance", id: false, force: :cascade do |t|
-    t.integer "project_id",        null: false
-    t.integer "guidance_group_id", null: false
-  end
-
-  add_index "project_guidance", ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id"
-
-  create_table "projects", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "dmptemplate_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.integer  "organisation_id"
-    t.string   "grant_number"
-    t.string   "identifier"
-    t.text     "description"
-    t.string   "principal_investigator"
-    t.string   "principal_investigator_identifier"
-    t.string   "data_contact"
-    t.string   "funder_name"
-  end
-
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
-
-  create_table "question_formats", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "text"
     t.text     "default_value"
-    t.text     "guidance"
     t.integer  "number"
-    t.integer  "parent_id"
-    t.integer  "dependency_id"
-    t.text     "dependency_text"
     t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_format_id"
     t.boolean  "option_comment_display", default: true
+    t.boolean  "modifiable"
   end
+
+  add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
     t.integer "theme_id",    null: false
   end
 
-  add_index "questions_themes", ["question_id", "theme_id"], name: "index_questions_themes_on_question_id_and_theme_id"
-
-  create_table "region_groups", force: :cascade do |t|
-    t.integer "super_region_id"
-    t.integer "region_id"
-  end
+  add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
-    t.string "abbreviation"
-    t.string "description"
-    t.string "name"
+    t.string  "abbreviation"
+    t.string  "description"
+    t.string  "name"
+    t.integer "super_region_id"
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "role_in_plans"
-    t.integer  "resource_id"
-    t.string   "resource_type"
+    t.integer  "access",     default: 0, null: false
   end
 
-  add_index "roles", ["name"], name: "index_roles_on_name"
-  add_index "roles", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["plan_id"], name: "index_roles_on_plan_id", using: :btree
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "number"
-    t.integer  "version_id"
-    t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "published"
+    t.integer  "phase_id"
+    t.boolean  "modifiable"
   end
+
+  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false
     t.text     "value"
     t.integer  "target_id",   null: false
     t.string   "target_type", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "suggested_answers", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "organisation_id"
-    t.text     "text"
+  create_table "templates", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.integer  "org_id"
+    t.string   "locale"
+    t.boolean  "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_example"
+    t.integer  "version"
+    t.integer  "visibility"
+    t.integer  "customization_of"
+    t.integer  "dmptemplate_id"
+    t.boolean  "migrated"
+    t.boolean  "dirty",            default: false
   end
+
+  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree
+  add_index "templates", ["org_id"], name: "index_templates_on_org_id", using: :btree
 
   create_table "themes", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "locale"
   end
 
@@ -348,6 +332,9 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.integer "guidance_id"
   end
 
+  add_index "themes_in_guidance", ["guidance_id"], name: "index_themes_in_guidance_on_guidance_id", using: :btree
+  add_index "themes_in_guidance", ["theme_id"], name: "index_themes_in_guidance_on_theme_id", using: :btree
+
   create_table "token_permission_types", force: :cascade do |t|
     t.string   "token_type"
     t.text     "text_description"
@@ -355,19 +342,15 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.datetime "updated_at"
   end
 
-  create_table "user_statuses", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
+  create_table "user_identifiers", force: :cascade do |t|
+    t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "identifier_scheme_id"
   end
 
-  create_table "user_types", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "user_identifiers", ["user_id"], name: "index_user_identifiers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname"
@@ -375,10 +358,8 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.string   "email",                  default: "", null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.integer  "user_type_id"
-    t.integer  "user_status_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -396,37 +377,58 @@ ActiveRecord::Schema.define(version: 20161102221313) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation"
-    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
-    t.integer  "organisation_id"
+    t.integer  "org_id"
     t.string   "api_token"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "language_id"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
 
-  create_table "users_roles", id: false, force: :cascade do |t|
+  create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"
-    t.integer "role_id"
+    t.integer "perm_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 
-  create_table "versions", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "published"
-    t.integer  "number"
-    t.integer  "phase_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "versions", ["phase_id"], name: "index_versions_on_phase_id"
-
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
+  add_foreign_key "answers", "plans"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "guidance_groups", "orgs"
+  add_foreign_key "guidances", "guidance_groups"
+  add_foreign_key "notes", "answers"
+  add_foreign_key "notes", "users"
+  add_foreign_key "org_token_permissions", "orgs"
+  add_foreign_key "org_token_permissions", "token_permission_types"
+  add_foreign_key "orgs", "languages"
+  add_foreign_key "orgs", "regions"
+  add_foreign_key "phases", "templates"
+  add_foreign_key "plans", "templates"
+  add_foreign_key "plans_guidance_groups", "guidance_groups"
+  add_foreign_key "plans_guidance_groups", "plans"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "question_formats"
+  add_foreign_key "questions", "sections"
+  add_foreign_key "questions_themes", "questions"
+  add_foreign_key "questions_themes", "themes"
+  add_foreign_key "roles", "plans"
+  add_foreign_key "roles", "users"
+  add_foreign_key "sections", "phases"
+  add_foreign_key "templates", "orgs"
+  add_foreign_key "themes_in_guidance", "guidances"
+  add_foreign_key "themes_in_guidance", "themes"
+  add_foreign_key "user_identifiers", "identifier_schemes"
+  add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "languages"
+  add_foreign_key "users", "orgs"
+  add_foreign_key "users_perms", "perms"
+  add_foreign_key "users_perms", "users"
 end

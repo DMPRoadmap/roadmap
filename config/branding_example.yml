@@ -1,0 +1,30 @@
+defaults: &defaults
+  legal_entity: 'the University of Edinburgh, University of Glasgow and the University of California'
+
+  # Warning: The abbreviation here should match the org.abbreviation value registered in your database!
+  organisation:
+    name: 'Curation Center'
+    abbreviation: 'CC'
+    url: 'https://github.com/DMPRoadmap/roadmap/wiki'
+    copywrite_name: 'Curation Centre (CC)'
+    email: 'tester@cc_curation_centre.org'
+
+  application:
+    name: 'DMPRoadmap'
+    url: 'https://github.com/DMPRoadmap/roadmap'
+    version: '0.1.0'
+    release_notes_url: 'https://github.com/DMPRoadmap/roadmap/wiki/Releases'
+    issue_list_url: 'https://github.com/DMPRoadmap/roadmap/issues'
+    user_group_subscription_url: 'http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+stage:
+  <<: *defaults
+
+production:
+  <<: *defaults

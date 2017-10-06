@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html class="dmponline">
+<html class="dmponline" lang="<%= FastGettext.locale %>">
 	<head>
-	  <title><%= t('tool_title', application_name: Rails.configuration.branding[:application][:name])%></title>
+	  <title><%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %></title>
       <%= favicon_link_tag "favicon.ico" %>
 		<!--[ if lte IE 9]>
 			<script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
@@ -62,12 +62,14 @@
 	    <!-- header renedering -->
 	    <%= render "layouts/header" %>
 	    
+    <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
+
 		<div class="main_page_container">
 			<% if notice %>
-  				<p class="alert alert-notice"><%= notice %></p>
+  				<p class="alert alert-notice"><%= raw notice %></p>
 				<% end %>
 			<% if alert %>
- 				<p class="alert alert-error"><%= alert %></p>
+ 				<p class="alert alert-error"><%= raw alert %></p>
 			<% end %>
 			
 		    <div class="main_page_content">

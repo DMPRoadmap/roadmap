@@ -99,20 +99,20 @@ de:
     template_label: "Vorlagen"
     user_list_label: "Nutzer"
     org_details_label:  "Organisations-Details"
-    org_text: "Grundlegende Informationen über ihre Organisation."
+    org_text: "Grundlegende Informationen über ihre Org."
     org_abbr_help_text_html: "Dies wird als Bezeichnung an Ihrer Anleitung angezeigt, z.B. 'Kieler Hilfestellung für Metadaten'. Am besten eine Abkürzung oder ein Namenskürzel."
     users_list: "Liste der Nutzer"
     user_full_name: "Name"
     user_name: "E-Mail-Adresse"
     last_logged_in: "Zuletzt angemeldet"
     how_many_plans: "Wie viele Pläne?"
-    user_text_html: "Folgend findet sich die Liste von Benutzern registriert bzgl. Ihrer Organisation. Sie können diese Liste bzgl. aller Felder sortieren."
+    user_text_html: "Folgend findet sich die Liste von Benutzern registriert bzgl. Ihrer Org. Sie können diese Liste bzgl. aller Felder sortieren."
     org_name: "Name"
     org_abbr: "Abkürzung"
     org_logo_failed_message: "Logo Upload fehlgeschlagen."
     org_logo: "Logo"
     org_contact_email: "Kontakt Email"
-    org_contact_email_help_text: "Die E-Mail -Adresse des Administrators in Ihrer Organisation. Ihre Benutzer werden diese Adresse verwenden, wenn sie Fragen haben."
+    org_contact_email_help_text: "Die E-Mail -Adresse des Administrators in Ihrer Org. Ihre Benutzer werden diese Adresse verwenden, wenn sie Fragen haben."
     new_org_logo: "Laden Sie ein neues Logo-Datei"
     remove_logo: "Wenn Sie die Standard DMPRoadmap Logo verwenden entscheiden , prüfen Sie bitte dieses Feld Ihre aktuelle Logo zu entfernen."
     org_desc: "Beschreibung"
@@ -120,7 +120,7 @@ de:
     org_type: "Organisationsart"
     parent_org: "Übergeordnete Organisation"
     last_updated: "Zuletzt aktualisiert"
-    desc_help_text_html: "<div class='tooltip_box'>Bitte beschreibenden Sie Ihre Organisation.</div>"
+    desc_help_text_html: "<div class='tooltip_box'>Bitte beschreibenden Sie Ihre Org.</div>"
     abbre_help_text: "Bitte geben Sie eine Abkürzung für Ihre Organisation an."
     template_desc_help_text_html: "<div class='tooltip_box'>Geben Sie eine Beschreibung ein, die Ihnen bei der Unterscheidung von Vorlagen hilft,      falls Sie z.B. welche für unterschiedliche Zielgruppen besitzen.</div>" 
     target_url_help_text: "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
@@ -289,6 +289,7 @@ de:
     news_label: "Aktuelles"
     help_label: "Hilfe"
     contact_label: "Kontakt"
+    public_plans_label: "Öffentliche DMPs"
     jisc: "Das DCC wird untertützt von"
 
     greeting: "Hallo"
@@ -326,7 +327,7 @@ de:
     no_unlock_instructions: "Entsperrungsanleitungen nicht erhalten?"
     send_password_info: "Anleitung zum Zurücksetzen des Passworts"
     edit_password_info: "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
-    accept_terms_html: "Ich akzeptiere die <a href='/%{current_locale}/terms' target='_blank'>Nutzungsbedingungen</a> *"
+    accept_terms_html: "Ich akzeptiere die <a href=\"/terms\" target=\"_blank\">Nutzungsbedingungen</a> *"
 
     text_area: "Text area"
     text_field: "Textfeld"
@@ -338,8 +339,8 @@ de:
     error: "Fehler!"
     comment: "Kommentar"
     send: "Senden"
-    yes: "Ja"
-    no: "Nein"
+    'yes': "Ja"
+    'no': "Nein"
     none: "Keines"
     title: "Titel"
     note: "Anmerkung"
@@ -406,6 +407,10 @@ de:
     guidance_accordion_label: "Hilfestellung"
     add_comment_accordion_label: "Füge Kommentar hinzu"
     comment_accordion_label: "Kommentare"
+
+    answer: 
+      only_one_per_question: "Eine Frage kann nur eine Antwort haben."
+      question_must_belong_to_correct_template: "Die Frage muss zur richtigen vorlage gehören."
 
     comments:
       add_comment_label: "Füge Kommentar hinzu"
@@ -511,6 +516,21 @@ de:
       project_identifier_help_text: "Eine Identifikationskürzel, wie es von Förderern oder Institutionen vergeben wird."
       project_static_info: "Dieser Plan basiert auf:"
       projects_title: "Meine Pläne"
+
+      visibility: "Sichtweite"
+      visibilities:
+        labels:
+          privately_visible: "Private"
+          organisationally_visible: "Organisatorische"
+          publicly_visible: "Öffentlichkeit"
+          is_test: "Test/Übung"
+        help_texts:
+          privately_visible: "Private (Besitzer, Miteigentümer und Admins) Siehe unsere Nutzungsbedingungen."
+          organisationally_visible: "Mit anderen innerhalb Ihrer Organisation"
+          publicly_visible: "Öffentlich im Internet. Ihr DMP erscheint auf der Public DMPs Seite dieser Seite."
+          is_test: "Test / Praxis (Ihr Plan ist für andere Benutzer nicht sichtbar) Siehe unsere Nutzungsbedingungen."
+          not_set: "Nicht angegeben (wird standardmäßig für andere in Ihrer Organisation sichtbar sein)"
+
       project_settings_text: "Die hier ausgewählten Einträge werden in der Tabelle unten angezeigt. Sie können die Daten durch jeden ihrer Tabellenköpfe sortieren oder filtern, indem Sie eine Zeichenkette in der Suchbox eingeben."
       project_text_when_no_project: "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
       project_text_when_project: "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
@@ -577,6 +597,10 @@ de:
         data_contact: "Plandatenkontakt"
         description: "Beschreibung"
         unknown: " - "
+        visibility: "Sichtweite"
+        name: 'Name'
+        template: 'Vorlage'
+        organisation: 'Organisation'
       filter:
         placeholder: "Filter Pläne"
         submit: "Filter"
@@ -597,9 +621,11 @@ de:
         project_description: "Beschreibung"
         funder: "Geldgeber"
         institution: "Institution"
+        orcid: "Ihre ORCID"
 
     settings:
       title: "Einstellungen"
+      unknown: "Unbekannt"
       projects:
         title: "Einstellungen - Meine Pläne"
         desc: "Die untere Tabelle listet die verfügbaren Spalten auf, welche in der Liste 'Meine Pläne' gezeigt werden können.
@@ -608,6 +634,7 @@ de:
           no_name: "'Name' muss in der Liste von Spalten enthalten sein."
           duplicate: "Doppelter Spaltenname. Bitte jede Spalte nur einmal einfügen."
           unknown: "Unbekannter Spaltenname."
+          no_plan: "Der Plan ist unvollständig."
       plans:
         title: "Dateiname"
         reset: "Zurücksetzen"
@@ -684,6 +711,23 @@ de:
     no_auth_for_endpoint: '{"Error":"You do not have authorisation to view this endpoint"}'
     bad_resource: '{"Error":"You do not have authorisation to view this resource"}'
 
+  identifier_schemes:
+    connect_success: 'Ihr Konto wurde mit %{scheme}'
+    connect_failure: 'Wir konnten nicht auf Ihr Konto %{scheme} verbinden'
+    disconnect_success: 'Ihr Konto wurde von %{scheme} getrennt'
+    disconnect_failure: 'Wir waren nicht in der Lage, Ihr Konto zu trennen von %{scheme}'
+    new_login_success: 'Sie haben nicht Setup ein Konto bei uns. Bitte füllen Sie das folgende Informationen, um Ihre Registrierung abzuschließen.'
+    new_login_failure: 'Wir waren nicht in der Lage, Ihr Konto zu überprüfen. Bitte benutzen Sie das folgende Formular ein neues Konto zu erstellen. Sie können danach Ihr neues Konto zu verknüpfen.'
+
+    schemes:
+      orcid:
+        logo: 'http://orcid.org/sites/default/files/images/orcid_16x16.png'
+        user_landing_page: 'https://orcid.org/%{id}'
+        connect: 'Erstellen oder Verbinden Sie Ihren ORCID ID'
+        connect_tooltip: 'ORCID bietet eine persistente digitale Kennung, die Sie von anderen Forschern unterscheidet. Erfahren Sie mehr unter orcid.org'
+        disconnect_confirmation: 'Sind Sie sicher, dass Sie Ihre ORCID ID trennen möchten?'
+        disconnect_tooltip: 'Trennen Sie Ihr Konto von ORCID. Sie können jederzeit wieder an.'
+
   magic_strings:
     organisation_types:
       funder: 'Funder'
@@ -694,6 +738,10 @@ de:
       template: 'Template'
       managing_organisation: 'Digital Curation Centre'
     user_role_types:
+      admin: 'admin'
+      org_admin: 'org_admin'
+      user: 'user'
+    roles:
       super_admin: 'admin'
       organisational_admin: 'org_admin'
       user: 'user'
@@ -705,7 +753,7 @@ de:
       use_api: 'use_api'
       change_org_details: 'change_org_details'
       grant_api_to_orgs: 'grant_api_to_orgs'
-    api_endpoint_types:
+    token_permission_types:
       guidances: 'guidances'
       plans: 'plans'
       templates: 'templates'

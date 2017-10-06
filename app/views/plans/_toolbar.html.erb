@@ -1,0 +1,8 @@
+<div class="dmp_toolbar">
+  <form action="<%= plans_path -%>" method="get" id="filter_form">
+    <%= search_field_tag(:filter, params[:filter], placeholder: _('Filter plans')) %>
+    <a id="clear_filter" class="icon-remove" href="<%= plans_path -%>" title="<%= _('Cancel') -%>">
+      <span class="hide-text"><%= _('Cancel') -%></span>
+    </a>
+  </form>
+</div>

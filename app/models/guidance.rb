@@ -3,28 +3,29 @@
 #   This class keeps the information organisations enter to support users when answering questions.
 #   It always belongs to a guidance group class and it can be linked directly to a question or through one or more themes
 # [+Created:+] 07/07/2014
-# [+Copyright:+] Digital Curation Centre and University of California Curation Center
+# [+Copyright:+] Digital Curation Centre and California Digital Library
 
 
 
 class Guidance < ActiveRecord::Base
   include GlobalHelpers
-  #associations between tables
-	attr_accessible :text, :question_id, :published, :as => [:default, :admin]
 
-  attr_accessible :guidance_group_ids, :as => [:default, :admin]
-  attr_accessible :theme_ids, :as => [:default, :admin]
-
-  belongs_to :question
-
-  #belongs_to :dmptemplate
-  #belongs_to :theme
-
-  has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
+  ##
+  # Associations
+  belongs_to :guidance_group
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
+# depricated, but required for migration "single_group_for_guidance"
+  #has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
 
-  accepts_nested_attributes_for :themes
-  accepts_nested_attributes_for :guidance_groups
+
+  # EVALUATE CLASS AND INSTANCE METHODS BELOW
+  #
+  # What do they do? do they do it efficiently, and do we need them?
+
+
+
+
+  validates :text, presence: {message: _("can't be blank")}
 
 
   ##
@@ -32,12 +33,12 @@ class Guidance < ActiveRecord::Base
   #
   # @param org_id [Integer] the integer id for an organisation
   # @return [Boolean] true if this guidance is in a group belonging to the specified organisation, false otherwise
-	def in_group_belonging_to?(organisation_id)
-		guidance_groups.each do |guidance_group|
-			if guidance_group.organisation_id == organisation_id
-				return true
-			end
-		end
+	def in_group_belonging_to?(org_id)
+    unless guidance_group.nil?
+  		if guidance_group.org.id == org_id
+  			return true
+  		end
+    end
 		return false
 	end
 
@@ -46,10 +47,11 @@ class Guidance < ActiveRecord::Base
   #
   # @param org_id [Integer] the integer id for an organisation
   # @return [Array<Guidance>] list of guidance
-	def self.by_organisation(org_id)
+	def self.by_org(org_id)
     org_guidance = []
-    Organisation.find_by(id: org_id).guidance_groups.each do |group|
-      org_guidance += group.guidances
+    # TODO: re-write below querry when guidance_in_group removed from model
+    Org.find_by(id: org_id).guidance_groups.each do |group|
+      org_guidance += Guidance.where(guidance_group_id: group.id)
     end
 		return org_guidance
 	end
@@ -84,25 +86,21 @@ class Guidance < ActiveRecord::Base
     guidance = Guidance.find_by(id: id)
     viewable = false
 
-    # guidances may belong to many guidance groups, so we check the above case for each
-    guidance.guidance_groups.each do |guidance_group|
-
-      # guidances are viewable if they are owned by any of the user's organisations
-      user.organisations.each do |organisation|
-        
-        if guidance_group.organisation.id == organisation.id
+    unless guidance.nil?
+      unless guidance.guidance_group.nil?
+        # guidances are viewable if they are owned by the user's org
+        if guidance.guidance_group.org == user.org
           viewable = true
         end
-      end
+        # guidance groups are viewable if they are owned by the Managing Curation Center
+        if Org.managing_orgs.include?(guidance.guidance_group.org)
+          viewable = true
+        end
 
-      # guidance groups are viewable if they are owned by the Managing Curation Center
-      if guidance_group.organisation.id == Organisation.find_by( name: GlobalHelpers.constant("organisation_types.managing_organisation")).id
-        viewable = true
-      end
-
-      # guidance groups are viewable if they are owned by a funder
-      if guidance_group.organisation.organisation_type == OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
-        viewable = true
+        # guidance groups are viewable if they are owned by a funder
+        if Org.funders.include?(guidance.guidance_group.org)
+          viewable = true
+        end
       end
     end
 
@@ -119,26 +117,17 @@ class Guidance < ActiveRecord::Base
   # @param user [User] a user object
   # @return [Array<Guidance>] a list of all "viewable" guidances to a user
   def self.all_viewable(user)
-    managing_groups = (Organisation.find_by name: GlobalHelpers.constant("organisation_types.managing_organisation")).guidance_groups
+    managing_groups = Org.includes(guidance_groups: :guidances).managing_orgs.collect{|o| o.guidance_groups}
     # find all groups owned by a Funder organisation
-    funder_groups = []
-    funders = OrganisationType.find_by( name: GlobalHelpers.constant("organisation_types.funder"))
-    funders.organisations.each do |funder|
-      funder_groups += funder.guidance_groups
-    end
+    funder_groups = Org.includes(guidance_groups: :guidances).funders.collect{|org| org.guidance_groups}
     # find all groups owned by any of the user's organisations
-    organisation_groups = []
-    user.organisations.each do |organisation|
-      organisation_groups += organisation.guidance_groups
-    end
+    organisation_groups = user.org.guidance_groups
+
     # find all guidances belonging to any of the viewable groups
-    all_viewable_guidances = []
-    all_viewable_groups = managing_groups + funder_groups + organisation_groups
-    all_viewable_groups.each do |group|
-      all_viewable_guidances += group.guidances
-    end
+    all_viewable_groups = (managing_groups + funder_groups + organisation_groups).flatten
+    all_viewable_guidances = all_viewable_groups.collect{|group| group.guidances}
     # pass the list of viewable guidances to the view
-    return all_viewable_guidances
+    return all_viewable_guidances.flatten
   end
 
 end

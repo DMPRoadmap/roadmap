@@ -1,51 +1,170 @@
 require 'test_helper'
 
-class GuidancesControllerTest < ActionController::TestCase
-=begin
+class GuidancesControllerTest < ActionDispatch::IntegrationTest
+  
+  include Devise::Test::IntegrationHelpers
+
+  # TODO: The following methods SHOULD replace the old 'admin_' prefixed methods. The routes file already has
+  #       these defined. They are defined multiple times though and we need to clean this up:
+  #
+  # SHOULD BE:
+  # --------------------------------------------------
+  #   guidances            GET    /guidances        guidances#index
+  #                        POST   /guidances        guidances#create
+  #   guidance             GET    /guidance/:id     guidances#show
+  #                        PATCH  /guidance/:id     guidances#update
+  #                        PUT    /guidance/:id     guidances#update
+  #                        DELETE /guidance/:id     guidances#destroy
+  #
+  # CURRENT RESULTS OF `rake routes`
+  # --------------------------------------------------
+  #   admin_show_guidance       GET      /org/admin/guidance/:id/admin_show           guidances#admin_show
+  #   admin_index_guidance      GET      /org/admin/guidance/:id/admin_index          guidances#admin_index
+  #   admin_edit_guidance       GET      /org/admin/guidance/:id/admin_edit           guidances#admin_edit
+  #   admin_new_guidance        GET      /org/admin/guidance/:id/admin_new            guidances#admin_new
+  #   admin_destroy_guidance    DELETE   /org/admin/guidance/:id/admin_destroy        guidances#admin_destroy
+  #   admin_create_guidance     POST     /org/admin/guidance/:id/admin_create         guidances#admin_create
+  #   admin_update_guidance     PUT      /org/admin/guidance/:id/admin_update         guidances#admin_update
+  #   update_phases_guidance    GET      /org/admin/guidance/:id/update_phases        guidances#update_phases
+  #   update_versions_guidance  GET      /org/admin/guidance/:id/update_versions      guidances#update_versions
+  #   update_sections_guidance  GET      /org/admin/guidance/:id/update_sections      guidances#update_sections
+  #   update_questions_guidance GET      /org/admin/guidance/:id/update_questions     guidances#update_questions
+
   setup do
-    @guidance = guidances(:one)
+    scaffold_org_admin(GuidanceGroup.first.org)
+    @guidance_group = GuidanceGroup.first
   end
-
-  test "should get index" do
-    get :index
+  
+  # GET /org/admin/guidance/:id/admin_index (admin_index_guidance_path)
+  # ----------------------------------------------------------
+  test 'load the list of guidances page' do
+    # Should redirect user to the root path if they are not logged in!
+    get admin_index_guidance_path(@guidance_group)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    get admin_index_guidance_path(@guidance_group)
     assert_response :success
-    assert_not_nil assigns(:guidances)
+    assert assigns(:guidances)
+    assert assigns(:guidance_groups)
   end
 
-  test "should get new" do
-    get :new
+  # GET /org/admin/guidance/:id/admin_show (admin_show_guidance_path)
+  # ----------------------------------------------------------
+  test 'load the guidance page' do
+    # Should redirect user to the root path if they are not logged in!
+    # TODO: Why is there an id here!? its a new guidance_group!
+    get admin_show_guidance_path(guidance_group_id: @guidance_group.id, id: @guidance_group.guidances.first.id)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    get admin_show_guidance_path(guidance_group_id: @guidance_group.id, id: @guidance_group.guidances.first.id)
     assert_response :success
+    assert assigns(:guidance)
+  end
+  
+  # /org/admin/guidance/:id/admin_new (admin_new_guidance_path)
+  # ----------------------------------------------------------
+  test 'load the new guidance page' do
+    # Should redirect user to the root path if they are not logged in!
+    get admin_new_guidance_path(@guidance_group)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    get admin_new_guidance_path(@guidance_group)
+    assert_response :success
+    assert assigns(:guidance)
+    assert assigns(:guidance_groups)
+    assert assigns(:themes)
   end
 
-  test "should create guidance" do
-    assert_difference('Guidance.count') do
-      post :create, guidance: { file_id: @guidance.file_id, text: @guidance.text, organisation_id: @guidance.organisation_id, theme_id: @guidance.theme_id }
+  # /org/admin/guidance/:id/admin_edit (admin_edit_guidance_path)
+  # ----------------------------------------------------------
+  test 'load the edit guidance page' do
+    # Should redirect user to the root path if they are not logged in!
+    get admin_edit_guidance_path(@guidance_group)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    get admin_edit_guidance_path(@guidance_group)
+    assert_response :success
+    assert assigns(:guidance)
+    assert assigns(:guidance_groups)
+    assert assigns(:themes)
+  end
+
+  # POST /org/admin/guidance/:id/admin_create (admin_create_guidance_path)
+  # ----------------------------------------------------------
+  test 'create a new guidance' do
+    params = {'guidance-text': 'Testing create', guidance: {guidance_group_id: GuidanceGroup.first.id, published: true}}
+    
+    # Should redirect user to the root path if they are not logged in!
+    post admin_create_guidance_path(@user.org), params
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    post admin_create_guidance_path(@user.org), params
+    assert_response :redirect
+    assert_redirected_to admin_show_guidance_path(Guidance.last)
+    assert_equal _('Guidance was successfully created.'), flash[:notice]
+    assert assigns(:guidance)
+    assert_equal 'Testing create', Guidance.last.text, "expected the record to have been created!"
+    
+    # Invalid object
+    post admin_create_guidance_path(@user.org), {'guidance-text': nil, guidance: {published: false}}
+    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert_response :success
+    assert assigns(:guidance)
+  end
+    
+  # PUT /org/admin/guidance/:id/admin_update (admin_update_guidance_path)
+  # ----------------------------------------------------------
+  test 'update the guidance' do
+    params = {'guidance-text': 'Testing UPDATE', guidance: {guidance_group_id: GuidanceGroup.first.id}}
+    
+    # Should redirect user to the root path if they are not logged in!
+    put admin_update_guidance_path(Guidance.first), params
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_update_guidance_path(Guidance.first), params
+    assert_response :redirect
+    assert_equal _('Guidance was successfully updated.'), flash[:notice]
+    assert_redirected_to "#{admin_show_guidance_path(Guidance.first)}?guidance_group_id=#{GuidanceGroup.first.id}"
+    assert assigns(:guidance)
+    assert_equal 'Testing UPDATE', Guidance.first.text, "expected the record to have been updated"
+    
+    # Invalid object
+    put admin_update_guidance_path(Guidance.first), {'guidance-text': nil, guidance: {guidance_group_id: GuidanceGroup.first.id}}
+    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert_response :success
+    assert assigns(:guidance)
+  end
+  
+  # DELETE /org/admin/guidance/:id/admin_destroy (admin_destroy_guidance_path)
+  # ----------------------------------------------------------
+  test 'delete the guidance' do
+    id = Guidance.first.id
+    # Should redirect user to the root path if they are not logged in!
+    delete admin_destroy_guidance_path(Guidance.first)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    delete admin_destroy_guidance_path(Guidance.first)
+    assert_response :redirect
+    assert_redirected_to admin_index_guidance_path
+    assert_equal _('Guidance was successfully deleted.'), flash[:notice]
+    assert assigns(:guidance)
+    assert_raise ActiveRecord::RecordNotFound do 
+      Guidance.find(id).nil?
     end
-
-    assert_redirected_to guidance_path(assigns(:guidance))
   end
 
-  test "should show guidance" do
-    get :show, id: @guidance
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @guidance
-    assert_response :success
-  end
-
-  test "should update guidance" do
-    put :update, id: @guidance, guidance: { file_id: @guidance.file_id, text: @guidance.text, organisation_id: @guidance.organisation_id, theme_id: @guidance.theme_id }
-    assert_redirected_to guidance_path(assigns(:guidance))
-  end
-
-  test "should destroy guidance" do
-    assert_difference('Guidance.count', -1) do
-      delete :destroy, id: @guidance
-    end
-
-    assert_redirected_to guidances_path
-  end
-=end
 end

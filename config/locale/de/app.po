@@ -1,0 +1,1816 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: app 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2017-05-02 14:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid " (UK users only)"
+msgstr ""
+
+msgid " - "
+msgstr " - "
+
+#, fuzzy
+msgid " I accept the <a href=\"/terms\" target=\"_blank\">terms and conditions</a> *"
+msgstr "Ich akzeptiere die <a href=\"/terms\" target=\"_blank\">Nutzungsbedingungen</a> *"
+
+#, fuzzy
+msgid " Plan"
+msgstr "plans"
+
+msgid " access to"
+msgstr ""
+
+msgid " access. "
+msgstr ""
+
+msgid " and "
+msgstr ""
+
+#, fuzzy
+msgid " by"
+msgstr " von "
+
+#, fuzzy
+msgid " has been removed by "
+msgstr " von "
+
+#, fuzzy
+msgid " have been changed by"
+msgstr " von "
+
+#, fuzzy
+msgid " into your browser)"
+msgstr "into your browser)."
+
+msgid " on "
+msgstr ""
+
+msgid " or "
+msgstr ""
+
+#, fuzzy
+msgid " password. You can do this through the link below."
+msgstr "password. You can do this through the link below."
+
+#, fuzzy
+msgid " provided by "
+msgstr " von "
+
+#, fuzzy
+msgid " team"
+msgstr "am"
+
+#, fuzzy
+msgid " that has been customised by "
+msgstr " von "
+
+#, fuzzy
+msgid " to accept the invitation, (or copy "
+msgstr "(or copy"
+
+msgid " will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on "
+msgstr ""
+
+#, fuzzy
+msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
+msgstr "ID"
+
+msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
+msgstr ""
+
+#, fuzzy
+msgid "\"Your account has been linked to #{scheme.description}.\""
+msgstr "Your "
+
+msgid "%d days"
+msgstr ""
+
+msgid "%d minutes"
+msgstr ""
+
+msgid "%d months"
+msgstr ""
+
+msgid "%d years"
+msgstr ""
+
+msgid "%{application_name}"
+msgstr "DMPonline"
+
+#, fuzzy
+msgid "%{application_name} doesn't recognise your institutional credentials - either you haven't created an account with us or you haven't linked these details to your existing account.<br/>* If you <strong>do not have</strong> an account with %{application_name}, please complete the form below.<br/>* If you <strong>have</strong> an account with %{application_name}, please <a href='#header-login-form' data-toggle='modal' class='a_orange'>Sign in</a> so we can link your account to your institutional credentials.<br/>Once you have created and/or linked your account, you'll be able to sign in with your institutional credentials directly."
+msgstr "DMPonline"
+
+#, fuzzy
+msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "DMPonline"
+
+msgid "%{format} is not a valid exporting format. Available formats to export are %{available_formats}."
+msgstr ""
+
+msgid "%{value} is not a valid format"
+msgstr ""
+
+msgid "(Using custom PDF formatting values)"
+msgstr "(Verwende eigene Werte bei PDF-Formatierung)"
+
+msgid "(Using template PDF formatting values)"
+msgstr "(Verwende Vorlagenwerte bei PDF-Formatting)"
+
+msgid "-"
+msgstr ""
+
+msgid "... (continued)"
+msgstr ""
+
+msgid "<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is the nature of your research project?</li><li>- What research questions are you addressing? </li><li>- For what purpose are the data being collected or created? </li></ul><h4>Guidance:</h4><p>Briefly summarise the type of study (or studies) to help others understand the purposes for which the data are being collected or created.</p></div>"
+msgstr "<div class='tooltip_box'> <h4>Zu berücksichtigende Fragen:</h4> <ul> <li>- Welcher Art ist Ihr Forschungsproject?</li> <li>- Welche Forschungsfragen sollen im Projekt bearbeitet werden?</li> <li>- Welchem Zweck werden die erzeugten oder gesammelt Daten dienen?</li> </ul> <h4>Hilfestellung:</h4> <p>Fassen Sie die Art der Studien / Untersuchungen zusammen, um Dritten den Zweck der erzeugten oder gesammelt Daten zu veranschaulichen.</p> </div>"
+
+msgid "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"
+msgstr "<div class='tooltip_box'>Geben Sie eine kurze Beschreibung an. Diese sollte zusammenfassen, was von diesem Abschnitt abgedeckt wird, oder Hinweise zur Beantwortung der Fragen geben. Dieser Text wird ein einem farbigen Banner angezeigt, sobald ein Abschnitt zur Bearbeitung geöffnet wird."
+
+msgid "<div class='tooltip_box'>Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences.</div>"
+msgstr "<div class='tooltip_box'>Geben Sie eine Beschreibung ein, die Ihnen bei der Unterscheidung von Vorlagen hilft,      falls Sie z.B. welche für unterschiedliche Zielgruppen besitzen.</div>"
+
+msgid "<div class='white_background'> <p>The %{organisation_name} ('%{organisation_abbreviation}') are consortia supported by %{legal_entity}. Our primary constituency is the research community, particularly the higher and further education sector.</p> </div> <h3>%{application_name}</h3> <div class='white_background'> <p>%{application_name} ('the tool', 'the system') is a tool developed by the %{organisation_abbreviation} as a shared resource for the research community. It is hosted by %{legal_entity}.</p> </div> <h3>Your personal details</h3> <div class='white_background'> <p>In order to help identify and administer your account with %{application_name}, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the %{organisation_abbreviation} partner institutions but only for legitimate %{organisation_abbreviation} purposes. We will not sell, rent or trade any personal information you provide to us.</p> </div> <h3>Privacy policy</h3> <div class='white_background'> <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at %{legal_entity}.  We compile anonymised, automated and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorised officers of your home institution may access your plans for specific purposes - for example, to track compliance with funder/institutional requirements or to calculate storage requirements.</p> </div> <h3>Freedom of Information</h3> <div class='white_background'> <p>%{legal_entity} holds your plans on your behalf, but they are your property and responsibility. Any FOI applicants will be referred back to your home institution.</p> </div> <h3>Passwords</h3> <div class='white_background'> <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p> </div> <h3>Cookies</h3> <div class='white_background'> <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> </div> <br /> <div class='white_background'> <p>Use of the tool indicates that you understand and agree to these terms and conditions.</p></div>"
+msgstr "<div class='white_background'> <p> Dies ist eine Testinstallation von DMPonline. DMPonline wird vom Digital Curation Centre (DCC) entwickelt und gepflegt und steht unter einer <a href='http://www.gnu.org/licenses/agpl-3.0.html'>AGPL Lizenz</a> als Open Source Software zur Verfügung. </p> <p> Die Testinstallation dient lediglich der Weiterentwicklung und Evaluation der Software und ist nicht für den Produktiveinsatz gedacht. </p> </div> <h3>Zu Ihrer persönlichen Information</h3> <div class='white_background'> <p> Diese Testinstallation wird in absehbarer Zeit wieder abgeschaltet werden. Die Daten, die in dieser Installation erstellt wurden, werden bei der Abschaltung verloren gehen. Wichtige Daten sollten nicht ausschließlich in der Testinstallation gespeichert werden. </p> </div>"
+
+msgid "<h3>Useful resources on Data Management Planning</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [webpage]<br /> A summary of requirements from UK Research Councils and other charitable or health funders. </li> <li> <a target='_blank' href='https://dmp.cdlib.org/pages/funder_requirement'>US funder requirements for Data Management Plans</a> [webpage]<br /> A summary of requirements from the NSF, NIH and other key funders in the USA. </li> <li> <a target='_blank' href='/files/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br /> A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in %{application_name}, and is presented when no funder or organsiational requirements are applicable for the user. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How to Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the Digital Curation Centre that outlines typical funder requirements for DMPs and the types of considerations to make when responding. </li> </ul> <h3>Example Data Management Plans</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf'>Technical plan submitted to the AHRC</a> [PDF, 7 pages]<br /> A DMP submitted by a researcher from the University of Bristol, also including comments from the reviewers </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Two social science DMPs</a> [PDF, 7 pages]<br /> Example plans from researchers at the University of Leeds, shared as part of the Leeds RoaDMaP training materials </li> <li> <a target='_blank' href='http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf'>Health sciences DMP</a> [PDF, 11 pages]<br /> Example DMP produced by the DATUM for Health RDM training project </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/DMTpsych-example-DMP.pdf'>Psychology DMP</a> [PDF, 11 pages]<br /> A very detailed, fictional psychology DMP produced by the DMTpsych RDM training project, based on a seminal psychology experiment </li> <li> <a target='_blank' href='http://rci.ucsd.edu/data-curation/examples.html'>UCSD Example Data Management Plans</a> [webpage]<br /> Over 20 example plans submitted to the National Science Foundation (NSF) in the United States by academics at UC San Diego </li> <li> <a target='_blank' href='http://inside.mines.edu/RDS-example-plans'>Colorado School of Mines examples</a> [webpage]<br /> A variety of US example DMPs from Mines and elsewhere </li> <li> <a target='_blank' href='https://www.dataone.org/data-management-planning'>NSF data management plans</a> [webpage]<br /> 5 DMPs submitted to the NSF, shared by the DataOne initiative </li> <li> <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [webpage]<br /> Three example DMPs from the USA shared by NECDMC, an instructional tool for teaching RDM to undergraduates, graduate students, and researchers in the health sciences, sciences and engineering. </li> </ul> <h3>Useful guides on Research Data Management in general</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://www.data-archive.ac.uk/media/2894/managingsharing.pdf'>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 pages]<br /> A guide by the UK Data Service covering a range of topics including data formats, documentaion, ethics, copyright and data sharing. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br /> A guide by the Digital Curation Centre giving practical guidelines on how to cite data and the different tools and infrastructure that can be used to support data citation. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br /> A guide by the Digital Curation Centre that outlines different types of licenses, the pros and cons of each and how they can be applied. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How to Appraise and Select Research Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br /> A guide by ANDS and the Digital Curation Centre on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions. </li> <li> <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br /> An online training course designed for researchers or others planning to manage digital data as part of the research process. The course includes a number of software practicals on using SPSS, R, ArcGIS and NVivo. </li> </ul>"
+msgstr " <h3>Datenmanagementplan-Anleitung am Beispiel von Horizon 2020</h3> <ul class='help_ul'> <li> <a href='https://www.cms.hu-berlin.de/de/ueberblick/projekte/dataman/dmp-anleitung/at_download/file'>Datenmanagementplan-Anleitung (PDF)</a><br/> Der Computer- und Medienservice der Humboldt-Universität zu Berlin hat eine Anleitung zur Erstellung eines Datenmanagementplans (DMP) in Horizon 2020 mit DMPonline bereit gestellt.</li> </ul> <h3>Useful resources on Data Management Planning</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'>UK funder requirements for Data Management Plans</a> [webpage]<br /> A summary of requirements from UK Research Councils and other charitable or health funders. </li> <li> <a target='_blank' href='https://dmp.cdlib.org/pages/funder_requirement'>US funder requirements for Data Management Plans</a> [webpage]<br /> A summary of requirements from the NSF, NIH and other key funders in the USA. </li> <li> <a target='_blank' href='/'>/files/DMP_Checklist_2013.pdf'>DCC Checklist for a Data Management Plan</a> [PDF, 3 pages]<br /> A list of 13 questions and associated guidance, that represent the main issues to come up in Data Management and Sharing Plans. The Checklist is used as a generic template in DMPonline, and is presented when no funder or organsiational requirements are applicable for the user. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How to Develop.pdf'>How to develop a Data Management and Sharing Plan</a> [PDF, 8 pages]<br />A guide by the Digital Curation Centre that outlines typical funder requirements for DMPs and the types of considerations to make when responding. </li> </ul> <h3>Example Data Management Plans</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://data.bris.ac.uk/research/planning/files/2013/08/data.bris-AHRC-example-Technical-Plan-v2.pdf'>Technical plan submitted to the AHRC</a> [PDF, 7 pages]<br /> A DMP submitted by a researcher from the University of Bristol, also including comments from the reviewers </li> <li> <a target='_blank' href='/webfm_send/1392'>Two social science DMPs</a> [PDF, 7 pages]<br /> Example plans from researchers at the University of Leeds, shared as part of the Leeds RoaDMaP training materials </li> <li> <a target='_blank' href='http://relu.data-archive.ac.uk/data-sharing/planning/examples'>Rural Economy & Land Use (RELU) programme examples</a> [webpage]<br /> Two examples from a joint ESRC, BBSRC and NERC programme </li> <li> <a target='_blank' href='http://www.northumbria.ac.uk/static/5007/ceispdf/dmpfull.pdf'>Health sciences DMP</a> [PDF, 11 pages]<br /> Example DMP produced by the DATUM for Health RDM training project </li> <li> <a target='_blank' href='/webfm_send/1393'>Psychology DMP</a> [PDF, 11 pages]<br /> A very detailed, fictional psychology DMP produced by the DMTpsych RDM training project, based on a seminal psychology experiment </li> <li> <a target='_blank' href='http://rci.ucsd.edu/dmp/examples.html'>UCSD Example Data Management Plans</a> [webpage]<br /> Over 20 example plans submitted to the National Science Foundation (NSF) in the United States by academics at UC San Diego </li> <li> <a target='_blank' href='http://inside.mines.edu/RDS-example-plans'>Colorado School of Mines examples</a> [webpage]<br /> A variety of US example DMPs from Mines and elsewhere </li> <li> <a target='_blank' href='https://www.dataone.org/data-management-planning'>NSF data management plans</a> [webpage]<br /> 5 DMPs submitted to the NSF, shared by the DataOne initiative </li> <li> <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [webpage]<br /> Three example DMPs from the USA shared by NECDMC, an instructional tool for teaching RDM to undergraduates, graduate students, and researchers in the health sciences, sciences and engineering. </li> </ul> <h3>Useful guides on Research Data Management in general</h3> <ul class='help_ul'> <li> <a target='_blank' href='http://www.data-archive.ac.uk/media/2894/managingsharing.pdf'>Managing and Sharing Data: best practice for researchers</a> [PDF, 36 pages]<br /> A guide by the UK Data Service covering a range of topics including data formats, documentaion, ethics, copyright and data sharing. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_to_Cite_Link.pdf'>How to Cite Datasets and Link to Publications</a> [PDF, 12 pages]<br /> A guide by the Digital Curation Centre giving practical guidelines on how to cite data and the different tools and infrastructure that can be used to support data citation. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/reports/guides/How_To_License_Research_Data.pdf'>How to License Research Data</a> [PDF, 16 pages]<br /> A guide by the Digital Curation Centre that outlines different types of licenses, the pros and cons of each and how they can be applied. </li> <li> <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/How to Appraise and Select Research Data.pdf'>How to Appraise and Select Research Data for Curation</a> [PDF, 8 pages]<br /> A guide by ANDS and the DCC on how to select which data to keep for long-term preservation, sharing and reuse. The guide puts forward several criteria to aid selection decisions. </li> <li> <a target='_blank' href='http://datalib.edina.ac.uk/mantra'>Research Data MANTRA</a> [online resource]<br /> An online training course designed for researchers or others planning to manage digital data as part of the research process. The course includes a number of software practicals on using SPSS, R, ArcGIS and NVivo. </li> </ul>"
+
+msgid "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+msgstr "<p>DMPonline wurde vom <a href='http://dcc.ac.uk' target='_blank'>Digital Curation Centre</a> entwickelt, um Sie bei der Erstellung von Data-Managment-Plänen zu unterstützen.</p>"
+
+msgid "<p>%{application_name} is developed and maintained by the UK %{organisation_name}. We’re a small team, and are happy to collaborate with others. There are various ways you can get involved:</p> <h3>Join the user group</h3> <p>We run a <a target='_blank' href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP'>listserv</a> for the %{application_name} user group that you can request to join. We also host periodic meetings to consult on our plans. Being part of the user group gives you the opportunity to be informed about future developments and to provide feedback to help shape our plans.</p> <p>Our user group sessions are usually focused around a certain topic (e.g. fleshing out use cases for an API) so invites are sent based on your areas of expertise. It is helpful for us to know your role and interests to invite relevant people to each session. Please introduce yourself on the list and share your ideas.</p> <p>Notes from previous user group sessions are provided below:</p> <ul> <li>- <a href='/files/DMPonline-user-group-IDCC-2016.pdf' target='_blank'>Meeting notes covering internationalisation and locales, 23 February 2016</a></li> <li>- <a href='/files/DMPonline-user-group-notes-29Jan2015' target='_blank'>Meeting notes covering plan lifecycle and review, 29 January 2015</a></li> </ul> <p>Please let us know your interests and share your ideas for future developments via the mailing list so the community as a whole can feedback on them.</p> </br> <h3>Customise %{application_name}</h3> <p>%{application_name} can be customised by institutions and disciplines. You can add templates for users in your organisation and tailored guidance that explains local support and services. Example answers can also be offered to help users understand what to write in a Data Management Plan. To do this you’ll need to request admin access, so please email us on <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} Admin access' target='_top'>dmponline@dcc.ac.uk</a>.</p> <p>Futher guidance on customising %{application_name} is available on the <a href='%{organisation_url}' target='_blank'>%{application_name} website</a>.</p> </br> <h3>Contribute to the code</h3> <p>%{application_name} is a Ruby on Rails application. The <a href='https://github.com/DMPRoadmap/roadmap'>source code</a> is made available under an <a href='https://github.com/DMPRoadmap/roadmap/blob/master/LICENSE.md'>MIT License</a>. This permits others to reuse the code freely, but obligates you to share the source code for any extensions in the same way. Please inform us if you install an instance of %{application_name} and offer your contributions back to the community.</p> <p>If you install an instance of %{application_name} we require that you credit the %{organisation_abbreviation} as originators of the tool. We recommend that the acknowledgement takes the form of the %{application_name} logo with a link back to the %{organisation_abbreviation}-hosted version of the tool.</p> <p>We are willing to work with external developers to add new features to the tool. We are also open to delivering new features on a chargeable basis. If there are extensions you would like to see prioritised and have resource to support additional developer effort, please contact us on dmponline@dcc.ac.uk to negotiate terms.</p> <p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p> <h3>Support our work</h3> <p>We are impressed by the uptake of %{application_name} both in the UK and internationally and are really keen to hear  how you are using the tool and promoting it in your context. We are aware that others have run training courses, developed guidance materials and advocated use of the tool. Please notify us of this as it helps to show impact.</p> <p>We are currently investigating options for revenue generation. This will help us serve the increased demand more effectively and safeguard the long-term sustainability of %{application_name}. Plans will be released for consultation soon but we also welcome your suggestions on how best to support our work.</p> "
+msgstr ""
+
+msgid "<p>%{application_name} stories from the %{organisation_abbreviation} website</p></br>"
+msgstr "<p>Geschichten zu DMPonline auf der DCC-Seite</p></br>"
+
+msgid "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>"
+msgstr "<p><strong>Willkommen.</strong></br> Sie können nun ihren ersten DMP erstellen. </br>Wählen Sie 'Plan erstellen' weiter unten aus, um zu beginnen.</p>"
+
+msgid "<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>"
+msgstr "<p>Erstelle zuerst eine Hilfestellungsgruppe. Diese könnte institutionsweit oder eine Untermenge von z.B. einer bestimmten Universität / Schule, eines Instituts oder einer Abteilung sein. Wenn Sie Hilfestellung erstellen, werden sie aufgefordert sie einer Hilfestellungsgruppe zuzuordnen.</p>"
+
+msgid "<p>From here you can  download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</br> Select what format you wish to use and click to 'Export'.</p>"
+msgstr "<p>Hier können Sie Ihren Plan in verschiedenen Formaten herunterladen.  Das kann nützlich sein, falls Sie den Plan als Teil Ihres Projektantrags einreichen müssen.</br> Wählen Sie das gewünschte Format aus und wählen Sie 'Exportieren'.</p>"
+
+msgid "<p>Funding bodies increasingly require their grant-holders to produce Data Management Plans(DMP), both during the bid-preparation stage and after funding has been secured. %{application_name} has been produced by the %{organisation_name} to help research teams respond to this requirement, and any expectations that their institution or others may apply.</p> <p>The %{organisation_abbreviation} worked closely with research funders and universities to produce a tool that assists researchers to produce an effective data management plan (DMP) to cater for the whole lifecycle of a project, from bid-preparation stage through to completion.</p> </br> <h3>How the tool works</h3> <p>There are a number of templates within the tool that represent the requirements of different funders and institutions. Users are asked three questions at the outset so we can determine the appropriate template to display (e.g. the ESRC template when applying for an ESRC grant). Guidance is provided to help you interpret and answer the questions. This guidance is provided by researcher funders, universities and disciplines.</p> </br> <h3>Getting Started</h3> <p>If you have an account please sign in and start creating or editing your DMP.</p> <p>If you do not have a %{application_name} account, click on <a href='/'>'Create account'</a> on the homepage.</p> <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p> </br> <h3>Additional Information</h3> <p>We are constantly improving the user interface and functionality of %{application_name}. If you would like to contribute with feedback and suggestions, please contact us by emailing <a href='mailto:dmponline@dcc.ac.uk?Subject=%{application_name} inquiry' target='_top'>dmponline@dcc.ac.uk</a>. You can also report bugs and request new features directly on <a href='%{application_url}' target='_top'>GitHub</a></p>"
+msgstr "<div class='white_background'> <p> Fördergeber verlangen zunehmend die Erstellung von Datenmanagementplänen von den Antragstellern, bzw. Förderempfängern, sowohl in der Antragsphase als auch während der Durchführung. DMPonline wurde vom Digital Curation Centre (UK) erstellt, um es Forschenden zu ermöglichen, auf diese Anforderungen zu reagieren und dabei auch die Vorgaben ihrer Institutionen oder anderen Beteiligten zu erfüllen. </p> <p> Die Entwicklung fand in Kooperation mit Forschungsförderern und Universitäten statt, um ein Werkzeug für die Erstellung von probaten Datenmanagementplänen während des gesamten Projektverlaufs anbieten zu können. </p> </div> <h3>Konzept</h3> <div class='white_background'> <p> Es gibt eine Reihe von Vorlagen innerhalb der Applikation, die den Anforderungen der verschiedenen Förderer oder Institutionen entsprechen. Die Nutzer beantworten zu Begin der Erstellung eines Plans drei Fragen, um die Anzeige der geeigneten Vorlage zu erlauben (z.B. die ESRC-Vorlage bei einer ESRC-Förderung). Die Applikation gibt Hilfestellungen zum Verstehen und Beantworten der Fragen; diese werden von Forschenden, Förderern, Universitäten und den verschiedenen Disziplinen bereitgestellt. </p> </div> <h3>Erste Schritte</h3> <div class='white_background'> <p>Falls sie einen Zugang haben, melden sie sich an und beginnen ihren Datenmanagementplan zu erstellen.</p> <p>Falls sie keinen Zugang zu DMPonline haben, wählen sie 'Registrieren' auf der <a href='/'>Startseite</a> aus.</p> <p>Besuchen sie die <a href='/help'>'Hilfe'-Seite</a> für eine Anleitung.</p> </div> <h3>Weitere Informationen</h3> <div class='white_background'> <p>Die deutsche Version von DMPonline wird in Kooperation mit dem Digital Curation Centre (UK) und der Bibliothek der Universität von Alberta (CA) im Rechenzentrum der Christian-Albrechts-Universität gepflegt.</p> <p>Die Benutzungsschnittstelle und die Funktionalität von DMPonline wird kontinuierlich verbessert. Falls sie gerne Rückmeldung geben oder Verbesserungsvorschläge machen möchten, freuen wir uns, wenn sie uns eine Nachricht an <a href='mailto:vfu@rz.uni-kiel.de?Subject=DMP online feedback'>vfu@rz.uni-kiel.de</a> schicken.</p> </div>"
+
+msgid "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
+msgstr ""
+
+msgid "<p>Here you set the title that users will see. If you intend to have multiple phases for you DMP, this should be clear in the title and description.<p/>"
+msgstr "<p>Dieser Titel wird den Nutzern angezeigt. Falls Sie mehrere Phasen für einen DMP haben wollen, sollte dies aus dem Titel und der Beschreibung hervorgehen. </p>"
+
+msgid "<p>If you wish to add an institutional template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students.</p> <p>Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below.</p>"
+msgstr "<p>Falls Sie eine Vorlage für eine Institution anlegen möchten, können Sie den Knopf 'Vorlage erstellen' nutzen. Sie können verschiedene Vorlagen erstellen um auf Spezialisierungen einzugehen, z.B. für Forscher und für Doktoranden.</p>"
+
+msgid "<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"
+msgstr "<p>Wählen Sie die für diese Frage relevanten Themen aus.</p> <p>Dies erlaubt es, sowohl generischen Hilfestellungen auf Institutions-Ebene, als auch aus anderen Quellen, wie z.B. der DINI, oder jedweder Institute oder Einrichtungen, für die Sie Unterstützung anbieten, einzubeziehen.</p> <p>Sie können mehrere Themen durch klicken und gleichzeitiges Drücken der Steuerungs- bzw. Kommando-Taste auswählen.</p>"
+
+msgid "<p>The %{organisation_abbreviation} are now collaborating to develop a joint codebase for Data Management Planning called <a href='https://github.com/DMPRoadmap' target='_blank'>DMP Roadmap</a>. Both of our tools will be delivered using this in the future. We've agreed what features need to be included and are planning a few sprints to deliver these. The initial release will include all of the main priorities we already had flagged, including:</p> <ul> <li>- APIs to create plans, extract guidance and generate statistics from %{application_name}</li> <li>- Multi-lingual support so foreign language versions can be presented</li> <li>- Locales to provide a refined set of content for particular countries or other contexts</li> <li>- A lifecycle to indicate the status of DMPs and allow institutional access to plans</li> <li>- Support for reviewing Data Management Plans</li> </ul> <p>%{application_name} has an active and growing user base, and we are grateful to the members who suggest ideas for new and improved features. If you would like to help shape our future plans, please join the <a href='https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DMPONLINE-USER-GROUP' target='_blank'>user group</a>. More information on how you can engage with us is available under the 'Get involved' tab.</p> </br> <h3>Current release</h3> <p>The current version of %{application_name} is %{application_version}.</p> <ul> <li>- <a href='%{application_release_notes_url}' target='_blank'>Release Notes</a></li> <li>- <a href='/files/DMPonline-v4-InstitutionalBranding.pdf' target='_blank'>Customise %{application_name} tool with institutional branding</a></li> </ul> <p>The code is available on <a target='_blank' href='%{application_url}'>GitHub</a></p> </br>"
+msgstr ""
+
+msgid "<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>"
+msgstr "<p>Die folgende Tabelle listet alle von Ihnen erstellten und von anderen mit Ihnen geteilten Pläne.</br> Diese können jederzeit bearbeitet, geteilt, exportiert und gelöscht werden.</p>"
+
+msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
+msgstr "<p>Um eine Vorlage anzulegen beginnen sie mit einem Titel und einer Beschreibung. Nach dem Speichern haben Sie die Option zum Anlegen von ein oder mehreren Phasen.</p>"
+
+msgid "<p>When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p> <h3>Create a plan</h3> <p>To create a plan, click the 'Create plan' button from the 'My plans' page or  the top menu. Select options from the drop-down menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Yes, create plan'</p> <h3>Write your plan</h3> <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p> <ul> <li>- 'Plan details' includes basic administrative details, tells you what sets of questions and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li> <li>- The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award.</li> <li>- The 'Share' tab allows you to invite others to read or contribute to your plan.</li> <li>- The 'Export' tab allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li> </ul> <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p> <p>Guidance is displayed in the right-hand panel. Click the '+' symbol to view this.</p> <p>Remember to 'save' your responses before moving on.</p> <h3>Share plans</h3> <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the drop-down options and click to 'Add collaborator'</p> <h3>Export plans</h3> <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to export. When you login to %{application_name} you will be directed to the 'My plans' page. From here you can edit, share, export or delete any of your plans. You will also see plans that have been shared with you by others.</p>"
+msgstr "<p>Nach der Anmeldung in DMPonline werden sie zur 'Meine Pläne'-Seite weitergeleitet. Dies ist der Startpunkt, um ihre Pläne zu Edieren, zu Teilen oder zu löschen. Sie sehen außerdem, welche Pläne sie mit anderen geteilt haben.</p> <h3>Pläne erstellen</h3> <p>Um einen Plan zu erstellen, klicken sie auf den 'Plan erstellen'-Knopf auf der 'Meine Pläne'-Seite, oder im Hauptmenü. Wählen sie die passenden Optionen in den Ausklappmenüs und Auswahlboxen aus, um zu bestimmen, welche Fragen und Hilfestellungen ihnen angezeigt werden sollen. Bestätigen sie ihre Auswahl durch das Klicken von 'Ja, Plan erstellen'.</p> <h3>Pläne schreiben</h3> <p>Die Reiter der Benutzerschnittstelle erlauben ihnen durch die verschiedenen Bereiche zu navigieren wenn sie ihren Plan bearbeiten.</p> <ul> <li>- 'Plandetails' enthält die grundliegenden administrativen Details, listet die Fragen und Hilfestellungen, auf denen ihr Plan basiert und gibt eine Übersicht über die zu beantwortenden Fragen</li> <li>- die folgenden Reiter repräsentieren die zu beantwortenden Fragen. Sollten ihr Förderer oder ihre Institution verschiedene Fragen zu verschiedenen Stufen des Plans beantwortet wissen möchten, können hier mehrere Reiter auftauchen</li> <li>- 'Teilen' enthält Details zum Einladen von anderen Personen zum Lesen oder zur aktiven Mitabeit am Plan</li> <li>- 'Export' enthält Möglichkeiten zum Export des Plans in verschiedene Dateiformate. Dies kann nützlich sein, wenn sie ihren Plan im Rahmen eines Antrags einreichen müssen</li> </ul> <p>In den Fragereitern sind die verschiedenen Abschnitte ihres Plans dargestellt, die sich durch anklicken zur Bearbeitung auswählen lassen. Die Antworttexte können mit den Textbearbeitungsknöpfen formatiert werden.</p> <p>Hilfestellungen werden rechts von den Fragen durch klicken des '+'-Symbols angezeigt.</p> <p>Bitte vergessen sie nicht ihre Antworten zu speichern, bevor sie die Seite verlassen.</p> <h3>Pläne teilen</h3> <p>Geben sie die E-Mail-Adresse der Person an, die ihren Plan lesen oder bearbeiten können sollen. Mithilfe des Ausklappmenüs können sie die Befugnisse, die die Person im Bezug auf den Plan haben soll, auswählen. Klicken sie abschließend auf 'Mitarbeitende(n) hinzufügen'.</p> <h3>Pläne exportieren</h3> <p>Wählen sie das Dateiformat aus, in das sie ihren Plan exportieren möchten und klicken sie 'Export'. Unterhalb des Dialogs können sie durch klicken auf das '+'-Symbol detaillierte Einstellungen zum Export vornehmen.</p>"
+
+#, fuzzy
+msgid "<p>You can give other people access to your plan here. There are three permission levels.<ul><li>Users with \"read only\" access can only read the plan.</li><li>Editors can contribute to the plan.</li><li>Co-owners can also contribute to the plan, but additionally can edit the plan details and control access to the plan.</li></ul></p><p>Add each collaborator in turn by entering their email address below, choosing a permission level and clicking \"Add collaborator\".</p><p>Those you invite will receive an email notification that they have access to this plan, inviting them to register with %{application_name} if they don't already have an account. A notification is also issued when a user's permission level is changed.</p>"
+msgstr "<p>Sie können anderen Zugriff zu Ihren Plan gewähren. Es gibt hierbei drei Abstufungen des Zugriffs. <ul> <li>Benutzer mit 'nur lesen'-Rechten können den Plan nur lesen.</li> <li>Bearbeiter können zum Plan beitragen.</li> <li>Miteigentümer können zum Plan beitragen und zusätzlich die Plandetails und die Zugriffsrechte bearbeiten.</li> </ul></p> <p>Neue Mitarbeitende können durch die Angabe ihrer E-Mail-Adresse und das Wählen des Zugriffsrechts hinzugefugt werden. Bestätigen Sie Ihre Angaben mit 'Mitarbeitende(n) hinzufügen'</p> <p>Eingeladene Mitarbeitende erhalten eine E-Mail, die sie darüber informiert, dass sie Zugriff zu Ihrem Plan erhalten haben; sofern Mitarbeitende noch nicht bei DMPonline registriert sind, erhalten sie eine Einladung zur Registrierung. Wenn die Zugriffsrechte geändert werden wird ebenfalls eine Benachrichtigungs-E-Mail versand.</p>"
+
+#, fuzzy
+msgid "<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.</p>"
+msgstr "templates"
+
+#, fuzzy
+msgid ""
+"<ul><li>%{organisation_name}</li>\n"
+"                     <li>%{organisation_address_line1}</li>\n"
+"                     <li>%{organisation_address_line2}</li>\n"
+"                     <li>%{organisation_address_line3}</li>\n"
+"                     <li>%{organisation_address_line4}</li>\n"
+"                     <li>%{organisation_address_country}</li>\n"
+"                 </ul>\n"
+"                 <p>Helpline: %{organisation_telephone}</p>\n"
+"                <p>Email <a href='mailto:%{organisation_email}?Subject=%{application_name} inquiry' target='_top'>%{organisation_email}</a></p>"
+msgstr "DMPonline"
+
+#, fuzzy
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr "DMPonline"
+
+#, fuzzy
+msgid "A colleague has invited you to contribute to their Data Management Plan at "
+msgstr "A colleague has invited you to contribute to their Data Management Plan at"
+
+msgid "A pertinent ID as determined by the funder and/or institution."
+msgstr "Eine Identifikationskürzel, wie es von Förderern oder Institutionen vergeben wird."
+
+msgid "A required setting has not been provided"
+msgstr "Eine benötigte Einstellung wurde nicht erbracht"
+
+msgid "A version of "
+msgstr ""
+
+msgid "API Information"
+msgstr ""
+
+msgid "API rights"
+msgstr ""
+
+msgid "API token"
+msgstr ""
+
+msgid "Abbreviation"
+msgstr "Abkürzung"
+
+msgid "About"
+msgstr "Über uns"
+
+msgid "About %{application_name}"
+msgstr "Über DMPonline"
+
+msgid "Access removed"
+msgstr ""
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Add Annotations"
+msgstr ""
+
+#, fuzzy
+msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
+msgstr "Hilfestellungsgruppe"
+
+msgid "Add collaborator"
+msgstr "Mitarbeitende(n) hinzufügen"
+
+msgid "Add guidance"
+msgstr "Hilfestellung hinzufügen"
+
+msgid "Add guidance group"
+msgstr "Gruppe für Hilfestellungen hinzufügen"
+
+msgid "Add new phase +"
+msgstr "Neue Phase hinzufügen"
+
+msgid "Add note"
+msgstr "Füge Kommentar hinzu"
+
+msgid "Add option"
+msgstr "Option hinzufügen"
+
+msgid "Add question"
+msgstr "Frage hinzufügen"
+
+msgid "Add section"
+msgstr "Abschnitt hinzufügen"
+
+msgid "Additional comment area will be displayed."
+msgstr ""
+
+msgid "Admin Details"
+msgstr ""
+
+msgid "Admin area"
+msgstr "Administativer Bereich"
+
+msgid "All the best,"
+msgstr ""
+
+#, fuzzy
+msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Allows the user to create and edit guidance"
+msgstr "user"
+
+#, fuzzy
+msgid "Allows the user to create new institutional templates, edit existing ones and customise funder templates"
+msgstr "templates"
+
+msgid "An error has occurred while saving/resetting your export settings."
+msgstr ""
+
+msgid "Annotations"
+msgstr ""
+
+#, fuzzy
+msgid "Answer"
+msgstr "Antworten"
+
+msgid "Answer format"
+msgstr "Antwortform"
+
+msgid "Answer questions"
+msgstr "Fragen beantworten"
+
+#, fuzzy
+msgid "Answered"
+msgstr "Beantwortet "
+
+#, fuzzy
+msgid "Answered at"
+msgstr "Beantwortet "
+
+#, fuzzy
+msgid "Answered by"
+msgstr "Beantwortet "
+
+msgid "Answers"
+msgstr "Antworten"
+
+msgid "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
+msgstr "Alles, was Sie hier eingeben, wird im Antwortfeld erscheinen. Falls Sie eine Antwort in einem bestimmten Format haben möchten (z.B. als Tabelle) können Sie diesen Stil hier angeben."
+
+msgid "Are you sure you want to remove this note?"
+msgstr ""
+
+msgid "Are you sure you wish to delete this plan? If the plan is being shared with other users, by deleting it from your list, the plan will be deleted from their plan list as well"
+msgstr "Sind Sie sicher, dass sie diesen Plan löschen wollen?"
+
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Back to edit view"
+msgstr "Zurück, um die Ansicht zu bearbeiten"
+
+msgid "Background"
+msgstr "Hintergrund"
+
+msgid "Bad Credentials"
+msgstr ""
+
+msgid "Bad Parameters"
+msgstr ""
+
+msgid "Before submitting, please consider:"
+msgstr ""
+
+#, fuzzy
+msgid "Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs."
+msgstr "Fragen"
+
+msgid "Begin typing to see a filtered list"
+msgstr ""
+
+msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
+msgstr "Folgend findet sich die Liste von Benutzern registriert bzgl. Ihrer Org. Sie können diese Liste bzgl. aller Felder sortieren."
+
+msgid "Bottom"
+msgstr "Unten"
+
+msgid "By "
+msgstr ""
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#, fuzzy
+msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgstr "plans"
+
+msgid "Change language"
+msgstr ""
+
+#, fuzzy
+msgid "Change my password"
+msgstr "Passwort ändern"
+
+#, fuzzy
+msgid "Change organisation details"
+msgstr "Organisation"
+
+msgid "Check box"
+msgstr "Checkbox"
+
+msgid "Check this box when you are ready for this guidance to appear on user's plans."
+msgstr "Markieren Sie dieses Kästchen, wenn Sie bereit sind, für diese Anleitung für Benutzer-Pläne zu erscheinen."
+
+msgid "Click here"
+msgstr ""
+
+msgid "Click here to accept the invitation"
+msgstr "Click here to accept the invitation"
+
+msgid "Click here to confirm your account"
+msgstr "Click here to confirm your account"
+
+#, fuzzy
+msgid "Click the link below to unlock your account"
+msgstr "Click the link below to unlock your account:"
+
+msgid "Co-owner"
+msgstr "Miteigentümer"
+
+msgid "Collaborators"
+msgstr "Mitarbeitende"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+#, fuzzy
+msgid "Comment removed."
+msgstr "Kommentar"
+
+msgid "Comment was successfully created."
+msgstr ""
+
+#, fuzzy
+msgid "Comment was successfully saved."
+msgstr "Plan wurde erfolgreich angelegt."
+
+msgid "Contact Email"
+msgstr "Kontakt Email"
+
+#, fuzzy
+msgid "Contact Us"
+msgstr "Kontakt"
+
+msgid "Contact us"
+msgstr "Kontakt"
+
+msgid "Create a new plan"
+msgstr "Einen neuen Plan erstellen"
+
+msgid "Create a template"
+msgstr "Vorlage erstellen"
+
+msgid "Create account"
+msgstr "Registrieren"
+
+msgid "Create plan"
+msgstr "Erstelle Plan"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Created at"
+msgstr "Angelegt am"
+
+msgid "Current password"
+msgstr "Aktuelles Passwort"
+
+msgid "Customise"
+msgstr "Anpassen"
+
+msgid "Default"
+msgstr "Vorgabe"
+
+msgid "Default answer"
+msgstr "Vorauswahl"
+
+msgid "Default value"
+msgstr "Wertvorgabe"
+
+msgid "Delete"
+msgstr "Löschen"
+
+#, fuzzy
+msgid "Delete Example Answer"
+msgstr "Beispielantwort"
+
+msgid "Delete question"
+msgstr "Frage löschen"
+
+msgid "Description"
+msgstr ""
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Details successfully updated."
+msgstr ""
+
+msgid "Didn't receive confirmation instructions?"
+msgstr "Bestätigungsanleitungen nicht erhalten?"
+
+msgid "Didn't receive unlock instructions?"
+msgstr "Entsperrungsanleitungen nicht erhalten?"
+
+msgid "Discard"
+msgstr "Verwerfen"
+
+msgid "Display additional comment area."
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
+msgid "Dropdown"
+msgstr "Klappliste"
+
+msgid "E.g ORCID http://orcid.org/."
+msgstr "z.B. die ORCID (http://orcid.org/)."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#, fuzzy
+msgid "Edit Annotations"
+msgstr "Bearbeiten"
+
+msgid "Edit User Privileges"
+msgstr "Bearbeiten Benutzerberechtigungen"
+
+msgid "Edit customisation"
+msgstr "Anpassungen bearbeiten"
+
+msgid "Edit phase"
+msgstr "Phase bearbeiten"
+
+msgid "Edit plan details"
+msgstr "Plandetails bearbeiten"
+
+msgid "Edit profile"
+msgstr "Profil bearbeiten"
+
+msgid "Edit question"
+msgstr "Frage bearbeiten"
+
+msgid "Edit template details"
+msgstr "Details der Vorlage bearbeiten"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Bearbeiten"
+
+msgid "Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access."
+msgstr "Editoren können zu Plan beitragen. Miteigentümer haben zusätzliche Rechte um Plandetails und Zugriffsrechte bearbeiten zu können."
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
+msgstr "Geben Sie eine kurze Beschreibung an. Diese wird den Nutzern oberhalb der Zusammenfassung der Abschnitte und der Fragen, die sie beantowrten müssen, angezeigt."
+
+msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
+msgstr "Geben Sie eine Beschreibung, die hilft, zwischen den verschiedenen Vorlagen zu unterscheiden, z.B. für verschiedene Zielgruppen"
+
+msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
+msgstr "Geben Sie einen Titel für die Phase an, z.B. Initialer DMP oder Kompletter DMP. Die Titel werden den Benutzern in den Reitern angezeigt, während sie einen Plan erstellen. Falls Sie nur eine Phase bereitstellen, geben Sie ihm einen allgemeinen Titel wie z.B. 'CAU DMP'"
+
+msgid "Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box."
+msgstr "Geben Sie alle Optionen an, die angezeigt werden sollen.  Sie können eine der Option als Vorauswahl mit Hilfe der entsprechenden Checkbox markieren."
+
+msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
+msgstr "Geben Sie spezifische Hilfestellung an, die diese Frage begleiten soll. Falls Sie auch Hilfestellungen nach Themen angeben, werden diese mit angezeigt; Sie sollten deshalb möglichst wenig Text kopieren."
+
+msgid "Enter your guidance here. You can include links where needed."
+msgstr "Hilfestellung hier eingeben; Verweise auf andere Web-Seiten können integriert werden."
+
+msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
+msgstr ""
+
+msgid "Error!"
+msgstr "Fehler!"
+
+#, fuzzy
+msgid "Example Answer"
+msgstr "Beispielantwort"
+
+#, fuzzy
+msgid "Example of answer"
+msgstr "Beispielantwort"
+
+msgid "Export"
+msgstr "Export"
+
+#, fuzzy
+msgid "Export settings updated successfully."
+msgstr "Export"
+
+#, fuzzy
+msgid "Exporting public plan is under development. Apologies for any inconvience."
+msgstr "Export"
+
+msgid "Face"
+msgstr "Schriftart"
+
+msgid "File Name"
+msgstr "Dateiname"
+
+msgid "Fill in the required fields"
+msgstr ""
+
+msgid "Filter plans"
+msgstr "Filter Pläne"
+
+msgid "First name"
+msgstr "Vorname"
+
+msgid "Font"
+msgstr "Schrift"
+
+msgid "Forgot your password?"
+msgstr "Passwort vergessen?"
+
+msgid "Format"
+msgstr ""
+
+msgid "Funder"
+msgstr "Funder"
+
+msgid "Funders templates"
+msgstr "Vorlagen der Geldgeber"
+
+#, fuzzy
+msgid "Funding organisation"
+msgstr "Organisation"
+
+msgid "Future plans"
+msgstr ""
+
+msgid "Get involved"
+msgstr ""
+
+msgid "Grant number"
+msgstr "Grantnummer"
+
+msgid "Grant permissions"
+msgstr ""
+
+msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
+msgstr "Das Förderkennzeichen als Referenz, sofern sinnvoll (Nur für Datenmanagement-Pläne nach der Bewilligung)."
+
+msgid "Guidance"
+msgstr "Hilfestellung"
+
+#, fuzzy
+msgid "Guidance Choices"
+msgstr "Hilfestellung"
+
+#, fuzzy
+msgid "Guidance choices saved."
+msgstr "Hilfestellung"
+
+msgid "Guidance group"
+msgstr "Hilfestellungsgruppe"
+
+msgid "Guidance group list"
+msgstr "Liste der Gruppen für Hilfestellungen"
+
+msgid "Guidance group was successfully created."
+msgstr "Hilfestellungsgruppe erfolgreich erzeugt."
+
+msgid "Guidance group was successfully deleted."
+msgstr "Hilfestellungsgruppe erfolgreich gelöscht."
+
+msgid "Guidance group was successfully updated."
+msgstr "Hilfestellungsgruppe erfolgreich aktualisiert."
+
+msgid "Guidance list"
+msgstr "Liste der Hilfestellungen"
+
+msgid "Guidance was successfully created."
+msgstr "Hilfestellung erfolgreich angelegt."
+
+#, fuzzy
+msgid "Guidance was successfully deleted."
+msgstr "Hilfestellung erfolgreich angelegt."
+
+msgid "Guidance was successfully updated."
+msgstr "Hilfestellung erfolgreich aktualisiert."
+
+msgid "Hello"
+msgstr "Hello"
+
+#, fuzzy
+msgid "Hello "
+msgstr "Hello"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "History"
+msgstr ""
+
+msgid "Home"
+msgstr "Start"
+
+msgid "How many plans?"
+msgstr "Wie viele Pläne?"
+
+msgid "How to use the API"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr "Falls Sie einen Förderantrag stellen, geben Sie bitte den Namen exakt genau so an, wie im Förderantrag."
+
+#, fuzzy
+msgid "If applying for funding, state the title exactly as in the proposal."
+msgstr "Falls Sie einen Förderantrag stellen, geben Sie bitte den Namen exakt genau so an, wie im Förderantrag."
+
+msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
+msgstr "Falls die Hilfestellung nur für eine bestimmte Nutzergruppe, wie z.B. eine bestimmte Fakultät oder ein Institut, bestimmt ist, wählen Sie diese Option aus. Die Nutzer können die Anzeige von Hilfestellungen dieser Untergruppe im 'Plan erstellen'-Assistenten auswählen."
+
+msgid "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+msgstr "If you are entering an URL try to use something like http://tinyurl.com/ to make it smaller."
+
+msgid "If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo."
+msgstr "Wenn Sie die Standard DMPRoadmap Logo verwenden entscheiden , prüfen Sie bitte dieses Feld Ihre aktuelle Logo zu entfernen."
+
+msgid "If you didn't request this, please ignore this email."
+msgstr ""
+
+msgid "If you don't want to accept the invitation, please ignore this email."
+msgstr ""
+
+msgid "If you would like to change your password please complete the following fields."
+msgstr "Zum Ändern Ihres Passworts folgende Felder ausfüllen."
+
+msgid "Included Elements"
+msgstr "Enthaltene Elemente"
+
+msgid "Information was successfully created."
+msgstr "Information wurde erfolgreich angelegt."
+
+msgid "Information was successfully deleted."
+msgstr "Information wurde erfolgreiche entfernt."
+
+msgid "Information was successfully updated."
+msgstr "Information wurde erfolgreich aktuallisiert"
+
+msgid "Institution"
+msgstr "Institution"
+
+msgid "Invalid font face"
+msgstr "Ungültige Schriftart"
+
+msgid "Invalid font size"
+msgstr "Ungültige Schriftgröße"
+
+msgid "Invalid maximum pages"
+msgstr "Ungültige maximale Anzahl von Seiten"
+
+msgid "Invitation to %{email} issued successfully."
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Last logged in"
+msgstr "Zuletzt angemeldet"
+
+msgid "Last name"
+msgstr "Nachname"
+
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+msgid "Latest news"
+msgstr "Neuigkeiten"
+
+msgid "Left"
+msgstr "Links"
+
+msgid "List of users"
+msgstr "Liste der Nutzer"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Main organisation"
+msgstr "Übergeordnete Organisation"
+
+msgid "Many thanks,"
+msgstr ""
+
+msgid "Margin"
+msgstr "Rand"
+
+msgid "Margin cannot be negative"
+msgstr "Rand darf nicht negativ sein"
+
+msgid "Margin value is invalid"
+msgstr "Randwert ist ungültig"
+
+msgid "Me"
+msgstr "Ich"
+
+#, fuzzy
+msgid "Message"
+msgstr "Ich"
+
+#, fuzzy
+msgid "Modify guidance"
+msgstr "Hilfestellung hinzufügen"
+
+#, fuzzy
+msgid "Modify templates"
+msgstr "templates"
+
+msgid "Multi select box"
+msgstr "Mehrfachauswahlliste"
+
+#, fuzzy
+msgid "My Plan"
+msgstr "Mein Plan"
+
+msgid "My organisation isn't listed."
+msgstr "Meine Organisation ist nicht in der Auflistung."
+
+msgid "My plans"
+msgstr "Meine Pläne"
+
+#, fuzzy
+msgid "My research organisation is not on the list"
+msgstr "Organisation"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Name (if different to above), telephone and email contact details"
+msgstr "Name (falls abweichend von obigen Angaben), Telefonnummer und E-Mail-Adresse."
+
+msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
+msgstr "Name des Principal Investigators oder der Leitung des Projektes."
+
+msgid "New guidance"
+msgstr "Neue Hilfestellung"
+
+msgid "New password"
+msgstr "Neues Passwort"
+
+msgid "New section title"
+msgstr "Neue Abschnittsüberschrift"
+
+msgid "New template"
+msgstr "Neue Vorlage"
+
+msgid "New to %{application_name}? Create an account today."
+msgstr "Neu auf DMPonline? Heute noch registrieren."
+
+msgid "No"
+msgstr ""
+
+msgid "No additional comment area will be displayed."
+msgstr ""
+
+#, fuzzy
+msgid "No funder associated with this plan"
+msgstr "plans"
+
+msgid "No items available."
+msgstr ""
+
+msgid "No matches"
+msgstr "Kein Plan erfüllt '%{filter}'"
+
+msgid "None"
+msgstr "Keines"
+
+msgid "Not answered yet"
+msgstr "Noch nicht beantwortet"
+
+msgid "Note"
+msgstr "Kommentar"
+
+msgid "Note removed by"
+msgstr "Kommentar entfernt von"
+
+msgid "Note removed by you"
+msgstr "Kommentar von Ihnen entfernt"
+
+msgid "Noted by:"
+msgstr "Kommentar von:"
+
+msgid "Ok"
+msgstr ""
+
+msgid "On %{application_name}"
+msgstr "DMPonline"
+
+msgid "On data management planning"
+msgstr "Datenmanagement-Planung"
+
+msgid "Optional subset"
+msgstr "Optionale Untergruppe"
+
+msgid "Or, sign in with your institutional credentials"
+msgstr "Oder melden Sie sich mit den Zugangsdaten Ihres Instituts an"
+
+msgid "Order"
+msgstr "Reihenfolge"
+
+msgid "Order of display"
+msgstr "Reihenfolge"
+
+msgid "Organisation"
+msgstr "Organisation"
+
+msgid "Organisation details"
+msgstr "Organisations-Details"
+
+msgid "Organisation name"
+msgstr "Name der Organisation"
+
+msgid "Organisation type"
+msgstr "Organisationsart"
+
+msgid "Organisation was successfully updated."
+msgstr "Organisation wurde erfolgreich aktualisiert."
+
+msgid "Organisational"
+msgstr "Organisatorische"
+
+msgid "Organisational (visibile to others within your organisation)"
+msgstr "Mit anderen innerhalb Ihrer Organisation"
+
+msgid "Organization"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Original funder template has changed!"
+msgstr "templates"
+
+msgid "Other institutions"
+msgstr ""
+
+msgid "Own templates"
+msgstr "Eigene Vorlagen"
+
+msgid "Owner"
+msgstr "Besitzer"
+
+msgid "PDF Formatting"
+msgstr "PDF Formatierung"
+
+msgid "Password"
+msgstr "Passwort"
+
+#, fuzzy
+msgid "Password and comfirmation must match"
+msgstr "Passwort"
+
+msgid "Password confirmation"
+msgstr "Passwort bestätigen"
+
+msgid "Permissions"
+msgstr "Zugriffsrechte"
+
+msgid "Phase details"
+msgstr "Details der Phase"
+
+msgid "Plan Data Contact"
+msgstr "Kontakt für Planen"
+
+msgid "Plan Description"
+msgstr "Beschreibung"
+
+msgid "Plan ID"
+msgstr "Planenbezeichner"
+
+msgid "Plan Name"
+msgstr "Planenname"
+
+msgid "Plan data contact"
+msgstr "Plandatenkontakt"
+
+msgid "Plan details"
+msgstr "Plandetails"
+
+msgid "Plan is already shared with %{email}."
+msgstr ""
+
+msgid "Plan name"
+msgstr "Name des Plans"
+
+msgid "Plan shared with %{email}."
+msgstr ""
+
+#, fuzzy
+msgid "Plan was successfully deleted."
+msgstr "Plan wurde erfolgreich angelegt."
+
+msgid "Plan was successfully updated."
+msgstr ""
+
+msgid "Please add an abbreviation to your org for display with annotations!"
+msgstr ""
+
+#, fuzzy
+msgid "Please enter a First name."
+msgstr "Bitte geben Sie ihren Vornamen ein."
+
+#, fuzzy
+msgid "Please enter a Last name."
+msgstr "Bitte geben Sie ihren Vornamen ein."
+
+msgid "Please enter a password confirmation"
+msgstr ""
+
+msgid "Please enter a title for your template."
+msgstr "Bitte geben sie einen Titel für Ihre Vorlage an."
+
+msgid "Please enter a valid web address."
+msgstr "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
+
+msgid "Please enter an email address"
+msgstr ""
+
+#, fuzzy
+msgid "Please enter an email address."
+msgstr "Bitte prüfen Sie die Korrektheit ihrer Web-Adresse."
+
+msgid "Please enter the name of your organisation."
+msgstr "Bitte geben Sie den Namen Ihrer Organisation an."
+
+msgid "Please enter your current password"
+msgstr ""
+
+msgid "Please enter your current password below when changing your email address."
+msgstr ""
+
+msgid "Please enter your email"
+msgstr ""
+
+msgid "Please enter your first name."
+msgstr "Bitte geben Sie ihren Vornamen ein."
+
+msgid "Please enter your organisation's name."
+msgstr "Bitte geben Sie den Namen Ihrer Organisation an."
+
+msgid "Please enter your password to change email address."
+msgstr ""
+
+msgid "Please enter your surname or family name."
+msgstr "Bitte geben Sie ihren Familien- bzw. Nachnamen ein."
+
+msgid "Please fill in the basic project details below"
+msgstr ""
+
+msgid "Please fill in the basic project details below and click 'Update' to save"
+msgstr "Bitte geben Sie im Folgenden die Projektdetails an und wählen 'Aktualisieren' aus, um die Änderungen zu speichern."
+
+#, fuzzy
+msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
+msgstr "<p>Bitte beachten Sie, dass Ihre Email-Adresse als Nutzername verwendet wird. Vergessen Sie nicht, Ihre neue E-Mail-Adresse beim der nächsten Anmeldung zu verwenden, falls Sie diese geändert haben.</p>"
+
+msgid "Please only enter up to 165 characters, you have used"
+msgstr "Please only enter up to 165 characters, you have used"
+
+#, fuzzy
+msgid "Please select an organisation, or select Other."
+msgstr "Organisation"
+
+msgid "Please select one"
+msgstr ""
+
+msgid "Preview"
+msgstr "Vorschau"
+
+#, fuzzy
+msgid "Primary research organisation"
+msgstr "Organisation"
+
+msgid "Principal Investigator / Researcher"
+msgstr "Principal Investigator / Forscher"
+
+msgid "Principal Investigator/Researcher"
+msgstr "Projektleitung / Principal Investigator"
+
+msgid "Principal Investigator/Researcher ID"
+msgstr "Principal Investigator ID"
+
+msgid "Private"
+msgstr "Private"
+
+msgid "Private (owners, co-owners, and administrators only) See our Terms of Use."
+msgstr "Private (Besitzer, Miteigentümer und Admins) Siehe unsere Nutzungsbedingungen."
+
+msgid "Privileges"
+msgstr ""
+
+msgid "Project title"
+msgstr ""
+
+#, fuzzy
+msgid "Provides the user with an API token and grants rights to harvest information from the tool"
+msgstr "user"
+
+msgid "Public"
+msgstr "Öffentlichkeit"
+
+msgid "Public (Your DMP will appear on the Public DMPs page of this site)"
+msgstr "Öffentlich im Internet. Ihr DMP erscheint auf der Public DMPs Seite dieser Seite."
+
+msgid "Public DMPs"
+msgstr "Öffentliche DMPs"
+
+msgid "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "Öffentliche DMPs sind Pläne, die mit dem DMPTool erstellt und öffentlich von ihren Eigentümern veröffentlicht werden. Sie werden nicht auf Qualität, Vollständigkeit oder die Einhaltung der funder Richtlinien überprüft."
+
+msgid "Publish"
+msgstr ""
+
+msgid "Publish changes"
+msgstr ""
+
+msgid "Published"
+msgstr "Veröffentlicht"
+
+msgid "Question"
+msgstr "Frage"
+
+msgid "Question not answered"
+msgstr "Frage nicht beantwortet."
+
+msgid "Question not answered."
+msgstr "Frage nicht beantwortet."
+
+msgid "Question number"
+msgstr "Fragennummer"
+
+msgid "Question text"
+msgstr "Fragentext"
+
+msgid "Question text is empty, please enter your question."
+msgstr "Question text is empty, please enter your question."
+
+msgid "Questions"
+msgstr "Fragen"
+
+msgid "Radio buttons"
+msgstr "Optionsfelder"
+
+msgid "Read more on the "
+msgstr ""
+
+msgid "Read only"
+msgstr "Nur Lesen"
+
+msgid "Releases"
+msgstr ""
+
+msgid "Remember me"
+msgstr "angemeldet bleiben"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Remove user access"
+msgstr "Mitarbeitende(n) entfernen"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Save"
+msgstr "Speichern"
+
+#, fuzzy
+msgid "Save Unsuccessful."
+msgstr "Speichern"
+
+msgid "Saving..."
+msgstr "Speichere..."
+
+msgid "Screencast on how to use %{application_name}"
+msgstr ""
+
+msgid "Section"
+msgstr "Abschnitt"
+
+msgid "Sections"
+msgstr "Abschnitte"
+
+#, fuzzy
+msgid "Select a template"
+msgstr "templates"
+
+msgid "Select an action"
+msgstr "Wählen Sie eine Aktion"
+
+#, fuzzy
+msgid "Select the funding organisation"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Select the primary research organisation responsible"
+msgstr "Organisation"
+
+msgid "Select which group this guidance relates to."
+msgstr "Wählen Sie die Gruppe aus, für die diese Hilfestellung relevant ist."
+
+msgid "Select which theme(s) this guidance relates to."
+msgstr "Wählen Sie die Themen aus, für die diese Hilfestellung relevant ist."
+
+msgid "Selected option(s)"
+msgstr ""
+
+msgid "Share"
+msgstr "Teilen"
+
+msgid "Share note"
+msgstr "Füge Kommentar hinzu"
+
+msgid "Share note with collaborators"
+msgstr "Bitte füge einen Kommentar hinzu"
+
+msgid "Sharing details successfully updated."
+msgstr ""
+
+msgid "Should this guidance apply:"
+msgstr "Soll diese Hilfestellung angewendet werden auf:"
+
+msgid "Sign in"
+msgstr "Anmelden"
+
+msgid "Sign out"
+msgstr "Abmelden"
+
+msgid "Signed in as "
+msgstr "Angemeldet als "
+
+msgid "Size"
+msgstr "Größe"
+
+#, fuzzy
+msgid "Someone has requested a link to change your "
+msgstr "Someone has requested a link to change your"
+
+msgid "Status"
+msgstr ""
+
+msgid "Subject"
+msgstr ""
+
+msgid "Successfully unlinked your account from %{is}."
+msgstr ""
+
+msgid "Suggested answer"
+msgstr "Antwortvorschlag"
+
+msgid "Suggested answer/ Example"
+msgstr "Antwortvorschlag / Beispiel"
+
+msgid "Super admin area"
+msgstr "Superadmin"
+
+msgid "Template"
+msgstr "Template"
+
+msgid "Template History"
+msgstr ""
+
+msgid "Template details"
+msgstr "Details der Vorlage"
+
+msgid "Templates"
+msgstr "Vorlagen"
+
+msgid "Terms of use"
+msgstr "Nutzungsbedingungen"
+
+msgid "Test/Practice"
+msgstr "Test/Übung"
+
+msgid "Test/Practice (your plan is not visible to other users) See our Terms of Use."
+msgstr "Test / Praxis (Ihr Plan ist für andere Benutzer nicht sichtbar) Siehe unsere Nutzungsbedingungen."
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Text area"
+msgstr "Text area"
+
+msgid "Text field"
+msgstr "Textfeld"
+
+#, fuzzy
+msgid "Thank you for registering. Please confirm your email address"
+msgstr "Thank you for registering at %{application_name}. Please confirm your email address:"
+
+msgid "That email address is already registered."
+msgstr ""
+
+#, fuzzy
+msgid "That template is not currently published."
+msgstr "templates"
+
+msgid "The"
+msgstr ""
+
+msgid "The "
+msgstr ""
+
+msgid "The email address of an administrator at your organisation. Your users will use this address if they have questions."
+msgstr "Die E-Mail -Adresse des Administrators in Ihrer Org. Ihre Benutzer werden diese Adresse verwenden, wenn sie Fragen haben."
+
+msgid "The following answer cannot be saved"
+msgstr ""
+
+msgid "The items you select here will be displayed in the table below. You can sort the data by each of these headings or filter by entering a text string in the search box."
+msgstr "Die hier ausgewählten Einträge werden in der Tabelle unten angezeigt. Sie können die Daten durch jeden ihrer Tabellenköpfe sortieren oder filtern, indem Sie eine Zeichenkette in der Suchbox eingeben."
+
+msgid "Themes"
+msgstr "Themen"
+
+msgid "There are no public DMPs."
+msgstr "Es wurden noch keine DMPs veröffentlicht."
+
+msgid "There seems to be a problem with your logo. Please upload it again."
+msgstr "Es scheint ein Problem mit unserem Logo zu sein. Bitte laden Sie es erneut."
+
+msgid "These are the basic details for your organisation."
+msgstr "Grundlegende Informationen über ihre Org."
+
+msgid "This allows you to order questions within a section."
+msgstr "Hier können sie die Reihenfolge der Fragen innerhalb eines Abschnittes bestimmen."
+
+msgid "This allows you to order sections."
+msgstr "Hier können Sie die Reihenfolge der Abschnitte bestimmen."
+
+msgid "This allows you to order the phases of your template."
+msgstr "Hier können sie die Abfolge der Phasen in Ihrer Vorlage bestimmen."
+
+msgid "This document was generated by %{application_name}"
+msgstr "%{application_name}"
+
+msgid "This must match what you entered in the previous field."
+msgstr "Die Eingabe in diesem Feld muss mit der im vorherigen Feld übereinstimmen."
+
+msgid "This page gives you an overview of your plan. It tells what your plan is based on and gives an overview of the questions that you will be asked."
+msgstr "Diese Seite bietet Ihnen einen Überblick über Ihren Plan. Sie gibt an, worauf dieser Plan basiert und gibt eine Übersicht über die Fragen, die gestellt werden."
+
+#, fuzzy
+msgid "This plan is based on the default template."
+msgstr "templates"
+
+msgid "This plan is based on:"
+msgstr "Dieser Plan basiert auf:"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Top"
+msgstr "Oben"
+
+msgid "Top banner text"
+msgstr ""
+
+msgid "Transfer customisation"
+msgstr ""
+
+#, fuzzy
+msgid "Un-published"
+msgstr "Veröffentlicht"
+
+msgid "Unable to link your account to %{scheme}."
+msgstr ""
+
+msgid "Unable to unlink your account from %{is}."
+msgstr ""
+
+msgid "Unknown column name."
+msgstr "Unbekannter Spaltenname."
+
+msgid "Unknown formatting setting"
+msgstr "Unbekannte Formatierungseinstellung"
+
+msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
+msgstr "Unbekannter Rand. Kann nur 'oben', 'unten', 'links' oder 'rechts' sein"
+
+msgid "Unlock my account"
+msgstr "Unlock my account"
+
+msgid "Unpublish"
+msgstr ""
+
+#, fuzzy
+msgid "Unpublished"
+msgstr "Veröffentlicht"
+
+msgid "Unpublished changes"
+msgstr ""
+
+msgid "Unsaved answers"
+msgstr "Ungesicherte Antworten"
+
+msgid "Unsaved changes"
+msgstr "Ungesicherte Änderungen"
+
+msgid "Upload a new logo file"
+msgstr "Laden Sie ein neues Logo-Datei"
+
+msgid "Users"
+msgstr "Nutzer"
+
+msgid "Using the generic Data Management Plan"
+msgstr ""
+
+msgid "Version"
+msgstr "Version"
+
+msgid "View"
+msgstr "Ansicht"
+
+msgid "View all guidance"
+msgstr "Alle Hilfestellungen ansehen"
+
+msgid "View all templates"
+msgstr "Alle Vorlagen ansehen"
+
+msgid "View phase"
+msgstr "Phase ansehen"
+
+msgid "View plans"
+msgstr "Pläne anzeigen"
+
+msgid "Visibility"
+msgstr "Sichtweite"
+
+#, fuzzy
+msgid "We found multiple DMP templates corresponding to the funder."
+msgstr "templates"
+
+#, fuzzy
+msgid "We found multiple DMP templates corresponding to the research organisation."
+msgstr "Organisation"
+
+#, fuzzy
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr "templates"
+
+msgid "Website"
+msgstr "Web-Seite"
+
+#, fuzzy
+msgid "Welcome to "
+msgstr "Willkommen."
+
+msgid "Welcome to %{application_name}"
+msgstr "Welcome to %{application_name}"
+
+msgid "Welcome."
+msgstr "Willkommen."
+
+#, fuzzy
+msgid "What research project are you planning?"
+msgstr "plans"
+
+msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr "Wenn Sie eine neue Phase in einer Vorlage anlegen, wird automatische eine Version erzeugt. Nachdem Sie das folgende Formular ausgefüllt haben, werden Ihnen Optionen zum erstellen von Abschnitten und Fragen angezeigt."
+
+#, fuzzy
+msgid "Which DMP template would you like to use?"
+msgstr "templates"
+
+msgid "Would you like to save them now?"
+msgstr "Wollen Sie sie jetzt sichern?"
+
+msgid "Yes"
+msgstr ""
+
+msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+msgstr "Sie sind dabei '%{guidance_group_name}' zu löschen. Das wird Auswirkungen auf die Hilfestellungen haben. Sind Sie sicher?"
+
+msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
+msgstr ""
+
+msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
+msgstr "Sie sind dabei '%{phase_title}' zu löschen. Das wird Auswirkungen auf die Versionen, Abschnitte und Fragen haben, die mit dieser Phase verknüpft sind. Sind Sie sicher?"
+
+msgid "You are about to delete '%{question_text}'. Are you sure?"
+msgstr "Sie sind dabei '%{question_text}' zu löschen. Sind Sie sicher?"
+
+msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgstr "Sie sind dabei '%{section_title}' zu entfernen. Das wird Auswirkungen auf die Fragen haben, die mit diesem Abschnitt verbunden sind. Sind Sie sicher?"
+
+#, fuzzy
+msgid "You are about to delete a guidance for '%{question_text}'. Are you sure?"
+msgstr "Sie sind dabei den Antwortvorschlag / das Beispiel für '%{question_text}' zu löschen. Sind Sie sicher?"
+
+msgid "You are about to delete a suggested answer/ example for '%{question_text}'. Are you sure?"
+msgstr "Sie sind dabei den Antwortvorschlag / das Beispiel für '%{question_text}' zu löschen. Sind Sie sicher?"
+
+#, fuzzy
+msgid "You are about to delete an example answer for '%{question_text}'. Are you sure?"
+msgstr "Sie sind dabei den Antwortvorschlag / das Beispiel für '%{question_text}' zu löschen. Sind Sie sicher?"
+
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+#, fuzzy
+msgid "You are viewing a historical version of this template. You will not be able to make changes."
+msgstr "templates"
+
+#, fuzzy
+msgid "You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+msgstr "Hier können Sie einen Text als Beispiel oder Vorschlag angeben, der Nutzern bei der Beantwortung helfen soll. Der Text erscheint oberhalb des Antwortfeldes und kann kopiert und eingefügt werden."
+
+msgid "You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+msgstr "Hier können Sie einen Text als Beispiel oder Vorschlag angeben, der Nutzern bei der Beantwortung helfen soll. Der Text erscheint oberhalb des Antwortfeldes und kann kopiert und eingefügt werden."
+
+msgid "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
+msgstr "Sie haben die Wahl zwischen: <ul> <li>- Textbereiche (große Box für Absätze);</li> <li>- Textfelder (für kurze Antworten);</li> <li>- Checkboxen, die Antwortoptionen in Listen präsentieren und eine Mehrfachauswahl ermöglichen</li> <li>- Optionsfelder, die Antwortoptionen in Listen präsentieren, aus der eine ausgewählt wird</li> <li>- Klapplisten, Eingabelisten wie diese - nur eine Option kann ausgewählt</li> <li>- Mehrfachauswahllisten, die Antwortoptionen in einer scrollbaren Liste präsentieren und Merhfachauswahl durch klicken und gleichzeitiges Drücken der Kommando- bzw. Steuerungstaste erlauben</li> </ul>"
+
+msgid "You can edit any of the details below."
+msgstr "Alle folgenden Angaben können bearbeitet werden."
+
+msgid "You can not continue until you have filled in all of the required information."
+msgstr ""
+
+#, fuzzy
+msgid "You can not edit a historical version of this template."
+msgstr "templates"
+
+#, fuzzy
+msgid "You can not publish a historical version of this template."
+msgstr "templates"
+
+#, fuzzy
+msgid "You cannot delete historical versions of this template."
+msgstr "templates"
+
+msgid "You have altered answers but have not saved them:"
+msgstr "Geänderte Antworten wurden nicht gesichert:"
+
+msgid "You have been given "
+msgstr ""
+
+#, fuzzy
+msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found "
+msgstr "Organisation"
+
+msgid "You have un-published changes"
+msgstr ""
+
+msgid "You must accept the terms and conditions to register."
+msgstr ""
+
+msgid "You must enter a valid email address."
+msgstr "Bitte geben Sie eine gültige E-Mail-Adresse an."
+
+msgid "You need to sign in or sign up before continuing."
+msgstr "Bitte loggen Sie sich ein oder melden Sie sich fortsetzen."
+
+msgid "You now have "
+msgstr ""
+
+#, fuzzy
+msgid "Your"
+msgstr "Your "
+
+msgid "Your ORCID"
+msgstr "Ihre ORCID"
+
+#, fuzzy
+msgid "Your access to "
+msgstr "Your "
+
+#, fuzzy
+msgid "Your account has been successfully linked to %{scheme}."
+msgstr "Your "
+
+#, fuzzy
+msgid "Your account won't be created until you access the link above and set your password."
+msgstr "Your "
+
+msgid "Your browser does not support the video tag."
+msgstr ""
+
+msgid "Your password must contain at least 8 characters."
+msgstr "Ihr Passwort muss mindestens acht Zeichen enthalten."
+
+#, fuzzy
+msgid "Your permissions relating to "
+msgstr "Your "
+
+#, fuzzy
+msgid "Your template has been published and is now available to users."
+msgstr "templates"
+
+#, fuzzy
+msgid "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
+msgstr "templates"
+
+msgid "a day"
+msgstr ""
+
+msgid "about %d hours"
+msgstr ""
+
+msgid "about a minute"
+msgstr ""
+
+msgid "about a month"
+msgstr ""
+
+msgid "about a year"
+msgstr ""
+
+msgid "about an hour"
+msgstr ""
+
+#, fuzzy
+msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
+msgstr " account has been locked due to an excessive number of unsuccessful sign in attempts."
+
+msgid "activerecord.errors.messages.record_invalid"
+msgstr ""
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.current_password.invalid"
+msgstr "user"
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.email.blank"
+msgstr "user"
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr "user"
+
+#, fuzzy
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
+msgstr "user"
+
+msgid "add guidance text"
+msgstr "add guidance text"
+
+# Timeago - found in lib/assets/javascripts/jquery.timeago.js
+# ---------------------
+# suffix ago
+msgid "ago"
+msgstr ""
+
+#, fuzzy
+msgid "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
+msgstr "annährend %{space_used}% des verfügbaren Platzes wird verwendet (max. %{num_pages} Seiten)"
+
+#, fuzzy
+msgid "by "
+msgstr " von "
+
+msgid "can't be blank"
+msgstr ""
+
+msgid "can't be larger than 500KB"
+msgstr ""
+
+msgid "can't be less than zero"
+msgstr ""
+
+msgid "e.g. School/ Department"
+msgstr "z.B. Fakultät / Einrichtung"
+
+#, fuzzy
+msgid "example answer"
+msgstr "Beispielantwort"
+
+msgid "from now"
+msgstr ""
+
+#, fuzzy
+msgid "generic template"
+msgstr "templates"
+
+msgid "guidance"
+msgstr ""
+
+#, fuzzy
+msgid "guidance group"
+msgstr "Hilfestellungsgruppe"
+
+msgid "guidance on"
+msgstr ""
+
+msgid "height must be less than 100px"
+msgstr ""
+
+msgid "helpers.is_test"
+msgstr ""
+
+msgid "helpers.links.cancel"
+msgstr ""
+
+msgid "helpers.project.is_test_help_text"
+msgstr ""
+
+#, fuzzy
+msgid "into your browser"
+msgstr "into your browser)."
+
+msgid "less than a minute"
+msgstr ""
+
+#, fuzzy
+msgid "must be logged in"
+msgstr "Zuletzt angemeldet"
+
+msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
+msgstr ""
+
+msgid "must be unique"
+msgstr ""
+
+#, fuzzy
+msgid "must have access to guidances api"
+msgstr "guidances"
+
+#, fuzzy
+msgid "must have access to plans api"
+msgstr "guidances"
+
+#, fuzzy
+msgid "no research organisation is associated with this plan"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "note"
+msgstr "Kommentar"
+
+#, fuzzy
+msgid "or copy"
+msgstr "(or copy"
+
+#, fuzzy
+msgid "organisation"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "phase"
+msgstr "Phase"
+
+#, fuzzy
+msgid "plan"
+msgstr "plans"
+
+msgid "profile"
+msgstr ""
+
+#, fuzzy
+msgid "question"
+msgstr "Frage"
+
+msgid "questions answered"
+msgstr "Fragen beantwortet"
+
+#, fuzzy
+msgid "role"
+msgstr "Rolle"
+
+#, fuzzy
+msgid "section"
+msgstr "Abschnitt"
+
+msgid "select a guidance group"
+msgstr "select a guidance group"
+
+msgid "select at least one theme"
+msgstr "select at least one theme"
+
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgstr ""
+
+#, fuzzy
+msgid "template"
+msgstr "templates"
+
+msgid "user"
+msgstr "user"
+
+#, fuzzy
+msgid "user must be in your organisation"
+msgstr "Organisation"

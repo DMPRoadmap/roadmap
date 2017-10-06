@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class PlansController - DMPonline4 Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/plans_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-answer">#answer</a>
+    
+    <li><a href="#method-i-delete_recent_locks">#delete_recent_locks</a>
+    
+    <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-export">#export</a>
+    
+    <li><a href="#method-i-lock_section">#lock_section</a>
+    
+    <li><a href="#method-i-locked">#locked</a>
+    
+    <li><a href="#method-i-section_answers">#section_answers</a>
+    
+    <li><a href="#method-i-status">#status</a>
+    
+    <li><a href="#method-i-unlock_all_sections">#unlock_all_sections</a>
+    
+    <li><a href="#method-i-unlock_section">#unlock_section</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+    <li><a href="#method-i-warning">#warning</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./Settings/Dmptemplate.html">Settings::Dmptemplate</a>
+  
+    <li><a href="./Settings/PlanList.html">Settings::PlanList</a>
+  
+    <li><a href="./Settings/PlansController.html">Settings::PlansController</a>
+  
+    <li><a href="./Settings/ProjectsController.html">Settings::ProjectsController</a>
+  
+    <li><a href="./Settings/SettingsController.html">Settings::SettingsController</a>
+  
+    <li><a href="./ActiveAdmin.html">ActiveAdmin</a>
+  
+    <li><a href="./ActiveAdmin/Views.html">ActiveAdmin::Views</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages.html">ActiveAdmin::Views::Pages</a>
+  
+    <li><a href="./ActiveAdmin/Views/Pages/Base.html">ActiveAdmin::Views::Pages::Base</a>
+  
+    <li><a href="./Users.html">Users</a>
+  
+    <li><a href="./Users/OmniauthCallbacksController.html">Users::OmniauthCallbacksController</a>
+  
+    <li><a href="./Users/OmniauthShibbolethRequestController.html">Users::OmniauthShibbolethRequestController</a>
+  
+    <li><a href="./DMPonline4.html">DMPonline4</a>
+  
+    <li><a href="./DMPonline4/Application.html">DMPonline4::Application</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Answer.html">Answer</a>
+  
+    <li><a href="./AnswersController.html">AnswersController</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./ConfirmationsController.html">ConfirmationsController</a>
+  
+    <li><a href="./ContactsController.html">ContactsController</a>
+  
+    <li><a href="./CustomFailure.html">CustomFailure</a>
+  
+    <li><a href="./Dmptemplate.html">Dmptemplate</a>
+  
+    <li><a href="./DmptemplatesController.html">DmptemplatesController</a>
+  
+    <li><a href="./ExistingUsersController.html">ExistingUsersController</a>
+  
+    <li><a href="./ExportedPlan.html">ExportedPlan</a>
+  
+    <li><a href="./FileType.html">FileType</a>
+  
+    <li><a href="./FileUpload.html">FileUpload</a>
+  
+    <li><a href="./Guidance.html">Guidance</a>
+  
+    <li><a href="./GuidanceGroup.html">GuidanceGroup</a>
+  
+    <li><a href="./GuidanceGroupsController.html">GuidanceGroupsController</a>
+  
+    <li><a href="./GuidancesController.html">GuidancesController</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Option.html">Option</a>
+  
+    <li><a href="./OptionWarning.html">OptionWarning</a>
+  
+    <li><a href="./Org.html">Organisation</a>
+  
+    <li><a href="./OrganisationType.html">OrganisationType</a>
+  
+    <li><a href="./OrganisationUsersController.html">OrganisationUsersController</a>
+  
+    <li><a href="./OrganisationsController.html">OrganisationsController</a>
+  
+    <li><a href="./PasswordsController.html">PasswordsController</a>
+  
+    <li><a href="./Phase.html">Phase</a>
+  
+    <li><a href="./Plan.html">Plan</a>
+  
+    <li><a href="./PlanSection.html">PlanSection</a>
+  
+    <li><a href="./PlansController.html">PlansController</a>
+  
+    <li><a href="./PlansHelper.html">PlansHelper</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectGroup.html">ProjectGroup</a>
+  
+    <li><a href="./ProjectGroupsController.html">ProjectGroupsController</a>
+  
+    <li><a href="./ProjectPartner.html">ProjectPartner</a>
+  
+    <li><a href="./ProjectsController.html">ProjectsController</a>
+  
+    <li><a href="./Question.html">Question</a>
+  
+    <li><a href="./QuestionFormat.html">QuestionFormat</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./Section.html">Section</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SplashLog.html">SplashLog</a>
+  
+    <li><a href="./SplashLogsController.html">SplashLogsController</a>
+  
+    <li><a href="./StaticPagesController.html">StaticPagesController</a>
+  
+    <li><a href="./SuggestedAnswer.html">SuggestedAnswer</a>
+  
+    <li><a href="./Theme.html">Theme</a>
+  
+    <li><a href="./ThemesController.html">ThemesController</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UserOrgRole.html">UserOrgRole</a>
+  
+    <li><a href="./UserOrgRolesController.html">UserOrgRolesController</a>
+  
+    <li><a href="./UserRoleType.html">UserRoleType</a>
+  
+    <li><a href="./UserRoleTypesController.html">UserRoleTypesController</a>
+  
+    <li><a href="./UserStatus.html">UserStatus</a>
+  
+    <li><a href="./UserStatusesController.html">UserStatusesController</a>
+  
+    <li><a href="./UserType.html">UserType</a>
+  
+    <li><a href="./UserTypesController.html">UserTypesController</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./Version.html">Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class PlansController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-answer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">answer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="answer-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">answer</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">answer</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:q_id</span>], <span class="ruby-keyword">false</span>).<span class="ruby-identifier">to_json</span>(<span class="ruby-value">:include</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:options</span>) }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- answer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- answer-method -->
+
+    
+      <div id="method-i-delete_recent_locks" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_recent_locks</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_recent_locks-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_recent_locks</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">delete_recent_locks</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_recent_locks-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_recent_locks-method -->
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /plans/1/edit</p>
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 6</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+            <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+    
+   
+<span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user_signed_in?</span> <span class="ruby-keyword">then</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_user_registration_path</span> }
+                    <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">projects_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;This account does not have access to that plan.&quot;</span> }
+                    <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span></pre>
+          </div><!-- edit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- edit-method -->
+
+    
+      <div id="method-i-export" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">export</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="export-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">export</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-ivar">@exported_plan</span> = <span class="ruby-constant">ExportedPlan</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ep</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">ep</span>.<span class="ruby-identifier">plan</span> = <span class="ruby-ivar">@plan</span>
+                        <span class="ruby-identifier">ep</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span>
+                        <span class="ruby-identifier">ep</span>.<span class="ruby-identifier">format</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:symbol</span>)
+                        <span class="ruby-identifier">plan_settings</span> = <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:export</span>)
+
+                        <span class="ruby-constant">Settings</span><span class="ruby-operator">::</span><span class="ruby-constant">Dmptemplate</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_SETTINGS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">ep</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:export</span>).<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{key}=&quot;</span>, <span class="ruby-identifier">plan_settings</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">key</span>))
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+
+                <span class="ruby-ivar">@exported_plan</span>.<span class="ruby-identifier">save!</span> <span class="ruby-comment"># FIXME: handle invalid request types without erroring?
+</span>
+                <span class="ruby-identifier">file_name</span> = <span class="ruby-ivar">@exported_plan</span>.<span class="ruby-identifier">project_name</span>
+
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv</span>  { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@exported_plan</span>.<span class="ruby-identifier">as_csv</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{file_name}.csv&quot;</span> }
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">text</span> { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@exported_plan</span>.<span class="ruby-identifier">as_txt</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{file_name}.txt&quot;</span> }
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">docx</span> { <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;Content-Disposition&quot;</span>] = <span class="ruby-node">&quot;attachment; filename=\&quot;#{file_name}.docx\&quot;&quot;</span>}
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">pdf</span> <span class="ruby-keyword">do</span>
+            <span class="ruby-ivar">@formatting</span> = <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">settings</span>(<span class="ruby-value">:export</span>).<span class="ruby-identifier">formatting</span>
+            <span class="ruby-identifier">render</span> <span class="ruby-identifier">pdf</span><span class="ruby-operator">:</span> <span class="ruby-identifier">file_name</span>,
+                                 <span class="ruby-identifier">margin</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@formatting</span>[<span class="ruby-value">:margin</span>],
+                                 <span class="ruby-identifier">footer</span><span class="ruby-operator">:</span> {
+                                   <span class="ruby-identifier">center</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;helpers.plan.export.pdf.generated_by&#39;</span>),
+                                   <span class="ruby-identifier">font_size</span><span class="ruby-operator">:</span> <span class="ruby-value">8</span>,
+                                   <span class="ruby-identifier">spacing</span><span class="ruby-operator">:</span>   (<span class="ruby-ivar">@formatting</span>[<span class="ruby-value">:margin</span>][<span class="ruby-value">:bottom</span>] <span class="ruby-operator">/</span> <span class="ruby-value">2</span>) <span class="ruby-operator">-</span> <span class="ruby-value">4</span>,
+                                   <span class="ruby-identifier">right</span><span class="ruby-operator">:</span>     <span class="ruby-string">&#39;[page] of [topage]&#39;</span>
+                                 }
+                  <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user_signed_in?</span> <span class="ruby-keyword">then</span>
+       <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_user_registration_path</span> }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">projects_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;This account does not have access to that plan.&quot;</span> }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- export-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- export-method -->
+
+    
+      <div id="method-i-lock_section" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lock_section</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lock_section-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lock_section</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">lock_section</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:section_id</span>], <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- lock_section-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- lock_section-method -->
+
+    
+      <div id="method-i-locked" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">locked</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="locked-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">locked</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">locked</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:section_id</span>],<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- locked-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- locked-method -->
+
+    
+      <div id="method-i-section_answers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">section_answers</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="section_answers-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">section_answers</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">section_answers</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:section_id</span>]) }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- section_answers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- section_answers-method -->
+
+    
+      <div id="method-i-status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">status</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /status/1.json</p>
+          
+
+          
+          <div class="method-source-code" id="status-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">status</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">status</span> }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- status-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- status-method -->
+
+    
+      <div id="method-i-unlock_all_sections" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unlock_all_sections</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unlock_all_sections-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unlock_all_sections</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">unlock_all_sections</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unlock_all_sections-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unlock_all_sections-method -->
+
+    
+      <div id="method-i-unlock_section" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unlock_section</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unlock_section-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unlock_section</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">unlock_section</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:section_id</span>], <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unlock_section-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unlock_section-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PUT /plans/1 PUT /plans/1.json</p>
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">editable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:plan</span>])
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@plan</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Plan was successfully updated.&#39;</span> }
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+      <div id="method-i-warning" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">warning</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="warning-source">
+            <pre><span class="ruby-comment"># File app/controllers/plans_controller.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">warning</span>
+        <span class="ruby-ivar">@plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">readable_by</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">warning</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:option_id</span>]) }
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">&#39;public/403.html&#39;</span>), <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">403</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- warning-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- warning-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

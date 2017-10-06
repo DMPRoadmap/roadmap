@@ -2,126 +2,98 @@
 <% javascript 'admin.js' %>
 
 <h1>
-	<%= t('org_admin.guidance.new_label') %>
+	<%= _('New guidance') %>
 	<!-- link button to add new guidance -->
 	<div class="move_2_right">
-		<%= link_to t("org_admin.guidance.view_all_guidance"),
+		<%= link_to _('View all guidance'),
 		            admin_index_guidance_path,
-		            :class => 'btn btn-primary' %>
-	</div>            
+		            class: 'btn btn-primary' %>
+	</div>
 </h1>
 
 <div class="div_clear"></div>
 <div class="white_background blue_border">
 	<!-- body -->
 	<div class="dmp_details">
-		<%= form_for :guidance, :url => {:action => 'admin_create'}, :html => {:id => 'new_guidance_form'} do |f| %>
+		<%= form_for :guidance, url: {action: 'admin_create'}, html: {id: 'new_guidance_form'} do |f| %>
 			<table class="dmp_details_table guidance_table">
 					<tr>
-						<td class="first"><%= t('org_admin.guidance.text_label') %></td>
-						<td><div class="div_left_icon_g">
+						<td class="first"><%= _('Text') %></td>
+						<td class="tinymce">
+							<div class="div_left_icon_g">
 								<%= text_area_tag("guidance-text", "", class: "tinymce") %>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_text_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.text_help_text_html'))%>
+								<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Enter your guidance here. You can include links where needed.'))%>
 							</div>
 							<div class="clearfix"></div>
 						</td>
 					</tr>
 					<tr>
-						<td class="first"><%= t('org_admin.guidance.by_theme_or_by_question') %></td>
-						<td><div class="div_left_icon_g">
-								<%= select_tag "g_options", options_for_select([[t('org_admin.guidance.by_themes_label'), 1], 
-								[t('org_admin.guidance.by_question_label'), 2]]) %>
-							</div>
-							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_apply_to_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.apply_to_help_text_html'))%>
-							</div>
-							<div class="clearfix"></div>
-							
-							<div class="guindance_by_theme" style="display:none;"> 
+						<td class="first"><%= _('Themes') %></td>
+						<td>
+							<div class="guindance_by_theme">
 								<div class="div_left_icon_g">
-									<%= f.collection_select(:theme_ids,
-									Theme.all.order('title'),
-									:id, :title, {:prompt => false, :include_blank => 'None'}, {:multiple => true})%>
+									<%= f.collection_select(:theme_ids, @themes,
+									:id, :title, {prompt: false, include_blank: 'None'}, {multiple: true})%>
 								</div>
 								<div class="div_right_icon_g">
-									<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_by_themes_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.by_themes_help_text_html'))%>
+									<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which theme(s) this guidance relates to.'))%>
 								</div>
 								<div class="clearfix"></div>
-								
-							</div>	
-							<div class="guindace_by_question" style="display:none;">
-								<div class="div_left_icon_g">
-									<%= collection_select(nil, :dmptemplate_id,  @dmptemplates, :id, :title, {:prompt   => I18n.t('helpers.select_template')}, {:id => 'templates_select'}) %>
-									<br/>
-									<%= collection_select(nil, :phase_id, @phases, :id, :title, {:prompt   => I18n.t('helpers.select_phase')}, {:id => 'phases_select'}) %>
-									<br/>
-									<%= collection_select(nil, :version_id, @versions, :id, :title, {:prompt   => I18n.t('helpers.select_version')}, {:id => 'versions_select'}) %>
-	 								<br/>
-									<%= collection_select(nil, :section_id, @sections, :id, :title, {:prompt   => I18n.t('helpers.select_section')}, {:id => 'sections_select'}) %>
-									<br/>
-									<%= collection_select(nil, :question_id, @questions, :id, :text, {:prompt   => I18n.t('helpers.select_question')}, {:id => 'questions_select'}) %>
-	 
-								</div>
-								<div class="div_right_icon_g">
-									<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_by_question_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.by_question_help_text_html'))%>
-								</div>
-								<div class="clearfix"></div>
-								
-							</div>	
+							</div>
+						</div>
 						</td>
 					</tr>
           <tr>
-              <td class="first"><%= t('org_admin.guidance.published') %></td>
+              <td class="first"><%= _('Published') %></td>
               <td><div class="div_left_icon_g">
-                      <%= f.check_box :published , :as => :check_boxes%> 
+                      <%= f.check_box :published , as: :check_boxes%>
                   </div>
                   <div class="div_right_icon_g">
-                    <%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_subset_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.guidance_group_published_help_text_html'))%>
+                    <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("Check this box when you are ready for this guidance to appear on user's plans."))%>
                   </div>
               </td>
           </tr>
 					<tr>
-						<td class="first"><%= t('org_admin.guidance.guidance_group_label') %></td>
+						<td class="first"><%= _('Guidance group') %></td>
 						<td><div class="div_left_icon_g">
-       						<%= f.collection_select(:guidance_group_ids,
-								GuidanceGroup.where("organisation_id = ?", current_user.organisation_id).order('name ASC'),
-								:id, :name, {:prompt => false, :include_blank => 'None'}, {:multiple => false})%>
+       						<%= f.collection_select(:guidance_group_id, @guidance_groups,
+								:id, :name, {prompt: false, include_blank: 'None'}, {multiple: false})%>
 							</div>
 							<div class="div_right_icon_g">
-								<%= link_to( image_tag('help_button.png'), '#', :class => 'guidance_group_select_popover', :rel => "popover", 'data-html' => "true", 'data-content' => t('org_admin.guidance.guidance_group_select_help_text_html'))%>
+								<%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _('Select which group this guidance relates to.'))%>
 							</div>
 							<div class="clearfix"></div>
-							
+
 						</td>
-					</tr>									
+					</tr>
 				</table>
-			
+
 			<!-- submit buttons -->
-			
+
 				<div class="move_2_right">
-					<a id="new_guidance_submit" data-toggle="modal" href="#new_guidance_alert_dialog" class="btn btn-primary"><%= t("helpers.submit.save")%></a>
-	                				
-					<%= link_to t('helpers.submit.cancel'), :back, :class => 'btn cancel' %>
+					<a id="new_guidance_submit" data-toggle="modal" href="#new_guidance_alert_dialog" class="btn btn-primary"><%= _('Save')%></a>
+
+					<%= link_to _('Cancel'), :back, class: 'btn cancel' %>
 				</div>
-			
+
 			<br />
 			 <%= tinymce :content_css => asset_path('application.css') %>
 		<%end%>
 	</div>
-</div>	
+</div>
 
 
 <!-- alert for guidance-->
 <div id="new_guidance_alert_dialog" data-container="body" data-backdrop="static" class="modal hide fade">
 	<div class="modal-header">
-    <h3><%= t('helpers.before_submitting_consider') %></h3>
+    <h3><%= _('Before submitting, please consider:') %></h3>
 	</div>
 	<div class="modal-body">
 		<ul id="missing_fields_new_guidance"></ul>
   	</div>
 	<div class="modal-footer">
-    	<a href="#" id="return_to_new_guidance" class="btn"><%= t('helpers.ok_label') %></a>
+    	<a href="#" id="return_to_new_guidance" class="btn"><%= _('Ok') %></a>
     </div>
 </div>

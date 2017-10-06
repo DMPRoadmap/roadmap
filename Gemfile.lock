@@ -1,21 +1,20 @@
 GIT
-  remote: git://github.com/activeadmin/activeadmin.git
-  revision: f8926831429fe635d26ac8043ea5d676fb6ee637
+  remote: git://github.com/thoughtbot/administrate.git
+  revision: 6bc227907e8567ca9d8c51658abc92fc2b19ca2d
+  branch: v0.7.0
   specs:
-    activeadmin (1.0.0.pre4)
-      arbre (~> 1.0, >= 1.0.2)
-      bourbon
-      coffee-rails
-      formtastic (~> 3.1)
-      formtastic_i18n
-      inherited_resources (~> 1.6)
-      jquery-rails
-      jquery-ui-rails
-      kaminari (~> 0.15)
-      railties (>= 3.2, < 5.1)
-      ransack (~> 1.3)
-      sass-rails
-      sprockets (< 4.1)
+    administrate (0.7.0)
+      actionpack (>= 4.2, < 5.1)
+      actionview (>= 4.2, < 5.1)
+      activerecord (>= 4.2, < 5.1)
+      autoprefixer-rails (~> 6.0)
+      datetime_picker_rails (~> 0.0.7)
+      jquery-rails (>= 4.0)
+      kaminari (>= 1.0)
+      momentjs-rails (~> 2.8)
+      normalize-rails (>= 3.0)
+      sass-rails (~> 5.0)
+      selectize-rails (~> 0.6)
 
 GIT
   remote: https://github.com/vyruss/yaml_db.git
@@ -64,12 +63,10 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    amoeba (3.0.0)
-      activerecord (>= 3.2.6)
     ansi (1.5.0)
-    arbre (1.1.1)
-      activesupport (>= 3.0.0)
     arel (6.0.3)
+    autoprefixer-rails (6.7.7.2)
+      execjs
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -77,9 +74,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourbon (4.2.7)
-      sass (~> 3.4)
-      thor (~> 0.19)
     builder (3.2.2)
     byebug (9.0.5)
     capybara (2.9.1)
@@ -89,26 +83,16 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    caracal (1.0.8)
-      nokogiri (~> 1.6)
-      rubyzip (~> 1.1)
-      tilt (>= 1.4)
-    caracal-rails (1.0.1)
-      caracal (~> 1.0)
-      rails (>= 3.2)
     coderay (1.1.1)
-    coffee-rails (4.2.1)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.2.x)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.10.0)
     commonjs (0.2.7)
     concurrent-ruby (1.0.2)
     contact_us (1.2.0)
       rails (>= 4.2.0)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     daemons (1.2.4)
+    datetime_picker_rails (0.0.7)
+      momentjs-rails (>= 2.8.1)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -119,6 +103,7 @@ GEM
     devise_invitable (1.7.0)
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
+    docile (1.1.5)
     dragonfly (1.0.12)
       addressable (~> 2.3)
       multi_json (~> 1.0)
@@ -130,21 +115,32 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.0)
       faraday (>= 0.7.4, < 0.10)
+    fast_gettext (1.3.0)
     feedjira (2.0.0)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
       loofah (~> 2.0)
       sax-machine (~> 1.0)
+    flag_shih_tzu (0.3.15)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
-    formtastic_i18n (0.6.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    gettext (3.2.2)
+      locale (>= 2.0.5)
+      text (>= 1.3.0)
+    gettext_i18n_rails (1.8.0)
+      fast_gettext (>= 0.9.0)
+    gettext_i18n_rails_js (1.2.0)
+      gettext (>= 3.0.2)
+      gettext_i18n_rails (>= 0.7.1)
+      po_to_json (>= 1.0.0)
+      rails (>= 3.2.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    has_scope (0.6.0)
-      actionpack (>= 3.2, < 5)
-      activesupport (>= 3.2, < 5)
+    hashdiff (0.3.0)
     hashie (3.4.6)
     htmltoword (0.5.1)
       actionpack
@@ -153,11 +149,6 @@ GEM
     i18n (0.7.0)
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
-    inherited_resources (1.6.0)
-      actionpack (>= 3.2, < 5)
-      has_scope (~> 0.6.0.rc)
-      railties (>= 3.2, < 5)
-      responders
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -165,12 +156,20 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.5)
-      railties (>= 3.2.16)
     json (1.8.3)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    jwt (1.5.6)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
     ledermann-rails-settings (2.4.2)
       activerecord (>= 3.1)
     less (2.6.0)
@@ -181,6 +180,7 @@ GEM
       sprockets (> 2, < 4)
       tilt
     libv8 (3.16.14.15)
+    locale (2.1.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -209,27 +209,44 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    momentjs-rails (2.17.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.21)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    normalize-rails (4.1.1)
+    oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
     omniauth (1.3.1)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
+    omniauth-oauth2 (1.4.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    omniauth-orcid (1.2.1)
+      omniauth-oauth2 (~> 1.3)
     omniauth-shibboleth (1.2.1)
       omniauth (>= 1.0.0)
     orm_adapter (0.5.0)
     pg (0.19.0)
     pkg-config (1.1.7)
-    polyamorous (1.3.1)
-      activerecord (>= 3.0)
+    po_to_json (1.0.1)
+      json (>= 1.6.0)
     protected_attributes (1.1.3)
       activemodel (>= 4.0.1, < 5.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
+    rack-mini-profiler (0.10.1)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7)
@@ -257,13 +274,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.3.0)
-    ransack (1.8.2)
-      actionpack (>= 3.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      i18n
-      polyamorous (~> 1.3)
-    recaptcha (3.3.0)
+    recaptcha (4.1.0)
       json
     redcarpet (3.3.4)
     ref (2.0.0)
@@ -272,6 +283,7 @@ GEM
     rolify (5.1.0)
     ruby-progressbar (1.8.1)
     rubyzip (1.2.0)
+    safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -280,6 +292,12 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     sax-machine (1.3.2)
+    selectize-rails (0.12.4)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -291,6 +309,7 @@ GEM
     swagger-docs (0.2.9)
       activesupport (>= 3)
       rails (>= 3)
+    text (1.3.1)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -319,6 +338,10 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webmock (2.1.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.3)
     xpath (2.0.0)
@@ -329,19 +352,22 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeadmin!
-  amoeba
+  administrate!
   better_errors
   binding_of_caller
   byebug
-  caracal
-  caracal-rails
   contact_us (>= 1.2.0)
   devise
   devise_invitable
   dragonfly
   feedjira
+  flag_shih_tzu
+  font-awesome-rails
+  formtastic
   friendly_id
+  gettext (>= 3.0.2)
+  gettext_i18n_rails (~> 1.8)
+  gettext_i18n_rails_js (~> 1.2.0)
   htmltoword
   i18n-js (>= 3.0.0.rc11)
   jbuilder
@@ -353,18 +379,21 @@ DEPENDENCIES
   minitest-reporters
   mysql2 (~> 0.3.18)
   omniauth
+  omniauth-orcid
   omniauth-shibboleth
   pg
   protected_attributes
   pundit
+  rack-mini-profiler
   rack-test
   rails (= 4.2.7)
   railties
-  recaptcha
+  recaptcha (>= 4.0)
   redcarpet
   responders (~> 2.0)
   rolify
   sass-rails
+  simplecov
   sqlite3
   swagger-docs
   therubyracer (>= 0.11.4)
@@ -373,6 +402,7 @@ DEPENDENCIES
   twitter-bootstrap-rails (= 2.2.8)
   uglifier
   web-console (~> 2.0)
+  webmock
   wicked_pdf
   wkhtmltopdf-binary
   yaml_db!
@@ -382,4 +412,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.13.2
+   1.14.6

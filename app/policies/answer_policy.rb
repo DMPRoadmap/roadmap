@@ -8,8 +8,10 @@ class AnswerPolicy < ApplicationPolicy
     @answer = answer
   end
 
-  def create?
-    @answer.plan.editable_by(@user.id)
+  def update?
+    # TODO: Remove the owner check after the Roles have been updated
+    # is the plan editable by the user or the user is the owner of the plan
+    @answer.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
 
 end

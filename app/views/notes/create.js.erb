@@ -1,0 +1,31 @@
+
+// rewrite the number of notes heading e.g. Notes(3)
+<% noteslabel = "#notes_number_#{@question.id}" %>
+$("<%=noteslabel%>").html("Notes (<%= @num_notes %>)");
+
+// need to remove the existing tinymce editor otherwise
+tinymce.remove(".tinymce");
+
+// render the list of notes and invisible view and edit sections 
+<% listlabel = "#comment-question-area-#{@question.id}" %>
+$("<%=listlabel%>").html( 
+    "<%= escape_javascript( render partial: '/phases/note', locals: {question: @question, answer: @answer, plan: @plan } ) %>"
+);
+
+tinymce.init({
+  selector: ".tinymce",
+  statusbar: false,
+  menubar: false,
+  toolbar: "bold italic | bullist numlist | link | table",
+  plugins: [ "table", "link", "paste" ],
+  target_list: false, 
+  autoresize_min_height: 130,
+  extended_valid_elements: [ "a[href|target=_blank]" ],
+  paste_auto_cleanup_on_paste : true,
+  paste_remove_styles: true,
+  paste_retain_style_properties: "none",
+  paste_convert_middot_lists: true,
+  paste_remove_styles_if_webkit: true,
+  paste_remove_spans: true,
+  paste_strip_class_attributes: "all"
+});

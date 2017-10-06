@@ -15,8 +15,9 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-gem 'pg'
 gem 'mysql2', '~> 0.3.18'
+gem 'pg'
+gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
 #    JS <-> RUBY BRIDGE
@@ -28,16 +29,12 @@ gem 'therubyracer', '>=0.11.4', platforms: :ruby
 gem 'jbuilder'
 
 # ------------------------------------------------
-#    CLONE ACTIVERECORD MODELS AND ASSOCIATIONS
-gem 'amoeba'
-
-# ------------------------------------------------
 #    SLUGS/PERMALINKS
 gem 'friendly_id'
 
 # ------------------------------------------------
 #    SUPER ADMIN SECTION
-gem 'activeadmin', github: 'activeadmin'
+gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 
 # ------------------------------------------------
 #    USERS
@@ -46,6 +43,8 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
+gem 'omniauth-orcid'
+
 #rolify for roles
 gem 'rolify'
 # Gems for repository integration
@@ -60,11 +59,13 @@ gem 'ledermann-rails-settings'
 gem 'sass-rails'
 gem 'less-rails'                        # WE SHOULD PROBABLY USE SASS OR LESS NOT BOTH
 gem 'jquery-rails'
+gem 'font-awesome-rails'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'tinymce-rails'                     # WYSIWYG EDITOR
-gem 'contact_us', '>= 1.2.0'            # COULD BE EASILY REPLACED WITH OUR OWN CODE
-gem 'recaptcha'
+gem 'contact_us', '>= 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
+gem 'recaptcha', '>= 4.0'
 gem 'dragonfly'                         # LOGO UPLOAD
+gem 'formtastic'
 
 # ------------------------------------------------
 #     EXPORTING
@@ -73,13 +74,14 @@ gem 'thin'
 gem 'wicked_pdf'
 gem 'htmltoword'
 gem 'feedjira'
-gem 'caracal'                           # WORD DOC EXPORTING
-gem 'caracal-rails'
 gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
 # ------------------------------------------------
 #     INTERNATIONALIZATION
 gem "i18n-js", ">= 3.0.0.rc11"          #damodar added TODO: explain
+gem 'gettext_i18n_rails', '~> 1.8'
+gem "gettext_i18n_rails_js", "~> 1.2.0"
+gem 'gettext', '>=3.0.2', :require => false, :group => :development
 
 # ------------------------------------------------
 #     API
@@ -102,13 +104,17 @@ group :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
   gem 'rack-test'
+  gem 'webmock'
   gem 'sqlite3'
+  gem 'simplecov', require: false
 end
 
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'web-console', '~>2.0'
+  gem 'rack-mini-profiler'
+  #gem 'flamegraph'
 end
 
 group :production do

@@ -29,9 +29,13 @@ db/data.yml
 # Ignore the test DB
 db/test.sqlite3
 
+# Ignore the SimpleCov output
+coverage
+
 # Ignore database configuration and token secrets
 config/database.yml
 config/secrets.yml
+config/branding.yml
 
 # Ignore some of the initializers
 config/initializers/recaptcha.rb
@@ -57,3 +61,7 @@ config/initializers/wicked_pdf.rb
 # ignore yard generated documents
 /doc/*
 !/doc/README_FOR_APP
+
+# ignore auto-generated gettext files when running gettext:find
+config/locale/*/app.edit.po
+config/locale/*/app.po.time_stamp
