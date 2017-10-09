@@ -24,7 +24,7 @@
             <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}", class: 'left-indent' %>
             <div class="inline" id="logo-controls">
               <%= f.label _('Remove logo') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo %>
-              <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
+              <%= f.check_box :remove_logo, 'data-toggle': 'tooltip', title: _("This will remove your organisation's logo") %>
               <br />
               <div class="inline" id="logo-controls-separator">
                 <strong> - <%= _('or') %> - </strong>

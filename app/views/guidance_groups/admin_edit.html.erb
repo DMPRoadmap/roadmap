@@ -6,22 +6,26 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for(@guidance_group, url: admin_update_guidance_group_path(@guidance_group), html: {method: :put, class: 'roadmap-form bordered'}) do |f| %>
-      <fieldset class="side-by-side">
-        <div class="form-input">
-          <%= f.label _('Name'), for: :name %>
-          <%= f.text_field :name, as: :string, class: 'input-medium required' %>
-          <div class="inline">
+    <%= form_for(@guidance_group, url: admin_update_guidance_group_path(@guidance_group), html: {method: :put, id: "admin_update_guidance_group_form", class: "form-horizontal"}) do |f| %>
+      
+        <div class="form-group">
+          <%= f.label _('Name'), for: :name, class: "col-sm-2 control-label" %>
+          <div class="col-sm-8">
+            <%= f.text_field :name, as: :string, class: "form-control" %>
+          </div>
+          <div>
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
                data-content="<%= _('Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. "[guidance group name]: guidance on data sharing" so we suggest you just use the institution or department name.') %>" aria-label="<%= _('More information: Guidance group names') %>">
             <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
         </div>
     
-        <div class="form-input">
-          <%= f.label _('Published'), for: :published %>
-          <%= f.check_box :published %>
-          <div class="inline">
+        <div class="form-group">
+          <%= f.label _('Published'), for: :published, class: "col-sm-2 control-label" %>
+          <div class="checkbox col-sm-8">
+            <%= f.check_box :published %>
+          </div>
+          <div>
             <% lbl = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.") %>
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true"
                data-content="<%= lbl %>" aria-label="<%= lbl %>">
@@ -29,26 +33,27 @@
           </div>
         </div>
 
-        <div class="form-input">
-          <%= f.label _('Optional Subset'), for: :optional_subset %>
-          <%= f.check_box :optional_subset %> <%= _('e.g. School/ Department') %>
-          <div class="inline">
+        <div class="form-group">
+          <%= f.label _('Optional Subset'), for: :optional_subset, class: "col-sm-2 control-label" %>
+          <div class="checkbox col-sm-8">
+            <%= f.check_box :optional_subset %> <%= _('e.g. School/ Department') %>
+          </div>
+          <div>
             <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
                data-content="<%= _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.") %>" aria-label="<%= _('More information: Optional subsets for guidance groups') %>">
               <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
         </div>
        
-        <!-- submit buttons -->
-        <br />
-        <div class="form-input">
-          <div class="button-spacer">&nbsp;</div>
-          <%= f.submit _('Save'), class: 'btn btn-primary', role:"button" %>
-          <% if @guidance_group.published == false then %>
-            <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary", role:"button" %>
-          <% end %>
+        <div class="form-group">
+          <div class="col-sm-offset-2">
+            <%= f.submit _('Save'), class: 'btn btn-primary' %>
+            <% if @guidance_group.published == false then %>
+              <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary" %>
+            <% end %>
+          </div>
         </div>
-      </fieldset>
+
     <% end %>
   </div>
 </div>
