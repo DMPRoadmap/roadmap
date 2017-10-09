@@ -73,8 +73,8 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <!-- Guidance and Notes Section (includes Annotations) -->
-                  <%= render partial: 'guidance_section', locals: {plan: @plan, question: question, answer: answer, question_guidances: @question_guidances} %>
+                  <!-- Guidances and notes partial view -->
+                  <%= render partial: 'guidances_notes', locals: {plan: @plan, question: question, answer: answer, question_guidance: @question_guidance} %>
                 </div>
               </div>
             <% end %> <!-- section.questions.each do -->
@@ -82,9 +82,5 @@
         </div> <!-- panel-collapse -->
       <% end %>   <!-- @phase.sections.order(:number).each do -->
     </div>   <!-- panel-group -->
-  <script>
-    /* Initialises an editor for each textarea defined at (notes/_add.html.erb, notes/_edit.html.erb) whose class is tinymce_notes */
-    dmproadmap.utils.tinymce.init({ selector: '.tinymce_notes'});
-  </script>
   </div> <!-- tab panel -->
 </div> <!-- tab panels -->

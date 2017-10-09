@@ -125,6 +125,15 @@ class PhasesController < ApplicationController
     else
       @original_org = @phase.template.org
     end
+    render('/templates/container',
+      locals: { 
+        partial_path: 'admin_show',
+        phase: @phase,
+        template: @phase.template,
+        current: @current,
+        edit: @edit,
+        sections: @sections
+      })
   end
 
 
@@ -143,6 +152,11 @@ class PhasesController < ApplicationController
     @phase.template = @template
     authorize @phase
     @phase.number = @template.phases.count + 1
+    render('/templates/container',
+      locals: { 
+        partial_path: 'admin_add',
+        template: @template
+      })
   end
 
 
@@ -157,11 +171,11 @@ class PhasesController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, edit: 'true'), notice: success_message(_('phase'), _('created'))
+      redirect_to admin_show_phase_path(id: @phase.id), notice: success_message(_('phase'), _('created'))
     else
       flash[:alert] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
-      render "admin_add"
+      redirect_to admin_template_template_path(id: @phase.template_id)
     end
   end
 
@@ -191,7 +205,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render 'admin_show'
+      redirect_to admin_show_phase_path(@phase)
     end
   end
 
