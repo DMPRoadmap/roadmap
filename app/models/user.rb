@@ -265,8 +265,10 @@ class User < ActiveRecord::Base
   def get_preferences(key)
     if self.pref.present? && self.pref.settings[key.to_s].present?
       return self.pref.settings[key.to_s].deep_symbolize_keys
-    else
+    elsif Pref.default_settings
       return Pref.default_settings[key]
+    else
+      return nil
     end
   end
 
