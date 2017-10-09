@@ -1,13 +1,11 @@
 <% if id.nil? || id.identifier == '' %>
-    <%= link_to 'Create or connect your ORCID iD', Rails.application.routes.url_helpers.send("user_#{scheme.name.downcase}_omniauth_authorize_path"), id:"connect-orcid-button", target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
+    <%= link_to 'Create or connect your ORCID iD', Rails.application.routes.url_helpers.send("user_#{scheme.name.downcase}_omniauth_authorize_path"), id:"connect-orcid-button", target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: ""), 'data-toggle': "tooltip" %>
 <% else %>
   <% if scheme.user_landing_url.nil? %>
     <%= _("Your account has been linked to #{scheme.description}.") %>
   <% else %>
-    <%= link_to (image_tag("#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description)) + "#{scheme.user_landing_url}/#{id.identifier}", "#{scheme.user_landing_url}/#{id.identifier}", id: 'orcid-id', target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
+    <%= link_to (image_tag("#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description)) + "#{scheme.user_landing_url}/#{id.identifier}", "#{scheme.user_landing_url}/#{id.identifier}", id: 'orcid-id', target: '_blank', title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: " "), 'data-toggle': "tooltip" %>
   <% end %>
   <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
-  <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
-              destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title,
-              data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
+  <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title, 'data-toggle': "tooltip", data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
 <% end %>

@@ -1,29 +1,20 @@
 <%= form_for :phase, { url: admin_update_phase_path(phase.id), html: { method: :put, class: 'form-horizontal' }} do |f| %>
     <div class="form-group">
       <%= f.label(:title, _('Title') ,class: 'col-md-2 control-label') %>
-      <div class="col-md-8">
-        <%= f.text_field(:title, class: 'col-md-10 form-control', 'aria-required': false) %> 
-      </div>
-      <div class="col-md-2">
-        <%= render partial: '/shared/tooltip', locals: { aria_label: _('Title'), placement: 'top', title: _('Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP') } %>
+      <div class="col-md-10">
+        <%= f.text_field(:title, class: 'col-md-10 form-control', 'aria-required': false, 'data-toggle': 'tooltip', title: _('Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP')) %> 
       </div>
     </div>
     <div class="form-group">
       <%= f.label(:number, _('Order of display'), class: 'col-md-2 control-label') %>
-      <div class="col-md-8">
-        <%= f.number_field(:number, in: 1..5, class: 'form-control', 'aria-required': false) %>
-      </div>
-      <div class="col-md-2">
-        <%= render partial: '/shared/tooltip', locals: { aria_label: _('Order of display'), placement: 'top', title: _('This allows you to order the phases of your template.') } %>
+      <div class="col-md-10">
+        <%= f.number_field(:number, in: 1..5, class: 'form-control', 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order the phases of your template.')) %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
-      <div class="col-md-8">
+      <div class="col-md-10" data-toggle="tooltip" title="<%= _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") %>">
         <%= text_area_tag('phase-desc', phase.description, class: 'tinymce') %>
-      </div>
-      <div class="col-md-2">
-        <%= render partial: '/shared/popover', locals: { aria_label: _('Description'), placement: 'top', title: _('More information: Phase descriptions'), content: _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") } %>
       </div>
     </div>
     <div class="pull-right">

@@ -11,9 +11,7 @@
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: "col-sm-2 control-label") %>
     <div class="col-sm-6">
-      <%= f.email_field(:email, class: "form-control", "aria-required": true,
-                        title: _('Please enter your current password below when changing your email address.'),
-                        value: @user.email) %>
+      <%= f.email_field(:email, class: "form-control", "aria-required": true, 'data-toggle': "tooltip", title: _('Please enter your current password below when changing your email address.'), value: @user.email) %>
     </div>
   </div>
 
@@ -34,9 +32,7 @@
   <div class="form-group">
     <%= f.label(:recovery_email, _('Recovery email'), class: "col-sm-2 control-label") %>
     <div class="col-sm-6">
-      <%= f.email_field(:recovery_email, class: 'form-control',  "aria-required": true,
-                        title: _('This email will be used to recover your account if you change institutions'),
-                        value: @user.recovery_email) %>
+      <%= f.email_field(:recovery_email, class: 'form-control',  "aria-required": true, 'data-toggle': "tooltip", title: _('This email will be used to recover your account if you change institutions'), value: @user.recovery_email) %>
     </div>
   </div>
 
@@ -67,7 +63,7 @@
       <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
       <div id="other-org-name" style="display: <%= @other_organisations.nil? ? 'block' : 'none' %>" data-orgs="<%= other_organisations.join(',') %>">
         <%= f.label _('Organisation name'), for: :other_organisation, class: "col-sm-2 control-label" %>
-          <%= f.text_field :other_organisation, :autocomplete => "off", :class => 'form-control has-tooltip', 'data-toggle' => "tooltip", 'data-container' => "body", 'title' => _('Please enter the name of your organisation.') %>
+          <%= f.text_field :other_organisation, :autocomplete => "off", class: 'form-control', 'data-toggle' => "tooltip", 'title': _('Please enter the name of your organisation.') %>
       </div>
     </div>
   </div>
@@ -106,9 +102,8 @@
   <% unless @user.api_token.blank? %>
     <div class="form-group">
       <%= f.label(:api_token, _('API token'), class: "col-sm-2 control-label") %>
-      <div class="col-sm-6"><%= @user.api_token %></div>
-      <%= label_tag(:api_information, _('API Information'), class: "col-sm-2 control-label") %>
-      <div><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%></div>
+      <%= @user.api_token %>
+      <%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%>
     </div>
   <% end %>
 
