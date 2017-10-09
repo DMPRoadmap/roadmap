@@ -52,10 +52,6 @@
       <%= f.label _('Top banner text'), for: @org.banner_text, class: "col-sm-2 control-label" %>
       <div class="col-sm-8">
         <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text", class: "form-control") %>
-        <script>
-          /* Initialises an editor for textarea defined above with id org_banner_text */
-          dmproadmap.utils.tinymce.init({ selector: '#org_banner_text' });
-        </script>
       </div>
     </div>
 
