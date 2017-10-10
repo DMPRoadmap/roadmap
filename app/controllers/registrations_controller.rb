@@ -9,6 +9,10 @@ class RegistrationsController < Devise::RegistrationsController
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
     @default_org = current_user.org
+
+    if !@prefs
+      flash[:alert] = 'No default preferences found (should be in branding.yml).'
+    end
   end
 
   # GET /resource

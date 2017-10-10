@@ -15,23 +15,23 @@
           
             <% @perms.each do |perm| %>
               <% case perm.name when 'grant_permissions' %>
-                <th title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
+                <th data-toggle="tooltip" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
                   <%= _('Grant permissions') %>
                 </th>
               <% when 'modify_templates' %>
-                <th title="<%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
+                <th data-toggle="tooltip" title="<%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
                   <%= _('Modify templates') %>
                 </th>
               <% when 'modify_guidance' %>
-                <th title="<%= _('Allows the user to create and edit guidance') %>">
+                <th data-toggle="tooltip" title="<%= _('Allows the user to create and edit guidance') %>">
                   <%= _('Modify guidance') %>
                 </th>
               <% when 'use_api' %>
-                <th title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
+                <th data-toggle="tooltip" title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
                   <%= _('API rights') %>
                 </th>
               <% when 'change_org_details' %>
-                <th title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
+                <th data-toggle="tooltip" title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
                   <%= _('Change organisation details') %>
                 </th>
               <% end %>

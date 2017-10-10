@@ -9,7 +9,23 @@ These guidelines are an attempt to ensure that we are able to provide the commun
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
   * Make your changes in the new branch. When you have finished your work (e.g. 3 commits), squash all the commits on the branch that you are working on:
     ```bash
-    git rebase -i HEAD~3  # If you have added 3 commits
+    git rebase -i HEAD~n  # Where n is the number of commits you want to squash
+    ```
+    This command's output will look similar to this:
+    ```
+    pick 819b37a First commit in the feature branch.
+    pick 8634c87 More changes in the feature branch.
+    pick 59df9aa Third commit in feature branch.
+
+    # Rebase 6c51182..59df9aa onto 6c51182
+    ```
+    Leave the first commit as `pick` and change `pick` to `squash` for all following commits (to squash them into the single first commit), like so:
+    ```
+    pick 819b37a First commit in the feature branch.
+    squash 8634c87 More changes in the feature branch.
+    squash 59df9aa Third commit in feature branch.
+
+    # Rebase 6c51182..59df9aa onto 6c51182
     ```
     Then, change `pick` to `squash` for the 2nd and 3rd commits (to squash them into the single first commit).
   * To make sure that your version of the **`development`** branch is still up to date with this project, switch to it and synchronise:

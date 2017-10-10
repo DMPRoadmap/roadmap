@@ -12,7 +12,7 @@ in the admin interface.
       <!--Question number -->
       <tr>
         <td class="first_template"><%= _('Question number')%></td>
-        <td><%= f.number_field :number, in: 1..50, class: "number_field has-tooltip", "data-toggle" => "tooltip", "title" => _('This allows you to order questions within a section.') %>
+        <td><%= f.number_field :number, in: 1..50, class: "number_field", "data-toggle": "tooltip", "title" => _('This allows you to order questions within a section.') %>
           <div class="border_bottom"></div>
         </td>
       </tr>
@@ -35,31 +35,19 @@ in the admin interface.
               <%= f.hidden_field :id,{ class: "quest_id" } %>
               <%= f.select :question_format_id,
                 options_from_collection_for_select(QuestionFormat.all.order("title"), :id, :title, question.question_format_id),
-                {}, class: "question_format", id: "#{question.id}-select-format"%>
+                {}, class: "question_format", id: "#{question.id}-select-format", 'data-toggle': 'tooltip', 'data-html': true, title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")%>
             </div>
-            <div class="div_right_icon">
-              <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-                 data-content="<%= _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>") %>"
-                 aria-label="<%= _('More information: Answer format') %>">
-              <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-            </div>
-
           </div>
 
           <!--display form to enter option from checkbox/radio button/ dropdown/ multi select box-->
           <div id="options-<%= question.id %>" style="<%= question.question_format.option_based? ? '' : 'display:none;'%>" class="ques_format_option">
             <table class="options_table">
-              <thead>
+              <thead data-toggle="tooltip" title="<%= _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.') %>">
                 <tr>
                   <th nowrap class="small"><%= _('Order')%></th>
                   <th nowrap class="medium"><%= _('Text')%></th>
                   <th nowrap class="small"><%= _('Default')%></th>
-                  <th nowrap class="small">
-                    <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-                       data-content="<%= _('Enter any options that you wish to display. If you want to pre-set one option as selected, check the default box.') %>"
-                       aria-label="<%= _('More information: Question options') %>">
-                    <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-                  </th>
+                  <th nowrap class="small"></th>
                 </tr>
               </thead>
               <tbody class="options_tbody">
@@ -93,24 +81,18 @@ in the admin interface.
       <tr class="default_answer" style="<%= !question.question_format.option_based? ? '' : 'display:none;'%>">
         <td class="first_template"><%= _('Default answer')%></td>
         <td>
-          <div class="div_left_icon">
+          <div class="div_left_icon" data-toggle="tooltip" title="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
             <div>
               <%= text_field_tag("question-default-value-textfield", question.default_value, class: "default_answer_textfield", style: question.question_format.textfield? ? '' : 'display:none;') %>
               <%= text_area_tag("question-default-value-textarea", question.default_value, class: "default_answer_textarea tinymce", style: question.question_format.textarea? ? '' : 'display:none;') %>
             </div>
-          </div>
-          <div class="div_right_icon">
-            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-               data-content="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>"
-               aria-label="<%= _('More information: Default answer') %>">
-            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
         </td>
       </tr>
       <!-- Suggested answer or Example-->
-      <tr>
+      <tr data-toggle="tooltip" title="<%= _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>">
         <td class="first_template"><%= _('Example Answer')%></td>
         <td><div class="div_left_icon">
           <% example_answer = question.get_example_answer(current_user.org.id) %>
@@ -126,30 +108,18 @@ in the admin interface.
             </ul>
           <% end %>
           </div>
-          <div class="div_right_icon">
-            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-               data-content="<%= _('You can add an example or suggested answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>"
-               aria-label="<%= _('More information: Example answers') %>">
-            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
-          </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
         </td>
       </tr>
       <!-- Guidance for Question -->
-      <tr>
+      <tr data-toggle="tooltip" title="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>">
         <td class="first_template"><%= _('Guidance')%></td>
         <td class="tinymce">
           <div class="div_left_icon">
             <% guidance = question.get_guidance_annotation(current_user.org_id) %>
             <% guidance_text = guidance.present? ? guidance.text : "" %>
             <%= text_area_tag("question-guidance-#{question.id}", guidance_text , class: "tinymce") %>
-          </div>
-          <div class="div_right_icon">
-            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-               data-content="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>"
-               aria-label="<%= _('More information: Guidance') %>">
-            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
           </div>
           <div class="clearfix"></div>
           <div class="border_bottom"></div>
@@ -161,13 +131,7 @@ in the admin interface.
         <td><div class="div_left_icon">
             <%= f.collection_select(:theme_ids,
               Theme.all.order("title"),
-              :id, :title, {prompt: false, include_blank: "None"}, {multiple: true})%>
-          </div>
-          <div class="div_right_icon">
-            <a href="#" data-toggle="popover" rel: "popover" data-html: "true" role="button" 
-               data-content="<%= _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>") %>"
-               aria-label="<%= _('More information: Themes') %>">
-            <span class="fa fa-question-circle" aria-hidden="true"></span></a>
+              :id, :title, {prompt: false, include_blank: "None"}, {multiple: true, 'data-toggle': 'tooltip', 'data-html': true, title: _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>")})%>
           </div>
         </td>
       </tr>

@@ -2,23 +2,14 @@
 <%= form_for(template, url: admin_update_template_path(template), html: { method: :put, class: 'form-horizontal' }) do |f| %>
   <div class="form-group">
     <%= f.label(:title, _('Title'), class: 'col-md-2 control-label') %>
-    <div class="col-md-8">
-      <%= f.text_field(
-      :title,
-      class: "form-control",
-      "aria-required": false) %>
-    </div>
-    <div class="col-md-2">
-      <%= render partial: '/shared/tooltip', locals: { aria_label: _('Title'), placement: 'top', title: _('Add tooltip Please enter a title for your template.') } %>
+    <div class="col-md-10">
+      <%= f.text_field(:title, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', title: _('Please enter a title for your template.')) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
-    <div class="col-md-8">
+    <div class="col-md-10" data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
       <%= text_area_tag("template-desc", template.description, { class: 'form-control tinymce', "aria-required": false }) %>
-    </div>
-    <div class="col-md-2">
-      <%= render partial: '/shared/popover', locals: { aria_label: _('Description'), placement: 'top', title: _('More information: Template descriptions'), content: _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') } %>
     </div>
   </div>
   <div class="form-group">

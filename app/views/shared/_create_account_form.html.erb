@@ -24,7 +24,7 @@
                         classes: 'form-control'} %>
 
     <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-    <%= f.text_field :other_organisation, autocomplete: "off", class: 'form-control', 'data-toggle': "tooltip", 'data-placement': "right", title: _('Please enter the name of your organisation.'), style: 'display: none;' %>
+    <%= f.text_field :other_organisation, autocomplete: "off", class: 'form-control', 'data-toggle': "tooltip", title: _('Please enter the name of your organisation.'), style: 'display: none;' %>
     <a href="#" id="other_org_link"><%= _("My organisation isn't listed.") %></a>
   </div>
   
