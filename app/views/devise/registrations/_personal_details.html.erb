@@ -102,8 +102,9 @@
   <% unless @user.api_token.blank? %>
     <div class="form-group">
       <%= f.label(:api_token, _('API token'), class: "col-sm-2 control-label") %>
-      <%= @user.api_token %>
-      <%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%>
+      <div class="col-sm-6"><%= @user.api_token %></div>
+      <%= label_tag(:api_information, _('API Information'), class: "col-sm-2 control-label") %>
+      <div><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a></div>
     </div>
   <% end %>
 
