@@ -7,7 +7,7 @@ These guidelines are an attempt to ensure that we are able to provide the commun
   * Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
   * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`development`** branch
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
-  * Make your changes in the new branch. When you have finished your work, squash all the commits on the branch that you are working on:
+  * Make your changes in the new branch. When you have finished your work (e.g. 3 commits), squash all the commits on the branch that you are working on:
     ```bash
     git rebase -i HEAD~n  # Where n is the number of commits you want to squash
     ```
@@ -27,6 +27,7 @@ These guidelines are an attempt to ensure that we are able to provide the commun
 
     # Rebase 6c51182..59df9aa onto 6c51182
     ```
+    Then, change `pick` to `squash` for the 2nd and 3rd commits (to squash them into the single first commit).
   * To make sure that your version of the **`development`** branch is still up to date with this project, switch to it and synchronise:
     ```bash
     git checkout development

@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-md-12">
   <%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, method: :put, id: "edit_org_details_form", class: "form-horizontal" } ) do |f| %>
-
+    
     <div class="form-group">
       <%= f.label :name, 'Organization Name', class: "col-sm-2 control-label" %>
       <div class="col-sm-8">
