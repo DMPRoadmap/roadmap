@@ -4,6 +4,7 @@
     <ul class="nav navbar-nav">
       <li><%= link_to "&copy; 2004 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:name]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
       <li>•</li>
+      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>   
       <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
       <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
       <li><a href="#"><%= _('Privacy policy') %></a></li>
