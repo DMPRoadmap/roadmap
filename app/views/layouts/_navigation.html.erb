@@ -1,4 +1,4 @@
-<nav id="app-navbar" class="navbar navbar-inverse" role="navigation">
+<nav id="app-navbar" class="navbar navbar-inverse">
   <div class="container-fluid" >
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -59,6 +59,10 @@
       <ul class="nav navbar-nav navbar-right">
           <%= render "layouts/signin_signout" %>
       </ul>
+
+      <% unless isActivePage(root_path) %>
+        <%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
+      <% end %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

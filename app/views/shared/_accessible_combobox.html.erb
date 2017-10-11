@@ -19,7 +19,7 @@
          value="<%= default_selection[attribute] unless default_selection.nil? %>" />
   <datalist id="<%= id %>_list">
     <% models.each do |model| %>
-      <option value="<%= model[attribute] %>" />
+      <option value="<%= model[attribute] %>"></option>
     <% end %>
   </datalist>
 

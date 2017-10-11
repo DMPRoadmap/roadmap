@@ -19,20 +19,19 @@
 <!-- Sign in / out -->
 <% if user_signed_in? %>
   <li class="dropdown" id="signin-signout">
-      <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-user" aria-hidden="true">&nbsp;</i>
-        <%= current_user.name(false) %>
-        <span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu inverse-dropdown" aria-labelledby="user-menu">
-        <li>
-          <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to '<i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
-        </li>
-      </ul>
+    <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-user" aria-hidden="true">&nbsp;</i>
+      <%= current_user.name(false) %>
+      <span class="caret"></span>
     </a>
+    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="user-menu">
+      <li>
+        <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
+      </li>
+      <li>
+        <%= link_to '<i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+      </li>
+    </ul>
   </li>
 <% else %>
   <% if !isActivePage(root_path) %>
@@ -42,7 +41,5 @@
         <%= _('Sign in') %>
       </a>
     </li>
-          <%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
-
   <% end %>
 <% end %>
