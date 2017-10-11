@@ -1,5 +1,3 @@
-<% javascript 'views/orgs/shibboleth_ds.js'%>
-
 <div class="row">
   <div class="col-md-12">
     <h1>Find your institution to sign in</h1>
@@ -42,8 +40,8 @@
       </div>
     <% end %>
   
-    <div id="full_list" style="display: none" class="left-indent" aria-hidden="true">
-      <div id="org-list">
+    <div id="full_list" class="hidden" aria-hidden="true">
+      <div class="row">
         <%
         increment, cols, letter, total, row = 50, 1, '', @orgs.length, 0
 
@@ -57,11 +55,11 @@
             <% if row > 0 %>
               </ul></div>
             <% end %>
-            <div class="<%= (cols == 3 ? 'three' : (cols == 2 ? 'two' : 'one')) %>-column"><ul>
+            <div class="col-md-<%= (cols == 3 ? '4' : (cols == 2 ? '6' : '12')) %>"><ul>
           <% end %>
 
           <% unless org.name[0].capitalize == letter %>
-            <li class="separator"><%= org.name[0].capitalize %></li>
+            <li class="bg-primary"><%= org.name[0].capitalize %></li>
             <% row += 1 %>
             <% letter = org.name[0].capitalize %>
           <% end %>
@@ -74,12 +72,11 @@
   
     <hr />
   
-    <p class="left-indent">
-      <%= _('Institution not in the list?') %>&nbsp;
-      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin">
-        <%= _('Create an account with any email address')%>
-      </button>
+    <p>
+      <%= _('Institution not in the list?') %>
+      <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
+        <%= _('Create an account with any email address') %>
+      </a>
     </p>
-    <%= render partial: 'shared/signin' %>
   </div>
 </div>

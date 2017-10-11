@@ -22,7 +22,7 @@
     <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
   </div>
   <div class="checkbox">
-    <%= f.label :remember_me, raw("#{f.check_box :remember_me}#{_('Remember email')}") %>
+    <%= label_tag 'remember_email', raw("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
   </div>
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: 'control-label') %>
