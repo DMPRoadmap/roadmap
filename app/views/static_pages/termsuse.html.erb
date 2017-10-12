@@ -6,10 +6,45 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= raw _("<div class='white_background'> <p>The %{organisation_name} ('%{organisation_abbreviation}') are consortia supported by %{legal_entity}. Our primary constituency is the research community, particularly the higher and further education sector.</p> </div> <h3>%{application_name}</h3> <div class='white_background'> <p>%{application_name} ('the tool', 'the system') is a tool developed by the %{organisation_abbreviation} as a shared resource for the research community. It is hosted by %{legal_entity}.</p> </div> <h3>Your personal details</h3> <div class='white_background'> <p>In order to help identify and administer your account with %{application_name}, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the %{organisation_abbreviation} partner institutions but only for legitimate %{organisation_abbreviation} purposes. We will not sell, rent or trade any personal information you provide to us.</p> </div> <h3>Privacy policy</h3> <div class='white_background'> <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at %{legal_entity}.  We compile anonymised, automated and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorised officers of your home institution may access your plans for specific purposes - for example, to track compliance with funder/institutional requirements or to calculate storage requirements.</p> </div> <h3>Freedom of Information</h3> <div class='white_background'> <p>%{legal_entity} holds your plans on your behalf, but they are your property and responsibility. Any FOI applicants will be referred back to your home institution.</p> </div> <h3>Passwords</h3> <div class='white_background'> <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p> </div> <h3>Cookies</h3> <div class='white_background'> <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> </div> <br /> <div class='white_background'> <p>Use of the tool indicates that you understand and agree to these terms and conditions.</p></div>") % {
-              :legal_entity => Rails.configuration.branding[:legal_entity],
-              :organisation_name => Rails.configuration.branding[:organisation][:name],
-              :organisation_abbreviation => Rails.configuration.branding[:organisation][:abbreviation],
-              :organisation_url => Rails.configuration.branding[:organisation][:url],
-              :application_name => Rails.configuration.branding[:application][:name] } %>
+    <div>
+      <p>The <%= link_to 'Digital Curation Centre', 'https://dmponline.dcc.ac.uk/' %> (DCC) and the <%= link_to 'California Digital Library', 'http://www.cdlib.org/' %> 
+      <%= _("(CDL) are consortia supported by the University of Edinburgh and the University of California, respectively. Our primary constituency is the research community. We provide services to the UK, US and international higher education sector. ") %></p>
+
+      <h3><%= _(" %{application_name} ")  % {:application_name => Rails.configuration.branding[:application][:name]} %></h3>
+
+      <p><%= _("DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at ") %>
+
+      <%= _(" %{organisation_name} ") % { :organisation_name => Rails.configuration.branding[:organisation][:name]} %></p> 
+
+      <%= raw _("<h3>Your personal details and consent notice</h3> 
+
+      <p>In order to help identify and administer your account with DMPRoadmap, we need to store your name and email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the DCC and CDL partner institutions but only for the following legitimate DCC and CDL purposes: marketing, improving our services and informing you of relevant content and events. We will not sell, rent, or trade any personal information you provide to us. 
+
+
+        By using this system, you consent to the collection, retention, and use of your personal information in accordance with the above. You have the right to ask us not to process your personal details for marketing purposes.</p> 
+
+      <h3>Privacy policy</h3> 
+
+      <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at DCC and CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorized officers of your home institution may access your plans for specific purposes - for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines.</p> 
+
+      <h3>Freedom of Information</h3> 
+
+      <p>DCC and CDL hold your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution.</p> 
+
+      <h3>Passwords</h3> 
+      <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p>
+
+      <h3>Cookies</h3>
+
+      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> 
+
+      <h3>Third party APIs</h3> 
+
+      <p>Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service.</p>
+
+      <h3>Revisions</h3> 
+
+      <p>This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.</p>" )%>
+    </div>
   </div>
+</div>
