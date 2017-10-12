@@ -36,8 +36,8 @@
               <td><%= template.title %></td>
               <td><%= template.org.name %></td>
               <td class="text-center">
-                <%= link_to _('DOCX'), template_export_path(template.dmptemplate_id, format: :docx) %>
-                <%= link_to _('PDF'), template_export_path(template.dmptemplate_id, format: :pdf) %>
+                <%= link_to _('DOCX'), template_export_path(template.dmptemplate_id, format: :docx), target: '_blank' %>
+                <%= link_to _('PDF'), template_export_path(template.dmptemplate_id, format: :pdf), target: '_blank' %>
               </td>
             </tr>
           <% end %>
