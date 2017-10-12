@@ -50,9 +50,7 @@ class RolesController < ApplicationController
       UserMailer.permissions_change_notification(@role, current_user).deliver_now
       render json: {code: 1, msg: "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."}
     else
-#      flash[:alert] = failed_create_error(@role, _('role'))
-      #format.html{ render action: "edit" }
-      render json: {code: 1, msg: flash[:alert]}
+      render json: {code: 0, msg: flash[:alert]}
     end
   end
 
