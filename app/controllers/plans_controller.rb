@@ -161,10 +161,11 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.update_attributes(attrs)
         format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
-        format.json { head :no_content }
+        format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
       else
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
+        format.json {render json: {code: 0, msg: failed_update_error(@plan, _('plan'))}}
       end
     end
   end
@@ -318,9 +319,9 @@ class PlansController < ApplicationController
     authorize plan
     plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
     if plan.save
-      render json: {msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
+      render json: {code: 1, msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
     else
-      render status: :bad_request, json: {msg: _("Unable to change the plan's test status")}
+      render status: :bad_request, json: {code: 0, msg: _("Unable to change the plan's test status")}
     end
   end
 
