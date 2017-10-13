@@ -7,14 +7,12 @@
 <div class="row">
   <div class="col-md-12">
     <div>
-      <p>The <%= link_to 'Digital Curation Centre', 'https://dmponline.dcc.ac.uk/' %> (DCC) and the <%= link_to 'California Digital Library', 'http://www.cdlib.org/' %> 
+      <p>The <%= link_to 'Digital Curation Centre', 'https://dmponline.dcc.ac.uk/' %> (DCC) and <%= link_to 'California Digital Library', 'http://www.cdlib.org/' %> 
       <%= _("(CDL) are consortia supported by the University of Edinburgh and the University of California, respectively. Our primary constituency is the research community. We provide services to the UK, US and international higher education sector. ") %></p>
 
-      <h3><%= _(" %{application_name} ")  % {:application_name => Rails.configuration.branding[:application][:name]} %></h3>
+      <h3><%= _('DMPRoadmap') %></h3>
 
-      <p><%= _("DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at ") %>
-
-      <%= _(" %{organisation_name} ") % { :organisation_name => Rails.configuration.branding[:organisation][:name]} %></p> 
+      <p><%= _("DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center.") %></p> 
 
       <%= raw _("<h3>Your personal details and consent notice</h3> 
 
@@ -36,7 +34,7 @@
 
       <h3>Cookies</h3>
 
-      <p>Please note that %{application_name} uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> 
+      <p>Please note that DMPRoadmap uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> 
 
       <h3>Third party APIs</h3> 
 
@@ -44,7 +42,7 @@
 
       <h3>Revisions</h3> 
 
-      <p>This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.</p>" )%>
+      <p>This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.</p>" ) %>
     </div>
   </div>
 </div>
