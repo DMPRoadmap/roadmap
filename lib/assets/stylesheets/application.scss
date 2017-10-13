@@ -10,6 +10,8 @@ $fa-font-path: "~font-awesome/fonts/";
 *= require jquery-ui-dist/jquery-ui.theme.min
 */
 
+@import "dmproadmap.scss";
+
 /* These will eventually go away once Boostrap is in place */
 /*
 @import "dmproadmap/base";
