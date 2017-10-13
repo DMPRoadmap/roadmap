@@ -174,7 +174,12 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
-    @allow_visibility = (@plan.num_answered_questions >= 1 && !@plan.is_test?)
+
+    min_percentage = Rails.application.config.default_plan_percentage_answered
+    nanswers = @plan.num_answered_questions()
+    nquestions = @plan.num_questions()
+    value=(nanswers.to_f/nquestions*100).round(2)
+    @allow_visibility = (value >= min_percentage && !@plan.is_test?)
   end
 
 
@@ -290,13 +295,9 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         @plan.assign_creator(current_user)
-        flash[:notice] = success_message(_('plan'), _('copied'))
-        format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
-        # format.html { redirect_to @plan, notice: _('Plan was successfully duplicated.') }
-        # format.json { head :no_content }
+        format.html { redirect_to @plan, notice: success_message(_('plan'), _('copied')) }
       else
-        flash[:alert] = failed_create_error(@plan, 'Plan')
-        format.js {}
+        format.html { redirect_to plans_path, alert: failed_create_error(@plan, 'Plan') }
       end
     end
   end
@@ -454,7 +455,6 @@ class PlansController < ApplicationController
     if templates.empty?
       templates << Template.where(is_default: true, published: true).first
     end
-
     templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
   end
 

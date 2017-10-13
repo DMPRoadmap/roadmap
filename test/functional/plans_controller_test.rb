@@ -148,23 +148,22 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test 'duplicate a plan' do
     # Should redirect user to the root path if they are not logged in!
-    post duplicate_plan_path(@plan, format: :js)
+    post duplicate_plan_path(@plan)
     assert_unauthorized_redirect_to_root_path
 
     # User who is does not have access to the plan
     sign_in User.first
-    put plan_path(@plan, format: :js)
+    put plan_path(@plan)
     assert_equal _('You are not authorized to perform this action.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to plans_url
 
     sign_in @user
-    post duplicate_plan_path(@plan, format: :js)
+    post duplicate_plan_path(@plan)
     @duplicate_plan = Plan.last
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('copied')
-    assert_response :success
-    assert assigns(:plan)
-    assert_equal 'Copy of Test Plan', @duplicate_plan.title, "Copy of"
+    assert_response :redirect
+    assert_redirected_to plan_url(@duplicate_plan)
   end
 
 

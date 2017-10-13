@@ -4,8 +4,8 @@ class PhasesController < ApplicationController
   after_action :verify_authorized
 
 
-    # GET /plans/:plan_id/phases/:id/edit
-    def edit
+  # GET /plans/:plan_id/phases/:id/edit
+  def edit
 
     @plan = Plan.eager_load2(params[:plan_id])
     # authorization done on plan so found in plan_policy
@@ -69,11 +69,11 @@ class PhasesController < ApplicationController
 
     if !user_signed_in? then
       respond_to do |format|
-                format.html { redirect_to edit_user_registration_path }
-            end
-        end
-
+        format.html { redirect_to edit_user_registration_path }
+      end
     end
+
+  end
 
 
     # GET /plans/PLANID/phases/PHASEID/status.json

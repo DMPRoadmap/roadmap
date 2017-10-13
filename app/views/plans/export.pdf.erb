@@ -31,7 +31,9 @@
         <% end %>
 
         <% @sections.each do |section| %>
-          <h2><%= section.title %></h2>
+          <% if @question_headings %>
+            <h2><%= section.title %></h2>
+          <% end %>
           <% section.questions.each do |question| %>
             <% answer = @plan.answer(question.id, false) %>
             <% if answer.nil? && !@unanswered_questions then next end %>

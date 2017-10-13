@@ -27,14 +27,18 @@
         </table>
      <% end %>
       <% @sections.each do |section| %>
-        <h3><%= section.title %></h3>
+        <% if @question_headings %>
+          <h3><%= section.title %></h3>
+        <% end %>
         <table class="dmp_table">
           <thead>
             <tr>
               <% if @question_headings %>
               <th class="dmp_th_medium"><%= _('Questions')%></th>
-              <% end %>
               <th class="dmp_th_big"><%= _('Answers')%></th>
+              <% else %>
+              <th class="dmp_th_big"></th>
+              <% end %>
             </tr>
           </thead>
           <tbody>
