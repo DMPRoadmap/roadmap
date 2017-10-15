@@ -9,8 +9,8 @@
 <div class="row">
   <div class="col-md-12">
     <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {id: 'shibboleth_ds'} do |f| %>
-      <div class="form-group">
-        <%= f.label(:org_name, _('Look up your institution here')) %>
+      <div class='form-group col-xs-8'>
+        <%= f.label(:org_name, _('Look up your institution here'), class: 'control-label') %>
   
         <% if @orgs.length <= 10 %>
           <select id="org_name" class="left-indent">
@@ -32,7 +32,7 @@
         <%= f.button(_('Go'), class: "btn btn-default", type: "submit") %>
 
         <% if @orgs.length > 10 %>
-          <p class="centered left-indent">
+          <p class="centered">
             <strong>- <%= _('or') %> -</strong>
             <br />
             <a id="show_list" href="#"><%= _('See the full list of participating institutions') %></a>
@@ -42,7 +42,7 @@
       </div>
     <% end %>
   
-    <div id="full_list" style="display: none" class="left-indent" aria-hidden="true">
+    <div id="full_list" style="display: none" aria-hidden="true">
       <div id="org-list">
         <%
         increment, cols, letter, total, row = 50, 1, '', @orgs.length, 0
@@ -74,7 +74,7 @@
   
     <hr />
   
-    <p class="left-indent">
+    <p>
       <%= _('Institution not in the list?') %>&nbsp;
       <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin">
         <%= _('Create an account with any email address')%>

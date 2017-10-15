@@ -1,97 +1,79 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name, tab: 'personal-details-tab'), html: {method: :put, id: "personal_details_registration_form", class: "form-horizontal"}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name, tab: 'personal-details-tab'), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
   <p class="form-control-static">
     <%= _("Please note that your email address is used as your username.
     If you change this, remember to use your new email address on sign in.") %>
   </p>
 
-  <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
-  <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
+  <p class='form-control-static'><%= _('You can edit any of the details below.') %></p>
+  <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
   <%= hidden_field_tag :skip_personal_details, "false" %>
 
-  <div class="form-group">
-    <%= f.label(:email, _('Email'), class: "col-sm-2 control-label") %>
-    <div class="col-sm-6">
-      <%= f.email_field(:email, class: "form-control", "aria-required": true, 'data-toggle': "tooltip", title: _('Please enter your current password below when changing your email address.'), value: @user.email) %>
-    </div>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:email, _('Email'), class: 'control-label') %>
+    <%= f.email_field(:email, class: 'form-control', "aria-required": true, 'data-toggle': "tooltip", title: _('Please enter your current password below when changing your email address.'), value: @user.email) %>
   </div>
 
-  <div class="form-group">
-    <%= f.label(:firstname, _('First name'), class: "col-sm-2 control-label") %>
-    <div class="col-sm-6">
-      <%= f.text_field(:firstname, class: 'form-control', "aria-required": true, value: @user.firstname) %>
-    </div>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:firstname, _('First name'), class: 'control-label') %>
+    <%= f.text_field(:firstname, class: 'form-control', "aria-required": true, value: @user.firstname) %>
   </div>
 
-  <div class="form-group">
-    <%= f.label(:surname, _('Last name'), class: "col-sm-2 control-label") %>
-    <div class="col-sm-6">
-      <%= f.text_field(:surname, class: 'form-control', "aria-required": true, value: @user.surname) %>
-    </div>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:surname, _('Last name'), class: 'control-label') %>
+    <%= f.text_field(:surname, class: 'form-control', "aria-required": true, value: @user.surname) %>
   </div>
 
-  <div class="form-group">
-    <%= f.label(:recovery_email, _('Recovery email'), class: "col-sm-2 control-label") %>
-    <div class="col-sm-6">
-      <%= f.email_field(:recovery_email, class: 'form-control',  "aria-required": true, 'data-toggle': "tooltip", title: _('This email will be used to recover your account if you change institutions'), value: @user.recovery_email) %>
-    </div>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:recovery_email, _('Recovery email'), class: 'control-label') %>
+    <%= f.email_field(:recovery_email, class: 'form-control',  "aria-required": true, 'data-toggle': "tooltip", title: _('This email will be used to recover your account if you change institutions'), value: @user.recovery_email) %>
   </div>
 
-  <div class="form-group">
-    <%= f.label(:password, _('Password'), class: "col-sm-2 control-label") %>
-    <div class="col-sm-6">
-      <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
-    </div>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:password, _('Password'), class: 'control-label') %>
+    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
   </div>
 
-  <div class="form-group">
-    <%= f.label(:org_name, _('Organisation'), class: "col-sm-2 control-label") %>
-    <div class="col-sm-6">
-      <%= render partial: "shared/accessible_combobox",
-               locals: {name: "#{resource_name}[org_name]",
-                        id: "#{resource_name}_org_name",
-                        default_selection: @default_org,
-                        models: @orgs,
-                        attribute: 'name',
-                        classes: 'form-control'} %>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:org_name, _('Organisation'), class: 'control-label') %>
+    <%= render partial: "shared/accessible_combobox",
+             locals: {name: "#{resource_name}[org_name]",
+                      id: "#{resource_name}_org_name",
+                      default_selection: @default_org,
+                      models: @orgs,
+                      attribute: 'name'} %>
 
-      <div id="other-org-link">
-        <a href="#"><%= _("My organisation isn't listed.") %></a>
-      </div>
+    <div id='other-org-link'>
+      <a href="#"><%= _("My organisation isn't listed.") %></a>
     </div>
 
-    <div class="form-group">
-      <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-      <div id="other-org-name" style="display: <%= @other_organisations.nil? ? 'block' : 'none' %>" data-orgs="<%= other_organisations.join(',') %>">
-        <%= f.label _('Organisation name'), for: :other_organisation, class: "col-sm-2 control-label" %>
-          <%= f.text_field :other_organisation, :autocomplete => "off", class: 'form-control', 'data-toggle' => "tooltip", 'title': _('Please enter the name of your organisation.') %>
-      </div>
+    <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
+    <div id="other-org-name" style="display: <%= @other_organisations.nil? ? 'block' : 'none' %>" data-orgs="<%= other_organisations.join(',') %>">
+    <%= f.label _('Organisation name'), for: :other_organisation, class: 'control-label' %>
+    <%= f.text_field :other_organisation, :autocomplete => "off", class: 'form-control', 'data-toggle' => "tooltip", 'title': _('Please enter the name of your organisation.') %>
     </div>
   </div>
 
   <% if MANY_LANGUAGES %>
-    <div class="form-group">
+    <div class='form-group col-xs-8'>
       <% lang_id = current_user.language.nil? ? Language.id_for(FastGettext.default_locale) : current_user.language.id %>
-      <%= f.label(:language_id, _('Language'), class: "col-sm-2 control-label") %>
-      <div class="col-sm-6">
-        <%= select_tag("user[language_id]",
-            options_from_collection_for_select(@languages, "id", "name", lang_id),
-            class: "form-control") %>
-      </div>
+      <%= f.label(:language_id, _('Language'), class: 'control-label') %>
+      <%= select_tag("user[language_id]",
+          options_from_collection_for_select(@languages, "id", "name", lang_id),
+          class: 'form-control') %>
     </div>
   <% end %>
 
   <% @identifier_schemes.each do |scheme| %>
-    <div class="form-group">
+    <div class='form-group col-xs-8'>
       <% if scheme.name == 'shibboleth' %>
-          <label class="col-sm-2 control-label">
+          <label class='control-label'>
             <span class="aria-only" aria-hidden="false"><%= scheme.description.capitalize %></span>
             <i class="fa fa-user" title="<%= scheme.description.capitalize %>" aria-hidden="true"></i>
           </label>
       <% else %>
-          <%= label_tag(:scheme_name, scheme.name.capitalize, class: "col-sm-2 control-label") %>
+          <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>
-
-      <div class="col-sm-6 identifier-scheme">
+      <div class='identifier-scheme'>
         <%= render partial: "external_identifier_#{scheme.name}",
                    locals: { scheme: scheme,
                              id: current_user.identifier_for(scheme)} %>
@@ -100,18 +82,16 @@
   <% end %>
 
   <% unless @user.api_token.blank? %>
-    <div class="form-group">
-      <%= f.label(:api_token, _('API token'), class: "col-sm-2 control-label") %>
-      <div class="col-sm-6"><%= @user.api_token %></div>
-      <%= label_tag(:api_information, _('API Information'), class: "col-sm-2 control-label") %>
-      <div><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a></div>
+    <div class='form-group col-xs-8'>
+      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
+      <%= @user.api_token %>
     </div>
+      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
+    <div><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a></div>
   <% end %>
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-    </div>
+  <div class='form-group col-xs-8'>
+    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
   </div>
 <% end %>
 
