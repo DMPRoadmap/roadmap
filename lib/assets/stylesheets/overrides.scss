@@ -1,12 +1,104 @@
 /* This file contains overrides to the core Bootstrap 3.x styling */
 /* -------------------------------------------------------------- */
 
-/* Footer Section */
-footer {
-  margin-top: $footer-margin-top;
-  background: $footer-background;
-  color: $footer-color;
+$red: #CC0025;
 
-  a { color: $footer-color; }
-	
+/* LOGO STYLING */
+
+.org-logo {
+  height: 100px;
+  padding-right:15px;
+}
+
+/**** font configuration ****/
+/*
+@font-face {
+  font-family: 'GillSansLight';
+  src: font-url('GillSansLight.ttf') format('truetype');
+  font-weight: normal;
+}
+
+/* Font Smoothing in Webkit /* 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* MESSAGES */
+/*
+$error-color: #4F5253;
+*/
+
+/* TABLE STYLING */
+
+.table { border: 1px solid #4F5253; }
+.table thead > tr > th { border-bottom: none; }
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid #4F5253; }
+
+thead th {
+    background-color: #4F5253;
+    color: white;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #CCC;
+}
+
+/* TABS STYLING */
+
+.nav-tabs{
+  background-color: #4F5253;
+  color: #fff;
+  border: none;
+  margin-right:2px;
+}
+.nav-tabs > li > a{
+  border-radius: 5px;
+  color: #fff;
+}
+.nav-tabs > li > a:hover{
+  background-color: #fff;
+  color: #4F5253;
+  border:1px solid #4F5253;
+  border-bottom: none;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover{
+  background-color: #fff !important;
+  color:#4F5253;
+  border:1px solid #4F5253;
+  border-bottom: none;
+}
+
+/* PANEL STYLING */
+
+.panel-title a {
+    display: block;
+    padding: 8px 15px;
+    margin: -10px -15px;
+    background-color: #4F5253;
+    color: #fff;
+}
+
+/* BUTTONS STYLING */
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active, 
+.btn-primary.active, 
+.btn-primary:active:focus {
+  background-color: #4F5253;
+  color: $white;
+  border-color: #4F5253;
+  box-shadow: none;
+}
+
+.btn-default:hover, 
+.btn-default:focus, 
+.btn-default:active, 
+.btn-default.active, 
+.btn-default:active:focus {
+  background-color: #4F5253;
+  color: $white;
+  border-color: #4F5253;
+  box-shadow: none;
 }

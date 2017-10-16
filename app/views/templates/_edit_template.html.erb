@@ -1,21 +1,20 @@
 <!-- edit template details A template is passed as an argument-->
-<%= form_for(template, url: admin_update_template_path(template), html: { method: :put, class: 'form-horizontal' }) do |f| %>
-  <div class="form-group">
-    <%= f.label(:title, _('Title'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <%= f.text_field(:title, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', title: _('Please enter a title for your template.')) %>
-    </div>
+<%= form_for(template, url: admin_update_template_path(template), html: { method: :put }) do |f| %>
+  <div class='form-group col-xs-8'>
+    <%= f.label(:title, _('Title'), class: 'control-label') %>
+    <%= f.text_field(:title, class: 'form-control', "aria-required": false, 'data-toggle': 'tooltip', title: _('Please enter a title for your template.')) %>
   </div>
-  <div class="form-group">
-    <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10" data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
+
+  <div class='form-group col-xs-8'>
+    <%= f.label(:description, _('Description'), class: 'control-label') %>
+    <div data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
       <%= text_area_tag("template-desc", template.description, { class: 'form-control tinymce', "aria-required": false }) %>
     </div>
   </div>
-  <div class="form-group">
-    <%= label_tag(:status, _('Status'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <p class="form-control-static">
+
+  <div class='form-group col-xs-8'>
+    <%= label_tag(:status, _('Status'), class: 'control-label') %>
+      <p class='form-control-static'>
         <% if template_hash[:live].nil? %>
           <%= _('Unpublished') %>
         <% elsif template_hash[:current].dirty? %>
@@ -24,26 +23,24 @@
           <%= _('Published') %>
         <% end %>
       </p>
-    </div>
   </div>
-  <div class="form-group">
-    <%= label_tag(:created_at, _('Created at'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <p class="form-control-static">
-        <%= l template.created_at.to_date, formats: :short %>
-      </p>
-    </div>
+
+  <div class='form-group col-xs-8'>
+    <%= label_tag(:created_at, _('Created at'), class: 'control-label') %>
+    <p class='form-control-static'>
+      <%= l template.created_at.to_date, formats: :short %>
+    </p>
   </div>
-  <div class="form-group">
-    <%= label_tag(:updated, _('Last updated'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <p class="form-control-static">
-        <%= l template.updated_at.to_date, formats: :short %>
-      </p>
-    </div>
+
+  <div class='form-group col-xs-8'>
+    <%= label_tag(:updated, _('Last updated'), class: 'control-label') %>
+    <p class='form-control-static'>
+      <%= l template.updated_at.to_date, formats: :short %>
+    </p>
   </div>
-  <div class="pull-right">
-    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-    <%= link_to(_('Cancel'), '#', { class: "btn btn-default template_show_link", role: "button" }) %>
+
+  <div class='form-group col-xs-8'>
+    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+    <%= link_to(_('Cancel'), '#', { class: 'btn btn-default template_show_link', role: "button" }) %>
   </div>
 <% end %>
