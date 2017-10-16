@@ -2,20 +2,21 @@
 <% notes = answer.non_archived_notes %>
 <div class="row">
   <div class="col-md-12">
-    <div class="pull-right">
-      <%= link_to(_('Add a Comment'), "#note_new#{question.id}", class: "btn btn-default note_new_link", role: "button") %>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
     <%= render partial: "/notes/list", locals: {question_id: question.id, notes: notes, plan: plan}, formats: [:html] %>  
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div id="<%= "note_new#{question.id}" %>" style="display: none">
+    <div id="<%= "note_new#{question.id}" %>">
         <%= render partial: "/notes/new", locals: { question: question, answer: answer, plan: plan }, formats: [:html] %>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to(_('Add Comment'), "#note_new#{question.id}", class: "btn btn-default note_new_link", role: "button", style: "visibility: hidden") %>
+    </div>
+  </div>
+</div>
+<span class="currentViewSelector" style="display: none;"><%= "#note_new#{question.id}" %></span>
