@@ -8,7 +8,7 @@ class NotesController < ApplicationController
     @note = Note.new
     @note.user_id = params[:note][:user_id]
 
-    # create answer if we dont already have one
+    # create answer if we don't have one already
     if params[:note][:answer_id].present?
       @answer = Answer.find(params[:note][:answer_id])
     else

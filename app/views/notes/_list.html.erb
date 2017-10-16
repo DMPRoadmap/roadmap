@@ -15,10 +15,10 @@
                                 <li><%= link_to(_('Show'), "#note_show#{note.id}", class: 'note_show_link') %></li>
                                 <% if current_user.id == note.user_id %>
                                     <li><%= link_to(_('Edit'), "#note_edit#{note.id}", class: 'note_edit_link') %></li>
-                                    <li><%= link_to(_('Remove'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
+                                    <li><%= link_to(_('Delete'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
                                 <% else  %>
                                     <% if plan.administerable_by?(current_user.id) %>
-                                        <li><%= link_to(_('Remove'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
+                                        <li><%= link_to(_('Delete'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
                                     <% end %>
                                 <% end %>
                             </ul>
