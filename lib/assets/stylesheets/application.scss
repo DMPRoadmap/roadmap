@@ -10,15 +10,7 @@ $fa-font-path: "~font-awesome/fonts/";
 *= require jquery-ui-dist/jquery-ui.theme.min
 */
 
-/* These will eventually go away once Boostrap is in place */
-/*
-@import "dmproadmap/base";
-@import "dmproadmap/tabs"; 
-@import "dmproadmap/accordions";
-@import "dmproadmap/modals";
-@import "dmproadmap/tables";
-@import "dmproadmap/forms";
-*/
+@import "/overrides.scss";
 
 [class^="bg-"] {
     padding: 15px;
