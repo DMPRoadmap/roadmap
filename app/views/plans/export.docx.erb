@@ -16,7 +16,9 @@
 
 
 <% @sections.each do |section| %>
-  <h3><%= section.title %></h3>
+  <% if @question_headings %>
+    <h3><%= section.title %></h3>
+  <% end %>
   <% section.questions.each do |question| %>
     <% answer = @plan.answer(question.id, false) %>
     <% if answer.nil? && !@unanswered_questions then next end %>

@@ -1,5 +1,3 @@
-<% javascript 'views/orgs/shibboleth_ds.js'%>
-
 <div class="row">
   <div class="col-md-12">
     <h1>Find your institution to sign in</h1>
@@ -57,11 +55,11 @@
             <% if row > 0 %>
               </ul></div>
             <% end %>
-            <div class="<%= (cols == 3 ? 'three' : (cols == 2 ? 'two' : 'one')) %>-column"><ul>
+            <div class="col-md-<%= (cols == 3 ? '4' : (cols == 2 ? '6' : '12')) %>"><ul>
           <% end %>
 
           <% unless org.name[0].capitalize == letter %>
-            <li class="separator"><%= org.name[0].capitalize %></li>
+            <li class="bg-primary"><%= org.name[0].capitalize %></li>
             <% row += 1 %>
             <% letter = org.name[0].capitalize %>
           <% end %>
@@ -80,6 +78,5 @@
         <%= _('Create an account with any email address')%>
       </button>
     </p>
-    <%= render partial: 'shared/signin' %>
   </div>
 </div>

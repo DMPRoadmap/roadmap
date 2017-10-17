@@ -38,7 +38,7 @@
 <% end %>
 <div class="form-group">
 <% if question.option_comment_display %><!-- Comment text area for option_based questions -->
-    <%= label_tag('answer[text]', _('Comment'), class: 'control-label') %>
+    <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>
     <% if readonly %>
         <p><%= raw(answer.text) %></p>
     <% else %>

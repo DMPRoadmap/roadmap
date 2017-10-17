@@ -44,7 +44,7 @@
                 <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
                 <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
                 <td class="text-center">
-                  <%= link_to _('PDF'), plan_export_path(plan, format: :pdf), class: "dmp_table_link" %>
+                  <%= link_to _('PDF'), plan_export_path(plan, format: :pdf), class: "dmp_table_link", target: '_blank' %>
                 </td>
               </tr>
             <% end %>

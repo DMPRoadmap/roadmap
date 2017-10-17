@@ -1,7 +1,7 @@
 <h2><%= _('Set plan visibility') %></h2>
 <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
 
-<%= form_for @plan, html: {method: :put} do |f| %>
+<%= form_for @plan, html: {method: :put, id: "set_visibility"} do |f| %>
   <fieldset<%= (@allow_visibility ? '' : ' disabled') %>>
     <div class="form-group col-xs-8">
       <div class="radio">
@@ -40,6 +40,7 @@
             <% elsif !role.creator? && role.user == current_user %>
               <span><%= display_role(role) %></span>
             <% elsif !role.creator? && role.user != current_user %>
+
               <%= form_for role, url: {controller: :roles, action: :update, id: role.id }, html: {method: :put} do |f| %>
                 <div class="form-group col-xs-8">
                   <%= f.hidden_field :id %>
