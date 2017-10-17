@@ -5,28 +5,9 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <%= form_for :guidance_group, url: {action: "admin_create"}, id: 'admin_create_guidance_group_form', class: "form-horizontal" do |f| %>
-        <div class="form-group">
-          <%= f.label _('Name'), for: :name, class: "col-sm-2 control-label" %>
-          <div class="col-sm-6">
-            <%= f.text_field :name, as: :string, class: "form-control", 'data-toggle': 'tooltip', title: _('Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. "[guidance group name]: guidance on data sharing" so we suggest you just use the institution or department name.') %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label _('Optional Subset'), for: :optional_subset, class: "col-sm-2 control-label" %>
-          <div class="checkbox col-sm-6">
-            <%= f.check_box :optional_subset, 'data-toggle': 'tooltip', title: _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.") %> <%= _('e.g. School/ Department') %>
-          </div>
-        </div>
-      
-        <!-- submit buttons -->
-        <div class="form-group">
-          <div class="col-sm-6">
-            <%= f.submit _('Save'), name: "draft", class: 'btn btn-primary' %>
-          </div>
-        </div>
+  <div class="col-md-8">
+    <%= form_for :guidance_group, url: {action: "admin_create"}, id: 'admin_create_guidance_group_form' do |f| %>
+      <%= render partial: 'guidance_group_form', locals: { f: f } %>
     <% end %>
   </div>
 </div>
