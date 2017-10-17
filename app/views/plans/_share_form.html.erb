@@ -1,16 +1,18 @@
 <h2><%= _('Set plan visibility') %></h2>
-<p><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
+<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
 
 <%= form_for @plan, html: {method: :put} do |f| %>
   <fieldset<%= (@allow_visibility ? '' : ' disabled') %>>
-    <div class="radio">
-      <%= f.label :visibility, raw("#{f.radio_button :visibility, :privately_visible} #{_('Private: restricted to me and my collaborators')}") %>
-    </div>
-    <div class="radio">
-      <%= f.label :visibility, raw("#{f.radio_button :visibility, :organisationally_visible} #{_('Organisation: anyone at my organisation can view')}") %>
-    </div>
-    <div class="radio">
-      <%= f.label :visibility, raw("#{f.radio_button :visibility, :publicly_visible} #{_('Public: anyone can view')}") %>
+    <div class="form-group col-xs-8">
+      <div class="radio">
+        <%= f.label :visibility, raw("#{f.radio_button :visibility, :privately_visible} #{_('Private: restricted to me and my collaborators')}") %>
+      </div>
+      <div class="radio">
+        <%= f.label :visibility, raw("#{f.radio_button :visibility, :organisationally_visible} #{_('Organisation: anyone at my organisation can view')}") %>
+      </div>
+      <div class="radio">
+        <%= f.label :visibility, raw("#{f.radio_button :visibility, :publicly_visible} #{_('Public: anyone can view')}") %>
+      </div>
     </div>
   </fieldset>
 <% end %>
@@ -19,12 +21,12 @@
 <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
 
 <% if @plan.roles.any? then %>
-  <table class="table table-hover tablesorter" id="collaborator-table">
+  <table class="table table-hover table-bordered" id="collaborator-table">
     <thead>
       <tr>
         <th><%= _('Email address')%></th>
         <th><%= _('Permissions')%></th>
-        <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+        <th><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +41,7 @@
               <span><%= display_role(role) %></span>
             <% elsif !role.creator? && role.user != current_user %>
               <%= form_for role, url: {controller: :roles, action: :update, id: role.id }, html: {method: :put} do |f| %>
-                <div class="form-group">
+                <div class="form-group col-xs-8">
                   <%= f.hidden_field :id %>
                   <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-existing-user-access has-tooltip", 'data-toggle': "tooltip", 'title': _('Editors can contribute to plans. Co-owners have additional rights to edit plan details and control access.') } %>
                 </div>
@@ -61,7 +63,7 @@
 <% new_role = Role.new %>
 <% new_role.plan = @plan %>
 <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
-  <div class="form-group">
+  <div class="form-group col-xs-8">
     <%= f.hidden_field :plan_id %>
     <%= f.fields_for :user do |user| %>
       <%= user.label :email, _('Email'), class: 'control-label' %>
@@ -69,16 +71,19 @@
     <% end %>
   </div>
 
-  <p><strong><%= _('Permissions') %></strong></p>
-  <div class="radio">
-    <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view but not make changes')}") %>
-  </div>
-  <div class="radio">
-    <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
-  </div>
-  <div class="radio">
-    <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
+  <div class="form-group col-xs-8">
+    <p><strong><%= _('Permissions') %></strong></p>
+    <div class="radio">
+      <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view but not make changes')}") %>
+    </div>
+    <div class="radio">
+      <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
+    </div>
+    <div class="radio">
+      <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
+    </div>
+
+    <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
   </div>
 
-  <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
 <% end %>
