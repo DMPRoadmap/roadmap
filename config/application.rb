@@ -80,17 +80,17 @@ module DMPRoadmap
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
     config.active_record.raise_in_transactional_callbacks = true
-    
+
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
-    
+
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
     #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
     #   is_test                   - (NOT advisable because test plans are excluded from statistics)
     #   privately_visible         - Only the owner and people they invite can access the plan
     config.default_plan_visibility = 'privately_visible'
-   
+
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 50.00
   end
