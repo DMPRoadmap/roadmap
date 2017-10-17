@@ -4,9 +4,9 @@
 
     <%= render partial: "notes/show", locals: { note: note }, formats: [:html] %>
 
-    <p><%= _('Are you sure you want to remove this note?')%></p>
+    <p><%= _('Are you sure you want to remove this comment?')%></p>
     <div class="pull-right">
-      <%= f.button(_('Delete'), class: "btn btn-default", type: "submit") %>
+      <%= f.button(_('Remove'), class: "btn btn-default", type: "submit") %>
       <%= f.button(_('Cancel'), class: "btn btn-default", type: "button") %>
     </div>
   <% end %>
