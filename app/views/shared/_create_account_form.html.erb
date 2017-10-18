@@ -1,20 +1,20 @@
 <%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
 
   <div class="form-group">
-    <%= f.label(:firstname, _('First Name'), class: 'control-label') %>
-    <%= f.text_field(:firstname, class: 'form-control', "aria-required": true) %>
+    <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
   </div>
   <div class="form-group">
-    <%= f.label(:surname, _('Last Name'), class: 'control-label') %>
-    <%= f.text_field(:surname, class: 'form-control', "aria-required": true) %>
+    <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
   </div>
   <div class="form-group">
-    <%= f.label(:email, _('Email'), class: 'control-label') %>
-    <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+    <%= f.label(:email, _('Email'), class: "control-label") %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
   
   <div class="form-group">
-    <%= f.label _('Organisation'), for: :user_org_name, class: 'control-label' %>
+    <%= f.label _('Organisation'), for: :user_org_name, class: "control-label" %>
     <%= render partial: "shared/accessible_combobox", 
                locals: {name: 'user[org_name]',
                         id: 'user_org_name',
@@ -24,17 +24,17 @@
                         classes: 'form-control'} %>
 
     <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-    <%= f.text_field :other_organisation, autocomplete: "off", class: 'form-control', 'data-toggle': "tooltip", title: _('Please enter the name of your organisation.'), style: 'display: none;' %>
+    <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control", 'data-toggle': "tooltip", title: _('Please enter the name of your organisation.'), style: 'display: none;' %>
     <a href="#" id="other_org_link"><%= _("My organisation isn't listed.") %></a>
   </div>
   
   <div class="form-group">
-    <%= f.label(:recovery_email, _('Recovery Email'), class: 'control-label') %>
-    <%= f.email_field(:recovery_email, class: 'form-control', "aria-required": false, "data-validation": 'email') %>
+    <%= f.label(:recovery_email, _('Recovery Email'), class: "control-label") %>
+    <%= f.email_field(:recovery_email, class: "form-control", "aria-required": false, "data-validation": 'email') %>
   </div>
   <div class="form-group">
-    <%= f.label(:password, _('Password'), class: 'control-label') %>
-    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+    <%= f.label(:password, _('Password'), class: "control-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
   <div class="checkbox">
     <label for="passwords_toggle">

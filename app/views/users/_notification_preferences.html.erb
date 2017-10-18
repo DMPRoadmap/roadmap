@@ -1,6 +1,6 @@
 <% if @prefs %>
   <%= form_tag( update_email_preferences_user_path(@user), method: :put, html: { id: "preferences_registration_form", class: "form-horizontal" }) do |f| %>
-    <div class="preferences col-sm-10">
+    <div class="preferences">
   
     <p>
       <%= link_to _('Select all'), '#', id: 'select_all' %> |
@@ -61,7 +61,7 @@
       </label>
     </div>
   
-    <div class="form-group">
+    <div class='form-group'>
       <%= submit_tag _('Save'), class: 'btn btn-default' %>
     </div>
   

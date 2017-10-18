@@ -6,28 +6,29 @@
 
 <div class="row">
   <div class="col-md-12">
-  <%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, method: :put, id: "edit_org_details_form", class: "form-horizontal" } ) do |f| %>
+  <%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, method: :put, id: "edit_org_details_form" } ) do |f| %>
     
-    <div class="form-group">
-      <%= f.label :name, 'Organization Name', class: "col-sm-2 control-label" %>
-      <div class="col-sm-8">
-        <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
-      </div>
+    <div class="form-group col-xs-8">
+      <%= f.label :name, 'Organization Name', class: "control-label" %>
+      <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :abbreviation, 'Abbreviated Name', class: "col-sm-2 control-label" %>
-      <div class="col-sm-8">
-        <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
-      </div>
+    <div class="form-group col-xs-8">
+      <%= f.label :abbreviation, 'Abbreviated Name', class: "control-label" %>
+      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
+    </div>
+
+    <div class="form-group col-xs-8" id="banner-text">
+      <%= f.label _('Top banner text'), for: @org.banner_text, class: "control-label" %>
+      <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text", class: "form-control", rows: "3") %>
     </div>
 
     <% if @org.logo.present? %>
-      <div  class="form-group">
-        <%= f.label :logo, 'Organization Logo', class: "col-sm-2 control-label" %>
+      <div class="form-group col-xs-8">
+        <%= f.label :logo, 'Organization Logo', class: "control-label" %>
         <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}" %>
-        <div class="form-group">
-          <%= f.label _('Remove logo') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo, class: "col-sm-2 control-label" %>
+        <div class="form-group col-xs-8">
+          <%= f.label _('Remove logo') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo, class: "control-label" %>
           <div class="checkbox">
             <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
           </div>
@@ -40,40 +41,26 @@
         </div>
       </div>
     <% else %>
-      <div class="form-group">
-        <%= f.label :logo, 'Organization Logo', class: "col-sm-2 control-label"  %>
-        <div class="col-sm-8">
-          <%= f.file_field :logo %>
+      <div class="form-group col-xs-8">
+        <%= f.label :logo, 'Organization Logo', class: "control-label"  %>
+        <%= f.file_field :logo %>
         </div>
-      </div>
+
     <% end %>
 
-    <div class="form-group" id="banner-text">
-      <%= f.label _('Top banner text'), for: @org.banner_text, class: "col-sm-2 control-label" %>
-      <div class="col-sm-8">
-        <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text", class: "form-control") %>
-      </div>
+    <div class="form-group col-xs-8">
+      <%= f.label :target_url, 'Organization URL', class: "control-label" %>
+      <%= f.text_field :target_url, class: "form-control" %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :target_url, 'Organization URL', class: "col-sm-2 control-label" %>
-      <div class="col-sm-8">
-        <%= f.text_field :target_url, class: "form-control" %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :contact_email, 'Contact Email', class: "col-sm-2 control-label" %>
-      <div class="col-sm-8">
-        <%= f.text_field :contact_email, class: "form-control" %>
-      </div>
+    <div class="form-group col-xs-8">
+      <%= f.label :contact_email, 'Contact Email', class: "control-label" %>
+      <%= f.text_field :contact_email, class: "form-control" %>
     </div>
     
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-default", type: "submit") %>
+    <div class="form-group col-xs-8">
+      <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>
     </div>
-  </div>
 
   <% end %>
   </div>

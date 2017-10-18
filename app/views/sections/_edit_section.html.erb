@@ -5,33 +5,33 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <%= form_for(section, url: admin_update_section_path(section, phase: phase), html: { method: :put, class: 'form-horizontal'}) do |f| %>
-      <div class="form-group">
-          <%= f.label(:title, _('Title'), { class: 'col-md-2 control-label' }) %>
-        <div class="col-md-10">
-          <%= f.text_field(:title, { class: 'form-control', 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section')} ) %>
+    <%= form_for(section, url: admin_update_section_path(section, phase: phase), html: { method: :put }) do |f| %>
+      <div class="form-group col-xs-8">
+          <%= f.label(:title, _('Title'), { class: "control-label" }) %>
+          <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section')} ) %>
+      </div>
+
+      <div class="form-group col-xs-8">
+        <%= f.label(:number, _('Order of display'), class: "control-label") %>
+        <%= f.number_field(:number, in: 1..15, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
+      </div>
+
+      <div class="form-group col-xs-8">
+        <%= f.label(:description, _('Description'), class: "control-label") %>
+        <div data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
+          <%= text_area_tag('section-desc', section.description, class: 'tinymce form-control') %>
         </div>
       </div>
-      <div class="form-group">
-        <%= f.label(:number, _('Order of display'), class: 'col-md-2 control-label') %>
-        <div class="col-md-10">
-          <%= f.number_field(:number, in: 1..15, class: 'form-control', 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
-        </div>
-      </div>
-      <div class="form-group">
-        <%= f.label(:description, _('Description'), class: 'col-md-2 control-label') %>
-        <div class="col-md-10" data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
-          <%= text_area_tag('section-desc', section.description, class: 'tinymce') %>
-        </div>
-      </div>
-      <div class="pull-right">
-        <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+
+      <div class="form-group col-xs-8">
+        <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
         <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
-              confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: "btn btn-default", role:'button' %>
+              confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: 'btn btn-default', role:'button' %>
       </div>
     <% end %>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">
     <h3><%= _('Questions') %></h3>
@@ -53,7 +53,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="pull-right">
-      <%= link_to(_('Add Question'), '#', { class: "btn btn-default question_new_link", role: "button" }) %>
+      <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
     </div>
   </div>
   <div class="col-md-12">
