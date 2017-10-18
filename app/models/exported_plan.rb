@@ -158,7 +158,9 @@ class ExportedPlan < ActiveRecord::Base
     end
 
     sections.each do |section|
-      output += "\n#{section.title}\n"
+      if question_headings
+        output += "\n#{section.title}\n"
+      end
       section.questions.each do |question|
         answer = self.plan.answer(question.id, false)
         #skip if question un-answered

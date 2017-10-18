@@ -43,8 +43,8 @@
   </div>
   <div class="checkbox">
     <%= f.label(:accept_terms,
-        raw("#{ f.check_box(:accept_terms) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+        raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
   </div>
   
-  <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
+  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
 <% end %>

@@ -34,21 +34,21 @@
     <% if !note.archived %>
         <div class="row">
           <div class="col-md-12">
-            <div id="<%= "note_show#{note.id}" %>" style="display:none;">
+            <div class="note_show" id="<%= "note_show#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
                 <%= render partial: "/notes/show", locals: { note: note }, formats: [:html] %>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div id="<%= "note_edit#{note.id}" %>" style="display:none;">
+            <div class="note_edit" id="<%= "note_edit#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
                 <%= render partial: "/notes/edit", locals: { note: note }, formats: [:html] %>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div id="<%= "note_archive#{note.id}" %>" style="display:none;">
+            <div class="note_archive" id="<%= "note_archive#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
                 <%= render partial: "/notes/archive", locals: { note: note }, formats: [:html] %>
             </div>
           </div>

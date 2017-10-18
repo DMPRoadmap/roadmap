@@ -19,7 +19,7 @@ Official release coming soon!
 Roadmap is a Ruby on Rails application and you will need to have: 
 * Ruby >= 2.2.2
 * Rails >= 4.2
-* MySql >= 5.0 OR PostgreSql
+* MySQL >= 5.0 OR PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
 
@@ -34,7 +34,7 @@ You may also find the following resources handy:
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 #### Installation
-* Create your database. Select UTF-8 Unicode (utf8) encoding.
+* Create your database. Select UTF-8 Unicode encoding (`utf8mb4` if using MySQL).
 * Clone this repository (or Fork the repository first if you plan on contributing)
 
 >     > git clone https://github.com/[your organization]/roadmap.git

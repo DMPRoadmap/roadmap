@@ -15,7 +15,9 @@ end
 json.sections do
   @exported_plan.sections.each do |section|
     json.set! section.number do
-      json.title section.title
+      if @question_headings
+        json.title section.title
+      end
       json.questions do
         @exported_plan.questions_for_section(section.id).each do |question|
           json.set! question.number do
@@ -23,7 +25,7 @@ json.sections do
 
             answer = @exported_plan.plan.answer(question.id, false)
             q_format = question.question_format
-										
+
             if answer.present? 
                 if (q_format.title == "Check box" || q_format.title == "Multi select box" ||
                                         q_format.title == "Radio buttons" || q_format.title == "Dropdown")
