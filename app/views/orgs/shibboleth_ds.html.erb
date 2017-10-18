@@ -9,11 +9,11 @@
 <div class="row">
   <div class="col-md-12">
     <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {id: 'shibboleth_ds'} do |f| %>
-      <div class='form-group col-xs-8'>
-        <%= f.label(:org_name, _('Look up your institution here'), class: 'control-label') %>
+      <div class="form-group col-xs-8">
+        <%= f.label(:org_name, _('Look up your institution here'), class: "control-label") %>
   
         <% if @orgs.length <= 10 %>
-          <select id="org_name" class="left-indent">
+          <select id="org_name">
             <option value=""><%= _('Please select one') %></option>
             <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
           </select>

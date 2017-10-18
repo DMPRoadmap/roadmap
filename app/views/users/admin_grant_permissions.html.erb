@@ -8,30 +8,30 @@
   <div class="col-md-12">
     <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
     <div class='table-responsive'>
-      <table class='table tablesorter table-hover table-bordered'>
+      <table class="table tablesorter table-hover table-bordered">
         <thead>
           <tr>
             <th><%= _('Name') %></th>
           
             <% @perms.each do |perm| %>
               <% case perm.name when 'grant_permissions' %>
-                <th class='text-center' data-toggle="tooltip" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
+                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
                   <%= _('Grant permissions') %>
                 </th>
               <% when 'modify_templates' %>
-                <th class='text-center' data-toggle="tooltip" title="<%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
+                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
                   <%= _('Modify templates') %>
                 </th>
               <% when 'modify_guidance' %>
-                <th class='text-center' data-toggle="tooltip" title="<%= _('Allows the user to create and edit guidance') %>">
+                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to create and edit guidance') %>">
                   <%= _('Modify guidance') %>
                 </th>
               <% when 'use_api' %>
-                <th class='text-center' data-toggle="tooltip" title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
+                <th class="text-center" data-toggle="tooltip" title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
                   <%= _('API rights') %>
                 </th>
               <% when 'change_org_details' %>
-                <th class='text-center' data-toggle="tooltip" title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
+                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
                   <%= _('Change organisation details') %>
                 </th>
               <% end %>
@@ -42,14 +42,14 @@
           <tr>
             <td><%= @user.name(false) %></td>
             <% @perms.each do |perm| %>
-              <td class='text-center'><%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm) %></td>
+              <td class="text-center"><%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm) %></td>
             <% end %>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class='form-group'>
-      <%= submit_tag _('Save'), class: 'btn btn-primary' %>
+    <div class="form-group">
+      <%= submit_tag _('Save'), class: "btn btn-primary" %>
     </div>
     <% end %>
   </div>
