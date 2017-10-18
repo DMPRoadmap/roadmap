@@ -10,19 +10,16 @@
           <%= f.label(:title, _('Title'), { class: "control-label" }) %>
           <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section')} ) %>
       </div>
-
       <div class="form-group col-xs-8">
         <%= f.label(:number, _('Order of display'), class: "control-label") %>
         <%= f.number_field(:number, in: 1..15, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
       </div>
-
       <div class="form-group col-xs-8">
         <%= f.label(:description, _('Description'), class: "control-label") %>
         <div data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
-          <%= text_area_tag('section-desc', section.description, class: 'tinymce form-control') %>
+          <%= text_area_tag('section-desc', section.description, class: 'section') %>
         </div>
       </div>
-
       <div class="form-group col-xs-8">
         <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
         <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
@@ -38,12 +35,14 @@
     <% questions = section.questions.order('number') %>
     <% if questions.present? %>
       <% questions.each do |question| %>
-        <% if question.modifiable %>
-          <%#= render partial: 'questions/edit_question', locals: {question: question} %>
-        <% else %>
-          <%#= render partial: 'questions/show_question', locals: {question: question} %>
-        <% end %>
-        <% if questions.last.id != question.id %>
+        <hr />
+        <div class="question_show" id="<%= "question_show#{question.id}" %>">
+          <%= render partial: 'questions/show_question', locals: {question: question} %>
+        </div>
+        <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
+          <%= render partial: 'questions/edit_question', locals: {question: question} %>
+        </div>
+        <% if questions.last.id == question.id %>
           <hr />
         <% end %>
       <% end %>
