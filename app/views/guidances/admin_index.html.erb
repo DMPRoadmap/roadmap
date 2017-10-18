@@ -15,14 +15,22 @@
     <!-- List of guidance groups -->
     <% if @guidance_groups.length > 0 then%>
     <div class="table-responsive">
-      <table class="table table-hover table-striped">
+      <table class="table table-hover tablesorter" id="guidance-groups">
         <thead>
+          <% if @guidance_groups.length > TABLE_FILTER_MIN_ROWS %>
+            <tr>
+              <th colspan="5" class="sorter-false">
+                <%= render(partial: "shared/table_filter",
+                           locals: {path: admin_index_guidance_path(current_user.org_id), placeholder: _('Filter guidance groups')}) %>
+              </th>
+            </tr>
+          <% end %>
           <tr>
             <th><%= _('Name') %></th>
             <th class="text-center"><%= _('Published') %></th>
             <th class="text-center"><%= _('Optional subset') %></th>
             <th class="text-center"><%= _('Last updated') %></th>
-            <th></th>
+            <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
           </tr>
         </thead>
         <tbody>
@@ -48,19 +56,19 @@
               <td class="text-center">
                 <%= l guidance_gr.updated_at.to_date, formats: :short %>
               </td>
-                <td>
-                  <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle" type="button"
-                            id="guidance_group-<%= guidance_gr.id %>-actions" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="true">
-                      <%= _('Actions') %><span class="caret"></span>
-                    </button>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-link dropdown-toggle" type="button"
+                          id="guidance_group-<%= guidance_gr.id %>-actions" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="true">
+                    <%= _('Actions') %><span class="caret"></span>
+                  </button>
 
-                    <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
-                      <li><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr) %></li>
-                      <li><%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
-                    </ul>
-                  </div>
+                  <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
+                    <li><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr) %></li>
+                    <li><%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                  </ul>
+                </div>
               </td>
             </tr>
           <% end %>
@@ -85,19 +93,20 @@
     <!-- List of guidance -->
     <% if @guidances.length > 0 then%>
     <div class="table-responsive">
-      <table class="table table-hover table-striped">
+      <table class="table table-hover tablesorter" id="guidances">
         <thead>
           <% if @guidances.length > TABLE_FILTER_MIN_ROWS %>
             <tr>
-              <%= render(partial: "shared/table_filter", locals: {path: admin_index_guidance_path, placeholder: _('Filter guidance')}) %>
+              <%= render(partial: "shared/table_filter", 
+                         locals: {path: admin_index_guidance_path(current_user.org_id), placeholder: _('Filter guidance')}) %>
             </tr>
           <% end %>
           <tr>
-            <th class="col-xs-6"><%= _('Text') %></th>
-            <th class="col-xs-1"><%= _('Themes') %></th>
-            <th class="col-xs-3"><%= _('Guidance group') %></th>
-            <th class="col-xs-1"><%= _('Last updated') %></th>
-            <th class="col-xs-1"></td>
+            <th><%= _('Text') %></th>
+            <th><%= _('Themes') %></th>
+            <th><%= _('Guidance group') %></th>
+            <th><%= _('Last updated') %></th>
+            <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th></td>
           </tr>
         </thead>
         <tbody>
