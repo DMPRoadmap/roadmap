@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2.2
 before_install: 
-  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt-get install -y nodejs
+  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs
 before_script:
   - cd lib/assets && npm install && npm run bundle -- -p && cd -
   - cp config/database_example.yml config/database.yml
