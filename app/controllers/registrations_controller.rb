@@ -131,8 +131,8 @@ class RegistrationsController < Devise::RegistrationsController
           else
             successfully_updated = current_user.update_with_password(password_update)
           end
-        else                                           # potentially unreachable... but I dont like to leave off the else
-          successfully_updated = current_user.update_with_password(password_update)
+        else                                           # user did not change their email so no pwd required
+          successfully_updated = current_user.update_without_password(update_params)
         end
       else                                             # password not required
         successfully_updated = current_user.update_without_password(update_params)
