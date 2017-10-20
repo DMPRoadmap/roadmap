@@ -26,6 +26,15 @@ module ApplicationHelper
     return request.fullpath() == path
   end
 
+  # This is not the most elegant solution. Bootstrap though seems to add a '-tab' suffix
+  # to the end of the query string param, so just strip it out when comparing
+  # ---------------------------------------------------------------------------
+  def isActiveTab(tab)
+    qs = request.query_string.split('&').select{ |p| p.start_with?('tab=') }
+    active = qs.first.gsub('tab=', '').gsub('-tab', '') if qs.size > 0
+    return "#{tab}" == "#{active}"
+  end
+
   def fingerprinted_asset(name)
     Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end

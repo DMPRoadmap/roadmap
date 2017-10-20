@@ -7,27 +7,27 @@
 <div class="row">
   <div class="col-md-12">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="personal-details" class="active">
+        <li role="personal-details" class="<%= isActiveTab('personal-details') ? 'active' : '' %>">
           <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
         </li>
-        <li role="password-details">
+        <li role="password-details" class="<%= isActiveTab('password-details') ? 'active' : '' %>">
           <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
         </li>
-        <li role="notification-preferences">
+        <li role="notification-preferences" class="<%= isActiveTab('notification-preferences') ? 'active' : '' %>">
           <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
       </ul>
     
       <div class="tab-content">
-        <div id="personal-details" role="tabpanel" class="tab-pane active px-2">
+        <div id="personal-details" role="tabpanel" class="tab-pane<%= isActiveTab('personal-details') ? ' active' : '' %> px-2">
           <%= render partial: 'devise/registrations/personal_details' %>
         </div>
 
-        <div id="password-details" role="tabpanel" class="tab-pane">
+        <div id="password-details" role="tabpanel" class="tab-pane<%= isActiveTab('password-details') ? ' active' : '' %>">
           <%= render partial: 'devise/registrations/password_details' %>
         </div>
 
-        <div id="notification-preferences" role="tabpanel" class="tab-pane">
+        <div id="notification-preferences" role="tabpanel" class="tab-pane<%= isActiveTab('notification-preferences') ? ' active' : '' %>">
           <%= render partial: 'users/notification_preferences' %>
         </div>
       </div>
