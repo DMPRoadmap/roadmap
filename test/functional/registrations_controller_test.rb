@@ -87,7 +87,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     put user_registration_path, {user: {email: @user.email, firstname: 'Testing', surname: 'UPDATE', org_id: Org.first.id}}
     assert flash[:notice].start_with?('Successfully')
     assert_response :redirect
-    assert_redirected_to edit_user_registration_url
+    assert_redirected_to "#{edit_user_registration_url}\#personal-details"
     
     # Change email but didn't provide password
     put user_registration_path, {user: {email: 'something@else.org', firstname: @user.firstname, surname: @user.surname, org_id: Org.first.id}}

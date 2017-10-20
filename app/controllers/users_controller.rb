@@ -71,8 +71,8 @@ class UsersController < ApplicationController
     pref.settings[:email] = booleanize_hash(prefs)
     pref.save
 
-    @tab = params[:tab]
-    redirect_to edit_user_registration_path(tab: @tab), notice: success_message(_('preferences'), _('saved'))
+    # Include active tab in redirect path
+    redirect_to "#{edit_user_registration_path}\#notification-preferences", notice: success_message(_('preferences'), _('saved'))
   end
 
   private
