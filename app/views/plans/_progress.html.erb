@@ -1,6 +1,6 @@
 <%
-    nanswers = plan.num_answered_questions()
-    nquestions = plan.num_questions()
+    nanswers = current_phase.num_answered_questions(plan.id)
+    nquestions = current_phase.num_questions()
     value=(nanswers.to_f/nquestions*100).round(2)
 %>
 <div class="progress-bar" role="progressbar"

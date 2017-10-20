@@ -51,7 +51,7 @@ class AnswersController < ApplicationController
       },
       "plan" => {
         "id" => @plan.id,
-        "progress" => render_to_string(:partial => 'plans/progress', locals: { plan: @plan }, formats: [:html])
+        "progress" => render_to_string(:partial => 'plans/progress', locals: { plan: @plan, current_phase: @section.phase }, formats: [:html])
       }
     }.to_json
   end # End update
