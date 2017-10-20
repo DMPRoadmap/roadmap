@@ -28,25 +28,7 @@
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
 
-  <div class="form-group col-xs-8">
-    <%= f.label(:org_name, _('Organisation'), class: 'control-label') %>
-    <%= render partial: "shared/accessible_combobox",
-             locals: {name: "#{resource_name}[org_name]",
-                      id: "#{resource_name}_org_name",
-                      default_selection: @default_org,
-                      models: @orgs,
-                      attribute: 'name'} %>
-
-    <div id='other-org-link'>
-      <a href="#"><%= _("My organisation isn't listed.") %></a>
-    </div>
-
-    <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-    <div id="other-org-name" style="display: <%= @other_organisations.nil? ? 'block' : 'none' %>" data-orgs="<%= other_organisations.join(',') %>">
-    <%= f.label _('Organisation name'), for: :other_organisation, class: 'control-label' %>
-    <%= f.text_field :other_organisation, :autocomplete => "off", class: "form-control", 'data-toggle' => "tooltip", 'title': _('Please enter the name of your organisation.') %>
-    </div>
-  </div>
+  <%= render partial: "shared/org_dropdown", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
 
   <% if MANY_LANGUAGES %>
     <div class="form-group col-xs-8">

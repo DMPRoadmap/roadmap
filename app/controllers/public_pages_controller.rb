@@ -76,8 +76,8 @@ class PublicPagesController < ApplicationController
     @phases = Phase.includes(sections: :questions).where(id: a_p_ids).order(:number)
     # name of owner and any co-owners
     @creator_text = @plan.owner.name(false)
-    @plan.roles.administrator.not_creator.each do |co_owner|
-      @creator_text += ", " + co_owner.name(false)
+    @plan.roles.administrator.not_creator.each do |role|
+      @creator_text += ", " + role.user.name(false)
     end
     # Org name of plan owner
     @affiliation = @plan.owner.org.name
