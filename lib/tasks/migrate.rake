@@ -258,8 +258,11 @@ namespace :migrate do
   task remove_duplicate_annotations: :environment do
     questions = Question.joins(:annotations).group("questions.id").having("count(annotations.id) > count(DISTINCT annotations.text)")
     questions.each do |q|
+      # store already de-duplicated id's so we dont remove them in later iterations
+      removed = []
       q.annotations.each do |a|
-        conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: a.id)
+        removed << a.id
+        conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: removed)
         conflicts.each {|c| c.destroy }
       end
     end

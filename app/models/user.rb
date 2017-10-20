@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   #   Include default devise modules. Others available are:
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :recoverable, 
-         :rememberable, :trackable, :validatable, :omniauthable, 
+  devise :invitable, :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :trackable, :validatable, :omniauthable,
          :omniauth_providers => [:shibboleth, :orcid]
 
   ##
@@ -26,14 +26,14 @@ class User < ActiveRecord::Base
       q = "%#{query}%"
       conditions = t[:title].matches(q)
       columns = %i(
-        grant_number identifier description principal_investigator data_contact 
+        grant_number identifier description principal_investigator data_contact
       )
       columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
       columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
       self.where(conditions)
     end
   end
-  
+
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
 
@@ -41,12 +41,12 @@ class User < ActiveRecord::Base
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   #accepts_nested_attributes_for :roles
-  #attr_accessible :password_confirmation, :encrypted_password, :remember_me, 
-  #                :id, :email, :firstname, :last_login,:login_count, :orcid_id, 
-  #                :password, :shibboleth_id, :user_status_id, :surname, 
-  #                :user_type_id, :org_id, :skip_invitation, :other_organisation, 
+  #attr_accessible :password_confirmation, :encrypted_password, :remember_me,
+  #                :id, :email, :firstname, :last_login,:login_count, :orcid_id,
+  #                :password, :shibboleth_id, :user_status_id, :surname,
+  #                :user_type_id, :org_id, :skip_invitation, :other_organisation,
   #                :accept_terms, :role_ids, :dmponline3, :api_token,
-  #                :organisation, :language, :language_id, :org, :perms, 
+  #                :organisation, :language, :language_id, :org, :perms,
   #                :confirmed_at, :org_id
 
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
@@ -62,13 +62,13 @@ class User < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
   # Determines the locale set for the user or the organisation he/she belongs
-  # @return String or nil 
+  # @return String or nil
   def get_locale
     if !self.language.nil?
       return self.language.abbreviation
     elsif !self.org.nil?
       return self.org.get_locale
-    else 
+    else
       return nil
     end
   end
@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
   def organisation=(new_org)
     org_id = new_org.id unless new_org.nil?
   end
-  
+
   ##
   # checks if the user is a super admin
   # if the user has any privelege which requires them to see the super admin page
@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   #
   # @return [Boolean] true if the user is an organisation admin
   def can_org_admin?
-    return self.can_grant_permissions? || self.can_modify_guidance? || 
+    return self.can_grant_permissions? || self.can_modify_guidance? ||
            self.can_modify_templates? || self.can_modify_org_details?
   end
 
@@ -223,7 +223,7 @@ class User < ActiveRecord::Base
     return org_type
   end
 =end
-  
+
   ##
   # removes the api_token from the user
   # modifies the user model
@@ -254,11 +254,11 @@ class User < ActiveRecord::Base
   # --------------------------------------------------------------
   def self.from_omniauth(auth)
     scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
-    
+
     if scheme.nil?
       throw Exception.new('Unknown OAuth provider: ' + auth.provider)
     else
-      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid, 
+      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid,
                    'user_identifiers.identifier_scheme_id': scheme.id).first
     end
   end
@@ -269,7 +269,14 @@ class User < ActiveRecord::Base
   def deliver_invitation(options = {})
     super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
   end
-
+  ##
+  # Case insensitive search over User model
+  # @param field [string] The name of the field being queried
+  # @param val [string] The string to search for, case insensitive
+  # @return [ActiveRecord::Relation] The result of the search
+  def self.where_case_insensitive(field, val)
+    User.where("lower(#{field}) = ?", val.downcase)
+  end
 
 # TODO: Remove this, its never called.
   # this generates a reset password link for a given user
@@ -278,12 +285,12 @@ class User < ActiveRecord::Base
 =begin
   def reset_password_link
     raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
-    self.reset_password_token   = enc 
+    self.reset_password_token   = enc
     self.reset_password_sent_at = Time.now.utc
     save(validate: false)
 
     edit_user_password_path  + '?reset_password_token=' + raw
   end
 =end
-  
+
 end
