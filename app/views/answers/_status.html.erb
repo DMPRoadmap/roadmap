@@ -2,12 +2,8 @@
 <p class="bg-primary saving-message" style="display:none">
     <%= _('Saving...')%>
 </p>
-<% if answer.updated_at.blank? %>
-    <p class="bg-warning not-answered">
-        <%= _('Not answered yet') %>
-    </p>
-<% else %>
+<% if answer.updated_at.present? %>
     <p class="bg-info">
-        <%= _('Answered')%> <abbr class="timeago" data-time="<%= answer.updated_at.iso8601 %>" title="<%= answer.updated_at.iso8601 %>"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %>
+        <%= _('Answered')%> <abbr class="timeago"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %>
     </p>
 <% end %>
