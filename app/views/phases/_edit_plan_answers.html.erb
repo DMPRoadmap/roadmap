@@ -14,7 +14,7 @@
           </div>
           <div class="col-md-4">
             <div class="progress">
-              <%= render :partial => "/plans/progress", locals: { plan: @plan } %>
+              <%= render :partial => "/plans/progress", locals: { plan: @plan, current_phase: @phase } %>
             </div>
           </div>
         </div>
