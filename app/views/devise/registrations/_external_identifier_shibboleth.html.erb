@@ -1,19 +1,19 @@
 <% if id.nil? || id.identifier == '' %>
-    <%= link_to "#{_("Link account with #{scheme.description} ID")}",
+    <%= link_to "#{_("Link your institutional credentials")}",
                 Rails.application.routes.url_helpers.send(
                   "user_#{scheme.name.downcase}_omniauth_authorize_path"
                 ), 'data-toggle': "tooltip", 
-                title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "")
+                title: _('Link your institutional credentials to access your account with them.')
     %>
 <% else %>
   <% if scheme.user_landing_url.nil? %>
     <%= _("Your account has been linked to #{scheme.description}.") %>
   <% else %>
-    <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 'data-toggle': "tooltip", 
-        title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
+    <%= link_to "#{_("Your account has been linked to your institution.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 'data-toggle': "tooltip", 
+        title: _('Your account has been linked to your institution. You can now login with that method.') %>
   <% end %>
-  <% title = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
+  <% title = _("Unlink your account from your institution. You can link again at any time.") %>
   <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe, 
               destroy_user_identifier_path(id), method: :delete, title: title, 'aria-label': title, 'data-toggle': "tooltip", 
-              data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
+              id: 'unlink-shibboleth', data: {confirm: _("Are you sure you want to unlink your institutional credentials?")} %>
 <% end %>

@@ -119,7 +119,7 @@ class RegistrationsController < Devise::RegistrationsController
       mandatory_params &&= false
     end
     if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      message += _('Please select an organisation, or select Other.')
+      message += _('Please select an organisation from the list, or enter your organisation\'s name.')
       mandatory_params &&= false
     end
     if mandatory_params   # has the user entered all the details
