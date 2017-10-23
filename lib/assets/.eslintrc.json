@@ -3,5 +3,8 @@
     "env": {
         "jasmine": true,
         "jquery": true
+    },
+    "globals": {
+        "timeago": true
     }
 }
