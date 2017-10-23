@@ -4,6 +4,6 @@
 </p>
 <% if answer.updated_at.present? %>
     <p class="bg-info">
-        <%= _('Answered')%> <abbr class="timeago"><%= answer.updated_at.iso8601 %></abbr><%= _(' by')%> <%= answer.user.name %>
+        <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time><%= _(' by')%> <%= answer.user.name %>
     </p>
 <% end %>
