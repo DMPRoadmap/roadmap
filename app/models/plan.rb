@@ -55,6 +55,11 @@ class Plan < ActiveRecord::Base
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
   scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
 
+  # Retrieves any plan organisationally or publicly visible for a given org id
+  scope :organisationally_or_publicly_visible_by_org, -> (org_id) {
+    joins(:template).where(
+      visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
+      "templates.org_id": org_id).order(:title => :asc) } 
   ##
   # Settings for the template
   has_settings :export, class_name: 'Settings::Template' do |s|
@@ -302,6 +307,16 @@ class Plan < ActiveRecord::Base
     user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present? && role.creator?
+  end
+
+  ##
+  # determines whether or not the specified user has any rol on the plan
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user has any rol
+  def any_role?(user)
+    user_id = user.id if user.is_a?(User)
+    !self.roles.index{ |rol| rol.user_id == user_id }.nil?
   end
 
   ##

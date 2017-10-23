@@ -26,7 +26,7 @@
               <tr>
                 <th colspan="7" class="sorter-false">
                   <%= render(partial: "shared/table_filter",
-                             locals: {path: plans_path, placeholder: _('Filter plans')}) %>
+                             locals: { placeholder: _('Filter plans')}) %>
                 </th>
               </tr>
             <% end %>
@@ -102,10 +102,12 @@
         </table>
       </div>
     <% end %>
-
-    <div>
-      <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
-    </div>
+    <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: 'publicly_visible_org', locals: { plans: @organisationally_or_publicly_visible_by_org } %>
   </div>
 </div>
 
