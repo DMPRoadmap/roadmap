@@ -28,6 +28,7 @@
           <% if @guidance_group.published == false then %>
             <%= f.submit _('Publish'), name: "save_publish", class: "btn btn-primary" %>
           <% end %>
+          <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
         </div>
     <% end %>
   </div>
