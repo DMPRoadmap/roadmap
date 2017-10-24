@@ -16,25 +16,38 @@ class OrgsController < ApplicationController
     attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
-    @org.banner_text = params["org_banner_text"]
-    @org.logo = org_params[:logo] if org_params[:logo]
-
+    @org.logo = attrs[:logo] if attrs[:logo]
+    
+    tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
+    
+    if attrs[:links].present?
+      if is_json_array_of_objects?(attrs[:links])
+        json = JSON.parse(attrs[:links])
+        # Make sure that the JSON hash is structured as: {"link":"string","text":"string"}
+        if json.all?{ |o| o['link'].present? && o['text'].present? }
+          @org.links = json
+        else
+          redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: _('Unable to save your changes. Invalid URLs.')
+        end
+      else
+        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: _('Unable to save your changes. Invalid URLs.')
+      end
+      attrs.delete('links')
+    end
+    
     begin
-      if @org.update_attributes(org_params)
-        flash[:notice] = success_message(_('organisation'), _('saved'))
-        render action: "admin_edit" 
+      if @org.update_attributes(attrs)
+        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", notice: success_message(_('organisation'), _('saved'))
       else
         # For some reason our custom validator returns as a string and not a hash like normal activerecord 
         # errors. We followed the example provided in the Rails guides when building the validator so
         # its unclear why its doing this. Placing a check here for the data type. We should reasses though
         # when doing a broader eval of the look/feel of the site and we come up with a standardized way of
         # displaying errors
-        flash[:alert] = failed_update_error(@org, _('organisation'))
-        render action: "admin_edit"
+        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failed_update_error(@org, _('organisation'))
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye
-      flash[:alert] = _('There seems to be a problem with your logo. Please upload it again.')
-      render action: "admin_edit"
+      redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: _('There seems to be a problem with your logo. Please upload it again.')
     end
   end
 
@@ -82,7 +95,7 @@ class OrgsController < ApplicationController
 
   private
     def org_params
-      params.require(:org).permit(:name, :abbreviation, :target_url, :is_other, :banner_text, :language_id,
-                                  :region_id, :logo, :contact_email, :remove_logo)
+      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo, :links,
+                                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg)
     end
 end

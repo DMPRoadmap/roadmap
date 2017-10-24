@@ -21,6 +21,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ADD a BORDER */
+.bordered {
+  border: 1px solid $grey;
+  padding: 5px 20px 15px 20px;
+}
 
 /* TABLE STYLING */
 
@@ -43,6 +48,7 @@ thead th {
   color: $white;
   border: none;
   margin-right:2px;
+	margin-bottom: 10px;
 }
 .nav-tabs > li > a{
   border-radius: 2px;
@@ -64,13 +70,12 @@ thead th {
 }
 
 /* PANEL STYLING */
-
 .panel-default > .panel-heading {
   background-color: $grey;
   color: $white;
 }
 
- .panel-title a {
+.panel-title a {
   display: block;
   padding: 8px 15px;
   margin: -10px -15px;
@@ -84,6 +89,19 @@ span.sublist {
   margin-right: 25px;
 }
 
+/* FONTAWESOME STYLING */
+.fa {
+  font-size: 2rem;
+}
+.fa-reverse {
+  color: $grey;
+}
+
+/* RADIO BUTTONS */
+.radio label {
+  margin-right: 15px;
+}
+
 /* BUTTONS STYLING */
 
 /*
@@ -92,34 +110,36 @@ $cancel-button-color: #F17D04;
 */
 
 /* primary button */
-  .btn-primary,
-  .btn-primary:hover,
-  .btn-primary:focus,
-  .btn-primary:active,
-  .btn-primary:visited,
-  .btn-primary:active:hover, 
-  .btn-primary.active:hover { 
-    background-color: $grey;
-    color: $white;
-    border-color: $grey;
-    outline: none;
-    margin-top: 5px;
-  }
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:hover, 
+.btn-primary.active:hover { 
+  background-color: $grey;
+  color: $white;
+  border-color: $grey;
+  outline: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 
 /* primary button */
-  .btn-default,
-  .btn-default:hover,
-  .btn-default:focus,
-  .btn-default:active,
-  .btn-default:visited,
-  .btn-default:active:hover, 
-  .btn-default.active:hover { 
-    background-color: $grey;
-    color: $white;
-    border-color: $grey;
-    outline: none;
-    margin-top: 5px;
-  }
+.btn-default,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default:visited,
+.btn-default:active:hover, 
+.btn-default.active:hover { 
+  background-color: $grey;
+  color: $white;
+  border-color: $grey;
+  outline: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 
 /* MESSAGES */
 $error-color: $red;
@@ -285,3 +305,17 @@ $header-background: linear-gradient(#ED6406, #F59503);
 .js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
 .js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
 
+
+/* PAGE SPECIFIC SETTINGS */
+/* ---------------------------------------------*/
+/* Org details page */
+.remove-org-link i {
+  margin-left: -15px;
+  margin-top: 30px;
+}
+.org-logo-controls {
+  display: inline-block;
+  margin-left: 15px;
+  input { display: inline-block; }
+  strong { margin: 0 10px; }
+}

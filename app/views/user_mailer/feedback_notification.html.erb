@@ -1,0 +1,6 @@
+<% FastGettext.with_locale FastGettext.default_locale do %>
+<% if @org.feedback_email_msg.present? %>
+  <%= raw @org.feedback_email_msg %>
+<% else %>
+  <%= raw EMAIL_FEEDBACK_REQUESTED_CONFIRMATION_MESSAGE %>
+<% end %>

@@ -21,15 +21,11 @@
     <div class="collapse navbar-collapse" id="org-navbar-menu">
       <% if user_signed_in? && !current_user.org.nil? %>
           <ul class="nav navbar-nav">
-            <li>
-              <a><%= current_user.org.name %></a>
-            </li>
-            <li>
-              <%= link_to _('RDM Info'), root_path %>
-            </li>
-            <li>
-              <%= link_to _('RDM Policy'), root_path %>
-            </li>
+            <% current_user.org.links.each do |url| %>
+              <% unless url['link'].blank? %>
+                <li><%= link_to (url['text'].blank? ? url['link'] : url['text']), url['link'] %>
+              <% end %>
+            <% end %>
           </ul>
       <% end %>
 

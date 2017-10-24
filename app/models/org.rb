@@ -7,6 +7,8 @@ class Org < ActiveRecord::Base
   # Sort order: Name ASC
   default_scope { order(name: :asc) }
 
+  # Stores links as an JSON array: [{"link":"http://www.myorg.edu","text":"My Org"},...]
+  serialize :links, JSON
 
   ##
   # Associations
@@ -25,12 +27,13 @@ class Org < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :abbreviation, :banner_text, :logo, :remove_logo,
-                  :logo_file_name, :name, :target_url,
+	attr_accessible :abbreviation, :logo, :remove_logo,
+                  :logo_file_name, :name, :links,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email, 
+                  :token_permission_type_ids, :language_id, :contact_email, :contact_name,
                   :language, :org_type, :region, :token_permission_types, 
-                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name
+                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
+                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg
 
   ##
   # Validators
@@ -40,7 +43,6 @@ class Org < ActiveRecord::Base
   dragonfly_accessor :logo do
     after_assign :resize_image
   end
-  validates_property :height, of: :logo, in: (0..165), message: _("height must be less than 165px")
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 

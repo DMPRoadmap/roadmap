@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013152425) do
+ActiveRecord::Schema.define(version: 20171025200301) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id", limit: 4
@@ -167,23 +167,28 @@ ActiveRecord::Schema.define(version: 20171013152425) do
   add_index "org_token_permissions", ["token_permission_type_id"], name: "fk_rails_2aa265f538", using: :btree
 
   create_table "orgs", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.string   "abbreviation",    limit: 255
-    t.string   "target_url",      limit: 255
-    t.string   "wayfless_entity", limit: 255
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "parent_id",       limit: 4
+    t.string   "name",                   limit: 255
+    t.string   "abbreviation",           limit: 255
+    t.string   "target_url",             limit: 255
+    t.string   "wayfless_entity",        limit: 255
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "parent_id",              limit: 4
     t.boolean  "is_other"
-    t.string   "sort_name",       limit: 255
-    t.text     "banner_text",     limit: 65535
-    t.string   "logo_file_name",  limit: 255
-    t.integer  "region_id",       limit: 4
-    t.integer  "language_id",     limit: 4
-    t.string   "logo_uid",        limit: 255
-    t.string   "logo_name",       limit: 255
-    t.string   "contact_email",   limit: 255
-    t.integer  "org_type",        limit: 4,     default: 0, null: false
+    t.string   "sort_name",              limit: 255
+    t.text     "banner_text",            limit: 65535
+    t.string   "logo_file_name",         limit: 255
+    t.integer  "region_id",              limit: 4
+    t.integer  "language_id",            limit: 4
+    t.string   "logo_uid",               limit: 255
+    t.string   "logo_name",              limit: 255
+    t.string   "contact_email",          limit: 255
+    t.integer  "org_type",               limit: 4,     default: 0,     null: false
+    t.string   "links",                                default: "[]"
+    t.string   "contact_name"
+    t.boolean  "feedback_enabled",                     default: false
+    t.string   "feedback_email_subject"
+    t.text     "feedback_email_msg"
   end
 
   add_index "orgs", ["language_id"], name: "fk_rails_5640112cab", using: :btree

@@ -57,14 +57,13 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
     
     put admin_update_org_path(@org), {org: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
-    assert_response :success
-    assert assigns(:org)
+    assert_response :redirect
     assert_equal 'Testing UPDATE', @org.reload.name, "expected the record to have been updated"
     
     # Invalid object
     put admin_update_org_path(@org), {org: {contact_email: 'abcdefg'}}
     assert flash[:alert].starts_with?(_('Could not update your'))
-    assert_response :success
+    assert_response :redirect
     assert assigns(:org)
   end
 end

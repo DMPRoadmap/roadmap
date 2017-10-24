@@ -85,6 +85,18 @@ class ApplicationController < ActionController::Base
     "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
   end
 
+  # Check whether the string is a valid array of JSON objects
+  def is_json_array_of_objects?(string)
+    if string.present?
+      begin
+        json = JSON.parse(string)
+        return (json.is_a?(Array) && json.all?{ |o| o.is_a?(Hash) })
+      rescue JSON::ParserError
+        return false
+      end
+    end
+  end
+
   private
     # Override rails default render action to look for a branded version of a
     # template instead of using the default one. If no override exists, the 
