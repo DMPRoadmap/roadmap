@@ -58,11 +58,9 @@
                 answers = question.plan_answers(@plan.id)
                 if answers.present?
                   answer = answers.first
+                  answer.user_id = current_user.id
                 else
-                  answer = Answer.new({plan_id: @plan.id, question_id: question.id, user_id: current_user.id })
-                  if question.default_value.present?
-                    answer.text = question.default_value
-                  end
+                  answer = Answer.new({ plan: @plan, question: question, user: current_user, text: question.default_value })
                 end
               %>
               <div class="row">
@@ -70,7 +68,9 @@
                   <!-- Answer Section -->
                   <div class="question-form">
                     <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                    <%= render(partial: 'answers/new_edit', locals: { question: question, answer: answer, readonly: @readonly }) %>
+                    <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
+                      <%= render(partial: 'answers/new_edit', locals: { question: question, answer: answer, readonly: @readonly }) %>
+                    </div>
                     <div id="<%= "answer-status-#{question.id}" %>">
                       <%= render(partial: 'answers/status', locals: { answer: answer }) %>
                     </div>

@@ -64,23 +64,6 @@ class PlanTest < ActiveSupport::TestCase
     answr = @plan.answer(q.id)
     assert_not answr.id.nil?, "expected the latest Answer"
     assert_equal "testing", answr.text, "expected the Answer returned to have the correct text"
-
-    # Check an option based question
-    q = QuestionFormat.find_by(option_based: true).questions.first
-    p = Plan.create(template: q.section.phase.template, title: 'Testing an option based answer')
-    o = QuestionOption.find_by(question: q)
-    d = QuestionOption.create(question: q, text: 'default', number: 99, is_default: true)
-    a = Answer.create(plan: p, question: q, user: @creator, question_options: [o])
-
-    answr = p.answer(q.id, false)
-
-    assert_not answr.id.nil?, "expected the Option Based Answer"
-    assert_equal [o], answr.question_options, "expected the Answer returned to have the correct options selected"
-
-    # Make sure that default options are selected if creating a new Answer
-    a.destroy
-    answr = p.answer(q.id)
-    assert_equal [d], answr.question_options, "expected the Answer returned to have the correct options selected"
   end
 
   # ---------------------------------------------------
@@ -196,10 +179,6 @@ class PlanTest < ActiveSupport::TestCase
   test "checks that status returns the correct information" do
     q = 0
     @template.phases.first.sections.map{|s| q += s.questions.count }
-
-    @plan.answers << Answer.new(user: User.last, text: "testing status",
-                                question: @template.phases.first.sections.first.questions.first)
-
     hash = @plan.status
 
     # Expecting the hash to look something like this:
@@ -219,7 +198,6 @@ class PlanTest < ActiveSupport::TestCase
     # "space_used"=>30}
 
     assert_equal q, hash["num_questions"], "expected the number of questions to match"
-    assert_equal @plan.answers.count, hash["num_answers"], "expected the number of answers to match"
 
     @template.phases.first.sections.each do |s|
       assert_not hash["sections"][s.id].nil?, "expected section #{s.id} to be in sections portion"
