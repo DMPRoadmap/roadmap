@@ -52,7 +52,7 @@ class PublicPagesController < ApplicationController
   def plan_export
     @plan = Plan.find(params[:id])
     # covers authorization for this action.  Pundit dosent support passing objects into scoped policies
-    raise Pundit::NotAuthorizedError unless PublicPagePolicy.new( @plan).plan_export?
+    raise Pundit::NotAuthorizedError unless PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? || PublicPagePolicy.new(@plan).plan_export?
     skip_authorization
     # This creates exported_plans with no user.
     # Note for reviewers, The ExportedPlan model actually serves no purpose, except
