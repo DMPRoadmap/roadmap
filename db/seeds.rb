@@ -8,7 +8,7 @@ identifier_schemes = [
   {name: 'orcid', description: 'ORCID', active: true, 
    logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png', 
    user_landing_url:'https://orcid.org' },
-  {name: 'shibboleth', description: 'your institutional credentials', active: true,
+  {name: 'shibboleth', description: 'Your institutional credentials', active: true,
   },
 ]
 identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
@@ -16,13 +16,13 @@ identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.fi
 # Question Formats
 # -------------------------------------------------------
 question_formats = [
-  {title: "Text area", option_based: false},
-  {title: "Text field", option_based: false},
-  {title: "Radio buttons", option_based: true},
-  {title: "Check box", option_based: true},
-  {title: "Dropdown", option_based: true},
-  {title: "Multi select box", option_based: true},
-  {title: "Date", option_based: false}
+  {title: "Text area", option_based: false, formattype: 0},
+  {title: "Text field", option_based: false, formattype: 1},
+  {title: "Radio buttons", option_based: true, formattype: 2},
+  {title: "Check box", option_based: true, formattype: 3},
+  {title: "Dropdown", option_based: true, formattype: 4},
+  {title: "Multi select box", option_based: true, formattype: 5},
+  {title: "Date", option_based: true, formattype: 6}
 ]
 question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(title: qf[:title]).nil? }
 
@@ -154,7 +154,9 @@ themes.map{ |t| Theme.create!(t) if Theme.find_by(title: t[:title]).nil? }
 # -------------------------------------------------------
 token_permission_types = [
   {token_type: 'guidances', text_description: 'allows a user access to the guidances api endpoint'},
-  {token_type: 'plans', text_description: 'allows a user access to the plans api endpoint'}
+  {token_type: 'plans', text_description: 'allows a user access to the plans api endpoint'},
+  {token_type: 'templates', text_description: 'allows a user access to the templates api endpoint'},
+  {token_type: 'statistics', text_description: 'allows a user access to the statistics api endpoint'}
 ]
 token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermissionType.find_by(token_type: tpt[:token_type]).nil? }
 

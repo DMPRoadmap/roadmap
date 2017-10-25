@@ -46,10 +46,10 @@
             <td class="dmp_td_small">
               <% if hash[:live].nil? %>
 								<%= _('Unpublished') %>
-								
+
               <% elsif hash[:current].dirty? %>
                 <%= _('Unpublished changes') %>
-								
+
 							<% else %>
 								<%= _('Published') %>
               <% end %>
@@ -58,7 +58,7 @@
             	<% last_temp_updated = hash[:current].updated_at %>
            	 	<%= l last_temp_updated.to_date, formats: :short %>
           	</td>
-						
+
             <td class="dmp_td_small">
             	<%= link_to _('Edit'), admin_template_template_path(id: hash[:current].id, edit: "true"), class: "dmp_table_link" %>
             	<%= link_to _('History'), admin_template_history_template_path(id: hash[:current].id), class: "dmp_table_link" %>
@@ -119,7 +119,7 @@
 								<% elsif hash[:live].nil? %>
 									<!-- The template does not have a live version -->
 									<%= b_label = _('Un-published') %>
-								<% elsif !hash[:current].published? %>
+								<% elsif hash[:current].dirty? %>
 									<%= _('You have un-published changes') %>
 								<% else %>
 									<%= _('Published') %>
@@ -142,14 +142,14 @@
                   <% b_label = _('Edit customisation') %>
                   <%= link_to b_label, admin_template_template_path(hash[:current]), class: "dmp_table_link" %>
                 <% end %>
-                
+
               <% end %>
 
-							<% if !hash[:current].customization_of.nil? %>
+							<% if !hash[:current].customization_of.nil? && !hash[:stale] %>
 								<% if hash[:live].nil? || hash[:current].dirty? %>
 									<%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
 								<% end %>
-								<% if !hash[:live].nil? %>
+								<% if hash[:live].present? %>
 									<%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put, class: "dmp_table_link" %>
 								<% end %>
 							<% end %>

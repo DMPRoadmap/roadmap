@@ -47,6 +47,6 @@ class OrgsController < ApplicationController
   private
     def org_params
       params.require(:org).permit(:name, :abbreviation, :target_url, :is_other, :banner_text, :language_id,
-                                  :region_id, :logo, :contact_email)
+                                  :region_id, :logo, :contact_email, :remove_logo)
     end
 end

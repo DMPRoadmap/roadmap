@@ -7,12 +7,12 @@ class PhasesController < ApplicationController
     # GET /plans/:plan_id/phases/:id/edit
     def edit
 
-    @plan = Plan.eager_load2(params[:plan_id])
+    @plan = Plan.load_for_phase(params[:plan_id], params[:id])
     # authorization done on plan so found in plan_policy
     authorize @plan
 
     phase_id = params[:id].to_i
-    @phase = @plan.template.phases.select {|p| p.id == phase_id}.first
+    @phase = @plan.template.phases.first
     @readonly = !@plan.editable_by?(current_user.id)
 
     # Now we need to get all the themed guidance for the plan.
@@ -23,44 +23,48 @@ class PhasesController < ApplicationController
     # get the ids of the dynamically selected guidance groups
     # and keep a map of them so we can extract the names later
     guidance_groups_ids = @plan.guidance_groups.map{|pgg| pgg.id}
-    guidance_groups =  GuidanceGroup.includes({guidances: :themes}).find(guidance_groups_ids)
+    guidance_groups =  GuidanceGroup.includes({guidances: :themes}).where(published: true, id: guidance_groups_ids)
 
     # create a map from theme to array of guidances
     # where guidance is a hash with the text and the org name
     theme_guidance = {}
 
-    guidance_groups.each do |guidance_group|
+    guidance_groups.includes(guidances:[:themes]).each do |guidance_group|
       guidance_group.guidances.each do |guidance|
-        guidance.themes.each do |theme|
-          title = theme.title
-          if !theme_guidance.has_key?(title)
-            theme_guidance[title] = Array.new
+        if guidance.published
+          guidance.themes.each do |theme|
+            title = theme.title
+            if !theme_guidance.has_key?(title)
+              theme_guidance[title] = Array.new
+            end
+            theme_guidance[title] << {
+              text: guidance.text,
+              org: guidance_group.name + ':'
+            }
           end
-          theme_guidance[title] << {
-            text: guidance.text,
-            org: guidance_group.name + ':'
-          }
         end
       end
     end
 
-    # create hash from question id to theme to guidance array
-    # so when we arerendering a question we can grab the guidance out of this
-    #
-    # question_guidance = {
-    #              question.id => {
-    #                      theme => [ {text: "......", org: "....."} ]
-    #              }
-    # }
+    questions = []
+    # Appends all the questions for a given phase into questions Array.
+    @phase.sections.each do |section|
+      section.questions.each do |question|
+        questions.push(question)
+      end
+    end
     @question_guidance = {}
-    @plan.questions.each do |question|
+    # Puts in question_guidance (key/value) entries where key is the question id and value is a hash.
+    # Each question id hash has (key/value) entries where key is a theme and value is an Array of {text, org} objects
+    # Example hash
+    # question_guidance = { question.id => 
+    #                         { theme => [ {text: "......", org: "....."} ] }
+    #                     } 
+    questions.each do |question|
       qg = {}
       question.themes.each do |t|
         title = t.title
         qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
-      end
-      if !@question_guidance.has_key?(question.id)
-        @question_guidance[question.id] = Array.new
       end
       @question_guidance[question.id] = qg
     end
@@ -68,11 +72,9 @@ class PhasesController < ApplicationController
     if !user_signed_in? then
       respond_to do |format|
                 format.html { redirect_to edit_user_registration_path }
-            end
-        end
-
+      end
     end
-
+  end
 
     # GET /plans/PLANID/phases/PHASEID/status.json
   def status

@@ -10,7 +10,6 @@ class GuidanceDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     guidance_group: Field::BelongsTo,
     themes: Field::HasMany,
-    guidance_groups: Field::HasMany,
     id: Field::Number,
     text: Field::Text,
     created_at: Field::DateTime,
@@ -27,8 +26,8 @@ class GuidanceDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :guidance_group,
     :themes,
-    :guidance_groups,
     :id,
+    :text,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,7 +35,6 @@ class GuidanceDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :guidance_group,
     :themes,
-    :guidance_groups,
     :id,
     :text,
     :created_at,
@@ -51,7 +49,6 @@ class GuidanceDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :guidance_group,
     :themes,
-    :guidance_groups,
     :text,
     :question_id,
     :published,
