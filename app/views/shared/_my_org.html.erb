@@ -1,0 +1,18 @@
+<%= f.label :org_name, _('Organisation'), class: 'control-label' %>
+<%= render partial: "shared/accessible_combobox",
+             locals: {name: "user[org_name]",
+                      id: "user_org_name",
+                      default_selection: default_org,
+                      models: orgs,
+                      attribute: 'name'} %>
+
+<% if allow_other_orgs %>
+  <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control", 
+                   placeholder: _('Please enter the name of your organisation') %>
+<% end %>
+
+<% if allow_other_orgs %>
+  <div class="checkbox" id="other_org_toggle">
+    <a href="#"><%= _('My organisation isn\'t listed.') %></a>
+  </div>
+<% end %>

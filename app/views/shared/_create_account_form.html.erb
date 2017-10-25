@@ -14,20 +14,11 @@
   </div>
   
   <div class="form-group">
-    <%= f.label _('Organisation'), for: :user_org_name, class: "control-label" %>
-    <%= render partial: "shared/accessible_combobox", 
-               locals: {name: 'user[org_name]',
-                        id: 'user_org_name',
-                        default_selection: @default_org,
-                        models: Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"),
-                        attribute: 'name',
-                        classes: 'form-control'} %>
-
-    <% other_organisations = Org.where("parent_id IS ? AND is_other = ?", nil, true).pluck(:id) %>
-    <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control", 'data-toggle': "tooltip", title: _('Please enter the name of your organisation.'), style: 'display: none;' %>
-    <a href="#" id="other_org_link"><%= _("My organisation isn't listed.") %></a>
+    <%= render partial: "shared/my_org", 
+               locals: {f: f, default_org: @default_org, 
+                        orgs: Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), allow_other_orgs: true} %>
   </div>
-  
+
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: "control-label") %>
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>

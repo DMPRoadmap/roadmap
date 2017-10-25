@@ -28,7 +28,10 @@
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
 
-  <%= render partial: "shared/org_dropdown", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
+  <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
+  <div class="form-group col-xs-8" id="org-controls" <%= raw "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
+    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
+  </div>
 
   <% if MANY_LANGUAGES %>
     <div class="form-group col-xs-8">
@@ -43,18 +46,23 @@
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% if scheme.name == 'shibboleth' %>
+        <% if current_user.org.present? %>
           <label class='control-label'>
-            <span class="aria-only" aria-hidden="false"><%= scheme.description.capitalize %></span>
-            <i class="fa fa-user" title="<%= scheme.description.capitalize %>" aria-hidden="true"></i>
+            <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
+            <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
           </label>
+        <% end %>
       <% else %>
-          <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
+        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>
-      <div class='identifier-scheme'>
-        <%= render partial: "external_identifier_#{scheme.name}",
-                   locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
-      </div>
+
+      <% if scheme.name != 'shibboleth' || (scheme.name == 'shibboleth' && current_user.org.present?) %>
+        <div class='identifier-scheme'>
+          <%= render partial: "external_identifier_#{scheme.name}",
+                     locals: { scheme: scheme,
+                               id: current_user.identifier_for(scheme)} %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 
