@@ -20,6 +20,12 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  # Active Record Callbacks
+  # Creates answers for plan question and persists them whenever a new plan is created and successfully saved
+  after_create do
+    Answer.create(
+      self.questions.map{ |q| { lock_version: 1, text: q.default_value, plan_id: self.id, question_id: q.id }})
+  end
 
 # COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
 #  has_many :users, through: :roles

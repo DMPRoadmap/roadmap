@@ -1,8 +1,9 @@
 <!-- Partial for handling the answer status (e.g. Saving, Unsaved, Not Answered, Answered) -->
-<p class="bg-primary saving-message" style="display:none">
+<p class="bg-primary saving-message" style="display:none;">
     <%= _('Saving...')%>
 </p>
-<% if answer.updated_at.present? %>
+<p class="bg-warning unsaved-message" style="display: none;"></p>
+<% if answer.is_valid? && answer.user.present? %>
     <p class="bg-info">
         <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time><%= _(' by')%> <%= answer.user.name %>
     </p>

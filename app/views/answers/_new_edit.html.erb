@@ -11,11 +11,11 @@
   <% end %>
   <div class="form-input">
       <% if question.option_based? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, readonly: @readonly }) %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
       <% elsif question.question_format.textfield?%>
-        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, readonly: @readonly }) %>
+        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
       <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, readonly: @readonly }) %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
       <% end %>
       <!--Example Answer area-->
       <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>

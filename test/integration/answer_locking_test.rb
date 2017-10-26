@@ -17,7 +17,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
   end
   
   # ----------------------------------------------------------
-  test 'user receives a lock notification if the answer was CREATED while they were working' do
+  test 'user receives not found when trying to save a non-existent answer' do
     userA = Answer.new(user: @plan.owner, plan: @plan, question: @question, 
                        text: "Initial answer - by UserA")
     
@@ -27,30 +27,14 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     # Signin as UserA and insert the new answer
     sign_in @plan.owner
     put answer_path(FastGettext.locale, userA, format: "json"), obj_to_params(userA.attributes)
-    assert_response :success
+    assert_response :not_found
     assert_equal "application/json", @response.content_type
-    updated = Answer.find_by(plan: @plan, question: @question)
-    assert_equal "Initial answer - by UserA", updated.text
-    assert_equal @plan.owner.id, updated.user_id
-    
-    # Make sure the answers/locking partial is NOT displayed
-    assert_not @response.body.include?(_('The following answer cannot be saved')), "expected there to be no lock error messaging"
-    assert @response.body.include?(_('Answered'))
-    assert @response.body.include?("#{_(' by')} #{@plan.owner.name}"), "expected the messaging to say the plan was updated by the plan owner"
     
     # Signin as UserB and try to insert the new answer but fail
     sign_in @collaborator
     put answer_path(FastGettext.locale, userB, format: "json"), obj_to_params(userB.attributes)
-    assert_response :success
+    assert_response :not_found
     assert_equal "application/json", @response.content_type
-    updated = Answer.find_by(plan: @plan, question: @question)
-    assert_equal "Initial answer - by UserA", updated.text
-    assert_equal @plan.owner.id, updated.user_id
-
-    # Make sure the answer-notice IS displayed
-    assert @response.body.include?(_('The following answer cannot be saved')), "expected there to be lock error messaging"
-    assert @response.body.include?(_('since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again.') % { name: @plan.owner.name}), "expected the messaging to STILL say the plan was updated by the plan owner"
-    assert @response.body.include?(_('Answered')), "expected the messaging to include the status"
   end
   
   # ----------------------------------------------------------
