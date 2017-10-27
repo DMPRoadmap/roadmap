@@ -6,62 +6,28 @@
 
 <div class="row">
   <div class="col-md-12">
-  <%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, method: :put, id: "edit_org_details_form" } ) do |f| %>
-    
-    <div class="form-group col-xs-8">
-      <%= f.label :name, 'Organization Name', class: "control-label" %>
-      <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
-    </div>
-
-    <div class="form-group col-xs-8">
-      <%= f.label :abbreviation, 'Abbreviated Name', class: "control-label" %>
-      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
-    </div>
-
-    <div class="form-group col-xs-8" id="banner-text">
-      <%= f.label _('Top banner text'), for: @org.banner_text, class: "control-label" %>
-      <%= text_area_tag('org_banner_text', @org.banner_text, id: "org_banner_text", class: "form-control", rows: "3") %>
-    </div>
-
-    <% if @org.logo.present? %>
-      <div class="form-group col-xs-8">
-        <%= f.label :logo, 'Organization Logo', class: "control-label" %>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="profile" class="active">
+        <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
+      </li>
+      <li role="feedback">
+        <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+      </li>
+    </ul>
+  
+    <div class="tab-content">
+      <div id="profile" role="tabpanel" class="tab-pane active px-2">
+        <%= render partial: 'profile_form' %>
       </div>
-      <div class="form-group col-xs-8">
-          <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}" %>
-      </div>
-      <div class="form-group col-xs-8">
-        <%= f.check_box :remove_logo, title: _("This will remove your organisation's logo") %>
-        <%= f.label _('Remove logo') % {application_name: Rails.configuration.branding[:application][:name]}, for: :remove_logo, class: "control-label" %>
-      </div>
-      <div class="form-group col-xs-8">
-        <strong> - <%= _('or') %> - </strong>
-      </div>
-      <div class="form-group col-xs-8">
-        <%= f.file_field :logo %>
-      </div>
-    <% else %>
-      <div class="form-group col-xs-8">
-        <%= f.label :logo, 'Organization Logo', class: "control-label"  %>
-        <%= f.file_field :logo %>
-      </div>
-    <% end %>
 
-    <div class="form-group col-xs-8">
-      <%= f.label :target_url, 'Organization URL', class: "control-label" %>
-      <%= f.text_field :target_url, class: "form-control" %>
-    </div>
+      <div id="feedback" role="tabpanel" class="tab-pane">
+        <%= render partial: 'feedback_form' %>
+      </div>
 
-    <div class="form-group col-xs-8">
-      <%= f.label :contact_email, 'Contact Email', class: "control-label" %>
-      <%= f.text_field :contact_email, class: "form-control" %>
+      <div id="notification-preferences" role="tabpanel" class="tab-pane">
+        <%= render partial: 'users/notification_preferences' %>
+      </div>
     </div>
-    
-    <div class="form-group col-xs-8">
-      <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>
-    </div>
-
-  <% end %>
   </div>
 </div>
 

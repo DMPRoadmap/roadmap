@@ -48,7 +48,11 @@ class User < ActiveRecord::Base
   # Scopes
   default_scope { includes(:org, :perms) }
 
-
+  # Retrieves all of the org_admins for the specified org
+  scope :org_admins, -> (org_id) { 
+    joins(:perms).where("users.org_id = ? AND perms.name IN (?)", org_id,
+      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+  }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

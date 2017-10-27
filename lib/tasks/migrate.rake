@@ -1,5 +1,11 @@
 namespace :migrate do
 
+  desc "migrate to 1.0" 
+  task prep_for_1_0: :environment do
+    # Convert existing orgs.target_url to the orgs.links JSON arrays
+    Rake::Task['migrate:org_target_url_to_links'].execute
+  end 
+
   desc "migrate to 0.4" 
   task to_04: :environment do
     # Default all plans.visibility to the value specified in application.rb
@@ -351,4 +357,17 @@ namespace :migrate do
     end
   end
 
+  desc "convert orgs.target_url to JSON array"
+  task org_target_url_to_links: :environment do
+    Org.all.each do |org|
+      if org.target_url.present?
+        org.links = [{link: org.target_url, text: ''}]
+        org.target_url = nil
+
+        # Running with validations off because Dragonfly will fail if it cannot find the 
+        # org logos which live on the deployed instance
+        org.save!(validate: false)
+      end
+    end
+  end
 end
