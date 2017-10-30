@@ -78,4 +78,5 @@ config/locale/*/app.po.time_stamp
 # Front-end related
 lib/assets/node_modules
 lib/assets/npm-debug.log
+lib/assets/.eslintcache
 !.keep
