@@ -1,0 +1,89 @@
+<h2 >
+  <%= title %>
+</h2>
+
+<!-- List of funders templates -->
+<% if templates.length > 0 then %>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th><%= _('Title') %></th>
+          <th><%= _('Description') %></th>
+          <th><%= _('Status') %></th>
+          <th><%= _('Last updated') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% templates.each do |hash| %>
+                <tr>
+                  <td><%= hash[:current].title%></td>
+                  <td><%= raw hash[:current].description.truncate(90, omission: _('... (continued)')) %></td>
+                  <td>
+                    <!-- If this is a funder template -->
+                    <% if hash[:current].customization_of.nil? %>
+                      <!-- This is a customization of a funder template -->
+                      <%= _('N/A') %>
+                    <% else %>
+                      <!-- If the original funder template has been changed -->
+                      <% if hash[:stale] %>
+                        <%= _('Original funder template has changed!')%>
+                      <% elsif hash[:live].nil? %>
+                        <!-- The template does not have a live version -->
+                        <%= b_label = _('Un-published') %>
+                      <% elsif hash[:current].dirty? %>
+                        <%= _('You have un-published changes') %>
+                      <% else %>
+                        <%= _('Published') %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% last_updated = hash[:current].updated_at %>
+                    <%= l last_updated.to_date, formats: :short %>
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link dropdown-toggle" type="button"
+                              data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="true">
+                        <%= _('Actions') %><span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <% if hash[:current].customization_of.nil? %>
+                          <li>
+                            <%= link_to _('Customise'), admin_customize_template_path(hash[:current]), method: :get %>
+                          </li>
+                        <% else %>
+                          <% if hash[:stale] %>
+                            <li>
+                              <%= link_to _('Transfer customisation'), admin_transfer_customization_template_path(hash[:funder_live]) %>
+                            </li>
+                          <% else %>
+                            <li>
+                              <%= link_to _('Edit customisation'), admin_template_template_path(hash[:current]) %>
+                            </li>
+                          <% end %>
+                        <% end %>
+                        <% if !hash[:current].customization_of.nil? && !hash[:stale] %>
+                          <% if hash[:live].nil? || hash[:current].dirty? %>
+                            <li>
+                              <%= link_to _('Publish'), admin_publish_template_path(hash[:current]), method: :put %>
+                            </li>
+                          <% end %>
+                          <% if hash[:live].present? %>
+                            <li>
+                              <%= link_to _('Unpublish'), admin_unpublish_template_path(hash[:current]), method: :put %>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
