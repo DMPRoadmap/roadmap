@@ -348,6 +348,7 @@ DEPENDENCIES
   gettext_i18n_rails_js (~> 1.2.0)
   htmltoword (~> 0.5.1)
   jbuilder (~> 2.6.0)
+  kaminari (>= 1.0)
   ledermann-rails-settings (~> 2.4.2)
   libv8 (~> 3.16)
   minitest-rails-capybara (~> 2.1.2)
