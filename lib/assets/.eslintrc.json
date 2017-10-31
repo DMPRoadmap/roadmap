@@ -5,6 +5,8 @@
         "jquery": true
     },
     "globals": {
-        "timeago": true
+        "timeago": true,
+        "fixture": true,
+        "spyOnEvent": true
     }
 }
