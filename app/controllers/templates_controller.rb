@@ -11,11 +11,13 @@ class TemplatesController < ApplicationController
   def admin_index
     authorize Template
 
-    funder_templates, org_templates = [], []
+    funder_templates, org_templates, organisation_templates = [], [], []
 
     # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
     funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.where(published: true).valid.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
     org_ids = current_user.org.templates.where(customization_of: nil).valid.collect{|t| t.dmptemplate_id }.flatten.uniq
+    # Get all of the unique template family ids (dmptemplate_id) for each organisation type
+    organisation_ids = Org.organisation.includes(:templates).where( templates: { published: true, migrated: false, is_default: true }).collect{ |org| org.templates.collect{| ot| ot.dmptemplate_id } }.flatten.uniq
 
     org_ids.each do |id|
       current = Template.current(id)
@@ -33,10 +35,21 @@ class TemplatesController < ApplicationController
       funder_templates << {current: current, live: live, funder_live: funder_live,  stale: funder_live.updated_at > current.created_at}
     end
 
+    organisation_ids.each do |id|
+      organisation_live = Template.live(id)
+      current = Template.org_customizations(id, current_user.org_id)
+      live = current.present? ? Template.live(current.dmptemplate_id) : nil
+      current = organisation_live unless current.present?
+      organisation_templates << { current: current, live: live, organisation_live: organisation_live, stale: organisation_live.updated_at > current.created_at }
+    end
+
     @funder_templates = funder_templates.sort{|x,y|
       x[:current].title <=> y[:current].title
     }
     @org_templates = org_templates.sort{|x,y|
+      x[:current].title <=> y[:current].title
+    }
+    @organisation_templates = organisation_templates.sort{|x,y|
       x[:current].title <=> y[:current].title
     }
   end
