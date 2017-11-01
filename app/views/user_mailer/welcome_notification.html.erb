@@ -1,11 +1,23 @@
+<%
+  tool_name = Rails.configuration.branding[:application][:name]
+  username = @user.name
+  helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
+  contact_us_url = Rails.configuration.branding[:organisation][:contact_us_url]
+  email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
+%>
 <% FastGettext.with_locale FastGettext.default_locale do %>
-  <p><%= _('Welcome to ') %><%= Rails.configuration.branding[:application][:name] %></p>
-
-  <p><%= Rails.configuration.branding[:application][:name] %><%= _(' will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on ') %><%= Rails.configuration.branding[:application][:email] %></p>
-
   <p>
-    <%=_('All the best,')%>
+    <%= _('Welcome to %{tool_name}, %{username}') %{ :tool_name => tool_name, :username => username } %>
+  </p>
+  <p>
+    <%= raw(_('%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us_url}') %{ :tool_name => tool_name, :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us_url => link_to(contact_us_url, contact_us_url) }) %>
+  </p>
+  <p>
+    <%= _('All the best') %>
     <br />
-    <%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.
+    <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
+  </p>
+  <p>
+    <%= _('You may change your notification preferences on your profile page.') %>&nbsp;<%= _('Please do not reply to this email.') %>
   </p>
 <% end %>
