@@ -74,7 +74,7 @@
   </div>
 
   <% if current_user.can_super_admin? %>
-    <div class="bordered col-xs-8" data-toggle="tooltip" title="<%= _('This information can be changed in the Super Admin section.') %>">
+    <div class="bordered col-xs-8" data-toggle="tooltip" title="<%= _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.') %>">
       <h3><%= _('Organisational Configuration Information') %></h3>
       <dl>
         <% shibboleth = @org.org_identifiers.select{ |ids| ids.identifier_scheme == IdentifierScheme.find_by(name: 'shibboleth')} %>
