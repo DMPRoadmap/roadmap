@@ -30,8 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <% plan_roles = @plan.roles.where(active: true) %>
-      <%  plan_roles.each do |role| %>
+      <% @plan_roles.each do |role| %>
         <tr>
           <td><%= role.user.name %></td>
           <td>
@@ -86,5 +85,16 @@
 
     <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
   </div>
+  <div class="clearfix"></div>
+<% end %>
 
+<% if plan.owner_and_coowners.include?(current_user) && current_user.org.feedback_enabled? %>
+  <h2><%= _('Request expert feedback') %></h2>
+  <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
+  <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
+
+  <div class="form-group col-xs-8">
+    <%= link_to _('Request feedback'), request_feedback_plan_path, class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
+    <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
+  </div>
 <% end %>

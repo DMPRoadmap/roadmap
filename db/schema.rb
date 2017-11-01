@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102164156) do
+ActiveRecord::Schema.define(version: 20171102185518) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id", limit: 4
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.string   "data_contact_phone",                limit: 255
     t.string   "principal_investigator_email",      limit: 255
     t.string   "principal_investigator_phone",      limit: 255
+    t.boolean  "feedback_requested",                              default: false
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id"
