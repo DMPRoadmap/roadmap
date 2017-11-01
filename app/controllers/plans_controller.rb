@@ -7,10 +7,9 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = current_user.active_plans
-    @organisationally_or_publicly_visible_by_org =
-      current_user.org_id.present? ?
-        Plan.includes(:roles).organisationally_or_publicly_visible_by_org(current_user.org_id).to_a.select{ |p| !p.any_role?(current_user) } :
-        []
+    @paginable = params[:page]
+    @organisationally_or_publicly_visible = @paginable.nil? ? Plan.organisationally_or_publicly_visible(current_user) :
+    Plan.organisationally_or_publicly_visible(current_user).page(params[:page])
   end
 
   # GET /plans/new

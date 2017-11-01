@@ -42,5 +42,22 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-left">
+                <% if paginable %>
+                    <%= link_to(_('View all'), plans_path) %>
+                <% else %>
+                    <%= link_to(_('View less'), plans_path(page: 1)) %>
+                <% end %>
+            </div>
+            <div class="pull-right">
+                <% if paginable %>
+                    <%= paginate(plans) %>
+                <% end %>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
 <% end %>
 

@@ -62,10 +62,14 @@ class Plan < ActiveRecord::Base
   scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
-  scope :organisationally_or_publicly_visible_by_org, -> (org_id) {
-    joins(:template).where(
-      visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
-      "templates.org_id": org_id).order(:title => :asc) } 
+  scope :organisationally_or_publicly_visible, -> (user) {
+    Plan.joins(:template)
+      .where({
+        visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
+        "templates.org_id": user.org_id})
+      .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
+      .order(:title => :asc)
+  }
   ##
   # Settings for the template
   has_settings :export, class_name: 'Settings::Template' do |s|

@@ -85,7 +85,9 @@ gem 'swagger-docs', '>= 0.2.9 '
 gem 'yard', '>= 0.9.5'
 gem 'redcarpet', '>= 3.3.4'
 
-
+# ------------------------------------------------
+#     PAGINATION
+gem 'kaminari', '>= 1.0'
 # ------------------------------------------------
 #     ENVIRONMENT SPECIFIC DEPENDENCIES
 
