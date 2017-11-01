@@ -37,6 +37,27 @@ class Role < ActiveRecord::Base
       return 1
     end
   end
+  # Returns a hash of hashes where each key represents an access level (e.g. see access_level method to understand the integers)
+  # This method becomes useful for generatic template messages (e.g. permissions change notification mailer)
+  def self.access_level_messages
+    {
+      3 => {
+        :type => _('co-owner'),
+        :placeholder1 => _('write and edit the plan in a collaborative manner.'),
+        :placeholder2 => _('You can also grant rights to other collaborators.')
+        },
+      2 => {
+        :type => _('editor'),
+        :placeholder1 => _('write and edit the plan in a collaborative manner.'),
+        :placeholder2 => nil,
+        },
+      1 => {
+        :type => _('read-only'),
+        :placeholder1 => _('read the plan and leave comments.'),
+        :placeholder2 => nil,
+      }
+    }
+  end
 
   def set_defaults
     self.active = true if self.new_record?

@@ -8,6 +8,8 @@ defaults: &defaults
     url: 'https://github.com/DMPRoadmap/roadmap/wiki'
     copywrite_name: 'Curation Centre (CC)'
     email: 'tester@cc_curation_centre.org'
+    helpdesk_email: 'someone@somewhere.com'
+    contact_us_url: 'https://somewhere.com/contact-us'
 
   application:
     name: 'DMPRoadmap'
@@ -16,6 +18,7 @@ defaults: &defaults
     release_notes_url: 'https://github.com/DMPRoadmap/roadmap/wiki/Releases'
     issue_list_url: 'https://github.com/DMPRoadmap/roadmap/issues'
     user_group_subscription_url: 'http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1'
+    api_documentation_url: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation'
 
   preferences:
     email:
