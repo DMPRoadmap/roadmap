@@ -2,46 +2,33 @@
   <div class="col-md-12">
     <h1>
       <%= _('New template') %>
-      <!-- link button to add new guidance -->
-      <div class="move_2_right">
-        <%= link_to _('View all templates'),
-                    admin_index_template_path, class: "btn btn-primary" %>
-      </div>
     </h1>
+    <div class="pull-right">
+      <%= link_to _('View all templates'), admin_index_template_path, class: "btn btn-primary" %>
+    </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
-
-    <!-- body -->
-    <div class="dmp_details">
-      <%= raw _('<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>')%>
-      <br/>
-      <%= form_for :template, url: {action: "admin_create"} do |f| %>
-        <table class="dmp_details_table">
-          <tr>
-            <td class="first_template"><%= _('Title') %></td>
-            <td><%= f.text_field :title, as: :string,
-                  class: "text_field has-tooltip", "data-toggle": "tooltip", title: _('Please enter a title for your template.') %></td>
-          </tr>
-          <tr>
-            <td class="first_template"><%= _('Description') %></td>
-            <td class="tinymce">
-              <div class="div_left_icon" data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
-                <%= text_area_tag("template-desc", "", class: "tinymce") %>
-              </div>
-            </td>
-          </tr>
-
-        </table>
-        <!-- submit buttons -->
-        <div class="move_2_right">
-          <%= f.submit _('Save'), class: "btn btn-primary", role:"button" %>
-          <%= link_to _('Cancel'), admin_index_template_path, class: "btn cancel", role:"button" %>
+    <%= raw _('<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>')%>
+    <%= form_for :template, url: {action: "admin_create"} do |f| %>
+      <div class="form-group col-xs-8">
+        <%= f.label(:title, _('Title') ,class: 'control-label') %>
+        <%= f.text_field :title, as: :string,
+          class: "form-control", "data-toggle": "tooltip", title: _('Please enter a title for your template.') %>
+      </div>
+      <div class="form-group col-xs-8">
+        <%= f.label(:description, _('Description'), class: 'control-label') %>
+        <div data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
+          <%= text_area_tag('template-desc', '', class: 'form-control template') %>
         </div>
-        <br />
-      <% end %>
-    </div>
+      </div>
+      <div class="form-group col-xs-8">
+        <div class="pull-right">
+          <%= f.submit _('Save'), class: "btn btn-default", role:"button" %>
+          <%= link_to _('Cancel'), admin_index_template_path, class: "btn btn-default", role:"button" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
