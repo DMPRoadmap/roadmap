@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: Rails.configuration.branding[:organisation][:email]
-
+  
   def welcome_notification(user)
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
@@ -31,10 +31,10 @@ class UserMailer < ActionMailer::Base
   def project_access_removed_notification(user, plan, current_user)
     @user = user
     @plan = plan
-                @current_user = current_user
+    @current_user = current_user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email, 
-           subject: "#{_('Permissions removed on a DMP in')} #{Rails.configuration.branding[:application][:name]}")
+           subject: "#{_('Permissions removed on a DMP in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] }}")
     end
   end
 
@@ -46,25 +46,34 @@ class UserMailer < ActionMailer::Base
       end
   end
   
-  def feedback_notification(user, plan)
-    @user = user
-
-    if user.org.present?
-      @org = org
+  def feedback_notification(recipient, plan, requestor)
+    @user = requestor
+    
+    if @user.org.present?
+      @org = @user.org
       @plan = plan
+      @recipient = recipient
       
-      # Use the generic feedback message unless the Org has specified one
-      subject = org.feedback_email_subject ||= EMAIL_FEEDBACK_REQUESTED_CONFIRMATION_SUBJECT
+      FastGettext.with_locale FastGettext.default_locale do
+        mail(to: recipient.email, 
+             subject: _("%{application_name}: %{user_name} requested feedback on a plan") % {application_name: Rails.configuration.branding[:application][:name], user_name: @user.name(false)})
+      end
+    end
+  end
+  
+  def feedback_confirmation(recipient, plan, requestor)
+    @user = requestor
+
+    if @user.org.present?
+      @org = @user.org
+      @plan = plan
+        
+      # Use the generic feedback confirmation message unless the Org has specified one
+      subject = feedback_constant_to_text(@org.feedback_email_subject.present? ? @org.feedback_email_subject : feedback_confirmation_default_subject)
+      message = feedback_constant_to_text(@org.feedback_email_msg.present? ? @org.feedback_email_msg : feedback_confirmation_default_message)
       
-      # Send an email to all of the org admins as well as the Org's administrator email
-      emails = user.org.users.select{ |usr| usr.can_org_admin? && usr != user }
-      emails << user.org.contact_email if user.org.contact_email.present?
-      
-      emails.each do |email|
-        @email = email
-        FastGettext.with_locale FastGettext.default_locale do
-          mail(to: email, subject: subject)
-        end
+      FastGettext.with_locale FastGettext.default_locale do
+        mail(to: recipient.email, subject: subject, body: message)
       end
     end
   end
@@ -77,6 +86,7 @@ class UserMailer < ActionMailer::Base
         subject: _('DMP Visibility Changed: %{plan_title}') %{ :plan_title => @plan.title })
     end
   end
+  
   # @param commenter - User who wrote the comment
   # @param plan - Plan for which the comment is associated to
   def new_comment(commenter, plan)
@@ -90,5 +100,23 @@ class UserMailer < ActionMailer::Base
         end
       end
     end
+  end
+  
+  def feedback_confirmation_default_subject
+    _('%{application_name}: Your plan has been submitted for feedback')
+  end
+  
+  def feedback_confirmation_default_message
+    _('<p>Hello %{user_name}.</p>'\
+            '<p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation. '\
+            'If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>')
+  end
+  
+  private
+  def feedback_constant_to_text(text)
+    return _("#{text}") % {application_name: Rails.configuration.branding[:application][:name],
+                           user_name: @user.name,
+                           plan_name: @plan.title,
+                           organisation_email: @org.contact_email}
   end
 end
