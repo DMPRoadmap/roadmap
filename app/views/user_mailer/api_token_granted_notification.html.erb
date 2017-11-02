@@ -1,12 +1,24 @@
+<%
+  tool_name = Rails.configuration.branding[:application][:name]
+  username = @user.name
+  api_documentation_url = Rails.configuration.branding[:application][:api_documentation_url]
+  helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
+  contact_us_url = Rails.configuration.branding[:organisation][:contact_us_url]
+  email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
+%>
 <% FastGettext.with_locale FastGettext.default_locale do %>
-  <p><% _('Hello ') %><%= @user.name %></p>
-  
-  <p><%= _('You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found ')%><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation">here</a>.
-  </p>
-  
   <p>
-    <%=_('All the best,')%>
+    <%= _('Hello %{username}') %{ :username => username } %>
+  </p>
+  <p>
+    <%= raw(_('You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}') %{ :link => link_to(api_documentation_url, api_documentation_url) }) %>
+  </p>
+  <p>
+    <%= _('All the best') %>
     <br />
-    <%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.
+    <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
+  </p>
+  <p>
+    <%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us_url}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us_url => link_to(contact_us_url, contact_us_url) }) %>
   </p>
 <% end %>

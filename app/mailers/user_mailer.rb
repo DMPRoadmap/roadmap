@@ -1,11 +1,11 @@
 class UserMailer < ActionMailer::Base
   default from: Rails.configuration.branding[:organisation][:email]
-  
+
   def welcome_notification(user)
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email, 
-           subject: "#{_('Welcome to')} #{Rails.configuration.branding[:application][:name]}")
+           subject: _('Welcome to %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
   
@@ -14,19 +14,20 @@ class UserMailer < ActionMailer::Base
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, 
-           subject: "#{_('A Data Management Plan in ')} #{Rails.configuration.branding[:application][:name]} #{_(' has been shared with you')}")
+           subject: _('A Data Management Plan in %{tool_name} has been shared with you') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
   
-  def permissions_change_notification(role, current_user)
+  def permissions_change_notification(role, user)
     @role = role
-                @current_user = current_user
+    @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, 
-           subject: "#{_('Changed permissions on a DMP in')} #{Rails.configuration.branding[:application][:name]}")
+           subject: _('Changed permissions on a Data Management Plan in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
   
+  # TODO evaluate if it is needed since https://docs.google.com/document/d/1Zt3QfPZ2q6yMOCVFOevXviwRX-XbZeGSxAAvbRa9w-M/edit does not mention it
   def project_access_removed_notification(user, plan, current_user)
     @user = user
     @plan = plan
@@ -41,7 +42,7 @@ class UserMailer < ActionMailer::Base
       @user = user
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: @user.email, 
-             subject: "#{_('API rights in')} #{Rails.configuration.branding[:application][:name]}")
+             subject: _('API rights in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
       end
   end
   
