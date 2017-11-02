@@ -10,7 +10,8 @@
 
   <div class="form-group col-xs-8">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
-    <%= f.email_field(:email, class: "form-control", "aria-required": true, 'data-toggle': "tooltip", title: _('Please enter your current password below when changing your email address.'), value: @user.email) %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
+    <%= hidden_field_tag :original_email, @user.email %>
   </div>
 
   <div class="form-group col-xs-8">
@@ -21,11 +22,6 @@
   <div class="form-group col-xs-8">
     <%= f.label(:surname, _('Last name'), class: 'control-label') %>
     <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
-  </div>
-
-  <div class="form-group col-xs-8">
-    <%= f.label(:password, _('Password'), class: 'control-label') %>
-    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
@@ -78,6 +74,7 @@
   <div class="form-group col-xs-8">
     <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
   </div>
+
+  <%= render partial: 'password_confirmation', locals: {f: f} %>
+
 <% end %>
-
-
