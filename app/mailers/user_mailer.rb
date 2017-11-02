@@ -1,5 +1,12 @@
 class UserMailer < ActionMailer::Base
   default from: Rails.configuration.branding[:organisation][:email]
+
+  @app_name = Rails.configuration.branding[:application][:name]
+
+  EMAIL_FEEDBACK_REQUEST_CONFIRMATION_SUBJECT = _('%{application_name}: Your plan has been submitted for feedback') % {application_name: @app_name}
+  EMAIL_FEEDBACK_REQUEST_CONFIRMATION_MESSAGE = _('<p>Hello %{user_name}.</p>'\
+    '<p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation. '\
+    'If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>') % {application_name: @app_name}
   
   def welcome_notification(user)
     @user = user
@@ -44,7 +51,7 @@ class UserMailer < ActionMailer::Base
              subject: "#{_('API rights in')} #{Rails.configuration.branding[:application][:name]}")
       end
   end
-  
+
   def feedback_notification(user, plan)
     @user = user
 
