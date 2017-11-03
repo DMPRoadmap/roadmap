@@ -22,9 +22,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.datetime "updated_at"
   end
 
-  add_index "annotations", ["org_id"], name: "fk_rails_aca7521f72"
-  add_index "annotations", ["question_id"], name: "fk_rails_0e08e753b6"
-  add_index "annotations", ["question_id"], name: "index_annotations_on_question_id"
+  add_index "annotations", ["org_id"], name: "fk_rails_aca7521f72", using: :btree
+  add_index "annotations", ["question_id"], name: "index_annotations_on_question_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.text     "text",         limit: 65535
@@ -45,7 +44,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.integer "question_option_id", limit: 4, null: false
   end
 
-  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id"
+  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+  add_index "answers_question_options", ["question_option_id"], name: "fk_rails_01ba00b569", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id",    limit: 4
@@ -97,8 +97,7 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.boolean  "published"
   end
 
-  add_index "guidance_groups", ["org_id"], name: "fk_rails_819c1dbbc7"
-  add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id"
+  add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id", using: :btree
 
   create_table "guidances", force: :cascade do |t|
     t.text     "text",              limit: 65535
@@ -109,8 +108,7 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.boolean  "published"
   end
 
-  add_index "guidances", ["guidance_group_id"], name: "fk_rails_20d29da787"
-  add_index "guidances", ["guidance_group_id"], name: "index_guidances_on_guidance_group_id"
+  add_index "guidances", ["guidance_group_id"], name: "index_guidances_on_guidance_group_id", using: :btree
 
   create_table "identifier_schemes", force: :cascade do |t|
     t.string   "name",             limit: 255
@@ -139,9 +137,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.datetime "updated_at"
   end
 
-  add_index "notes", ["answer_id"], name: "fk_rails_907f8d48bf"
-  add_index "notes", ["answer_id"], name: "index_notes_on_answer_id"
-  add_index "notes", ["user_id"], name: "fk_rails_7f2323ad43"
+  add_index "notes", ["answer_id"], name: "index_notes_on_answer_id", using: :btree
+  add_index "notes", ["user_id"], name: "fk_rails_7f2323ad43", using: :btree
 
   create_table "org_identifiers", force: :cascade do |t|
     t.string   "identifier",           limit: 255
@@ -162,9 +159,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.datetime "updated_at"
   end
 
-  add_index "org_token_permissions", ["org_id"], name: "fk_rails_e1db1b22c5"
-  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id"
-  add_index "org_token_permissions", ["token_permission_type_id"], name: "fk_rails_2aa265f538"
+  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id", using: :btree
+  add_index "org_token_permissions", ["token_permission_type_id"], name: "fk_rails_2aa265f538", using: :btree
 
   create_table "orgs", force: :cascade do |t|
     t.string   "name",                   limit: 255
@@ -184,11 +180,11 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.string   "logo_name",              limit: 255
     t.string   "contact_email",          limit: 255
     t.integer  "org_type",               limit: 4,     default: 0,     null: false
-    t.string   "links",                                default: "[]"
-    t.string   "contact_name"
+    t.string   "links",                  limit: 255,   default: "[]"
+    t.string   "contact_name",           limit: 255
     t.boolean  "feedback_enabled",                     default: false
-    t.string   "feedback_email_subject"
-    t.text     "feedback_email_msg"
+    t.string   "feedback_email_subject", limit: 255
+    t.text     "feedback_email_msg",     limit: 65535
   end
 
   add_index "orgs", ["language_id"], name: "fk_rails_5640112cab"
@@ -233,7 +229,7 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.string   "data_contact_email",                limit: 255
     t.string   "data_contact_phone",                limit: 255
     t.string   "principal_investigator_email",      limit: 255
-    t.string   "principal_investigator_phone"
+    t.string   "principal_investigator_phone",      limit: 255
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id"
@@ -269,8 +265,7 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.datetime "updated_at"
   end
 
-  add_index "question_options", ["question_id"], name: "fk_rails_b9c5f61cf9"
-  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id"
+  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "text",                   limit: 65535
@@ -292,7 +287,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.integer "theme_id",    limit: 4, null: false
   end
 
-  add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id"
+  add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id", using: :btree
+  add_index "questions_themes", ["theme_id"], name: "fk_rails_0489d5eeba", using: :btree
 
   create_table "regions", force: :cascade do |t|
     t.string  "abbreviation",    limit: 255
@@ -310,10 +306,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.boolean  "active",               default: true
   end
 
-  add_index "roles", ["plan_id"], name: "fk_rails_a1ce6c2772"
-  add_index "roles", ["plan_id"], name: "index_roles_on_plan_id"
-  add_index "roles", ["user_id"], name: "fk_rails_ab35d699f0"
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id"
+  add_index "roles", ["plan_id"], name: "index_roles_on_plan_id", using: :btree
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -378,10 +372,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.integer "guidance_id", limit: 4
   end
 
-  add_index "themes_in_guidance", ["guidance_id"], name: "fk_rails_a5ab9402df"
-  add_index "themes_in_guidance", ["guidance_id"], name: "index_themes_in_guidance_on_guidance_id"
-  add_index "themes_in_guidance", ["theme_id"], name: "fk_rails_7d708f6f1e"
-  add_index "themes_in_guidance", ["theme_id"], name: "index_themes_in_guidance_on_theme_id"
+  add_index "themes_in_guidance", ["guidance_id"], name: "index_themes_in_guidance_on_guidance_id", using: :btree
+  add_index "themes_in_guidance", ["theme_id"], name: "index_themes_in_guidance_on_theme_id", using: :btree
 
   create_table "token_permission_types", force: :cascade do |t|
     t.string   "token_type",       limit: 255
@@ -398,9 +390,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.integer  "identifier_scheme_id", limit: 4
   end
 
-  add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0"
-  add_index "user_identifiers", ["user_id"], name: "fk_rails_65c9a98cdb"
-  add_index "user_identifiers", ["user_id"], name: "index_user_identifiers_on_user_id"
+  add_index "user_identifiers", ["identifier_scheme_id"], name: "fk_rails_fe95df7db0", using: :btree
+  add_index "user_identifiers", ["user_id"], name: "index_user_identifiers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname",              limit: 255
@@ -408,8 +399,8 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "orcid_id",               limit: 255
     t.string   "shibboleth_id",          limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "encrypted_password",     limit: 255, default: ""
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -436,17 +427,54 @@ ActiveRecord::Schema.define(version: 20171102164156) do
     t.string   "recovery_email",         limit: 255
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["language_id"], name: "fk_rails_45f4f12508"
-  add_index "users", ["org_id"], name: "fk_rails_e73753bccb"
-  add_index "users", ["org_id"], name: "index_users_on_org_id"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["language_id"], name: "fk_rails_45f4f12508", using: :btree
+  add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
 
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
     t.integer "perm_id", limit: 4
   end
 
-  add_index "users_perms", ["perm_id"], name: "fk_rails_457217c31c"
-  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id"
+  add_index "users_perms", ["perm_id"], name: "fk_rails_457217c31c", using: :btree
+  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
+  add_foreign_key "answers", "plans"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "guidance_groups", "orgs"
+  add_foreign_key "guidances", "guidance_groups"
+  add_foreign_key "notes", "answers"
+  add_foreign_key "notes", "users"
+  add_foreign_key "org_identifiers", "identifier_schemes"
+  add_foreign_key "org_identifiers", "orgs"
+  add_foreign_key "org_token_permissions", "orgs"
+  add_foreign_key "org_token_permissions", "token_permission_types"
+  add_foreign_key "orgs", "languages"
+  add_foreign_key "orgs", "regions"
+  add_foreign_key "phases", "templates"
+  add_foreign_key "plans", "templates"
+  add_foreign_key "plans_guidance_groups", "guidance_groups"
+  add_foreign_key "plans_guidance_groups", "plans"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "question_formats"
+  add_foreign_key "questions", "sections"
+  add_foreign_key "questions_themes", "questions"
+  add_foreign_key "questions_themes", "themes"
+  add_foreign_key "roles", "plans"
+  add_foreign_key "roles", "users"
+  add_foreign_key "sections", "phases"
+  add_foreign_key "templates", "orgs"
+  add_foreign_key "themes_in_guidance", "guidances"
+  add_foreign_key "themes_in_guidance", "themes"
+  add_foreign_key "user_identifiers", "identifier_schemes"
+  add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "languages"
+  add_foreign_key "users", "orgs"
+  add_foreign_key "users_perms", "perms"
+  add_foreign_key "users_perms", "users"
 end
