@@ -83,12 +83,10 @@
     <a href="<%= admin_new_template_path %>" class="btn btn-primary" role="button">
       <%= _('Create a template') %>
     </a>
+    <%= render partial: '/templates/list_template', locals: { title: n_('Default template', 'Default templates', @organisation_templates.length), templates: @organisation_templates } %>
     <!-- display this only if the organisation is not a funder-->
     <% if !current_user.org.funder? %>
       <%= render partial: '/templates/list_template', locals: { title: _('Funders templates'), templates: @funder_templates } %>
-    <% end %>
-    <% if !current_user.org.organisation? %>
-      <%= render partial: '/templates/list_template', locals: { title: _('Default templates'), templates: @organisation_templates } %>
     <% end %>
   </div>
 </div>

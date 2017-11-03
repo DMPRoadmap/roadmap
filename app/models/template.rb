@@ -2,7 +2,7 @@ class Template < ActiveRecord::Base
   include GlobalHelpers
 
   before_validation :set_creation_defaults
-  scope :valid,  -> {where(migrated: false)}
+  
   ##
   # Associations
   belongs_to :org
@@ -27,6 +27,14 @@ class Template < ActiveRecord::Base
   end
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
+
+  scope :valid,  -> { where(migrated: false) }
+  scope :published, -> { where(published: true) }
+
+  # Retrieves all valid and published templates
+  scope :valid_published, -> (is_default: false)  {
+    Template.where(templates: { is_default: is_default }).valid().published()
+  }
 
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
