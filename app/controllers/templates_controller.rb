@@ -366,5 +366,56 @@ class TemplatesController < ApplicationController
     end
 
   end
+  
+  # Collect all of the templates available for the org+funder combination
+  # --------------------------------------------------------------------------
+  def template_options()
+    org_id = (plan_params[:org_id] == '-1' ? '' : plan_params[:org_id])
+    funder_id = (plan_params[:funder_id] == '-1' ? '' : plan_params[:funder_id])
+    authorize Template.new
+    
+    templates = []
+
+    if org_id.present? || funder_id.present?
+      if funder_id.blank?
+        # Load the org's template(s)
+        if org_id.present?
+          org = Org.find(org_id)
+          templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
+        end
+
+      else
+        funder = Org.find(funder_id)
+        # Load the funder's template(s)
+        templates = Template.valid.where(published: true, org: funder).to_a
+
+        if org_id.present?
+          org = Org.find(org_id)
+
+          # Swap out any organisational cusotmizations of a funder template
+          templates.each do |tmplt|
+            customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
+            if customization.present? && tmplt.updated_at < customization.created_at
+              templates.delete(tmplt)
+              templates << customization
+            end
+          end
+        end
+      end
+    end
+
+    # If no templates were available use the generic templates
+    if templates.empty?
+      templates << Template.where(is_default: true, published: true).first
+    end
+    templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
+    
+    render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
+  end
+
+  private
+  def plan_params
+    params.require(:plan).permit(:org_id, :funder_id)
+  end
 
 end
