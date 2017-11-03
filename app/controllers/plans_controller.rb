@@ -66,7 +66,7 @@ class PlansController < ApplicationController
                                                      published: true)
         if !ggs.blank? then @plan.guidance_groups << ggs end
 
-        default = Template.find_by(is_default: true)
+        default = Template.default
 
         msg = "#{_('Plan was successfully created.')} "
 
@@ -404,7 +404,7 @@ class PlansController < ApplicationController
     # If no templates were available use the generic templates
     if @templates.empty?
       @msg = _("Using the generic Data Management Plan")
-      @templates << Template.where(is_default: true, published: true).first
+      @templates << Template.default
     end
 
     @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
