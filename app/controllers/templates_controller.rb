@@ -14,10 +14,10 @@ class TemplatesController < ApplicationController
     funder_templates, org_templates, organisation_templates = [], [], []
 
     # Get all of the unique template family ids (dmptemplate_id) for each funder and the current org
-    funder_ids = Org.funders.includes(:templates).collect{|f| f.templates.where(published: true).valid.collect{|ft| ft.dmptemplate_id } }.flatten.uniq
+    funder_ids = Template.valid_published().joins(:org).where(Org.funder_condition).pluck(:dmptemplate_id)
     org_ids = current_user.org.templates.where(customization_of: nil).valid.collect{|t| t.dmptemplate_id }.flatten.uniq
-    # Get all of the unique template family ids (dmptemplate_id) for each organisation type
-    organisation_ids = Org.organisation.includes(:templates).where( templates: { published: true, migrated: false, is_default: true }).collect{ |org| org.templates.collect{| ot| ot.dmptemplate_id } }.flatten.uniq
+    organisation_ids = Template.valid_published(is_default: true).joins(:org)
+      .where(Org.organisation_condition).where(["org_id <> ?", current_user.org_id]).pluck(:dmptemplate_id)
 
     org_ids.each do |id|
       current = Template.current(id)
