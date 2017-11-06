@@ -175,14 +175,11 @@ class PlansController < ApplicationController
 
   def share
     @plan = Plan.find(params[:id])
-    authorize @plan
-    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
-
-    min_percentage = Rails.application.config.default_plan_percentage_answered
-    nanswers = @plan.num_answered_questions()
-    nquestions = @plan.num_questions()
-    value=(nanswers.to_f/nquestions*100).round(2)
-    @allow_visibility = (value >= min_percentage && !@plan.is_test?)
+    if @plan.present?
+      authorize @plan
+    else
+      redirect_to(plans_path)
+    end
   end
 
 
@@ -305,16 +302,26 @@ class PlansController < ApplicationController
     end
   end
 
-  # AJAX access to update the plan's visibility
-  # POST /plans/:id
+  # POST /plans/:id/visibility
   def visibility
     plan = Plan.find(params[:id])
-    authorize plan
-    plan.visibility = "#{plan_params[:visibility]}"
-    if plan.save
-      render json: {msg: success_message(_('plan\'s visibility'), _('changed'))}
+    if plan.present?
+      authorize plan
+      if plan.visibility_allowed?
+        plan.visibility = plan_params[:visibility]
+        if plan.save
+          UserMailer.plan_visibility(User.find_by(email: "jose.lloret@ed.ac.uk"),plan).deliver_now()
+          render status: :ok, json: { msg: success_message(_('plan\'s visibility'), _('changed')) }
+        else
+          render status: :internal_server_error, json: { msg: _('Error raised while saving the visibility for plan id %{plan_id}') %{ :plan_id => params[:id]} }
+        end
+      else
+        render status: :forbidden, json: {
+          msg: _('Unable to change the plan\'s status since it is needed at least '\
+            '%{percentage} percentage responded') %{ :percentage => Rails.application.config.default_plan_percentage_answered } }
+      end
     else
-      render status: :bad_request, json: {msg: _("Unable to change the plan's status")}
+      render status: :not_found, json: { msg: _('Unable to find plan id %{plan_id}') %{ :plan_id => params[:id]} }
     end
   end
 
