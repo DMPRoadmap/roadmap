@@ -652,6 +652,23 @@ class Plan < ActiveRecord::Base
     return plan_copy
   end
 
+  # Returns visibility message given a Symbol type visibility passed, otherwise nil
+  def self.visibility_message(type)
+    message = {
+      :organisationally_visible => _('institutional'),
+      :publicly_visible => _('public'),
+      :is_test => _('test'),
+      :privately_visible => _('private')
+    }
+    message[type]
+  end
+
+  # Determines whether or not visibility changes are permitted according to the
+  # percentage of the plan answered in respect to a threshold defined at application.config
+  def visibility_allowed?
+    value=(self.num_answered_questions().to_f/self.num_questions()*100).round(2)
+    !self.is_test? && value >= Rails.application.config.default_plan_percentage_answered
+  end
 
   private
 
@@ -787,5 +804,4 @@ class Plan < ActiveRecord::Base
       self.title = "My plan (#{self.template.title})" if self.title.nil? && !self.template.nil?
     end
   end
-
 end

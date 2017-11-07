@@ -14,4 +14,8 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.find_by(email: 'super_admin@example.com')
     UserMailer.api_token_granted_notification(user)
   end
+  def plan_visibility
+    user = User.find_by(email: 'super_admin@example.com')
+    UserMailer.plan_visibility(user, user.plans.first)
+  end
 end

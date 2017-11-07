@@ -68,4 +68,13 @@ class UserMailer < ActionMailer::Base
       end
     end
   end
+
+  def plan_visibility(user, plan)
+    @user = user
+    @plan = plan
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @user.email,
+        subject: _('DMP Visibility Changed: %{plan_title}') %{ :plan_title => @plan.title })
+    end
+  end
 end
