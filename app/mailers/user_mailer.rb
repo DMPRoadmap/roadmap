@@ -77,4 +77,18 @@ class UserMailer < ActionMailer::Base
         subject: _('DMP Visibility Changed: %{plan_title}') %{ :plan_title => @plan.title })
     end
   end
+  # @param commenter - User who wrote the comment
+  # @param plan - Plan for which the comment is associated to
+  def new_comment(commenter, plan)
+    if commenter.is_a?(User) && plan.is_a?(Plan)
+      if plan.owner.present?
+        @commenter = commenter
+        @plan = plan
+        FastGettext.with_locale FastGettext.default_locale do
+          mail(to: plan.owner.email, subject:
+            _('%{tool_name}: A new comment was added to %{plan_title}') %{ :tool_name => Rails.configuration.branding[:application][:name], :plan_title => plan.title })
+        end
+      end
+    end
+  end
 end
