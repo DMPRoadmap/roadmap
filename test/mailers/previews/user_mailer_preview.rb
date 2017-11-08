@@ -18,4 +18,9 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.find_by(email: 'super_admin@example.com')
     UserMailer.plan_visibility(user, user.plans.first)
   end
+  def new_comment
+    commenter = User.find_by(email: 'super_admin@example.com')
+    plan = Plan.joins(:roles).where(Role.creator_condition).first
+    UserMailer.new_comment(commenter, plan)
+  end
 end
