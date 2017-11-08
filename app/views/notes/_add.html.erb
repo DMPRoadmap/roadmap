@@ -12,7 +12,6 @@
              id: "new_note_form_#{questionid}") do |f| %>
 	<%= f.hidden_field :user_id, value: current_user.id %>
 	<%= f.hidden_field :question_id, value: questionid %>
-	<%= f.hidden_field :answer_id, value: answer.id %>
 	<%= f.hidden_field :plan_id, value: plan_id %>
 
 	<fieldset class="standard">
