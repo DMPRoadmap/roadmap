@@ -9,6 +9,11 @@ defaults: &defaults
     copywrite_name: 'Curation Centre (CC)'
     email: 'tester@cc_curation_centre.org'
     helpdesk_email: 'someone@somewhere.com'
+
+    # Warning: this value will be used to override the URl of the application's built-in contact form. It will
+    #          replace the link in all email communications as well as the contact link in the page footer!
+    #
+    #          Comment this line out if you want to use DMPRoadmap's built-in contact form.
     contact_us_url: 'https://somewhere.com/contact-us'
 
   application:

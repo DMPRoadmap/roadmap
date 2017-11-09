@@ -254,5 +254,4 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         end
       end
     end
-
 end
