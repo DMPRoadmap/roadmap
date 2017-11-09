@@ -34,7 +34,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         registrations: "registrations",
         passwords: 'passwords',
         sessions: 'sessions',
-        omniauth_callbacks: 'users/omniauth_callbacks'} do
+        omniauth_callbacks: 'users/omniauth_callbacks',
+        invitations: 'users/invitations' } do
 
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
