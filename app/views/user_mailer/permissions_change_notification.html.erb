@@ -3,8 +3,6 @@
   username = @user.name
   plan_title = @role.plan.title
   access = nil
-  helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
-  contact_us_url = Rails.configuration.branding[:organisation][:contact_us_url]
   email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
   access_level = @role.access_level()
   access_level_messages = Role.access_level_messages
@@ -16,12 +14,5 @@
   <p>
     <%= _('Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}') %{ :plan_title => plan_title, :type => access_level_messages[access_level][:type], :placeholder1 => access_level_messages[access_level][:placeholder1], :placeholder2 => access_level_messages[access_level][:placeholder2] } %>
   </p>
-  <p>
-    <%= _('All the best') %>
-    <br />
-    <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
-  </p>
-  <p>
-    <%= _('You may change your notification preferences on your profile page.') %>&nbsp;<%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us_url}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us_url => link_to(contact_us_url, contact_us_url) }) %>
-  </p>
+  <%= render partial: 'email_signature', locals: { email_subject: email_subject } %>
 <% end %>
