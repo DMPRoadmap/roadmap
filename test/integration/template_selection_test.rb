@@ -33,7 +33,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: @template.org.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@template.org_id}"
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -46,7 +46,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     template = version_template(template)
     
     # Make sure the published version is used
-    post plans_path(format: :json), {plan: {org_id: @template.org.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@template.org_id}"
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -60,7 +60,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: @template.org.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@template.org_id}"
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -76,7 +76,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: nil}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]="
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -88,7 +88,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
   test 'plan gets org template when no funder' do
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: @org.id, funder_id: nil}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@org.id}&plan[funder_id]="
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -100,7 +100,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
   test 'plan gets funder template when no org' do
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: nil, funder_id: @funder.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=&plan[funder_id]=#{@funder.id}"
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -112,7 +112,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
   test 'plan gets funder template when org has no customization' do
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: @org.id, funder_id: @funder.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
     assert_response :success
     json = JSON.parse(@response.body)
 
@@ -130,7 +130,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: @org.id, funder_id: @funder.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
     assert_response :success
     json = JSON.parse(@response.body)
     
@@ -147,7 +147,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     
     sign_in @researcher
     
-    post plans_path(format: :json), {plan: {org_id: @org.id, funder_id: @funder.id}}
+    get "#{template_options_template_path(@researcher)}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
     assert_response :success
     json = JSON.parse(@response.body)
 
