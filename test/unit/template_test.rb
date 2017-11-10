@@ -110,7 +110,7 @@ class TemplateTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can manage has_many relationship with Plan" do
-    plan = Plan.new(title: 'Test Plan')
+    plan = Plan.new(title: 'Test Plan', visibility: :is_test)
     verify_has_many_relationship(@template, plan, @template.plans.count)
   end
 

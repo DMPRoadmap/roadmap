@@ -21,7 +21,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       template = question.section.phase.template
       
       plan = Plan.create(title: "Testing Answer For #{format.title}", 
-                         template: template)
+                         template: template, visibility: :is_test)
       
       Role.create!(user_id: @user.id, plan_id: plan.id, access: 4)
       plan.reload
