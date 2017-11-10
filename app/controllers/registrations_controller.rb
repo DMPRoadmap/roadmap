@@ -41,19 +41,20 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    #logger.debug "#{sign_up_params}"
     if !sign_up_params[:accept_terms] then
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     else
-      existing_user = User.find_by_email(sign_up_params[:email])
-      if !existing_user.nil? # If email exists
-        if (existing_user.password == "" || existing_user.password.nil?) && existing_user.confirmed_at.nil? # If user has not accepted invitation yet
-          existing_user.destroy # Only solution for now
-          super
-        else
+      existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
+      if existing_user.present?
+        if existing_user.accept_terms?
           redirect_to after_sign_up_error_path_for(resource), alert: _('That email address is already registered.')
+          return
+        else
+          existing_user.destroy # Destroys the existing user since the accept terms are nil/false.
+          # Note any existing role for that user will be deleted too. Added to accommodate issue at:
+          # https://github.com/DMPRoadmap/roadmap/issues/322
         end
-      else
+      end
         build_resource(sign_up_params)
         if resource.save
           if resource.active_for_authentication?
@@ -63,14 +64,12 @@ class RegistrationsController < Devise::RegistrationsController
             respond_with resource, location: after_sign_up_path_for(resource)
           else
             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-            #expire_session_data_after_sign_in!  <-- DEPRECATED BY DEVISE
             respond_with resource, location: after_inactive_sign_up_path_for(resource)
           end
         else
           clean_up_passwords resource
           redirect_to after_sign_up_error_path_for(resource), alert: _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.')
         end
-      end
     end
   end
 

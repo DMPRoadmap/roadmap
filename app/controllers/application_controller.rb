@@ -49,24 +49,21 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    # request.referer, identifies the URL that linked to the resource being requested
-    if request.referer.eql?(new_user_session_path)
-      root_path
-    else
-      request.referer || root_path
-    end
+    return request.referer || root_path unless request.referer.eql?(new_user_session_path)
+    root_path
   end
 
   def after_sign_up_path_for(resource)
-    session[:previous_url] || root_path
+    return request.referer || root_path unless request.referer.eql?(new_user_registration_path)
+    root_path
   end
 
   def after_sign_in_error_path_for(resource)
-    session[:previous_url] || root_path
+    request.referer || root_path
   end
 
   def after_sign_up_error_path_for(resource)
-    session[:previous_url] || root_path
+    request.referer || root_path
   end
 
   def authenticate_admin!
