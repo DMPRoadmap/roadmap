@@ -63,7 +63,7 @@ class AnswerTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "answer's template must match the plan's template" do
-    plan = Plan.new(title: 'Wrong plan test', template: Template.where.not(id: @plan.template.id).first)
+    plan = Plan.new(title: 'Wrong plan test', template: Template.where.not(id: @plan.template.id).first, visibility: :is_test)
     q = @plan.template.questions.select{|q| !q.question_format.option_based }.first
 
     # TODO: This should pass. We shouldn't be able to add an answer to a plan for a question on the wrong template!

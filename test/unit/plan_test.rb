@@ -14,7 +14,7 @@ class PlanTest < ActiveSupport::TestCase
     @plan = Plan.create(title: 'Test Plan', template: @template, grant_number: 'Plan12345',
                         identifier: '000912', description: 'This is a test plan',
                         principal_investigator: 'John Doe', principal_investigator_identifier: 'ABC',
-                        data_contact: 'john.doe@example.com', visibility: 1)
+                        data_contact: 'john.doe@example.com', visibility: :privately_visible)
 
     @plan.assign_creator(@creator.id)
     @plan.save!
@@ -270,7 +270,7 @@ class PlanTest < ActiveSupport::TestCase
     #       default but perhaps there is a use-case for someone creating plans for another user
     #assert_equal @creator, @plan.owner, "expected the owner to match the creator"
 
-    plan = Plan.create!(template: Template.last, title: 'Testing no creator')
+    plan = Plan.create!(template: Template.last, title: 'Testing no creator', visibility: :is_test)
     assert plan.owner.nil?, "expected a new plan with no creator assigned to return nil"
   end
 
@@ -283,7 +283,7 @@ class PlanTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can CRUD Plan" do
-    obj = Plan.create(title: 'Testing CRUD', template: Template.where.not(id: @template.id).first,
+    obj = Plan.create(title: 'Testing CRUD', template: Template.where.not(id: @template.id).first, visibility: :is_test,
                       roles: [Role.new(user: User.last, creator: true)], description: "should change")
     assert_not obj.id.nil?, "was expecting to be able to create a new Plan! - #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
@@ -315,7 +315,7 @@ class PlanTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Template" do
-    plan = Plan.new(title: 'Tester')
+    plan = Plan.new(title: 'Tester', visibility: :is_test)
     verify_belongs_to_relationship(plan, Template.first)
   end
 
