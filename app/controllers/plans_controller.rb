@@ -43,9 +43,11 @@ class PlansController < ApplicationController
 
     # If the template_id is blank then we need to look up the available templates and return JSON
     if plan_params[:template_id].blank?
-      templates = template_options(org_id, funder_id)
-      render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
-      
+      # Something went wrong there should always be a template id
+      respond_to do |format|
+        flash[:alert] = _('Unable to identify a suitable template for your plan.')
+        format.html { redirect_to new_plan_path }
+      end
     else
       # Otherwise create the plan
       @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
@@ -336,7 +338,6 @@ class PlansController < ApplicationController
     end
   end
 
-
   private
   def plan_params
     params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
@@ -427,45 +428,4 @@ class PlansController < ApplicationController
     end
     plan.delete(src_plan_key)
   end
-
-  # Collect all of the templates available for the org+funder combination
-  # --------------------------------------------------------------------------
-  def template_options(org_id, funder_id)
-    templates = []
-
-    if org_id.present? || funder_id.present?
-      if funder_id.blank?
-        # Load the org's template(s)
-        if org_id.present?
-          org = Org.find(org_id)
-          templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
-        end
-
-      else
-        funder = Org.find(funder_id)
-        # Load the funder's template(s)
-        templates = Template.valid.where(published: true, org: funder).to_a
-
-        if org_id.present?
-          org = Org.find(org_id)
-
-          # Swap out any organisational cusotmizations of a funder template
-          templates.each do |tmplt|
-            customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
-            if customization.present? && tmplt.updated_at < customization.created_at
-              templates.delete(tmplt)
-              templates << customization
-            end
-          end
-        end
-      end
-    end
-
-    # If no templates were available use the generic templates
-    if templates.empty?
-      templates << Template.where(is_default: true, published: true).first
-    end
-    templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
-  end
-
 end

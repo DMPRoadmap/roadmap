@@ -37,10 +37,6 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
-  def possible_templates?
-    @plan.id.nil?
-  end
-
   def duplicate?
     @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end

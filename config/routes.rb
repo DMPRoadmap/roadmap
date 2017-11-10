@@ -145,6 +145,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         put 'admin_unpublish'
         put 'admin_copy'
         get 'admin_transfer_customization'
+        get 'template_options', constraints: {format: [:json]}
       end
     end
 

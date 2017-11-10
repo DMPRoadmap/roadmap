@@ -60,6 +60,12 @@ class TemplatePolicy < ApplicationPolicy
   def admin_copy?
     user.can_modify_templates?  &&  (template.org_id == user.org_id)
   end
+  
+  # Anyone with an account should be able to get templates for the sepecified research_org + funder
+  # This policy is applicable to the Create Plan page
+  def template_options?
+    user.present?
+  end
 
   class Scope < Scope
     def resolve
