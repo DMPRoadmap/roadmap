@@ -285,10 +285,9 @@ class User < ActiveRecord::Base
   ##
   # Case insensitive search over User model
   # @param field [string] The name of the field being queried
-  # @param val [string] The string to search for, case insensitive
+  # @param val [string] The string to search for, case insensitive. val is duck typed to check whether or not downcase method exist
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
-    User.where("lower(#{field}) = ?", val.downcase)
+    User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
   end
-
 end
