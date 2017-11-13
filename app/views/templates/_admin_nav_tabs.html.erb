@@ -3,7 +3,8 @@
         <%= link_to(_('Template details'), admin_template_template_path(template), { 'aria-controls': 'show_template', role: 'tab' }) %>
     </li>
     <% template.phases.each do |phase| %>
-        <li role="presentation" <%= isActivePage(admin_show_phase_path(phase.id)) ? ' class=active' : '' %>>
+        <li role="presentation" <%= isActivePage(admin_show_phase_path(phase.id)) ||
+            isActivePage(admin_preview_phase_path(phase)) ? ' class=active' : '' %>>
             <%= link_to(phase.title, admin_show_phase_path(phase.id), { 'aria-controls': "#{phase.id}", role: 'tab' }) %>
         </li>
     <% end %>

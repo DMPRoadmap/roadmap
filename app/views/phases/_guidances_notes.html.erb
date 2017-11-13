@@ -1,6 +1,6 @@
-<!-- local variables: plan, question, answer, question_guidances -->
+<%# locals: { plan, template, question, answer, question_guidance } %>
 <% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
-<% guidances = question_guidance[question.id] %>
+<% guidances = question_guidance[question.id] || {} %>
 <% guidances_active = annotations.present? || guidances.present? %>
 <div>
     <!-- Nav tabs -->
@@ -12,13 +12,15 @@
                 </a>
             </li>
         <% end %>
-        <li role="presentation" class="<%= 'active' if !guidances_active %>">
-            <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="tab">
-                <span id="notes-title-<%= question.id %>">
-                    <%= render partial: '/notes/title', locals: { answer: answer } %>
-                </span>
-            </a>
-        </li>
+        <% if plan.present? %>
+            <li role="presentation" class="<%= 'active' if !guidances_active %>">
+                <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="tab">
+                    <span id="notes-title-<%= question.id %>">
+                        <%= render partial: '/notes/title', locals: { answer: answer } %>
+                    </span>
+                </a>
+            </li>
+        <% end %>
     </ul>
     <div class="tab-content">
         <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if guidances_active %>">
@@ -34,7 +36,7 @@
                 <% i = 0 %>
                 <% if annotations.present? %>
                   <% annotations.each do |annotation| %>
-                    <%= render partial: 'annotations/show', locals: {plan: plan, annotation: annotation, question: question} %>
+                    <%= render partial: 'annotations/show', locals: { template: template, annotation: annotation, question: question } %>
                     <% num_annotations += 1%>
                     <% i += 1 %>
                   <% end %>
@@ -44,17 +46,18 @@
                 <% guidances.each_pair do |theme, groups| %>
                   <% groups.each do |group| %>
                     <%= render partial: 'guidance_groups/show', 
-                               locals: {group: group, theme: theme, i: i, question: question,
-                                guidance_accordion_id: guidance_accordion_id} %>
-               
+                               locals: { group: group, theme: theme, question: question,
+                                guidance_accordion_id: guidance_accordion_id } %>
                     <% guidance_accordion_id += 1 %>
                     <% i += 1 %>
                   <% end %> 
                 <% end %>   
             </div>
         </div>
-        <div id="notes-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
-            <%= render partial: '/notes/layout', locals: {plan: plan, question: question, answer: answer } %>
-        </div>
+        <% if plan.present? %>
+            <div id="notes-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
+                <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer } %>
+            </div>
+        <% end %>
     </div>
 </div>

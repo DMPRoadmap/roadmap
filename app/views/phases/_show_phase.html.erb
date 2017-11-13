@@ -8,7 +8,10 @@
 </dl>
 <% if phase.modifiable && edit %>
     <div class="pull-right">
-        <%= link_to(_('Edit phase details'), '#', { class: "btn btn-default phase_edit_link", role: "button" }) %>
+      <ul class="list-inline">
+        <li><%= link_to(_('Edit phase details'), '#', { class: "btn btn-default phase_edit_link", role: "button" }) %></li>
+        <li><%= link_to(_('Preview'), admin_preview_phase_path(phase), { class: 'btn btn-default phase_preview_link', role: 'button' }) %></li>
+      </ul>
     </div>
 <% end %>
 
