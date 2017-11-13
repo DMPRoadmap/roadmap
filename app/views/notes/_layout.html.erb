@@ -1,8 +1,8 @@
-<!-- Requires local variables plan, question, answer -->
+<%# locals: { plan, question, answer } %>
 <% notes = answer.non_archived_notes %>
 <div class="row">
   <div class="col-md-12">
-    <%= render partial: "/notes/list", locals: {question_id: question.id, notes: notes, plan: plan}, formats: [:html] %>  
+    <%= render partial: "/notes/list", locals: { question_id: question.id, notes: notes, plan: plan }, formats: [:html] %>  
   </div>
 </div>
 <div class="row">

@@ -1,4 +1,4 @@
-<!--edit note to answer. note passed as argument-->
+<%# locals: { note } %>
 <% if !note.nil? %>
     <%= form_for(note, url: note_path(note), method: :put) do |f| %>
         <div class="form-group">

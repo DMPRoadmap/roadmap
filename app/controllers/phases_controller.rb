@@ -7,13 +7,13 @@ class PhasesController < ApplicationController
   # GET /plans/:plan_id/phases/:id/edit
   def edit
 
-    @plan = Plan.eager_load2(params[:plan_id])
+    plan = Plan.eager_load2(params[:plan_id])
     # authorization done on plan so found in plan_policy
-    authorize @plan
+    authorize plan
 
     phase_id = params[:id].to_i
-    @phase = @plan.template.phases.select {|p| p.id == phase_id}.first
-    @readonly = !@plan.editable_by?(current_user.id)
+    phase = plan.template.phases.select {|p| p.id == phase_id}.first
+    readonly = !plan.editable_by?(current_user.id)
 
     # Now we need to get all the themed guidance for the plan.
     # TODO: think this through again, there may be a better way to do this.
@@ -22,7 +22,7 @@ class PhasesController < ApplicationController
     #
     # get the ids of the dynamically selected guidance groups
     # and keep a map of them so we can extract the names later
-    guidance_groups_ids = @plan.guidance_groups.map{|pgg| pgg.id}
+    guidance_groups_ids = plan.guidance_groups.map{|pgg| pgg.id}
     guidance_groups =  GuidanceGroup.includes({guidances: :themes}).where(published: true, id: guidance_groups_ids)
 
     # create a map from theme to array of guidances
@@ -54,25 +54,26 @@ class PhasesController < ApplicationController
     #                      theme => [ {text: "......", org: "....."} ]
     #              }
     # }
-    @question_guidance = {}
-    @plan.questions.each do |question|
+    question_guidance = {}
+    plan.questions.each do |question|
       qg = {}
       question.themes.each do |t|
         title = t.title
         qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
       end
-      if !@question_guidance.has_key?(question.id)
-        @question_guidance[question.id] = Array.new
+      if !question_guidance.has_key?(question.id)
+        question_guidance[question.id] = Array.new
       end
-      @question_guidance[question.id] = qg
+      question_guidance[question.id] = qg
     end
 
     if !user_signed_in? then
       respond_to do |format|
         format.html { redirect_to edit_user_registration_path }
       end
+    else 
+      render('/phases/edit', locals: { plan: plan, phase: phase, readonly: readonly, question_guidance: question_guidance })
     end
-
   end
 
 

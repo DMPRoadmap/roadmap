@@ -1,5 +1,6 @@
+<%# locals: { plan, phase, readonly, question_guidance } %>
 <div class="tab-panels" role="tabpanel">
-  <div id="phase-#<%= @phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= @phase.id %>-tab">
+  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
       <div class="col-md-8">
         <div class="row">
@@ -13,21 +14,27 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="progress">
-              <%= render :partial => "/plans/progress", locals: { plan: @plan, current_phase: @phase } %>
-            </div>
+            <% if plan.present? && phase.present? %>
+              <div class="progress">
+                <%= render :partial => "/plans/progress", locals: { plan: plan, current_phase: phase } %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
     <div class="panel-group" id="sections-accordion" role="tablist" aria-multiselectable="true">
-    <% @phase.sections.order(:number).each do |section| %>
+    <% phase.sections.order(:number).each do |section| %>
       <% sectionid = section.id %>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
           <div class="panel-title pull-left">
-            <%= section.title %> <span class="section-progress-<%= sectionid %>">
-                    <%= render :partial => "/sections/progress", locals: { section: section, plan: @plan } %></span>
+            <%= section.title %> 
+            <% if plan.present? %>
+                <span class="section-progress-<%= sectionid %>">
+                  <%= render :partial => "/sections/progress", locals: { section: section, plan: plan } %>
+                </span>
+            <% end %>
           </div>
           <div class="panel-title pull-right">
             <a
@@ -55,12 +62,12 @@
             <!-- the section body -->
             <% section.questions.each do |question| %>
               <% # Load the answer or create a new one
-                answers = question.plan_answers(@plan.id)
+                answers = question.plan_answers(plan.id)  if plan.present?
                 if answers.present?
                   answer = answers.first
                   answer.user_id = current_user.id
                 else
-                  answer = Answer.new({ plan: @plan, question: question, user: current_user, text: question.default_value })
+                  answer = Answer.new({ plan: plan, question: question, user: current_user, text: question.default_value })
                 end
               %>
               <div class="row">
@@ -69,22 +76,22 @@
                   <div class="question-form">
                     <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
                     <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
-                      <%= render(partial: 'answers/new_edit', locals: { question: question, answer: answer, readonly: @readonly }) %>
+                      <%= render(partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: readonly }) %>
                     </div>
                     <div id="<%= "answer-status-#{question.id}" %>">
-                      <%= render(partial: 'answers/status', locals: { answer: answer }) %>
+                      <%= render(partial: '/answers/status', locals: { answer: answer }) %>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <!-- Guidances and notes partial view -->
-                  <%= render partial: 'guidances_notes', locals: {plan: @plan, question: question, answer: answer, question_guidance: @question_guidance} %>
+                  <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance } %>
                 </div>
               </div>
             <% end %> <!-- section.questions.each do -->
           </div> <!-- panel-body -->
         </div> <!-- panel-collapse -->
-      <% end %>   <!-- @phase.sections.order(:number).each do -->
+      <% end %>   <!-- phase.sections.order(:number).each do -->
     </div>   <!-- panel-group -->
   </div> <!-- tab panel -->
 </div> <!-- tab panels -->
