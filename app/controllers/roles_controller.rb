@@ -75,10 +75,10 @@ class RolesController < ApplicationController
       role.plan.visibility = Plan.visibilities[:privately_visible]
       role.plan.save
     end
-    role.save
-    @plans = current_user.active_plans
-    flash[:notice] = _('Plan removed')
-    render "plans/index"
+    if role.save
+      flash[:notice] = _('Plan removed')
+    end
+    redirect_to(plans_path)
   end
 
   private
