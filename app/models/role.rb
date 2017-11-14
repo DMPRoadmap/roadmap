@@ -15,6 +15,7 @@ class Role < ActiveRecord::Base
             2 => :administrator,      # 2
             3 => :editor,             # 4
             4 => :commenter,          # 8
+            5 => :reviewer,           # 16
             column: 'access'
 
   validates :user, :plan, :access, presence: {message: _("can't be blank")}
@@ -22,6 +23,7 @@ class Role < ActiveRecord::Base
 
   ##
   # return the access level for the current project group
+  # 5 if the user is a reviewer
   # 3 if the user is an administrator
   # 2 if the user is an editor
   # 1 if the user can only read
@@ -29,7 +31,9 @@ class Role < ActiveRecord::Base
   #
   # @return [Integer]
   def access_level
-    if self.administrator?
+    if self.reviewer?
+      return 5
+    elsif self.administrator?
       return 3
     elsif self.editor?
       return 2
@@ -41,6 +45,11 @@ class Role < ActiveRecord::Base
   # This method becomes useful for generatic template messages (e.g. permissions change notification mailer)
   def self.access_level_messages
     {
+      5 => {
+        :type => _('reviewer'),
+        :placeholder1 => _('read the plan and provide feedback.'),
+        :placeholder2 => nil
+        },
       3 => {
         :type => _('co-owner'),
         :placeholder1 => _('write and edit the plan in a collaborative manner.'),
@@ -83,3 +92,19 @@ end
 # 13 - creator + editor + commenter
 # 14 - administrator + editor + commenter
 # 15 - creator + administrator + editor + commenter
+# 16 - reviewer
+# 17 - creator + reviewer
+# 18 - administrator + reviewer
+# 19 - creator + administrator + reviewer
+# 20 - editor + reviewer
+# 21 - creator + editor + reviewer
+# 22 - administraor + editor + reviewer
+# 23 - creator + editor + administrator + reviewer
+# 24 - commenter + reviewer
+# 25 - creator + commenter + reviewer
+# 26 - administrator + commenter + reviewer
+# 27 - creator + administrator + commenter + reviewer
+# 28 - editor + commenter + reviewer
+# 29 - creator + editor + commenter + reviewer
+# 30 - administrator + editor + commenter + reviewer
+# 31 - creator + administrator + editor + commenter + reviewer

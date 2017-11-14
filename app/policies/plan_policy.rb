@@ -53,4 +53,7 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
+  def request_feedback?
+    @plan.owned_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+  end
 end

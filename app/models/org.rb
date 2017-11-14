@@ -142,6 +142,11 @@ class Org < ActiveRecord::Base
     end
   end
 
+  def org_admins
+    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id, 
+      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+  end
+
   private
     ##
     # checks size of logo and resizes if necessary
