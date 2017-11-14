@@ -107,7 +107,9 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <%= render partial: 'publicly_visible_org', locals: { plans: @organisationally_or_publicly_visible, paginable: @paginable } %>
+    <% if @organisationally_or_publicly_visible.length > 0 %>
+      <%= render partial: 'publicly_visible_org', locals: { plans: @organisationally_or_publicly_visible, paginable: @paginable } %>
+    <% end %>
   </div>
 </div>
 
