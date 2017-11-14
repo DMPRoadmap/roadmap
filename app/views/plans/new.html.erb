@@ -64,7 +64,7 @@
 
       <!-- Template selection -->
       <div id="available-templates" style="visibility: none;">
-        <%= hidden_field_tag 'template-option-target', template_options_template_url(current_user) %>
+        <%= hidden_field_tag 'template-option-target', template_options_template_path(current_user) %>
         <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
         <div class="form-group row">
           <div class="col-xs-6">
