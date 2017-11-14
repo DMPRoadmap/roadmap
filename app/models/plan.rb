@@ -63,7 +63,7 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    Plan.joins(:template)
+    Plan.includes(:template)
       .where({
         visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
         "templates.org_id": user.org_id})
