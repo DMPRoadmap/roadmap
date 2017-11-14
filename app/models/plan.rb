@@ -38,7 +38,7 @@ class Plan < ActiveRecord::Base
                   :exported_plans, :project, :title, :template, :grant_number,
                   :identifier, :principal_investigator, :principal_investigator_identifier,
                   :description, :data_contact, :funder_name, :visibility, :exported_plans,
-                  :roles, :users, :org, :data_contact_email, :data_contact_phone,
+                  :roles, :users, :org, :data_contact_email, :data_contact_phone, :feedback_requested,
                   :principal_investigator_email, :as => [:default, :admin]
   accepts_nested_attributes_for :roles
 
@@ -189,8 +189,40 @@ class Plan < ActiveRecord::Base
     end
     return ggroups.uniq
   end
+  
+  ##
+  # Sets up the plan for feedback:
+  #  emails confirmation messages to owners
+  #  emails org admins and org contact 
+  #  adds org admins to plan with the 'reviewer' Role
+  def request_feedback(user)
+    val = Role.access_values_for(:reviewer, :commenter).min
+    self.feedback_requested = true
+    
+    # Share the plan with each org admin as the reviewer role
+    admins = user.org.org_admins
+    admins.each do |admin|
+      self.roles << Role.new(user: admin, access: val)
+    end 
 
-
+    if self.save!
+      # Send an email confirmation to the owners and co-owners
+      self.owner_and_coowners.each do |owner|
+        UserMailer.feedback_confirmation(owner, self, user).deliver_now
+      end
+  
+      # Send an email to all of the org admins as well as the Org's administrator email
+      if user.org.contact_email.present?
+        admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+      end
+      admins.each do |admin|
+        UserMailer.feedback_notification(admin, self, user).deliver_now
+      end
+      true
+    else
+      false
+    end
+  end
 
 
    ##
@@ -317,6 +349,17 @@ class Plan < ActiveRecord::Base
     user_id = user_id.id if user_id.is_a?(User)
     role = roles.where(user_id: user_id).first
     return role.present? && role.creator?
+  end
+
+  ##
+  # determines if the plan is reviewable by the specified user
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user can administer the plan
+  def reviewable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
+    role = roles.where(user_id: user_id).first
+    return role.present? && role.reviewer?
   end
 
   ##
@@ -570,6 +613,15 @@ class Plan < ActiveRecord::Base
       end
     end
     return nil
+  end
+
+  ##
+  # the owner and co-owners of the project
+  #
+  # @return [Users]
+  def owner_and_coowners
+    vals = Role.access_values_for(:creator).concat(Role.access_values_for(:administrator))
+    User.joins(:roles).where("roles.plan_id = ? AND roles.access IN (?)", self.id, vals)
   end
 
   ##

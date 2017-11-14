@@ -7,6 +7,8 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = current_user.active_plans
+    # Exclude any plans where the user is a reviewer. They access those plans via Admin -> Plans menu
+    @plans.delete_if{ |p| p.reviewable_by?(current_user) }
     @paginable = params[:page]
     @organisationally_or_publicly_visible = @paginable.nil? ? Plan.organisationally_or_publicly_visible(current_user) :
     Plan.organisationally_or_publicly_visible(current_user).page(params[:page])
@@ -179,6 +181,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
+      # Get the roles where the user is not a reviewer
+      @plan_roles = @plan.roles.select{ |r| !r.reviewer? }
     else
       redirect_to(plans_path)
     end
@@ -336,6 +340,25 @@ class PlansController < ApplicationController
     else
       render status: :bad_request, json: {code: 0, msg: _("Unable to change the plan's test status")}
     end
+  end
+
+  def request_feedback
+    @plan = Plan.find(params[:id])
+    authorize @plan
+    alert = _('Unable to submit your request for feedback at this time.')
+    
+    begin
+     if @plan.request_feedback(current_user)
+       flash[:notice] = _('Your request for feedback has been submitted.')
+     else
+       flash[:alert] = alert
+     end
+    rescue Exception
+      flash[:alert] = alert
+    end
+    # Get the roles where the user is not a reviewer
+    @plan_roles = @plan.roles.select{ |r| !r.reviewer? }
+    render 'share'
   end
 
   private
