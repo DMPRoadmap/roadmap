@@ -10,6 +10,6 @@
 
   <p><%= _('Hello %{user_name},') % {user_name: recipient_name} %></p>
   <p><%= _('%{requestor} has requested feedback on a plan "%{plan_name}." To add comments, please visit the \'Plans\' page under the Admin menu in %{application_name} and open the plan.') % {requestor: requestor_name, plan_name: plan_name, application_name: tool_name} %></p>
-  <p><%= _('All the best,<br />The %{application_name} team') % {application_name: tool_name} %></p>
-  <p><%= _('You may change your notification preferences on your profile page. Please do not reply to this email. If you have questions or need help, please contact us at %{help_desk} or visit %{contact_url}') % {help_desk: helpdesk, contact_url: contact_url} %></p>
+  <p><%= raw(_('All the best,<br />The %{application_name} team') % {application_name: tool_name}) %></p>
+  <p><%= raw(_('You may change your notification preferences on your profile page. Please do not reply to this email. If you have questions or need help, please contact us at %{help_desk} or visit %{contact_url}') % {help_desk: helpdesk, contact_url: contact_url}) %></p>
 <% end %>
