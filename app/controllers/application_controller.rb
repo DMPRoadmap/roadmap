@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   include GlobalHelpers
   include Pundit
+  include ConditionalUserMailer
   helper_method GlobalHelpers.instance_methods
 
 
