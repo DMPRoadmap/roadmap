@@ -1,4 +1,5 @@
 class PlansController < ApplicationController
+  include ConditionalUserMailer
   require 'pp'
   helper PaginableHelper
   helper SettingsTemplateHelper
@@ -312,7 +313,9 @@ class PlansController < ApplicationController
       if plan.visibility_allowed?
         plan.visibility = plan_params[:visibility]
         if plan.save
-          UserMailer.plan_visibility(User.find_by(email: "jose.lloret@ed.ac.uk"),plan).deliver_now()
+          deliver_if(recipients: plan.owner_and_coowners, key: 'owners_and_coowners.visibility_changed') do |r|
+            UserMailer.plan_visibility(r,plan).deliver_now()
+          end
           render status: :ok, json: { msg: success_message(_('plan\'s visibility'), _('changed')) }
         else
           render status: :internal_server_error, json: { msg: _('Error raised while saving the visibility for plan id %{plan_id}') %{ :plan_id => params[:id]} }
