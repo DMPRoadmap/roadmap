@@ -1,5 +1,5 @@
 class Plan < ActiveRecord::Base
-
+  include ConditionalUserMailer
   before_validation :set_creation_defaults
 
   ##
@@ -216,8 +216,9 @@ class Plan < ActiveRecord::Base
       if user.org.contact_email.present?
         admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
       end
-      admins.each do |admin|
-        UserMailer.feedback_notification(admin, self, user).deliver_now
+
+      deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
+        UserMailer.feedback_notification(r, self, user).deliver_now
       end
       true
     else

@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+  include ConditionalUserMailer
   respond_to :html
   after_action :verify_authorized
 
@@ -27,7 +28,11 @@ class RolesController < ApplicationController
           message += _('Plan shared with %{email}.') % {email: user.email}
           @role.user = user
           if @role.save
-            if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
+            if registered
+              deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
+                UserMailer.sharing_notification(@role, r).deliver_now
+              end
+            end
             flash[:notice] = message
           else
             flash[:alert] = failed_create_error(@role, _('role'))
