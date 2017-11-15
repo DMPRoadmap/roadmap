@@ -73,7 +73,7 @@ class UserMailer < ActionMailer::Base
       message = feedback_constant_to_text(@org.feedback_email_msg.present? ? @org.feedback_email_msg : feedback_confirmation_default_message)
       
       FastGettext.with_locale FastGettext.default_locale do
-        mail(to: recipient.email, subject: subject, body: message)
+        mail(to: recipient.email, subject: subject, body: raw(message))
       end
     end
   end
