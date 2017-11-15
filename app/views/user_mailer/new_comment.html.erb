@@ -4,7 +4,7 @@
   plan_title = @plan.title
   user_name = @plan.owner.name
   helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
-  contact_us_url = Rails.configuration.branding[:organisation][:contact_us_url]
+  contact_us = Rails.configuration.branding[:organisation][:contact_us_url] || contact_us_url
   email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
@@ -22,6 +22,6 @@
     <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
   </p>
   <p>
-    <%= _('You may change your notification preferences on your profile page.') %>&nbsp;<%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us_url}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us_url => link_to(contact_us_url, contact_us_url) }) %>
+    <%= _('You may change your notification preferences on your profile page.') %>&nbsp;<%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us_url => link_to(contact_us, contact_us) }) %>
   </p>
 <% end %>
