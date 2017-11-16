@@ -196,32 +196,37 @@ class Plan < ActiveRecord::Base
   #  emails org admins and org contact 
   #  adds org admins to plan with the 'reviewer' Role
   def request_feedback(user)
-    val = Role.access_values_for(:reviewer, :commenter).min
-    self.feedback_requested = true
+    Plan.transaction do
+      begin
+        val = Role.access_values_for(:reviewer, :commenter).min
+        self.feedback_requested = true
     
-    # Share the plan with each org admin as the reviewer role
-    admins = user.org.org_admins
-    admins.each do |admin|
-      role = Role.new(user: admin, access: val)
-      self.roles << role unless self.users.include?(admin)
-    end 
+        # Share the plan with each org admin as the reviewer role
+        admins = user.org.org_admins
+        admins.each do |admin|
+          self.roles << Role.new(user: admin, access: val)
+        end 
 
-    if self.save!
-      # Send an email confirmation to the owners and co-owners
-      self.owner_and_coowners.each do |owner|
-        UserMailer.feedback_confirmation(owner, self, user).deliver_now
-      end
+        if self.save!
+          # Send an email confirmation to the owners and co-owners
+          self.owner_and_coowners.each do |owner|
+            UserMailer.feedback_confirmation(owner, self, user).deliver_now
+          end
   
-      # Send an email to all of the org admins as well as the Org's administrator email
-      if user.org.contact_email.present?
-        admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+          # Send an email to all of the org admins as well as the Org's administrator email
+          if user.org.contact_email.present?
+            admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+          end
+          admins.each do |admin|
+            UserMailer.feedback_notification(admin, self, user).deliver_now
+          end
+          true
+        else
+          false
+        end
+      rescue Exception => e
+        puts e
       end
-      admins.each do |admin|
-        UserMailer.feedback_notification(admin, self, user).deliver_now
-      end
-      true
-    else
-      false
     end
   end
 
@@ -608,12 +613,8 @@ class Plan < ActiveRecord::Base
   #
   # @return [User] the creater of the project
   def owner
-    self.roles.each do |role|
-      if role.creator?
-        return role.user
-      end
-    end
-    return nil
+    vals = Role.access_values_for(:creator)
+    User.joins(:roles).where('roles.plan_id = ? AND roles.access IN (?)', self.id, vals).first
   end
 
   ##
