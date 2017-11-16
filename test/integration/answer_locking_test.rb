@@ -27,13 +27,13 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     # Signin as UserA and insert the new answer
     sign_in @plan.owner
     put answer_path(FastGettext.locale, userA, format: "json"), obj_to_params(userA.attributes)
-    assert_response :not_found
+    assert_response :success
     assert_equal "application/json", @response.content_type
 
     # Signin as UserB and try to insert the new answer but fail
     sign_in @collaborator
     put answer_path(FastGettext.locale, userB, format: "json"), obj_to_params(userB.attributes)
-    assert_response :not_found
+    assert_response :success
     assert_equal "application/json", @response.content_type
   end
 
