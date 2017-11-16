@@ -41,6 +41,11 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="admin-menu">
+            <% if current_user.can_org_admin? %>
+              <li <%= 'class=active' if isActivePage(org_admin_plans_path) %>>
+                <%= link_to _('Plans'), org_admin_plans_path %>
+              </li>
+            <% end %>
             <% if current_user.can_modify_templates? %>
                 <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
                   <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>

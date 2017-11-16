@@ -61,6 +61,20 @@ thead th {
     }
 }
 
+/* NOTIFICATION TABLE STYLING */
+.notifications {
+  table { 
+    border: none;
+
+    thead > tr > th { 
+      border: none; 
+      background-color: $white;
+      color: $black; 
+     }
+     tbody > tr > td { border: none; }
+  }
+}
+
 /* TABS STYLING */
 
 .nav-tabs{

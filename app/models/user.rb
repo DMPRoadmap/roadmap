@@ -263,12 +263,23 @@ class User < ActiveRecord::Base
   #
   # @return [JSON] with symbols as keys
   def get_preferences(key)
-    if self.pref.present? && self.pref.settings[key.to_s].present?
-      return self.pref.settings[key.to_s].deep_symbolize_keys
-    elsif Pref.default_settings
-      return Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
+    defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
+
+    if self.pref.present?
+      existing = self.pref.settings[key.to_s].deep_symbolize_keys
+    
+      # Check for new preferences 
+      defaults.keys.each do |grp| 
+        defaults[grp].keys.each do |pref, v|
+          # If the group isn't present in the saved values add all of it's preferences
+          existing[grp] = defaults[grp] if existing[grp].nil?
+          # If the preference isn't present in the saved values add the default
+          existing[grp][pref] = defaults[grp][pref] if existing[grp][pref].nil?
+        end
+      end
+      existing
     else
-      return nil
+      defaults
     end
   end
 

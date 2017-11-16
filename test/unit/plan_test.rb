@@ -17,6 +17,9 @@ class PlanTest < ActiveSupport::TestCase
                         data_contact: 'john.doe@example.com', visibility: :privately_visible)
 
     @plan.assign_creator(@creator.id)
+    @plan.assign_administrator(@administrator.id)
+    @plan.assign_editor(@editor.id)
+    @plan.assign_reader(@reader.id) # AKA a commenter
     @plan.save!
     @plan.reload
   end
@@ -211,52 +214,46 @@ class PlanTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "checks that user is a properly assigned as a creator" do
-    usr = User.first
-    @plan.assign_creator(usr)
-
-    # TODO: It seems like the creator should be allowed to administer, red and edit their plan
-    #assert @plan.administerable_by?(usr), "expected the creator to be able to administer"
-    #assert @plan.editable_by?(usr), "expected the creator to be able to edit"
-    #assert @plan.readable_by?(usr), "expected the creator to be able to read"
-    assert @plan.owned_by?(usr), "expected the creator to be able to own a plan"
+    assert @plan.owned_by?(@creator), "expected the creator to be able to be the owner"
+    assert @plan.administerable_by?(@creator), "expected the creator to be able to administer"
+    assert @plan.editable_by?(@creator), "expected the creator to be able to edit"
+    assert @plan.readable_by?(@creator), "expected the creator to be able to comment"
   end
 
   # ---------------------------------------------------
   test "checks that user is a properly assigned as a editor" do
-    usr = User.first
-    @plan.assign_editor(usr)
-
-    assert_not @plan.administerable_by?(usr), "expected the editor to NOT be able to administer"
-
-    # TODO: It seems like an editor should be able to read and edit
-    #assert @plan.editable_by?(usr), "expected the editor to be able to edit"
-    #assert @plan.readable_by?(usr), "expected the editor to be able to read"
+    assert_not @plan.owned_by?(@editor), "expected the editor to NOT be the owner"
+    assert_not @plan.administerable_by?(@editor), "expected the editor to NOT be able to administer"
+    assert @plan.editable_by?(@editor), "expected the editor to be able to edit"
+    assert @plan.readable_by?(@editor), "expected the editor to be able to comment"
   end
 
   # ---------------------------------------------------
-  test "checks that user is a properly assigned as a reader" do
-    usr = User.first
-    @plan.assign_reader(usr)
-
-    assert_not @plan.administerable_by?(usr), "expected the reader to NOT be able to administer"
-    assert_not @plan.editable_by?(usr), "expected the reader to NOT be able to edit"
-
-    # TODO: It seems like readable_by? should return true if we've called assign_reader
-    #       seems to be an issue with the assign_user private method on the Plan model
-    #assert @plan.readable_by?(usr), "expected the reader to be able to read"
+  test "checks that user is a properly assigned as a commenter" do
+    assert_not @plan.owned_by?(@reader), "expected the reader to NOT be the owner"
+    assert_not @plan.administerable_by?(@reader), "expected the reader to NOT be able to administer"
+    assert_not @plan.editable_by?(@reader), "expected the reader to NOT be able to edit"
+    assert @plan.readable_by?(@reader), "expected the commenter to be able to comment"
   end
 
   # ---------------------------------------------------
-  test "checks that user is a properly assigned as a adminstrator" do
-    usr = User.first
-    @plan.assign_administrator(usr)
-
-    # TODO: It seems like assigning someone as an administrator should give them permission to also read and edit
-    #assert @plan.administerable_by?(usr), "expected the adminstrator to be able to administer"
-    #assert @plan.editable_by?(usr), "expected the adminstrator to be able to edit"
-    #assert @plan.readable_by?(usr), "expected the adminstrator to be able to read"
+  test "checks that user is a properly assigned as a administrator" do
+    assert_not @plan.owned_by?(@administrator), "expected the adminstrator to NOT be the owner"
+    assert @plan.administerable_by?(@administrator), "expected the adminstrator to be able to administer"
+    assert @plan.editable_by?(@administrator), "expected the adminstrator to be able to edit"
+    assert @plan.readable_by?(@administrator), "expected the adminstrator to be able to comment"
   end
 
+  # ---------------------------------------------------
+  test "checks that user is a properly assigned as a reviewer" do
+    val = Role.access_values_for(:reviewer, :commenter).min
+    usr = User.create(email: 'test@testing.org', password: 'testing1234')
+    @plan.roles << Role.new(user: usr, access: val)
+    @plan.save!
+    assert @plan.reviewable_by?(usr), "expected the reviewer to be able to review"
+    assert @plan.readable_by?(usr), "expected the reviewer to be able to comment"
+  end
+  
   # ---------------------------------------------------
   test "name returns the title" do
     assert_equal @plan.title, @plan.name
@@ -318,5 +315,35 @@ class PlanTest < ActiveSupport::TestCase
     plan = Plan.new(title: 'Tester', visibility: :is_test)
     verify_belongs_to_relationship(plan, Template.first)
   end
+  
+  # ---------------------------------------------------
+  test "owner_and_coowners returns the correct users" do
+    usrs = @plan.owner_and_coowners
+    assert_equal 2, usrs.length, "expected only 2 users"
+    usrs.each do |usr|
+      assert [@creator, @administrator].include?(usr), "expected only the creator and co-owner but found #{usr.email}"
+    end
+  end
+  
+  # ---------------------------------------------------
+  test "can request feedback" do
+    scaffold_org_admin(@creator.org)
+    
+    @plan.request_feedback(@creator)
+    assert @plan.feedback_requested, "expected the feedback flag to be set to true"
+    assert @plan.reviewable_by?(@user), "expected the Org Admin to be a reviewer" 
+  end
 
+  # ---------------------------------------------------
+  test "can complete feedback" do
+    scaffold_org_admin(@creator.org)
+    val = Role.access_values_for(:reviewer, :commenter).min
+    @plan.feedback_requested = true
+    @plan.roles << Role.new(user: @user, access: val)
+    @plan.save!
+    
+    @plan.complete_feedback(@user)
+    assert_not @plan.feedback_requested, "expected the feedback flag to be set to false"
+    assert_not @plan.reviewable_by?(@user), "expected the Org Admin to no longer be a reviewer" 
+  end
 end

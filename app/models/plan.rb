@@ -196,36 +196,69 @@ class Plan < ActiveRecord::Base
   #  emails org admins and org contact 
   #  adds org admins to plan with the 'reviewer' Role
   def request_feedback(user)
-    val = Role.access_values_for(:reviewer, :commenter).min
-    self.feedback_requested = true
+    Plan.transaction do
+      begin
+        val = Role.access_values_for(:reviewer, :commenter).min
+        self.feedback_requested = true
     
-    # Share the plan with each org admin as the reviewer role
-    admins = user.org.org_admins
-    admins.each do |admin|
-      role = Role.new(user: admin, access: val)
-      self.roles << role unless self.users.include?(admin)
-    end 
+        # Share the plan with each org admin as the reviewer role
+        admins = user.org.org_admins
+        admins.each do |admin|
+          self.roles << Role.new(user: admin, access: val)
+        end 
 
-    if self.save!
-      # Send an email confirmation to the owners and co-owners
-      self.owner_and_coowners.each do |owner|
-        UserMailer.feedback_confirmation(owner, self, user).deliver_now
+        if self.save!
+          # Send an email confirmation to the owners and co-owners
+          deliver_if(recipients: self.owner_and_coowners, key: 'users.feedback_requested') do |r|
+            UserMailer.feedback_confirmation(r, self, user).deliver_now
+          end
+          # Send an email to all of the org admins as well as the Org's administrator email
+          if user.org.contact_email.present?
+            admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+          end
+          deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
+            UserMailer.feedback_notification(r, self, user).deliver_now
+          end
+          true
+        else
+          false
+        end
+      rescue Exception => e
+        Rails.logger.error e
+        false
       end
-  
-      # Send an email to all of the org admins as well as the Org's administrator email
-      if user.org.contact_email.present?
-        admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
-      end
-
-      deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
-        UserMailer.feedback_notification(r, self, user).deliver_now
-      end
-      true
-    else
-      false
     end
   end
 
+  ##
+  # Finalizes the feedback for the plan:
+  #  emails confirmation messages to owners
+  #  sets flag on plans.feedback_requested to false
+  #  removes org admins from the 'reviewer' Role for the Plan
+  def complete_feedback(org_admin)
+    Plan.transaction do
+      begin
+        self.feedback_requested = false
+        
+        # Remove the org admins reviewer role from the plan 
+        vals = Role.access_values_for(:reviewer)
+        self.roles.delete(Role.where(plan: self, access: vals))
+        
+        if self.save!
+          # Send an email confirmation to the owners and co-owners
+          deliver_if(recipients: self.owner_and_coowners, key: 'users.feedback_provided') do |r|
+            UserMailer.feedback_notification(r, self, org_admin).deliver_now
+          end
+          true
+        else
+          false
+        end
+      rescue Exception => e
+        Rails.logger.error e
+        false
+      end
+    end
+  end
 
    ##
   # returns the guidances associated with the project's organisation, for a specified question
@@ -314,8 +347,7 @@ class Plan < ActiveRecord::Base
   # @return [Boolean] true if user can edit the plan
 	def editable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present? && role.editor?
+    has_role(user_id, :editor)
 	end
 
   ##
@@ -327,8 +359,7 @@ class Plan < ActiveRecord::Base
   # @return [Boolean] true if the user can read the plan
 	def readable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present?
+    has_role(user_id, :commenter)
 	end
 
   ##
@@ -338,8 +369,7 @@ class Plan < ActiveRecord::Base
   # @return [Boolean] true if the user can administer the plan
 	def administerable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present? && role.administrator?
+    has_role(user_id, :administrator)
 	end
 
   ##
@@ -349,8 +379,7 @@ class Plan < ActiveRecord::Base
   # @return [Boolean] true if the user can administer the plan
   def owned_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present? && role.creator?
+    has_role(user_id, :creator)
   end
 
   ##
@@ -360,8 +389,7 @@ class Plan < ActiveRecord::Base
   # @return [Boolean] true if the user can administer the plan
   def reviewable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present? && role.reviewer?
+    has_role(user_id, :reviewer)
   end
 
   ##
@@ -609,12 +637,8 @@ class Plan < ActiveRecord::Base
   #
   # @return [User] the creater of the project
   def owner
-    self.roles.each do |role|
-      if role.creator?
-        return role.user
-      end
-    end
-    return nil
+    vals = Role.access_values_for(:creator)
+    User.joins(:roles).where('roles.plan_id = ? AND roles.access IN (?)', self.id, vals).first
   end
 
   ##
@@ -725,6 +749,15 @@ class Plan < ActiveRecord::Base
 
   private
 
+  # Returns whether or not the user has the specified role for the plan
+  def has_role(user_id, role_as_sym)
+    if user_id.is_a?(Integer) && role_as_sym.is_a?(Symbol)
+      vals = Role.access_values_for(role_as_sym)
+      self.roles.where(user_id: user_id, access: vals).first.present?
+    else
+      false
+    end
+  end
 
   ##
   # adds a user to the project

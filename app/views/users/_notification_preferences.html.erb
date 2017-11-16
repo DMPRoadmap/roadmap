@@ -26,7 +26,21 @@
         <%= check_box_tag 'prefs[users][admin_privileges]', true, @prefs[:users][:admin_privileges] %><%= _('Admin privileges granted to me')  %>
       </label>
     </div>
-  
+    <% if @user.org.present? && @user.org.feedback_enabled %>
+      <div class="checkbox">
+        <label for="prefs[users][feedback_requested]">
+          <%= hidden_field_tag 'prefs[users][feedback_requested]', false %>
+          <%= check_box_tag 'prefs[users][feedback_requested]', true, @prefs[:users][:feedback_requested] %><%= _('Feedback has been requested for my DMP') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label for="prefs[users][feedback_provided]">
+          <%= hidden_field_tag 'prefs[users][feedback_provided]', false %>
+          <%= check_box_tag 'prefs[users][feedback_provided]', true, @prefs[:users][:feedback_provided] %><%= _('Feedback has been provided for my DMP')  %>
+        </label>
+      </div>
+    <% end %>
+
     <p class="form-control-static"><strong>DMP owners and co-owners</strong></p>
   
     <div class="checkbox">

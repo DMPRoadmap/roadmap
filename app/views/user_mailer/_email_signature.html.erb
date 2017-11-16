@@ -1,6 +1,7 @@
 <% 
   tool_name = Rails.configuration.branding[:application][:name]
   helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
+  email_subject = email_subject || _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
 
   # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined
   # in the branding config file
