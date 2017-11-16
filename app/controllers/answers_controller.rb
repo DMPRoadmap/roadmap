@@ -5,7 +5,6 @@ class AnswersController < ApplicationController
 	# PUT/PATCH /answers/[:id]
   def update
     p_params = permitted_params()
-<<<<<<< HEAD
     Answer.transaction do
       begin
         @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id] })
