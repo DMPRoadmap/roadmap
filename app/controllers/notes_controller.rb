@@ -12,7 +12,7 @@ class NotesController < ApplicationController
     @answer = nil # if defined within the transaction block, was not accessable afterward
     # ensure user has access to plan BEFORE creating/finding answer
     rails Pundit::NotAuthorizedError unless Plan.find(plan_id).readable_by?(@note.user_id)
-    Answer.transaction do
+    Answer.transaction do 
       if params[:note][:answer_id].present?
         @answer = Answer.find(params[:note][:answer_id])
       end
