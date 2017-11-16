@@ -9,14 +9,20 @@ class NotesController < ApplicationController
     @note.user_id = params[:note][:user_id]
 
     # create answer if we don't have one already
-    if params[:note][:answer_id].present?
-      @answer = Answer.find(params[:note][:answer_id])
-    else
-      @answer = Answer.new
-      @answer.plan_id = params[:note][:plan_id]
-      @answer.question_id = params[:note][:question_id]
-      @answer.user_id = @note.user_id
-      @answer.save!
+    @answer = nil # if defined within the transaction block, was not accessable afterward
+    # ensure user has access to plan BEFORE creating/finding answer
+    rails Pundit::NotAuthorizedError unless Plan.find(plan_id).readable_by?(@note.user_id)
+    Answer.transaction do
+      if params[:note][:answer_id].present?
+        @answer = Answer.find(params[:note][:answer_id])
+      end
+      if @answer.blank?
+        @answer = Answer.new
+        @answer.plan_id = params[:note][:plan_id]
+        @answer.question_id = params[:note][:question_id]
+        @answer.user_id = @note.user_id
+        @answer.save!
+      end
     end
 
     @note.answer = @answer

@@ -368,10 +368,19 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
-   migrated:false,
+   migrated: false,
    dmptemplate_id: 3}
 ]
-templates.map{ |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
+# Template creation calls defaults handler which sets is_default and 
+# published to false automatically, so update them after creation
+templates.map do |t| 
+  if Template.find_by(title: t[:title]).nil? 
+    tmplt = Template.create!(t) 
+    tmplt.published = t[:published]
+    tmplt.is_default = t[:is_default]
+    tmplt.save!
+  end
+end
 
 # Create 2 phases for the funder's template and one for our generic template
 # ------------------------------------------------------- 
