@@ -1,10 +1,11 @@
+<%# locals: { f, question, answer } %>
 <% options = question.question_options.by_number %>
 <% if question.question_format.checkbox? %>
     <%= f.label(:question_option_ids, raw(question.text), class: 'control-label') %>
     <% options.each do |op| %>
-        <div class="checkbox <%= if readonly then 'disabled' end %>">
+        <div class="checkbox">
             <label>
-                <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id), disabled: readonly }, op.id, nil) %>
+                <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id) }, op.id, nil) %>
                 <%= raw op.text %>
             </label>
         </div>
@@ -12,9 +13,9 @@
 <% elsif question.question_format.radiobuttons? %>
     <%= f.label(:question_option_ids, raw(question.text), class: 'control-label') %>
     <% options.each do |op| %>
-        <div class="radio <%= if readonly then 'disabled' end %>">
+        <div class="radio">
             <label>
-                <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}", disabled: readonly } %>
+                <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}" } %>
                 <%= raw op.text %>
             </label>
         </div>
@@ -33,16 +34,11 @@
         raw(options_html),
         { multiple: question.question_format.multiselectbox?,
           include_blank: question.question_format.dropdown?,
-          disabled: readonly,
           class: 'form-control' }) %>
 <% end %>
 <div class="form-group">
 <% if question.option_comment_display %><!-- Comment text area for option_based questions -->
     <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>
-    <% if readonly %>
-        <p><%= raw(answer.text) %></p>
-    <% else %>
-        <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
-    <% end %>
+    <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
 <% end %>
 </div>
