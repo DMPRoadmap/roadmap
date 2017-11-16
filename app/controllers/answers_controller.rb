@@ -3,27 +3,32 @@ class AnswersController < ApplicationController
   respond_to :html
 
 	# PUT/PATCH /answers/[:id]
-	def update
+  def update
     p_params = permitted_params()
-    begin
-      @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id] })
-      authorize @answer
-      @answer.update(p_params)
-      if p_params[:question_option_ids].present?
-        @answer.touch() # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
+<<<<<<< HEAD
+    Answer.transaction do
+      begin
+        @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id] })
+        authorize @answer
+        @answer.update(p_params)
+        if p_params[:question_option_ids].present?
+          @answer.touch() # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
+        end
+      rescue ActiveRecord::RecordNotFound
+        @answer = Answer.new(p_params)
+        @answer.lock_version = 1
+        authorize @answer
+        @answer.save!
+      rescue ActiveRecord::StaleObjectError
+        @stale_answer = @answer
+        @answer = Answer.find_by({plan_id: p_params[:plan_id], question_id: p_params[:question_id]})
       end
-    rescue ActiveRecord::RecordNotFound => e
-      skip_authorization
-      render json: { detail: e.message }, status: :not_found
-    rescue ActiveRecord::StaleObjectError
-      @stale_answer = @answer
-      @answer = Answer.find_by({plan_id: p_params[:plan_id], question_id: p_params[:question_id]})
     end
 
-    if @answer.present? 
+    if @answer.present?
       @plan = Plan.includes({
-        sections: { 
-          questions: [ 
+        sections: {
+          questions: [
             :answers,
             :question_format
           ]
