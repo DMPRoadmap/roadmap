@@ -6,8 +6,8 @@ class PhasesController < ApplicationController
 
   # GET /plans/:plan_id/phases/:id/edit
   def edit
+    plan = Plan.load_for_phase(params[:plan_id], params[:id])
 
-    plan = Plan.eager_load2(params[:plan_id])
     # authorization done on plan so found in plan_policy
     authorize plan
 
@@ -127,7 +127,7 @@ class PhasesController < ApplicationController
       @original_org = @phase.template.org
     end
     render('/templates/container',
-      locals: { 
+      locals: {
         partial_path: 'admin_show',
         phase: @phase,
         template: @phase.template,
@@ -154,7 +154,7 @@ class PhasesController < ApplicationController
     authorize @phase
     @phase.number = @template.phases.count + 1
     render('/templates/container',
-      locals: { 
+      locals: {
         partial_path: 'admin_add',
         template: @template
       })
