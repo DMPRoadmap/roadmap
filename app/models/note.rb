@@ -11,10 +11,4 @@ class Note < ActiveRecord::Base
                   :answer, :user, :as => [:default, :admin]
                   
   validates :text, :answer, :user, presence: {message: _("can't be blank")}
-
-  # Active Record Callbacks
-  after_create do
-    # Sends an email to the plan owner regarding a new comment created by new note user
-    UserMailer.new_comment(self.user, self.answer.plan).deliver_now()
-  end
 end

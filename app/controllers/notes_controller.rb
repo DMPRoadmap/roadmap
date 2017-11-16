@@ -36,6 +36,12 @@ class NotesController < ApplicationController
 
     if @note.save
       @status = true
+      answer = @note.answer
+      plan = answer.plan
+      owner = plan.owner
+      deliver_if(recipient: owner, key: 'users.new_comment') do
+        UserMailer.new_comment(owner, plan).deliver_now()
+      end
       @notice = success_message(_('comment'), _('created'))
       render(json: {
         "notes" => {
