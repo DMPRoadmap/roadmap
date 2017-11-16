@@ -1,19 +1,19 @@
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="<%= (isActivePage(plan_path(@plan)) ? 'active' : '') %>">
-    <a href="<%= plan_path(@plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
+  <li role="presentation" class="<%= (isActivePage(plan_path(plan)) ? 'active' : '') %>">
+    <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
   </li>
-  <% @plan.template.phases.each do |phase| %>
-    <li role="presentation" class="<%= (isActivePage(edit_plan_phase_path(@plan, phase)) ? 'active' : '') %>">
-      <a href="<%= edit_plan_phase_path(@plan, phase) %>" role="tab" aria-controls="content">
-        <%= (@plan.template.phases.length > 1 ? phase.title : _('Write Plan')) %>
+  <% plan.template.phases.each do |phase| %>
+    <li role="presentation" class="<%= (isActivePage(edit_plan_phase_path(plan, phase)) ? 'active' : '') %>">
+      <a href="<%= edit_plan_phase_path(plan, phase) %>" role="tab" aria-controls="content">
+        <%= (plan.template.phases.length > 1 ? phase.title : _('Write Plan')) %>
       </a>
     </li>
   <% end %>
-  <li role="presentation" class="<%= (isActivePage(share_plan_path(@plan)) ? 'active' : '') %>">
-    <a href="<%= share_plan_path(@plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
+  <li role="presentation" class="<%= (isActivePage(share_plan_path(plan)) ? 'active' : '') %>">
+    <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
   </li>
-  <li role="presentation" class="<%= (isActivePage(download_plan_path(@plan)) ? 'active' : '') %>">
-    <a href="<%= download_plan_path(@plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
+  <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
+    <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
   </li>
 </ul>
 <div class="tab-content">

@@ -1,3 +1,4 @@
+<%# locals: { question, answer, readonly } %>
 <!--
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
@@ -9,31 +10,26 @@
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
   <% end %>
-  <div class="form-input">
-      <% if question.option_based? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
-      <% elsif question.question_format.textfield?%>
-        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
-      <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
-      <% end %>
-      <!--Example Answer area-->
-      <% if !readonly && question.annotations.where(type: Annotation.types[:example_answer]).any? %>
-        <% annotation = question.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first %>
-        <% if annotation.text.present? %>
-          <div class="suggested-answer-div lefgt-indent">
-            <span class="suggested-answer-intro">
-              <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
-            </span>
-
-            <div class="suggested-answer-border">
-              <p class="suggested-answer"><%= raw annotation.text %></p>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+  <!--Example Answer area -->
+  <% annotation = question.first_example_answer %>
+  <% if annotation.present? && annotation.text.present? %>
+    <div class="panel panel-default">
+      <span class="label label-default">
+        <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+      </span>
+      <div class="panel-body">
+        <%= raw annotation.text %>
+      </div>
     </div>
-    <% if !readonly %>
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+  <% end %>
+  <fieldset <%= 'disabled' if readonly %>>
+    <% if question.option_based? %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer }) %>
+    <% elsif question.question_format.textfield?%>
+        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
+    <% elsif question.question_format.textarea? %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer }) %>
     <% end %>
+    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+  </fieldset>
 <% end %>

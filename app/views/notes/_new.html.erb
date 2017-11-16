@@ -1,4 +1,4 @@
-<!-- add note to question. question id is passed as an argument and plan id-->
+<%# locals: { question, answer, plan } %>
 <%= form_for(Note.new, url: notes_path) do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :question_id, value: question.id %>
