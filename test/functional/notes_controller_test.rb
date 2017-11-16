@@ -8,6 +8,9 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     @user = User.last
 
     scaffold_plan
+    # Assign the user to the plan as a commenter/reader
+    @plan.assign_reader(@user.id)
+    @plan.save!
 
     @question = Question.create(text: 'Answer Testing', number: 9,
                                 section: @plan.template.phases.first.sections.first,

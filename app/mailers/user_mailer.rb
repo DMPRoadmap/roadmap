@@ -63,6 +63,17 @@ class UserMailer < ActionMailer::Base
     end
   end
   
+  def feedback_complete(recipient, plan, requestor)
+    @requestor = requestor
+    @user = recipient
+    @plan = plan
+      
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: recipient.email, 
+           subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
+    end
+  end
+  
   def feedback_confirmation(recipient, plan, requestor)
     user = requestor
 
