@@ -37,7 +37,7 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new
     authorize @plan
-    
+
     # We set these ids to -1 on the page to trick ariatiseForm into allowing the autocomplete to be blank if
     # the no org/funder checkboxes are checked off
     org_id = (plan_params[:org_id] == '-1' ? '' : plan_params[:org_id])
@@ -77,10 +77,10 @@ class PlansController < ApplicationController
 
         # pre-select org's guidance
         ggs = GuidanceGroup.where(org_id: org_id, optional_subset: false, published: true)
-                                                       
+
         if !ggs.blank? then @plan.guidance_groups << ggs end
 
-        default = Template.find_by(is_default: true)
+        default = Template.default
 
         msg = "#{success_message(_('plan'), _('created'))}<br />"
 
@@ -346,7 +346,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     alert = _('Unable to submit your request for feedback at this time.')
-    
+
     begin
      if @plan.request_feedback(current_user)
        flash[:notice] = _('Your request for feedback has been submitted.')
