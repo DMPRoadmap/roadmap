@@ -202,7 +202,8 @@ class Plan < ActiveRecord::Base
     # Share the plan with each org admin as the reviewer role
     admins = user.org.org_admins
     admins.each do |admin|
-      self.roles << Role.new(user: admin, access: val)
+      role = Role.new(user: admin, access: val)
+      self.roles << role unless self.users.include?(admin)
     end 
 
     if self.save!
