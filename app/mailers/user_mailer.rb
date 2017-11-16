@@ -1,4 +1,6 @@
 class UserMailer < ActionMailer::Base
+  include MailerHelper
+
   default from: Rails.configuration.branding[:organisation][:email]
   
   def welcome_notification(user)
@@ -69,11 +71,13 @@ class UserMailer < ActionMailer::Base
       @plan = plan
         
       # Use the generic feedback confirmation message unless the Org has specified one
-      subject = feedback_constant_to_text(@org.feedback_email_subject.present? ? @org.feedback_email_subject : feedback_confirmation_default_subject)
-      message = feedback_constant_to_text(@org.feedback_email_msg.present? ? @org.feedback_email_msg : feedback_confirmation_default_message)
-      
+      subject = (@org.feedback_email_subject.present? ? @org.feedback_email_subject : feedback_confirmation_default_subject)
+      message = (@org.feedback_email_msg.present? ? @org.feedback_email_msg : feedback_confirmation_default_message)
+
       FastGettext.with_locale FastGettext.default_locale do
-        mail(to: recipient.email, subject: subject, body: raw(message))
+        mail(to: recipient.email, 
+             subject: feedback_constant_to_text(subject, @user, @plan, @org), 
+             body: feedback_constant_to_text(message, @user, @plan, @org).html_safe)
       end
     end
   end
@@ -100,23 +104,5 @@ class UserMailer < ActionMailer::Base
         end
       end
     end
-  end
-  
-  def feedback_confirmation_default_subject
-    _('%{application_name}: Your plan has been submitted for feedback')
-  end
-  
-  def feedback_confirmation_default_message
-    _('<p>Hello %{user_name}.</p>'\
-            '<p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation. '\
-            'If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>')
-  end
-  
-  private
-  def feedback_constant_to_text(text)
-    return _("#{text}") % {application_name: Rails.configuration.branding[:application][:name],
-                           user_name: @user.name,
-                           plan_name: @plan.title,
-                           organisation_email: @org.contact_email}
   end
 end
