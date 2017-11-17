@@ -90,11 +90,7 @@ class User < ActiveRecord::Base
   #
   # @return [Plans]
   def active_plans
-    plans = []
-    self.roles.includes(:plan).where(active: true).each do |r|
-      plans << r.plan
-    end
-    return plans
+    self.plans.includes(:template).where("roles.active": true).where(Role.not_reviewer_condition)
   end
 
 

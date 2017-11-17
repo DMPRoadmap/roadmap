@@ -1,0 +1,26 @@
+<% #Our custom layout to be included on any view that wants to be paginable %>
+<div class="paginable">
+  <div class="row">
+    <div class="col-md-12">
+      <%= yield %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="paginable-layout">
+        <div class="pull-left">
+          <% total = paginable ? scope.total_count : scope.length %>
+          <% if total > Kaminari.config.default_per_page %>
+            <%= link_to(paginable ? _('View all') : _('View less'), url, remote: true) %>
+          <% end %>
+        </div>
+        <div class="pull-right">
+          <% if paginable %>
+              <%= paginate(scope, params: { controller: controller, action: action }, remote: true) %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
