@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :admin do
     resources :users,              only: [:new, :create, :edit, :update, :index, :show]
     resources :orgs,               only: [:new, :create, :edit, :update, :index, :show]
@@ -254,6 +253,18 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
             get :plans
           end
         end
+      end
+    end
+
+    namespace :paginable do
+      # Paginable actions for plans
+      resources :plans, only: [] do
+        get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
+        get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
+      end
+      # Paginable actions for users
+      resources :users, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
 end
