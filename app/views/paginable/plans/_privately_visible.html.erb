@@ -1,0 +1,81 @@
+      <div class="table-responsive">
+        <table class="table table-hover tablesorter" id="my-plans">
+          <thead>
+            <% if scope.length > TABLE_FILTER_MIN_ROWS %>
+              <tr>
+                <th colspan="7" class="sorter-false">
+                  <%= render(partial: "shared/table_filter", locals: { placeholder: _('Filter plans')}) %>
+                </th>
+              </tr>
+            <% end %>
+            <tr>
+              <th><%= _('Project Title') %></th>
+              <th><%= _('Template') %></th>
+              <th><%= _('Edited') %></th>
+              <th><%= _('Role') %></th>
+              <th class="text-center sorter-false"><%= _('Test') %></th>
+              <th><%= _('Visibility') %></th>
+              <th class="sorter-false">
+                <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% scope.each do |plan| %>
+              <tr>
+                <td>
+                  <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
+                      plan_path(plan) %>
+                </td>
+                <td><%= plan.template.title %></td>
+                <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+                <td class="text-center">
+                  <% if plan.administerable_by?(current_user.id) then %>
+                    <%= form_for plan, url: set_test_plan_path(plan), html: {method: :post, id: 'update-test-plan'} do |f| %>
+                      <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test')) %>
+                    <% end %>
+                  <% else %>
+                    <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
+                  <% end %>
+                </td>
+                <td class="plan-visibility">
+                  <%= plan.visibility === 'is_test' ? _('N/A') : raw(display_visibility(plan.visibility)) %>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button"
+                            id="plan-<%= plan.id %>-actions" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                      <%= _('Actions') %><span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
+                    <% if plan.editable_by?(current_user.id) then %>
+                      <li><%= link_to _('Edit'), plan_path(plan) %></li>
+
+                      <% if plan.administerable_by?(current_user.id) then %>
+                        <li><%= link_to _('Share'), share_plan_path(plan) %></li>
+                      <% end %>
+
+                      <li><%= link_to _('Download'), download_plan_path(plan) %></li>
+
+                      <li><%= link_to _('Make a copy'), duplicate_plan_path(plan), 
+                                      method: :post, remote: true %></li>
+                    <% else %>
+                      <li><%= link_to _('View'), plan_path(plan) %></li>
+
+                      <li><%= link_to _('Download'), download_plan_path(plan) %></li>
+                    <% end %>
+                    <% role = plan.roles.where(user_id: current_user.id).first %>
+                    <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
+                    <li><%= link_to _('Remove'), deactivate_role_path(role),
+                                    method: :put, data: {confirm: conf} %></li>
+                  </ul>
+                </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
