@@ -2,7 +2,7 @@
   tool_name = Rails.configuration.branding[:application][:name]
   link = accept_invitation_url(@resource, :invitation_token => @token)
   helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
-  contact_us_url = Rails.configuration.branding[:organisation][:contact_us_url]
+  contact_us_url = Rails.configuration.branding[:organisation][:contact_us_url] || contact_us_url
   email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
