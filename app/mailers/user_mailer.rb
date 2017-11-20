@@ -64,20 +64,21 @@ class UserMailer < ActionMailer::Base
   end
   
   def feedback_confirmation(recipient, plan, requestor)
-    @user = requestor
+    user = requestor
 
-    if @user.org.present?
-      @org = @user.org
-      @plan = plan
+    if user.org.present?
+      org = user.org
+      plan = plan
         
       # Use the generic feedback confirmation message unless the Org has specified one
-      subject = (@org.feedback_email_subject.present? ? @org.feedback_email_subject : feedback_confirmation_default_subject)
-      message = (@org.feedback_email_msg.present? ? @org.feedback_email_msg : feedback_confirmation_default_message)
+      subject = (org.feedback_email_subject.present? ? org.feedback_email_subject : feedback_confirmation_default_subject)
+      message = (org.feedback_email_msg.present? ? org.feedback_email_msg : feedback_confirmation_default_message)
 
+      @body = feedback_constant_to_text(message, user, plan, org)
+      
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: recipient.email, 
-             subject: feedback_constant_to_text(subject, @user, @plan, @org), 
-             body: feedback_constant_to_text(message, @user, @plan, @org).html_safe)
+             subject: feedback_constant_to_text(subject, user, plan, org))
       end
     end
   end
