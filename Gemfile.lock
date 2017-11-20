@@ -142,7 +142,7 @@ GEM
       activesupport (>= 4.1.0)
     hashdiff (0.3.0)
     hashie (3.4.6)
-    htmltoword (0.5.1)
+    htmltoword (0.7.0)
       actionpack
       nokogiri
       rubyzip (>= 1.0)
@@ -282,7 +282,7 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rolify (5.1.0)
     ruby-progressbar (1.8.1)
-    rubyzip (1.2.0)
+    rubyzip (1.2.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -368,7 +368,7 @@ DEPENDENCIES
   gettext (>= 3.0.2)
   gettext_i18n_rails (~> 1.8)
   gettext_i18n_rails_js (~> 1.2.0)
-  htmltoword
+  htmltoword (>= 0.7)
   i18n-js (>= 3.0.0.rc11)
   jbuilder
   jquery-rails
