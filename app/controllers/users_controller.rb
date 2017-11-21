@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  helper PaginableHelper
   after_action :verify_authorized
   respond_to :html
 
@@ -7,10 +8,7 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   def admin_index
     authorize User
-    # Sets the user to the currently logged in user if it is undefined
-#    @user = current_user if @user.nil?
-#    @users = @user.org.users.includes(:roles)
-    @users = current_user.org.users.includes(:roles)
+    @users = current_user.org.users.includes(:roles).page(1)
   end
 
   ##
