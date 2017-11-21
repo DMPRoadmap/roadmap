@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12">    
+    <h1><%= _('%{org_name} Plans') % { org_name: current_user.org.name } %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @feedback_plans.length > 0 %>
+      <h2><%= _('Notifications') %></h2>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-2"><strong><%= _('Plan') %></strong></div>
+            <div class="col-md-2"><strong><%= _('Requestor') %></strong></div>
+            <div class="col-md-2"><strong><%= _('Type') %></strong></div>
+          </div>
+
+          <% @feedback_plans.each do |notice| %>
+            <!-- Using the plan owner as the requestor even though it could have been issued by a co-owner -->
+            <!-- TODO: correct this behavior once the notification table is in place -->
+            <div class="row">
+              <div class="col-md-2"><%= link_to notice.name, plan_path(notice) %></div>
+              <div class="col-md-2"><%= notice.owner.name(false) %></div>
+              <div class="col-md-2"><%= _('Feedback requested') %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @plans.length > 0 %>
+      <div class="table-responsive">
+        <table class="table table-hover tablesorter" id="my-plans">
+          <thead>
+            <% if @plans.length > TABLE_FILTER_MIN_ROWS %>
+              <tr>
+                <th colspan="6" class="sorter-false">
+                  <%= render(partial: "shared/table_filter",
+                             locals: { placeholder: _('Filter plans')}) %>
+                </th>
+              </tr>
+            <% end %>
+            <tr>
+              <th><%= _('Project Title') %></th>
+              <th><%= _('Template') %></th>
+              <th><%= _('Research Organisation') %></th>
+              <th><%= _('Owner') %></th>
+              <th><%= _('Updated') %></th>
+              <th><%= _('Visibility') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @plans.each do |plan| %>
+              <tr>
+                <td>
+                  <%= "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}" %>
+                </td>
+                <td><%= plan.template.title %></td>
+                <td><%= plan.users.first.org.name %></td>
+                <td><%= plan.users.first.name(false) %></td>
+                <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                <td class="plan-visibility">
+                  <%= plan.visibility === 'is_test' ? _('Test') : raw(display_visibility(plan.visibility)) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

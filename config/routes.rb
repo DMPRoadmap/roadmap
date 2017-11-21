@@ -267,4 +267,10 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
+
+    # ORG ADMIN specific pages
+    namespace :org_admin do
+      resources :plans, only: [:index]
+    end
+
 end
