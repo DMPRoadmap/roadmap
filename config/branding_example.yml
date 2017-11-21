@@ -9,6 +9,22 @@ defaults: &defaults
     copywrite_name: 'Curation Centre (CC)'
     email: 'tester@cc_curation_centre.org'
     helpdesk_email: 'someone@somewhere.com'
+    welcome_links:
+      - link1:
+        title: 'Digital Curation Centre'
+        url: 'https://dcc.ac.uk/'
+      - link2:
+        title: 'UC3: University of California Curation Center'
+        url: 'https://www.cdlib.org/uc3/'
+      - link3:
+        title: 'UK funder requirements for Data Management Plans'
+        url: 'http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'
+      - link4:
+        title: 'US funder requirements for Data Management Plans'
+        url: 'https://dmptool.org/guidance'
+      - link5:
+        title: 'DCC Checklist for a Data Management Plan'
+        url: 'https://dmponline.dcc.ac.uk/files/DMP_Checklist_2013.pdf'
 
     # Warning: this value will be used to override the URl of the application's built-in contact form. It will
     #          replace the link in all email communications as well as the contact link in the page footer!
@@ -37,6 +53,7 @@ defaults: &defaults
         template_published: true
         template_unpublished: true
         feedback_requested: true
+
 
 development:
   <<: *defaults
