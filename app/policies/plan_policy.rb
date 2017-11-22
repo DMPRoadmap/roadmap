@@ -14,7 +14,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def share?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
   def export?
@@ -22,6 +22,10 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def download?
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+  end
+
+  def edit?
     @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
 
