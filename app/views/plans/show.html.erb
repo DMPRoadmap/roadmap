@@ -10,7 +10,7 @@
     <% if @plan.editable_by?(current_user) %>
       <%= render partial: 'edit_details', layout: 'navigation', locals: {plan: @plan, visibility: @visibility} %>
     <% else %>
-      <%= render partial: 'show_details', locals: {plan: @plan, visibility: @visibility} %>
+      <%= render partial: 'show_details', layout: 'navigation', locals: { plan: @plan, visibility: @visibility } %>
     <% end %>
   </div>
 </div>
