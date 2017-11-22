@@ -266,7 +266,7 @@ class User < ActiveRecord::Base
     if self.pref.present? && self.pref.settings[key.to_s].present?
       return self.pref.settings[key.to_s].deep_symbolize_keys
     elsif Pref.default_settings
-      return Pref.default_settings[key]
+      return Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
     else
       return nil
     end
