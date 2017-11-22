@@ -16,7 +16,7 @@
       <div class="table-responsive">
       <table class="table table-hover tablesorter">
         <thead>
-          <% if @templates.count > TABLE_FILTER_MIN_ROWS %>
+         <% if @templates.count > TABLE_FILTER_MIN_ROWS %>
             <tr>
               <th colspan="3" class="sorter-false">
                 <%= render(partial: "shared/table_filter",
