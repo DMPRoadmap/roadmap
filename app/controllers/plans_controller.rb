@@ -342,22 +342,19 @@ class PlansController < ApplicationController
   end
 
   def request_feedback
-    @plan = Plan.find(params[:id])
-    authorize @plan
+    plan = Plan.find(params[:id])
+    authorize plan
     alert = _('Unable to submit your request for feedback at this time.')
 
     begin
-     if @plan.request_feedback(current_user)
-       flash[:notice] = _('Your request for feedback has been submitted.')
+     if plan.request_feedback(current_user)
+       redirect_to share_plan_path(plan), notice: _('Your request for feedback has been submitted.')
      else
-       flash[:alert] = alert
+       redirect_to share_plan_path(plan), alert: alert
      end
     rescue Exception
-      flash[:alert] = alert
+      redirect_to share_plan_path(plan), alert: alert
     end
-    # Get the roles where the user is not a reviewer
-    @plan_roles = @plan.roles.select{ |r| !r.reviewer? }
-    render 'share'
   end
 
   private

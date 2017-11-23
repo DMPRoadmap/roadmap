@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102185518) do
+ActiveRecord::Schema.define(version: 20171122195828) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id", limit: 4
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.integer  "lock_version", limit: 4,     default: 0
   end
 
-  add_index "answers", ["plan_id"], name: "fk_rails_84a6005a3e"
-  add_index "answers", ["question_id"], name: "fk_rails_3d5ed4418f"
-  add_index "answers", ["user_id"], name: "fk_rails_584be190c2"
+  add_index "answers", ["plan_id"], name: "fk_rails_84a6005a3e", using: :btree
+  add_index "answers", ["question_id"], name: "fk_rails_3d5ed4418f", using: :btree
+  add_index "answers", ["user_id"], name: "fk_rails_584be190c2", using: :btree
 
   create_table "answers_question_options", id: false, force: :cascade do |t|
     t.integer "answer_id",          limit: 4, null: false
@@ -84,9 +84,9 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.integer  "identifier_scheme_id", limit: 4
   end
 
-  add_index "org_identifiers", ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
-  add_index "org_identifiers", ["org_id"], name: "fk_rails_36323c0674"
+  add_index "org_identifiers", ["identifier_scheme_id"], name: "fk_rails_189ad2e573", using: :btree
+  add_index "org_identifiers", ["org_id"], name: "fk_rails_36323c0674", using: :btree
 
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "org_id",                   limit: 4
@@ -187,8 +187,8 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.text     "feedback_email_msg",     limit: 65535
   end
 
-  add_index "orgs", ["language_id"], name: "fk_rails_5640112cab"
-  add_index "orgs", ["region_id"], name: "fk_rails_5a6adf6bab"
+  add_index "orgs", ["language_id"], name: "fk_rails_5640112cab", using: :btree
+  add_index "orgs", ["region_id"], name: "fk_rails_5a6adf6bab", using: :btree
 
   create_table "perms", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -196,8 +196,8 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "perms", ["name"], name: "index_perms_on_name"
-  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
 
   create_table "phases", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.boolean  "modifiable"
   end
 
-  add_index "phases", ["template_id"], name: "index_phases_on_template_id"
+  add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
     t.string   "title",                             limit: 255
@@ -225,7 +225,7 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.string   "principal_investigator_identifier", limit: 255
     t.string   "data_contact",                      limit: 255
     t.string   "funder_name",                       limit: 255
-    t.integer  "visibility",                        limit: 4,     null: false
+    t.integer  "visibility",                        limit: 4,                     null: false
     t.string   "data_contact_email",                limit: 255
     t.string   "data_contact_phone",                limit: 255
     t.string   "principal_investigator_email",      limit: 255
@@ -233,15 +233,15 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.boolean  "feedback_requested",                              default: false
   end
 
-  add_index "plans", ["template_id"], name: "index_plans_on_template_id"
+  add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id", limit: 4
     t.integer "plan_id",           limit: 4
   end
 
-  add_index "plans_guidance_groups", ["guidance_group_id"], name: "fk_rails_ec1c5524d7"
-  add_index "plans_guidance_groups", ["plan_id"], name: "fk_rails_13d0671430"
+  add_index "plans_guidance_groups", ["guidance_group_id"], name: "fk_rails_ec1c5524d7", using: :btree
+  add_index "plans_guidance_groups", ["plan_id"], name: "fk_rails_13d0671430", using: :btree
 
   create_table "prefs", force: :cascade do |t|
     t.string  "settings", limit: 255
@@ -280,8 +280,8 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.boolean  "modifiable"
   end
 
-  add_index "questions", ["question_format_id"], name: "fk_rails_4fbc38c8c7"
-  add_index "questions", ["section_id"], name: "index_questions_on_section_id"
+  add_index "questions", ["question_format_id"], name: "fk_rails_4fbc38c8c7", using: :btree
+  add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", limit: 4, null: false
@@ -321,7 +321,7 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.boolean  "modifiable"
   end
 
-  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id"
+  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",         limit: 255,   null: false
@@ -332,7 +332,7 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.datetime "updated_at",                null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination", limit: 255
@@ -357,8 +357,8 @@ ActiveRecord::Schema.define(version: 20171102185518) do
     t.boolean  "dirty",                          default: false
   end
 
-  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index"
-  add_index "templates", ["org_id"], name: "index_templates_on_org_id"
+  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree
+  add_index "templates", ["org_id"], name: "index_templates_on_org_id", using: :btree
 
   create_table "themes", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -440,42 +440,42 @@ ActiveRecord::Schema.define(version: 20171102185518) do
   add_index "users_perms", ["perm_id"], name: "fk_rails_457217c31c", using: :btree
   add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
-  add_foreign_key "answers", "plans"
-  add_foreign_key "answers", "questions"
-  add_foreign_key "answers", "users"
-  add_foreign_key "answers_question_options", "answers"
-  add_foreign_key "answers_question_options", "question_options"
-  add_foreign_key "guidance_groups", "orgs"
-  add_foreign_key "guidances", "guidance_groups"
-  add_foreign_key "notes", "answers"
-  add_foreign_key "notes", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
-  add_foreign_key "org_identifiers", "orgs"
-  add_foreign_key "org_token_permissions", "orgs"
-  add_foreign_key "org_token_permissions", "token_permission_types"
-  add_foreign_key "orgs", "languages"
-  add_foreign_key "orgs", "regions"
-  add_foreign_key "phases", "templates"
-  add_foreign_key "plans", "templates"
-  add_foreign_key "plans_guidance_groups", "guidance_groups"
-  add_foreign_key "plans_guidance_groups", "plans"
-  add_foreign_key "question_options", "questions"
-  add_foreign_key "questions", "question_formats"
-  add_foreign_key "questions", "sections"
-  add_foreign_key "questions_themes", "questions"
-  add_foreign_key "questions_themes", "themes"
-  add_foreign_key "roles", "plans"
-  add_foreign_key "roles", "users"
-  add_foreign_key "sections", "phases"
-  add_foreign_key "templates", "orgs"
-  add_foreign_key "themes_in_guidance", "guidances"
-  add_foreign_key "themes_in_guidance", "themes"
-  add_foreign_key "user_identifiers", "identifier_schemes"
-  add_foreign_key "user_identifiers", "users"
-  add_foreign_key "users", "languages"
-  add_foreign_key "users", "orgs"
-  add_foreign_key "users_perms", "perms"
+  add_foreign_key "annotations", "orgs"		
+  add_foreign_key "annotations", "questions"		
+  add_foreign_key "answers", "plans"		
+  add_foreign_key "answers", "questions"		
+  add_foreign_key "answers", "users"		
+  add_foreign_key "answers_question_options", "answers"		
+  add_foreign_key "answers_question_options", "question_options"		
+  add_foreign_key "guidance_groups", "orgs"		
+  add_foreign_key "guidances", "guidance_groups"		
+  add_foreign_key "notes", "answers"		
+  add_foreign_key "notes", "users"		
+  add_foreign_key "org_identifiers", "identifier_schemes"		
+  add_foreign_key "org_identifiers", "orgs"		
+  add_foreign_key "org_token_permissions", "orgs"		
+  add_foreign_key "org_token_permissions", "token_permission_types"		
+  add_foreign_key "orgs", "languages"		
+  add_foreign_key "orgs", "regions"		
+  add_foreign_key "phases", "templates"		
+  add_foreign_key "plans", "templates"		
+  add_foreign_key "plans_guidance_groups", "guidance_groups"		
+  add_foreign_key "plans_guidance_groups", "plans"		
+  add_foreign_key "question_options", "questions"		
+  add_foreign_key "questions", "question_formats"		
+  add_foreign_key "questions", "sections"		
+  add_foreign_key "questions_themes", "questions"		
+  add_foreign_key "questions_themes", "themes"		
+  add_foreign_key "roles", "plans"		
+  add_foreign_key "roles", "users"		
+  add_foreign_key "sections", "phases"		
+  add_foreign_key "templates", "orgs"		
+  add_foreign_key "themes_in_guidance", "guidances"		
+  add_foreign_key "themes_in_guidance", "themes"		
+  add_foreign_key "user_identifiers", "identifier_schemes"		
+  add_foreign_key "user_identifiers", "users"		
+  add_foreign_key "users", "languages"		
+  add_foreign_key "users", "orgs"		
+  add_foreign_key "users_perms", "perms"		
   add_foreign_key "users_perms", "users"
 end

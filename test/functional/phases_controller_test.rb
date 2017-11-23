@@ -76,14 +76,15 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "get the phase's status" do
     # Should redirect user to the root path if they are not logged in!
-    get status_plan_phase_path(plan_id: @plan.id, id: @template.phases.first.id)
+    get status_plan_phase_path(plan_id: @plan.id, id: @template.phases.first.id), format: :json
     assert_unauthorized_redirect_to_root_path
     
+    @plan.assign_creator(@user)
+    @plan.save!
     sign_in @user
     
-    get status_plan_phase_path(@plan, @template.phases.first), format: :json
+    get status_plan_phase_path(plan_id: @plan.id, id: @template.phases.first.id), format: :json
     assert_response :success
-    
     assert assigns(:plan)
   end
   
