@@ -9,7 +9,7 @@ class RolesController < ApplicationController
     authorize @role
     
     access_level = params[:role][:access_level].to_i
-    set_access_level(access_level)
+    @role.set_access_level(access_level)
     message = ''
     if params[:user].present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
@@ -50,7 +50,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
     access_level = params[:role][:access_level].to_i
-    set_access_level(access_level)
+    @role.set_access_level(access_level)
     if @role.update_attributes(role_params)
       UserMailer.permissions_change_notification(@role, current_user).deliver_now
       render json: {code: 1, msg: "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."}
@@ -93,23 +93,4 @@ class RolesController < ApplicationController
   def role_params
     params.require(:role).permit(:plan_id)
   end
-
-  def set_access_level(access_level)
-    if access_level >= 1
-      @role.commenter = true
-    else
-      @role.commenter = false
-    end
-    if access_level >= 2
-      @role.editor = true
-    else
-      @role.editor = false
-    end
-    if access_level >= 3
-      @role.administrator = true
-    else
-      @role.administrator = false
-    end
-  end
-
 end

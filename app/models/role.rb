@@ -41,8 +41,29 @@ class Role < ActiveRecord::Base
       return 1
     end
   end
+
+  # Sets access_level according to bit fields defined in the column access
+  # TODO refactor according to the hash defined above (e.g. 1 key is :creator, 2 key is :administrator, etc)
+  def set_access_level(access_level)
+    if access_level >= 1
+      self.commenter = true
+    else
+      self.commenter = false
+    end
+    if access_level >= 2
+      self.editor = true
+    else
+      self.editor = false
+    end
+    if access_level >= 3
+      self.administrator = true
+    else
+      self.administrator = false
+    end
+  end
+
   # Returns a hash of hashes where each key represents an access level (e.g. see access_level method to understand the integers)
-  # This method becomes useful for generatic template messages (e.g. permissions change notification mailer)
+  # This method becomes useful for generating template messages (e.g. permissions change notification mailer)
   def self.access_level_messages
     {
       5 => {
