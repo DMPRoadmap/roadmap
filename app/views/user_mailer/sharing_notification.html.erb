@@ -2,7 +2,6 @@
   tool_name = Rails.configuration.branding[:application][:name]
   user_email = @user.email
   link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
-  email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
@@ -14,6 +13,6 @@
   <p>
     <%= raw(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') %{ :click_here => link_to(_('Click here'), link), :link => link }) %>
   </p>
-  <%= render partial: 'email_signature', locals: { email_subject: email_subject } %>
+  <%= render partial: 'email_signature' %>
 <% end %>
 

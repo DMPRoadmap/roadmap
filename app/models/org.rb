@@ -146,6 +146,11 @@ class Org < ActiveRecord::Base
     User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id, 
       ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
   end
+  
+  def plans
+    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)', 
+      self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
+  end
 
   private
     ##

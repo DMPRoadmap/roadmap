@@ -47,6 +47,8 @@ defaults: &defaults
         new_comment: true
         admin_privileges: true
         added_as_coowner: true
+        feedback_requested: true
+        feedback_provided: true 
       owners_and_coowners:
         visibility_changed: true
       admins:
