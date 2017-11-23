@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   helper PaginableHelper
+  helper PermsHelper
+  include ConditionalUserMailer
   after_action :verify_authorized
   respond_to :html
 
@@ -50,6 +52,9 @@ class UsersController < ApplicationController
     end
 
     if @user.save!
+      deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
+        UserMailer.admin_privileges(r).deliver_now
+      end
       redirect_to({controller: 'users', action: 'admin_index'}, {notice: success_message(_('permissions'), _('saved'))})  # helpers.success key does not exist, replaced with a generic string
     else
       flash[:alert] = failed_update_error(@user, _('user'))
