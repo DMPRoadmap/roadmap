@@ -5,7 +5,7 @@
 class TemplatesController < ApplicationController
   #respond_to :html
   after_action :verify_authorized
-
+  helper TemplateHelper
   # GET /org/admin/templates/:id/admin_index
   # -----------------------------------------------------
   def admin_index
@@ -273,6 +273,8 @@ class TemplatesController < ApplicationController
       end
 
       @template.description = params["template-desc"]
+      @template.links = JSON.parse(params["template-links"]) if params["template-links"].present?
+      
       if @template.update_attributes(params[:template])
         flash[:notice] = success_message(_('template'), _('saved'))
 
