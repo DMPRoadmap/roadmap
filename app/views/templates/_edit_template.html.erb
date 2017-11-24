@@ -39,6 +39,28 @@
     </p>
   </div>
 
+  <% if template.org.funder? %>
+    <div class="form-group col-xs-8">
+      <%= render(partial: '/shared/links',
+      locals: { 
+        context: 'funder',
+        title: _('Funder Links'),
+        links: template.links['funder'],
+        max_number_links: MAX_NUMBER_LINKS_FUNDER,
+        tooltip: _('Add links to funder websites that provide additional information about the requirements for this template') }) %>
+    </div>
+    <div class="form-group col-xs-8">
+      <%= render(partial: '/shared/links',
+      locals: { 
+        context: 'sample_plan',
+        title: _('Sample Plan Links'),
+        links: template.links['sample_plan'],
+        max_number_links: MAX_NUMBER_LINKS_SAMPLE_PLAN,
+        tooltip: _('Add links to sample plans if provided by the funder.') }) %>
+    </div>
+    <%= hidden_field_tag('template-links', value: template.links) %>
+  <% end %>
+
   <div class="form-group col-xs-8">
     <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
     <%= link_to(_('Cancel'), '#', { class: 'btn btn-default template_show_link', role: "button" }) %>
