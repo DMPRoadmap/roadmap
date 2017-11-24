@@ -52,8 +52,6 @@ defaults: &defaults
       owners_and_coowners:
         visibility_changed: true
       admins:
-        template_published: true
-        template_unpublished: true
         feedback_requested: true
 
 
