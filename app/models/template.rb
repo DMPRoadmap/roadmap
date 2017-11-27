@@ -1,7 +1,13 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
+  include ActiveModel::Validations
+  validates_with TemplateLinksValidator
 
   before_validation :set_creation_defaults
+
+  # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
+  # The links is validated against custom validator allocated at validators/template_links_validator.rb
+  serialize :links, JSON
   
   ##
   # Associations
