@@ -221,7 +221,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_response :redirect
-    assert_redirected_to admin_template_template_path(@template)
+    assert_redirected_to edit_org_admin_template_path(@template)
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Phase.find(id).nil?

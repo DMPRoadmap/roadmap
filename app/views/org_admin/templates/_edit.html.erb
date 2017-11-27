@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <% if template == current && template.customization_of.nil? %>
       <div class="template_edit" style="display: none;">
-        <%= render partial: "templates/edit_template", locals: { template: template, template_hash: template_hash } %>
+        <%= render partial: "org_admin/templates/edit_template", locals: { template: template, template_hash: template_hash } %>
       </div>
     <% end %>
   </div>
@@ -10,7 +10,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="template_show">
-      <%= render partial: "templates/show_template", locals: { template: template, current: current, template_hash: template_hash }%>
+      <%= render partial: "org_admin/templates/show_template", locals: { template: template, current: current, template_hash: template_hash }%>
     </div>
   </div>
 </div>
@@ -33,7 +33,7 @@
               </div>
               <div id="<%= "collapsePhase#{phase.id}" %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= "headingPhase#{phase.id}" %>">
                 <div class="panel-body">
-                  <%= render partial: 'templates/show_phases_sections', locals: { phase: phase, phase_hash: phase_hash, template: template, current: current } %>
+                  <%= render partial: 'org_admin/templates/show_phases_sections', locals: { phase: phase, phase_hash: phase_hash, template: template, current: current } %>
                 </div>
               </div>
             </div>

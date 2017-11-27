@@ -8,7 +8,7 @@
     <div class="pull-right">
       <ul class="list-inline">
         <li><%= link_to _('Back to edit phase'), admin_show_phase_path(id: @phase.id), class: 'btn btn-primary' %></li>
-        <li><%= link_to _('View all templates'), admin_index_template_path, class: 'btn btn-primary' %></li>
+        <li><%= link_to _('View all templates'), org_admin_templates_path, class: 'btn btn-primary' %></li>
       </ul>
     </div>
     <div class="clearfix"></div>
@@ -17,7 +17,7 @@
 <div class="row">
   <div class="col-md-12">
     <!-- render navigation tabs for the template -->
-    <%= render partial: "templates/admin_nav_tabs", locals: { template: @template, active: @phase.id } %>
+    <%= render partial: "/org_admin/templates/admin_nav_tabs", locals: { template: @template, active: @phase.id } %>
     <!-- render phase below -->
     <%= render partial: '/phases/edit_plan_answers', locals: { plan: nil, phase: @phase, readonly: true, question_guidance: {} } %>
   </div>

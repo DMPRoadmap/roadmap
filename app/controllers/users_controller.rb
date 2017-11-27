@@ -78,8 +78,33 @@ class UsersController < ApplicationController
     redirect_to "#{edit_user_registration_path}\#notification-preferences", notice: success_message(_('preferences'), _('saved'))
   end
 
+  # PUT /users/:id/org_swap  (AJAX)
+  # -----------------------------------------------------
+  def org_swap
+    # Allows the user to swap their org affiliation on the fly
+    authorize current_user
+    org = Org.find(org_swap_params[:org_id])
+    if org.present?
+      current_user.org = org
+      if current_user.save!
+        render json: {
+          msg: _('Your organisation affiliation has been changed. You may now edit templates for %{org_name}.') % {org_name: current_user.org.name}
+        }.to_json
+      else
+        render json: {
+          err: _('Unable to change your organisation affiliation at this time.')
+        }.to_json
+      end
+    else
+      render json: {}.to_json
+    end
+  end
+  
   private
-
+  def org_swap_params
+    params.require(:user).permit(:org_id, :org_name)
+  end
+  
   ##
   # html forms return our boolean values as strings, this converts them to true/false
   def booleanize_hash(node)

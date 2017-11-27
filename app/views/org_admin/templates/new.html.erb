@@ -4,14 +4,14 @@
       <%= _('New template') %>
     </h1>
     <div class="pull-right">
-      <%= link_to _('View all templates'), admin_index_template_path, class: "btn btn-primary" %>
+      <%= link_to _('View all templates'), org_admin_templates_path, class: "btn btn-primary" %>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <%= raw _('<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>')%>
-    <%= form_for :template, url: {action: "admin_create"} do |f| %>
+    <%= form_for :template, url: {action: "create"} do |f| %>
       <div class="form-group col-xs-8">
         <%= f.label(:title, _('Title') ,class: 'control-label') %>
         <%= f.text_field :title, as: :string,
@@ -26,7 +26,7 @@
       <div class="form-group col-xs-8">
         <div class="pull-right">
           <%= f.submit _('Save'), class: "btn btn-default", role:"button" %>
-          <%= link_to _('Cancel'), admin_index_template_path, class: "btn btn-default", role:"button" %>
+          <%= link_to _('Cancel'), org_admin_templates_path, class: "btn btn-default", role:"button" %>
         </div>
       </div>
     <% end %>

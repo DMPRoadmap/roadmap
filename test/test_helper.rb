@@ -86,10 +86,10 @@ class ActiveSupport::TestCase
   # Version the template
   # ----------------------------------------------------------------------
   def version_the_template
-    put admin_publish_template_path(@template)
-    get admin_template_template_path(@template)            # Click on 'edit'
+    get publish_org_admin_template_path(@template)
+    get edit_org_admin_template_path(@template)            # Click on 'edit'
     @template = Template.current(@template.dmptemplate_id) # Edit working copy
-    put admin_update_template_path(@template), {template: {title: "#{@template.title} - VERSIONED"}}
+    put org_admin_template_path(@template), {template: {title: "#{@template.title} - VERSIONED"}}
   end
 
   # Scaffold a new Plan based on the scaffolded Template
