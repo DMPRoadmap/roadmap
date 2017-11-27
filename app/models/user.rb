@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-
+  include ConditionalUserMailer
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -239,8 +239,9 @@ class User < ActiveRecord::Base
         break random_token unless User.exists?(api_token: random_token)
       end
       self.save!
-      # send an email to the user to notify them of their new api token
-      #UserMailer.api_token_granted_notification(self)
+      deliver_if(recipients: self, key: 'users.admin_privileges') do |r|
+        UserMailer.api_token_granted_notification(r).deliver_now
+      end
     end
   end
 

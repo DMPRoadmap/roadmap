@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
-
+  helper MailerHelper
   default from: Rails.configuration.branding[:organisation][:email]
   
   def welcome_notification(user)
@@ -29,8 +29,7 @@ class UserMailer < ActionMailer::Base
     end
   end
   
-  # TODO evaluate if it is needed since https://docs.google.com/document/d/1Zt3QfPZ2q6yMOCVFOevXviwRX-XbZeGSxAAvbRa9w-M/edit does not mention it
-  def project_access_removed_notification(user, plan, current_user)
+  def plan_access_removed(user, plan, current_user)
     @user = user
     @plan = plan
     @current_user = current_user
@@ -115,6 +114,14 @@ class UserMailer < ActionMailer::Base
             _('%{tool_name}: A new comment was added to %{plan_title}') %{ :tool_name => Rails.configuration.branding[:application][:name], :plan_title => plan.title })
         end
       end
+    end
+  end
+
+  def admin_privileges(user)
+    @user = user 
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: user.email, subject:
+        _('Administrator privileges granted in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
 end

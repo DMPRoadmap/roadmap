@@ -66,7 +66,9 @@ class RolesController < ApplicationController
     plan = @role.plan
     @role.destroy
     flash[:notice] = _('Access removed')
-    UserMailer.project_access_removed_notification(user, plan, current_user).deliver_now
+    deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
+      UserMailer.plan_access_removed(user, plan, current_user).deliver_now
+    end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
     
