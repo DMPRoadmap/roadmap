@@ -9,61 +9,49 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # Get the first Org Admin
     scaffold_org_admin(@template.org)
+    
+    @regular_user = User.find_by(email: 'org_user@example.com') 
   end
 
-# TODO: The following methods SHOULD replace the old 'admin_' prefixed methods. The routes file already has
-#       these defined. We should remove the old routes to the 'admin_' prefixed methods as well. We should just
-#       have:
-#
-# SHOULD BE:
-# --------------------------------------------------
-#   templates               GET    /templates           templates#index
-#                           POST   /templates           templates#create
-#   template                GET    /template/[:id]      templates#show
-#                           PATCH  /template/[:id]      templates#update
-#                           PUT    /template/[:id]      templates#update
-#                           DELETE /template/[:id]      templates#destroy
-#   edit_template           GET    /template/[:id]/edit templates#edit
-#   new_template            GET    /templates/new       templates#new
-#
-#
-# CURRENT RESULTS OF `rake routes`
-# --------------------------------------------------
-#   admin_index_template    GET    /org/admin/templates/:id/admin_index(.:format)          templates#admin_index
-#   admin_template_template GET    /org/admin/templates/:id/admin_template(.:format)       templates#admin_template
-#   admin_new_template      GET    /org/admin/templates/:id/admin_new(.:format)            templates#admin_new
-#   admin_template_history_template GET /org/admin/templates/:id/admin_template_history(.:format) templates#admin_template_history
-#   admin_destroy_template  DELETE /org/admin/templates/:id/admin_destroy(.:format)        templates#admin_destroy
-#   admin_create_template   POST   /org/admin/templates/:id/admin_create(.:format)         templates#admin_create
-#   admin_update_template   PUT    /org/admin/templates/:id/admin_update(.:format)         templates#admin_update
-
-
-  # GET /org/admin/templates/:id/admin_index (admin_index_template_path) the :id here makes no sense!
-  # ----------------------------------------------------------
-  test "get the list of admin templates" do
+  test "unauthorized user cannot access the templates page" do
     # Should redirect user to the root path if they are not logged in!
-    get admin_index_template_path(@user.org)
+    get org_admin_templates_path
     assert_unauthorized_redirect_to_root_path
-
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get org_admin_templates_path
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "Org Admin should see the list of their templates and customizable funder templates" do
     sign_in @user
-
-    get admin_index_template_path(@user.org)
+    get org_admin_templates_path
     assert_response :success
-
-    assert assigns(:funder_templates)
-    assert assigns(:org_templates)
+    assert_select "#organisation-templates table tbody tr", @user.org.templates.length, "expected the Org Admin to only see their own templates"
+  end
+  
+  test "Super Admin should see the list of all templates" do
+    user = User.find_by(email: 'super_admin@example.com')
+    sign_in user
+    get org_admin_templates_path
+    assert_response :success
+    assert_select "#organisation-templates table tbody tr", Template.where(org: Org.not_funder).pluck(:dmptemplate_id).uniq.length, "expected the Super Admin to see all of the templates"
   end
 
-  # GET /org/admin/templates/:id/admin_template (admin_template_template_path)
-  # ----------------------------------------------------------
-  test "get the admin template" do
+  test "unauthorized user cannot access the template edit page" do
     # Should redirect user to the root path if they are not logged in!
-    get admin_template_template_path(@template)
+    get edit_org_admin_template_path(@template)
     assert_unauthorized_redirect_to_root_path
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get edit_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
 
+  test "get the template edit page" do
     sign_in @user
 
-    get admin_template_template_path(@template)
+    get edit_org_admin_template_path(@template)
     assert_response :success
 
     assert assigns(:template)
@@ -71,30 +59,37 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:current)
   end
 
-#  TODO: Why are we passing an :id here!? Its a new record but we seem to need the last template's id
-  # GET /org/admin/templates/:id/admin_new (admin_new_template_path)
-  # ----------------------------------------------------------
-  test "get the new admin template page" do
+  test "unauthorized user cannot access the new template page" do
     # Should redirect user to the root path if they are not logged in!
-    get admin_new_template_path(Template.last.id)
+    get new_org_admin_template_path(Template.last.id)
     assert_unauthorized_redirect_to_root_path
-
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get new_org_admin_template_path(Template.last.id)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "get the new template page" do
     sign_in @user
 
-    get admin_new_template_path(Template.last.id)
+    get new_org_admin_template_path(Template.last.id)
     assert_response :success
   end
 
-  # GET /org/admin/templates/:id/admin_template_history (admin_template_history_template_path)
-  # ----------------------------------------------------------
-  test "get the admin template history page" do
+  test "unauthorized user cannot access the template history page" do
     # Should redirect user to the root path if they are not logged in!
-    get admin_template_history_template_path(@template)
+    get history_org_admin_template_path(@template)
     assert_unauthorized_redirect_to_root_path
-
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get history_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "get the template history page" do
     sign_in @user
 
-    get admin_template_history_template_path(@template)
+    get history_org_admin_template_path(@template)
     assert_response :success
 
     assert assigns(:template)
@@ -102,14 +97,18 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:current)
   end
 
-  # DELETE /org/admin/templates/:id/admin_destroy (admin_destroy_template_path)
-  # ----------------------------------------------------------
+  test "unauthorized user cannot delete a template" do
+    # Should redirect user to the root path if they are not logged in!
+    delete org_admin_template_path(@template)
+    assert_unauthorized_redirect_to_root_path
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    delete org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
   test "delete the admin template" do
     id = @template.id
-    # Should redirect user to the root path if they are not logged in!
-    delete admin_destroy_template_path(@template)
-    assert_unauthorized_redirect_to_root_path
-
     sign_in @user
 
     family = @template.dmptemplate_id
@@ -120,60 +119,65 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     current = Template.current(family)
 
     # Try to delete a historical version should fail
-    delete admin_destroy_template_path(prior)
+    delete org_admin_template_path(prior)
     assert_equal _('You cannot delete historical versions of this template.'), flash[:alert]
     assert_response :redirect
-    assert_redirected_to admin_index_template_path
+    assert_redirected_to org_admin_templates_path
     assert_not Template.find(prior.id).nil?
 
     # Try to delete the current version should work
-    delete admin_destroy_template_path(current)
+    delete org_admin_template_path(current)
     assert_response :redirect
-    assert_redirected_to admin_index_template_path
+    assert_redirected_to org_admin_templates_path
     assert_raise ActiveRecord::RecordNotFound do
       Template.find(current.id).nil?
     end
     assert_equal prior, Template.current(family), "expected the old version to now be the current version"
+    
+    # Should not be able to delete a template that has plans!
   end
 
-#  TODO: Why are we passing an :id here!? Its a new record but we seem to need the last template's id
-  # POST /org/admin/templates/:id/admin_create (admin_create_template_path)
-  # ----------------------------------------------------------
+  test "unauthorized user cannot create a template" do
+    # Should redirect user to the root path if they are not logged in!
+    post org_admin_templates_path(@user.org), {template: {title: ''}}
+    assert_unauthorized_redirect_to_root_path
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    post org_admin_templates_path(@user.org), {template: {title: ''}}
+    assert_authorized_redirect_to_plans_page
+  end
+  
   test "create a template" do
     params = {title: 'Testing create route'}
-
-    # Should redirect user to the root path if they are not logged in!
-    post admin_create_template_path(@user.org), {template: params}
-    assert_unauthorized_redirect_to_root_path
-
     sign_in @user
 
-    post admin_create_template_path(@user.org), {template: params}
+    post org_admin_templates_path(@user.org), {template: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
-    assert_redirected_to admin_template_template_url(Template.last.id)
+    assert_redirected_to edit_org_admin_template_url(Template.last.id)
     assert assigns(:template)
     assert_equal 'Testing create route', Template.last.title, "expected the record to have been created!"
 
     # Invalid object
-    post admin_create_template_path(@user.org), {template: {title: nil, org_id: @user.org.id}}
+    post org_admin_templates_path(@user.org), {template: {title: nil, org_id: @user.org.id}}
     assert flash[:alert].starts_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:template)
     assert assigns(:hash)
   end
-
-  # GET /org/admin/templates/:id/admin_update (admin_update_template_path)
-  # ----------------------------------------------------------
-  test "update the admin template" do
-    params = {title: 'ABCD'}
-
+  
+  test "unauthorized user cannot update a template" do
     # Should redirect user to the root path if they are not logged in!
-    #get admin_template_template_path(@template)            # Click on 'edit'
-    #@template = Template.current(@template.dmptemplate_id) # Edit working copy
-    put admin_update_template_path(@template), {template: params}
+    put org_admin_template_path(@template), {template: {title: ''}}
     assert_unauthorized_redirect_to_root_path
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    put org_admin_template_path(@template), {template: {title: ''}}
+    assert_authorized_redirect_to_plans_page
+  end
 
+  test "update the template" do
+    params = {title: 'ABCD'}
     sign_in @user
 
     family = @template.dmptemplate_id
@@ -184,56 +188,60 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     current = Template.current(family)
 
     # We shouldn't be able to edit a historical version
-    put admin_update_template_path(prior), {template: params}
+    put org_admin_template_path(prior), {template: params}
     assert_equal _('You can not edit a historical version of this template.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to admin_template_template_url(prior)
+    assert_redirected_to edit_org_admin_template_url(prior)
     assert assigns(:template)
 
     # Make sure we get the right response when editing an unpublished template
-    put admin_update_template_path(current), {template: params}
+    put org_admin_template_path(current), {template: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
-    assert_redirected_to admin_template_template_path
+    assert_redirected_to edit_org_admin_template_url(current)
     assert assigns(:template)
     #assert assigns(:template_hash)
     assert_equal 'ABCD', current.reload.title, "expected the record to have been updated"
     assert current.reload.dirty?
 
     # Make sure we get the right response when providing an invalid template
-    put admin_update_template_path(current), {template: {title: nil}}
+    put org_admin_template_path(current), {template: {title: nil}}
     assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :redirect
     assert assigns(:template)
   end
 
-  # GET /org/admin/templates/:id/admin_customize (admin_customize_template_path)
-  # ----------------------------------------------------------
-  test "customize a funder template" do
+  test "unauthorized user cannot customize a template" do
     # Make sure we are redirected if we're not logged in
-    get admin_customize_template_path(@template)
+    get customize_org_admin_template_path(@template)
     assert_unauthorized_redirect_to_root_path
-
-    funder_template = Template.create(org: Org.funders.first, title: 'Testing integration')
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get customize_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "customize a funder template" do
+    funder_template = Template.create(org: Org.funder.first, title: 'Testing integration')
 
     # Sign in as the funder so that we cna publish the template
     sign_in User.find_by(org: funder_template.org)
 
-    put admin_publish_template_path(funder_template)
+    get publish_org_admin_template_path(funder_template)
     assert_response :redirect
-    assert_redirected_to admin_index_template_path(funder_template.org)
+    assert_redirected_to org_admin_templates_path
 
     # Sign in as the regular user so we can customize the funder template
     sign_in @user
 
     template = Template.live(funder_template.dmptemplate_id)
 
-    get admin_customize_template_path(template)
+    get customize_org_admin_template_path(template)
 
     customization = Template.where(customization_of: template.dmptemplate_id).last
 
     assert_response :redirect
-    assert_redirected_to admin_template_template_url(Template.last)
+    assert_redirected_to edit_org_admin_template_url(Template.last)
     assert assigns(:template)
 
     assert_equal 0, customization.version
@@ -252,13 +260,17 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # GET /org/admin/templates/:id/admin_publish (admin_publish_template_path)
-  # ----------------------------------------------------------
-  test "publish a template" do
+  test "unauthorized user cannot publish a template" do
     # Should redirect user to the root path if they are not logged in!
-    put admin_publish_template_path(@template)
+    get publish_org_admin_template_path(@template)
     assert_unauthorized_redirect_to_root_path
-
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get publish_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "publish a template" do
     sign_in @user
 
     family = @template.dmptemplate_id
@@ -269,23 +281,23 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     current = Template.current(family)
 
     # We shouldn't be able to edit a historical version
-    put admin_publish_template_path(prior)
+    get publish_org_admin_template_path(prior)
     assert_equal _('You can not publish a historical version of this template.'), flash[:alert]
     assert_response :redirect
-    assert_redirected_to admin_template_template_url(prior)
+    assert_redirected_to org_admin_templates_path
     assert assigns(:template)
 
     # Publish the current template
-    put admin_publish_template_path(current)
+    get publish_org_admin_template_path(current)
     assert_equal _('Your template has been published and is now available to users.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to admin_index_template_path(@user.org)
+    assert_redirected_to org_admin_templates_path
     current = Template.current(family)
 
     # Update the description so that the template gets versioned
-    get admin_template_template_path(current) # Click on 'edit'
+    get edit_org_admin_template_path(current) # Click on 'edit'
     new_version = Template.current(family)    # Edit working copy
-    put admin_update_template_path(new_version), {template: {description: "this is an update"}}
+    put org_admin_template_path(new_version), {template: {description: "this is an update"}}
 
     # Make sure it versioned properly
     new_version = Template.current(family)
@@ -298,13 +310,17 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal current.dmptemplate_id, new_version.dmptemplate_id, "expected the old and new versions to share the same dmptemplate_id"
   end
 
-  # GET /org/admin/templates/:id/admin_unpublish (admin_unpublish_template_path)
-  # ----------------------------------------------------------
-  test "unpublish a template" do
+  test "unauthorized user cannot unpublish a template" do
     # Should redirect user to the root path if they are not logged in!
-    put admin_unpublish_template_path(@template)
+    get unpublish_org_admin_template_path(@template)
     assert_unauthorized_redirect_to_root_path
-
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get unpublish_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "unpublish a template" do
     sign_in @user
 
     family = @template.dmptemplate_id
@@ -315,15 +331,46 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     current = Template.current(family)
 
     # Publish it so we can unpublish
-    put admin_publish_template_path(current)
+    get publish_org_admin_template_path(current)
     assert_not Template.live(family).nil?
 
-    put admin_unpublish_template_path(current)
+    get unpublish_org_admin_template_path(current)
     assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to admin_index_template_path(@user.org)
+    assert_redirected_to org_admin_templates_path
 
     # Make sure there are no published versions
     assert Template.live(family).nil?
+  end
+  
+  test "unauthorized user cannot copy a template" do
+    # Should redirect user to the root path if they are not logged in!
+    get copy_org_admin_template_path(@template)
+    assert_unauthorized_redirect_to_root_path
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get copy_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "copy a template" do
+    sign_in @user
+    get copy_org_admin_template_path(@template)
+    assert_response :redirect
+    assert_redirected_to "#{edit_org_admin_template_url(Template.last)}?edit=true"
+  end
+  
+  test "unauthorized user cannot transfer a template customization" do
+    # Should redirect user to the root path if they are not logged in!
+    get transfer_customization_org_admin_template_path(@template)
+    assert_unauthorized_redirect_to_root_path
+    # Non Org-Admin cannot perform this action
+    sign_in @regular_user
+    get transfer_customization_org_admin_template_path(@template)
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "transfer a template customization" do
+    # TODO add test for this. Could not get working, getting a nil for max_version within the method (NOT SURE IF THIS IS STILL IN USE!)
   end
 end

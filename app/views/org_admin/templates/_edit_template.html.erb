@@ -1,5 +1,5 @@
 <!-- edit template details A template is passed as an argument-->
-<%= form_for(template, url: admin_update_template_path(template), html: { method: :put }) do |f| %>
+<%= form_for(template, url: org_admin_template_path(template), html: { method: :put }) do |f| %>
   <div class="form-group col-xs-8">
     <%= f.label(:title, _('Title'), class: "control-label") %>
     <%= f.text_field(:title, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', title: _('Please enter a title for your template.')) %>

@@ -106,7 +106,7 @@ class GuidanceGroup < ActiveRecord::Base
     managing_org_groups = Org.includes(guidance_groups: [guidances: :themes]).managing_orgs.collect{|org| org.guidance_groups}
 
     # find all groups owned by  a Funder organisation
-    funder_groups = Org.includes(:guidance_groups).funders.collect{|org| org.guidance_groups}
+    funder_groups = Org.includes(:guidance_groups).funder.collect{|org| org.guidance_groups}
 
     organisation_groups = [user.org.guidance_groups]
 
