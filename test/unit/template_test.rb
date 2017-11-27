@@ -120,4 +120,31 @@ class TemplateTest < ActiveSupport::TestCase
     verify_belongs_to_relationship(tmplt, @org)
   end
 
+  test 'should be invalid when links is not a hash' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = []
+    refute(t.valid?)
+    assert_equal(['A hash is expected for links'], t.errors.messages[:links])
+  end
+
+  test 'should be invalid when links hash does not have the expected keys' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = { "foo" => [], "bar" => [] }
+    refute(t.valid?)
+    assert_equal(['A key funder is expected for links hash', 'A key sample_plan is expected for links hash'], t.errors.messages[:links])
+  end
+
+  test 'should be invalid when links hash keys are not compliant to object links format' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = { "funder" => [{}], "sample_plan" => [{}] }
+    refute(t.valid?)
+    assert_equal(['The key funder does not have a valid set of object links', 'The key sample_plan does not have a valid set of object links'], t.errors.messages[:links])
+  end
+
+  test 'should be valid when links hash keys are compliant to object links format' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = { "funder" => [{ "link" => "foo", "text" => "bar" }], "sample_plan" => [] }
+    assert(t.valid?)
+    assert_equal(nil, t.errors.messages[:links])
+  end
 end
