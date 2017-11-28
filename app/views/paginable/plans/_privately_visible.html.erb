@@ -15,6 +15,7 @@
               <th><%= _('Role') %></th>
               <th class="text-center sorter-false"><%= _('Test') %></th>
               <th><%= _('Visibility') %></th>
+              <th><%= _('Shared') %></th>
               <th class="sorter-false">
                 <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
               </th>
@@ -41,6 +42,13 @@
                 </td>
                 <td class="plan-visibility">
                   <%= plan.visibility === 'is_test' ? _('N/A') : raw(display_visibility(plan.visibility)) %>
+                </td>
+                <td>
+                  <% unless plan.shared.empty? %>
+                    <%= _("Yes(#{plan.shared.length})") %>
+                  <% else %>
+                    <%= _('No') %>
+                  <% end  %>
                 </td>
                 <td>
                   <div class="dropdown">
