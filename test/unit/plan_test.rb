@@ -272,6 +272,18 @@ class PlanTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
+  test "returns the shared roles" do
+    plan = Plan.create!(template: Template.last, title: 'Testing no creator', visibility: :is_test)
+    # plan created creator, admin and commenter roles (15, 14, 8)
+    plan.assign_creator(@creator)
+    Role.create(user: User.first, plan: plan, access: 14)
+    Role.create(user: User.last, plan: plan, access: 8)
+    # assert that the plan is shared with above roles and doesnt include owner
+    assert_equal(plan.shared.length, 2)
+    assert_equal(plan.roles.count, 3)
+  end
+
+  # ---------------------------------------------------
   test "checks that last edited matches the latest_update" do
     now = Time.new
     @template.phases.last.updated_at = now
