@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 20171124133802) do
   end
 
   add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id", using: :btree
+  add_index "questions_themes", ["theme_id"], name: "index_questions_themes_on_theme_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
     t.string  "abbreviation"
