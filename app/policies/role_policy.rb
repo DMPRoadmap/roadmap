@@ -17,7 +17,7 @@ class RolePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @role.plan.owned_by?(@user.id)
+    @role.plan.administerable_by?(@user.id)
   end
 
   def deactivate?
