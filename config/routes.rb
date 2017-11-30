@@ -266,6 +266,10 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :users, only: [] do
         get 'index/:page', action: :index, on: :collection, as: :index
       end
+      # Paginable actions for themes
+      resources :themes, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
     end
 
     # ORG ADMIN specific pages
@@ -277,4 +281,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
+    namespace :super_admin do
+      resources :themes, only: [:index, :new, :create, :edit, :update]
+    end
 end
