@@ -5,7 +5,7 @@
 **Copyright: Digital Curation Centre and California Digital Library
 -->
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-md-8">
     <div class="row">
       <div class="col-md-12">
         <% q_format = question.question_format %>
@@ -59,7 +59,6 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="pull-right">
         <% if (question.modifiable) %>
             <%= link_to _('Edit question'), "#question_edit#{question.id}", class: "btn btn-default question_edit_link", role: "button" %>
             <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
@@ -71,7 +70,6 @@
               </div>
           <% end %>
         <% end %>
-        </div>
       </div>
     </div>
   </div>

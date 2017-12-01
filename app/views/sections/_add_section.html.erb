@@ -6,26 +6,28 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <div class="col-xs-8">
+        <div class="col-md-10">
           <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section') } ) %>
         </div>
         <div class="clearfix"/>
       </h4>
     </div>
     <div class="panel-body">
-      <div class="form-group col-xs-8">
-        <%= f.label(:number, _('Order of display'), class: 'control-label') %>
+      <div class="col-md-10">
+        <%= f.label(:number, _('Order of display'), class: "control-label") %>
+      </div>
+      <div class="col-md-4">
         <%= f.number_field(:number, in: 1..15, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
       </div>
 
-      <div class="form-group col-xs-8">
-        <%= f.label(:description, _('Description'), class: 'control-label') %>
+      <div class="col-md-10">
+        <%= f.label(:description, _('Description'), class: "control-label") %>
         <div data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
-          <%= text_area_tag('section-desc', '', class: 'tinymce form-control', rows: "3") %>
+        <%= text_area_tag('section-desc', '', class: 'tinymce form-control') %>
         </div>
       </div>
 
-      <div class="form-group col-xs-8">
+      <div class="col-md-4 col-md-offset-8 pull-right">
         <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
         <%= link_to(_('Cancel'), '#', { class: 'btn btn-default section_new_cancel', role: "button" }) %>
       </div>
