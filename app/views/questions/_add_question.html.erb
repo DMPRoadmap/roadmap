@@ -7,43 +7,41 @@ in the admin interface.
 -->
 <% @new_question = Question.new %>
 <% @new_question.number = section.questions.count + 1 %>
-<%= form_for @new_question, url:  admin_create_question_path , html: {id: "new_question_#{section.id}", class: 'form-horizontal question_form'} do |f| %>
+<%= form_for @new_question, url:  admin_create_question_path , html: {id: "new_question_#{section.id}", class: 'question_form'} do |f| %>
   <%= f.hidden_field :section_id, value: section.id %>
   <%= hidden_field_tag :section_id, section.id, class: "section_id_new" %>
+
   <!--Question number -->
-  <div class="form-group">
-    <%= f.label(:number, _('Question Number'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <%= f.number_field(:number, in: 1..50, class: "form-control", "aria-required": true, 'aria-required': true) %>
-    </div>
+  <div class="form-group col-md-4">
+    <%= f.label(:number, _('Question Number'), class: "control-label") %>
+    <%= f.number_field(:number, in: 1..50, class: "form-control", "aria-required": true, 'aria-required': true) %>
   </div>
+
   <!--Question text -->
-  <div class="form-group">
-    <%= f.label(:text, _('Question text'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <%= f.text_area(:text, class: "question") %>
-    </div>
+  <div class="form-group col-md-10">
+    <%= f.label(:text, _('Question text'), class: "control-label") %>
+    <%= f.text_area(:text, class: "question") %>
   </div>
+
   <!-- Question format -->
-  <div class="form-group">
-    <%= f.label(:question_format_id, _('Answer format'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <%= f.select :question_format_id,
-        options_from_collection_for_select(QuestionFormat.all.order("title"),
-        :id,
-        :title,
-        QuestionFormat.id_for(QuestionFormat.formattypes[:textarea])),
-        {}, 
-        class: "form-control",
-        'data-toggle': 'tooltip',
-        'data-html': true,
-        title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
-      %>
-    </div>
+  <div class="form-group col-md-4">
+    <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
+    <%= f.select :question_format_id,
+      options_from_collection_for_select(QuestionFormat.all.order("title"),
+      :id,
+      :title,
+      QuestionFormat.id_for(QuestionFormat.formattypes[:textarea])),
+      {}, 
+      class: "form-control",
+      'data-toggle': 'tooltip',
+      'data-html': true,
+      title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
+    %>
   </div>
+
   <!--display form to enter option for option_based questions -->
-  <div class="form-group" data-attribute="question_options" style="display: none;">
-    <div class="col-md-10 col-md-offset-2">
+  <div class="form-group col-md-10" data-attribute="question_options" style="display: none;">
+    <div class="col-md-offset-2">
       <%= render "/question_options/option_fields", f: f, q: @new_question %>
       <!--display for selecting comment box when multiple choice is being used-->
       <div class="checkbox">
@@ -54,9 +52,9 @@ in the admin interface.
     </div>
   </div>
   <!--Question default_value -->
-  <div class="form-group" data-attribute="default_value">
-    <%= f.label(:default_value, _('Default answer'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10" data-toggle="tooltip" title="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
+  <div class="form-group col-md-10" data-attribute="default_value">
+    <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
+    <div data-toggle="tooltip" title="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
       <span data-attribute="textfield" style="display: none;">
         <%= text_field_tag("question-default-value-textfield", @new_question.default_value, class: 'form-control') %>
       </span>
@@ -66,31 +64,32 @@ in the admin interface.
     </div>
   </div>
   <!-- Suggested answer or Example for Question -->
-  <div class="form-group">
-    <%= f.label(:example_answer, _('Example Answer'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10" data-toggle="tooltip" title="<%= ('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>">
+  <div class="form-group col-md-10">
+    <%= f.label(:example_answer, _('Example Answer'), class: "control-label") %>
+    <div data-toggle="tooltip" title="<%= ('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>">
       <%= text_area_tag(:example_answer, "", id: "question_example_answer", class: 'question') %>
     </div>
   </div>
   <!-- Guidance for Question -->
-  <div class="form-group">
-    <%= f.label(:guidance, _('Guidance'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10" data-toggle="tooltip" title="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>">
+  <div class="form-group col-md-10">
+    <%= f.label(:guidance, _('Guidance'), class: "control-label") %>
+    <div data-toggle="tooltip" title="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>">
       <%= text_area_tag(:guidance, "", id: "question_guidance", class: 'question') %>
     </div>
   </div>
   <!-- Themes -->
-  <div class="form-group">
-    <%= f.label(:theme_ids, _('Themes'), class: 'col-md-2 control-label') %>
-    <div class="col-md-10">
-      <%= f.collection_select(:theme_ids,
+  <div class="form-group col-md-4">
+    <%= f.label(:theme_ids, _('Themes'), class: "control-label") %>
+    <%= f.collection_select(:theme_ids,
           Theme.all.order("title"),
           :id, :title, {prompt: false, include_blank: _('None')}, {multiple: true, 'data-toggle': 'tooltip', 'data-html': true, title: _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"), class: 'form-control'}) %>
-    </div>
   </div>
-  <div class="pull-right">
-    <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
-    <%= link_to _('Cancel'), '#', class: "btn btn-default new_question_cancel", role: 'button' %>
+
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-10 pull-right">
+      <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+      <%= link_to _('Cancel'), '#', class: "btn btn-default new_question_cancel", role: 'button' %>
+    </div>
   </div>
 <% end %>
 
