@@ -1,11 +1,12 @@
+<% phases = Phase.titles(plan.template.id) %>
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="<%= (isActivePage(plan_path(plan)) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
   </li>
-  <% plan.template.phases.each do |phase| %>
+  <% phases.each do |phase| %>
     <li role="presentation" class="<%= (isActivePage(edit_plan_phase_path(plan, phase)) ? 'active' : '') %>">
       <a href="<%= edit_plan_phase_path(plan, phase) %>" role="tab" aria-controls="content">
-        <%= (plan.template.phases.length > 1 ? phase.title : _('Write Plan')) %>
+        <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>
     </li>
   <% end %>
