@@ -30,7 +30,9 @@ class Phase < ActiveRecord::Base
 
   validates :title, :number, :template, presence: {message: _("can't be blank")}
 
-  
+  scope :titles, -> (template_id) {
+    Phase.where(template_id: template_id).select(:id, :title)
+  }
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
