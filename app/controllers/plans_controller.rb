@@ -3,7 +3,7 @@ class PlansController < ApplicationController
   require 'pp'
   helper PaginableHelper
   helper SettingsTemplateHelper
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:overview]
 
   def index
     authorize Plan
@@ -354,6 +354,17 @@ class PlansController < ApplicationController
      end
     rescue Exception
       redirect_to share_plan_path(plan), alert: alert
+    end
+  end
+
+  def overview
+    begin
+      plan = Plan.overview(params[:id])
+      authorize plan
+      render(:overview, locals: { plan: plan })
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = _('There is no plan associated with id %{id}') %{ :id => params[:id] }
+      redirect_to(action: :index)
     end
   end
 

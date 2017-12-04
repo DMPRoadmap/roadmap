@@ -220,6 +220,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         post 'visibility', constraints: {format: [:json]}
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
+        get 'overview'
       end
 
       collection do

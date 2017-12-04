@@ -70,6 +70,11 @@ class Plan < ActiveRecord::Base
       .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
       .order(:title => :asc)
   }
+
+  # Retrieves plan, template, org, phases, sections and questions
+  scope :overview, -> (id) {
+    Plan.includes(:phases, :sections, :questions, template: [ :org ]).find(id)
+  }
   ##
   # Settings for the template
   has_settings :export, class_name: 'Settings::Template' do |s|
