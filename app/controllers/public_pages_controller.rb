@@ -4,7 +4,7 @@ class PublicPagesController < ApplicationController
   # GET template_index
   # -----------------------------------------------------
   def template_index
-    template_ids = Template.where(org_id: Org.funders.pluck(:id)).valid.pluck(:dmptemplate_id).uniq << Template.where(is_default: true, published: true).pluck(:dmptemplate_id)
+    template_ids = Template.where(org_id: Org.funders.pluck(:id), visibility: Template.visibilities[:publicly_visible]).valid.pluck(:dmptemplate_id).uniq << Template.where(is_default: true, published: true).pluck(:dmptemplate_id)
     @templates = []
     template_ids.flatten.each do |tid|
       t = Template.live(tid)
