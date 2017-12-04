@@ -5,7 +5,8 @@
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
     <div class="form-group col-xs-8">
       <div class="radio">
-        <%= f.label :visibility_privately_visible, raw("#{f.radio_button :visibility, :privately_visible} #{_('Private: restricted to me and my collaborators')}") %>
+        <%= f.label :visibility_privately_visible, raw("#{f.radio_button :visibility, :privately_visible}\
+        #{_('Private: visible to you, specified collaborators and institutional administrators')}") %>
       </div>
       <div class="radio">
         <%= f.label :visibility_organisationally_visible, raw("#{f.radio_button :visibility, :organisationally_visible} #{_('Organisation: anyone at my organisation can view')}") %>
