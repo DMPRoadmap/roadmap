@@ -18,6 +18,10 @@
       <%= _('Published') %>
     <% end %>
   </dd>
+  <% if template.org.funder? %>
+    <dt><%= _('Visibility') %></dt>
+    <dd><%= (template.visibility == 'organisationally_visible' ? _('for internal %{org_name} use only') % {org_name: @template.org.name} : _('available to the public') + (template_hash[:live].nil? ? ' (once published)' : '')) %></dd>
+  <% end %>
   <dt><%= _('Created at') %></dt>
   <dd><%= l template.created_at.to_date, formats: :short %></dd>
   <dt><%= _('Last updated') %></dt>
