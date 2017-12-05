@@ -17,7 +17,7 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
     @org.logo = attrs[:logo] if attrs[:logo]
-    
+    failure = ''
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     
     if attrs[:links].present?
@@ -27,24 +27,20 @@ class OrgsController < ApplicationController
         if json.all?{ |o| o['link'].present? && o['text'].present? }
           @org.links = json
         else
-          redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: _('Unable to save your changes. Invalid URLs.')
+          failure = _('Unable to save your changes. Invalid URLs.')
         end
       else
-        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: _('Unable to save your changes. Invalid URLs.')
+        failure = _('Unable to save your changes. Invalid URLs.')
       end
       attrs.delete('links')
     end
     
     begin
-      if @org.update_attributes(attrs)
+      if failure.blank? && @org.update_attributes(attrs)
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", notice: success_message(_('organisation'), _('saved'))
       else
-        # For some reason our custom validator returns as a string and not a hash like normal activerecord 
-        # errors. We followed the example provided in the Rails guides when building the validator so
-        # its unclear why its doing this. Placing a check here for the data type. We should reasses though
-        # when doing a broader eval of the look/feel of the site and we come up with a standardized way of
-        # displaying errors
-        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failed_update_error(@org, _('organisation'))
+        failure = failed_update_error(@org, _('organisation')) if failure.blank?
+        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: _('There seems to be a problem with your logo. Please upload it again.')
