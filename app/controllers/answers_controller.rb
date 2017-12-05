@@ -1,20 +1,35 @@
 class AnswersController < ApplicationController
-  after_action :verify_authorized
   respond_to :html
 
-	# PUT/PATCH /answers/[:id]
-  def update
+	# POST /answers/create_or_update
+  def create_or_update
     p_params = permitted_params()
+
+    #First it is checked plan exists and question exist for that plan
+    begin
+      p = Plan.find(p_params[:plan_id])
+      if !p.question_exists?(p_params[:question_id])
+        render(status: :not_found, json:
+        { msg: _("There is no question with id %{question_id} associated to plan id %{plan_id}"\
+          "for which to create or update an answer") %{ :question_id => p_params[:question_id], :plan_id => p_params[:plan_id] }})
+        return
+      end
+    rescue ActiveRecord::RecordNotFound
+      render(status: :not_found, json:
+        { msg: _('There is no plan with id %{id} for which to create or update an answer') %{ :id => p_params[:plan_id] }})
+      return
+    end
+
     Answer.transaction do
       begin
         @answer = Answer.find_by!({ plan_id: p_params[:plan_id], question_id: p_params[:question_id] })
         authorize @answer
-        @answer.update(p_params)
+        @answer.update(p_params.merge({ user_id: current_user.id }))
         if p_params[:question_option_ids].present?
           @answer.touch() # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
         end
       rescue ActiveRecord::RecordNotFound
-        @answer = Answer.new(p_params)
+        @answer = Answer.new(p_params.merge({ user_id: current_user.id }))
         @answer.lock_version = 1
         authorize @answer
         @answer.save!

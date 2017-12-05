@@ -4,10 +4,9 @@
     <%= _('Saving...')%>
 </p>
 <p class="bg-warning unsaved-message" style="display: none;"></p>
-<% if answer.is_valid? && answer.user.present? %>
-    <% if answer.updated_at.present? %>
-      <p class="bg-info">
-        <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time><%= _(' by')%> <%= answer.user.name %>
-      </p>
-    <% end %>
+<% if answer.is_valid? %>
+    <p class="bg-info">
+      <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time>
+      <%= _(' by %{user_name}') %{ :user_name => answer.user.name } if answer.user.present? %>
+    </p>
 <% end %>
