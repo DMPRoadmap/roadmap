@@ -66,9 +66,8 @@ class Answer < ActiveRecord::Base
       else  # (e.g. textarea or textfield question formats)
         return self.text.present?
       end
-    else
-      return false
     end
+    return false
   end
   # Returns all the notes for an instance answer whose archived is nil or false. The Array is ordered by updated_at (descending)
   def non_archived_notes

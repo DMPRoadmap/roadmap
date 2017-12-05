@@ -2,11 +2,9 @@
 <!--
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
-<%= form_for answer, url: {controller: :answers, action: :update}, html: {method: :put, 'data-autosave': question.id, class: 'form-answer' } do |f| %>
+<%= form_for answer, url: {controller: :answers, action: :create_or_update}, html: {method: :post, 'data-autosave': question.id, class: 'form-answer' } do |f| %>
   <% if !readonly %>
-    <%= f.hidden_field :id %>
     <%= f.hidden_field :plan_id %>
-    <%= f.hidden_field :user_id %>
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
   <% end %>
