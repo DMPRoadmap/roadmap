@@ -213,7 +213,7 @@ class Plan < ActiveRecord::Base
             UserMailer.feedback_confirmation(r, self, user).deliver_now
           end
           # Send an email to all of the org admins as well as the Org's administrator email
-          if user.org.contact_email.present?
+          if user.org.contact_email.present? && !admins.collect{ |u| u.email }.include?(user.org.contact_email)
             admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
           end
           deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
