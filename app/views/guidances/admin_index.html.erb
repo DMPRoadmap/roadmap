@@ -27,7 +27,7 @@
           <% end %>
           <tr>
             <th><%= _('Name') %></th>
-            <th class="text-center"><%= _('Published') %></th>
+            <th class="text-center"><%= _('Status') %></th>
             <th class="text-center"><%= _('Optional subset') %></th>
             <th class="text-center"><%= _('Last updated') %></th>
             <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
@@ -41,9 +41,9 @@
               </td>
               <td class="text-center">
                 <% if guidance_gr.published.nil? || guidance_gr.published == false then%>
-                  <%= _('No')%>
+                  <%= _('Unpublished')%>
                 <% else %>
-                  <%= _('Yes')%>
+                  <%= _('Published')%>
                 <% end %>
               </td>
               <td class="text-center">
@@ -66,7 +66,12 @@
 
                   <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
                     <li><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr) %></li>
-                    <li><%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                  <% if guidance_gr.published? %>
+                    <li><%= link_to _('Unpublish'),  admin_update_unpublish_guidance_group_path(guidance_gr), method: :put %></li>
+                  <% else %>
+                    <li><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put %></li>
+                  <% end %>
+                    <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
                   </ul>
                 </div>
               </td>
@@ -105,6 +110,7 @@
             <th><%= _('Text') %></th>
             <th><%= _('Themes') %></th>
             <th><%= _('Guidance group') %></th>
+            <th><%= _('Status') %></th>
             <th><%= _('Last updated') %></th>
             <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th></td>
           </tr>
@@ -136,6 +142,13 @@
                     -
                    </td>
                 <% end %>
+                <td class="text-center">
+                  <% if guidance.published.nil? || guidance.published == false then%>
+                    <%= _('Unpublished')%>
+                  <% else %>
+                    <%= _('Published')%>
+                  <% end %>
+                </td>
                 <td>
                   <%= l guidance.updated_at.to_date, formats: :short %>
                 </td>
@@ -149,7 +162,13 @@
 
                     <ul class="dropdown-menu" aria-labelledby="guidance-<%= guidance.id %>-actions">
                       <li><%= link_to _('Edit'), admin_edit_guidance_path(guidance) %></li>
-                      <li><%= link_to _('Delete'), admin_destroy_guidance_path(guidance),
+                    <!-- If the guidance has never been published or it has changed -->
+                    <% if guidance.published? %>
+                      <li><%= link_to _('Unpublish'), admin_unpublish_guidance_path(guidance), method: :put %></li>
+                    <% else %>
+                      <li><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put %></li>
+                    <% end %>
+                      <li><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
                               data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, 
                               method: :delete %></li>
                     </ul>

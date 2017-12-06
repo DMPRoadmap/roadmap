@@ -35,6 +35,14 @@ class GuidancePolicy < ApplicationPolicy
     user.can_modify_guidance? && guidance.in_group_belonging_to?(user.org_id)
   end
 
+  def admin_publish?
+    user.can_modify_guidance?
+  end
+
+  def admin_unpublish?
+    user.can_modify_guidance?
+  end
+
   def update_phases?
     user.can_modify_guidance?
   end

@@ -111,7 +111,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         delete 'admin_destroy'
         post 'admin_create'
         put 'admin_update'
-
+        put 'admin_publish'
+        put 'admin_unpublish'
         get 'update_phases'
         get 'update_versions'
         get 'update_sections'
@@ -127,6 +128,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         delete 'admin_destroy'
         post 'admin_create'
         put 'admin_update'
+        put 'admin_update_publish'
+        put 'admin_update_unpublish'
       end
     end
 
