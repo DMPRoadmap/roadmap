@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2><%= plan.template.title %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <p>
+      <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') %{ :template_title => plan.template.title, :org_name => plan.template.org.name } %>
+    </p>
+    <p>
+      <%= raw(plan.template.description) %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel-group" id="plan-overview-accordion" role="tablist" aria-multiselectable="true">
+      <% plan.template.phases.each do |p| %>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="plan-overview-heading-<%= p.id %>">
+            <div class="panel-title">
+              <div class="pull-left">
+                <%= _("%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})") % {
+                  :phase_title => p.title, :sections_size => p.sections.size, :sections => n_('section', 'sections', p.sections.size),
+                  :questions_size => p.questions.size, :questions => n_('question', 'questions', p.questions.size) } %>
+              </div>
+              <div class="pull-right">
+                <%= link_to(raw('<i class="fa fa-plus" aria-hidden="true"></i>'), "#plan-overview-collapse-#{p.id}",
+                  role: 'button', 'data-toggle': 'collapse', 'data-parent': 'plan-overview-accordion',
+                  'aria-extended': false, 'aria-controls': "#plan-overview-collapse-#{p.id}") %>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div id="plan-overview-collapse-<%= p.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="plan-overview-heading-<%= p.id %>">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4><%= _('Instructions') %></h4>
+                  <p class="text-justify">
+                    <%= raw(p.description) %>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <ul class="list-unstyled">
+                    <% p.sections.each do |s| %>
+                      <li>
+                        <%= s.title %>
+                        <ul>
+                          <% s.questions.each do |q| %>
+                            <li><%= raw(q.text) %></li>
+                          <% end %>
+                        </ul>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
