@@ -131,7 +131,43 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:guidance)
   end
-  
+
+  # PUT /org/admin/guidance/:id/admin_publish (admin_publish_guidance)
+  test 'publish the guidance' do 
+    @guidance = Guidance.first
+    @guidance_group = @guidance.guidance_group
+
+    # Should redirect user to the root path if they are not logged in!
+    put admin_publish_guidance_path(@guidance)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_publish_guidance_path(@guidance)
+    assert_response :redirect
+    assert flash[:notice].include?('published')
+    assert_redirected_to "#{admin_index_guidance_path}"
+    assert assigns(:guidance)
+  end
+
+  # PUT /org/admin/guidance/:id/admin_unpublish (admin_unpublish_guidance)        
+  test 'unpublish the guidance' do 
+    @guidance = Guidance.first
+    @guidance_group = @guidance.guidance_group
+
+    # Should redirect user to the root path if they are not logged in!
+    put admin_unpublish_guidance_path(@guidance)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_unpublish_guidance_path(@guidance)
+    assert_response :redirect
+    assert flash[:notice].include?('no longer published')
+    assert_redirected_to "#{admin_index_guidance_path}"
+    assert assigns(:guidance)
+  end
+
   # DELETE /org/admin/guidance/:id/admin_destroy (admin_destroy_guidance_path)
   # ----------------------------------------------------------
   test 'delete the guidance' do
