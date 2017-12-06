@@ -79,8 +79,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="super-admin-menu">
             <% if true %>
-                <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
-                  <%= link_to _('Super admin page A'), "#" %>
+                <li <%= 'class=active' if isActivePage(super_admin_themes_path) %>>
+                  <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
             <% end %>
             <% if true %>
