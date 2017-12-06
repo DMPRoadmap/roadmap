@@ -78,6 +78,34 @@ class GuidancesController < ApplicationController
     end
   end
 
+  # PUT /guidances/1
+  def admin_publish
+    @guidance = Guidance.find(params[:id])
+    authorize @guidance
+
+    @guidance.published = true
+    guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
+    if !guidance_group.published? || guidance_group.published.nil?
+      guidance_group.published = true
+      guidance_group.save
+    end
+    @guidance.save
+
+    flash[:notice] = _('Your guidance has been published and is now available to users.')
+    redirect_to admin_index_guidance_path
+  end
+
+  # PUT /guidances/1
+  def admin_unpublish
+    @guidance = Guidance.find(params[:id])
+    authorize @guidance
+
+    @guidance.published = false
+    @guidance.save
+
+    flash[:notice] = _('Your guidance is no longer published and will not be available to users.')
+    redirect_to admin_index_guidance_path
+  end
 
   private
     def guidance_params
