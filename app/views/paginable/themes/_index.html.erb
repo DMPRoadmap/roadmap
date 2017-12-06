@@ -1,0 +1,16 @@
+<table class="table table-hover tablesorter">
+  <thead>
+    <tr>
+      <th><%= _('Name') %></th>
+      <th><%= _('Guidance') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.each do |theme| %>
+      <tr>
+        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
+        <td><%= raw(theme.description) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
