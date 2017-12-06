@@ -303,6 +303,24 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:plan)
   end
 
+  test 'overview action responds redirect when plan does not exist' do
+    sign_in @user
+    get overview_plan_path(id: 'foo')
+    assert_response(:redirect)
+    assert_equal(_('There is no plan associated with id %{id}') %{ :id => 'foo' }, flash[:alert])
+  end
+
+  test 'overview action responds redirect when user does not have readable permissions on the plan' do
+    get overview_plan_path(@plan)
+    assert_response(:redirect)
+  end
+
+  test 'overview actions responds success when user has readable permissions on the plan' do
+    sign_in @user
+    get overview_plan_path(@plan)
+    assert_response(:success)
+  end
+
   private
     def try_no_user_and_unauthorized(target)
       # Should redirect user to the root path if they are not logged in!

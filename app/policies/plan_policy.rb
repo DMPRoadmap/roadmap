@@ -64,4 +64,8 @@ class PlanPolicy < ApplicationPolicy
   def feedback_complete?
     @plan.reviewable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
   end
+
+  def overview?
+    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+  end
 end
