@@ -183,7 +183,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
-    resources :answers, only: :update
+    resources :answers, only: [] do
+      post 'create_or_update', on: :collection
+    end
 
     resources :notes, only: [:create, :update, :archive] do
       member do
