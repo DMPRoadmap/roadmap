@@ -707,14 +707,16 @@ class Plan < ActiveRecord::Base
   end
 
   def self.load_for_phase(id, phase_id)
-    Plan.includes(
-      [template: [
-                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
-                   {customizations: :org},
-                   :org
-                  ],
-       plans_guidance_groups: {guidance_group: {guidances: :themes}}
-      ]).where(id: id, phases: { id: phase_id }).first
+#    Plan.includes(
+#      [template: [
+#                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
+#                   {customizations: :org},
+#                   :org
+#                  ],
+#       plans_guidance_groups: {guidance_group: {guidances: :themes}}
+#      ]).where(id: id, phases: { id: phase_id }).first
+
+    Plan.joins(:phases).where('plans.id = ? AND phases.id = ?', id, phase_id).includes(:template, :sections, :questions, :answers, :notes).first
   end
 
   # deep copy the given plan and all of it's associations
