@@ -27,6 +27,11 @@ class Template < ActiveRecord::Base
                   :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
                   :migrated, :version, :visibility, :published, :as => [:default, :admin]
 
+  # A standard template should be organisationally visible. Funder templates that are 
+  # meant for external use will be publicly visible. This allows a funder to create 'funder' as
+  # well as organisational templates. The default template should also always be publicly_visible
+  enum visibility: [:organisationally_visible, :publicly_visible]
+
   # defines the export setting for a template object
   has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
@@ -41,6 +46,8 @@ class Template < ActiveRecord::Base
   scope :valid_published, -> (is_default: false)  {
     Template.where(templates: { is_default: is_default }).valid().published()
   }
+
+  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]).order(:title => :asc) }
 
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
@@ -163,6 +170,7 @@ class Template < ActiveRecord::Base
       self.visibility = 1
       self.is_default = false
       self.version = 0 if self.version.nil?
+      self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
 
       # Generate a unique identifier for the dmptemplate_id if necessary
       if self.dmptemplate_id.nil?

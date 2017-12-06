@@ -274,6 +274,14 @@ class TemplatesController < ApplicationController
 
       @template.description = params["template-desc"]
       @template.links = JSON.parse(params["template-links"]) if params["template-links"].present?
+
+      # If the visibility checkbox is not checked and the user's org is a funder set the visibility to public
+      # otherwise default it to organisationally_visible
+      if current_user.org.funder? && params[:template_visibility].nil?
+        @template.visibility = Template.visibilities[:publicly_visible]
+      else
+        @template.visibility = Template.visibilities[:organisationally_visible]
+      end
       
       if @template.update_attributes(params[:template])
         flash[:notice] = success_message(_('template'), _('saved'))

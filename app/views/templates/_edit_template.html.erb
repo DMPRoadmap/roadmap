@@ -13,6 +13,14 @@
   </div>
 
   <div class="form-group col-xs-8">
+    <%= f.label _('Visibility'), class: 'control-label' %>
+    <div class="checkbox">
+      <%= f.label(:visibility,
+          raw("#{check_box_tag('template_visibility', '0', (template.visibility == 'organisationally_visible'))} #{_('for internal %{org_name} use only') % {org_name: @template.org.name}}")) %>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-8">
     <%= label_tag(:status, _('Status'), class: "control-label") %>
       <p class="form-control-static">
         <% if template_hash[:live].nil? %>
