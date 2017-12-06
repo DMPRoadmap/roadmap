@@ -59,7 +59,7 @@
             <% @plans.each do |plan| %>
               <tr>
                 <td>
-                  <%= "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}" %>
+                  <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", plan_path(plan) %>
                 </td>
                 <td><%= plan.template.title %></td>
                 <td><%= plan.users.first.org.name %></td>

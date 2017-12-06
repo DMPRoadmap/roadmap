@@ -10,62 +10,62 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def show?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 
   def share?
-    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id)
   end
 
   def export?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 
   def download?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 
   def edit?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 
   def update?
-    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id)
   end
 
   def destroy?
-    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id)
   end
 
   def status?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 
   def duplicate?
-    @plan.editable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.editable_by?(@user.id)
   end
 
   def visibility?
-    @plan.administerable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.administerable_by?(@user.id)
   end
 
   def set_test?
-    @plan.administerable_by?(@user.id)&& Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.administerable_by?(@user.id)
   end
 
   def answer?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 
   def request_feedback?
-    @plan.administerable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.administerable_by?(@user.id)
   end
   
   def feedback_complete?
-    @plan.reviewable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.reviewable_by?(@user.id)
   end
 
   def overview?
-    @plan.readable_by?(@user.id) && Role.find_by(user_id: @user.id, plan_id: @plan.id).active
+    @plan.readable_by?(@user.id)
   end
 end
