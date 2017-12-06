@@ -20,13 +20,6 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
-  # Active Record Callbacks
-  # Creates answers for plan question and persists them whenever a new plan is created and successfully saved
-  after_create do
-    Answer.create(
-      self.questions.map{ |q| { lock_version: 1, text: q.default_value, plan_id: self.id, question_id: q.id }})
-  end
-
 # COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
 #  has_many :users, through: :roles
 
@@ -761,6 +754,11 @@ class Plan < ActiveRecord::Base
   def visibility_allowed?
     value=(self.num_answered_questions().to_f/self.num_questions()*100).round(2)
     !self.is_test? && value >= Rails.application.config.default_plan_percentage_answered
+  end
+
+  # Determines whether or not a question (given its id) exists for the self plan
+  def question_exists?(question_id)
+    Plan.joins(:questions).exists?(id: self.id, "questions.id": question_id)
   end
 
   private

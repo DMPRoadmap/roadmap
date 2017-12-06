@@ -65,9 +65,8 @@
                 answers = question.plan_answers(plan.id)  if plan.present?
                 if answers.present?
                   answer = answers.first
-                  answer.user_id = current_user.id
                 else
-                  answer = Answer.new({ plan: plan, question: question, user: current_user, text: question.default_value })
+                  answer = Answer.new({ plan: plan, question: question })
                 end
               %>
               <div class="row">

@@ -150,4 +150,34 @@ class AnswerTest < ActiveSupport::TestCase
     note = Note.new(text: 'Test Note', user: @user)
     verify_has_many_relationship(@answer, note, @answer.notes.count)
   end
+
+  test 'is_valid? returns false when no question is associated to an answer' do
+    answer = Answer.new(user: @user, plan: @plan)
+    refute(answer.is_valid?)
+  end
+
+  test 'is_valid? returns false when an option based answer is empty' do
+    q = @plan.template.questions[@plan.template.questions.find_index{ |q| q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q)
+    refute(answer.is_valid?)
+  end
+
+  test 'is_valid? returns false when a non-option based answer is empty' do
+    q = @plan.template.questions[@plan.template.questions.find_index{ |q| !q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q)
+    refute(answer.is_valid?)
+  end
+
+  test 'is_valid? returns true when an option based answer is not empty' do
+    q = @plan.template.questions[@plan.template.questions.find_index{ |q| q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q)
+    answer.question_options << q.question_options.first
+    assert(answer.is_valid?)
+  end
+
+  test 'is_valid? returns true when a non-option based answer is not empty' do
+     q = @plan.template.questions[@plan.template.questions.find_index{ |q| !q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q, text: 'foo')
+    assert(answer.is_valid?)
+  end
 end
