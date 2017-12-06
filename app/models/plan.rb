@@ -94,10 +94,10 @@ class Plan < ActiveRecord::Base
   # returns the template for this plan, or generates an empty template and returns that
   #
   # @return [Dmptemplate] the template associated with this plan
-	def dmptemplate
-		#self.project.try(:dmptemplate) || Dmptemplate.new
-		self.template
-	end
+  def dmptemplate
+    #self.project.try(:dmptemplate) || Dmptemplate.new
+    self.template
+  end
 
 
 
@@ -119,24 +119,24 @@ class Plan < ActiveRecord::Base
   # @param qid [Integer] the id for the question to find the answer for
   # @param create_if_missing [Boolean] if true, will genereate a default answer to the question
   # @return [Answer,nil] the most recent answer to the question, or a new question with default value, or nil
-	def answer(qid, create_if_missing = true)
-  	answer = answers.where(:question_id => qid).order("created_at DESC").first
-  	question = Question.find(qid)
-		if answer.nil? && create_if_missing then
-			answer = Answer.new
-			answer.plan_id = id
-			answer.question_id = qid
-			answer.text = question.default_value
-			default_options = Array.new
-			question.question_options.each do |option|
-				if option.is_default
-					default_options << option
-				end
-			end
-			answer.question_options = default_options
-		end
-		return answer
-	end
+  def answer(qid, create_if_missing = true)
+    answer = answers.where(:question_id => qid).order("created_at DESC").first
+    question = Question.find(qid)
+    if answer.nil? && create_if_missing then
+      answer = Answer.new
+      answer.plan_id = id
+      answer.question_id = qid
+      answer.text = question.default_value
+      default_options = Array.new
+      question.question_options.each do |option|
+        if option.is_default
+          default_options << option
+        end
+      end
+      answer.question_options = default_options
+    end
+    return answer
+  end
 
 # TODO: This just retrieves all of the guidance associated with the themes within the template
 #       so why are we transferring it here to the plan?
@@ -343,32 +343,46 @@ class Plan < ActiveRecord::Base
   #
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if user can edit the plan
-	def editable_by?(user_id)
+  def editable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     has_role(user_id, :editor)
-	end
+  end
 
   ##
   # determines if the plan is readable by the specified user
-  # TODO: introduce explicit readable rather than implicit
-  # currently role with no flags = readable
   #
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if the user can read the plan
-	def readable_by?(user_id)
+  def readable_by?(user_id)
+    user = user_id.is_a?(User) ? user_id : User.find(user_id)
+    owner_orgs = self.owner_and_coowners.collect(&:org)
+    
+    # Super Admins can view plans read-only, Org Admins can view their Org's plans 
+    # otherwise the user must have the commenter role
+    (user.can_super_admin? ||
+     user.can_org_admin? && owner_orgs.include?(user.org) ||
+     has_role(user.id, :commenter))
+  end
+
+  ##
+  # determines if the plan is readable by the specified user
+  #
+  # @param user_id [Integer] the id for a user
+  # @return [Boolean] true if the user can read the plan
+  def commentable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     has_role(user_id, :commenter)
-	end
+  end
 
   ##
   # determines if the plan is administerable by the specified user
   #
   # @param user_id [Integer] the id for the user
   # @return [Boolean] true if the user can administer the plan
-	def administerable_by?(user_id)
+  def administerable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     has_role(user_id, :administrator)
-	end
+  end
 
   ##
   # determines if the plan is owned by the specified user
@@ -764,7 +778,7 @@ class Plan < ActiveRecord::Base
   def has_role(user_id, role_as_sym)
     if user_id.is_a?(Integer) && role_as_sym.is_a?(Symbol)
       vals = Role.access_values_for(role_as_sym)
-      self.roles.where(user_id: user_id, access: vals).first.present?
+      self.roles.where(user_id: user_id, access: vals, active: true).first.present?
     else
       false
     end
@@ -841,57 +855,57 @@ class Plan < ActiveRecord::Base
 
 
   ##
-	# Based on the height of the text gathered so far and the available vertical
-	# space of the pdf, estimate a percentage of how much space has been used.
-	# This is highly dependent on the layout in the pdf. A more accurate approach
-	# would be to render the pdf and check how much space had been used, but that
-	# could be very slow.
-	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
-	# for guidance when editing plan data, not to be 100% accurate.
+  # Based on the height of the text gathered so far and the available vertical
+  # space of the pdf, estimate a percentage of how much space has been used.
+  # This is highly dependent on the layout in the pdf. A more accurate approach
+  # would be to render the pdf and check how much space had been used, but that
+  # could be very slow.
+  # NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
+  # for guidance when editing plan data, not to be 100% accurate.
   #
   # @param used_height [Integer] an estimate of the height used so far
   # @return [Integer] the estimate of space used of an A4 portrain
-	def estimate_space_used(used_height)
-		@formatting ||= self.settings(:export).formatting
+  def estimate_space_used(used_height)
+    @formatting ||= self.settings(:export).formatting
 
-		return 0 unless @formatting[:font_size] > 0
+    return 0 unless @formatting[:font_size] > 0
 
-		margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
-		page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-		available_height = page_height * self.dmptemplate.settings(:export).max_pages
+    margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
+    page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
+    available_height = page_height * self.dmptemplate.settings(:export).max_pages
 
-		percentage = (used_height / available_height) * 100
-		(percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
-	end
+    percentage = (used_height / available_height) * 100
+    (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
+  end
 
   ##
-	# Take a guess at the vertical height (in mm) of the given text based on the
-	# font-size and left/right margins stored in the plan's settings.
-	# This assumes a fixed-width for each glyph, which is obviously
-	# incorrect for the font-face choices available; the idea is that
-	# they'll hopefully average out to that in the long-run.
-	# Allows for hinting different font sizes (offset from base via font_size_inc)
-	# and vertical margins (i.e. for heading text)
+  # Take a guess at the vertical height (in mm) of the given text based on the
+  # font-size and left/right margins stored in the plan's settings.
+  # This assumes a fixed-width for each glyph, which is obviously
+  # incorrect for the font-face choices available; the idea is that
+  # they'll hopefully average out to that in the long-run.
+  # Allows for hinting different font sizes (offset from base via font_size_inc)
+  # and vertical margins (i.e. for heading text)
   #
   # @param text [String] the text to estimate size of
   # @param font_size_inc [Integer] the size of the font of the text, defaults to 0
   # @param vertical_margin [Integer] the top margin above the text, defaults to 0
-	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
-		@formatting     ||= self.settings(:export).formatting
-		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
-		@base_font_size ||= @formatting[:font_size]
+  def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
+    @formatting     ||= self.settings(:export).formatting
+    @margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
+    @base_font_size ||= @formatting[:font_size]
 
-		return 0 unless @base_font_size > 0
+    return 0 unless @base_font_size > 0
 
-		font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
-		font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
-		leading     = font_height / 2
+    font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
+    font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
+    leading     = font_height / 2
 
-		chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
-		num_lines = (text.length / chars_in_line).ceil
+    chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
+    num_lines = (text.length / chars_in_line).ceil
 
-		(num_lines * font_height) + vertical_margin + leading
-	end
+    (num_lines * font_height) + vertical_margin + leading
+  end
 
   # Initialize the title and dirty flags for new templates
   # --------------------------------------------------------
