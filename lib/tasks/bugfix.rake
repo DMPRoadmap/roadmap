@@ -1,5 +1,10 @@
 namespace :bugfix do
 
+  desc "Upgrade to 1.0"
+  task v1_0_0: :environment do
+    Rake::Task['bugfix:set_template_visibility'].execute
+  end
+
   desc "Bug fixes for version v0.3.3"
   task v0_3_3: :environment do
     Rake::Task['bugfix:fix_question_formats'].execute
@@ -46,4 +51,11 @@ namespace :bugfix do
     end
   end
 
+  desc "Set all funder templates (and the default template) to 'public' visibility and all others to 'organisational'"
+  task set_template_visibility: :environment do
+    funders = Org.funders.pluck(:id)
+    Template.update_all visibility: Template.visibilities[:organisationally_visible]
+    Template.where(org_id: funders).update_all visibility: Template.visibilities[:publicly_visible]
+    Template.default.update visibility: Template.visibilities[:publicly_visible]
+  end
 end
