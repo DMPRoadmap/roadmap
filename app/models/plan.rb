@@ -642,10 +642,7 @@ class Plan < ActiveRecord::Base
   ##
   # returns the shared roles of a plan, excluding the creator
   def shared
-    role_values = Role.access_values_for(:commenter)
-                      .concat(Role.access_values_for(:editor))
-                      .concat(Role.access_values_for(:administrator)).uniq! - Role.access_values_for(:creator)
-    Role.where(plan: self, access: role_values)
+    role_values = Role.where(plan: self).where(Role.not_creator_condition).any? 
   end
 
   ##
