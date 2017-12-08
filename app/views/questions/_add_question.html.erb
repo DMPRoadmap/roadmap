@@ -82,7 +82,7 @@ in the admin interface.
     <%= f.label(:theme_ids, _('Themes'), class: "control-label") %>
     <%= f.collection_select(:theme_ids,
           Theme.all.order("title"),
-          :id, :title, {prompt: false, include_blank: _('None')}, {multiple: true, 'data-toggle': 'tooltip', 'data-html': true, title: _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"), class: 'form-control'}) %>
+          :id, :title, {prompt: false}, {multiple: true, 'data-toggle': 'tooltip', 'data-html': true, title: _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"), class: 'form-control'}) %>
   </div>
 
   <div class="form-group">
