@@ -30,25 +30,15 @@
     </div>
   </div>
 
-  <div id="org-link-section">
-    <%= f.hidden_field :links %>
-    <div class="row">
-      <div class="form-group col-xs-8">
-        <h3><%= _("Organisation URL") %> <small>(<%= _('Up to ') %><span id="max-nbr-urls"></span>)</small></h3>
-      </div>
-    </div>
-    <% if @org.links.length > 0 %>
-      <% @org.links.each do |url| %>
-        <%= render partial: 'org_link', locals: {link: url['link'], text: url['text']} %>
-      <% end %>
-    <% else %>
-      <%= render partial: 'org_link', locals: {link: '', text: ''} %>
-    <% end %>
-    <div class="row">
-      <div class="form-group col-xs-8">
-        <a href="#" id="add-org-link"><%= _('+ Add an additional URL') %></a>
-      </div>
-    </div>
+  <div class="form-group col-xs-8">
+    <%= render(partial: '/shared/links',
+               locals: { 
+                 context: 'org',
+                 title: _('Organisation URLs'),
+                 links: @org.links['org'],
+                 max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                 tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
+    <%= hidden_field_tag('org_links', value: @org.links) %>
   </div>
 
   <div class="row">

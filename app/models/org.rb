@@ -2,12 +2,14 @@ class Org < ActiveRecord::Base
   include GlobalHelpers
   include FlagShihTzu
   extend Dragonfly::Model::Validations
-
+  validates_with OrgLinksValidator
+  
   ##
   # Sort order: Name ASC
   default_scope { order(name: :asc) }
 
-  # Stores links as an JSON array: [{"link":"http://www.myorg.edu","text":"My Org"},...]
+  # Stores links as an JSON object: { org: [{"link":"www.example.com","text":"foo"}, ...] }
+  # The links are validated against custom validator allocated at validators/template_links_validator.rb
   serialize :links, JSON
 
   ##
@@ -34,7 +36,6 @@ class Org < ActiveRecord::Base
                   :language, :org_type, :region, :token_permission_types, 
                   :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg
-
   ##
   # Validators
   validates :contact_email, email: true, allow_nil: true
