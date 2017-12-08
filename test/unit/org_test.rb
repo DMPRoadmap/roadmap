@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrgTest < ActiveSupport::TestCase
   setup do
-    @org = Org.first
+    @org = Org.create!(name: 'Testing', abbreviation: 'TST', links: {"org":[]})
     
     @language = Language.find_by(abbreviation: I18n.default_locale)
   end
@@ -13,6 +13,7 @@ class OrgTest < ActiveSupport::TestCase
     assert_not(org.valid?)
     
     org.name = 'ABCD'
+    org.links = {"org":[]}
     assert(org.valid?)
   end
   
@@ -145,7 +146,7 @@ class OrgTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can CRUD" do
-    org = Org.create(name: 'testing')
+    org = Org.create(name: 'testing', links: {"org":[]})
     assert_not org.id.nil?, "was expecting to be able to create a new Org: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     org.abbreviation = 'TEST'

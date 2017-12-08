@@ -251,6 +251,10 @@ $header-background: linear-gradient(#ED6406, #F59503);
 #org-navbar {
   border-radius: 0px;
   margin-top: -20px;
+
+  #banner-org-name {
+    margin-top: 40px;
+  }
 }
 @media (min-width: 768px) {
   #org-navbar .navbar-nav li a {

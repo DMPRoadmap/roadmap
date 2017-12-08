@@ -42,7 +42,7 @@ class LanguageTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage has_many relationship with Organisations" do
-    org = Org.create(name: 'testing', abbreviation: "TEST")
+    org = Org.create(name: 'testing', abbreviation: "TEST", links: {"org":[]})
     verify_has_many_relationship(Language.last, org, Language.last.orgs.count)
   end
 
