@@ -33,11 +33,11 @@
               confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: 'btn btn-default', role:'button' %>
       </div>
     <% end %>
-
-    <div class="col-md-12">
-      <h3><%= _('Questions') %></h3>
-      <% questions = section.questions.order('number') %>
-      <% if questions.present? %>
+  </div>
+  <div class="col-md-12">
+    <h3><%= _('Questions') %></h3>
+    <% questions = section.questions.order('number') %>
+    <% if questions.present? %>
         <% questions.each do |question| %>
           <hr />
           <div class="question_show" id="<%= "question_show#{question.id}" %>">
@@ -46,36 +46,19 @@
           <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
             <%= render partial: 'questions/edit_question', locals: {question: question} %>
           </div>
-          <% if questions.last.id == question.id %>
-            <hr />
-          <% end %>
+          <%= raw("<hr />") if questions.last.id == question.id %>
         <% end %>
-      <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="pull-right"></div>
+    <div class="pull-right">
       <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
     </div>
-
     <div class="question_new" style="display: none;">
       <%= render partial: 'questions/add_question', locals: { section: section } %>
     </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="pull-right">
-            <%= link_to(_('Add Section'), '#', { class: "btn btn-default section_new_link", role: "button" }) %>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="section_new" style="display: none;">
-            <%= render partial: 'sections/add_section', locals: { phase: @phase } %>
-          </div>
-        </div>
-      </div>
   </div>
 </div>
   

@@ -90,34 +90,14 @@ class PhasesController < ApplicationController
     end
   end
 
-
-
   #show and edit a phase of the template
   def admin_show
-    @phase = Phase.eager_load(:sections).find_by('phases.id = ?', params[:id])
+    @phase = Phase.includes(:sections).order(:number).find(params[:id])
     authorize @phase
 
     @current = Template.current(@phase.template.dmptemplate_id)
     @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
-    #@edit = params[:edit] == "true" ? true : false
 
-        #verify if there are any sections if not create one
-    @sections = @phase.sections
-    if !@sections.any?() || @sections.count == 0
-      @section = @phase.sections.build
-      @section.phase = @phase
-      @section.title = ''
-      @section.number = 1
-      @section.published = true
-      @section.modifiable = true
-      @section.save
-      @new_sec = true
-    end
-    #verify if section_id has been passed, if so then open that section
-    if params.has_key?(:section_id)
-      @open = true
-      @section_id = params[:section_id].to_i
-    end
     if params.has_key?(:question_id)
       @question_id = params[:question_id].to_i
     end
@@ -131,9 +111,8 @@ class PhasesController < ApplicationController
         partial_path: 'admin_show',
         phase: @phase,
         template: @phase.template,
-        current: @current,
         edit: @edit,
-        sections: @sections
+        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil
       })
   end
 
