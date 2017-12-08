@@ -3,7 +3,7 @@ module SuperAdmin
     helper PaginableHelper
     def index
       authorize(Theme)
-      render(:index, locals: { themes: Theme.page(1) })
+      render(:index, locals: { themes: Theme.updated_at_desc.page(1) })
     end
 
     def new

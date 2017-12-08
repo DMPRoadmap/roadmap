@@ -15,12 +15,7 @@ class Theme < ActiveRecord::Base
 
   validates :title, presence: {message: _("can't be blank")}
 
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-
-
-
+  scope :updated_at_desc, -> { self.all.order(updated_at: 'DESC') }
   ##
   # returns the title of the theme
   #
