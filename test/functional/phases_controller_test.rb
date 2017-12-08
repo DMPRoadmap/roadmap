@@ -102,8 +102,6 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     
     assert assigns(:phase)
-    #assert assigns(:edit)
-    assert assigns(:sections)
   end
   
   # GET /org/admin/templates/phases/:id/admin_preview (admin_preview_phase_path)

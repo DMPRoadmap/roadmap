@@ -1,3 +1,4 @@
+<% # locals: { phase, template, edit, current_section } %>
 <h2><%= _('Phase details')%></h2>
 <div class="row">
   <div class="col-md-12">
@@ -19,17 +20,26 @@
 <div class="row">
   <div class="col-md-12">
     <div class="panel-group" id="sections_accordion" role="tablist">
-      <% sections.order('number ASC').each do |section| %>
+      <% phase.sections.each do |section| %>
         <div class="panel panel-default">
           <div class="panel-heading" role="tab" id="<%= "headingSection#{section.id}" %>">
             <h4 class="panel-title">
               <%= link_to(
                         section.title,
                         "#collapseSection#{section.id}",
-                        { 'data-toggle': 'collapse', 'data-parent': '#sections_accordion', 'aria-expanded': 'false', 'aria-controls': "#collapseSection#{section.id}" }) %>
+                        { 
+                          'data-toggle': 'collapse',
+                          'data-parent': '#sections_accordion',
+                          'aria-expanded': section.id == current_section,
+                          'aria-controls': "#collapseSection#{section.id}" 
+                        }) %>
             </h4>
           </div>
-          <div id="<%= "collapseSection#{section.id}" %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= "headingSection#{section.id}" %>">
+          <div
+            id="<%= "collapseSection#{section.id}" %>"
+            class="panel-collapse collapse<%= " in" if section.id == current_section %>"
+            role="tabpanel"
+            aria-labelledby="<%= "headingSection#{section.id}" %>">
              <div class="panel-body">
               <% if edit && section.modifiable %>
                 <%= render partial: 'sections/edit_section', locals: { section: section, edit: edit, phase: phase } %>
@@ -45,12 +55,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pull-right">
-            <%= link_to(_('Add Section'), '#', { class: "btn btn-default section_new_link", role: "button" }) %>
+            <%= link_to(_('Add Section'), "#section_new#{phase.id}", { class: "btn btn-default section_new_link", role: "button" }) %>
           </div>
         </div>
         <div class="col-md-12">
-          <div class="section_new" style="display: none;">
-            <%= render partial: 'sections/add_section', locals: { phase: @phase } %>
+          <div id="section_new<%= phase.id %>" class="section_new" style="display: none;">
+            <%= render partial: 'sections/add_section', locals: { phase: phase } %>
           </div>
         </div>
       </div>

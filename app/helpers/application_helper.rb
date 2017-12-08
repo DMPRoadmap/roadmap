@@ -23,7 +23,7 @@ module ApplicationHelper
   # see http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-fullpath for details
   # ---------------------------------------------------------------------------
   def isActivePage(path)
-    return request.fullpath() == path
+    return request.fullpath.include?(path)
   end
 
   def fingerprinted_asset(name)
