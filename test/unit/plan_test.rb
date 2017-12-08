@@ -279,8 +279,7 @@ class PlanTest < ActiveSupport::TestCase
     Role.create(user: User.first, plan: plan, access: 14)
     Role.create(user: User.last, plan: plan, access: 8)
     # assert that the plan is shared with above roles and doesnt include owner
-    assert_equal(plan.shared.length, 2)
-    assert_equal(plan.roles.count, 3)
+    assert_equal(plan.shared, true)
   end
 
   # ---------------------------------------------------
