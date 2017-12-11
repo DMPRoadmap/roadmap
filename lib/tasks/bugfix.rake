@@ -4,6 +4,7 @@ namespace :bugfix do
   task v1_0_0: :environment do
     Rake::Task['bugfix:set_template_visibility'].execute
     Rake::Task['bugfix:set_org_link_defaults'].execute
+    Rake::Task['bugfix:set_template_link_defaults'].execute
   end
 
   desc "Bug fixes for version v0.3.3"
@@ -63,16 +64,14 @@ namespace :bugfix do
   desc "Set all orgs.links defaults"
   task set_org_link_defaults: :environment do
     Org.all.each do |org|
-      org.links = '{"org":[]}'
-      org.save!
+      org.update_attributes(links: {"org":[]})
     end
   end
   
   desc "Set all template.links defaults"
-  task set_org_link_defaults: :environment do
+  task set_template_link_defaults: :environment do
     Template.all.each do |template|
-      template.links = '{"funder":[],"sample_plan":[]}'
-      template.save!
+      template.update_attributes(links: {"funder":[],"sample_plan":[]})
     end
   end
 end
