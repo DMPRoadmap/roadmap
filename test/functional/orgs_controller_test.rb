@@ -25,7 +25,7 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
   #   admin_update_org  PUT      /org/admin/:id/admin_update    orgs#admin_update
   
   setup do
-    @org = Org.first
+    @org = Org.create!(name: 'Testing', abbreviation: 'TST', links: {"org":[]})
     scaffold_org_admin(@org)
   end
 
@@ -47,7 +47,7 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
   # PUT /org/admin/:id/admin_update (admin_update_org_path)
   # ----------------------------------------------------------
   test 'update the org' do
-    params = {name: 'Testing UPDATE'}
+    params = {name: 'Testing UPDATE', links: {"org": []}}
     
     # Should redirect user to the root path if they are not logged in!
     put admin_update_org_path(@org), {org: params}

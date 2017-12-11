@@ -317,7 +317,7 @@ class UserTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can manage belongs_to relationship with Org" do
-    org = Org.new(name: 'Tester', abbreviation: 'TST')
+    org = Org.new(name: 'Tester', abbreviation: 'TST', links: {"org":[]})
     verify_belongs_to_relationship(@user, org)
   end
 
