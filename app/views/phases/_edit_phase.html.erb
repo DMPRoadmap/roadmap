@@ -17,9 +17,10 @@
     <%= f.label(:description, _('Description'), class: "control-label") %>
     <div data-toggle="tooltip" title="<%= _("Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer.") %>">
     <%= text_area_tag('phase-desc', phase.description, class: 'phase tinymce form-control') %>
+    </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group col-md-10">
     <div class="pull-right">
       <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
       <%= link_to _('Cancel'), '#', class: 'btn btn-default phase_show_link', role: 'button' %>
