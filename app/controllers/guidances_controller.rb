@@ -11,19 +11,23 @@ class GuidancesController < ApplicationController
   end
 
   def admin_new
-    @guidance = Guidance.new
-    authorize @guidance
-    @themes = Theme.all.order('title')
-    @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
+    guidance = Guidance.new
+    authorize guidance
+    themes = Theme.all.order('title')
+    guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
+    render(:new_edit, locals: { guidance: guidance, themes: themes,
+      guidance_groups: guidance_groups, options: { url: admin_create_guidance_path, method: :post }})
   end
 
   ##
   # GET /guidances/1/edit
   def admin_edit
-    @guidance = Guidance.eager_load(:themes, :guidance_group).find(params[:id])
-    authorize @guidance
-    @themes = Theme.all.order('title')
-    @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
+    guidance = Guidance.eager_load(:themes, :guidance_group).find(params[:id])
+    authorize guidance
+    themes = Theme.all.order('title')
+    guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
+    render(:new_edit, locals: { guidance: guidance, themes: themes,
+      guidance_groups: guidance_groups, options: { url: admin_update_guidance_path(guidance), method: :put }})
   end
 
   ##
