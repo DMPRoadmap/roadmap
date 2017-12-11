@@ -8,6 +8,7 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
     @languages = Language.all.order("name")
+    @org.links = {"org": []} unless @org.links.present?
   end
 
   ##
@@ -17,26 +18,13 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
     @org.logo = attrs[:logo] if attrs[:logo]
-    failure = ''
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
-    
-    if attrs[:links].present?
-      if is_json_array_of_objects?(attrs[:links])
-        json = JSON.parse(attrs[:links])
-        # Make sure that the JSON hash is structured as: {"link":"string","text":"string"}
-        if json.all?{ |o| o['link'].present? && o['text'].present? }
-          @org.links = json
-        else
-          failure = _('Unable to save your changes. Invalid URLs.')
-        end
-      else
-        failure = _('Unable to save your changes. Invalid URLs.')
-      end
-      attrs.delete('links')
+    if params[:org_links].present?
+      @org.links = JSON.parse(params[:org_links]) 
     end
     
     begin
-      if failure.blank? && @org.update_attributes(attrs)
+      if @org.update_attributes(attrs)
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", notice: success_message(_('organisation'), _('saved'))
       else
         failure = failed_update_error(@org, _('organisation')) if failure.blank?
@@ -91,7 +79,7 @@ class OrgsController < ApplicationController
 
   private
     def org_params
-      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo, :links,
+      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo,
                                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg)
     end
 end

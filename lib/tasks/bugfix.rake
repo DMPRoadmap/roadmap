@@ -3,6 +3,7 @@ namespace :bugfix do
   desc "Upgrade to 1.0"
   task v1_0_0: :environment do
     Rake::Task['bugfix:set_template_visibility'].execute
+    Rake::Task['bugfix:set_org_link_defaults'].execute
   end
 
   desc "Bug fixes for version v0.3.3"
@@ -57,5 +58,21 @@ namespace :bugfix do
     Template.update_all visibility: Template.visibilities[:organisationally_visible]
     Template.where(org_id: funders).update_all visibility: Template.visibilities[:publicly_visible]
     Template.default.update visibility: Template.visibilities[:publicly_visible]
+  end
+  
+  desc "Set all orgs.links defaults"
+  task set_org_link_defaults: :environment do
+    Org.all.each do |org|
+      org.links = '{"org":[]}'
+      org.save!
+    end
+  end
+  
+  desc "Set all template.links defaults"
+  task set_org_link_defaults: :environment do
+    Template.all.each do |template|
+      template.links = '{"funder":[],"sample_plan":[]}'
+      template.save!
+    end
   end
 end

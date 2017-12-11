@@ -36,7 +36,7 @@ class GuidanceTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "retrieves guidance by org" do
-    org = Org.create(name: 'Tester 123', abbreviation: 'TEST', org_type: 1)
+    org = Org.create!(name: 'Tester 123', abbreviation: 'TEST', org_type: 1, links: {"org":[]})
     assert Guidance.by_org(org.id).empty?, "expected the newly created org to have no guidance"
 
     assert_not Guidance.by_org(@user.org.id).empty?, "expected the org to have guidance"
