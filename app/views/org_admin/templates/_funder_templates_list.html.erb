@@ -74,9 +74,9 @@
                   <li><%= link_to _('Edit'), edit_org_admin_template_path(id: template.id, edit: "true") %></li>
                   <li><%= link_to _('History'), history_org_admin_template_path(id: template.id) %></li>
                   <% if !published[template.dmptemplate_id].present? %>
-                    <%= link_to _('Publish'), publish_org_admin_template_path(template) %>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template) %></li>
                   <% elsif template.dirty? %>
-                    <%= link_to _('Publish changes'), publish_org_admin_template_path(template) %>
+                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template) %></li>
                   <% else %>
                     <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template) %></li>
                   <% end %>
