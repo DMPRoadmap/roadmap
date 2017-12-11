@@ -70,7 +70,9 @@
   <% end %>
 
   <div class="form-group col-xs-8">
-    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
-    <%= link_to(_('Cancel'), '#', { class: 'btn btn-default template_show_link', role: "button" }) %>
+    <div class="pull-right">
+      <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+      <%= link_to(_('Cancel'), '#', { class: 'btn btn-default template_show_link', role: "button" }) %>
+    </div>
   </div>
 <% end %>
