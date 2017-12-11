@@ -61,9 +61,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     get admin_new_guidance_path(@guidance_group)
     assert_response :success
-    assert assigns(:guidance)
-    assert assigns(:guidance_groups)
-    assert assigns(:themes)
   end
 
   # /org/admin/guidance/:id/admin_edit (admin_edit_guidance_path)
@@ -77,9 +74,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     get admin_edit_guidance_path(@guidance_group)
     assert_response :success
-    assert assigns(:guidance)
-    assert assigns(:guidance_groups)
-    assert assigns(:themes)
   end
 
   # POST /org/admin/guidance/:id/admin_create (admin_create_guidance_path)
