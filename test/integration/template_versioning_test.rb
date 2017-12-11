@@ -22,13 +22,13 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test 'template gets versioned when its details are updated but it is already published' do
     # Publish the template
-    put admin_publish_template_path(@template)
+    get publish_org_admin_template_path(@template)
     @template = Template.current(@dmptemplate_id)
-    get admin_template_template_path(@template)   # Click on 'edit'
+    get edit_org_admin_template_path(@template)   # Click on 'edit'
     @template = Template.current(@dmptemplate_id) # Edit new version
 
     # Change the title after its been published
-    put admin_update_template_path(@template), {template: {title: "Blah blah blah"}}
+    put org_admin_template_path(@template), {template: {title: "Blah blah blah"}}
     @template = Template.current(@dmptemplate_id)
 
     # Make sure that the template was versioned
@@ -78,7 +78,7 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test 'template does NOT get versioned if its unpublished' do
     # Change the title after its been published
-    put admin_update_template_path(@template), {template: {title: "Blah blah blah"}}
+    put org_admin_template_path(@template), {template: {title: "Blah blah blah"}}
     @template = Template.current(@dmptemplate_id)
 
     assert_equal @initial_version, @template.version, "expected the version to have stayed the same"
@@ -89,15 +89,15 @@ class TemplateVersioningTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------
   test 'publishing a plan unpublishes the old published plan' do
-    put admin_publish_template_path(@template)
+    get publish_org_admin_template_path(@template)
     assert_not Template.live(@dmptemplate_id).nil?
     assert_equal 1, Template.where(org: @user.org, dmptemplate_id: @dmptemplate_id, published: true).count
   end
 
   # ----------------------------------------------------------
   test 'unpublishing a plan makes all historical versions unpublished' do
-    put admin_publish_template_path(@template)
-    put admin_unpublish_template_path(@template)
+    get publish_org_admin_template_path(@template)
+    get unpublish_org_admin_template_path(@template)
     assert Template.live(@dmptemplate_id).nil?
   end
 

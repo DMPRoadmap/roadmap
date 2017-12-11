@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" <%= isActivePage(admin_template_template_path(template)) ? ' class=active' : '' %>>
-        <%= link_to(_('Template details'), admin_template_template_path(template), { 'aria-controls': 'show_template', role: 'tab' }) %>
+    <li role="presentation" <%= isActivePage(edit_org_admin_template_path(template)) ? ' class=active' : '' %>>
+        <%= link_to(_('Template details'), edit_org_admin_template_path(template), { 'aria-controls': 'show_template', role: 'tab' }) %>
     </li>
     <% template.phases.each do |phase| %>
         <li role="presentation" <%= isActivePage(admin_show_phase_path(phase.id)) ||

@@ -98,7 +98,7 @@ class Guidance < ActiveRecord::Base
         end
 
         # guidance groups are viewable if they are owned by a funder
-        if Org.funders.include?(guidance.guidance_group.org)
+        if Org.funder.include?(guidance.guidance_group.org)
           viewable = true
         end
       end
@@ -119,7 +119,7 @@ class Guidance < ActiveRecord::Base
   def self.all_viewable(user)
     managing_groups = Org.includes(guidance_groups: :guidances).managing_orgs.collect{|o| o.guidance_groups}
     # find all groups owned by a Funder organisation
-    funder_groups = Org.includes(guidance_groups: :guidances).funders.collect{|org| org.guidance_groups}
+    funder_groups = Org.includes(guidance_groups: :guidances).funder.collect{|org| org.guidance_groups}
     # find all groups owned by any of the user's organisations
     organisation_groups = user.org.guidance_groups
 
