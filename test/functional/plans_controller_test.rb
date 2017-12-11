@@ -102,7 +102,8 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test 'show the plan page' do
     # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(plan_path(@plan))
+    get plan_path(@plan)
+    assert_unauthorized_redirect_to_root_path
 
     sign_in @user
     get plan_path(@plan)
@@ -230,7 +231,8 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "get the share plan page" do
     # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(share_plan_path(@plan))
+    get share_plan_path(@plan)
+    assert_unauthorized_redirect_to_root_path
 
     sign_in @user
     get share_plan_path(@plan)
@@ -242,7 +244,8 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "get the plan status" do
     # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(status_plan_path(@plan, format: :json))
+    get status_plan_path(@plan, format: :json)
+    assert_unauthorized_redirect_to_root_path
 
     sign_in @user
     get status_plan_path(@plan, format: :json)
@@ -254,7 +257,8 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "get the answer to the specified question for the plan" do
     # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(answer_plan_path(@plan, format: :json))
+    get answer_plan_path(@plan, format: :json)
+    assert_unauthorized_redirect_to_root_path
 
     sign_in @user
     get answer_plan_path(@plan, format: :json)
@@ -266,7 +270,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "export the plan" do
     # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(export_plan_path(@plan))
+    get export_plan_path(@plan), {'format': 'pdf'}
+    assert_unauthorized_redirect_to_root_path
+    
     export_params = {"utf8"=>"✓",
        "phase_id"=>"5470",
        "export"=>{"project_details"=>"true",
@@ -295,7 +301,8 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "show the download plan page" do
     # Should redirect user to the root path if they are not logged in!
-    try_no_user_and_unauthorized(download_plan_path(@plan))
+    get download_plan_path(@plan)
+    assert_unauthorized_redirect_to_root_path
 
     sign_in @user
     get download_plan_path(@plan)
@@ -320,19 +327,4 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     get overview_plan_path(@plan)
     assert_response(:success)
   end
-
-  private
-    def try_no_user_and_unauthorized(target)
-      # Should redirect user to the root path if they are not logged in!
-      get target
-      assert_unauthorized_redirect_to_root_path
-
-      # User who is does not have access to the plan
-      sign_in User.first
-      get target
-      assert_equal _('You are not authorized to perform this action.'), flash[:alert]
-      assert_response :redirect
-      assert_redirected_to plans_url
-    end
-
 end
