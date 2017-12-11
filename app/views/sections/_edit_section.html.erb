@@ -27,11 +27,13 @@
         </div>
       </div>
 
-      <div class="form-group col-md-4 pull-right">
-        <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
-        <%= link_to _('Cancel'), admin_show_phase_path(section.phase), class: 'btn btn-default', role: 'button' %>
-        <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
-              confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: 'btn btn-default', role:'button' %>
+      <div class="form-group col-md-10">
+        <div class="pull-right">
+          <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+          <%= link_to _('Cancel'), admin_show_phase_path(section.phase), class: 'btn btn-default', role: 'button' %>
+          <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
+                confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: 'btn btn-default', role:'button' %>
+        </div>
       </div>
     <% end %>
   </div>

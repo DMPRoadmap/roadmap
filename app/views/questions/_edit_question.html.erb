@@ -93,13 +93,15 @@ in the admin interface.
                   :id, :title, {prompt: false}, {multiple: true, 'data-toggle': 'tooltip', 'data-html': true, title: _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"), class: 'form-control'}) %>
           </div>
 
-          <div class="col-md-4 col-md-offset-8">
-            <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
-            <% if !question.section.phase.template.published? %>
-                <%= link_to _('Delete'), admin_destroy_question_path(question_id: question.id),
-                confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:'button'%>
-            <% end %>
-            <%= link_to _('Cancel'), '#', class: "btn btn-default edit_question_cancel", role: 'button' %>
+          <div class="form-group col-md-10">
+            <div class="pull-right">
+              <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+              <% if !question.section.phase.template.published? %>
+                  <%= link_to _('Delete'), admin_destroy_question_path(question_id: question.id),
+                  confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:'button'%>
+              <% end %>
+              <%= link_to _('Cancel'), '#', class: "btn btn-default edit_question_cancel", role: 'button' %>
+            </div>
           </div>
         <% end %>
 
