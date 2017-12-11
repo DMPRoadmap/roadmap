@@ -80,6 +80,22 @@ class Template < ActiveRecord::Base
     Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
   end
 
+  def self.get_latest_template_versions(orgs)
+    # get the unique dmptemplate_ids (template version families)
+    families = Template.valid.where(org: orgs, customization_of: nil).pluck(:dmptemplate_id)
+
+    # return the most current versions of each template version family
+    id_query = "SELECT templates.dmptemplate_id, templates.id, current.version "\
+               "FROM "\
+               "(SELECT MAX(version) AS version, dmptemplate_id "\
+                "FROM templates WHERE dmptemplate_id in (#{families.join(', ')}) "\
+                "GROUP BY dmptemplate_id) as current "\
+               "INNER JOIN templates ON current.version = templates.version AND current.dmptemplate_id = templates.dmptemplate_id;"
+
+    ids = Template.find_by_sql(id_query).collect{|t| t.id }
+    Template.includes(:org).where(id: ids).order('orgs.name, templates.title')
+  end
+  
   ##
   # deep copy the given template and all of it's associations
   #

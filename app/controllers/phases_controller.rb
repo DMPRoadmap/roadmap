@@ -106,7 +106,7 @@ class PhasesController < ApplicationController
     else
       @original_org = @phase.template.org
     end
-    render('/templates/container',
+    render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_show',
         phase: @phase,
@@ -132,7 +132,7 @@ class PhasesController < ApplicationController
     @phase.template = @template
     authorize @phase
     @phase.number = @template.phases.count + 1
-    render('/templates/container',
+    render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_add',
         template: @template
@@ -155,7 +155,7 @@ class PhasesController < ApplicationController
     else
       flash[:alert] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
-      redirect_to admin_template_template_path(id: @phase.template_id)
+      redirect_to edit_org_admin_template_path(id: @phase.template_id)
     end
   end
 
@@ -198,7 +198,7 @@ class PhasesController < ApplicationController
       @template.dirty = true
       @template.save!
 
-      redirect_to admin_template_template_path(@template), notice: success_message(_('phase'), _('deleted'))
+      redirect_to edit_org_admin_template_path(@template), notice: success_message(_('phase'), _('deleted'))
     else
       @sections = @phase.sections
 

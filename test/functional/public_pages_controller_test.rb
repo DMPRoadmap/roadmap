@@ -17,13 +17,14 @@ class PublicPagesControllerTest < ActionDispatch::IntegrationTest
                                        roles: [Role.new(user: User.last, creator: true)])
     end
 
-    @inst_tmplt = Template.create!(title: 'Inst template', org: Org.institutions.first, migrated: false, published: true)
-    @dflt_tmplt = Template.create!(title: 'Dflt template', org: Org.managing_orgs.first, migrated: false, published: true, is_default: true)
-    @fndr_tmplt = Template.create!(title: 'Fndr template', org: Org.funders.first, migrated: false, published: true)
+    @inst_tmplt = Template.create!(title: 'Inst template', org: Org.institution.first, migrated: false, published: true)
+    @dflt_tmplt = Template.create!(title: 'Dflt template', org: Org.managing_orgs.first, migrated: false, published: true)
+    @fndr_tmplt = Template.create!(title: 'Fndr template', org: Org.funder.first, migrated: false, published: true)
 
     [@inst_tmplt, @dflt_tmplt, @fndr_tmplt].each do |t|
       t.published = true
       t.is_default = true if t == @dflt_tmplt
+      t.visibility = t.title != 'Inst template' ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
       t.save!
     end
 

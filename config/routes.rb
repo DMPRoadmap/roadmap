@@ -59,6 +59,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
   resources :users, path: 'users', only: [] do
     member do
       put 'update_email_preferences'
+      put 'org_swap', constraints: {format: [:json]}
     end
   end
 
@@ -130,24 +131,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         put 'admin_update'
         put 'admin_update_publish'
         put 'admin_update_unpublish'
-      end
-    end
-
-    resources :templates, :path => 'org/admin/templates', only: [] do
-      member do
-        get 'admin_index'
-        get 'admin_template'
-        get 'admin_new'
-        get 'admin_template_history'
-        get 'admin_customize'
-        delete 'admin_destroy'
-        post 'admin_create'
-        put 'admin_update'
-        put 'admin_publish'
-        put 'admin_unpublish'
-        put 'admin_copy'
-        get 'admin_transfer_customization'
-        get 'template_options', constraints: {format: [:json]}
       end
     end
 
@@ -285,6 +268,22 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'feedback_complete'
         end
       end
+      resources :templates, only: [:index, :new, :create, :edit, :update, :destroy] do
+        member do
+          get 'history'
+          get 'customize'
+          get 'transfer_customization'
+          get 'copy', action: :copy, constraints: {format: [:json]}
+          get 'publish', action: :publish, constraints: {format: [:json]}
+          get 'unpublish', action: :unpublish, constraints: {format: [:json]}
+        end
+          
+        # pagination
+        get 'funders/:page', action: :funders, on: :collection, as: :funders
+        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
+      end
+      
+      get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
     end
 
     namespace :super_admin do

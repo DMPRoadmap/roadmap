@@ -1,11 +1,67 @@
 class TemplatePolicy < ApplicationPolicy
   attr_reader :user, :template
-
-  def initialize(user, template)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+  
+  def initialize(user, template = Template.new)
+    raise Pundit::NotAuthorizedError, _("must be logged in") unless user.is_a?(User)
     @user = user
     @template = template
   end
+  
+  def index?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+
+  def new?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+
+  def create?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+
+  def edit?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+
+  def update?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+
+  def destroy?
+    user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
+  end
+  
+  def history?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+
+  def customize?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+
+  def transfer_customization?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+  
+  # Pagination 
+  def funders?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+  def orgs?
+    user.can_super_admin? || user.can_modify_templates?
+  end
+
+  # AJAX Calls
+  def copy?
+    user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
+  end
+  def publish?
+    user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
+  end
+  def unpublish?
+    user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
+  end
+
 
   ##
   # Users can modify templates if:
@@ -13,64 +69,13 @@ class TemplatePolicy < ApplicationPolicy
   #  - The template which they are modifying belongs to their org
   ##
 
-  def admin_index?
-    user.can_modify_templates?
-  end
 
-  def admin_template?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
-  end
 
-  def admin_customize?
-    user.can_modify_templates?
-  end
-
-  def admin_publish?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
-  end
-
-  def admin_unpublish?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
-  end
-
-  def admin_update?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
-  end
-
-  def admin_new?
-    user.can_modify_templates?
-  end
-
-  def admin_create?
-    user.can_modify_templates? && (template.org_id.nil? || (template.org_id == user.org_id))
-  end
-
-  def admin_destroy?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
-  end
-
-  def admin_template_history?
-    user.can_modify_templates? && (template.org_id == user.org_id)
-  end
-
-  def admin_transfer_customization?
-    user.can_modify_templates?
-  end
-
-  def admin_copy?
-    user.can_modify_templates?  &&  (template.org_id == user.org_id)
-  end
-  
   # Anyone with an account should be able to get templates for the sepecified research_org + funder
   # This policy is applicable to the Create Plan page
   def template_options?
     user.present?
   end
 
-  class Scope < Scope
-    def resolve
-      scope.where(org_id: user.org_id)
-    end
-  end
 
 end
