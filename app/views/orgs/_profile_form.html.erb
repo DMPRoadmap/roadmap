@@ -30,15 +30,17 @@
     </div>
   </div>
 
-  <div class="form-group col-xs-8">
-    <%= render(partial: '/shared/links',
-               locals: { 
-                 context: 'org',
-                 title: _('Organisation URLs'),
-                 links: @org.links['org'],
-                 max_number_links: MAX_NUMBER_LINKS_FUNDER,
-                 tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
-    <%= hidden_field_tag('org_links', value: @org.links) %>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= render(partial: '/shared/links',
+                 locals: { 
+                   context: 'org',
+                   title: _('Organisation URLs'),
+                   links: @org.links['org'],
+                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
+      <%= hidden_field_tag('org_links', value: @org.links) %>
+    </div>
   </div>
 
   <div class="row">
