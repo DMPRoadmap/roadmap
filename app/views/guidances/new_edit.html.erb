@@ -12,11 +12,7 @@
         <%= f.label :text, class: 'control-label' %>
         <%= text_area_tag("guidance-text", guidance.text, class: "tinymce form-control", 'aria-required': true, rows: 10) %>
       </div>
-      <div class="form-group">
-        <%= f.label _('Themes'), for: :theme_ids, class: 'control-label' %>
-        <%= f.collection_select(:theme_ids, themes,
-                  :id, :title, {prompt: false}, {multiple: true, 'data-toggle': 'tooltip', title: _('Select which theme(s) this guidance relates to.'), class: 'form-control', 'aria-required': true}) %>
-      </div>
+      <%= render partial: 'org_admin/shared/theme_selector', locals: { f: f, all_themes: themes } %>
       <div class="form-group">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
         <%= f.collection_select(:guidance_group_id, guidance_groups,
