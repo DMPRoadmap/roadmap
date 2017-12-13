@@ -18,4 +18,7 @@ class ThemePolicy < ApplicationPolicy
   def update?
     @user.can_super_admin?
   end
+  def destroy?
+    @user.can_super_admin?
+  end
 end

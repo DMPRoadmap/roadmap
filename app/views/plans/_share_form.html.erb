@@ -1,7 +1,7 @@
 <h2><%= _('Set plan visibility') %></h2>
 <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
-<%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility'}) do |f| %>
+<%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
     <div class="form-group col-xs-8">
       <div class="radio">
@@ -14,6 +14,9 @@
       <div class="radio">
         <%= f.label :visibility_publicly_visible, raw("#{f.radio_button :visibility, :publicly_visible} #{_('Public: anyone can view')}") %>
       </div>
+    </div>
+    <div class="col-xs-8">
+      <%= f.submit(_('Update'), style: 'display:none') %>
     </div>
   </fieldset>
 <% end %>
