@@ -82,7 +82,8 @@
                   <% end %>
                   <li><%= link_to _('Copy'), copy_org_admin_template_path(template) %></li>
                   <% if template.plans.length <= 0 %>
-                    <li><%= link_to _('Remove'), org_admin_template_path(id: template.id), class: 'remove-template', data: template.id, method: 'DELETE' %></li>
+                    <li><%= link_to _('Remove'), '#', 'confirm-href': org_admin_template_path(id: template.id),
+                                    'confirm-method': :delete, 'data-toggle': 'modal', 'data-target': '#confirm-template-delete' %></li>
                   <% end %>
 
                 <% else %>
@@ -99,7 +100,8 @@
                         <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template) %></li>
                       <% end %>
                       <% if customization.plans.length <= 0 %>
-                        <li><%= link_to _('Remove'), org_admin_template_path(id: customization.id), class: 'remove-template', data: template.id, method: 'DELETE' %></li>
+                        <li><%= link_to _('Remove'), '#', 'confirm-href': org_admin_template_path(id: customization.id),
+                                        'confirm-method': :delete, 'data-toggle': 'modal', 'data-target': '#confirm-customization-delete' %></li>
                       <% end %>
                     <% end %>
                   <% end %>
@@ -111,4 +113,6 @@
       <% end %>
     </tbody>
   </table>
+  <%= render partial: 'shared/confirmation', 
+             locals: { id: "confirm-customization-delete", message: _('Are you sure you want to remove the customization?')} %>
 </div>
