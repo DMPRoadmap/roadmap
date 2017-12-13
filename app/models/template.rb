@@ -49,6 +49,30 @@ class Template < ActiveRecord::Base
 
   scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]).order(:title => :asc) }
 
+  # Retrieves template with distinct dmptemplate_id that are valid (e.g. migrated false) and customization_of is nil. Note,
+  # if organisation ids are passed, the query will filter only those distinct dmptemplate_ids for those organisations
+  scope :families, -> (org_ids=nil) {
+    if org_ids.is_a?(Array) 
+      valid.where(org_id: org_ids, customization_of: nil).distinct
+    else
+      valid.where(customization_of: nil).distinct
+    end 
+  }
+  # Retrieves the maximum version for the array of dmptemplate_ids passed. If dmptemplate_ids is missing, every maximum
+  # version for each different dmptemplate_id will be retrieved
+  scope :dmptemplate_ids_with_max_version, -> (dmptemplate_ids=nil) {
+    if dmptemplate_ids.is_a?(Array)
+      select("MAX(version) AS version", :dmptemplate_id).where(dmptemplate_id: dmptemplate_ids).group(:dmptemplate_id)
+    else
+      select("MAX(version) AS version", :dmptemplate_id).group(:dmptemplate_id)
+    end
+  }
+  # Retrieves the latest template version, i.e. the one with maximum version for each dmptemplate_id
+  scope :latest_version, -> (dmptemplate_ids=nil) {
+    from(dmptemplate_ids_with_max_version(dmptemplate_ids), :current)
+    .joins("INNER JOIN templates ON current.version = templates.version"\
+      " AND current.dmptemplate_id = templates.dmptemplate_id")
+  }
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
     Template.all.valid.distinct.pluck(:dmptemplate_id)
@@ -80,20 +104,18 @@ class Template < ActiveRecord::Base
     Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
   end
 
+  # Retrieves current templates with their org associated for a set of valid orgs
+  # TODO pass an array of org ids instead of Org instances
   def self.get_latest_template_versions(orgs)
-    # get the unique dmptemplate_ids (template version families)
-    families = Template.valid.where(org: orgs, customization_of: nil).pluck(:dmptemplate_id)
-
-    # return the most current versions of each template version family
-    id_query = "SELECT templates.dmptemplate_id, templates.id, current.version "\
-               "FROM "\
-               "(SELECT MAX(version) AS version, dmptemplate_id "\
-                "FROM templates WHERE dmptemplate_id in (#{families.join(', ')}) "\
-                "GROUP BY dmptemplate_id) as current "\
-               "INNER JOIN templates ON current.version = templates.version AND current.dmptemplate_id = templates.dmptemplate_id;"
-
-    ids = Template.find_by_sql(id_query).collect{|t| t.id }
-    Template.includes(:org).where(id: ids).order('orgs.name, templates.title')
+    if orgs.respond_to?(:each)
+      families_ids = families(orgs.map(&:id)).pluck(:dmptemplate_id)
+    elsif orgs.is_a?(Org)
+      families_ids = families([orgs.id]).pluck(:dmptemplate_id)
+    else
+      families_ids = []
+    end
+    template_ids = latest_version(families_ids).pluck(:id)
+    includes(:org).where(id: template_ids).order('orgs.name, templates.title')
   end
   
   ##
