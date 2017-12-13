@@ -287,6 +287,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :super_admin do
-      resources :themes, only: [:index, :new, :create, :edit, :update]
+      resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     end
 end
