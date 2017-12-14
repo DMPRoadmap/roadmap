@@ -1,11 +1,13 @@
-<h3> <%= _('Annotations') %> </h3>
-<dl class="dl-horizontal">
-  <% if example_answer.present? %>
-    <dt><%= _('Example Answer') %></dt>
-    <dd><%= example_answer.text %><dd>
-  <% end %>
-  <% if guidance.present? %>
-    <dt><%= _('Guidance') %></dt>
-    <dd><%=guidance.text%></dd>
-  <% end %>
-</dl>
+<% if example_answer.present? || guidance.present? %>
+  <h3> <%= _('Annotations') %> </h3>
+  <dl class="dl-horizontal">
+    <% if example_answer.present? %>
+      <dt><%= _('Example answer') %></dt>
+      <dd><%= raw example_answer.text %><dd>
+    <% end %>
+    <% if guidance.present? %>
+      <dt><%= _('Guidance') %></dt>
+      <dd><%= raw guidance.text %></dd>
+    <% end %>
+  </dl>
+<% end %>
