@@ -62,7 +62,10 @@
                 <% end %>
                 <li><%= link_to _('Copy'), copy_org_admin_template_path(template) %></li>
                 <% if template.plans.length <= 0 %>
-                  <li><%= link_to _('Remove'), org_admin_template_path(id: template.id), class: 'remove-template', data: template.id, method: 'DELETE' %></li>
+                  <li>
+                    <%= link_to _('Remove'), org_admin_template_path(id: template.id), 'data-method': 'delete', rel: 'nofollow',
+                                'data-confirm': _('Are you sure you want to remove "%{template_title}"?') % { template_title: template.title} %>
+                  </li>
                 <% end %>
               </ul>
             </div>
