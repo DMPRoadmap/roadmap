@@ -71,7 +71,8 @@
                   <% else %>
                     <li><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put %></li>
                   <% end %>
-                    <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                    <li><%= link_to _('Remove'), '#', 'confirm-href': admin_destroy_guidance_group_path(guidance_gr),
+                                    'confirm-method': :delete, 'data-toggle': 'modal', 'data-target': '#confirm-guidance-group-delete' %></li>
                   </ul>
                 </div>
               </td>
@@ -79,6 +80,8 @@
           <% end %>
         </tbody>
       </table>
+      <%= render partial: 'shared/confirmation', 
+                 locals: { id: "confirm-guidance-group-delete", message: _('Are you sure you want to remove the guidance group?')} %>
     </div>
     <%end%>
   
@@ -168,9 +171,8 @@
                     <% else %>
                       <li><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put %></li>
                     <% end %>
-                      <li><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
-                              data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, 
-                              method: :delete %></li>
+                      <li><%= link_to _('Remove'), '#', 'confirm-href': admin_destroy_guidance_path(guidance),
+                                      'confirm-method': :delete, 'data-toggle': 'modal', 'data-target': '#confirm-guidance-delete' %></li>
                     </ul>
                   </div>
                 </td>
@@ -179,6 +181,8 @@
           <% end %>
         </tbody>
       </table>
+      <%= render partial: 'shared/confirmation', 
+                 locals: { id: "confirm-guidance-delete", message: _('Are you sure you want to remove the guidance?')} %>
     </div>
     <% end %>
   

@@ -1,0 +1,17 @@
+<!-- requires local variables:
+  id: to identify the modal container
+  message: the confirmation message to display
+-->
+<div class="modal fade confirmation-modal" id="<%= id %>" tabindex="-1" role="dialog" aria-labelledby="modal-title">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <%= message %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary confirmation-cancel" data-dismiss="modal"><%= _('Cancel') %></button>
+        <a href="#" data-method="GET" class="btn btn-default confirmation-continue"><%= _('Continue') %></a>
+      </div>
+    </div>
+  </div>
+</div>
