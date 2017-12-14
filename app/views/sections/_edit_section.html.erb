@@ -44,10 +44,10 @@
         <% questions.each do |question| %>
           <hr />
           <div class="question_show" id="<%= "question_show#{question.id}" %>">
-            <%= render partial: 'questions/show_question', locals: {question: question} %>
+            <%= render partial: 'questions/show_question', locals: {template: template, question: question} %>
           </div>
           <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
-            <%= render partial: 'questions/edit_question', locals: {question: question} %>
+            <%= render partial: 'questions/edit_question', locals: {template: template, question: question} %>
           </div>
           <%= raw("<hr />") if questions.last.id == question.id %>
         <% end %>
