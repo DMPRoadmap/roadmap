@@ -84,6 +84,8 @@ class RolesController < ApplicationController
     end
     if role.save
       flash[:notice] = _('Plan removed')
+    else
+      flash[:alert] = _('Unable to remove the plan')
     end
     redirect_to(plans_path)
   end

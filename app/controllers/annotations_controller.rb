@@ -2,110 +2,40 @@ class AnnotationsController < ApplicationController
   respond_to :html
   after_action :verify_authorized
 
-  #create annotations
-  def admin_create
-    # authorize the question (includes to reduce queries)
-    @question = Question.includes(section: { phase: :template}).find(params[:question_id])
-    authorize @question
-    if params[:example_answer_text].present?
-      example_answer = init_annotation(params[:example_answer_text], @question, current_user.org, Annotation.types[:example_answer])
-    end
-    if params[:guidance_text].present?
-      guidance = init_annotation(params[:guidance_text], @question, current_user.org, Annotation.types[:guidance])
-    end
-    # if they dont exist, no requirement for them to be saved
-    ex_save = example_answer.present? ? example_answer.save : true
-    guid_save = guidance.present? ? guidance.save : true
-    @question.section.phase.template.dirty = true
-
-    if ex_save && guid_save
-      typ = (example_answer.present? && guidance.present? ? 'example answer and guidance' : (guidance.present? ? 'guidance' : 'example answer'))
-      redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('created'))
-    else
-      @section = @question.section
-      @phase = @section.phase
-      @open = true
-      @sections = @phase.sections
-      @section_id = @section.id
-      @question_id = @example_answer.question
-      if !ex_save && !guid_save
-        flash[:alert] = failed_create_error(example_answer, _('example answer')) + '\n' +
-                          failed_create_error(gudiance, _('guidance'))
-      elsif !guid_save
-        flash[:alert] = failed_create_error(gudiance, _('guidance'))
-      elsif !ex_save
-        flash[:alert] = failed_create_error(example_answer, _('example answer'))
-      end
-      render "phases/admin_show"
-    end
-  end
-
-
   #update a example answer of a template
   def admin_update
-    @question = Question.includes(section: { phase: :template}).find(params[:question_id])
-    if params[:guidance_id].present?
-      guidance = Annotation.includes(question: {section: {phase: :template}}).find(params[:guidance_id])
-      authorize guidance
-    end
-    if params[:example_answer_id].present?
-      example_answer = Annotation.includes(question: {section: {phase: :template}}).find(params[:example_answer_id])
-      authorize example_answer
-    end
-    verify_authorized
-    # if guidance present, update
-    if params[:guidance_text].present?
-      if guidance.present?
-        guidance.text = params[:guidance_text]
-      else
-        guidance = init_annotation(params[:guidance_text], @question, current_user.org, Annotation.types[:guidance])
-      end
-    end
-    # if example answer present, update
-    if params[:example_answer_text].present?
-      if example_answer.present?
-        example_answer.text = params[:example_answer_text]
-      else
-        example_answer = init_annotation(params[:example_answer_text], @question, current_user.org, Annotation.types[:example_answer])
-      end
-    end
-    # only required to save if we updated/created one
-    ex_save = example_answer.present? ? example_answer.save : true
-    guid_save = guidance.present? ? guidance.save : true
+    question = Question.includes(section: { phase: :template}).find(params[:question_id])
+    authorize question
 
-    @section = @question.section
-    @phase = @section.phase
-    @phase.template.dirty = true
+#    example_answer = Annotation.find_or_create_by(question: question, org: current_user.org, type: Annotation.types[:example_answer])
+#    guidance = Annotation.find_or_create_by(question: question, org: current_user.org, type: Annotation.types[:guidance])
+    
+    hash = {question_id: question.id, org_id: current_user.org.id}
+    process_changes(hash.merge({type: Annotation.types[:example_answer]}), params[:example_answer_text], _('example answer'))
+    process_changes(hash.merge({type: Annotation.types[:guidance]}), params[:guidance_text], _('guidance'))
 
-    if ex_save && guid_save
-      typ = (example_answer.present? && guidance.present? ? 'example answer and guidance' : (guidance.present? ? 'guidance' : 'example answer'))
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, edit: 'true'), notice: success_message(typ, _('saved'))
-    else
-      if !ex_save && !guid_save
-        flash[:alert] = failed_create_error(example_answer, _('example answer')) + '\n' +
-                          failed_create_error(gudiance, _('guidance'))
-      elsif !guid_save
-        flash[:alert] = failed_create_error(gudiance, _('guidance'))
-      elsif !ex_save
-        flash[:alert] = failed_create_error(example_answer, _('example answer'))
-      end
-      render action: "phases/admin_show"
+    if !flash[:notice].blank? || !flash[:alert].blank?
+      template = question.section.phase.template
+      template.dirty = true
+      template.save!
     end
+    redirect_to controller: :phases, action: :admin_show, id: question.section.phase.id
   end
 
   #delete an annotation
   def admin_destroy
-    @example_answer = Annotation.includes(question: { section: {phase: :template}}).find(params[:id])
-    authorize @example_answer
-    @question = @example_answer.question
-    @section = @question.section
-    @phase = @section.phase
-    @phase.template.dirty = true
-    if @example_answer.destroy
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: success_message(_('information'), _('deleted'))
-    else
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, edit: 'true'), notice: flash[:alert] = failed_destroy_error(@example_answer, _('example answer'))
+    annotation = Annotation.find(params[:id])
+    authorize annotation
+    phase_id = Annotation.joins("INNER JOIN questions ON annotations.question_id = questions.id").joins("INNER JOIN sections ON questions.section_id = sections.id").joins("INNER JOIN phases ON sections.phase_id = phases.id").where("annotations.id": params[:id]).pluck("phases.id").first #annotation.question.section.phase.id
+    if annotation.present?
+      type = (annotation.type == Annotation.types[:example_answer] ? 'example answer' : 'guidance')
+      if annotation.destroy!
+        flash[:notice] = success_message(type, _('removed'))
+      else
+        flash[:alert] = failed_destroy_error(annotation, type)
+      end
     end
+    redirect_to controller: :phases, action: :admin_show, id: phase_id
   end
 
   private
@@ -119,4 +49,28 @@ class AnnotationsController < ApplicationController
     return annotation
   end
 
+  def process_changes(hash, input, type)
+    # If the input is available update the annotation otherwise remove it if it exists
+    if input.present? 
+      annotation = Annotation.find_or_create_by(hash)
+      if annotation.text != input
+        annotation.text = input
+        if annotation.save!
+          flash[:notice] = "#{(flash[:notice].nil? ? '' : flash[:notice] + '<br>')}#{success_message(type, _('updated'))}"
+        else
+          flash[:alert] = "#{(flash[:alert].nil? ? '' : flash[:alert] + '<br>')}#{failed_update_error(annotation, type)}"
+        end
+      end
+    else
+      # If the user cleared the text and the record exists, delete it
+      annotation = Annotation.find_by(hash)
+      if annotation.present?
+        if annotation.destroy!
+          flash[:notice] = "#{(flash[:notice].nil? ? '' : flash[:notice] + '<br>')}#{success_message(type, _('removed'))}"
+        else
+          flash[:alert] = "#{(flash[:alert].nil? ? '' : flash[:alert] + '<br>')}#{failed_update_error(annotation, type)}"
+        end
+      end
+    end
+  end
 end
