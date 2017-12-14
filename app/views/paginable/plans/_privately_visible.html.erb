@@ -33,8 +33,9 @@
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>
-                    <%= form_for plan, url: set_test_plan_path(plan), html: {method: :post, id: 'update-test-plan'} do |f| %>
+                    <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
                       <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test')) %>
+                      <%= f.submit(_('Update'), style: 'display:none') %>
                     <% end %>
                   <% else %>
                     <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
@@ -68,8 +69,7 @@
 
                       <li><%= link_to _('Download'), download_plan_path(plan) %></li>
 
-                      <li><%= link_to _('Make a copy'), duplicate_plan_path(plan), 
-                                      method: :post, remote: true %></li>
+                      <li><%= link_to(_('Make a copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>
                     <% else %>
                       <li><%= link_to _('View'), plan_path(plan) %></li>
 
@@ -78,7 +78,7 @@
                     <% role = plan.roles.where(user_id: current_user.id).first %>
                     <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
                     <li><%= link_to _('Remove'), deactivate_role_path(role),
-                                    method: :put, data: {confirm: conf} %></li>
+                                    method: :put, data: { confirm: conf } %></li>
                   </ul>
                 </div>
                 </td>
