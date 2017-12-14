@@ -33,82 +33,81 @@ class GuidancesController < ApplicationController
   ##
   # POST /guidances
   def admin_create
-    @guidance = Guidance.new(guidance_params)
-    authorize @guidance
-    @guidance.text = params["guidance-text"]
+    guidance = Guidance.new(guidance_params)
+    authorize guidance
+    guidance.text = params["guidance-text"]
 
-    @guidance.themes = []
+    guidance.themes = []
     if !guidance_params[:theme_ids].nil?
-      guidance_params[:theme_ids].map{|t| @guidance.themes << Theme.find(t.to_i) unless t.empty? }
+      guidance_params[:theme_ids].map{|t| guidance.themes << Theme.find(t.to_i) unless t.empty? }
     end
 
-    if @guidance.save
-      redirect_to admin_edit_guidance_path(@guidance), notice: success_message(_('guidance'), _('created'))
+    if guidance.save
+      flash[:notice] = success_message(_('guidance'), _('created'))
+      redirect_to(action: :admin_index)
     else
-      flash[:alert] = failed_create_error(@guidance, _('guidance'))
-      @themes = Theme.all.order('title')
-      @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
-      render action: "admin_new"
+      flash[:alert] = failed_create_error(guidance, _('guidance'))
+      redirect_to(action: :admin_index)
     end
   end
 
   ##
   # PUT /guidances/1
   def admin_update
-    @guidance = Guidance.find(params[:id])
-    authorize @guidance
-    @guidance.text = params["guidance-text"]
+    guidance = Guidance.find(params[:id])
+    authorize guidance
+    guidance.text = params["guidance-text"]
     
-    if @guidance.update_attributes(guidance_params)
-      redirect_to admin_edit_guidance_path(params[:guidance]), notice: success_message(_('guidance'), _('saved'))
+    if guidance.update_attributes(guidance_params)
+      flash[:notice] = success_message(_('guidance'), _('saved')) 
+      redirect_to(action: :admin_index)
     else
-      flash[:alert] = failed_update_error(@guidance, _('guidance'))
-      @themes = Theme.all.order('title')
-      @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id).order('name ASC')
-
-      render action: "admin_edit"
+      flash[:alert] = failed_update_error(guidance, _('guidance'))
+      redirect_to(action: :admin_edit, id: params[:id])
     end
   end
 
   ##
   # DELETE /guidances/1
   def admin_destroy
-     @guidance = Guidance.find(params[:id])
-    authorize @guidance
-    if @guidance.destroy
-      redirect_to admin_index_guidance_path, notice: success_message(_('guidance'), _('deleted'))
+     guidance = Guidance.find(params[:id])
+    authorize guidance
+    if guidance.destroy
+      flash[:notice] = success_message(_('guidance'), _('deleted'))
+      redirect_to(action: :admin_index)
     else
-      redirect_to admin_index_guidance_path, alert: failed_destroy_error(@guidance, _('guidance'))
+      flash[:alert] = failed_destroy_error(guidance, _('guidance'))
+      redirect_to(action: :admin_index)
     end
   end
 
   # PUT /guidances/1
   def admin_publish
-    @guidance = Guidance.find(params[:id])
-    authorize @guidance
+    guidance = Guidance.find(params[:id])
+    authorize guidance
 
-    @guidance.published = true
-    guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
+    guidance.published = true
+    guidance_group = GuidanceGroup.find(guidance.guidance_group_id)
     if !guidance_group.published? || guidance_group.published.nil?
       guidance_group.published = true
       guidance_group.save
     end
-    @guidance.save
+    guidance.save
 
     flash[:notice] = _('Your guidance has been published and is now available to users.')
-    redirect_to admin_index_guidance_path
+    redirect_to(action: :admin_index)
   end
 
   # PUT /guidances/1
   def admin_unpublish
-    @guidance = Guidance.find(params[:id])
-    authorize @guidance
+    guidance = Guidance.find(params[:id])
+    authorize guidance
 
-    @guidance.published = false
-    @guidance.save
+    guidance.published = false
+    guidance.save
 
     flash[:notice] = _('Your guidance is no longer published and will not be available to users.')
-    redirect_to admin_index_guidance_path
+    redirect_to(action: :admin_index)
   end
 
   private
