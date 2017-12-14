@@ -16,6 +16,13 @@
     </div>
     <div class="pull-right">
         <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+        <%= link_to(
+            _('Delete'),
+            super_admin_theme_path(theme),
+            class: 'btn btn-default',
+            rel: 'nofollow',
+            'data-method': 'delete',
+            'data-confirm': _("Are you sure you want to delete the theme \"%{title}\"?") %{ :title => theme.title }) if options[:method] == :PUT %>
         <%= link_to(_('Cancel'), super_admin_themes_path, class: 'btn btn-default', role: 'button') %>
     </div>
 <% end %>

@@ -98,4 +98,20 @@ class ThemesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_equal(_('Theme updated successfully'), flash[:notice])
   end
+  test 'destroy action responds redirect when user is not super_admin' do
+    delete(super_admin_theme_path({ id: Theme.first.id }))
+    assert_response :redirect
+  end
+  test 'destroy action responds redirect when theme id does not exist' do
+    sign_in @user
+    delete(super_admin_theme_path({ id: 'foo' }))
+    assert_response :redirect
+    assert_equal(_('There is no theme associated with id %{id}') % { :id => 'foo' }, flash[:alert])
+  end
+  test 'destroy action responds redirect with flash notice' do
+    sign_in @user
+    delete(super_admin_theme_path({ id: Theme.first.id }))
+    assert_response :redirect
+    assert_equal(_('Theme destroyed successfully'), flash[:notice])
+  end
 end

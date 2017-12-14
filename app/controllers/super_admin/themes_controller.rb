@@ -52,6 +52,18 @@ module SuperAdmin
       redirect_to(action: :index)
     end
 
+    def destroy
+      authorize(Theme)
+      begin
+        Theme.find(params[:id]).destroy!
+        flash[:notice] = _('Theme destroyed successfully')
+      rescue ActiveRecord::RecordNotFound
+        flash[:alert] = _('There is no theme associated with id %{id}') % { :id => params[:id] }
+      rescue ActiveRecord::RecordNotDestroyed # Unlikely to happen since we don't have callback associated to destroy! but put for safety
+        flash[:alert] = _('The theme with id %{id} could not be destroyed') % { :id => params[:id] }
+      end
+      redirect_to(action: :index)
+    end
     # Private instance methods
     private
 
