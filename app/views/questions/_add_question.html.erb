@@ -78,13 +78,9 @@ in the admin interface.
     </div>
   </div>
   <!-- Themes -->
-  <div class="form-group col-md-4">
-    <%= f.label(:theme_ids, _('Themes'), class: "control-label") %>
-    <%= f.collection_select(:theme_ids,
-          Theme.all.order("title"),
-          :id, :title, {prompt: false}, {multiple: true, 'data-toggle': 'tooltip', 'data-html': true, title: _("<p>Select themes that are relevant to this question.</p> <p>This allows your generic institution-level guidance to be drawn in, as well as that from other sources e.g. the %{organisation_abbreviation} or any Schools/Departments that you provide guidance for. </p> <p>You can select multiple themes by using the CTRL button.</p>"), class: 'form-control'}) %>
+  <div class="form-group col-md-10">
+    <%= render partial: 'org_admin/shared/theme_selector', locals: { f: f, all_themes: Theme.all.order("title") } %>
   </div>
-
   <div class="form-group">
     <div class="col-md-4 col-md-offset-10 pull-right">
       <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
