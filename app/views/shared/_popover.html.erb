@@ -1,0 +1,8 @@
+<%# available locals: message, placement %>
+<% if message.present? %>
+  <a href="#" class="btn btn-default" data-toggle="popover" 
+     title="<%= _('More information') %>" data-content="<%= message %>" 
+     placement="<%= placement %>">
+    <i class="fa fa-question-circle"></i>
+  </a>
+<% end %>

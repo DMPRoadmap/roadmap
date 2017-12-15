@@ -12,7 +12,9 @@
         <%= f.label :text, class: 'control-label' %>
         <%= text_area_tag("guidance-text", guidance.text, class: "tinymce form-control", 'aria-required': true, rows: 10) %>
       </div>
-      <%= render partial: 'org_admin/shared/theme_selector', locals: { f: f, all_themes: themes } %>
+      <%= render partial: 'org_admin/shared/theme_selector', 
+                 locals: { f: f, all_themes: themes,
+                           popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic institution-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for.') % { org_name: (current_user.org.abbreviation.present? ? current_user.org.abbreviation : current_user.org.name ) } } %>
       <div class="form-group">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
         <%= f.collection_select(:guidance_group_id, guidance_groups,

@@ -1,6 +1,8 @@
-<%# locals: all_themes %>
+<%# locals: all_themes & popover_message %>
 <div class="form-group">
   <%= f.label _('Themes'), for: :theme_ids, class: 'control-label' %>
+  <%= render partial: 'shared/popover', 
+             locals: { message: popover_message, placement: 'right' }%>
   <div class="row">
     <% if all_themes.length > 0 %>
       <% 
@@ -15,7 +17,7 @@
             <div class="col-md-<%= col_size %>">
             <% cntr = 0 %>
           <% end %>
-          <div class="checkbox" data-toggle="tooltip" data-html="true" title="<%= theme.description %>">
+          <div class="checkbox">
             <%= f.label :theme_ids, raw("#{f.check_box :theme_ids, {multiple: true}, theme.id, nil} #{theme.title}") %>
           </div>
           <% cntr += 1 %>
