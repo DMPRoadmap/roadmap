@@ -112,6 +112,6 @@ class ThemesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     delete(super_admin_theme_path({ id: Theme.first.id }))
     assert_response :redirect
-    assert_equal(_('Theme destroyed successfully'), flash[:notice])
+    assert_equal(_('Successfully deleted your theme'), flash[:notice])
   end
 end
