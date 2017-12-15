@@ -13,13 +13,13 @@ module OrgAdmin
 
       # If the user is an Org Admin look for customizations to funder templates
       customizations = {}
-      unless current_user.can_super_admin?
+      if current_user.can_org_admin?
         funder_templates.each do |funder_template|
           customization = Template.org_customizations(funder_template.dmptemplate_id, current_user.org_id)
-          customizations[customization.dmptemplate_id] = customization if customization.present?
+          customizations[customization.customization_of] = customization if customization.present?
         end
       end
-      
+
       # Gather up all of the publication dates for the live versions of each template.
       published = {}
       [funder_templates, org_templates].each do |collection|
@@ -53,6 +53,7 @@ module OrgAdmin
       @template = Template.new(params[:template])
       @template.org_id = current_user.org.id
       @template.description = params['template-desc']
+      @template.links = (params["template-links"].present? ? JSON.parse(params["template-links"]) : {"funder": [], "sample_plan": []})
 
       if @template.save
         redirect_to edit_org_admin_template_path(@template), notice: success_message(_('template'), _('created'))
