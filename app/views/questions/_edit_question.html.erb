@@ -87,7 +87,9 @@ in the admin interface.
           </div>
           <!-- Themes -->
           <div class="form-group col-md-10">
-            <%= render partial: 'org_admin/shared/theme_selector', locals: { f: f, all_themes: Theme.all.order("title") } %>
+            <%= render partial: 'org_admin/shared/theme_selector', 
+                       locals: { f: f, all_themes: Theme.all.order("title"),
+                                 popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed institution-level guidance to appear alongside your question.') } %>
           </div>
           <div class="form-group col-md-10">
             <div class="pull-right">
