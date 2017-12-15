@@ -16,7 +16,7 @@ $highlight-background-color: #F36F24;
   font-weight: normal;
 }
 
-/* Font Smoothing in Webkit /* 
+/* Font Smoothing in Webkit /*
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -45,7 +45,7 @@ thead th {
 .table-responsive > .table {
   width: 100%;
   margin-bottom: 15px;
-  overflow: auto; 
+  overflow: auto;
 }
 
 @media (max-width: 768px) {
@@ -63,13 +63,13 @@ thead th {
 
 /* NOTIFICATION TABLE STYLING */
 .notifications {
-  table { 
+  table {
     border: none;
 
-    thead > tr > th { 
-      border: none; 
+    thead > tr > th {
+      border: none;
       background-color: $white;
-      color: $black; 
+      color: $black;
      }
      tbody > tr > td { border: none; }
   }
@@ -82,7 +82,7 @@ thead th {
   color: $white;
   border: none;
   margin-right:2px;
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .nav-tabs > li > a{
   border-radius: 2px;
@@ -149,8 +149,8 @@ $cancel-button-color: #F17D04;
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary:visited,
-.btn-primary:active:hover, 
-.btn-primary.active:hover { 
+.btn-primary:active:hover,
+.btn-primary.active:hover {
   background-color: $grey;
   color: $white;
   border-color: $grey;
@@ -165,8 +165,8 @@ $cancel-button-color: #F17D04;
 .btn-default:focus,
 .btn-default:active,
 .btn-default:visited,
-.btn-default:active:hover, 
-.btn-default.active:hover { 
+.btn-default:active:hover,
+.btn-default.active:hover {
   background-color: $grey;
   color: $white;
   border-color: $grey;
@@ -202,7 +202,7 @@ $error-background: #f2dede;
 $notice-color: $gold;
 $notice-background: #fcf8e3;
 
-/****  ---------------------------------------------------------------------------- ****/ 
+/****  ---------------------------------------------------------------------------- ****/
 /**** Main layout configuration ****/
 
 main {
@@ -261,6 +261,16 @@ $header-background: linear-gradient(#ED6406, #F59503);
     line-height: 102px;
     height: 102px;
     padding-top: 0;
+  }
+  #org-navbar .org-links {
+    padding-top: 15px;
+  }
+  #org-navbar .org-a {
+    line-height: 36px !important;
+    height: 36px !important;
+    vertical-align: middle !important;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
 @media (min-width: 768px) {
