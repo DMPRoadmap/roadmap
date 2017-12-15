@@ -58,8 +58,8 @@
       <!-- main page content rendering -->
       <main class="container">
         <div id="notification-area"
-             class="<%= has_alert ? 'alert-warning ' : 'alert-info ' %>
-                    <%= (has_alert or has_notice) ? 'alert show' : 'hide' %>"
+             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
              role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
           <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>

@@ -189,26 +189,23 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     # We shouldn't be able to edit a historical version
     put org_admin_template_path(prior), {template: params}
-    assert_equal _('You can not edit a historical version of this template.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(prior)
-    assert assigns(:template)
+    assert_response :forbidden
+    json_body = ActiveSupport::JSON.decode(response.body)
+    assert_equal(_('You can not edit a historical version of this template.'), json_body["msg"])
 
     # Make sure we get the right response when editing an unpublished template
     put org_admin_template_path(current), {template: params}
-    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
-    assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(current)
-    assert assigns(:template)
-    #assert assigns(:template_hash)
-    assert_equal 'ABCD', current.reload.title, "expected the record to have been updated"
+    assert_response :ok
+    json_body = ActiveSupport::JSON.decode(response.body)
+    assert json_body["msg"].start_with?('Successfully') && json_body["msg"].include?('saved')
+    assert_equal('ABCD', current.reload.title, "expected the record to have been updated")
     assert current.reload.dirty?
 
     # Make sure we get the right response when providing an invalid template
     put org_admin_template_path(current), {template: {title: nil}}
-    assert flash[:alert].starts_with?(_('Could not update your'))
-    assert_response :redirect
-    assert assigns(:template)
+    assert_response :bad_request
+    json_body = ActiveSupport::JSON.decode(response.body)
+    assert json_body["msg"].starts_with?(_('Could not update your'))
   end
 
   test "unauthorized user cannot customize a template" do
