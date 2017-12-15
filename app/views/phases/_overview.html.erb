@@ -1,0 +1,25 @@
+<%# locals: { phase } %>
+<div class="row">
+  <div class="col-xs-12">
+    <h4><%= _('Instructions') %></h4>
+    <p class="text-justify">
+      <%= raw(phase.description) %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-unstyled">
+      <% phase.sections.each do |s| %>
+        <li class="mb-5">
+          <%= s.title %>
+          <ul>
+            <% s.questions.each do |q| %>
+              <li><%= raw(q.text) %></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
