@@ -56,7 +56,7 @@ module SuperAdmin
       authorize(Theme)
       begin
         Theme.find(params[:id]).destroy!
-        flash[:notice] = _('Theme destroyed successfully')
+        flash[:notice] = _('Successfully deleted your theme')
       rescue ActiveRecord::RecordNotFound
         flash[:alert] = _('There is no theme associated with id %{id}') % { :id => params[:id] }
       rescue ActiveRecord::RecordNotDestroyed # Unlikely to happen since we don't have callback associated to destroy! but put for safety
