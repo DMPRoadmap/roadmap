@@ -23,21 +23,34 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="org-navbar-menu">
-      <% if user_signed_in? && !current_user.org.nil? && current_user.org.links.present? %>
-        <% if current_user.org.links['org'].present? %>
-            <ul class="nav navbar-nav">
-              <% current_user.org.links['org'].each do |url| %>
-                <% unless url['link'].blank? %>
-                  <li><%= link_to (url['text'].blank? ? url['link'] : url['text']), url['link'] %>
-                <% end %>
+      <!-- Organisational links -->
+      <% if user_signed_in? && !current_user.org.nil? %>
+        <ul class="nav navbar-nav">
+          <% i=1; current_user.org.links['org'].each do |link| %>
+            <% if !link.blank? && i <= max_number_links %>
+              <% if i.odd? %>
+                </li><li class="org-links">
               <% end %>
-            </ul>
-        <% end %>
+              <%= link_to link['link'], :target=>'_blank', :class => 'org-a' do %>
+                <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
+                <%= link['text'].blank? ? link['link'] : link['text'] %>
+              <% end; i+=1 %>
+            <% end %>
+          <% end %>
+          <% if i.odd? %>
+            </li><li class="org-links">
+          <% end %>
+          <% if !current_user.org.contact_email.blank? %>
+            <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
+              <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+              <%= current_user.org.contact_name %>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
 
       <!-- Navigation for organisation admin -->
       <ul class="nav navbar-nav navbar-right">
-
         <!-- if org admin -->
         <% if current_user.can_org_admin? %>
           <li class="dropdown navbar-default" id="admin-dropdown">
