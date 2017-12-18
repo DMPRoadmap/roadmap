@@ -108,18 +108,17 @@ module OrgAdmin
         })
     end
     
-    # PUT /org_admin/templates/:id
+    # PUT /org_admin/templates/:id (AJAXable)
     # -----------------------------------------------------
     def update
       @template = Template.find(params[:id])
-      authorize @template
+      authorize @template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
 
       current = Template.current(@template.dmptemplate_id)
 
       # Only allow the current version to be updated
       if current != @template
-        redirect_to edit_org_admin_template_path(@template), notice: _('You can not edit a historical version of this template.')
-
+        render(status: :forbidden, json: { msg: _('You can not edit a historical version of this template.')})
       else
         if @template.description != params["template-desc"] ||
                 @template.title != params[:template][:title]
@@ -138,13 +137,11 @@ module OrgAdmin
         end
       
         if @template.update_attributes(params[:template])
-          flash[:notice] = success_message(_('template'), _('saved'))
-
+          render(status: :ok, json: { msg: success_message(_('template'), _('saved'))})
         else
-          flash[:alert] = failed_update_error(@template, _('template'))
+          # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
+          render(status: :bad_request, json: { msg: failed_update_error(@template, _('template'))})
         end
-
-        redirect_to action: 'edit', id: params[:id]
       end
     end
     
