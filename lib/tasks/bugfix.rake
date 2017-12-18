@@ -64,7 +64,11 @@ namespace :bugfix do
   desc "Set all orgs.links defaults"
   task set_org_link_defaults: :environment do
     Org.all.each do |org|
-      org.update_attributes(links: {"org":[]})
+      begin
+        org.update_attributes(links: {"org":[]})
+      rescue Dragonfly::Job::Fetch::NotFound
+        puts "Unable to set link defaults for Org #{org.id} - #{org.name} due to a missing logo file. Please update manually: `UPDATE orgs set links = '{\"org\":[]}' WHERE id = #{org.id};`"
+      end
     end
   end
   
