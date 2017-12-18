@@ -165,16 +165,16 @@ token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermi
 orgs = [
   {name: Rails.configuration.branding[:organisation][:name],
    abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
-   org_type: 3, links: {"org":[]},
+   org_type: 3, links: '{"org":[]}',
    language_id: Language.find_by(abbreviation: 'en_GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
    abbreviation: 'GA',
-   org_type: 2, links: {"org":[]},
+   org_type: 2, links: '{"org":[]}',
    language: Language.find_by(abbreviation: 'en_GB')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
-   org_type: 1, links: {"org":[]},
+   org_type: 1, links: '{"org":[]}',
    language: Language.find_by(abbreviation: 'en_GB')}
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
