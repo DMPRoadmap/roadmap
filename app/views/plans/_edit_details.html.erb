@@ -3,16 +3,16 @@
     <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
       <div class="form-group"><!-- title -->
         <div class="col-md-12">
-          <%= f.label(:title, _('Project Title'), class: 'control-label') %>
+          <%= f.label(:title, _('Project title'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
           <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip', 
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
-        </div>
-      </div>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
         <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test?)} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
+      </div>
+        </div>
       </div>
       <div class="form-group"><!-- funder_name -->
         <div class="col-md-12">
@@ -27,7 +27,7 @@
       </div>
       <div class="form-group"><!-- grant_number -->
         <div class="col-md-12">
-          <%= f.label(:grant_number, _('Grant Number'), class: 'control-label') %>
+          <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
           <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', 
@@ -36,7 +36,7 @@
       </div>
       <div class="form-group"><!-- description -->
         <div class="col-md-12">
-          <%= f.label(:description, _('Project Abstract'), class: 'control-label') %>
+          <%= f.label(:description, _('Project abstract'), class: 'control-label') %>
         </div>
         <div class="col-md-8" data-toggle="tooltip" title="<%= _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>">
           <%= f.text_area(
@@ -55,7 +55,7 @@
         </div>
       </div>
       
-      <h3><%= _('Principal Investigator') %></h3>
+      <h3><%= _('Principal investigator') %></h3>
       <div class="form-group"><!-- principal_investigator -->
         <div class="col-md-12">
           <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
@@ -102,7 +102,7 @@
         </div>
       </div>
 
-      <h3><%= _('Data Contact Person') %></h3>
+      <h3><%= _('Data contact person') %></h3>
       <div class="checkbox">
         <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
         <%= label_tag(:show_data_contact, raw("#{check_box_tag(:show_data_contact, checked, checked == 0)} #{_('Same as Principal Investigator')}"), class: 'control-label') %>
