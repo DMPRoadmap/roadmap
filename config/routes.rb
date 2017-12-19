@@ -163,7 +163,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     resources :annotations, path: 'org/admin/templates/annotations', only: [] do
       member do
-        post 'admin_create'
         put 'admin_update'
         delete 'admin_destroy'
       end

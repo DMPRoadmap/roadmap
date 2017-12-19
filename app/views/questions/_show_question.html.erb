@@ -62,17 +62,38 @@
         <!-- Add suggested or example answers to a funders template-->
         <% example_answer = question.get_example_answer(current_user.org_id) %>
         <% guidance = question.get_guidance_annotation(current_user.org_id) %>
+        <% editing = (example_answer.present? || guidance.present?) %>
         <% if !question.modifiable %>
-          <% if example_answer.present?  || guidance.present? %>
-            <div id="show_annotations_div_<%= question.id%>" class="show_annotations_div">
-              <%= render partial: 'annotations/show', locals: {example_answer: example_answer, guidance: guidance, question: question} %>
-            </div>
-            <div id="edit_annotations_div_<%= question.id%>" style="display: none">
-              <%= render partial: 'annotations/edit', locals: {example_answer: example_answer, guidance: guidance, question: question} %>
-            </div>
-          <% end %>
-          <div id="add_annotations_div_<%= question.id%>" style="display: none">
-            <%= render partial: 'annotations/add', locals: {question: question} %>
+          <h3> <%= _('Annotations') %> </h3>
+          <div id="show_annotations_div_<%= question.id%>" class="show_annotations_div">
+            <%= render partial: 'annotations/show', 
+                       locals: { example_answer: example_answer, 
+                                 guidance: guidance,
+                                 template: template,
+                                 for_plan: false } %>
+            <% unless question.modifiable %>
+              <div id="add_annotations_button_<%= question.id %>" class="pull-right">
+                <%= link_to _('%{add_or_edit} Annotations') % { add_or_edit: (editing ? 'Edit' : 'Add') }, 
+                            "#annotations_div_#{question.id}", class: "btn btn-default annotations_button", role:"button" %>
+                <% if example_answer.present? %>
+                  <%= link_to _('Delete Example Answer'), admin_destroy_annotation_path(id: example_answer.id), 'data-method': 'delete', 
+                              rel: 'nofollow', class: "btn btn-default", 'data-confirm': _("Are you sure you would like to remove the example answer for this question?") %>
+                <% end %>
+                <% if guidance.present? %>
+                  <%= link_to _('Delete Guidance'), admin_destroy_annotation_path(id: guidance.id), 'data-method': 'delete',
+                              rel: 'nofollow', class: "btn btn-default", 'data-confirm': _("Are you sure you would like to remove the guidance for this question?") %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div id="annotations_div_<%= question.id %>" style="display: none" class="edit_annotations_div">
+            <%= render partial: 'annotations/new_edit', 
+                       locals: {
+                         example_answer: example_answer,
+                         guidance: guidance, 
+                         question: question,
+                         options: { url: admin_update_annotation_path, method: 'PUT' } 
+                       } %>
           </div>
         <% end %>
         <div class="pull-right">
@@ -80,16 +101,6 @@
             <%= link_to _('Edit question'), "#question_edit#{question.id}", class: "btn btn-default question_edit_link", role: "button" %>
             <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
               confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:"button" %>
-          <% else %>
-            <% if example_answer.nil? && guidance.nil? %>
-              <div id="add_annotations_button_<%= question.id%>">
-                <%= link_to _('Add Annotations'), "#add_annotations_div_#{question.id}", class: "btn btn-default add_annotations_button", role:"button"%>
-              </div>
-            <% else %>
-              <div id="edit_annotations_button_<%= question.id%>">
-                <%= link_to _('Edit Annotations'), "#edit_annotations_div_#{question.id}", class: "btn btn-default edit_annotations_button", role:"button"%>
-              </div>
-            <% end %>
           <% end %>
         </div>
       </div>

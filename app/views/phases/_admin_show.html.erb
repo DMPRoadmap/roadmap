@@ -42,9 +42,9 @@
             aria-labelledby="<%= "headingSection#{section.id}" %>">
              <div class="panel-body">
               <% if edit && section.modifiable %>
-                <%= render partial: 'sections/edit_section', locals: { section: section, edit: edit, phase: phase } %>
+                <%= render partial: 'sections/edit_section', locals: { template: template, section: section, edit: edit, phase: phase } %>
               <% else %>
-                <%= render partial: 'sections/show_section', locals: { section: section } %>
+                <%= render partial: 'sections/show_section', locals: { template: template, section: section } %>
               <% end %>
              </div>
           </div>
