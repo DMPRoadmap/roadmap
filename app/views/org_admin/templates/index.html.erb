@@ -41,7 +41,7 @@
             controller: 'org_admin/templates',
             action: 'orgs', 
             scope: org_templates,
-            locals: {current_org: current_org.id, published: published}) %>
+            locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs]}) %>
         <% else %>
           <p><%= _('There are currently no templates defined for your organisation.') %>
         <% end %>
@@ -54,7 +54,7 @@
             controller: 'org_admin/templates',
             action: 'funders', 
             scope: funder_templates,
-            locals: {current_org: current_org.id, customizations: customized_templates, published: published}) %>
+            locals: {current_org: current_org.id, customizations: customized_templates, published: published, scopes: scopes[:funders]}) %>
         <% else %>
           <p><%= _('There are currently no funder templates.') %>
         <% end %>

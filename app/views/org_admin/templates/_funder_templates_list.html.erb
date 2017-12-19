@@ -10,6 +10,13 @@
           </th>
         </tr>
       <% end %>
+      <% if scopes.present? %>
+        <tr><th colspan="5" class="sorter-false table-scope"><ul class="nav navbar-nav">
+          <% scopes.keys.each do |k| %>
+            <li><%= link_to "#{k.capitalize} (#{scopes[k]})", "#{funders_org_admin_templates_path(1)}?scope=#{k}", class: 'template-scope', 'data-remote': true %></li>
+          <% end %>
+        </ul></th></tr>
+      <% end %>
       <tr>
         <th><%= _('Template Name') %></th>
         <th><%= _('Funder') %></th>

@@ -37,6 +37,15 @@ thead th {
   background-color: $grey;
   color: $white;
 }
+thead th.table-scope {
+  background-color: $white;
+  font-weight: normal;
+
+  a {
+    color: $grey;
+    padding: 2px 15px 2px 2px;
+  }
+}
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #CCC;
 }
