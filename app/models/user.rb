@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include ConditionalUserMailer
+  include Filterable
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -52,6 +53,24 @@ class User < ActiveRecord::Base
   scope :org_admins, -> (org_id) { 
     joins(:perms).where("users.org_id = ? AND perms.name IN (?)", org_id,
       ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+  }
+
+  #Paginable scope methods
+  scope :paginable_all, -> (org_id) {
+    unscoped.where(org_id: org_id).includes(:roles)
+  }
+  scope :paginable_search, -> (term) {
+    search_pattern = "%#{term}%"
+    where("firstname LIKE ? OR surname LIKE ? OR email LIKE ?", search_pattern, search_pattern, search_pattern).distinct(:id)
+  }
+  scope :paginable_sort_firstname_surname, -> (order = "asc") {
+    order(firstname: order, surname: order)
+  }
+  scope :paginable_sort_email, -> (order = "asc") {
+    order(email: order)
+  }
+  scope :paginable_sort_last_sign_in_at, -> (order = "asc") {
+    order(last_sign_in_at: order)
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
