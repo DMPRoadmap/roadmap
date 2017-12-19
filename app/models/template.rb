@@ -97,13 +97,13 @@ class Template < ActiveRecord::Base
   # specified org and dmptemplate_id
   # returns nil if no customizations found
   #
-  # @params [integer] dmptemplate_id of the original template
+  # @params  dmptemplate_ids of the original template
   # @params [integer] org_id for the customizing organisation
   # @return [nil, Template] the customized template or nil
   def self.org_customizations(dmptemplate_id, org_id)
-    Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
+    Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid
   end
-
+  
   # Retrieves current templates with their org associated for a set of valid orgs
   # TODO pass an array of org ids instead of Org instances
   def self.get_latest_template_versions(orgs)
