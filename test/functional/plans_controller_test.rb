@@ -1,5 +1,5 @@
 require 'test_helper'
-
+require 'byebug'
 class PlansControllerTest < ActionDispatch::IntegrationTest
 
   include Devise::Test::IntegrationHelpers
@@ -35,6 +35,14 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   #                                 DELETE   /plans/:id                           plans#destroy
 
   setup do
+    # First clear out any existing templates
+    GuidanceGroup.delete_all
+    GuidanceGroup.create!(name: "Generic Guidance (provided by the example curation...", org_id: 1, 
+                        created_at: "2018-01-03 21:02:14", updated_at: "2018-01-03 21:02:14", 
+                        optional_subset: true, published: true)
+    GuidanceGroup.create!(name: "Government Agency Advice (Funder specific guidance...", org_id: 2, 
+                        created_at: "2018-01-03 21:02:14", updated_at: "2018-01-03 21:02:14", 
+                        optional_subset: false, published: true)
     @org = Org.first
     scaffold_plan
     @user = @plan.owner
@@ -201,6 +209,11 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
 
     # Make sure the guidance is attached to the template first so that its a valid selection!
     q = @template.phases.first.sections.first.questions.first
+
+    #this tricky bit is needed to set guidances to newly created Guidance Groups
+    Guidance.update_all( guidance_group_id: GuidanceGroup.first.id)
+    Guidance.last.update!(guidance_group_id: GuidanceGroup.last.id)
+
     q.themes << GuidanceGroup.first.guidances.first.themes.first
     q.themes << GuidanceGroup.last.guidances.first.themes.first
     q.save
