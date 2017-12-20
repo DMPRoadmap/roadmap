@@ -25,7 +25,7 @@
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
       <li role="organisation-templates" class="active">
-        <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= _('Organisation Templates') %></a>
+        <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('Organisation Templates') : _('Own Templates') %></a>
       </li>
       <li role="funder-templates">
         <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('Funder Templates') : _('Customizable Templates') %></a>
