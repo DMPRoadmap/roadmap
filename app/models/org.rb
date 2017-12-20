@@ -61,6 +61,8 @@ class Org < ActiveRecord::Base
   # Predefined queries for retrieving the managain organisation and funders
   scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
 
+  after_create :create_guidance_group
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -160,5 +162,10 @@ class Org < ActiveRecord::Base
           self.logo = logo.thumb('x75')  # resize height and maintain aspect ratio
         end
       end
+    end
+
+    # creates a dfefault Guidance Group on create on the Org
+    def create_guidance_group
+      GuidanceGroup.create(name: self.abbreviation? ? self.abbreviation : self.name , org_id: self.id)
     end
 end

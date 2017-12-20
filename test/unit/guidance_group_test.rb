@@ -6,7 +6,10 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   setup do
     @user = User.first
     @org = Org.last
-    
+    # First clear out any existing templates
+    GuidanceGroup.all.each do |gg|
+      gg.destroy!
+    end  
     @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', org: @org,
                                            optional_subset: false, published: true)
   end
