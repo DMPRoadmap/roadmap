@@ -7,22 +7,17 @@ module OrgAdmin
     # -----------------------------------------------------
     def index
       authorize Template
-      valid_orgs = current_user.can_super_admin? ? Org.not_funder : Org.find(current_user.org)
-      org_templates = Template.get_latest_template_versions(valid_orgs).page(1)
-      funder_templates = Template.get_latest_template_versions(Org.funder).page(1)
+      # Apply scoping
+      orgs_hash = apply_scoping(params[:scope] || 'all')
+      funders_hash = apply_scoping(params[:scope] || 'all', true)
 
-      # If the user is an Org Admin look for customizations to funder templates
-      customizations = {}
-      if current_user.can_org_admin?
-        funder_templates.each do |funder_template|
-          customization = Template.org_customizations(funder_template.dmptemplate_id, current_user.org_id)
-          customizations[customization.customization_of] = customization if customization.present?
-        end
-      end
+      # Apply pagination
+      orgs_hash[:templates] = orgs_hash[:templates].page(1)
+      funders_hash[:templates] = funders_hash[:templates].page(1)
 
       # Gather up all of the publication dates for the live versions of each template.
       published = {}
-      [funder_templates, org_templates].each do |collection|
+      [funders_hash[:templates], orgs_hash[:templates]].each do |collection|
         collection.each do |template|
           live = Template.live(template.dmptemplate_id)
           published[template.dmptemplate_id] = live.updated_at if live.present?
@@ -30,12 +25,13 @@ module OrgAdmin
       end
       
       render 'index', locals: {
-        funder_templates: funder_templates, 
-        org_templates: org_templates,
-        customized_templates: customizations,
+        funder_templates: funders_hash[:templates], 
+        org_templates: orgs_hash[:templates],
+        customized_templates: funders_hash[:customizations],
         published: published,
         current_org: current_user.org, 
-        orgs: Org.all
+        orgs: Org.all,
+        scopes: { orgs: orgs_hash[:scopes], funders: funders_hash[:scopes] }
       }
     end
     
@@ -293,53 +289,50 @@ module OrgAdmin
     # -----------------------------------------------------
     def funders
       authorize Template
-      if params[:page] == 'ALL'
-        templates = Template.get_latest_template_versions(Org.funder)
-      else
-        templates = Template.get_latest_template_versions(Org.funder).page(params[:page])
-      end
-      # Include the default template in the list of funder templates
-      templates << Template.default
-      
-      # If the user is an Org Admin look for customizations to funder templates
-      customizations = []
-      unless current_user.can_super_admin?
-        templates.each do |funder_template|
-          customization = Template.org_customizations(funder_template.id, current_user.org_id)
-          customizations << customization if customization.present?
-        end
-      end
+      # Apply scoping
+      hash = apply_scoping(params[:scope] || 'all', true)
+
+      # Apply pagination
+      hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
       
       # Gather up all of the publication dates for the live versions of each template.
       published = {}
-      templates.each do |template|
+      hash[:templates].each do |template|
         live = Template.live(template.dmptemplate_id)
         published[template.dmptemplate_id] = live.updated_at if live.present?
       end
       
-      paginable_renderise(partial: 'funder_templates_list', scope: templates, 
-        locals: {current_org: current_user.org.id, customizations: customizations, published: published})
+      paginable_renderise partial: 'funder_templates_list',
+                          scope: hash[:templates],
+                          locals: { current_org: current_user.org.id,
+                                    customizations: hash[:customizations],
+                                    published: published,
+                                    scopes: hash[:scopes] }
     end
     
     # GET /org_admin/templates/orgs/:page  (AJAX)
     # -----------------------------------------------------
     def orgs
       authorize Template
-      valid_orgs = current_user.can_super_admin? ? Org.not_funder : Org.find(current_user.org)
-      if params[:page] == 'ALL'
-        templates = Template.get_latest_template_versions(valid_orgs)
-      else
-        templates = Template.get_latest_template_versions(valid_orgs).page(params[:page])
-      end
+      # Apply scoping
+      hash = apply_scoping(params[:scope] || 'all')
+      
+      # Apply pagination
+      hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
       
       # Gather up all of the publication dates for the live versions of each template.
       published = {}
-      templates.each do |template|
+      hash[:templates].each do |template|
         live = Template.live(template.dmptemplate_id)
         published[template.dmptemplate_id] = live.updated_at if live.present?
       end
       
-      paginable_renderise(partial: 'templates_list', scope: templates, locals: {current_org: current_user.org.id, published: published})
+      paginable_renderise partial: 'templates_list',
+                          scope: hash[:templates],
+                          locals: { current_org: current_user.org.id,
+                                    customizations: hash[:customizations],
+                                    published: published,
+                                    scopes: hash[:scopes] }
     end
     
     # PUT /org_admin/templates/:id/copy  (AJAX)
@@ -468,6 +461,79 @@ module OrgAdmin
     private
     def plan_params
       params.require(:plan).permit(:org_id, :funder_id)
+    end
+    
+    # Applies scoping to the template list
+    def apply_scoping(scope, funders = false)
+      if funders
+        templates = Template.get_latest_template_versions(Org.funder)
+
+        # Include the default template in the list of funder templates
+        templates << Template.default
+
+        # If the user is an Org Admin look for customizations to funder templates
+        customizations = {}
+        if current_user.can_org_admin?
+          families = templates.collect(&:dmptemplate_id).uniq
+          Template.org_customizations(families, current_user.org_id).each do |customization|
+            customizations[customization.customization_of] = customization if customization.present?
+          end
+        end
+        
+        scopes = calculate_table_scopes(templates, customizations)
+
+        # We scope based on the customizations if the user is NOT a super admin
+        if params[:scope].present? && params[:scope] != 'all'
+          if current_user.can_super_admin?
+            templates = templates.where(published: true) if params[:scope] == 'published'
+            templates = templates.where(published: false) if params[:scope] == 'unpublished'
+          else
+            scoped = templates.select do |t| 
+              c = customizations[t.dmptemplate_id]
+              (params[:scope] == 'unpublished' && (!c.present? || !c.published?)) || (params[:scope] == 'published' && c.present? && c.published?)
+            end
+            templates = Template.where(id: scoped.collect(&:id))
+          end
+        end
+        
+      else
+        valid_orgs = current_user.can_super_admin? ? Org.not_funder : Org.find(current_user.org)
+        templates = Template.get_latest_template_versions(valid_orgs)
+        
+        scopes = calculate_table_scopes(templates, {})
+        
+        if params[:scope].present? && params[:scope] != 'all'
+          templates = templates.where(published: true) if params[:scope] == 'published'
+          templates = templates.where(published: false) if params[:scope] == 'unpublished'
+        end
+      end
+      
+      { templates: templates,
+        customizations: customizations || {},
+        scopes: scopes }
+    end
+    
+    # Gets the nbr of templates and nbr of published/unpublished templates
+    def calculate_table_scopes(templates, customizations)
+      scopes = { all: templates.length, published: 0, unpublished: 0 }
+      templates.each do |t|
+        # If we have customizations use their status
+        if customizations.length > 0
+          c = customizations[t.dmptemplate_id]
+          # If the template was not customized then its unpublished
+          if c.nil?
+            scopes[:unpublished] += 1
+          else
+            scopes[:published] += 1 if c.published?
+            scopes[:unpublished] += 1 unless c.published?
+          end
+        else
+          # Otherwise just use the template's published status
+          scopes[:published] += 1 if t.published?
+          scopes[:unpublished] += 1 unless t.published?
+        end
+      end
+      scopes
     end
   end
 end
