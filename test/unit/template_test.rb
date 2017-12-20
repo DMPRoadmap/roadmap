@@ -147,4 +147,30 @@ class TemplateTest < ActiveSupport::TestCase
     assert(t.valid?)
     assert_equal(nil, t.errors.messages[:links])
   end
+  
+  test 'should return the latest customizations for the Org' do
+    tA = Template.create!(title: 'My test A', version: 0, org: @org)
+    tB = Template.create!(title: 'My test B', version: 0, org: @org)
+    tC = Template.create!(title: 'My test C', version: 0, org: @org)
+    
+    # Test 1 - Multiple versions
+    cAv0 = Template.create!(title: 'My test customization A', version: 0, customization_of: tA.dmptemplate_id, org: Org.first)
+    cAv1 = Template.deep_copy(cAv0)
+    cAv1.update_attributes(version: 1)
+    
+    # Test 2 - Only one version
+    cBv0 = Template.create!(title: 'My test customization B', version: 0, customization_of: tB.dmptemplate_id, org: Org.first)
+
+    # Test 3 - Make sure it always returns the latest version regardless of published statuses
+    cCv0 = Template.create!(title: 'My test customization C', version: 0, customization_of: tC.dmptemplate_id, org: Org.first)
+    cCv1 = Template.deep_copy(cCv0)
+    cCv1.update_attributes(version: 1, published: true)
+    cCv2 = Template.deep_copy(cCv1)
+    cCv2.update_attributes(version: 2)
+    
+    latest = Template.org_customizations([tA, tB, tC].collect(&:dmptemplate_id), Org.first.id)
+    assert latest.include?(cAv1), 'expected to get customization A - version 1.'
+    assert latest.include?(cBv0), 'expected to get customization B - version 0.'
+    assert latest.include?(cCv2), 'expected to get customization C - version 2.'
+  end
 end

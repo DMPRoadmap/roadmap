@@ -22,22 +22,73 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     get org_admin_templates_path
     assert_authorized_redirect_to_plans_page
   end
-  
-  test "Org Admin should see the list of their templates and customizable funder templates" do
-    sign_in @user
+
+  test "Org admin sees the correct templates on the templates page" do
+    init_templates
+    sign_in @org_admin
     get org_admin_templates_path
-    assert_response :success
-    assert_select "#organisation-templates table tbody tr", @user.org.templates.length, "expected the Org Admin to only see their own templates"
+    
+    verify_all_templates_table(@org_admin)
+    verify_own_templates_table(@org_admin)
+    verify_funder_templates_table(@org_admin)
+  end
+    
+  test "Funder admin sees the correct templates on the templates page" do
+    init_templates
+    sign_in @funder_admin
+    get org_admin_templates_path
+    
+    verify_all_templates_table(@funder_admin)
+    verify_own_templates_table(@funder_admin)
+    verify_funder_templates_table(@funder_admin)
   end
   
-  test "Super Admin should see the list of all templates" do
-    user = User.find_by(email: 'super_admin@example.com')
-    sign_in user
+  test "Super admin sees the correct templates on the templates page" do
+    init_templates
+    sign_in @super_admin
     get org_admin_templates_path
-    assert_response :success
-    assert_select "#organisation-templates table tbody tr", Template.where(org: Org.not_funder).pluck(:dmptemplate_id).uniq.length, "expected the Super Admin to see all of the templates"
+    
+    verify_all_templates_table(@super_admin)
+    verify_own_templates_table(@super_admin)
+    verify_funder_templates_table(@super_admin)
+  end
+  
+  test "Predefined scopes correctly filter results on all templates table" do
+    init_templates
+    sign_in @super_admin
+    get org_admin_templates_path
+    
+    verify_all_templates_table(@super_admin)
+    
+    published = Template.latest_version.where(published: true, customization_of: nil)
+    unpublished = Template.latest_version.where(published: false, customization_of: nil)
+    verify_templates_table_scoping(all_org_admin_templates_path('ALL'), '#all-templates', published, unpublished)
+  end
+  
+  test "Predefined scopes correctly filter results on own templates table" do
+    init_templates
+    sign_in @org_admin
+    get org_admin_templates_path
+    
+    verify_all_templates_table(@org_admin)
+    
+    published = Template.get_latest_template_versions(@org_admin.org).where(published: true, customization_of: nil)
+    unpublished = Template.get_latest_template_versions(@org_admin.org).where(published: false, customization_of: nil)
+    verify_templates_table_scoping(orgs_org_admin_templates_path('ALL'), '#organisation-templates', published, unpublished)
   end
 
+  test "Predefined scopes correctly filter results on customizable templates table" do
+    init_templates
+    sign_in @org_admin
+    get org_admin_templates_path
+    
+    verify_all_templates_table(@org_admin)
+    
+    published = Template.where(title: 'UOS customization of Default template')
+    unpublished = Template.where('published = 1 AND visibility = 1 AND is_default = 0')
+    verify_templates_table_scoping(funders_org_admin_templates_path('ALL'), '#funders-templates', published, unpublished)
+  end
+  
   test "unauthorized user cannot access the template edit page" do
     # Should redirect user to the root path if they are not logged in!
     get edit_org_admin_template_path(@template)
@@ -226,7 +277,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     get publish_org_admin_template_path(funder_template)
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
 
     # Sign in as the regular user so we can customize the funder template
     sign_in @user
@@ -282,13 +333,12 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal _('You can not publish a historical version of this template.'), flash[:alert]
     assert_response :redirect
     assert_redirected_to org_admin_templates_path
-    assert assigns(:template)
 
     # Publish the current template
     get publish_org_admin_template_path(current)
     assert_equal _('Your template has been published and is now available to users.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
     current = Template.current(family)
 
     # Update the description so that the template gets versioned
@@ -334,7 +384,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     get unpublish_org_admin_template_path(current)
     assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
 
     # Make sure there are no published versions
     assert Template.live(family).nil?
@@ -369,5 +419,158 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   
   test "transfer a template customization" do
     # TODO add test for this. Could not get working, getting a nil for max_version within the method (NOT SURE IF THIS IS STILL IN USE!)
+  end
+
+  private
+  def init_templates
+    # First clear out any existing templates
+    Template.all.each do |template|
+      template.destroy!
+    end
+    
+    @super_admin = User.find_by(email: 'super_admin@example.com')
+    @org_admin = User.find_by(email: 'org_admin@example.com')
+    @funder_admin = User.find_by(email: 'funder_admin@example.com')
+    
+    default_org = Org.find_by(org_type: 4)
+    funder_org = Org.find_by(org_type: 2)
+    institution_org = Org.find_by(org_type: 1)
+    other_org = Org.create!(name: 'Another Org', abbreviation: 'BLAH', org_type: 3, links: {"org":[]})
+    
+    params = [{ title: 'Default template', org: default_org, migrated: false, dmptemplate_id: '00000100', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: true },
+              { title: 'UOS published A', org: institution_org, migrated: false, dmptemplate_id: '00000099', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS published B', org: institution_org, migrated: false, dmptemplate_id: '00000098', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS unpublished C', org: institution_org, migrated: false, dmptemplate_id: '00000097', published: false, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS unpublished Dv0', org: institution_org, migrated: false, dmptemplate_id: '00000096', published: false, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS published Dv1', org: institution_org, migrated: false, dmptemplate_id: '00000096', published: true, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS published Ev0', org: institution_org, migrated: false, dmptemplate_id: '00000095', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS unpublished Ev1', org: institution_org, migrated: false, dmptemplate_id: '00000095', published: false, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'BLAH internal published A', org: other_org, migrated: false, dmptemplate_id: '00000079', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'BLAH public published B', org: other_org, migrated: false, dmptemplate_id: '00000078', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public published A', org: funder_org, migrated: false, dmptemplate_id: '00000089', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder internal published B', org: funder_org, migrated: false, dmptemplate_id: '00000088', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'Funder internal unpublished B', org: funder_org, migrated: false, dmptemplate_id: '00000088', published: false, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'Funder public unpublished C', org: funder_org, migrated: false, dmptemplate_id: '00000087', published: false, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public unpublished Dv0', org: funder_org, migrated: false, dmptemplate_id: '00000086', published: false, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public published Dv1', org: funder_org, migrated: false, dmptemplate_id: '00000086', published: true, version: 1, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public published Ev0', org: funder_org, migrated: false, dmptemplate_id: '00000085', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public unpublished Ev1', org: funder_org, migrated: false, dmptemplate_id: '00000085', published: false, version: 1, visibility: Template.visibilities[:publicly_visible], is_default: false }]
+    
+    params.each do |hash|
+      begin
+        template = Template.new(hash)
+        template.save!
+        # Template's have default values when created, so override those defaults
+        template.update_attributes!(published: hash[:published], visibility: hash[:visibility], is_default: hash[:is_default], dmptemplate_id: hash[:dmptemplate_id])
+        
+        if template.is_default?
+          cust = Template.create!({ title: 'UOS customization of Default template', org: institution_org, migrated: false, version: 0})
+          cust.update_attributes(published: true, customization_of: template.dmptemplate_id, visibility: Template.visibilities[:organisationally_visible])
+        elsif template.title == 'Funder public published A'
+          cust = Template.create!({ title: 'UOS customization of Funder public published A', org: institution_org, migrated: false, version: 0})
+          cust.update_attributes(published: false, customization_of: template.dmptemplate_id, visibility: Template.visibilities[:organisationally_visible])
+        end
+      rescue ActiveRecord::RecordInvalid
+        puts "EXCEPTION: #{template.errors.collect{ |e, m| "#{e}: #{m}" }.join(', ')}"
+      end 
+    end
+  end
+  
+  def verify_all_templates_table(user)
+    if user.can_super_admin?
+      assert_select "#all-templates table tbody", true, "expected a super admin to be able to see the all templates table"
+    else
+      assert_select "#all-templates table tbody", false, "expected a non-super admin to NOT see the all templates table"
+    end
+  end
+  
+  def verify_own_templates_table(user)
+    assert_select "#organisation-templates table tbody" do |el|
+      templates = Template.where(org: user.org, customization_of: nil)
+      
+      # Org Admins (funder or non-funder)
+      if user.can_org_admin?
+        # An Org Admin (for a non-funder Org) should only see their current templates in the own templates table
+        templates.each do |template|
+          # Expect to see the most current version of organisational templates
+          current = Template.current(template.dmptemplate_id)
+          if template == current
+            assert el.to_s.include?(template.title), "expected #{user.email}'s own templates table to have the institutional template: '#{template.title}'"
+          else
+            assert_not el.to_s.include?(template.title), "expected #{user.email}'s own templates table to NOT have an older version of an the org's template: '#{template.title}'"
+          end
+        end
+
+        # Expect to see no templates for other orgs in the own templates table
+        Template.where.not(id: templates.collect(&:id)).each do |template|
+          assert_not el.to_s.include?(template.title), " expected #{user.email}'s own templates table to NOT have: '#{template.title}'"
+        end
+
+        # Expect the funder templates table to contain NO 'Edit/Publish menus
+        assert_not el.to_s.include?('Customise'), "expected #{user.email}'s own templates table to NOT contain any of the Customization menu items in the funder templates table"
+      end
+    end
+  end
+  
+  def verify_funder_templates_table(user)
+    assert_select "#funder-templates table tbody" do |el|
+      # An Org Admin should see all of the funder/default templates (except ones that belong to their org)
+      templates = Template.where("(org_id IN (?) OR is_default = ?) AND org_id != ?", Org.where(org_type: [2,3]).collect(&:id), true, user.org.id)
+      if user.can_org_admin?
+        templates.each do |template|
+          # Expect to only see published public templates
+          if template.publicly_visible? && template.published?
+            assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have the funder (or default) template: '#{template.title}'" 
+          else
+            assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the unpublished/non-public funder template: '#{template.title}' (from org: #{template.org.abbreviation})"
+          end
+        end
+
+        # Expect to see only the current org's customizations
+        Template.where.not(id: templates.collect(&:id)).each do |template|
+          if template.customization_of.nil?
+            assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the template from a non-funder org: '#{template.title}'"
+          else
+            if template.org == user.org
+              assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have their own customization: '#{template.title}'" 
+            else
+              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have a customization from another organisation: '#{template.title}'"
+            end
+          end
+        end
+      end
+    end
+  end
+  
+  def verify_templates_table_scoping(path, selector, published, unpublished)
+    get "#{path}?scope=published"
+    assert_select "table tbody" do |el|
+      published.each do |template|
+        assert el.to_s.include?(template.title), "expected to see '#{template.title}' in #{selector} after clicking the 'published' predefined scope"
+      end
+      unpublished.each do |template|
+        assert_not el.to_s.include?(template.title), "expected to NOT see '#{template.title}' in #{selector} after clicking the 'published' predefined scope"
+      end
+    end
+    
+    get "#{path}?scope=unpublished"
+    assert_select "table tbody" do |el|
+      published.each do |template|
+        assert_not el.to_s.include?(template.title), "expected to NOT see '#{template.title}' in #{selector} after clicking the 'unpublished' predefined scope"
+      end
+      unpublished.each do |template|
+        assert el.to_s.include?(template.title), "expected to see '#{template.title}' #{selector} after clicking the 'unpublished' predefined scope"
+      end
+    end
+    
+    get "#{path}?scope=all"
+    assert_select "table tbody" do |el|
+      published.each do |template|
+        assert el.to_s.include?(template.title), "expected to see '#{template.title}' in #{selector} after clicking the 'all' predefined scope"
+      end
+      unpublished.each do |template|
+        assert el.to_s.include?(template.title), "expected to see '#{template.title}' in #{selector} after clicking the 'all' predefined scope"
+      end
+    end
   end
 end
