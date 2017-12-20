@@ -20,43 +20,63 @@
     </p>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
-      <li role="organisation-templates" class="active">
-        <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('Organisation Templates') : _('Own Templates') %></a>
+      <% if current_user.can_super_admin? %>
+        <li role="all-templates" class="active">
+          <a href="#all-templates" role="tab" aria-controls="all-templates" data-toggle="tab"><%= _('All Templates') %></a>
+        </li>
+      <% end %>
+      <li role="organisation-templates" class="<%= !current_user.can_super_admin? ? 'active' : '' %>">
+        <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></a>
       </li>
       <li role="funder-templates">
-        <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('Funder Templates') : _('Customizable Templates') %></a>
+        <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
       </li>
     </ul>
   
     <div class="tab-content">
-      <div id="organisation-templates" role="tabpanel" class="tab-pane active">
-        <h2><%= _('Organisation Templates') %></h2>
-        <% if org_templates.length > 0 %>
+      <% if current_user.can_super_admin? %>
+        <div id="all-templates" role="tabpanel" class="tab-pane active">
+          <h2><%= _('All Templates') %></h2>
+          <% if all_templates.length > 0 %>
+            <%= paginable_renderise(
+              partial: 'templates_list',
+              controller: 'org_admin/templates',
+              action: 'all', 
+              scope: all_templates,
+              locals: {current_org: current_org.id, published: published, scopes: scopes[:all], hide_actions: true}) %>
+          <% else %>
+            <p><%= _('There are currently no templates.') %></p>
+          <% end %>
+        </div>
+      <% end %>
+      <div id="organisation-templates" role="tabpanel" class="tab-pane<%= !current_user.can_super_admin? ? ' active' : '' %>">
+        <h2><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></h2>
+        <% if own_templates.length > 0 %>
           <%= paginable_renderise(
             partial: 'templates_list',
             controller: 'org_admin/templates',
             action: 'orgs', 
-            scope: org_templates,
-            locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs]}) %>
+            scope: own_templates,
+            locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs], hide_actions: false}) %>
         <% else %>
-          <p><%= _('There are currently no templates defined for your organisation.') %>
+          <p><%= _('There are currently no templates defined for your organisation.') %></p>
         <% end %>
       </div>
+      <!-- If the Org is not just a funder then show the customizations table -->
       <div id="funder-templates" role="tabpanel" class="tab-pane">
-        <h2><%= current_user.can_super_admin? ? _('Funder Templates') : _('Customizable Templates') %></h2>
-        <% if funder_templates.length > 0 %>
+        <h2><%= _('Customizable Templates') %></h2>
+        <% if customizable_templates.length > 0 %>
           <%= paginable_renderise(
             partial: 'funder_templates_list',
             controller: 'org_admin/templates',
             action: 'funders', 
-            scope: funder_templates,
+            scope: customizable_templates,
             locals: {current_org: current_org.id, customizations: customized_templates, published: published, scopes: scopes[:funders]}) %>
         <% else %>
-          <p><%= _('There are currently no funder templates.') %>
+          <p><%= _('There are currently no customisable templates.') %></p>
         <% end %>
       </div>
     </div>
