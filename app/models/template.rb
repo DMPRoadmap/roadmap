@@ -17,7 +17,7 @@ class Template < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of, 
+  attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of,
                   :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
                   :migrated, :version, :visibility, :published, :as => [:default, :admin]
 
@@ -33,14 +33,18 @@ class Template < ActiveRecord::Base
     Template.all.valid.distinct.pluck(:dmptemplate_id)
   end
 
-  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id 
+  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id
   def self.current(dmptemplate_id)
     Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
   end
-  
-  # Retrieves the current published version of the template for the specified Org and dmptemplate_id  
+
+  # Retrieves the current published version of the template for the specified Org and dmptemplate_id
   def self.live(dmptemplate_id)
     Template.where(dmptemplate_id: dmptemplate_id, published: true).valid.first
+  end
+
+  def self.default
+    Template.valid.where(is_default: true, published: true).order(:version).last
   end
 
   ##
@@ -79,8 +83,8 @@ class Template < ActiveRecord::Base
 
   ##
   # convert the given template to a hash and return with all it's associations
-  # to use, please pre-fetch org, phases, section, questions, annotations, 
-  #   question_options, question_formats, 
+  # to use, please pre-fetch org, phases, section, questions, annotations,
+  #   question_options, question_formats,
   # TODO: Themes & guidance?
   #
   # @return [hash] hash of template, phases, sections, questions, question_options, annotations
@@ -145,7 +149,7 @@ class Template < ActiveRecord::Base
       self.visibility = 1
       self.is_default = false
       self.version = 0 if self.version.nil?
-    
+
       # Generate a unique identifier for the dmptemplate_id if necessary
       if self.dmptemplate_id.nil?
         self.dmptemplate_id = loop do
