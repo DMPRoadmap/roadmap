@@ -19,6 +19,7 @@
     <!-- render navigation tabs for the template -->
     <%= render partial: "/org_admin/templates/admin_nav_tabs", locals: { template: @template, active: @phase.id } %>
     <!-- render phase below -->
-    <%= render partial: '/phases/edit_plan_answers', locals: { plan: nil, phase: @phase, readonly: true, question_guidance: {} } %>
+    <%= render partial: '/phases/edit_plan_answers', locals: { plan: nil, phase: @phase, readonly: true, question_guidance: {},
+                                                               guidance_groups: [] } %>
   </div>
 </div>

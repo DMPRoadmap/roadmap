@@ -258,84 +258,87 @@ class Plan < ActiveRecord::Base
     end
   end
 
-   ##
-  # returns the guidances associated with the project's organisation, for a specified question
-  #
-  # @param question [Question] the question to find guidance for
-  # @return array of hashes with orgname, themes and the guidance itself
-  def guidance_for_question(question)
-    guidances = []
+  # Returns all of the plan's available guidance by question as a hash for use on the write plan page
+  # {
+  #   QUESTION: {
+  #     GUIDANCE_GROUP: {
+  #       THEME: [GUIDANCE, GUIDANCE],
+  #       THEME: [GUIDANCE]
+  #     }
+  #   }
+  # }
+  def guidance_by_question_as_hash
+    # Get all of the selected guidance groups for the plan
+    guidance_groups_ids = self.guidance_groups.collect(&:id)
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
 
-    # add in the guidance for the template org
-    unless self.template.org.nil? then
-      self.template.org.guidance_groups.each do |group|
-        group.guidances.each do |guidance|
-          common_themes = guidance.themes.all & question.themes.all
-          if common_themes.length > 0
-            guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+    # Gather all of the Themes used in the plan as a hash
+    # {
+    #  QUESTION: [THEME, THEME], 
+    #  QUESTION: [THEME]
+    # }
+    question_themes = {}
+    themes_used = []
+    self.questions.joins(:themes).pluck('questions.id', 'themes.title').each do |qt|
+      themes_used << qt[1] unless themes_used.include?(qt[1])
+      question_themes[qt[0]] = [] unless question_themes[qt[0]].present?
+      question_themes[qt[0]] << qt[1] unless question_themes[qt[0]].include?(qt[1])
+    end
+
+    # Gather all of the Guidance available for the themes used in the plan as a hash
+    # {
+    #  THEME: {
+    #    GUIDANCE_GROUP: [GUIDANCE, GUIDANCE], 
+    #    GUIDANCE_GROUP: [GUIDANCE]
+    #  }
+    # }
+    theme_guidance = {}
+    GuidanceGroup.includes(guidances: :themes).joins(:guidances).
+          where('guidance_groups.published = ? AND guidances.published = ? AND themes.title IN (?) AND guidance_groups.id IN (?)', true, true, themes_used, guidance_groups.collect(&:id)).
+          pluck('guidance_groups.name', 'themes.title', 'guidances.text').each do |tg|
+      
+      theme_guidance[tg[1]] = {} unless theme_guidance[tg[1]].present?
+      theme_guidance[tg[1]][tg[0]] = [] unless theme_guidance[tg[1]][tg[0]].present?
+      theme_guidance[tg[1]][tg[0]] << tg[2] unless theme_guidance[tg[1]][tg[0]].include?(tg[2])
+    end
+    
+    # Generate a hash for the view that contains all of a question guidance
+    # {
+    #   QUESTION: {
+    #     GUIDANCE_GROUP: {
+    #       THEME: [GUIDANCE, GUIDANCE],
+    #       THEME: [GUIDANCE]
+    #     }
+    #   }
+    # }
+    question_guidance = {}
+    question_themes.keys.each do |question|
+      ggs = {}
+      # Gather all of the guidance groups applicable to the themes assigned to the question
+      groups = []
+      question_themes[question].each do |theme|
+        groups << theme_guidance[theme].keys if theme_guidance[theme].present?
+      end
+        
+      # Loop through all of the applicable guidance groups and collect their themed guidance
+      groups.flatten.uniq.each do |guidance_group|
+        guidances_by_theme = {}
+        
+        # Collect all of the guidances for each theme used by the question
+        question_themes[question].each do |theme|
+          if theme_guidance[theme].present? && theme_guidance[theme][guidance_group].present?
+            guidances_by_theme[theme] = [] unless guidances_by_theme[theme].present?
+            guidances_by_theme[theme] = theme_guidance[theme][guidance_group]
           end
         end
+
+        ggs[guidance_group] = guidances_by_theme unless ggs[guidance_group]
       end
+      
+      question_guidance[question] = ggs
     end
-
-    # add in the guidance for the user's org
-    unless self.owner.nil?
-      unless self.owner.org.nil? then
-        self.owner.org.guidance_groups.each do |group|
-          group.guidances.each do |guidance|
-            common_themes = guidance.themes.all & question.themes.all
-            if common_themes.length > 0
-              guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
-            end
-          end
-        end
-      end
-    end
-
-    # Get guidance by theme from any guidance groups currently selected
-    self.guidance_groups.each do |group|
-      group.guidances.each do |guidance|
-        common_themes = guidance.themes.all & question.themes.all
-        if common_themes.length > 0
-          guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
-        end
-      end
-    end
-
-    return guidances
-  end
-
-
-
-
-  ##
-  # adds the given guidance to a hash indexed by a passed guidance group and theme
-  #
-  # @param guidance_array [{GuidanceGroup => {Theme => Array<Gudiance>}}] the passed hash of arrays of guidances.  Indexed by GuidanceGroup and Theme.
-  # @param guidance_group [GuidanceGroup] the guidance_group index of the hash
-  # @param theme [Theme] the theme object for the GuidanceGroup
-  # @param guidance [Guidance] the guidance object to be appended to the correct section of the array
-  # @return [{GuidanceGroup => {Theme => Array<Guidance>}}] the updated object which was passed in
-  def add_guidance_to_array(guidance_array, guidance_group, theme, guidance)
-    if guidance_array[guidance_group].nil? then
-      guidance_array[guidance_group] = {}
-    end
-    if theme.nil? then
-      if guidance_array[guidance_group]["no_theme"].nil? then
-        guidance_array[guidance_group]["no_theme"] = []
-      end
-      if !guidance_array[guidance_group]["no_theme"].include?(guidance) then
-        guidance_array[guidance_group]["no_theme"].push(guidance)
-      end
-    else
-      if guidance_array[guidance_group][theme].nil? then
-        guidance_array[guidance_group][theme] = []
-      end
-      if !guidance_array[guidance_group][theme].include?(guidance) then
-        guidance_array[guidance_group][theme].push(guidance)
-      end
-    end
-      return guidance_array
+    
+    question_guidance
   end
 
   ##
