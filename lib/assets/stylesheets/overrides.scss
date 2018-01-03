@@ -185,12 +185,12 @@ $cancel-button-color: #F17D04;
 }
 
 /* Popover button */
-.btn-default[data-toggle=popover],
-.btn-default:hover[data-toggle=popover],
-.btn-default:focus[data-toggle=popover],
-.btn-default:active[data-toggle=popover],
-.btn-default:visited[data-toggle=popover],
-.btn-default:active:hover[data-toggle=popover] {
+.btn-default[data-toggle=tooltip],
+.btn-default:hover[data-toggle=tooltip],
+.btn-default:focus[data-toggle=tooltip],
+.btn-default:active[data-toggle=tooltip],
+.btn-default:visited[data-toggle=tooltip],
+.btn-default:active:hover[data-toggle=tooltip] {
   color: $grey;
   background-color: $white;
   border: none;
