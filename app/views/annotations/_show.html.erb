@@ -2,11 +2,11 @@
 <% if example_answer.present? || guidance.present? %>
   <dl<%= for_plan ? ' class="dl-horizontal"' : '' %>>
     <% if example_answer.present? %>
-      <dt><%= "#{for_plan ? "#{org} " : ''}#{_('Example answer')}" %></dt>
+      <dt><%= _('Example answer') %></dt>
       <dd><%= raw example_answer.text %><dd>
     <% end %>
     <% if guidance.present? %>
-      <dt><%= "#{for_plan ? "#{org} " : ''}#{_('Guidance')}" %></dt>
+      <dt><%= _('Guidance') %></dt>
       <dd><%= raw guidance.text %></dd>
     <% end %>
   </dl>
