@@ -13,7 +13,9 @@
       <% if scopes.present? %>
         <tr><th colspan="5" class="sorter-false table-scope"><ul class="nav navbar-nav">
           <% scopes.keys.each do |k| %>
-            <li><%= link_to "#{k.capitalize} (#{scopes[k]})", "#{funders_org_admin_templates_path(1)}?scope=#{k}", class: 'template-scope', 'data-remote': true %></li>
+            <% unless k == :dmptemplate_ids %>
+              <li><%= link_to "#{k.capitalize} (#{scopes[k]})", "#{funders_org_admin_templates_path(1)}?scope=#{k}", class: 'template-scope', 'data-remote': true %></li>
+            <% end %>
           <% end %>
         </ul></th></tr>
       <% end %>
@@ -30,36 +32,28 @@
       <% customization = customizations[template.dmptemplate_id] %>
       <tr>
         <td>
-          <%= template.title %>
+          <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
         </td>
           <td>
             <%= raw template.org.name %>
           </td>
           <td>
-            <% if current_user.can_super_admin? %>
-              <% if !published[template.dmptemplate_id].present? %>
-                <%= _('Unpublished') %>
-              <% elsif template.dirty? %>
-                <%= _('Unpublished changes') %>
-              <% else %>
+            <% if customization.present? %>
+              <!-- If the original funder template has been changed -->
+              <% if customization.updated_at < template.updated_at %>
+                <%= _('Original funder template has changed!')%>
+              <% elsif !template.published? %>
+                <!-- The template does not have a live version -->
+                <%= b_label = _('Funder version is un-published') %>
+              <% elsif customization.dirty? %>
+                <%= _('You have un-published changes') %>
+              <% elsif customization.published? %>
                 <%= _('Published') %>
+              <% else %>
+                <%= _('Unpublished') %>
               <% end %>
             <% else %>
-              <% if customization.present? %>
-                <!-- If the original funder template has been changed -->
-                <% if customization.updated_at < template.updated_at %>
-                  <%= _('Original funder template has changed!')%>
-                <% elsif !template.published? %>
-                  <!-- The template does not have a live version -->
-                  <%= b_label = _('Funder version is un-published') %>
-                <% elsif customization.dirty? %>
-                  <%= _('You have un-published changes') %>
-                <% else %>
-                  <%= _('Published') %>
-                <% end %>
-              <% else %>
-                <%= _('Not Customised') %>
-              <% end %>
+              <%= _('Not Customised') %>
             <% end %>
           </td>
           <td>
@@ -67,52 +61,30 @@
             <%= l last_temp_updated.to_date, formats: :short %>
           </td>
           <td>
-            <div class="dropdown<%= (!current_user.can_super_admin? || (current_user.can_super_admin? && current_org == template.org.id)) ? '' : ' hide'%>">
-              <% # Span used to trigger the display of the action dropdowns via JS %>
-              <span class="super-admin-template-org hide"><%= template.org.id %></span>
-
+            <div class="dropdown">
               <button class="btn btn-link dropdown-toggle" type="button"
                       data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="true">
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <% if current_user.can_super_admin? %>
-                  <li><%= link_to _('Edit'), edit_org_admin_template_path(id: template.id, edit: "true") %></li>
-                  <li><%= link_to _('History'), history_org_admin_template_path(id: template.id) %></li>
-                  <% if !published[template.dmptemplate_id].present? %>
-                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template) %></li>
-                  <% elsif template.dirty? %>
-                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template) %></li>
+                <% if !customization.present? %>
+                  <li><%= link_to _('Customise'), customize_org_admin_template_path(template) %></li>
+                <% else %>
+                  <% if customization.updated_at < template.updated_at %>
+                    <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(template) %></li>
                   <% else %>
-                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template) %></li>
-                  <% end %>
-                  <li><%= link_to _('Copy'), copy_org_admin_template_path(template) %></li>
-                  <% if template.plans.length <= 0 %>
-                    <li>
-                      <%= link_to _('Remove'), org_admin_template_path(id: template.id), 'data-method': 'delete', rel: 'nofollow',
-                          'data-confirm': _('Are you sure you want to remove "%{template_title}"?') % { template_title: template.title} %>
-                    </li>
-                  <% end %>
-
-                  <% if !customization.present? %>
-                    <li><%= link_to _('Customise'), customize_org_admin_template_path(template) %></li>
-                  <% else %>
-                    <% if customization.updated_at < template.updated_at %>
-                      <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(template) %></li>
+                    <li><%= link_to _('Edit customisation'), edit_org_admin_template_path(id: customization.id, edit: "true") %></li>
+                    <% if !customization.published? %>
+                      <li><%= link_to _('Publish'), publish_org_admin_template_path(customization) %></li>
                     <% else %>
-                      <li><%= link_to _('Edit customisation'), edit_org_admin_template_path(id: customization.id, edit: "true") %></li>
-                      <% if !customization.published? %>
-                        <li><%= link_to _('Publish'), publish_org_admin_template_path(customization) %></li>
-                      <% else %>
-                        <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template) %></li>
-                      <% end %>
-                      <% if customization.plans.length <= 0 %>
-                        <li>
-                          <%= link_to _('Remove'), org_admin_template_path(id: customization.id), 'data-method': 'delete', rel: 'nofollow',
-                              'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"?') % { template_title: customization.title} %>
-                        </li>
-                      <% end %>
+                      <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization) %></li>
+                    <% end %>
+                    <% if customization.plans.length <= 0 %>
+                      <li>
+                        <%= link_to _('Remove'), org_admin_template_path(id: customization.id), 'data-method': 'delete', rel: 'nofollow',
+                            'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"?') % { template_title: customization.title} %>
+                      </li>
                     <% end %>
                   <% end %>
                 <% end %>

@@ -165,7 +165,7 @@ token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermi
 orgs = [
   {name: Rails.configuration.branding[:organisation][:name],
    abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
-   org_type: 3, links: {"org":[]},
+   org_type: 4, links: {"org":[]},
    language_id: Language.find_by(abbreviation: 'en_GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
@@ -354,7 +354,7 @@ templates = [
    migrated: false,
    dmptemplate_id: 1,
    visibility: Template.visibilities[:publicly_visible],
-   links: '{"funder":[],"sample_plan":[]}'},
+   links: {"funder":[],"sample_plan":[]}},
   
   {title: "OLD - Department of Testing Award",
    published: false,
@@ -364,7 +364,7 @@ templates = [
    migrated: false,
    visibility: Template.visibilities[:organisationally_visible],
    dmptemplate_id: 2,
-   links: '{"funder":[],"sample_plan":[]}'},
+   links: {"funder":[],"sample_plan":[]}},
      
   {title: "Department of Testing Award",
    published: true,
@@ -374,7 +374,7 @@ templates = [
    migrated: false,
    visibility: Template.visibilities[:organisationally_visible],
    dmptemplate_id: 3,
-   links: '{"funder":[],"sample_plan":[]}'}
+   links: {"funder":[],"sample_plan":[]}}
 ]
 # Template creation calls defaults handler which sets is_default and 
 # published to false automatically, so update them after creation

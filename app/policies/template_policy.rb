@@ -44,6 +44,9 @@ class TemplatePolicy < ApplicationPolicy
   end
   
   # Pagination 
+  def all?
+    user.can_super_admin?
+  end
   def funders?
     user.can_super_admin? || user.can_modify_templates?
   end
