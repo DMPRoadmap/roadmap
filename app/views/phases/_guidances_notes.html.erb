@@ -7,14 +7,14 @@
   <ul class="nav nav-pills nav-justified" role="tablist">
       <% if guidances_active %>
           <li role="presentation" class="active">
-              <a href="#guidances-<%= question.id %>" aria-controls="guidances-<%= question.id %>" role="tab" data-toggle="tab">
+              <a href="#guidances-<%= question.id %>" aria-controls="guidances-<%= question.id %>" role="tab" data-toggle="pill">
                   <%= _('Guidance') %>
               </a>
           </li>
       <% end %>
       <% if plan.present? %>
           <li role="presentation" class="<%= 'active' if !guidances_active %>">
-              <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="tab">
+              <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="pill">
                   <span id="notes-title-<%= question.id %>">
                       <%= render partial: '/notes/title', locals: { answer: answer } %>
                   </span>
