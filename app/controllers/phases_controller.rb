@@ -14,65 +14,17 @@ class PhasesController < ApplicationController
     phase_id = params[:id].to_i
     phase = plan.template.phases.select {|p| p.id == phase_id}.first
     readonly = !plan.editable_by?(current_user.id)
-
-    # Now we need to get all the themed guidance for the plan.
-    # TODO: think this through again, there may be a better way to do this.
-    #
-    # Ultimately we are heading to a map from question id to theme to guidance.
-    #
-    # get the ids of the dynamically selected guidance groups
-    # and keep a map of them so we can extract the names later
-    guidance_groups_ids = plan.guidance_groups.map{|pgg| pgg.id}
-    guidance_groups =  GuidanceGroup.includes({guidances: :themes}).where(published: true, id: guidance_groups_ids)
-
-    # create a map from theme to array of guidances
-    # where guidance is a hash with the text and the org name
-    theme_guidance = {}
-
-    guidance_groups.includes(guidances:[:themes]).each do |guidance_group|
-      guidance_group.guidances.each do |guidance|
-        if guidance.published
-          guidance.themes.each do |theme|
-            title = theme.title
-            if !theme_guidance.has_key?(title)
-              theme_guidance[title] = Array.new
-            end
-            theme_guidance[title] << {
-              text: guidance.text,
-              org: guidance_group.name + ':'
-            }
-          end
-        end
-      end
-    end
-
-    # create hash from question id to theme to guidance array
-    # so when we arerendering a question we can grab the guidance out of this
-    #
-    # question_guidance = {
-    #              question.id => {
-    #                      theme => [ {text: "......", org: "....."} ]
-    #              }
-    # }
-    question_guidance = {}
-    plan.questions.each do |question|
-      qg = {}
-      question.themes.each do |t|
-        title = t.title
-        qg[title] = theme_guidance[title] if theme_guidance.has_key?(title)
-      end
-      if !question_guidance.has_key?(question.id)
-        question_guidance[question.id] = Array.new
-      end
-      question_guidance[question.id] = qg
-    end
-
+    guidance_groups_ids = plan.guidance_groups.collect(&:id)
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    
     if !user_signed_in? then
       respond_to do |format|
         format.html { redirect_to edit_user_registration_path }
       end
-    else 
-      render('/phases/edit', locals: { plan: plan, phase: phase, readonly: readonly, question_guidance: question_guidance })
+    else
+      render('/phases/edit', locals: { plan: plan, phase: phase, readonly: readonly, 
+                                       question_guidance: plan.guidance_by_question_as_hash,
+                                       guidance_groups: guidance_groups })
     end
   end
 
