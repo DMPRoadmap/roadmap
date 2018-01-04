@@ -3,6 +3,7 @@ require 'test_helper'
 class PlanTest < ActiveSupport::TestCase
 
   setup do
+
     @org = Org.first
     @template = Template.first
 
@@ -74,7 +75,13 @@ class PlanTest < ActiveSupport::TestCase
     # Create a new theme and attach it to our template's question and a guidance group
     t = Theme.create!(title: 'Test A')
     q = @template.phases.first.sections.first.questions.first
-    g = GuidanceGroup.first.guidances.first
+    # This is to make the default guidance group created in callback to be published.
+    # This ensures the selected gudiance group test passes with appropriate GuidanceGroup.
+    gug = @org.guidance_groups.first
+    gug.published = true
+    gug.save!
+    g = gug.guidances.first
+
     g.themes << t
     g.save
     q.themes << t
@@ -86,7 +93,7 @@ class PlanTest < ActiveSupport::TestCase
     g = Guidance.create!(text: 'Testing guidance', guidance_group: gg, themes: [t])
 
     pggs = @plan.get_guidance_group_options
-    assert pggs.include?(GuidanceGroup.first)
+    assert pggs.include?(gug)
     assert_not pggs.include?(gg)
   end
 
