@@ -192,5 +192,11 @@ class OrgTest < ActiveSupport::TestCase
     tpt = TokenPermissionType.new(token_type: 'testing')
     verify_has_many_relationship(@org, tpt, @org.token_permission_types.count)
   end
-  
+
+  # ---------------------------------------------------
+  test "Guidance Group should be created after_create of the Org" do
+    org = Org.create!(name: 'Testing Guidance Group for Org', abbreviation: 'TGG', links: {"org":[]})
+    assert_equal org.guidance_groups.count, 1
+    org.destroy! 
+  end
 end

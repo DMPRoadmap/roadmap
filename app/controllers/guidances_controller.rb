@@ -42,9 +42,18 @@ class GuidancesController < ApplicationController
       guidance_params[:theme_ids].map{|t| guidance.themes << Theme.find(t.to_i) unless t.empty? }
     end
 
+    guidance_group = GuidanceGroup.where(id: guidance.guidance_group_id).first
+    unless guidance_group.nil?
+      if !guidance_group.published? || guidance_group.published.nil?
+        guidance_group.published = true
+        guidance_group.save
+      end
+    end
+    
     if guidance.save
       flash[:notice] = success_message(_('guidance'), _('created'))
       redirect_to(action: :admin_index)
+
     else
       flash[:alert] = failed_create_error(guidance, _('guidance'))
       redirect_to(action: :admin_index)
@@ -57,7 +66,15 @@ class GuidancesController < ApplicationController
     guidance = Guidance.find(params[:id])
     authorize guidance
     guidance.text = params["guidance-text"]
-    
+  
+    guidance_group = GuidanceGroup.where(id: guidance.guidance_group_id).first
+    unless guidance_group.nil?
+      if !guidance_group.published? || guidance_group.published.nil?
+        guidance_group.published = true
+        guidance_group.save
+      end
+    end  
+
     if guidance.update_attributes(guidance_params)
       flash[:notice] = success_message(_('guidance'), _('saved')) 
       redirect_to(action: :admin_index)
