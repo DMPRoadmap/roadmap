@@ -1,7 +1,10 @@
 <%# locals: { phase } %>
 <div class="row">
   <div class="col-xs-12">
-    <h4><%= _('Instructions') %></h4>
+    <h4>
+      <%= _('Instructions') %>
+      <a href="<%= edit_plan_phase_path(plan_id, phase) %>" class="btn btn-default pull-right"><%= _('Write plan') %></a>
+    </h4>
     <p class="text-justify">
       <%= raw(phase.description) %>
     </p>
