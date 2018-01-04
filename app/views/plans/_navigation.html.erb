@@ -1,6 +1,6 @@
 <% phases = Phase.titles(plan.template.id) %>
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="<%= (isActivePage(plan_path(plan)) ? 'active' : '') %>">
+  <li role="presentation" class="<%= (isActivePage(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
   </li>
   <li role="presentation" class="<%= (isActivePage(overview_plan_path(plan)) ? 'active' : '') %>">
