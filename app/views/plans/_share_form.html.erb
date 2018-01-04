@@ -82,13 +82,13 @@
   <div class="form-group col-xs-8">
     <p><strong><%= _('Permissions') %></strong></p>
     <div class="radio">
-      <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view and comment, but not make changes')}") %>
+      <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
     </div>
     <div class="radio">
       <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
     </div>
     <div class="radio">
-      <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
+      <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view and comment, but not make changes')}") %>
     </div>
 
     <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
