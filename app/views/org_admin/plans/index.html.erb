@@ -35,6 +35,7 @@
     <% end %>
 
     <% if @plans.length > 0 %>
+      <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
       <div class="table-responsive">
         <table class="table table-hover tablesorter" id="my-plans">
           <thead>
