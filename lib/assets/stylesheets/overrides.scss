@@ -408,11 +408,11 @@ $tooltip-background: $grey;
   top: 0;
   right: 0;
   margin-top: 2px;
-  margin-right: -35px;
+  margin-right: -28px;
   border: none;
   background: transparent;
   color: $grey;
-  padding-top: 3px;
+  padding-top: 4px;
   font-size: 16pt;
 }
 
@@ -435,3 +435,14 @@ $tooltip-background: $grey;
   strong { margin: 0 10px; }
 }
 
+/* Plan creation */
+.create-plan-or {
+  padding: 5px 0 0 15px;
+}
+.create-plan-checkbox {
+  margin-left: -40px;
+  margin-top: -5px;
+}
+.create-plan-mock {
+  margin-left: -40px;
+}
