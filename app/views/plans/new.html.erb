@@ -19,7 +19,8 @@
                 'data-toggle': 'tooltip',
                 title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
         </div>
-        <div class="col-xs-6 checkbox">
+        <div class="col-md-1">&nbsp;</div>
+        <div class="col-xs-5 checkbox create-plan-mock">
           <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{_('mock project for testing, practice, or educational purposes')}")) %>
         </div>
       </div>
@@ -27,7 +28,7 @@
       <!-- Organisation selection -->
       <h2 id="research-org"><%= _('Select the primary research organisation') %></h2>
       <div class="form-group row">
-        <div class="col-xs-6">
+        <div class="col-md-6">
           <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[org_name]',
                               id: 'plan_org_name',
@@ -38,8 +39,11 @@
                               error: _('You must select a research organisation from the list.'),
                               tooltip: _('Please select a valid research organisation from the list.')} %>
         </div>
-        <div class="col-xs-6 checkbox">
-          <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{_('My research organisation is not on the list')} <em>#{_(' or ')}</em> #{_('no research organisation is associated with this plan')}")) %>
+        <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
+        <div class="col-md-5 create-plan-checkbox">
+          <div class="checkbox">
+            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{_('My research organisation is not on the list')} <em>#{_(' or ')}</em> #{_('no research organisation is associated with this plan')}")) %>
+          </div>
         </div>
       </div>
   
@@ -57,8 +61,11 @@
                               error: _('You must select a funding organisation from the list.'),
                               tooltip: _('Please select a valid funding organisation from the list.')} %>
         </div>
-        <div class="col-xs-6 checkbox">
-          <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{_('No funder associated with this plan')}")) %>
+        <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
+        <div class="col-xs-5 create-plan-checkbox">
+          <div class="checkbox">
+            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{_('No funder associated with this plan')}")) %>
+          </div>
         </div>
       </div>
 
