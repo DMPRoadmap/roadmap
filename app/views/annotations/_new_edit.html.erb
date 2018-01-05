@@ -15,7 +15,7 @@
       <div class="pull-right">
         <%= submit_tag _('Save'), class: 'btn btn-primary' %>
         <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-        <%= link_to _('Cancel'), "#edit_annotations_div_#{question.id}", class: 'btn cancel btn-default cancel_edit_annotations', role: 'button' %>
+        <%= link_to _('Cancel'), "#annotations_div_#{question.id}", class: 'btn cancel btn-default cancel_edit_annotations', role: 'button' %>
       </div>
     </div>
   </div>
