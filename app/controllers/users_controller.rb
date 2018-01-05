@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     redirect_to "#{edit_user_registration_path}\#notification-preferences", notice: success_message(_('preferences'), _('saved'))
   end
 
-  # PUT /users/:id/org_swap  (AJAX)
+  # PUT /users/:id/org_swap
   # -----------------------------------------------------
   def org_swap
     # Allows the user to swap their org affiliation on the fly
@@ -87,16 +87,12 @@ class UsersController < ApplicationController
     if org.present?
       current_user.org = org
       if current_user.save!
-        render json: {
-          msg: _('Your organisation affiliation has been changed. You may now edit templates for %{org_name}.') % {org_name: current_user.org.name}
-        }.to_json
+        redirect_to request.referer, notice: _('Your organisation affiliation has been changed. You may now edit templates for %{org_name}.') % {org_name: current_user.org.name}
       else
-        render json: {
-          err: _('Unable to change your organisation affiliation at this time.')
-        }.to_json
+        redirect_to request.referer, alert: _('Unable to change your organisation affiliation at this time.')
       end
     else
-      render json: {}.to_json
+      redirect_to request.referer, alert: _('Unknown organisation.')
     end
   end
   

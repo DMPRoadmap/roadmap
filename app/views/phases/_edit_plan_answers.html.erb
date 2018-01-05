@@ -1,4 +1,4 @@
-<%# locals: { plan, phase, readonly, question_guidance } %>
+<%# locals: { plan, phase, readonly, question_guidance, guidance_groups } %>
 <div class="tab-panels" role="tabpanel">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-4">
                   <!-- Guidances and notes partial view -->
-                  <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance } %>
+                  <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups } %>
                 </div>
               </div>
             <% end %> <!-- section.questions.each do -->

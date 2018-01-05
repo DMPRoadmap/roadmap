@@ -16,7 +16,7 @@
 <div class="row">
   <div class="col-xs-12">
     <% if plan.template.phases.size == 1 %>
-      <%= render(partial: '/phases/overview', locals: { phase: plan.template.phases.first }) %>
+      <%= render(partial: '/phases/overview', locals: { plan_id: plan.id, phase: plan.template.phases.first }) %>
     <% else %>
       <div class="panel-group" id="plan-overview-accordion" role="tablist" aria-multiselectable="true">
         <% plan.template.phases.each do |p| %>
@@ -38,7 +38,7 @@
             </div>
             <div id="plan-overview-collapse-<%= p.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="plan-overview-heading-<%= p.id %>">
               <div class="panel-body">
-                <%= render(partial: '/phases/overview', locals: { phase: p }) %>
+                <%= render(partial: '/phases/overview', locals: { plan_id: plan.id, phase: p }) %>
               </div>
             </div>
           </div>

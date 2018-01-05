@@ -3,6 +3,7 @@ require 'test_helper'
 class PlanTest < ActiveSupport::TestCase
 
   setup do
+
     @org = Org.first
     @template = Template.first
 
@@ -74,7 +75,13 @@ class PlanTest < ActiveSupport::TestCase
     # Create a new theme and attach it to our template's question and a guidance group
     t = Theme.create!(title: 'Test A')
     q = @template.phases.first.sections.first.questions.first
-    g = GuidanceGroup.first.guidances.first
+    # This is to make the default guidance group created in callback to be published.
+    # This ensures the selected gudiance group test passes with appropriate GuidanceGroup.
+    gug = @org.guidance_groups.first
+    gug.published = true
+    gug.save!
+    g = gug.guidances.first
+
     g.themes << t
     g.save
     q.themes << t
@@ -86,52 +93,31 @@ class PlanTest < ActiveSupport::TestCase
     g = Guidance.create!(text: 'Testing guidance', guidance_group: gg, themes: [t])
 
     pggs = @plan.get_guidance_group_options
-    assert pggs.include?(GuidanceGroup.first)
+    assert pggs.include?(gug)
     assert_not pggs.include?(gg)
   end
 
   # ---------------------------------------------------
-  test "retrieves the selected guidance for a specific question" do
-    q = @template.phases.first.sections.first.questions.first
-
-    ['By Template', 'By Org', 'Selected'].each do |txt|
-      t = Theme.create!(title: "Theme test for - #{txt}")
-      gg = GuidanceGroup.create!(name: "GuidanceGroup test for - #{txt}", org: @creator.org)
-      g = Guidance.create!(text: "Guidance test for - #{txt}", guidance_group: gg, themes: [t])
-      q = @template.phases.first.sections.first.questions.first
-      q.themes << t
-      q.save
+  test "retrieves the available guidance for a the plan as a hash" do
+    guidance_groups = GuidanceGroup.includes(guidances: :themes).where(published: true)
+    @plan.guidance_groups << guidance_groups
+    @plan.save!
+    
+    phase = @template.phases.first
+    hash = @plan.guidance_by_question_as_hash
+    
+    phase.sections.includes(questions: :themes).each do |section|
+      section.questions.each do |question|
+        question.themes.each do |theme|
+          guidance_groups.includes(guidances: :themes).each do |guidance_group|
+            themed_guidance = guidance_group.guidances.collect{ |g| g.themes.collect(&:title) }.flatten.uniq
+            if themed_guidance.include?(theme.title)
+              assert hash[question.id][guidance_group.name][theme.title].length > 0, "expected themed guidance to appear for Question: #{question.id}, GuidanceGroup: #{guidance_group.name} and Theme: #{theme.title}"
+            end
+          end
+        end
+      end
     end
-
-    @template.org.guidance_groups << GuidanceGroup.find_by(name: "GuidanceGroup test for - By Template")
-    @template.org.save
-    @plan.owner.org.guidance_groups << GuidanceGroup.find_by(name: "GuidanceGroup test for - By Org")
-    @plan.owner.org.save
-    @plan.guidance_groups << GuidanceGroup.find_by(name: "GuidanceGroup test for - Selected")
-    @plan.save
-    @plan.reload
-
-    gs = @plan.guidance_for_question(q)
-
-    # Template org's themed guidance
-    hash = gs.select{|h| h[:guidance] == Guidance.find_by(text: "Guidance test for - By Template")}.first
-    assert_not hash.nil?, "expected to find the guidance by template"
-    assert hash[:theme].include?("Theme test for - By Template"), "expected to find the theme by template"
-
-    # User org's themed guidance
-    hash = gs.select{|h| h[:guidance] == Guidance.find_by(text: "Guidance test for - By Org")}.first
-    assert_not hash.nil?, "expected to find the guidance by org"
-    assert hash[:theme].include?("Theme test for - By Org"), "expected to find the theme by org"
-
-    # Selected guidance group's guidance
-    hash = gs.select{|h| h[:guidance] == Guidance.find_by(text: "Guidance test for - Selected")}.first
-    assert_not hash.nil?, "expected to find the guidance by selected"
-    assert hash[:theme].include?("Theme test for - Selected"), "expected to find the theme by selected"
-  end
-
-  # ---------------------------------------------------
-  test "adds the guidance to a guidance array" do
-    # TODO: Skipping because the add_guidance_to_array method doesn't seem to be called from  anywhere
   end
 
   # ---------------------------------------------------

@@ -278,6 +278,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         end
           
         # pagination
+        get 'all/:page', action: :all, on: :collection, as: :all
         get 'funders/:page', action: :funders, on: :collection, as: :funders
         get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
       end
