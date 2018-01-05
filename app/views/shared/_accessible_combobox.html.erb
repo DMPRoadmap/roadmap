@@ -5,7 +5,7 @@
   <% error = error ||= _('Please select an item from the list.') %>
 
   <% json = {} %>
-  <% models.map{|m| json[m[attribute]] = m.id} %>
+  <% models.map{|m| json["#{m[attribute]}"] = m.id} %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
          class="js-combobox form-control <%= classes %>" list="<%= id %>_list" 
@@ -24,7 +24,7 @@
   </datalist>
 
   <!-- Complete content of combobox -->
-  <input type="hidden" id="<%= id %>_crosswalk" value="<%= escape_javascript json.to_json %>" />
+  <input type="hidden" id="<%= id %>_crosswalk" value="<%= escape_javascript JSON.generate(json) %>" />
 
   <!-- The JQuery accessible combobox doesn't allow for an id to be present in the value attribute -->
   <!-- so we use this hidden input to store the selected id -->
