@@ -114,13 +114,22 @@ module OrgAdmin
       if current != @template
         render(status: :forbidden, json: { msg: _('You can not edit a historical version of this template.')})
       else
+        template_links = nil
+        begin
+          template_links = JSON.parse(params["template-links"]) if params["template-links"].present?
+        rescue JSON::ParserError
+          render(status: :bad_request, json: { msg: _('Error parsing links for a template') })
+          return
+        end
+        # TODO dirty check at template model instead of here for reusability, i.e. method dirty? passing a template object
         if @template.description != params["template-desc"] ||
-                @template.title != params[:template][:title]
+                @template.title != params[:template][:title] ||
+                @template.links != template_links
           @template.dirty = true
         end
 
         @template.description = params["template-desc"]
-        @template.links = JSON.parse(params["template-links"]) if params["template-links"].present?
+        @template.links = template_links if template_links.present?
       
         # If the visibility checkbox is not checked and the user's org is a funder set the visibility to public
         # otherwise default it to organisationally_visible

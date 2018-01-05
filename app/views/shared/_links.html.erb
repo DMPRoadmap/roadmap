@@ -17,24 +17,28 @@
   <div class="row">
     <div class="col-xs-12">
       <% links = [{ "link" => "", "text" => "" }] if links.length == 0 %>
-      <% i = 0 %>
-      <% links.each do |l| %>
-        <div class="link">
-          <div class="form-group col-xs-5">
-            <%= label_tag "link_link#{i}", _('URL'), class: "control-label" %>
-            <%= text_field_tag 'link_link', l['link'], class: "form-control", id: "link_link#{i}", 'data-validation': 'url' %>
+      <% links.each_with_index do |l, i| %>
+        <div class="link row">
+          <div class="col-xs-5">
+            <div class="form-group">
+              <%= label_tag "link_link#{i}", _('URL'), class: "control-label" %>
+              <%= text_field_tag 'link_link', l['link'], class: "form-control", id: "link_link#{i}", 'data-validation': 'url' %>
+            </div>
           </div>
-          <div class="form-group col-xs-5">
-            <%= label_tag "link_text#{i}", _('Link text'), class: "control-label" %>
-            <%= text_field_tag 'link_text', l['text'], class: "form-control", id: "link_text#{i}" %>
+          <div class="col-xs-5">
+            <div class="form-group">
+              <%= label_tag "link_text#{i}", _('Link text'), class: "control-label" %>
+              <%= text_field_tag 'link_text', l['text'], class: "form-control", id: "link_text#{i}", 'aria-required': true %>
+            </div>
           </div>
-          <div class="form-group col-xs-2">
-            <a href="#" class="delete" aria-label="<%= _('Remove this link') %>">
-              <i class="fa fa-times-circle fa-reverse" aria-hidden="true"></i>
-            </a> 
+          <div class="col-xs-2">
+            <div class="form-group">
+              <a href="#" class="delete" aria-label="<%= _('Remove this link') %>">
+                <i class="fa fa-times-circle fa-reverse" aria-hidden="true"></i>
+              </a> 
+            </div>
           </div>
         </div>
-        <% i += 1 %>
       <% end %>
     </div>
   </div>
