@@ -19,23 +19,23 @@ class AnnotationsController < ApplicationController
       template.dirty = true
       template.save!
     end
-    redirect_to controller: :phases, action: :admin_show, id: question.section.phase.id
+    redirect_to "#{admin_show_phase_path(question.section.phase.id)}?section_id=#{question.section.id}"
   end
 
   #delete an annotation
   def admin_destroy
     annotation = Annotation.find(params[:id])
     authorize annotation
-    phase_id = Annotation.joins("INNER JOIN questions ON annotations.question_id = questions.id").joins("INNER JOIN sections ON questions.section_id = sections.id").joins("INNER JOIN phases ON sections.phase_id = phases.id").where("annotations.id": params[:id]).pluck("phases.id").first #annotation.question.section.phase.id
+    parent_ids = Annotation.joins("INNER JOIN questions ON annotations.question_id = questions.id").joins("INNER JOIN sections ON questions.section_id = sections.id").joins("INNER JOIN phases ON sections.phase_id = phases.id").where("annotations.id": params[:id]).pluck("phases.id", "sections.id").first #annotation.question.section.phase.id
     if annotation.present?
       type = (annotation.type == Annotation.types[:example_answer] ? 'example answer' : 'guidance')
       if annotation.destroy!
-        flash[:notice] = success_message(type, _('removed'))
+        flash[:notice] = success_message(type, _('deleted'))
       else
         flash[:alert] = failed_destroy_error(annotation, type)
       end
     end
-    redirect_to controller: :phases, action: :admin_show, id: phase_id
+    redirect_to "#{admin_show_phase_path(parent_ids[0])}?section_id=#{parent_ids[1]}"
   end
 
   private

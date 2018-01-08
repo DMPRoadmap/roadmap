@@ -75,14 +75,6 @@
               <div id="add_annotations_button_<%= question.id %>" class="pull-right">
                 <%= link_to _('%{add_or_edit} Annotations') % { add_or_edit: (editing ? 'Edit' : 'Add') }, 
                             "#annotations_div_#{question.id}", class: "btn btn-default annotations_button", role:"button" %>
-                <% if example_answer.present? %>
-                  <%= link_to _('Delete Example Answer'), admin_destroy_annotation_path(id: example_answer.id), 'data-method': 'delete', 
-                              rel: 'nofollow', class: "btn btn-default", 'data-confirm': _("Are you sure you would like to remove the example answer for this question?") %>
-                <% end %>
-                <% if guidance.present? %>
-                  <%= link_to _('Delete Guidance'), admin_destroy_annotation_path(id: guidance.id), 'data-method': 'delete',
-                              rel: 'nofollow', class: "btn btn-default", 'data-confirm': _("Are you sure you would like to remove the guidance for this question?") %>
-                <% end %>
               </div>
             <% end %>
           </div>
