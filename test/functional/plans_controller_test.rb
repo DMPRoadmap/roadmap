@@ -4,36 +4,6 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
 
   include Devise::Test::IntegrationHelpers
 
-  # TODO: Cleanup these routes! There are duplicates and ones no longer in use!
-  #
-  # CURRENT RESULTS OF `rake routes`
-  # --------------------------------------------------
-  #   status_plan                   GET      /plans/:id/status                    plans#status
-  #   locked_plan                   GET      /plans/:id/locked                    plans#locked
-  #   answer_plan                   GET      /plans/:id/answer                    plans#answer
-  #   update_guidance_choices_plan  PUT      /plans/:id/update_guidance_choices   plans#update_guidance_choices
-  #   delete_recent_locks_plan      POST     /plans/:id/delete_recent_locks       plans#delete_recent_locks
-  #   lock_section_plan             POST     /plans/:id/lock_section              plans#lock_section
-  #   unlock_section_plan           POST     /plans/:id/unlock_section            plans#unlock_section
-  #   unlock_all_sections_plan      POST     /plans/:id/unlock_all_sections       plans#unlock_all_sections
-  #   export_plan                   GET      /plans/:id/export                    plans#export
-  #   warning_plan                  GET      /plans/:id/warning                   plans#warning
-  #   section_answers_plan          GET      /plans/:id/section_answers           plans#section_answers
-  #   share_plan                    GET      /plans/:id/share                     plans#share
-  #                                 GET      /plans/:id/export                    plans#export
-  #   invite_plan                   POST     /plans/:id/invite                    plans#invite
-  #   possible_templates_plans      GET      /plans/possible_templates            plans#possible_templates
-  #   possible_guidance_plans       GET      /plans/possible_guidance             plans#possible_guidance
-
-  #   plans                         GET      /plans                               plans#index
-  #                                 POST     /plans                               plans#create
-  #   new_plan                      GET      /plans/new                           plans#new
-  #   edit_plan                     GET      /plans/:id/edit                      plans#edit
-  #   plan                          GET      /plans/:id                           plans#show
-  #                                 PATCH    /plans/:id                           plans#update
-  #                                 PUT      /plans/:id                           plans#update
-  #                                 DELETE   /plans/:id                           plans#destroy
-
   setup do
     # First clear out any existing templates
     GuidanceGroup.delete_all
@@ -81,7 +51,6 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:plan)
     assert assigns(:orgs)
     assert assigns(:funders)
-    assert assigns(:default_org)
   end
 
   # POST /plans (plans_path)
