@@ -284,6 +284,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
       
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
+      get 'download_plans' => 'plans#download_plans'
     end
 
     namespace :super_admin do
