@@ -70,6 +70,7 @@
         <% guidance_accordion_id = 0 %>
         <% guidance_set.keys.each do |group| %>
           <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
+          <% i = 0 %>
           <% if obj.present? %>
             <div id="guidance-<%= question.id %>-<%= obj.id %>" role="tabpanel" class="tab-pane">
               <%= render partial: 'guidance_groups/show', 
