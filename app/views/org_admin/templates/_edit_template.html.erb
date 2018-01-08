@@ -66,7 +66,7 @@
         max_number_links: MAX_NUMBER_LINKS_SAMPLE_PLAN,
         tooltip: _('Add links to sample plans if provided by the funder.') }) %>
     </div>
-    <%= hidden_field_tag('template-links', value: template.links) %>
+    <%= hidden_field_tag('template-links', ActiveSupport::JSON.encode(template.links)) %>
   <% end %>
 
   <div class="form-group col-xs-8">
