@@ -139,7 +139,7 @@ GEM
       activesupport (>= 4.1.0)
     hashdiff (0.3.0)
     hashie (3.4.6)
-    htmltoword (0.7.0)
+    htmltoword (0.5.1)
       actionpack
       nokogiri
       rubyzip (>= 1.0)
@@ -268,7 +268,7 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rolify (5.1.0)
     ruby-progressbar (1.8.1)
-    rubyzip (1.2.1)
+    rubyzip (1.2.0)
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -344,7 +344,7 @@ DEPENDENCIES
   gettext (>= 3.0.2)
   gettext_i18n_rails (~> 1.8)
   gettext_i18n_rails_js (~> 1.2.0)
-  htmltoword (~> 0.7)
+  htmltoword (~> 0.5.1)
   jbuilder (~> 2.6.0)
   kaminari (>= 1.0)
   ledermann-rails-settings (~> 2.4.2)
@@ -376,7 +376,7 @@ DEPENDENCIES
   wicked_pdf (~> 1.1.0)
   wkhtmltopdf-binary (~> 0.12.3)
   yaml_db!
-  yard (>= 0.9.11)
+  yard (>= 0.9.5)
 
 RUBY VERSION
    ruby 2.2.2p95
