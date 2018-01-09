@@ -53,41 +53,7 @@ module DMPRoadmap
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     #config.active_record.whitelist_attributes = true	
-	
-	# Enable the asset pipeline
-    config.assets.enabled = true
 
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-
-    # Even though the Rails docs state that it looks in lib/assets/images, the
-    # site errors out with messages saying '[image].[extension] not precompiled'
-    # This forces Rails to add the lib/assets/images dir to precompilation
-    config.assets.paths << Rails.root.join("lib", "assets", "images")
-    config.assets.paths << Rails.root.join("lib", "assets", "videos")
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *ico)
-    config.assets.precompile += %w(*mp4 *webm *ogg *ogv *swf)
-
-    config.assets.precompile += %w(plans.js)   
-    config.assets.precompile += %w(jquery.placeholder.js)
-    config.assets.precompile += %w(jquery.tablesorter.js)
-    config.assets.precompile += %w(jquery-accessible-autocomplet-list-aria.js)
-    config.assets.precompile += %w(export_configure.js)
-    config.assets.precompile += %w(toolbar.js)
-    config.assets.precompile += %w(admin.js)
-    config.assets.precompile += %w(admin.css)
-    
-    config.assets.precompile += %w(roadmap-form.scss)
-    config.assets.precompile += %w(plans/new_plan.js)
-    config.assets.precompile += %w(plans/edit.js)
-    config.assets.precompile += %w(plans/share.js)
-    config.assets.precompile += %w(contacts/new_contact.js)
-    config.assets.precompile += %w(shared/register_form.js)
-    config.assets.precompile += %w(answers/status.js)
-    config.assets.precompile += %w(notes/index.js)
-    config.assets.precompile += %w(bootstrap_listeners.js)
-    config.assets.precompile += %w(Dmproadmap.js)
-    
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
 
@@ -97,17 +63,35 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.shibboleth_enabled = true
+    config.shibboleth_enabled = false
 
     # Relative path to Shibboleth SSO Logout
+    config.shibboleth_login = '/Shibboleth.sso/Login'
     config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
+
+    # If this value is set to true your users will be presented with a list of orgs that have a
+    # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
+    # will be driven out to your federation's discovery service
+    #
+    # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
+    config.shibboleth_use_filtered_discovery_service = false
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
     config.active_record.raise_in_transactional_callbacks = true
-    
+
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
+    
+    # The default visibility setting for new plans
+    #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
+    #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
+    #   is_test                   - (NOT advisable because test plans are excluded from statistics)
+    #   privately_visible         - Only the owner and people they invite can access the plan
+    config.default_plan_visibility = 'privately_visible'
+
+    # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
+    config.default_plan_percentage_answered = 50
   end
 end

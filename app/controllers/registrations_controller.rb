@@ -2,11 +2,17 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
-    @languages = Language.all.order("name")
+    @user = current_user
+    @prefs = @user.get_preferences(:email)
+    @languages = Language.sorted_by_abbreviation
     @orgs = Org.where(parent_id: nil).order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
     @default_org = current_user.org
+
+    if !@prefs
+      flash[:alert] = 'No default preferences found (should be in branding.yml).'
+    end
   end
 
   # GET /resource
@@ -15,18 +21,18 @@ class RegistrationsController < Devise::RegistrationsController
     IdentifierScheme.all.each do |scheme|
       oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
     end
-    
+
     @user = User.new
-    
+
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
       if oauth[:provider].nil? || oauth[:uid].nil?
-        flash[:notice] = t('identifier_schemes.new_login_failure')
+        flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
 
       else
         # Connect the new user with the identifier sent back by the OAuth provider
-        flash[:notice] = t('identifier_schemes.new_login_success')
-        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase, 
+        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
+        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase,
                               identifier: oauth[:uid],
                               user: @user)
       end
@@ -35,19 +41,20 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    #logger.debug "#{sign_up_params}"
-    if sign_up_params[:accept_terms] != "1" then
+    if !sign_up_params[:accept_terms] then
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     else
-      existing_user = User.find_by_email(sign_up_params[:email])
-      if !existing_user.nil? # If email exists
-        if (existing_user.password == "" || existing_user.password.nil?) && existing_user.confirmed_at.nil? # If user has not accepted invitation yet
-          existing_user.destroy # Only solution for now
-          super
-        else
+      existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
+      if existing_user.present?
+        if existing_user.accept_terms?
           redirect_to after_sign_up_error_path_for(resource), alert: _('That email address is already registered.')
+          return
+        else
+          existing_user.destroy # Destroys the existing user since the accept terms are nil/false.
+          # Note any existing role for that user will be deleted too. Added to accommodate issue at:
+          # https://github.com/DMPRoadmap/roadmap/issues/322
         end
-      else
+      end
         build_resource(sign_up_params)
         if resource.save
           if resource.active_for_authentication?
@@ -57,26 +64,28 @@ class RegistrationsController < Devise::RegistrationsController
             respond_with resource, location: after_sign_up_path_for(resource)
           else
             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-            #expire_session_data_after_sign_in!  <-- DEPRECATED BY DEVISE
             respond_with resource, location: after_inactive_sign_up_path_for(resource)
           end
         else
           clean_up_passwords resource
           redirect_to after_sign_up_error_path_for(resource), alert: _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.')
         end
-      end
     end
   end
 
-
   def update
     if user_signed_in? then
+      @prefs = @user.get_preferences(:email)
       @orgs = Org.where(parent_id: nil).order("name")
       @default_org = current_user.org
       @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
-      do_update(require_password=needs_password?(current_user, params))
+      if params[:skip_personal_details] == "true"
+        do_update_password(current_user, params)
+      else
+        do_update(require_password=needs_password?(current_user, params))
+      end
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
@@ -107,32 +116,21 @@ class RegistrationsController < Devise::RegistrationsController
       message +=_('Please enter a Last name.') + '  '
       mandatory_params &&= false
     end
-    if params[:user][:org_id].blank?
-      message += _('Please select an organisation, or select Other.')
+    if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+      message += _('Please select an organisation from the list, or enter your organisation\'s name.')
       mandatory_params &&= false
     end
     if mandatory_params   # has the user entered all the details
       if require_password                              # user is changing email or password
         if current_user.email != params[:user][:email]   # if user is changing email
-          if params[:user][:current_password].blank?       # password needs to be present
+          if params[:user][:password].blank?       # password needs to be present
             message = _('Please enter your password to change email address.')
             successfully_updated = false
           else
             successfully_updated = current_user.update_with_password(password_update)
           end
-        elsif params[:user][:password].present?          # if user is changing password
-          successfully_updated = false                     # shared across first 3 conditions
-          if params[:user][:current_password].blank?
-            message = _('Please enter your current password')
-          elsif params[:user][:password_confirmation].blank?
-            message = _('Please enter a password confirmation')
-          elsif params[:user][:password] != params[:user][:password_confirmation]
-            message = _('Password and comfirmation must match')
-          else
-            successfully_updated = current_user.update_with_password(password_update)
-          end
-        else                                           # potentially unreachable... but I dont like to leave off the else
-          successfully_updated = current_user.update_with_password(password_update)
+        else                                           # user did not change their email so no pwd required
+          successfully_updated = current_user.update_without_password(update_params)
         end
       else                                             # password not required
         successfully_updated = current_user.update_without_password(update_params)
@@ -154,18 +152,43 @@ class RegistrationsController < Devise::RegistrationsController
       end
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
-      set_flash_message :notice, _('Details successfully updated.')
+      set_flash_message :notice, success_message(_('profile'), _('saved'))
       sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
-      redirect_to edit_user_registration_path, notice: _('Details successfully updated.')
+      redirect_to "#{edit_user_registration_path}\#personal-details", notice: success_message(_('profile'), _('saved'))
 
     else
-      flash[:notice] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      render "edit"
+    end
+  end
+
+  def do_update_password(current_user, params)
+    if params[:user][:current_password].blank?
+      message = _('Please enter your current password')
+    elsif params[:user][:password_confirmation].blank?
+      message = _('Please enter a password confirmation')
+    elsif params[:user][:password] != params[:user][:password_confirmation]
+      message = _('Password and comfirmation must match')
+    else
+      successfully_updated = current_user.update_with_password(password_update)
+    end
+    #render the correct page
+    if successfully_updated
+      session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
+      set_gettext_locale  #Method defined at controllers/application_controller.rb
+      set_flash_message :notice, success_message(_('password'), _('saved'))
+      sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
+      redirect_to "#{edit_user_registration_path}\#password-details", notice: success_message(_('password'), _('saved'))
+
+    else
+      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
       render "edit"
     end
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :firstname, :surname,
+    params.require(:user).permit(:email, :password, :password_confirmation,
+                                 :firstname, :surname, :recovery_email,
                                  :accept_terms, :org_id, :other_organisation)
   end
 

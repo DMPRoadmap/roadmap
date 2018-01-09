@@ -1,83 +1,33 @@
-<%= stylesheet_link_tag "admin" %>
-<% javascript 'admin.js' %>
-
-<h1>
-  <%= _('Organisation details') %>
-</h1>
-
-<div class="white_background blue_border">
-	<!-- body -->
-	<div class="dmp_details">
-		<%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, id: "edit_org_details",  method: :put}) do |f| %>
-
-			<!-- table with org details-->
-			<table class="dmp_details_table">
-				<tr>
-					<td class="first"><%= _('Name') %></td>
-					<td><%= f.text_field :name, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _("Please enter your organisation's name.") %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Abbreviation') %></td>
-					<td>
-						<div class="div_left_icon_g">
-							<%= f.text_field :abbreviation, as: :string, class: 'text_field' %>
-						</div>
-						<div class="clearfix"></div>
-					</td>
-				</tr>
-
-				<!-- organisation logo -->
-				<% if @org.logo.present? %>
-					<tr>
-						<td class="first"><%= _('Logo') %></td>
-						<td><%= image_tag @org.logo.url %> </td>
-					</tr>
-					<tr>
-						<td class="first"></td>
-						<td><%= f.check_box :remove_logo %>&nbsp;&nbsp;&nbsp;<%= _('If you decide to use the default DMPRoadmap logo, please check this box to remove your current logo.') %></td>
-					</tr>
-				<%end%>
-				<tr class="blank_row"><td class="first"></td></tr>
-				<tr>
-					<td class="first"><%= _('Upload a new logo file') %></td>
-					<td><%= f.file_field :logo %></td>
-				</tr>
-
-				<tr class="blank_row"><td class="first"></td></tr>
-
-				<tr>
-					<td class="first"><%= _('Top banner text') %></td>
-					<td><%= text_area_tag("org_banner_text", @org.banner_text, class: "tinymce") %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Website') %></td>
-					<td><%= f.text_field :target_url, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _('Please enter a valid web address.') %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Contact Email') %></td>
-					<td><%= f.text_field :contact_email, as: :string, class: 'text_field has-tooltip', data_toggle: "tooltip", title: _('The email address of an administrator at your organisation. Your users will use this address if they have questions.') %></td>
-				</tr>
-
-				<tr>
-					<td class="first"><%= _('Organisation type') %></td>
-          <td><%= @org.type %></td>
-				</tr>
-			</table>
-
-			<div class="div_clear"></div>
-
-			<!-- submit buttons -->
-			<div class="move_2_right">
-				<%= f.submit _('Save'), class: 'btn btn-primary' %>
-				<%= link_to _('Cancel'), :back, class: 'btn btn-primary' %>
-			</div>
-		<% end %>
-
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Organisation details') %></h1>
   </div>
 </div>
 
-<%= tinymce :content_css => asset_path('application.css') %>
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="profile" class="active">
+        <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
+      </li>
+      <li role="feedback">
+        <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+      </li>
+    </ul>
+  
+    <div class="tab-content">
+      <div id="profile" role="tabpanel" class="tab-pane active px-2">
+        <%= render partial: 'profile_form' %>
+      </div>
+
+      <div id="feedback" role="tabpanel" class="tab-pane">
+        <%= render partial: 'feedback_form' %>
+      </div>
+
+      <div id="notification-preferences" role="tabpanel" class="tab-pane">
+        <%= render partial: 'users/notification_preferences' %>
+      </div>
+    </div>
+  </div>
+</div>
 

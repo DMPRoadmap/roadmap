@@ -1,17 +1,8 @@
 class SessionsController < Devise::SessionsController
-
-  # POST /auth/:provider/callback
-  # ---------------------------------------------------------------------
-=begin
-  def oauth_create
-    existing_user = User.find_by_email(params[:user][:email])
-    
-    unless params[:omniauth].nil?
-      existing_user = UserIdentifier.find_by(identifier: params[:omniauth][:auth])
-    end
+  
+  def new
+    redirect_to(root_path)
   end
-=end
-    
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
   def create

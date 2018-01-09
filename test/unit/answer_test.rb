@@ -63,7 +63,7 @@ class AnswerTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "answer's template must match the plan's template" do
-    plan = Plan.new(title: 'Wrong plan test', template: Template.where.not(id: @plan.template.id).first)
+    plan = Plan.new(title: 'Wrong plan test', template: Template.where.not(id: @plan.template.id).first, visibility: :is_test)
     q = @plan.template.questions.select{|q| !q.question_format.option_based }.first
 
     # TODO: This should pass. We shouldn't be able to add an answer to a plan for a question on the wrong template!
@@ -113,6 +113,23 @@ class AnswerTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
+  test "can copy an Answer" do
+    qf = QuestionFormat.where(option_based: true).first
+    q = @plan.template.questions.select{|q| q.question_format == qf }.first
+    
+    assert_not q.nil?, "expected the test template to have a question of type: #{qf.title}"
+    answr = Answer.create(user: @user, plan: @plan, question: q, question_options: [q.question_options.first])
+    
+    copy = Answer.deep_copy(answr)
+    
+    assert_equal answr.text, copy.text, "expected the answer text to be the same"
+    assert_equal answr.question.id, copy.question.id, "expected the question to be the same"
+    answr.question_options.each do |opt|
+      assert copy.question_options.include?(opt), "expected the copy to have question options"
+    end
+  end
+  
+  # ---------------------------------------------------
   test "can manage belongs_to relationship with User" do
     verify_belongs_to_relationship(@answer, User.last)
   end
@@ -132,5 +149,35 @@ class AnswerTest < ActiveSupport::TestCase
   test "can manage has_many relationship with Notes" do
     note = Note.new(text: 'Test Note', user: @user)
     verify_has_many_relationship(@answer, note, @answer.notes.count)
+  end
+
+  test 'is_valid? returns false when no question is associated to an answer' do
+    answer = Answer.new(user: @user, plan: @plan)
+    refute(answer.is_valid?)
+  end
+
+  test 'is_valid? returns false when an option based answer is empty' do
+    q = @plan.template.questions[@plan.template.questions.find_index{ |q| q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q)
+    refute(answer.is_valid?)
+  end
+
+  test 'is_valid? returns false when a non-option based answer is empty' do
+    q = @plan.template.questions[@plan.template.questions.find_index{ |q| !q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q)
+    refute(answer.is_valid?)
+  end
+
+  test 'is_valid? returns true when an option based answer is not empty' do
+    q = @plan.template.questions[@plan.template.questions.find_index{ |q| q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q)
+    answer.question_options << q.question_options.first
+    assert(answer.is_valid?)
+  end
+
+  test 'is_valid? returns true when a non-option based answer is not empty' do
+     q = @plan.template.questions[@plan.template.questions.find_index{ |q| !q.question_format.option_based? }]
+    answer = Answer.new(user: @user, plan: @plan, question: q, text: 'foo')
+    assert(answer.is_valid?)
   end
 end

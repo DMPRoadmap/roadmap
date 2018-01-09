@@ -1,0 +1,29 @@
+<% choices.each do |org, groups| %>
+  <% if groups && groups.size == 1 %>
+    <li class="checkbox">
+      <%= check_box_tag "guidance_group_ids[]", groups[0].id,
+                        current_selections.include?(groups[0].id), class: 'guidance-choice' %>
+      <%= form.label org.name, for: groups[0].id, 
+              class: 'inline checkbox-label regular-text guidance-group-label' %>
+    </li>
+  <% elsif groups %>
+    <li class="checkbox">
+      <input type="checkbox" disabled>
+      <label class="inline checkbox-label regular-text guidance-group-label">
+        <%= org.name %>
+      </label>
+
+      <ul>
+        <% groups.each do |group| %>
+          <li class="checkbox">
+            <span class="sublist">└─ </span> 
+            <%= check_box_tag "guidance_group_ids[]", group.id,
+                              current_selections.include?(group.id), class: 'guidance-choice' %>
+            <%= form.label group.name, for: group.id, 
+                     class: "left-indent checkbox-label regular-text guidance-group-label" %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end%>
+<% end %>

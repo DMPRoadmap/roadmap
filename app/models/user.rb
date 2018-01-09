@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  include GlobalHelpers
-
+  include ConditionalUserMailer
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -10,11 +9,17 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :omniauthable,
          :omniauth_providers => [:shibboleth, :orcid]
 
+
+  ##
+  # User Notification Preferences
+  serialize :prefs, Hash
+
   ##
   # Associations
   has_and_belongs_to_many :perms, join_table: :users_perms
   belongs_to :language
   belongs_to :org
+  has_one  :pref
   has_many :answers
   has_many :notes
   has_many :exported_plans
@@ -37,25 +42,17 @@ class User < ActiveRecord::Base
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  #accepts_nested_attributes_for :roles
-  #attr_accessible :password_confirmation, :encrypted_password, :remember_me,
-  #                :id, :email, :firstname, :last_login,:login_count, :orcid_id,
-  #                :password, :shibboleth_id, :user_status_id, :surname,
-  #                :user_type_id, :org_id, :skip_invitation, :other_organisation,
-  #                :accept_terms, :role_ids, :dmponline3, :api_token,
-  #                :organisation, :language, :language_id, :org, :perms,
-  #                :confirmed_at, :org_id
-
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
   ##
   # Scopes
   default_scope { includes(:org, :perms) }
 
-
+  # Retrieves all of the org_admins for the specified org
+  scope :org_admins, -> (org_id) { 
+    joins(:perms).where("users.org_id = ? AND perms.name IN (?)", org_id,
+      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+  }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
@@ -87,6 +84,15 @@ class User < ActiveRecord::Base
       return name.strip
     end
   end
+
+  ##
+  # returns all active plans for a user
+  #
+  # @return [Plans]
+  def active_plans
+    self.plans.includes(:template).where("roles.active": true).where(Role.not_reviewer_condition)
+  end
+
 
   ##
   # Returns the user's identifier for the specified scheme name
@@ -214,17 +220,6 @@ class User < ActiveRecord::Base
   end
 
   ##
-  # checks what type the user's organisation is
-  #
-  # @return [String] the organisation type
-=begin
-  def org_type
-    org_type = org.organisation_type
-    return org_type
-  end
-=end
-
-  ##
   # removes the api_token from the user
   # modifies the user model
   def remove_token!
@@ -244,8 +239,9 @@ class User < ActiveRecord::Base
         break random_token unless User.exists?(api_token: random_token)
       end
       self.save!
-      # send an email to the user to notify them of their new api token
-      #UserMailer.api_token_granted_notification(self)
+      deliver_if(recipients: self, key: 'users.admin_privileges') do |r|
+        UserMailer.api_token_granted_notification(r).deliver_now
+      end
     end
   end
 
@@ -264,6 +260,31 @@ class User < ActiveRecord::Base
   end
 
   ##
+  # Return the user's preferences for a given base key
+  #
+  # @return [JSON] with symbols as keys
+  def get_preferences(key)
+    defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
+
+    if self.pref.present?
+      existing = self.pref.settings[key.to_s].deep_symbolize_keys
+    
+      # Check for new preferences 
+      defaults.keys.each do |grp| 
+        defaults[grp].keys.each do |pref, v|
+          # If the group isn't present in the saved values add all of it's preferences
+          existing[grp] = defaults[grp] if existing[grp].nil?
+          # If the preference isn't present in the saved values add the default
+          existing[grp][pref] = defaults[grp][pref] if existing[grp][pref].nil?
+        end
+      end
+      existing
+    else
+      defaults
+    end
+  end
+
+  ##
   # Override devise_invitable email title
   # --------------------------------------------------------------
   def deliver_invitation(options = {})
@@ -272,25 +293,9 @@ class User < ActiveRecord::Base
   ##
   # Case insensitive search over User model
   # @param field [string] The name of the field being queried
-  # @param val [string] The string to search for, case insensitive
+  # @param val [string] The string to search for, case insensitive. val is duck typed to check whether or not downcase method exist
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
-    User.where("lower(#{field}) = ?", val.downcase)
+    User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
   end
-
-# TODO: Remove this, its never called.
-  # this generates a reset password link for a given user
-  # which can then be sent to them with the appropriate host
-  # prepended.
-=begin
-  def reset_password_link
-    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
-    self.reset_password_token   = enc
-    self.reset_password_sent_at = Time.now.utc
-    save(validate: false)
-
-    edit_user_password_path  + '?reset_password_token=' + raw
-  end
-=end
-
 end

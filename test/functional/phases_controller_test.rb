@@ -10,7 +10,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     # Get the first Org Admin
     scaffold_org_admin(@template.org)
     
-    @plan = Plan.create!(template: @template, title: 'Test Plan', 
+    @plan = Plan.create!(template: @template, title: 'Test Plan', visibility: :privately_visible,
                          roles: [Role.new(user: @user, creator: true)])
   end
 
@@ -76,14 +76,15 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "get the phase's status" do
     # Should redirect user to the root path if they are not logged in!
-    get status_plan_phase_path(plan_id: @plan.id, id: @template.phases.first.id)
+    get status_plan_phase_path(plan_id: @plan.id, id: @template.phases.first.id), format: :json
     assert_unauthorized_redirect_to_root_path
     
+    @plan.assign_creator(@user)
+    @plan.save!
     sign_in @user
     
-    get status_plan_phase_path(@plan, @template.phases.first), format: :json
+    get status_plan_phase_path(plan_id: @plan.id, id: @template.phases.first.id), format: :json
     assert_response :success
-    
     assert assigns(:plan)
   end
   
@@ -101,8 +102,6 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     
     assert assigns(:phase)
-    #assert assigns(:edit)
-    assert assigns(:sections)
   end
   
   # GET /org/admin/templates/phases/:id/admin_preview (admin_preview_phase_path)
@@ -153,9 +152,9 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     post admin_create_phase_path(@template.phases.first), {phase: params}
-    assert_equal _('Information was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
-    assert_redirected_to admin_show_phase_path(id: Phase.last.id, edit: 'true')
+    assert_redirected_to admin_show_phase_path(id: Phase.last.id)
     assert assigns(:phase)
     assert_equal 'Phase: Tester 2', Phase.last.title, "expected the record to have been created!"
     
@@ -164,8 +163,8 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     post admin_create_phase_path(@template.phases.first), {phase: {template_id: @template.id}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
-    assert_response :success
+    assert flash[:alert].starts_with?(_('Could not create your'))
+    assert_response :redirect
     assert assigns(:phase)
     assert assigns(:template)
   end
@@ -186,7 +185,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Valid save
     put admin_update_phase_path(@template.phases.first), {phase: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(@template.phases.first)
     assert assigns(:phase)
@@ -197,8 +196,8 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid save
     put admin_update_phase_path(@template.phases.first), {phase: {title: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
-    assert_response :success
+    assert flash[:alert].starts_with?(_('Could not update your'))
+    assert_response :redirect
     assert assigns(:phase)
     assert assigns(:template)
     assert assigns(:sections)
@@ -222,8 +221,8 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_response :redirect
-    assert_redirected_to admin_template_template_path(@template)
-    assert_equal _('Information was successfully deleted.'), flash[:notice]
+    assert_redirected_to edit_org_admin_template_path(@template)
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Phase.find(id).nil?
     end

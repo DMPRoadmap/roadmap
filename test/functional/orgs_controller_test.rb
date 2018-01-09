@@ -25,22 +25,8 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
   #   admin_update_org  PUT      /org/admin/:id/admin_update    orgs#admin_update
   
   setup do
-    @org = Org.first
+    @org = Org.create!(name: 'Testing', abbreviation: 'TST', links: {"org":[]})
     scaffold_org_admin(@org)
-  end
-
-  # GET /org/admin/:id/admin_show (admin_show_org_path)
-  # ----------------------------------------------------------
-  test 'show the org' do
-    # Should redirect user to the root path if they are not logged in!
-    get admin_show_org_path(@org)
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_org_path(@org)
-    assert_response :success
-    assert assigns(:org)
   end
 
   # GET /org/admin/:id/admin_edit (admin_edit_org_path)
@@ -61,7 +47,7 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
   # PUT /org/admin/:id/admin_update (admin_update_org_path)
   # ----------------------------------------------------------
   test 'update the org' do
-    params = {name: 'Testing UPDATE'}
+    params = {name: 'Testing UPDATE', links: {"org": []}}
     
     # Should redirect user to the root path if they are not logged in!
     put admin_update_org_path(@org), {org: params}
@@ -70,16 +56,14 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     put admin_update_org_path(@org), {org: params}
-    assert_equal _('Organisation was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
-    assert_redirected_to admin_show_org_path(@org)
-    assert assigns(:org)
     assert_equal 'Testing UPDATE', @org.reload.name, "expected the record to have been updated"
     
     # Invalid object
-    put admin_update_org_path(@org), {org: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
-    assert_response :success
+    put admin_update_org_path(@org), {org: {contact_email: 'abcdefg'}}
+    assert flash[:alert].starts_with?(_('Could not update your'))
+    assert_response :redirect
     assert assigns(:org)
   end
 end

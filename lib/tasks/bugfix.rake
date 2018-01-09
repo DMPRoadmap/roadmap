@@ -1,5 +1,12 @@
 namespace :bugfix do
 
+  desc "Upgrade to 1.0"
+  task v1_0_0: :environment do
+    Rake::Task['bugfix:set_template_visibility'].execute
+    Rake::Task['bugfix:set_org_link_defaults'].execute
+    Rake::Task['bugfix:set_template_link_defaults'].execute
+  end
+
   desc "Bug fixes for version v0.3.3"
   task v0_3_3: :environment do
     Rake::Task['bugfix:fix_question_formats'].execute
@@ -46,4 +53,29 @@ namespace :bugfix do
     end
   end
 
+  desc "Set all funder templates (and the default template) to 'public' visibility and all others to 'organisational'"
+  task set_template_visibility: :environment do
+    funders = Org.funders.pluck(:id)
+    Template.update_all visibility: Template.visibilities[:organisationally_visible]
+    Template.where(org_id: funders).update_all visibility: Template.visibilities[:publicly_visible]
+    Template.default.update visibility: Template.visibilities[:publicly_visible]
+  end
+  
+  desc "Set all orgs.links defaults"
+  task set_org_link_defaults: :environment do
+    Org.all.each do |org|
+      begin
+        org.update_attributes(links: {"org":[]})
+      rescue Dragonfly::Job::Fetch::NotFound
+        puts "Unable to set link defaults for Org #{org.id} - #{org.name} due to a missing logo file. Please update manually: `UPDATE orgs set links = '{\"org\":[]}' WHERE id = #{org.id};`"
+      end
+    end
+  end
+  
+  desc "Set all template.links defaults"
+  task set_template_link_defaults: :environment do
+    Template.all.each do |template|
+      template.update_attributes(links: {"funder":[],"sample_plan":[]})
+    end
+  end
 end

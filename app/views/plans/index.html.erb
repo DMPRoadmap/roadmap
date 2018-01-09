@@ -1,38 +1,42 @@
-<%- model_class = Plan -%>
-<% javascript "toolbar.js" %>
-<h1>
-	<%= _('My plans') %>
-</h1>
+<div class="row">
+  <div class="col-md-12">    
+    <h1><%= _('My Dashboard') %></h1>
+    <!-- if the user has projects -->
+    <p>
+      <% if @plans.count > 0 %>
+        <%= _('The table below lists the plans that you have created, and any that have been shared with you by others.') %><br />
+        <%= _('These can be edited, shared, exported or deleted at anytime.')%>
+      <% else %>
+        <strong><%= _("Welcome.") %></strong><br />
+        <%= _("You are now ready to create your first DMP.") %><br />
+        <%= _("Click the 'Create plan' button below to begin.")%>
+      <% end %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= paginable_renderise(
+      partial: '/paginable/plans/privately_visible',
+      controller: 'paginable/plans',
+      action: 'privately_visible', 
+      scope: @plans) %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <% if @organisationally_or_publicly_visible.length > 0 %>
+      <%= paginable_renderise(
+        partial: '/paginable/plans/organisationally_or_publicly_visible',
+        controller: 'paginable/plans',
+        action: 'organisationally_or_publicly_visible',
+        scope: @organisationally_or_publicly_visible) %>
+    <% end %>
+  </div>
+</div>
 
-<!-- if the user has projects -->
-<% if @plans.count > 0 %>
-
-	<p>
-		<%= raw _('<p>The table below lists the plans that you have created, and any that have been shared with you by others.</br>These can be edited, shared, exported or deleted at anytime.</p>')%>
-	</p>
-    
-	<%= render(partial: "toolbar") %>
-	<table id="dmp_table" class="dmp_table tablesorter">
-	  <thead>
-	    <%= render(partial: "plan_list_head") %>
-	  </thead>
-	  <tbody>
-	      <% @plans.each do |plan| %>
-	        <%= render(partial: "plan_list_item", locals: { plan: plan } ) %>
-	      <% end %>
-	  </tbody>
-	</table>
-	
-<!-- if the user does not have projects -->
-<% else %>
-	<p>
-		<%= raw _("<p><strong>Welcome.</strong></br> You are now ready to create your first DMP.</br>Click the 'Create plan' button below to begin.</p>")%>
-	</p>
-<% end %>
-
-<!-- link button to create a new project -->
-<p>
-	<%= link_to _('Create plan'),
-            new_plan_path,
-            :class => "btn btn-primary" %>
-</p>

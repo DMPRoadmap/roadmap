@@ -7,7 +7,7 @@ class GuidanceGroup < ActiveRecord::Base
   has_and_belongs_to_many :plans, join_table: :plans_guidance_groups
   # depricated but needed for migration "single_group_for_guidance"
   # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
-  
+
 
   ##
   # Possibly needed for active_admin
@@ -25,7 +25,7 @@ class GuidanceGroup < ActiveRecord::Base
 
 
 
-  
+
 
   ##
   # Converts the current guidance group to a string containing the display name.
@@ -49,7 +49,7 @@ class GuidanceGroup < ActiveRecord::Base
   # @return [Array<GuidanceGroup>] a list of guidance groups
   def self.guidance_groups_excluding(excluded_orgs)
     excluded_org_ids = Array.new
-    
+
     if excluded_orgs.is_a?(Array)
       excluded_orgs.each do |org|
         excluded_org_ids << org.id
@@ -57,7 +57,7 @@ class GuidanceGroup < ActiveRecord::Base
     else
       excluded_org_ids << excluded_orgs
     end
-    
+
     return_orgs =  GuidanceGroup.where("org_id NOT IN (?)", excluded_org_ids)
     return return_orgs
   end
@@ -106,7 +106,7 @@ class GuidanceGroup < ActiveRecord::Base
     managing_org_groups = Org.includes(guidance_groups: [guidances: :themes]).managing_orgs.collect{|org| org.guidance_groups}
 
     # find all groups owned by  a Funder organisation
-    funder_groups = Org.includes(:guidance_groups).funders.collect{|org| org.guidance_groups}
+    funder_groups = Org.includes(:guidance_groups).funder.collect{|org| org.guidance_groups}
 
     organisation_groups = [user.org.guidance_groups]
 

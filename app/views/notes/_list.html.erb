@@ -1,85 +1,60 @@
-<!--table displaying notes for this question and actions-->
-
-<% if notes.count > 1 then%>
-  <% style_to_add =  "height:150px; overflow-y:auto;" %>
-<%else%>
-  <% style_to_add = "" %>
-<%end%>
-
-<div class="two-column-clear question-divider"></div>
-
-<div class="div-table-content" style ="<%= style_to_add %>">
-  <table class="dmp_table" id="dmp_table">
-    <tbody class= "comment_table_body">
-      <% notes.each do |note|%>
-        <tr >
-          <td class="dmp_border_bottom">
-            <% user = note.user.name %>
-            <%= user %> </br>
-            (<%= l note.updated_at, format: :custom %>)
-          </td >
-          <td  class="dmp_border_bottom">
-
-            <% if note.archived  %>
-
-              <% if note.archived_by == current_user.id %>
-                <%= _('Note removed by you')%>
-              <% else %>
-                <% archived_by_user = User.find(note.archived_by) %>
-                <%= _('Note removed by')%> <%= archived_by_user.name %>
-              <%end%>
-
-            <%else%>   <!-- not archived -->
-
-              <%= link_to _('View'),"#question-form-#{question_id}", onclick: "view_note_button(#{note.id}, #{question_id})", :class => "dmp_table_link view_comment_button" %>
-
-              <% if current_user.id == note.user_id %>
-                <%= link_to _('Edit'),"#question-form-#{question_id}", onclick: "edit_note(#{note.id}, #{question_id})", :class => "dmp_table_link edit_comment_button" %>
-                <%= link_to _('Remove'),"#question-form-#{question_id}", onclick: "archive_note(#{note.id}, #{question_id})", :class => "dmp_table_link archive_comment_button" %>
-              <% end%>   <!-- if current user -->
-
-              <% if plan.administerable_by?(current_user.id) && current_user.id != note.user_id %>
-                <%= hidden_field_tag :note_id, note.id, :class => "comment_id" %>
-                <%= link_to _('Remove'),"#question-form-#{question_id}", onclick: "archive_note(#{note.id}, #{question_id})", :class => "dmp_table_link archive_comment_button" %>
-              <% end%>
-            <%end%>   <!-- archived -->
-
-          </td>
-        </tr>
-      <%end%>   <!-- notes each -->
-    </tbody>
-  </table>
-</div>
-
-<div class="two-column-clear question-divider"></div>
-
-<!-- view latest note block -->
-<% notes_not_archived = notes.select { |n| n.archived.nil? }  %>
-<% latest_note = notes_not_archived.sort { |x,y| y.updated_at <=> x.updated_at }.first %>
-<% if !latest_note.nil? then%>
-  <div id = "latest_comment_div_<%= question_id %>" class ="view_comment_class">
-    <%= render :partial => "/notes/view", locals: {note: latest_note} %>
-    <div class="two-column-clear question-divider"></div>
-  </div>
-<%end%>
-<!-- load notes to view and edit -->
-<%notes.each do |note|%>
-  <!-- view note -->
-  <div id = "view_comment_div_<%= note.id %>" class ="view_comment_class" style="display: none">
-    <%= render :partial => "/notes/view", locals: {note: note} %>
-    <div class="two-column-clear question-divider"></div>
-  </div>
-
-  <!-- edit note block -->
-  <div id = "edit_comment_div_<%= note.id %>"  class ="edit_comment_class" style="display: none">
-    <%= render :partial => "/notes/edit", locals: {note: note} %>
-    <div class="two-column-clear question-divider"></div>
-  </div>
-
-  <!-- archive note block -->
-  <div id = "archive_comment_div_<%= note.id %>"  class ="archive_comment_class" style="display: none">
-    <%= render :partial => "/notes/archive", locals: {note: note, question_id: question_id} %>
-    <div class="two-column-clear question-divider"></div>
-  </div>
-
-<%end%>
+<%# locals: { question_id, notes, plan } %>
+<% notes.each do |note| %>
+    <% if !note.archived %>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="pull-left"><!-- note info -->
+                            <ul class="list-unstyled">
+                                <li><%= note.user.name %></li>
+                                <li>(<%= l note.updated_at, format: :custom %>)</li>
+                            </ul>
+                        </div>
+                        <div class="pull-right"><!-- note actions -->
+                            <ul class="list-inline">
+                                <li><%= link_to(_('Show'), "#note_show#{note.id}", class: 'note_show_link') %></li>
+                                <% if plan.commentable_by?(current_user) %>
+                                  <% if current_user.id == note.user_id %>
+                                      <li><%= link_to(_('Edit'), "#note_edit#{note.id}", class: 'note_edit_link') %></li>
+                                      <li><%= link_to(_('Remove'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
+                                  <% else  %>
+                                      <% if plan.administerable_by?(current_user.id) %>
+                                          <li><%= link_to(_('Remove'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
+                                      <% end %>
+                                  <% end %>
+                                <% end %>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <% end %>
+<% end %>
+<% notes.each do |note| %>
+    <% if !note.archived %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="note_show" id="<%= "note_show#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
+                <%= render partial: "/notes/show", locals: { note: note }, formats: [:html] %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="note_edit" id="<%= "note_edit#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
+                <%= render partial: "/notes/edit", locals: { note: note }, formats: [:html] %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="note_archive" id="<%= "note_archive#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
+                <%= render partial: "/notes/archive", locals: { note: note }, formats: [:html] %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+<% end %>

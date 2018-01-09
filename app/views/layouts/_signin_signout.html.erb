@@ -1,45 +1,45 @@
+<!-- language dropdown -->
+<% if MANY_LANGUAGES %>
+  <li class="dropdown" id="change-language">
+    <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-language" aria-hidden="true">&nbsp;</i>
+      <%= _('Language') %>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
+      <% LANGUAGES.each do |l| %>
+        <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+          <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+
 <!-- Sign in / out -->
-<div class="signIn">
-	<ul class="navbar">
-    <% if user_signed_in? %>
-      <li class="dropdown sign_in">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= _('Signed in as ')%>
-          <%= current_user.name %> <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu" id="signIn_dropdown">
-          <li><%= link_to _('Edit profile'), edit_user_registration_path, class: "signIn_dropdown_link" %></li>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Super admin area'), "/admin", class: "signIn_dropdown_link" %></li>
-          <% end %>
-          <% if current_user.can_org_admin? && !current_user.org_id.nil? %>
-            <% if current_user.can_modify_org_details? && current_user.org.abbreviation.blank? %>
-              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif  current_user.can_modify_templates?%>
-              <li><%= link_to _("Admin area"), admin_index_template_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif current_user.can_modify_guidance? %>
-              <li><%= link_to _("Admin area"), admin_index_guidance_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif current_user.can_modify_org_details? %>
-              <li><%= link_to _("Admin area"), admin_show_org_path(current_user.org_id), class: "signIn_dropdown_link" %></li>
-            <% elsif current_user.can_grant_permissions? %>
-              <li><%= link_to _("Admin area"), admin_index_users_path, class: "signIn_dropdown_link" %></li>
-            <% end %>
-          <% end %>
-          <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete, class: "signIn_dropdown_link" %></li>
-        </ul>
-      </li>
-    <% else %>
+<% if user_signed_in? %>
+  <li class="dropdown" id="signin-signout">
+    <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-user" aria-hidden="true">&nbsp;</i>
+      <%= current_user.name(false) %>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="user-menu">
       <li>
-        <% unless controller_name == "home" && action_name == "index" then %>
-          <a href="#header-login-form" data-toggle="modal"><%= _('Sign in')%></a> /
-          <a href="#header-register-form" data-toggle="modal"><%= _('Create account')%></a>
-        <% else %>
-          <%= raw "&nbsp;" %>
-        <% end %>
+        <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
       </li>
-    <% end %>
-  </ul>
-</div>
-<!-- Quick'n'dirty touchscreen hack for Bootstrap's buggy dropdown -->
-  <style>
-    .dropdown-backdrop{ position: static; }
-  </style>
+      <li>
+        <%= link_to '<i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+      </li>
+    </ul>
+  </li>
+<% else %>
+  <% if !isActivePage(root_path) %>
+    <li>
+      <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
+        <i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>
+        <%= _('Sign in') %>
+      </a>
+    </li>
+  <% end %>
+<% end %>
