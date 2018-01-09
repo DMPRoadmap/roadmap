@@ -1,0 +1,3 @@
+<%# locals: { answer } %>
+<% notes = answer.non_archived_notes %>
+<%= _('Comments') %><%= notes.length > 0 ? " (#{notes.length})" : '' %>

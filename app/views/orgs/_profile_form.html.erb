@@ -1,0 +1,84 @@
+<%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, method: :put, id: "edit_org_profile_form" } ) do |f| %>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.label :name, _('Organisation full name'), class: "control-label" %>
+      <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
+      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row">  
+    <div class="form-group col-xs-8">
+      <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
+
+      <% if @org.logo.present? %>
+        <div class="clearfix"></div>
+        <%= image_tag @org.logo.url, alt: "#{@org.name} #{_('logo')}" %>
+        <div class="org-logo-controls checkbox">
+          <%= f.label :remove_logo, raw("#{f.check_box :remove_logo, title: _("This will remove your organisation's logo")} #{_('Remove logo')}") %>
+          <strong> - <%= _('or') %> - </strong>
+          <span class="btn btn-default btn-file"><%= f.file_field :logo %></span>
+        </div>
+      <% else %>
+        <%= f.file_field :logo %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= render(partial: '/shared/links',
+                 locals: { 
+                   context: 'org',
+                   title: _('Organisation URLs'),
+                   links: @org.links['org'],
+                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
+      <%= hidden_field_tag('org_links', value: @org.links) %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <h3><%= _("Administrator contact") %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.label :contact_email, _('Contact email'), class: "control-label" %>
+      <%= f.text_field :contact_email, class: "form-control", 'aria-required': true %>
+    </div>
+    <div class="form-group col-xs-4">
+      <%= f.label :contact_name, _('Link text'), class: "control-label" %>
+      <%= f.text_field :contact_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>
+    </div>
+  </div>
+
+  <% if current_user.can_super_admin? %>
+    <div class="bordered col-xs-8" data-toggle="tooltip" title="<%= _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.') %>">
+      <h3><%= _('Organisational Configuration Information') %></h3>
+      <dl>
+        <% shibboleth = @org.org_identifiers.select{ |ids| ids.identifier_scheme == IdentifierScheme.find_by(name: 'shibboleth')} %>
+        <% if Rails.application.config.shibboleth_use_filtered_discovery_service && shibboleth.size > 0 %>
+          <dt><%= _('Entity ID') %></dt>
+          <dd><%= shibboleth.first.identifier %></dd>
+          <dt><%= _('Sibboleth domain') %></dt>
+          <dd><%= JSON.parse(shibboleth.first.attrs)['domain'] if shibboleth.first.attrs.present? %></dd>
+        <% end %>
+        <dt><%= _('Organisation type') %></dt>
+        <dd><%= @org.type %></dd>
+      </dl>
+    </div>
+  <% end %>
+<% end %>

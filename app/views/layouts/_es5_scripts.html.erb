@@ -1,0 +1,20 @@
+<!-- Scripts written in ES5 that have to be migrated to ES6. Needed here since Rails assets pipeline has been already switched off in favour of Webpack -->
+
+<!-- START third party libraries -->
+    <%= javascript_include_tag 'jquery.min.js' %>
+    <%= javascript_include_tag 'rails.js' %>
+    <%= javascript_include_tag 'jquery-ui.min.js' %>
+    <%= javascript_include_tag 'placeholder.min.js' %>
+    <%#= javascript_include_tag 'jquery.tablesorter.min.js' %>
+    <%#= javascript_include_tag 'jquery.tablesorter.widgets.min.js' %>
+    <%#= javascript_include_tag 'bootstrap.min.js' %>
+<!-- END third party libraries -->
+
+<!-- TODO by https://github.com/DMPRoadmap/roadmap/issues/599
+//= require i18n
+//= require i18n/translations
+//= require_tree ./locale
+//= require gettext/all
+//  I18n.defaultLocale = "<%#= I18n.default_locale %>";
+//  I18n.locale = "<%#= I18n.locale %>";
+-->

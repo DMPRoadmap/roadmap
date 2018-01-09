@@ -1,0 +1,31 @@
+<%# locals: { guidance, themes, guidance_groups, options } %>
+<div class="row">
+  <div class="col-xs-12">
+    <h1><%= _('Guidance') %></h1>
+    <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'btn btn-default pull-right' %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(guidance, url: options[:url], html: { method: options[:method] , id: 'new_edit_guidance'}) do |f| %>
+      <div class="form-group" data-toggle="tooltip" title="<%= _('Enter your guidance here. You can include links where needed.') %>">
+        <%= f.label :text, class: 'control-label' %>
+        <%= text_area_tag("guidance-text", guidance.text, class: "tinymce form-control", 'aria-required': true, rows: 10) %>
+      </div>
+      <%= render partial: 'org_admin/shared/theme_selector', 
+                 locals: { f: f, all_themes: themes,
+                           popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic institution-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for.') % { org_name: (current_user.org.abbreviation.present? ? current_user.org.abbreviation : current_user.org.name ) } } %>
+      <div class="form-group">
+        <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
+        <%= f.collection_select(:guidance_group_id, guidance_groups,
+                :id, :name, {prompt: false}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which group this guidance relates to.'), class: 'form-control', 'aria-required': true})%>
+      </div>
+      <div class="checkbox">
+        <%= f.label :published, raw("#{f.check_box :published, as: :check_boxes, 'data-toggle': 'tooltip', title: _("Check this box when you are ready for this guidance to appear on user's plans.")} #{_('Published?')}") %>
+      </div>
+
+      <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
+      <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
+    <%end%>
+  </div>
+</div>

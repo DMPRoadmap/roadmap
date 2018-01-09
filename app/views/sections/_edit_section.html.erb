@@ -1,117 +1,67 @@
-<!--
-**Project: DMPRoadmap
-**Description: This block edits a section and its questions.
-**Arguments transferred: 'section'
-**Copyright: Digital Curation Centre and California Digital Library
--->
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= _('Section details') %></h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(section, url: admin_update_section_path(section, phase: phase), html: { method: :put }) do |f| %>
+      <div class="form-group col-md-10">
+        <%= f.label(:title, _('Title') ,class: "control-label") %>
+        <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section')} ) %>
+      </div>
 
-
-<%= form_for(section, url: admin_update_section_path(section, phase: phase, edit: edit), html: { method: :put}) do |s| %>
-  <% if @open && @section_id == section.id then%>
-    <% toggle = 'accordion-body  section-collapse in collapse'%>
-  <% else %>
-    <% toggle = 'accordion-body collapse section-collapse' %>
-  <% end %>
-
- <% if @new_sec %>
-    <% toggle = 'accordion-body  section-collapse in collapse'%>
- <% end %>
-
-  <div class="accordion-group" >
-    <div class="accordion-heading">
-      <div class="div_left make_div_smaller">
-        <div class="accordion_heading_text">
-          <%= s.text_field :title, as: :string, class: 'text_field', placeholder: _('New section title') %>
-
+      <div class="form-group">
+        <div class="col-md-10">
+          <%= f.label(:number, _('Order of display'), class: "control-label") %>
+        </div>
+        <div class="col-md-4">
+          <%= f.number_field(:number, in: 1..15, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
         </div>
       </div>
-      <div class="div_right make_div_longer">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-sec-<%= section.id %>">
-          <!-- + or - icon-->
-              <span class="icon-plus icon-white accordion-icon"> </span>
-            </a>
+
+      <div class="form-group col-md-10">
+        <%= f.label(:description, _('Description'), class: "control-label") %>
+        <div data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
+          <%= text_area_tag('section-desc', section.description, class: "section tinymce form-control") %>
+        </div>
       </div>
+
+      <div class="form-group col-md-10">
+        <div class="pull-right">
+          <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+          <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id), 'data-method': 'delete', rel: 'nofollow',
+                'data-confirm': _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, class: 'btn btn-default', role:'button' %>
+          <%= link_to _('Cancel'), admin_show_phase_path(section.phase), class: 'btn btn-default', role: 'button' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-12">
+    <h3><%= _('Questions') %></h3>
+    <% questions = section.questions.order('number') %>
+    <% if questions.present? %>
+        <% questions.each do |question| %>
+          <hr />
+          <div class="question_show" id="<%= "question_show#{question.id}" %>">
+            <%= render partial: 'questions/show_question', locals: {template: template, question: question} %>
+          </div>
+          <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
+            <%= render partial: 'questions/edit_question', locals: {template: template, question: question} %>
+          </div>
+          <%= raw("<hr />") if questions.last.id == question.id %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
     </div>
-
-
-    <div id="collapse-sec-<%= section.id %>" class="<%= toggle %>" >
-      <div class="accordion-inner">
-        <table class="dmp_details_table">
-          <tr>
-            <td class="first_template"><%= _('Order of display') %></td>
-            <% range = @phase.template.customization_of.present? ? 0..15 : 1..15 %>
-            <td><%= s.number_field :number, in: range, class: "number_field has-tooltip", 'data-toggle' => "tooltip", 'title' => _('This allows you to order sections.') %></td>
-          </tr>
-          <tr>
-            <td class="first_template"><%= _('Description') %></td>
-            <td class="tinymce">
-              <div class="div_left_icon">
-                <%= text_area_tag("section-desc-#{section.id}", section.description , class: "tinymce") %>
-              </div>
-              <div class="div_right_icon">
-                <%= link_to( image_tag('help_button.png'), '#', "data-toggle": "popover", rel: "popover", 'data-html' => "true", 'data-content' => _("<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"))%>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <!-- save buttons-->
-        <div class="move_2_right">
-          <%= s.submit _('Save'), class: 'btn btn-primary' %>
-          <% if section.modifiable %>
-            <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id),
-            confirm: _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, method: :delete, class: "btn btn-primary"%>
-          <% end %>
-          <%= link_to _('Cancel'), :back, class: 'btn cancel' %>
-        </div>
-<% end %>
-        <div class="two-column-clear question-divider"></div>
-        <% @questions = section.questions.order("number")%>
-        <% if @questions.length > 0 %>
-          <% question_left = @questions.length %>
-          <% @questions.each do |question| %>
-            <div class="question_guidance_block">
-              <div id="show_question_div_<%= question.id%>" class="<%= if question.id == @question_id then "current_question" end %>">
-                <!-- render the show question block-->
-                <%= render partial: 'questions/show_question', locals: {question: question} %>
-              </div>
-
-              <div id="edit_question_div_<%= question.id%>"  style="display: none">
-                <!-- render the edit question block-->
-                <%= render partial: 'questions/edit_question', locals: {question: question} %>
-              </div>
-            </div>
-            <!--verify how many questions are left -->
-            <% if question_left.to_i > 1  %>
-                <div class="two-column-clear question-divider"></div>
-            <% else %>
-                <div class="two-column-clear"></div>
-            <% end %>
-            <% question_left = question_left - 1 %>
-
-          <% end %>
-        <% end %>
-
-        <!-- Add a new question if the version is not published-->
-        <% if section.modifiable %>
-
-          <% if @questions.length != 0 %>
-            <div class="two-column-clear question-divider"></div>
-          <% end%>
-          <!-- add question block -->
-          <div id="add_question_block_div_<%= section.id%>" style="display: none">
-            <%= render partial: 'questions/add_question', locals: {section: section} %>
-          </div>
-
-          <!-- add question button-->
-          <div id="add_question_button_div_<%= section.id%>">
-            <div class="div_left">
-              <%= hidden_field_tag :section_id, section.id, class: "section_id" %>
-              <%= link_to _('Add question'), '#', class: "btn btn-primary add_question_button" %>
-            </div>
-          </div>
-        <% end %>
-
-        <div class="two-column-clear"></div>
-      </div>
+    <div class="question_new" style="display: none;">
+      <%= render partial: 'questions/add_question', locals: { section: section } %>
     </div>
   </div>
+</div>
+  

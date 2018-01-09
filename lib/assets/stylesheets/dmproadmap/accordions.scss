@@ -1,0 +1,48 @@
+/*
+.accordion {
+  position: relative;
+  width: 100%;
+  
+  h2, h3, 
+  h2.ui-accordion-header, h3.ui-accordion-header {
+    position: relative;
+    color: $primary-color;
+    font-size: 24px;
+    background-color: $white;
+    padding: 6px 0 10px 10px;
+    border: none;
+    
+    .ui-accordion-header-active, 
+    .ui-accordion-header-collapsed {
+      position: relative;
+    }
+    
+    .fa {
+      position: absolute;
+      font-size: 18px;
+      color: $primary-color;
+      left: 5px;
+      top: 10px;
+    }
+  }
+  h2.ui-accordion-header:after, h3.ui-accordion-header:after {
+    width: 55%;
+    content: "";
+    display: block;
+    margin-left: 22px;
+    margin-top: 5px;
+    border-bottom: 1px solid $primary-color;
+  }
+  
+  div.accordion-section {
+    position: relative;
+    background-color: white;
+  }
+  
+}
+.expand-collapse-all {
+  .muted {
+    margin: 0 8px;
+  }
+}
+*/

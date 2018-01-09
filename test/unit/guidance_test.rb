@@ -36,7 +36,7 @@ class GuidanceTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "retrieves guidance by org" do
-    org = Org.create(name: 'Tester 123', abbreviation: 'TEST', org_type: 1)
+    org = Org.create!(name: 'Tester 123', abbreviation: 'TEST', org_type: 1, links: {"org":[]})
     assert Guidance.by_org(org.id).empty?, "expected the newly created org to have no guidance"
 
     assert_not Guidance.by_org(@user.org.id).empty?, "expected the org to have guidance"
@@ -54,7 +54,7 @@ class GuidanceTest < ActiveSupport::TestCase
     @guidance_group.save!
     assert Guidance.can_view?(@user, @guidance.id), "expected the user to be able to view guidance belonging to the managing org"
     
-    @guidance_group.org = Org.funders.first
+    @guidance_group.org = Org.funder.first
     @guidance_group.save!
     assert Guidance.can_view?(@user, @guidance.id), "expected the user to be able to view guidance belonging to a funder"
   end
@@ -66,13 +66,13 @@ class GuidanceTest < ActiveSupport::TestCase
     assert viewable.include?(@guidance), "expected the user to be able to view guidance belonging to their org"
         
     GuidanceGroup.create(name: 'managing guidance group test', org: Org.managing_orgs.first)
-    GuidanceGroup.create(name: 'funder guidance group test', org: Org.funders.first)
+    GuidanceGroup.create(name: 'funder guidance group test', org: Org.funder.first)
     
     Org.managing_orgs.first.guidance_groups.first.guidances.each do |g|
       assert viewable.include?(g), "expected the user to be able to view all managing org guidance"
     end
     
-    Org.funders.first.guidance_groups.first.guidances.each do |g|
+    Org.funder.first.guidance_groups.first.guidances.each do |g|
       assert viewable.include?(g), "expected the user to be able to view all funder guidance"
     end
   end

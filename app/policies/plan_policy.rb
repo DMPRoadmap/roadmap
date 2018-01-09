@@ -3,7 +3,8 @@ class PlanPolicy < ApplicationPolicy
   attr_reader :plan
 
   def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, _("must be logged in") unless user 
+    raise Pundit::NotAuthorizedError, _("are not authorized to view that plan") unless plan || plan.publicly_visible?
     @user = user
     @plan = plan
   end
@@ -12,23 +13,19 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
-  def edit?
-    @plan.readable_by?(@user.id)
-  end
-
-  def update_guidance_choices?
-    @plan.editable_by?(@user.id)
-  end
-
   def share?
-    @plan.readable_by?(@user.id)
+    @plan.editable_by?(@user.id)
   end
 
   def export?
     @plan.readable_by?(@user.id)
   end
 
-  def show_export?
+  def download?
+    @plan.readable_by?(@user.id)
+  end
+
+  def edit?
     @plan.readable_by?(@user.id)
   end
 
@@ -39,43 +36,32 @@ class PlanPolicy < ApplicationPolicy
   def destroy?
     @plan.editable_by?(@user.id)
   end
-  
+
   def status?
     @plan.readable_by?(@user.id)
   end
-  
-  def possible_templates?
-    @plan.id.nil?
-  end
 
-# TODO: These routes are no lonmger used
-=begin
-  def section_answers?
-    @plan.readable_by?(@user.id)
-  end
-
-  def locked?
-    @plan.readable_by?(@user.id)
-  end
-
-  def delete_recent_locks?
+  def duplicate?
     @plan.editable_by?(@user.id)
   end
 
-  def unlock_all_sections?
-    @plan.editable_by?(@user.id)
+  def visibility?
+    @plan.administerable_by?(@user.id)
   end
 
-  def lock_section?
-    @plan.editable_by?(@user.id)
+  def set_test?
+    @plan.administerable_by?(@user.id)
   end
-
-  def unlock_section?
-    @plan.editable_by?(@user.id)
-  end
-=end
 
   def answer?
+    @plan.readable_by?(@user.id)
+  end
+
+  def request_feedback?
+    @plan.administerable_by?(@user.id)
+  end
+
+  def overview?
     @plan.readable_by?(@user.id)
   end
 

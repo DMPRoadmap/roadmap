@@ -1,84 +1,76 @@
 <!DOCTYPE html>
-<html class="dmponline" lang="<%= FastGettext.locale %>">
-	<head>
-	  <title><%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %></title>
+<html lang="en">
+  <head>
+    <title>
+      <%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    </title>
       <%= favicon_link_tag "favicon.ico" %>
-		<!--[ if lte IE 9]>
-			<script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-		   	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
-		   	<style type="text/css"> 
-		   		.navbar { 
-		   			filter:none !important; 
-		   		} 
-		   	</style> 
-		<![endif]-->
-		  
-		<!--[if gte IE 9]>
-		  	<style type="text/css">
-		    	.gradient {
-		    	   	filter: none;
-		    	}
-		  	</style>
-		<![endif]-->
-    
-		<%= stylesheet_link_tag   "application" %>
-		<%= javascript_include_tag "application"%>
-		
-		<%= javascript_include_tag "jquery.tablesorter"%>
-		<script>
-			$(function() {	
-				//function for sorting html tables
-				$("#dmp_table").tablesorter({dateFormat: "uk"}); 
-				$("#dmp_table_2").tablesorter({dateFormat: "uk"});
-			});
-         
-			// Set the JS locale equal to the one Rails has
-			I18n.defaultLocale = "<%= I18n.default_locale %>";
-			I18n.locale = "<%= I18n.locale %>";
-		</script>
+    <!--[ if lte IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+         <style type="text/css">
+           .navbar {
+             filter:none !important;
+           }
+         </style>
+    <![endif]-->
 
-		<!--[if IE]>
-			  	<script>
-			  		$(function() {
-					    // Invoke the plugin
-					    $('input, textarea').placeholder();
-					    $('input, iframe').placeholder();
-					});    
-				</script>
-		<![endif]-->	
+    <!--[if gte IE 9]>
+        <style type="text/css">
+          .gradient {
+               filter: none;
+          }
+        </style>
+    <![endif]-->
 
-		<%= yield(:head) %>
-		<%= csrf_meta_tags %>
+    <!--[if IE]>
+          <script>
+            $(function() {
+              // Invoke the plugin
+              $('input, textarea').placeholder();
+              $('input, iframe').placeholder();
+          });
+        </script>
+    <![endif]-->
 
+    <%= stylesheet_link_tag fingerprinted_asset('application') %>
+    <%= javascript_include_tag fingerprinted_asset('vendor') %>
+    <%= javascript_include_tag fingerprinted_asset('application') %> 
+    <%= csrf_meta_tags %>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		    
-	</head>
-	<body class="dmponline" >
-		<!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
-	    <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  </head>
+  <body>
+    <!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
+      <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
 
-	    <!-- header renedering -->
-	    <%= render "layouts/header" %>
-	    
-    <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
+      <!-- header rendering -->
+      <header>
+        <%= render partial: "layouts/header" %>
+      </header>
 
-		<div class="main_page_container">
-			<% if notice %>
-  				<p class="alert alert-notice"><%= raw notice %></p>
-				<% end %>
-			<% if alert %>
- 				<p class="alert alert-error"><%= raw alert %></p>
-			<% end %>
-			
-		    <div class="main_page_content">
-		    	<%= yield %>
-		    </div>	
-		</div>
-		
-		<!-- footer rendering -->
-		<%= render "layouts/footer" %>
-			
-	</body>
+      <%
+      has_alert = (alert || flash[:alert] || flash[:error])
+      has_notice = (notice || flash[:notice])
+      %>
+
+      <!-- main page content rendering -->
+      <main class="container">
+        <div id="notification-area"
+             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
+          <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+          <span><%= raw (has_alert ? alert : notice) %></span>
+        </div>
+        <%= yield %>
+      </main>
+
+      <!-- footer rendering -->
+      <footer >
+        <%= render "layouts/footer" %>
+      </footer>
+  </body>
 </html>

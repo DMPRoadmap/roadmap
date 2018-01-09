@@ -1,0 +1,32 @@
+<dl class="dl-horizontal">
+  <dt><%= _('Project Title') %></dt>
+  <dd><%= plan.title %></dd>
+  <dt><%= _('Funder') %></dt>
+  <dd><%= plan.funder_name %></dd>
+  <dt><%= _('Grant Number') %></dt>
+  <dd><%= plan.grant_number %></dd>
+  <dt><%= _('Project Abstract') %></dt>
+  <dd><%= raw plan.description %></dd>
+  <dt><%= _('ID') %></dt>
+  <dd><%= plan.identifier %></dd>
+</dl>
+<hr />
+<h3><%= _('Principal Investigator') %></h3>
+<dl class="dl-horizontal">
+  <dt><%= _('Name') %></dt>
+  <dd><%= plan.principal_investigator %></dd>
+  <dt><%= _('ORCID iD') %></dt>
+  <dd><%= plan.principal_investigator_identifier %></dd>
+  <dt><%= _('Email') %></dt>
+  <dd><%= plan.principal_investigator_email %></dd>
+</dl>
+<hr />
+<h3><%= _('Data Contact Person') %></h3>
+<dl class="dl-horizontal">
+	<dt><%= _('Name') %></dt>
+	<dd><%= plan.data_contact %></dd>
+  <dt><%= _('Phone') %></dt>
+  <dd><%= plan.data_contact_phone %></dd>
+  <dt><%= _('Email') %></dt>
+  <dd><%= plan.data_contact_email %></dd>
+</dl>

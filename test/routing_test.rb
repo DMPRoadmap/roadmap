@@ -33,15 +33,15 @@ class RoutingTest < ActionDispatch::IntegrationTest
     target = {controller: "static_pages", action: "termsuse"}
     assert_routing terms_path, target
   end
-  test 'GET /public_plans should resolve to StaticPagesController#public_plans' do
-    target = {controller: "static_pages", action: "public_plans"}
+  test 'GET /public_plans should resolve to PublicPagesController#plan_index' do
+    target = {controller: "public_pages", action: "plan_index"}
     assert_routing public_plans_path, target
   end
-  test 'GET /public_export should resolve to StaticPagesController#public_export' do
+  test 'GET /public_export should resolve to PublicPagesController#plan_export' do
     plan = Plan.first
-    target = {controller: "static_pages", action: "public_export", id: plan.id.to_s}
+    target = {controller: "public_pages", action: "plan_export", id: plan.id.to_s}
     
-    assert_routing public_export_path(id: plan), target
+    assert_routing plan_export_path(id: plan), target
   end
 
   # OAuth - Based on providers identified in the en-UK locale file

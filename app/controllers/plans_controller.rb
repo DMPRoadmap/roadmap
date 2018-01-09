@@ -1,15 +1,15 @@
 class PlansController < ApplicationController
+  include ConditionalUserMailer
   require 'pp'
+  helper PaginableHelper
   helper SettingsTemplateHelper
-
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:overview]
 
   def index
     authorize Plan
-    @plans = current_user.plans
+    @plans = current_user.active_plans.page(1)
+    @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).page(1)
   end
-
-
 
   # GET /plans/new
   # ------------------------------------------------------------------------------------
@@ -18,12 +18,14 @@ class PlansController < ApplicationController
     authorize @plan
 
     # Get all of the available funders and non-funder orgs
-    @funders = Org.funders.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
-    @orgs = (Org.institutions + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
+    @funders = Org.funder.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
+    @orgs = (Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
 
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
 
+    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
+    @is_test = params[:test] ||= false
     respond_to :html
   end
 
@@ -33,21 +35,31 @@ class PlansController < ApplicationController
     @plan = Plan.new
     authorize @plan
 
-    @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
-    @plan.data_contact = current_user.email
-    @plan.funder_name = plan_params[:funder_name]
+    # We set these ids to -1 on the page to trick ariatiseForm into allowing the autocomplete to be blank if
+    # the no org/funder checkboxes are checked off
+    org_id = (plan_params[:org_id] == '-1' ? '' : plan_params[:org_id])
+    funder_id = (plan_params[:funder_id] == '-1' ? '' : plan_params[:funder_id])
 
-    # If a template hasn't been identified look for the available templates
+    # If the template_id is blank then we need to look up the available templates and return JSON
     if plan_params[:template_id].blank?
-      template_options(plan_params[:org_id], plan_params[:funder_id])
-
-      # Return the 'Select a template' section
+      # Something went wrong there should always be a template id
       respond_to do |format|
-        format.js {}
+        flash[:alert] = _('Unable to identify a suitable template for your plan.')
+        format.html { redirect_to new_plan_path }
       end
-
-    # Otherwise create the plan
     else
+      # Otherwise create the plan
+      @plan.principal_investigator = current_user.surname.blank? ? nil : "#{current_user.firstname} #{current_user.surname}"
+      @plan.principal_investigator_email = current_user.email
+
+      orcid = current_user.identifier_for(IdentifierScheme.find_by(name: 'orcid'))
+      @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
+
+      @plan.funder_name = plan_params[:funder_name]
+
+      @plan.visibility = (plan_params['visibility'].blank? ? Rails.application.config.default_plan_visibility :
+                                                             plan_params[:visibility])
+
       @plan.template = Template.find(plan_params[:template_id])
 
       if plan_params[:title].blank?
@@ -61,39 +73,37 @@ class PlansController < ApplicationController
         @plan.assign_creator(current_user)
 
         # pre-select org's guidance
-        ggs = GuidanceGroup.where(org_id: plan_params[:org_id],
-                                                     optional_subset: false,
-                                                     published: true)
+        ggs = GuidanceGroup.where(org_id: org_id, optional_subset: false, published: true)
+
         if !ggs.blank? then @plan.guidance_groups << ggs end
 
         default = Template.default
 
-        msg = "#{_('Plan was successfully created.')} "
+        msg = "#{success_message(_('plan'), _('created'))}<br />"
 
         if !default.nil? && default == @plan.template
           # We used the generic/default template
-          msg += _('This plan is based on the default template.')
+          msg += " #{_('This plan is based on the default template.')}"
 
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
-          msg += "#{_('This plan is based on the')} #{plan_params[:funder_name]} #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
 
         else
           # We used the specified org's or funder's template
-          msg += "#{_('This plan is based on the')} #{@plan.template.org.name} template."
+          msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
         end
 
-        flash[:notice] = msg
-
         respond_to do |format|
-          format.js { render js: "window.location='#{plan_url(@plan)}?editing=true'" }
+          flash[:notice] = msg
+          format.html { redirect_to plan_path(@plan) }
         end
 
       else
         # Something went wrong so report the issue to the user
-        flash[:notice] = failed_create_error(@plan, 'Plan')
         respond_to do |format|
-          format.js {}
+          flash[:alert] = failed_create_error(@plan, 'Plan')
+          format.html { redirect_to new_plan_path }
         end
       end
     end
@@ -105,11 +115,15 @@ class PlansController < ApplicationController
   def show
     @plan = Plan.eager_load(params[:id])
     authorize @plan
+
+    @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
+
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.get_guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @plan.guidance_groups
 
     # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
     @important_ggs = []
@@ -119,85 +133,56 @@ class PlansController < ApplicationController
         @important_ggs << [org,ggs]
         @all_ggs_grouped_by_org.delete(org)
       end
+
+      # If this is one of the already selected guidance groups its important!
+      if !(ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org,ggs] unless @important_ggs.include?([org,ggs])
+        @all_ggs_grouped_by_org.delete(org)
+      end
     end
 
     # Sort the rest by org name for the accordion
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| org.name}
+    @important_ggs = @important_ggs.sort_by{|org,gg| (org.nil? ? '' : org.name)}
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
+    @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
 
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
     @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
 
     respond_to :html
   end
-
-
-
-  # we can go into this with the user able to edit or not able to edit
-  # the same edit form gets rendered but then different partials get used
-  # to render the answers depending on whether it is readonly or not
-  #
-  # we may or may not have a phase param.
-  # if we have none then we are editing/displaying the plan details
-  # if we have a phase then we are editing that phase.
-  #
-  # GET /plans/1/edit
-  def edit
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    # If there was no phase specified use the template's 1st phase
-    @phase = (params[:phase].nil? ? @plan.template.phases.first : Phase.find(params[:phase]))
-    @readonly = !@plan.editable_by?(current_user.id)
-    respond_to :html
-  end
-
 
   # PUT /plans/1
   # PUT /plans/1.json
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
+    attrs = plan_params
+
+    # Save the guidance group selections
+    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
+    save_guidance_selections(guidance_group_ids)
 
     respond_to do |format|
-      if @plan.update_attributes(params[:plan])
-        format.html { redirect_to @plan, :editing => false, notice: _('Plan was successfully updated.') }
-        format.json { head :no_content }
+      if @plan.update_attributes(attrs)
+        format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
+        format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
       else
-        flash[:notice] = failed_update_error(@plan, _('plan'))
+        flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
+        format.json {render json: {code: 0, msg: failed_update_error(@plan, _('plan'))}}
       end
     end
-  end
-
-
-
-  def update_guidance_choices
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
-    all_guidance_groups = @plan.get_guidance_group_options
-    plan_groups = @plan.guidance_groups
-    guidance_groups = GuidanceGroup.where( id: guidance_group_ids)
-    all_guidance_groups.each do |group|
-      # case where plan group exists but not in selection
-      if plan_groups.include?(group) && ! guidance_groups.include?(group)
-      #   remove from plan groups
-        @plan.guidance_groups.delete(group)
-      end
-      #  case where plan group dosent exist and in selection
-      if !plan_groups.include?(group) && guidance_groups.include?(group)
-      #   add to plan groups
-        @plan.guidance_groups << group
-      end
-    end
-    @plan.save
-    flash[:notice] = _('Guidance choices saved.')
-    redirect_to action: "show"
   end
 
   def share
     @plan = Plan.find(params[:id])
-    authorize @plan
-    #@plan_data = @plan.to_hash
+    if @plan.present?
+      authorize @plan
+      # Get the roles where the user is not a reviewer
+      @plan_roles = @plan.roles.select{ |r| !r.reviewer? }
+    else
+      redirect_to(plans_path)
+    end
   end
 
 
@@ -206,11 +191,11 @@ class PlansController < ApplicationController
     authorize @plan
     if @plan.destroy
       respond_to do |format|
-        format.html { redirect_to plans_url, notice: _('Plan was successfully deleted.') }
+        format.html { redirect_to plans_url, notice: success_message(_('plan'), _('deleted')) }
       end
     else
       respond_to do |format|
-        flash[:notice] = failed_create_error(@plan, _('plan'))
+        flash[:alert] = failed_create_error(@plan, _('plan'))
         format.html { render action: "edit" }
       end
     end
@@ -240,10 +225,12 @@ class PlansController < ApplicationController
     end
   end
 
-  def show_export
+  def download
     @plan = Plan.find(params[:id])
     authorize @plan
-    render 'show_export'
+    @phase_options = @plan.phases.order(:number).pluck(:title,:id)
+    @export_settings = @plan.settings(:export)
+    render 'download'
   end
 
 
@@ -252,9 +239,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
-    # If no format is specified, default to PDF
-    params[:format] = 'pdf' if params[:format].nil?
-
+    # We should re-work this into something more useful than creating a new one
+    # every time a plan gets exported
     @exported_plan = ExportedPlan.new.tap do |ep|
       ep.plan = @plan
       ep.phase_id = params[:phase_id]
@@ -267,14 +253,23 @@ class PlansController < ApplicationController
       end
     end
 
+    # setup some variables we will need in the export views
+    #   here, if custom sections are included, we want all sections, otherwise,
+    #   we only want those which are not modifiable, as they are the original template
+    @sections = params[:export][:custom_sections].present? || @plan.template.customization_of.nil? ? @exported_plan.sections.order(:number) : Phase.find(params[:phase_id]).sections.where(modifiable: false) # prefetch questions?
+    @unanswered_questions = params[:export][:unanswered_questions].present?
+    @question_headings = params[:export][:question_headings].present?
+    @show_details = params[:export][:project_details].present?
+
+
     begin
       @exported_plan.save!
       file_name = @exported_plan.settings(:export)[:value]['title'].gsub(/ /, "_")
 
       respond_to do |format|
         format.html
-        format.csv  { send_data @exported_plan.as_csv,  filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt,  filename: "#{file_name}.txt" }
+        format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
+        format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
         format.docx { render docx: 'export', filename: "#{file_name}.docx" }
         format.pdf do
           @formatting = @plan.settings(:export).formatting
@@ -289,18 +284,117 @@ class PlansController < ApplicationController
         end
       end
     rescue ActiveRecord::RecordInvalid => e
-      redirect_to show_export_plan_path(@plan), notice: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
+      @phase_options = @plan.phases.order(:number).pluck(:title,:id)
+      redirect_to download_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
       {format: params[:format], available_formats: ExportedPlan::VALID_FORMATS.to_s}
     end
   end
 
 
+  def duplicate
+    plan = Plan.find(params[:id])
+    authorize plan
+    @plan = Plan.deep_copy(plan)
+    respond_to do |format|
+      if @plan.save
+        @plan.assign_creator(current_user)
+        format.html { redirect_to @plan, notice: success_message(_('plan'), _('copied')) }
+      else
+        format.html { redirect_to plans_path, alert: failed_create_error(@plan, 'Plan') }
+      end
+    end
+  end
+
+  # POST /plans/:id/visibility
+  def visibility
+    plan = Plan.find(params[:id])
+    if plan.present?
+      authorize plan
+      if plan.visibility_allowed?
+        plan.visibility = plan_params[:visibility]
+        if plan.save
+          deliver_if(recipients: plan.owner_and_coowners, key: 'owners_and_coowners.visibility_changed') do |r|
+            UserMailer.plan_visibility(r,plan).deliver_now()
+          end
+          render status: :ok, json: { msg: success_message(_('plan\'s visibility'), _('changed')) }
+        else
+          render status: :internal_server_error, json: { msg: _('Error raised while saving the visibility for plan id %{plan_id}') %{ :plan_id => params[:id]} }
+        end
+      else
+        render status: :forbidden, json: {
+          msg: _('Unable to change the plan\'s status since it is needed at least '\
+            '%{percentage} percentage responded') %{ :percentage => Rails.application.config.default_plan_percentage_answered } }
+      end
+    else
+      render status: :not_found, json: { msg: _('Unable to find plan id %{plan_id}') %{ :plan_id => params[:id]} }
+    end
+  end
+
+  def set_test
+    plan = Plan.find(params[:id])
+    authorize plan
+    plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
+    if plan.save
+      render json: {code: 1, msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.') )}
+    else
+      render status: :bad_request, json: {code: 0, msg: _("Unable to change the plan's test status")}
+    end
+  end
+
+  def request_feedback
+    plan = Plan.find(params[:id])
+    authorize plan
+    alert = _('Unable to submit your request for feedback at this time.')
+
+    begin
+     if plan.request_feedback(current_user)
+       redirect_to share_plan_path(plan), notice: _('Your request for feedback has been submitted.')
+     else
+       redirect_to share_plan_path(plan), alert: alert
+     end
+    rescue Exception
+      redirect_to share_plan_path(plan), alert: alert
+    end
+  end
+
+  def overview
+    begin
+      plan = Plan.overview(params[:id])
+      authorize plan
+      render(:overview, locals: { plan: plan })
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = _('There is no plan associated with id %{id}') %{ :id => params[:id] }
+      redirect_to(action: :index)
+    end
+  end
 
   private
-
   def plan_params
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title)
+    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
+                                 :grant_number, :description, :identifier, :principal_investigator,
+                                 :principal_investigator_email, :principal_investigator_identifier,
+                                 :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
   end
+
+  def save_guidance_selections(guidance_group_ids)
+    all_guidance_groups = @plan.get_guidance_group_options
+    plan_groups = @plan.guidance_groups
+    guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+    all_guidance_groups.each do |group|
+      # case where plan group exists but not in selection
+      if plan_groups.include?(group) && ! guidance_groups.include?(group)
+      #   remove from plan groups
+        @plan.guidance_groups.delete(group)
+      end
+      #  case where plan group dosent exist and in selection
+      if !plan_groups.include?(group) && guidance_groups.include?(group)
+      #   add to plan groups
+        @plan.guidance_groups << group
+      end
+    end
+    @plan.save
+  end
+
 
   # different versions of the same template have the same dmptemplate_id
   # but different version numbers so for each set of templates with the
@@ -364,50 +458,4 @@ class PlansController < ApplicationController
     end
     plan.delete(src_plan_key)
   end
-
-  # Collect all of the templates available for the org+funder combination
-  # --------------------------------------------------------------------------
-  def template_options(org_id, funder_id)
-    @templates = []
-
-    if org_id.present? || funder_id.present?
-      if funder_id.blank?
-        # Load the org's template(s)
-        if org_id.present?
-          org = Org.find(org_id)
-          @templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
-          @msg = _("We found multiple DMP templates corresponding to the research organisation.") if @templates.count > 1
-        end
-
-      else
-        funder = Org.find(funder_id)
-        # Load the funder's template(s)
-        @templates = Template.valid.where(published: true, org: funder).to_a
-
-        if org_id.present?
-          org = Org.find(org_id)
-
-          # Swap out any organisational cusotmizations of a funder template
-          @templates.each do |tmplt|
-            customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
-            if customization.present? && tmplt.updated_at < customization.created_at
-              @templates.delete(tmplt)
-              @templates << customization
-            end
-          end
-        end
-
-        @msg = _("We found multiple DMP templates corresponding to the funder.") if @templates.count > 1
-      end
-    end
-
-    # If no templates were available use the generic templates
-    if @templates.empty?
-      @msg = _("Using the generic Data Management Plan")
-      @templates << Template.default
-    end
-
-    @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
-  end
-
 end

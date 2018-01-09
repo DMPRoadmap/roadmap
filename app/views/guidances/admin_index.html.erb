@@ -1,140 +1,190 @@
-<%= stylesheet_link_tag "admin" %>
-<% javascript "admin.js" %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Guidance') %></h1>
 
-
-<h1>
-	<%= _('Guidance group list') %>
-</h1>
-
-<div class="div_left">
-	<%= raw _("<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>")%>
-</div>
-<div class="div_right">
-	<div class="move_2_right">
-		<%= link_to _('Add guidance group'), admin_new_guidance_group_path(), class: "btn btn-primary" %>
-	</div>
+    <p class="text-justify">
+      <%= _("First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.") %>
+    </p>
+  </div>
 </div>
 
-<!-- List of guidance groups -->
-<% if @guidance_groups.length > 0 then%>
-	<table id="dmp_table_2" class="dmp_table tablesorter">
-	  <thead>
-	    <tr>
-	      <th class="dmp_th_medium"><%= _('Name') %></th>
-        <th class="dmp_th_small"><%= _('Published') %></th>
-        <th class="dmp_th_small"><%= _('Optional subset') %></th>
-      	<th class="dmp_th_small"><%= _('Last updated') %></th>
-      	<td class="dmp_th_medium"><%= _('Actions') %></td>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	<% !@guidance_groups.each do |guidance_gr| %>
-	  		<tr>
-	        <td class="dmp_td_medium">
-	        	<%= guidance_gr.name %>
-	        </td>
-          <td class="dmp_td_small">
-  					<% if guidance_gr.published.nil? || guidance_gr.published == false then%>
-  						<%= _('No')%>
-  					<% else %>
-  						<%= _('Yes')%>
-  					<% end %>
-  				</td>
-  				<td class="dmp_td_small">
-  					<% if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false then%>
-  						<%= _('No')%>
-  					<% else %>
-  						<%= _('Yes')%>
-  					<% end %>
-  				</td>
+<div class="row">
+  <div class="col-md-12">
+    <h2><%= _('Guidance group list') %></h2>
+  
+    <!-- List of guidance groups -->
+    <% if @guidance_groups.length > 0 then%>
+    <div class="table-responsive">
+      <table class="table table-hover tablesorter" id="guidance-groups">
+        <thead>
+          <% if @guidance_groups.length > TABLE_FILTER_MIN_ROWS %>
+            <tr>
+              <th colspan="5" class="sorter-false">
+                <%= render(partial: "shared/table_filter",
+                            locals: {path: admin_index_guidance_path(current_user.org_id), placeholder: _('Filter guidance groups')}) %>
+              </th>
+            </tr>
+          <% end %>
+          <tr>
+            <th><%= _('Name') %></th>
+            <th class="text-center"><%= _('Status') %></th>
+            <th class="text-center"><%= _('Optional subset') %></th>
+            <th class="text-center"><%= _('Last updated') %></th>
+            <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% !@guidance_groups.each do |guidance_gr| %>
+            <tr>
+              <td>
+                <%= guidance_gr.name %>
+              </td>
+              <td class="text-center">
+                <% if guidance_gr.published.nil? || guidance_gr.published == false then%>
+                  <%= _('Unpublished')%>
+                <% else %>
+                  <%= _('Published')%>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false then%>
+                  <%= _('No')%>
+                <% else %>
+                  <%= _('Yes')%>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <%= l guidance_gr.updated_at.to_date, formats: :short %>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-link dropdown-toggle" type="button"
+                          id="guidance_group-<%= guidance_gr.id %>-actions" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="true">
+                    <%= _('Actions') %><span class="caret"></span>
+                  </button>
 
-          <td class="dmp_td_small">
-          	<%= l guidance_gr.updated_at.to_date, formats: :short %>
-          </td>
-          <td class="dmp_td_medium">
-          	<%= link_to _('View'), admin_show_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
-            <%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr), class: "dmp_table_link"%><br/>
-            <%= link_to _('Delete'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete, class: "dmp_table_link"%>
-          </td>
-		    </tr>
-	    <% end %>
-	  </tbody>
-	</table>
-<%end%>
+                  <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
+                    <li><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr) %></li>
+                  <% if guidance_gr.published? %>
+                    <li><%= link_to _('Unpublish'),  admin_update_unpublish_guidance_group_path(guidance_gr), method: :put %></li>
+                  <% else %>
+                    <li><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put %></li>
+                  <% end %>
+                    <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%end%>
+  
+    <div>
+      <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary"><%= _('Create a guidance group') %></a>
+    </div>
 
-<br/>
-<div class="div_clear"></div>
+    <h2><%= _('Guidance list') %></h2>
 
-<h1>
-	<%= _('Guidance list') %>
-</h1>
+    <p class="text-justify">
+      <%= _('You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.') %>
+    </p>
+    <p class="text-justify">
+      <%= _('If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.') %>
+    </p>
 
-<div class="div_left">
-	<%= raw _('<p>You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.</p> <p>If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.</p>')%>
+    <!-- List of guidance -->
+    <% if @guidances.length > 0 then%>
+    <div class="table-responsive">
+      <table class="table table-hover tablesorter" id="guidances">
+        <thead>
+          <% if @guidances.length > TABLE_FILTER_MIN_ROWS %>
+            <tr>
+              <%= render(partial: "shared/table_filter", 
+                         locals: {path: admin_index_guidance_path(current_user.org_id), placeholder: _('Filter guidance')}) %>
+            </tr>
+          <% end %>
+          <tr>
+            <th><%= _('Text') %></th>
+            <th><%= _('Themes') %></th>
+            <th><%= _('Guidance group') %></th>
+            <th><%= _('Status') %></th>
+            <th><%= _('Last updated') %></th>
+            <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @guidances.each do |guidance| %>
+            <% if guidance.in_group_belonging_to?(current_user.org_id) then %>
+              <tr>
+                <td>
+                  <%= guidance.text.html_safe%>
+                </td>
+                <% if guidance.themes.present? then %>
+                  <td>
+                    <% guidance.themes.each do |th| %>
+                      <%= th.title %>
+                    <% end %>
+                  </td>
+                <% else %>
+                  <td>
+                      -
+                  </td>
+                <% end %>
+                <% if guidance.guidance_group.present? then %>
+                  <td>
+                    <%= guidance.guidance_group.name %>
+                  </td>
+                <% else %>
+                  <td>
+                    -
+                   </td>
+                <% end %>
+                <td class="text-center">
+                  <% if guidance.published.nil? || guidance.published == false then%>
+                    <%= _('Unpublished')%>
+                  <% else %>
+                    <%= _('Published')%>
+                  <% end %>
+                </td>
+                <td>
+                  <%= l guidance.updated_at.to_date, formats: :short %>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button"
+                            id="guidance-<%= guidance.id %>-actions" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                      <%= _('Actions') %><span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="guidance-<%= guidance.id %>-actions">
+                      <li><%= link_to _('Edit'), admin_edit_guidance_path(guidance) %></li>
+                    <!-- If the guidance has never been published or it has changed -->
+                    <% if guidance.published? %>
+                      <li><%= link_to _('Unpublish'), admin_unpublish_guidance_path(guidance), method: :put %></li>
+                    <% else %>
+                      <li><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put %></li>
+                    <% end %>
+                      <li><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
+                              data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, 
+                              method: :delete %></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+  
+    <div>
+      <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%= _('Create guidance') %></a>
+    </div>
+  </div>
 </div>
-<div class="div_right">
-	<!-- link button to add new guidance -->
-	<div class="move_2_right">
-		<%= link_to _('Add guidance'),
-		            admin_new_guidance_path(),
-		            class: "btn btn-primary" %>
-	</div> 
-</div>
-
-<div class="div_clear"></div>
-
-<!-- List of guidance -->
-<% if @guidances.length > 0 then%>
-	<table id="dmp_table" class="dmp_table tablesorter">
-	  <thead>
-	    <tr>
-	      	<th class="dmp_th_big"><%= _('Text') %></th>
-	      	<th class="dmp_th_small"><%= _('Themes') %></th>
-	      	<th class="dmp_th_small"><%= _('Guidance group') %></th>
-			<th class="dmp_th_small"><%= _('Last updated') %></th>
-	      	<td class="dmp_th_medium"><%= _('Actions') %></td>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	<% @guidances.each do |guidance| %>
-	  		<% if guidance.in_group_belonging_to?(current_user.org_id) then %>
-		      <tr>
-		        <td class="dmp_td_big">
-		        	<%= guidance.text.html_safe%>
-		        </td>
-		        <% if guidance.themes.present? then %>
-			        <td class="dmp_td_small">
-			        	<% guidance.themes.each do |th| %>
-			        		<%= th.title %>
-			        	<% end %>
-			        </td>
-			    <% else %>
-			    	<td class="dmp_td_small">
-			        	-
-			        </td>
-			    <% end %>
-			    <% if guidance.guidance_group.present? then %>
-            <td class="dmp_td_small">
-		          <%= guidance.guidance_group.name %>
-            </td>
-		      <% else %>
-			    	<td class="dmp_td_small">
-			        -
-			       </td>
-			    <% end %>
-		        <td class="dmp_td_small">
-		        	<%= l guidance.updated_at.to_date, formats: :short %>
-		        </td>
-		        <td class="dmp_td_medium">
-		        	<%= link_to _('View'), admin_show_guidance_path(guidance), class: "dmp_table_link"%><br/>
-					<%= link_to _('Edit'), admin_edit_guidance_path(guidance), class: "dmp_table_link"%><br/>
-					<%= link_to _('Delete'), admin_destroy_guidance_path(guidance),
-						data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class: "dmp_table_link"%>
-		        </td>
-		      </tr>
-		    <% end %>
-	    <% end %>
-	  </tbody>
-	</table>
-<% end %>
 

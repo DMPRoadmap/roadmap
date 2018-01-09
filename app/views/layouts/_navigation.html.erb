@@ -1,69 +1,70 @@
-<div id="main-nav-tabs" class="main_nav_tabs">
-  <ul class="nav nav-tabs" data-tabs="tabs">
-    <!-- Navigation for organisation admin -->
-    <% if (user_signed_in? && current_user.can_org_admin? && ( action_name.include? "admin_" ) ) %>
-      <% if current_user.can_modify_templates? %>
-          <li <%= 'class=active' if isActivePage(admin_index_template_path(current_user.org_id)) %>>
-            <%= link_to _('Templates'), admin_index_template_path(current_user.org_id) %>
-          </li>
-      <% end %>
-      <% if current_user.can_modify_guidance? %>
-          <li <%= 'class=active' if isActivePage(admin_index_guidance_path(current_user.org_id)) %>>
-            <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
-          </li>
-      <% end %>
-      <% if current_user.can_modify_org_details? %>
-          <li <%= 'class=active' if isActivePage(admin_show_org_path(current_user.org_id)) %>>
-            <%= link_to _('Organisation details'), admin_show_org_path(current_user.org_id) %> 
-          </li>
-      <% end %>
-      <% if current_user.can_grant_permissions? %>
-          <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>
-            <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
-          </li>
-      <% end %>
-    <% else %>
-      <% if user_signed_in? %>
-          <li <%= 'class=active' if isActivePage(plans_path) %>>
-            <%= link_to _('View plans'), plans_path %>
+<nav id="app-navbar" class="navbar navbar-inverse">
+  <div class="container-fluid" >
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to(image_tag("logo.png",
+                            alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                            class: "app-logo",
+                            title: Rails.configuration.branding[:application][:name]),
+                  root_path) %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="app-navbar-menu">
+      <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          <li class="<%= ' active' if isActivePage(root_path) %>">
+            <%= link_to _('My Dashboard'), plans_path %>
           </li>
           <li <%= 'class=active' if isActivePage(new_plan_path) %>>
-            <%= link_to _('Create plan'), new_plan_path %>
+            <%= link_to _('Create plans'), new_plan_path %>
           </li>
-      <% else %>
-        <!-- Home page -->
-          <li <%= 'class=active' if isActivePage(root_path) %>>
+            <li class="dropdown" id="reference-dropdown">
+              <a href="#" class="dropdown-toggle" role="button" id="reference-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-book" aria-hidden="true">&nbsp;</i>
+                <%= _("Reference") %>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu inverse-dropdown" aria-labelledby="reference-menu">
+                <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+                  <%= link_to _('Public DMPs'), public_plans_path %>
+                </li>
+                <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+                  <%= link_to _('DMP Templates'), public_templates_path %>
+              </ul>
+            </a>
+          </li>
+        <% else %>
+          <li <%= 'class=active' if isActivePage(root_path) || isActivePage(plans_path) %>>
             <%= link_to _('Home'), root_path %>
           </li>
-      <% end %>
-      <!-- about_us page -->
-        <li <%= 'class=active' if isActivePage(about_us_path) %>>
-          <%= link_to _('About'), about_us_path %>
-        </li>
-      <!-- roadmap page -->
-        <li <%= 'class=active' if isActivePage(roadmap_path) %>>
-          <%= link_to _('Future plans'), roadmap_path %>
-        </li>
-      <!-- help page -->
+          <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+            <%= link_to _('Public DMPs'), public_plans_path %>
+          </li>
+          <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+            <%= link_to _('DMP Templates'), public_templates_path %>
+          </li>
+        <% end %>
+        <!-- help page -->
         <li <%= 'class=active' if isActivePage(help_path) %>>
           <%= link_to _('Help'), help_path %>
         </li>
-      <% if MANY_LANGUAGES %>
-          <!-- language dropdown -->
-          <li class="dropdown sign_in">
-            <a class="dropdown-toggle main_nav" data-toggle="dropdown" href="#">
-              <%= _('Change language') %>
-              <b class="caret caret-orange"></b>
-            </a>
-            <ul class="dropdown-menu" style="padding: 0;">
-              <% LANGUAGES.each do |l| %>
-                <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
-                  <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'main_nav lang-dropdown-link'%>
-                </li>
-              <% end %>
-            </ul>
-          </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <%= render "layouts/signin_signout" %>
+      </ul>
+
+      <% unless isActivePage(root_path) %>
+        <%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
       <% end %>
-    <% end %>
-  </ul>
-</div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+

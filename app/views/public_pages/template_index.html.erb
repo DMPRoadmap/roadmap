@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= raw _('DMP Templates') %></h1>
+
+    <% if @templates.count > 0 %>
+      <p class="left-indent"><%= _('Templates are provided by a funder, an institution, or a trusted party.') %></p>
+    <% else %>
+      <p class="left-indent"><%= _('There are currently no public Templates.')%></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @templates.count > 0 %>
+      <div class="table-responsive">
+      <table class="table table-hover tablesorter">
+        <thead>
+         <% if @templates.count > TABLE_FILTER_MIN_ROWS %>
+            <tr>
+              <th colspan="5" class="sorter-false">
+                <%= render(partial: "shared/table_filter",
+                           locals: {path: public_templates_path, placeholder: _('Filter templates')}) %>
+              </th>
+            </tr>
+          <% end %>
+          <tr>
+            <th><%= _('Template Name') %></th>
+            <th class="sorter-false text-center"><%= _('Download') %></th>
+            <th><%= _('Organisation Name') %></th>
+            <th class="sorter-false"><%= _('Funder Links') %></th>
+            <th class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an institution or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @templates.each do |template| %>
+            <tr>
+              <td><%= template.title %></td>
+              <td class="text-center">
+                <%= link_to _('DOCX'), template_export_path(template.dmptemplate_id, format: :docx), target: '_blank' %>
+                <br>
+                <%= link_to _('PDF'), template_export_path(template.dmptemplate_id, format: :pdf), target: '_blank' %>
+              </td>
+              <td><%= template.org.name %></td>
+              <td>
+                <%= raw links_to_a_elements(template.links['funder'], '<br>') %>
+              </td>
+              <td>
+                <%= raw links_to_a_elements(template.links['sample_plan'], '<br>') %>
+              </td>
+            </tr>
+          <% end %>
+      </table>
+      </div>
+    <% end %>
+  </div>
+</div>

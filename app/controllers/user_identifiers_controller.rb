@@ -14,7 +14,7 @@ class UserIdentifiersController < ApplicationController
       identifier.destroy!
       flash[:notice] = _('Successfully unlinked your account from %{is}.') % {is: identifier.identifier_scheme.description}
     else
-      flash[:notice] = _('Unable to unlink your account from %{is}.') % {is: identifier.identifier_scheme.description}
+      flash[:alert] = _('Unable to unlink your account from %{is}.') % {is: identifier.identifier_scheme.description}
     end
     
     redirect_to edit_user_registration_path

@@ -1,0 +1,29 @@
+<% phases = Phase.titles(plan.template.id) %>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="<%= (isActivePage(plan_path(plan), true) ? 'active' : '') %>">
+    <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
+  </li>
+  <li role="presentation" class="<%= (isActivePage(overview_plan_path(plan)) ? 'active' : '') %>">
+    <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
+  </li>
+  <% plan.template.phases.each do |phase| %>
+    <li role="presentation" class="<%= (isActivePage(edit_plan_phase_path(plan, phase)) ? 'active' : '') %>">
+      <a href="<%= edit_plan_phase_path(plan, phase) %>" role="tab" aria-controls="content">
+        <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
+      </a>
+    </li>
+  <% end %>
+  <% if plan.editable_by?(current_user) %>
+    <li role="presentation" class="<%= (isActivePage(share_plan_path(plan)) ? 'active' : '') %>">
+      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
+    </li>
+  <% end %>
+  <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
+    <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div id="content" role="tabpanel" class="tab-pane active">
+    <%= yield %>
+  </div>
+</div>

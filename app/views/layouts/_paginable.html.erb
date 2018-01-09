@@ -1,0 +1,33 @@
+<% 
+  # Custom layout to be included on any view that needs pagination
+  # locals: { controller, action, paginable, scope } 
+%>
+<div class="paginable">
+  <div class="row">
+    <div class="col-md-12">
+      <%= yield %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="paginable-layout">
+        <div class="pull-left">
+          <% total = paginable ? scope.total_count : scope.length %>
+          <% if total > Kaminari.config.default_per_page %>
+            <% if paginable %>
+              <%= link_to(_('View all'), url_for(controller: controller, action: action, page: 'ALL'), { 'data-remote': true }) %>
+            <% else %>
+              <%= link_to(_('View less'), url_for(controller: controller, action: action, page: 1), { 'data-remote': true }) %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="pull-right">
+          <% if paginable %>
+              <%= paginate(scope, params: { controller: controller, action: action }, remote: true) %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

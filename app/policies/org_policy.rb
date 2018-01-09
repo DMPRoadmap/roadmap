@@ -30,5 +30,4 @@ class OrgPolicy < ApplicationPolicy
   def templates?
     true
   end
-
 end

@@ -50,8 +50,9 @@ class ActiveSupport::TestCase
   # ----------------------------------------------------------------------
   def scaffold_template
     template = Template.new(title: 'Test template',
-                            description: 'My test template',
-                            org: Org.first, migrated: false)
+                            description: 'My test template', 
+                            links: {"funder":[],"sample_plan":[]},
+                            org: Org.first, migrated: false, dmptemplate_id: "0000009999")
 
     template.phases << Phase.new(title: 'Test phase',
                                  description: 'My test phase',
@@ -86,10 +87,10 @@ class ActiveSupport::TestCase
   # Version the template
   # ----------------------------------------------------------------------
   def version_the_template
-    put admin_publish_template_path(@template)
-    get admin_template_template_path(@template)            # Click on 'edit'
+    get publish_org_admin_template_path(@template)
+    get edit_org_admin_template_path(@template)            # Click on 'edit'
     @template = Template.current(@template.dmptemplate_id) # Edit working copy
-    put admin_update_template_path(@template), {template: {title: "#{@template.title} - VERSIONED"}}
+    put org_admin_template_path(@template), {template: {title: "#{@template.title} - VERSIONED"}}
   end
 
   # Scaffold a new Plan based on the scaffolded Template
@@ -100,7 +101,7 @@ class ActiveSupport::TestCase
     @plan = Plan.new(template: @template, title: 'Test Plan', grant_number: 'Grant-123',
                         principal_investigator: 'me', principal_investigator_identifier: 'me-1234',
                         description: "this is my plan's informative description",
-                        identifier: '1234567890', data_contact: 'me@example.com', visibility: 0,
+                        identifier: '1234567890', data_contact: 'me@example.com', visibility: :privately_visible,
                         roles: [Role.new(user: User.last, creator: true)])
 
     assert @plan.valid?, "unable to create new Plan: #{@plan.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
@@ -117,7 +118,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select '.welcome-message h2', _('Welcome.')
+    assert_select 'main h1', _('Welcome.')
   end
 
   # ----------------------------------------------------------------------
@@ -129,7 +130,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select '.main_page_content h1', _('My plans')
+    assert_select 'main h1', _('My Dashboard')
   end
 
   # ----------------------------------------------------------------------

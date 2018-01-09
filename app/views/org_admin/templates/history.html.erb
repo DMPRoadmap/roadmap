@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Template History') %></h1>
+    <p><%= _('Here you can view previously published versions of your template.  These can no longer be modified.')%></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- List of own templates -->
+    <% if @templates.length > 0 then %>
+      <div class="table-responsive">
+        <table class="table table-hover tablesorter">
+          <thead>
+            <tr>
+              <th><%= _('Title') %></th>
+              <th class="text-center"><%= _('Version') %></th>
+              <th class="text-center"><%= _('Published') %></th>
+              <th><%= _('Last updated') %></th>
+              <th class="text-center sorter-false"><%= _('Actions') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @templates.each do |org_template| %>
+              <tr>
+                <td>
+                  <%= org_template.title%>
+                  <% if org_template == @current && !org_template.published%>
+                    &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
+                  <% end %>
+                </td>
+                <td class="text-center">
+                  <%= org_template.version %>
+                </td>
+                <td class="text-center">
+                  <%= (org_template.published? ? _('Yes') : _('No')) %>
+                </td>
+                <td>
+                  <% last_temp_updated = org_template.updated_at %>
+                  <% org_template.phases.each do |phase|%>
+                    <% if org_template.updated_at.to_date < phase.updated_at.to_date %>
+                      <% last_temp_updated = phase.updated_at %>
+                    <% end %>
+                  <% end %>
+                  <%= l last_temp_updated.to_date, formats: :short %>
+                </td>
+                <td class="text-center">
+                  <%= link_to (org_template == @current ? _('Edit') : _('View')), edit_org_admin_template_path(id: org_template), class: "dmp_table_link"%>
+                </td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+
+    <% else %>
+      <p><%= _('This template is new and does not yet have any publication history.') %></p>
+    <% end %>
+    <div>
+      <%= link_to _('View all templates'), org_admin_templates_path, class: "btn btn-default" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+$fa-font-path: "~font-awesome/fonts/";
+@import "~font-awesome/scss/font-awesome";
+
+/* CSSs files for jquery-ui. TODO, remove when bootstrap is re-introduced
+*= require jquery-ui-dist/jquery-ui.min
+*= require jquery-ui-dist/jquery-ui.structure.min
+*= require jquery-ui-dist/jquery-ui.theme.min
+*/
+
+@import "/overrides.scss";
+
+[class^="bg-"] {
+    padding: 15px;
+}
+.mb-5 {
+  margin-bottom: 5px;
+}

@@ -1,0 +1,5 @@
+<%# locals: { f, question, answer } %>
+<div class="form-group">
+    <%= f.label(:text, raw(question.text), class: 'control-label') %>
+    <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+</div>

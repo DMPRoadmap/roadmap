@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrgTest < ActiveSupport::TestCase
   setup do
-    @org = Org.first
+    @org = Org.create!(name: 'Testing', abbreviation: 'TST', links: {"org":[]})
     
     @language = Language.find_by(abbreviation: I18n.default_locale)
   end
@@ -13,6 +13,7 @@ class OrgTest < ActiveSupport::TestCase
     assert_not(org.valid?)
     
     org.name = 'ABCD'
+    org.links = {"org":[]}
     assert(org.valid?)
   end
   
@@ -76,7 +77,7 @@ class OrgTest < ActiveSupport::TestCase
   end
   
   # ---------------------------------------------------
-  test "should resize logo to a height of 100" do
+  test "should resize logo to a height of 75" do
     ['logo.jpg', # this one is at 160x160
      'logo_300x300.jpg', 
      'logo_100x100.jpg'].each do |file|
@@ -85,7 +86,7 @@ class OrgTest < ActiveSupport::TestCase
        @org.logo = Dragonfly.app.fetch_file("#{path}")
        
        assert @org.valid?, "expected the logo to have been attached to the org"
-       assert_equal 100, @org.logo.height, "expected the logo to have been resized properly"
+       assert_equal 75, @org.logo.height, "expected the logo to have been resized properly"
     end
   end
   
@@ -145,7 +146,7 @@ class OrgTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can CRUD" do
-    org = Org.create(name: 'testing')
+    org = Org.create(name: 'testing', links: {"org":[]})
     assert_not org.id.nil?, "was expecting to be able to create a new Org: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     org.abbreviation = 'TEST'
@@ -191,5 +192,11 @@ class OrgTest < ActiveSupport::TestCase
     tpt = TokenPermissionType.new(token_type: 'testing')
     verify_has_many_relationship(@org, tpt, @org.token_permission_types.count)
   end
-  
+
+  # ---------------------------------------------------
+  test "Guidance Group should be created after_create of the Org" do
+    org = Org.create!(name: 'Testing Guidance Group for Org', abbreviation: 'TGG', links: {"org":[]})
+    assert_equal org.guidance_groups.count, 1
+    org.destroy! 
+  end
 end
