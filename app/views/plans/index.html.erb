@@ -30,7 +30,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <% if @organisationally_or_publicly_visible.length > 0 %>
+    <% if @organisationally_or_publicly_visible.length > 0 && !current_user.org.is_other? %>
       <%= paginable_renderise(
         partial: '/paginable/plans/organisationally_or_publicly_visible',
         controller: 'paginable/plans',
