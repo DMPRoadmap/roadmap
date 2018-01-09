@@ -68,15 +68,13 @@
         <% end %>
 
         <% guidance_accordion_id = 0 %>
-        <% guidance_set.keys.each do |group| %>
+        <% guidance_set.keys.each_with_index do |i, group| %>
           <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
-          <% i = 0 %>
           <% if obj.present? %>
-            <div id="guidance-<%= question.id %>-<%= obj.id %>" role="tabpanel" class="tab-pane">
+            <div id="guidance-<%= question.id %>-<%= obj.id %>" role="tabpanel" class="tab-pane<%= annotations.present? ? '' : ' active' %>">
+              <% accordion_id = "#{gg.id}-#{i}" %>
               <%= render partial: 'guidance_groups/show', 
-                         locals: { group: guidance_set[group], question: question, guidance_accordion_id: guidance_accordion_id } %>
-              <% guidance_accordion_id += 1 %>
-              <% i += 1 %>
+                         locals: { group: guidance_set[group], question: question, guidance_accordion_id: accordion_id } %>
             </div>
           <% end %>
         <% end %>
