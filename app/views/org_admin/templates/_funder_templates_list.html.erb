@@ -45,9 +45,9 @@
                 <%= _('Original funder template has changed!')%>
               <% elsif !template.published? %>
                 <!-- The template does not have a live version -->
-                <%= b_label = _('Funder version is un-published') %>
+                <%= b_label = _('Funder version is unpublished') %>
               <% elsif customization.dirty? %>
-                <%= _('You have un-published changes') %>
+                <%= _('You have unpublished changes') %>
               <% elsif customization.published? %>
                 <%= _('Published') %>
               <% else %>
