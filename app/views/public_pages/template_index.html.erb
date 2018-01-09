@@ -18,7 +18,7 @@
         <thead>
          <% if @templates.count > TABLE_FILTER_MIN_ROWS %>
             <tr>
-              <th colspan="5" class="sorter-false">
+              <th colspan="6" class="sorter-false">
                 <%= render(partial: "shared/table_filter",
                            locals: {path: public_templates_path, placeholder: _('Filter templates')}) %>
               </th>
@@ -28,6 +28,7 @@
             <th><%= _('Template Name') %></th>
             <th class="sorter-false text-center"><%= _('Download') %></th>
             <th><%= _('Organisation Name') %></th>
+            <th><%= _('Last Updated') %></th>
             <th class="sorter-false"><%= _('Funder Links') %></th>
             <th class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an institution or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
           </tr>
@@ -42,6 +43,7 @@
                 <%= link_to _('PDF'), template_export_path(template.dmptemplate_id, format: :pdf), target: '_blank' %>
               </td>
               <td><%= template.org.name %></td>
+              <td><%= l(template.updated_at.to_date, formats: :short) %></td>
               <td>
                 <%= raw links_to_a_elements(template.links['funder'], '<br>') %>
               </td>
