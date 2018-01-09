@@ -66,7 +66,7 @@ gem 'formtastic', '~> 3.1.4'
 gem 'wkhtmltopdf-binary', '~> 0.12.3'
 gem 'thin', '~> 1.7'
 gem 'wicked_pdf', '~> 1.1.0'
-gem 'htmltoword', '~> 0.5.1'
+gem 'htmltoword', '>= 0.7'
 gem 'feedjira', '~> 2.0.0'
 gem 'yaml_db', :git => 'https://github.com/vyruss/yaml_db.git'
 
@@ -82,7 +82,7 @@ gem 'swagger-docs', '>= 0.2.9 '
 
 # ------------------------------------------------
 #    CODE DOCUMENTATION
-gem 'yard', '>= 0.9.5'
+gem 'yard', '>= 0.9.11'
 gem 'redcarpet', '>= 3.3.4'
 
 # ------------------------------------------------
