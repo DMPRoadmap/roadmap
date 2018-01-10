@@ -270,7 +270,8 @@ class Plan < ActiveRecord::Base
   def guidance_by_question_as_hash
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?) AND orgs.id != ?", 
+                                                       true, guidance_groups_ids, self.template.org.id)
 
     # Gather all of the Themes used in the plan as a hash
     # {
