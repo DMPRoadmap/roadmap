@@ -3,22 +3,33 @@
   # locals: { controller, action, paginable, scope } 
 %>
 <div class="paginable">
-  <div class="row">
-    <div class="col-md-12">
-      <%= yield %>
+  <div class="paginable-search">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render(partial: '/shared/search', locals: { url: url_for(controller: controller, action: action, page: 'ALL') }) %>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="paginable-layout">
+  <div class="paginable-results">
+    <div class="row">
+      <div class="col-md-12">
+        <% if scope.length > 0 %>
+          <%= yield %>
+        <% else %>
+          <p class="bg-info">
+            <%= _('There are no records associated') %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <div class="pull-left">
           <% total = paginable ? scope.total_count : scope.length %>
-          <% if total > Kaminari.config.default_per_page %>
-            <% if paginable %>
-              <%= link_to(_('View all'), url_for(controller: controller, action: action, page: 'ALL'), { 'data-remote': true }) %>
-            <% else %>
-              <%= link_to(_('View less'), url_for(controller: controller, action: action, page: 1), { 'data-remote': true }) %>
-            <% end %>
+          <% if paginable %>
+            <%= link_to(_('View all'), url_for(controller: controller, action: action, page: 'ALL'), { 'data-remote': true, class: 'view-all' }) %>
+          <% else %>
+            <%= link_to(_('View less'), url_for(controller: controller, action: action, page: 1), { 'data-remote': true }) if total > Kaminari.config.default_per_page %>
           <% end %>
         </div>
         <div class="pull-right">
