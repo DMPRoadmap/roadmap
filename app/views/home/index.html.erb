@@ -12,10 +12,10 @@
           <!-- Shibboleth DS enabled -->
           <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
             <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
-              <%= link_to _('Institutional credentials'), user_shibboleth_omniauth_authorize_path, class: 'btn btn-default btn-block' %>
-            <% else %>
               <%= link_to _('Institutional credentials'), '#', class: 'btn btn-default btn-block',
                           'data-toggle': 'modal', 'data-target': '#shib-ds-form' %>
+            <% else %>
+              <%= link_to _('Institutional credentials'), user_shibboleth_omniauth_authorize_path, class: 'btn btn-default btn-block' %>
             <% end %>
           <%else%>
             <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>

@@ -1,7 +1,11 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-body">
-      <div class="sign-in">
+    <div class="sign-in">
+      <div class="modal-body">
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+          <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+        </button>
+
         <ul id="access-control-tabs" class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active">
             <a data-target="#sign-in-form" role="tab" aria-controls="sign-in-form" data-toggle="tab">
@@ -17,7 +21,7 @@
 
         <div class="tab-content">
           <div id="sign-in-form" role="tabpanel" class="tab-pane active">
-            <%= render :partial => 'shared/sign_in_form' %>      
+            <%= render :partial => 'shared/sign_in_form' %>
           </div>
           <div id="create-account-form" role="tabpanel" class="tab-pane"> 
             <%= render :partial => 'shared/create_account_form', locals: {extended: false} %>
