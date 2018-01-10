@@ -63,7 +63,7 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.shibboleth_enabled = false
+    config.shibboleth_enabled = true
 
     # Relative path to Shibboleth SSO Logout
     config.shibboleth_login = '/Shibboleth.sso/Login'
@@ -74,7 +74,7 @@ module DMPRoadmap
     # will be driven out to your federation's discovery service
     #
     # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
-    config.shibboleth_use_filtered_discovery_service = false
+    config.shibboleth_use_filtered_discovery_service = true
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
