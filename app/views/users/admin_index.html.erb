@@ -1,5 +1,19 @@
-<%= paginable_renderise(
-      partial: '/paginable/users/index',
-      controller: 'paginable/users',
-      action: 'index', 
-      scope: @users) %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('List of users') %></h1>
+    <p class="text-justify">
+      <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <%= paginable_renderise(
+        partial: '/paginable/users/index',
+        controller: 'paginable/users',
+        action: 'index', 
+        scope: @users) %>
+    </div>
+  </div>
+</div>
