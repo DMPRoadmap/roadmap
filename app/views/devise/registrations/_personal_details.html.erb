@@ -24,9 +24,8 @@
     <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
   </div>
 
-  <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
-  <div class="form-group col-xs-8" id="org-controls" <%= raw "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
-    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
+  <div class="form-group col-xs-8" id="org-controls">
+    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
   </div>
 
   <% if MANY_LANGUAGES %>
