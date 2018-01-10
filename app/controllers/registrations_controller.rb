@@ -182,7 +182,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     else
       flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
-      render "edit"
+      redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end
 
