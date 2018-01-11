@@ -1,0 +1,24 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="sign-in">
+      <div class="modal-body">
+        <button type="button" class="close pull-right" data-dismiss="modal"
+                aria-label="<%= _('Cancel') %>">
+          <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+        </button>
+
+        <div id="org-sign-in-logo">
+          <% if org.logo.present? %>
+            <%= image_tag(org.logo.thumb('100x100%').url,
+                          alt: org.name,
+                          class: "org-logo",
+                          title: org.name) %>
+          <% else %>
+            <h4><%= org.name %></h4>
+          <% end %>
+        </div>
+        <%= render partial: 'shared/sign_in_form' %>
+      </div>
+    </div>
+  </div>
+</div>
