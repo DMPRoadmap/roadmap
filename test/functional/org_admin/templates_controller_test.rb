@@ -99,15 +99,30 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_authorized_redirect_to_plans_page
   end
 
-  test "get the template edit page" do
+  test 'get templates#edit returns redirect (found) when template is current and is published' do
+    @template.dirty = false
+    @template.published = true
+    @template.save
     sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:redirect)
+  end
 
-    get edit_org_admin_template_path(@template)
-    assert_response :success
+  test 'get templates#edit returns ok when template is current and is NOT published' do
+    sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:ok)
+    assert_nil(flash[:notice])
+  end
 
-    assert assigns(:template)
-    assert assigns(:template_hash)
-    assert assigns(:current)
+  test 'get templates#edit returns ok with flash notice when template is not current' do
+    new_version = Template.deep_copy(@template)
+    new_version.version = (@template.version + 1)
+    new_version.save
+    sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:ok)
+    assert_equal(_('You are viewing a historical version of this template. You will not be able to make changes.'), flash[:notice])
   end
 
   test "unauthorized user cannot access the new template page" do
