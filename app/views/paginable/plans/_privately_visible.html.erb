@@ -1,13 +1,6 @@
       <div class="table-responsive">
         <table class="table table-hover tablesorter" id="my-plans">
           <thead>
-            <% if scope.length > TABLE_FILTER_MIN_ROWS %>
-              <tr>
-                <th colspan="7" class="sorter-false">
-                  <%= render(partial: "shared/table_filter", locals: { placeholder: _('Filter plans')}) %>
-                </th>
-              </tr>
-            <% end %>
             <tr>
               <th><%= _('Project Title') %></th>
               <th><%= _('Template') %></th>

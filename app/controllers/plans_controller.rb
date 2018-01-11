@@ -7,7 +7,7 @@ class PlansController < ApplicationController
 
   def index
     authorize Plan
-    @plans = current_user.active_plans.page(1)
+    @plans = Plan.active(current_user).page(1)
     @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).page(1)
   end
 
