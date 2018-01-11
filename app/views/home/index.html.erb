@@ -15,7 +15,7 @@
               <%= link_to _('Your institution'), '#', class: 'btn btn-default btn-block',
                           'data-toggle': 'modal', 'data-target': '#shib-ds-form' %>
             <% else %>
-              <%= link_to _('Institutional credentials'), user_shibboleth_omniauth_authorize_path, class: 'btn btn-default btn-block' %>
+              <%= link_to _('Your institution'), user_shibboleth_omniauth_authorize_path, class: 'btn btn-default btn-block' %>
             <% end %>
           <%else%>
             <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
