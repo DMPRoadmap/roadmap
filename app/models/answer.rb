@@ -10,9 +10,9 @@ class Answer < ActiveRecord::Base
       else
         plan.touch  # Force updated_at changes if nothing changed since save only saves if changes were made to the record
       end
-    end 
+    end
   end
-  
+
   ##
   # Associations
 	belongs_to :question
