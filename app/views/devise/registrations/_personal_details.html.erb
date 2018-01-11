@@ -40,20 +40,15 @@
 
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
-      <% if scheme.name == 'shibboleth' %>
-        <label class='control-label'>
-          <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
-          <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
-        </label>
-      <% else %>
+      <% if scheme.name != 'shibboleth' %>
         <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
-      <% end %>
 
-      <div class='identifier-scheme'>
-        <%= render partial: "external_identifier_#{scheme.name}",
-                   locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
-      </div>
+        <div class='identifier-scheme'>
+          <%= render partial: "external_identifier_#{scheme.name}",
+                     locals: { scheme: scheme,
+                               id: current_user.identifier_for(scheme)} %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 

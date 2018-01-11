@@ -10,9 +10,11 @@
         <li role="personal-details" class="active">
           <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
         </li>
-        <li role="password-details">
-          <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
-        </li>
+        <% unless current_user.identifier_for('shibboleth').present? %>
+          <li role="password-details">
+            <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
+          </li>
+        <% end %>
         <li role="notification-preferences">
           <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
@@ -23,9 +25,11 @@
           <%= render partial: 'devise/registrations/personal_details' %>
         </div>
 
-        <div id="password-details" role="tabpanel" class="tab-pane">
-          <%= render partial: 'devise/registrations/password_details' %>
-        </div>
+        <% unless current_user.identifier_for('shibboleth').present? %>
+          <div id="password-details" role="tabpanel" class="tab-pane">
+            <%= render partial: 'devise/registrations/password_details' %>
+          </div>
+        <% end %>
 
         <div id="notification-preferences" role="tabpanel" class="tab-pane">
           <%= render partial: 'users/notification_preferences' %>
