@@ -63,7 +63,7 @@ class Answer < ActiveRecord::Base
     answer_copy.save!
     return answer_copy
   end
-  
+
   # This method helps to decide if an answer option (:radiobuttons, :checkbox, etc ) in form views should be checked or not
   # Returns true if the given option_id is present in question_options, otherwise returns false
   def has_question_option(option_id)
@@ -85,5 +85,38 @@ class Answer < ActiveRecord::Base
   # Returns answer notes whose archived is blank sorted by updated_at in descending order
   def non_archived_notes
     return notes.select{ |n| n.archived.blank? }.sort!{ |x,y| y.updated_at <=> x.updated_at }
+  end
+
+
+  ##
+  # Returns the parsed JSON hash for the current answer object
+  # Generates a new hash if none exists for rda_questions
+  #
+  # @return [Hash] the parsed hash of the answer.
+  #                Should have keys 'standards', 'text'
+  #                'standards' is a list of <std_id>: <title> pairs
+  #                'text' is the text from the comments box
+  def answer_hash
+    default = {'standards' => {}, text => ''}
+    begin
+      h = self.text.nil? ? default : JSON.parse(answer.text)
+    rescue JSON::ParserError => e
+      h = default
+    end
+    return h
+  end
+
+  ##
+  # Given a hash of standards and a comment value, this updates answer
+  # text for rda_questions
+  #
+  # @param [standards] a hash of standards
+  # @param [text]  option comment text
+  # nothing returned, but the status of the text field of the answer is changed
+  def update_answer_hash(standards={},text="")
+    h = {}
+    h[:standards] = standards
+    h[:text] = text
+    self.text = h.to_json
   end
 end
