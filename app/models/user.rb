@@ -54,6 +54,11 @@ class User < ActiveRecord::Base
       ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
   }
 
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    where("firstname LIKE ? OR surname LIKE ? OR email LIKE ?", search_pattern, search_pattern, search_pattern)
+  }
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?

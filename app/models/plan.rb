@@ -54,14 +54,24 @@ class Plan < ActiveRecord::Base
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
   scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
 
+  # Retrieves any plan in which the user has an active role and it is not a reviewer
+  scope :active, -> (user) {
+    includes([:template, :roles]).where({ "roles.active": true, "roles.user_id": user.id }).where(Role.not_reviewer_condition)
+  }
+
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    Plan.includes(:template)
+    includes([:template, :roles])
       .where({
         visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
         "templates.org_id": user.org_id})
       .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
       .order(:title => :asc)
+  }
+
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:template).where("plans.title LIKE ? OR templates.title LIKE ?", search_pattern, search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
