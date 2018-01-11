@@ -1,22 +1,4 @@
 <%= form_for resource, as: 'user', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
-  <% if Rails.application.config.shibboleth_enabled %>
-    <!-- Shibboleth DS enabled -->
-    <h3 class="center-text"><%= _('Sign in with') %></h3>
-
-    <div class="form-group">
-      <span class="center-block">
-        <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
-          <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <a href="<%= target %>" class="btn btn-default"><%= _('Your Institution') %></a>
-        <%else%>
-          <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
-        <%end%>
-      </span>
-    </div>
-
-    <h3 class="center-text">- <%= _('or') %> -</h3>
-  <% end %>
-  
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
     <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
@@ -38,4 +20,19 @@
   <div>
     <%= link_to _('Forgot password?'), new_password_path('user') %>
   </div>
+
+  <% if Rails.application.config.shibboleth_enabled %>
+    <h4 class="text-center">- <%= _('or') %> -</h4>
+
+    <div class="form-group">
+      <span class="center-block btn-group-justified">
+        <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+          <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
+          <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your institutional credentials') %></a>
+        <%else%>
+          <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+        <%end%>
+      </span>
+    </div>
+  <% end %>
 <% end %>
