@@ -1,5 +1,5 @@
 class OrgsController < ApplicationController
-  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
+  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru', 'logo']
   respond_to :html
 
   ##
@@ -75,6 +75,20 @@ class OrgsController < ApplicationController
       flash[:notice] = _('Please choose an institution')
       redirect_to shibboleth_ds_path
     end
+  end
+  
+  # GET /orgs/:id/logo (format: :json)
+  # ----------------------------------------------------------------
+  def logo
+    org = Org.find(params[:org_id])
+    render json: {
+      "org" => {
+        "id" => params[:org_id],
+        "html" => render_to_string(partial: 'shared/org_sign_in', 
+                                   locals: { org: org }, 
+                                   formats: [:html])
+      }
+    }.to_json
   end
 
   private

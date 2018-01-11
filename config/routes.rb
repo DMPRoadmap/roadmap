@@ -101,6 +101,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         get 'admin_edit'
         put 'admin_update'
       end
+
+      get 'logo', constraints: {format: :json}
     end
 
     resources :guidances, :path => 'org/admin/guidance', only: [] do

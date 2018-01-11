@@ -7,28 +7,26 @@
 
       <div class="row">
         <div class="col-md-12">
-          <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {id: 'shibboleth_ds'} do |f| %>
-            <%= f.label(:org_name, _('Look up your institution here'), class: "control-label") %>
-            <div class="form-group">
-              <% if orgs.length <= 10 %>
-                <select id="org_name">
-                  <option value=""><%= _('Please select one') %></option>
-                  <%= raw orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
-                </select>
-        
-              <% else %>
-                <%= render partial: "shared/accessible_combobox", 
-                           locals: {name: 'org_name',
-                                    id: 'org_name',
-                                    default_selection: nil,
-                                    models: orgs,
-                                    attribute: 'name',
-                                    required: true,
-                                    classes: ''} %>
-              <% end %>
-              <span><%= f.button(_('Go'), class: "btn btn-default", type: "submit") %></span>
-            </div>
-          <% end %>
+          <%= label_tag :org_name, _('Look up your institution here'), class: "control-label" %>
+          <div class="form-group">
+            <% if orgs.length <= 10 %>
+              <select id="org_name">
+                <option value=""><%= _('Please select one') %></option>
+                <%= raw orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
+              </select>
+      
+            <% else %>
+              <%= render partial: "shared/accessible_combobox", 
+                         locals: {name: 'org_name',
+                                  id: 'org_name',
+                                  default_selection: nil,
+                                  models: orgs,
+                                  attribute: 'name',
+                                  required: true,
+                                  classes: ''} %>
+            <% end %>
+            <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go" %>
+          </div>
 
           <% if orgs.length > 10 %>
             <%= link_to _('See the full list of participating institutions'), '#', id: 'show_list' %>
@@ -41,9 +39,14 @@
                   <li class="bg-primary"><%= current %></li>
                 <% end %>
                 <% if org.shibbolized? %>
-                  <li><%= link_to org.name, "#{shibboleth_ds_path}/#{org.id}" %></li>
+                  <li><%= link_to org.name, "#{shibboleth_ds_path}/#{org.id}",
+                                  'data-content': org.id %></li>
                 <% else %>
-                  <li><%= link_to org.name, "#{new_user_registration_path}?org=#{org.id}" %></li>
+                  <li>
+                    <%= link_to org.name, "#{org_logo_path(org)}", 
+                                class: 'org-sign-in', 'data-content': org.id, 
+                                'data-toggle': 'modal', 'data-target': '#org-sign-in' %>
+                  </li>
                 <% end %>
               <% end %>
             </ul>
@@ -58,4 +61,7 @@
       </div>
     </div>
   </div>
+</div>
+
+<div id="org-sign-in" class="modal fade" tabindex="-1" role="dialog">
 </div>
