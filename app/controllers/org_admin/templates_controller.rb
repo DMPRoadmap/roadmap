@@ -501,18 +501,13 @@ module OrgAdmin
         
         scopes = calculate_table_scopes(templates, customizations)
 
-        # We scope based on the customizations if the user is NOT a super admin
+        # We scope based on the customizations
         if params[:scope].present? && params[:scope] != 'all'
-          if current_user.can_super_admin?
-            templates = templates.where(published: true) if params[:scope] == 'published'
-            templates = templates.where(published: false) if params[:scope] == 'unpublished'
-          else
-            scoped = templates.select do |t| 
-              c = customizations[t.dmptemplate_id]
-              (params[:scope] == 'unpublished' && (!c.present? || !c.published?)) || (params[:scope] == 'published' && c.present? && c.published?)
-            end
-            templates = Template.where(id: scoped.collect(&:id))
+          scoped = templates.select do |t| 
+            c = customizations[t.dmptemplate_id]
+            (params[:scope] == 'unpublished' && (!c.present? || !c.published?)) || (params[:scope] == 'published' && c.present? && c.published?)
           end
+          templates = Template.where(id: scoped.collect(&:id))
         end
 
       else
@@ -541,7 +536,7 @@ module OrgAdmin
       scopes = { all: templates.length, published: 0, unpublished: 0, dmptemplate_ids: templates.collect(&:dmptemplate_id).uniq }
       templates.each do |t|
         # If we have customizations use their status
-        if customizations.respond_to?(:keys)
+        if customizations.keys.length > 0
           c = customizations[t.dmptemplate_id]
           # If the template was not customized then its unpublished
           if c.nil?
