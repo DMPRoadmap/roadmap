@@ -104,6 +104,9 @@ class Org < ActiveRecord::Base
       return "None"
   end
 
+  def funder_only?
+    self.org_type == Org.org_type_values_for(:funder).min
+  end
 
   ##
   # returns the name of the organisation
