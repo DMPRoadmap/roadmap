@@ -766,7 +766,7 @@ class Plan < ActiveRecord::Base
   # Returns visibility message given a Symbol type visibility passed, otherwise nil
   def self.visibility_message(type)
     message = {
-      :organisationally_visible => _('institutional'),
+      :organisationally_visible => _('organisational'),
       :publicly_visible => _('public'),
       :is_test => _('test'),
       :privately_visible => _('private')
