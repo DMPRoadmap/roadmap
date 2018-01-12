@@ -1,5 +1,5 @@
 <h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least one question to enable these options.') %></p>
+<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage} %% of the questions to enable these options.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
 <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
