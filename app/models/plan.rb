@@ -66,7 +66,6 @@ class Plan < ActiveRecord::Base
         visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
         "templates.org_id": user.org_id})
       .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
-      .order(:title => :asc)
   }
 
   scope :search, -> (term) {

@@ -10,10 +10,10 @@
                     <table class="table table-hover tablesorter">
                         <thead>
                             <tr>
-                                <th><%= _('Project Title') %></th>
-                                <th><%= _('Template') %></th>
+                                <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_url('plans.title') %></th>
+                                <th><%= _('Template') %>&nbsp;<%= paginable_sort_url('templates.title') %></th>
                                 <th><%= _('Owner') %></th>
-                                <th><%= _('Updated') %></th>
+                                <th><%= _('Updated') %>&nbsp;<%= paginable_sort_url('plans.updated_at') %></th>
                                 <th class="sorter-false"><%= _('Download') %></th>
                             </tr>
                         </thead>
