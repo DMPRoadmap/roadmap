@@ -1,4 +1,5 @@
-<%= form_tag(url, method: :get, remote: true, class: 'form-inline') do %>
+<% # locals: { controller, action } %>
+<%= form_tag(url_for(controller: controller, action: action, page: 'ALL'), method: :get, remote: true, class: 'form-inline') do %>
   <div class="form-group">
     <div class="input-group">
       <span class="input-group-addon" id="search-addon">

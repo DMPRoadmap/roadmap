@@ -15,8 +15,6 @@ class Theme < ActiveRecord::Base
 
   validates :title, presence: {message: _("can't be blank")}
 
-  scope :updated_at_desc, -> { self.all.order(updated_at: 'DESC') }
-
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
     where("title LIKE ? OR description LIKE ?", search_pattern, search_pattern)
