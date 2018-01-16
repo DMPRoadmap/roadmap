@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       "user" => {
         "id" => @user.id,
         "html" => render_to_string(partial: 'users/admin_grant_permissions', 
-                                   locals: { user: @user, perms: @perms, page: params[:page] }, 
+                                   locals: { user: @user, perms: @perms }, 
                                    formats: [:html])
       }
     }.to_json
