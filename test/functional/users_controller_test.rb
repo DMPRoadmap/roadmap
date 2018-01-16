@@ -64,9 +64,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     # Valid save
     put admin_update_permissions_user_path(@user.org.users.last), {user: params}
-    assert flash[:notice].start_with?('Successfully')
-    assert_response :redirect
-    assert_redirected_to admin_index_users_url
+    assert_response :success
     @user.org.users.last.perms.each do |perm|
       assert params[:perm_ids].include?(perm.id), "did not expect to find the #{perm.name} attached to the user"
     end

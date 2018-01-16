@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       "user" => {
         "id" => @user.id,
         "html" => render_to_string(partial: 'users/admin_grant_permissions', 
-                                   locals: { user: @user, perms: @perms }, 
+                                   locals: { user: @user, perms: @perms, page: params[:page] }, 
                                    formats: [:html])
       }
     }.to_json
@@ -65,9 +65,13 @@ class UsersController < ApplicationController
       deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
         UserMailer.admin_privileges(r).deliver_now
       end
-      redirect_to({controller: 'users', action: 'admin_index'}, {notice: success_message(_('permissions'), _('saved'))})  # helpers.success key does not exist, replaced with a generic string
+      render(json: {
+        code: 1,
+        msg: success_message(_('permissions'), _('saved')),
+        current_privileges: render_to_string(partial: 'users/current_privileges', locals: { user: @user }, formats: [:html])
+        })
     else
-      flash[:alert] = failed_update_error(@user, _('user'))
+      render(json: { code: 0, msg: failed_update_error(@user, _('user')) })
     end
   end
 
