@@ -990,16 +990,15 @@ class Plan < ActiveRecord::Base
       ]).find(id)
   end
 
-  def self.eager_load2(id)
+  def self.load_for_phase(id, phase_id)
     Plan.includes(
-      [{template: [
+      [template: [
                    {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
                    {customizations: :org},
                    :org
-                  ]},
-       {plans_guidance_groups: {guidance_group: {guidances: :themes}}},
-       {questions: :themes}
-      ]).find(id)
+                  ],
+       plans_guidance_groups: {guidance_group: {guidances: :themes}}
+      ]).where(id: id, phases: { id: phase_id }).first
   end
 
 

@@ -1,8 +1,12 @@
 class EnsureIndexesInPlace < ActiveRecord::Migration
   def change
     #users_perms
+    remove_foreign_key :users_perms, :perms
+    remove_foreign_key :users_perms, :users
     remove_index :users_perms, name: 'index_users_perms_on_user_id_and_perm_id'
     add_index :users_perms, :user_id
+    add_foreign_key :users_perms, :perms
+    add_foreign_key :users_perms, :users
     #user_identifiers
     add_index :user_identifiers, :user_id
     #roles
@@ -27,14 +31,22 @@ class EnsureIndexesInPlace < ActiveRecord::Migration
     #annotations
     add_index :annotations, :question_id
     #question_themes
+    remove_foreign_key :questions_themes, :questions
+    remove_foreign_key :questions_themes, :themes
     remove_index :questions_themes, name: 'question_theme_index'
     remove_index :questions_themes, name: 'theme_question_index'
     add_index :questions_themes, :question_id
+    add_foreign_key :questions_themes, :questions
+    add_foreign_key :questions_themes, :themes
     #question_options
     add_index :question_options, :question_id
     #answers_question_options
+    remove_foreign_key :answers_question_options, :answers
+    remove_foreign_key :answers_question_options, :question_options
     remove_index :answers_question_options, name: 'answer_question_option_index'
     remove_index :answers_question_options, name: 'question_option_answer_index'
     add_index :answers_question_options, :answer_id
+    add_foreign_key :answers_question_options, :answers
+    add_foreign_key :answers_question_options, :question_options
   end
 end
