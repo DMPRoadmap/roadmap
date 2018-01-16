@@ -55,6 +55,7 @@ class TemplatesController < ApplicationController
       random = rand 2147483647
       break random unless Template.exists?(dmptemplate_id: random)
     end
+    customisation.dirty = true
     customisation.save
 
     customisation.phases.includes(:sections, :questions).each do |phase|
