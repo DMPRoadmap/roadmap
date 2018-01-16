@@ -266,15 +266,6 @@ body{
   padding-bottom: 50px;
 }
 
-/* footer */
-#footer-navbar {
-  bottom: 0;
-  margin-top: 20px;
-  margin-bottom: -20px;
-  width: 100%;
-  position: absolute;
-}
-
 
 /* HEADER STYLING */
 /*
@@ -465,4 +456,48 @@ $tooltip-background: $grey;
 }
 .create-plan-mock {
   margin-left: -40px;
+}
+
+/* ============================================== */
+/* DMPTool specific overrides */
+/* ============================================== */
+$light-blue: #C0D8F0;
+
+.container, .container-fluid {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+header, main, footer {
+  font-family: Arial;
+  max-width: 1000px;
+}
+
+footer {
+  border: 1px solid $light-blue;
+  border-radius: 7px;
+  background-color: $light-blue;
+
+  .navbar-inverse {
+    color: $black;
+    background-color: $light-blue;
+
+   .navbar-text, .navbar-nav > li > a {
+      color: $black;
+    }
+
+    .navbar-text {
+      font-size: 1.1rem;
+    }
+
+    .navbar-nav > li > a > .fa {
+      color: $grey;
+      font-size: 3rem;
+    }
+
+    img {
+      width: 150px;
+      margin-right: 25px;
+    }
+  }
 }

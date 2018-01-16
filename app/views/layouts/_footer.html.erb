@@ -5,27 +5,32 @@
 %>
 
 <!-- footer container -->
-<div id="footer-navbar" class="navbar-inverse navbar-fixed-bottom" role="navigation">
+<div class="navbar-inverse" role="navigation">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li><%= link_to "&copy; 2004 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:name]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
-      <li>•</li>
-      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>   
-      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
-      <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="#"><%= _('Privacy policy') %></a></li>
+      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
+      <li><a href="<%= terms_path %>"><%= _('Terms of use and Privacy') %></a></li>
       <li><a href="#"><%= _('Accessibility') %></a></li>
       <li><a href="https://github.com/DMPRoadmap/roadmap"><%= _('Github') %></a></li>
+      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
     </ul>
+    
     <ul class="nav navbar-nav navbar-right">
-      <li>
-        <%= link_to( image_tag("uc3_logo.jpg", class: "img-responsive", alt: 'University of California Curation Center'),
-                               "http://www.cdlib.org/uc3/", title: "University of California Curation Center", id: "footer_right_uc3", ) %>
-      </li>
-      <li>
-        <%= link_to( image_tag("dcc_logo.png", class: "img-responsive", alt: 'Digital Curation Centre'),
-                     "http://www.dcc.ac.uk/", title: "Digital Curation Centre") %>
-      </li>
+      <li><a href="#"><span class="fa fa-twitter-square">&nbsp;</span></a></li>
+      <li><a href="#"><span class="fa fa-rss-square">&nbsp;</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <p class="navbar-text">
+      <%= _('DMPTool is a service of the University of California Curation Center of the California Digital Library') %>
+      <br>
+      <%= _('Copyright 2010-%{current_year} The Regents of the University of California') % {current_year: Date.today.year} %>
+    </p>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= image_tag('dmptool_logo_cropped.png', class: 'navbar-text navbar-right', alt: 'DMPTool') %></li>
     </ul>
   </div>
 </div>
