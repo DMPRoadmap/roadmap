@@ -9,19 +9,11 @@
                 <div class="table-responsive">
                     <table class="table table-hover tablesorter">
                         <thead>
-                          	<% if scope.length > TABLE_FILTER_MIN_ROWS %>
-                                <tr>
-                                  <th colspan="5" class="sorter-false">
-                                    <%= render(partial: "shared/table_filter",
-                                               locals: { placeholder: _('Filter plans')}) %>
-                                  </th>
-                                </tr>
-                            <% end %>
                             <tr>
-                                <th><%= _('Project Title') %></th>
-                                <th><%= _('Template') %></th>
+                                <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_url('plans.title') %></th>
+                                <th><%= _('Template') %>&nbsp;<%= paginable_sort_url('templates.title') %></th>
                                 <th><%= _('Owner') %></th>
-                                <th><%= _('Updated') %></th>
+                                <th><%= _('Updated') %>&nbsp;<%= paginable_sort_url('plans.updated_at') %></th>
                                 <th class="sorter-false"><%= _('Download') %></th>
                             </tr>
                         </thead>

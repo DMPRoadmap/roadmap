@@ -99,15 +99,30 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_authorized_redirect_to_plans_page
   end
 
-  test "get the template edit page" do
+  test 'get templates#edit returns redirect (found) when template is current and is published' do
+    @template.dirty = false
+    @template.published = true
+    @template.save
     sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:redirect)
+  end
 
-    get edit_org_admin_template_path(@template)
-    assert_response :success
+  test 'get templates#edit returns ok when template is current and is NOT published' do
+    sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:ok)
+    assert_nil(flash[:notice])
+  end
 
-    assert assigns(:template)
-    assert assigns(:template_hash)
-    assert assigns(:current)
+  test 'get templates#edit returns ok with flash notice when template is not current' do
+    new_version = Template.deep_copy(@template)
+    new_version.version = (@template.version + 1)
+    new_version.save
+    sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:ok)
+    assert_equal(_('You are viewing a historical version of this template. You will not be able to make changes.'), flash[:notice])
   end
 
   test "unauthorized user cannot access the new template page" do
@@ -513,28 +528,32 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
   
   def verify_funder_templates_table(user)
-    assert_select "#funder-templates table tbody" do |el|
-      # An Org Admin should see all of the funder/default templates (except ones that belong to their org)
-      templates = Template.where("(org_id IN (?) OR is_default = ?) AND org_id != ?", Org.where(org_type: [2,3]).collect(&:id), true, user.org.id)
-      if user.can_org_admin?
-        templates.each do |template|
-          # Expect to only see published public templates
-          if template.publicly_visible? && template.published?
-            assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have the funder (or default) template: '#{template.title}'" 
-          else
-            assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the unpublished/non-public funder template: '#{template.title}' (from org: #{template.org.abbreviation})"
-          end
-        end
-
-        # Expect to see only the current org's customizations
-        Template.where.not(id: templates.collect(&:id)).each do |template|
-          if template.customization_of.nil?
-            assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the template from a non-funder org: '#{template.title}'"
-          else
-            if template.org == user.org
-              assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have their own customization: '#{template.title}'" 
+    if user.org.funder_only?
+      assert_select "#funder-templates table tbody", 0, "expected a funder only Org to NOT see the customizable table"
+    else
+      assert_select "#funder-templates table tbody" do |el|
+        # An Org Admin should see all of the funder/default templates (except ones that belong to their org)
+        templates = Template.where("(org_id IN (?) OR is_default = ?) AND org_id != ?", Org.where(org_type: [2,3]).collect(&:id), true, user.org.id)
+        if user.can_org_admin?
+          templates.each do |template|
+            # Expect to only see published public templates
+            if template.publicly_visible? && template.published?
+              assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have the funder (or default) template: '#{template.title}'" 
             else
-              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have a customization from another organisation: '#{template.title}'"
+              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the unpublished/non-public funder template: '#{template.title}' (from org: #{template.org.abbreviation})"
+            end
+          end
+
+          # Expect to see only the current org's customizations
+          Template.where.not(id: templates.collect(&:id)).each do |template|
+            if template.customization_of.nil?
+              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the template from a non-funder org: '#{template.title}'"
+            else
+              if template.org == user.org
+                assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have their own customization: '#{template.title}'" 
+              else
+                assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have a customization from another organisation: '#{template.title}'"
+              end
             end
           end
         end

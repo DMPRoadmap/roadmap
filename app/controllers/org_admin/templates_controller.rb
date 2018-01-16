@@ -67,30 +67,19 @@ module OrgAdmin
       @current = Template.current(@template.dmptemplate_id)
 
       if @template == @current
-        # If the template is published
         if @template.published?
           # We need to create a new, editable version
           new_version = Template.deep_copy(@template)
           new_version.version = (@template.version + 1)
           new_version.published = false
           new_version.save
-          @template = new_version
-  #        @current = Template.current(@template.dmptemplate_id)
+          # Redirects to the newly template created
+          redirect_to(action: 'edit', id: new_version.id)
+          return
         end
       else
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
-
-      # If the template is published
-      if @template.published?
-        # We need to create a new, editable version
-        new_version = Template.deep_copy(@template)
-        new_version.version = (@template.version + 1)
-        new_version.published = false
-        new_version.save
-        @template = new_version
-      end
-
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
       render('container',
@@ -380,7 +369,7 @@ module OrgAdmin
 
     end
     
-    # PUT /org_admin/templates/:id/publish  (AJAX)
+    # GET /org_admin/templates/:id/publish  (AJAX)  TODO convert to PUT verb
     # -----------------------------------------------------
     def publish
       template = Template.find(params[:id])
@@ -409,7 +398,7 @@ module OrgAdmin
       end
     end
 
-    # PUT /org_admin/templates/:id/unpublish  (AJAX)
+    # GET /org_admin/templates/:id/unpublish  (AJAX)  TODO convert to PUT verb
     # -----------------------------------------------------
     def unpublish
       template = Template.find(params[:id])
@@ -501,18 +490,13 @@ module OrgAdmin
         
         scopes = calculate_table_scopes(templates, customizations)
 
-        # We scope based on the customizations if the user is NOT a super admin
+        # We scope based on the customizations
         if params[:scope].present? && params[:scope] != 'all'
-          if current_user.can_super_admin?
-            templates = templates.where(published: true) if params[:scope] == 'published'
-            templates = templates.where(published: false) if params[:scope] == 'unpublished'
-          else
-            scoped = templates.select do |t| 
-              c = customizations[t.dmptemplate_id]
-              (params[:scope] == 'unpublished' && (!c.present? || !c.published?)) || (params[:scope] == 'published' && c.present? && c.published?)
-            end
-            templates = Template.where(id: scoped.collect(&:id))
+          scoped = templates.select do |t| 
+            c = customizations[t.dmptemplate_id]
+            (params[:scope] == 'unpublished' && (!c.present? || !c.published?)) || (params[:scope] == 'published' && c.present? && c.published?)
           end
+          templates = Template.where(id: scoped.collect(&:id))
         end
 
       else
@@ -541,7 +525,7 @@ module OrgAdmin
       scopes = { all: templates.length, published: 0, unpublished: 0, dmptemplate_ids: templates.collect(&:dmptemplate_id).uniq }
       templates.each do |t|
         # If we have customizations use their status
-        if customizations.respond_to?(:keys)
+        if customizations.keys.length > 0
           c = customizations[t.dmptemplate_id]
           # If the template was not customized then its unpublished
           if c.nil?
