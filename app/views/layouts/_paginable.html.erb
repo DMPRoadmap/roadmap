@@ -6,7 +6,7 @@
   <div class="paginable-search">
     <div class="row">
       <div class="col-md-12">
-        <%= render(partial: '/shared/search', locals: { url: url_for(controller: controller, action: action, page: 'ALL') }) %>
+        <%= render(partial: '/shared/search', locals: { controller: controller, action: action }) %>
       </div>
     </div>
   </div>

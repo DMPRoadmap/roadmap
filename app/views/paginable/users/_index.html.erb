@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <th><%= _('Name') %></th>
-      <th><%= _('Email address') %></th>
-      <th class="text-center"><%= _('Last logged in') %></th>
+      <th><%= _('Email address') %>&nbsp;<%= paginable_sort_url('email') %></th>
+      <th class="text-center"><%= _('Last logged in') %>&nbsp;<%= paginable_sort_url('last_sign_in_at') %></th>
       <th class="text-center"><%= _('How many plans?') %></th>
       <th class="text-center"><%= _('Privileges') %></th>
     </tr>
