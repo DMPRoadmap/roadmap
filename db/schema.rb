@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 20171124133802) do
     t.string   "contact_email",          limit: 255
     t.integer  "org_type",               limit: 4,     default: 0,     null: false
     t.string   "contact_name",           limit: 255
-    t.string   "links",                  limit: 255,   default: "[]"
+    t.text     "links",                                default: "[]"
     t.boolean  "feedback_enabled",                     default: false
     t.string   "feedback_email_subject", limit: 255
     t.text     "feedback_email_msg",     limit: 65535
