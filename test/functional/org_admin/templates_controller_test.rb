@@ -62,7 +62,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     published = Template.latest_version.where(published: true, customization_of: nil)
     unpublished = Template.latest_version.where(published: false, customization_of: nil)
-    verify_templates_table_scoping(all_org_admin_templates_path('ALL'), '#all-templates', published, unpublished)
+    verify_templates_table_scoping(all_paginable_templates_path('ALL'), '#all-templates', published, unpublished)
   end
   
   test "Predefined scopes correctly filter results on own templates table" do
@@ -74,7 +74,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     published = Template.get_latest_template_versions(@org_admin.org).where(published: true, customization_of: nil)
     unpublished = Template.get_latest_template_versions(@org_admin.org).where(published: false, customization_of: nil)
-    verify_templates_table_scoping(orgs_org_admin_templates_path('ALL'), '#organisation-templates', published, unpublished)
+    verify_templates_table_scoping(orgs_paginable_templates_path('ALL'), '#organisation-templates', published, unpublished)
   end
 
   test "Predefined scopes correctly filter results on customizable templates table" do
@@ -86,7 +86,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     published = Template.where(title: 'UOS customization of Default template')
     unpublished = Template.where('published = 1 AND visibility = 1 AND is_default = 0')
-    verify_templates_table_scoping(funders_org_admin_templates_path('ALL'), '#funders-templates', published, unpublished)
+    verify_templates_table_scoping(funders_paginable_templates_path('ALL'), '#funders-templates', published, unpublished)
   end
   
   test "unauthorized user cannot access the template edit page" do

@@ -25,16 +25,16 @@
     <ul class="nav nav-tabs" role="tablist">
       <% if current_user.can_super_admin? %>
         <li role="all-templates" class="active">
-          <a data-target="#all-templates" role="tab" aria-controls="all-templates" data-toggle="tab"><%= _('All Templates') %></a>
+          <a href="#all-templates" role="tab" aria-controls="all-templates" data-toggle="tab"><%= _('All Templates') %></a>
         </li>
       <% end %>
       <li role="organisation-templates" class="<%= !current_user.can_super_admin? ? 'active' : '' %>">
-        <a data-target="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></a>
+        <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></a>
       </li>
       <!-- If the Org is not just a funder then show the customizations table -->
       <% if !current_org.funder_only? %>
         <li role="funder-templates">
-          <a data-target="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
+          <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
         </li>
       <% end %>
     </ul>
@@ -44,8 +44,8 @@
         <div id="all-templates" role="tabpanel" class="tab-pane active">
           <h2><%= _('All Templates') %></h2>
           <%= paginable_renderise(
-            partial: 'templates_list',
-            controller: 'org_admin/templates',
+            partial: 'paginable/templates/all',
+            controller: 'paginable/templates',
             action: 'all', 
             scope: all_templates,
             locals: {current_org: current_org.id, published: published, scopes: scopes[:all], hide_actions: true}) %>
@@ -54,8 +54,8 @@
       <div id="organisation-templates" role="tabpanel" class="tab-pane<%= !current_user.can_super_admin? ? ' active' : '' %>">
         <h2><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></h2>
         <%= paginable_renderise(
-          partial: 'templates_list',
-          controller: 'org_admin/templates',
+          partial: 'paginable/templates/orgs',
+          controller: 'paginable/templates',
           action: 'orgs', 
           scope: own_templates,
           locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs], hide_actions: false}) %>
@@ -65,8 +65,8 @@
         <div id="funder-templates" role="tabpanel" class="tab-pane">
           <h2><%= _('Customizable Templates') %></h2>
           <%= paginable_renderise(
-            partial: 'funder_templates_list',
-            controller: 'org_admin/templates',
+            partial: 'paginable/templates/funders',
+            controller: 'paginable/templates',
             action: 'funders', 
             scope: customizable_templates,
             locals: {current_org: current_org.id, customizations: customized_templates, published: published, scopes: scopes[:funders]}) %>
