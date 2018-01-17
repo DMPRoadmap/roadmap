@@ -473,6 +473,10 @@ header, main, footer {
   max-width: 1000px;
 }
 
+main {
+  margin-bottom: 50px;
+}
+
 footer {
   border: 1px solid $light-blue;
   border-radius: 7px;
