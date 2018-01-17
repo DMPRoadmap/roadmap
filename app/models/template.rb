@@ -89,6 +89,12 @@ class Template < ActiveRecord::Base
       " AND current.customization_of = templates.customization_of")
     .where('templates.org_id = ?', org_id)
   }
+  
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:org).where("templates.title LIKE ? OR orgs.name LIKE ?", search_pattern, search_pattern)
+  }
+  
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
     Template.all.valid.distinct.pluck(:dmptemplate_id)
@@ -122,7 +128,7 @@ class Template < ActiveRecord::Base
   # @return [nil, Template] the customized template or nil
   def self.org_customizations(dmptemplate_ids, org_id)
     template_ids = latest_customization(org_id, dmptemplate_ids).pluck(:id)
-    includes(:org).where(id: template_ids).order('orgs.name, templates.title')
+    includes(:org).where(id: template_ids)
   end
   
   # Retrieves current templates with their org associated for a set of valid orgs
@@ -136,7 +142,7 @@ class Template < ActiveRecord::Base
       families_ids = []
     end
     template_ids = latest_version(families_ids).pluck(:id)
-    includes(:org).where(id: template_ids).order('orgs.name, templates.title')
+    includes(:org).where(id: template_ids)
   end
   
   # Retrieves current templates with their org associated for a set of valid orgs
@@ -149,7 +155,7 @@ class Template < ActiveRecord::Base
     else
       families_ids = []
     end
-    includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible]).order('orgs.name, templates.title')
+    includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
   end
   
   ##
