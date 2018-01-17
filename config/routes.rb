@@ -258,6 +258,13 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :themes, only: [] do
         get 'index/:page', action: :index, on: :collection, as: :index
       end
+      
+      # Paginable actions for templates
+      resources :templates, only: [] do
+        get 'all/:page', action: :all, on: :collection, as: :all
+        get 'funders/:page', action: :funders, on: :collection, as: :funders
+        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
+      end
     end
 
     # ORG ADMIN specific pages
@@ -276,11 +283,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'publish', action: :publish, constraints: {format: [:json]}
           get 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
-          
-        # pagination
-        get 'all/:page', action: :all, on: :collection, as: :all
-        get 'funders/:page', action: :funders, on: :collection, as: :funders
-        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
       end
       
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
