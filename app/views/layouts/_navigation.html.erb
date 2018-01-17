@@ -49,10 +49,10 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Explore <span class="fa fa-sort-desc"></span>
               </a>
-              <ul class="dropdown-menu">
+              <ul id="explore-menu" class="dropdown-menu">
                 <li>
                   <div class="row-fluid">
-                    <ul class="unstyled col-md-6">
+                    <ul class="nav col-md-4">
                       <li <%= 'class=active' if isActivePage(public_plans_path) %>>
                         <%= link_to _('Public DMPs'), public_plans_path %>
                       </li>
@@ -61,9 +61,9 @@
                       </li>
                       <li><a href="#">General FAQs</a></li>
                    </ul>
-                   <ul class="unstyled col-md-6">
+                   <ul class="nav col-md-8">
                      <li>For Researchers
-                       <ul>
+                       <ul class="nav indented">
                          <li><a href="#">Data Management General Guidance</a></li>
                          <li><a href="#">Quick Start Guide</a></li>
                        </ul>

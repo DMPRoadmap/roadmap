@@ -1,9 +1,15 @@
 <% unless user_signed_in? %>
   <li>
-    <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
+    <a href="#" data-class="dropdown-toggle" role="button" id="header-signin" data-toggle="dropdown" aria-haspopup="true" 
+       aria-expanded="false">
       <%= _('Sign in') %>
       <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
     </a>
+    <ul id="signin-options" class="dropdown-menu" aria-labelledby="header-signin">
+      <li>
+        <%= render partial: 'shared/sign_in_options' %>
+      </li>
+    </ul>
   </li>
 <% else %>
   <li class="dropdown" id="signin-signout">
@@ -32,7 +38,7 @@
       <%= _('Select Language') %>
       <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
     </a>
-    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
+    <ul class="dropdown-menu" aria-labelledby="language-menu">
       <% LANGUAGES.each do |l| %>
         <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
           <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>

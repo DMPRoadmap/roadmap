@@ -518,6 +518,11 @@ header {
       }
     }
 
+    #signin-options {
+      min-width: 350px;
+      padding: 10px 15px;
+    }
+
     #main-menu {
       font-size: 2.1rem;
       font-weight: bold;
@@ -530,6 +535,26 @@ header {
       .fa {
         font-size: 1.5rem;
         color: $dark-blue;
+      }
+
+      #explore-menu {
+        min-width: 500px;
+        padding: 10px 15px;
+        font-weight: normal;
+        color: $black;
+        
+        li > a {
+          color: $black;
+          padding: 5px 0 10px 0;
+        }
+        
+        ul.indented {
+          margin-left: 15px;
+
+          li > a {
+            padding: 5px 0 0 0;
+          }
+        }
       }
     }
   }
