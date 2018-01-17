@@ -467,6 +467,20 @@ $tooltip-background: $grey;
 $dark-blue: #0E5682;
 $light-blue: #C0D8F0;
 
+.btn, 
+.btn:hover, 
+.btn:focus, 
+.btn:active, 
+.btn:visited, 
+.btn:active:hover,
+.nav-tabs, .nav-pills {
+  background-color: $dark-blue;
+}
+
+h1, h2, h3, h4, a {
+  color: $dark-blue;
+}
+
 .container, .container-fluid {
   padding-left: 5px;
   padding-right: 5px;
