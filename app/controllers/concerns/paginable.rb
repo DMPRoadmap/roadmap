@@ -14,19 +14,35 @@ module Paginable
       @paginable_controller = controller
       @paginable_action = action
       refined_scope = refine_query(scope)
-      render(layout: '/layouts/paginable', partial: partial, locals: { 
+      render(layout: "/layouts/paginable", partial: partial, locals: { 
         controller: controller,
         action: action,
         paginable: refined_scope.respond_to?(:total_pages), 
         scope: refined_scope }.merge(locals))
     end
-    # Generates an URL to sort given a sort field.
+    # Generates an HTML link to sort given a sort field.
     # sort_field {String} - Represents the column name for a table
-    def paginable_sort_url(sort_field)
+    def paginable_sort_link(sort_field)
       return link_to(sort_link_name(sort_field), sort_link_url(sort_field), 'data-remote': true)
+    end
+    # Determines whether or not the latest request included the search functionality
+    def searchable?
+      return params.present? && params[:search].present?
+    end
+    # Generates an HTML link with search functionality (if latest request included the search functionality)
+    # text {String} - Represents the text for the searchable link
+    # page {String | Fixnum } - Represents the page to request for a search term
+    def paginable_search_link(text = _('link name'), page = 1)
+      url = paginable_base_url(page)
+      url+= "?search=#{params[:search]}" if searchable?
+      return link_to(text, url, 'data-remote': true)
     end
   end
   private
+    # Returns the base url of the paginable route for a given page passed
+    def paginable_base_url(page = 1)
+      return url_for(controller: @paginable_controller || params[:controller], action: @paginable_action || params[:action], page: page)
+    end
     # Returns the upcase string (e.g ASC or DESC) if sort_direction param is present in any of the forms 'asc', 'desc', 'ASC', 'DESC'
     # otherwise returns nil
     def sort_direction
@@ -49,9 +65,7 @@ module Paginable
           direction = sort_direction
           scope = direction.present? ? scope.order("#{params[:sort_field]} #{direction}") : scope.order("#{params[:sort_field]}") # Can raise ActiveRecord::StatementInvalid (e.g. column does not exist, ambiguity on column, etc)
         end
-        if params[:page] == 'ALL'
-          scope = scope.page(1) if params[:search].present? || params[:sort_field].present? # Paginate the scope if search or sort_field query params are present
-        else
+        if params[:page] != 'ALL'
           scope = scope.page(params[:page]) # Can raise error if page is not a number
         end
       end
@@ -68,7 +82,7 @@ module Paginable
     end
     # Returns the sort url for a given sort_field.
     def sort_link_url(sort_field)
-      url = "#{url_for(controller: @paginable_controller || params[:controller], action: @paginable_action || params[:action], page: 'ALL')}?"
+      url = paginable_base_url(1)+"?"
       query_string = []
       if params.present?
         query_string << "search=#{params[:search]}" if params[:search].present?
