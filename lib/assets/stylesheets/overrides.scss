@@ -464,6 +464,7 @@ $tooltip-background: $grey;
 /* ============================================== */
 /* DMPTool specific overrides */
 /* ============================================== */
+$dark-blue: #0E5682;
 $light-blue: #C0D8F0;
 
 .container, .container-fluid {
@@ -482,6 +483,7 @@ header {
   border-width: thin;
   border-radius: 7px;
   background-color: $white;
+  margin-bottom: 25px;
 
   a, .fa {
     color: $black;
@@ -489,18 +491,46 @@ header {
 
   #app-navbar {
     position: relative;
-    padding: 10px 20px 0 10px;
+    padding: 10px 0 0 10px;
+    margin-bottom: 5px;
 
     .navbar-nav > li > a {
       padding-left: 5px;
       padding-right: 5px;
     }
 
-    .navbar-divider {
-      border-left: 1px solid $black;
-      height: 25px;
-      margin: 15px 0 0 0;
-      padding: 0;
+    #sign-in-menu { 
+      margin-right: 10px;
+
+      li > a {
+        padding-top: 0;
+      }
+
+      .fa {
+        font-size: 1.5rem;
+      }
+
+      .navbar-divider {
+        border-left: 1px solid $black;
+        height: 15px;
+        margin-top: 5px;
+        padding: 0;
+      }
+    }
+
+    #main-menu {
+      font-size: 2.1rem;
+      font-weight: bold;
+      padding-top: 40px;
+
+      li > a {
+        color: $dark-blue;
+        padding: 0 20px 0 0;
+      }
+      .fa {
+        font-size: 1.5rem;
+        color: $dark-blue;
+      }
     }
   }
 }
