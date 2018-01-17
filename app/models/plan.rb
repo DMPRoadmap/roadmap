@@ -61,10 +61,11 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    includes([:template, :roles])
+    includes(:template, {roles: :user})
       .where({
         visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
-        "templates.org_id": user.org_id})
+        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
+        "users.org_id": user.org_id})
       .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
   }
 
