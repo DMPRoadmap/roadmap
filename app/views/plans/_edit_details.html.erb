@@ -163,5 +163,8 @@
                             current_selections: @selected_guidance_groups} %>
       </ul>
     </div>
+    <p><%= _('Find guidance from additional organisations below') %></p>
+    <%= link_to 'see the full list', select_guidances_list_plan_path(@plan), 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
+    <div id="modal-full-guidances" class="modal" tabindex="-1" role="dialog"></div>
   <% end %>
 </div>

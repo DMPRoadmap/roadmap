@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'byebug'
+
 class PlansControllerTest < ActionDispatch::IntegrationTest
 
   include Devise::Test::IntegrationHelpers
@@ -73,6 +73,36 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   
     # assert that the default visibility is used when none is specified
     assert_equal Rails.application.config.default_plan_visibility, new_plan.visibility, "Expected the plan to have been assigned the default visibility"
+  end
+
+  # GET /plan/:id (plan_path)
+  # ----------------------------------------------------------
+  test "select_guidances_list for a plan" do
+    # Should redirect user to the root path if they are not logged in!
+    get select_guidances_list_plan_path(@plan)
+    assert_unauthorized_redirect_to_root_path
+
+    sign_in @user
+    # GET /plan/:id (plan_path) 
+    get select_guidances_list_plan_path(@plan)
+    assert_response :success
+    assert assigns(:plan)
+    assert_not assigns(:editing)
+    assert assigns(:all_guidance_groups)
+  end
+
+  # PUT /plan/:id (plan_path)
+  # ----------------------------------------------------------
+  test "update_guidances_list for a plan" do
+    ids = [GuidanceGroup.first.id, GuidanceGroup.last.id]
+    # Should redirect user to the root path if they are not logged in!
+    put update_guidances_list_plan_path(@plan), { "HTTP_REFERER": plan_path(@plan) }
+    assert_unauthorized_redirect_to_root_path
+
+    sign_in @user
+    # GET /plan/:id (plan_path) 
+    put update_guidances_list_plan_path(@plan), {plan: {id: @plan.id}, guidance_group_ids: ids}
+    assert_response :redirect
   end
 
   # GET /plan/:id (plan_path)
