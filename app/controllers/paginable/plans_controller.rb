@@ -11,4 +11,15 @@ class Paginable::PlansController < ApplicationController
     paginable_renderise(partial: 'organisationally_or_publicly_visible',
       scope: Plan.organisationally_or_publicly_visible(current_user))
   end
+  # GET /paginable/plans/publicly_visible/:page
+  def publicly_visible
+    paginable_renderise(partial: 'publicly_visible',
+      scope: Plan.publicly_visible)
+  end
+  # GET /paginable/plans/org_admin/:page
+  def org_admin
+    raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
+    paginable_renderise(partial: 'org_admin',
+      scope: current_user.org.plans)
+  end
 end
