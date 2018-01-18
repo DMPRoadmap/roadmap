@@ -21,7 +21,7 @@
             <% if user_signed_in? && current_user.org.present? && current_user.org.links.present? && current_user.org.links['org'].present? %>
               <ul class="nav navbar-nav">
                 <% current_user.org.links['org'].each_with_index do |link, i| %>
-                  <% if !link.blank? && i <= MAX_NUMBER_LINKS_FUNDER %>
+                  <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
                     <li class="org-links">
                       <%= link_to link['link'], link['text'], target: '_blank', class: 'org-a' %>
                     </li>
