@@ -14,8 +14,7 @@
 <% else %>
   <li class="dropdown" id="signin-signout">
     <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-user" aria-hidden="true">&nbsp;</i>
-      <%= current_user.name(false) %>
+      <%= _('Account') %>
       <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="user-menu">

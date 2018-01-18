@@ -22,9 +22,6 @@ class HomeController < ApplicationController
       end
     end
     
-    # Retrieve the images for the carousel
-    @carousel_images = Dir.entries('./lib/assets/images/carousel').select{ |f| f.end_with?('.png') || f.end_with?('.jpg') }
-    
     # Retrieve/cache the DMPTool blog's latest posts
     @rss = Rails.cache.read('rss')
     if @rss.nil?
