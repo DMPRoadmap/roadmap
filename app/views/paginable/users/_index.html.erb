@@ -1,7 +1,7 @@
 <table class="table tablesorter table-hover table-bordered">
   <thead>
     <tr>
-      <th><%= _('Name') %></th>
+      <th><%= _('Name') %>&nbsp;<%= paginable_sort_link('firstname') %></th>
       <th><%= _('Email address') %>&nbsp;<%= paginable_sort_link('email') %></th>
       <th class="text-center"><%= _('Last logged in') %>&nbsp;<%= paginable_sort_link('last_sign_in_at') %></th>
       <th class="text-center"><%= _('How many plans?') %></th>
