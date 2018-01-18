@@ -36,8 +36,6 @@ class HomeController < ApplicationController
         logger.error("Caught exception RSS parse: #{e}.")
       end
     end
-    
-    @orgs = Org.where('is_other IS NULL OR is_other = 0').order(:name)
   end
 
 end

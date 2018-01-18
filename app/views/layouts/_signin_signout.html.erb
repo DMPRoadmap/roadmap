@@ -18,13 +18,12 @@
       <%= current_user.name(false) %>
       <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
     </a>
-    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="user-menu">
+    <ul class="dropdown-menu" aria-labelledby="user-menu">
       <li>
-        <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
+        <%= link_to _('Edit profile'), edit_user_registration_path %>
       </li>
-      <li class="navbar-divider">&nbsp;</li>
       <li>
-        <%= link_to '<i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+        <%= link_to _('Sign out'), destroy_user_session_path, method: :delete %>
       </li>
     </ul>
   </li>

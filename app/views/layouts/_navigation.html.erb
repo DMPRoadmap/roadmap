@@ -2,18 +2,7 @@
   <div class="container-fluid" >
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="row">
-      <div class="col-md-4">
-        <%= link_to(image_tag("dmptool_logo_large.png",
-                              alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
-                              class: "app-logo",
-                              title: Rails.configuration.branding[:application][:name]),
-                              root_path) %>
-      </div>
-      <div class="pull-right">
-        <ul id="sign-in-menu" class="nav navbar-nav navbar-right">
-          <%= render "layouts/signin_signout" %>
-        </ul>
-      </div>
+      
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div id="main-menu" class="row">
