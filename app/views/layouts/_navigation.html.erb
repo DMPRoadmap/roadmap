@@ -3,7 +3,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="row">
       <div class="col-md-4">
-        <%= link_to(image_tag("dmptool_logo_cropped.png",
+        <%= link_to(image_tag("dmptool_logo_large.png",
                               alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
                               class: "app-logo",
                               title: Rails.configuration.branding[:application][:name]),
@@ -17,7 +17,7 @@
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div id="main-menu" class="row">
-      <div class="col-md-6">
+      <div class="col-md-10">
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
             <li class="<%= ' active' if isActivePage(root_path) %>">
@@ -30,7 +30,7 @@
                 <a href="#" class="dropdown-toggle" role="button" id="reference-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-book" aria-hidden="true">&nbsp;</i>
                   <%= _("Reference") %>
-                  <span class="caret"></span>
+                  <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
                 </a>
                 <ul class="dropdown-menu inverse-dropdown" aria-labelledby="reference-menu">
                   <li <%= 'class=active' if isActivePage(public_plans_path) %>>
@@ -47,7 +47,7 @@
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Explore <span class="fa fa-sort-desc"></span>
+                Explore <span class="fa fa-sort-desc" aria-hidden="true"></span>
               </a>
               <ul id="explore-menu" class="dropdown-menu">
                 <li>
@@ -62,7 +62,7 @@
                       <li><a href="#">General FAQs</a></li>
                    </ul>
                    <ul class="nav col-md-8">
-                     <li>For Researchers
+                     <li><a href="#">For Researchers</a>
                        <ul class="nav indented">
                          <li><a href="#">Data Management General Guidance</a></li>
                          <li><a href="#">Quick Start Guide</a></li>
@@ -84,5 +84,3 @@
     </div>
   </div><!-- /.container-fluid -->
 </nav>
-
-<%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
