@@ -1,43 +1,60 @@
-<table class="table tablesorter table-hover table-bordered">
-  <thead>
-    <tr>
-      <th><%= _('Name') %>&nbsp;<%= paginable_sort_link('firstname') %></th>
-      <th><%= _('Email address') %>&nbsp;<%= paginable_sort_link('email') %></th>
-      <th class="text-center"><%= _('Last logged in') %>&nbsp;<%= paginable_sort_link('last_sign_in_at') %></th>
-      <th class="text-center"><%= _('How many plans?') %></th>
-      <th class="text-center"><%= _('Privileges') %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% scope.each do |user| %>
-      <% if !user.nil? then%>
-        <tr>
-          <td>
-            <% if !user.name.nil? %>
-                <%= user.name(false) %>
-            <% end %>
-          </td>
-          <td>
-              <%= user.email %>
-          </td>
-          <td class="text-center">
-            <% if !user.last_sign_in_at.nil? %>
-                <%= l user.last_sign_in_at.to_date, :formats => :short %>
-            <% end %>
-          </td>
-          <td class="text-center">
-            <% if !user.roles.nil? %>
-                <%= user.roles.length %>
-            <% end %>
-          </td>
-          <td class="text-center">
-            <% unless current_user == user %>
-                <% b_label = _('Edit')%>
-                <%= link_to b_label, admin_grant_permissions_user_path(user)%>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table tablesorter table-hover table-bordered user_accounts">
+        <thead>
+          <tr>
+              <th><%= _('Name') %>&nbsp;<%= paginable_sort_link('firstname') %></th>
+              <th><%= _('Email') %>&nbsp;<%= paginable_sort_link('email') %></th>
+              <th class="text-center"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('last_sign_in_at') %></th>
+              <th class="text-center sorter-false"><%= _('Plans') %></th>
+              <th class="text-center sorter-false"><%= _('Current Privileges') %></th>
+              <th class="text-center sorter-false"><%= _('Edit Privileges') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% scope.each do |user| %>
+              <% if !user.nil? then%>
+                <tr>
+                  <td>
+                      <% if !user.name.nil? %>
+                          <%= user.name(false) %>
+                      <% end %>
+                  </td>
+                  <td>
+                      <%= user.email %>
+                  </td>
+                  <td class="text-center">
+                      <% if !user.last_sign_in_at.nil? %>
+                      <%= l user.last_sign_in_at.to_date, :formats => :short %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                      <% unless user.roles.nil? %>
+                      <%= user.roles.where(Role.not_reviewer_condition).length %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                      <% if user.can_super_admin? %>
+                      <%= _("Super admin privileges") %>
+                      <% elsif  user.can_org_admin? %>
+                      <%= _("Org admin privileges") %>                    
+                      <% else %>
+                      <%= _("") %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% unless current_user == user %>
+                      <% b_label = _('Edit') %>
+                      <%= link_to b_label, admin_grant_permissions_user_path(user), 'data-toggle' =>  'modal', 'data-target' => '#modal-permissions', class: 'modal-window' %>
+                      <div id="modal-permissions" class="modal" tabindex="-1" role="dialog"></div>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
