@@ -27,7 +27,15 @@ class Guidance < ActiveRecord::Base
 
   validates :text, presence: {message: _("can't be blank")}
 
+  # Retrieves every guidance associated to an org
+  scope :by_org, -> (org) {
+    joins(:guidance_group).merge(GuidanceGroup.by_org(org))
+  }
 
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:guidance_group).where("guidances.text LIKE ? OR guidance_groups.name LIKE ?", search_pattern, search_pattern)
+  }
   ##
   # Determine if a guidance is in a group which belongs to a specified organisation
   #
@@ -40,20 +48,6 @@ class Guidance < ActiveRecord::Base
   		end
     end
 		return false
-	end
-
-  ##
-  # returns all guidance that belongs to a specified organisation
-  #
-  # @param org_id [Integer] the integer id for an organisation
-  # @return [Array<Guidance>] list of guidance
-	def self.by_org(org_id)
-    org_guidance = []
-    # TODO: re-write below querry when guidance_in_group removed from model
-    Org.find_by(id: org_id).guidance_groups.each do |group|
-      org_guidance += Guidance.where(guidance_group_id: group.id)
-    end
-		return org_guidance
 	end
 
   ##
