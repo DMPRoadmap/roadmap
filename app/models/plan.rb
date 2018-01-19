@@ -52,7 +52,7 @@ class Plan < ActiveRecord::Base
 
   # Scope queries
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
-  scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
+  scope :publicly_visible, -> { includes(:template).where(:visibility => visibilities[:publicly_visible]) }
 
   # Retrieves any plan in which the user has an active role and it is not a reviewer
   scope :active, -> (user) {

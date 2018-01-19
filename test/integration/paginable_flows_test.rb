@@ -44,6 +44,10 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     refute_nil(link_view_less_search_results)
     assert_equal(link_view_less_search_results.content, _('View less search results'))
 
+    link_clear_search_results = css_select('a[href$="/1"]').first
+    refute_nil(link_clear_search_results)
+    assert_equal(link_clear_search_results.content, _('Clear search results'))
+
     # Fails if pagination nav is found
     assert_empty(css_select('nav.pagination'))
   end
