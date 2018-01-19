@@ -28,14 +28,14 @@
         <div class="pull-left">
           <% if total > Kaminari.config.default_per_page %>
             <% if searchable? %>
-              <% if paginable %>
                 <ul class="list-inline">
+                <% if paginable %>
                   <li><%= paginable_search_link(_('View all search results'), 'ALL') %></li>
+                <% else %>
+                  <%= paginable_search_link(_('View less search results'), 1) %>
+                <% end %>
                   <li><%= link_to(_('Clear search results'), url_for(controller: controller, action: action, page: 1), { 'data-remote': true, class: 'clear' }) %></li>
                 </ul>
-              <% else %>
-                <%= paginable_search_link(_('View less search results'), 1) %>
-              <% end %>
             <% else %>
               <% if paginable %>
                 <%= link_to(_('View all'), url_for(controller: controller, action: action, page: 'ALL'), { 'data-remote': true }) %>
