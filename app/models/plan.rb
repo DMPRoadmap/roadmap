@@ -54,14 +54,24 @@ class Plan < ActiveRecord::Base
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
   scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
 
+  # Retrieves any plan in which the user has an active role and it is not a reviewer
+  scope :active, -> (user) {
+    includes([:template, :roles]).where({ "roles.active": true, "roles.user_id": user.id }).where(Role.not_reviewer_condition)
+  }
+
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    Plan.includes(:template)
+    includes(:template, {roles: :user})
       .where({
         visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
-        "templates.org_id": user.org_id})
+        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
+        "users.org_id": user.org_id})
       .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
-      .order(:title => :asc)
+  }
+
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:template).where("plans.title LIKE ? OR templates.title LIKE ?", search_pattern, search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -270,7 +280,8 @@ class Plan < ActiveRecord::Base
   def guidance_by_question_as_hash
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?) AND orgs.id != ?", 
+                                                       true, guidance_groups_ids, self.template.org.id)
 
     # Gather all of the Themes used in the plan as a hash
     # {
@@ -755,7 +766,7 @@ class Plan < ActiveRecord::Base
   # Returns visibility message given a Symbol type visibility passed, otherwise nil
   def self.visibility_message(type)
     message = {
-      :organisationally_visible => _('institutional'),
+      :organisationally_visible => _('organisational'),
       :publicly_visible => _('public'),
       :is_test => _('test'),
       :privately_visible => _('private')

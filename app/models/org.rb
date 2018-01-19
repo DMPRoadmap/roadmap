@@ -104,6 +104,9 @@ class Org < ActiveRecord::Base
       return "None"
   end
 
+  def funder_only?
+    self.org_type == Org.org_type_values_for(:funder).min
+  end
 
   ##
   # returns the name of the organisation
@@ -150,6 +153,10 @@ class Org < ActiveRecord::Base
   def plans
     Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)', 
       self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
+  end
+  
+  def shibbolized?
+    self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?
   end
 
   private

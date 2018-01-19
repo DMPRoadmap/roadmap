@@ -69,7 +69,6 @@ class SectionsController < ApplicationController
     if @section.destroy
       @phase.template.dirty = true
       @phase.template.save!
-
       redirect_to admin_show_phase_path(id: @phase.id), notice: success_message(_('section'), _('deleted'))
     else
       @edit = (@phase.template.org == current_user.org)
@@ -84,7 +83,7 @@ class SectionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render template: 'phases/admin_show'
+      redirect_to(admin_show_phase_path(id: @phase.id))
     end
   end
 

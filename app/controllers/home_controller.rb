@@ -19,6 +19,8 @@ class HomeController < ApplicationController
   			redirect_to plans_url
   		end
   	end
+    
+    @orgs = Org.where('is_other IS NULL OR is_other = 0').order(:name)
   end
 
 end

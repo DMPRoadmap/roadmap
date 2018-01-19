@@ -35,7 +35,8 @@ module OrgAdmin
         "#{_('Project title')}",
         "#{_('Template')}",
         "#{_('Organisation')}",
-        "#{_('Owner')}",
+        "#{_('Owner name')}",
+        "#{_('Owner email')}",
         "#{_('Updated')}",
         "#{_('Visibility')}"
       ]
@@ -48,7 +49,8 @@ module OrgAdmin
             "#{plan.title}", 
             "#{plan.template.title}", 
             "#{plan.owner.org.name}", 
-            "#{plan.owner.name}",
+            "#{plan.owner.name(false)}",
+            "#{plan.owner.email}",
             "#{l(plan.latest_update.to_date, formats: :short)}",
             "#{Plan.visibility_message(plan.visibility.to_sym).capitalize}"
           ] 

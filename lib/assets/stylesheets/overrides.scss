@@ -16,9 +16,14 @@ $highlight-background-color: #F36F24;
   font-weight: normal;
 }
 
-/* Font Smoothing in Webkit /*
+/* Font Smoothing in Webkit */
 body {
   -webkit-font-smoothing: antialiased;
+}
+
+/* PRIMARY BACKGROUND COLOR */
+.bg-primary {
+  background-color: $grey;
 }
 
 /* ADD a BORDER */
@@ -148,6 +153,13 @@ span.sublist {
 }
 .fa-reverse {
   color: $grey;
+}
+.fa-sort, .fa-sort-asc, .fa-sort-desc {
+  color: $white;
+}
+
+.fa-question-circle {
+  font-size: 1.5rem;
 }
 
 /* RADIO BUTTONS */
@@ -423,6 +435,17 @@ $tooltip-background: $grey;
 
 /* PAGE SPECIFIC SETTINGS */
 /* ---------------------------------------------*/
+/* Shibboleth DS modal */
+#full_list {
+  min-height: 350px;
+  max-height: 500px;
+  overflow: scroll;
+  margin: 10px 0 10px 0;
+}
+#org-sign-in-logo {
+  text-align: center;
+}
+
 /* Org details page */
 .remove-org-link i {
   margin-left: -15px;

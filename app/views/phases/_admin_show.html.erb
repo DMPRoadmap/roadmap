@@ -23,17 +23,21 @@
       <% phase.sections.each do |section| %>
         <div class="panel panel-default">
           <div class="panel-heading" role="tab" id="<%= "headingSection#{section.id}" %>">
-            <h4 class="panel-title">
-              <%= link_to(
-                        section.title,
-                        "#collapseSection#{section.id}",
-                        { 
-                          'data-toggle': 'collapse',
-                          'data-parent': '#sections_accordion',
-                          'aria-expanded': section.id == current_section,
-                          'aria-controls': "#collapseSection#{section.id}" 
-                        }) %>
-            </h4>
+            <div class="panel-title pull-left">
+              <%= section.title %>
+            </div>
+            <div class="panel-title pull-right">
+              <a
+                role="button"
+                data-toggle="collapse"
+                data-parent="#sections-accordion"
+                href="#collapseSection<%= section.id%>"
+                aria-expanded="false"
+                aria-controls="#collapseSection<%= section.id%>">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
           </div>
           <div
             id="<%= "collapseSection#{section.id}" %>"
