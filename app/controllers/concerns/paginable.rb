@@ -6,19 +6,31 @@ module Paginable
     # partial {String} - Represents a path to where the partial view is stored
     # controller {String} - Represents the name of the controller to handles the pagination
     # action {String} - Represents the method name within the controller
+    # path_params {Hash} - A hash of additional URL path parameters (e.g. path_paths = { id: 'foo' } for /paginable/templates/:id/history/:page)
     # scope {ActiveRecord::Relation} - Represents scope variable
     # locals {Hash} - A hash objects with any additional local variables to be passed to the partial view
-    def paginable_renderise(partial: nil, controller: params[:controller], action: params[:action], scope: nil, locals: {})
-      raise ArgumentError, 'scope should be an instance of ActiveRecord::Relation class' unless scope.is_a?(ActiveRecord::Relation)
-      raise ArgumentError, 'locals should be an instance of Hash' unless locals.is_a?(Hash)
+    def paginable_renderise(partial: nil, controller: params[:controller], action: params[:action], path_params: {}, scope: nil, locals: {})
+      raise ArgumentError, 'scope should be an ActiveRecord::Relation object' unless scope.is_a?(ActiveRecord::Relation)
+      raise ArgumentError, 'path_params should be a Hash object' unless path_params.is_a?(Hash)
+      raise ArgumentError, 'locals should be a Hash object' unless locals.is_a?(Hash)
       @paginable_controller = controller
       @paginable_action = action
+      @paginable_path_params = path_params
       refined_scope = refine_query(scope)
       render(layout: "/layouts/paginable", partial: partial, locals: { 
         controller: controller,
         action: action,
         paginable: refined_scope.respond_to?(:total_pages), 
         scope: refined_scope }.merge(locals))
+    end
+    # Returns the base url of the paginable route for a given page passed
+    def paginable_base_url(page = 1)
+      options = { controller: @paginable_controller || params[:controller],
+        action: @paginable_action || params[:action], page: page }
+      if @paginable_path_params.present?
+        options = @paginable_path_params.merge(options)
+      end
+      return url_for(options)
     end
     # Generates an HTML link to sort given a sort field.
     # sort_field {String} - Represents the column name for a table
@@ -39,10 +51,6 @@ module Paginable
     end
   end
   private
-    # Returns the base url of the paginable route for a given page passed
-    def paginable_base_url(page = 1)
-      return url_for(controller: @paginable_controller || params[:controller], action: @paginable_action || params[:action], page: page)
-    end
     # Returns the upcase string (e.g ASC or DESC) if sort_direction param is present in any of the forms 'asc', 'desc', 'ASC', 'DESC'
     # otherwise returns nil
     def sort_direction
