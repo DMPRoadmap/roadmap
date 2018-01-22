@@ -47,7 +47,7 @@ class Template < ActiveRecord::Base
     Template.where(templates: { is_default: is_default }).valid().published()
   }
 
-  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]).order(:title => :asc) }
+  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]) }
 
   # Retrieves template with distinct dmptemplate_id that are valid (e.g. migrated false) and customization_of is nil. Note,
   # if organisation ids are passed, the query will filter only those distinct dmptemplate_ids for those organisations

@@ -6,8 +6,8 @@ class GuidancesController < ApplicationController
   # GET /guidances
   def admin_index
     authorize Guidance
-    @guidances = policy_scope(Guidance)
-    @guidance_groups = GuidanceGroup.where(org_id: current_user.org_id)
+    @guidances = Guidance.by_org(current_user.org).includes(:guidance_group, :themes).page(1)
+    @guidance_groups = GuidanceGroup.by_org(current_user.org).page(1)
   end
 
   def admin_new

@@ -17,40 +17,11 @@
 <div class="row">
   <div class="col-md-12">
     <% if @plans.count > 0 %>
-      <div class="table-responsive">
-        <table class="table table-hover tablesorter">
-          <thead>
-            <% if @plans.count > TABLE_FILTER_MIN_ROWS %>
-              <tr>
-                <th colspan="5" class="sorter-false">
-                  <%= render(partial: "shared/table_filter",
-                             locals: {path: public_plans_path, placeholder: _('Filter plans')}) %>
-                </th>
-              </tr>
-            <% end %>
-            <tr>
-              <th><%= _('Project Title') %></th>
-              <th><%= _('Template') %></th>
-              <th><%= _('Institution') %></th>
-              <th><%= _('Owner') %></th>
-              <th class="sorter-false text-center"><%= _('Download') %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @plans.each do |plan| %>
-              <tr class="table-data">
-                <td><%= plan.title %></td>
-                <td><%= plan.template.title %></td>
-                <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
-                <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
-                <td class="text-center">
-                  <%= link_to _('PDF'), plan_export_path(plan, format: :pdf), class: "dmp_table_link", target: '_blank' %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <%= paginable_renderise(
+        partial: '/paginable/plans/publicly_visible',
+        controller: 'paginable/plans',
+        action: 'publicly_visible', 
+        scope: @plans) %>
     <% end %>
   </div>
 </div>
