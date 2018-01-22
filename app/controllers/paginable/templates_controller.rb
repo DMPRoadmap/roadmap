@@ -75,4 +75,17 @@ class Paginable::TemplatesController < ApplicationController
       partial: 'publicly_visible',
       scope: Template.includes(:org).where(dmptemplate_id: template_ids.uniq.flatten).valid.published)
   end
+
+  # GET /paginable/templates/:id/history/:page  (AJAX)
+  # -----------------------------------------------------
+  def history
+    @template = Template.find(params[:id])
+    authorize @template
+    @templates = Template.where(dmptemplate_id: @template.dmptemplate_id)
+    @current = Template.current(@template.dmptemplate_id)
+    paginable_renderise(
+      partial: 'history',
+      scope: @templates,
+      locals: { current: @current })
+  end
 end
