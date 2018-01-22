@@ -18,10 +18,20 @@ class UsersController < ApplicationController
   # Permissions which the user already has are pre-selected
   # Selecting new permissions and saving calls the admin_update_permissions action
   def admin_grant_permissions
-    @user = User.includes(:perms).find(params[:id])
+    @user = User.includes(:perms, :roles).find(params[:id])
     authorize @user
     user_perms = current_user.perms
-    @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, Perm.use_api, Perm.change_org_details]
+    @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, 
+                           Perm.use_api, Perm.change_org_details, Perm.add_orgs, 
+                           Perm.change_affiliation, Perm.grant_api]
+    render json: {
+      "user" => {
+        "id" => @user.id,
+        "html" => render_to_string(partial: 'users/admin_grant_permissions', 
+                                   locals: { user: @user, perms: @perms }, 
+                                   formats: [:html])
+      }
+    }.to_json
   end
 
   ##
