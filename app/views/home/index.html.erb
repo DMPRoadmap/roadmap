@@ -7,7 +7,9 @@
 
 <div id="home-image" class="row" aria-hidden="true">
   <div class="col-md-12">
-    <%= image_tag("home_page.jpg", alt: _('Build your Data Management Plan'), class: "carousel-image") %>
+    <% if @image.present? %>
+      <%= image_tag("homepage/#{@image}", alt: _('Build your Data Management Plan'), class: "carousel-image") %>
+    <% end %>
   </div>
 </div>
 
