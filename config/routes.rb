@@ -266,6 +266,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         get 'funders/:page', action: :funders, on: :collection, as: :funders
         get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
         get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+        get ':id/history/:page', action: :history, on: :collection, as: :history
       end
       # Paginable actions for guidances
       resources :guidances, only: [] do
