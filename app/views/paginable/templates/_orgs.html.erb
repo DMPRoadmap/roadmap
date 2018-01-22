@@ -30,12 +30,12 @@
             <%= raw(template.description) %>
           </td>
           <td>
-            <% if !published[template.dmptemplate_id].present? %>
-              <%= _('Unpublished') %>
-            <% elsif template.dirty? %>
+            <% if template.dirty? %>
               <%= _('Unpublished changes') %>
-            <% else %>
+            <% elsif template.published? %>
               <%= _('Published') %>
+            <% else %>
+              <%= _('Unpublished') %>
             <% end %>
           </td>
           <td>
