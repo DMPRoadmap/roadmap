@@ -1,30 +1,36 @@
-<div style="text-align:center;">
-  <h1><%= @template.title %></h1>
-  <p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] + "." %></em></p>
-</div>
-<p><%= _("Organisation: ") + @template.org.name %></p> <br>
-<% if @template.description.present? %>
-  <p><%= _("Description: ")%><%= raw(@template.description)  %></p> <br>
-<% end %>
-<br style="page-break-before: always">
-
-<% @template.phases.each do |phase| %>
-  <!-- page break before each phase -->
-  <br style="page-break-before: always">
-  <h2><%= phase.title %></h2>
-  <% phase.sections.each do |section| %>
-    <h3><%= section.title %></h3>
-    <% section.questions.each do |question|%>
-      <p><%= raw question.text %></p>
-      <% q_format = question.question_format %>
-      <% if q_format.option_based? %>
-        <ul>
-          <% question.question_options.each do |option| %>
-            <li><%= option.text %></li>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>
+      <%= @template.title %>
+    </title>
+  </head>
+  <body>
+    <% @template.phases.each do |phase| %>
+      <!-- page break before each phase -->
+      <br style="page-break-before: always">
+      <h2><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h2>
+      <% phase.sections.each do |section| %>
+        <h3><%= section.title %></h3>
+        <% section.questions.each do |question|%>
+          <p><%= raw question.text %></p>
+          <% q_format = question.question_format %>
+          <% if q_format.option_based? %>
+            <ul>
+              <% question.question_options.each do |option| %>
+                <li><%= option.text %></li>
+              <% end %>
+            </ul>
           <% end %>
-        </ul>
+          <% question.annotations.each do |annotation| %>
+            <br>
+            <p><i><%= annotation.type == 0 ? _('Example Answer') : _('Guidance') %></i>:</p>
+            <%= raw annotation.text %>
+          <% end %>
+          <br>
+        <% end %>
       <% end %>
-      <br>
     <% end %>
-  <% end %>
-<% end %>
+  </body>
+</html>
