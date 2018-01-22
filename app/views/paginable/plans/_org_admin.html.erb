@@ -19,7 +19,7 @@
           <td><%= plan.template.title %></td>
           <td><%= plan.users.first.org.name %></td>
           <td><%= plan.users.first.name(false) %></td>
-          <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+          <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : raw(display_visibility(plan.visibility)) %>
           </td>

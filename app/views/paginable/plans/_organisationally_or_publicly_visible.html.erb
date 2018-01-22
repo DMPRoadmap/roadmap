@@ -23,7 +23,7 @@
                                     <td><%= link_to "#{plan.title.length > 40 ? "#{plan.title[0..39]} ..." : plan.title}", plan_path(plan) %></td>
                                     <td><%= plan.template.title %></td>
                                     <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
-                                    <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                                    <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                                     <td class="text-center">
                                         <%= link_to _('PDF'), plan_export_path(plan, format: :pdf), target: '_blank' %>
                                     </td>
