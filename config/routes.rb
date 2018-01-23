@@ -218,6 +218,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
+    resources :usage, only: [:index]
+
     resources :roles, only: [:create, :update, :destroy] do
       member do
         put :deactivate
