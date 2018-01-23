@@ -18,14 +18,14 @@ class PublicPagesController < ApplicationController
     raise Pundit::NotAuthorizedError unless PublicPagePolicy.new( @template).template_export?
     skip_authorization
     # now with prefetching (if guidance is added, prefetch annottaions/guidance)
-    @template = Template.includes(:org, phases: {sections:{questions:[:question_options, :question_format]}}).find(@template.id)
+    @template = Template.includes(:org, phases: {sections:{questions:[:question_options, :question_format, :annotations]}}).find(@template.id)
+    @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/ /, "_")
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_")
       respond_to do |format|
         format.docx { render docx: 'template_export', filename: "#{file_name}.docx" }
         format.pdf do
-          @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
           render pdf: file_name,
           margin: @formatting[:margin],
           footer: {
