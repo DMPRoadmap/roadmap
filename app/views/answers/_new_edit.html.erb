@@ -1,4 +1,4 @@
-<%# locals: { question, answer, readonly } %>
+<%# locals: { question, answer, readonly, locking } %>
 <!--
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
@@ -8,6 +8,16 @@
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
   <% end %>
+  <fieldset <%= 'disabled' if readonly %>>
+    <% if question.option_based? %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer }) %>
+    <% elsif question.question_format.textfield?%>
+        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
+    <% elsif question.question_format.textarea? %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking }) %>
+    <% end %>
+    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+  </fieldset>
   <!--Example Answer area -->
   <% annotation = question.first_example_answer %>
   <% if annotation.present? && annotation.text.present? %>
@@ -20,14 +30,4 @@
       </div>
     </div>
   <% end %>
-  <fieldset <%= 'disabled' if readonly %>>
-    <% if question.option_based? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer }) %>
-    <% elsif question.question_format.textfield?%>
-        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
-    <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer }) %>
-    <% end %>
-    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-  </fieldset>
 <% end %>
