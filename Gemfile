@@ -91,13 +91,6 @@ gem 'kaminari', '>= 1.0'
 
 
 # ------------------------------------------------
-#     DMPTOOL SPECIFIC GEMS
-gem "capistrano", "~> 3.8"
-gem 'capistrano-passenger'
-# ------------------------------------------------
-
-
-# ------------------------------------------------
 #     ENVIRONMENT SPECIFIC DEPENDENCIES
 
 group :development, :test do
