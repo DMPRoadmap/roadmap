@@ -1,7 +1,8 @@
+<%= current_tab = '' unless current_tab.present? %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= template.title %></h1>
-    <%= link_to _('View all templates'), org_admin_templates_path, class: 'btn btn-default pull-right' %>
+    <%= link_to _('View all templates'), org_admin_templates_path(r: current_tab), class: 'btn btn-default pull-right' %>
   </div>
 </div>
 <div class="row">
