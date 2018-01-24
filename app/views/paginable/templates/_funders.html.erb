@@ -68,16 +68,17 @@
                   <% if customization.updated_at < template.updated_at %>
                     <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(template) %></li>
                   <% else %>
-                    <li><%= link_to _('Edit customisation'), edit_org_admin_template_path(id: customization.id, edit: "true") %></li>
+                    <li><%= link_to _('Edit customisation'), edit_org_admin_template_path(id: customization.id, edit: "true", r: 'funder-templates') %></li>
                     <% if !customization.published? %>
-                      <li><%= link_to _('Publish'), publish_org_admin_template_path(customization) %></li>
+                      <li><%= link_to _('Publish'), publish_org_admin_template_path(customization, r: 'funder-templates') %></li>
                     <% else %>
-                      <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization) %></li>
+                      <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization, r: 'funder-templates') %></li>
                     <% end %>
                     <% if customization.plans.length <= 0 %>
                       <li>
-                        <%= link_to _('Remove'), org_admin_template_path(id: customization.id), 'data-method': 'delete', rel: 'nofollow',
-                            'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"?') % { template_title: customization.title} %>
+                        <%= link_to _('Remove'), org_admin_template_path(id: customization.id, r: 'funder-templates'), 
+                                    'data-method': 'delete', rel: 'nofollow',
+                                    'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"?') % { template_title: customization.title} %>
                       </li>
                     <% end %>
                   <% end %>

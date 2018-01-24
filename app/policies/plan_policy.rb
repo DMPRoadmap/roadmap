@@ -65,4 +65,11 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
+  def select_guidances_list?
+    @plan.readable_by?(@user.id)
+  end
+
+  def update_guidances_list?
+    @plan.editable_by?(@user.id)
+  end
 end
