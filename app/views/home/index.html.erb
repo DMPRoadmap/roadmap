@@ -1,15 +1,9 @@
-<div id="home-welcome-msg" class="row">
-  <div class="col-md-12">
-    <h1><%= _('Welcome') %></h1>
-    <p><%= _('Create, review and share data management plans that meet institutional and funder requirements.') %></p>
-  </div>
-</div>
-
 <div id="home-image" class="row" aria-hidden="true">
-  <div class="col-md-12">
-    <% if @image.present? %>
-      <%= image_tag("homepage/#{@image}", alt: _('Build your Data Management Plan'), class: "carousel-image") %>
-    <% end %>
+  <div class="col-md-12 homepage-img homepage-img-<%= rand(1..5) %>">
+    <div id="home-welcome-msg" class="row">
+      <h1><%= _('Welcome') %></h1>
+      <p><%= _('Create, review and share data management plans that meet institutional and funder requirements.') %></p>
+    </div>
   </div>
 </div>
 
