@@ -4,12 +4,6 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $fa-font-path: "~font-awesome/fonts/";
 @import "~font-awesome/scss/font-awesome";
 
-/* CSSs files for jquery-ui. TODO, remove when bootstrap is re-introduced
-*= require jquery-ui-dist/jquery-ui.min
-*= require jquery-ui-dist/jquery-ui.structure.min
-*= require jquery-ui-dist/jquery-ui.theme.min
-*/
-
 @import "/overrides.scss";
 
 [class^="bg-"] {
@@ -17,4 +11,16 @@ $fa-font-path: "~font-awesome/fonts/";
 }
 .mb-5 {
   margin-bottom: 5px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.status {
+  display:block;
+  float: left;
+  clear: left;
+  margin-bottom: 10px;
 }

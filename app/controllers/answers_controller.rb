@@ -58,7 +58,7 @@ class AnswersController < ApplicationController
           "locking" => @stale_answer ?
             render_to_string(partial: 'answers/locking', locals: { question: @question, answer: @stale_answer, user: @answer.user }, formats: [:html]) :
             nil,
-          "form" => render_to_string(partial: 'answers/new_edit', locals: { question: @question, answer: @answer, readonly: false }, formats: [:html]),
+          "form" => render_to_string(partial: 'answers/new_edit', locals: { question: @question, answer: @answer, readonly: false, locking: false }, formats: [:html]),
           "answer_status" => render_to_string(partial: 'answers/status', locals: { answer: @answer}, formats: [:html])
         },
         "section" => {
