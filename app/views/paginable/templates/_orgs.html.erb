@@ -30,7 +30,7 @@
             <%= raw(template.description) %>
           </td>
           <td>
-            <% if template.dirty? %>
+            <% if published[template.dmptemplate_id].present? && !template.published? %>
               <%= _('Unpublished changes') %>
             <% elsif template.published? %>
               <%= _('Published') %>
@@ -53,19 +53,20 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li><%= link_to _('Edit'), edit_org_admin_template_path(id: template.id, edit: "true") %></li>
-                <li><%= link_to _('History'), history_org_admin_template_path(id: template.id) %></li>
+                <li><%= link_to _('Edit'), edit_org_admin_template_path(id: template.id, edit: "true", r: 'organisation-templates') %></li>
+                <li><%= link_to _('History'), history_org_admin_template_path(id: template.id, r: 'organisation-templates') %></li>
                 <% if !published[template.dmptemplate_id].present? %>
-                  <li><%= link_to _('Publish'), publish_org_admin_template_path(template) %></li>
-                <% elsif template.dirty? %>
-                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template) %></li>
+                  <li><%= link_to _('Publish'), publish_org_admin_template_path(template, r: 'organisation-templates') %></li>
+                <% elsif !template.published? %>
+                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template, r: 'organisation-templates') %></li>
                 <% else %>
-                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template) %></li>
+                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template, r: 'organisation-templates') %></li>
                 <% end %>
                 <li><%= link_to _('Copy'), copy_org_admin_template_path(template) %></li>
                 <% if template.plans.length <= 0 %>
                   <li>
-                    <%= link_to _('Remove'), org_admin_template_path(id: template.id), 'data-method': 'delete', rel: 'nofollow',
+                    <%= link_to _('Remove'), org_admin_template_path(id: template.id, r: 'organisation-templates'), 
+                                'data-method': 'delete', rel: 'nofollow',
                                 'data-confirm': _('Are you sure you want to remove "%{template_title}"?') % { template_title: template.title} %>
                   </li>
                 <% end %>

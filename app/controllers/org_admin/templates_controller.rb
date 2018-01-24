@@ -38,6 +38,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def new
       authorize Template
+      @current_tab = params[:r] || 'all-templates'
     end
     
     # POST /org_admin/templates
@@ -83,12 +84,15 @@ module OrgAdmin
       end
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
+      @current_tab = params[:r] || 'all-templates'
+      
       render('container',
         locals: { 
           partial_path: 'edit',
           template: @template,
           current: @current,
-          template_hash: @template_hash
+          template_hash: @template_hash,
+          current_tab: @current_tab
         })
     end
     
@@ -142,6 +146,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def destroy
       @template = Template.find(params[:id])
+      current_tab = params[:r] || 'all-templates'
       authorize @template
 
       if @template.plans.length <= 0
@@ -151,19 +156,19 @@ module OrgAdmin
         if current == @template
           if @template.destroy
             flash[:notice] = success_message(_('template'), _('removed'))
-            redirect_to org_admin_templates_path
+            redirect_to org_admin_templates_path(r: current_tab)
           else
             @hash = @template.to_hash
             flash[:alert] = failed_destroy_error(@template, _('template'))
-            render org_admin_templates_path
+            redirect_to org_admin_templates_path(r: current_tab)
           end
         else
           flash[:alert] = _('You cannot delete historical versions of this template.')
-          redirect_to org_admin_templates_path
+          redirect_to org_admin_templates_path(r: current_tab)
         end
       else
         flash[:alert] = _('You cannot delete a template that has been used to create plans.')
-        redirect_to org_admin_templates_path
+        redirect_to org_admin_templates_path(r: current_tab)
       end
     end
 
@@ -174,12 +179,14 @@ module OrgAdmin
       authorize @template
       @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
       @current = Template.current(@template.dmptemplate_id)
+      @current_tab = params[:r] || 'all-templates'
     end
     
     # GET /org_admin/templates/:id/customize
     # -----------------------------------------------------
     def customize
       @template = Template.find(params[:id])
+      @current_tab = params[:r] || 'all-templates'
       authorize @template
 
       customisation = Template.deep_copy(@template)
@@ -206,7 +213,7 @@ module OrgAdmin
         end
       end
 
-      redirect_to edit_org_admin_template_path(customisation)
+      redirect_to edit_org_admin_template_path(customisation, r: 'funder-templates')
     end
 
     # GET /org_admin/templates/:id/transfer_customization
@@ -214,6 +221,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def transfer_customization
       @template = Template.includes(:org).find(params[:id])
+      @current_tab = params[:r] || 'all-templates'
       authorize @template
       new_customization = Template.deep_copy(@template)
       new_customization.org_id = current_user.org_id
@@ -278,13 +286,14 @@ module OrgAdmin
         end
       end
       new_customization.save
-      redirect_to edit_org_admin_template_path(new_customization)
+      redirect_to edit_org_admin_template_path(new_customization, r: 'funder-templates')
     end
     
     # PUT /org_admin/templates/:id/copy  (AJAX)
     # -----------------------------------------------------
     def copy
       @template = Template.find(params[:id])
+      current_tab = params[:r] || 'all-templates'
       authorize @template
 
       new_copy = Template.deep_copy(@template)
@@ -298,7 +307,7 @@ module OrgAdmin
 
       if new_copy.save
         flash[:notice] = 'Template was successfully copied.'
-        redirect_to edit_org_admin_template_path(id: new_copy.id, edit: true), notice: _('Information was successfully created.')
+        redirect_to edit_org_admin_template_path(id: new_copy.id, edit: true, r: 'organisation-templates'), notice: _('Information was successfully created.')
       else
         flash[:alert] = failed_create_error(new_copy, _('template'))
       end
@@ -312,7 +321,7 @@ module OrgAdmin
       authorize template
 
       current = Template.current(template.dmptemplate_id)
-
+      
       # Only allow the current version to be updated
       if current != template
         redirect_to org_admin_templates_path, alert: _('You can not publish a historical version of this template.')
