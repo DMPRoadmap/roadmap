@@ -6,15 +6,55 @@
       <%= @template.title %>
     </title>
     <style>
-      html { font-family: <%= @formatting[:font_face].tr('"', '') -%>; font-size: <%= @formatting[:font_size] -%>pt; }
-        h1 { font-size: <%= @formatting[:font_size] + 2 -%>pt; font-face:bold; padding: 0;}
-        h2 { font-size: <%= @formatting[:font_size] + 1 -%>pt; font-face:bold; padding: 0; margin: 1em 0 0 0;}
-        h3 { font-size: <%= @formatting[:font_size] + 0 -%>pt; font-face:bold; padding: 0; margin: 1em 0 0 0;}
-        h2 + div.question > h3 { margin: 0; }
-        table, tr, td, th, tbody, thead, tfoot { page-break-inside: avoid !important; }
-        table { border-collapse: collapse; }
-        th, td { border: 1px solid black !important; padding: 2px; }
-        p { margin: 0.25em 0; }
+      html {
+        font-family: <%= @formatting[:font_face].tr('"', '') -%>; 
+        font-size: <%= @formatting[:font_size] -%>pt; 
+        margin: <%= @formatting[:margin][:top] %>px <%= @formatting[:margin][:right] %>px <%= @formatting[:margin][:bottom] %>px <%= @formatting[:margin][:left] %>px; */
+      }
+      h1 {
+        font-size: <%= @formatting[:font_size] + 3 -%>pt; 
+        font-face:bold; 
+        padding: 0;
+      }
+      h2 {
+        font-size: <%= @formatting[:font_size] + 2 -%>pt; 
+        font-face:bold; 
+        padding: 0; 
+        margin: 1em 0 0 0;
+      }
+      h3 {
+        font-size: <%= @formatting[:font_size] + 1 -%>pt; 
+        font-face:bold; 
+        padding: 0; 
+        margin: 1em 0 0 0;
+      }
+      h2 + div.question > h3 {
+        margin: 0; 
+      }
+      table, tr, td, th, tbody, thead, tfoot {
+        page-break-inside: avoid !important; 
+      }
+      table { 
+        border-collapse: collapse; 
+      }
+      th, td { 
+        border: 1px solid black !important; 
+        padding: 2px;
+      }
+      p { 
+        margin: 0.25em 0;
+      }
+      .question {
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+      .question:first-child {
+        margin-top: 0;
+      }
+      .annotations {
+        margin-left: 15px;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body>
@@ -37,9 +77,10 @@
         </div>
         <div class="annotations">
           <% question.annotations.each do |annotation| %>
-            <br>
-            <p><i><%= annotation.type == 0 ? _('Example Answer') : _('Guidance') %></i>:</p>
-            <div style="margin-left: 15px;"><%= raw annotation.text %></div>
+            <% unless annotation.text.chomp.strip.gsub(/<\/?p>/, '').gsub(/<br\s?\/>/, '').blank? %>
+              <p><i><%= annotation.type == 0 ? _('Example Answer') : _('Guidance') %></i>:</p>
+              <div style="margin-left: 15px;"><%= raw annotation.text.chomp.strip %></div>
+            <% end %>
           <% end %>
         </div>
         <% end %>
