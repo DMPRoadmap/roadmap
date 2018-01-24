@@ -208,6 +208,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
         get 'overview'
+        get 'select_guidances_list'
+        put 'update_guidances_list'
       end
 
       collection do
