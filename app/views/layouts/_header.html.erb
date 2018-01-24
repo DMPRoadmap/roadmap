@@ -66,7 +66,7 @@
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Explore <span class="fa fa-sort-desc" aria-hidden="true"></span>
+                <%= ('Learn') %> <span class="fa fa-sort-desc" aria-hidden="true"></span>
               </a>
               <ul id="explore-menu" class="dropdown-menu">
                 <li>
@@ -122,7 +122,7 @@
                           <% end %>
                           <% if current_user.can_modify_org_details? %>
                             <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-                              <%= link_to (current_user.can_super_admin? ? _('Institutions') : _('Institution')), admin_edit_org_path(current_user.org_id) %>
+                              <%= link_to (current_user.can_super_admin? ? _('Organizations') : _('Organizations')), admin_edit_org_path(current_user.org_id) %>
                             </li>
                           <% end %>
                           <li <%= 'class=active' if isActivePage(org_admin_plans_path) %>>
