@@ -188,13 +188,13 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_path(prior)
     assert_equal _('You cannot delete historical versions of this template.'), flash[:alert]
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to org_admin_templates_path(r: 'all-templates')
     assert_not Template.find(prior.id).nil?
 
     # Try to delete the current version should work
     delete org_admin_template_path(current)
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to org_admin_templates_path(r: 'all-templates')
     assert_raise ActiveRecord::RecordNotFound do
       Template.find(current.id).nil?
     end
@@ -304,7 +304,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     customization = Template.where(customization_of: template.dmptemplate_id).last
 
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.last)
+    assert_redirected_to edit_org_admin_template_url(Template.last, r: 'funder-templates')
     assert assigns(:template)
 
     assert_equal 0, customization.version
@@ -419,7 +419,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     get copy_org_admin_template_path(@template)
     assert_response :redirect
-    assert_redirected_to "#{edit_org_admin_template_url(Template.last)}?edit=true"
+    assert_redirected_to edit_org_admin_template_url(Template.last, edit: true, r: 'organisation-templates')
   end
   
   test "unauthorized user cannot transfer a template customization" do

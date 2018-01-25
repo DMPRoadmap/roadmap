@@ -108,8 +108,35 @@ class PlansController < ApplicationController
       end
     end
   end
+  
+  ## Using GET request to display all gudiance groups
+  def select_guidances_list
+    @plan = Plan.find(params[:id])
+    authorize @plan
+    @all_guidance_groups = @plan.get_guidance_group_options
+    @selected_guidance_groups = @plan.guidance_groups
 
+    render json: {
+      "plan" => {
+        "id" => @plan.id,
+        "html" => render_to_string(partial: 'plans/all_guidances', 
+                                   locals: { guidance_groups: @all_guidance_groups,
+                                             selected_guidance_groups: @selected_guidance_groups }, 
+                                   formats: [:html])
+      }
+    }.to_json
+  end
 
+  ## Using PUT request to update the plan with the guidance group selections
+  def update_guidances_list
+    @plan = Plan.find(params[:id])
+    authorize @plan
+
+    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
+    save_guidance_selections(guidance_group_ids)
+    @plan.save!
+    redirect_to(request.env["HTTP_REFERER"] || plan_path(@plan), notice: success_message(_('plan'), _('saved')) )
+  end
 
   # GET /plans/show
   def show

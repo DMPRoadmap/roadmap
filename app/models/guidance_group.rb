@@ -22,10 +22,14 @@ class GuidanceGroup < ActiveRecord::Base
   #
   # What do they do? do they do it efficiently, and do we need them?
 
-
-
-
-
+  # Retrieves every guidance group associated to an org
+  scope :by_org, -> (org) {
+    where(org_id: org.id)
+  }
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    where("name LIKE ?", search_pattern)
+  }
 
   ##
   # Converts the current guidance group to a string containing the display name.

@@ -210,6 +210,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
         get 'overview'
+        get 'select_guidances_list'
+        put 'update_guidances_list'
       end
 
       collection do
@@ -251,6 +253,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :plans, only: [] do
         get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
         get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
+        get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+        get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
       end
       # Paginable actions for users
       resources :users, only: [] do
@@ -260,12 +264,21 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :themes, only: [] do
         get 'index/:page', action: :index, on: :collection, as: :index
       end
-      
       # Paginable actions for templates
       resources :templates, only: [] do
         get 'all/:page', action: :all, on: :collection, as: :all
         get 'funders/:page', action: :funders, on: :collection, as: :funders
         get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
+        get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+        get ':id/history/:page', action: :history, on: :collection, as: :history
+      end
+      # Paginable actions for guidances
+      resources :guidances, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for guidance_groups
+      resources :guidance_groups, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
 

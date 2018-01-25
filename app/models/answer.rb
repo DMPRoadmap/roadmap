@@ -1,5 +1,11 @@
 class Answer < ActiveRecord::Base
 
+  after_save do |answer|
+    # Updates the plan.updated_at attribute whenever an answer has been created/updated 
+    # check first for a nil plan so that the controller can properly handle the ActiveRecord::NotFound exception
+    answer.plan.touch unless answer.plan.nil? 
+  end
+  
   ##
   # Associations
 	belongs_to :question

@@ -4,13 +4,9 @@ class PublicPagesController < ApplicationController
   # GET template_index
   # -----------------------------------------------------
   def template_index
-    template_ids = Template.where(org_id: Org.funder.pluck(:id), visibility: Template.visibilities[:publicly_visible]).valid.pluck(:dmptemplate_id).uniq << Template.where(is_default: true, published: true).pluck(:dmptemplate_id)
-    @templates = []
-    template_ids.flatten.each do |tid|
-      t = Template.live(tid)
-      @templates << t unless t.nil?
-    end
-    @templates = @templates.sort{|x,y| x.title <=> y.title } if @templates.count > 1
+    template_ids = Template.families(Org.funder.pluck(:id)).publicly_visible.pluck(:dmptemplate_id) <<
+    Template.where(is_default: true).valid.published.pluck(:dmptemplate_id)
+    @templates = Template.includes(:org).where(dmptemplate_id: template_ids.uniq.flatten).valid.published.order(title: :asc).page(1)
   end
 
   # GET template_export/:id
@@ -22,14 +18,14 @@ class PublicPagesController < ApplicationController
     raise Pundit::NotAuthorizedError unless PublicPagePolicy.new( @template).template_export?
     skip_authorization
     # now with prefetching (if guidance is added, prefetch annottaions/guidance)
-    @template = Template.includes(:org, phases: {sections:{questions:[:question_options, :question_format]}}).find(@template.id)
+    @template = Template.includes(:org, phases: {sections:{questions:[:question_options, :question_format, :annotations]}}).find(@template.id)
+    @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/ /, "_")
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_")
       respond_to do |format|
         format.docx { render docx: 'template_export', filename: "#{file_name}.docx" }
         format.pdf do
-          @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
           render pdf: file_name,
           margin: @formatting[:margin],
           footer: {
@@ -119,7 +115,6 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    @plans = Plan.publicly_visible
-    @plans = @plans.sort{|x,y| x.title <=> y.title } if @plans.count > 1
+    @plans = Plan.publicly_visible.order(:title => :asc).page(1)
   end
 end
