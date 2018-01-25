@@ -93,5 +93,7 @@ module DMPRoadmap
 
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 50
+    
+    config.rss = 'https://blog.dmptool.org/feed'
   end
 end

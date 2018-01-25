@@ -1,6 +1,9 @@
 LANGUAGES = (ActiveRecord::Base.connection.table_exists? 'languages') ? Language.sorted_by_abbreviation : []
 MANY_LANGUAGES = LANGUAGES.length > 1
 TABLE_FILTER_MIN_ROWS = 10
+MAX_NUMBER_LINKS_ORG = 3
 MAX_NUMBER_LINKS_FUNDER = 5
 MAX_NUMBER_LINKS_SAMPLE_PLAN = 5
 MAX_NUMBER_THEMES_PER_COLUMN = 5
+
+HOME_PAGE_IMAGES = Dir.entries('./public/images/homepage').select{ |f| f.end_with?('.png') || f.end_with?('jpg') }

@@ -50,5 +50,5 @@ Rails.application.configure do
   config.assets.quiet = true
 
   # Whether or not to use Webpack's fingerprinted assets (code in application_helper.rb)  
-  config.use_fingerprinted_assets = false
+  config.use_fingerprinted_assets = true
 end

@@ -89,6 +89,13 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
     get "plan_export/:id" => 'public_pages#plan_export', as: 'plan_export'
     get "existing_users" => 'existing_users#index'
+    
+    # DMPTool specific documentation pages
+    get "administrators" => 'static_pages#administrators'
+    get "developers" => 'static_pages#developers'
+    get "faq" => 'static_pages#faq'
+    get "general_guidance" => 'static_pages#general_guidance'
+    get "quick_start_guide" => 'static_pages#help'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'

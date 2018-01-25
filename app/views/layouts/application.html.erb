@@ -44,7 +44,7 @@
   <body>
 
       <!-- header rendering -->
-      <header>
+      <header class="container">
         <%= render partial: "layouts/header" %>
       </header>
 
@@ -67,8 +67,20 @@
       </main>
 
       <!-- footer rendering -->
-      <footer >
+      <footer class="container">
         <%= render "layouts/footer" %>
       </footer>
+
+      <% unless user_signed_in? %>
+        <% orgs = Org.includes(:identifier_schemes).where('is_other IS NULL OR is_other = 0').order(:name) %>
+        <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+          <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
+            <%= render partial: 'shared/shib_ds_form', locals: {orgs: orgs} %>
+          </div>
+        <% end %>
+        <div id="sign-in-create-account" class="modal fade" tabindex="-1" role="dialog">
+          <%= render partial: 'shared/access_controls' %>
+        </div>
+      <% end %>
   </body>
 </html>
