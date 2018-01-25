@@ -78,17 +78,17 @@
                       <li <%= 'class=active' if isActivePage(public_templates_path) %>>
                         <%= link_to _('DMP Templates'), public_templates_path %>
                       </li>
-                      <li><a href="#">General FAQs</a></li>
+                      <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
                    </ul>
                    <ul class="nav col-md-8">
-                     <li><a href="#">For Researchers</a>
+                     <li><a href="#"><%= _('For Researchers') %></a>
                        <ul class="nav indented">
-                         <li><a href="#">Data Management General Guidance</a></li>
-                         <li><a href="#">Quick Start Guide</a></li>
+                         <li><a href="<%= general_guidance_path %>"><%= _('Data Management General Guidance') %></a></li>
+                         <li><a href="<%= help_path %>"><%= _('Quick Start Guide') %></a></li>
                        </ul>
                      </li>
-                     <li><a href="#">For Administrators</a></li>
-                     <li><a href="#">For Developers</a></li>
+                     <li><a href="<%= administrators_path %>"><%= _('For Administrators') %></a></li>
+                     <li><a href="<%= developers_path %>"><%= _('For Developers') %></a></li>
                    </ul>
                  </div>
                 </li>

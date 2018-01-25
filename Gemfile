@@ -89,10 +89,8 @@ gem 'redcarpet', '>= 3.3.4'
 #     PAGINATION
 gem 'kaminari', '>= 1.0'
 
-
 # ------------------------------------------------
 #     ENVIRONMENT SPECIFIC DEPENDENCIES
-
 group :development, :test do
   gem "byebug", '~> 9.0'
 end
