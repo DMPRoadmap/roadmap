@@ -31,6 +31,6 @@ module ApplicationHelper
   end
 
   def fingerprinted_asset(name)
-    Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
+    Rails.application.config.use_fingerprinted_assets ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end
 end
