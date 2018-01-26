@@ -16,6 +16,19 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <% if phase.sections.length > 1 %>
+      <div id="sections-accordion-controls">
+        <div class="accordion-controls" data-parent="sections_accordion">
+          <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+          <span>|</span>
+          <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 <!-- Accordion for sections -->
 <div class="row">
   <div class="col-md-12">
