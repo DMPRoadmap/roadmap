@@ -36,8 +36,8 @@ class Phase < ActiveRecord::Base
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
-
-
+  
+  
   # Callbacks
   after_save do |phase|
     # Updates the template.updated_at attribute whenever a phase has been created/updated 
