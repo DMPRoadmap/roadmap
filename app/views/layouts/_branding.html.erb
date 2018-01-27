@@ -75,10 +75,16 @@
                     <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
                   </li>
               <% end %>
-              <% if current_user.can_modify_org_details? %>
+              <% if current_user.can_super_admin? %>
                   <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-                    <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
+                    <%= link_to _('Organisations'), super_admin_orgs_path %>
                   </li>
+              <% else %>
+                <% if current_user.can_modify_org_details? %>
+                    <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
+                      <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
+                    </li>
+                <% end %>
               <% end %>
               <% if current_user.can_grant_permissions? %>
                   <li <%= 'class=active' if isActivePage(admin_index_users_path) %>>

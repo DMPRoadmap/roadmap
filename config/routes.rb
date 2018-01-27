@@ -247,6 +247,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :paginable do
+      resources :orgs, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
       # Paginable actions for plans
       resources :plans, only: [] do
         get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
@@ -303,6 +306,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :super_admin do
+      resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     end
 end
