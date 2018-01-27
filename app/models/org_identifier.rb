@@ -8,7 +8,6 @@ class OrgIdentifier < ActiveRecord::Base
   validates :identifier, :org, :identifier_scheme, presence: {message: _("can't be blank")}
   
   def attrs=(hash)
-    # Make sure that the attributes are stored as a hash!
-    self.attrs = (hash.is_a?(Hash) ? hash : {attribute: hash.to_s})
+    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : '{}'))
   end
 end

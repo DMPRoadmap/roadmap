@@ -5,10 +5,12 @@ class OrgsController < ApplicationController
   ##
   # GET /organisations/1/edit
   def admin_edit
-    @org = Org.find(params[:id])
-    authorize @org
-    @languages = Language.all.order("name")
-    @org.links = {"org": []} unless @org.links.present?
+    org = Org.find(params[:id])
+    authorize org
+    languages = Language.all.order("name")
+    org.links = {"org": []} unless org.links.present?
+    render 'admin_edit', locals: {org: org, languages: languages, method: 'PUT', 
+                                  url: admin_update_org_path(org) }
   end
 
   ##
@@ -24,8 +26,34 @@ class OrgsController < ApplicationController
     end
     
     begin
+      # Only allow super admins to change the org types and shib info
+      if current_user.can_super_admin?
+        @org.funder = params[:funder].present?
+        @org.institution = params[:institution].present?
+        @org.organisation = params[:organisation].present?      
+    
+        # Handle Shibboleth identifiers if that is enabled
+        if Rails.application.config.shibboleth_use_filtered_discovery_service 
+          shib = IdentifierScheme.find_by(name: 'shibboleth')
+          shib_settings = @org.org_identifiers.select{ |ids| ids.identifier_scheme == shib}.first
+
+          if params[:shib_id].present? || params[:shib_domain].present?
+            shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib) unless shib_settings.present?
+            shib_settings.identifier = params[:shib_id]
+            shib_settings.attrs = {domain: params[:shib_domain]}
+            shib_settings.save
+          else  
+            if shib_settings.present?
+              # The user cleared the shib values so delete the object
+              shib_settings.destroy
+            end
+          end
+        end
+      end
+      
       if @org.update_attributes(attrs)
-        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", notice: success_message(_('organisation'), _('saved'))
+        flash[:notice] = success_message(_('organisation'), _('saved'))
+        redirect_to "#{admin_edit_org_path(@org)}\##{tab}"
       else
         failure = failed_update_error(@org, _('organisation')) if failure.blank?
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
@@ -39,11 +67,11 @@ class OrgsController < ApplicationController
   # ----------------------------------------------------------------
   def shibboleth_ds
     redirect_to root_path unless current_user.nil?
-    
+  
     @user = User.new
     # Display the custom Shibboleth discovery service page. 
     @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
-    
+  
     if @orgs.empty?
       flash[:alert] = _('No institutions are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path 
@@ -58,12 +86,12 @@ class OrgsController < ApplicationController
 
       scheme = IdentifierScheme.find_by(name: 'shibboleth')
       shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
-    
+  
       if !shib_entity.empty?
         # Force SSL
         url = "#{request.base_url.gsub('http:', 'https:')}#{Rails.application.config.shibboleth_login}"
         target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
-      
+    
         #initiate shibboleth login sequence
         redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
       else
