@@ -9,6 +9,12 @@ class SessionsController < Devise::SessionsController
     existing_user = User.find_by(email: params[:user][:email])
     if !existing_user.nil?
       
+      ##Ldap Users password reset
+      unless existing_user.encrypted_password.present?
+        existing_user.valid_password?(params[:user][:password])
+      end
+
+
 # TODO: Not sure why we check for shib data in params and then use session value below. We should move this to the 
 #       new user_identifiers table
       if !params[:shibboleth_data].nil? 

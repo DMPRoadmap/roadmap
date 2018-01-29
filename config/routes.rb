@@ -39,7 +39,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-
   # WAYFless access point - use query param idp
   #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
@@ -55,6 +54,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
+  get '/users/ldap_username', to: 'users#ldap_username'
+  post '/users/ldap_account', to: 'users#ldap_account'
 
   resources :users, path: 'users', only: [] do
     member do
