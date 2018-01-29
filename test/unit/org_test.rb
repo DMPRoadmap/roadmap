@@ -60,21 +60,6 @@ class OrgTest < ActiveSupport::TestCase
     @org.school = false
     assert_equal "None", @org.type
   end
-
-  # ---------------------------------------------------
-  test "only accepts valid contact_email addresses" do
-    assert @org.valid?
-    
-    @org.contact_email = 'testing'
-    assert_not @org.valid?
-    @org.contact_email = 'testing.tester.org'
-    assert_not @org.valid?
-    @org.contact_email = 'testing@tester'
-    assert_not @org.valid?
-    
-    @org.contact_email = 'testing@tester.org'
-    assert @org.valid?
-  end
   
   # ---------------------------------------------------
   test "should resize logo to a height of 75" do
