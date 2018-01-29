@@ -23,7 +23,7 @@ class HomeController < ApplicationController
     end
     
     # Select a random image for the homepage
-    @image = HOME_PAGE_IMAGES.sample
+    @image = 2 #HOME_PAGE_IMAGES.sample
     
     # Retrieve/cache the DMPTool blog's latest posts
     @rss = Rails.cache.read('rss')
