@@ -45,7 +45,7 @@ class OrgsController < ApplicationController
     @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
     
     if @orgs.empty?
-      flash[:alert] = _('No institutions are currently registered.')
+      flash[:alert] = _('No organisations are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path 
     end
   end
@@ -67,12 +67,12 @@ class OrgsController < ApplicationController
         #initiate shibboleth login sequence
         redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
       else
-        flash[:alert] = _('Your institution does not seem to be properly configured.')
+        flash[:alert] = _('Your organisation does not seem to be properly configured.')
         redirect_to shibboleth_ds_path
       end
 
     else
-      flash[:notice] = _('Please choose an institution')
+      flash[:notice] = _('Please choose an organisation')
       redirect_to shibboleth_ds_path
     end
   end
