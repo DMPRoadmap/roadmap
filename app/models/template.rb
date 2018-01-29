@@ -48,7 +48,8 @@ class Template < ActiveRecord::Base
   }
 
   scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]) }
-
+  scope :organisationally_visible, -> { where(:visibility => Template.visibilities[:organisationally_visible]) }
+  
   # Retrieves template with distinct dmptemplate_id that are valid (e.g. migrated false) and customization_of is nil. Note,
   # if organisation ids are passed, the query will filter only those distinct dmptemplate_ids for those organisations
   scope :families, -> (org_ids=nil) {
@@ -100,7 +101,7 @@ class Template < ActiveRecord::Base
     Template.all.valid.distinct.pluck(:dmptemplate_id)
   end
 
-  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id
+  # Retrieves the most recent version of the template for the specified dmptemplate_id
   def self.current(dmptemplate_id)
     Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
   end
@@ -156,6 +157,23 @@ class Template < ActiveRecord::Base
       families_ids = []
     end
     includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
+  end
+  
+  ##
+  # create a new version of the most current copy of the template
+  #
+  # @return [Template] new version
+  def get_new_version
+    if self.id.present?
+      new_version = Template.deep_copy(self)
+      new_version.version = (self.version + 1)
+      new_version.published = false 
+      new_version.visibility = self.visibility # do not change the visibility 
+      new_version.save!
+      new_version
+    else
+      nil
+    end
   end
   
   ##
@@ -259,5 +277,4 @@ class Template < ActiveRecord::Base
       end
     end
   end
-
 end

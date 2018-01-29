@@ -44,8 +44,17 @@ class PhasesController < ApplicationController
 
   #show and edit a phase of the template
   def admin_show
-    @phase = Phase.includes(:sections).order(:number).find(params[:id])
-    authorize @phase
+    phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
+    authorize phase
+
+    # If the user is an OrgAdmin and the existing template is published then version
+    # it before proceeding
+    if current_user.can_org_admin? && phase.template.published?
+      new_version = phase.template.get_new_version      
+      @phase = new_version.phases.find_by(title: phase.title, number: phase.number)
+    else
+      @phase = phase
+    end
 
     @current = Template.current(@phase.template.dmptemplate_id)
     @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
@@ -116,6 +125,7 @@ class PhasesController < ApplicationController
   def admin_update
     @phase = Phase.find(params[:id])
     authorize @phase
+    
     @phase.description = params["phase-desc"]
     if @phase.update_attributes(params[:phase])
       @phase.template.dirty = true
