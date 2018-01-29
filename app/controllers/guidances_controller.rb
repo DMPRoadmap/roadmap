@@ -41,16 +41,16 @@ class GuidancesController < ApplicationController
     if !guidance_params[:theme_ids].nil?
       guidance_params[:theme_ids].map{|t| guidance.themes << Theme.find(t.to_i) unless t.empty? }
     end
-
-    guidance_group = GuidanceGroup.where(id: guidance.guidance_group_id).first
-    unless guidance_group.nil?
-      if !guidance_group.published? || guidance_group.published.nil?
-        guidance_group.published = true
-        guidance_group.save
-      end
-    end
     
     if guidance.save
+
+      if guidance.published?
+        guidance_group = GuidanceGroup.find(guidance.guidance_group_id)
+        if !guidance_group.published? || guidance_group.published.nil?
+          guidance_group.published = true
+          guidance_group.save
+        end
+      end
       flash[:notice] = success_message(_('guidance'), _('created'))
       redirect_to(action: :admin_index)
 
@@ -66,16 +66,16 @@ class GuidancesController < ApplicationController
     guidance = Guidance.find(params[:id])
     authorize guidance
     guidance.text = params["guidance-text"]
-  
-    guidance_group = GuidanceGroup.where(id: guidance.guidance_group_id).first
-    unless guidance_group.nil?
-      if !guidance_group.published? || guidance_group.published.nil?
-        guidance_group.published = true
-        guidance_group.save
-      end
-    end  
-
+    
     if guidance.update_attributes(guidance_params)
+
+      if guidance.published?
+        guidance_group = GuidanceGroup.find(guidance.guidance_group_id)
+        if !guidance_group.published? || guidance_group.published.nil?
+          guidance_group.published = true
+          guidance_group.save
+        end
+      end
       flash[:notice] = success_message(_('guidance'), _('saved')) 
       redirect_to(action: :admin_index)
     else
@@ -87,9 +87,14 @@ class GuidancesController < ApplicationController
   ##
   # DELETE /guidances/1
   def admin_destroy
-     guidance = Guidance.find(params[:id])
+    guidance = Guidance.find(params[:id])
     authorize guidance
+    guidance_group = GuidanceGroup.find(guidance.guidance_group_id)
     if guidance.destroy
+      unless guidance_group.guidances.where(published: true).exists? 
+        guidance_group.published = false
+        guidance_group.save
+      end
       flash[:notice] = success_message(_('guidance'), _('deleted'))
       redirect_to(action: :admin_index)
     else
@@ -122,6 +127,11 @@ class GuidancesController < ApplicationController
 
     guidance.published = false
     guidance.save
+    guidance_group = GuidanceGroup.find(guidance.guidance_group_id)
+    unless guidance_group.guidances.where(published: true).exists? 
+      guidance_group.published = false
+      guidance_group.save
+    end
 
     flash[:notice] = _('Your guidance is no longer published and will not be available to users.')
     redirect_to(action: :admin_index)
