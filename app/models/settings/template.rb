@@ -19,11 +19,11 @@ module Settings
         margin: {
           top:    25,
           bottom: 20,
-          left:   20,
-          right:  20
+          left:   12,
+          right:  12
         },
         font_face: 'Arial, Helvetica, Sans-Serif',
-        font_size: 11 # pt
+        font_size: 10 # pt
       },
       max_pages: 3,
       fields: {
