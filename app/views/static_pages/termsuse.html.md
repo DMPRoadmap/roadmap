@@ -31,7 +31,7 @@
 
 ### <%= _('Third party APIs') %>
 
-<%= _('Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service.')
+<%= _('Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service.') %>
 
 ### <%= _('Revisions') %>
 
