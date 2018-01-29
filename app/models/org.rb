@@ -25,7 +25,7 @@ class Org < ActiveRecord::Base
 
   has_many :org_identifiers
   has_many :identifier_schemes, through: :org_identifiers
-
+  
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
@@ -38,7 +38,7 @@ class Org < ActiveRecord::Base
                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg
   ##
   # Validators
-  validates :contact_email, email: true, allow_nil: true
+#  validates :contact_email, email: true, allow_nil: true
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do
@@ -60,6 +60,11 @@ class Org < ActiveRecord::Base
 
   # Predefined queries for retrieving the managain organisation and funders
   scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
+
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    where("orgs.name LIKE ? OR orgs.contact_email LIKE ?", search_pattern, search_pattern)
+  }
 
   after_create :create_guidance_group
 
@@ -88,20 +93,14 @@ class Org < ActiveRecord::Base
   #
   # @return [String]
   def type
-    if self.institution?
-      return "Institution"
-    elsif self.funder?
-      return "Funder"
-    elsif self.organisation?
-      return "Organisation"
-    elsif self.research_institute?
-      return "Research Institute"
-    elsif self.project?
-      return "Project"
-    elsif self.school?
-      return "School"
-    end
-      return "None"
+    ret = []
+    ret << "Institution" if self.institution?
+    ret << "Funder" if self.funder?
+    ret << "Organisation" if self.organisation?
+    ret << "Research Institute" if self.research_institute?
+    ret << "Project" if self.project?
+    ret << "School" if self.school?      
+    return (ret.length > 0 ? ret.join(', ') : "None")
   end
 
   def funder_only?

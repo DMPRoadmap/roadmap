@@ -1,0 +1,50 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="guidance-groups">
+    <thead>
+      <tr>
+        <th><%= _('Organisation') %></th>&nbsp;<%= paginable_sort_link('name') %>
+        <th><%= _('Administrator Email') %>&nbsp;<%= paginable_sort_link('contact_email') %></th>
+        <th><%= _('Organisation Type(s)') %>&nbsp;<%= paginable_sort_link('optional_subset') %></th>
+        <th><%= _('Templates') %>&nbsp;<%= paginable_sort_link('updated_at') %></th>
+        <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |org| %>
+        <tr>
+          <td><%= org.name %></td>
+          <td><%= org.contact_email %></td>
+          <td>
+            <% types = [] %>
+            <% types << _('Organisation') if org.organisation? %>
+            <% types << _('Funder') if org.funder? %>
+            <% types << _('Institution') if org.institution? %>
+            <%= (types.length > 0 ? types.join(', ') : 'None') %>
+          </td>
+          <td>
+            <%= org.templates.collect(&:dmptemplate_id).uniq.length %>
+          </td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="org-<%= org.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="org-<%= org.id %>-actions">
+                <li><%= link_to _('Edit'), admin_edit_org_path(org) %></li>
+                <% unless org.users.length > 0 || org.templates.length > 0 %>
+                  <li><%= link_to _('Remove'), super_admin_org_path(org), data: {confirm: _("You are about to delete '%{org_name}'. Are you sure?") % { org_name: org.name}}, method: :delete %></li>
+                <% end %>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
