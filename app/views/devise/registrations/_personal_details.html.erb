@@ -41,8 +41,6 @@
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'orcid' %>
         <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
-      <% elsif scheme.name.downcase != 'shibboleth' %>
-        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>
       <div class='identifier-scheme'>
         <%= render partial: "external_identifier",
