@@ -84,44 +84,51 @@ thead th.table-scope {
   }
 }
 
-/* TABS STYLING */
-
+/* nav-tabs and nav-pills styling */
 .nav-tabs, .nav-pills {
   background-color: $grey;
   color: $white;
-  border: none;
-  margin-right:2px;
-  margin-bottom: 10px;
+  border-bottom: 0px;
 }
 .nav-tabs > li > a, .nav-pills > li > a {
-  border-radius: 2px;
   color: $white;
 }
-.nav-tabs > li > a:hover, .nav-pills > li > a:hover {
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
   background-color: $white;
   color: $grey;
-  border:1px solid $grey;
-  border-bottom: 1px solid $white; /* white border prevents tabs from shifting on mouseover/mouseout */
-}
-.nav-tabs > li.active > a, .nav-pills >li.active > a,
-.nav-tabs > li.active > a:focus, .nav-pills > li.active > a:focus,
-.nav-tabs > li.active > a:hover, .nav-pills > li.active > a:hover {
-  background-color: $white !important;
-  color:$grey;
-  border:1px solid $grey;
-  border-bottom: 1px solid $white; /* white border prevents tabs from shifting on mouseover/mouseout */
+  border: 1px solid $grey;
+  border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
 .nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover, {
-  border-bottom: 1px solid $grey;
+.nav-pills > li.active > a:hover {
+  background-color: $white;
+  color: $grey;
+  border: 1px solid $grey;
 }
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li.active:last-child > a,
+.nav-pills > li.active:last-child > a:focus,
+.nav-pills > li.active:last-child > a:hover {
+  border-right: 0px;
+}
+/* panel styling */
 
-/* PANEL STYLING */
+.panel-default {
+  border-color: $grey;
+}
 .panel-default > .panel-heading {
   background-color: $grey;
   color: $white;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .panel-title a {
@@ -134,6 +141,21 @@ thead th.table-scope {
 .panel-title > a.reverse {
   background-color: $white;
   color: $grey;
+}
+
+/* list-group styling */
+.list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+/* label stylying */
+.label {
+  font-size: 85%;
 }
 
 /* LIST STYLING */
@@ -287,13 +309,8 @@ $header-text-color: $black;
 $header-background: linear-gradient(#ED6406, #F59503);
 */
 
-#app-navbar {
-  border-radius: 0px;
-}
-
 /* For org navbar custom height */
 #org-navbar {
-  border-radius: 0px;
   margin-top: -20px;
 
   #banner-org-name {
@@ -456,4 +473,19 @@ $tooltip-background: $grey;
 }
 .create-plan-mock {
   margin-left: -40px;
+}
+
+/* Sharp edges */
+#app-navbar,
+#org-navbar,
+.nav-tabs > li > a,
+.nav-pills > li > a,
+.panel, .panel-group .panel,
+.progress,
+.btn,
+.form-control,
+.label,
+.alert,
+.input-group-addon {
+  border-radius: 0px;
 }

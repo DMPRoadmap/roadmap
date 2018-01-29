@@ -177,7 +177,7 @@ module OrgAdmin
     def history
       @template = Template.find(params[:id])
       authorize @template
-      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
+      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(version: :desc)
       @current = Template.current(@template.dmptemplate_id)
       @current_tab = params[:r] || 'all-templates'
     end

@@ -11,7 +11,11 @@
     <%= render partial: "/org_admin/templates/admin_nav_tabs", locals: local_assigns %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <%= render partial: partial_path, locals: local_assigns %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= render partial: partial_path, locals: local_assigns %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

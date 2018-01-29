@@ -23,7 +23,7 @@
                   <%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm), class: 'org_grant_privileges' %>
                   <%= _('Manage user privileges') %></li>
               <% when 'modify_templates' %>
-                <li class="list-group-item" style="border: none" title="<%= _('Allows the user to create new institutional templates, edit existing ones and customise funder templates') %>">
+                <li class="list-group-item" style="border: none" title="<%= _('Allows the user to create new organisational templates, edit existing ones and customise funder templates') %>">
                   <%= check_box_tag "perm_ids[]", perm.id, @user.perms.include?(perm), class: 'org_grant_privileges' %>
                   <%= _('Manage templates') %></li>
               <% when 'modify_guidance' %>

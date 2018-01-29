@@ -39,7 +39,7 @@ module PlansHelper
   def display_visibility(val)
     case val
     when 'organisationally_visible'
-      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Institution')}</span>"
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Organisation')}</span>"
     when 'publicly_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
     when 'privately_visible'
@@ -52,7 +52,7 @@ module PlansHelper
   def visibility_tooltip(val)
     case val
     when 'organisationally_visible'
-      return _('Institution: anyone at my institution can view.')
+      return _('Organisation: anyone at my organisation can view.')
     when 'publicly_visible'
       return _('Public: anyone can view.')
     else
