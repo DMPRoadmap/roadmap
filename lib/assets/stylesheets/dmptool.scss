@@ -37,6 +37,12 @@ tbody td .dropdown-toggle:active:hover {
   background-color: inherit;
 }
 
+.alert {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+}
+
 /* FONT SIZES */
 /* --------------------------------------- */
 h2 {
@@ -138,6 +144,11 @@ div.tab-content {
   }
 }
 
+/* ACCORDIONS */
+/* --------------------------------------- */
+.panel-default > .panel-heading, .panel-title a {
+  background-color: $dark-blue;
+}
 
 /* LAYOUT */
 /* --------------------------------------- */
@@ -203,6 +214,10 @@ header {
       .navbar-nav > li > a {
         padding-left: 5px;
         padding-right: 5px;
+      }
+
+      .org-name-nav {
+        padding: 10px;
       }
 
       .org-name-nav:before, .org-name-nav:after {
