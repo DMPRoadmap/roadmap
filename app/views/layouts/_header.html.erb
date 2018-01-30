@@ -3,45 +3,53 @@
   <nav id="app-navbar" class="navbar nabar-fixed-top">
     <div class="container-fluid" >
       <!-- Brand and toggle get grouped for better mobile display -->
+      <div id="account-nav" class="row">
+        <div class="col-md-12">
+          <ul id="sign-in-menu" class="nav navbar-nav navbar-right pull-right">
+            <%= render "layouts/signin_signout" %>
+          </ul>
+        </div>
+      </div>
       <div id="branding-nav" class="row">
         <% if user_signed_in? %>
-          <div class="col-md-3">
-            <h3 id="banner-org-name"><%= current_user.org.name %></h3>
-          </div>
-          <div class="col-md-3 centered">
-            <% if current_user.org.present? && current_user.org.logo.present? %>
-              <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
-                                    alt: current_user.org.name,
-                                    class: "org-logo",
-                                    title: current_user.org.name),
-                          current_user.org.target_url) %>
-            <% end %>
-          </div>
-          <div class="col-md-3 centered" id="org-links">
-            <% if current_user.org.present? && !current_user.org.is_other? %>
-              <ul class="list-unstyled">
-                <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
-                  <% current_user.org.links['org'].each_with_index do |link, i| %>
-                    <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
-                      <li class="org-links">
-                        <%= link_to link['text'], link['link'], target: '_blank', class: 'org-a' %>
+          <div class="col-md-9 inset-nav">
+            <div class="row">
+              <div class="col-md-3 centered">
+                <% if current_user.org.present? && current_user.org.logo.present? %>
+                  <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
+                                        alt: current_user.org.name,
+                                        class: "org-logo",
+                                        title: current_user.org.name),
+                              current_user.org.target_url) %>
+                <% else %>
+                  &nbsp;
+                <% end %>
+              </div>
+              <div class="col-md-5 org-name-nav text-center">
+                <h3 id="banner-org-name"><%= current_user.org.name %></h3>
+              </div>
+              <div class="col-md-4 centered" id="org-links">
+                <% if current_user.org.present? && !current_user.org.is_other? %>
+                  <ul class="list-unstyled">
+                    <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
+                      <% current_user.org.links['org'].each_with_index do |link, i| %>
+                        <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
+                          <li class="org-links">
+                            <%= link_to link['text'], link['link'], target: '_blank', class: 'org-a' %>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                    <% if !current_user.org.contact_email.blank? %>
+                      <li>
+                        <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+                        <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
                       </li>
                     <% end %>
-                  <% end %>
+                  </ul>
                 <% end %>
-                <% if !current_user.org.contact_email.blank? %>
-                  <li>
-                    <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
-                    <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </div>
-          <div class="col-md-3">
-            <ul id="sign-in-menu" class="nav navbar-nav navbar-right pull-right">
-              <%= render "layouts/signin_signout" %>
-            </ul>
+              </div>
+            </div>
           </div>
         <% else %>
           <div class="col-md-4">
