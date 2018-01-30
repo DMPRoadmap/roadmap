@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Organisation details') %></h1>
+    <h1>
+      <%= org.id.present? ? _('Organisation details') : _('New organisation') %>
+    </h1>
   </div>
 </div>
 
@@ -10,23 +12,23 @@
       <li role="profile" class="active">
         <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
       </li>
-      <li role="feedback">
-        <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
-      </li>
+      <% if org.id.present? %>
+        <li role="feedback">
+          <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+        </li>
+      <% end %>
     </ul>
   
     <div class="tab-content">
       <div id="profile" role="tabpanel" class="tab-pane active px-2">
-        <%= render partial: 'profile_form' %>
+        <%= render partial: 'orgs/profile_form', locals: local_assigns %>
       </div>
 
-      <div id="feedback" role="tabpanel" class="tab-pane">
-        <%= render partial: 'feedback_form' %>
-      </div>
-
-      <div id="notification-preferences" role="tabpanel" class="tab-pane">
-        <%= render partial: 'users/notification_preferences' %>
-      </div>
+      <% if org.id.present? %>
+        <div id="feedback" role="tabpanel" class="tab-pane">
+          <%= render partial: 'orgs/feedback_form', locals: local_assigns %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

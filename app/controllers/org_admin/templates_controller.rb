@@ -68,20 +68,10 @@ module OrgAdmin
 
       @current = Template.current(@template.dmptemplate_id)
 
-      if @template == @current
-        if @template.published?
-          # We need to create a new, editable version
-          new_version = Template.deep_copy(@template)
-          new_version.version = (@template.version + 1)
-          new_version.published = false
-          new_version.save
-          # Redirects to the newly template created
-          redirect_to(action: 'edit', id: new_version.id)
-          return
-        end
-      else
+      unless @template == @current
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
+
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
       @current_tab = params[:r] || 'all-templates'
@@ -114,12 +104,6 @@ module OrgAdmin
         rescue JSON::ParserError
           render(status: :bad_request, json: { msg: _('Error parsing links for a template') })
           return
-        end
-        # TODO dirty check at template model instead of here for reusability, i.e. method dirty? passing a template object
-        if @template.description != params["template-desc"] ||
-                @template.title != params[:template][:title] ||
-                @template.links != template_links
-          @template.dirty = true
         end
 
         @template.description = params["template-desc"]
@@ -371,30 +355,30 @@ module OrgAdmin
       templates = []
 
       if org_id.present? || funder_id.present?
-        if funder_id.blank?
-          # Load the org's template(s)
-          if org_id.present?
-            org = Org.find(org_id)
-            templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
-          end
-
-        else
-          funder = Org.find(funder_id)
+        unless funder_id.blank?
           # Load the funder's template(s)
-          templates = Template.valid.where(published: true, org: funder).to_a
+          templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id).to_a
 
           if org_id.present?
-            org = Org.find(org_id)
-
             # Swap out any organisational cusotmizations of a funder template
             templates.each do |tmplt|
-              customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
-              if customization.present? && tmplt.updated_at < customization.created_at
+              customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.dmptemplate_id)
+              if customization.present? && tmplt.created_at < customization.created_at
                 templates.delete(tmplt)
                 templates << customization
               end
             end
           end
+        end
+        
+        # Load the org's template(s) 
+        if org_id.present? 
+          # If the Research Org is not also a Funder OR the selected Research Org 
+          # matches the selected Funder (Use case where Org is both a Funder and Org)
+          if !Org.find(org_id).funder? || org_id == funder_id
+            templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
+          end
+          templates = templates.flatten.uniq
         end
       end
 

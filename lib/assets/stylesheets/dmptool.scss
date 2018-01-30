@@ -79,27 +79,27 @@ div.tab-content {
 /* --------------------------------------- */
 @media (min-width: 1140px){
   .homepage-img-1 { background: url('../images/homepage/1-large.jpg') no-repeat; }
-  .homepage-img-2 { background: url('../images/homepage/2-large.jpg') no-repeat; }
+  .homepage-img-2 { background: url('../images/homepage/2-large.png') no-repeat; }
   .homepage-img-3 { background: url('../images/homepage/3-large.jpg') no-repeat; }
   .homepage-img-4 { background: url('../images/homepage/4-large.jpg') no-repeat; }
   .homepage-img-5 { background: url('../images/homepage/5-large.jpg') no-repeat; }
-  .homepage-img { height: 760px; }
+  .homepage-img { height: 586px; }
 }
 @media (min-width: 765px) and (max-width: 1139px){
   .homepage-img-1 { background: url('../images/homepage/1-med.jpg') no-repeat; }
-  .homepage-img-2 { background: url('../images/homepage/2-med.jpg') no-repeat; }
+  .homepage-img-2 { background: url('../images/homepage/2-med.png') no-repeat; }
   .homepage-img-3 { background: url('../images/homepage/3-med.jpg') no-repeat; }
   .homepage-img-4 { background: url('../images/homepage/4-med.jpg') no-repeat; }
   .homepage-img-5 { background: url('../images/homepage/5-med.jpg') no-repeat; }
-  .homepage-img { height: 510px; }
+  .homepage-img { height: 393px; }
 }
 @media (min-width: 480px) and (max-width: 164px){
   .homepage-img-1 { background: url('../images/homepage/1-small.jpg') no-repeat; }
-  .homepage-img-2 { background: url('../images/homepage/2-small.jpg') no-repeat; }
+  .homepage-img-2 { background: url('../images/homepage/2-small.png') no-repeat; }
   .homepage-img-3 { background: url('../images/homepage/3-small.jpg') no-repeat; }
   .homepage-img-4 { background: url('../images/homepage/4-small.jpg') no-repeat; }
   .homepage-img-5 { background: url('../images/homepage/5-small.jpg') no-repeat; }
-  .homepage-img { height: 320px; }
+  .homepage-img { height: 247px; }
 }
 #home-image {
   margin: 10px 0 25px 0;

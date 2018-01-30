@@ -31,7 +31,11 @@
 
         <% unless current_user.identifier_for('shibboleth').present? %>
           <div id="password-details" role="tabpanel" class="tab-pane">
-            <%= render partial: 'devise/registrations/password_details' %>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= render partial: 'devise/registrations/password_details' %>
+              </div>
+            </div>
           </div>
         <% end %>
 
