@@ -7,16 +7,16 @@
                 data-dismiss="modal" 
                 aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-        <h1 class="modal-title"><%= _('Edit User Privileges') %></h1>
+        <h1 class="modal-title"><%= _('Edit user privileges') %></h1>
       </div>
       
-      <%= form_tag( admin_update_permissions_user_path(@user), method: :put) do %>
+      <%= form_tag( admin_update_permissions_user_path(@user), method: :put, remote: true, class: 'admin_update_permissions' ) do %>
         <div class="modal-body" style="text-align: left">
           <p><%= @user.name(false) %><%= _(' current user privileges are: ') %></p>
-
+          <%= hidden_field_tag 'page', page %>
           <ul class="list-group">
            <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
-            <%= label_tag :org_admin_privileges %>
+            <%= label_tag :organisational_admin_privileges %>
             <% @perms.each do |perm| %>           
               <% case perm.name when 'grant_permissions' %>
                 <li class="list-group-item" style="border: none" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
@@ -64,8 +64,8 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <%= submit_tag _('Save'), class: "btn btn-primary" %>        
-          <%= link_to 'Back', admin_index_users_path, class: "btn btn-default" %>           
+          <%= submit_tag _('Save'), class: "btn btn-primary" %>
+          <%= button_tag(_('Cancel'), class: 'btn btn-primary', 'data-dismiss': 'modal') %>      
         </div>
       <% end %>
     </div>

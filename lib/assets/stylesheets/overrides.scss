@@ -164,12 +164,20 @@ span.sublist {
   margin-right: 25px;
 }
 
+/* Overrides ul list */ 
 #modal-permissions ul {
   list-style-type: none;
 }
 
+/* Overrides list-group */ 
 #modal-permissions .list-group li:nth-child(1){
   border-top: 0 none;
+}
+
+/* Overrides list-group-item */ 
+#modal-permissions .list-group-item {
+  height: 30px; 
+  padding: 5px 15px;
 }
 
 /* FONTAWESOME STYLING */
