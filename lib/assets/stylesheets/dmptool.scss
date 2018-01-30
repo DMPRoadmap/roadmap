@@ -156,6 +156,7 @@ header, footer {
 header {
   position: relative;
   background-color: $white;
+  border-bottom: 2px solid $dark-blue;
   margin-bottom: 0;
 
   a, .fa {
@@ -225,7 +226,7 @@ header {
     #main-menu {
       font-size: 2.1rem;
       font-weight: bold;
-      padding-top: 30px;
+      padding-top: 20px;
 
       li > a {
         color: $dark-blue;
@@ -281,6 +282,10 @@ header {
 main {
   margin-bottom: 35px;
 
+  h2 {
+    font-weight: bolder;
+  }
+
   #home-more-info-titles {
     font-weight: bold;
 
@@ -299,10 +304,15 @@ main {
   }
 
   #home-more-info {
-    padding: 15px 0 20px;
+    padding: 10px 0;
 
-    li {
-      padding-bottom: 5px;
+    ul {
+      margin-left: 10px;
+      margin-bottom: 0;
+
+      li {
+        padding-bottom: 10px;
+      }
     }
 
     div:after {
@@ -310,12 +320,34 @@ main {
       position: absolute;
       right: 0;
       top: 5%;
-      height: 120px;
+      height: 160px;
       width: 1px;
       border-right: 1px solid $black;
     }
     div:last-child:after {
       display: none;
+    }
+    .no-dividers:after, .no-dividers div:after {
+      display: none;
+    }
+
+    table {
+      width: 100%;
+      
+      th {
+        background-color: $white;
+        color: $black;
+        font-size: 2rem;
+        font-weight: normal;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 15px;
+      }
+      td {
+        font-weight: bold;
+        font-size: 2.4rem;
+        text-align: center;
+      }
     }
   }
 
@@ -323,18 +355,27 @@ main {
     border-top: 1px solid $black;
     margin: 0;
   }
+
+  #home-news  {
+    .col-md-2, .col-md-7 {
+      margin-top: 25px;
+    }
+    .fa {
+      font-size: 1.4rem;
+      color: $dark-blue;
+    }
+  }
 }
 
 /*   FOOTER */
 /*   --------------------------------------- */
 footer {
-  border: 1px solid $light-blue;
-  border-radius: 7px;
-  background-color: $light-blue;
+  border-top: 2px solid $dark-blue;
+  background-color: $white;
 
   .navbar-inverse {
     color: $black;
-    background-color: $light-blue;
+    background-color: $white;
 
    .navbar-text, .navbar-nav > li > a {
       color: $black;
@@ -345,7 +386,7 @@ footer {
     }
 
     .navbar-nav > li > a > .fa {
-      color: $grey;
+      color: $dark-blue;
       font-size: 3rem;
     }
 
