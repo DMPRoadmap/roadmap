@@ -52,17 +52,12 @@
             </div>
           </div>
         <% else %>
-          <div class="col-md-4">
+          <div class="col-md-12">
             <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
                                   alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
                                   class: "app-logo",
                                   title: Rails.configuration.branding[:application][:name]),
                         root_path) %>
-          </div>
-          <div class="pull-right">
-            <ul id="sign-in-menu" class="nav navbar-nav navbar-right">
-              <%= render "layouts/signin_signout" %>
-            </ul>
           </div>
         <% end %>
       </div>
