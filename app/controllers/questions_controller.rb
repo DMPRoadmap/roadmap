@@ -51,26 +51,30 @@ class QuestionsController < ApplicationController
   def admin_update
     @question = Question.find(params[:id])
     authorize @question
+
     guidance = @question.get_guidance_annotation(current_user.org_id)
     if params["question-guidance-#{params[:id]}"].present?
-      if guidance.blank?
-        guidance = @question.annotations.build
-        guidance.type = :guidance
-        guidance.org_id = current_user.org_id
+      unless guidance.present?
+        guidance = Annotation.new(type: :guidance, org_id: current_user.org_id, question_id: @question.id)
       end
       guidance.text = params["question-guidance-#{params[:id]}"]
       guidance.save
+    else
+      # The user cleared out the guidance value so delete the record
+      guidance.destroy! if guidance.present?
     end
     example_answer = @question.get_example_answer(current_user.org_id)
     if params["question"]["annotations_attributes"].present? && params["question"]["annotations_attributes"]["0"]["id"].present?
-      if example_answer.blank?
-        example_answer = @question.annotations.build
-        example_answer.type = :example_answer
-        example_answer.org_id = current_user.org_id
+      unless example_answer.present?
+        example_answer = Annotation.new(type: :example_answer, org_id: current_user.org_id, question_id: @question.id)
       end
       example_answer.text = params["question"]["annotations_attributes"]["0"]["text"]
       example_answer.save
-    end
+    else
+      # The user cleared out the example answer value so delete the record
+      example_answer.destroy if example_answer.present?
+    end    
+    
     if @question.question_format.textfield?
       @question.default_value = params["question-default-value-textfield"]
     elsif @question.question_format.textarea?
