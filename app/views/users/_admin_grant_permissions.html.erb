@@ -13,7 +13,7 @@
       <%= form_tag( admin_update_permissions_user_path(@user), method: :put, remote: true, class: 'admin_update_permissions' ) do %>
         <div class="modal-body" style="text-align: left">
           <p><%= @user.name(false) %><%= _(' current user privileges are: ') %></p>
-          <%= hidden_field_tag 'page', page %>
+
           <ul class="list-group">
            <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
             <%= label_tag :organisational_admin_privileges %>
