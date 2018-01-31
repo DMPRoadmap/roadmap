@@ -69,7 +69,9 @@ module OrgAdmin
       @current = Template.current(@template.dmptemplate_id)
 
       unless @template == @current
-        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+        flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes." +
+                           "<br>If this was unexpected, it is possible that another user at your organisation has made changes to this template.<br>" +
+                           "Click here to access the <a href=\"#{edit_org_admin_template_path(@current)}\">current version</a>.")
       end
 
       # once the correct template has been generated, we convert it to hash

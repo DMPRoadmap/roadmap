@@ -113,7 +113,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     get(edit_org_admin_template_path(@template.id))
     assert_response(:ok)
-    assert_equal(_('You are viewing a historical version of this template. You will not be able to make changes.'), flash[:notice])
+    assert flash[:notice].starts_with?(_('You are viewing a historical version of this template. You will not be able to make changes.'))
   end
 
   test "unauthorized user cannot access the new template page" do

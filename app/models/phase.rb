@@ -131,4 +131,11 @@ class Phase < ActiveRecord::Base
     end
     return n
   end
+  
+  # This method allows us to find the correct phase when comparing across versions. A better
+  # approach would be to add an identifier that is preserved across template versions
+  # Using same_as? instead of overriding builtin equality checks
+  def same_as?(phase)
+    self.title.equal?(phase.title) && self.description.equal?(phase.description) && self.number.equal?(phase.number)
+  end
 end
