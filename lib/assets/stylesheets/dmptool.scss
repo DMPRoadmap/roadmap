@@ -410,28 +410,27 @@ main {
 /*   --------------------------------------- */
 footer {
   border-top: 2px solid $dark-blue;
-  background-color: $white;
 
-  .navbar-inverse {
-    color: $black;
-    background-color: $white;
+  .navbar {
+    margin-bottom: 0;
+  }
 
-   .navbar-text, .navbar-nav > li > a {
-      color: $black;
-    }
+  .navbar-text {
+    font-size: 1.1rem;
+    margin-left: 0;
+  }
 
-    .navbar-text {
-      font-size: 1.1rem;
-    }
+  .navbar-nav > li > a {
+    padding: 15px 0 15px 15px;
+  }
 
-    .navbar-nav > li > a > .fa {
-      color: $dark-blue;
-      font-size: 3rem;
-    }
+  .navbar-nav > li > a > .fa {
+    color: $dark-blue;
+    font-size: 3rem;
+  }
 
-    img {
-      width: 150px;
-      margin-right: 25px;
-    }
+  .navbar-right img {
+    width: 150px;
+    margin: 0;
   }
 }

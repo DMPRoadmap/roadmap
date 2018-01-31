@@ -84,7 +84,7 @@
                       <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
                    </ul>
                    <ul class="nav col-md-8">
-                     <li><a href="#"><%= _('For Researchers') %></a>
+                     <li><a href="<%= researchers_path %>"><%= _('For Researchers') %></a>
                        <ul class="nav indented">
                          <li><a href="<%= general_guidance_path %>"><%= _('Data Management General Guidance') %></a></li>
                          <li><a href="<%= help_path %>"><%= _('Quick Start Guide') %></a></li>
@@ -98,7 +98,7 @@
               </ul>
             </li>
             <li <%= 'class=active' if isActivePage(about_us_path) %>>
-              <%= link_to _('News and Media'), about_us_path %>
+              <%= link_to _('News and Media'), news_media_path %>
             </li>
 
             <% if user_signed_in? %>
