@@ -8,7 +8,7 @@
   <div class="row">
     <div class="form-group col-xs-8">
       <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
-      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
+      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
     </div>
   </div>
 
@@ -83,14 +83,15 @@
         <div class="form-group col-xs-8">
           <%= f.label _('Organisation Types'), for: :funder, class: 'control-label' %>
           <div class="checkbox">
-            <%= f.label :funder, raw("#{check_box_tag :org_types, 2, org.funder?} #{_('Funder')}") %>
+            <%= f.label :funder, raw("#{check_box_tag :funder, 2, org.funder?, class: 'org_types'} #{_('Funder')}") %>
           </div>
           <div class="checkbox">
-            <%= f.label :institution, raw("#{check_box_tag :institution, 1, org.institution?} #{_('Institution')}") %>
+            <%= f.label :institution, raw("#{check_box_tag :institution, 1, org.institution?, class: 'org_types'} #{_('Institution')}") %>
           </div>
           <div class="checkbox">
-            <%= f.label :organisation, raw("#{check_box_tag :organisation, 4, org.organisation?} #{_('Organisation')}") %>
+            <%= f.label :organisation, raw("#{check_box_tag :organisation, 4, org.organisation?, class: 'org_types'} #{_('Organisation')}") %>
           </div>
+          <%= f.hidden_field :org_type, 'data-validation': 'text', 'data-validation-error': _('You must select at least one organisation type') %>
         </div>
       </div>
     <% else %>

@@ -27,11 +27,7 @@ class OrgsController < ApplicationController
     
     begin
       # Only allow super admins to change the org types and shib info
-      if current_user.can_super_admin?
-        @org.funder = params[:funder].present?
-        @org.institution = params[:institution].present?
-        @org.organisation = params[:organisation].present?      
-    
+      if current_user.can_super_admin?    
         # Handle Shibboleth identifiers if that is enabled
         if Rails.application.config.shibboleth_use_filtered_discovery_service 
           shib = IdentifierScheme.find_by(name: 'shibboleth')
@@ -107,7 +103,7 @@ class OrgsController < ApplicationController
 
   private
     def org_params
-      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo,
+      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo, :org_type,
                                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg)
     end
 end
