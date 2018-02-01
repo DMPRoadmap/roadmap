@@ -27,7 +27,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # If the uid didn't have a match in the system send them to register
       if user.nil?
         session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
-        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
         redirect_to new_user_registration_url
         
       # Otherwise sign them in
