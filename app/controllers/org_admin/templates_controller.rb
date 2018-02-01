@@ -397,6 +397,5 @@ module OrgAdmin
     def plan_params
       params.require(:plan).permit(:org_id, :funder_id)
     end
-    
   end
 end
