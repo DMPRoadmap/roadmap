@@ -995,6 +995,10 @@ class Plan < ActiveRecord::Base
   def self.load_for_phase(id, phase_id)
     plan = Plan.includes(template: {phases: {sections: {questions: :answers}}}).joins(template: {phases: {sections: {questions: :answers}}}).where("phases.id = #{phase_id}").distinct.merge( Plan.where("phases.id=#{phase_id}").joins(:phases).includes({answers: :notes})).find_by(id: id)
     phase = nil
+    # return nil for both if plan does not exist
+    if plan.blank?
+      return nil, nil
+    end
     plan.template.phases.each do |p|
       next unless p.id = phase_id
       phase = p
