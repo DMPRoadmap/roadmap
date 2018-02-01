@@ -7,6 +7,13 @@ class PhasesController < ApplicationController
     # GET /plans/:plan_id/phases/:id/edit
     def edit
     @plan, @phase = Plan.load_for_phase(params[:plan_id], params[:id])
+    # check if plan exists first
+    if @plan.nil?
+      raise Pundit::NotAuthorizedError, "Must have access to plan"
+    end
+    if @phase.nil?
+      raise Pundit::NotAuthorizedError, "Phase must belong to plan"
+    end
     # authorization done on plan so found in plan_policy
     authorize @plan
 
