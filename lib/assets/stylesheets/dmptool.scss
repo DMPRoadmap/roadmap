@@ -3,6 +3,10 @@
 $dark-blue: #0E5682;
 $light-blue: #C0D8F0;
 
+body {
+  font-size: 12px;
+}
+
 .btn, 
 .btn:hover, 
 .btn:focus, 
@@ -52,8 +56,10 @@ h2 {
 /* CONTAINERS */
 /* --------------------------------------- */
 .container, .container-fluid {
-  padding-left: 5px;
+  position: relative;
+  padding-left: 0;
   padding-right: 5px;
+  margin-bottom: 15px;
 }
 
 /* TABS */
@@ -84,54 +90,48 @@ div.tab-content {
 /* HOMEPAGE IMAGES */
 /* --------------------------------------- */
 @media (min-width: 1140px){
-  .homepage-img-1 { background: url('../images/homepage/1-large.jpg') no-repeat; }
-  .homepage-img-2 { background: url('../images/homepage/2-large.png') no-repeat; }
-  .homepage-img-3 { background: url('../images/homepage/3-large.jpg') no-repeat; }
-  .homepage-img-4 { background: url('../images/homepage/4-large.jpg') no-repeat; }
-  .homepage-img-5 { background: url('../images/homepage/5-large.jpg') no-repeat; }
-  .homepage-img { height: 586px; }
+  .homepage-img-1 { background-image: url('../images/homepage/1-large.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-large.jpg'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-large.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-large.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-large.jpg'); }
+  .homepage-img { height: 493px; }
 }
 @media (min-width: 765px) and (max-width: 1139px){
-  .homepage-img-1 { background: url('../images/homepage/1-med.jpg') no-repeat; }
-  .homepage-img-2 { background: url('../images/homepage/2-med.png') no-repeat; }
-  .homepage-img-3 { background: url('../images/homepage/3-med.jpg') no-repeat; }
-  .homepage-img-4 { background: url('../images/homepage/4-med.jpg') no-repeat; }
-  .homepage-img-5 { background: url('../images/homepage/5-med.jpg') no-repeat; }
+  .homepage-img-1 { background-image: url('../images/homepage/1-med.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-med.jpg'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-med.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-med.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-med.jpg'); }
   .homepage-img { height: 393px; }
 }
 @media (min-width: 480px) and (max-width: 164px){
-  .homepage-img-1 { background: url('../images/homepage/1-small.jpg') no-repeat; }
-  .homepage-img-2 { background: url('../images/homepage/2-small.png') no-repeat; }
-  .homepage-img-3 { background: url('../images/homepage/3-small.jpg') no-repeat; }
-  .homepage-img-4 { background: url('../images/homepage/4-small.jpg') no-repeat; }
-  .homepage-img-5 { background: url('../images/homepage/5-small.jpg') no-repeat; }
+  .homepage-img-1 { background-image: url('../images/homepage/1-small.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-small.jpg'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-small.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-small.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-small.jpg'); }
   .homepage-img { height: 247px; }
 }
-#home-image {
-  margin: 10px 0 25px 0;
 
-  div[class^="col-md-"] {
-    padding: 0;
-  }
-
-  .homepage-img {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-size: cover;
-    border: 1px solid $white;
-    border-radius: 7px;
-  }
+.homepage-img {
+  position: relative;
+  background-color: $white;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid $white;
+  border-radius: 7px;
 
   #home-welcome-msg {
     position: absolute;
-    bottom: 0;
+    top: 0;
     width: 100%;
     padding-left: 25px;
-    margin-bottom: 45px;
+    margin-top: 45px;
     background: rgb(14, 86, 130);
-    background: rgba(14, 86, 130, 0.7);
+    background: rgba(14, 86, 130, 0.9);
+
 
     color: $white;
     font-size: 1.7rem;
@@ -139,10 +139,11 @@ div.tab-content {
     h1 {
       color: $white;
       font-size: 3rem;
-      font-weight: bolder;
+      font-weight: bold;
     }
   }
 }
+
 
 /* ACCORDIONS */
 /* --------------------------------------- */
@@ -180,7 +181,7 @@ header {
 
   #app-navbar {
     position: relative;
-    padding: 10px 0 0 10px;
+    padding: 0;
     margin-bottom: 5px;
 
     div[class^="col-md-"] {
@@ -188,10 +189,8 @@ header {
     }
     
     #branding-nav {
-      .inset-nav {
-        border-top: 1px solid $black;
-        border-bottom: 1px solid $black;
-      }
+      display: inline-block;
+      margin: 15px 0 0 5px;
 
       div.centered {
         position: relative;
@@ -238,7 +237,8 @@ header {
       }
     }
     
-    #sign-in-menu { 
+    #sign-in-menu {
+      display: inline-block; 
       margin-right: 10px;
 
       li > a {
@@ -254,6 +254,18 @@ header {
         height: 15px;
         margin-top: 5px;
         padding: 0;
+      }
+
+      #explore-menu {
+        min-width: 500px;
+
+        ul.indented {
+          margin-left: 15px;
+
+          li {
+           margin-top: -5px;
+          }
+        }
       }
     }
 
@@ -276,15 +288,7 @@ header {
         color: $dark-blue;
       }
 
-      #explore-menu {
-        min-width: 500px;
-      }
-
       #admin-menu {
-
-      }
-
-      #explore-menu, #admin-menu {
         padding: 10px 15px;
         font-weight: normal;
         color: $black;
@@ -294,13 +298,7 @@ header {
           padding: 5px 0 10px 0;
         }
         
-        ul.indented {
-          margin-left: 15px;
-
-          li > a {
-            padding: 5px 0 0 0;
-          }
-        }
+        
       }
     }
   }
@@ -321,12 +319,65 @@ header {
 main {
   margin-bottom: 35px;
 
-  h2 {
-    font-weight: bolder;
+  #home-stats {
+    width: 100%;
+    margin: 15px 0 0 0;
+    border-bottom: 1px solid $black;
+
+    h3 {
+      margin: 0 0 8px 0;
+    }
+    div {
+      margin-left: 0;
+      padding-left: 0;
+    }
+    
+    .home-stats-content {
+      margin-left: 0;
+      padding-left: 0;
+      border-top: 1px solid black;
+      
+      div {
+        padding-top: 10px;
+        padding-right: 0;
+        text-align: center;
+        
+        div.home-stats-bold {
+          font-size: 2rem;
+        }
+        a {
+          position: absolute;
+          padding-left: 6px;
+          bottom: 5px;
+          font-size: 0.8rem;
+        }
+      }
+      ul {
+        padding-top: 5px;
+        
+        li, li > a {
+          padding-bottom: 5px;
+        }
+        li > a {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    #home-stats-data {
+      width: 80%;
+    }
+    #home-stats-data:after {
+      content: "";
+      position: absolute;
+      right: 10%;
+      top: 32%;
+      height: 70%;
+      width: 1px;
+      border-right: 1px solid $black;
+    }
   }
 
   #home-more-info-titles {
-    font-weight: bold;
 
     div:after {
       content: "";
@@ -339,54 +390,6 @@ main {
     }
     div:last-child:after {
       display: none;
-    }
-  }
-
-  #home-more-info {
-    padding: 10px 0;
-
-    ul {
-      margin-left: 10px;
-      margin-bottom: 0;
-
-      li {
-        padding-bottom: 10px;
-      }
-    }
-
-    div:after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 5%;
-      height: 160px;
-      width: 1px;
-      border-right: 1px solid $black;
-    }
-    div:last-child:after {
-      display: none;
-    }
-    .no-dividers:after, .no-dividers div:after {
-      display: none;
-    }
-
-    table {
-      width: 100%;
-      
-      th {
-        background-color: $white;
-        color: $black;
-        font-size: 2rem;
-        font-weight: normal;
-        text-align: center;
-        padding-top: 20px;
-        padding-bottom: 15px;
-      }
-      td {
-        font-weight: bold;
-        font-size: 2.4rem;
-        text-align: center;
-      }
     }
   }
 
@@ -409,21 +412,29 @@ main {
 /*   FOOTER */
 /*   --------------------------------------- */
 footer {
-  border-top: 2px solid $dark-blue;
+  .container-fluid {
+    margin-bottom: 0;
+  }
 
+  border-top: 2px solid $dark-blue;
   .navbar {
     margin-bottom: 0;
   }
 
   .navbar-text {
     font-size: 1.1rem;
-    margin-left: 0;
+    margin: 5px 0 0 0;
   }
 
+  .navbar-nav > li {
+    padding: 5px 0 5px 15px;
+  }
+  .navbar-nav > li:first-child {
+    padding-left: 0;
+  }
   .navbar-nav > li > a {
-    padding: 15px 0 15px 15px;
+    padding: 0;
   }
-
   .navbar-nav > li > a > .fa {
     color: $dark-blue;
     font-size: 3rem;

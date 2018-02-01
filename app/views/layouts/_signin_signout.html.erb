@@ -1,4 +1,35 @@
 <% unless user_signed_in? %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <%= ('Learn') %> <span class="fa fa-sort-desc" aria-hidden="true"></span>
+    </a>
+    <ul id="explore-menu" class="dropdown-menu">
+      <li>
+        <div class="row-fluid">
+          <ul class="nav col-md-4">
+            <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+              <%= link_to _('Public DMPs'), public_plans_path %>
+            </li>
+            <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+              <%= link_to _('DMP Templates'), public_templates_path %>
+            </li>
+            <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
+         </ul>
+         <ul class="nav col-md-8">
+           <li><a href="<%= researchers_path %>"><%= _('For Researchers') %></a>
+             <ul class="nav indented">
+               <li><a href="<%= general_guidance_path %>"><%= _('Data Management General Guidance') %></a></li>
+               <li><a href="<%= help_path %>"><%= _('Quick Start Guide') %></a></li>
+             </ul>
+           </li>
+           <li><a href="<%= administrators_path %>"><%= _('For Administrators') %></a></li>
+           <li><a href="<%= developers_path %>"><%= _('For Developers') %></a></li>
+         </ul>
+       </div>
+      </li>
+    </ul>
+  </li>
+  <li class="navbar-divider">&nbsp;</li>
   <li>
     <a href="#" data-class="dropdown-toggle" role="button" id="header-signin" data-toggle="dropdown" aria-haspopup="true" 
        aria-expanded="false">

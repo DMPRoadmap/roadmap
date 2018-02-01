@@ -24,7 +24,7 @@
 <div class="navbar" role="navigation">
   <div class="container-fluid">
     <p class="navbar-text">
-      <%= _('DMPTool is a service of the University of California Curation Center of the California Digital Library') %>
+      <%= raw _('DMPTool is a service of the %{uc3} of the %{cdl}') % {uc3: "<a href=\"https://www.cdlib.org/uc3/\" target=\"_blank\">University of California Curation Center</a>", cdl: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>"} %>
       <br>
       <%= _('Copyright 2010-%{current_year} The Regents of the University of California') % {current_year: Date.today.year} %>
     </p>

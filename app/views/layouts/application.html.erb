@@ -52,17 +52,26 @@
       has_alert = (alert || flash[:alert] || flash[:error])
       has_notice = (notice || flash[:notice])
       %>
+      <div id="notification-area"
+           class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+                  <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+           role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
+        <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+        <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+        <span><%= raw (has_alert ? alert : notice) %></span>
+      </div>
+
+      <% if isActivePage(root_path, true) %>
+        <div class="homepage-img homepage-img-<%= (1..5).to_a.sample %>">
+          <div id="home-welcome-msg">
+            <h1><%= _('Welcome.') %></h1>
+            <p><strong><%= _('Create data management plans that meet institutional and funder requirements.') %></strong></p>
+          </div>
+        </div>
+      <% end %>
 
       <!-- main page content rendering -->
       <main class="container">
-        <div id="notification-area"
-             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
-                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
-             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
-          <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
-          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
-          <span><%= raw (has_alert ? alert : notice) %></span>
-        </div>
         <%= yield %>
       </main>
 
