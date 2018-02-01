@@ -16,17 +16,17 @@
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
   
   <% if Rails.application.config.shibboleth_enabled %>
-    <h4 class="text-center">- <%= _('or') %> -</h4>
-
-    <div class="form-group">
-      <span class="center-block btn-group-justified">
-        <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+    <% if session['devise.shibboleth_data'].nil? %>
+      <h4 class="text-center">- <%= _('or') %> -</h4>
+      <div class="form-group">
+        <span class="center-block btn-group-justified">
           <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
           <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your institutional credentials') %></a>
-        <%else%>
-          <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
-        <%end%>
-      </span>
-    </div>
+        </span>
+      </div>
+    <% else %>
+      <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
+    <% end %>
   <% end %>
+
 <% end %>
