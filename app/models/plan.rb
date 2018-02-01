@@ -28,7 +28,7 @@ class Plan < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, 
+  attr_accessible :locked, :project_id, :version_id, :version, :plan_sections,
                   :exported_plans, :project, :title, :template, :grant_number,
                   :identifier, :principal_investigator, :principal_investigator_identifier,
                   :description, :data_contact, :funder_name, :visibility, :exported_plans,
@@ -38,7 +38,7 @@ class Plan < ActiveRecord::Base
   # public is a Ruby keyword so using publicly
   enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
-  #TODO: work out why this messes up plan creation : 
+  #TODO: work out why this messes up plan creation :
   #   briley: Removed reliance on :users, its really on :roles (shouldn't have a plan without at least a creator right?) It should be ok like this though now
 #  validates :template, :title, presence: true
 
@@ -210,7 +210,7 @@ class Plan < ActiveRecord::Base
         end
       end
     end
-    
+
     # Get guidance by theme from any guidance groups currently selected
     self.guidance_groups.each do |group|
       group.guidances.each do |guidance|
@@ -369,7 +369,7 @@ class Plan < ActiveRecord::Base
       format = rec.qformat
 
       answer = nil
-      if qa_map.has_key?(qid) 
+      if qa_map.has_key?(qid)
         answer = qa_map[qid]
       end
 
@@ -423,7 +423,7 @@ class Plan < ActiveRecord::Base
       opt_hash[aid] << optid
     end
 
-    status["questions"].each_key do |questionid| 
+    status["questions"].each_key do |questionid|
       answerid = status["questions"][questionid]["answer_id"]
       status["questions"][questionid]["answer_option_ids"] = opt_hash[answerid]
     end
@@ -636,10 +636,10 @@ class Plan < ActiveRecord::Base
     user_id = user_id.id if user_id.is_a?(User)
     add_user(user_id, true, true, true)
   end
-  
 
 
-# TODO: commenting these out because they are overriden by private methods below, so this 
+
+# TODO: commenting these out because they are overriden by private methods below, so this
 #       is unreachable
 =begin
   ##
@@ -696,7 +696,7 @@ class Plan < ActiveRecord::Base
   end
 =end
 
-# TODO: What are these used for? Should just be using self.org and self.org.funder? 
+# TODO: What are these used for? Should just be using self.org and self.org.funder?
 =begin
   ##
   # sets a new funder for the project
@@ -950,12 +950,14 @@ class Plan < ActiveRecord::Base
     self.dmptemplate.try(:organisation).try(:abbreviation)
   end
 =end
-  
+
   # Returns the number of answered questions from the entire plan
   def num_answered_questions
     n = 0
-    self.sections.each do |s|
-      n+= s.num_answered_questions(self.id)
+    self.template.phases.each do |p|
+      p.sections.each do |s|
+        n+= s.num_answered_questions(self.id)
+      end
     end
     return n
   end
@@ -991,16 +993,20 @@ class Plan < ActiveRecord::Base
   end
 
   def self.load_for_phase(id, phase_id)
-#    Plan.includes(
-#      [template: [
-#                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
-#                   {customizations: :org},
-#                   :org
-#                  ],
-#       plans_guidance_groups: {guidance_group: {guidances: :themes}}
-#      ]).where(id: id, phases: { id: phase_id }).first
+    plan = Plan.includes(template: {phases: {sections: {questions: :answers}}}).joins(template: {phases: {sections: {questions: :answers}}}).where("phases.id = #{phase_id}").distinct.merge( Plan.where("phases.id=#{phase_id}").joins(:phases).includes({answers: :notes})).find_by(id: id)
+    phase = nil
+    # return nil for both if plan does not exist
+    if plan.blank?
+      return nil, nil
+    end
+    plan.template.phases.each do |p|
+      next unless p.id = phase_id
+      phase = p
+      break
+    end
+    return plan, phase
 
-    Plan.joins(:phases).where('plans.id = ? AND phases.id = ?', id, phase_id).includes(:template, :sections, :questions, :answers, :notes).first
+
   end
 
 
@@ -1050,12 +1056,12 @@ class Plan < ActiveRecord::Base
     end
 
     role.save
-    
-    # This is necessary because we're creating the associated record but not assigning it 
+
+    # This is necessary because we're creating the associated record but not assigning it
     # to roles. Auto-saving like this may be confusing when coding upstream in a controller,
-    # view or api. Should probably change this to: 
+    # view or api. Should probably change this to:
     #    self.roles << role
-    # and then let the save be called manually via: 
+    # and then let the save be called manually via:
     #    plan.save!
     #self.reload
   end
@@ -1135,7 +1141,7 @@ class Plan < ActiveRecord::Base
   # --------------------------------------------------------
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create
-    if self.id.nil? 
+    if self.id.nil?
       self.title = "My plan (#{self.template.title})" if self.title.nil? && !self.template.nil?
       self.visibility = 3
     end
