@@ -93,9 +93,11 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     # DMPTool specific documentation pages
     get "administrators" => 'static_pages#administrators'
     get "developers" => 'static_pages#developers'
+    get "researchers" => 'static_pages#researchers'
     get "faq" => 'static_pages#faq'
     get "general_guidance" => 'static_pages#general_guidance'
     get "quick_start_guide" => 'static_pages#help'
+    get "news_media" => 'static_pages#news_media'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'

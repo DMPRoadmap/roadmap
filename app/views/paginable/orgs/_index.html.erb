@@ -2,7 +2,7 @@
   <table class="table table-hover" id="guidance-groups">
     <thead>
       <tr>
-        <th><%= _('Organisation') %></th>&nbsp;<%= paginable_sort_link('name') %>
+        <th><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('name') %></th>
         <th><%= _('Administrator Email') %>&nbsp;<%= paginable_sort_link('contact_email') %></th>
         <th><%= _('Organisation Type(s)') %>&nbsp;<%= paginable_sort_link('optional_subset') %></th>
         <th><%= _('Templates') %>&nbsp;<%= paginable_sort_link('updated_at') %></th>
@@ -14,16 +14,8 @@
         <tr>
           <td><%= org.name %></td>
           <td><%= org.contact_email %></td>
-          <td>
-            <% types = [] %>
-            <% types << _('Organisation') if org.organisation? %>
-            <% types << _('Funder') if org.funder? %>
-            <% types << _('Institution') if org.institution? %>
-            <%= (types.length > 0 ? types.join(', ') : 'None') %>
-          </td>
-          <td>
-            <%= org.templates.collect(&:dmptemplate_id).uniq.length %>
-          </td>
+          <td><%= org.org_type_to_s %></td>
+          <td><%= org.templates.collect(&:dmptemplate_id).uniq.length %></td>
           <td>
             <div class="dropdown">
               <button

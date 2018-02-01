@@ -20,18 +20,46 @@ class HomeController < ApplicationController
       else
         redirect_to plans_url
       end
-    end
+    else
     
-    # Retrieve/cache the DMPTool blog's latest posts
-    @rss = Rails.cache.read('rss')
-    if @rss.nil?
-      begin
-        rss_xml = open(Rails.application.config.rss).read
-        @rss = RSS::Parser.parse(rss_xml, false).items.first(5)
-        Rails.cache.write("rss", @rss, :expires_in => 15.minutes)
-      rescue Exception => e
-        logger.error("Caught exception RSS parse: #{e}.")
+      # Usage stats
+      stats = Rails.cache.read('stats') || {}
+      if stats.empty?
+        stats[:user_count] = User.select(:id).count
+        stats[:completed_plan_count] = Plan.select(:id).count
+        stats[:institution_count] = Org.select(:id).count
+        cache_content('stats', stats)
       end
+    
+      # Top 5 templates
+      top_5 = Rails.cache.read('top_5')
+      if top_5.nil?
+        end_date = Date.today
+        start_date = (end_date - 60)
+        ids = Plan.group(:template_id).where('created_at BETWEEN ? AND ?', start_date, end_date).order('count_id DESC').count(:id).keys
+        top_5 = Template.where(id: ids[0..4]).pluck(:title)
+        cache_content('top_5', top_5)
+      end
+    
+      # Retrieve/cache the DMPTool blog's latest posts
+      rss = Rails.cache.read('rss')
+      if rss.nil?
+        rss_xml = open(Rails.application.config.rss).read
+        rss = RSS::Parser.parse(rss_xml, false).items.first(5)
+        cache_content('rss', rss)  
+      end
+
+      render 'index', locals: { image: 2, stats: stats, top_5: top_5, rss: rss } 
+    end
+  end
+
+
+  private
+  def cache_content(type, data)
+    begin
+      Rails.cache.write(type, data, :expires_in => 15.minutes)
+    rescue Exception => e
+      logger.error("Caught exception RSS parse: #{e}.")
     end
   end
 

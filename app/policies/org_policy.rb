@@ -12,7 +12,6 @@ class OrgPolicy < ApplicationPolicy
   end
 
   def admin_edit?
-puts "WTF!? #{user.can_modify_org_details?} #{user.org_id} == #{org.id}"
     user.can_modify_org_details? && (user.org_id == org.id || user.can_super_admin?)
   end
 
