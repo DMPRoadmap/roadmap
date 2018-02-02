@@ -1,37 +1,37 @@
 <div id="home-stats" class="row">
   <div class="col-md-8">
-		<h3><%= _('DMPTool by the Numbers') %></h3>
-		<div class="home-stats-content row">
-			<div id="home-stats-data">
-				<div class="col-md-4">
-					<div class="fa fa-users"></div>
-					<div class="home-stats-bold"><%= number_with_delimiter(stats[:user_count]) || '?' %></div>
-					<p><%= _('Users')%></p>
-				</div>
-				<div class="col-md-4">
-					<div class="fa fa-file"></div>
-					<div class="home-stats-bold"><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></div>
-					<p><%= _('Plans')%><a href="<%= public_templates_path %>">More</a></p>
-				</div>
-				<div class="col-md-4">
-					<div class="fa fa-building"></div>
-					<div class="home-stats-bold"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
-					<p><%= _('Participating Institutions')%><a href="<%= public_templates_path %>">More</a></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<h3><%= _('Top 5 Templates') %></h3>
-		<div class="home-stats-content">
+    <div id="home-stats-data-title"><h3><%= _('DMPTool by the Numbers') %></h3></div>
+    <div class="home-stats-content row">
+      <div id="home-stats-data">
+        <div class="col-md-4">
+          <div class="fa fa-users"></div>
+          <div class="home-stats-bold"><%= number_with_delimiter(stats[:user_count]) || '?' %></div>
+          <p><%= _('Users')%></p>
+        </div>
+        <div class="col-md-4">
+          <div class="fa fa-file"></div>
+          <div class="home-stats-bold"><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></div>
+          <p><%= _('Plans')%><a href="<%= public_templates_path %>">More</a></p>
+        </div>
+        <div class="col-md-4">
+          <div class="fa fa-building"></div>
+          <div class="home-stats-bold"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
+          <p><%= _('Participating Institutions')%><a href="<%= public_templates_path %>">More</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3><%= _('Top 5 Templates') %></h3>
+    <div class="home-stats-content">
       <ul class="list-unstyled">
         <% top_5.each do |title| %>
           <li><%= title %></li>
         <% end %>
-				<li><a href="<%= public_templates_path %>" class="pull-right">More</a></li>
+        <li><a href="<%= public_templates_path %>" class="pull-right">More</a></li>
       </ul>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
 <div id="home-news" class="row">
   <div class="col-md-3"><h2 id="home-news"><%= _('DMPTool News') %></h2></div>
@@ -51,7 +51,9 @@
     <% end %>
   </div>
   <div class="col-md-2">
-    <p><a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %> <span class="fa fa-rss-square"></span> RSS</a></p>
+    <p class="pull-right">
+      <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %> <span class="fa fa-rss-square"></span> RSS</a>
+    </p>
   </div>
 </div>
 

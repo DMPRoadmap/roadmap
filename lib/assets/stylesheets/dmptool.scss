@@ -7,6 +7,10 @@ body {
   font-size: 12px;
 }
 
+a:not(.btn) {
+  text-decoration: underline;
+}
+
 .btn, 
 .btn:hover, 
 .btn:focus, 
@@ -120,26 +124,35 @@ div.tab-content {
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
-  border: 1px solid $white;
-  border-radius: 7px;
 
   #home-welcome-msg {
     position: absolute;
     top: 0;
     width: 100%;
-    padding-left: 25px;
     margin-top: 45px;
     background: rgb(14, 86, 130);
     background: rgba(14, 86, 130, 0.9);
-
-
     color: $white;
     font-size: 1.7rem;
 
-    h1 {
-      color: $white;
-      font-size: 3rem;
-      font-weight: bold;
+    #message {
+      position: relative;
+      margin: 0 auto;
+
+      h1 {
+        color: $white;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-top: 15px;
+      }
+      a {
+        background-color: $white;
+        color: $dark-blue;
+        padding: 10px 45px;
+        font-size: 1.8rem;
+        border-radius: 7px;
+        margin-top: -35px;
+      }
     }
   }
 }
@@ -153,7 +166,8 @@ div.tab-content {
 
 /* LAYOUT */
 /* --------------------------------------- */
-header, main, footer {
+header, #notification-area, main, footer,
+.homepage-img #home-welcome-msg #message {
   font-family: Arial;
   min-width: 480px;
   max-width: 1140px;
@@ -184,13 +198,17 @@ header {
     padding: 0;
     margin-bottom: 5px;
 
+    .row {
+      margin-left: 0;
+    }
+
     div[class^="col-md-"] {
       padding: 0;
     }
     
     #branding-nav {
       display: inline-block;
-      margin: 15px 0 0 5px;
+      margin: 15px 0 0 0;
 
       div.centered {
         position: relative;
@@ -243,6 +261,12 @@ header {
 
       li > a {
         padding-top: 0;
+      }
+      li > a:hover, li > a:focus {
+        background-color: white;
+      }
+      li:last-child > a {
+        padding-right: 0;
       }
 
       .fa {
@@ -322,6 +346,7 @@ main {
   #home-stats {
     width: 100%;
     margin: 15px 0 0 0;
+    padding-bottom: 5px;
     border-bottom: 1px solid $black;
 
     h3 {
@@ -353,7 +378,7 @@ main {
         }
       }
       ul {
-        padding-top: 5px;
+        padding-top: 10px;
         
         li, li > a {
           padding-bottom: 5px;
@@ -366,12 +391,21 @@ main {
     #home-stats-data {
       width: 80%;
     }
+    #home-stats-data-title:after {
+      content: "";
+      position: absolute;
+      right: 2%;
+      top: 0;
+      height: 15%;
+      width: 1px;
+      border-right: 1px solid $black;
+    }
     #home-stats-data:after {
       content: "";
       position: absolute;
-      right: 10%;
-      top: 32%;
-      height: 70%;
+      right: 2%;
+      top: 30%;
+      height: 68%;
       width: 1px;
       border-right: 1px solid $black;
     }
@@ -414,6 +448,7 @@ main {
 footer {
   .container-fluid {
     margin-bottom: 0;
+    padding-right: 0;
   }
 
   border-top: 2px solid $dark-blue;
@@ -439,7 +474,9 @@ footer {
     color: $dark-blue;
     font-size: 3rem;
   }
-
+  .navbar-right {
+    margin-right: 0;
+  }
   .navbar-right img {
     width: 150px;
     margin: 0;

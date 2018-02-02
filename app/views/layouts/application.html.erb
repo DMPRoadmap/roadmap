@@ -64,10 +64,20 @@
       <% if isActivePage(root_path, true) %>
         <div class="homepage-img homepage-img-<%= (1..5).to_a.sample %>">
           <div id="home-welcome-msg">
-            <h1><%= _('Welcome.') %></h1>
-            <p><strong><%= _('Create data management plans that meet institutional and funder requirements.') %></strong></p>
+            <div id="message">
+              <h1><%= _('Welcome.') %></h1>
+              <p>
+                <strong><%= _('Create data management plans that meet institutional and funder requirements.') %></strong>
+                <a href="#" role="button" id="header-signin" 
+                    class="btn btn-inverse pull-right" data-toggle="modal"
+                    data-target="#sign-in-create-account">
+                  <%= _('Get started') %>
+                </a>
+              </p>
+            </div>
           </div>
         </div>
+        
       <% end %>
 
       <!-- main page content rendering -->
