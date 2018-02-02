@@ -22,7 +22,7 @@
                       plan_path(plan) %>
                 </td>
                 <td><%= plan.template.title %></td>
-                <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>

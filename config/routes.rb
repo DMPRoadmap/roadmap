@@ -89,6 +89,15 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
     get "plan_export/:id" => 'public_pages#plan_export', as: 'plan_export'
     get "existing_users" => 'existing_users#index'
+    
+    # DMPTool specific documentation pages
+    get "administrators" => 'static_pages#administrators'
+    get "developers" => 'static_pages#developers'
+    get "researchers" => 'static_pages#researchers'
+    get "faq" => 'static_pages#faq'
+    get "general_guidance" => 'static_pages#general_guidance'
+    get "quick_start_guide" => 'static_pages#help'
+    get "news_media" => 'static_pages#news_media'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
@@ -210,6 +219,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
         get 'overview'
+        get 'select_guidances_list'
+        put 'update_guidances_list'
       end
 
       collection do
@@ -247,6 +258,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :paginable do
+      resources :orgs, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
       # Paginable actions for plans
       resources :plans, only: [] do
         get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
@@ -268,6 +282,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         get 'funders/:page', action: :funders, on: :collection, as: :funders
         get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
         get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+        get ':id/history/:page', action: :history, on: :collection, as: :history
       end
       # Paginable actions for guidances
       resources :guidances, only: [] do
@@ -302,6 +317,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :super_admin do
+      resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     end
 end

@@ -1,13 +1,9 @@
-<div id="home-welcome-msg" class="row">
-  <div class="col-md-12">
-    <h1><%= _('Welcome') %></h1>
-    <p><%= _('Create, review and share data management plans that meet institutional and funder requirements.') %></p>
-  </div>
-</div>
-
 <div id="home-image" class="row" aria-hidden="true">
-  <div class="col-md-12">
-    <%= image_tag("home_page.jpg", alt: _('Build your Data Management Plan'), class: "carousel-image") %>
+  <div class="col-md-12 homepage-img homepage-img-<%= 2 %>"><%# rand(1..5) %>
+    <div id="home-welcome-msg">
+      <h1><%= _('Welcome.') %></h1>
+      <p><strong><%= _('Create data management plans that meet institutional and funder requirements.') %></strong></p>
+    </div>
   </div>
 </div>
 
@@ -15,39 +11,74 @@
   <div class="col-md-12"><hr /></div>
 </div>
 <div id="home-more-info-titles" class="row">
-  <div class="col-md-6">
-    <h2><%= _('Get Started') %></h2>
+  <div class="col-md-2 text-center">
+    <h2 id="home-get-started"><%= _('Get Started') %></h2>
   </div>
-  <div class="col-md-6">
-    <h2><%= _('DMPTool News') %></h2>
+  <div class="col-md-6 text-center">
+    <h2 id="home-by-numbers"><%= _('DMPTool by the Numbers') %></h2>
+  </div>
+  <div class="col-md-4 text-center">
+    <h2 id="home-top-five"><%= _('Top 5 Templates') %></h2>
   </div>
 </div>
 <div class="row home-more-info-divider">
   <div class="col-md-12"><hr /></div>
 </div>
 <div id="home-more-info" class="row row-eq-height">
-  <div class="col-md-6">
+  <div class="col-md-2" aria-labelledby="home-get-started">
     <ul class="list-unstyled">
-      <li><a href="#"><%= ('For Researchers') %></a></li>
-      <li><a href="#"><%= ('For Administrators') %></a></li>
-      <li><a href="#"><%= ('For Developers') %></a></li>
-      <li><a href="#"><%= ('Sample DMPs') %></a></li>
-      <li><a href="#"><%= ('General FAQs') %></a></li>
+      <li><a href="<%= researchers_path %>"><%= _('For Researchers') %></a></li>
+      <li><a href="<%= administrators_path %>"><%= _('For Administrators') %></a></li>
+      <li><a href="<%= developers_path %>"><%= _('For Developers') %></a></li>
+      <li><a href="<%= public_plans_path %>"><%= _('Sample DMPs') %></a></li>
+      <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
     </ul>
   </div>
-  <div class="col-md-6">
-    <% if @rss %>
-      <ul class="list-unstyled">
-        <% @rss.each do |i| %>
-          <li><%= link_to(truncate(i.title, length: 42), i.link, :target => '_blank') %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>News is currently unavailable</p>
-    <% end %>
+  <div class="col-md-6" aria-labelledby="home-by-numbers">
+    <table>
+      <thead>
+        <th><%= _('Total Users') %></th>
+        <th><%= _('Total Plans') %></th>
+        <th><%= _('Participating Institutions') %></th>
+      </thead>
+      <tbody>
+        <td><%= number_with_delimiter(stats[:user_count]) || '?' %></td>
+        <td><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></td>
+        <td><%= number_with_delimiter(stats[:institution_count]) || '?' %></td>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4" aria-labelledby="home-top-five">
+    <ul class="list-unstyled">
+      <% top_5.each do |title| %>
+        <li><%= title %></li>
+      <% end %>
+    </ul>
   </div>
 </div>
 <div class="row home-more-info-divider">
   <div class="col-md-12"><hr /></div>
 </div>
+<div id="home-news" class="row">
+  <div class="col-md-3"><h2 id="home-news"><%= _('DMPTool News') %></h2></div>
+  <div class="col-md-7" aria-labelledby="home-news">
+    <% if rss %>
+      <p id="home-news-link"></p>
+      <% 
+        json = []
+        rss.each do |i| 
+          json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
+          #json << "<a href=\"#{i.link}\" target=\"_blank\">#{truncate(i.title, length: 120)}</a>"
+        end
+      %>
+      <input type="hidden" id="home-news-array" value="<%= escape_javascript JSON.generate(json) %>" />
+    <% else %>
+      <p>News is currently unavailable</p>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <p><a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %> <span class="fa fa-rss-square"></span> RSS</a></p>
+  </div>
+</div>
+
 

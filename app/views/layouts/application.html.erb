@@ -72,7 +72,7 @@
       </footer>
 
       <% unless user_signed_in? %>
-        <% orgs = Org.includes(:org_identifiers).where('is_other IS NULL OR is_other = 0').order(:name) %>
+        <% orgs = Org.includes(:identifier_schemes).where('is_other IS NULL OR is_other = 0').order(:name) %>
         <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
           <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
             <%= render partial: 'shared/shib_ds_form', locals: {orgs: orgs} %>

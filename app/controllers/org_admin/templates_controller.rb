@@ -38,6 +38,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def new
       authorize Template
+      @current_tab = params[:r] || 'all-templates'
     end
     
     # POST /org_admin/templates
@@ -67,28 +68,21 @@ module OrgAdmin
 
       @current = Template.current(@template.dmptemplate_id)
 
-      if @template == @current
-        if @template.published?
-          # We need to create a new, editable version
-          new_version = Template.deep_copy(@template)
-          new_version.version = (@template.version + 1)
-          new_version.published = false
-          new_version.save
-          # Redirects to the newly template created
-          redirect_to(action: 'edit', id: new_version.id)
-          return
-        end
-      else
+      unless @template == @current
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
+
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
+      @current_tab = params[:r] || 'all-templates'
+      
       render('container',
         locals: { 
           partial_path: 'edit',
           template: @template,
           current: @current,
-          template_hash: @template_hash
+          template_hash: @template_hash,
+          current_tab: @current_tab
         })
     end
     
@@ -110,12 +104,6 @@ module OrgAdmin
         rescue JSON::ParserError
           render(status: :bad_request, json: { msg: _('Error parsing links for a template') })
           return
-        end
-        # TODO dirty check at template model instead of here for reusability, i.e. method dirty? passing a template object
-        if @template.description != params["template-desc"] ||
-                @template.title != params[:template][:title] ||
-                @template.links != template_links
-          @template.dirty = true
         end
 
         @template.description = params["template-desc"]
@@ -142,6 +130,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def destroy
       @template = Template.find(params[:id])
+      current_tab = params[:r] || 'all-templates'
       authorize @template
 
       if @template.plans.length <= 0
@@ -151,19 +140,19 @@ module OrgAdmin
         if current == @template
           if @template.destroy
             flash[:notice] = success_message(_('template'), _('removed'))
-            redirect_to org_admin_templates_path
+            redirect_to org_admin_templates_path(r: current_tab)
           else
             @hash = @template.to_hash
             flash[:alert] = failed_destroy_error(@template, _('template'))
-            render org_admin_templates_path
+            redirect_to org_admin_templates_path(r: current_tab)
           end
         else
           flash[:alert] = _('You cannot delete historical versions of this template.')
-          redirect_to org_admin_templates_path
+          redirect_to org_admin_templates_path(r: current_tab)
         end
       else
         flash[:alert] = _('You cannot delete a template that has been used to create plans.')
-        redirect_to org_admin_templates_path
+        redirect_to org_admin_templates_path(r: current_tab)
       end
     end
 
@@ -172,14 +161,16 @@ module OrgAdmin
     def history
       @template = Template.find(params[:id])
       authorize @template
-      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(:version)
+      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(version: :desc)
       @current = Template.current(@template.dmptemplate_id)
+      @current_tab = params[:r] || 'all-templates'
     end
     
     # GET /org_admin/templates/:id/customize
     # -----------------------------------------------------
     def customize
       @template = Template.find(params[:id])
+      @current_tab = params[:r] || 'all-templates'
       authorize @template
 
       customisation = Template.deep_copy(@template)
@@ -206,7 +197,7 @@ module OrgAdmin
         end
       end
 
-      redirect_to edit_org_admin_template_path(customisation)
+      redirect_to edit_org_admin_template_path(customisation, r: 'funder-templates')
     end
 
     # GET /org_admin/templates/:id/transfer_customization
@@ -214,6 +205,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def transfer_customization
       @template = Template.includes(:org).find(params[:id])
+      @current_tab = params[:r] || 'all-templates'
       authorize @template
       new_customization = Template.deep_copy(@template)
       new_customization.org_id = current_user.org_id
@@ -278,13 +270,14 @@ module OrgAdmin
         end
       end
       new_customization.save
-      redirect_to edit_org_admin_template_path(new_customization)
+      redirect_to edit_org_admin_template_path(new_customization, r: 'funder-templates')
     end
     
     # PUT /org_admin/templates/:id/copy  (AJAX)
     # -----------------------------------------------------
     def copy
       @template = Template.find(params[:id])
+      current_tab = params[:r] || 'all-templates'
       authorize @template
 
       new_copy = Template.deep_copy(@template)
@@ -298,7 +291,7 @@ module OrgAdmin
 
       if new_copy.save
         flash[:notice] = 'Template was successfully copied.'
-        redirect_to edit_org_admin_template_path(id: new_copy.id, edit: true), notice: _('Information was successfully created.')
+        redirect_to edit_org_admin_template_path(id: new_copy.id, edit: true, r: 'organisation-templates'), notice: _('Information was successfully created.')
       else
         flash[:alert] = failed_create_error(new_copy, _('template'))
       end
@@ -312,7 +305,7 @@ module OrgAdmin
       authorize template
 
       current = Template.current(template.dmptemplate_id)
-
+      
       # Only allow the current version to be updated
       if current != template
         redirect_to org_admin_templates_path, alert: _('You can not publish a historical version of this template.')
@@ -362,30 +355,30 @@ module OrgAdmin
       templates = []
 
       if org_id.present? || funder_id.present?
-        if funder_id.blank?
-          # Load the org's template(s)
-          if org_id.present?
-            org = Org.find(org_id)
-            templates = Template.valid.where(published: true, org: org, customization_of: nil).to_a
-          end
-
-        else
-          funder = Org.find(funder_id)
+        unless funder_id.blank?
           # Load the funder's template(s)
-          templates = Template.valid.where(published: true, org: funder).to_a
+          templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id).to_a
 
           if org_id.present?
-            org = Org.find(org_id)
-
             # Swap out any organisational cusotmizations of a funder template
             templates.each do |tmplt|
-              customization = Template.valid.find_by(published: true, org: org, customization_of: tmplt.dmptemplate_id)
-              if customization.present? && tmplt.updated_at < customization.created_at
+              customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.dmptemplate_id)
+              if customization.present? && tmplt.created_at < customization.created_at
                 templates.delete(tmplt)
                 templates << customization
               end
             end
           end
+        end
+        
+        # Load the org's template(s) 
+        if org_id.present? 
+          # If the Research Org is not also a Funder OR the selected Research Org 
+          # matches the selected Funder (Use case where Org is both a Funder and Org)
+          if !Org.find(org_id).funder? || org_id == funder_id
+            templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
+          end
+          templates = templates.flatten.uniq
         end
       end
 
@@ -404,6 +397,5 @@ module OrgAdmin
     def plan_params
       params.require(:plan).permit(:org_id, :funder_id)
     end
-    
   end
 end

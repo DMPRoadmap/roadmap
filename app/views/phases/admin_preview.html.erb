@@ -1,17 +1,12 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="pull-left">
-      <h1>
-        <%= @template.title %>
-      </h1>
-    </div>
+    <h1><%= @template.title %></h1>
     <div class="pull-right">
       <ul class="list-inline">
         <li><%= link_to _('Back to edit phase'), admin_show_phase_path(id: @phase.id), class: 'btn btn-primary' %></li>
         <li><%= link_to _('View all templates'), org_admin_templates_path, class: 'btn btn-primary' %></li>
       </ul>
     </div>
-    <div class="clearfix"></div>
   </div>
 </div>
 <div class="row">
@@ -19,7 +14,16 @@
     <!-- render navigation tabs for the template -->
     <%= render partial: "/org_admin/templates/admin_nav_tabs", locals: { template: @template, active: @phase.id } %>
     <!-- render phase below -->
-    <%= render partial: '/phases/edit_plan_answers', locals: { plan: nil, phase: @phase, readonly: true, question_guidance: {},
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= render partial: '/phases/edit_plan_answers', locals: { plan: nil, phase: @phase, readonly: true, question_guidance: {},
                                                                guidance_groups: [] } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </div>

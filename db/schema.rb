@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124133802) do
+ActiveRecord::Schema.define(version: 20180123161959) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id", limit: 4
@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(version: 20171124133802) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_url",         limit: 255
-    t.string   "user_landing_url", limit: 255
+    t.text     "logo_url",         limit: 65535
+    t.text     "user_landing_url", limit: 65535
   end
 
   create_table "languages", force: :cascade do |t|
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 20171124133802) do
     t.string   "contact_email",          limit: 255
     t.integer  "org_type",               limit: 4,     default: 0,     null: false
     t.string   "contact_name",           limit: 255
-    t.string   "links",                  limit: 255,   default: "[]"
+    t.text     "links",                  limit: 65535
     t.boolean  "feedback_enabled",                     default: false
     t.string   "feedback_email_subject", limit: 255
     t.text     "feedback_email_msg",     limit: 65535
@@ -380,7 +380,7 @@ ActiveRecord::Schema.define(version: 20171124133802) do
     t.integer  "dmptemplate_id",   limit: 4
     t.boolean  "migrated"
     t.boolean  "dirty",                          default: false
-    t.string   "links",            limit: 255,   default: "{\"funder\":[], \"sample_plan\":[]}"
+    t.text     "links",            limit: 65535
   end
 
   add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree

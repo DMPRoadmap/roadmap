@@ -1,4 +1,4 @@
-<%= form_for(@org, url: admin_update_org_path(@org), html: { multipart: true, method: :put, id: "edit_org_feedback_form" } ) do |f| %>
+<%= form_for(org, url: url, html: { multipart: true, method: method, id: "edit_org_feedback_form" } ) do |f| %>
   <h2><%= _('Request Feedback') %></h2>
   <div class="row">
     <div class="radio col-xs-8">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="row">
-      <% tip = _(feedback_confirmation_default_message) % { user_name: _('%{user_name}'), plan_name: _('%{plan_name}'), organisation_email: @org.contact_email } %>
+      <% tip = _(feedback_confirmation_default_message) % { user_name: _('%{user_name}'), plan_name: _('%{plan_name}'), organisation_email: org.contact_email } %>
       <div class="form-group col-xs-8" data-toggle="tooltip" data-html="true" title="<%= tip %>">
         <%= f.label :feedback_email_msg, _('Message'), class: "control-label" %>
         <%= f.text_area :feedback_email_msg, class: "form-control" %>

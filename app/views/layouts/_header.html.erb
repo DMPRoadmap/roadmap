@@ -3,58 +3,61 @@
   <nav id="app-navbar" class="navbar nabar-fixed-top">
     <div class="container-fluid" >
       <!-- Brand and toggle get grouped for better mobile display -->
+      <div id="account-nav" class="row">
+        <div class="col-md-12">
+          <ul id="sign-in-menu" class="nav navbar-nav navbar-right pull-right">
+            <%= render "layouts/signin_signout" %>
+          </ul>
+        </div>
+      </div>
       <div id="branding-nav" class="row">
         <% if user_signed_in? %>
-          <div class="col-md-3">
-            <h3 id="banner-org-name"><%= current_user.org.name %></h3>
-          </div>
-          <div class="col-md-3 centered">
-            <% if current_user.org.present? && current_user.org.logo.present? %>
-              <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
-                                    alt: current_user.org.name,
-                                    class: "org-logo",
-                                    title: current_user.org.name),
-                          current_user.org.target_url) %>
-            <% end %>
-          </div>
-          <div class="col-md-3 centered" id="org-links">
-            <% if current_user.org.present? && !current_user.org.is_other? %>
-              <ul class="list-unstyled">
-                <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
-                  <% current_user.org.links['org'].each_with_index do |link, i| %>
-                    <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
-                      <li class="org-links">
-                        <%= link_to link['text'], link['link'], target: '_blank', class: 'org-a' %>
+          <div class="col-md-9 inset-nav">
+            <div class="row">
+              <div class="col-md-3 centered">
+                <% if current_user.org.present? && current_user.org.logo.present? %>
+                  <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
+                                        alt: current_user.org.name,
+                                        class: "org-logo",
+                                        title: current_user.org.name),
+                              current_user.org.target_url) %>
+                <% else %>
+                  &nbsp;
+                <% end %>
+              </div>
+              <div class="col-md-5 org-name-nav text-center">
+                <h3 id="banner-org-name"><%= current_user.org.name %></h3>
+              </div>
+              <div class="col-md-4 centered" id="org-links">
+                <% if current_user.org.present? && !current_user.org.is_other? %>
+                  <ul class="list-unstyled">
+                    <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
+                      <% current_user.org.links['org'].each_with_index do |link, i| %>
+                        <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
+                          <li class="org-links">
+                            <%= link_to link['text'], link['link'], target: '_blank', class: 'org-a' %>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                    <% if !current_user.org.contact_email.blank? %>
+                      <li>
+                        <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+                        <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
                       </li>
                     <% end %>
-                  <% end %>
+                  </ul>
                 <% end %>
-                <% if !current_user.org.contact_email.blank? %>
-                  <li>
-                    <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
-                    <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </div>
-          <div class="col-md-3">
-            <ul id="sign-in-menu" class="nav navbar-nav navbar-right pull-right">
-              <%= render "layouts/signin_signout" %>
-            </ul>
+              </div>
+            </div>
           </div>
         <% else %>
-          <div class="col-md-4">
-            <%= link_to(image_tag("dmptool_logo_large.png",
+          <div class="col-md-12">
+            <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
                                   alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
                                   class: "app-logo",
                                   title: Rails.configuration.branding[:application][:name]),
                         root_path) %>
-          </div>
-          <div class="pull-right">
-            <ul id="sign-in-menu" class="nav navbar-nav navbar-right">
-              <%= render "layouts/signin_signout" %>
-            </ul>
           </div>
         <% end %>
       </div>
@@ -66,7 +69,7 @@
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Explore <span class="fa fa-sort-desc" aria-hidden="true"></span>
+                <%= ('Learn') %> <span class="fa fa-sort-desc" aria-hidden="true"></span>
               </a>
               <ul id="explore-menu" class="dropdown-menu">
                 <li>
@@ -78,24 +81,24 @@
                       <li <%= 'class=active' if isActivePage(public_templates_path) %>>
                         <%= link_to _('DMP Templates'), public_templates_path %>
                       </li>
-                      <li><a href="#">General FAQs</a></li>
+                      <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
                    </ul>
                    <ul class="nav col-md-8">
-                     <li><a href="#">For Researchers</a>
+                     <li><a href="<%= researchers_path %>"><%= _('For Researchers') %></a>
                        <ul class="nav indented">
-                         <li><a href="#">Data Management General Guidance</a></li>
-                         <li><a href="#">Quick Start Guide</a></li>
+                         <li><a href="<%= general_guidance_path %>"><%= _('Data Management General Guidance') %></a></li>
+                         <li><a href="<%= help_path %>"><%= _('Quick Start Guide') %></a></li>
                        </ul>
                      </li>
-                     <li><a href="#">For Administrators</a></li>
-                     <li><a href="#">For Developers</a></li>
+                     <li><a href="<%= administrators_path %>"><%= _('For Administrators') %></a></li>
+                     <li><a href="<%= developers_path %>"><%= _('For Developers') %></a></li>
                    </ul>
                  </div>
                 </li>
               </ul>
             </li>
             <li <%= 'class=active' if isActivePage(about_us_path) %>>
-              <%= link_to _('News and Media'), about_us_path %>
+              <%= link_to _('News and Media'), news_media_path %>
             </li>
 
             <% if user_signed_in? %>
@@ -122,7 +125,7 @@
                           <% end %>
                           <% if current_user.can_modify_org_details? %>
                             <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-                              <%= link_to (current_user.can_super_admin? ? _('Institutions') : _('Institution')), admin_edit_org_path(current_user.org_id) %>
+                              <%= link_to (current_user.can_super_admin? ? _('Organizations') : _('Organizations')), admin_edit_org_path(current_user.org_id) %>
                             </li>
                           <% end %>
                           <li <%= 'class=active' if isActivePage(org_admin_plans_path) %>>

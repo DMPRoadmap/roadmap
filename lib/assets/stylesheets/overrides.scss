@@ -16,14 +16,9 @@ $highlight-background-color: #F36F24;
   font-weight: normal;
 }
 
-/* Font Smoothing in Webkit */
+/* Font Smoothing in Webkit /*
 body {
   -webkit-font-smoothing: antialiased;
-}
-
-/* PRIMARY BACKGROUND COLOR */
-.bg-primary {
-  background-color: $grey;
 }
 
 /* ADD a BORDER */
@@ -89,44 +84,51 @@ thead th.table-scope {
   }
 }
 
-/* TABS STYLING */
-
+/* nav-tabs and nav-pills styling */
 .nav-tabs, .nav-pills {
   background-color: $grey;
   color: $white;
-  border: none;
-  margin-right:2px;
-  margin-bottom: 10px;
+  border-bottom: 0px;
 }
 .nav-tabs > li > a, .nav-pills > li > a {
-  border-radius: 2px;
   color: $white;
 }
-.nav-tabs > li > a:hover, .nav-pills > li > a:hover {
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
   background-color: $white;
   color: $grey;
-  border:1px solid $grey;
-  border-bottom: 1px solid $white; /* white border prevents tabs from shifting on mouseover/mouseout */
-}
-.nav-tabs > li.active > a, .nav-pills >li.active > a,
-.nav-tabs > li.active > a:focus, .nav-pills > li.active > a:focus,
-.nav-tabs > li.active > a:hover, .nav-pills > li.active > a:hover {
-  background-color: $white !important;
-  color:$grey;
-  border:1px solid $grey;
-  border-bottom: 1px solid $white; /* white border prevents tabs from shifting on mouseover/mouseout */
+  border: 1px solid $grey;
+  border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
 .nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover, {
-  border-bottom: 1px solid $grey;
+.nav-pills > li.active > a:hover {
+  background-color: $white;
+  color: $grey;
+  border: 1px solid $grey;
 }
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li.active:last-child > a,
+.nav-pills > li.active:last-child > a:focus,
+.nav-pills > li.active:last-child > a:hover {
+  border-right: 0px;
+}
+/* panel styling */
 
-/* PANEL STYLING */
+.panel-default {
+  border-color: $grey;
+}
 .panel-default > .panel-heading {
   background-color: $grey;
   color: $white;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .panel-title a {
@@ -141,18 +143,41 @@ thead th.table-scope {
   color: $grey;
 }
 
+/* list-group styling */
+.list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+/* label stylying */
+.label {
+  font-size: 85%;
+}
+
 /* LIST STYLING */
 span.sublist {
   margin-left: -15px;
   margin-right: 25px;
 }
 
+/* Overrides ul list */ 
 #modal-permissions ul {
   list-style-type: none;
 }
 
+/* Overrides list-group */ 
 #modal-permissions .list-group li:nth-child(1){
   border-top: 0 none;
+}
+
+/* Overrides list-group-item */ 
+#modal-permissions .list-group-item {
+  height: 30px; 
+  padding: 5px 15px;
 }
 
 /* FONTAWESOME STYLING */
@@ -164,10 +189,6 @@ span.sublist {
 }
 .fa-sort, .fa-sort-asc, .fa-sort-desc {
   color: $white;
-}
-
-.fa-question-circle {
-  font-size: 1.5rem;
 }
 
 /* RADIO BUTTONS */
@@ -287,13 +308,8 @@ $header-text-color: $black;
 $header-background: linear-gradient(#ED6406, #F59503);
 */
 
-#app-navbar {
-  border-radius: 0px;
-}
-
 /* For org navbar custom height */
 #org-navbar {
-  border-radius: 0px;
   margin-top: -20px;
 
   #banner-org-name {
@@ -434,17 +450,6 @@ $tooltip-background: $grey;
 
 /* PAGE SPECIFIC SETTINGS */
 /* ---------------------------------------------*/
-/* Shibboleth DS modal */
-#full_list {
-  min-height: 350px;
-  max-height: 500px;
-  overflow: scroll;
-  margin: 10px 0 10px 0;
-}
-#org-sign-in-logo {
-  text-align: center;
-}
-
 /* Org details page */
 .remove-org-link i {
   margin-left: -15px;
@@ -469,297 +474,17 @@ $tooltip-background: $grey;
   margin-left: -40px;
 }
 
-/* ============================================== */
-/* DMPTool specific overrides */
-/* ============================================== */
-$dark-blue: #0E5682;
-$light-blue: #C0D8F0;
-
-.btn, 
-.btn:hover, 
-.btn:focus, 
-.btn:active, 
-.btn:visited, 
-.btn:active:hover,
-.nav-tabs, .nav-pills,
-.table thead > tr > th, 
-.table tbody > tr > th, 
-.table tfoot > tr > th {
-  background-color: $dark-blue;
-}
-
-a,
-h1, h2, h3, h4, 
-.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
-  color: $dark-blue;
-}
-
-h2 {
-  font-size: 2.4rem;
-}
-
-.container, .container-fluid {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.table thead > tr > th.table-scope {
-  background-color: $white;
-}
-#search-addon,
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: $light-blue;
-}
-tbody td .dropdown-toggle, 
-tbody td .dropdown-toggle:hover,
-tbody td .dropdown-toggle:focus,
-tbody td .dropdown-toggle:visited,
-tbody td .dropdown-toggle:active:hover {
-  background-color: inherit;
-}
-
-.nav-tabs {
-  background-color: $white;
-  margin-bottom: 0;
-
-  li {
-    background-color: $dark-blue;
-  }
-
-  li:first-child {
-    border-top-left-radius: 7px;
-  }
-  li:last-child {
-    border-top-right-radius: 7px;
-  }
-}
-div.tab-content {
-  border: 1px solid $black;
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
-  border-top-right-radius: 7px;
-  padding: 10px 10px 15px 10px;
-}
-
-header, main, footer {
-  font-family: Arial;
-  max-width: 1000px;
-}
-
-header {
-  position: relative;
-  border: 1px solid $black;
-  border-width: thin;
-  border-radius: 7px;
-  background-color: $white;
-  margin-bottom: 25px;
-
-  a, .fa {
-    color: $black;
-  }
-
-  .fa-envelope {
-    font-size: 1.3rem;
-  }
-
-  #app-navbar {
-    position: relative;
-    padding: 10px 0 0 10px;
-    margin-bottom: 5px;
-
-    div[class^="col-md-"] {
-      padding: 0;
-    }
-    
-    div.centered {
-      position: relative;
-      
-      img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      
-      ul {
-        margin-top: 12px;
-        width: 75%;
-        overflow: hidden;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-
-    .navbar-nav > li > a {
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-
-    #sign-in-menu { 
-      margin-right: 10px;
-
-      li > a {
-        padding-top: 0;
-      }
-
-      .fa {
-        font-size: 1.5rem;
-      }
-
-      .navbar-divider {
-        border-left: 1px solid $black;
-        height: 15px;
-        margin-top: 5px;
-        padding: 0;
-      }
-    }
-
-    #signin-options {
-      min-width: 350px;
-      padding: 10px 15px;
-    }
-
-    #main-menu {
-      font-size: 2.1rem;
-      font-weight: bold;
-      padding-top: 40px;
-
-      li > a {
-        color: $dark-blue;
-        padding: 0 20px 0 0;
-      }
-      .fa {
-        font-size: 1.5rem;
-        color: $dark-blue;
-      }
-
-      #explore-menu {
-        min-width: 500px;
-      }
-
-      #admin-menu {
-
-      }
-
-      #explore-menu, #admin-menu {
-        padding: 10px 15px;
-        font-weight: normal;
-        color: $black;
-        
-        li > a {
-          color: $black;
-          padding: 5px 0 10px 0;
-        }
-        
-        ul.indented {
-          margin-left: 15px;
-
-          li > a {
-            padding: 5px 0 0 0;
-          }
-        }
-      }
-    }
-  }
-
-  #org-navbar {
-    position: relative;
-    padding: 20px 0 0 10px;
-    margin-bottom: 5px;
-
-    #admin-dropdown {
-      margin-right: 10px;
-    }
-  }
-}
-
-main {
-  margin-bottom: 50px;
-
-  #home-image {
-    height: 450px;
-    overflow: hidden;
-    margin: 10px 0 15px 0;
-    border: 1px solid $white;
-    border-radius: 7px;
-
-    div[class^="col-md-"] {
-      padding: 0;
-
-      img {
-        margin-top: -100px;
-      }
-    }
-  }
-
-  #home-more-info-titles {
-    font-weight: bold;
-
-    div:after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 15%;
-      height: 70%;
-      width: 1px;
-      border-right: 1px solid $black;
-    }
-    div:last-child:after {
-      display: none;
-    }
-  }
-
-  #home-more-info {
-    padding: 15px 0 20px;
-
-    li {
-      padding-bottom: 5px;
-    }
-
-    div:after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 5%;
-      height: 120px;
-      width: 1px;
-      border-right: 1px solid $black;
-    }
-    div:last-child:after {
-      display: none;
-    }
-  }
-
-  .home-more-info-divider hr {
-    border-top: 1px solid $black;
-    margin: 0;
-  }
-}
-
-footer {
-  border: 1px solid $light-blue;
-  border-radius: 7px;
-  background-color: $light-blue;
-
-  .navbar-inverse {
-    color: $black;
-    background-color: $light-blue;
-
-   .navbar-text, .navbar-nav > li > a {
-      color: $black;
-    }
-
-    .navbar-text {
-      font-size: 1.1rem;
-    }
-
-    .navbar-nav > li > a > .fa {
-      color: $grey;
-      font-size: 3rem;
-    }
-
-    img {
-      width: 150px;
-      margin-right: 25px;
-    }
-  }
+/* Sharp edges */
+#app-navbar,
+#org-navbar,
+.nav-tabs > li > a,
+.nav-pills > li > a,
+.panel, .panel-group .panel,
+.progress,
+.btn,
+.form-control,
+.label,
+.alert,
+.input-group-addon {
+  border-radius: 0px;
 }
