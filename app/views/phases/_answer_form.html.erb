@@ -1,4 +1,4 @@
-<!-- 
+<!--
   **Project: DMPRoadmap
   **Description: This block sets up the type of question, its guidance.
   **Arguments transferred: an instance of "question"
@@ -7,15 +7,12 @@
 
 <div class="question-div">
   <%
-     answers = question.plan_answers(plan.id)
-     if answers.present?
-       answer = answers.first
-     else
+    if answer.blank?
        answer = Answer.new({ plan_id: plan.id, question_id: question.id, user_id: current_user.id })
        if question.default_value.present?
         answer.text = question.default_value
       end
-     end
+    end
    %>
   <div class="question-form">
     <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
@@ -27,12 +24,12 @@
     </div>
   </div>   <!-- question-form -->
 </div>   <!-- question-div -->
-      
+
 <!-- Question right column -->
 <div class="question-area-right-column">
 
     <div id="right-area-tabs-<%= question.id %>" class="question_right_column_nav">
-      <% comments = answer.notes.all %> 
+      <% comments = answer.notes.all %>
       <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
       <% active_tab = nil %>
       <ul class="question_right_column_ul">
