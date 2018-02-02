@@ -1,6 +1,6 @@
     <!-- Partial template for showing the progress for a section, i.e. the valid answers -->
     <% num_section_questions = section.questions.size() %>
-    <% num_section_answers = section.num_answered_questions(plan.id) %>
+    <% num_section_answers = section.num_answered_questions(plan) %>
     <% question_word = "questions" %>
     <% if num_section_questions == 1 then %>
         <% question_word = "question" %>

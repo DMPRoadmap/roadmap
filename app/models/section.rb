@@ -24,14 +24,15 @@ class Section < ActiveRecord::Base
   end
 
   # Returns the number of answered questions for a given plan id
-  def num_answered_questions(plan_id)
-    n = 0
-    self.questions.each do |question|
-      n += question.plan_answers(plan_id).select{|answer| answer.is_valid?}.count
+  def num_answered_questions(plan)
+    questions_hash = questions.reduce({}){ |m, q| m[q.id] = q; m }
+    return plan.answers.includes({question: :question_format}, :question_options).reduce(0) do |m, a|
+      if questions_hash[a.question_id].present? && a.is_valid?
+        m+=1
+      end
+      m
     end
-    return n
   end
-
   ##
   # deep copy of the given section and all it's associations
   #

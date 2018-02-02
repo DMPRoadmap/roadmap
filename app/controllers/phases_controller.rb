@@ -16,8 +16,7 @@ class PhasesController < ApplicationController
     end
     # authorization done on plan so found in plan_policy
     authorize @plan
-
-    phase_id = params[:id].to_i
+    @answers = @plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
     @readonly = !@plan.editable_by?(current_user.id)
 
     # Now we need to get all the themed guidance for the plan.
