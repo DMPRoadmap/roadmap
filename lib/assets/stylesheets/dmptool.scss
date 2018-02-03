@@ -1,14 +1,19 @@
 /* COLORS */
 /* --------------------------------------- */
 $dark-blue: #0E5682;
-$light-blue: #C0D8F0;
+$light-blue: #D8E3EE;
+$light-grey: #F0F0F0;
 
 body {
   font-size: 12px;
 }
 
 a:not(.btn) {
+  color: $dark-blue;
   text-decoration: underline;
+}
+.btn {
+  border-radius: 5px;
 }
 
 .btn, 
@@ -30,12 +35,22 @@ h1, h2, h3, h4,
   color: $black;
 }
 
+h1, h2, h3, h4 {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+/* TABLES */
+/* --------------------------------------- */
+#search-addon, tbody tr:nth-child(even){
+  background-color: $light-grey;
+}
+.table-hover tbody tr:hover td, 
+.table-hover tbody tr:hover th {
+  background-color: $light-blue;
+}
 .table thead > tr > th.table-scope {
   background-color: $white;
-}
-#search-addon,
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: $light-blue;
 }
 tbody td .dropdown-toggle, 
 tbody td .dropdown-toggle:hover,
@@ -44,7 +59,23 @@ tbody td .dropdown-toggle:visited,
 tbody td .dropdown-toggle:active:hover {
   background-color: inherit;
 }
+th > a > .fa {
+  font-size: 1.5rem;
+}
+.table > thead > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > th, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > th, 
+.table > tfoot > tr > td {
+  vertical-align: middle;
+  border: none;
+  border-left: 1px solid $black;
+  border-right: 1px solid $black;
+}
 
+/* ALERTS/NOTIFICATIONS */
+/* --------------------------------------- */
 .alert {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -53,6 +84,9 @@ tbody td .dropdown-toggle:active:hover {
 
 /* FONT SIZES */
 /* --------------------------------------- */
+h1 {
+  font-size: 2.8rem;
+}
 h2 {
   font-size: 2.4rem;
 }
@@ -70,25 +104,69 @@ h2 {
 /* --------------------------------------- */
 .nav-tabs {
   background-color: $white;
-  margin-bottom: 0;
+  border-bottom: 1px solid $black;
+  margin-bottom: -1px;
 
+  li, li:hover, li:focus,
+  li.active, li.active:hover, li.active:focus {
+    border: 1px solid $black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+    margin-right: 2px;
+    
+    a, a:hover, a:focus {
+      text-decoration: none;
+      border: none;
+      margin: 5px;
+      padding: 5px 10px;
+    }
+  }
   li {
     background-color: $dark-blue;
+    border-bottom: none;
+    a {
+      color: $white;
+    }
   }
-
-  li:first-child {
-    border-top-left-radius: 7px;
-  }
-  li:last-child {
-    border-top-right-radius: 7px;
+  li.active, li:focus, li:hover, li.active:focus, li.active:hover {
+    background-color: $white;
+    border-bottom: 1px solid $white;
+    a {
+      color: $dark-blue;
+    }
   }
 }
 div.tab-content {
   border: 1px solid $black;
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
-  border-top-right-radius: 7px;
   padding: 10px 10px 15px 10px;
+
+  .panel {
+    border: none;
+  }
+}
+
+/* ACCORDIONS */
+/* --------------------------------------- */
+.heading-button {
+  position: relative;
+  background-color: $dark-blue;
+  color: $white;
+  padding-bottom: 10px;
+  
+  .panel-heading:before {
+    font-family: 'FontAwesome';
+    font-size: 1.4rem;
+    font-weight: normal;
+    color: $white;
+    content: "\f067";
+    position: absolute;
+    left: 8px;
+  }
+  .panel-title {
+    padding-left: 10px;
+    margin-top: -1px;
+  }
 }
 
 /* HOMEPAGE IMAGES */
@@ -157,6 +235,18 @@ div.tab-content {
   }
 }
 
+/* List dividers */
+/* --------------------------------------- */
+li {
+	padding-top: 3px;
+}
+li.bg-primary {
+  background-color: $dark-blue;
+	color: $white;
+	font-size: 1.6rem;
+	padding: 3px 0 5px 3px;
+	margin-top: 5px;
+}
 
 /* ACCORDIONS */
 /* --------------------------------------- */
@@ -175,6 +265,16 @@ header, #notification-area, main, footer,
 
 header, footer {
   padding: 0 15px;
+}
+
+#notification-area {
+  margin: -10px auto 5px auto;
+  padding: 5px 0 5px 20px;
+  
+  .fa {
+    font-size: 1.4rem;
+    padding-right: 5px;
+  }
 }
 
 /*   HEADER */
@@ -207,18 +307,24 @@ header {
     }
     
     #branding-nav {
-      display: inline-block;
       margin: 15px 0 0 0;
 
-      div.centered {
+      img.app-logo {
+        margin-top: 15px;
+      }
+      img.org-logo {
+        padding: 0;
+      }
+
+      div.text-center {
         position: relative;
       
-        img {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
+        #banner-org-name {
+          font-size: 3rem;
+          margin: 0;
+          vertical-align: middle;
         }
-      
+
         ul {
           margin-top: 12px;
           width: 75%;
@@ -232,6 +338,9 @@ header {
         padding-left: 5px;
         padding-right: 5px;
       }
+      .navbar-nav > li:first-child > a {
+        padding-left: 0;
+      }
 
       .org-name-nav {
         padding: 10px;
@@ -240,8 +349,8 @@ header {
       .org-name-nav:before, .org-name-nav:after {
         content: "";
         position: absolute;
-        top: 15%;
-        height: 70%;
+        top: 5%;
+        height: 90%;
         width: 1px;
       }
       .org-name-nav:before {
@@ -256,8 +365,10 @@ header {
     }
     
     #sign-in-menu {
-      display: inline-block; 
-      margin-right: 10px;
+      position: absolute; 
+      top: 0;
+      right: 0;
+      margin-right: 15px;
 
       li > a {
         padding-top: 0;
@@ -299,30 +410,42 @@ header {
     }
 
     #main-menu {
-      font-size: 2.1rem;
-      font-weight: bold;
-      padding-top: 20px;
-
-      li > a {
-        color: $dark-blue;
-        padding: 0 20px 0 0;
-      }
-      .fa {
-        font-size: 1.5rem;
-        color: $dark-blue;
-      }
-
-      #admin-menu {
-        padding: 10px 15px;
-        font-weight: normal;
-        color: $black;
-        
-        li > a {
-          color: $black;
-          padding: 5px 0 10px 0;
+      font-size: 1.7rem;
+      
+      ul {
+        margin-top: 20px;
+   
+        li {
+          padding-right: 10px;
         }
+
+        li > a {
+          color: $dark-blue;
+          text-decoration: none;
+          padding: 0 20px 0 0;
+        }
+        .fa {
+          font-size: 1.5rem;
+          color: $dark-blue;
+        }
+
+        #admin-menu {
+          padding: 10px 15px;
+          font-weight: normal;
+          color: $black;
         
-        
+          ul {
+            margin-top: 5px;
+
+            li > a {
+              color: $black;
+              padding: 5px 0 10px 0;
+            }
+            li > a:hover, li > a:focus {
+              background-color: $white;
+            }
+          }
+        }
       }
     }
   }
@@ -371,9 +494,9 @@ main {
           font-size: 2rem;
         }
         a {
-          position: absolute;
+          position: relative;
           padding-left: 6px;
-          bottom: 5px;
+          bottom: 0;
           font-size: 0.8rem;
         }
       }
@@ -384,6 +507,9 @@ main {
           padding-bottom: 5px;
         }
         li > a {
+          position: relative;
+          padding-left: 6px;
+          bottom: 0;
           font-size: 0.8rem;
         }
       }

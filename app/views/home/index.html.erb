@@ -16,7 +16,7 @@
         <div class="col-md-4">
           <div class="fa fa-building"></div>
           <div class="home-stats-bold"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
-          <p><%= _('Participating Institutions')%><a href="<%= public_templates_path %>">More</a></p>
+          <p><%= _('Participating Institutions')%><a href="#" data-toggle="modal" data-target="#org-stats">More</a></p>
         </div>
       </div>
     </div>
@@ -42,7 +42,6 @@
         json = []
         rss.each do |i| 
           json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
-          #json << "<a href=\"#{i.link}\" target=\"_blank\">#{truncate(i.title, length: 120)}</a>"
         end
       %>
       <input type="hidden" id="home-news-array" value="<%= escape_javascript JSON.generate(json) %>" />

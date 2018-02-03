@@ -52,7 +52,7 @@
       has_alert = (alert || flash[:alert] || flash[:error])
       has_notice = (notice || flash[:notice])
       %>
-      <div id="notification-area"
+			<div id="notification-area"
            class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                   <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
            role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
@@ -99,6 +99,9 @@
         <% end %>
         <div id="sign-in-create-account" class="modal fade" tabindex="-1" role="dialog">
           <%= render partial: 'shared/access_controls' %>
+        </div>
+        <div id="org-stats" class="modal fade" tabindex="-1" role="dialog">
+          <%= render partial: 'shared/institution_stats', locals: {orgs: orgs} %>
         </div>
       <% end %>
   </body>

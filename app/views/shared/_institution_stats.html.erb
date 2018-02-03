@@ -1,0 +1,32 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="sign-in">
+      <div class="modal-body">
+        <button type="button" class="close pull-right" data-dismiss="modal"
+                aria-label="<%= _('Cancel') %>">
+          <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+        </button>
+
+        <h3><%= _('Participating Institutions') %></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-md-8"><%= _('Institution') %></th>
+              <th class="col-md-2 text-center"><%= _('Linked Signin') %></th>
+              <th class="col-md-2 text-center"><%= _('Provides Guidance') %></th>
+            </tr>
+          </thead>  
+          <tbody>
+            <% orgs.each do |org| %>
+              <tr>
+                <td><%= org.name %></td>
+                <td class="text-center"><i class="fa <%= org.shibbolized? ? 'fa-check' : 'fa-times' %>"></i></td>
+                <td class="text-center"><i class="fa <%= false ? 'fa-check' : 'fa-times' %>"></i></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

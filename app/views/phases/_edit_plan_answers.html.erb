@@ -27,25 +27,21 @@
     <% phase.sections.order(:number).each do |section| %>
       <% sectionid = section.id %>
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
-          <div class="panel-title pull-left">
-            <%= section.title %> 
-            <% if plan.present? %>
+        <div class="heading-button" role="button" data-toggle="collapse"
+             data-parent="sections-accordion" 
+             href="#collapse-<%= sectionid %>"
+             aria-expanded="false" 
+             aria-controls="collapse-<%= sectionid %>">
+             
+          <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
+            <div class="panel-title pull-left">
+              <%= section.title %> 
+              <% if plan.present? %>
                 <span class="section-progress-<%= sectionid %>">
                   <%= render :partial => "/sections/progress", locals: { section: section, plan: plan } %>
                 </span>
-            <% end %>
-          </div>
-          <div class="panel-title pull-right">
-            <a
-              role="button"
-              data-toggle="collapse"
-              data-parent="sections-accordion" 
-              href="#collapse-<%= sectionid %>"
-              aria-expanded="false" 
-              aria-controls="collapse-<%= sectionid %>">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </a>
+              <% end %>
+            </div>
           </div>
           <div class="clearfix"></div>
         </div>

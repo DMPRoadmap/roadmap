@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div id="account-nav" class="pull-right">
+        <div id="account-nav">
           <ul id="sign-in-menu" class="nav navbar-nav navbar-right">
             <%= render "layouts/signin_signout" %>
           </ul>
@@ -23,9 +23,9 @@
 
         <% else %>
           <div id="branding-nav" class="row">
-            <div class="col-md-9 inset-nav">
+            <div class="col-md-12 inset-nav">
               <div class="row">
-                <div class="col-md-3 centered">
+                <div class="col-md-3">
                   <% if current_user.org.present? && current_user.org.logo.present? %>
                     <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
                                           alt: current_user.org.name,
@@ -33,11 +33,15 @@
                                           title: current_user.org.name),
                                 current_user.org.target_url) %>
                   <% else %>
-                    &nbsp;
+			              <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
+			                                    alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+			                                    class: "app-logo",
+			                                    title: Rails.configuration.branding[:application][:name]),
+			                          root_path) %>
                   <% end %>
                 </div>
                 <div class="col-md-5 org-name-nav text-center">
-                  <h3 id="banner-org-name"><%= current_user.org.name %></h3>
+                  <div id="banner-org-name"><%= current_user.org.name %></div>
                 </div>
                 <div class="col-md-4 centered" id="org-links">
                   <% if current_user.org.present? && !current_user.org.is_other? %>
@@ -88,10 +92,16 @@
                                     <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
                                   </li>
                                 <% end %>
-                                <% if current_user.can_modify_org_details? %>
+                                <% if current_user.can_super_admin? %>
                                   <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
-                                    <%= link_to (current_user.can_super_admin? ? _('Organizations') : _('Organizations')), admin_edit_org_path(current_user.org_id) %>
+                                    <%= link_to _('Organisations'), super_admin_orgs_path %>
                                   </li>
+                                <% else %>
+                                  <% if current_user.can_modify_org_details? %>
+                                    <li <%= 'class=active' if isActivePage(admin_edit_org_path(current_user.org_id)) %>>
+                                      <%= link_to (current_user.can_super_admin? ? _('Organizations') : _('Organizations')), admin_edit_org_path(current_user.org_id) %>
+                                    </li>
+                                  <% end %>
                                 <% end %>
                                 <li <%= 'class=active' if isActivePage(org_admin_plans_path) %>>
                                   <%= link_to _('Plans'), org_admin_plans_path %>
