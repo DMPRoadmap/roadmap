@@ -118,7 +118,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     assert_response :success
     json = JSON.parse(@response.body)
 
-    assert_equal 2, json['templates'].size
+    assert_equal 1, json['templates'].size
     assert_equal @funder_template.id, json['templates'][0]['id']
   end
 
@@ -136,8 +136,8 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     get "#{org_admin_template_options_path}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
     assert_response :success
     json = JSON.parse(@response.body)
-
-    assert_equal 2, json['templates'].size
+    
+    assert_equal 1, json['templates'].size
     assert_equal customization.id, json['templates'][0]['id']
   end
 
@@ -155,7 +155,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     assert_response :success
     json = JSON.parse(@response.body)
 
-    assert_equal 3, json['templates'].size
+    assert_equal 2, json['templates'].size
     assert_equal @funder_template.id, json['templates'][0]['id']
     assert_equal funder_template2.id, json['templates'][1]['id']
   end
