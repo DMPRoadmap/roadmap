@@ -86,7 +86,7 @@
       </main>
 
       <!-- footer rendering -->
-      <footer class="container">
+      <footer class="container<%= user_signed_in? ? ' blue' : '' %>">
         <%= render "layouts/footer" %>
       </footer>
 
@@ -99,9 +99,6 @@
         <% end %>
         <div id="sign-in-create-account" class="modal fade" tabindex="-1" role="dialog">
           <%= render partial: 'shared/access_controls' %>
-        </div>
-        <div id="org-stats" class="modal fade" tabindex="-1" role="dialog">
-          <%= render partial: 'shared/institution_stats', locals: {orgs: orgs} %>
         </div>
       <% end %>
   </body>

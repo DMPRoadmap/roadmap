@@ -4,16 +4,39 @@ $dark-blue: #0E5682;
 $light-blue: #D8E3EE;
 $light-grey: #F0F0F0;
 
-body {
+body, .dropdown-menu {
   font-size: 12px;
 }
 
-a:not(.btn) {
+a:not(.btn),
+a:not(.btn):hover,
+a:not(.btn):focus,
+a:not(.btn):visited,
+a:not(.btn):active,
+a:not(.btn):active:hover,
+a:not(.btn) .fa,
+a:not(.btn) .fa:hover,
+a:not(.btn) .fa:focus,
+a:not(.btn) .fa:visited,
+a:not(.btn) .fa:active,
+a:not(.btn) .fa:active:hover,
+ {
   color: $dark-blue;
+  background-color: inherit;
+  cursor: pointer;
   text-decoration: underline;
 }
 .btn {
   border-radius: 5px;
+}
+
+a:not(.btn) .fa,
+a:not(.btn) .fa:hover,
+a:not(.btn) .fa:focus,
+a:not(.btn) .fa:visited,
+a:not(.btn) .fa:active,
+a:not(.btn) .fa:active:hover {
+  text-decoration: none;
 }
 
 .btn, 
@@ -115,11 +138,13 @@ h2 {
     padding: 5px;
     margin-right: 2px;
     
-    a, a:hover, a:focus {
+    a, a:hover, a:focus, a:visited, a:active, a:active:hover {
       text-decoration: none;
+      color: $white;
       border: none;
       margin: 5px;
       padding: 5px 10px;
+      cursor: pointer;
     }
   }
   li {
@@ -132,8 +157,9 @@ h2 {
   li.active, li:focus, li:hover, li.active:focus, li.active:hover {
     background-color: $white;
     border-bottom: 1px solid $white;
-    a {
+    a, a:hover, a:focus, a:visited, a:active, a:active:hover {
       color: $dark-blue;
+      cursor: pointer;
     }
   }
 }
@@ -238,14 +264,14 @@ div.tab-content {
 /* List dividers */
 /* --------------------------------------- */
 li {
-	padding-top: 3px;
+  padding-top: 3px;
 }
 li.bg-primary {
   background-color: $dark-blue;
-	color: $white;
-	font-size: 1.6rem;
-	padding: 3px 0 5px 3px;
-	margin-top: 5px;
+  color: $white;
+  font-size: 1.6rem;
+  padding: 3px 0 5px 3px;
+  margin-top: 5px;
 }
 
 /* ACCORDIONS */
@@ -362,6 +388,19 @@ header {
         width: 100%;
         border-right: 1px solid $black;
       }
+      #org-links {
+        vertical-align: middle;
+
+        div {
+          width: 90%;
+          margin: 10px auto;
+
+          ul {
+            float: left;
+            padding-right: 15px;
+          }
+        }
+      }
     }
     
     #sign-in-menu {
@@ -373,8 +412,13 @@ header {
       li > a {
         padding-top: 0;
       }
-      li > a:hover, li > a:focus {
+      li.active > a {
+        background-color: $dark-blue;
+      }
+      li > a:hover, li > a:focus, li > a:visited, li > a:active, li > a:active:hover {
         background-color: white;
+        color: $dark-blue;
+        cursor: pointer;
       }
       li:last-child > a {
         padding-right: 0;
@@ -392,13 +436,17 @@ header {
       }
 
       #explore-menu {
-        min-width: 500px;
+        min-width: 450px;
 
         ul.indented {
           margin-left: 15px;
 
           li {
-           margin-top: -5px;
+            margin-top: -5px;
+           
+            a {
+              padding-right: 0;
+            }
           }
         }
       }
@@ -421,12 +469,15 @@ header {
 
         li > a {
           color: $dark-blue;
+          background-color: $white;
           text-decoration: none;
           padding: 0 20px 0 0;
         }
+
         .fa {
           font-size: 1.5rem;
           color: $dark-blue;
+          text-decoration: none;
         }
 
         #admin-menu {
@@ -435,14 +486,16 @@ header {
           color: $black;
         
           ul {
+            width: 100%;
             margin-top: 5px;
 
             li > a {
               color: $black;
               padding: 5px 0 10px 0;
             }
-            li > a:hover, li > a:focus {
+            li > a:hover, li > a:focus, li > a:visited, li > a:active, li a:active:hover {
               background-color: $white;
+              cursor: pointer;
             }
           }
         }
@@ -559,6 +612,9 @@ main {
   }
 
   #home-news  {
+    .col-md-3 {
+      margin-top: 15px;
+    }
     .col-md-2, .col-md-7 {
       margin-top: 25px;
     }
@@ -598,7 +654,7 @@ footer {
   }
   .navbar-nav > li > a > .fa {
     color: $dark-blue;
-    font-size: 3rem;
+    font-size: 1.8rem;
   }
   .navbar-right {
     margin-right: 0;
@@ -607,4 +663,10 @@ footer {
     width: 150px;
     margin: 0;
   }
+}
+footer.blue {
+  background-color: $light-blue;
+  border-top: none;
+  border-radius: 5px;
+  padding-left: 5px;
 }

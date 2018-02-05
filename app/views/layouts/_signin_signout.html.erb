@@ -6,16 +6,19 @@
     <ul id="explore-menu" class="dropdown-menu">
       <li>
         <div class="row-fluid">
-          <ul class="nav col-md-4">
+          <ul class="nav col-md-5">
             <li <%= 'class=active' if isActivePage(public_plans_path) %>>
               <%= link_to _('Public Plans'), public_plans_path %>
             </li>
             <li <%= 'class=active' if isActivePage(public_templates_path) %>>
               <%= link_to _('Funder Requirements'), public_templates_path %>
             </li>
+            <li <%= 'class=active' if isActivePage(institutions_path) %>>
+              <%= link_to _('Participating Institutions'), institutions_path %>
+            </li>
             <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
          </ul>
-         <ul class="nav col-md-8">
+         <ul class="nav col-md-7">
            <li><a href="<%= researchers_path %>"><%= _('For Researchers') %></a>
              <ul class="nav indented">
                <li><a href="<%= general_guidance_path %>"><%= _('Data Management General Guidance') %></a></li>
@@ -45,7 +48,7 @@
 <% else %>
   <li class="dropdown" id="signin-signout">
     <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%= _('Account') %>
+      <%= current_user.name(false) %>
       <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="user-menu">
