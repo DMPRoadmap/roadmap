@@ -30,6 +30,7 @@ module OrgAdmin
         published: published,
         current_org: current_user.org, 
         orgs: Org.all,
+        current_tab: params[:r] || 'all-templates',
         scopes: { all: all_templates_hash[:scopes], orgs: own_hash[:scopes], funders: customizable_hash[:scopes] }
       }
     end

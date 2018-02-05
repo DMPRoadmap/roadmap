@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <% if phase.modifiable && edit %>
         <div class="phase_edit" style="display: none">
-          <%= render partial: "phases/edit_phase", locals: { phase: phase }%>
+          <%= render partial: "phases/edit_phase", locals: { phase: phase, current_tab: current_tab }%>
         </div>
     <% end %>
   </div>
@@ -12,7 +12,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="phase_show">
-      <%= render partial: "phases/show_phase", locals: { phase: phase, edit: edit } %>
+      <%= render partial: "phases/show_phase", locals: { phase: phase, edit: edit, current_tab: current_tab } %>
     </div>
   </div>
 </div>
@@ -59,9 +59,9 @@
             aria-labelledby="<%= "headingSection#{section.id}" %>">
              <div class="panel-body">
               <% if edit && section.modifiable %>
-                <%= render partial: 'sections/edit_section', locals: { template: template, section: section, edit: edit, phase: phase } %>
+                <%= render partial: 'sections/edit_section', locals: { template: template, section: section, edit: edit, phase: phase, current_tab: current_tab } %>
               <% else %>
-                <%= render partial: 'sections/show_section', locals: { template: template, section: section } %>
+                <%= render partial: 'sections/show_section', locals: { template: template, section: section, current_tab: current_tab } %>
               <% end %>
              </div>
           </div>
@@ -77,7 +77,7 @@
         </div>
         <div class="col-md-12">
           <div id="section_new<%= phase.id %>" class="section_new" style="display: none;">
-            <%= render partial: 'sections/add_section', locals: { phase: phase } %>
+            <%= render partial: 'sections/add_section', locals: { phase: phase, current_tab: current_tab } %>
           </div>
         </div>
       </div>

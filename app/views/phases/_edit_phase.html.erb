@@ -1,4 +1,4 @@
-<%= form_for :phase, { url: admin_update_phase_path(phase.id), html: { method: :put }} do |f| %>
+<%= form_for :phase, { url: admin_update_phase_path(phase.id, r: current_tab), html: { method: :put }} do |f| %>
   <div class="form-group col-md-10">
     <%= f.label(:title, _('Title') ,class: "control-label") %>
     <%= f.text_field(:title, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP')) %> 
