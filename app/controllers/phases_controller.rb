@@ -44,40 +44,53 @@ class PhasesController < ApplicationController
 
   #show and edit a phase of the template
   def admin_show
-    phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
+    phase = Phase.includes(:template).find(params[:id])
     authorize phase
-
-    # If the user is an OrgAdmin and the existing template is published then version
-    # it before proceeding
-    if current_user.can_org_admin? && phase.template.published?
-      new_version = phase.template.get_new_version      
-      @phase = new_version.phases.find_by(title: phase.title, number: phase.number)
-    else
-      @phase = phase
-    end
-
-    @current = Template.current(@phase.template.dmptemplate_id)
-    @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
-
-    if params.has_key?(:question_id)
-      @question_id = params[:question_id].to_i
-    end
-    if @phase.template.customization_of.present?
-      @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
-    else
-      @original_org = @phase.template.org
-    end
     
-    in_use_check(@phase)
-    
-    render('/org_admin/templates/container',
-      locals: {
-        partial_path: 'admin_show',
-        phase: @phase,
-        template: @phase.template,
-        edit: @edit,
-        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil
-      })
+    # The phase requested by the user may be attached to an older version of the template so we need
+    # to grab the most current version's phase
+    current_template = Template.includes(:phases).current(phase.template.dmptemplate_id)
+
+    if current_template.id == phase.template.id
+      # If the user is an OrgAdmin and the existing template is published then version
+      # it before proceeding
+      if current_user.can_org_admin? && Template.current(phase.template.dmptemplate_id).published?
+        new_version = phase.template.get_new_version      
+        @phase = new_version.phases.find_by(title: phase.title, number: phase.number)
+      else
+        @phase = phase
+      end
+
+      @current = Template.current(@phase.template.dmptemplate_id)
+      @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
+
+      if params.has_key?(:question_id)
+        @question_id = params[:question_id].to_i
+      end
+      if @phase.template.customization_of.present?
+        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+      else
+        @original_org = @phase.template.org
+      end
+      render('/org_admin/templates/container',
+        locals: {
+          partial_path: 'admin_show',
+          phase: @phase,
+          template: @phase.template,
+          edit: @edit,
+          current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil
+        })
+    else
+      # The requested phase was not a part of the current template
+      phase = current_template.find_equivalent_phase(phase)
+      if phase.nil?
+        # The current phases have been updated already so display a warning and redirect to the template details tab
+        redirect_to edit_org_admin_template_path(current_template), notice: _('This template\'s phases have been edited by another user. Please select the appropriate phase and try again.')
+      else
+        # Send the user to the current phase
+        redirect_to admin_show_phase_path(phase)
+      end
+    end
   end
 
 

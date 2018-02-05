@@ -254,6 +254,11 @@ class Template < ActiveRecord::Base
     return !modifiable
   end
 
+  # This method is intended to help locate the phase within the current version of the template
+  def find_equivalent_phase(phase)
+    self.phases.select{ |p| p.same_as?(phase) }.first || nil
+  end
+
   # --------------------------------------------------------
   private
   # Initialize the published and dirty flags for new templates
