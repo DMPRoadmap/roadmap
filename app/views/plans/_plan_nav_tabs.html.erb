@@ -1,4 +1,4 @@
-<!-- project navigation -->  
+<!-- project navigation -->
 <div id="project-tabs" class="nav-project-tabs">
   <ul class="nav nav-tabs" data-tabs="tabs">
     <%plan_id = plan.id %>
@@ -9,7 +9,7 @@
     </li>
 
     <!-- Phases -->
-    <% plan.template.phases.each do |phase| %>
+    <% plan.phases.each do |phase| %>
         <li <%= if active == phase.title then "class=active" end%> >
             <%= link_to phase.title,  "/plans/" + plan_id.to_s + "/phases/" + phase.id.to_s + "/edit" %>
       </li>

@@ -953,13 +953,12 @@ class Plan < ActiveRecord::Base
 
   # Returns the number of answered questions from the entire plan
   def num_answered_questions
-    n = 0
-    self.template.phases.each do |p|
-      p.sections.each do |s|
-        n+= s.num_answered_questions(self.id)
+    return Answer.where(id: answers.map(&:id)).includes({question: :question_format}, :question_options).reduce(0) do |m, a|
+      if a.is_valid?
+        m+=1
       end
+      m
     end
-    return n
   end
 
   # Returns a section given its id or nil if does not exist for the current plan
@@ -971,8 +970,8 @@ class Plan < ActiveRecord::Base
   # for when sections and their questions are eager loaded so that avoids SQL queries.
   def num_questions
     n = 0
-    self.sections.each do |s|
-      n+= s.questions.size()
+    sections.includes(:questions).joins(:questions).each do |s|
+      n+= s.questions.length
     end
     return n
   end
@@ -993,20 +992,9 @@ class Plan < ActiveRecord::Base
   end
 
   def self.load_for_phase(id, phase_id)
-    plan = Plan.includes(template: {phases: {sections: {questions: :answers}}}).joins(template: {phases: {sections: {questions: :answers}}}).where("phases.id = #{phase_id}").distinct.merge( Plan.where("phases.id=#{phase_id}").joins(:phases).includes({answers: :notes})).find_by(id: id)
-    phase = nil
-    # return nil for both if plan does not exist
-    if plan.blank?
-      return nil, nil
-    end
-    plan.template.phases.each do |p|
-      next unless p.id = phase_id
-      phase = p
-      break
-    end
+    plan = Plan.joins(template: {phases: {sections: :questions}}).where("plans.id = #{id} AND phases.id = #{phase_id} ").includes(template: {phases: {sections: :questions}}).merge(Plan.includes(answers: :notes))[0]
+    phase = plan.template.phases.first
     return plan, phase
-
-
   end
 
 
