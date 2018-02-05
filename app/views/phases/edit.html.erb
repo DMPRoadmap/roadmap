@@ -22,7 +22,7 @@
 <div class="project-tabs-body">
 
   <div class="accordion" id="sections-accordion">
-    <% @phase.sections.order(:number).each do |section| %>
+    <% @phase.sections.each do |section| %>
 
       <% sectionid = section.id %>
 
@@ -71,6 +71,7 @@
                       locals: {
                         plan: @plan,
                         question: question,
+                        answer: @answers[question.id],
                         question_guidances: guidances,
                         last_question_id: section.questions.last.id,
                         readonly: @readonly
