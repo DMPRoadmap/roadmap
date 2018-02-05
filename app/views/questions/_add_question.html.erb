@@ -7,7 +7,7 @@ in the admin interface.
 -->
 <% @new_question = Question.new %>
 <% @new_question.number = section.questions.count + 1 %>
-<%= form_for @new_question, url:  admin_create_question_path , html: {id: "new_question_#{section.id}", class: 'question_form'} do |f| %>
+<%= form_for @new_question, url:  admin_create_question_path(r: current_tab) , html: {id: "new_question_#{section.id}", class: 'question_form'} do |f| %>
   <%= f.hidden_field :section_id, value: section.id %>
   <%= hidden_field_tag :section_id, section.id, class: "section_id_new" %>
 
