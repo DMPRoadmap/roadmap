@@ -44,17 +44,8 @@ class PhasesController < ApplicationController
 
   #show and edit a phase of the template
   def admin_show
-    phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
-    authorize phase
-
-    # If the user is an OrgAdmin and the existing template is published then version
-    # it before proceeding
-    if current_user.can_org_admin? && phase.template.published?
-      new_version = phase.template.get_new_version      
-      @phase = new_version.phases.find_by(title: phase.title, number: phase.number)
-    else
-      @phase = phase
-    end
+    @phase = Phase.includes(:sections).order(:number).find(params[:id])
+    authorize @phase
 
     @current = Template.current(@phase.template.dmptemplate_id)
     @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
@@ -67,8 +58,6 @@ class PhasesController < ApplicationController
     else
       @original_org = @phase.template.org
     end
-    
-    in_use_check(@phase)
     
     render('/org_admin/templates/container',
       locals: {
@@ -182,25 +171,4 @@ class PhasesController < ApplicationController
       render 'admin_show'
     end
   end
-
-
-  private
-    def in_use_check(phase)
-      # Check to see if anyone else has recently been working with this template. If so warn the user
-      current_editors = Rails.cache.read("phase_#{phase.id}") || []
-      current_editors.delete(current_user.id)
-      
-      unless current_editors.empty?
-        flash[:notice] = _('%{users} also appears to be editing this phase!') % 
-          { users: current_editors.collect{ |u| User.find(u).name(false) if User.find(u).present? }.join(', ') }
-      end
-      
-      current_editors << current_user.id unless current_editors.include?(current_user.id)
-      # Record the activity in the Rails cache
-      begin
-        Rails.cache.write("phase_#{phase.id}", current_editors, :expires_in => 15.minutes)
-      rescue Exception => e
-        logger.error("Caught exception RSS parse: #{e}.")
-      end
-    end
 end
