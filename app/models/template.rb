@@ -263,7 +263,7 @@ class Template < ActiveRecord::Base
       self.published = false
       self.migrated = false
       self.dirty = false
-      self.visibility = 1
+      self.visibility = 0 # Organisationally visible by default
       self.is_default = false
       self.version = 0 if self.version.nil?
       self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
