@@ -1,0 +1,85 @@
+<div id="account-nav">
+  <ul id="sign-in-menu" class="nav navbar-nav navbar-right">
+    <% unless user_signed_in? %>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <%= ('Learn') %> <span class="fa fa-sort-desc" aria-hidden="true"></span>
+        </a>
+        <ul id="explore-menu" class="dropdown-menu">
+          <li>
+            <div class="row-fluid">
+              <ul class="nav col-md-5">
+                <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+                  <%= link_to _('Public Plans'), public_plans_path %>
+                </li>
+                <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+                  <%= link_to _('Funder Requirements'), public_templates_path %>
+                </li>
+                <li <%= 'class=active' if isActivePage(institutions_path) %>>
+                  <%= link_to _('Participating Institutions'), institutions_path %>
+                </li>
+                <li><a href="<%= faq_path %>"><%= _('General FAQs') %></a></li>
+             </ul>
+             <ul class="nav col-md-7">
+               <li><a href="<%= researchers_path %>"><%= _('For Researchers') %></a>
+                 <ul class="nav indented">
+                   <li><a href="<%= general_guidance_path %>"><%= _('Data Management General Guidance') %></a></li>
+                   <li><a href="<%= help_path %>"><%= _('Quick Start Guide') %></a></li>
+                 </ul>
+               </li>
+               <li><a href="<%= administrators_path %>"><%= _('For Administrators') %></a></li>
+               <li><a href="<%= developers_path %>"><%= _('For Developers') %></a></li>
+             </ul>
+           </div>
+          </li>
+        </ul>
+      </li>
+      <li class="navbar-divider">&nbsp;</li>
+      <li>
+        <a href="#" data-class="dropdown-toggle" role="button" id="header-signin" data-toggle="dropdown" aria-haspopup="true" 
+           aria-expanded="false">
+          <%= _('Sign in') %>
+          <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+        </a>
+        <ul id="signin-options" class="dropdown-menu" aria-labelledby="header-signin">
+          <li>
+            <%= render partial: 'shared/sign_in_options' %>
+          </li>
+        </ul>
+      </li>
+    <% else %>
+      <li class="dropdown" id="signin-signout">
+        <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= current_user.name(false) %>
+          <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="user-menu">
+          <li>
+            <%= link_to _('Edit profile'), edit_user_registration_path %>
+          </li>
+          <li>
+            <%= link_to _('Sign out'), destroy_user_session_path, method: :delete %>
+          </li>
+        </ul>
+      </li>
+    <% end %>
+
+    <!-- language dropdown -->
+    <% if MANY_LANGUAGES %>
+      <li class="navbar-divider">&nbsp;</li>
+      <li class="dropdown" id="change-language">
+        <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= _('Select Language') %>
+          <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="language-menu">
+          <% LANGUAGES.each do |l| %>
+            <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+              <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

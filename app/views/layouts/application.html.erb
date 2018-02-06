@@ -45,14 +45,14 @@
 
       <!-- header rendering -->
       <header class="container">
-        <%= render partial: "layouts/header" %>
+        <%= render partial: "layouts/dmptool_header" %>
       </header>
 
       <%
       has_alert = (alert || flash[:alert] || flash[:error])
       has_notice = (notice || flash[:notice])
       %>
-			<div id="notification-area"
+      <div id="notification-area"
            class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                   <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
            role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
@@ -87,7 +87,7 @@
 
       <!-- footer rendering -->
       <footer class="container<%= user_signed_in? ? ' blue' : '' %>">
-        <%= render "layouts/footer" %>
+        <%= render "layouts/dmptool_footer" %>
       </footer>
 
       <% unless user_signed_in? %>
