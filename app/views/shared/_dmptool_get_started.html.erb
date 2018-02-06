@@ -1,0 +1,36 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+        <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+      </button>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="text-center"><%= _('Sign in with') %></h2>
+
+          <div class="form-group">
+            <% if Rails.application.config.shibboleth_enabled %>
+              <!-- Shibboleth DS enabled -->
+              <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+                <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+                  <%= link_to _('Your institution'), '#', class: 'btn btn-default btn-block',
+                              'data-toggle': 'modal', 'data-target': '#shib-ds-form' %>
+                <% else %>
+                  <%= link_to _('Your institution'), user_shibboleth_omniauth_authorize_path, class: 'btn btn-default btn-block' %>
+                <% end %>
+              <%else%>
+                <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+              <%end%>
+            <% end %>
+
+            <%= link_to _('Email address'), '#', class: 'btn btn-default btn-block', id: 'show-sign-in-form',
+                        'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %>
+            <%= link_to _('Create account with email address'), '#', class: 'pull-right', id: 'show-create-account-form',
+                        'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

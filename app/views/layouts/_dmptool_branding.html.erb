@@ -34,9 +34,6 @@
                 <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
                   <% current_user.org.links['org'].each_with_index do |link, i| %>
                     <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
-                      <% if i == (MAX_NUMBER_LINKS_ORG.to_f / 2).ceil %>
-                        </ul><ul class="list-unstyled">
-                      <% end %>
                       <li class="org-links">
                         <%= link_to link['text'].truncate(30), link['link'], target: '_blank', class: 'org-a' %>
                       </li>

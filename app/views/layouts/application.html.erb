@@ -65,19 +65,17 @@
         <div class="homepage-img homepage-img-<%= (1..5).to_a.sample %>">
           <div id="home-welcome-msg">
             <div id="message">
-              <h1><%= _('Welcome.') %></h1>
+              <h1><%= _('Welcome') %></h1>
               <p>
-                <strong><%= _('Create data management plans that meet institutional and funder requirements.') %></strong>
-                <a href="#" role="button" id="header-signin" 
-                    class="btn btn-inverse pull-right" data-toggle="modal"
-                    data-target="#sign-in-create-account">
+                <%= _('Create data management plans that meet institutional and funder requirements.') %>
+                <a href="#" role="button" id="header-signin" class="btn btn-inverse pull-right" data-toggle="modal"
+                    data-target="#get-started-options">
                   <%= _('Get started') %>
                 </a>
               </p>
             </div>
           </div>
         </div>
-        
       <% end %>
 
       <!-- main page content rendering -->
@@ -97,8 +95,13 @@
             <%= render partial: 'shared/shib_ds_form', locals: {orgs: orgs} %>
           </div>
         <% end %>
+
         <div id="sign-in-create-account" class="modal fade" tabindex="-1" role="dialog">
           <%= render partial: 'shared/access_controls' %>
+        </div>
+
+        <div id="get-started-options" class="modal fade" tabindex="-1" role="dialog">
+          <%= render partial: 'shared/dmptool_get_started' %>
         </div>
       <% end %>
   </body>

@@ -1,19 +1,13 @@
-<h1><%= _('Participating Institutions') %></h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th class="col-md-8"><%= _('Institution') %></th>
-      <th class="col-md-2 text-center"><%= _('Linked Signin') %></th>
-      <th class="col-md-2 text-center"><%= _('Provides Guidance') %></th>
-    </tr>
-  </thead>  
-  <tbody>
-    <% orgs.each do |org| %>
-      <tr>
-        <td><%= org.name %></td>
-        <td class="text-center"><i class="fa <%= org.shibbolized? ? 'fa-check' : 'fa-times' %>"></i></td>
-        <td class="text-center"><i class="fa <%= false ? 'fa-check' : 'fa-times' %>"></i></td>
-      </tr>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Participating Institutions') %></h1>
+
+    <% if orgs.count > 0 %>
+      <%= paginable_renderise(
+        partial: '/paginable/orgs/public',
+        controller: 'paginable/orgs',
+        action: 'public', 
+        scope: orgs) %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

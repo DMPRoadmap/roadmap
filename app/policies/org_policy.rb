@@ -43,4 +43,8 @@ class OrgPolicy < ApplicationPolicy
   def templates?
     true
   end
+  
+  def public?
+    true
+  end
 end

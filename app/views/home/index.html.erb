@@ -11,7 +11,7 @@
         <div class="col-md-4">
           <div class="fa fa-file"></div>
           <div class="home-stats-bold"><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></div>
-          <p><%= _('Plans')%><a href="<%= public_templates_path %>">More</a></p>
+          <p><%= _('Plans')%><a href="<%= public_plans_path %>">More</a></p>
         </div>
         <div class="col-md-4">
           <div class="fa fa-building"></div>
@@ -51,7 +51,8 @@
   </div>
   <div class="col-md-2">
     <p class="pull-right">
-      <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %> <span class="fa fa-rss-square"></span> RSS</a>
+      <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %></a><br>
+      <a href="https://blog.dmptool.org/feed/" target="_blank" class="pull-right"><span class="fa fa-rss-square"></span> RSS</a>
     </p>
   </div>
 </div>

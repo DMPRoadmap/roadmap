@@ -260,6 +260,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     namespace :paginable do
       resources :orgs, only: [] do
+        get 'public/:page', action: :public, on: :collection, as: :public
         get 'index/:page', action: :index, on: :collection, as: :index
       end
       # Paginable actions for plans
