@@ -1,4 +1,4 @@
-###<%= _('Terms of use')%>
+<%= _('Terms of use')%>
 ===============
 
 <%= raw _('The <a href="http://www.cldib.org" target="_blank">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector.') %>
