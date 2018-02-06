@@ -9,6 +9,9 @@
 /log/*.log
 /tmp
 
+# Ignore webpack generate images in public folder
+public/*.jpg
+
 # Ignore public subdirectories
 public/apidocs/*
 public/assets/*
