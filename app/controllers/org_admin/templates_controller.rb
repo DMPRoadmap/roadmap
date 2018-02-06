@@ -68,7 +68,17 @@ module OrgAdmin
 
       @current = Template.current(@template.dmptemplate_id)
 
-      unless @template == @current
+      if @template == @current 
+        if @template.published?
+          new_version = @template.get_new_version
+          if !new_version.nil?
+            redirect_to(action: 'edit', id: new_version.id)
+            return
+          else
+            flash[:alert] = _('Unable to create a new version of this template. You are currently working with a published copy.')
+          end
+        end
+      else
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
 
@@ -106,6 +116,13 @@ module OrgAdmin
           return
         end
 
+        # TODO dirty check at template model instead of here for reusability, i.e. method dirty? passing a template object	
+        if @template.description != params["template-desc"] ||
+                @template.title != params[:template][:title] ||
+                @template.links != template_links	
+          @template.dirty = true	
+        end
+        
         @template.description = params["template-desc"]
         @template.links = template_links if template_links.present?
       
