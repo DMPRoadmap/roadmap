@@ -1,26 +1,18 @@
 <%= _('About') %>
 ===============
 
-<%= _("Scholarly researchers today are increasingly required to engage in a range of data management activities to comply with institutional policies, or as a precondition for publication or grant funding. To aid researchers in creating effective Data Management Plans (DMPs), we have worked closely with funders and universities to develop an online application: DMPRoadmap. The tool provides detailed guidance and links to general and institutional resources and walks a researcher through the process of generating a comprehensive plan tailored to specific DMP requirements.") %>
+### <%= _('What is the DMPTool?') %>
 
-### <%= _('DMP Background') %>
+<%= _("The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management.") %>
+
+### <%= _('DMPTool Background') %>
          
-<%= _("The Digital Curation Centre and UC3 team at the California Digital Library have developed and delivered tools for data management planning since the advent of open data policies in 2011. ")%>
-          <%= link_to "DMPonline", "https://DMPonline.dcc.ac.uk/" %><%=_(" (DCC-UK) and ") %><%= link_to "DMPTool", "https://dmptool.org/" %>
-          <%= _("(CDL-US) are now established in our national contexts as the resource for researchers seeking guidance in creating DMPs. We have worked together from the outset to share experiences, but with the explosion of interest in both of our tools across the globe we formalized our partnership to co-develop and maintain a single open-source platform for DMPs. By working together we can extend our reach, keep costs down, and move best practices forward, allowing us to participate in a truly global open science ecosystem.") %>
+<%= _("The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs." %>
 
-<%= _("The new platform will be separate from the services each of our teams runs on top of it. Our shared goal: provide a combined DMPRoadmap platform as a core infrastructure for DMPs. Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases.") %>
+<%= _("The original contributing institutions were: <a href="https://www.cdlib.org/services/uc3/" target="_blank">University of California Curation Center (UC3)</a> at the <a href="https://www.cdlib.org/" target="_blank">California Digital Library</a>, <a href="https://www.dataone.org/" target="_blank">DataONE</a>, <a href="https://www.dcc.ac.uk/" target="_blank">Digital Curation Centre (DCC-UK)</a>, <a href="https://www.si.edu/" target="_blank">Smithsonian Institution</a>, <a href="https://www.library.ucla.edu/" target="_blank">University of California, Los Angeles Library</a>, <a href="https://libraries.ucsd.edu/" target="_blank">University of California, San Diego Libraries</a>, <a href="https://www.library.illinois.edu/" target="_blank">University of Illinois, Urbana-Champaign Library</a>, and <a href="https://www.library.virginia.edu/" target="_blank">University of Virginia Library</a>.") %>
 
-<%= _("We invite you to peruse the DMPRoadmap GitHub wiki to learn how to ")%><%= link_to( "get involved", "https://github.com/DMPRoadmap/roadmap/wiki/get-involved", target: '_blank', id: "get involved" ) %><%= _(" in the project. You can also report bugs and request new features via ") %><a href="https://github.com/DMPRoadmap/roadmap/issues" target='_blank'>
-          <%= _('GitHub Issues') %></a>
+<%= _("Given the success of the first version of the DMPTool, the founding partners obtained funding from the <a href="https://sloan.org/" target="_blank">Alfred P. Sloan Foundation</a> to create a second version of the tool, released in 2014.") %>
 
-### <%= _('Getting Started') %>
+<%= _("Since then the proliferation of open data policies across the globe led to an explosion of interest in the DMPTool and the UK-based version, DMPonline. In 2016 UC3 and DCC decided to formalize our partnership to codevelop and maintain a single open-source platform. The new platform—DMPRoadmap—is separate from the services each of our teams runs on top of it. By providing a core infrastructure for DMPs we can extend our reach and move best practices forward, allowing us to participate in a truly global open science ecosystem.") %>
 
-<%= _("If you have an account please sign in and start creating or editing your DMP.") %>
-<%= _("If you do not have a DMPTool account, click on") %> <a href="<%= root_path %>"><%= _('Sign up') %></a> <%= _("on the homepage.") %>
-
-<%= _("Please visit the") %> <a href="<%= help_path %>"><%= _('Help') %></a> <%= _("page for guidance.") %>
-
-### <%= _("Customising for your Organisation") %>
-
-<%= _("Organisations can customise the tool to highlight local requirements, resources, and services. Institutional templates can be added to address local DMP requirements, and additional sections and questions can be included in funder templates. Users from participating organisations that configure the tool for single sign-on can log in with their own institutional accounts.") %>
+<%= _("Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases. We invite you to peruse the DMPRoadmap GitHub wiki to learn how to ")%><%= link_to( "get involved", "https://github.com/DMPRoadmap/roadmap/wiki/get-involved", target: '_blank', id: "get involved" ) %><%= _(" in the project.") %>
