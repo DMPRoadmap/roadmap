@@ -28,7 +28,7 @@
       <span class="center-block btn-group-justified">
         <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
           <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your organisational credentials') %></a>
+          <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your institutional credentials') %></a>
         <%else%>
           <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
         <%end%>
