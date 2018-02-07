@@ -11,6 +11,7 @@
 
 # Ignore webpack generate images in public folder
 public/*.jpg
+public/*.png
 
 # Ignore public subdirectories
 public/apidocs/*

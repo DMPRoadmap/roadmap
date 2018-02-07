@@ -1,0 +1,32 @@
+<%= form_for resource, as: 'user', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label(:email, _('Email'), class: 'control-label') %>
+        <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+      </div>
+      <div class="checkbox pull-right">
+        <%= label_tag 'remember_email', raw("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label(:password, _('Password'), class: 'control-label') %>
+        <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+      </div>
+      <div class="checkbox pull-right">
+        <label for="passwords_toggle">
+          <input type="checkbox" id="passwords_toggle" /><%= _('Show password') %>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
+      <%= link_to _('Forgot password?'), new_password_path('user'), class: 'pull-right' %>
+    </div>
+  </div>
+<% end %>

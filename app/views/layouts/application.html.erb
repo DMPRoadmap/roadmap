@@ -45,7 +45,7 @@
 
       <!-- header rendering -->
       <header class="container">
-        <%= render partial: "layouts/dmptool_header" %>
+        <%= render partial: "layouts/dmptool/header" %>
       </header>
 
       <%
@@ -62,6 +62,7 @@
       </div>
 
       <% if isActivePage(root_path, true) %>
+        <!-- DMPTool specific homepage image and welcome message -->
         <div class="homepage-img homepage-img-<%= (1..5).to_a.sample %>">
           <div id="home-welcome-msg">
             <div id="message">
@@ -85,7 +86,7 @@
 
       <!-- footer rendering -->
       <footer class="container<%= user_signed_in? ? ' blue' : '' %>">
-        <%= render "layouts/dmptool_footer" %>
+        <%= render "layouts/dmptool/footer" %>
       </footer>
 
       <% unless user_signed_in? %>
@@ -101,7 +102,7 @@
         </div>
 
         <div id="get-started-options" class="modal fade" tabindex="-1" role="dialog">
-          <%= render partial: 'shared/dmptool_get_started' %>
+          <%= render partial: 'shared/dmptool/get_started' %>
         </div>
       <% end %>
   </body>

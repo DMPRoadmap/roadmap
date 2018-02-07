@@ -1,8 +1,8 @@
 class PublicPagesController < ApplicationController
-  after_action :verify_authorized, except: [:template_index, :plan_index, :institutions]
+  after_action :verify_authorized, except: [:template_index, :plan_index, :orgs]
 
-  def institutions
-    render 'institutions', locals: {orgs: Org.includes(:identifier_schemes).where('is_other IS NULL OR is_other = 0').order(:name)}
+  def orgs
+    render 'orgs', locals: {orgs: Org.includes(:identifier_schemes).where('is_other IS NULL OR is_other = 0').order(:name)}
   end
 
   # GET template_index
