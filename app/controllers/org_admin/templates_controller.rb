@@ -376,7 +376,7 @@ module OrgAdmin
           # Load the funder's template(s)
           templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id).to_a
 
-          if org_id.present?
+          unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
             templates.each do |tmplt|
               customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.dmptemplate_id)
@@ -386,20 +386,15 @@ module OrgAdmin
               end
             end
           end
+        else
+          # If no funder was selected retrieve the Org's templates
+          templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
         end
         
-        # Load the org's template(s) 
-        if org_id.present? 
-          # If the Research Org is not also a Funder OR the selected Research Org 
-          # matches the selected Funder (Use case where Org is both a Funder and Org)
-          if !Org.find(org_id).funder? || org_id == funder_id
-            templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
-          end
-          templates = templates.flatten.uniq
-        end
+        templates = templates.flatten.uniq
       end
 
-      # If no templates were available use the generic templates
+      # If no templates were available use the default template
       if templates.empty?
         templates << Template.where(is_default: true, published: true).first
       end
