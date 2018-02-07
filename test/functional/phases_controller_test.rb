@@ -154,7 +154,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     post admin_create_phase_path(@template.phases.first), {phase: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_response :redirect
-    assert_redirected_to admin_show_phase_path(id: Phase.last.id)
+    assert_redirected_to admin_show_phase_path(id: Phase.last.id, r: 'all-templates')
     assert assigns(:phase)
     assert_equal 'Phase: Tester 2', Phase.last.title, "expected the record to have been created!"
     
@@ -187,7 +187,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     put admin_update_phase_path(@template.phases.first), {phase: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(@template.phases.first)
+    assert_redirected_to admin_show_phase_url(@template.phases.first, r: 'all-templates')
     assert assigns(:phase)
     assert_equal 'Phase - UPDATE', @template.phases.first.title, "expected the record to have been updated"
     
@@ -221,7 +221,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     
     delete admin_destroy_phase_path(id: @template.phases.first.id, phase_id: id)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_path(@template)
+    assert_redirected_to edit_org_admin_template_path(@template, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Phase.find(id).nil?

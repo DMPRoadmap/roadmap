@@ -65,7 +65,8 @@ class PhasesController < ApplicationController
         phase: @phase,
         template: @phase.template,
         edit: @edit,
-        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil
+        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil,
+        current_tab: params[:r] || 'all-templates'
       })
   end
 
@@ -75,6 +76,7 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:id])
     authorize @phase
     @template = @phase.template
+    @current_tab = params[:r] || 'all-templates'
   end
 
 
@@ -88,7 +90,8 @@ class PhasesController < ApplicationController
     render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_add',
-        template: @template
+        template: @template,
+        current_tab: params[:r] || 'all-templates'
       })
   end
 
@@ -100,15 +103,16 @@ class PhasesController < ApplicationController
 
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
+    @current_tab = params[:r] || 'all-templates'
     if @phase.save
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id), notice: success_message(_('phase'), _('created'))
+      redirect_to admin_show_phase_path(id: @phase.id, r: @current_tab), notice: success_message(_('phase'), _('created'))
     else
       flash[:alert] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
-      redirect_to edit_org_admin_template_path(id: @phase.template_id)
+      redirect_to edit_org_admin_template_path(id: @phase.template_id, r: @current_tab)
     end
   end
 
@@ -119,11 +123,12 @@ class PhasesController < ApplicationController
     authorize @phase
     
     @phase.description = params["phase-desc"]
+    @current_tab = params[:r] || 'all-templates'
     if @phase.update_attributes(params[:phase])
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(@phase), notice: success_message(_('phase'), _('saved'))
+      redirect_to admin_show_phase_path(@phase, r: @current_tab), notice: success_message(_('phase'), _('saved'))
     else
       @sections = @phase.sections
       @template = @phase.template
@@ -139,7 +144,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(@phase)
+      redirect_to admin_show_phase_path(@phase, r: @current_tab)
     end
   end
 
@@ -148,11 +153,12 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:phase_id])
     authorize @phase
     @template = @phase.template
+    @current_tab = params[:r] || 'all-templates'
     if @phase.destroy
       @template.dirty = true
       @template.save!
 
-      redirect_to edit_org_admin_template_path(@template), notice: success_message(_('phase'), _('deleted'))
+      redirect_to edit_org_admin_template_path(@template, r: @current_tab), notice: success_message(_('phase'), _('deleted'))
     else
       @sections = @phase.sections
 
@@ -168,7 +174,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render 'admin_show'
+      redirect_to admin_show_phase_path(@phase, r: @current_tab)
     end
   end
 end
