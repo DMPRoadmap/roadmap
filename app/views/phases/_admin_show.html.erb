@@ -35,22 +35,21 @@
     <div class="panel-group" id="sections_accordion" role="tablist">
       <% phase.sections.each do |section| %>
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="<%= "headingSection#{section.id}" %>">
-            <div class="panel-title pull-left">
-              <%= section.title %>
+          <div class="heading-button" role="button" data-toggle="collapse"
+               data-parent="sections-accordion" 
+               href="#collapseSection<%= section.id%>"
+               aria-expanded="false" 
+               aria-controls="#collapseSection<%= section.id%>">
+
+            <div class="panel-heading" role="tab" id="<%= "headingSection#{section.id}" %>">
+              <div class="panel-title pull-left">
+                <%= section.title %>
+              </div>
+              <div class="pull-right">
+                <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+              </div>
+              <div class="clearfix"></div>
             </div>
-            <div class="panel-title pull-right">
-              <a
-                role="button"
-                data-toggle="collapse"
-                data-parent="#sections-accordion"
-                href="#collapseSection<%= section.id%>"
-                aria-expanded="false"
-                aria-controls="#collapseSection<%= section.id%>">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="clearfix"></div>
           </div>
           <div
             id="<%= "collapseSection#{section.id}" %>"

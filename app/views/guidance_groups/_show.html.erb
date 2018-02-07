@@ -11,17 +11,18 @@
   <% end %>
   <% group.keys.each_with_index do |theme, i| %>
     <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="heading-<%= i %>">
-        <h2 class="panel-title">
-          <a role="button" data-toggle="collapse" 
-             data-parent="<%= question.id %>-guidance" 
-             href="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>" 
-             aria-controls="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>"
-             class="reverse">
-            <i class="fa fa-plus" aria-hidden="true"></i>
+      <div class="heading-button" role="button" data-toggle="collapse"
+           data-parent="<%= question.id %>-guidance" 
+           href="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>"
+           aria-expanded="false" 
+           aria-controls="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
+           
+        <div class="panel-heading" role="tab" id="heading-<%= i %>">
+          <h2 class="panel-title">
             <%= theme %>
-          </a>
-        </h2>
+            <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+          </h2>
+        </div>
       </div>
       <div id="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>" class="panel-collapse collapse" role="tabpanel"
          aria-labelledby="heading-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
