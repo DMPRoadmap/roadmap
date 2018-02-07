@@ -49,7 +49,7 @@ class HomeController < ApplicationController
         cache_content('rss', rss)  
       end
 
-      render 'index', locals: { image: 2, stats: stats, top_5: top_5, rss: rss } 
+      render 'index', locals: { stats: stats, top_5: top_5, rss: rss } 
     end
   end
 

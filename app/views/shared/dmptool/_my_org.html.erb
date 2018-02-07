@@ -1,0 +1,13 @@
+<% org_admin = current_user.present? && (current_user.can_org_admin? && !current_user.can_super_admin?) %>
+<% tooltip = _('Select an organisation from the list or leave blank if your organisation is not listed.') %>
+<% tooltip += _(' Warning: Changing your organisation will result in the loss of your administrative privileges.') if org_admin %>
+
+<%= f.label :org_name, _('Organisation'), class: 'control-label' %>
+<%= render partial: 'shared/popover', 
+           locals: { message: tooltip, placement: 'right' }%>
+<%= render partial: "shared/accessible_combobox",
+             locals: {name: "user[org_name]",
+                      id: "user_org_name",
+                      default_selection: default_org,
+                      models: orgs,
+                      attribute: 'name'} %>

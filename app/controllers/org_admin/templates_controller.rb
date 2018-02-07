@@ -30,6 +30,7 @@ module OrgAdmin
         published: published,
         current_org: current_user.org, 
         orgs: Org.all,
+        current_tab: params[:r] || 'all-templates',
         scopes: { all: all_templates_hash[:scopes], orgs: own_hash[:scopes], funders: customizable_hash[:scopes] }
       }
     end
@@ -68,7 +69,17 @@ module OrgAdmin
 
       @current = Template.current(@template.dmptemplate_id)
 
-      unless @template == @current
+      if @template == @current 
+        if @template.published?
+          new_version = @template.get_new_version
+          if !new_version.nil?
+            redirect_to(action: 'edit', id: new_version.id)
+            return
+          else
+            flash[:alert] = _('Unable to create a new version of this template. You are currently working with a published copy.')
+          end
+        end
+      else
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
 
@@ -106,6 +117,13 @@ module OrgAdmin
           return
         end
 
+        # TODO dirty check at template model instead of here for reusability, i.e. method dirty? passing a template object	
+        if @template.description != params["template-desc"] ||
+                @template.title != params[:template][:title] ||
+                @template.links != template_links	
+          @template.dirty = true	
+        end
+        
         @template.description = params["template-desc"]
         @template.links = template_links if template_links.present?
       
@@ -359,7 +377,7 @@ module OrgAdmin
           # Load the funder's template(s)
           templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id).to_a
 
-          if org_id.present?
+          unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
             templates.each do |tmplt|
               customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.dmptemplate_id)
@@ -369,20 +387,15 @@ module OrgAdmin
               end
             end
           end
+        else
+          # If no funder was selected retrieve the Org's templates
+          templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
         end
         
-        # Load the org's template(s) 
-        if org_id.present? 
-          # If the Research Org is not also a Funder OR the selected Research Org 
-          # matches the selected Funder (Use case where Org is both a Funder and Org)
-          if !Org.find(org_id).funder? || org_id == funder_id
-            templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
-          end
-          templates = templates.flatten.uniq
-        end
+        templates = templates.flatten.uniq
       end
 
-      # If no templates were available use the generic templates
+      # If no templates were available use the default template
       if templates.empty?
         templates << Template.where(is_default: true, published: true).first
       end

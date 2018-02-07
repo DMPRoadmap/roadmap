@@ -23,8 +23,9 @@
     <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
   </div>
 
-  <div class="form-group col-xs-8" id="org-controls">
-    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
+  <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
+  <div class="form-group col-xs-8" id="org-controls" <%= raw "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
+    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
   </div>
 
   <% if MANY_LANGUAGES %>
@@ -39,9 +40,16 @@
 
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
-      <% if scheme.name.downcase == 'orcid' %>
+      <% if scheme.name.downcase == 'shibboleth' %>
+        <label class='control-label'>
+          <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
+        </label>
+      <% elsif scheme.name.downcase == 'orcid' %>
         <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
+      <% else %>
+        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>
+
       <div class='identifier-scheme'>
         <%= render partial: "external_identifier",
                    locals: { scheme: scheme,

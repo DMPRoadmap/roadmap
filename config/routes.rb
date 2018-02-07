@@ -98,6 +98,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "general_guidance" => 'static_pages#general_guidance'
     get "quick_start_guide" => 'static_pages#help'
     get "news_media" => 'static_pages#news_media'
+    get "public_orgs" => 'public_pages#orgs'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
@@ -259,6 +260,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     namespace :paginable do
       resources :orgs, only: [] do
+        get 'public/:page', action: :public, on: :collection, as: :public
         get 'index/:page', action: :index, on: :collection, as: :index
       end
       # Paginable actions for plans

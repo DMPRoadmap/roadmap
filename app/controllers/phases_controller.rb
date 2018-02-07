@@ -44,17 +44,8 @@ class PhasesController < ApplicationController
 
   #show and edit a phase of the template
   def admin_show
-    phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
-    authorize phase
-
-    # If the user is an OrgAdmin and the existing template is published then version
-    # it before proceeding
-    if current_user.can_org_admin? && phase.template.published?
-      new_version = phase.template.get_new_version      
-      @phase = new_version.phases.find_by(title: phase.title, number: phase.number)
-    else
-      @phase = phase
-    end
+    @phase = Phase.includes(:sections).order(:number).find(params[:id])
+    authorize @phase
 
     @current = Template.current(@phase.template.dmptemplate_id)
     @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
@@ -68,15 +59,14 @@ class PhasesController < ApplicationController
       @original_org = @phase.template.org
     end
     
-    in_use_check(@phase)
-    
     render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_show',
         phase: @phase,
         template: @phase.template,
         edit: @edit,
-        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil
+        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil,
+        current_tab: params[:r] || 'all-templates'
       })
   end
 
@@ -86,6 +76,7 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:id])
     authorize @phase
     @template = @phase.template
+    @current_tab = params[:r] || 'all-templates'
   end
 
 
@@ -99,7 +90,8 @@ class PhasesController < ApplicationController
     render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_add',
-        template: @template
+        template: @template,
+        current_tab: params[:r] || 'all-templates'
       })
   end
 
@@ -111,15 +103,16 @@ class PhasesController < ApplicationController
 
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
+    @current_tab = params[:r] || 'all-templates'
     if @phase.save
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id), notice: success_message(_('phase'), _('created'))
+      redirect_to admin_show_phase_path(id: @phase.id, r: @current_tab), notice: success_message(_('phase'), _('created'))
     else
       flash[:alert] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
-      redirect_to edit_org_admin_template_path(id: @phase.template_id)
+      redirect_to edit_org_admin_template_path(id: @phase.template_id, r: @current_tab)
     end
   end
 
@@ -130,11 +123,12 @@ class PhasesController < ApplicationController
     authorize @phase
     
     @phase.description = params["phase-desc"]
+    @current_tab = params[:r] || 'all-templates'
     if @phase.update_attributes(params[:phase])
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(@phase), notice: success_message(_('phase'), _('saved'))
+      redirect_to admin_show_phase_path(@phase, r: @current_tab), notice: success_message(_('phase'), _('saved'))
     else
       @sections = @phase.sections
       @template = @phase.template
@@ -150,7 +144,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(@phase)
+      redirect_to admin_show_phase_path(@phase, r: @current_tab)
     end
   end
 
@@ -159,11 +153,12 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:phase_id])
     authorize @phase
     @template = @phase.template
+    @current_tab = params[:r] || 'all-templates'
     if @phase.destroy
       @template.dirty = true
       @template.save!
 
-      redirect_to edit_org_admin_template_path(@template), notice: success_message(_('phase'), _('deleted'))
+      redirect_to edit_org_admin_template_path(@template, r: @current_tab), notice: success_message(_('phase'), _('deleted'))
     else
       @sections = @phase.sections
 
@@ -179,28 +174,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render 'admin_show'
+      redirect_to admin_show_phase_path(@phase, r: @current_tab)
     end
   end
-
-
-  private
-    def in_use_check(phase)
-      # Check to see if anyone else has recently been working with this template. If so warn the user
-      current_editors = Rails.cache.read("phase_#{phase.id}") || []
-      current_editors.delete(current_user.id)
-      
-      unless current_editors.empty?
-        flash[:notice] = _('%{users} also appears to be editing this phase!') % 
-          { users: current_editors.collect{ |u| User.find(u).name(false) if User.find(u).present? }.join(', ') }
-      end
-      
-      current_editors << current_user.id unless current_editors.include?(current_user.id)
-      # Record the activity in the Rails cache
-      begin
-        Rails.cache.write("phase_#{phase.id}", current_editors, :expires_in => 15.minutes)
-      rescue Exception => e
-        logger.error("Caught exception RSS parse: #{e}.")
-      end
-    end
 end
