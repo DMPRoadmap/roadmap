@@ -23,6 +23,12 @@ h1, h2, h3, h4 {
 
 /* LINKS AND BUTTONS */
 /* --------------------------------------- */
+#sign-in-menu li.dropdown {
+  a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+    background-color: $white !important;
+  }
+}
+
 a:not(.btn),
 a:not(.btn):hover, a:not(.btn):focus, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):active:hover,
 a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:visited, a:not(.btn) .fa:active, a:not(.btn) .fa:active:hover {
@@ -45,6 +51,7 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
 
 .btn {
   border-radius: 5px;
+  padding: 3px 12px 3px 12px;
 }
 .btn, .btn:hover, .btn:focus, .btn:active, .btn:visited, .btn:active:hover,
 .nav-tabs, .nav-pills,
@@ -81,6 +88,7 @@ th > a > .fa {
   border: none;
   border-left: 1px solid $black;
   border-right: 1px solid $black;
+  padding: 4px 8px;
 }
 .table > tbody > tr > td:first-child {
   border-left: none;
@@ -94,6 +102,17 @@ th > a > .fa {
 .table > tfoot > tr > th, 
 .table > tfoot > tr > td {
   border: none;
+}
+
+tbody td .dropdown-toggle, tbody td .dropdown-toggle:hover, tbody td .dropdown-toggle:focus, tbody td .dropdown-toggle:visited, tbody td .dropdown-toggle:active:hover{
+  color: $dark-blue;
+}
+tbody td .dropdown-menu li a, tbody td .dropdown-menu li a:hover, tbody td .dropdown-menu li a:focus, tbody td .dropdown-menu li a:visited, tbody td .dropdown-menu li a:active, tbody td .dropdown-menu li a:active:hover {
+  color: $dark-blue;
+  background-color: $white !important;
+}
+tbody td .dropdown-menu li a:hover, tbody td .dropdown-menu li a:focus, tbody td .dropdown-menu li a:visited, tbody td .dropdown-menu li a:active, tbody td .dropdown-menu li a:active:hover {
+  text-decoration: underline;
 }
 
 /* ALERTS/NOTIFICATIONS */
@@ -192,6 +211,23 @@ div.tab-content {
     margin-top: -1px;
   }
 }
+
+/* MODALS */
+/* --------------------------------------- */
+#get-started-options .modal-dialog {
+  width: 400px;
+}
+
+/* FORMS */
+/* --------------------------------------- */
+.form-control {
+  height: 28px;
+  padding: 3px 8px;
+}
+#search-addon {
+  padding: 3px 8px;
+}
+
 
 /* HOMEPAGE IMAGES */
 /* --------------------------------------- */
@@ -334,7 +370,7 @@ header {
       margin: 15px 0 0 0;
 
       img.app-logo {
-        margin-top: 15px;
+        margin-top: 5px;
       }
       img.org-logo {
         padding: 0;
@@ -440,7 +476,16 @@ header {
       }
 
       #explore-menu {
-        min-width: 450px;
+        min-width: 500px;
+        font-size: 1.4rem;
+
+        li {
+          padding-left: 5px;
+          
+          a {
+            padding-left: 0;
+          }
+        }
 
         ul.indented {
           margin-left: 15px;
@@ -450,6 +495,7 @@ header {
            
             a {
               padding-right: 0;
+              padding-bottom: 3px;
             }
           }
         }
@@ -461,7 +507,7 @@ header {
       padding: 10px 15px;
     }
 
-    #main-menu {      
+    #main-menu {
       ul {
         margin-top: 10px;
    
@@ -491,11 +537,12 @@ header {
             margin-top: 5px;
 
             li > a {
-              color: $black;
-              padding: 5px 0 10px 0;
+              font-size: 1.4rem;
+              padding: 0 0 10px 0;
             }
             li > a:hover, li > a:focus, li > a:visited, li > a:active, li a:active:hover {
               background-color: $white;
+              text-decoration: underline;
               cursor: pointer;
             }
           }
@@ -611,11 +658,11 @@ main {
   }
 
   #home-news  {
-    .col-md-3 {
-      margin-top: 15px;
+    .col-md-3, .col-md-2 {
+      margin-top: 5px;
     }
-    .col-md-2, .col-md-7 {
-      margin-top: 25px;
+    .col-md-7 {
+      margin-top: 15px;
     }
     a.pull-right {
       font-size: 1.2rem;
