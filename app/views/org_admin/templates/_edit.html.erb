@@ -36,15 +36,18 @@
         <% template_hash[:template][:phases].each do |phase_no, phase_hash| %>
           <% phase = phase_hash[:data] %>
             <div class="panel panel-default">
-              <div class="heading-button" role="button"
-                    data-toggle="collapse"
-                    data-parent="phases_accordion" 
-                    href="<%= "#collapsePhase#{phase.id}" %>"
-                    aria-expanded="false" 
-                    aria-controls="<%= "collapsePhase#{phase.id}" %>">
+              <div class="heading-button" role="button" data-toggle="collapse"
+                   data-parent="phases_accordion" 
+                   href="#collapsePhase#<%= phase.id %>"
+                   aria-expanded="false" 
+                   aria-controls="#collapsePhase#<%= phase.id %>">
+                   
                 <div class="panel-heading" role="tab" id="<%= "headingPhase#{phase.id}" %>">
                   <div class="panel-title pull-left">
                     <%= phase.title %>
+                  </div>
+                  <div class="pull-right">
+                    <i class="fa fa-plus pull-right" aria-hidden="true"></i>
                   </div>
                   <div class="clearfix"></div>
                 </div>

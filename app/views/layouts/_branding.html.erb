@@ -22,24 +22,25 @@
         <% end %>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="org-navbar-menu">
-        <!-- Organisational links -->
-        <% if user_signed_in? && !current_user.org.present? && !current_user.org.links.present? && !current_user.org.links['org'].present? %>
-          <ul class="nav navbar-nav">
-            <% i=1; current_user.org.links['org'].each do |link| %>
-              <% if !link.blank? && i <= max_number_links %>
-                <% if i.odd? %>
-                  </li><li class="org-links">
-                <% end %>
-                <%= link_to link['link'], :target=>'_blank', :class => 'org-a' do %>
-                  <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
-                  <%= link['text'].blank? ? link['link'] : link['text'] %>
-                <% end; i+=1 %>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="org-navbar-menu">
+      <!-- Organisational links -->
+      <% if user_signed_in? and !current_user.org.links.nil? and !current_user.org.links['org'].blank? %>
+        <ul class="nav navbar-nav">
+          <% i=1; current_user.org.links['org'].each do |link| %>
+            <% if !link.blank? && i <= max_number_links %>
+              <% if i.odd? %>
+                </li><li class="org-links">
               <% end %>
             <% end %>
-            <% if i.odd? %>
-              </li><li class="org-links">
+          <% end %>
+          <% if i.odd? %>
+            </li><li class="org-links">
+          <% end %>
+          <% if !current_user.org.contact_email.blank? %>
+            <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
+              <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+              <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
             <% end %>
             <% if !current_user.org.contact_email.blank? %>
               <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>

@@ -124,7 +124,7 @@ thead th.table-scope {
 .panel-default {
   border-color: $grey;
 }
-.panel-default > .panel-heading {
+.heading-button > .panel-heading, .panel-default > .panel-heading {
   background-color: $grey;
   color: $white;
   border-top-right-radius: 0px;
