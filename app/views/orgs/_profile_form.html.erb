@@ -37,7 +37,7 @@
                    context: 'org',
                    title: _('Organisation URLs'),
                    links: (org.links.present? ? org.links['org'] : []),
-                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   max_number_links: MAX_NUMBER_LINKS_ORG,
                    tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>

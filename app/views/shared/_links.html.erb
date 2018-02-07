@@ -44,7 +44,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <a href="#" class="new"><%= _('+ Add an additional URL') %></a>
+      <a href="#" class="new<%= links.length >= max_number_links ? ' hide' : '' %>"><%= _('+ Add an additional URL') %></a>
     </div>
   </div>
 </div>
