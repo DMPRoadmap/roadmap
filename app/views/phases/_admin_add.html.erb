@@ -1,6 +1,6 @@
 <h2><%= _('Phase details') %></h2>
 <p><%= _('When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions.') %></p>
-<%= form_for :phase, { url: admin_create_phase_path } do |f| %>
+<%= form_for :phase, { url: admin_create_phase_path(r: current_tab) } do |f| %>
   <%= f.hidden_field :template_id, value: @template.id%>
   <div class="form-group col-md-10">
     <%= f.label(:title, _('Title') ,class: "control-label") %>

@@ -1,4 +1,4 @@
-<% # locals: funder_templates, org_templates, current_user, current_org, orgs %>
+<% # locals: funder_templates, org_templates, current_user, current_org, orgs, current_tab %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
@@ -24,16 +24,16 @@
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
       <% if current_user.can_super_admin? %>
-        <li role="all-templates" class="active">
+        <li role="all-templates"<%= current_tab == 'all-templates' ? 'class=active' : '' %>>
           <a href="#all-templates" role="tab" aria-controls="all-templates" data-toggle="tab"><%= _('All Templates') %></a>
         </li>
       <% end %>
-      <li role="organisation-templates" class="<%= !current_user.can_super_admin? ? 'active' : '' %>">
+      <li role="organisation-templates"<%= current_tab == 'organisation-templates' ? 'class=active' : '' %>>
         <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></a>
       </li>
       <!-- If the Org is not just a funder then show the customizations table -->
       <% if !current_org.funder_only? %>
-        <li role="funder-templates">
+        <li role="funder-templates"<%= current_tab == 'funder-templates' ? 'class=active' : '' %>>
           <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
         </li>
       <% end %>
