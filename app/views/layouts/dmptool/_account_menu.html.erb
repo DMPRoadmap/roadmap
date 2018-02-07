@@ -14,7 +14,7 @@
               <li><%= link_to _('General FAQs'), faq_path %></li>
            </ul>
            <ul class="nav col-md-7">
-             <li><%= link_to _('For Researchers') %>
+             <li><%= _('For Researchers') %>
                <ul class="nav indented">
                  <li><%= link_to _('Data Management General Guidance'), general_guidance_path %></li>
                  <li><%= link_to _('Quick Start Guide'), help_path %></li>
@@ -37,7 +37,7 @@
         </a>
         <ul id="signin-options" class="dropdown-menu" aria-labelledby="header-signin">
           <li>
-            <%= render partial: 'shared/sign_in_options' %>
+            <%= render partial: 'shared/dmptool/sign_in_options' %>
           </li>
         </ul>
       </li>

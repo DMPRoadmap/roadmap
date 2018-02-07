@@ -31,7 +31,7 @@
 * <%= _('Organisational: anyone at your organisation can view your plan.') %>
 * <%= _('Public: anyone can view your plan in the Public DMPs list.') %>
 
-<%= _('By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50&#37; of the questions to enable these options.') %>
+<%= _('By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options.') %>
  
 ### <%= _('Request feedback') %>
 
