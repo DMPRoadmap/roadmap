@@ -31,7 +31,7 @@ FAQ
 [I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)   
 [How do I create guidance?](#q-how-do-i-create-guidance)  
 
-Can't find what you’re looking for? [Contact us]((https://dmptool.org/contact-us))
+Can't find what you’re looking for? [Contact us](https://dmptool.org/contact_us)
 
 ***
 ### About the DMPTool
@@ -40,101 +40,98 @@ Can't find what you’re looking for? [Contact us]((https://dmptool.org/contact-
 A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run.
 
 
-Read our [Data Management General Guidelines](https://dmptool.org/dm_guidance) for more information about DMPs.
+Read our [Data Management General Guidelines](https://dmptool.org/general_guidance) for more information about data management plans.
 ***
 
 ##### Q: What can I do with the DMPTool?  
-A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at [partner institutions](https://dmptool.org/partners_list) to help fulfill your data management requirements. 
+A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at [participating institutions](https://dmptool.org/institutions) to help fulfill data management requirements. 
 
 
-Use our [Quick Start Guide](https://dmptool.org/quickstartguide/) to begin creating a plan.
+Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
 ***
 
 ##### Q: How much does it cost to use the DMPTool?  
 A: The DMPTool is FREE. Anyone can create data management plans using the DMPTool. 
 
 
-A login is required to access the DMPTool. If you are a researcher from a [partner institution](https://dmptool.org/partners_list), you can log in as a user from your institution. If your institution is not a partner, you can create your own account. 
+A login is required to access the DMPTool. If you are a researcher from a [participating institution](https://dmptool.org/institutions), you can log in as a user from your institution. If your institution does not participate, you can create your own account. 
 
 
-Use our [Quick Start Guide](https://dmptool.org/quickstartguide/) to begin creating a plan.
+Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
 ***
 
 ##### Q: Who can use the DMPTool?  
-A: Anyone can create data management plans. If you are a researcher from one of the [partner institutions](https://dmptool.org/partners_list), you can log in as a user from your institution. By being affiliated with your institution, you will be presented with institution-specific guidance (displayed as resource links tab) to help you complete your plan. 
+A: Anyone can create data management plans. If you are a researcher from one of the [participating institutions](https://dmptool.org/institutions), you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan. 
 
+If your institution does not participate, you can create your own account. 
 
-If your institution is not a partner, you can create your own account by selecting “Not in List” as your institution upon login. 
-
-
-Use our [Quick Start Guide](https://dmptool.org/quickstartguide/) to begin creating a plan.
+Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
 ***
 
-##### Q: How can my institution become a DMPTool partner?  
-A: First, check this [list](https://dmptool.org/partners_list) to make sure your institution is not already a partner. Learn more about becoming a [partner institution](https://dmptool.org/partners).
+##### Q: How can my institution participate in the DMPTool?  
+A: First, check this [list](https://dmptool.org/institutions) to make sure your institution is not already participating. Learn more about becoming a [participating institution](https://dmptool.org/about).
 
-
-If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please contact us at [uc3@ucop.edu](mailto:uc3@ucop.edu)
+If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please [contact us](https://dmptool.org/contact_us).
 ***
 
-##### Q: What are the benefits of becoming a DMPTool partner?  
-A: Partner institutions can incorporate information about their resources and services to aid researchers with data management. Partner institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from partner institutions that have configured the tool with Shibboleth can log in with their own institutional accounts. 
+##### Q: What are the benefits of participating in the DMPTool?  
+A: Participating institutions can incorporate information about their resources and services to aid researchers with data management. Participating institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from particpating institutions that have configured the tool with Shibboleth can log in with their own institutional accounts. 
 
 
-For more information, see https://dmptool.org/partners.
+For more information, see [About participating](https://dmptool.org/about).
 ***
 
 ##### Q: Have funders endorsed the DMPTool?  
 A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT). 
 
-
 Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes. 
 ***
 
 ##### Q: Who owns the data management plans created with the DMPTool?  
-A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of [public DMPs](https://dmptool.org/public_dmps) on the DMPTool website. This will benefit other DMPTool users and promote open research. 
+A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of [public plans](https://dmptool.org/public_plans) on the DMPTool website. This will benefit other DMPTool users and promote open research. 
 
-
-See the [Quick Start Guide](https://dmptool.org/quickstartguide/) for more information on setting your plan's visibility.
+See the [Quick Start Guide](https://dmptool.org/help) for more information on setting your plan's visibility.
 ***
 
 ##### Q: Why am I getting email notifications from the DMPTool?   
-A: There are multiple actions that generate automatic email notifications from the DMPTool. Users can turn these notifications on/off on the dashboard. Navigate to the "My Profile" tab, then the "Notification Preferences" tab, and check/uncheck the appropriate boxes.
+A: There are multiple actions that generate automatic email notifications from the DMPTool. Users can turn these notifications on/off on the profile page. Navigate to "Edit profile" by clicking your name in the upper right dropdown menu, then select the "Notification preferences" tab, check/uncheck the appropriate boxes, and click the button to save your changes.
 ***
 
 ### For Researchers
 
 
-##### Q: I'm in a hurry! Is there a quick start guide for creating a DMP?  
-A: Yes! The [Quick Start Guide](https://dmptool.org/quickstartguide/) is available as a website or a PDF you can download.
+##### Q: I'm in a hurry! Is there a quick start guide for creating a data management plan?  
+A: Yes! The [Quick Start Guide](https://dmptool.org/help/) is available as a website or a PDF you can download.
+***
+
+##### Q: Where can I read more about funder requirements for data management plans?  
+A: The [Funder Requirements page](https://dmptool.org/public_templates) provides direct links to funder guidelines, as well as sample plans if provided. You do not have to be logged into the DMPTool to access this page.
 ***
 
 ##### Q: Are there examples of data management plans?  
-A: The DMPTool hosts a collection of [public data management plans](https://dmptool.org/public_dmps).
-The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the [DMP Requirements page](https://dmptool.org/guidance).
+A: The DMPTool hosts a collection of [public data management plans](https://dmptool.org/public_plans).
+The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the [Funder Requirements page](https://dmptool.org/public_templates).
 ***
 
-##### Q: What's the difference between “sample” and “public” DMPs?  
-A: The sample plans on the [DMP Requirements page](https://dmptool.org/guidance) are created by funders and offered as guidance on their websites. The [Public DMPs](https://dmptool.org/public_dmps) are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans.
+##### Q: What's the difference between “sample” and “public” data management plans?  
+A: The sample plans on the [Funder Requirements page](https://dmptool.org/public_templates) are created by funders and offered as guidance on their websites. The [Public Plans](https://dmptool.org/public_plans) are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans.
 ***
 
-##### Q: What are the visibility options for my DMP?   
+##### Q: What are the visibility options for my data management plan?   
 A: There are three visibility options for each plan you create:   
-1. Private. This is the default setting. Your plan will only be visible to you and your plan co-owners.  
-2. Institutional. If your institution is a DMPTool partner, this setting allows administrators and users from your institution to see your plan.  
-3. Public. It will be available on the [Public DMPs](https://dmptool.org/public_dmps) section of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).   
+1. Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.  
+2. Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.  
+3. Public. Your plan will be available on the [Public Plans](https://dmptool.org/public_plans) section of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).   
 ***
 
 ##### Q: I created a test plan. How can I delete it (or hide it)?   
 A: 1. Log into the DMPTool.  
-2. Select "My DMPs" from the navigation bar.  
-3. Hover over the name of the test DMP you created.  
-4. To delete the plan: click Delete. You will be asked to confirm this action.   
-5. To change the plan's visibility so it is no longer public: click Share and select the "Private" radio button.  
+2. On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private). 
+3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.
 ***
 
 ##### Q: How long will you save my plans?  
-A: We do not plan to delete any plans created with the DMPTool. As a plan owner, however, you can delete plans by going to “My Dashboard” and selecting “Delete” next to the plan name.
+A: We do not plan to delete any plans created with the DMPTool. As a plan owner, however, you can delete plans by going to “My Dashboard” and selecting “Remove” from the Actions menu next to the plan name.
 ***
 
 ##### Q: What if I move to a new institution?   
@@ -142,24 +139,20 @@ A: Since the DMPTool account is tied to an email address, the information will n
 ***
 
 ##### Q: Who can help me at my institution?  
-A: If your institution is a [DMPTool partner](https://dmptool.org/partners_list), you can log into the tool and click on the “Contact Institution Administration” link in the top banner. Your email will be sent directly to the DMP expert on your campus who can follow up with you. If your institution is not a DMPTool partner, check with a librarian to see if someone on campus can help. Alternatively, you can email us with questions at [uc3@ucop.edu](mailto:uc3@ucop.edu)
+A: If your institution [participates in the DMPTool](https://dmptool.org/institutions), you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help. 
 ***
 
 ##### Q: I have a collaborator. How can we work on the same plan?  
-A: First both of you must create accounts in the DMPTool. Then you simply add your collaborator(s) to your plan as a co-owner(s). You can do this on the “DMP Overview” page. Click “Add” and locate your collaborator by email address. 
+A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation. 
 
 
-For more information, see the [Quick Start Guide](https://dmptool.org/quickstartguide/).
+For more information, see the [Quick Start Guide](https://dmptool.org/help/).
 ***
 
-##### Q: What does it mean to have a plan “reviewed”?  
-A: The review functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Note: review functionality is NOT connected to any funders currently. Submitting a plan for review is within-institution only.
+##### Q: What happens when I "request feedback" on a plan?  
+A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.
 
-Administrators: if you are interested in enabling review functionality for users at your institution, see the [Review](Review-Functionality) section of the help wiki. 
-***
-
-##### Q: Where can I read more about funder requirements for DMPs?  
-A: The [DMP Requirements page](https://dmptool.org/guidance) provides direct links to funder guidelines, as well as sample plans if provided. You do not have to be logged into the DMPTool to access this page.
+Administrators: if you are interested in enabling this functionality for users at your institution, see the [Request feedback](Request-feedback) section of the help for administrators wiki. 
 ***
 
 ### For Administrators
