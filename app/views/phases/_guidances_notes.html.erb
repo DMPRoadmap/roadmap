@@ -46,10 +46,10 @@
         <% end %>
       </ul>
       <div class="tab-content">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <% if annotations.present? %>
-              <div id="annotations-<%= question.id %>" role="tabpanel" class="tab-pane active">
+        <% if annotations.present? %>
+          <div id="annotations-<%= question.id %>" role="tabpanel" class="tab-pane active">
+            <div class="panel panel-default">
+              <div class="panel-body">
                 <!-- annotations with type guidance -->
                 <% num_annotations = 0 %>
                 <% i = 0 %>
@@ -65,20 +65,24 @@
                   <% i += 1 %>
                 <% end %>
               </div>
-            <% end %>
-            <% guidance_accordion_id = 0 %>
-            <% guidance_set.keys.each_with_index do |group, i| %>
-              <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
-              <% if obj.present? %>
-                <% accordion_id = "#{question.id}-#{obj.id}" %>
-                <div id="guidance-<%= accordion_id %>" role="tabpanel" class="tab-pane<%= annotations.present? ? '' : ' active' %>">
+            </div>
+          </div>
+        <% end %>
+        <% guidance_accordion_id = 0 %>
+        <% guidance_set.keys.each_with_index do |group, i| %>
+          <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
+          <% if obj.present? %>
+            <% accordion_id = "#{question.id}-#{obj.id}" %>
+            <div id="guidance-<%= accordion_id %>" role="tabpanel" class="tab-pane<%= annotations.present? ? '' : ' active' %>">
+              <div class="panel panel-default">
+                <div class="panel-body">
                   <%= render partial: 'guidance_groups/show', 
                              locals: { group: guidance_set[group], question: question, guidance_accordion_id: "#{accordion_id}-#{i}" } %>
                 </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
 
