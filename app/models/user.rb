@@ -56,7 +56,13 @@ class User < ActiveRecord::Base
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    where("firstname LIKE ? OR surname LIKE ? OR email LIKE ?", search_pattern, search_pattern, search_pattern)
+    # MySQL does not support standard string concatenation and since concat_ws or concat functions do
+    # not exist for sqlite, we have to come up with this conditional
+    if ActiveRecord::Base.connection.adapter_name == "Mysql2"
+      where("concat_ws(' ', firstname, surname) LIKE ? OR email LIKE ?", search_pattern, search_pattern)
+    else
+      where("firstname || ' ' || surname LIKE ? OR email LIKE ?", search_pattern, search_pattern)
+    end
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
