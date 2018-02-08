@@ -24,7 +24,7 @@
   </div>
 
   <div class="form-group col-xs-8" id="org-controls">
-    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
+    <%= render partial: "shared/dmptool/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
   </div>
 
   <% if MANY_LANGUAGES %>
@@ -39,14 +39,16 @@
 
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
-      <% if scheme.name.downcase == 'orcid' %>
-        <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
+      <% unless scheme.name.downcase == 'shibboleth' %>
+        <% if scheme.name.downcase == 'orcid' %>
+          <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
+        <% end %>
+        <div class='identifier-scheme'>
+          <%= render partial: "external_identifier",
+                     locals: { scheme: scheme,
+                               id: current_user.identifier_for(scheme)} %>
+        </div>
       <% end %>
-      <div class='identifier-scheme'>
-        <%= render partial: "external_identifier",
-                   locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
-      </div>
     </div>
   <% end %>
 

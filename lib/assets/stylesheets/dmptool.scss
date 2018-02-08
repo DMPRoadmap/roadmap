@@ -93,6 +93,17 @@ th > a > .fa {
   border-left: 1px solid $black;
   border-right: 1px solid $black;
   padding: 4px 8px;
+
+  a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+    font-size: 1.2rem;
+  }
+
+  input {
+    margin: 0;
+  }
+  button {
+		padding: 0;
+  }
 }
 .table > tbody > tr > td:first-child {
   border-left: none;
@@ -129,6 +140,9 @@ nav.pagination {
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 5px;
+}
+.alert-info {
+  background-color: $light-blue;
 }
 
 /* FONT SIZES */

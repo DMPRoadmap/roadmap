@@ -8,16 +8,16 @@
         <li>
           <div class="row-fluid">
             <ul class="nav col-md-5">
-              <li><%= link_to _('Public Plans'), public_plans_path %></li>
               <li><%= link_to _('Funder Requirements'), public_templates_path %></li>
+              <li><%= link_to _('Public Plans'), public_plans_path %></li>
               <li><%= link_to _('Participating Institutions'), public_orgs_path %></li>
-              <li><%= link_to _('General FAQs'), faq_path %></li>
+              <li><%= link_to _('FAQ'), faq_path %></li>
            </ul>
            <ul class="nav col-md-7">
              <li><%= _('For Researchers') %>
                <ul class="nav indented">
-                 <li><%= link_to _('Data Management General Guidance'), general_guidance_path %></li>
                  <li><%= link_to _('Quick Start Guide'), help_path %></li>
+                 <li><%= link_to _('Data Management General Guidance'), general_guidance_path %></li>
                </ul>
              </li>
              <li><%= link_to _('For Administrators'), administrators_path %></li>
