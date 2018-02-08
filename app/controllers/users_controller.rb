@@ -10,7 +10,11 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   def admin_index
     authorize User
-    @users = current_user.org.users.includes(:roles).page(1)
+    if current_user.can_super_admin?
+      @users = User.includes(:roles).page(1)
+    else
+      @users = current_user.org.users.includes(:roles).page(1)
+    end
   end
 
   ##
