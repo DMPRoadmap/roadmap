@@ -72,8 +72,9 @@ class PlansController < ApplicationController
       if @plan.save
         @plan.assign_creator(current_user)
 
-        # pre-select org's guidance
-        ggs = GuidanceGroup.where(org_id: org_id, optional_subset: false, published: true)
+        # pre-select org's guidance and the default org's guidance
+        ids = (Org.managing_orgs << org_id).flatten.uniq
+        ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
 
@@ -108,35 +109,6 @@ class PlansController < ApplicationController
       end
     end
   end
-  
-  ## Using GET request to display all gudiance groups
-  def select_guidances_list
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    @all_guidance_groups = @plan.get_guidance_group_options
-    @selected_guidance_groups = @plan.guidance_groups
-
-    render json: {
-      "plan" => {
-        "id" => @plan.id,
-        "html" => render_to_string(partial: 'plans/all_guidances', 
-                                   locals: { guidance_groups: @all_guidance_groups,
-                                             selected_guidance_groups: @selected_guidance_groups }, 
-                                   formats: [:html])
-      }
-    }.to_json
-  end
-
-  ## Using PUT request to update the plan with the guidance group selections
-  def update_guidances_list
-    @plan = Plan.find(params[:id])
-    authorize @plan
-
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
-    save_guidance_selections(guidance_group_ids)
-    @plan.save!
-    redirect_to(request.env["HTTP_REFERER"] || plan_path(@plan), notice: success_message(_('plan'), _('saved')) )
-  end
 
   # GET /plans/show
   def show
@@ -154,17 +126,16 @@ class PlansController < ApplicationController
 
     # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
     @important_ggs = []
-    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
+
+    @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]] if @all_ggs_grouped_by_org.include?(current_user.org)
     @all_ggs_grouped_by_org.each do |org, ggs|
       if org.organisation?
         @important_ggs << [org,ggs]
-        @all_ggs_grouped_by_org.delete(org)
       end
 
       # If this is one of the already selected guidance groups its important!
       if !(ggs & @selected_guidance_groups).empty?
         @important_ggs << [org,ggs] unless @important_ggs.include?([org,ggs])
-        @all_ggs_grouped_by_org.delete(org)
       end
     end
 
@@ -186,7 +157,7 @@ class PlansController < ApplicationController
     attrs = plan_params
 
     # Save the guidance group selections
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
+    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
     save_guidance_selections(guidance_group_ids)
 
     respond_to do |format|
