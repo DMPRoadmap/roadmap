@@ -119,15 +119,15 @@ A: The sample plans on the [Funder Requirements page](https://dmptool.org/public
 
 ##### Q: What are the visibility options for my data management plan?   
 A: There are three visibility options for each plan you create:   
-1. Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.  
-2. Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.  
-3. Public. Your plan will be available on the [Public Plans](https://dmptool.org/public_plans) section of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).   
+1. Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.     
+2. Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.     
+3. Public. Your plan will be available on the [Public Plans](https://dmptool.org/public_plans) section of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).      
 ***
 
 ##### Q: I created a test plan. How can I delete it (or hide it)?   
-A: 1. Log into the DMPTool.  
-2. On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private). 
-3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.
+A: 1. Log into the DMPTool.    
+2. On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).    
+3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.    
 ***
 
 ##### Q: How long will you save my plans?  
@@ -158,24 +158,18 @@ Administrators: if you are interested in enabling this functionality for users a
 ### For Administrators
 
 ##### Q: Where can I find help customizing the DMPTool for my institution?  
-A: There is an extensive list of [help topics for administrators](Help-for-Administrators) configuring the DMPTool located on GitHub. In the future, we plan to enable users to view customizations created by other institutions.
-***
+A: There is an extensive list of [help topics for administrators](Help-for-Administrators) configuring the DMPTool located on GitHub. 
 
-##### Q: How do I create a DMP template for my multi-institution group or project?  
-A: Any template created by an administrator of any institution can be made publicly available. Simply select "Public" visibility on the template overview. We do ask that you consult with the DMPTool team before activating a public template to review it for consistency with existing template standards. 
-
-To create a public template, follow the instructions in the [help documentation](Creating-Templates-for-Multi-Institution-Use).
+To view guidance and templates created by others (if available), create a new plan in the tool and choose any organization for the second step: "Select the primary research organization." This will automatically present you with guidance created by that organization after clicking to "Create plan." And for the third create plan step, if you tick the box  "No funder associated with this plan" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to "Create plan." Alternatively, you can untick the box and display organizational guidance on any funder template.
 ***
 
 ##### Q: I created a test template. How can I delete it?   
-A: DMPTool administrators (including template editors and institutional reviewers) can delete templates. This option is only available if no DMPs have been created using that template. If you cannot or do not want to delete a template, you can make the template “Inactive” so that it will not appear to users. See our [help documentation](Template-creation#activating-and-deactivating-a-template) on how to do this.
+A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can "Unpublish" the template so that it will not appear to users. See our [help documentation](Template-creation#activating-and-deactivating-a-template) on how to do this.
 
-
-Note that when you delete a template, other resources attached to that template and no other will also be deleted (e.g., Customizations, Funder Links).
 ***
 
-##### Q: How do I format guidance?  
-A: You can add formatting to the customization view for DMP templates by including HTML tags. 
+##### Q: How do I create guidance?  And what are themes?
+A:  
 ***
 
 ### Can't find the answer you’re looking for? [Contact us](https://dmptool.org/contact-us)
