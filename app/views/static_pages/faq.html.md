@@ -26,10 +26,8 @@ FAQ
 [What happens when I “request feedback” on a plan?](#q-what-happens-when-i-request-feedback-on-a-plan)   
 
 **For Administrators**  
-[Where can I find help customizing the DMPTool for my institution?](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institution)   
-[How do I create a data management plan template for my multi-institution group or project?](#q-how-do-i-create-a-data-management-plan-template-for-my-multi-institution-group-or-project)  
-[I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)   
-[How do I create guidance?](#q-how-do-i-create-guidance)  
+[Where can I find help customizing the DMPTool for my institution?](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institution)   [I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)   
+[How do I create guidance? And what are themes?](#q-how-do-i-create-guidance-and-what-are-themes)  
 
 Can't find what you’re looking for? [Contact us](https://dmptool.org/contact_us)
 
