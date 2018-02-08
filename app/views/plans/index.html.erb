@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-md-12">    
-    <h1><%= _('My Dashboard') %></h1>
+    <h1>
+      <%= _('My Dashboard') %>
+      <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary pull-right" %>
+    </h1>
     <!-- if the user has projects -->
     <p>
       <% if @plans.count > 0 %>
@@ -21,11 +24,6 @@
       controller: 'paginable/plans',
       action: 'privately_visible', 
       scope: @plans) %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
   </div>
 </div>
 <div class="row">

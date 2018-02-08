@@ -24,11 +24,11 @@
                         root_path) %>
           <% end %>
         </div>
-        <div class="col-md-5 org-name-nav text-center">
-          <div id="banner-org-name"><%= current_user.org.name %></div>
-        </div>
-        <div class="col-md-4" id="org-links">
-          <% if current_user.org.present? && !current_user.org.is_other? %>
+        <% if current_user.org.present? && !current_user.org.is_other? %>
+          <div class="col-md-5 org-name-nav text-center">
+            <div id="banner-org-name"><%= current_user.org.name %></div>
+          </div>
+          <div class="col-md-4" id="org-links">
             <div>
               <ul class="list-unstyled">
                 <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
@@ -48,8 +48,8 @@
                 <% end %>
               </ul>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>

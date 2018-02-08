@@ -18,7 +18,7 @@ h1, h2, h3, h4,
 
 h1, h2, h3, h4 {
   margin-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 /* LINKS AND BUTTONS */
@@ -51,7 +51,7 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
 
 .btn {
   border-radius: 5px;
-  padding: 3px 12px 3px 12px;
+  padding: 3px 12px 4px 12px;
 }
 .btn, .btn:hover, .btn:focus, .btn:active, .btn:visited, .btn:active:hover,
 .nav-tabs, .nav-pills,
@@ -60,6 +60,10 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
 .table tfoot > tr > th {
   background-color: $dark-blue;
 }
+.btn-default, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default:visited, .btn-default:active:hover, .btn-default.active:hover {
+  margin-bottom: 8px;
+}
+
 
 /* TABLES */
 /* --------------------------------------- */
@@ -115,6 +119,10 @@ tbody td .dropdown-menu li a:hover, tbody td .dropdown-menu li a:focus, tbody td
   text-decoration: underline;
 }
 
+nav.pagination {
+  padding-bottom: 10px;
+}
+
 /* ALERTS/NOTIFICATIONS */
 /* --------------------------------------- */
 .alert {
@@ -130,6 +138,10 @@ h1 {
 }
 h2 {
   font-size: 2.4rem;
+}
+
+.fa-question-circle {
+  font-size: 1.6rem;
 }
 
 /* CONTAINERS */
@@ -153,13 +165,13 @@ h2 {
     border: 1px solid $black;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    padding: 5px;
+    padding: 3px;
     margin-right: 2px;
     
     a, a:hover, a:focus, a:visited, a:active, a:active:hover {
       color: $white;
       border: none;
-      margin: 5px;
+      margin: 0;
       padding: 5px 10px;
       cursor: pointer;
     }
@@ -189,26 +201,35 @@ div.tab-content {
   }
 }
 
+/* PILLS */
+/* --------------------------------------- */
+.nav-pills {
+  background-color: $dark-blue;
+
+  li {
+    padding-top: 0;
+  }
+}
+
+
 /* ACCORDIONS */
 /* --------------------------------------- */
 .heading-button {
   position: relative;
   background-color: $dark-blue;
   color: $white;
-  padding-bottom: 10px;
   
-  .panel-heading:before {
-    font-family: 'FontAwesome';
-    font-size: 1.4rem;
-    font-weight: normal;
-    color: $white;
-    content: "\f067";
-    position: absolute;
-    left: 8px;
+  .panel-heading {
+    background-color: $dark-blue;
+    padding-left: 10px;
   }
   .panel-title {
-    padding-left: 10px;
     margin-top: -1px;
+
+    .fa {
+      font-size: 1.5rem;
+      padding-right: 5px;
+    }
   }
 }
 
@@ -220,14 +241,25 @@ div.tab-content {
 
 /* FORMS */
 /* --------------------------------------- */
+.form-group {
+  margin-bottom: 8px;
+}
 .form-control {
   height: 28px;
   padding: 3px 8px;
 }
+.checkbox label input[type="checkbox"] {
+  margin-top: 2px;
+}
+input[type="radio"], input[type="checkbox"] {
+  background-color: $light-grey;
+}
+body#tinymce.mce-content-body {
+  font-size: 12px !important;
+}
 #search-addon {
   padding: 3px 8px;
 }
-
 
 /* HOMEPAGE IMAGES */
 /* --------------------------------------- */
@@ -720,4 +752,50 @@ footer.blue {
   border-top: none;
   border-radius: 5px;
   padding-left: 5px;
+
+  .navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover {
+    background-color: $light-blue;
+  }
 }
+
+
+/* ============================================================= */
+/* ============================================================= */
+/*   SPECIFIC PAGE RULES */
+/* ============================================================= */
+/* ============================================================= */
+/*   Write Plan page */
+/*   --------------------------------------- */
+.progress-bar {
+  background-color: $dark-blue;
+}
+.question-form span.label-info, .question-form span.label-warning {
+  padding: 5px 10px;
+  color: $black;
+  font-weight: normal;
+}
+.question-form span.label-info {
+  background-color: $light-blue;
+}
+label[for="answer_text"], label[for="note_text"] {
+  font-weight: normal;
+}
+div[id^="guidance-"] .panel {
+  .heading-button, .heading-button .panel-heading {
+    background-color: white;
+    color: $dark-blue;
+  }
+}
+
+/*   Theme selectors on the Edit/Create Guidance and Edit/Create Question pages */
+/*   --------------------------------------- */
+#new_edit_guidance .form-group .row, .question_form .form-group .row {
+  width: 70%;
+}
+
+/*   Edit/Create Org */
+/*   --------------------------------------- */
+#edit_org_profile_form div.bordered {
+  margin-top: 10px;
+}
+
