@@ -20,7 +20,7 @@
                         <tbody>
                             <% scope.each do |plan| %>
                                 <tr>
-                                    <td><%= link_to "#{plan.title.length > 40 ? "#{plan.title[0..39]} ..." : plan.title}", plan_path(plan) %></td>
+                                    <td><%= plan.title.length > 40 ? "#{plan.title[0..39]} ..." : plan.title %></td>
                                     <td><%= plan.template.title %></td>
                                     <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
                                     <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
