@@ -3,6 +3,11 @@ class Paginable::UsersController < ApplicationController
   # /paginable/users/index/:page
   def index
     authorize User
-    paginable_renderise(partial: 'index', scope: current_user.org.users.includes(:roles))
+    if current_user.can_super_admin?
+      scope = User.includes(:roles)
+    else
+      scope = current_user.org.users.includes(:roles)
+    end
+    paginable_renderise(partial: 'index', scope: scope)
   end
 end
