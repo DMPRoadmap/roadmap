@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     @user.can_grant_permissions?
   end
 
+  def index?
+    admin_index?
+  end
+
   def admin_grant_permissions?
     @user.can_grant_permissions? && (@users.org_id == @user.org_id)
   end
