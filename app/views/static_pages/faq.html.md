@@ -26,9 +26,9 @@ FAQ
 [What happens when I “request feedback” on a plan?](#q-what-happens-when-i-request-feedback-on-a-plan)   
 
 **For Administrators**  
-[Where can I find help customizing the DMPTool for my institution/organization?](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institution-organization)  
-[Can I see customized templates and guidance created by administrators at other organizations?](#q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations)
-[I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)   
+[Where can I find help customizing the DMPTool for my institution/organization?](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institutionorganization)    
+[Can I see customized templates and guidance created by administrators at other organizations?](#q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations)   
+[I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)     
 [How do I create guidance? And what are themes?](#q-how-do-i-create-guidance-and-what-are-themes)  
 
 Can't find what you’re looking for? [Contact us](https://dmptool.org/contact_us)
@@ -125,7 +125,8 @@ A: There are three visibility options for each plan you create:
 ***
 
 ##### Q: I created a test plan. How can I delete it (or hide it)?   
-A: 1. Log into the DMPTool.    
+A:    
+1. Log into the DMPTool.    
 2. On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).    
 3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.    
 ***
@@ -161,11 +162,11 @@ Administrators: if you are interested in enabling this functionality for users a
 A: There is an extensive list of [help topics for administrators](Help-for-Administrators) customizing the DMPTool located on GitHub. You will find detailed instructions for: 
 
 1. Setting up the DMPTool   
-- Enabling Shibboleth   
-- Granting administrator privileges   
-- Customizing your organizational profile   
-- Providing feedback on plans   
-- Usage information   
+    - Enabling Shibboleth   
+    - Granting administrator privileges   
+    - Customizing your organizational profile   
+    - Providing feedback on plans   
+    - Usage information   
 2. Quick overview of terms   
 3. Creating guidance   
 4. Customizing funder templates   
