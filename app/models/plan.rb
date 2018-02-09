@@ -1,5 +1,6 @@
 class Plan < ActiveRecord::Base
   include ConditionalUserMailer
+  include ExportablePlan
   before_validation :set_creation_defaults
 
   ##

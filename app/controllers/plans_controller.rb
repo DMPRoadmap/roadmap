@@ -263,57 +263,32 @@ class PlansController < ApplicationController
 
 
   def export
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:answers).joins(:answers).find(params[:id])
     authorize @plan
 
-    # We should re-work this into something more useful than creating a new one
-    # every time a plan gets exported
-    @exported_plan = ExportedPlan.new.tap do |ep|
-      ep.plan = @plan
-      ep.phase_id = params[:phase_id]
-      ep.user = current_user
-      ep.format = params[:format].to_sym
-      plan_settings = @plan.settings(:export)
+    @show_coversheet = params[:export][:project_details].present?
+    @show_sections_questions = params[:export][:question_headings].present?
+    @show_unanswered = params[:export][:unanswered_questions].present?
 
-      Settings::Template::DEFAULT_SETTINGS.each do |key, value|
-        ep.settings(:export).send("#{key}=", plan_settings.send(key))
+    @hash = @plan.as_pdf(@show_coversheet)
+    @formatting = @plan.settings(:export).formatting
+    file_name = @plan.title.gsub(/ /, "_")
+
+    respond_to do |format|
+      format.html
+      format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
+      format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
+      format.docx { render docx: 'export', filename: "#{file_name}.docx" }
+      format.pdf do
+        render pdf: file_name,
+          margin: @formatting[:margin],
+          footer: {
+            center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
+            font_size: 8,
+            spacing:   (@formatting[:margin][:bottom] / 2) - 4,
+            right:     '[page] of [topage]'
+          }
       end
-    end
-
-    # setup some variables we will need in the export views
-    #   here, if custom sections are included, we want all sections, otherwise,
-    #   we only want those which are not modifiable, as they are the original template
-    @sections = params[:export][:custom_sections].present? || @plan.template.customization_of.nil? ? @exported_plan.sections.order(:number) : Phase.find(params[:phase_id]).sections.where(modifiable: false) # prefetch questions?
-    @unanswered_questions = params[:export][:unanswered_questions].present?
-    @question_headings = params[:export][:question_headings].present?
-    @show_details = params[:export][:project_details].present?
-
-
-    begin
-      @exported_plan.save!
-      file_name = @exported_plan.settings(:export)[:value]['title'].gsub(/ /, "_")
-
-      respond_to do |format|
-        format.html
-        format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
-        format.docx { render docx: 'export', filename: "#{file_name}.docx" }
-        format.pdf do
-          @formatting = @plan.settings(:export).formatting
-          render pdf: file_name,
-            margin: @formatting[:margin],
-            footer: {
-              center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
-              font_size: 8,
-              spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-              right:     '[page] of [topage]'
-            }
-        end
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      @phase_options = @plan.phases.order(:number).pluck(:title,:id)
-      redirect_to download_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
-      {format: params[:format], available_formats: ExportedPlan::VALID_FORMATS.to_s}
     end
   end
 
