@@ -14,7 +14,7 @@ FAQ
 
 **For Researchers**  
 [I'm in a hurry! Is there a quick start guide for creating a data management plan?](#q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan)  
-[Where can I read more about funder requirements for data management plans?](#q-where-can-i-read-more-about-funder-requirements-for-data-management-plans) 
+[Where can I read more about funder requirements for data management plans?](#q-where-can-i-read-more-about-funder-requirements-for-data-management-plans)   
 [Are there examples of data management plans?](#q-are-there-examples-of-data-management-plans)     
 [What's the difference between “sample” and “public” data management plans?](#q-whats-the-difference-between-sample-and-public-data-management-plans)     
 [What are the visibility options for my data management plan?](#q-what-are-the-visibility-options-for-my-data-management-plan)   
