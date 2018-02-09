@@ -26,7 +26,9 @@ FAQ
 [What happens when I “request feedback” on a plan?](#q-what-happens-when-i-request-feedback-on-a-plan)   
 
 **For Administrators**  
-[Where can I find help customizing the DMPTool for my institution?](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institution)   [I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)   
+[Where can I find help customizing the DMPTool for my institution/organization?](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institution-organization)  
+[Can I see customized templates and guidance created by administrators at other organizations?](#q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations)
+[I created a test template. How can I delete it?](#q-i-created-a-test-template-how-can-i-delete-it)   
 [How do I create guidance? And what are themes?](#q-how-do-i-create-guidance-and-what-are-themes)  
 
 Can't find what you’re looking for? [Contact us](https://dmptool.org/contact_us)
@@ -155,10 +157,26 @@ Administrators: if you are interested in enabling this functionality for users a
 
 ### For Administrators
 
-##### Q: Where can I find help customizing the DMPTool for my institution?  
-A: There is an extensive list of [help topics for administrators](Help-for-Administrators) configuring the DMPTool located on GitHub. 
+##### Q: Where can I find help customizing the DMPTool for my institution/organization?  
+A: There is an extensive list of [help topics for administrators](Help-for-Administrators) customizing the DMPTool located on GitHub. You will find detailed instructions for: 
 
-To view guidance and templates created by others (if available), create a new plan in the tool and choose any organization for the second step: "Select the primary research organization." This will automatically present you with guidance created by that organization after clicking to "Create plan." And for the third create plan step, if you tick the box  "No funder associated with this plan" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to "Create plan." Alternatively, you can untick the box and display organizational guidance on any funder template.
+1. Setting up the DMPTool   
+- Enabling Shibboleth   
+- Granting administrator privileges   
+- Customizing your organizational profile   
+- Providing feedback on plans   
+- Usage information   
+2. Quick overview of terms   
+3. Creating guidance   
+4. Customizing funder templates   
+5. Creating templates   
+
+***
+
+##### Q: Can I see customized templates and guidance created by administrators at other organizations?
+A: Yes! To view guidance created by others, create a new plan in the tool. On the "Project details" tab you will see "Plan Guidance Configuration" on the right. Click to "See the full list" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the "Write plan" tab.
+
+To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: "Select the primary research organization." For the third create plan step, if you tick the box  "No funder associated with this plan" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to "Create plan." 
 ***
 
 ##### Q: I created a test template. How can I delete it?   
@@ -167,7 +185,12 @@ A: DMPTool administrators can delete templates. This option is only available if
 ***
 
 ##### Q: How do I create guidance?  And what are themes?
-A:  
+A:  The [help menu for administrators](Help-for-Administrators) on GitHub contains detailed instructions for creating themed guidance. The basic steps include: 
+1. Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)  
+2. Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group
+3. Publishing the guidance
+
+There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.
 ***
 
 ### Can't find the answer you’re looking for? [Contact us](https://dmptool.org/contact-us)
