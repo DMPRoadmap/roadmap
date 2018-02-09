@@ -47,8 +47,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     get admin_grant_permissions_user_path(@user.org.users.first)
     assert_response :success
-    assert assigns(:user)
-    assert assigns(:perms)
   end
 
   # PUT /org/admin/users/:id/admin_update_permissions (admin_update_permissions_user_path)
