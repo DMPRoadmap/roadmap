@@ -155,17 +155,37 @@
                                current_selections: @selected_guidance_groups} %>
       </ul>
 
-      <a href="#" id="show-other-guidance-orgs"><%#= _('See guidance from additional organisations') %></a>
-
-      <ul id="other-guidance-orgs" style="display: none;">
-        <%= render partial: "guidance_choices", 
-                   locals: {choices: @all_ggs_grouped_by_org, form: f, 
-                            current_selections: @selected_guidance_groups} %>
-      </ul>
-
       <p><%= _('Find guidance from additional organisations below') %></p>
-      <%= link_to 'see the full list', select_guidances_list_plan_path(@plan), 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
-      <div id="modal-full-guidances" class="modal" tabindex="-1" role="dialog"></div>
+      <%= link_to 'See the full list', '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
+
+      <br>
+      <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
     </div>
+
+    <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="sign-in">
+            <div class="modal-body">
+              <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+                <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+              </button>
+              <h2><%= _('Plan Guidance Configuration') %></h2>
+              <p>
+                <%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan.') %
+                {application_name: Rails.configuration.branding[:application][:name]} %>
+              </p>
+              <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
+              <ul id="other-guidance-orgs">
+                <%= render partial: "guidance_choices", 
+                           locals: {choices: @all_ggs_grouped_by_org, form: f, 
+                                     current_selections: @selected_guidance_groups} %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <% end %>
 </div>
