@@ -20,15 +20,33 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # @scheme [IdentifierScheme] The IdentifierScheme for the provider
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
-    user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+    omniauth = (request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+    user = User.from_omniauth(omniauth)
+    
+    omniauth_info = (omniauth.nil? ? {} : (omniauth.info.nil? ? {} : omniauth.info))
     
     # If the user isn't logged in
     if current_user.nil? 
       # If the uid didn't have a match in the system send them to register
       if user.nil?
-        session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
-        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
-        redirect_to new_user_registration_url
+        user = User.find_by(email: omniauth_info.email) unless omniauth_info.email.nil?
+        if user.nil?
+          session["devise.#{scheme.name.downcase}_data"] = omniauth
+          flash[:notice] = _('It looks like this is your first time logging in. Please fill out the information below to finish creating an account.')
+          redirect_to new_user_registration_url
+          
+        else
+          if UserIdentifier.create(identifier_scheme: scheme, 
+                                   identifier: omniauth.uid,
+                                   user: user)
+            set_flash_message(:notice, :success, kind: 'your institutional credentials')
+            sign_in_and_redirect user, event: :authentication
+          else
+            session["devise.#{scheme.name.downcase}_data"] = omniauth
+            flash[:notice] = _('Unable to create your account at this time.')
+            redirect_to new_user_registration_url
+          end
+        end
         
       # Otherwise sign them in
       else

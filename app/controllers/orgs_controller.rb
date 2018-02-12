@@ -108,7 +108,7 @@ class OrgsController < ApplicationController
     render json: {
       "org" => {
         "id" => params[:org_id],
-        "html" => render_to_string(partial: 'shared/org_sign_in', 
+        "html" => render_to_string(partial: 'shared/dmptool/org_sign_in', 
                                    locals: { org: org }, 
                                    formats: [:html])
       }
