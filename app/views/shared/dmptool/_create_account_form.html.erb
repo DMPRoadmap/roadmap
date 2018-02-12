@@ -1,3 +1,4 @@
+<% org = nil unless org %>
 <%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
   <div class="row">
     <div class="col-md-6">
@@ -44,6 +45,9 @@
   </div>
   <div class="row">
     <div class="col-md-12">
+      <% unless org.nil? %>
+        <%= f.hidden_field :org_id, { value: org.id } %>
+      <% end %>
       <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
     </div>
   </div>

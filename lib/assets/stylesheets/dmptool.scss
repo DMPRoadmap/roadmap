@@ -274,6 +274,10 @@ body#tinymce.mce-content-body {
 #search-addon {
   padding: 3px 8px;
 }
+.combobox-suggestion:hover,
+.combobox-suggestion:focus {
+  background-color: $dark-blue;
+}
 
 /* HOMEPAGE IMAGES */
 /* --------------------------------------- */

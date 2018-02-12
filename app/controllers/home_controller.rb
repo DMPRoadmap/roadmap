@@ -44,9 +44,15 @@ class HomeController < ApplicationController
       # Retrieve/cache the DMPTool blog's latest posts
       rss = Rails.cache.read('rss')
       if rss.nil?
-        rss_xml = open(Rails.application.config.rss).read
-        rss = RSS::Parser.parse(rss_xml, false).items.first(5)
-        cache_content('rss', rss)  
+        begin
+          rss_xml = open(Rails.application.config.rss).read
+          rss = RSS::Parser.parse(rss_xml, false).items.first(5)
+          cache_content('rss', rss)  
+
+        rescue Exception
+          # If we were unable to connect to the blog rss
+          rss = [] if rss.nil?
+        end
       end
 
       render 'index', locals: { stats: stats, top_5: top_5, rss: rss } 

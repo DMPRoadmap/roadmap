@@ -17,7 +17,28 @@
             <h4><%= org.name %></h4>
           <% end %>
         </div>
-        <%= render partial: 'shared/sign_in_form' %>
+
+        <ul id="access-control-tabs" class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a data-target="#sign-in-form" role="tab" aria-controls="sign-in-form" data-toggle="tab">
+              <%= _('Sign in') %>
+            </a>
+          </li>
+          <li role="presentation">
+            <a data-target="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
+              <%= _('Create account') %>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="sign-in-form" role="tabpanel" class="tab-pane active">
+            <%= render :partial => 'shared/dmptool/sign_in_form' %>
+          </div>
+          <div id="create-account-form" role="tabpanel" class="tab-pane"> 
+            <%= render :partial => 'shared/dmptool/create_account_form', locals: {extended: false, org: org} %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

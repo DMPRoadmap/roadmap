@@ -57,7 +57,7 @@ class RegistrationsController < Devise::RegistrationsController
       
       # If the org_id is blank default to the Org marked as 'is_other'
       args = sign_up_params
-      if sign_up_params[:org_id].present? && !Org.find_by(is_other: true).nil?
+      if !sign_up_params[:org_id].present? && !Org.find_by(is_other: true).nil?
         args[:org_id] = Org.find_by(is_other: true).id 
       end
       
