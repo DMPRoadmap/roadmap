@@ -24,8 +24,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-9">
       <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to _('Forgot email?'), users_ldap_username_path, class: 'pull-right' %>
+      <br/>
       <%= link_to _('Forgot password?'), new_password_path('user'), class: 'pull-right' %>
     </div>
   </div>

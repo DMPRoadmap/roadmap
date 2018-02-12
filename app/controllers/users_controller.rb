@@ -113,7 +113,29 @@ class UsersController < ApplicationController
       redirect_to request.referer, alert: _('Unknown organisation.')
     end
   end
-  
+
+  # GET /users/:id/ldap_username
+  def ldap_username
+    skip_authorization
+  end
+
+  def ldap_account
+    skip_authorization
+    @user = User.where(ldap_username: params[:username]).first
+    if @user.present?
+      render(json: {
+        code: 1,
+        email: @user.email,
+        msg: _("The DMPTool Account email associated with this username is #{@user.email}"),
+      })
+    else
+      render(json: { 
+        code: 0,
+        email: '', 
+        msg:  _("We do not recognize the username #{params[:username]}. Please check the username and try again.") })
+    end
+  end
+
   private
   def org_swap_params
     params.require(:user).permit(:org_id, :org_name)

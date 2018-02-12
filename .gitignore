@@ -14,6 +14,7 @@ public/*.jpg
 public/*.png
 
 # Ignore public subdirectories
+public/*
 public/apidocs/*
 public/assets/*
 public/fonts/*
