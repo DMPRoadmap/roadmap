@@ -48,7 +48,7 @@ module OrgAdmin
           csv << [
             "#{plan.title}", 
             "#{plan.template.title}", 
-            "#{plan.owner.org.name}", 
+            "#{plan.owner.org.present? ? plan.owner.org.name : ''}", 
             "#{plan.owner.name(false)}",
             "#{plan.owner.email}",
             "#{l(plan.latest_update.to_date, formats: :short)}",
