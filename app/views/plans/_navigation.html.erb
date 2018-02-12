@@ -6,7 +6,7 @@
   <li role="presentation" class="<%= (isActivePage(overview_plan_path(plan)) ? 'active' : '') %>">
     <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
-  <% plan.template.phases.each do |phase| %>
+  <% phases.each do |phase| %>
     <li role="presentation" class="<%= (isActivePage(edit_plan_phase_path(plan, phase)) ? 'active' : '') %>">
       <a href="<%= edit_plan_phase_path(plan, phase) %>" role="tab" aria-controls="content">
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>

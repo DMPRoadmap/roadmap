@@ -5,13 +5,6 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3 class="pull-right"><%= _('No. users joined during last year') %></h3>
-    <canvas id="yearly_users"></canvas>
-  </div>
-</div>
-<hr />
-<div class="row">
-  <div class="col-md-12">
     <h3><%= _('Run your own filter') %></h3>
     <% if current_user.api_token.present? %>
       <form class="usage_index">
@@ -23,7 +16,7 @@
               <%= select_tag('topic', options_for_select(
                 [
                   [_('Users'), 'users', { 'data-url': users_joined_api_v0_statistics_path }],
-                  [_('Completed Plans'), 'completed_plans', { 'data-url': '#' }]
+                  [_('Completed Plans'), 'completed_plans', { 'data-url': completed_plans_api_v0_statistics_path }]
                 ]), class: 'form-control') %>
             </div>
           </div>
@@ -63,12 +56,13 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div data-topic="users" style="display: none">
+    <div data-topics style="display: none">
       <div class="row">
         <div class="col-md-3">
           <div class="panel panel-default">
             <div class="panel-body">
-              <h4 style="margin-top:0px"><%= _('New users') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="users"><%= _('New users') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="completed_plans"><%= _('Completed plans') %></h4>
               <strong data-range style="font-size: 36px;"></strong>
             </div>
           </div>
@@ -76,12 +70,25 @@
         <div class="col-md-3">
           <div class="panel panel-default">
             <div class="panel-body">
-              <h4 style="margin-top:0px"><%= _('Total users') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="users"><%= _('Total users') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="completed_plans"><%= _('Total completed plans') %></h4>
               <strong data-totals style="font-size: 36px;"></strong>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= _('No. users joined during last year') %></h3>
+    <canvas id="yearly_users"></canvas>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= _('No. completed plans during last year') %></h3>
+    <canvas id="yearly_plans"></canvas>
   </div>
 </div>
