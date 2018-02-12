@@ -6,26 +6,25 @@ class PhasesController < ApplicationController
 
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.load_for_phase(params[:plan_id], params[:id])
-
-    # authorization done on plan so found in plan_policy
+    plan = Plan.find(params[:plan_id])
     authorize plan
-
-    phase_id = params[:id].to_i
-    phase = plan.template.phases.select {|p| p.id == phase_id}.first
-    readonly = !plan.editable_by?(current_user.id)
-    guidance_groups_ids = plan.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
     
-    if !user_signed_in? then
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    else
-      render('/phases/edit', locals: { plan: plan, phase: phase, readonly: readonly, 
-                                       question_guidance: plan.guidance_by_question_as_hash,
-                                       guidance_groups: guidance_groups })
-    end
+    plan, phase = Plan.load_for_phase(params[:plan_id], params[:id])
+    
+    readonly = !plan.editable_by?(current_user.id)
+    
+    guidance_groups_ids = plan.guidance_groups.collect(&:id)
+    
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
+    # we create a hash whose keys are question id and value is the answer associated
+    answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+    
+    render('/phases/edit', locals: {
+      plan: plan, phase: phase, readonly: readonly,
+      question_guidance: plan.guidance_by_question_as_hash,
+      guidance_groups: guidance_groups,
+      answers: answers })
   end
 
 
