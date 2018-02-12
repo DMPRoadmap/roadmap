@@ -4,7 +4,7 @@ module SuperAdmin
 
     def index
       authorize Org
-      render 'index', locals: { orgs: Org.includes(:templates, :users).all.order(name: :desc) }
+      render 'index', locals: { orgs: Org.includes(:templates, :users).joins(:templates, :users).order('orgs.name') }
     end
     
     def new

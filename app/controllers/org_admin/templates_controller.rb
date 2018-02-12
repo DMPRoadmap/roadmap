@@ -387,8 +387,11 @@ module OrgAdmin
               end
             end
           end
-        else
-          # If no funder was selected retrieve the Org's templates
+        end
+        
+        # If the no funder was specified OR the funder matches the org
+        if funder_id.blank? || funder_id == org_id
+          # Retrieve the Org's templates
           templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
         end
         
