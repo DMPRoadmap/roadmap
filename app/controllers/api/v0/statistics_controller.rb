@@ -37,12 +37,33 @@ module Api
       # GET
       # Returns the number of completed plans within the user's org for the data start_date and end_date specified
       def completed_plans
-        # raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).completed_plans?
-        # users = User.unscoped.where(org_id: org)
-        # roles = Role.where(access: Role.access_values_for(:creator, :administrator, :editor, :commenter).min)
-        # plan_ids = Plan.select(:id).joins(:roles).merge(roles.joins(:user).merge(users))
-        # Plan.joins(:questions).where("plans.id": plan_ids).group("plans.id").count("questions.id") plan_id followed by number of questions
-        # Plan.joins(:answers).where("plans.id": plan_ids).group("plans.id").count("answers.id")  plan_id followed by numbers of answers
+        raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).completed_plans?
+
+        roles = Role.where("#{Role.creator_condition} OR #{Role.administrator_condition}")
+
+        users = User.unscoped
+        if @user.can_super_admin? && params[:org_id].present?
+          users = users.where(org_id: params[:org_id])
+        else
+          users = users.where(org_id: @user.org_id)
+        end
+
+        plans = Plan.where(complete: true)
+        if params[:range_dates].present?
+          r = {}
+          params[:range_dates].each_pair do |k, v|
+            range_date_plans = plans
+              .where('plans.updated_at >=?', v['start_date'])
+              .where('plans.updated_at <=?', v['end_date'])
+            r[k] = roles.joins(:user, :plan).merge(users).merge(range_date_plans).select(:plan_id).distinct.count
+          end
+          render(json: r.to_json)
+        else
+          plans = plans.where('plans.updated_at >= ?', Date.parse(params[:start_date])) if params[:start_date].present?
+          plans = plans.where('plans.updated_at <= ?', Date.parse(params[:end_date])) if params[:end_date].present?
+          count = roles.joins(:user, :plan).merge(users).merge(plans).select(:plan_id).distinct.count
+          render(json: { completed_plans: count }) 
+        end
       end
 
       ##
