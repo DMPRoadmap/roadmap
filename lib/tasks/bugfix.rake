@@ -78,4 +78,13 @@ namespace :bugfix do
       template.update_attributes(links: {"funder":[],"sample_plan":[]})
     end
   end
+
+  desc "Sets completed for plans whose no. questions matches no. valid answers"
+  task set_plan_complete: :environment do
+    Plan.all.each do |p|
+      if p.no_questions_matches_no_answers?
+        p.update_column(:complete, true) # Avoids updating the column updated_at
+      end
+    end
+  end
 end
