@@ -39,7 +39,9 @@
                     <%= render partial: 'users/current_privileges', locals: { user: user } %>
                   </td>
                   <td class="text-center">
-                    <% unless current_user == user %>
+                    <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
+                    <% unless current_user == user || 
+                        !current_user.can_super_admin? && user.can_super_admin? %>
                       <% b_label = _('Edit') %>
                       <%= link_to( b_label, admin_grant_permissions_user_path(user)) %>
                     <% end %>
