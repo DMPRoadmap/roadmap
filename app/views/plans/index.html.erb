@@ -4,10 +4,9 @@
     <!-- if the user has projects -->
     <p>
       <% if @plans.count > 0 %>
-        <%= _('The table below lists the plans that you have created, and any that have been shared with you by others.') %><br />
-        <%= _('These can be edited, shared, exported or deleted at anytime.')%>
+        <%= _('The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time.')%>
       <% else %>
-        <strong><%= _("Welcome.") %></strong><br />
+        <strong><%= _("Welcome") %></strong><br />
         <%= _("You are now ready to create your first DMP.") %><br />
         <%= _("Click the 'Create plan' button below to begin.")%>
       <% end %>
@@ -31,6 +30,8 @@
 <div class="row">
   <div class="col-md-12">
     <% if @organisationally_or_publicly_visible.length > 0 && !current_user.org.is_other? %>
+      <h2><%= _('%{org_title} Plans') %{ :org_title => current_user.org.name } %></h2>
+      <p><%= _('The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data.') %></p>
       <%= paginable_renderise(
         partial: '/paginable/plans/organisationally_or_publicly_visible',
         controller: 'paginable/plans',
