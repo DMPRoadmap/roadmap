@@ -693,11 +693,12 @@ class Plan < ActiveRecord::Base
 
   # Returns the number of answered questions from the entire plan
   def num_answered_questions
-    n = 0
-    self.sections.each do |s|
-      n+= s.num_answered_questions(self.id)
+    return Answer.where(id: answers.map(&:id)).includes({ question: :question_format }, :question_options).reduce(0) do |m, a|
+      if a.is_valid?
+        m+=1
+      end
+      m
     end
-    return n
   end
 
   # Returns a section given its id or nil if does not exist for the current plan
@@ -705,14 +706,9 @@ class Plan < ActiveRecord::Base
     self.sections.find { |s| s.id == section_id }
   end
 
-  # Returns the number of questions for a plan. Note, this method becomes useful
-  # for when sections and their questions are eager loaded so that avoids SQL queries.
+  # Returns the number of questions for a plan.
   def num_questions
-    n = 0
-    self.sections.each do |s|
-      n+= s.questions.size()
-    end
-    return n
+    return sections.includes(:questions).joins(:questions).reduce(0){ |m, s| m + s.questions.length }
   end
   # the following two methods are for eager loading. One gets used for the plan/show
   # page and the oter for the plan/edit. The difference is just that one pulls in more than
@@ -730,17 +726,15 @@ class Plan < ActiveRecord::Base
       ]).find(id)
   end
 
+  # Pre-fetched a plan phase together with its sections and questions associated. It also pre-fetches the answers and notes associated to the plan
   def self.load_for_phase(id, phase_id)
-#    Plan.includes(
-#      [template: [
-#                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
-#                   {customizations: :org},
-#                   :org
-#                  ],
-#       plans_guidance_groups: {guidance_group: {guidances: :themes}}
-#      ]).where(id: id, phases: { id: phase_id }).first
-
-    Plan.joins(:phases).where('plans.id = ? AND phases.id = ?', id, phase_id).includes(:template, :sections, :questions, :answers, :notes).first
+    plan = Plan
+      .joins(template: { phases: { sections: :questions }})
+      .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
+      .includes(template: { phases: { sections: :questions }})
+      .merge(Plan.includes(answers: :notes))[0]
+    phase = plan.template.phases.first
+    return plan, phase
   end
 
   # deep copy the given plan and all of it's associations
@@ -785,6 +779,21 @@ class Plan < ActiveRecord::Base
   # Determines whether or not a question (given its id) exists for the self plan
   def question_exists?(question_id)
     Plan.joins(:questions).exists?(id: self.id, "questions.id": question_id)
+  end
+
+  # Checks whether or not the number of questions matches the number of valid answers
+  def no_questions_matches_no_answers?
+    num_questions = question_ids.length
+    pre_fetched_answers = Answer
+      .includes({ question: :question_format }, :question_options)
+      .where(id: answer_ids)
+    num_answers = pre_fetched_answers.reduce(0) do |m, a|
+      if a.is_valid? 
+        m+=1
+      end
+      m
+    end
+    return num_questions == num_answers
   end
 
   private

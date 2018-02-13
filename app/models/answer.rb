@@ -1,9 +1,16 @@
 class Answer < ActiveRecord::Base
 
   after_save do |answer|
-    # Updates the plan.updated_at attribute whenever an answer has been created/updated 
-    # check first for a nil plan so that the controller can properly handle the ActiveRecord::NotFound exception
-    answer.plan.touch unless answer.plan.nil? 
+    if answer.plan_id.present?
+      plan = answer.plan
+      complete = plan.no_questions_matches_no_answers?
+      if plan.complete != complete
+        plan.complete = complete
+        plan.save!
+      else
+        plan.touch  # Force updated_at changes if nothing changed since save only saves if changes were made to the record
+      end
+    end 
   end
   
   ##
@@ -75,12 +82,8 @@ class Answer < ActiveRecord::Base
     end
     return false
   end
-  # Returns all the notes for an instance answer whose archived is nil or false. The Array is ordered by updated_at (descending)
+  # Returns answer notes whose archived is blank sorted by updated_at in descending order
   def non_archived_notes
-    answer = Answer.includes(:notes).where({ id: self.id, notes: { archived: [nil, false] } }).order('notes.updated_at DESC').first
-    if !answer.nil?
-      return answer.notes.to_a
-    end
-    return []
+    return notes.select{ |n| n.archived.blank? }.sort!{ |x,y| y.updated_at <=> x.updated_at }
   end
 end
