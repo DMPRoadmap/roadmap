@@ -11,12 +11,14 @@
 
       <ul id="access-control-tabs" class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a data-target="#sign-in-form-tab" role="tab" aria-controls="sign-in-form" data-toggle="tab">
+          <a data-target="#sign-in-form-tab" role="tab" aria-controls="sign-in-form" data-toggle="tab" 
+             data-action="<%= user_session_path %>" data-method="POST">
             <%= _('Sign in') %>
           </a>
         </li>
         <li role="presentation">
-          <a data-target="#create-account-form-tab" role="tab" aria-controls="create-account-form" data-toggle="tab">
+          <a data-target="#create-account-form-tab" role="tab" aria-controls="create-account-form" data-toggle="tab" 
+             data-action="<%= registration_path('user') %>" data-method="POST">
             <%= _('Create account') %>
           </a>
         </li>
