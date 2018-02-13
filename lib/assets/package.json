@@ -20,6 +20,7 @@
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
+    "chart": "^0.1.2",
     "chart.js": "^2.7.1",
     "font-awesome": "^4.7.0",
     "jquery": "3.2.1",

@@ -34,7 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # If we could not find the email
         if user.nil?
           # Extract as much info as we can from the omniauth response
-          firstname = omniauth_info.firstname
+          firstname = omniauth_info.givenname
           surname = omniauth_info.sn
           
           if omniauth_info.name.present? && (firstname.nil? || surname.nil?)
