@@ -251,6 +251,8 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   # GET /plans/:id/export (export_plan_path)
   # ----------------------------------------------------------
   test "export the plan" do
+    Answer.create!(plan: @plan, question: @plan.template.phases.first.sections.first.questions.last, text: 'Test Answer')
+    
     # Should redirect user to the root path if they are not logged in!
     get export_plan_path(@plan), {'format': 'pdf'}
     assert_unauthorized_redirect_to_root_path
