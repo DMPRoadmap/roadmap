@@ -52,10 +52,8 @@
               <!-- the section body -->
               <% section.questions.each_with_index do |question, i| %>
                 <% # Load the answer or create a new one
-                  answers = question.plan_answers(plan.id)  if plan.present?
-                  if answers.present?
-                    answer = answers.first
-                  else
+                  answer = answers[question.id] if plan.present?
+                  if answer.blank?
                     answer = Answer.new({ plan: plan, question: question })
                   end
                 %>
