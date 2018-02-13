@@ -420,7 +420,7 @@ $tooltip-background: $grey;
   z-index: 99;
 }
 .combobox-suggestion {
-  color: #grey;
+  color: $grey;
   border-bottom: 1px solid $grey;
   border-left: 1px solid $grey;
   border-right: 1px solid $grey;
