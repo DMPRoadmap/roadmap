@@ -112,14 +112,12 @@ class Phase < ActiveRecord::Base
     return phase_copy
   end
 
-  # Returns the number of answered question for the phase. It is assumed that the plan_id passed
-  # has this phase instance.
-  def num_answered_questions(plan_id)
-    n = 0
-    self.sections.each do |s|
-      n+= s.num_answered_questions(plan_id)
+  # Returns the number of answered question for the phase.
+  def num_answered_questions(plan)
+    return 0 if plan.nil?
+    return sections.reduce(0) do |m, s|
+      m + s.num_answered_questions(plan) 
     end
-    return n
   end
 
   # Returns the number of questions for a phase. Note, this method becomes useful

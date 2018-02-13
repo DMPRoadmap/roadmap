@@ -11,9 +11,9 @@ class UsersController < ApplicationController
   def admin_index
     authorize User
     if current_user.can_super_admin?
-      @users = User.includes(:roles).page(1)
+      @users = User.page(1)
     else
-      @users = current_user.org.users.includes(:roles).page(1)
+      @users = current_user.org.users.page(1)
     end
   end
 
@@ -22,17 +22,22 @@ class UsersController < ApplicationController
   # Permissions which the user already has are pre-selected
   # Selecting new permissions and saving calls the admin_update_permissions action
   def admin_grant_permissions
-    @user = User.includes(:perms, :roles).find(params[:id])
-    authorize @user
-    user_perms = current_user.perms
-    @perms = user_perms & [Perm.grant_permissions, Perm.modify_templates, Perm.modify_guidance, 
-                           Perm.use_api, Perm.change_org_details, Perm.add_orgs, 
-                           Perm.change_affiliation, Perm.grant_api]
+    user = User.find(params[:id])
+    authorize user
+    
+    # Super admin can grant any Perm, org admins can only grant Perms they
+    # themselves have access to
+    if current_user.can_super_admin?
+      perms = Perm.all
+    else
+      perms = current_user.perms
+    end
+
     render json: {
       "user" => {
-        "id" => @user.id,
+        "id" => user.id,
         "html" => render_to_string(partial: 'users/admin_grant_permissions', 
-                                   locals: { user: @user, perms: @perms }, 
+                                   locals: { user: user, perms: perms }, 
                                    formats: [:html])
       }
     }.to_json
@@ -43,7 +48,7 @@ class UsersController < ApplicationController
   # redirects to the admin_index action
   # should add validation that the perms given are current perms of the current_user
   def admin_update_permissions
-    @user = User.includes(:perms).find(params[:id])
+    @user = User.find(params[:id])
     authorize @user
     perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
     perms = Perm.where( id: perms_ids)
