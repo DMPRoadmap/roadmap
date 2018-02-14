@@ -3,7 +3,7 @@ class Org < ActiveRecord::Base
   include FlagShihTzu
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
-  
+
   # Stores links as an JSON object: { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at validators/template_links_validator.rb
   serialize :links, JSON
@@ -16,12 +16,12 @@ class Org < ActiveRecord::Base
   has_many :templates
   has_many :users
   has_many :annotations
-  
+
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
   has_many :org_identifiers
   has_many :identifier_schemes, through: :org_identifiers
-  
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
@@ -29,7 +29,7 @@ class Org < ActiveRecord::Base
                   :logo_file_name, :name, :links,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id, :contact_email, :contact_name,
-                  :language, :org_type, :region, :token_permission_types, 
+                  :language, :org_type, :region, :token_permission_types,
                   :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg
   ##
@@ -95,7 +95,7 @@ class Org < ActiveRecord::Base
     ret << "Organisation" if self.organisation?
     ret << "Research Institute" if self.research_institute?
     ret << "Project" if self.project?
-    ret << "School" if self.school?      
+    ret << "School" if self.school?
     return (ret.length > 0 ? ret.join(', ') : "None")
   end
 
@@ -141,14 +141,17 @@ class Org < ActiveRecord::Base
   end
 
   def org_admins
-    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id, 
+    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
       ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
   end
-  
+
   def plans
-    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)', 
+    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)',
       self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
   end
+
+  def grant_api!(token_permission_type)
+    org.token_permission_types << token_permission_type unless org.tokenpermission_types.include? token_permission_type
 
   private
     ##
@@ -166,4 +169,5 @@ class Org < ActiveRecord::Base
     def create_guidance_group
       GuidanceGroup.create(name: self.abbreviation? ? self.abbreviation : self.name , org_id: self.id)
     end
+
 end
