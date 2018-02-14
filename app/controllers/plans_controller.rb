@@ -246,9 +246,9 @@ class PlansController < ApplicationController
     file_name = @plan.title.gsub(/ /, "_")
 
     respond_to do |format|
-      format.html
-      format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
-      format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
+      format.html { render layout: false }
+      format.csv  { send_data @plan.as_csv(@show_sections_questions),  filename: "#{file_name}.csv" }
+      format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
       format.docx { render docx: 'export', filename: "#{file_name}.docx" }
       format.pdf do
         render pdf: file_name,

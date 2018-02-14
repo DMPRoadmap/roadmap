@@ -7,6 +7,38 @@ module ExportablePlan
       prepare(coversheet)
     end
     
+    def as_csv(headings = true, unanswered = true)
+      hash = prepare(false)
+      
+      CSV.generate do |csv|
+        hdrs = (hash[:phases].length > 1 ? [_('Phase')] : [])
+        if headings
+          hdrs << [_('Section'),_('Question'),_('Answer')]
+        else
+          csv << _('Answer')
+        end
+        
+        csv << hdrs.flatten
+        hash[:phases].each do |phase|
+          phase[:sections].each do |section|
+            section[:questions].each do |question|
+              answer = self.answer(question[:id], false)
+              answer_text = answer.present? ? answer.text : (unanswered ? 'Not Answered' : '')
+              flds = (hash[:phases].length > 1 ? [phase[:title]] : [])
+              if headings
+                question_text = (question[:text].length > 1 ? question[:text].join(', ') : question[:text][0])
+                flds << [ section[:title], sanitize_text(question_text), sanitize_text(answer_text) ]
+              else
+                flds << [ sanitize_text(answer_text) ]
+              end
+              
+              csv << flds.flatten
+            end
+          end
+        end
+      end
+    end
+    
     private 
       def prepare(coversheet = false)
         hash = coversheet ? prepare_coversheet : {}
@@ -85,6 +117,10 @@ module ExportablePlan
           end
         end
         exported_plan.save
+      end
+      
+      def sanitize_text(text)
+        if (!text.nil?) then ActionView::Base.full_sanitizer.sanitize(text.gsub(/&nbsp;/i,"")) end
       end
   end
 end
