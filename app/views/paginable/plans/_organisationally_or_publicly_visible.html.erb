@@ -1,11 +1,6 @@
 <% if current_user.org_id.present? %>
         <div class="row">
             <div class="col-md-12">
-                <h2><%= _('%{org_title} Plans') %{ :org_title => current_user.org.name } %></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
