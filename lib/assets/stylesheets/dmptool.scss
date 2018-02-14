@@ -805,6 +805,10 @@ div[id^="guidance-"] .panel {
     color: $dark-blue;
   }
 }
+.form-answer .panel-default .label-default {
+  color: $dark-blue;
+  background-color: $light-blue;
+}
 
 /*   Theme selectors on the Edit/Create Guidance and Edit/Create Question pages */
 /*   --------------------------------------- */
