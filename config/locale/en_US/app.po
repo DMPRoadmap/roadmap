@@ -198,7 +198,7 @@ msgid "Actions"
 msgstr "Actions"
 
 msgid "Add Annotations"
-msgstr ""
+msgstr "Add Customizations"
 
 #, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the institution or department name."
@@ -262,7 +262,7 @@ msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
 msgid "Annotations"
-msgstr ""
+msgstr "Customizations"
 
 msgid "Answer"
 msgstr "Answer"
@@ -496,7 +496,7 @@ msgstr "Edit"
 
 #, fuzzy
 msgid "Edit Annotations"
-msgstr "Edit"
+msgstr "Edit Customizations"
 
 msgid "Edit User Privileges"
 msgstr "Edit User Permissions"
