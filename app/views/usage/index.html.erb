@@ -78,17 +78,35 @@
         </div>
       </div>
     </div>
+    <hr />
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3><%= _('No. users joined during last year') %></h3>
+    <div class="pull-left">
+      <h3><%= _('No. users joined during last year') %></h3>
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
+        <%= _('Export') %> <i class="fa fa-download" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="clearfix"></div>
     <canvas id="yearly_users"></canvas>
+    <hr />
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3><%= _('No. completed plans during last year') %></h3>
+    <div class="pull-left">
+      <h3><%= _('No. completed plans during last year') %></h3>
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-default" data-url="<%= completed_plans_api_v0_statistics_path(format: :csv) %>">
+        <%= _('Export') %> <i class="fa fa-download" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="clearfix"></div>
     <canvas id="yearly_plans"></canvas>
   </div>
 </div>
