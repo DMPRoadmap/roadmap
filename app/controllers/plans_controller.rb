@@ -19,7 +19,7 @@ class PlansController < ApplicationController
 
     # Get all of the available funders and non-funder orgs
     @funders = Org.funder.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
-    @orgs = (Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
+    @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
 
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
@@ -246,9 +246,9 @@ class PlansController < ApplicationController
     file_name = @plan.title.gsub(/ /, "_")
 
     respond_to do |format|
-      format.html
-      format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
-      format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
+      format.html { render layout: false }
+      format.csv  { send_data @plan.as_csv(@show_sections_questions),  filename: "#{file_name}.csv" }
+      format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
       format.docx { render docx: 'export', filename: "#{file_name}.docx" }
       format.pdf do
         render pdf: file_name,

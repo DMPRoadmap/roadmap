@@ -26,7 +26,16 @@ module Api
            .where('created_at >=?', v['start_date'])
            .where('created_at <=?', v['end_date']).count
           end
-          render(json: r.to_json)
+          respond_to do |format|
+            format.json { render(json: r.to_json) }
+            format.csv { 
+              send_data(CSV.generate do |csv|
+                csv << [_('Month'), _('No. Users joined')]
+                total = 0
+                r.each_pair{ |k,v| csv << [k,v]; total+=v }
+                csv << [_('Total'), total]
+              end, filename: "#{_('users_joined')}.csv") } 
+          end
         else
           scoped = scoped.where('created_at >= ?', Date.parse(params[:start_date])) if params[:start_date].present?
           scoped = scoped.where('created_at <= ?', Date.parse(params[:end_date])) if params[:end_date].present?
@@ -57,7 +66,16 @@ module Api
               .where('plans.updated_at <=?', v['end_date'])
             r[k] = roles.joins(:user, :plan).merge(users).merge(range_date_plans).select(:plan_id).distinct.count
           end
-          render(json: r.to_json)
+          respond_to do |format|
+            format.json { render(json: r.to_json) }
+            format.csv {
+              send_data(CSV.generate do |csv|
+                csv << [_('Month'), _('No. Completed Plans')]
+                total = 0
+                r.each_pair{ |k,v| csv << [k,v]; total+=v }
+                csv << [_('Total'), total]
+              end, filename: "#{_('completed_plans')}.csv") }
+          end
         else
           plans = plans.where('plans.updated_at >= ?', Date.parse(params[:start_date])) if params[:start_date].present?
           plans = plans.where('plans.updated_at <= ?', Date.parse(params[:end_date])) if params[:end_date].present?
