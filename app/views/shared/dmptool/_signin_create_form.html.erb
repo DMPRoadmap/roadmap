@@ -9,6 +9,10 @@
         <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
       </button>
 
+      <div id="org-sign-in-logo">
+        
+      </div>
+
       <ul id="access-control-tabs" class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
           <a data-target="#sign-in-form-tab" role="tab" aria-controls="sign-in-form" data-toggle="tab" 
@@ -28,7 +32,7 @@
         <div id="signin-create-content" role="tabpanel" class="tab-pane active">
           <%= form_for resource, as: 'user', url: url, 
                      html: {autocomplete: "off", id: "signin_create_form"} do |f| %>
-            <div class="row create-account-fields">
+            <div class="row create-account-fields<%= signin ? ' hide' : '' %>">
               <div class="col-md-6">
                 <div class="form-group">
                   <%= f.label(:firstname, _('First Name'), class: "control-label") %>
@@ -60,7 +64,14 @@
               </div>
             </div>
 
-            <div class="row create-account-fields">
+            <div class="row signin-fields<%= !signin ? ' hide' : '' %>">
+              <div class="col-md-12">
+                <div class="checkbox">
+                  <%= label_tag 'remember_email', raw("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
+                </div>
+              </div>
+            </div>
+            <div class="row create-account-fields<%= signin ? ' hide' : '' %>">
               <div class="col-md-12">
                 <div class="checkbox pull-left">
                   <%= f.label(:accept_terms,
@@ -72,10 +83,10 @@
             <div class="row">
               <div class="col-md-6">
                 <%= f.hidden_field :org_id, { value: (org.present? ? org.id : '') } %>
-                <%= f.button (signin ? _('Sign in') : _('Create account')), 
-                             class: "btn btn-default", type: "submit" %>
+                <%= f.button _('Sign in'), class: "btn btn-default signin-fields", type: "submit" %>
+                <%= f.button _('Create account'), class: "btn btn-default create-account-fields", type: "submit" %>
               </div>
-              <div class="col-md-6 signin-fields">
+              <div class="col-md-6 signin-fields<%= !signin ? ' hide' : '' %>">
                 <%= link_to _('Forgot email?'), users_ldap_username_path, class: 'pull-right' %>
                 <br/>
                 <%= link_to _('Forgot password?'), new_password_path('user'), class: 'pull-right' %>
