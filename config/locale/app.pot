@@ -87,6 +87,9 @@ msgstr ""
 msgid "%d years"
 msgstr ""
 
+msgid "%{add_or_edit} Annotations"
+msgstr ""
+
 msgid "%{application_name}"
 msgstr ""
 

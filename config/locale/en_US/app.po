@@ -93,6 +93,9 @@ msgstr "%d months"
 msgid "%d years"
 msgstr "%d years"
 
+msgid "%{add_or_edit} Annotations"
+msgstr "%{add_or_edit} Customizations"
+
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
