@@ -16,7 +16,7 @@
               <%= select_tag('topic', options_for_select(
                 [
                   [_('Users'), 'users', { 'data-url': users_joined_api_v0_statistics_path }],
-                  [_('Completed Plans'), 'completed_plans', { 'data-url': completed_plans_api_v0_statistics_path }]
+                  [_('Plans'), 'plans', { 'data-url': created_plans_api_v0_statistics_path }]
                 ]), class: 'form-control') %>
             </div>
           </div>
@@ -62,7 +62,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h4 style="margin-top:0px" style="display: none" data-topic="users"><%= _('New users') %></h4>
-              <h4 style="margin-top:0px" style="display: none" data-topic="completed_plans"><%= _('Completed plans') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="plans"><%= _('Plans') %></h4>
               <strong data-range style="font-size: 36px;"></strong>
             </div>
           </div>
@@ -71,7 +71,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h4 style="margin-top:0px" style="display: none" data-topic="users"><%= _('Total users') %></h4>
-              <h4 style="margin-top:0px" style="display: none" data-topic="completed_plans"><%= _('Total completed plans') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="plans"><%= _('Total plans') %></h4>
               <strong data-totals style="font-size: 36px;"></strong>
             </div>
           </div>
@@ -82,31 +82,30 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
     <div class="pull-left">
-      <h3><%= _('No. users joined during last year') %></h3>
+      <h4><%= _('No. users joined during last year') %></h4>
     </div>
     <div class="pull-right">
       <button type="button" class="btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
-        <%= _('Export') %> <i class="fa fa-download" aria-hidden="true"></i>
+        <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </div>
     <div class="clearfix"></div>
+    <p class="alert alert-info" style="display: none;"><%= _('There is no data available for users joined yet.') %></p>
     <canvas id="yearly_users"></canvas>
-    <hr />
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
     <div class="pull-left">
-      <h3><%= _('No. completed plans during last year') %></h3>
+      <h4><%= _('No. plans during last year') %></h4>
     </div>
     <div class="pull-right">
-      <button type="button" class="btn btn-default" data-url="<%= completed_plans_api_v0_statistics_path(format: :csv) %>">
-        <%= _('Export') %> <i class="fa fa-download" aria-hidden="true"></i>
+      <button type="button" class="btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
+        <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </div>
     <div class="clearfix"></div>
+    <p class="alert alert-info" style="display: none;"><%= _('There is no data available for plans yet.') %></p>
     <canvas id="yearly_plans"></canvas>
   </div>
 </div>
