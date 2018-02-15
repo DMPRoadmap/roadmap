@@ -1,15 +1,19 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
   <p class="form-control-static">
-    <%= _("Please note that your email address is used as your username.
-    If you change this, remember to use your new email address on sign in.") %>
+    <%= _("Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation.") %>
   </p>
 
-  <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
   <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
 
   <div class="form-group col-xs-8">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
-    <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
+    <% if shibbolized %>
+      <%= render partial: 'shared/popover', 
+                 locals: { message: _('Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email.'), placement: 'right' } %>
+      <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email, disabled: true) %>
+    <% else %>
+      <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
+    <% end %>
     <%= hidden_field_tag :original_email, @user.email %>
   </div>
 
@@ -24,7 +28,14 @@
   </div>
 
   <div class="form-group col-xs-8" id="org-controls">
-    <%= render partial: "shared/dmptool/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
+    <% if shibbolized %>
+      <label class="control-label"><%= _('Organisation') %></label>
+      <%= render partial: 'shared/popover', 
+                 locals: { message: _('Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation.'), placement: 'right' } %>
+      <input type="text" disabled="true" value="<%= @default_org.name if @default_org.present? %>" class="form-control" />
+    <% else %>
+      <%= render partial: "shared/dmptool/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
+    <% end %>
   </div>
 
   <% if MANY_LANGUAGES %>

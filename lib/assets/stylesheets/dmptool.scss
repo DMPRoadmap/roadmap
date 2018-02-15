@@ -34,7 +34,6 @@ a:not(.btn):hover, a:not(.btn):focus, a:not(.btn):visited, a:not(.btn):active, a
 a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:visited, a:not(.btn) .fa:active, a:not(.btn) .fa:active:hover {
   color: $dark-blue;
   background-color: inherit;
-/*  cursor: pointer; */
   text-decoration: none;
   font-size: 1.4rem;
 }
@@ -155,7 +154,7 @@ h2 {
 }
 
 .fa-question-circle {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
 }
 
 /* CONTAINERS */
@@ -187,7 +186,6 @@ h2 {
       border: none;
       margin: 0;
       padding: 5px 10px;
-/*      cursor: pointer; */
     }
   }
   li {

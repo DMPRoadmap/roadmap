@@ -189,7 +189,7 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              ggroups << guidance.guidance_group if guidance.guidance_group.published && !guidance.guidance_group.org.is_other?
               # only show published guidance groups
             end
           end
