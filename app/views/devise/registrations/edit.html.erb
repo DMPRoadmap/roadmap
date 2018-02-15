@@ -1,3 +1,4 @@
+<% scheme = IdentifierScheme.find_by(name: 'shibboleth') %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Edit profile') %></h1>
@@ -10,7 +11,7 @@
         <li role="personal-details" class="active">
           <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
         </li>
-        <% unless current_user.identifier_for('shibboleth').present? %>
+        <% unless current_user.identifier_for(scheme).present? %>
           <li role="password-details">
             <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
           </li>
@@ -29,7 +30,7 @@
           </div>
         </div>
 
-        <% unless current_user.identifier_for('shibboleth').present? %>
+        <% unless current_user.identifier_for(scheme).present? %>
           <div id="password-details" role="tabpanel" class="tab-pane">
             <div class="panel panel-default">
               <div class="panel-body">
