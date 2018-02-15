@@ -27,35 +27,38 @@
         </li>
       </ul>
     </li>
-    <% unless user_signed_in? %>
-      <li class="navbar-divider">&nbsp;</li>
-      <li>
-        <a href="#" data-class="dropdown-toggle" role="button" id="header-signin" data-toggle="dropdown" aria-haspopup="true" 
-           aria-expanded="false">
-          <%= _('Sign in') %>
-          <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-        </a>
-        <ul id="signin-options" class="dropdown-menu" aria-labelledby="header-signin">
-          <li>
-            <%= render partial: 'shared/dmptool/sign_in_options' %>
-          </li>
-        </ul>
-      </li>
-    <% else %>
-      <li class="dropdown" id="signin-signout">
-        <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= current_user.name(false) %>
-          <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="user-menu">
-          <li>
-            <%= link_to _('Edit profile'), edit_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to _('Sign out'), destroy_user_session_path, method: :delete %>
-          </li>
-        </ul>
-      </li>
+
+    <% unless isActivePage(user_shibboleth_omniauth_callback_path) || isActivePage(user_orcid_omniauth_callback_path) %>
+      <% unless user_signed_in? %>
+        <li class="navbar-divider">&nbsp;</li>
+        <li>
+          <a href="#" data-class="dropdown-toggle" role="button" id="header-signin" data-toggle="dropdown" aria-haspopup="true" 
+             aria-expanded="false">
+            <%= _('Sign in') %>
+            <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+          </a>
+          <ul id="signin-options" class="dropdown-menu" aria-labelledby="header-signin">
+            <li>
+              <%= render partial: 'shared/dmptool/sign_in_options' %>
+            </li>
+          </ul>
+        </li>
+      <% else %>
+        <li class="dropdown" id="signin-signout">
+          <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.name(false) %>
+            <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="user-menu">
+            <li>
+              <%= link_to _('Edit profile'), edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to _('Sign out'), destroy_user_session_path, method: :delete %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
     <% end %>
 
     <!-- language dropdown -->

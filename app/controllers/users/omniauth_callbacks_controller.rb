@@ -1,3 +1,4 @@
+require 'securerandom'
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   ##
@@ -29,7 +30,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if current_user.nil? 
       # If the uid didn't have a match in the system then attempt to find them by email
       if user.nil?
-        user = User.where_case_insensitive(email: omniauth_info.email).first unless omniauth_info.email.nil?
+        user = User.where_case_insensitive('email', omniauth_info.email).first unless omniauth_info.email.nil?
         
         # If we could not find the email
         if user.nil?
@@ -43,7 +44,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           
           idp = OrgIdentifier.find_by(identifier: omniauth_info.identity_provider)
           org = Org.find_by(id: idp.org_id) if idp.present?
-          pwd = rand 2147483647
+          pwd = SecureRandom.uuid
           
           # Generate a new user object which will be used to prepopulate the create
           # account form
@@ -52,7 +53,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           
           session["devise.#{scheme.name.downcase}_data"] = omniauth
           flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
-          render new_user_registration_path, locals: { user: user }
+          render 'devise/registrations/new', locals: { user: user }
 
         else
           if UserIdentifier.create(identifier_scheme: scheme, 
