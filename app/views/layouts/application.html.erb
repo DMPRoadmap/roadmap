@@ -105,5 +105,11 @@
           <%= render partial: 'shared/dmptool/get_started' %>
         </div>
       <% end %>
+
+      <% if Rails.env.stage? %>
+        <script type="text/javascript">
+          (function() { var s = document.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = '//api.usersnap.com/load/09af08c1-5d7c-4c10-83bb-9bd3d353dd6e.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+        </script>
+      <% end %>
   </body>
 </html>
