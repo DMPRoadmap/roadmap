@@ -239,6 +239,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           member do
             get :users_joined
             get :completed_plans
+            get :created_plans
             get :using_template
             get :plans_by_template
             get :plans
