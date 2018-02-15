@@ -7,14 +7,14 @@
     <%= f.label(:password, _('Password'), class: 'control-label') %>
     <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
   </div>
+  <div>
+    <%= link_to _('Forgot password?'), new_password_path('user') %>
+  </div>
   <div class="checkbox">
     <%= label_tag 'remember_email', raw("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
   </div>
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
-  <div>
-    <%= link_to _('Forgot password?'), new_password_path('user') %>
-  </div>
-
+  
   <% if Rails.application.config.shibboleth_enabled %>
     <h4 class="text-center">- <%= _('or') %> -</h4>
 
