@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="panel-group" id="sections-accordion" role="tablist" aria-multiselectable="true">
-    <% phase.sections.order(:number).each do |section| %>
+    <% phase.sections.each do |section| %>
       <% sectionid = section.id %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
