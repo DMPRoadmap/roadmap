@@ -41,7 +41,7 @@ gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 # devise for user authentication
 gem 'devise'
 gem 'devise_invitable'
-gem 'omniauth'
+gem 'omniauth', '~>1.3.2'
 gem 'omniauth-shibboleth'
 gem 'omniauth-orcid'
 
