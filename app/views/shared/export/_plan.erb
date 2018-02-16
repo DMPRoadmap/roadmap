@@ -25,7 +25,7 @@
 
         <% section[:questions].each do |question| %>
           <div class="question">
-            <% if @show_sections_questions %>
+            <% if @show_sections_questions && !@public_plan %>
               <%# text in this case is an array to accomodate for option_based %>
               <% if question[:text].length > 1 %>
                 <ul>
@@ -43,7 +43,7 @@
             <% blank = answer.present? ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
             <% if blank && @show_unanswered %>
               <p><%= _('Question not answered.') -%></p>
-            <% else %>
+            <% elsif !blank %>
               <% if answer.question_options.length > 0 %>
                 <ul>
                   <% answer.question_options.each do |opt| %>
