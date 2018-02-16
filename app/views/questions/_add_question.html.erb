@@ -31,7 +31,7 @@ in the admin interface.
       :id,
       :title,
       QuestionFormat.id_for(QuestionFormat.formattypes[:textarea])),
-      {}, 
+      {},
       class: "form-control",
       'data-toggle': 'tooltip',
       'data-html': true,
@@ -44,12 +44,12 @@ in the admin interface.
     <div class="col-md-offset-2">
       <%= render "/question_options/option_fields", f: f, q: @new_question %>
       <!--display for selecting comment box when multiple choice is being used-->
-      <div class="checkbox">
-        <label>
-          <%= f.check_box :option_comment_display, as: :check_boxes %><%= _('Display additional comment area.') %>
-        </label>
-      </div>
     </div>
+  </div>
+  <div class="form-group col-md-10" data-attribute="option_comment" style="display:none;">
+    <label>
+      <%= f.check_box :option_comment_display, as: :check_boxes %><%= _('Display additional comment area.') %>
+    </label>
   </div>
   <!--Question default_value -->
   <div class="form-group col-md-10" data-attribute="default_value">
@@ -90,4 +90,3 @@ in the admin interface.
     </div>
   </div>
 <% end %>
-
