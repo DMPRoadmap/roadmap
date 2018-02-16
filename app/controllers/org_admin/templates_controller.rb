@@ -29,7 +29,7 @@ module OrgAdmin
         customized_templates: customizable_hash[:customizations],
         published: published,
         current_org: current_user.org, 
-        orgs: Org.all,
+        orgs: Org.where('is_other IS NULL OR is_other = ?', false),
         current_tab: params[:r] || 'all-templates',
         scopes: { all: all_templates_hash[:scopes], orgs: own_hash[:scopes], funders: customizable_hash[:scopes] }
       }

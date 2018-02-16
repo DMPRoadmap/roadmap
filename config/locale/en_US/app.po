@@ -524,7 +524,7 @@ msgstr "Edit template details"
 
 #, fuzzy
 msgid "Edited"
-msgstr "Edit"
+msgstr "Last edited"
 
 msgid "Editor"
 msgstr "Editor"
@@ -1323,7 +1323,7 @@ msgstr "Right"
 
 #, fuzzy
 msgid "Role"
-msgstr "role"
+msgstr "Permissions"
 
 msgid "Save"
 msgstr "Save"
