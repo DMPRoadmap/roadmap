@@ -126,6 +126,7 @@ class UsersController < ApplicationController
   # GET /users/:id/ldap_username
   def ldap_username
     skip_authorization
+    render '/users/dmptool/ldap_username'
   end
 
   def ldap_account
@@ -141,7 +142,8 @@ class UsersController < ApplicationController
       render(json: { 
         code: 0,
         email: '', 
-        msg:  _("We do not recognize the username #{params[:username]}. Please check the username and try again.") })
+        msg: _("We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account.") % { username: params[:username] }
+      })
     end
   end
 

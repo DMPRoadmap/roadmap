@@ -10,7 +10,8 @@
     <% if shibbolized %>
       <%= render partial: 'shared/popover', 
                  locals: { message: _('Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email.'), placement: 'right' } %>
-      <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email, disabled: true) %>
+      <input type="email" class="form-control" aria-required="true" value="<%= @user.email %>" disabled />
+      <input type="hidden" name="user[email]" id="user_email" value="<%= @user.email %>" />
     <% else %>
       <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
     <% end %>
