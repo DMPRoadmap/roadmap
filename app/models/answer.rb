@@ -99,7 +99,7 @@ class Answer < ActiveRecord::Base
   def answer_hash
     default = {'standards' => {}, text => ''}
     begin
-      h = self.text.nil? ? default : JSON.parse(answer.text)
+      h = self.text.nil? ? default : JSON.parse(self.text)
     rescue JSON::ParserError => e
       h = default
     end
