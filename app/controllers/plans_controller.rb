@@ -234,12 +234,13 @@ class PlansController < ApplicationController
 
 
   def export
-    @plan = Plan.includes(:answers).joins(:answers).find(params[:id])
+    @plan = Plan.includes(:answers).find(params[:id])
     authorize @plan
 
     @show_coversheet = params[:export][:project_details].present?
     @show_sections_questions = params[:export][:question_headings].present?
     @show_unanswered = params[:export][:unanswered_questions].present?
+    @public_plan = false
 
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = @plan.settings(:export).formatting
