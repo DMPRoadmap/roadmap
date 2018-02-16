@@ -106,7 +106,11 @@ class UsersController < ApplicationController
   def org_swap
     # Allows the user to swap their org affiliation on the fly
     authorize current_user
-    org = Org.find(org_swap_params[:org_id])
+    begin
+      org = Org.find(org_swap_params[:org_id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to(request.referer, alert: _('Please select an organisation from the list')) and return
+    end
     if org.present?
       current_user.org = org
       if current_user.save!
