@@ -84,6 +84,47 @@ module Api
         end
       end
 
+      # /api/v0/statistics/created_plans
+      # Returns the number of created plans within the user's org for the data start_date and end_date specified
+      def created_plans
+        raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
+        
+        roles = Role.where("#{Role.creator_condition} OR #{Role.administrator_condition}")
+
+        users = User.unscoped
+        if @user.can_super_admin? && params[:org_id].present?
+          users = users.where(org_id: params[:org_id])
+        else
+          users = users.where(org_id: @user.org_id)
+        end
+
+        plans = Plan.all
+        if params[:range_dates].present?
+          r = {}
+          params[:range_dates].each_pair do |k, v|
+            range_date_plans = plans
+              .where('plans.created_at >=?', v['start_date'])
+              .where('plans.created_at <=?', v['end_date'])
+            r[k] = roles.joins(:user, :plan).merge(users).merge(range_date_plans).select(:plan_id).distinct.count
+          end
+          respond_to do |format|
+            format.json { render(json: r.to_json) }
+            format.csv {
+              send_data(CSV.generate do |csv|
+                csv << [_('Month'), _('No. Plans')]
+                total = 0
+                r.each_pair{ |k,v| csv << [k,v]; total+=v }
+                csv << [_('Total'), total]
+              end, filename: "#{_('plans')}.csv") }
+          end
+        else
+          plans = plans.where('plans.created_at >= ?', Date.parse(params[:start_date])) if params[:start_date].present?
+          plans = plans.where('plans.created_at <= ?', Date.parse(params[:end_date])) if params[:end_date].present?
+          count = roles.joins(:user, :plan).merge(users).merge(plans).select(:plan_id).distinct.count
+          render(json: { created_plans: count })
+        end
+      end
+
       ##
       # GET
       # @return the number of DMPs using the specified template between the optional specified dates

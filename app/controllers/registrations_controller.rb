@@ -40,8 +40,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if !sign_up_params[:accept_terms] then
+    if !sign_up_params[:accept_terms]
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
+    elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+      redirect_to after_sign_up_error_path_for(resource), alert: _('Please select an organisation from the list, or enter your organisation\'s name.')
     else
       existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
       if existing_user.present?

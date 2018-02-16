@@ -730,8 +730,8 @@ class Plan < ActiveRecord::Base
   def self.load_for_phase(id, phase_id)
     plan = Plan
       .joins(template: { phases: { sections: :questions }})
+      .preload(template: { phases: { sections: :questions }}) # Preserves the default order defined in the model relationships
       .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
-      .includes(template: { phases: { sections: :questions }})
       .merge(Plan.includes(answers: :notes))[0]
     phase = plan.template.phases.first
     return plan, phase
