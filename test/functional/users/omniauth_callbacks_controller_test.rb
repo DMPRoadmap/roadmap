@@ -19,15 +19,12 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
         :uid => 'foo:bar'
       })
     end
-
   end
   
   # -------------------------------------------------------------
   test "User is not signed in and valid OAuth2 response does not match a User record in DB: should redirect to registration page" do
     @schemes.each do |scheme|
       post @callback_uris[scheme.name], locale: FastGettext.locale
-
-      assert_equal I18n.t('identifier_schemes.new_login_success'), flash[:notice], "Expected a success message when simulating a valid callback from #{scheme.name}"
       
       assert @response.redirect_url.include?(new_user_registration_url), "Expected a redirect to the registration page when the user is not logged in and we received a valid callback from #{scheme.name}"
       
@@ -45,7 +42,6 @@ class OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
       @user.user_identifiers << UserIdentifier.new(identifier_scheme: scheme, 
                                                    identifier: "foo:bar")
       @user.save!
-      
       post @callback_uris[scheme.name]
 
       ### Until ORCID login becomes supported.
