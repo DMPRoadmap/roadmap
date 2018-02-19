@@ -26,14 +26,13 @@ class RegistrationsController < Devise::RegistrationsController
 
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
-      if oauth[:provider].nil? || oauth[:uid].nil?
-        flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
-
+      if oauth['provider'].nil? || oauth['uid'].nil?
+        # flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
       else
         # Connect the new user with the identifier sent back by the OAuth provider
-        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
-        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase,
-                              identifier: oauth[:uid],
+        flash[:notice] = _('Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.') % {application_name: Rails.configuration.branding[:application][:name]}
+        UserIdentifier.create(identifier_scheme: IdentifierScheme.find_by(name: oauth['provider'].downcase),
+                              identifier: oauth['uid'],
                               user: @user)
       end
     end
@@ -41,6 +40,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    oauth = {provider: nil, uid: nil}
+    IdentifierScheme.all.each do |scheme|
+      oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
+    end
+
     if !sign_up_params[:accept_terms]
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
@@ -70,6 +74,19 @@ class RegistrationsController < Devise::RegistrationsController
             set_flash_message :notice, :signed_up if is_navigational_format?
             sign_up(resource_name, resource)
             UserMailer.welcome_notification(current_user).deliver
+            unless oauth.nil?
+              # The OAuth provider could not be determined or there was no unique UID!
+              unless oauth['provider'].nil? || oauth['uid'].nil?
+                prov = IdentifierScheme.find_by(name: oauth['provider'].downcase)
+                # Until we enable ORCID signups
+                if prov.name == 'shibboleth'
+                  UserIdentifier.create(identifier_scheme: prov,
+                                        identifier: oauth['uid'],
+                                        user: @user)
+                  flash[:notice] = _('Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.')
+                end
+              end
+            end
             respond_with resource, location: after_sign_up_path_for(resource)
           else
             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?

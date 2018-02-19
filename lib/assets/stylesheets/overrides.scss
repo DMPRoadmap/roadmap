@@ -441,15 +441,11 @@ $tooltip-background: $grey;
   cursor: pointer;
   display: inline;
   position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 2px;
-  margin-right: -28px;
+  top: 6px;
+  right: 5px;
   border: none;
   background: transparent;
   color: $grey;
-  padding-top: 4px;
-  font-size: 16pt;
 }
 
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */

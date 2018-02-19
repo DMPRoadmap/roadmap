@@ -1,0 +1,31 @@
+<div class="row">
+  <div id="dual_columns" class="container" style="display:table">
+    <% unless session["devise.shibboleth_data"].nil? %>
+        <% cookies[:show_shib_link] = { value: 'show_shib_link', expires: 3.hours.from_now } %>
+        <div class="col-md-6" style="border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; display:table-cell; float:none">
+            <h3 class="text-center"><%= _("Do you have a %{application_name} account?") % {application_name: Rails.configuration.branding[:application][:name]} %></h3>
+            <big><p class="text-center"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></p></big>
+            <h2 class="text-center">
+                <%= _("Sign in") %></i>
+            </h2>
+            <p class="text-center"><%= _("This will link your existing account to your credentials.") %></p>
+            <p><%= render :partial => 'shared/sign_in_form' %><br></p>
+        </div>
+        <div class="col-md-6" style="border:1px solid black; display:table-cell; float:none">
+            <h3 class="text-center"><%= _("No %{application_name} account?") % {application_name: Rails.configuration.branding[:application][:name]} %></h3>
+            <big><p class="text-center"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></p></big>
+            <h2 class="text-center">
+                <%= _("Create account") %></i>
+            </h2>
+            <p class="text-center"><%= _("This will create an account and link it to your credentials.") %></p>
+            <p><%= render :partial => 'shared/create_account_form', locals: {extended: false} %><br></p>
+        </div>
+    <% else %>
+        <div>
+            <h2><%= _("Create account") %>&nbsp;&nbsp;<i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i></h2>
+            <%= render :partial => 'shared/create_account_form', locals: {extended: true} %>  
+        </div>
+    <% end %>
+  </div>
+</div>
+    
