@@ -3,6 +3,7 @@ class SessionsController < Devise::SessionsController
   def new
     redirect_to(root_path)
   end
+
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
   def create
@@ -18,6 +19,9 @@ class SessionsController < Devise::SessionsController
       set_gettext_locale  #Method defined at controllers/application_controller.rb
     end
     super
+    if success
+      flash[:notice] = success
+    end
   end
 
   def destroy
