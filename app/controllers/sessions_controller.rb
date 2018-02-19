@@ -19,9 +19,6 @@ class SessionsController < Devise::SessionsController
       set_gettext_locale  #Method defined at controllers/application_controller.rb
     end
     super
-    if success
-      flash[:notice] = success
-    end
   end
 
   def destroy

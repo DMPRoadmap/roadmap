@@ -416,7 +416,7 @@ header {
     }
     
     #branding-nav {
-      margin: 15px 0 0 0;
+      margin: 20px 0 0 0;
 
       img.app-logo {
         margin-top: 5px;
@@ -458,19 +458,18 @@ header {
       .org-name-nav:before, .org-name-nav:after {
         content: "";
         position: absolute;
-        top: 35%;
-        height: 100%;
+        top: 15%;
+        height: 90%;
         width: 1px;
-      }
-      .org-name-nav:before {
-        left: 0;
         border-left: 1px solid $black;
       }
       .org-name-nav:before {
-        right: 0;
-        width: 100%;
-        border-right: 1px solid $black;
+        left: 0;
       }
+      .org-name-nav:after {
+        right: 0;
+      } 
+
       #org-links {
         padding-top: 5px;
         vertical-align: middle;
