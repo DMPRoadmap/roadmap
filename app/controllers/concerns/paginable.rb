@@ -86,7 +86,7 @@ module Paginable
       if direction.present? && params[:sort_field] == sort_field
         className = direction == 'ASC'? 'fa-sort-asc' : 'fa-sort-desc'
       end
-      return raw("<i class=\"fa #{className}\" aria-hidden=\"true\"></i>")
+      return raw("<i class=\"fa #{className}\" aria-hidden=\"true\" style=\"float:right; font-size: 1.2em;\"></i>")
     end
     # Returns the sort url for a given sort_field.
     def sort_link_url(sort_field)
