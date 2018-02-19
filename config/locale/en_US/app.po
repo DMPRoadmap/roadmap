@@ -220,7 +220,7 @@ msgstr ""
 
 #, fuzzy
 msgid "A new comment has been added to my DMP"
-msgstr "Comment"
+msgstr "A new comment has been added to my plan"
 
 #, fuzzy
 msgid "A pertinent ID as determined by the funder and/or organisation."
@@ -235,7 +235,7 @@ msgstr "A required setting has not been provided"
 
 #, fuzzy
 msgid "A user has requested feedback on a DMP"
-msgstr " on "
+msgstr "A user has requested feedback on a plan"
 
 msgid "API Information"
 msgstr "API Information"
@@ -424,7 +424,7 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it."
-msgstr "Public DMPs"
+msgstr "Are you sure you wish to remove this public plan? This will remove it from the Public Plans page but any collaborators will still be able to access it."
 
 msgid "Are you sure?"
 msgstr "Are you sure?"
@@ -441,7 +441,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Before you get started, we need some information about your research project to set you up with the best DMP template for your needs."
-msgstr "questions"
+msgstr "Before you get started, we need some information about your research project to set you up with the best template for your needs."
 
 msgid "Begin typing to see a filtered list"
 msgstr ""
@@ -651,7 +651,7 @@ msgstr "Templates"
 
 #, fuzzy
 msgid "DMP Visibility Changed: %{plan_title}"
-msgstr "Visibility"
+msgstr "Plan Visibility Changed: %{plan_title}"
 
 msgid "DMPTool Background"
 msgstr ""
@@ -807,7 +807,7 @@ msgid "Enter a description that helps you to differentiate between templates e.g
 msgstr "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
 
 msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
-msgstr "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
+msgstr "Enter a title for the phase e.g. initial plan, full plan... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. UCLA"
 
 #, fuzzy
 msgid "Enter a title for the section"
@@ -860,10 +860,10 @@ msgid "Face"
 msgstr "Face"
 
 msgid "Feedback has been provided for my DMP"
-msgstr ""
+msgstr "Feedback has been provided for my plan"
 
 msgid "Feedback has been requested for my DMP"
-msgstr ""
+msgstr "Feedback has been requested for my plan"
 
 msgid "Feedback has been requested."
 msgstr ""
@@ -975,7 +975,7 @@ msgid "Grant permissions"
 msgstr ""
 
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
-msgstr "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
+msgstr "Grant reference number if applicable [POST-AWARD ONLY]"
 
 msgid "Guidance"
 msgstr "Guidance"
@@ -1247,7 +1247,7 @@ msgid "More information about administering the %{tool_name} for users at your o
 msgstr "More information about administering the %{tool_name} for users at your organization is available at %{help_url}."
 
 msgid "My DMP's visibility has changed"
-msgstr ""
+msgstr "My plan's visibility has changed"
 
 msgid "My Dashboard"
 msgstr ""
@@ -1647,7 +1647,7 @@ msgid "Provides the user with an API token and grants rights to harvest informat
 msgstr "API token"
 
 msgid "Public DMPs"
-msgstr "Public DMPs"
+msgstr "Public Plans"
 
 #, fuzzy
 msgid "Public Plans"
@@ -1655,7 +1655,7 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
-msgstr "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "Public Plans are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
 #, fuzzy
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
@@ -2023,11 +2023,11 @@ msgstr "Themes"
 
 #, fuzzy
 msgid "There are currently no public DMPs."
-msgstr "There are no public DMPs."
+msgstr "There are currently no public plans."
 
 #, fuzzy
 msgid "There are currently no public Templates."
-msgstr "There are no public DMPs."
+msgstr "There are currently no public Templates."
 
 msgid "There are no records associated"
 msgstr ""
@@ -2131,7 +2131,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Unable to download the DMP Template at this time."
-msgstr "Template"
+msgstr "Unable to download the Template at this time."
 
 #, fuzzy
 msgid "Unable to find plan id %{plan_id}"
@@ -2257,7 +2257,7 @@ msgstr "Visibility"
 
 #, fuzzy
 msgid "We found multiple DMP templates corresponding to your funder."
-msgstr "template"
+msgstr "We found multiple templates corresponding to your funder."
 
 msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
 msgstr ""
@@ -2289,7 +2289,7 @@ msgstr "When you create a new phase for your template, a version will automatica
 
 #, fuzzy
 msgid "Which DMP template would you like to use?"
-msgstr "template"
+msgstr "Which template would you like to use?"
 
 #, fuzzy
 msgid "Write Plan"
@@ -2333,7 +2333,7 @@ msgid "You are not authorized to perform this action."
 msgstr ""
 
 msgid "You are now ready to create your first DMP."
-msgstr ""
+msgstr "You are now ready to create your first data management plan."
 
 msgid "You are viewing a historical version of this template. You will not be able to make changes."
 msgstr "You are viewing a historical version of this template. You will not be able to make changes."
@@ -2409,7 +2409,7 @@ msgstr "You need to sign in or sign up before continuing."
 
 #, fuzzy
 msgid "You will need to create an account in order to accept your invitation to view the data management plan (DMP)."
-msgstr "plan"
+msgstr "You will need to create an account in order to accept your invitation to view the data management plan."
 
 msgid "Your"
 msgstr "Your"
@@ -2483,7 +2483,7 @@ msgid "Your template has been published and is now available to users."
 msgstr "Your template has been published and is now available to users."
 
 msgid "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
-msgstr "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
+msgstr "Your template is no longer published. Users will not be able to create new plans for this template until you re-publish it"
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr "account has been locked due to an excessive number of unsuccessful sign in attempts."
