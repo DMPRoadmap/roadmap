@@ -44,8 +44,11 @@ class RegistrationsController < Devise::RegistrationsController
     IdentifierScheme.all.each do |scheme|
       oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
     end
+
     if !sign_up_params[:accept_terms]
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
+    elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+      redirect_to after_sign_up_error_path_for(resource), alert: _('Please select an organisation from the list, or enter your organisation\'s name.')
     else
       existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
       if existing_user.present?
@@ -58,6 +61,13 @@ class RegistrationsController < Devise::RegistrationsController
           # https://github.com/DMPRoadmap/roadmap/issues/322
         end
       end
+        if params[:user][:org_id].blank?
+          other_org = Org.find_by(is_other: true)
+          if other_org.nil?
+            redirect_to(after_sign_up_error_path_for(resource), alert: _('You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.')) and return
+          end
+          params[:user][:org_id] = other_org.id 
+        end
         build_resource(sign_up_params)
         if resource.save
           if resource.active_for_authentication?
