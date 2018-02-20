@@ -1,90 +1,91 @@
-<% javascript "plans/new_plan.js" %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Create a new plan') %></h1>
 
-<div class="main">
-  <h1><%= _('Create a new plan') %></h1>
-
-  <p>
-    <%= _("Before you get started, we need to ask a few questions to set you up with the best DMP template for your needs.") %>
-  </p>
-
-  <%= form_for @plan, html: {method: :post, class: "roadmap-form"}, remote: true do |f| %>
-    <div id="create_plan">
-
-      <!-- Plan name section -->
-      <fieldset class="standard padded">
-        <legend><%= _('What research project are you planning?') %></legend>
-        
-        <label for="plan_title">
-          <%= _('Project title') %>
-        </label>
-  
-        <input type="text" id="plan_title" name="plan[title]" class="fixed-width-large left-indent" />
-        <div class="left-indent" aria-describedby="org-tip" required>
-          <%= _('If applying for funding, state the title exactly as in the proposal.') %>
-        </div>
-      </fieldset>
-
-      <!-- Organisation selection -->
-      <fieldset class="standard padded">
-        <legend><%= _('Primary research organisation') %></legend>
-      
-        <label for="plan_org_name">
-          <%= _('Select the primary research organisation responsible') %>
-        </label>
-      
-        <%= render partial: "shared/accessible_combobox", 
-                   locals: {name: 'plan[org_name]',
-                            id: 'plan_org_name',
-                            default_selection: @default_org,
-                            models: @orgs,
-                            attribute: 'name',
-                            classes: 'fixed-width-large'} %>
-      
-        <input type="checkbox" id="plan_no_org">
-
-        <label for="plan_no_org" class="checkbox-label">
-          <%= _('My research organisation is not on the list') %>
-          <em><%= _(' or ') %></em>
-          <%= _('no research organisation is associated with this plan')%>
-        </label>
-      </fieldset>
-    
-      <!-- Funder selection -->
-      <fieldset class="standard padded">
-        <legend><%= _('Funding organisation') %></legend>
-      
-        <label for="plan_funder_name">
-          <%= _('Select the funding organisation') %>
-        </label>
-      
-        <%= render partial: "shared/accessible_combobox", 
-                   locals: {name: 'plan[funder_name]',
-                            id: 'plan_funder_name',
-                            default_selection: nil,
-                            models: @funders,
-                            attribute: 'name',
-                            classes: 'fixed-width-large'} %>
-                                                                 
-        <input type="checkbox" id="plan_no_funder" />
-        <label for="plan_no_funder" class="checkbox-label">
-          <%= _('No funder associated with this plan')%>
-        </label>
-      </fieldset>
-
-      <!-- Template selection -->
-      <fieldset class="standard padded" id="available-templates">
-      </fieldset>
-    
-    </div>
-    
-    <input type="hidden" id="plan_template_id" name="plan[template_id]"></input>
-    
-    <%= render partial: 'shared/accessible_submit_button',
-               locals: {id: 'create_plan_submit', 
-                         val: 'Create Plan', 
-                        disabled_initially: true,
-                        tooltip: _('You can not continue until you have filled in all of the required information.')} %>
-
-  <% end %>
+    <p class="left-indent">
+      <%= _("Before you get started, we need some information about your research project to set you up with the best DMP template for your needs.") %>
+    </p>
+  </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for Plan.new, url: plans_path do |f| %>
+      <!-- Plan name section -->
+      <h2 id="project-title"><%= _('What research project are you planning?') %></h2>
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
+                'data-toggle': 'tooltip',
+                title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
+        </div>
+        <div class="col-md-1">&nbsp;</div>
+        <div class="col-xs-5 checkbox create-plan-mock">
+          <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{_('mock project for testing, practice, or educational purposes')}")) %>
+        </div>
+      </div>
+
+      <!-- Organisation selection -->
+      <h2 id="research-org"><%= _('Select the primary research organisation') %></h2>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'plan[org_name]',
+                              id: 'plan_org_name',
+                              default_selection: @default_org,
+                              models: @orgs,
+                              attribute: 'name',
+                              required: true,
+                              error: _('You must select a research organisation from the list.'),
+                              tooltip: _('Please select a valid research organisation from the list.')} %>
+        </div>
+        <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
+        <div class="col-md-5 create-plan-checkbox">
+          <div class="checkbox">
+            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{_('My research organisation is not on the list')} <em>#{_(' or ')}</em> #{_('no research organisation is associated with this plan')}")) %>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Funder selection -->
+      <h2 id="funder-org"><%= _('Select the primary funding organisation') %></h2>
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'plan[funder_name]',
+                              id: 'plan_funder_name',
+                              default_selection: nil,
+                              models: @funders,
+                              attribute: 'name',
+                              required: true,
+                              error: _('You must select a funding organisation from the list.'),
+                              tooltip: _('Please select a valid funding organisation from the list.')} %>
+        </div>
+        <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
+        <div class="col-xs-5 create-plan-checkbox">
+          <div class="checkbox">
+            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{_('No funder associated with this plan')}")) %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Template selection -->
+      <div id="available-templates" style="visibility: none;">
+        <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
+        <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
+        <div class="form-group row">
+          <div class="col-xs-6">
+            <%= select_tag(:plan_template_id, "<option value=\"\">#{_('Please select a template')}</option>", name: 'plan[template_id]',
+                           class: 'form-control', 'aria-describedby': 'template-selection') %>
+          </div>
+          <div class="col-xs-6">
+            <span id="multiple-templates"><%= _('We found multiple DMP templates corresponding to your funder.') %></span>
+          </div>
+        </div>
+      </div>
+
+      <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
+      <%= f.button(_('Create plan'), class: "btn btn-primary", type: "submit") %>
+    <% end %>
+  </div>
+</div>

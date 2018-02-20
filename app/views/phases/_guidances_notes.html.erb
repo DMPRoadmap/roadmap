@@ -1,0 +1,95 @@
+<%# locals: { plan, template, question, answer, question_guidance, guidance_groups } %>
+<% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
+<% guidance_set = question_guidance[question.id] || {} %>
+<% guidances_active = (annotations.present? || guidance_set.length > 0) %>
+<div id="plan-guidance-tab">
+  <!-- Nav tabs -->
+  <ul class="nav nav-pills nav-justified mb-10" role="tablist">
+      <% if guidances_active %>
+          <li role="presentation" class="active">
+              <a href="#guidances-<%= question.id %>" aria-controls="guidances-<%= question.id %>" role="tab" data-toggle="pill">
+                  <%= _('Guidance') %>
+              </a>
+          </li>
+      <% end %>
+      <% if plan.present? %>
+          <li role="presentation" class="<%= 'active' if !guidances_active %>">
+              <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="pill">
+                  <span id="notes-title-<%= question.id %>">
+                      <%= render partial: '/notes/title', locals: { answer: answer } %>
+                  </span>
+              </a>
+          </li>
+      <% end %>
+  </ul>
+  <div class="tab-content">
+    <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if guidances_active %>">
+      <ul class="nav nav-tabs" role="tablist">
+        <% if annotations.present? %>
+          <li role="presentation" class="active">
+            <a href="#annotations-<%= question.id %>" aria-controls="annotations-<%= question.id %>" role="tab" data-toggle="tab" 
+               class="view-plan-guidance">
+              <%= template.org.short_name %>
+            </a>
+          </li>
+        <% end %>
+        <% guidance_set.keys.each do |group| %>
+          <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
+          <% if obj.present? %>
+            <li role="presentation">
+              <a href="#guidance-<%= question.id %>-<%= obj.id %>" aria-controls="guidance-<%= question.id %>-<%= obj.id %>" 
+                 role="tab" data-toggle="tab" class="view-plan-guidance">
+                <%= group[0..15] %>
+              </a>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+      <div class="tab-content">
+        <% if annotations.present? %>
+          <div id="annotations-<%= question.id %>" role="tabpanel" class="tab-pane active">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <!-- annotations with type guidance -->
+                <% num_annotations = 0 %>
+                <% i = 0 %>
+                <% annotations.each do |annotation| %>
+                  <%= render partial: 'annotations/show', 
+                    locals: {
+                      template: template,
+                      example_answer: (annotation.example_answer? ? annotation : nil),
+                      guidance: (annotation.guidance? ? annotation : nil),
+                      for_plan: true 
+                  } %>
+                  <% num_annotations += 1%>
+                  <% i += 1 %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% guidance_accordion_id = 0 %>
+        <% guidance_set.keys.each_with_index do |group, i| %>
+          <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
+          <% if obj.present? %>
+            <% accordion_id = "#{question.id}-#{obj.id}" %>
+            <div id="guidance-<%= accordion_id %>" role="tabpanel" class="tab-pane<%= annotations.present? ? '' : ' active' %>">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <%= render partial: 'guidance_groups/show', 
+                             locals: { group: guidance_set[group], question: question, guidance_accordion_id: "#{accordion_id}-#{i}" } %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if plan.present? %>
+      <div id="notes-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
+        <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer } %>
+      </div>
+    <% end %>
+  </div>
+</div>

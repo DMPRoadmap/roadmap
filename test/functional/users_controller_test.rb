@@ -47,8 +47,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     get admin_grant_permissions_user_path(@user.org.users.first)
     assert_response :success
-    assert assigns(:user)
-    assert assigns(:perms)
   end
 
   # PUT /org/admin/users/:id/admin_update_permissions (admin_update_permissions_user_path)
@@ -64,9 +62,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     # Valid save
     put admin_update_permissions_user_path(@user.org.users.last), {user: params}
-    assert_equal _('Information was successfully updated.'), flash[:notice]
-    assert_response :redirect
-    assert_redirected_to admin_index_users_url
+    assert_response :success
     @user.org.users.last.perms.each do |perm|
       assert params[:perm_ids].include?(perm.id), "did not expect to find the #{perm.name} attached to the user"
     end
