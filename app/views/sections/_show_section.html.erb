@@ -1,53 +1,29 @@
-<!-- show a section and its questions and guidance. Section is passed as an argument-->
-<% if @open && @section_id == section.id %>
-  <% toggle = 'accordion-body  section-collapse in collapse'%>
-<% else %>
-  <% toggle = 'accordion-body collapse section-collapse' %>
-<% end %>
-<div class="accordion-group">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections-accordion" href="#collapse-<%= section.id%>">
-      <div class="accordion_heading_text">
-        <% if section.title == '' then%>
-          <%= _('New section title')%>
-        <%else%>
-          <%= section.title %>
-        <%end%>
-      </div>
-      <!-- + or - icon-->
-          <span class="icon-plus icon-white accordion-icon"> </span>
-        </a>
-    </div>
-  <div id="collapse-<%= section.id%>" class="<%= toggle %>">
-    <div class="section_desc">
+<div class="row">
+  <div class="col-md-12">
+    <p class="text-justify">
       <%= raw section.description %>
-    </div>
-    <div class="accordion-inner">
-      <% section_questions = section.questions.order("number") %>
-      <% if section_questions.present? %>
-        <% last_question_id = section_questions.last.id %>
-        <% section_questions.each do |question| %>
-          <div class="question_guidance_block">
-            <!--question block-->
-            <div id="show_question_div_<%= question.id%>" class="<%= if question.id == @question_id then "current_question" end %>">
-							
-							<% if question.modifiable %>
-								<%= render partial: 'questions/edit_question', locals: {question: question} %>
-							<% else %>
-                <!-- render the show question block-->
-                <%= render partial: 'questions/show_question', locals: {question: question} %>
-							<% end %>
-            </div>
-
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= _('Questions') %></h3>
+    <% questions = section.questions.order('number') %>
+    <% if questions.present? %>
+      <% questions.each do |question| %>
+        <hr />
+        <div class="question_show" id="<%= "question_show#{question.id}" %>">
+          <%= render partial: 'questions/show_question', locals: {template: template, question: question, current_tab: current_tab} %>
+        </div>
+        <% if question.modifiable %>
+          <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
+            <%= render partial: 'questions/edit_question', locals: {template: template, question: question, current_tab: current_tab} %>
           </div>
-
-          <% if last_question_id == question.id %>
-            <div class="two-column-clear"></div>
-          <% else %>
-            <div class="two-column-clear question-divider"></div>
-          <% end %>
+        <% end %>
+        <% if questions.last.id != question.id %>
+          <hr />
         <% end %>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>

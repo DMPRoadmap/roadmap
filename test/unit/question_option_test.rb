@@ -8,7 +8,7 @@ class QuestionOptionTest < ActiveSupport::TestCase
     
     @question = QuestionFormat.find_by(option_based: true).questions.first
     
-    @plan = Plan.create(title: 'Test Plan', template: @question.section.phase.template)
+    @plan = Plan.create(title: 'Test Plan', template: @question.section.phase.template, visibility: :privately_visible)
     
     @option = QuestionOption.create(question: @question, text: 'Test QuestionOption', number: 1)
   end

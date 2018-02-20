@@ -1,0 +1,495 @@
+/* This file contains overrides to the core Bootstrap 3.x styling */
+/* -------------------------------------------------------------- */
+
+$black: #000;
+$white: #FFF;
+$red:  #b94a48;
+$grey: #4F5253;
+$gold: #c09853;
+$highlight-color: $black;
+$highlight-background-color: #F36F24;
+
+/**** font configuration ****/
+@font-face {
+  font-family: 'GillSansLight';
+  src: font-url('GillSansLight.ttf') format('truetype');
+  font-weight: normal;
+}
+
+/* Font Smoothing in Webkit /*
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ADD a BORDER */
+.bordered {
+  border: 1px solid $grey;
+  padding: 5px 20px 15px 20px;
+}
+
+/* TABLE STYLING */
+
+.table { border: 1px solid $grey; }
+.table thead > tr > th { border-bottom: none; }
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid $grey; }
+
+thead th {
+  background-color: $grey;
+  color: $white;
+}
+thead th.table-scope {
+  background-color: $white;
+  font-weight: normal;
+
+  a {
+    color: $grey;
+    padding: 2px 15px 2px 2px;
+  }
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #CCC;
+}
+
+// Fix issues with dropdwon within tables being cut off
+.table-responsive > .table {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .table-responsive .dropdown-menu,
+  .table-responsive .dropdown-toggle {
+        position: static !important;
+  }
+}
+
+@media (min-width: 768px) {
+    .table-responsive {
+        overflow: visible;
+    }
+}
+
+/* NOTIFICATION TABLE STYLING */
+.notifications {
+  table {
+    border: none;
+
+    thead > tr > th {
+      border: none;
+      background-color: $white;
+      color: $black;
+     }
+     tbody > tr > td { border: none; }
+  }
+}
+
+/* nav-tabs and nav-pills styling */
+.nav-tabs, .nav-pills {
+  background-color: $grey;
+  color: $white;
+  border-bottom: 0px;
+}
+.nav-tabs > li > a, .nav-pills > li > a {
+  color: $white;
+}
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  background-color: $white;
+  color: $grey;
+  border: 1px solid $grey;
+  border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
+}
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  background-color: $white;
+  color: $grey;
+  border: 1px solid $grey;
+}
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li.active:last-child > a,
+.nav-pills > li.active:last-child > a:focus,
+.nav-pills > li.active:last-child > a:hover {
+  border-right: 0px;
+}
+/* panel styling */
+
+.panel-default {
+  border-color: $grey;
+}
+.heading-button > .panel-heading, .panel-default > .panel-heading {
+  background-color: $grey;
+  color: $white;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.panel-title a {
+  display: block;
+  padding: 8px 15px;
+  margin: -10px -15px;
+  background-color: $grey;
+  color: $white;
+}
+.panel-title > a.reverse {
+  background-color: $white;
+  color: $grey;
+}
+
+/* list-group styling */
+.list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+/* label stylying */
+.label {
+  font-size: 85%;
+}
+
+/* LIST STYLING */
+span.sublist {
+  margin-left: -15px;
+  margin-right: 25px;
+}
+
+/* Overrides ul list */ 
+#modal-permissions ul {
+  list-style-type: none;
+}
+
+/* Overrides list-group */ 
+#modal-permissions .list-group li:nth-child(1){
+  border-top: 0 none;
+}
+
+/* Overrides list-group-item */ 
+#modal-permissions .list-group-item {
+  height: 30px; 
+  padding: 5px 15px;
+}
+
+/* FONTAWESOME STYLING */
+.fa {
+  font-size: 2rem;
+}
+.fa-reverse {
+  color: $grey;
+}
+.fa-sort, .fa-sort-asc, .fa-sort-desc {
+  color: $white;
+}
+
+/* RADIO BUTTONS */
+.radio label {
+  margin-right: 15px;
+}
+
+/* BUTTONS STYLING */
+
+/*
+$disabled-button-color: #808080;
+$cancel-button-color: #F17D04;
+*/
+
+/* primary button */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:hover,
+.btn-primary.active:hover {
+  background-color: $grey;
+  color: $white;
+  border-color: $grey;
+  outline: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default:visited,
+.btn-default:active:hover,
+.btn-default.active:hover {
+  background-color: $grey;
+  color: $white;
+  border-color: $grey;
+  outline: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* Popover button */
+.btn-default[data-toggle=tooltip],
+.btn-default:hover[data-toggle=tooltip],
+.btn-default:focus[data-toggle=tooltip],
+.btn-default:active[data-toggle=tooltip],
+.btn-default:visited[data-toggle=tooltip],
+.btn-default:active:hover[data-toggle=tooltip] {
+  color: $grey;
+  background-color: $white;
+  border: none;
+  padding-left: -10px;
+  font-size: .8rem;
+}
+
+// Footer (for actions)
+.modal-footer {
+  text-align: right; // right align buttons
+
+  // Properly space out buttons within modal to fix alignment issues
+  .btn + .btn {
+    margin-left: 5px;
+    margin-bottom: 10px; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  }
+  // but override that for button groups
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+  // and override it for block buttons as well
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+}
+
+
+/* MESSAGES */
+$error-color: $red;
+$error-background: #f2dede;
+
+$notice-color: $gold;
+$notice-background: #fcf8e3;
+
+/****  ---------------------------------------------------------------------------- ****/
+/**** Main layout configuration ****/
+
+main {
+  margin-bottom: 100px;
+  @media (max-width: 768px) {
+    margin-bottom: 420px;
+  }
+  @media (min-width: 768px) and (max-width: 1000px) {
+    margin-bottom: 200px;
+  }
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body{
+  padding-bottom: 50px;
+}
+
+/* footer */
+#footer-navbar {
+  bottom: 0;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  width: 100%;
+  position: absolute;
+}
+
+
+/* HEADER STYLING */
+/*
+$header-height: 165px;
+$header-logo-width: 165px;
+$header-background: $white;
+$header-text-color: $black;
+$header-background: linear-gradient(#ED6406, #F59503);
+*/
+
+/* For org navbar custom height */
+#org-navbar {
+  margin-top: -20px;
+
+  #banner-org-name {
+    margin-top: 40px;
+  }
+}
+@media (min-width: 768px) {
+  #org-navbar .navbar-nav li a {
+    line-height: 102px;
+    height: 102px;
+    padding-top: 0;
+  }
+  #org-navbar .org-links {
+    padding-top: 15px;
+  }
+  #org-navbar .org-a {
+    line-height: 36px !important;
+    height: 36px !important;
+    vertical-align: middle !important;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 768px) {
+  #admin-dropdown ul li a, #super-admin-dropdown ul li a {
+    line-height: 26px !important;
+    height: 26px !important;
+    margin-top: 3px !important;
+  }
+}
+
+/* For dark (inverse) navbars */
+.inverse-dropdown {
+  background-color: #222 !important;
+  border-color: #080808 !important;
+  & > li > a {
+    color: #999 !important;
+    &:hover {
+      color: #fff !important;
+      background-color: #000 !important;
+    }
+  }
+  .active a {
+      color: #fff !important;
+      background-color: #000 !important;
+  }
+}
+
+/* HEADER LOGOS */
+.app-logo {
+  height: 50px;
+  padding-right:15px;
+}
+.org-logo {
+  padding: 15px 10px;
+}
+
+/* Tooltip Styling */
+
+$tooltip-color: $white;
+$tooltip-background: $grey;
+
+.tooltip-inner {
+  min-width: 320px;
+  max-width: 100%; 
+  text-align: left;
+}
+
+@media (max-width: 320px) {
+  .tooltip-inner {
+  min-width: initial;
+  max-width: 120px;
+  text-align: left;
+  }
+}
+
+/* JQuery Autocomplete Styling */
+/* ---------------------------------------------------- */
+.invisible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.combobox-container {
+  position: relative;
+}
+
+.combobox-suggestions {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: $white;
+  z-index: 99;
+}
+.combobox-suggestion {
+  color: $grey;
+  border-bottom: 1px solid $grey;
+  border-left: 1px solid $grey;
+  border-right: 1px solid $grey;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.combobox-suggestion:first-child {
+  border-top: 1px solid $grey;
+}
+.combobox-suggestion:hover,
+.combobox-suggestion:focus {
+  color: $white;
+  background-color: $grey;
+}
+
+.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
+  cursor: pointer;
+  display: inline;
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  border: none;
+  background: transparent;
+  color: $grey;
+}
+
+/* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
+.js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
+.js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
+
+
+/* PAGE SPECIFIC SETTINGS */
+/* ---------------------------------------------*/
+/* Org details page */
+.remove-org-link i {
+  margin-left: -15px;
+  margin-top: 30px;
+}
+.org-logo-controls {
+  display: inline-block;
+  margin-left: 15px;
+  input { display: inline-block; }
+  strong { margin: 0 10px; }
+}
+
+/* Plan creation */
+.create-plan-or {
+  padding: 5px 0 0 15px;
+}
+.create-plan-checkbox {
+  margin-left: -40px;
+  margin-top: -5px;
+}
+.create-plan-mock {
+  margin-left: -40px;
+}
+
+/* Sharp edges */
+#app-navbar,
+#org-navbar,
+.nav-tabs > li > a,
+.nav-pills > li > a,
+.panel, .panel-group .panel,
+.progress,
+.btn,
+.form-control,
+.label,
+.alert,
+.input-group-addon {
+  border-radius: 0px;
+}
