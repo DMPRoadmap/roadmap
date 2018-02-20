@@ -101,7 +101,7 @@ th > a > .fa {
     margin: 0;
   }
   button {
-		padding: 0;
+    padding: 0;
   }
 }
 .table > tbody > tr > td:first-child {
@@ -365,13 +365,13 @@ li.bg-primary {
 
 /* LAYOUT */
 /* --------------------------------------- */
-header, #notification-area, #forgot-password-notification-area, main, footer,
-.homepage-img #home-welcome-msg #message {
+header, #account-nav, #notification-area, #forgot-password-notification-area, 
+main, footer,
+.homepage-img #home-welcome-msg #message{
   font-family: Arial;
   min-width: 480px;
   max-width: 1140px;
 }
-
 header, footer {
   padding: 0 15px;
 }
@@ -416,7 +416,7 @@ header {
     }
     
     #branding-nav {
-      margin: 20px 0 0 0;
+      margin: 35px 0 0 0;
 
       img.app-logo {
         margin-top: 5px;
@@ -458,7 +458,7 @@ header {
       .org-name-nav:before, .org-name-nav:after {
         content: "";
         position: absolute;
-        top: 15%;
+        top: 5%;
         height: 90%;
         width: 1px;
         border-left: 1px solid $black;
@@ -490,60 +490,64 @@ header {
       }
     }
     
-    #sign-in-menu {
-      position: absolute; 
-      top: 0;
-      right: 0;
-      margin-right: 15px;
+    #account-nav {
+      margin: 0 auto;
+      box-shadow: 0 5px $light-grey;
+      background-color: white;
+    
+      #sign-in-menu {
+        margin-right: 2px;
 
-      li > a {
-        padding-top: 0;
-      }
-      li.active > a {
-        background-color: $dark-blue;
-      }
-      li > a:hover, li > a:focus, li > a:visited, li > a:active, li > a:active:hover,
-      li > a > .fa, li > a > .fa:hover, li > a > .fa:focus, li > a > .fa:visited, li > a > .fa:active, li > a > .fa:active:hover {
-        background-color: white;
-        color: $dark-blue;
-        cursor: pointer;
-      }
-      li:last-child > a {
-        padding-right: 0;
-      }
-
-      .fa {
-        font-size: 1.5rem;
-      }
-
-      .navbar-divider {
-        border-left: 1px solid $black;
-        height: 15px;
-        margin-top: 5px;
-        padding: 0;
-      }
-
-      #explore-menu {
-        min-width: 500px;
-        font-size: 1.4rem;
-
-        li {
-          padding-left: 5px;
-          
-          a {
-            padding-left: 0;
-          }
+        li > a {
+          padding-top: 0;
+          padding-bottom: 5px;
+        }
+        li.active > a {
+          background-color: $dark-blue;
+        }
+        li > a:hover, li > a:focus, li > a:visited, li > a:active, li > a:active:hover,
+        li > a > .fa, li > a > .fa:hover, li > a > .fa:focus, li > a > .fa:visited, li > a > .fa:active, li > a > .fa:active:hover {
+          background-color: white;
+          color: $dark-blue;
+          cursor: pointer;
+        }
+        li:last-child > a {
+          padding-right: 0;
         }
 
-        ul.indented {
-          margin-left: 15px;
+        .fa {
+          font-size: 1.5rem;
+        }
+
+        .navbar-divider {
+          border-left: 1px solid $black;
+          height: 15px;
+          margin-top: 5px;
+          padding: 0;
+        }
+
+        #explore-menu {
+          min-width: 500px;
+          font-size: 1.4rem;
 
           li {
-            margin-top: -5px;
-           
+            padding-left: 5px;
+          
             a {
-              padding-right: 0;
-              padding-bottom: 3px;
+              padding-left: 0;
+            }
+          }
+
+          ul.indented {
+            margin-left: 15px;
+
+            li {
+              margin-top: -5px;
+           
+              a {
+                padding-right: 0;
+                padding-bottom: 3px;
+              }
             }
           }
         }
