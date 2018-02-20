@@ -1,15 +1,13 @@
-<!--edit note to answer. note passed as argument-->
-
-<%= form_for(note,
-             url: note_path(note),
-             remote: true,
-             html: {method: :put, class: "edit_note_form roadmap-form"},
-             id: "edit_note_form_#{note.id}") do |f| %>
-
-	<fieldset class="standard">
-    <%= f.hidden_field :id, :value => note.id %>
-
-    <%= text_area_tag("#{note.id}_note_text".to_sym, note.text , class: "tinymce") %>
-		<%= f.submit _('Save'), :class => "form-submit edit_note_submit_button" %>
-	</fieldset>
-<%end%>
+<%# locals: { note } %>
+<% if !note.nil? %>
+    <%= form_for(note, url: note_path(note), method: :put) do |f| %>
+        <div class="form-group">
+            <%= f.label(:text, _('Edit comment to share with collaborators')) %>
+            <%= f.text_area(:text, class: 'form-control', id: "note-#{note.id}") %>
+        </div>
+        <div class="pull-right">
+            <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+            <%= f.button(_('Cancel'), class: "btn btn-default", type: "button") %>
+        </div>
+    <% end %>
+<% end %>

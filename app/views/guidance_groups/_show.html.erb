@@ -1,0 +1,37 @@
+<%# locals: { group, question, guidance_accordion_id }%>
+<div id="guidance-<%= guidance_accordion_id %>-accordion" class="panel-group" role="tablist" aria-multiselectable="true">
+  <% if group.keys.length > 1 %>
+    <div id="guidance-accordion-controls">
+      <div class="accordion-controls" data-parent="guidance-<%= guidance_accordion_id %>-accordion">
+        <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+        <span>|</span>
+        <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+      </div>
+    </div>
+  <% end %>
+  <% group.keys.each_with_index do |theme, i| %>
+    <div class="panel panel-default">
+      <div class="heading-button" role="button" data-toggle="collapse"
+           data-parent="<%= question.id %>-guidance" 
+           href="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>"
+           aria-expanded="false" 
+           aria-controls="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
+           
+        <div class="panel-heading" role="tab" id="heading-<%= i %>">
+          <h2 class="panel-title">
+            <%= theme %>
+            <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+          </h2>
+        </div>
+      </div>
+      <div id="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>" class="panel-collapse collapse" role="tabpanel"
+         aria-labelledby="heading-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
+        <div class="panel-body">
+          <% group[theme].each do |guidance| %>
+            <%= raw guidance %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

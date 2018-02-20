@@ -1,50 +1,20 @@
-<%= stylesheet_link_tag "admin" %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('User accounts') %></h1>
+    <p class="text-justify">
+      <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
+    </p>
+  </div>
+</div>
 
-<h1>
-    <%= _('List of users') %>
-</h1>
-
-<%= raw _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
-  <table id="dmp_table" class="dmp_table tablesorter">
-    <thead>
-      <tr>
-          <th class="dmp_th_big"><%= _('Name') %></th>
-          <th class="dmp_th_medium"><%= _('Email address') %></th>
-          <th class="dmp_th_small"><%= _('Last logged in') %></th>
-          <th class="dmp_th_small"><%= _('How many plans?') %></th>
-          <th class="dmp_th_small"><%= _('Privileges') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-          <% if !user.nil? then%>
-            <tr>
-              <td class="dmp_td_big">
-                  <% if !user.name.nil? then%>
-                      <%= user.name %>
-                  <% end %>
-              </td>
-              <td class="dmp_td_medium">
-                  <%= user.email %>
-              </td>
-              <td class="dmp_td_small">
-                  <% if !user.last_sign_in_at.nil? then%>
-                  <%= l user.last_sign_in_at.to_date, :formats => :short %>
-                  <% end %>
-              </td>
-              <td class="dmp_td_small">
-                  <% if !user.roles.nil? then%>
-                  <%= user.roles.length %>
-                  <% end %>
-              </td>
-              <td class="dmp_td_small">
-                <% unless current_user == user %>
-                  <% b_label = _('Edit')%>
-                  <%= link_to b_label, admin_grant_permissions_user_path(user), :class => "dmp_table_link"%>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-      <% end %>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <%= paginable_renderise(
+        partial: '/paginable/users/index',
+        controller: 'paginable/users',
+        action: 'index', 
+        scope: @users, locals: { page: 1 }) %>
+    </div>
+  </div>
+</div>

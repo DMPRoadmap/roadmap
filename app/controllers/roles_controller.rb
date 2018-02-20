@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+  include ConditionalUserMailer
   respond_to :html
   after_action :verify_authorized
 
@@ -6,8 +7,9 @@ class RolesController < ApplicationController
     registered = true
     @role = Role.new(role_params)
     authorize @role
+    
     access_level = params[:role][:access_level].to_i
-    set_access_level(access_level)
+    @role.set_access_level(access_level)
     message = ''
     if params[:user].present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
@@ -26,10 +28,14 @@ class RolesController < ApplicationController
           message += _('Plan shared with %{email}.') % {email: user.email}
           @role.user = user
           if @role.save
-            if registered then UserMailer.sharing_notification(@role, current_user).deliver_now end
+            if registered
+              deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
+                UserMailer.sharing_notification(@role, r).deliver_now
+              end
+            end
             flash[:notice] = message
           else
-            flash[:notice] = failed_create_error(@role, _('role'))
+            flash[:alert] = failed_create_error(@role, _('role'))
           end
         end
       end
@@ -44,14 +50,14 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
     access_level = params[:role][:access_level].to_i
-    set_access_level(access_level)
+    @role.set_access_level(access_level)
     if @role.update_attributes(role_params)
-      flash[:notice] = _('Sharing details successfully updated.')
-      UserMailer.permissions_change_notification(@role, current_user).deliver_now
-      redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+      deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |r|
+        UserMailer.permissions_change_notification(@role, current_user).deliver_now
+      end
+      render json: {code: 1, msg: "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."}
     else
-      flash[:notice] = failed_create_error(@role, _('role'))
-      render action: "edit"
+      render json: {code: 0, msg: flash[:alert]}
     end
   end
 
@@ -62,8 +68,28 @@ class RolesController < ApplicationController
     plan = @role.plan
     @role.destroy
     flash[:notice] = _('Access removed')
-    UserMailer.project_access_removed_notification(user, plan, current_user).deliver_now
+    deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
+      UserMailer.plan_access_removed(user, plan, current_user).deliver_now
+    end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+  end
+    
+  # This function makes user's role on a plan inactive - i.e. "removes" this from their plans
+  def deactivate
+    role = Role.find(params[:id])
+    authorize role
+    role.active = false
+    # if creator, remove from public plans list
+    if role.creator? && role.plan.publicly_visible?
+      role.plan.visibility = Plan.visibilities[:privately_visible]
+      role.plan.save
+    end
+    if role.save
+      flash[:notice] = _('Plan removed')
+    else
+      flash[:alert] = _('Unable to remove the plan')
+    end
+    redirect_to(plans_path)
   end
 
   private
@@ -71,23 +97,4 @@ class RolesController < ApplicationController
   def role_params
     params.require(:role).permit(:plan_id)
   end
-
-  def set_access_level(access_level)
-    if access_level >= 1
-      @role.commenter = true
-    else
-      @role.commenter = false
-    end
-    if access_level >= 2
-      @role.editor = true
-    else
-      @role.editor = false
-    end
-    if access_level >= 3
-      @role.administrator = true
-    else
-      @role.administrator = false
-    end
-  end
-
 end

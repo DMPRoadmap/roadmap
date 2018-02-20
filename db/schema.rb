@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702012742) do
+ActiveRecord::Schema.define(version: 20180212124444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_url"
-    t.string   "user_landing_url"
+    t.text     "logo_url"
+    t.text     "user_landing_url"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -136,6 +136,15 @@ ActiveRecord::Schema.define(version: 20170702012742) do
 
   add_index "notes", ["answer_id"], name: "index_notes_on_answer_id", using: :btree
 
+  create_table "org_identifiers", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "attrs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "org_id"
+    t.integer  "identifier_scheme_id"
+  end
+
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "org_id"
     t.integer  "token_permission_type_id"
@@ -150,8 +159,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.string   "abbreviation"
     t.string   "target_url"
     t.string   "wayfless_entity"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "parent_id"
     t.boolean  "is_other"
     t.string   "sort_name"
@@ -162,7 +171,12 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.string   "logo_uid"
     t.string   "logo_name"
     t.string   "contact_email"
-    t.integer  "org_type",        default: 0, null: false
+    t.integer  "org_type",               default: 0,     null: false
+    t.text     "links",                  default: "[]"
+    t.string   "contact_name"
+    t.boolean  "feedback_enabled",       default: false
+    t.string   "feedback_email_subject"
+    t.text     "feedback_email_msg"
   end
 
   create_table "perms", force: :cascade do |t|
@@ -200,7 +214,13 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.string   "principal_investigator_identifier"
     t.string   "data_contact"
     t.string   "funder_name"
-    t.integer  "visibility",                        default: 0, null: false
+    t.integer  "visibility",                                        null: false
+    t.string   "data_contact_email"
+    t.string   "data_contact_phone"
+    t.string   "principal_investigator_email"
+    t.string   "principal_investigator_phone"
+    t.boolean  "feedback_requested",                default: false
+    t.boolean  "complete",                          default: false
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
@@ -208,6 +228,11 @@ ActiveRecord::Schema.define(version: 20170702012742) do
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
+  end
+
+  create_table "prefs", force: :cascade do |t|
+    t.text    "settings"
+    t.integer "user_id"
   end
 
   create_table "question_formats", force: :cascade do |t|
@@ -263,7 +288,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access",     default: 0, null: false
+    t.integer  "access",     default: 0,    null: false
+    t.boolean  "active",     default: true
   end
 
   add_index "roles", ["plan_id"], name: "index_roles_on_plan_id", using: :btree
@@ -314,6 +340,7 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.integer  "dmptemplate_id"
     t.boolean  "migrated"
     t.boolean  "dirty",            default: false
+    t.text     "links",            default: "{\"funder\":[], \"sample_plan\":[]}"
   end
 
   add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index", using: :btree
@@ -358,8 +385,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.string   "email",                  default: "", null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -383,6 +410,7 @@ ActiveRecord::Schema.define(version: 20170702012742) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "language_id"
+    t.string   "recovery_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -406,6 +434,8 @@ ActiveRecord::Schema.define(version: 20170702012742) do
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
+  add_foreign_key "org_identifiers", "identifier_schemes"
+  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"

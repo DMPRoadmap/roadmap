@@ -23,6 +23,10 @@ class GuidanceGroupPolicy < ApplicationPolicy
     user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
   end
 
+  def admin_update_unpublish?
+    user.can_modify_guidance? && (guidance_group.org_id == user.org_id)
+  end
+
   def admin_new?
     user.can_modify_guidance?
   end

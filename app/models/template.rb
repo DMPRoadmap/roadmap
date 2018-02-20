@@ -1,8 +1,14 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
+  include ActiveModel::Validations
+  validates_with TemplateLinksValidator
 
   before_validation :set_creation_defaults
-  scope :valid,  -> {where(migrated: false)}
+
+  # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
+  # The links is validated against custom validator allocated at validators/template_links_validator.rb
+  serialize :links, JSON
+  
   ##
   # Associations
   belongs_to :org
@@ -19,7 +25,12 @@ class Template < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of,
                   :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
-                  :migrated, :version, :visibility, :published, :as => [:default, :admin]
+                  :migrated, :version, :visibility, :published, :links, :as => [:default, :admin]
+
+  # A standard template should be organisationally visible. Funder templates that are 
+  # meant for external use will be publicly visible. This allows a funder to create 'funder' as
+  # well as organisational templates. The default template should also always be publicly_visible
+  enum visibility: [:organisationally_visible, :publicly_visible]
 
   # defines the export setting for a template object
   has_settings :export, class_name: 'Settings::Template' do |s|
@@ -28,19 +39,80 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
+  scope :valid,  -> { where(migrated: false) }
+  scope :published, -> { where(published: true) }
+
+  # Retrieves all valid and published templates
+  scope :valid_published, -> (is_default: false)  {
+    Template.where(templates: { is_default: is_default }).valid().published()
+  }
+
+  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]) }
+  scope :organisationally_visible, -> { where(:visibility => Template.visibilities[:organisationally_visible]) }
+  
+  # Retrieves template with distinct dmptemplate_id that are valid (e.g. migrated false) and customization_of is nil. Note,
+  # if organisation ids are passed, the query will filter only those distinct dmptemplate_ids for those organisations
+  scope :families, -> (org_ids=nil) {
+    if org_ids.is_a?(Array) 
+      valid.where(org_id: org_ids, customization_of: nil).distinct
+    else
+      valid.where(customization_of: nil).distinct
+    end 
+  }
+  # Retrieves the maximum version for the array of dmptemplate_ids passed. If dmptemplate_ids is missing, every maximum
+  # version for each different dmptemplate_id will be retrieved
+  scope :dmptemplate_ids_with_max_version, -> (dmptemplate_ids=nil) {
+    if dmptemplate_ids.is_a?(Array)
+      select("MAX(version) AS version", :dmptemplate_id).where(dmptemplate_id: dmptemplate_ids).group(:dmptemplate_id)
+    else
+      select("MAX(version) AS version", :dmptemplate_id).group(:dmptemplate_id)
+    end
+  }
+  # Retrieves the maximum version for the array of customization_ofs passed. If customization_ofs is missing, every maximum
+  # version for each different customization_of will be retrieved
+  scope :customization_ofs_with_max_version, -> (customization_ofs=nil) {
+    if customization_ofs.is_a?(Array)
+      select("MAX(version) AS version", :customization_of).where(customization_of: customization_ofs).group(:customization_of)
+    else
+      select("MAX(version) AS version", :customization_of).group(:customization_of)
+    end
+  }
+  # Retrieves the latest template version, i.e. the one with maximum version for each dmptemplate_id
+  scope :latest_version, -> (dmptemplate_ids=nil) {
+    from(dmptemplate_ids_with_max_version(dmptemplate_ids), :current)
+    .joins("INNER JOIN templates ON current.version = templates.version"\
+      " AND current.dmptemplate_id = templates.dmptemplate_id")
+  }
+  # Retrieves the latest customized version, i.e. the one with maximum version for each customization_of=dmptemplate_id
+  scope :latest_customization, -> (org_id, dmptemplate_ids=nil) {
+    from(customization_ofs_with_max_version(dmptemplate_ids), :current)
+    .joins("INNER JOIN templates ON current.version = templates.version"\
+      " AND current.customization_of = templates.customization_of")
+    .where('templates.org_id = ?', org_id)
+  }
+  
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:org).where("templates.title LIKE ? OR orgs.name LIKE ?", search_pattern, search_pattern)
+  }
+  
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
     Template.all.valid.distinct.pluck(:dmptemplate_id)
   end
 
-  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id
+  # Retrieves the most recent version of the template for the specified dmptemplate_id
   def self.current(dmptemplate_id)
     Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
   end
 
   # Retrieves the current published version of the template for the specified Org and dmptemplate_id
   def self.live(dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id, published: true).valid.first
+    if dmptemplate_id.respond_to?(:each)
+      Template.where(dmptemplate_id: dmptemplate_id, published: true).valid
+    else
+      Template.where(dmptemplate_id: dmptemplate_id, published: true).valid.first
+    end
   end
 
   def self.default
@@ -52,13 +124,58 @@ class Template < ActiveRecord::Base
   # specified org and dmptemplate_id
   # returns nil if no customizations found
   #
-  # @params [integer] dmptemplate_id of the original template
+  # @params  dmptemplate_ids of the original template
   # @params [integer] org_id for the customizing organisation
   # @return [nil, Template] the customized template or nil
-  def self.org_customizations(dmptemplate_id, org_id)
-    Template.where(customization_of: dmptemplate_id, org_id: org_id).order(version: :desc).valid.first
+  def self.org_customizations(dmptemplate_ids, org_id)
+    template_ids = latest_customization(org_id, dmptemplate_ids).pluck(:id)
+    includes(:org).where(id: template_ids)
   end
-
+  
+  # Retrieves current templates with their org associated for a set of valid orgs
+  # TODO pass an array of org ids instead of Org instances
+  def self.get_latest_template_versions(orgs)
+    if orgs.respond_to?(:each)
+      families_ids = families(orgs.map(&:id)).pluck(:dmptemplate_id)
+    elsif orgs.is_a?(Org)
+      families_ids = families([orgs.id]).pluck(:dmptemplate_id)
+    else
+      families_ids = []
+    end
+    template_ids = latest_version(families_ids).pluck(:id)
+    includes(:org).where(id: template_ids)
+  end
+  
+  # Retrieves current templates with their org associated for a set of valid orgs
+  # TODO pass an array of org ids instead of Org instances
+  def self.get_public_published_template_versions(orgs)
+    if orgs.respond_to?(:each)
+      families_ids = families(orgs.map(&:id)).pluck(:dmptemplate_id)
+    elsif orgs.is_a?(Org)
+      families_ids = families([orgs.id]).pluck(:dmptemplate_id)
+    else
+      families_ids = []
+    end
+    includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
+  end
+  
+  ##
+  # create a new version of the most current copy of the template
+  #
+  # @return [Template] new version
+  def get_new_version
+    if self.id.present?
+      new_version = Template.deep_copy(self)
+      new_version.version = (self.version + 1)
+      new_version.published = false 
+      new_version.visibility = self.visibility # do not change the visibility 
+      new_version.save!
+      new_version
+    else
+      nil
+    end
+  end
+  
   ##
   # deep copy the given template and all of it's associations
   #
@@ -146,9 +263,10 @@ class Template < ActiveRecord::Base
       self.published = false
       self.migrated = false
       self.dirty = false
-      self.visibility = 1
+      self.visibility = 0 # Organisationally visible by default
       self.is_default = false
       self.version = 0 if self.version.nil?
+      self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
 
       # Generate a unique identifier for the dmptemplate_id if necessary
       if self.dmptemplate_id.nil?
@@ -159,5 +277,4 @@ class Template < ActiveRecord::Base
       end
     end
   end
-
 end
