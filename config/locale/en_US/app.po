@@ -22,7 +22,7 @@ msgstr "e.g. School/ Department"
 
 #, fuzzy
 msgid " Customised By: "
-msgstr "Customise"
+msgstr "Customized By: "
 
 #, fuzzy
 msgid " Plan"
@@ -30,11 +30,11 @@ msgstr "plan"
 
 #, fuzzy
 msgid " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
-msgstr " on "
+msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal "
 
 #, fuzzy
 msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
-msgstr "organization"
+msgstr "Warning: Changing your organization will result in the loss of your administrative privileges."
 
 #, fuzzy
 msgid " by %{user_name}"
@@ -70,7 +70,7 @@ msgstr "\"Unlink your account from #{scheme.description}. You can link again at 
 
 #, fuzzy
 msgid "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
-msgstr "user"
+msgstr "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
 
 msgid "\"Your account has been linked to #{scheme.description}.\""
 msgstr "\"Your account has been linked to #{scheme.description}.\""
@@ -184,7 +184,7 @@ msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organ
 
 #, fuzzy
 msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
-msgstr "organization"
+msgstr "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organization. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 
 msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
 msgstr "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
@@ -220,11 +220,11 @@ msgstr ""
 
 #, fuzzy
 msgid "A new comment has been added to my DMP"
-msgstr "Comment"
+msgstr "A new comment has been added to my plan"
 
 #, fuzzy
 msgid "A pertinent ID as determined by the funder and/or organisation."
-msgstr "A pertinent ID as determined by the funder and/or institution."
+msgstr "A pertinent ID as determined by the funder and/or institution/organization."
 
 #, fuzzy
 msgid "A plan has been shared with me"
@@ -235,7 +235,7 @@ msgstr "A required setting has not been provided"
 
 #, fuzzy
 msgid "A user has requested feedback on a DMP"
-msgstr " on "
+msgstr "A user has requested feedback on a plan"
 
 msgid "API Information"
 msgstr "API Information"
@@ -267,7 +267,7 @@ msgstr "Comment"
 
 #, fuzzy
 msgid "Add Organisations"
-msgstr "Organization"
+msgstr "Add Organizations"
 
 #, fuzzy
 msgid "Add Question"
@@ -279,11 +279,11 @@ msgstr "Add section"
 
 #, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
-msgstr "guidance group"
+msgstr "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organization/institution or department name."
 
 #, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\""
-msgstr "guidance group"
+msgstr "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organization/institution or department name e.g. \"UCLA\" or \"Engineering\""
 
 #, fuzzy
 msgid "Add comments to share with collaborators"
@@ -306,7 +306,7 @@ msgstr "Add option"
 
 #, fuzzy
 msgid "Add organisations"
-msgstr "organization"
+msgstr "Add organizations"
 
 msgid "Additional Information"
 msgstr ""
@@ -346,11 +346,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
-msgstr "organization"
+msgstr "Allows the user to amend the organization details (name, URL etc) and add basic branding such as the logo"
 
 #, fuzzy
 msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
-msgstr "organization"
+msgstr "Allows the user to assign permissions to other users within the same organization. Users can only assign permissions they own themselves"
 
 #, fuzzy
 msgid "Allows the user to create and edit guidance"
@@ -358,19 +358,19 @@ msgstr "guidance"
 
 #, fuzzy
 msgid "Allows the user to create new organisational templates, edit existing ones and customise funder templates"
-msgstr "template"
+msgstr "Allows the user to create new organizational templates, edit existing ones and customize funder templates"
 
 #, fuzzy
 msgid "Allows the user to create new organisations"
-msgstr "organization"
+msgstr "Allows the user to create new organizations"
 
 #, fuzzy
-msgid "Allows the user to grant API access to organisations."
-msgstr "organization"
+msgid "Allows the user to grant API access to organisations"
+msgstr "Allows the user to grant API access to organizations"
 
 #, fuzzy
 msgid "Allows the user to manage organisation affiliation"
-msgstr "organization"
+msgstr "Allows the user to manage organization affiliation"
 
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
@@ -424,7 +424,7 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it."
-msgstr "Public DMPs"
+msgstr "Are you sure you wish to remove this public plan? This will remove it from the Public Plans page but any collaborators will still be able to access it."
 
 msgid "Are you sure?"
 msgstr "Are you sure?"
@@ -441,7 +441,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Before you get started, we need some information about your research project to set you up with the best DMP template for your needs."
-msgstr "questions"
+msgstr "Before you get started, we need some information about your research project to set you up with the best template for your needs."
 
 msgid "Begin typing to see a filtered list"
 msgstr ""
@@ -454,11 +454,11 @@ msgstr "Bottom"
 
 #, fuzzy
 msgid "Briefly summarise your research project to help others understand the purposes for which the data are being collected or created."
-msgstr "Created"
+msgstr "Briefly summarize your research project to help others understand the purposes for which the data are being collected or created."
 
 #, fuzzy
 msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
-msgstr "Organization"
+msgstr "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organizational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -475,7 +475,7 @@ msgstr "Change my password"
 
 #, fuzzy
 msgid "Change organisation details"
-msgstr "organization"
+msgstr "Change organization details"
 
 #, fuzzy
 msgid "Change your password"
@@ -498,7 +498,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Click below to give data management staff at your organisation access to read and comment on your plan."
-msgstr "organization"
+msgstr "Click below to give data management staff at your organization access to read and comment on your plan."
 
 msgid "Click here"
 msgstr ""
@@ -558,7 +558,7 @@ msgstr "API Information"
 
 #, fuzzy
 msgid "Create Organisation"
-msgstr "Organization"
+msgstr "Create Organization"
 
 #, fuzzy
 msgid "Create a guidance group"
@@ -633,7 +633,7 @@ msgid "Current password"
 msgstr "Current password"
 
 msgid "Customise"
-msgstr "Customise"
+msgstr "Customize"
 
 #, fuzzy
 msgid "Customizable Templates"
@@ -651,7 +651,7 @@ msgstr "Templates"
 
 #, fuzzy
 msgid "DMP Visibility Changed: %{plan_title}"
-msgstr "Visibility"
+msgstr "Plan Visibility Changed: %{plan_title}"
 
 msgid "DMPTool Background"
 msgstr ""
@@ -754,7 +754,7 @@ msgid "Edit comment to share with collaborators"
 msgstr "Comment"
 
 msgid "Edit customisation"
-msgstr "Edit customisation"
+msgstr "Edit customization"
 
 #, fuzzy
 msgid "Edit phase details"
@@ -798,7 +798,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit."
-msgstr "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.</div>"
+msgstr "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the colored banner once a section is opened to edit.</div>"
 
 msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
 msgstr "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
@@ -807,7 +807,7 @@ msgid "Enter a description that helps you to differentiate between templates e.g
 msgstr "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
 
 msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
-msgstr "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
+msgstr "Enter a title for the phase e.g. initial plan, full plan... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. UCLA"
 
 #, fuzzy
 msgid "Enter a title for the section"
@@ -860,10 +860,10 @@ msgid "Face"
 msgstr "Face"
 
 msgid "Feedback has been provided for my DMP"
-msgstr ""
+msgstr "Feedback has been provided for my plan"
 
 msgid "Feedback has been requested for my DMP"
-msgstr ""
+msgstr "Feedback has been requested for my plan"
 
 msgid "Feedback has been requested."
 msgstr ""
@@ -876,11 +876,11 @@ msgstr "Filter plans"
 
 #, fuzzy
 msgid "Find guidance from additional organisations below"
-msgstr "organization"
+msgstr "Find guidance from additional organizations below"
 
 #, fuzzy
 msgid "Find your organisation to sign in"
-msgstr "organization"
+msgstr "Find your organization to sign in"
 
 msgid "First"
 msgstr ""
@@ -891,7 +891,7 @@ msgstr "First name"
 
 #, fuzzy
 msgid "First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group."
-msgstr "<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>"
+msgstr "<p>First create a guidance group. This could be organization-wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you will be asked to assign it to a guidance group.</p>"
 
 #, fuzzy
 msgid "First name"
@@ -958,7 +958,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Grant API to organisations"
-msgstr "organization"
+msgstr "Grant API to organizations"
 
 #, fuzzy
 msgid "Grant Number"
@@ -975,7 +975,7 @@ msgid "Grant permissions"
 msgstr ""
 
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
-msgstr "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
+msgstr "Grant reference number if applicable [POST-AWARD ONLY]"
 
 msgid "Guidance"
 msgstr "Guidance"
@@ -1073,14 +1073,14 @@ msgstr "question"
 
 #, fuzzy
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
-msgstr "organization"
+msgstr "If you wish to add an organizational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'customize template' options below."
 
 msgid "If you would like to change your password please complete the following fields."
 msgstr "If you would like to change your password please complete the following fields."
 
 #, fuzzy
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
-msgstr "organization"
+msgstr "If you would like to modify one of the templates below, you must first change your organization affiliation."
 
 #, fuzzy
 msgid "Information was successfully created."
@@ -1177,7 +1177,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Links will be displayed next to your organisation's logo"
-msgstr "organization"
+msgstr "Links will be displayed next to your organization's logo"
 
 #, fuzzy
 msgid "Logout"
@@ -1188,7 +1188,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Look up your organisation here"
-msgstr "organization"
+msgstr "Look up your organization here"
 
 msgid "Make a copy"
 msgstr ""
@@ -1202,11 +1202,11 @@ msgstr "guidance"
 
 #, fuzzy
 msgid "Manage organisation affiliation"
-msgstr "organization"
+msgstr "Manage organization affiliation"
 
 #, fuzzy
 msgid "Manage organisation details"
-msgstr "organization"
+msgstr "Manage organization details"
 
 #, fuzzy
 msgid "Manage templates"
@@ -1244,10 +1244,10 @@ msgstr "Font"
 
 #, fuzzy
 msgid "More information about administering the %{tool_name} for users at your organisation is available at %{help_url}."
-msgstr "organization"
+msgstr "More information about administering the %{tool_name} for users at your organization is available at %{help_url}."
 
 msgid "My DMP's visibility has changed"
-msgstr ""
+msgstr "My plan's visibility has changed"
 
 msgid "My Dashboard"
 msgstr ""
@@ -1270,7 +1270,7 @@ msgstr ""
 
 #, fuzzy
 msgid "New organisation"
-msgstr "organization"
+msgstr "New organization"
 
 #, fuzzy
 msgid "New password"
@@ -1302,7 +1302,7 @@ msgstr "No"
 
 #, fuzzy
 msgid "No organisations are currently registered."
-msgstr "No"
+msgstr "No organizations are currently registered."
 
 #, fuzzy
 msgid "No themes have been defined. Please contact your administrator for assistance."
@@ -1318,7 +1318,7 @@ msgstr "Users"
 
 #, fuzzy
 msgid "No. completed plans during last year"
-msgstr "plan"
+msgstr "No. plans created during last year"
 
 #, fuzzy
 msgid "No. users joined during last year"
@@ -1330,7 +1330,7 @@ msgstr "No"
 
 #, fuzzy
 msgid "Not Customised"
-msgstr "Customise"
+msgstr "Not Customized"
 
 msgid "Not answered yet"
 msgstr "Not answered yet"
@@ -1381,58 +1381,58 @@ msgstr "Organization"
 
 #, fuzzy
 msgid "Organisation Type(s)"
-msgstr "Organization"
+msgstr "Organization Type(s)"
 
 #, fuzzy
 msgid "Organisation Types"
-msgstr "Organization"
+msgstr "Organization Types"
 
 #, fuzzy
 msgid "Organisation URLs"
-msgstr "Organization"
+msgstr "Organization URLs"
 
 #, fuzzy
 msgid "Organisation abbreviated name"
-msgstr "Organization"
+msgstr "Organization abbreviated name"
 
 msgid "Organisation details"
 msgstr "Organization details"
 
 #, fuzzy
 msgid "Organisation full name"
-msgstr "Organization"
+msgstr "Organization full name"
 
 #, fuzzy
 msgid "Organisation not in the list?"
-msgstr "Organization"
+msgstr "Organization not in the list?"
 
 #, fuzzy
 msgid "Organisation type(s)"
-msgstr "Organization"
+msgstr "Organization type(s)"
 
 #, fuzzy
 msgid "Organisation: anyone at my organisation can view"
-msgstr "Institution"
+msgstr "Organization: anyone at my organization can view"
 
 #, fuzzy
 msgid "Organisation: anyone at my organisation can view."
-msgstr "Institution"
+msgstr "Organization: anyone at my organization can view"
 
 #, fuzzy
 msgid "Organisational Admin"
-msgstr "Organization"
+msgstr "Organizational Admin"
 
 #, fuzzy
 msgid "Organisational Configuration Information"
-msgstr "Organization"
+msgstr "Organizational Configuration Information"
 
 #, fuzzy
 msgid "Organisational: anyone at your organisation can view your plan."
-msgstr "Institution"
+msgstr "Organizational: anyone at your organization can view your plan."
 
 #, fuzzy
 msgid "Organisations"
-msgstr "Organization"
+msgstr "Organizations"
 
 #, fuzzy
 msgid "Organization logo"
@@ -1530,7 +1530,7 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Please choose an organisation"
-msgstr "organization"
+msgstr "Please choose an organization"
 
 msgid "Please do not reply to this email."
 msgstr ""
@@ -1578,11 +1578,11 @@ msgstr "<p>Please note that your email address is used as your username. If you 
 
 #, fuzzy
 msgid "Please select a valid funding organisation from the list."
-msgstr "organization"
+msgstr "Please select a valid funding organization from the list."
 
 #, fuzzy
 msgid "Please select a valid research organisation from the list."
-msgstr "organization"
+msgstr "Please select a valid research organization from the list."
 
 msgid "Please select an item from the list."
 msgstr ""
@@ -1647,7 +1647,7 @@ msgid "Provides the user with an API token and grants rights to harvest informat
 msgstr "API token"
 
 msgid "Public DMPs"
-msgstr "Public DMPs"
+msgstr "Public Plans"
 
 #, fuzzy
 msgid "Public Plans"
@@ -1655,11 +1655,11 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
-msgstr "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "Public Plans are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
 #, fuzzy
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
-msgstr "organization"
+msgstr "Public or organizational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 
 #, fuzzy
 msgid "Public: anyone can view on the web"
@@ -1757,7 +1757,7 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Sample plans are provided by a funder, an organisation or a trusted party."
-msgstr "organization"
+msgstr "Sample plans are provided by a funder, an organization or a trusted party."
 
 msgid "Save"
 msgstr "Save"
@@ -1790,22 +1790,22 @@ msgstr ""
 
 #, fuzzy
 msgid "See the full list of participating organisations"
-msgstr "organization"
+msgstr "See the full list of participating organizations"
 
 msgid "Select all"
 msgstr ""
 
 #, fuzzy
 msgid "Select an organisation from the list or leave blank if your organisation is not listed."
-msgstr "organization"
+msgstr "Select an organization from the list or leave blank if your organization is not listed."
 
 #, fuzzy
 msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-msgstr "organization"
+msgstr "Select one or more themes that are relevant to this guidance. This will display your generic organization-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
 
 #, fuzzy
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
-msgstr "organization"
+msgstr "Select one or more themes that are relevant to this question. This will allow similarly themed organization-level guidance to appear alongside your question."
 
 #, fuzzy
 msgid "Select phase to download"
@@ -1813,15 +1813,15 @@ msgstr "phase"
 
 #, fuzzy
 msgid "Select the primary funding organisation"
-msgstr "organization"
+msgstr "Select the primary funding organization"
 
 #, fuzzy
 msgid "Select the primary research organisation"
-msgstr "organization"
+msgstr "Select the primary research organization"
 
 #, fuzzy
 msgid "Select up to 6 organisations to see their guidance."
-msgstr "organization"
+msgstr "Select up to 6 organizations to see their guidance."
 
 msgid "Select which group this guidance relates to."
 msgstr "Select which group this guidance relates to."
@@ -1997,7 +1997,7 @@ msgstr "The "
 
 #, fuzzy
 msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
-msgstr "organization"
+msgstr "The table below lists the plans that users at your organization have created and shared within your organization. This allows you to download a PDF and view their plans as samples or to discover new research data."
 
 #, fuzzy
 msgid "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
@@ -2023,11 +2023,11 @@ msgstr "Themes"
 
 #, fuzzy
 msgid "There are currently no public DMPs."
-msgstr "There are no public DMPs."
+msgstr "There are currently no public plans."
 
 #, fuzzy
 msgid "There are currently no public Templates."
-msgstr "There are no public DMPs."
+msgstr "There are currently no public Templates."
 
 msgid "There are no records associated"
 msgstr ""
@@ -2073,11 +2073,11 @@ msgstr "Title"
 
 #, fuzzy
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations."
-msgstr "%{application_name}"
+msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations."
 
 #, fuzzy
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
-msgstr "%{application_name}"
+msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 organizations of the following organizations who offer guidance relevant to your plan."
 
 msgid "Top"
 msgstr "Top"
@@ -2102,7 +2102,7 @@ msgid "Total users"
 msgstr "user"
 
 msgid "Transfer customisation"
-msgstr ""
+msgstr "Transfer customization"
 
 msgid "Type"
 msgstr ""
@@ -2120,7 +2120,7 @@ msgstr "plan"
 
 #, fuzzy
 msgid "Unable to change your organisation affiliation at this time."
-msgstr "organization"
+msgstr "Unable to change your organization affiliation at this time."
 
 #, fuzzy
 msgid "Unable to create a new version of this template. You are currently working with a published copy."
@@ -2131,7 +2131,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Unable to download the DMP Template at this time."
-msgstr "Template"
+msgstr "Unable to download the Template at this time."
 
 #, fuzzy
 msgid "Unable to find plan id %{plan_id}"
@@ -2175,7 +2175,7 @@ msgstr "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
 
 #, fuzzy
 msgid "Unknown organisation."
-msgstr "organization"
+msgstr "Unknown organization."
 
 #, fuzzy
 msgid "Unlink your account from your organisation. You can link again at any time."
@@ -2231,7 +2231,7 @@ msgstr "guidance"
 
 #, fuzzy
 msgid "View all organisations"
-msgstr "organization"
+msgstr "View all organizations"
 
 #, fuzzy
 msgid "View all search results"
@@ -2257,7 +2257,7 @@ msgstr "Visibility"
 
 #, fuzzy
 msgid "We found multiple DMP templates corresponding to your funder."
-msgstr "template"
+msgstr "We found multiple templates corresponding to your funder."
 
 msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
 msgstr ""
@@ -2289,7 +2289,7 @@ msgstr "When you create a new phase for your template, a version will automatica
 
 #, fuzzy
 msgid "Which DMP template would you like to use?"
-msgstr "template"
+msgstr "Which template would you like to use?"
 
 #, fuzzy
 msgid "Write Plan"
@@ -2333,7 +2333,7 @@ msgid "You are not authorized to perform this action."
 msgstr ""
 
 msgid "You are now ready to create your first DMP."
-msgstr ""
+msgstr "You are now ready to create your first data management plan."
 
 msgid "You are viewing a historical version of this template. You will not be able to make changes."
 msgstr "You are viewing a historical version of this template. You will not be able to make changes."
@@ -2394,22 +2394,22 @@ msgstr "You must accept the terms and conditions to register."
 
 #, fuzzy
 msgid "You must select a funding organisation from the list."
-msgstr "organization"
+msgstr "You must select a funding organization from the list."
 
 #, fuzzy
 msgid "You must select a research organisation from the list."
-msgstr "organization"
+msgstr "You must select a research organization from the list."
 
 #, fuzzy
 msgid "You must select at least one organisation type"
-msgstr "organization"
+msgstr "You must select at least one organization type."
 
 msgid "You need to sign in or sign up before continuing."
 msgstr "You need to sign in or sign up before continuing."
 
 #, fuzzy
 msgid "You will need to create an account in order to accept your invitation to view the data management plan (DMP)."
-msgstr "plan"
+msgstr "You will need to create an account in order to accept your invitation to view the data management plan."
 
 msgid "Your"
 msgstr "Your"
@@ -2422,7 +2422,7 @@ msgstr "Your access to "
 
 #, fuzzy
 msgid "Your account has been linked to your organisation. You can now login with that method."
-msgstr "organization"
+msgstr "Your account has been linked to your organization. You can now log in with that method."
 
 msgid "Your account has been successfully linked to %{scheme}."
 msgstr "Your account has been successfully linked to %{scheme}."
@@ -2457,11 +2457,11 @@ msgstr "Institution"
 
 #, fuzzy
 msgid "Your organisation affiliation has been changed. You may now edit templates for %{org_name}."
-msgstr "organization"
+msgstr "Your organization affiliation has been changed. You may now edit templates for %{org_name}."
 
 #, fuzzy
 msgid "Your organisation does not seem to be properly configured."
-msgstr "Your"
+msgstr "Your organization does not seem to be properly configured."
 
 #, fuzzy
 msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
@@ -2483,7 +2483,7 @@ msgid "Your template has been published and is now available to users."
 msgstr "Your template has been published and is now available to users."
 
 msgid "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
-msgstr "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
+msgstr "Your template is no longer published. Users will not be able to create new plans for this template until you re-publish it"
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr "account has been locked due to an excessive number of unsuccessful sign in attempts."
@@ -2604,7 +2604,7 @@ msgstr "organization"
 
 #, fuzzy
 msgid "organisational"
-msgstr "organization"
+msgstr "organizational"
 
 #, fuzzy
 msgid "password"
@@ -2691,7 +2691,7 @@ msgstr "user"
 
 #, fuzzy
 msgid "user must be in your organisation"
-msgstr "organization"
+msgstr "user must be in your organization"
 
 #, fuzzy
 msgid "write and edit the plan in a collaborative manner."

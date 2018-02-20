@@ -3,6 +3,7 @@ class SessionsController < Devise::SessionsController
   def new
     redirect_to(root_path)
   end
+
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
   def create

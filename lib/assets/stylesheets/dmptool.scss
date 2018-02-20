@@ -365,7 +365,7 @@ li.bg-primary {
 
 /* LAYOUT */
 /* --------------------------------------- */
-header, #notification-area, main, footer,
+header, #notification-area, #forgot-password-notification-area, main, footer,
 .homepage-img #home-welcome-msg #message {
   font-family: Arial;
   min-width: 480px;
@@ -376,7 +376,7 @@ header, footer {
   padding: 0 15px;
 }
 
-#notification-area {
+#notification-area, #forgot-password-notification-area {
   margin: -10px auto 5px auto;
   padding: 5px 0 5px 20px;
   
@@ -416,7 +416,7 @@ header {
     }
     
     #branding-nav {
-      margin: 15px 0 0 0;
+      margin: 20px 0 0 0;
 
       img.app-logo {
         margin-top: 5px;
@@ -458,19 +458,18 @@ header {
       .org-name-nav:before, .org-name-nav:after {
         content: "";
         position: absolute;
-        top: 35%;
-        height: 100%;
+        top: 15%;
+        height: 90%;
         width: 1px;
-      }
-      .org-name-nav:before {
-        left: 0;
         border-left: 1px solid $black;
       }
       .org-name-nav:before {
-        right: 0;
-        width: 100%;
-        border-right: 1px solid $black;
+        left: 0;
       }
+      .org-name-nav:after {
+        right: 0;
+      } 
+
       #org-links {
         padding-top: 5px;
         vertical-align: middle;
@@ -781,6 +780,13 @@ footer.blue {
 /*   SPECIFIC PAGE RULES */
 /* ============================================================= */
 /* ============================================================= */
+/*   Signin/Create Account */
+/*   --------------------------------------- */
+.password-toggle {
+  margin: 0 0 0 0;
+}
+
+/* ============================================================= */
 /*   Write Plan page */
 /*   --------------------------------------- */
 .progress-bar {
@@ -806,6 +812,9 @@ div[id^="guidance-"] .panel {
 .form-answer .panel-default .label-default {
   color: $dark-blue;
   background-color: $light-blue;
+}
+a.modal-guidances-window {
+  font-size: 1.6rem;
 }
 
 /*   Theme selectors on the Edit/Create Guidance and Edit/Create Question pages */

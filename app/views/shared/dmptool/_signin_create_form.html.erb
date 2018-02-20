@@ -73,6 +73,13 @@
             </div>
             <div class="row create-account-fields<%= signin ? ' hide' : '' %>">
               <div class="col-md-12">
+                <div class="checkbox pull-left password-toggle">
+                  <label for="passwords_toggle_sign_up">
+                    <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-12">
                 <div class="checkbox pull-left">
                   <%= f.label(:accept_terms,
                       raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
@@ -87,6 +94,7 @@
               </div>
               <div class="col-md-6 signin-fields<%= !signin ? ' hide' : '' %>">
                 <div class="pull-right"><%= link_to _('Forgot email?'), users_ldap_username_path %></div>
+                <div class="clearfix"></div>
                 <div class="pull-right"><%= link_to _('Forgot password?'), new_password_path('user') %></div>
               </div>
             </div>

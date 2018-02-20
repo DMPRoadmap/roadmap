@@ -186,10 +186,10 @@ A: DMPTool administrators can delete templates. This option is only available if
 ***
 
 ##### Q: How do I create guidance?  And what are themes?
-A:  The [help menu for administrators](Help-for-Administrators) on GitHub contains detailed instructions for creating themed guidance. The basic steps include: 
-1. Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)  
-2. Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group
-3. Publishing the guidance
+A:  The [help menu for administrators](Help-for-Administrators) on GitHub contains detailed instructions for creating themed guidance. The basic steps include:    
+1. Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)     
+2. Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group   
+3. Publishing the guidance   
 
 There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.
 ***

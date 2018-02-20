@@ -16,3 +16,26 @@
 <%= _("Since then the proliferation of open data policies across the globe led to an explosion of interest in the DMPTool and the UK-based version, DMPonline. In 2016 UC3 and DCC decided to formalize our partnership to codevelop and maintain a single open-source platform. The new platform—DMPRoadmap—is separate from the services each of our teams runs on top of it. By providing a core infrastructure for DMPs we can extend our reach and move best practices forward, allowing us to participate in a truly global open science ecosystem.") %>
 
 <%= _("Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases. We invite you to peruse the DMPRoadmap GitHub wiki to learn how to ") %><%= link_to( "get involved", "https://github.com/DMPRoadmap/roadmap/wiki/get-involved", target: '_blank', id: "get involved" ) %><%= _(" in the project.") %>
+
+### <%= _('How to Participate in the DMPTool') %>
+
+<%= _("DMPTool participants are institutions, profit and nonprofit organizations, individuals, or other groups that leverage the DMPTool as an effective and efficient way to create data management plans. Our community of participating organizations helps to sustain and support the DMPTool in the following ways:    
+- Establish institutional authentication with the DMPTool (Shibboleth)     
+- Customize the tool with resources, help text, suggested answers, or other information    
+- Contribute to the maintenance and enhancement of the DMPTool codebase   
+- Help ensure that the DMPTool maintains its relevance and utility by notifying the DMPTool Helpdesk if:   
+    - Funders release new requirements that are not reflected in the tool      
+    - Errors, mistakes, or misinformation are discovered in the tool      
+    - The tool's functionality is compromised (i.e., slow response times, poor performance, or software bugs)   ") %>
+
+<%= _("See a <a href=\"https://dmptool-stg.cdlib.org/public_orgs" target=\"_blank\">current list</a> of DMPTool participants.") %>
+
+### <%= _('DMPTool Principles') %>
+<%= _("Our work on the DMPTool is guided by the principles below. Organizations that participate in the DMPTool community are expected to understand and abide by these principles.   
+- Continuous improvement of the DMPTool's utility and features
+- User-driven requirements and priorities for development
+- Enthusiasm for the DMPTool
+- Commitment to an open process for development, enhancement, and improvement (see <a href=\"https://pantonprinciples.org/" target=\"_blank\">Panton Principles</a>)
+- Quality of code and materials created <a href=\"https://github.com/DMPRoadmap/roadmap/blob/development/CONTRIBUTING.md" target=\"_blank\">(Contributor guidelines)</a>") %>
+
+

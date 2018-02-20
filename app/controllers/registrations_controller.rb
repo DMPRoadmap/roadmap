@@ -25,14 +25,13 @@ class RegistrationsController < Devise::RegistrationsController
 
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
-      if oauth[:provider].nil? || oauth[:uid].nil?
-        flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
-
+      if oauth['provider'].nil? || oauth['uid'].nil?
+        # flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
       else
         # Connect the new user with the identifier sent back by the OAuth provider
-        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
-        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase,
-                              identifier: oauth[:uid],
+        flash[:notice] = _('Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.') % {application_name: Rails.configuration.branding[:application][:name]}
+        UserIdentifier.create(identifier_scheme: IdentifierScheme.find_by(name: oauth['provider'].downcase),
+                              identifier: oauth['uid'],
                               user: @user)
       end
     end
@@ -40,6 +39,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    oauth = {provider: nil, uid: nil}
+    IdentifierScheme.all.each do |scheme|
+      oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
+    end
+
     if !sign_up_params[:accept_terms]
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
