@@ -15,7 +15,8 @@
       partial: '/paginable/orgs/index',
       controller: 'paginable/orgs',
       action: 'index',
-      scope: orgs) %>
+      scope: orgs,
+      query_params: { sort_field: 'orgs.name', sort_direction: :asc }) %>
     <div>
   </div>
 </div>

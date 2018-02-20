@@ -8,7 +8,7 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
-    @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).order(:title => :asc).page(1)
+    @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).page(1)
   end
 
   # GET /plans/new
