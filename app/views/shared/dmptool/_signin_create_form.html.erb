@@ -1,6 +1,6 @@
 <% signin = true unless signin %>
 <% url = registration_path("user") unless url %>
-<% org = Org.find_by(is_other: true) unless org %>
+<% org = '' unless org %>
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -88,7 +88,7 @@
 
             <div class="row">
               <div class="col-md-6">
-                <input type="hidden" value="<%= org.id %>" id="user_org_id" name="user[org_id]" />
+                <input type="hidden" value="<%= org.present? ? org.id : '' %>" id="user_org_id" name="user[org_id]" />
                 <button type="submit" class="btn btn-default" value=""></button>
               </div>
               <div class="col-md-6 signin-fields<%= !signin ? ' hide' : '' %>">
