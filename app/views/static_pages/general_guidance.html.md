@@ -1,7 +1,7 @@
 Data Management General Guidance
 ===============
 ## Table of Contents  
-Introduction   
+Introduction 
 Types of Data   
 File Formats   
 Organizing Files   
@@ -224,7 +224,7 @@ Here are some identifier schemes:
 - [**InChI (IUPAC International Chemical Identifier)**](https://iupac.org/who-we-are/divisions/division-details/inchi/) – a non-actionable identifier for chemical substances that can be used in printed and electronic data sources, thus enabling easier linking of diverse data compilations.   
 - [**LSID (Life Sciences Identifier)**](https://en.wikipedia.org/wiki/LSID) – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL.   
 - [**NCBI (National Center for Biotechnology Information) ACCESSION**](https://www.ncbi.nlm.nih.gov/Sequin/acc.html) – a non-actionable number in use by NCBI.   
-- [**PURL (Persistent Uniform Resource Locator)**](https://archive.org/services/purl/)* – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface. There are no usage fees.   
+- [**PURL (Persistent Uniform Resource Locator)**](https://archive.org/services/purl/) – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface. There are no usage fees.   
 - **URL (Uniform Resource Locator)** – the typical "address" of web content. It is a kind of URI (Uniform Resource Identifier) that begins with "http://" and consists of a string of characters used to identify or name a resource on the Internet. Such identification enables interaction with representations of the resource over a network, typically the World Wide Web, using the HTTP protocol. Well-managed URL redirection can make URLs as persistent as any identifier. Resolution depends on HTTP redirection and can be managed through an API or a user interface. There are no usage fees.   
 - **URN (Uniform Resource Name)** – an identifier that becomes actionable when embedded in a URL. Resolution depends on HTTP redirection and the DDDS protocol, and can be managed through an API or a user interface. A browser plug-in can save you from typing a hostname in front of it. There are no usage fees.
 
