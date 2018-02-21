@@ -40,11 +40,11 @@ Can't find what you’re looking for? [Contact us](https://dmptool.org/contact_u
 A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run.
 
 
-Read our [Data Management General Guidelines](https://dmptool.org/general_guidance) for more information about data management plans.
+Read our [Data Management General Guidance](https://dmptool.org/general_guidance) for more information about data management plans.
 ***
 
 <h5 id="q-what-can-i-do-with-the-dmptool">Q: What can I do with the DMPTool?</h5>  
-A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at [participating institutions](https://dmptool.org/institutions) to help fulfill data management requirements. 
+A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at [participating institutions](https://dmptool.org/public_orgs) to help fulfill data management requirements. 
 
 
 Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
@@ -53,14 +53,14 @@ Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
 <h5 id="q-how-much-does-it-cost-to-use-the-dmptool">Q: How much does it cost to use the DMPTool?</h5>  
 A: The DMPTool is FREE. Anyone can create data management plans using the DMPTool. 
 
-A login is required to access the DMPTool. If you are a researcher from a [participating institution](https://dmptool.org/institutions), you can log in as a user from your institution. If your institution does not participate, you can create your own account. 
+A login is required to access the DMPTool. If you are a researcher from a [participating institution](https://dmptool.org/public_orgs), you can log in as a user from your institution. If your institution does not participate, you can create your own account. 
 
 
 Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
 ***
 
 <h5 id="q-who-can-use-the-dmptool">Q: Who can use the DMPTool?</h5>  
-A: Anyone can create data management plans. If you are a researcher from one of the [participating institutions](https://dmptool.org/institutions), you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan. 
+A: Anyone can create data management plans. If you are a researcher from one of the [participating institutions](https://dmptool.org/public_orgs), you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan. 
 
 If your institution does not participate, you can create your own account. 
 
@@ -68,7 +68,7 @@ Use our [Quick Start Guide](https://dmptool.org/help) to begin creating a plan.
 ***
 
 <h5 id="q-how-can-my-institution-participate-in-the-dmptool">Q: How can my institution participate in the DMPTool?</h5>  
-A: First, check this [list](https://dmptool.org/institutions) to make sure your institution is not already participating. Learn more about becoming a [participating institution](https://dmptool.org/about).
+A: First, check this [list](https://dmptool.org/public_orgs) to make sure your institution is not already participating. Learn more about becoming a [participating institution](https://dmptool.org/about).
 
 If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please [contact us](https://dmptool.org/contact_us).
 ***
@@ -99,7 +99,7 @@ A: There are multiple actions that generate automatic email notifications from t
 
 
 <h5 id="q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan">Q: I'm in a hurry! Is there a quick start guide for creating a data management plan?</h5>  
-A: Yes! The [Quick Start Guide](https://dmptool.org/help/) is available as a website or a PDF you can download.
+A: Yes! The [Quick Start Guide](https://dmptool.org/help) is available as a website or a PDF you can download.
 ***
 
 <h5 id="q-where-can-i-read-more-about-funder-requirements-for-data-management-plans">Q: Where can I read more about funder requirements for data management plans?</h5>  
@@ -138,20 +138,20 @@ A: Since the DMPTool account is tied to an email address, the information will n
 ***
 
 <h5 id="q-who-can-help-me-at-my-institution">Q: Who can help me at my institution?</h5>  
-A: If your institution [participates in the DMPTool](https://dmptool.org/institutions), you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help. 
+A: If your institution [participates in the DMPTool](https://dmptool.org/public_orgs), you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help. 
 ***
 
 <h5 id="q-i-have-a-collaborator-how-can-we-work-on-the-same-plan">Q: I have a collaborator. How can we work on the same plan?</h5>  
 A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation. 
 
 
-For more information, see the [Quick Start Guide](https://dmptool.org/help/).
+For more information, see the [Quick Start Guide](https://dmptool.org/help).
 ***
 
 <h5 id="q-what-happens-when-i-request-feedback-on-a-plan>Q: What happens when I "request feedback" on a plan?</h5>  
 A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.
 
-Administrators: if you are interested in enabling this functionality for users at your institution, see the [Request feedback](Request-feedback) section of the help for administrators wiki. 
+Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the [help for administrators](https://github.com/cdluc3/dmp/wiki/Help-for-Administrators) wiki. 
 ***
 
 <h3>For Administrators</h3>
@@ -179,12 +179,12 @@ To view templates created by others (if available), create a new plan in the too
 ***
 
 <h5 id="q-i-created-a-test-template-how-can-i-delete-it">Q: I created a test template. How can I delete it?</h5>   
-A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can "Unpublish" the template so that it will not appear to users. See our [help documentation](Template-creation#activating-and-deactivating-a-template) on how to do this.
+A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can "Unpublish" the template so that it will not appear to users. See our [help documentation](https://github.com/cdluc3/dmp/wiki/Help-for-Administrators) on how to do this.
 
 ***
 
 <h5 id="q-how-do-i-create-guidance-and-what-are-themes">Q: How do I create guidance? And what are themes?</h5>
-A:  The [help menu for administrators](Help-for-Administrators) on GitHub contains detailed instructions for creating themed guidance. The basic steps include:    
+A:  The [help menu for administrators](https://github.com/cdluc3/dmp/wiki/Help-for-Administrators) on GitHub contains detailed instructions for creating themed guidance. The basic steps include:    
 1. Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)     
 2. Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group   
 3. Publishing the guidance   
