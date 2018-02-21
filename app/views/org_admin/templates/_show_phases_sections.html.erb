@@ -14,7 +14,7 @@
       <% if template == current && phase.modifiable %>
         <%= link_to _('Delete phase'), admin_destroy_phase_path(phase_id: phase.id),
                     data: { confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title }, 
-                            length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-default' %>
+                            length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-default', role: 'button' %>
       <% end %>
     </div>
   </div>

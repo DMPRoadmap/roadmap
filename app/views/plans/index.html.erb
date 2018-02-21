@@ -19,7 +19,8 @@
       partial: '/paginable/plans/privately_visible',
       controller: 'paginable/plans',
       action: 'privately_visible', 
-      scope: @plans) %>
+      scope: @plans,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>
   </div>
 </div>
 <div class="row">
