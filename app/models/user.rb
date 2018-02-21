@@ -125,7 +125,6 @@ class User < ActiveRecord::Base
   # @param new_organisation_id [Integer] the id for an organisation
   # @return [String] the empty string as a causality of setting api_token
   def org_id=(new_org_id)
-    puts "$$$$ new_org_id: #{new_org_id}"
     unless self.can_change_org? || new_org_id.nil? || self.org.nil? || (new_org_id.to_s == self.org.id.to_s)
       # rip all permissions from the user
       self.perms.delete_all
