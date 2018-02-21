@@ -1,7 +1,8 @@
-Data Management General Guidance
+Data management general guidance
 ===============
 
-<h3>Table of Contents</h3>  
+<h3>Table of Contents</h3>   
+
 Introduction    
 Types of Data      
 File Formats    
@@ -61,8 +62,8 @@ Although data comes from many different sources, they can be grouped into four m
 - Examples: text and data mining, compiled database, 3D models   
 
 <h4>What's the form of the data?</h4>
-Data can come in many forms, including:   
-
+Data can come in many forms, including:     
+   
 - **Text**: field or laboratory notes, survey responses
 - **Numeric**: tables, counts, measurements
 - **Audiovisual**: images, sound recordings, video
@@ -90,7 +91,7 @@ To avoid being under-prepared, estimate the growth rate of your data. Some quest
 - How much data will you accumluate every month or every 90 days?   
 - How much data do you anticipate collecting and generating by the end of your project?   
 
-<h3>File Formats</h3>
+<h3>File Formats</h3>   
 The file format you choose for your data is a primary factor in someone else's ability to access it in the future. Think carefully about what file format will be best to manage, share, and preserve your data. Technology continually changes and all contemporary hardware and software should be expected to become obsolete. Consider how your data will be read if the software used to produce it becomes unavailable. Although any file format you choose today may become unreadable in the future, some formats are more likely to be readable than others.
 
 <h4>Formats likely to be accessible in the future are: </h4>  
@@ -150,7 +151,7 @@ Tools to help you:
 
 <h3>Metadata: Data Documentation</h3>
 
-<h4>Why document data?</h4>
+<h4>Why document data?</h4>   
 Clear and detailed documentation is essential for data to be understood, interpreted, and used. Data documentation describes the content, formats, and internal relationships of your data in detail and will enable other researchers to find, use, and properly cite your data.   
 
 Begin to document your data at the very beginning of your research project and continue throughout the project. Doing so will make the process much easier. If you have to construct the documentation at the end of the project, the process will be painful and important details will have been lost or forgotten. Don't wait to document your data!
