@@ -3,11 +3,13 @@
 $dark-blue: #0E5682;
 $light-blue: #D8E3EE;
 $light-grey: #F0F0F0;
+$red: #B30000;
+$green: #008000;
 
 /* GENERAL */
 /* --------------------------------------- */
 body, .dropdown-menu {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 a,
@@ -136,12 +138,17 @@ nav.pagination {
 /* ALERTS/NOTIFICATIONS */
 /* --------------------------------------- */
 .alert {
+  color: $white;
+  font-size: 1.5rem;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 5px;
 }
 .alert-info {
-  background-color: $light-blue;
+  background-color: $green;
+}
+.alert-warning {
+  background-color: $red;
 }
 
 /* FONT SIZES */
@@ -267,7 +274,7 @@ input[type="radio"], input[type="checkbox"] {
   background-color: $light-grey;
 }
 body#tinymce.mce-content-body {
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 #search-addon {
   padding: 3px 8px;
@@ -484,7 +491,7 @@ header {
           }
 
           a {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
           }
         }
       }
