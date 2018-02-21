@@ -18,7 +18,8 @@
         partial: '/paginable/templates/history',
         controller: 'paginable/templates',
         action: 'history',
-        path_params: { id: @template.id }, 
+        path_params: { id: @template.id },
+        query_params: { sort_field: :version, sort_direction: :desc }, 
         scope: @templates,
         locals: { current: @current }) %>
     <% else %>
