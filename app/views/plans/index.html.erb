@@ -36,8 +36,8 @@
         partial: '/paginable/plans/organisationally_or_publicly_visible',
         controller: 'paginable/plans',
         action: 'organisationally_or_publicly_visible',
-        scope: @organisationally_or_publicly_visible) %>
+        scope: @organisationally_or_publicly_visible,
+        query_params: { sort_field: 'plans.title', sort_direction: :asc }) %>
     <% end %>
   </div>
 </div>
-
