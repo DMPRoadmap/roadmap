@@ -2,7 +2,7 @@
 <hr>
 
 <h3>Table of Contents</h3>   
-<br>
+
 [Introduction](#introduction)    
 [Types of Data](#types-of-data)      
 [File Formats](#file-formats)    
