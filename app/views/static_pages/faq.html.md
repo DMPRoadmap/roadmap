@@ -94,11 +94,9 @@ See the [Quick Start Guide](https://dmptool.org/help) for more information on se
 <h5 id="q-why-am-i-getting-email-notifications-from-the-dmptool">Q: Why am I getting email notifications from the DMPTool?</h5>   
 A: There are multiple actions that generate automatic email notifications from the DMPTool. Users can turn these notifications on/off on the profile page. Navigate to "Edit profile" by clicking your name in the upper right dropdown menu, then select the "Notification preferences" tab, check/uncheck the appropriate boxes, and click the button to save your changes.
 ***
+<h3>For Researchers<h3>   
 
-<h3>For Researchers<h3>
-
-
-<h5 id="q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan">Q: I'm in a hurry! Is there a quick start guide for creating a data management plan?</h5>  
+<h5 id="q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan">Q: I'm in a hurry! Is there a quick start guide for creating a data management plan?</h5>     
 A: Yes! The [Quick Start Guide](https://dmptool.org/help) is available as a website or a PDF you can download.
 ***
 
@@ -119,14 +117,14 @@ A: The sample plans on the [Funder Requirements page](https://dmptool.org/public
 A: There are three visibility options for each plan you create:   
 1. Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.     
 2. Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.     
-3. Public. Your plan will be available on the [Public Plans](https://dmptool.org/public_plans) section of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).      
+3. Public. Your plan will be available on the [Public Plans](https://dmptool.org/public_plans) section of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).
 ***
 
 <h5 id="q-i-created-a-test-plan-how-can-i-delete-it-or-hide-it">Q: I created a test plan. How can I delete it (or hide it)?</h5>   
 A:    
 1. Log into the DMPTool.    
 2. On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).    
-3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.    
+3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.
 ***
 
 <h5 id="q-how-long-will-you-save-my-plans">Q: How long will you save my plans?</h5>  
@@ -134,15 +132,15 @@ A: We do not plan to delete any plans created with the DMPTool. As a plan owner,
 ***
 
 <h5 id="q-what-if-i-move-to-a-new-institution">Q: What if I move to a new institution?</h5>   
-A: Since the DMPTool account is tied to an email address, the information will not automatically follow a user if they change institutions. However, we can connect users to their plans from previous institutions if they contact us. Users who change institutions and assume new institutional credentials must create a new DMPTool account. 
+A: Since the DMPTool account is tied to an email address, the information will not automatically follow a user if they change institutions. However, we can connect users to their plans from previous institutions if they contact us. Users who change institutions and assume new institutional credentials must create a new DMPTool account.
 ***
 
 <h5 id="q-who-can-help-me-at-my-institution">Q: Who can help me at my institution?</h5>  
-A: If your institution [participates in the DMPTool](https://dmptool.org/public_orgs), you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help. 
+A: If your institution [participates in the DMPTool](https://dmptool.org/public_orgs), you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help.
 ***
 
 <h5 id="q-i-have-a-collaborator-how-can-we-work-on-the-same-plan">Q: I have a collaborator. How can we work on the same plan?</h5>  
-A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation. 
+A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation.    
 
 
 For more information, see the [Quick Start Guide](https://dmptool.org/help).
@@ -152,7 +150,7 @@ For more information, see the [Quick Start Guide](https://dmptool.org/help).
 
 A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.
 
-Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the [help for administrators](https://github.com/cdluc3/dmp/wiki/Help-for-Administrators) wiki. 
+Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the [help for administrators](https://github.com/cdluc3/dmp/wiki/Help-for-Administrators) wiki.
 ***
 
 <h3>For Administrators</h3>
