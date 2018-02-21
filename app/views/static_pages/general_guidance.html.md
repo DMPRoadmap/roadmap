@@ -3,18 +3,18 @@ Data management general guidance
 
 <h3>Table of Contents</h3>   
 
-Introduction    
-Types of Data      
-File Formats    
-Organizing Files    
-Metadata: Data Documentation     
-Persistent Identifiers   
-Security and Storage   
-Sharing and Archiving   
-Citing Data   
-Copyright and Privacy   
+[Introduction](#introduction)    
+[Types of Data](#types-of-data)      
+[File Formats](#file-formats)    
+[Organizing Files](#organizing-files)    
+[Metadata: Data Documentation](#metadata-data-documentation)     
+[Persistent Identifiers](#persistent-identifiers)   
+[Security and Storage](#security-and-storage)   
+[Sharing and Archiving](#sharing-and-archiving)   
+[Citing Data](#citing-data)   
+[Copyright and Privacy](#copyright-and-privacy)   
 
-<h3>Introduction</h3>  
+<h3 id="introduction">Introduction</h3>  
 
 <h4>What is a data management plan?</h4>
 A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run.
@@ -31,7 +31,7 @@ We have been working with internal and external partners to make data management
 
 We recommend that those applying for funding from US Federal agencies, such as the NSF, use the DMPTool. The DMPTool provides guidance for many of the NSF Directorate and Division requirements, along with links to additional resources, services, and help. 
 
-<h3>Types of Data</h3>
+<h3 id="types-of-data">Types of Data</h3>
 Research projects generate and collect countless varieties of data. To forumulate a data management plan, it's useful to categorize your data in four ways: by source, format, stability, and volume.
 
 <h4>What's the source of the data?</h4>
@@ -91,7 +91,7 @@ To avoid being under-prepared, estimate the growth rate of your data. Some quest
 - How much data will you accumluate every month or every 90 days?   
 - How much data do you anticipate collecting and generating by the end of your project?   
 
-<h3>File Formats</h3>   
+<h3 id="file-formats">File Formats</h3>   
 The file format you choose for your data is a primary factor in someone else's ability to access it in the future. Think carefully about what file format will be best to manage, share, and preserve your data. Technology continually changes and all contemporary hardware and software should be expected to become obsolete. Consider how your data will be read if the software used to produce it becomes unavailable. Although any file format you choose today may become unreadable in the future, some formats are more likely to be readable than others.
 
 <h4>Formats likely to be accessible in the future are: </h4>  
@@ -126,7 +126,7 @@ Tabular data warrants special mention because it is so common across disciplines
 - Encrypted data may be effectively lost if it was encrypted with a key that has been lost (e.g., a forgotten password). For this reason, encrypted data representations are strongly discouraged.    
 - Data that is legally encumbered may also be considered lost. So may data bound by ambiguous or unknown access and archiving rights, because the cost of clarifying the rights situation is often prohibitive. See data rights and licensing for guidance.   
 
-<h3>Organizing Files</h3>
+<h3 id="organizing-files">Organizing Files</h3>
 
 <h4>Basic Directory and File Naming Conventions</h4>
 These are rough guidelines to follow to help manage your data files in case you don't already have your own internal conventions. When organizing files, the top-level directory/folder should include:
@@ -149,7 +149,7 @@ Tools to help you:
 - [Renamer](https://renamer.com/) (Mac; free trial)   
 - [PSRenamer](http://www.powersurgepub.com/products/psrenamer/index.html) (Linux, Mac, Windows; free)   
 
-<h3>Metadata: Data Documentation</h3>
+<h3 id="metadata-data-documentation">Metadata: Data Documentation</h3>
 
 <h4>Why document data?</h4>   
 Clear and detailed documentation is essential for data to be understood, interpreted, and used. Data documentation describes the content, formats, and internal relationships of your data in detail and will enable other researchers to find, use, and properly cite your data.   
@@ -213,7 +213,7 @@ Below are some general aspects of your data that you should document, regardless
 **Rights**: Any known intellectual property rights, statutory rights, licenses, or restrictions on use of the data   
 **Access information**: Where and how your data can be accessed by other researchers   
 
-<h3>Persistent Identifiers</h3>
+<h3 id="persistent-identifiers">Persistent Identifiers</h3>
 If you want to be able to share or cite your dataset, you'll want to assign a public persistent unique identifier to it. There are a variety of public identifier schemes, but common properties of good schemes are that they are:   
 
 - Actionable (you can "click" on them in a web browser)   
@@ -232,7 +232,7 @@ Here are some identifier schemes:
 - **URL (Uniform Resource Locator)** – the typical "address" of web content. It is a kind of URI (Uniform Resource Identifier) that begins with "http://" and consists of a string of characters used to identify or name a resource on the Internet. Such identification enables interaction with representations of the resource over a network, typically the World Wide Web, using the HTTP protocol. Well-managed URL redirection can make URLs as persistent as any identifier. Resolution depends on HTTP redirection and can be managed through an API or a user interface.    
 - **URN (Uniform Resource Name)** – an identifier that becomes actionable when embedded in a URL. Resolution depends on HTTP redirection and the DDDS protocol, and can be managed through an API or a user interface. A browser plug-in can save you from typing a hostname in front of it. 
 
-<h3>Security and Storage</h3>
+<h3 id="security-and-storage">Security and Storage</h3>
 
 <h4>Data Security</h4>
 Data security is the protection of data from unauthorized access, use, change, disclosure, and destruction. Make sure your data is safe in regards to:   
@@ -284,7 +284,7 @@ Is there any requirement that the data be retained? If so, for how long? 3-5 yea
 
 Beyond any externally imposed requirments, think about the long-term usefulness of the data. If the data is from an experiment that you anticipate will be repeatable more quickly, inexpensively, and accurately as technology progresses, you may want to store it for a relatively brief period. If the data consists of observations made outside the laborartory that can never be repeated, you may wish to store it indefinitely.   
 
-<h3>Sharing and Archiving</h3>
+<h3 id="sharing-and-archiving">Sharing and Archiving</h3>
 
 <h4>Why share your data?</h4>
 
@@ -321,7 +321,7 @@ A searchable and browsable list of repositories can be found at these websites:
 - [Data Repositories](http://oad.simmons.edu/oadwiki/Data_repositories) in the Open Access Directory: a list of repositories hosted by Simmons College    
 - [FAIRSharing](https://fairsharing.org/): a directory of life sciences databases and reporting standards, now expanded to include all disciplines    
 
-<h3>Citing Data</h3>
+<h3 id="citing-data">Citing Data</h3>
 Citing data is important in order to:  
 
 - Give the data producer appropriate credit   
@@ -360,7 +360,7 @@ Although the core elements are sufficient in the simplest case – citation to t
 - Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble run by DWD for the MAP D-PHASE project. World Data Center for Climate. https://doi.org/10.1594/WDCC/dphase_mpeps   
 - Manoug, J L (1882): Useful data on the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/ark:/13960/t44q88124
 
-<h3>Copyright and Privacy</h3>
+<h3 id="copyright-and-privacy">Copyright and Privacy</h3>
 
 <h4>Sharing data that you produced/collected yourself</h4>
 
