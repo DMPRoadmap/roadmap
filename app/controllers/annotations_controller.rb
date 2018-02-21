@@ -19,7 +19,8 @@ class AnnotationsController < ApplicationController
       template.dirty = true
       template.save!
     end
-    redirect_to "#{admin_show_phase_path(question.section.phase.id)}?section_id=#{question.section.id}"
+    tab = params[:r] || 'all-templates'
+    redirect_to "#{admin_show_phase_path(question.section.phase.id)}?section_id=#{question.section.id}&r=#{tab}"
   end
 
   #delete an annotation
@@ -35,7 +36,8 @@ class AnnotationsController < ApplicationController
         flash[:alert] = failed_destroy_error(annotation, type)
       end
     end
-    redirect_to "#{admin_show_phase_path(parent_ids[0])}?section_id=#{parent_ids[1]}"
+    tab = params[:r] || 'all-templates'
+    redirect_to "#{admin_show_phase_path(parent_ids[0])}?section_id=#{parent_ids[1]}&r=#{tab}"
   end
 
   private
