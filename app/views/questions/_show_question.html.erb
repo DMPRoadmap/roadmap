@@ -84,7 +84,7 @@
                          example_answer: example_answer,
                          guidance: guidance, 
                          question: question,
-                         options: { url: admin_update_annotation_path, method: 'PUT' } 
+                         options: { url: admin_update_annotation_path(r: current_tab), method: 'PUT' } 
                        } %>
           </div>
         <% end %>
