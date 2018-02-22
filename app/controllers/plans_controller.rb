@@ -156,18 +156,27 @@ class PlansController < ApplicationController
     authorize @plan
     attrs = plan_params
 
-    # Save the guidance group selections
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
-    save_guidance_selections(guidance_group_ids)
-
     respond_to do |format|
-      if @plan.update_attributes(attrs)
-        format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
-        format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
-      else
+      begin
+        # Save the guidance group selections
+        guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
+        @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+puts @plan.guidance_groups.collect(&:name).join(', ')
+        @plan.save
+      
+        if @plan.update_attributes(attrs)
+          format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
+          format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
+        else
+          flash[:alert] = failed_update_error(@plan, _('plan'))
+          format.html { render action: "edit" }
+          format.json {render json: {code: 0, msg: flash[:alert]}}
+        end
+        
+      rescue Exception
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
-        format.json {render json: {code: 0, msg: failed_update_error(@plan, _('plan'))}}
+        format.json {render json: {code: 0, msg: flash[:alert]}}
       end
     end
   end
@@ -348,25 +357,6 @@ class PlansController < ApplicationController
                                  :grant_number, :description, :identifier, :principal_investigator,
                                  :principal_investigator_email, :principal_investigator_identifier,
                                  :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
-  end
-
-  def save_guidance_selections(guidance_group_ids)
-    all_guidance_groups = @plan.get_guidance_group_options
-    plan_groups = @plan.guidance_groups
-    guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-    all_guidance_groups.each do |group|
-      # case where plan group exists but not in selection
-      if plan_groups.include?(group) && ! guidance_groups.include?(group)
-      #   remove from plan groups
-        @plan.guidance_groups.delete(group)
-      end
-      #  case where plan group dosent exist and in selection
-      if !plan_groups.include?(group) && guidance_groups.include?(group)
-      #   add to plan groups
-        @plan.guidance_groups << group
-      end
-    end
-    @plan.save
   end
 
 

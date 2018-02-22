@@ -38,6 +38,13 @@
     </div>
   <% end %>
 
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-xs-8">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>
