@@ -80,13 +80,13 @@ For more information, see <a href="https://dmptool.org/about\" target="_blank">A
 <hr>
 
 <h5 id="q-have-funders-endorsed-the-dmptool">Q: Have funders endorsed the DMPTool?</h5>  
-A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT). 
+A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT).   
 
-Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes. 
+Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes.    
 <hr>
 
 <h5 id="q-who-owns-the-data-management-plans-created-with-the-dmptool">Q: Who owns the data management plans created with the DMPTool?</h5>  
-A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research. 
+A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research.    
 
 See the <a href="https://dmptool.org/help\" target="_blank">Quick Start Guide</a> for more information on setting your plan's visibility.
 <hr>
@@ -116,16 +116,19 @@ A: The sample plans on the <a href="https://dmptool.org/public_templates\" targe
 
 <h5 id="q-what-are-the-visibility-options-for-my-data-management-plan">Q: What are the visibility options for my data management plan?</h5>   
 A: There are three visibility options for each plan you create:   
-1. Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.     
-2. Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.     
-3. Public. Your plan will be available on the <a href="https://dmptool.org/public_plans\" target="_blank">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).
+
+<ol type="1">
+<li>Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.</li>     
+<li>Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.</li>     
+<li>Public. Your plan will be available on the <a href="https://dmptool.org/public_plans\" target="_blank">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).</li></ol>
 <hr>
 
 <h5 id="q-i-created-a-test-plan-how-can-i-delete-it-or-hide-it">Q: I created a test plan. How can I delete it (or hide it)?</h5>   
-A:    
-1. Log into the DMPTool.    
-2. On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).    
-3. To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.
+A:  
+<ol type="1">   
+<li>Log into the DMPTool.</li>    
+<li>On "My Dashboard" tick the box in the "Test" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).</li>    
+<li>To delete the plan: select "Remove" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.</li></ol>
 <hr>
 
 <h5 id="q-how-long-will-you-save-my-plans">Q: How long will you save my plans?</h5>  
@@ -142,13 +145,13 @@ A: If your institution <a href="https://dmptool.org/public_orgs\" target="_blank
 
 <h5 id="q-i-have-a-collaborator-how-can-we-work-on-the-same-plan">Q: I have a collaborator. How can we work on the same plan?</h5>  
 A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation.    
-
+<br>
 For more information, see the <a href="https://dmptool.org/help\" target="_blank">Quick Start Guide</a>.
 <hr>
 
 <h5 id="q-what-happens-when-i-request-feedback-on-a-plan">Q: What happens when I "request feedback" on a plan?</h5>  
 
-A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.
+A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.   
 <br>
 Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the <a href="https://github.com/cdluc3/dmp/wiki/Help-for-Administrators" target="_blank">help for administrators</a> wiki.
 <hr>
@@ -185,9 +188,10 @@ A: DMPTool administrators can delete templates. This option is only available if
 <h5 id="q-how-do-i-create-guidance-and-what-are-themes">Q: How do I create guidance? And what are themes?</h5>
 A:  The <a href="https://github.com/cdluc3/dmp/wiki/Help-for-Administrators" target="_blank">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:    
 
-1. Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)     
-2. Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group   
-3. Publishing the guidance    
+<ol type="1">
+<li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)  </li>   
+<li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group </li>  
+    <li>Publishing the guidance  </li></ol>  
   
 There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.
 <hr>
