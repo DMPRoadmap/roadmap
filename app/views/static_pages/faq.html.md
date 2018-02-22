@@ -143,14 +143,13 @@ A: If your institution [participates in the DMPTool](https://dmptool.org/public_
 <h5 id="q-i-have-a-collaborator-how-can-we-work-on-the-same-plan">Q: I have a collaborator. How can we work on the same plan?</h5>  
 A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation.    
 
-
 For more information, see the [Quick Start Guide](https://dmptool.org/help).
 <hr>
 
 <h5 id="q-what-happens-when-i-request-feedback-on-a-plan">Q: What happens when I "request feedback" on a plan?</h5>  
 
 A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.
-
+<br>
 Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the [help for administrators](https://github.com/cdluc3/dmp/wiki/Help-for-Administrators) wiki.
 <hr>
 
@@ -189,8 +188,8 @@ A:  The [help menu for administrators](https://github.com/cdluc3/dmp/wiki/Help-f
 1. Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)     
 2. Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group   
 3. Publishing the guidance    
-   
+  
 There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.
 <hr>
 
-<h3>Can't find the answer you’re looking for?</h3> [Contact us](https://dmptool.org/contact-us)
+Can't find the answer you’re looking for? [Contact us](https://dmptool.org/contact-us)
