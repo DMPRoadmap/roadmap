@@ -151,7 +151,7 @@ class Org < ActiveRecord::Base
   end
 
   def grant_api!(token_permission_type)
-    org.token_permission_types << token_permission_type unless org.tokenpermission_types.include? token_permission_type
+    self.token_permission_types << token_permission_type unless self.token_permission_types.include? token_permission_type
   end
 
   private
