@@ -150,12 +150,23 @@ class Org < ActiveRecord::Base
       self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
   end
   
-  def shibbolized?
-    self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?
-  end
-
   def grant_api!(token_permission_type)
     org.token_permission_types << token_permission_type unless org.tokenpermission_types.include? token_permission_type
+  end
+  
+  # DMPTool participating institution helpers
+  def self.participating
+    shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL').pluck(:id)
+    non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized).pluck(:id)
+    Org.includes(:identifier_schemes).where(id: (shibbolized + non_shibbolized).flatten.uniq).order(:name)
+  end
+  def self.participating_as_array
+    shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL')
+    non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized.collect(&:id))
+    (shibbolized.to_a + non_shibbolized.to_a)
+  end
+  def shibbolized?
+    self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?
   end
 
   private

@@ -14,9 +14,6 @@
               <li>
                 <div class="row-fluid">
                   <ul class="nav col-md-4">
-                    <% if current_user.can_modify_guidance? %>
-                      <li><%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %></li>
-                    <% end %>
                     <% if current_user.can_super_admin? %>
                       <li><%= link_to _('Organisations'), super_admin_orgs_path %></li>
                     <% else %>
@@ -26,16 +23,21 @@
                         </li>
                       <% end %>
                     <% end %>
+                    <% if current_user.can_grant_permissions? %>
+                      <li><%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %></li>
+                    <% end %>
                     <li><%= link_to _('Plans'), org_admin_plans_path %></li>
+                    <li><%= link_to _('Usage'), usage_index_path %></li>
                     <% if current_user.can_modify_templates? %>
                       <li><%= link_to _('Templates'), org_admin_templates_path %></li>
+                    <% end %>
+                    <% if current_user.can_modify_guidance? %>
+                      <li><%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %></li>
                     <% end %>
                     <% if current_user.can_super_admin? %>
                       <li><%= link_to(_('Themes'), super_admin_themes_path) %></li>
                     <% end %>
-                    <% if current_user.can_grant_permissions? %>
-                      <li><%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %></li>
-                    <% end %>
+
                   </ul>
                 </div>
               </li>

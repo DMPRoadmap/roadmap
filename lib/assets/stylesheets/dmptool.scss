@@ -65,6 +65,9 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
   margin-bottom: 8px;
 }
 
+.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
+  top: 3px;
+}
 
 /* TABLES */
 /* --------------------------------------- */
@@ -159,7 +162,9 @@ h1 {
 h2 {
   font-size: 2.4rem;
 }
-
+h3 {
+  font-size: 1.9rem;
+}
 .fa-question-circle {
   font-size: 1.5rem;
 }
@@ -423,7 +428,7 @@ header {
     }
     
     #branding-nav {
-      margin: 35px 0 0 0;
+      margin: 45px 0 0 0;
 
       img.app-logo {
         margin-top: 5px;
@@ -562,13 +567,24 @@ header {
     }
 
     #signin-options {
-      min-width: 350px;
+      min-width: 450px;
       padding: 10px 15px;
+
+      h3 {
+        margin-top: 25px;
+      }
+      a {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      a.btn {
+        width: 80%;
+      }
     }
 
     #main-menu {
       ul {
-        margin-top: 10px;
+        margin-top: 20px;
    
         li {
           padding-right: 10px;
@@ -589,6 +605,7 @@ header {
         #admin-menu {
           padding: 10px 15px;
           font-weight: normal;
+          min-width: 200px;
           color: $black;
         
           ul {
