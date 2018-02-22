@@ -38,5 +38,6 @@
 
 <%= _('There may also be an option to request feedback on your plan. This is available when research support staff at your institution have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback.') %>
 <br>
-<h4> <%= _('Download plans') %></h4>
+<h4> <%= _('Download plans') %></h4>   
+
 <%= _('From this tab you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size, and margins) for PDF files, which may be helpful if working to page limits.') %>
