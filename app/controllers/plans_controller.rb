@@ -7,7 +7,7 @@ class PlansController < ApplicationController
 
   def index
     authorize Plan
-    @plans = current_user.active_plans.page(1)
+    @plans = Plan.active(current_user).page(1)
     @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).page(1)
   end
 
@@ -19,10 +19,10 @@ class PlansController < ApplicationController
 
     # Get all of the available funders and non-funder orgs
     @funders = Org.funder.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
-    @orgs = (Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
+    @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
 
     # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org)
+    @default_org = current_user.org if @orgs.include?(current_user.org) && !current_user.org.is_other?
 
     flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
     @is_test = params[:test] ||= false
@@ -72,8 +72,9 @@ class PlansController < ApplicationController
       if @plan.save
         @plan.assign_creator(current_user)
 
-        # pre-select org's guidance
-        ggs = GuidanceGroup.where(org_id: org_id, optional_subset: false, published: true)
+        # pre-select org's guidance and the default org's guidance
+        ids = (Org.managing_orgs << org_id).flatten.uniq
+        ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
 
@@ -109,8 +110,6 @@ class PlansController < ApplicationController
     end
   end
 
-
-
   # GET /plans/show
   def show
     @plan = Plan.eager_load(params[:id])
@@ -127,17 +126,16 @@ class PlansController < ApplicationController
 
     # Important ones come first on the page - we grab the user's org's GGs and "Organisation" org type GGs
     @important_ggs = []
-    @important_ggs << [current_user.org, @all_ggs_grouped_by_org.delete(current_user.org)]
+
+    @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]] if @all_ggs_grouped_by_org.include?(current_user.org)
     @all_ggs_grouped_by_org.each do |org, ggs|
       if org.organisation?
         @important_ggs << [org,ggs]
-        @all_ggs_grouped_by_org.delete(org)
       end
 
       # If this is one of the already selected guidance groups its important!
       if !(ggs & @selected_guidance_groups).empty?
         @important_ggs << [org,ggs] unless @important_ggs.include?([org,ggs])
-        @all_ggs_grouped_by_org.delete(org)
       end
     end
 
@@ -158,18 +156,27 @@ class PlansController < ApplicationController
     authorize @plan
     attrs = plan_params
 
-    # Save the guidance group selections
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i)
-    save_guidance_selections(guidance_group_ids)
-
     respond_to do |format|
-      if @plan.update_attributes(attrs)
-        format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
-        format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
-      else
+      begin
+        # Save the guidance group selections
+        guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
+        @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+puts @plan.guidance_groups.collect(&:name).join(', ')
+        @plan.save
+      
+        if @plan.update_attributes(attrs)
+          format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
+          format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
+        else
+          flash[:alert] = failed_update_error(@plan, _('plan'))
+          format.html { render action: "edit" }
+          format.json {render json: {code: 0, msg: flash[:alert]}}
+        end
+        
+      rescue Exception
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
-        format.json {render json: {code: 0, msg: failed_update_error(@plan, _('plan'))}}
+        format.json {render json: {code: 0, msg: flash[:alert]}}
       end
     end
   end
@@ -236,57 +243,33 @@ class PlansController < ApplicationController
 
 
   def export
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(:answers).find(params[:id])
     authorize @plan
 
-    # We should re-work this into something more useful than creating a new one
-    # every time a plan gets exported
-    @exported_plan = ExportedPlan.new.tap do |ep|
-      ep.plan = @plan
-      ep.phase_id = params[:phase_id]
-      ep.user = current_user
-      ep.format = params[:format].to_sym
-      plan_settings = @plan.settings(:export)
+    @show_coversheet = params[:export][:project_details].present?
+    @show_sections_questions = params[:export][:question_headings].present?
+    @show_unanswered = params[:export][:unanswered_questions].present?
+    @public_plan = false
 
-      Settings::Template::DEFAULT_SETTINGS.each do |key, value|
-        ep.settings(:export).send("#{key}=", plan_settings.send(key))
+    @hash = @plan.as_pdf(@show_coversheet)
+    @formatting = @plan.settings(:export).formatting
+    file_name = @plan.title.gsub(/ /, "_")
+
+    respond_to do |format|
+      format.html { render layout: false }
+      format.csv  { send_data @plan.as_csv(@show_sections_questions),  filename: "#{file_name}.csv" }
+      format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
+      format.docx { render docx: 'export', filename: "#{file_name}.docx" }
+      format.pdf do
+        render pdf: file_name,
+          margin: @formatting[:margin],
+          footer: {
+            center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
+            font_size: 8,
+            spacing:   (@formatting[:margin][:bottom] / 2) - 4,
+            right:     '[page] of [topage]'
+          }
       end
-    end
-
-    # setup some variables we will need in the export views
-    #   here, if custom sections are included, we want all sections, otherwise,
-    #   we only want those which are not modifiable, as they are the original template
-    @sections = params[:export][:custom_sections].present? || @plan.template.customization_of.nil? ? @exported_plan.sections.order(:number) : Phase.find(params[:phase_id]).sections.where(modifiable: false) # prefetch questions?
-    @unanswered_questions = params[:export][:unanswered_questions].present?
-    @question_headings = params[:export][:question_headings].present?
-    @show_details = params[:export][:project_details].present?
-
-
-    begin
-      @exported_plan.save!
-      file_name = @exported_plan.settings(:export)[:value]['title'].gsub(/ /, "_")
-
-      respond_to do |format|
-        format.html
-        format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
-        format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
-        format.docx { render docx: 'export', filename: "#{file_name}.docx" }
-        format.pdf do
-          @formatting = @plan.settings(:export).formatting
-          render pdf: file_name,
-            margin: @formatting[:margin],
-            footer: {
-              center:    _('This document was generated by %{application_name}') % {application_name: Rails.configuration.branding[:application][:name]},
-              font_size: 8,
-              spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-              right:     '[page] of [topage]'
-            }
-        end
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      @phase_options = @plan.phases.order(:number).pluck(:title,:id)
-      redirect_to download_plan_path(@plan), alert: _('%{format} is not a valid exporting format. Available formats to export are %{available_formats}.') %
-      {format: params[:format], available_formats: ExportedPlan::VALID_FORMATS.to_s}
     end
   end
 
@@ -374,25 +357,6 @@ class PlansController < ApplicationController
                                  :grant_number, :description, :identifier, :principal_investigator,
                                  :principal_investigator_email, :principal_investigator_identifier,
                                  :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
-  end
-
-  def save_guidance_selections(guidance_group_ids)
-    all_guidance_groups = @plan.get_guidance_group_options
-    plan_groups = @plan.guidance_groups
-    guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-    all_guidance_groups.each do |group|
-      # case where plan group exists but not in selection
-      if plan_groups.include?(group) && ! guidance_groups.include?(group)
-      #   remove from plan groups
-        @plan.guidance_groups.delete(group)
-      end
-      #  case where plan group dosent exist and in selection
-      if !plan_groups.include?(group) && guidance_groups.include?(group)
-      #   add to plan groups
-        @plan.guidance_groups << group
-      end
-    end
-    @plan.save
   end
 
 

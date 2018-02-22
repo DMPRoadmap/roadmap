@@ -6,26 +6,25 @@ class PhasesController < ApplicationController
 
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.load_for_phase(params[:plan_id], params[:id])
-
-    # authorization done on plan so found in plan_policy
+    plan = Plan.find(params[:plan_id])
     authorize plan
-
-    phase_id = params[:id].to_i
-    phase = plan.template.phases.select {|p| p.id == phase_id}.first
-    readonly = !plan.editable_by?(current_user.id)
-    guidance_groups_ids = plan.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
     
-    if !user_signed_in? then
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path }
-      end
-    else
-      render('/phases/edit', locals: { plan: plan, phase: phase, readonly: readonly, 
-                                       question_guidance: plan.guidance_by_question_as_hash,
-                                       guidance_groups: guidance_groups })
-    end
+    plan, phase = Plan.load_for_phase(params[:plan_id], params[:id])
+    
+    readonly = !plan.editable_by?(current_user.id)
+    
+    guidance_groups_ids = plan.guidance_groups.collect(&:id)
+    
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
+    # we create a hash whose keys are question id and value is the answer associated
+    answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+    
+    render('/phases/edit', locals: {
+      plan: plan, phase: phase, readonly: readonly,
+      question_guidance: plan.guidance_by_question_as_hash,
+      guidance_groups: guidance_groups,
+      answers: answers })
   end
 
 
@@ -58,13 +57,15 @@ class PhasesController < ApplicationController
     else
       @original_org = @phase.template.org
     end
+    
     render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_show',
         phase: @phase,
         template: @phase.template,
         edit: @edit,
-        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil
+        current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil,
+        current_tab: params[:r] || 'all-templates'
       })
   end
 
@@ -74,6 +75,7 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:id])
     authorize @phase
     @template = @phase.template
+    @current_tab = params[:r] || 'all-templates'
   end
 
 
@@ -87,7 +89,8 @@ class PhasesController < ApplicationController
     render('/org_admin/templates/container',
       locals: {
         partial_path: 'admin_add',
-        template: @template
+        template: @template,
+        current_tab: params[:r] || 'all-templates'
       })
   end
 
@@ -99,15 +102,16 @@ class PhasesController < ApplicationController
 
     @phase.description = params["phase-desc"]
     @phase.modifiable = true
+    @current_tab = params[:r] || 'all-templates'
     if @phase.save
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id), notice: success_message(_('phase'), _('created'))
+      redirect_to admin_show_phase_path(id: @phase.id, r: @current_tab), notice: success_message(_('phase'), _('created'))
     else
       flash[:alert] = failed_create_error(@phase, _('phase'))
       @template = @phase.template
-      redirect_to edit_org_admin_template_path(id: @phase.template_id)
+      redirect_to edit_org_admin_template_path(id: @phase.template_id, r: @current_tab)
     end
   end
 
@@ -116,12 +120,14 @@ class PhasesController < ApplicationController
   def admin_update
     @phase = Phase.find(params[:id])
     authorize @phase
+    
     @phase.description = params["phase-desc"]
+    @current_tab = params[:r] || 'all-templates'
     if @phase.update_attributes(params[:phase])
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(@phase), notice: success_message(_('phase'), _('saved'))
+      redirect_to admin_show_phase_path(@phase, r: @current_tab), notice: success_message(_('phase'), _('saved'))
     else
       @sections = @phase.sections
       @template = @phase.template
@@ -137,7 +143,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(@phase)
+      redirect_to admin_show_phase_path(@phase, r: @current_tab)
     end
   end
 
@@ -146,11 +152,12 @@ class PhasesController < ApplicationController
     @phase = Phase.find(params[:phase_id])
     authorize @phase
     @template = @phase.template
+    @current_tab = params[:r] || 'all-templates'
     if @phase.destroy
       @template.dirty = true
       @template.save!
 
-      redirect_to edit_org_admin_template_path(@template), notice: success_message(_('phase'), _('deleted'))
+      redirect_to edit_org_admin_template_path(@template, r: @current_tab), notice: success_message(_('phase'), _('deleted'))
     else
       @sections = @phase.sections
 
@@ -166,8 +173,7 @@ class PhasesController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      render 'admin_show'
+      redirect_to admin_show_phase_path(@phase, r: @current_tab)
     end
   end
-
 end

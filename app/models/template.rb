@@ -47,8 +47,9 @@ class Template < ActiveRecord::Base
     Template.where(templates: { is_default: is_default }).valid().published()
   }
 
-  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]).order(:title => :asc) }
-
+  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]) }
+  scope :organisationally_visible, -> { where(:visibility => Template.visibilities[:organisationally_visible]) }
+  
   # Retrieves template with distinct dmptemplate_id that are valid (e.g. migrated false) and customization_of is nil. Note,
   # if organisation ids are passed, the query will filter only those distinct dmptemplate_ids for those organisations
   scope :families, -> (org_ids=nil) {
@@ -89,12 +90,18 @@ class Template < ActiveRecord::Base
       " AND current.customization_of = templates.customization_of")
     .where('templates.org_id = ?', org_id)
   }
+  
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:org).where("templates.title LIKE ? OR orgs.name LIKE ?", search_pattern, search_pattern)
+  }
+  
   # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
   def self.dmptemplate_ids
     Template.all.valid.distinct.pluck(:dmptemplate_id)
   end
 
-  # Retrieves the most recent version of the template for the specified Org and dmptemplate_id
+  # Retrieves the most recent version of the template for the specified dmptemplate_id
   def self.current(dmptemplate_id)
     Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
   end
@@ -122,7 +129,7 @@ class Template < ActiveRecord::Base
   # @return [nil, Template] the customized template or nil
   def self.org_customizations(dmptemplate_ids, org_id)
     template_ids = latest_customization(org_id, dmptemplate_ids).pluck(:id)
-    includes(:org).where(id: template_ids).order('orgs.name, templates.title')
+    includes(:org).where(id: template_ids)
   end
   
   # Retrieves current templates with their org associated for a set of valid orgs
@@ -136,7 +143,7 @@ class Template < ActiveRecord::Base
       families_ids = []
     end
     template_ids = latest_version(families_ids).pluck(:id)
-    includes(:org).where(id: template_ids).order('orgs.name, templates.title')
+    includes(:org).where(id: template_ids)
   end
   
   # Retrieves current templates with their org associated for a set of valid orgs
@@ -149,7 +156,25 @@ class Template < ActiveRecord::Base
     else
       families_ids = []
     end
-    includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible]).order('orgs.name, templates.title')
+    includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
+  end
+  
+  ##
+  # create a new version of the most current copy of the template
+  #
+  # @return [Template] new version
+  def get_new_version
+    if self.id.present?
+      new_version = Template.deep_copy(self)
+      new_version.version = (self.version + 1)
+      new_version.published = false 
+      new_version.visibility = self.visibility # do not change the visibility 
+      new_version.is_default = self.is_default # retain the default template flag
+      new_version.save!
+      new_version
+    else
+      nil
+    end
   end
   
   ##
@@ -239,8 +264,8 @@ class Template < ActiveRecord::Base
       self.published = false
       self.migrated = false
       self.dirty = false
-      self.visibility = 1
-      self.is_default = false
+      self.visibility = 0 # Organisationally visible by default
+      self.is_default = false if self.is_default.nil?
       self.version = 0 if self.version.nil?
       self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
 
@@ -253,5 +278,4 @@ class Template < ActiveRecord::Base
       end
     end
   end
-
 end

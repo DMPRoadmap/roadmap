@@ -1,4 +1,4 @@
-<% # locals: funder_templates, org_templates, current_user, current_org, orgs %>
+<% # locals: funder_templates, org_templates, current_user, current_org, orgs, current_tab %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
@@ -14,9 +14,12 @@
       <% end %>
     </div>
   <% end %>
+
+  <a href="<%= new_org_admin_template_path %>" class="btn btn-primary pull-right" role="button"><%= _('Create a template') %></a>
+
   <div class="col-md-12">
     <p>
-      <%= _('If you wish to add an institutional template for a Data Management Plan, use the \'create template\' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your institution when no funder templates apply. If you want to add questions to funder templates use the \'customise template\' options below.') %>
+      <%= _('If you wish to add an organisational template for a Data Management Plan, use the \'create template\' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the \'customise template\' options below.') %>
     </p>
   </div>
 </div>
@@ -24,65 +27,54 @@
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
       <% if current_user.can_super_admin? %>
-        <li role="all-templates" class="active">
+        <li role="all-templates"<%= current_tab == 'all-templates' ? 'class=active' : '' %>>
           <a href="#all-templates" role="tab" aria-controls="all-templates" data-toggle="tab"><%= _('All Templates') %></a>
         </li>
       <% end %>
-      <li role="organisation-templates" class="<%= !current_user.can_super_admin? ? 'active' : '' %>">
+      <li role="organisation-templates"<%= current_tab == 'organisation-templates' ? 'class=active' : '' %>>
         <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></a>
       </li>
-      <li role="funder-templates">
-        <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
-      </li>
+      <!-- If the Org is not just a funder then show the customizations table -->
+      <% if !current_org.funder_only? %>
+        <li role="funder-templates"<%= current_tab == 'funder-templates' ? 'class=active' : '' %>>
+          <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
+        </li>
+      <% end %>
     </ul>
   
     <div class="tab-content">
       <% if current_user.can_super_admin? %>
-        <div id="all-templates" role="tabpanel" class="tab-pane active">
+        <div id="all-templates" role="tabpanel" class="tab-pane<%= (current_tab == 'all-templates' || current_tab == '' ? ' active' : '') %>">
           <h2><%= _('All Templates') %></h2>
-          <% if all_templates.length > 0 %>
-            <%= paginable_renderise(
-              partial: 'templates_list',
-              controller: 'org_admin/templates',
-              action: 'all', 
-              scope: all_templates,
-              locals: {current_org: current_org.id, published: published, scopes: scopes[:all], hide_actions: true}) %>
-          <% else %>
-            <p><%= _('There are currently no templates.') %></p>
-          <% end %>
+          <%= paginable_renderise(
+            partial: 'paginable/templates/all',
+            controller: 'paginable/templates',
+            action: 'all', 
+            scope: all_templates,
+            locals: {current_org: current_org.id, published: published, scopes: scopes[:all], hide_actions: true}) %>
         </div>
       <% end %>
-      <div id="organisation-templates" role="tabpanel" class="tab-pane<%= !current_user.can_super_admin? ? ' active' : '' %>">
+      <div id="organisation-templates" role="tabpanel" class="tab-pane<%= !current_user.can_super_admin? || current_tab == 'organisation-templates' ? ' active' : '' %>">
         <h2><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></h2>
-        <% if own_templates.length > 0 %>
-          <%= paginable_renderise(
-            partial: 'templates_list',
-            controller: 'org_admin/templates',
-            action: 'orgs', 
-            scope: own_templates,
-            locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs], hide_actions: false}) %>
-        <% else %>
-          <p><%= _('There are currently no templates defined for your organisation.') %></p>
-        <% end %>
+        <%= paginable_renderise(
+          partial: 'paginable/templates/orgs',
+          controller: 'paginable/templates',
+          action: 'orgs', 
+          scope: own_templates,
+          locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs], hide_actions: false}) %>
       </div>
       <!-- If the Org is not just a funder then show the customizations table -->
-      <div id="funder-templates" role="tabpanel" class="tab-pane">
-        <h2><%= _('Customizable Templates') %></h2>
-        <% if customizable_templates.length > 0 %>
+      <% if !current_org.funder_only? %>
+        <div id="funder-templates" role="tabpanel" class="tab-pane<%= current_tab == 'funder-templates' ? ' active' : '' %>">
+          <h2><%= _('Customizable Templates') %></h2>
           <%= paginable_renderise(
-            partial: 'funder_templates_list',
-            controller: 'org_admin/templates',
+            partial: 'paginable/templates/funders',
+            controller: 'paginable/templates',
             action: 'funders', 
             scope: customizable_templates,
             locals: {current_org: current_org.id, customizations: customized_templates, published: published, scopes: scopes[:funders]}) %>
-        <% else %>
-          <p><%= _('There are currently no customisable templates.') %></p>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
-
-    <a href="<%= new_org_admin_template_path %>" class="btn btn-primary" role="button">
-      <%= _('Create a template') %>
-    </a>
   </div>
 </div>

@@ -14,12 +14,14 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     @funder_template = @funder.templates.where(published: true).first #Template.create(title: 'Funder template', org: @funder, migrated: false)
     # Template can't be published on creation so do it afterward
     @funder_template.published = true
+    @funder_template.visibility = Template.visibilities[:publicly_visible]
     @funder_template.save
 
     @org = @researcher.org
     @org_template = Template.create(title: 'Org template', org: @org, migrated: false)
     # Template can't be published on creation so do it afterward
     @org_template.published = true
+    @org_template.visibility = Template.visibilities[:organisationally_visible]
     @org_template.save
   end
 
@@ -125,6 +127,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     customization = Template.create(title: 'Customization', org: @org)
     # Template can't be published on creation so do it afterward
     customization.published = true
+    customization.visibility = Template.visibilities[:organisationally_visible]
     customization.customization_of = @funder_template.dmptemplate_id
     customization.save
 
@@ -133,7 +136,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     get "#{org_admin_template_options_path}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
     assert_response :success
     json = JSON.parse(@response.body)
-
+    
     assert_equal 1, json['templates'].size
     assert_equal customization.id, json['templates'][0]['id']
   end
@@ -143,6 +146,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     funder_template2 = Template.create(title: 'Funder template 2', org: @funder)
     # Template can't be published on creation so do it afterward
     funder_template2.published = true
+    funder_template2.visibility = Template.visibilities[:publicly_visible]
     funder_template2.save
 
     sign_in @researcher

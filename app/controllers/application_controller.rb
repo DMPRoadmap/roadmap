@@ -49,21 +49,28 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    return request.referer || root_path unless request.referer.eql?(new_user_session_path)
-    root_path
+    if from_external_domain? || request.referer.eql?(new_user_session_url(:protocol => 'https')) || request.referer.eql?(new_user_registration_url(:protocol => 'https'))
+      root_path
+    else
+      return request.referer unless request.referer.nil?
+      root_path
+    end
   end
 
   def after_sign_up_path_for(resource)
-    return request.referer || root_path unless request.referer.eql?(new_user_registration_path)
-    root_path
+    if from_external_domain? or request.referer.eql?(new_user_session_url(:protocol => 'https'))
+      root_path
+    else
+      request.referer
+    end
   end
 
   def after_sign_in_error_path_for(resource)
-    request.referer || root_path
+    (from_external_domain? ? root_path : request.referer || root_path)
   end
 
   def after_sign_up_error_path_for(resource)
-    request.referer || root_path
+    (from_external_domain? ? root_path : request.referer || root_path)
   end
 
   def authenticate_admin!
@@ -138,4 +145,13 @@ class ApplicationController < ActionController::Base
     end
     # -------------------------------------------------------------
 
+    def from_external_domain?
+      if request.referer.present?
+        referer = URI.parse(request.referer)
+        home = URI.parse(root_url)
+        referer.host != home.host
+      else
+        false
+      end
+    end
 end

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Participating Institutions') %></h1>
+
+    <% if orgs.count > 0 %>
+      <%= paginable_renderise(
+        partial: '/paginable/orgs/public',
+        controller: 'paginable/orgs',
+        action: 'public', 
+        scope: orgs) %>
+    <% end %>
+  </div>
+</div>

@@ -1,37 +1,24 @@
 <% if current_user.org_id.present? %>
         <div class="row">
             <div class="col-md-12">
-                <h2><%= _('%{org_title} Plans') %{ :org_title => current_user.org.name } %></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-hover tablesorter">
+                    <table class="table table-hover">
                         <thead>
-                          	<% if scope.length > TABLE_FILTER_MIN_ROWS %>
-                                <tr>
-                                  <th colspan="5" class="sorter-false">
-                                    <%= render(partial: "shared/table_filter",
-                                               locals: { placeholder: _('Filter plans')}) %>
-                                  </th>
-                                </tr>
-                            <% end %>
                             <tr>
-                                <th><%= _('Project Title') %></th>
-                                <th><%= _('Template') %></th>
+                                <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+                                <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
                                 <th><%= _('Owner') %></th>
-                                <th><%= _('Updated') %></th>
+                                <th><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
                                 <th class="sorter-false"><%= _('Download') %></th>
                             </tr>
                         </thead>
                         <tbody>
                             <% scope.each do |plan| %>
                                 <tr>
-                                    <td><%= link_to "#{plan.title.length > 40 ? "#{plan.title[0..39]} ..." : plan.title}", plan_path(plan) %></td>
+                                    <td><%= plan.title.length > 40 ? "#{plan.title[0..39]} ..." : plan.title %></td>
                                     <td><%= plan.template.title %></td>
                                     <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
-                                    <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                                    <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                                     <td class="text-center">
                                         <%= link_to _('PDF'), plan_export_path(plan, format: :pdf), target: '_blank' %>
                                     </td>

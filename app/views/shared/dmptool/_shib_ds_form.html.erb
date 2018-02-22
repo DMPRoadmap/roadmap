@@ -1,0 +1,67 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+        <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+      </button>
+
+      <div class="row">
+        <div class="col-md-11">
+          <%= label_tag :org_name, _('Look up your institution here'), class: "control-label" %>
+          <div class="form-group">
+            <% if orgs.length <= 10 %>
+              <select id="org_name">
+                <option value=""><%= _('Please select one') %></option>
+                <%= raw orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
+              </select>
+      
+            <% else %>
+              <%= render partial: "shared/accessible_combobox", 
+                         locals: {name: 'org_name',
+                                  id: 'org_name',
+                                  default_selection: nil,
+                                  models: orgs,
+                                  attribute: 'name',
+                                  required: true,
+                                  classes: ''} %>
+            <% end %>
+            <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go" %>
+          </div>
+
+          <% if orgs.length > 10 %>
+            <%= link_to _('See the full list of participating institutions'), '#', id: 'show_list' %>
+
+            <ul id="full_list" class="hide list-unstyled" aria-hidden="true">
+              <% current = nil %>
+              <% orgs.each do |org| %>
+                <% unless org.name[0].capitalize == current %>
+                  <% current = org.name[0].capitalize %>
+                  <li class="bg-primary"><%= current %></li>
+                <% end %>
+                <% if org.shibbolized? %>
+                  <li><%= link_to org.name, "#{shibboleth_ds_path}/#{org.id}",
+                                  'data-content': org.id %></li>
+                <% else %>
+                  <li>
+                    <%= link_to org.name, "#{org_logo_path(org)}", 
+                                class: 'org-sign-in', 'data-content': org.id, 
+                                'data-toggle': 'modal', 'data-target': '#org-sign-in' %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <p>
+            <%= _('Institution not in the list?') %>
+            <%= link_to _('Create an account with any email address'), '#', 'data-toggle': 'modal',
+                        'data-target': '#sign-in-create-account', id: 'show-create-account-via-shib-ds' %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="org-sign-in" class="modal fade" tabindex="-1" role="dialog">
+</div>

@@ -3,10 +3,6 @@ class Org < ActiveRecord::Base
   include FlagShihTzu
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
-  
-  ##
-  # Sort order: Name ASC
-  default_scope { order(name: :asc) }
 
   # Stores links as an JSON object: { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at validators/template_links_validator.rb
@@ -20,7 +16,7 @@ class Org < ActiveRecord::Base
   has_many :templates
   has_many :users
   has_many :annotations
-  
+
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
   has_many :org_identifiers
@@ -33,12 +29,12 @@ class Org < ActiveRecord::Base
                   :logo_file_name, :name, :links,
                   :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
                   :token_permission_type_ids, :language_id, :contact_email, :contact_name,
-                  :language, :org_type, :region, :token_permission_types, 
+                  :language, :org_type, :region, :token_permission_types,
                   :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg
   ##
   # Validators
-  validates :contact_email, email: true, allow_nil: true
+#  validates :contact_email, email: true, allow_nil: true
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do
@@ -60,6 +56,11 @@ class Org < ActiveRecord::Base
 
   # Predefined queries for retrieving the managain organisation and funders
   scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
+
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    where("orgs.name LIKE ? OR orgs.contact_email LIKE ?", search_pattern, search_pattern)
+  }
 
   after_create :create_guidance_group
 
@@ -87,23 +88,20 @@ class Org < ActiveRecord::Base
   # defaults to none if no org type present
   #
   # @return [String]
-  def type
-    if self.institution?
-      return "Institution"
-    elsif self.funder?
-      return "Funder"
-    elsif self.organisation?
-      return "Organisation"
-    elsif self.research_institute?
-      return "Research Institute"
-    elsif self.project?
-      return "Project"
-    elsif self.school?
-      return "School"
-    end
-      return "None"
+  def org_type_to_s
+    ret = []
+    ret << "Institution" if self.institution?
+    ret << "Funder" if self.funder?
+    ret << "Organisation" if self.organisation?
+    ret << "Research Institute" if self.research_institute?
+    ret << "Project" if self.project?
+    ret << "School" if self.school?
+    return (ret.length > 0 ? ret.join(', ') : "None")
   end
 
+  def funder_only?
+    self.org_type == Org.org_type_values_for(:funder).min
+  end
 
   ##
   # returns the name of the organisation
@@ -143,13 +141,21 @@ class Org < ActiveRecord::Base
   end
 
   def org_admins
-    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id, 
+    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
       ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
   end
-  
+
   def plans
-    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)', 
+    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)',
       self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
+  end
+  
+  def shibbolized?
+    self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?
+  end
+
+  def grant_api!(token_permission_type)
+    org.token_permission_types << token_permission_type unless org.tokenpermission_types.include? token_permission_type
   end
 
   private
@@ -168,4 +174,5 @@ class Org < ActiveRecord::Base
     def create_guidance_group
       GuidanceGroup.create(name: self.abbreviation? ? self.abbreviation : self.name , org_id: self.id)
     end
+
 end

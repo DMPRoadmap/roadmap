@@ -19,6 +19,10 @@ class GuidancePolicy < ApplicationPolicy
     user.can_modify_guidance? && guidance.in_group_belonging_to?(user.org_id)
   end
 
+  def index?
+    admin_index?
+  end
+
   def admin_index?
     user.can_modify_guidance?
   end
@@ -57,11 +61,5 @@ class GuidancePolicy < ApplicationPolicy
 
   def update_questions?
     user.can_modify_guidance?
-  end
-
-  class Scope < Scope
-    def resolve
-      scope = Guidance.includes(:guidance_group, :themes).by_org(user.org_id)
-    end
   end
 end

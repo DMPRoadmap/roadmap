@@ -88,9 +88,9 @@ gem 'redcarpet', '>= 3.3.4'
 # ------------------------------------------------
 #     PAGINATION
 gem 'kaminari', '>= 1.0'
+
 # ------------------------------------------------
 #     ENVIRONMENT SPECIFIC DEPENDENCIES
-
 group :development, :test do
   gem "byebug", '~> 9.0'
 end
@@ -108,7 +108,7 @@ group :development do
   gem "better_errors", '~> 2.1.1'
   gem "binding_of_caller", '~> 0.7.2'
   gem 'web-console', '~> 2.3.0'
-  gem 'rack-mini-profiler', '~> 0.10.1'
+  #gem 'rack-mini-profiler', '~> 0.10.1'
   #gem 'flamegraph'
 end
 

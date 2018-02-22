@@ -1,17 +1,10 @@
       <div class="table-responsive">
-        <table class="table table-hover tablesorter" id="my-plans">
+        <table class="table table-hover" id="my-plans">
           <thead>
-            <% if scope.length > TABLE_FILTER_MIN_ROWS %>
-              <tr>
-                <th colspan="7" class="sorter-false">
-                  <%= render(partial: "shared/table_filter", locals: { placeholder: _('Filter plans')}) %>
-                </th>
-              </tr>
-            <% end %>
             <tr>
-              <th><%= _('Project Title') %></th>
-              <th><%= _('Template') %></th>
-              <th><%= _('Edited') %></th>
+              <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+              <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+              <th><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
               <th><%= _('Role') %></th>
               <th class="text-center sorter-false"><%= _('Test') %></th>
               <th><%= _('Visibility') %></th>
@@ -29,7 +22,7 @@
                       plan_path(plan) %>
                 </td>
                 <td><%= plan.template.title %></td>
-                <td><%= l(plan.latest_update.to_date, formats: :short) %></td>
+                <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>

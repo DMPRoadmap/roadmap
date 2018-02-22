@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
       @question = Question.new(question_params)
       authorize @question
       @question.modifiable = true
+      current_tab = params[:r] || 'all-templates'
       if @question.question_format.textfield?
         @question.default_value = params["question-default-value-textfield"]
       elsif @question.question_format.textarea?
@@ -24,7 +25,7 @@ class QuestionsController < ApplicationController
           guidance = Annotation.new({question_id: @question.id, org_id: current_user.org_id, text: params[:guidance], type: Annotation.types[:guidance]})
           guidance.save
         end
-        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id), notice: success_message(_('question'), _('created'))
+        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('created'))
       else
         @edit = (@question.section.phase.template.org == current_user.org)
         @open = true
@@ -40,7 +41,7 @@ class QuestionsController < ApplicationController
         else
           @original_org = @phase.template.org
         end
-        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id)
+        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, r: current_tab)
       end
     rescue ActionController::ParameterMissing => e
       flash[:alert] = e.message
@@ -51,26 +52,31 @@ class QuestionsController < ApplicationController
   def admin_update
     @question = Question.find(params[:id])
     authorize @question
+
     guidance = @question.get_guidance_annotation(current_user.org_id)
+    current_tab = params[:r] || 'all-templates'
     if params["question-guidance-#{params[:id]}"].present?
-      if guidance.blank?
-        guidance = @question.annotations.build
-        guidance.type = :guidance
-        guidance.org_id = current_user.org_id
+      unless guidance.present?
+        guidance = Annotation.new(type: :guidance, org_id: current_user.org_id, question_id: @question.id)
       end
       guidance.text = params["question-guidance-#{params[:id]}"]
       guidance.save
+    else
+      # The user cleared out the guidance value so delete the record
+      guidance.destroy! if guidance.present?
     end
     example_answer = @question.get_example_answer(current_user.org_id)
     if params["question"]["annotations_attributes"].present? && params["question"]["annotations_attributes"]["0"]["id"].present?
-      if example_answer.blank?
-        example_answer = @question.annotations.build
-        example_answer.type = :example_answer
-        example_answer.org_id = current_user.org_id
+      unless example_answer.present?
+        example_answer = Annotation.new(type: :example_answer, org_id: current_user.org_id, question_id: @question.id)
       end
       example_answer.text = params["question"]["annotations_attributes"]["0"]["text"]
       example_answer.save
-    end
+    else
+      # The user cleared out the example answer value so delete the record
+      example_answer.destroy if example_answer.present?
+    end    
+    
     if @question.question_format.textfield?
       @question.default_value = params["question-default-value-textfield"]
     elsif @question.question_format.textarea?
@@ -83,7 +89,7 @@ class QuestionsController < ApplicationController
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id), notice: success_message(_('question'), _('saved'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -97,7 +103,7 @@ class QuestionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id)
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab)
     end
   end
 
@@ -107,13 +113,14 @@ class QuestionsController < ApplicationController
     authorize @question
     @section = @question.section
     @phase = @section.phase
+    current_tab = params[:r] || 'all-templates'
     if @question.destroy
       @phase.template.dirty = true
       @phase.template.save!
 
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id), notice: success_message(_('question'), _('deleted'))
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('question'), _('deleted'))
     else
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id), alert: failed_destroy_error(@question, 'question')
+      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), alert: failed_destroy_error(@question, 'question')
     end
   end
 

@@ -1,5 +1,6 @@
 class Plan < ActiveRecord::Base
   include ConditionalUserMailer
+  include ExportablePlan
   before_validation :set_creation_defaults
 
   ##
@@ -52,16 +53,26 @@ class Plan < ActiveRecord::Base
 
   # Scope queries
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
-  scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
+  scope :publicly_visible, -> { includes(:template).where(:visibility => visibilities[:publicly_visible]) }
+
+  # Retrieves any plan in which the user has an active role and it is not a reviewer
+  scope :active, -> (user) {
+    includes([:template, :roles]).where({ "roles.active": true, "roles.user_id": user.id }).where(Role.not_reviewer_condition)
+  }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    Plan.includes(:template)
+    includes(:template, {roles: :user})
       .where({
         visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
-        "templates.org_id": user.org_id})
+        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
+        "users.org_id": user.org_id})
       .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
-      .order(:title => :asc)
+  }
+
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:template).where("plans.title LIKE ? OR templates.title LIKE ?", search_pattern, search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -178,7 +189,7 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
-              ggroups << guidance.guidance_group if guidance.guidance_group.published
+              ggroups << guidance.guidance_group if guidance.guidance_group.published && !guidance.guidance_group.org.is_other?
               # only show published guidance groups
             end
           end
@@ -270,7 +281,8 @@ class Plan < ActiveRecord::Base
   def guidance_by_question_as_hash
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?) AND orgs.id != ?", 
+                                                       true, guidance_groups_ids, self.template.org.id)
 
     # Gather all of the Themes used in the plan as a hash
     # {
@@ -681,11 +693,12 @@ class Plan < ActiveRecord::Base
 
   # Returns the number of answered questions from the entire plan
   def num_answered_questions
-    n = 0
-    self.sections.each do |s|
-      n+= s.num_answered_questions(self.id)
+    return Answer.where(id: answers.map(&:id)).includes({ question: :question_format }, :question_options).reduce(0) do |m, a|
+      if a.is_valid?
+        m+=1
+      end
+      m
     end
-    return n
   end
 
   # Returns a section given its id or nil if does not exist for the current plan
@@ -693,14 +706,9 @@ class Plan < ActiveRecord::Base
     self.sections.find { |s| s.id == section_id }
   end
 
-  # Returns the number of questions for a plan. Note, this method becomes useful
-  # for when sections and their questions are eager loaded so that avoids SQL queries.
+  # Returns the number of questions for a plan.
   def num_questions
-    n = 0
-    self.sections.each do |s|
-      n+= s.questions.size()
-    end
-    return n
+    return sections.includes(:questions).joins(:questions).reduce(0){ |m, s| m + s.questions.length }
   end
   # the following two methods are for eager loading. One gets used for the plan/show
   # page and the oter for the plan/edit. The difference is just that one pulls in more than
@@ -718,17 +726,15 @@ class Plan < ActiveRecord::Base
       ]).find(id)
   end
 
+  # Pre-fetched a plan phase together with its sections and questions associated. It also pre-fetches the answers and notes associated to the plan
   def self.load_for_phase(id, phase_id)
-#    Plan.includes(
-#      [template: [
-#                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
-#                   {customizations: :org},
-#                   :org
-#                  ],
-#       plans_guidance_groups: {guidance_group: {guidances: :themes}}
-#      ]).where(id: id, phases: { id: phase_id }).first
-
-    Plan.joins(:phases).where('plans.id = ? AND phases.id = ?', id, phase_id).includes(:template, :sections, :questions, :answers, :notes).first
+    plan = Plan
+      .joins(template: { phases: { sections: :questions }})
+      .preload(template: { phases: { sections: :questions }}) # Preserves the default order defined in the model relationships
+      .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
+      .merge(Plan.includes(answers: :notes))[0]
+    phase = plan.template.phases.first
+    return plan, phase
   end
 
   # deep copy the given plan and all of it's associations
@@ -755,7 +761,7 @@ class Plan < ActiveRecord::Base
   # Returns visibility message given a Symbol type visibility passed, otherwise nil
   def self.visibility_message(type)
     message = {
-      :organisationally_visible => _('institutional'),
+      :organisationally_visible => _('organisational'),
       :publicly_visible => _('public'),
       :is_test => _('test'),
       :privately_visible => _('private')
@@ -773,6 +779,21 @@ class Plan < ActiveRecord::Base
   # Determines whether or not a question (given its id) exists for the self plan
   def question_exists?(question_id)
     Plan.joins(:questions).exists?(id: self.id, "questions.id": question_id)
+  end
+
+  # Checks whether or not the number of questions matches the number of valid answers
+  def no_questions_matches_no_answers?
+    num_questions = question_ids.length
+    pre_fetched_answers = Answer
+      .includes({ question: :question_format }, :question_options)
+      .where(id: answer_ids)
+    num_answers = pre_fetched_answers.reduce(0) do |m, a|
+      if a.is_valid? 
+        m+=1
+      end
+      m
+    end
+    return num_questions == num_answers
   end
 
   private

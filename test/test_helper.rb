@@ -34,7 +34,7 @@ class ActiveSupport::TestCase
                          language: Language.find_by(abbreviation: FastGettext.locale),
                          password: "password123", password_confirmation: "password123",
                          org: org, accept_terms: true, confirmed_at: Time.zone.now,
-                         perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']))
+                         perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs', 'change_org_details']))
                          #perms: [Perm::GRANT_PERMISSIONS, Perm::MODIFY_TEMPLATES, Perm::MODIFY_GUIDANCE, Perm::CHANGE_ORG_DETAILS])
   end
 
@@ -87,10 +87,7 @@ class ActiveSupport::TestCase
   # Version the template
   # ----------------------------------------------------------------------
   def version_the_template
-    get publish_org_admin_template_path(@template)
-    get edit_org_admin_template_path(@template)            # Click on 'edit'
-    @template = Template.current(@template.dmptemplate_id) # Edit working copy
-    put org_admin_template_path(@template), {template: {title: "#{@template.title} - VERSIONED"}}
+    @template = @template.get_new_version
   end
 
   # Scaffold a new Plan based on the scaffolded Template

@@ -30,7 +30,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     put admin_update_annotation_path(id: @question.section.phase.id), @create_hash
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('example answer') && flash[:notice].include?('guidance')
     assert_equal 'New example', Annotation.find_by(@example_answer_qry).text, "expected example answer to have been created."
     assert_equal 'New guidance', Annotation.find_by(@guidance_qry).text, "expected guidance to have been created."
@@ -40,7 +40,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_annotation_path(id: @question.section.phase.id), {question_id: @question.id, example_answer_text: "New example"}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('updated')
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert_equal 'New example', Annotation.find_by(@example_answer_qry).text, "expected example answer to have been created."
     assert Annotation.find_by(@guidance_qry).nil?, "expected no guidance to have been created."
   end
@@ -49,7 +49,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_annotation_path(id: @question.section.phase.id), {question_id: @question.id, guidance_text: "New guidance"}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('updated')
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert Annotation.find_by(@example_answer_qry).nil?, "expected no example answer to have been created."
     assert_equal 'New guidance', Annotation.find_by(@guidance_qry).text, "expected guidance to have been created."
   end
@@ -60,7 +60,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_annotation_path(id: @question.section.phase.id), {question_id: @question.id, example_answer_text: "Updated example", guidance_text: "Updated guidance"}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('updated')
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert_equal 'Updated example', Annotation.find_by(@example_answer_qry).text, "expected example answer to have been updated."
     assert_equal 'Updated guidance', Annotation.find_by(@guidance_qry).text, "expected guidance to have been updated."
   end
@@ -70,7 +70,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_annotation_path(id: @question.section.phase.id), {question_id: @question.id, guidance_text: "Updated guidance"}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('updated')
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert Annotation.find_by(@example_answer_qry).nil?, "expected example answer to have been removed."
     assert_equal 'Updated guidance', Annotation.find_by(@guidance_qry).text, "expected guidance to have been updated."
   end
@@ -80,7 +80,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_annotation_path(id: @question.section.phase.id), {question_id: @question.id, example_answer_text: "Updated example"}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('updated')
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert_equal 'Updated example', Annotation.find_by(@example_answer_qry).text, "expected example answer to have been updated."
     assert Annotation.find_by(@guidance_qry).nil?, "expected guidance to have been removed."
   end
@@ -91,7 +91,7 @@ class AnnotationsControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_annotation_path(Annotation.find_by(@example_answer_qry))
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_response :redirect
-    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}"
+    assert_redirected_to "#{admin_show_phase_path(@question.section.phase.id)}?section_id=#{@question.section.id}&r=all-templates"
     assert Annotation.find_by(@example_answer_qry).nil?
     assert_equal 'New guidance', Annotation.find_by(@guidance_qry).text, "expected guidance to have been unchanged."
   end

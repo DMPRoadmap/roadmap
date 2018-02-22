@@ -6,7 +6,6 @@
 
   <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
   <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
-  <%= hidden_field_tag :skip_personal_details, "false" %>
 
   <div class="form-group col-xs-8">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
@@ -39,19 +38,27 @@
     </div>
   <% end %>
 
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-xs-8">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
-      <% if scheme.name == 'shibboleth' %>
+      <% if scheme.name.downcase == 'shibboleth' %>
         <label class='control-label'>
           <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
-          <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
         </label>
+      <% elsif scheme.name.downcase == 'orcid' %>
+        <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
       <% else %>
         <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>
 
       <div class='identifier-scheme'>
-        <%= render partial: "external_identifier_#{scheme.name}",
+        <%= render partial: "external_identifier",
                    locals: { scheme: scheme,
                              id: current_user.identifier_for(scheme)} %>
       </div>

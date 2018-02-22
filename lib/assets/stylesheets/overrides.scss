@@ -84,44 +84,51 @@ thead th.table-scope {
   }
 }
 
-/* TABS STYLING */
-
+/* nav-tabs and nav-pills styling */
 .nav-tabs, .nav-pills {
   background-color: $grey;
   color: $white;
-  border: none;
-  margin-right:2px;
-  margin-bottom: 10px;
+  border-bottom: 0px;
 }
 .nav-tabs > li > a, .nav-pills > li > a {
-  border-radius: 2px;
   color: $white;
 }
-.nav-tabs > li > a:hover, .nav-pills > li > a:hover {
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
   background-color: $white;
   color: $grey;
-  border:1px solid $grey;
-  border-bottom: 1px solid $white; /* white border prevents tabs from shifting on mouseover/mouseout */
-}
-.nav-tabs > li.active > a, .nav-pills >li.active > a,
-.nav-tabs > li.active > a:focus, .nav-pills > li.active > a:focus,
-.nav-tabs > li.active > a:hover, .nav-pills > li.active > a:hover {
-  background-color: $white !important;
-  color:$grey;
-  border:1px solid $grey;
-  border-bottom: 1px solid $white; /* white border prevents tabs from shifting on mouseover/mouseout */
+  border: 1px solid $grey;
+  border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
 .nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover, {
-  border-bottom: 1px solid $grey;
+.nav-pills > li.active > a:hover {
+  background-color: $white;
+  color: $grey;
+  border: 1px solid $grey;
 }
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li.active:last-child > a,
+.nav-pills > li.active:last-child > a:focus,
+.nav-pills > li.active:last-child > a:hover {
+  border-right: 0px;
+}
+/* panel styling */
 
-/* PANEL STYLING */
-.panel-default > .panel-heading {
+.panel-default {
+  border-color: $grey;
+}
+.heading-button > .panel-heading, .panel-default > .panel-heading {
   background-color: $grey;
   color: $white;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .panel-title a {
@@ -136,10 +143,41 @@ thead th.table-scope {
   color: $grey;
 }
 
+/* list-group styling */
+.list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+/* label stylying */
+.label {
+  font-size: 85%;
+}
+
 /* LIST STYLING */
 span.sublist {
   margin-left: -15px;
   margin-right: 25px;
+}
+
+/* Overrides ul list */ 
+#modal-permissions ul {
+  list-style-type: none;
+}
+
+/* Overrides list-group */ 
+#modal-permissions .list-group li:nth-child(1){
+  border-top: 0 none;
+}
+
+/* Overrides list-group-item */ 
+#modal-permissions .list-group-item {
+  height: 30px; 
+  padding: 5px 15px;
 }
 
 /* FONTAWESOME STYLING */
@@ -148,6 +186,9 @@ span.sublist {
 }
 .fa-reverse {
   color: $grey;
+}
+.fa-sort, .fa-sort-asc, .fa-sort-desc {
+  color: $white;
 }
 
 /* RADIO BUTTONS */
@@ -257,15 +298,6 @@ body{
   padding-bottom: 50px;
 }
 
-/* footer */
-#footer-navbar {
-  bottom: 0;
-  margin-top: 20px;
-  margin-bottom: -20px;
-  width: 100%;
-  position: absolute;
-}
-
 
 /* HEADER STYLING */
 /*
@@ -276,13 +308,8 @@ $header-text-color: $black;
 $header-background: linear-gradient(#ED6406, #F59503);
 */
 
-#app-navbar {
-  border-radius: 0px;
-}
-
 /* For org navbar custom height */
 #org-navbar {
-  border-radius: 0px;
   margin-top: -20px;
 
   #banner-org-name {
@@ -384,7 +411,7 @@ $tooltip-background: $grey;
   z-index: 99;
 }
 .combobox-suggestion {
-  color: #grey;
+  color: $grey;
   border-bottom: 1px solid $grey;
   border-left: 1px solid $grey;
   border-right: 1px solid $grey;
@@ -405,15 +432,11 @@ $tooltip-background: $grey;
   cursor: pointer;
   display: inline;
   position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 2px;
-  margin-right: -28px;
+  top: 6px;
+  right: 5px;
   border: none;
   background: transparent;
   color: $grey;
-  padding-top: 4px;
-  font-size: 16pt;
 }
 
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
@@ -445,4 +468,19 @@ $tooltip-background: $grey;
 }
 .create-plan-mock {
   margin-left: -40px;
+}
+
+/* Sharp edges */
+#app-navbar,
+#org-navbar,
+.nav-tabs > li > a,
+.nav-pills > li > a,
+.panel, .panel-group .panel,
+.progress,
+.btn,
+.form-control,
+.label,
+.alert,
+.input-group-addon {
+  border-radius: 0px;
 }

@@ -39,7 +39,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-
   # WAYFless access point - use query param idp
   #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
   #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
@@ -55,6 +54,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
+  get '/users/ldap_username', to: 'users#ldap_username'
+  post '/users/ldap_account', to: 'users#ldap_account'
 
   resources :users, path: 'users', only: [] do
     member do
@@ -89,6 +90,15 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
     get "plan_export/:id" => 'public_pages#plan_export', as: 'plan_export'
     get "existing_users" => 'existing_users#index'
+    
+    # DMPTool specific documentation pages
+    get "promote" => 'static_pages#promote'
+    get "researchers" => 'static_pages#researchers'
+    get "faq" => 'static_pages#faq'
+    get "general_guidance" => 'static_pages#general_guidance'
+    get "quick_start_guide" => 'static_pages#help'
+    get "news_media" => 'static_pages#news_media'
+    get "public_orgs" => 'public_pages#orgs'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
@@ -101,6 +111,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         get 'admin_edit'
         put 'admin_update'
       end
+
+      get 'logo', constraints: {format: :json}
     end
 
     resources :guidances, :path => 'org/admin/guidance', only: [] do
@@ -216,6 +228,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
+    resources :usage, only: [:index]
+
     resources :roles, only: [:create, :update, :destroy] do
       member do
         put :deactivate
@@ -236,6 +250,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         resource  :statistics, only: [], controller: "statistics", path: "statistics" do
           member do
             get :users_joined
+            get :completed_plans
+            get :created_plans
             get :using_template
             get :plans_by_template
             get :plans
@@ -245,10 +261,16 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :paginable do
+      resources :orgs, only: [] do
+        get 'public/:page', action: :public, on: :collection, as: :public
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
       # Paginable actions for plans
       resources :plans, only: [] do
         get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
         get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
+        get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+        get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
       end
       # Paginable actions for users
       resources :users, only: [] do
@@ -256,6 +278,22 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
       # Paginable actions for themes
       resources :themes, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for templates
+      resources :templates, only: [] do
+        get 'all/:page', action: :all, on: :collection, as: :all
+        get 'funders/:page', action: :funders, on: :collection, as: :funders
+        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
+        get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+        get ':id/history/:page', action: :history, on: :collection, as: :history
+      end
+      # Paginable actions for guidances
+      resources :guidances, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for guidance_groups
+      resources :guidance_groups, only: [] do
         get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
@@ -276,11 +314,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'publish', action: :publish, constraints: {format: [:json]}
           get 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
-          
-        # pagination
-        get 'all/:page', action: :all, on: :collection, as: :all
-        get 'funders/:page', action: :funders, on: :collection, as: :funders
-        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
       end
       
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
@@ -288,6 +321,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     namespace :super_admin do
+      resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     end
 end

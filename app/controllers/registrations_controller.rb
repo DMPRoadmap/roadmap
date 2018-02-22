@@ -5,10 +5,9 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
-    @orgs = Org.where(parent_id: nil).order("name")
-    @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
+    @orgs = Org.where(parent_id: nil, is_other: nil).order("name")
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
-    @default_org = current_user.org
+    @default_org = current_user.org unless current_user.org.nil? || current_user.org.is_other
 
     if !@prefs
       flash[:alert] = 'No default preferences found (should be in branding.yml).'
@@ -26,14 +25,13 @@ class RegistrationsController < Devise::RegistrationsController
 
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
-      if oauth[:provider].nil? || oauth[:uid].nil?
-        flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
-
+      if oauth['provider'].nil? || oauth['uid'].nil?
+        # flash[:alert] = _('We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward.')
       else
         # Connect the new user with the identifier sent back by the OAuth provider
-        flash[:notice] = _('It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration.')
-        UserIdentifier.create(identifier_scheme: oauth[:provider].upcase,
-                              identifier: oauth[:uid],
+        flash[:notice] = _('Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.') % {application_name: Rails.configuration.branding[:application][:name]}
+        UserIdentifier.create(identifier_scheme: IdentifierScheme.find_by(name: oauth['provider'].downcase),
+                              identifier: oauth['uid'],
                               user: @user)
       end
     end
@@ -41,7 +39,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if !sign_up_params[:accept_terms] then
+    oauth = {provider: nil, uid: nil}
+    IdentifierScheme.all.each do |scheme|
+      oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
+    end
+
+    if !sign_up_params[:accept_terms]
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     else
       existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
@@ -55,32 +58,45 @@ class RegistrationsController < Devise::RegistrationsController
           # https://github.com/DMPRoadmap/roadmap/issues/322
         end
       end
-        build_resource(sign_up_params)
-        if resource.save
-          if resource.active_for_authentication?
-            set_flash_message :notice, :signed_up if is_navigational_format?
-            sign_up(resource_name, resource)
-            UserMailer.welcome_notification(current_user).deliver
-            respond_with resource, location: after_sign_up_path_for(resource)
-          else
-            set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-            respond_with resource, location: after_inactive_sign_up_path_for(resource)
-          end
+      
+      # If the org_id is blank default to the Org marked as 'is_other'
+      args = sign_up_params
+      if !sign_up_params[:org_id].present? && !Org.find_by(is_other: true).nil?
+        args[:org_id] = Org.find_by(is_other: true).id 
+      end
+      
+      build_resource(args)
+      if resource.save
+        if resource.active_for_authentication?
+          set_flash_message :notice, :signed_up if is_navigational_format?
+          sign_up(resource_name, resource)
+          UserMailer.welcome_notification(current_user).deliver
+          respond_with resource, location: after_sign_up_path_for(resource)
         else
-          clean_up_passwords resource
-          redirect_to after_sign_up_error_path_for(resource), alert: _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.')
+          set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+          respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
+      else
+        clean_up_passwords resource
+        redirect_to after_sign_up_error_path_for(resource), alert: _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.')
+      end
     end
   end
 
   def update
     if user_signed_in? then
       @prefs = @user.get_preferences(:email)
-      @orgs = Org.where(parent_id: nil).order("name")
-      @default_org = current_user.org
-      @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
+      @orgs = Org.where(parent_id: nil, is_other: nil).order("name")
+      @default_org = current_user.org unless current_user.org.nil? || current_user.org.is_other
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
+      
+      # If the user left the org box blank default it to the 'Other' Org
+      if params[:user][:org_id].blank?
+        other = Org.find_by(is_other: true)
+        params[:user][:org_id] = other.id if other.present?
+      end
+      
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
       else
@@ -114,10 +130,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
     if params[:user][:surname].blank?
       message +=_('Please enter a Last name.') + '  '
-      mandatory_params &&= false
-    end
-    if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      message += _('Please select an organisation from the list, or enter your organisation\'s name.')
       mandatory_params &&= false
     end
     if mandatory_params   # has the user entered all the details
@@ -182,7 +194,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     else
       flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
-      render "edit"
+      redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end
 

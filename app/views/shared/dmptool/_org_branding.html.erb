@@ -1,0 +1,10 @@
+<% if org.present? %>
+  <% if org.logo.present? %>
+    <%= image_tag(org.logo.thumb('100x100%').url,
+                  alt: org.name,
+                  class: "org-logo",
+                  title: org.name) %>
+  <% else %>
+    <h4><%= org.name %></h4>
+  <% end %>
+<% end %>

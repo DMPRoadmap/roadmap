@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12"> 
+    <h1>Forgot email?</h1>
+    <p><%= _('If you have an existing DMPTool account, please enter your username and we will provide the associated email address.') %></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= form_tag users_ldap_account_path, id:'forgot_email_form', remote: true do |f| %>  
+      <div class="form-group">
+        <%= label_tag :username, nil , class: 'control-label' %>
+        <%= text_field_tag :username, '', class: 'form-control', placeholder: 'Enter DMPTool username' %>
+      </div>
+
+      <div class="form-group">
+        <%= button_tag "Submit", class: "btn btn-default forgot_email_submit", type: :submit  %>
+        <%= link_to "Cancel", root_path, class: "btn btn-default" %>
+      </div>
+    <% end %>
+
+    <p><%= raw _("If you have forgotten the username and email for your existing DMPTool account, please %{contact_us_link}.") % { contact_us_link: link_to('Contact us', contact_us_path) } %></p>
+  </div>
+</div>
+

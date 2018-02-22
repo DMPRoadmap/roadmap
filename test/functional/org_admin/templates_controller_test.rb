@@ -62,7 +62,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     published = Template.latest_version.where(published: true, customization_of: nil)
     unpublished = Template.latest_version.where(published: false, customization_of: nil)
-    verify_templates_table_scoping(all_org_admin_templates_path('ALL'), '#all-templates', published, unpublished)
+    verify_templates_table_scoping(all_paginable_templates_path('ALL'), '#all-templates', published, unpublished)
   end
   
   test "Predefined scopes correctly filter results on own templates table" do
@@ -74,7 +74,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     published = Template.get_latest_template_versions(@org_admin.org).where(published: true, customization_of: nil)
     unpublished = Template.get_latest_template_versions(@org_admin.org).where(published: false, customization_of: nil)
-    verify_templates_table_scoping(orgs_org_admin_templates_path('ALL'), '#organisation-templates', published, unpublished)
+    verify_templates_table_scoping(orgs_paginable_templates_path('ALL'), '#organisation-templates', published, unpublished)
   end
 
   test "Predefined scopes correctly filter results on customizable templates table" do
@@ -86,7 +86,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     
     published = Template.where(title: 'UOS customization of Default template')
     unpublished = Template.where('published = 1 AND visibility = 1 AND is_default = 0')
-    verify_templates_table_scoping(funders_org_admin_templates_path('ALL'), '#funders-templates', published, unpublished)
+    verify_templates_table_scoping(funders_paginable_templates_path('ALL'), '#funders-templates', published, unpublished)
   end
   
   test "unauthorized user cannot access the template edit page" do
@@ -99,15 +99,21 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_authorized_redirect_to_plans_page
   end
 
-  test "get the template edit page" do
+  test 'get templates#edit returns ok when template is current and is NOT published' do
     sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:ok)
+    assert_nil(flash[:notice])
+  end
 
-    get edit_org_admin_template_path(@template)
-    assert_response :success
-
-    assert assigns(:template)
-    assert assigns(:template_hash)
-    assert assigns(:current)
+  test 'get templates#edit returns ok with flash notice when template is not current' do
+    new_version = Template.deep_copy(@template)
+    new_version.version = (@template.version + 1)
+    new_version.save
+    sign_in @user
+    get(edit_org_admin_template_path(@template.id))
+    assert_response(:ok)
+    assert_equal(_('You are viewing a historical version of this template. You will not be able to make changes.'), flash[:notice])
   end
 
   test "unauthorized user cannot access the new template page" do
@@ -173,13 +179,13 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_path(prior)
     assert_equal _('You cannot delete historical versions of this template.'), flash[:alert]
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to org_admin_templates_path(r: 'all-templates')
     assert_not Template.find(prior.id).nil?
 
     # Try to delete the current version should work
     delete org_admin_template_path(current)
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path
+    assert_redirected_to org_admin_templates_path(r: 'all-templates')
     assert_raise ActiveRecord::RecordNotFound do
       Template.find(current.id).nil?
     end
@@ -250,7 +256,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     json_body = ActiveSupport::JSON.decode(response.body)
     assert json_body["msg"].start_with?('Successfully') && json_body["msg"].include?('saved')
     assert_equal('ABCD', current.reload.title, "expected the record to have been updated")
-    assert current.reload.dirty?
 
     # Make sure we get the right response when providing an invalid template
     put org_admin_template_path(current), {template: {title: nil}}
@@ -289,7 +294,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     customization = Template.where(customization_of: template.dmptemplate_id).last
 
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.last)
+    assert_redirected_to edit_org_admin_template_url(Template.last, r: 'funder-templates')
     assert assigns(:template)
 
     assert_equal 0, customization.version
@@ -340,21 +345,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
     current = Template.current(family)
-
-    # Update the description so that the template gets versioned
-    get edit_org_admin_template_path(current) # Click on 'edit'
-    new_version = Template.current(family)    # Edit working copy
-    put org_admin_template_path(new_version), {template: {description: "this is an update"}}
-
-    # Make sure it versioned properly
-    new_version = Template.current(family)
-    assert_not_equal current.id = new_version.id, "expected it to create a new version"
-    assert_equal (current.version + 1), new_version.version, "expected the version to have incremented"
-    assert current.published?, "expected the old version to be published"
-    assert_not new_version.published?, "expected the new version to NOT be published"
-    assert_not current.dirty?, "expected the old dirty flag to be false"
-    assert new_version.dirty?, "expected the new dirty flag to be true"
-    assert_equal current.dmptemplate_id, new_version.dmptemplate_id, "expected the old and new versions to share the same dmptemplate_id"
   end
 
   test "unauthorized user cannot unpublish a template" do
@@ -371,6 +361,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     family = @template.dmptemplate_id
+
     prior = Template.current(family)
 
     version_the_template
@@ -404,7 +395,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     get copy_org_admin_template_path(@template)
     assert_response :redirect
-    assert_redirected_to "#{edit_org_admin_template_url(Template.last)}?edit=true"
+    assert_redirected_to edit_org_admin_template_url(Template.last, edit: true, r: 'organisation-templates')
   end
   
   test "unauthorized user cannot transfer a template customization" do
@@ -513,28 +504,32 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
   
   def verify_funder_templates_table(user)
-    assert_select "#funder-templates table tbody" do |el|
-      # An Org Admin should see all of the funder/default templates (except ones that belong to their org)
-      templates = Template.where("(org_id IN (?) OR is_default = ?) AND org_id != ?", Org.where(org_type: [2,3]).collect(&:id), true, user.org.id)
-      if user.can_org_admin?
-        templates.each do |template|
-          # Expect to only see published public templates
-          if template.publicly_visible? && template.published?
-            assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have the funder (or default) template: '#{template.title}'" 
-          else
-            assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the unpublished/non-public funder template: '#{template.title}' (from org: #{template.org.abbreviation})"
-          end
-        end
-
-        # Expect to see only the current org's customizations
-        Template.where.not(id: templates.collect(&:id)).each do |template|
-          if template.customization_of.nil?
-            assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the template from a non-funder org: '#{template.title}'"
-          else
-            if template.org == user.org
-              assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have their own customization: '#{template.title}'" 
+    if user.org.funder_only?
+      assert_select "#funder-templates table tbody", 0, "expected a funder only Org to NOT see the customizable table"
+    else
+      assert_select "#funder-templates table tbody" do |el|
+        # An Org Admin should see all of the funder/default templates (except ones that belong to their org)
+        templates = Template.where("(org_id IN (?) OR is_default = ?) AND org_id != ?", Org.where(org_type: [2,3]).collect(&:id), true, user.org.id)
+        if user.can_org_admin?
+          templates.each do |template|
+            # Expect to only see published public templates
+            if template.publicly_visible? && template.published?
+              assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have the funder (or default) template: '#{template.title}'" 
             else
-              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have a customization from another organisation: '#{template.title}'"
+              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the unpublished/non-public funder template: '#{template.title}' (from org: #{template.org.abbreviation})"
+            end
+          end
+
+          # Expect to see only the current org's customizations
+          Template.where.not(id: templates.collect(&:id)).each do |template|
+            if template.customization_of.nil?
+              assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have the template from a non-funder org: '#{template.title}'"
+            else
+              if template.org == user.org
+                assert el.to_s.include?(template.title), "expected #{user.email}'s customizable table to have their own customization: '#{template.title}'" 
+              else
+                assert_not el.to_s.include?(template.title), "expected #{user.email}'s customizable table to NOT have a customization from another organisation: '#{template.title}'"
+              end
             end
           end
         end
