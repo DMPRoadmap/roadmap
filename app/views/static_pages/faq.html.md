@@ -107,7 +107,7 @@ A: The <a href="https://dmptool.org/public_templates\" target="_blank">Funder Re
 
 <h5 id="q-are-there-examples-of-data-management-plans">Q: Are there examples of data management plans?</h5>  
 A: The DMPTool hosts a collection of <a href="https://dmptool.org/public_plans\" target="_blank">public data management plans</a>.
-The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the [Funder Requirements page](https://dmptool.org/public_templates).
+The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href="https://dmptool.org/public_templates\" target="_blank">Funder Requirements page</a>.
 <hr>
 
 <h5 id="q-whats-the-difference-between-sample-and-public-data-management-plans">Q: What's the difference between “sample” and “public” data management plans?</h5>  
