@@ -12,11 +12,9 @@
       <% phase_button_text = template.customization_of.nil? ? _('Show Phase') : _('Customize Phase') %>
       <%= link_to phase_button_text, admin_show_phase_path(id: phase.id), { class: "btn btn-default", role: 'button' } %>
       <% if template == current && phase.modifiable %>
-          <%= link_to _('Delete'), admin_destroy_phase_path(phase_id: phase.id), {
-            confirm: _("You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?") % { phase_title: phase.title },
-            method: :delete,
-            class: "btn btn-default", role: "button" }
-          %>
+        <%= link_to _('Delete phase'), admin_destroy_phase_path(phase_id: phase.id),
+                    data: { confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title }, 
+                            length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-default' %>
       <% end %>
     </div>
   </div>
