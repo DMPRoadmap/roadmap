@@ -68,12 +68,13 @@ module OrgAdmin
       authorize @template
 
       @current = Template.current(@template.dmptemplate_id)
-
+      @current_tab = params[:r] || 'all-templates'
+      
       if @template == @current 
         if @template.published?
           new_version = @template.get_new_version
           if !new_version.nil?
-            redirect_to(action: 'edit', id: new_version.id)
+            redirect_to(action: 'edit', id: new_version.id, r: @current_tab)
             return
           else
             flash[:alert] = _('Unable to create a new version of this template. You are currently working with a published copy.')
@@ -85,7 +86,6 @@ module OrgAdmin
 
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
-      @current_tab = params[:r] || 'all-templates'
       
       render('container',
         locals: { 
