@@ -49,6 +49,13 @@
     </div>
   <% end %>
 
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-xs-8">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% unless scheme.name.downcase == 'shibboleth' %>
@@ -62,15 +69,6 @@
         </div>
       <% end %>
     </div>
-  <% end %>
-
-  <% unless @user.api_token.blank? %>
-    <div class="form-group col-xs-8">
-      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
-      <%= @user.api_token %>
-    </div>
-      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
-    <div><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a></div>
   <% end %>
 
   <div class="form-group col-xs-8">
