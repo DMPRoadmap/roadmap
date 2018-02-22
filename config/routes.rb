@@ -92,8 +92,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "existing_users" => 'existing_users#index'
     
     # DMPTool specific documentation pages
-    get "administrators" => 'static_pages#administrators'
-    get "developers" => 'static_pages#developers'
+    get "promote" => 'static_pages#promote'
     get "researchers" => 'static_pages#researchers'
     get "faq" => 'static_pages#faq'
     get "general_guidance" => 'static_pages#general_guidance'
