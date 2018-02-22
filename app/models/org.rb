@@ -158,7 +158,7 @@ class Org < ActiveRecord::Base
   def self.participating
     shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL').pluck(:id)
     non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized).pluck(:id)
-    Org.includes(:identifier_schemes).where(id: (shibbolized + non_shibbolized).flatten.uniq).order(:name)
+    Org.includes(:identifier_schemes).where(id: (shibbolized + non_shibbolized).flatten.uniq)
   end
   def self.participating_as_array
     shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL')

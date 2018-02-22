@@ -87,6 +87,13 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
 tbody td .dropdown-toggle, tbody td .dropdown-toggle:hover, tbody td .dropdown-toggle:focus, tbody td .dropdown-toggle:visited, tbody td .dropdown-toggle:active:hover {
   background-color: inherit;
 }
+th > a:not(.btn), th > a:not(.btn):hover, th > a:not(.btn):focus, th > a:not(.btn):visited, th > a:not(.btn):active, th > a:not(.btn):active:hover {
+  color: $white;
+  .fa {
+    color: $white;
+    float: none !important;
+  }
+}
 th > a > .fa {
   font-size: 1.5rem;
 }
