@@ -86,6 +86,7 @@
 
       <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
       <%= f.button(_('Create plan'), class: "btn btn-primary", type: "submit") %>
+      <%= link_to _('Cancel'), plans_path, class: 'btn btn-default' %>
     <% end %>
   </div>
 </div>
