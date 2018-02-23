@@ -44,7 +44,7 @@
         <% questions.each do |question| %>
           <hr />
           <div class="question_show" id="<%= "question_show#{question.id}" %>">
-            <%= render partial: 'questions/show_question', locals: {template: template, question: question, current_tab: current_tab} %>
+            <%= render partial: 'questions/show_question', locals: {template: template, question: question, current_tab: current_tab, edit: edit} %>
           </div>
           <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
             <%= render partial: 'questions/edit_question', locals: {template: template, question: question, current_tab: current_tab} %>
@@ -54,14 +54,15 @@
     <% end %>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="pull-right">
-      <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
-    </div>
-    <div class="question_new" style="display: none;">
-      <%= render partial: 'questions/add_question', locals: { section: section, current_tab: current_tab } %>
+<% if edit %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pull-right">
+        <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
+      </div>
+      <div class="question_new" style="display: none;">
+        <%= render partial: 'questions/add_question', locals: { section: section, current_tab: current_tab } %>
+      </div>
     </div>
   </div>
-</div>
-  
+<% end %>
