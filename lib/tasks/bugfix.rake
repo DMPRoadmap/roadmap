@@ -101,7 +101,12 @@ namespace :bugfix do
     end
     # leave tokens intact
     users.each do |user|
-      user.keep_or_generate_token!
+      # create the token outside of the user.keep_or_generate_token! method so that we do not spam users!
+      user.api_token = loop do
+        random_token = SecureRandom.urlsafe_base64(nil, false)
+        break random_token unless User.exists?(api_token: random_token)
+      end
+      user.save!
     end
   end
 end

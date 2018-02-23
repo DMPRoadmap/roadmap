@@ -30,6 +30,10 @@ h1, h2, h3, h4 {
     background-color: $white !important;
   }
 }
+.fa-external-link {
+  display: inline;
+  color: $dark-blue;
+}
 
 a:not(.btn),
 a:not(.btn):hover, a:not(.btn):focus, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):active:hover,
@@ -65,6 +69,9 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
   margin-bottom: 8px;
 }
 
+.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
+  top: 3px;
+}
 
 /* TABLES */
 /* --------------------------------------- */
@@ -83,6 +90,13 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
 }
 tbody td .dropdown-toggle, tbody td .dropdown-toggle:hover, tbody td .dropdown-toggle:focus, tbody td .dropdown-toggle:visited, tbody td .dropdown-toggle:active:hover {
   background-color: inherit;
+}
+th > a:not(.btn), th > a:not(.btn):hover, th > a:not(.btn):focus, th > a:not(.btn):visited, th > a:not(.btn):active, th > a:not(.btn):active:hover {
+  color: $white;
+  .fa {
+    color: $white;
+    float: none !important;
+  }
 }
 th > a > .fa {
   font-size: 1.5rem;
@@ -159,7 +173,9 @@ h1 {
 h2 {
   font-size: 2.4rem;
 }
-
+h3 {
+  font-size: 1.9rem;
+}
 .fa-question-circle {
   font-size: 1.5rem;
 }
@@ -423,7 +439,7 @@ header {
     }
     
     #branding-nav {
-      margin: 35px 0 0 0;
+      margin: 45px 0 0 0;
 
       img.app-logo {
         margin-top: 5px;
@@ -562,13 +578,24 @@ header {
     }
 
     #signin-options {
-      min-width: 350px;
+      min-width: 450px;
       padding: 10px 15px;
+
+      h3 {
+        margin-top: 25px;
+      }
+      a {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      a.btn {
+        width: 80%;
+      }
     }
 
     #main-menu {
       ul {
-        margin-top: 10px;
+        margin-top: 20px;
    
         li {
           padding-right: 10px;
@@ -589,6 +616,7 @@ header {
         #admin-menu {
           padding: 10px 15px;
           font-weight: normal;
+          min-width: 200px;
           color: $black;
         
           ul {
@@ -765,6 +793,9 @@ footer {
   .navbar-nav > li > a > .fa {
     color: $dark-blue;
     font-size: 1.8rem;
+  }
+  .navbar-nav > li > a > .fa-external-link {
+    font-size: 1.4rem;
   }
   .navbar-right {
     margin-right: 0;
