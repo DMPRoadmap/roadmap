@@ -17,13 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid " (e.g. School/ Department) "
-msgstr "e.g. School/Department"
+msgstr "(e.g., School/Department)"
 
 msgid " Customised By: "
 msgstr "Customized By: "
 
 msgid "Plan"
-msgstr "plan"
+msgstr "Plan"
 
 msgid " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
 msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse or have any relationship to your project or proposal "
@@ -44,7 +44,7 @@ msgid " to contact us."
 msgstr " to contact us."
 
 msgid "\"#{text}\""
-msgstr ""
+msgstr "\"#{text}\""
 
 msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
 msgstr "\"Are you sure you want to unlink your #{scheme.description} ID?\""
