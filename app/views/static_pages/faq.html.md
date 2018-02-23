@@ -175,7 +175,7 @@ A: There is an extensive list of <a href="https://github.com/cdluc3/dmp/wiki/Hel
 <hr>
 
 <h5 id="q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations">Q: Can I see customized templates and guidance created by administrators at other organizations?</h5>
-A: Yes! To view guidance created by others, create a new plan in the tool. On the "Project details" tab you will see "Plan Guidance Configuration" on the right. Click to "See the full list" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the "Write plan" tab.   
+A: Yes! To view guidance created by others, create a new plan in the tool. On the "Project details" tab you will see "Plan guidance configuration" on the right. Click to "See the full list" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the "Write plan" tab.   
 <br>
 To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: "Select the primary research organization." For the third create plan step, if you tick the box  "No funder associated with this plan" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to "Create plan." 
 <hr>
