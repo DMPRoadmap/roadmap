@@ -43,7 +43,7 @@ module OrgAdmin
       
       plans = CSV.generate do |csv|
         csv << header_cols
-        org.plans.includes(template: :org).each do |plan|
+        org.plans.includes(template: :org).order(updated_at: :desc).each do |plan|
           owner = plan.owner
           csv << [
             "#{plan.title}", 

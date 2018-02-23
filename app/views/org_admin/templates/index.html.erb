@@ -48,6 +48,7 @@
             controller: 'paginable/templates',
             action: 'all', 
             scope: all_templates,
+            query_params: { sort_field: 'templates.title', sort_direction: :asc },
             locals: {current_org: current_org.id, published: published, scopes: scopes[:all], hide_actions: true}) %>
         </div>
       <% end %>
@@ -58,6 +59,7 @@
           controller: 'paginable/templates',
           action: 'orgs', 
           scope: own_templates,
+          query_params: { sort_field: 'templates.title', sort_direction: :asc },
           locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs], hide_actions: false}) %>
       </div>
       <!-- If the Org is not just a funder then show the customizations table -->
@@ -69,6 +71,7 @@
             controller: 'paginable/templates',
             action: 'funders', 
             scope: customizable_templates,
+            query_params: { sort_field: 'templates.title', sort_direction: :asc },
             locals: {current_org: current_org.id, customizations: customized_templates, published: published, scopes: scopes[:funders]}) %>
         </div>
       <% end %>
