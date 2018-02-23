@@ -20,7 +20,8 @@
       partial: '/paginable/guidance_groups/index',
       controller: 'paginable/guidance_groups',
       action: 'index',
-      scope: @guidance_groups) %>
+      scope: @guidance_groups),
+      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %> 
 
     <h2>
       <%= _('Guidance list') %>
@@ -39,7 +40,8 @@
         partial: '/paginable/guidances/index',
         controller: 'paginable/guidances',
         action: 'index',
-        scope: @guidances) %>
+        scope: @guidances,
+        query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
   </div>
 </div>
 
