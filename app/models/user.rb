@@ -65,6 +65,8 @@ class User < ActiveRecord::Base
     end
   }
 
+  after_update :when_org_changes
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -112,28 +114,6 @@ class User < ActiveRecord::Base
   # @return [UserIdentifier] the user's identifier for that scheme
   def identifier_for(scheme)
     user_identifiers.where(identifier_scheme: scheme).first
-  end
-
-# TODO: Check the logic here. Its deleting the permissions if the user does not have permission
-#       to change orgs and either the incoming or existing org is nil.
-#       We should also NOT be auto-saving here!!!
-  ##
-  # sets a new organisation id for the user
-  # if the user has any perms such as org_admin or admin, those are removed
-  # if the user had an api_token, that is removed
-  #
-  # @param new_organisation_id [Integer] the id for an organisation
-  # @return [String] the empty string as a causality of setting api_token
-  def org_id=(new_org_id)
-    unless self.can_change_org? || new_org_id.nil? || self.org.nil? || (new_org_id.to_s == self.org.id.to_s)
-      # rip all permissions from the user
-      self.perms.delete_all
-    end
-    # set the user's new organisation
-    super(new_org_id)
-    # self.save!
-    # rip api permissions from the user
-    self.remove_token!
   end
 
   ##
@@ -235,8 +215,7 @@ class User < ActiveRecord::Base
   # modifies the user model
   def remove_token!
     unless api_token.blank?
-      self.api_token = ""
-      self.save!
+      update_column(:api_token, "") unless new_record?
     end
   end
 
@@ -249,7 +228,7 @@ class User < ActiveRecord::Base
         random_token = SecureRandom.urlsafe_base64(nil, false)
         break random_token unless User.exists?(api_token: random_token)
       end
-      self.save!
+      update_column(:api_token, api_token)  unless new_record?
       deliver_if(recipients: self, key: 'users.admin_privileges') do |r|
         UserMailer.api_token_granted_notification(r).deliver_now
       end
@@ -308,5 +287,15 @@ class User < ActiveRecord::Base
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
     User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
+  end
+
+  private
+  def when_org_changes
+    if org_id != org_id_was
+      unless can_change_org?
+        perms.delete_all
+        remove_token!
+      end
+    end
   end
 end

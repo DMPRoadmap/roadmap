@@ -326,5 +326,22 @@ class UserTest < ActiveSupport::TestCase
     language = Language.new(name: 'esperonto', abbreviation: 'zz')
     verify_belongs_to_relationship(@user, language)
   end
-
+  test "after_save removes API token and its perms associated" do
+    previous_api_token = @user.api_token
+    @user.perms = [Perm.add_orgs, Perm.grant_permissions]
+    previous_perms = @user.perms.to_a 
+    @user.org = Org.where.not(id: @user.org_id).first
+    @user.save
+    assert_not_equal(previous_api_token, @user.api_token)
+    assert_not_equal(previous_perms, @user.perms.to_a)
+  end
+  test "after_save does not remove API token and its perms associated if user can_change_org" do
+    previous_api_token = @user.api_token
+    @user.perms = [Perm.add_orgs, Perm.grant_permissions, Perm.change_affiliation]
+    previous_perms = @user.perms
+    @user.org = Org.where.not(id: @user.org_id).first
+    @user.save
+    assert_equal(previous_api_token, @user.api_token)
+    assert_equal(previous_perms, @user.perms)
+  end
 end
