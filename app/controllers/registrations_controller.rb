@@ -155,10 +155,10 @@ class RegistrationsController < Devise::RegistrationsController
           else
             successfully_updated = current_user.update_with_password(password_update)
           end
-        else                                           # user did not change their email so no pwd required
+        else # This case is never reached since this method when called with require_password = true is because the email changed. The case for password changed goes to do_update_password instead
           successfully_updated = current_user.update_without_password(update_params)
         end
-      else                                             # password not required
+      else                                           # password not required
         successfully_updated = current_user.update_without_password(update_params)
       end
     else
@@ -203,7 +203,7 @@ class RegistrationsController < Devise::RegistrationsController
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
       set_flash_message :notice, success_message(_('password'), _('saved'))
-      sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
+      sign_in current_user, bypass: true  # TODO this method is deprecated
       redirect_to "#{edit_user_registration_path}\#password-details", notice: success_message(_('password'), _('saved'))
 
     else
