@@ -16,59 +16,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#, fuzzy
 msgid " (e.g. School/ Department) "
-msgstr "e.g. School/ Department"
+msgstr "e.g. School/Department"
 
-#, fuzzy
 msgid " Customised By: "
 msgstr "Customized By: "
 
-#, fuzzy
-msgid " Plan"
+msgid "Plan"
 msgstr "plan"
 
-#, fuzzy
 msgid " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
-msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal "
+msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse or have any relationship to your project or proposal "
 
-#, fuzzy
 msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
 msgstr "Warning: Changing your organization will result in the loss of your administrative privileges."
 
-#, fuzzy
 msgid " by %{user_name}"
-msgstr "user"
+msgstr " by %{user_name}"
 
-#, fuzzy
 msgid " current user privileges are: "
-msgstr "user"
+msgstr "current user privileges are: "
 
 msgid " has been removed by "
 msgstr " has been removed by "
 
 msgid " to contact us."
-msgstr ""
+msgstr " to contact us."
 
 msgid "\"#{text}\""
 msgstr ""
 
-#, fuzzy
 msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
 msgstr "\"Are you sure you want to unlink your #{scheme.description} ID?\""
 
-#, fuzzy
 msgid "\"The DMPTool Account email associated with this username is #{@user.email}\""
-msgstr "The "
+msgstr "\"The DMPTool account email associated with this username is #{@user.email}\""
 
-#, fuzzy
 msgid "\"The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}\""
-msgstr "The "
+msgstr "\"The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}\""
 
 msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
 msgstr "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
 
-#, fuzzy
 msgid "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
 msgstr "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
 
@@ -81,159 +70,129 @@ msgstr "%{add_or_edit} Customizations"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#, fuzzy
 msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
-msgstr ""
+msgstr "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 
-#, fuzzy
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
-msgstr ""
+msgstr "%{application_name}: %{user_name} requested feedback on a plan"
 
-#, fuzzy
 msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
-msgstr ""
+msgstr "%{application_name}: Expert feedback has been provided for %{plan_title}"
 
-#, fuzzy
 msgid "%{application_name}: Your plan has been submitted for feedback"
-msgstr ""
+msgstr "%{application_name}: Your plan has been submitted for feedback"
 
-#, fuzzy
 msgid "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email."
-msgstr " to accept the invitation, (or copy "
+msgstr "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email. "
 
-#, fuzzy
 msgid "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-msgstr "Comment"
+msgstr "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
 
-#, fuzzy
 msgid "%{commenter} has finished providing feedback on the plan “%{plan_title}”. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-msgstr "Comment"
+msgstr "%{commenter} has finished providing feedback on the plan “%{plan_title}”. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
 
-#, fuzzy
 msgid "%{org_name} Plans"
-msgstr "plan"
+msgstr "%{org_name} Plans"
 
-#, fuzzy
 msgid "%{org_name} Templates"
-msgstr "Templates"
+msgstr "%{org_name} Templates"
 
-#, fuzzy
 msgid "%{org_title} Plans"
-msgstr "plan"
+msgstr "%{org_title} Plans"
 
-#, fuzzy
 msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
-msgstr "question"
+msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 
-#, fuzzy
 msgid "%{plan_name}"
-msgstr "plan"
+msgstr "%{plan_name}"
 
-#, fuzzy
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
-msgstr "plan"
+msgstr "%{plan_owner} has been notified that you have finished providing feedback"
 
-#, fuzzy
 msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-msgstr "%{application_name}"
+msgstr "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
 
-#, fuzzy
 msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr " will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us on "
+msgstr "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
 
-#, fuzzy
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
-msgstr "Comment"
+msgstr "%{tool_name}: A new comment was added to %{plan_title}"
 
-#, fuzzy
 msgid "%{user_name}"
-msgstr "user"
+msgstr "%{user_name}"
 
 msgid "%{value} is not a valid format"
 msgstr "%{value} is not a valid format"
 
-#, fuzzy
 msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
-msgstr "plan"
+msgstr "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
 
-#, fuzzy
-msgid "'Project Details' includes basic administrative details."
-msgstr "Details"
+msgid "'Project details' includes basic administrative details."
+msgstr "'Project details' includes basic administrative details."
 
 msgid "(if available)"
-msgstr ""
+msgstr "(if available)"
 
 msgid "+ Add New Theme"
-msgstr ""
+msgstr "+ Add new theme"
 
 msgid "+ Add an additional URL"
-msgstr ""
+msgstr "+ Add an additional URL"
 
 msgid "-"
-msgstr ""
+msgstr "_"
 
 msgid "..."
-msgstr ""
+msgstr "..."
 
 msgid "... (continued)"
 msgstr "... (continued)"
 
-#, fuzzy
 msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 
-#, fuzzy
 msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 msgstr "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organization. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 
 msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
-msgstr "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
+msgstr "<p>To create a new template, first enter a title and optional description. Then you can create one or more phases. </p>"
 
-#, fuzzy
 msgid "A Data Management Plan created using "
-msgstr "Created"
+msgstr "A Data Management Plan created using "
 
-#, fuzzy
 msgid "A Data Management Plan created using %{application_name}"
-msgstr "%{application_name}"
+msgstr "A Data Management Plan created using %{application_name}"
 
-#, fuzzy
 msgid "A Data Management Plan in %{application_name} has been shared with you"
-msgstr "%{application_name}"
+msgstr "A Data Management Plan in %{application_name} has been shared with you"
 
-#, fuzzy
 msgid "A Data Management Plan in %{tool_name} has been shared with you"
-msgstr "%{application_name}"
+msgstr "A Data Management Plan in %{tool_name} has been shared with you"
 
-#, fuzzy
 msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "A colleague has invited you to contribute to their Data Management Plan at "
+msgstr "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
 
 msgid "A hash is expected for links"
-msgstr ""
+msgstr "A hash is expected for links"
 
 msgid "A key \"org\" is expected for links hash"
-msgstr ""
+msgstr "A key \"org\" is expected for links hash"
 
 msgid "A key %{key} is expected for links hash"
-msgstr ""
+msgstr "A key %{key} is expected for links hash"
 
-#, fuzzy
 msgid "A new comment has been added to my DMP"
 msgstr "A new comment has been added to my plan"
 
-#, fuzzy
 msgid "A pertinent ID as determined by the funder and/or organisation."
 msgstr "A pertinent ID as determined by the funder and/or institution/organization."
 
-#, fuzzy
 msgid "A plan has been shared with me"
-msgstr "plan"
+msgstr "A plan has been shared with me"
 
 msgid "A required setting has not been provided"
 msgstr "A required setting has not been provided"
 
-#, fuzzy
 msgid "A user has requested feedback on a DMP"
 msgstr "A user has requested feedback on a plan"
 
@@ -241,10 +200,10 @@ msgid "API Information"
 msgstr "API Information"
 
 msgid "API rights"
-msgstr ""
+msgstr "API rights"
 
 msgid "API rights in %{tool_name}"
-msgstr ""
+msgstr "API rights in %{tool_name}"
 
 msgid "API token"
 msgstr "API token"
@@ -256,124 +215,103 @@ msgid "Access removed"
 msgstr "Access removed"
 
 msgid "Accessibility"
-msgstr ""
+msgstr "Accessibility"
 
 msgid "Actions"
 msgstr "Actions"
 
-#, fuzzy
 msgid "Add Comment"
-msgstr "Comment"
+msgstr "Add comment"
 
-#, fuzzy
 msgid "Add Organisations"
-msgstr "Add Organizations"
+msgstr "Add organizations"
 
-#, fuzzy
 msgid "Add Question"
 msgstr "Add question"
 
-#, fuzzy
 msgid "Add Section"
 msgstr "Add section"
 
-#, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
 msgstr "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organization/institution or department name."
 
-#, fuzzy
 msgid "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\""
 msgstr "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organization/institution or department name e.g. \"UCLA\" or \"Engineering\""
 
-#, fuzzy
 msgid "Add comments to share with collaborators"
-msgstr "Comment"
+msgstr "Add comments to share with collaborators"
 
-#, fuzzy
 msgid "Add links to funder websites that provide additional information about the requirements for this template"
-msgstr "API Information"
+msgstr "Add links to funder websites that provide additional information about the requirements."
 
-#, fuzzy
 msgid "Add links to sample plans if provided by the funder."
-msgstr "plan"
+msgstr "Add links to sample plans if provided by the funder."
 
-#, fuzzy
 msgid "Add new phase"
 msgstr "Add new phase +"
 
 msgid "Add option"
 msgstr "Add option"
 
-#, fuzzy
 msgid "Add organisations"
 msgstr "Add organizations"
 
 msgid "Additional Information"
-msgstr ""
+msgstr "Additional information"
 
 msgid "Additional comment area will be displayed."
 msgstr "Additional comment area will be displayed."
 
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
-#, fuzzy
 msgid "Admin Features"
-msgstr "Admin Details"
+msgstr "Admin features"
 
 msgid "Admin privileges granted to me"
-msgstr ""
+msgstr "Admin privileges granted to me"
 
-#, fuzzy
 msgid "Administrator Email"
-msgstr "Email"
+msgstr "Administrator email"
 
 msgid "Administrator contact"
-msgstr ""
+msgstr "Administrator contact"
 
 msgid "Administrator privileges granted in %{tool_name}"
-msgstr ""
+msgstr "Administrator privileges granted in %{tool_name}"
 
 msgid "Affiliation: "
-msgstr ""
+msgstr "Affiliation: "
 
-#, fuzzy
 msgid "All Templates"
-msgstr "Templates"
+msgstr "All templates"
 
 msgid "All the best"
-msgstr ""
+msgstr "All the best"
 
-#, fuzzy
 msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
-msgstr "Allows the user to amend the organization details (name, URL etc) and add basic branding such as the logo"
+msgstr "Allows the user to provide the organization details (name, URL) and add basic branding such as the logo"
 
-#, fuzzy
 msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
 msgstr "Allows the user to assign permissions to other users within the same organization. Users can only assign permissions they own themselves"
 
-#, fuzzy
 msgid "Allows the user to create and edit guidance"
-msgstr "guidance"
+msgstr "Allows the user to create and edit guidance"
 
-#, fuzzy
 msgid "Allows the user to create new organisational templates, edit existing ones and customise funder templates"
-msgstr "Allows the user to create new organizational templates, edit existing ones and customize funder templates"
+msgstr "Allows the user to create new organizational templates, edit existing ones, and customize funder templates"
 
-#, fuzzy
 msgid "Allows the user to create new organisations"
 msgstr "Allows the user to create new organizations"
 
-#, fuzzy
 msgid "Allows the user to grant API access to organisations"
 msgstr "Allows the user to grant API access to organizations"
 
-#, fuzzy
 msgid "Allows the user to manage organisation affiliation"
 msgstr "Allows the user to manage organization affiliation"
 
 msgid "An error has occurred while saving/resetting your export settings."
-msgstr ""
+msgstr "An error has occurred while saving/resetting your download settings."
 
 msgid "Annotations"
 msgstr "Customizations"
@@ -397,54 +335,46 @@ msgid "Anything you enter here will display in the answer box. If you want an an
 msgstr "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
 
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
-msgstr ""
+msgstr "Are you sure you want to delete the theme \"%{title}\"?"
 
-#, fuzzy
 msgid "Are you sure you want to disconnect your ORCID ID?"
-msgstr "ID"
+msgstr "Are you sure you want to disconnect your ORCID iD?"
 
-#, fuzzy
 msgid "Are you sure you want to remove \"%{template_title}\"?"
-msgstr "Are you sure you want to remove this note?"
+msgstr "Are you sure you want to remove \"%{template_title}\"?"
 
-#, fuzzy
 msgid "Are you sure you want to remove this comment?"
-msgstr "Are you sure you want to remove this note?"
+msgstr "Are you sure you want to remove this comment?"
 
-#, fuzzy
 msgid "Are you sure you want to remove your customization of \"%{template_title}\"?"
-msgstr "template"
+msgstr "Are you sure you want to remove your customization of \"%{template_title}\"?"
 
 msgid "Are you sure you want to unlink your institutional credentials?"
-msgstr ""
+msgstr "Are you sure you want to unlink your institutional credentials?"
 
-#, fuzzy
 msgid "Are you sure you wish to remove this plan? Any collaborators will still be able to access it."
-msgstr "plan"
+msgstr "Are you sure you wish to remove this plan? Any collaborators will still be able to access it."
 
-#, fuzzy
 msgid "Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it."
 msgstr "Are you sure you wish to remove this public plan? This will remove it from the Public Plans page but any collaborators will still be able to access it."
 
 msgid "Are you sure?"
 msgstr "Are you sure?"
 
-#, fuzzy
 msgid "Back to edit phase"
-msgstr "Back to edit view"
+msgstr "Back to edit phase"
 
 msgid "Bad Credentials"
-msgstr ""
+msgstr "Bad credentials"
 
 msgid "Bad Parameters"
-msgstr ""
+msgstr "Bad parameters"
 
-#, fuzzy
 msgid "Before you get started, we need some information about your research project to set you up with the best DMP template for your needs."
-msgstr "Before you get started, we need some information about your research project to set you up with the best template for your needs."
+msgstr "Before you get started, we need some information about your research project to set you up with the appropriate template."
 
 msgid "Begin typing to see a filtered list"
-msgstr ""
+msgstr "Begin typing to see a filtered list"
 
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 msgstr "Below is a list of users registered for your organization. You can sort the data by each field."
@@ -452,63 +382,53 @@ msgstr "Below is a list of users registered for your organization. You can sort 
 msgid "Bottom"
 msgstr "Bottom"
 
-#, fuzzy
 msgid "Briefly summarise your research project to help others understand the purposes for which the data are being collected or created."
 msgstr "Briefly summarize your research project to help others understand the purposes for which the data are being collected or created."
 
-#, fuzzy
 msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
 msgstr "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organizational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
 
 msgid "Cancel"
 msgstr "Cancel"
 
-#, fuzzy
 msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
-msgstr "plan"
+msgstr "Cannot share plan with %{email} since that email matches with the owner of the plan."
 
 msgid "Change affiliation"
-msgstr ""
+msgstr "Change affiliation"
 
 msgid "Change my password"
 msgstr "Change my password"
 
-#, fuzzy
 msgid "Change organisation details"
 msgstr "Change organization details"
 
-#, fuzzy
 msgid "Change your password"
-msgstr "Change my password"
+msgstr "Change your password"
 
-#, fuzzy
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
-msgstr "Permissions"
+msgstr "Changed permissions on a Data Management Plan in %{tool_name}"
 
-#, fuzzy
 msgid "Check this box when you are ready for guidance associated with this group to appear on user's plans."
-msgstr "guidance"
+msgstr "Check this box when you are ready for guidance associated with this group to appear on plans."
 
-#, fuzzy
 msgid "Checking this box prevents the template from appearing in the public list of templates."
-msgstr "template"
+msgstr "Checking this box prevents the template from appearing in the public list of templates."
 
 msgid "Clear search results"
-msgstr ""
+msgstr "Clear search results"
 
-#, fuzzy
 msgid "Click below to give data management staff at your organisation access to read and comment on your plan."
 msgstr "Click below to give data management staff at your organization access to read and comment on your plan."
 
 msgid "Click here"
-msgstr ""
+msgstr "Click here"
 
 msgid "Click here to confirm your account"
 msgstr "Click here to confirm your account"
 
-#, fuzzy
 msgid "Click the 'Create plan' button below to begin."
-msgstr "Create plan"
+msgstr "Click the 'Create plan' button to begin."
 
 msgid "Click the link below to unlock your account"
 msgstr "Click the link below to unlock your account"
@@ -519,57 +439,47 @@ msgstr "Co-owner"
 msgid "Comment"
 msgstr "Comment"
 
-#, fuzzy
 msgid "Comments"
-msgstr "Comment"
+msgstr "Comments"
 
-#, fuzzy
 msgid "Complete"
-msgstr "Template"
+msgstr "Complete"
 
-#, fuzzy
 msgid "Completed Plans"
-msgstr "plan"
+msgstr "Completed plans"
 
-#, fuzzy
 msgid "Completed plans"
-msgstr "plan"
+msgstr "Completed plans"
 
-#, fuzzy
 msgid "Contact Us"
 msgstr "Contact us"
 
 msgid "Contact email"
-msgstr ""
+msgstr "Contact email"
 
 msgid "Contact us"
 msgstr "Contact us"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copy"
 
-#, fuzzy
 msgid "Copyright 2010-%{current_year} The Regents of the University of California"
-msgstr "The "
+msgstr "Copyright 2010-%{current_year} The Regents of the University of California"
 
-#, fuzzy
 msgid "Copyright information:"
-msgstr "API Information"
+msgstr "Copyright information:"
 
-#, fuzzy
 msgid "Create Organisation"
-msgstr "Create Organization"
+msgstr "Create organization"
 
-#, fuzzy
 msgid "Create a guidance group"
-msgstr "guidance group"
+msgstr "Create a guidance group"
 
 msgid "Create a new plan"
 msgstr "Create a new plan"
 
-#, fuzzy
 msgid "Create a plan"
-msgstr "Create plan"
+msgstr "Create a plan"
 
 msgid "Create a template"
 msgstr "Create a template"
@@ -577,107 +487,92 @@ msgstr "Create a template"
 msgid "Create account"
 msgstr "Create account"
 
-#, fuzzy
 msgid "Create account with email address"
-msgstr "Create account"
+msgstr "Create account with email address"
 
-#, fuzzy
 msgid "Create an account to view the plan"
-msgstr "plan"
+msgstr "Create an account to view the plan"
 
 msgid "Create an account with any email address"
-msgstr ""
+msgstr "Create an account with any email address"
 
-#, fuzzy
 msgid "Create data management plans that meet institutional and funder requirements."
-msgstr "plan"
+msgstr "Create data management plans that meet institutional and funder requirements."
 
-#, fuzzy
 msgid "Create guidance"
-msgstr "guidance"
+msgstr "Create guidance"
 
-#, fuzzy
 msgid "Create or connect your ORCID iD"
-msgstr " on "
+msgstr "Create or connect your ORCID iD"
 
 msgid "Create plan"
 msgstr "Create plan"
 
-#, fuzzy
 msgid "Create plans"
-msgstr "Create plan"
+msgstr "Create plans"
 
-#, fuzzy
 msgid "Create your account"
-msgstr "Create account"
+msgstr "Create your account"
 
 msgid "Created at"
 msgstr "Created at"
 
-#, fuzzy
 msgid "Created using the %{application_name}. Last modified %{date}"
-msgstr "%{application_name}"
+msgstr "Created using the %{application_name}. Last modified %{date}"
 
 msgid "Creator:"
-msgstr ""
+msgstr "Creator:"
 
 msgid "Creators: "
-msgstr ""
+msgstr "Creators: "
 
-#, fuzzy
 msgid "Current Privileges"
-msgstr "Permissions"
+msgstr "Current privileges"
 
-#, fuzzy
 msgid "Current password"
 msgstr "Current password"
 
 msgid "Customise"
 msgstr "Customize"
 
-#, fuzzy
 msgid "Customizable Templates"
-msgstr "Templates"
+msgstr "Customizable templates"
 
 msgid "Customization %{publication_status}"
-msgstr ""
+msgstr "Customization %{publication_status}"
 
 msgid "Customize Phase"
-msgstr ""
+msgstr "Customize phase"
 
-#, fuzzy
 msgid "DMP Templates"
 msgstr "Templates"
 
-#, fuzzy
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Plan Visibility Changed: %{plan_title}"
 
 msgid "DMPTool Background"
-msgstr ""
+msgstr "DMPTool Background"
 
 msgid "DMPTool News"
-msgstr ""
+msgstr "DMPTool News"
 
-#, fuzzy
 msgid "DMPTool by the Numbers"
-msgstr " by"
+msgstr "DMPTool by the Numbers"
 
 msgid "DMPTool is a service of the %{uc3} of the %{cdl}"
-msgstr ""
+msgstr "DMPTool is a service of the %{uc3} of the %{cdl}"
 
 msgid "DOCX"
-msgstr ""
+msgstr "DOCX"
 
 msgid "Data Contact Person"
-msgstr ""
+msgstr "Data contact person"
 
-#, fuzzy
 msgid "Data Management General Guidance"
-msgstr "Guidance"
+msgstr "Data management general guidance"
 
 msgid "Data contact person"
-msgstr ""
+msgstr "Data contact person"
 
 msgid "Default"
 msgstr "Default"
@@ -698,7 +593,7 @@ msgid "Description"
 msgstr "Description"
 
 msgid "Deselect all"
-msgstr ""
+msgstr "Deselect all"
 
 msgid "Details"
 msgstr "Details"
@@ -709,56 +604,50 @@ msgstr "Didn't receive confirmation instructions?"
 msgid "Didn't receive unlock instructions?"
 msgstr "Didn't receive unlock instructions?"
 
-#, fuzzy
 msgid "Disconnect your account from ORCID. You can reconnect at any time."
-msgstr "ID"
+msgstr "Disconnect your account from ORCID. You can reconnect at any time."
 
 msgid "Display additional comment area."
 msgstr "Display additional comment area."
 
 msgid "Don't forget to save your changes after making your selections."
-msgstr ""
+msgstr "Don't forget to save your changes after making your selections."
 
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
-#, fuzzy
 msgid "Download Plan"
-msgstr "plan"
+msgstr "Download plan"
 
-#, fuzzy
 msgid "Download plans"
-msgstr "plan"
+msgstr "Download plans"
 
 msgid "Download settings"
-msgstr ""
+msgstr "Download settings"
 
 msgid "Draft"
-msgstr ""
+msgstr "Draft"
 
 msgid "Edit"
 msgstr "Edit"
 
 msgid "Edit Privileges"
-msgstr "Permissions"
+msgstr "Edit privileges"
 
-#, fuzzy
 msgid "Edit Theme"
-msgstr "Edit"
+msgstr "Edit theme"
 
 msgid "Edit User Privileges"
-msgstr "Edit User Permissions"
+msgstr "Edit user privileges"
 
-#, fuzzy
 msgid "Edit comment to share with collaborators"
-msgstr "Comment"
+msgstr "Edit comment to share with collaborators"
 
 msgid "Edit customisation"
 msgstr "Edit customization"
 
-#, fuzzy
 msgid "Edit phase details"
-msgstr "Edit plan details"
+msgstr "Edit phase details"
 
 msgid "Edit profile"
 msgstr "Edit profile"
@@ -769,15 +658,12 @@ msgstr "Edit question"
 msgid "Edit template details"
 msgstr "Edit template details"
 
-#, fuzzy
 msgid "Edit user privileges"
-msgstr "Edit User Permissions"
+msgstr "Edit user privileges"
 
-#, fuzzy
 msgid "Edited"
 msgstr "Last edited"
 
-#, fuzzy
 msgid "Edited Date"
 msgstr "Last edited"
 
@@ -791,61 +677,55 @@ msgid "Email address"
 msgstr "Email address"
 
 msgid "End date"
-msgstr ""
+msgstr "End date"
 
 msgid "English (US)"
-msgstr ""
+msgstr "English (US)"
 
-#, fuzzy
 msgid "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit."
 msgstr "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the colored banner once a section is opened to edit.</div>"
 
 msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
-msgstr "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
+msgstr "Enter a basic description. This will be presented to users above the summary of the sections and questions that they will be asked to answer."
 
 msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
-msgstr "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
+msgstr "Enter a description that helps you to differentiate between templates, e.g., if you have ones for different audiences"
 
 msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
-msgstr "Enter a title for the phase e.g. initial plan, full plan... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. UCLA"
+msgstr "Enter a title for the phase, e.g., initial plan, full plan... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic, e.g., UCLA"
 
-#, fuzzy
 msgid "Enter a title for the section"
-msgstr "section"
+msgstr "Enter a title for the section"
 
 msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
-msgstr "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
+msgstr "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so do not to duplicate too much text."
 
 msgid "Enter your guidance here. You can include links where needed."
 msgstr "Enter your guidance here. You can include links where needed."
 
-#, fuzzy
 msgid "Error parsing links for a template"
-msgstr "template"
+msgstr "Error parsing links for a template"
 
 msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
 msgstr "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
 
-#, fuzzy
 msgid "Error raised while saving the visibility for plan id %{plan_id}"
-msgstr "plan"
+msgstr "Error raised while saving the visibility for plan id %{plan_id}"
 
 msgid "Error:"
-msgstr ""
+msgstr "Error:"
 
-#, fuzzy
 msgid "Example Answer"
-msgstr "Example of answer"
+msgstr "Example answer"
 
-#, fuzzy
 msgid "Example answer"
-msgstr "Example of answer"
+msgstr "Example answer"
 
 msgid "Example: my-org.org"
-msgstr ""
+msgstr "Example: my-org.org"
 
 msgid "Example: urn:mace:incommon:my-org.org"
-msgstr ""
+msgstr "Example: urn:mace:incommon:my-org.org"
 
 msgid "Export"
 msgstr "Export"
@@ -854,7 +734,7 @@ msgid "Export settings updated successfully."
 msgstr "Export settings updated successfully."
 
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 msgid "Face"
 msgstr "Face"
@@ -866,34 +746,29 @@ msgid "Feedback has been requested for my DMP"
 msgstr "Feedback has been requested for my plan"
 
 msgid "Feedback has been requested."
-msgstr ""
+msgstr "Feedback has been requested"
 
 msgid "Feedback requested"
-msgstr ""
+msgstr "Feedback requested"
 
 msgid "Filter plans"
 msgstr "Filter plans"
 
-#, fuzzy
 msgid "Find guidance from additional organisations below"
 msgstr "Find guidance from additional organizations below"
 
-#, fuzzy
 msgid "Find your organisation to sign in"
 msgstr "Find your organization to sign in"
 
 msgid "First"
-msgstr ""
+msgstr "First"
 
-#, fuzzy
 msgid "First Name"
 msgstr "First name"
 
-#, fuzzy
 msgid "First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group."
-msgstr "<p>First create a guidance group. This could be organization-wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you will be asked to assign it to a guidance group.</p>"
+msgstr "<p>First create a guidance group. This could be organization-wide or a subset, e.g., a particular College/School, Institute, or department. When you create guidance you must assign it to a guidance group.</p>"
 
-#, fuzzy
 msgid "First name"
 msgstr "First name"
 
@@ -901,78 +776,70 @@ msgid "Font"
 msgstr "Font"
 
 msgid "For Administrators"
-msgstr ""
+msgstr "For administrators"
 
 msgid "For Developers"
-msgstr ""
+msgstr "For developers"
 
 msgid "For Researchers"
-msgstr ""
+msgstr "For researchers"
 
 msgid "Forgot email?"
-msgstr ""
+msgstr "Forgot email?"
 
-#, fuzzy
 msgid "Forgot password?"
-msgstr "Forgot your password?"
+msgstr "Forgot password?"
 
 msgid "Forgot your password?"
 msgstr "Forgot your password?"
 
-#, fuzzy
 msgid "Format"
 msgstr "format"
 
 msgid "Funder"
 msgstr "Funder"
 
-#, fuzzy
 msgid "Funder Links"
-msgstr "Funder"
+msgstr "Funder links"
 
-#, fuzzy
 msgid "Funder Requirements"
-msgstr "Funder"
+msgstr "Funder requirements"
 
-#, fuzzy
 msgid "Funder version is unpublished"
-msgstr "Funder"
+msgstr "Funder version is unpublished"
 
 msgid "Get started"
-msgstr ""
+msgstr "Get started"
 
 msgid "Getting started:"
-msgstr ""
+msgstr "Getting started:"
 
 msgid "Github"
-msgstr ""
+msgstr "GitHub"
 
 msgid "Go"
-msgstr ""
+msgstr "Go"
 
 msgid "Go to the blog"
-msgstr ""
+msgstr "Go to the blog"
 
 msgid "Grant API access"
-msgstr ""
+msgstr "Grant API access"
 
-#, fuzzy
 msgid "Grant API to organisations"
 msgstr "Grant API to organizations"
 
-#, fuzzy
 msgid "Grant Number"
-msgstr "Grant Number"
+msgstr "Grant number"
 
 msgid "Grant number"
-msgstr "Grant Number"
+msgstr "Grant number"
 
-#, fuzzy
 msgid "Grant number: "
-msgstr "Grant Number"
+msgstr "Grant number: "
 
 msgid "Grant permissions"
-msgstr ""
+msgstr "Grant permissions"
 
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 msgstr "Grant reference number if applicable [POST-AWARD ONLY]"
@@ -986,9 +853,8 @@ msgstr "Guidance group"
 msgid "Guidance group list"
 msgstr "Guidance group list"
 
-#, fuzzy
 msgid "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
-msgstr "Details"
+msgstr "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
 
 msgid "Guidance list"
 msgstr "Guidance list"
@@ -999,32 +865,26 @@ msgstr "Hello"
 msgid "Hello "
 msgstr "Hello "
 
-#, fuzzy
 msgid "Hello %{recipient_name}"
-msgstr "Hello "
+msgstr "Hello %{recipient_name}"
 
-#, fuzzy
 msgid "Hello %{user_email}"
-msgstr "Hello "
+msgstr "Hello %{user_email}"
 
-#, fuzzy
 msgid "Hello %{user_name}"
-msgstr "Hello "
+msgstr "Hello %{user_name}"
 
-#, fuzzy
 msgid "Hello %{user_name},"
-msgstr "Hello "
+msgstr "Hello %{user_name},"
 
-#, fuzzy
 msgid "Hello %{username}"
-msgstr "Hello "
+msgstr "Hello %{username}"
 
 msgid "Help"
 msgstr "Help"
 
-#, fuzzy
 msgid "Here you can view previously published versions of your template.  These can no longer be modified."
-msgstr "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
+msgstr "Here you can view previously published versions of your template.  These can no longer be modified."
 
 msgid "History"
 msgstr "History"
@@ -1041,69 +901,56 @@ msgstr "ID"
 msgid "If applying for funding, state the name exactly as in the grant proposal."
 msgstr "If applying for funding, state the name exactly as in the grant proposal."
 
-#, fuzzy
 msgid "If applying for funding, state the project title exactly as in the proposal."
-msgstr "If applying for funding, state the name exactly as in the grant proposal."
+msgstr "If applying for funding, state the project title exactly as in the proposal."
 
 msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
-msgstr "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
+msgstr "If the guidance is only meant for a subset of users, e.g., those in a specific college or institute, check this box.  Users will be able to display this subset guidance when answering questions in the 'Create plan' wizard."
 
 msgid "If you didn't request this, please ignore this email."
+msgstr "If you didn't request this, please ignore this email."
+
+msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
+msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to NIH for example), you can do so by adding guidance to a specific question when you edit your template."
+
+msgid "If you have an existing DMPTool account, please enter the username you used and we send your email address right away."
 msgstr ""
 
-#, fuzzy
-msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
-msgstr "guidance"
-
-#, fuzzy
-msgid "If you have an existing DMPTool account, please enter the username you used and we send your email address right away."
-msgstr "user"
-
-#, fuzzy
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "question"
+msgstr "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
 
-#, fuzzy
 msgid "If you have forgotten your email and your username of the existing DMPTool account,  please click "
-msgstr "user"
+msgstr "If you have forgotten your email and your username of the existing DMPTool account, please click "
 
-#, fuzzy
 msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
-msgstr "question"
+msgstr "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
 
-#, fuzzy
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
-msgstr "If you wish to add an organizational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'customize template' options below."
+msgstr "If you wish to add an organizational template for a Data Management Plan, click the 'Create template' button. You can create more than one template, e.g., one for researchers and one for graduate students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'Customize template' options below."
 
 msgid "If you would like to change your password please complete the following fields."
 msgstr "If you would like to change your password please complete the following fields."
 
-#, fuzzy
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
 msgstr "If you would like to modify one of the templates below, you must first change your organization affiliation."
 
-#, fuzzy
 msgid "Information was successfully created."
-msgstr "Created"
+msgstr "Information was successfully created."
 
 msgid "Institution"
 msgstr "Institution"
 
-#, fuzzy
 msgid "Institution not in the list?"
-msgstr "Institution"
+msgstr "Institution not in the list?"
 
-#, fuzzy
 msgid "Institutional Signin Enabled"
-msgstr "Institution"
+msgstr "Institutional sign-in enabled"
 
-#, fuzzy
 msgid "Institutional credentials"
-msgstr "Institution"
+msgstr "Institutional credentials"
 
-#, fuzzy
 msgid "Instructions"
-msgstr "Institution"
+msgstr "Instructions"
 
 msgid "Invalid font face"
 msgstr "Invalid font face"
@@ -1114,46 +961,40 @@ msgstr "Invalid font size"
 msgid "Invalid maximum pages"
 msgstr "Invalid maximum pages"
 
-#, fuzzy
 msgid ""
 "Invitation to %{email} issued successfully. \n"
 msgstr "Invitation issued successfully."
 
 msgid "Invite collaborators"
-msgstr ""
+msgstr "Invite collaborators"
 
-#, fuzzy
 msgid "Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
-msgstr " access to"
+msgstr "Invite people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
 
 msgid "It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration."
-msgstr ""
+msgstr "It does not look like you have set up an account with us yet. Please fill in the following information to complete your registration."
 
-#, fuzzy
 msgid "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
-msgstr "API Information"
+msgstr "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
 
 msgid "Language"
 msgstr "Language"
 
 msgid "Last"
-msgstr ""
+msgstr "Last"
 
-#, fuzzy
 msgid "Last Name"
 msgstr "Last name"
 
-#, fuzzy
 msgid "Last Updated"
 msgstr "Last edited"
 
 msgid "Last activity"
-msgstr ""
+msgstr "Last activity"
 
 msgid "Last modified: "
-msgstr ""
+msgstr "Last modified: "
 
-#, fuzzy
 msgid "Last name"
 msgstr "Last name"
 
@@ -1167,58 +1008,49 @@ msgid "Link text"
 msgstr ""
 
 msgid "Link your institutional credentials"
-msgstr ""
+msgstr "Link your institutional credentials"
 
 msgid "Link your institutional credentials to access your account with them."
-msgstr ""
+msgstr "Link your institutional credentials to access your account with them."
 
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
-#, fuzzy
 msgid "Links will be displayed next to your organisation's logo"
 msgstr "Links will be displayed next to your organization's logo"
 
-#, fuzzy
 msgid "Logout"
-msgstr "Logo"
+msgstr "Logout"
 
 msgid "Look up your institution here"
-msgstr ""
+msgstr "Look up your institution here"
 
-#, fuzzy
 msgid "Look up your organisation here"
 msgstr "Look up your organization here"
 
 msgid "Make a copy"
-msgstr ""
+msgstr "Make a copy"
 
 msgid "Manage collaborators"
-msgstr ""
+msgstr "Manage collaborators"
 
-#, fuzzy
 msgid "Manage guidance"
-msgstr "guidance"
+msgstr "Manage guidance"
 
-#, fuzzy
 msgid "Manage organisation affiliation"
 msgstr "Manage organization affiliation"
 
-#, fuzzy
 msgid "Manage organisation details"
 msgstr "Manage organization details"
 
-#, fuzzy
 msgid "Manage templates"
-msgstr "template"
+msgstr "Manage templates"
 
-#, fuzzy
 msgid "Manage user privileges"
-msgstr "user"
+msgstr "Manage user privileges"
 
-#, fuzzy
 msgid "Margin (mm)"
-msgstr "Margin"
+msgstr "Margin (mm)"
 
 msgid "Margin cannot be negative"
 msgstr "Margin cannot be negative"
@@ -1226,23 +1058,18 @@ msgstr "Margin cannot be negative"
 msgid "Margin value is invalid"
 msgstr "Margin value is invalid"
 
-#, fuzzy
 msgid "Message"
-msgstr "Me"
+msgstr "Message"
 
-#, fuzzy
 msgid "Modify guidance"
-msgstr "guidance"
+msgstr "Modify guidance"
 
-#, fuzzy
 msgid "Modify templates"
-msgstr "template"
+msgstr "Modify templates"
 
-#, fuzzy
 msgid "Month"
-msgstr "Font"
+msgstr "Month"
 
-#, fuzzy
 msgid "More information about administering the %{tool_name} for users at your organisation is available at %{help_url}."
 msgstr "More information about administering the %{tool_name} for users at your organization is available at %{help_url}."
 
@@ -1250,9 +1077,8 @@ msgid "My DMP's visibility has changed"
 msgstr "My plan's visibility has changed"
 
 msgid "My Dashboard"
-msgstr ""
+msgstr "My dashboard"
 
-#, fuzzy
 msgid "My Plan"
 msgstr "My plan"
 
@@ -1260,35 +1086,31 @@ msgid "My organisation isn't listed."
 msgstr "My organization isn't listed."
 
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 msgid "Name"
 msgstr "Name"
 
 msgid "New Theme"
-msgstr ""
+msgstr "New theme"
 
-#, fuzzy
 msgid "New organisation"
 msgstr "New organization"
 
-#, fuzzy
 msgid "New password"
 msgstr "New password"
 
 msgid "New template"
 msgstr "New template"
 
-#, fuzzy
 msgid "New users"
-msgstr "user"
+msgstr "New users"
 
 msgid "News is currently unavailable"
-msgstr ""
+msgstr "News is currently unavailable"
 
-#, fuzzy
 msgid "Next"
-msgstr "Text"
+msgstr "Next"
 
 msgid "No"
 msgstr "No"
@@ -1296,76 +1118,59 @@ msgstr "No"
 msgid "No additional comment area will be displayed."
 msgstr "No additional comment area will be displayed."
 
-#, fuzzy
 msgid "No items available."
-msgstr "No"
+msgstr "No items available."
 
-#, fuzzy
 msgid "No organisations are currently registered."
 msgstr "No organizations are currently registered."
 
-#, fuzzy
 msgid "No themes have been defined. Please contact your administrator for assistance."
-msgstr "No"
+msgstr "No themes have been defined. Please contact your administrator for assistance."
 
-#, fuzzy
 msgid "No. Completed Plans"
-msgstr "plan"
+msgstr "No. completed plans"
 
-#, fuzzy
 msgid "No. Users joined"
-msgstr "Users"
+msgstr "No. users joined"
 
-#, fuzzy
 msgid "No. completed plans during last year"
 msgstr "No. plans created during last year"
 
-#, fuzzy
 msgid "No. users joined during last year"
-msgstr "user"
+msgstr "No. users joined during last year"
 
-#, fuzzy
 msgid "Not Applicable"
-msgstr "No"
+msgstr "Not applicable"
 
-#, fuzzy
 msgid "Not Customised"
-msgstr "Not Customized"
+msgstr "Not customized"
 
 msgid "Not answered yet"
 msgstr "Not answered yet"
 
-#, fuzzy
 msgid "Notice:"
-msgstr "No"
+msgstr "Notice:"
 
-#, fuzzy
 msgid "Notification Preferences"
-msgstr "No"
+msgstr "Notification preferences"
 
-#, fuzzy
 msgid "Notifications"
-msgstr "No"
+msgstr "Notifications"
 
-#, fuzzy
 msgid "Notify the plan owner that I have finished providing feedback"
-msgstr "plan"
+msgstr "Notify the plan owner that I have finished providing feedback"
 
-#, fuzzy
 msgid "ORCID iD"
-msgstr "ID"
+msgstr "ORCID iD"
 
-#, fuzzy
 msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
-msgstr "ID"
+msgstr "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
 
-#, fuzzy
 msgid "Optional Subset"
 msgstr "Optional subset"
 
-#, fuzzy
 msgid "Optional plan components"
-msgstr "plan"
+msgstr "Optional plan components"
 
 msgid "Optional subset"
 msgstr "Optional subset"
@@ -1379,73 +1184,57 @@ msgstr "Order of display"
 msgid "Organisation"
 msgstr "Organization"
 
-#, fuzzy
 msgid "Organisation Type(s)"
-msgstr "Organization Type(s)"
+msgstr "Organization type(s)"
 
-#, fuzzy
 msgid "Organisation Types"
-msgstr "Organization Types"
+msgstr "Organization types"
 
-#, fuzzy
 msgid "Organisation URLs"
 msgstr "Organization URLs"
 
-#, fuzzy
 msgid "Organisation abbreviated name"
 msgstr "Organization abbreviated name"
 
 msgid "Organisation details"
 msgstr "Organization details"
 
-#, fuzzy
 msgid "Organisation full name"
 msgstr "Organization full name"
 
-#, fuzzy
 msgid "Organisation not in the list?"
 msgstr "Organization not in the list?"
 
-#, fuzzy
 msgid "Organisation type(s)"
 msgstr "Organization type(s)"
 
-#, fuzzy
 msgid "Organisation: anyone at my organisation can view"
-msgstr "Organization: anyone at my organization can view"
+msgstr "Organizational: anyone at my organization can view"
 
-#, fuzzy
 msgid "Organisation: anyone at my organisation can view."
 msgstr "Organization: anyone at my organization can view"
 
-#, fuzzy
 msgid "Organisational Admin"
 msgstr "Organizational Admin"
 
-#, fuzzy
 msgid "Organisational Configuration Information"
-msgstr "Organizational Configuration Information"
+msgstr "Organizational configuration information"
 
-#, fuzzy
 msgid "Organisational: anyone at your organisation can view your plan."
 msgstr "Organizational: anyone at your organization can view your plan."
 
-#, fuzzy
 msgid "Organisations"
 msgstr "Organizations"
 
-#, fuzzy
 msgid "Organization logo"
-msgstr "Organization name"
+msgstr "Organization logo"
 
-#, fuzzy
 msgid "Organizations"
-msgstr "Organization"
+msgstr "Organizations"
 
 msgid "Original funder template has changed!"
 msgstr "Original funder template has changed!"
 
-#, fuzzy
 msgid "Own Templates"
 msgstr "Own templates"
 
@@ -1453,15 +1242,13 @@ msgid "Owner"
 msgstr "Owner"
 
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
-#, fuzzy
 msgid "PDF formatting"
-msgstr "PDF Formatting"
+msgstr "PDF formatting"
 
-#, fuzzy
 msgid "Participating Institutions"
-msgstr "Institution"
+msgstr "Participating institutions"
 
 msgid "Password"
 msgstr "Password"
@@ -1469,205 +1256,175 @@ msgstr "Password"
 msgid "Password and comfirmation must match"
 msgstr "Password and confirmation must match"
 
-#, fuzzy
 msgid "Password confirmation"
 msgstr "Password confirmation"
 
 msgid "Permissions"
 msgstr "Permissions"
 
-#, fuzzy
 msgid "Personal Details"
-msgstr "Details"
+msgstr "Personal details"
 
-#, fuzzy
 msgid "Phase"
-msgstr "phase"
+msgstr "Phase"
 
 msgid "Phase details"
 msgstr "Phase details"
 
-#, fuzzy
 msgid "Phone"
-msgstr "None"
+msgstr "Phone"
 
-#, fuzzy
 msgid "Plan"
-msgstr "plan"
+msgstr "Plan"
 
 msgid "Plan Data Contact"
-msgstr "Plan Data Contact"
+msgstr "Plan data contact"
 
 msgid "Plan Description"
-msgstr "Plan Description"
+msgstr "Plan description"
 
-#, fuzzy
 msgid "Plan Guidance Configuration"
-msgstr "Guidance"
+msgstr "Plan guidance configuration"
 
 msgid "Plan ID"
 msgstr "Plan ID"
 
 msgid "Plan Name"
-msgstr "Plan Name"
+msgstr "Plan name"
 
 msgid "Plan is already shared with %{email}."
-msgstr ""
+msgstr "Plan is already shared with %{email}."
 
 msgid "Plan overview"
-msgstr ""
+msgstr "Plan overview"
 
-#, fuzzy
 msgid "Plan removed"
-msgstr "Remove"
+msgstr "Plan removed"
 
 msgid "Plan shared with %{email}."
-msgstr ""
+msgstr "Plan shared with %{email}."
 
-#, fuzzy
 msgid "Plans"
-msgstr "plan"
+msgstr "Plans"
 
-#, fuzzy
 msgid "Please choose an organisation"
 msgstr "Please choose an organization"
 
 msgid "Please do not reply to this email."
-msgstr ""
+msgstr "Please do not reply to this email"
 
-#, fuzzy
 msgid "Please enter a First name."
-msgstr "Please enter your first name."
+msgstr "Please enter your first name"
 
-#, fuzzy
 msgid "Please enter a Last name."
-msgstr "Please enter your first name."
+msgstr "Please enter your last name"
 
 msgid "Please enter a password confirmation"
-msgstr ""
+msgstr "Please enter a password confirmation"
 
 msgid "Please enter a title for your template."
-msgstr "Please enter a title for your template."
+msgstr "Please enter a title for your template"
 
 msgid "Please enter an email address"
 msgstr "Please enter an email address"
 
-#, fuzzy
 msgid "Please enter an email address."
 msgstr "Please enter an email address"
 
-#, fuzzy
 msgid "Please enter the name of your organisation"
-msgstr "Please enter the name of your organization."
+msgstr "Please enter the name of your organization"
 
 msgid "Please enter your current password"
-msgstr ""
+msgstr "Please enter your current password"
 
-#, fuzzy
 msgid "Please enter your email below and we will send you instructions on how to reset your password."
-msgstr " on "
+msgstr "Please enter your email below and we will send you instructions to reset your password."
 
 msgid "Please enter your password to change email address."
-msgstr ""
+msgstr "Please enter your password to change email address."
 
-#, fuzzy
 msgid ""
 "Please note that your email address is used as your username.\n"
 "    If you change this, remember to use your new email address on sign in."
-msgstr "<p>Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.</p>"
+msgstr "<p>Please note that your email address is also your username. If you change it, remember to use your new email address on sign in.</p>"
 
-#, fuzzy
 msgid "Please select a valid funding organisation from the list."
 msgstr "Please select a valid funding organization from the list."
 
-#, fuzzy
 msgid "Please select a valid research organisation from the list."
 msgstr "Please select a valid research organization from the list."
 
 msgid "Please select an item from the list."
-msgstr ""
+msgstr "Please select an item from the list."
 
 msgid "Please select one"
-msgstr ""
+msgstr "Please select one"
 
 msgid "Preview"
 msgstr "Preview"
 
-#, fuzzy
 msgid "Previous"
-msgstr "Preview"
+msgstr "Previous"
 
 msgid "Principal Investigator"
-msgstr ""
+msgstr "Principal Investigator"
 
 msgid "Principal Investigator / Researcher"
-msgstr "Principal Investigator / Researcher"
+msgstr "Principal Investigator/Researcher"
 
 msgid "Principal investigator"
-msgstr ""
+msgstr "Principal investigator"
 
 msgid "Privacy policy"
-msgstr ""
+msgstr "Privacy policy"
 
-#, fuzzy
 msgid "Private: restricted to me and my collaborators"
-msgstr "Private"
+msgstr "Private: restricted to me and my collaborators"
 
-#, fuzzy
 msgid "Private: restricted to me and people I invite."
-msgstr "Private"
+msgstr "Private: restricted to me and people I invite"
 
-#, fuzzy
 msgid "Profile information"
-msgstr "API Information"
+msgstr "Profile information"
 
 msgid "Project Abstract"
-msgstr ""
+msgstr "Project abstract"
 
-#, fuzzy
 msgid "Project Details"
-msgstr "Details"
+msgstr "Project details"
 
-#, fuzzy
 msgid "Project Title"
-msgstr "Title"
+msgstr "Project title"
 
 msgid "Project abstract"
-msgstr ""
+msgstr "Project abstract"
 
 msgid "Project abstract: "
-msgstr ""
+msgstr "Project abstract: "
 
-#, fuzzy
 msgid "Project title"
-msgstr "Title"
+msgstr "Project title"
 
-#, fuzzy
 msgid "Provides the user with an API token and grants rights to harvest information from the tool"
-msgstr "API token"
+msgstr "Provides the user with an API token and grants rights to harvest information from the tool"
 
 msgid "Public DMPs"
-msgstr "Public Plans"
+msgstr "Public plans"
 
-#, fuzzy
 msgid "Public Plans"
-msgstr "plan"
+msgstr "Public plans"
 
-#, fuzzy
 msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
-msgstr "Public Plans are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "Public plans are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
-#, fuzzy
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 msgstr "Public or organizational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 
-#, fuzzy
 msgid "Public: anyone can view on the web"
-msgstr "Public"
+msgstr "Public: anyone can view on the web"
 
-#, fuzzy
 msgid "Public: anyone can view."
-msgstr "Public"
+msgstr "Public: anyone can view"
 
 msgid "Publish"
 msgstr "Publish"
@@ -1678,14 +1435,12 @@ msgstr "Publish changes"
 msgid "Published"
 msgstr "Published"
 
-#, fuzzy
 msgid "Query or feedback related to %{tool_name}"
-msgstr " on "
+msgstr "Query or feedback related to %{tool_name}"
 
 msgid "Question"
 msgstr "Question"
 
-#, fuzzy
 msgid "Question Number"
 msgstr "Question number"
 
@@ -1702,124 +1457,107 @@ msgid "Questions"
 msgstr "Questions"
 
 msgid "Quick Start Guide"
-msgstr ""
+msgstr "Quick start guide"
 
 msgid "Read only"
 msgstr "Read only"
 
 msgid "Reference"
-msgstr ""
+msgstr "Reference"
 
 msgid "Remove"
 msgstr "Remove"
 
-#, fuzzy
 msgid "Remove the filter"
-msgstr "Remove"
+msgstr "Remove the filter"
 
-#, fuzzy
 msgid "Remove this link"
-msgstr "Remove"
+msgstr "Remove this link"
 
-#, fuzzy
 msgid "Request Expert Feedback - Automated Email:"
-msgstr "Email"
+msgstr "Request expert feedback - Automated email:"
 
 msgid "Request Feedback"
-msgstr ""
+msgstr "Request feedback"
 
 msgid "Request expert feedback"
-msgstr ""
+msgstr "Request expert feedback"
 
 msgid "Request feedback"
-msgstr ""
+msgstr "Request feedback"
 
 msgid "Requestor"
-msgstr ""
+msgstr "Requestor"
 
 msgid "Right"
 msgstr "Right"
 
-#, fuzzy
 msgid "Role"
 msgstr "Permissions"
 
 msgid "Run your own filter"
-msgstr ""
+msgstr "Run your own filter"
 
-#, fuzzy
 msgid "Sample Plan Links"
-msgstr "plan"
+msgstr "Sample plan links"
 
-#, fuzzy
 msgid "Sample Plans"
-msgstr "plan"
+msgstr "Sample plans"
 
-#, fuzzy
 msgid "Sample plans are provided by a funder, an organisation or a trusted party."
-msgstr "Sample plans are provided by a funder, an organization or a trusted party."
+msgstr "Sample plans are provided by a funder, an organization, or a trusted party."
 
 msgid "Save"
 msgstr "Save"
 
-#, fuzzy
 msgid "Save Unsuccessful."
-msgstr "Save"
+msgstr "Save unsuccessful."
 
 msgid "Saving..."
 msgstr "Saving..."
 
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 msgid "Section"
 msgstr "Section"
 
-#, fuzzy
 msgid "Section details"
-msgstr "Section"
+msgstr "Section details"
 
 msgid "Sections"
 msgstr "Sections"
 
 msgid "Security check"
-msgstr ""
+msgstr "Security check"
 
 msgid "See the full list of participating institutions"
-msgstr ""
+msgstr "See the full list of participating institutions"
 
-#, fuzzy
 msgid "See the full list of participating organisations"
 msgstr "See the full list of participating organizations"
 
 msgid "Select all"
-msgstr ""
+msgstr "Select all"
 
-#, fuzzy
 msgid "Select an organisation from the list or leave blank if your organisation is not listed."
 msgstr "Select an organization from the list or leave blank if your organization is not listed."
 
-#, fuzzy
 msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-msgstr "Select one or more themes that are relevant to this guidance. This will display your generic organization-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
+msgstr "Select one or more themes that are relevant to this guidance. This will display your generic organization-level guidance, as well as that from other sources, e.g., the %{org_name} guidance or any Schools/Departments that you provide guidance for."
 
-#, fuzzy
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
-msgstr "Select one or more themes that are relevant to this question. This will allow similarly themed organization-level guidance to appear alongside your question."
+msgstr "Select one or more themes that are relevant to this question. This will allow organization-level guidance to appear alongside your question."
 
-#, fuzzy
 msgid "Select phase to download"
-msgstr "phase"
+msgstr "Select phase to download"
 
-#, fuzzy
 msgid "Select the primary funding organisation"
 msgstr "Select the primary funding organization"
 
-#, fuzzy
 msgid "Select the primary research organisation"
 msgstr "Select the primary research organization"
 
-#, fuzzy
 msgid "Select up to 6 organisations to see their guidance."
 msgstr "Select up to 6 organizations to see their guidance."
 
@@ -1827,127 +1565,112 @@ msgid "Select which group this guidance relates to."
 msgstr "Select which group this guidance relates to."
 
 msgid "Selected option(s)"
-msgstr ""
+msgstr "Selected option(s)"
 
 msgid "Send"
-msgstr ""
+msgstr "Send"
 
-#, fuzzy
 msgid "Set plan visibility"
-msgstr "Visibility"
+msgstr "Set plan visibility"
 
 msgid "Share"
 msgstr "Share"
 
-#, fuzzy
 msgid "Shared"
-msgstr "Share"
+msgstr "Shared"
 
 msgid "Shibboleth Domain"
-msgstr ""
+msgstr "Shibboleth domain"
 
 msgid "Shibboleth Entity Id"
-msgstr ""
+msgstr "Shibboleth entity ID"
 
 msgid "Show"
-msgstr ""
+msgstr "Show"
 
 msgid "Show Phase"
-msgstr ""
+msgstr "Show phase"
 
-#, fuzzy
 msgid "Show password"
-msgstr "New password"
+msgstr "Show password"
 
-#, fuzzy
 msgid "Show passwords"
-msgstr "New password"
+msgstr "Show password"
 
 msgid "Sign in"
 msgstr "Sign in"
 
-#, fuzzy
 msgid "Sign in with"
-msgstr "Sign in"
+msgstr "Sign in with"
 
-#, fuzzy
 msgid "Sign in with your institutional credentials"
-msgstr "Sign in"
+msgstr "Sign in with your institutional credentials"
 
-#, fuzzy
 msgid "Sign out"
 msgstr "Sign out"
 
 msgid "Size"
 msgstr "Size"
 
-#, fuzzy
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
-msgstr " password. You can do this through the link below."
+msgstr "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 
 msgid "Start date"
-msgstr ""
+msgstr "Start date"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgid "Subject"
-msgstr ""
+msgstr "Subject"
 
 msgid "Submit"
-msgstr ""
+msgstr "Submit"
 
-#, fuzzy
 msgid "Successfully deleted your theme"
-msgstr "Delete"
+msgstr "Successfully deleted your theme"
 
 msgid "Successfully signed in"
-msgstr ""
+msgstr "Successfully signed in"
 
 msgid "Successfully unlinked your account from %{is}."
-msgstr ""
+msgstr "Successfully unlinked your account from %{is}."
 
 msgid "Super Admin"
-msgstr ""
+msgstr "Super Admin"
 
 msgid "Template"
 msgstr "Template"
 
 msgid "Template History"
-msgstr "Template History"
+msgstr "Template history"
 
-#, fuzzy
 msgid "Template Name"
-msgstr "Template"
+msgstr "Template name"
 
-#, fuzzy
 msgid "Template created using the %{application_name}. Last modified %{date}"
-msgstr "%{application_name}"
+msgstr "Template created using the %{application_name}. Last modified %{date}"
 
 msgid "Template details"
 msgstr "Template details"
 
-#, fuzzy
 msgid "Template: "
-msgstr "Template"
+msgstr "Template: "
 
 msgid "Templates"
 msgstr "Templates"
 
-#, fuzzy
 msgid "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
-msgstr "Templates"
+msgstr "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
 
 msgid "Terms of use"
 msgstr "Terms of use"
 
-#, fuzzy
 msgid "Terms of use and Privacy"
-msgstr "Terms of use"
+msgstr "Terms of use & Privacy"
 
-#, fuzzy
 msgid "Test"
-msgstr "Text"
+msgstr "Test"
 
 msgid "Text"
 msgstr "Text"
@@ -1959,93 +1682,76 @@ msgid "Text field"
 msgstr "Text field"
 
 msgid "Thank you for registering. Please confirm your email address"
-msgstr "Thank you for registering. Please confirm your email address"
+msgstr "Thank you for registering. Please confirm your email address."
 
 msgid "That email address is already registered."
 msgstr "That email address is already registered."
 
 msgid "That template is not currently published."
-msgstr "That template is not currently published."
+msgstr "That template is not published."
 
-#, fuzzy
 msgid "The %{tool_name} team"
-msgstr " team"
+msgstr "The %{tool_name} team"
 
-#, fuzzy
 msgid "The email address you entered is not registered."
-msgstr "The "
+msgstr "The email address you entered is not registered."
 
-#, fuzzy
 msgid "The following answer cannot be saved"
-msgstr "The "
+msgstr "The following answer cannot be saved"
 
-#, fuzzy
 msgid "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award."
-msgstr "question"
+msgstr "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages, e.g., at grant application and post award."
 
-#, fuzzy
 msgid "The key %{key} does not have a valid set of object links"
-msgstr "The "
+msgstr "The key %{key} does not have a valid set of object links"
 
-#, fuzzy
 msgid "The original contributing institutions were: <a href=\"https://www.cdlib.org/services/uc3/\" target=\"_blank\">University of California Curation Center (UC3)</a> at the <a href=\"https://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>, <a href=\"https://www.dataone.org/\" target=\"_blank\">DataONE</a>, <a href=\"https://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC-UK)</a>, <a href=\"https://www.si.edu/\" target=\"_blank\">Smithsonian Institution</a>, <a href=\"https://www.library.ucla.edu/\" target=\"_blank\">University of California, Los Angeles Library</a>, <a href=\"https://libraries.ucsd.edu/\" target=\"_blank\">University of California, San Diego Libraries</a>, <a href=\"https://www.library.illinois.edu/\" target=\"_blank\">University of Illinois, Urbana-Champaign Library</a>, and <a href=\"https://www.library.virginia.edu/\" target=\"_blank\">University of Virginia Library</a>."
-msgstr "Institution"
+msgstr "he original contributing institutions were: <a href=\"https://www.cdlib.org/services/uc3/\" target=\"_blank\">University of California Curation Center (UC3)</a> at the <a href=\"https://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>, <a href=\"https://www.dataone.org/\" target=\"_blank\">DataONE</a>, <a href=\"https://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC-UK)</a>, <a href=\"https://www.si.edu/\" target=\"_blank\">Smithsonian Institution</a>, <a href=\"https://www.library.ucla.edu/\" target=\"_blank\">University of California, Los Angeles Library</a>, <a href=\"https://libraries.ucsd.edu/\" target=\"_blank\">University of California, San Diego Libraries</a>, <a href=\"https://www.library.illinois.edu/\" target=\"_blank\">University of Illinois, Urbana-Champaign Library</a>, and <a href=\"https://www.library.virginia.edu/\" target=\"_blank\">University of Virginia Library</a>."
 
-#, fuzzy
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
-msgstr "The "
+msgstr "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 
-#, fuzzy
 msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
 msgstr "The table below lists the plans that users at your organization have created and shared within your organization. This allows you to download a PDF and view their plans as samples or to discover new research data."
 
-#, fuzzy
 msgid "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
-msgstr "Created"
+msgstr "The table below lists the plans that you have created and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
 
-#, fuzzy
 msgid "The theme with id %{id} could not be destroyed"
-msgstr "The "
+msgstr "The theme with id %{id} could not be destroyed"
 
-#, fuzzy
 msgid "The ‘Share’ tab is also where you can set your plan visibility."
-msgstr "Share"
+msgstr "The ‘Share’ tab is also where you can set your plan visibility."
 
-#, fuzzy
 msgid "Theme created successfully"
-msgstr "Created"
+msgstr "Theme created successfully"
 
 msgid "Theme updated successfully"
-msgstr ""
+msgstr "Theme updated successfully"
 
 msgid "Themes"
 msgstr "Themes"
 
-#, fuzzy
 msgid "There are currently no public DMPs."
 msgstr "There are currently no public plans."
 
-#, fuzzy
 msgid "There are currently no public Templates."
-msgstr "There are currently no public Templates."
+msgstr "There are currently no public templates."
 
 msgid "There are no records associated"
-msgstr ""
+msgstr "There are no records associated"
 
-#, fuzzy
 msgid "There is no plan associated with id %{id}"
-msgstr "plan"
+msgstr "There is no plan associated with id %{id}"
 
-#, fuzzy
 msgid "There is no plan with id %{id} for which to create or update an answer"
-msgstr " on "
+msgstr "There is no plan with id %{id} for which to create or update an answer"
 
-#, fuzzy
 msgid "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
-msgstr "question"
+msgstr "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
 
 msgid "There is no theme associated with id %{id}"
-msgstr ""
+msgstr "There is no theme associated with id %{id}"
 
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr "There seems to be a problem with your logo. Please upload it again."
@@ -2056,113 +1762,96 @@ msgstr "This allows you to order sections."
 msgid "This allows you to order the phases of your template."
 msgstr "This allows you to order the phases of your template."
 
-#, fuzzy
 msgid "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
-msgstr "API Information"
+msgstr "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
 
-#, fuzzy
 msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
-msgstr "template"
+msgstr "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
 
-#, fuzzy
 msgid "This template is new and does not yet have any publication history."
-msgstr "template"
+msgstr "This template is new and does not have any publication history."
 
 msgid "Title"
 msgstr "Title"
 
-#, fuzzy
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations."
 msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations."
 
-#, fuzzy
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
-msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 organizations of the following organizations who offer guidance relevant to your plan."
+msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 of the following organizations that offer guidance relevant to your plan."
 
 msgid "Top"
 msgstr "Top"
 
-#, fuzzy
 msgid "Top 5 Templates"
-msgstr "Templates"
+msgstr "Top 5 templates"
 
-#, fuzzy
 msgid "Topic"
-msgstr "Top"
+msgstr "Topic"
 
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
-#, fuzzy
 msgid "Total completed plans"
-msgstr "plan"
+msgstr "Total completed plans"
 
-#, fuzzy
 msgid "Total users"
-msgstr "user"
+msgstr "Total users"
 
 msgid "Transfer customisation"
 msgstr "Transfer customization"
 
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #, fuzzy
 msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
 msgstr "plan"
 
-#, fuzzy
 msgid "Unable to change the plan's test status"
-msgstr "plan"
+msgstr "Unable to change the plan's test status"
 
-#, fuzzy
 msgid "Unable to change your organisation affiliation at this time."
 msgstr "Unable to change your organization affiliation at this time."
 
-#, fuzzy
 msgid "Unable to create a new version of this template. You are currently working with a published copy."
-msgstr "template"
+msgstr "Unable to create a new version of this template. You are currently working with a published copy."
 
 msgid "Unable to create your account at this time."
-msgstr ""
+msgstr "Unable to create your account at this time."
 
-#, fuzzy
 msgid "Unable to download the DMP Template at this time."
-msgstr "Unable to download the Template at this time."
+msgstr "Unable to download the template at this time."
 
-#, fuzzy
 msgid "Unable to find plan id %{plan_id}"
-msgstr "plan"
+msgstr "Unable to find plan id %{plan_id}"
 
-#, fuzzy
 msgid "Unable to identify a suitable template for your plan."
-msgstr "template"
+msgstr "Unable to identify a suitable template for your plan."
 
 msgid "Unable to link your account to %{scheme}."
-msgstr ""
+msgstr "Unable to link your account to %{scheme}."
 
-#, fuzzy
 msgid "Unable to notify user that you have finished providing feedback."
-msgstr "user"
+msgstr "Unable to notify user that you have finished providing feedback."
 
-#, fuzzy
 msgid "Unable to remove the plan"
-msgstr "plan"
+msgstr "Unable to remove the plan"
 
 msgid "Unable to save since theme parameter is missing"
-msgstr ""
+msgstr "Unable to save since theme parameter is missing"
 
 msgid "Unable to submit your request for feedback at this time."
-msgstr ""
+msgstr "Unable to submit your request for feedback at this time."
 
 msgid "Unable to unlink your account from %{is}."
-msgstr ""
+msgstr "Unable to unlink your account from %{is}."
 
 msgid "Unknown"
-msgstr ""
+msgstr "Unknown"
 
 msgid "Unknown column name."
 msgstr "Unknown column name."
@@ -2171,13 +1860,11 @@ msgid "Unknown formatting setting"
 msgstr "Unknown formatting setting"
 
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
-msgstr "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
+msgstr "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right.'"
 
-#, fuzzy
 msgid "Unknown organisation."
 msgstr "Unknown organization."
 
-#, fuzzy
 msgid "Unlink your account from your organisation. You can link again at any time."
 msgstr "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
 
@@ -2194,23 +1881,22 @@ msgid "Unpublished changes"
 msgstr "Unpublished changes"
 
 msgid "Up to "
-msgstr ""
+msgstr "Up to "
 
 msgid "Update"
-msgstr ""
+msgstr "Update"
 
 msgid "Updated"
 msgstr "Last edited"
 
-#, fuzzy
 msgid "Usage"
-msgstr "Me"
+msgstr "Usage"
 
 msgid "Use API"
-msgstr ""
+msgstr "Use API"
 
 msgid "User accounts"
-msgstr ""
+msgstr "User accounts"
 
 msgid "Users"
 msgstr "Users"
@@ -2221,87 +1907,71 @@ msgstr "Version"
 msgid "View"
 msgstr "View"
 
-#, fuzzy
 msgid "View all"
-msgstr "View"
+msgstr "View all"
 
-#, fuzzy
 msgid "View all guidance"
-msgstr "guidance"
+msgstr "View all guidance"
 
-#, fuzzy
 msgid "View all organisations"
 msgstr "View all organizations"
 
-#, fuzzy
 msgid "View all search results"
-msgstr "View"
+msgstr "View all search results"
 
 msgid "View all templates"
 msgstr "View all templates"
 
-#, fuzzy
 msgid "View less"
-msgstr "View"
+msgstr "View less"
 
-#, fuzzy
 msgid "View less search results"
-msgstr "View"
+msgstr "View less search results"
 
 msgid "Visibility"
 msgstr "Visibility"
 
-#, fuzzy
 msgid "Visibility definitions:"
-msgstr "Visibility"
+msgstr "Visibility definitions:"
 
-#, fuzzy
 msgid "We found multiple DMP templates corresponding to your funder."
 msgstr "We found multiple templates corresponding to your funder."
 
 msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
-msgstr ""
+msgstr "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
 
-#, fuzzy
 msgid "Welcome"
 msgstr "Welcome."
 
 msgid "Welcome to %{application_name}"
 msgstr "Welcome to %{application_name}"
 
-#, fuzzy
 msgid "Welcome to %{tool_name}"
-msgstr "Welcome to "
+msgstr "Welcome to %{tool_name}"
 
-#, fuzzy
 msgid "Welcome to %{tool_name}, %{username}"
-msgstr "Welcome to "
+msgstr "Welcome to %{tool_name}, %{username}"
 
 msgid "Welcome."
 msgstr "Welcome."
 
-#, fuzzy
 msgid "What research project are you planning?"
-msgstr "plan"
+msgstr "What research project are you planning?"
 
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
-msgstr "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you can create sections and questions."
 
-#, fuzzy
 msgid "Which DMP template would you like to use?"
 msgstr "Which template would you like to use?"
 
-#, fuzzy
 msgid "Write Plan"
-msgstr "plan"
+msgstr "Write plan"
 
-#, fuzzy
 msgid "Write plan"
-msgstr "plan"
+msgstr "Write plan"
 
-#, fuzzy
 msgid "Write your plan"
-msgstr "plan"
+msgstr "Write your plan"
 
 msgid "Yes"
 msgstr "Yes"
@@ -2312,12 +1982,11 @@ msgstr "You are about to delete '%{guidance_group_name}'. This will affect guida
 msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
 msgstr "You are about to delete '%{guidance_summary}'. Are you sure?"
 
-#, fuzzy
 msgid "You are about to delete '%{org_name}'. Are you sure?"
-msgstr "You are about to delete '%{question_text}'. Are you sure?"
+msgstr "You are about to delete '%{org_name}'. Are you sure?"
 
 msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
-msgstr "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
+msgstr "You are about to delete '%{phase_title}'. This will affect versions, sections, and questions linked to this phase. Are you sure?"
 
 msgid "You are about to delete '%{question_text}'. Are you sure?"
 msgstr "You are about to delete '%{question_text}'. Are you sure?"
@@ -2325,12 +1994,11 @@ msgstr "You are about to delete '%{question_text}'. Are you sure?"
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 
-#, fuzzy
 msgid "You are already signed in as another user. Please log out to activate your invitation."
-msgstr "user"
+msgstr "You are already signed in as another user. Please log out to activate your invitation."
 
 msgid "You are not authorized to perform this action."
-msgstr ""
+msgstr "You are not authorized to perform this action."
 
 msgid "You are now ready to create your first DMP."
 msgstr "You are now ready to create your first data management plan."
@@ -2339,75 +2007,65 @@ msgid "You are viewing a historical version of this template. You will not be ab
 msgstr "You are viewing a historical version of this template. You will not be able to make changes."
 
 msgid "You can also grant rights to other collaborators."
-msgstr ""
+msgstr "You can also grant rights to other collaborators."
 
 msgid "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
-msgstr "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
+msgstr "You can choose from:<ul><li>text area (large box for paragraphs);</li> <li>text field (for a short answer);</li> <li>checkboxes where options are presented in a list and multiple values can be selected;</li> <li>radio buttons where options are presented in a list but only one can be selected;</li> <li>dropdown like this box - only one option can be selected;</li> <li>multiple select box allows users to select several options from a scrollable list using the CTRL key</li></ul>"
 
-#, fuzzy
 msgid "You can continue to edit and download the plan in the interim."
-msgstr "plan"
+msgstr "You can continue to edit and download the plan in the interim."
 
 msgid "You can edit any of the details below."
 msgstr "You can edit any of the details below."
 
 msgid "You can not edit a historical version of this template."
-msgstr ""
+msgstr "You cannot edit a historical version of this template."
 
 msgid "You can not publish a historical version of this template."
-msgstr ""
+msgstr "You cannot publish a historical version of this template."
 
-#, fuzzy
 msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
-msgstr "guidance on"
+msgstr "You can write pieces of guidance to be displayed by theme (e.g., generic guidance on storage and backup). Writing generic guidance by theme saves you time and effort as it will be displayed across all templates rather than having to write guidance for each."
 
-#, fuzzy
 msgid "You cannot delete a template that has been used to create plans."
-msgstr "template"
+msgstr "You cannot delete a template that has been used to create plans."
 
 msgid "You cannot delete historical versions of this template."
-msgstr ""
+msgstr "You cannot delete historical versions of this template."
 
-#, fuzzy
 msgid "You don't have access to use the API. An api token is needed to generate usage statistics."
-msgstr " access to"
+msgstr "You don't have access to use the API. An API token is required to generate usage statistics."
 
 msgid "You have been granted administrator privileges in %{tool_name}:"
-msgstr ""
+msgstr "You have been granted administrator privileges in %{tool_name}:"
 
-#, fuzzy
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
-msgstr "You have been granted permission by your organization to use our API. Your API token and instructions for using the API endpoints can be found "
+msgstr "You have been granted permission by your organization to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
-msgstr ""
+msgstr "You have been revoked administrator privileges in %{tool_name}."
 
 msgid "You have unpublished changes"
-msgstr ""
+msgstr "You have unpublished changes"
 
-#, fuzzy
 msgid "You may change your notification preferences on your profile page."
-msgstr " on "
+msgstr "You may change your notification preferences on your profile page."
 
 msgid "You must accept the terms and conditions to register."
 msgstr "You must accept the terms and conditions to register."
 
-#, fuzzy
 msgid "You must select a funding organisation from the list."
 msgstr "You must select a funding organization from the list."
 
-#, fuzzy
 msgid "You must select a research organisation from the list."
 msgstr "You must select a research organization from the list."
 
-#, fuzzy
 msgid "You must select at least one organisation type"
 msgstr "You must select at least one organization type."
 
 msgid "You need to sign in or sign up before continuing."
 msgstr "You need to sign in or sign up before continuing."
 
-#, fuzzy
 msgid "You will need to create an account in order to accept your invitation to view the data management plan (DMP)."
 msgstr "You will need to create an account in order to accept your invitation to view the data management plan."
 
@@ -2420,70 +2078,56 @@ msgstr "Your ORCID"
 msgid "Your access to "
 msgstr "Your access to "
 
-#, fuzzy
 msgid "Your account has been linked to your organisation. You can now login with that method."
 msgstr "Your account has been linked to your organization. You can now log in with that method."
 
 msgid "Your account has been successfully linked to %{scheme}."
 msgstr "Your account has been successfully linked to %{scheme}."
 
-#, fuzzy
 msgid "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
-msgstr "Your"
+msgstr "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
 
-#, fuzzy
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
-msgstr "API Information"
+msgstr "Your email address is also your login ID. Please confirm your password to make this change."
 
-#, fuzzy
 msgid "Your guidance group has been published and is now available to users."
-msgstr "Your template has been published and is now available to users."
+msgstr "Your guidance group has been published and is now available to users."
 
-#, fuzzy
 msgid "Your guidance group is no longer published and will not be available to users."
-msgstr "guidance group"
+msgstr "Your guidance group is no longer published and will not be available to users."
 
-#, fuzzy
 msgid "Your guidance has been published and is now available to users."
-msgstr "Your template has been published and is now available to users."
+msgstr "Your guidance has been published and is now available to users."
 
-#, fuzzy
 msgid "Your guidance is no longer published and will not be available to users."
-msgstr "guidance"
+msgstr "Your guidance is no longer published and will not be available to users."
 
-#, fuzzy
 msgid "Your institution"
-msgstr "Institution"
+msgstr "Your institution"
 
-#, fuzzy
 msgid "Your organisation affiliation has been changed. You may now edit templates for %{org_name}."
 msgstr "Your organization affiliation has been changed. You may now edit templates for %{org_name}."
 
-#, fuzzy
 msgid "Your organisation does not seem to be properly configured."
-msgstr "Your organization does not seem to be properly configured."
+msgstr "Your organization does not seem to be configured properly."
 
-#, fuzzy
 msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
-msgstr "Your permissions relating to "
+msgstr "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
 
-#, fuzzy
 msgid "Your project is no longer a test."
-msgstr "The "
+msgstr "Your project is no longer a test."
 
-#, fuzzy
 msgid "Your project is now a test."
-msgstr "Your"
+msgstr "Your project is now a test."
 
-#, fuzzy
 msgid "Your request for feedback has been submitted."
-msgstr "Your"
+msgstr "Your request for feedback has been submitted."
 
 msgid "Your template has been published and is now available to users."
 msgstr "Your template has been published and is now available to users."
 
 msgid "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
-msgstr "Your template is no longer published. Users will not be able to create new plans for this template until you re-publish it"
+msgstr "Your template is no longer published. Users will not be able to create new plans for this template until you republish it"
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr "account has been locked due to an excessive number of unsuccessful sign in attempts."
@@ -2503,60 +2147,53 @@ msgstr "can't be blank"
 msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr "passwords must match"
 
-#, fuzzy
 msgid "are not authorized to view that plan"
-msgstr "plan"
+msgstr "are not authorized to view that plan"
 
 msgid "available to the public"
-msgstr ""
+msgstr "available to the public"
 
 msgid "can't be blank"
-msgstr ""
+msgstr "can't be blank"
 
 msgid "can't be larger than 500KB"
-msgstr ""
+msgstr "can't be larger than 500KB"
 
 msgid "can't be less than zero"
-msgstr ""
+msgstr "can't be less than zero"
 
 msgid "changed"
-msgstr ""
+msgstr "changed"
 
-#, fuzzy
 msgid "co-owner"
 msgstr "Co-owner"
 
 msgid "collapse all"
-msgstr ""
+msgstr "collapse all"
 
-#, fuzzy
 msgid "comment"
 msgstr "Comment"
 
 msgid "copied"
-msgstr ""
+msgstr "copied"
 
-#, fuzzy
 msgid "created"
 msgstr "Created"
 
-#, fuzzy
 msgid "deleted"
-msgstr "Delete"
+msgstr "Deleted"
 
-#, fuzzy
 msgid "editor"
 msgstr "Editor"
 
-#, fuzzy
 msgid "example answer"
-msgstr "Example of answer"
+msgstr "Example answer"
 
 msgid "expand all"
-msgstr ""
+msgstr "expand all"
 
 msgid "for internal %{org_name} use only"
-msgstr ""
+msgstr "for internal %{org_name} use only"
 
 msgid "guidance"
 msgstr "guidance"
@@ -2570,9 +2207,8 @@ msgstr "guidance on"
 msgid "into your browser"
 msgstr "into your browser"
 
-#, fuzzy
 msgid "link name"
-msgstr "Plan name"
+msgstr "link name"
 
 msgid "must be logged in"
 msgstr "must be logged in"
@@ -2581,20 +2217,19 @@ msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 
 msgid "must be unique"
-msgstr ""
+msgstr "must be unique"
 
 msgid "must have access to guidances api"
 msgstr "must have access to guidances api"
 
-#, fuzzy
 msgid "must have access to plans api"
-msgstr "must have access to guidances api"
+msgstr "must have access to plans api"
 
 msgid "note"
 msgstr "note"
 
 msgid "or"
-msgstr ""
+msgstr "or"
 
 msgid "or copy"
 msgstr "or copy"
@@ -2602,15 +2237,12 @@ msgstr "or copy"
 msgid "organisation"
 msgstr "organization"
 
-#, fuzzy
 msgid "organisational"
 msgstr "organizational"
 
-#, fuzzy
 msgid "password"
 msgstr "Password"
 
-#, fuzzy
 msgid "permissions"
 msgstr "Permissions"
 
@@ -2620,79 +2252,64 @@ msgstr "phase"
 msgid "plan"
 msgstr "plan"
 
-#, fuzzy
 msgid "plan's visibility"
-msgstr "Visibility"
+msgstr "plan's visibility"
 
 msgid "preferences"
-msgstr ""
+msgstr "preferences"
 
-#, fuzzy
 msgid "private"
-msgstr "Private"
+msgstr "private"
 
 msgid "profile"
-msgstr ""
+msgstr "profile"
 
-#, fuzzy
 msgid "public"
-msgstr "Publish"
+msgstr "public"
 
-#, fuzzy
 msgid "question"
 msgid_plural "questions"
 msgstr[0] "question"
 
-#, fuzzy
 msgid "read the plan and leave comments."
-msgstr "Comment"
+msgstr "read the plan and leave comments."
 
-#, fuzzy
 msgid "read the plan and provide feedback."
-msgstr "plan"
+msgstr "read the plan and provide feedback."
 
-#, fuzzy
 msgid "read-only"
 msgstr "Read only"
 
-#, fuzzy
 msgid "removed"
-msgstr "Remove"
+msgstr "Removed"
 
-#, fuzzy
 msgid "reviewer"
 msgstr "Preview"
 
 msgid "role"
 msgstr "role"
 
-#, fuzzy
 msgid "saved"
-msgstr "Save"
+msgstr "Saved"
 
-#, fuzzy
 msgid "section"
 msgid_plural "sections"
 msgstr[0] "section"
 
-#, fuzzy
 msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
-msgstr " on "
+msgstr "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
 
 msgid "template"
 msgstr "template"
 
-#, fuzzy
 msgid "test"
-msgstr "Text"
+msgstr "test"
 
 msgid "user"
 msgstr "user"
 
-#, fuzzy
 msgid "user must be in your organisation"
 msgstr "user must be in your organization"
 
-#, fuzzy
 msgid "write and edit the plan in a collaborative manner."
-msgstr "plan"
+msgstr "write and edit the plan in a collaborative manner."
