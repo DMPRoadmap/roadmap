@@ -1346,7 +1346,7 @@ msgstr "Please enter your password to change email address."
 msgid ""
 "Please note that your email address is used as your username.\n"
 "    If you change this, remember to use your new email address on sign in."
-msgstr "<p>Please note that your email address is also your username. If you change it, remember to use your new email address on sign in.</p>"
+msgstr "Please note that your email address is also your username. If you change it, remember to use your new email address on sign in."
 
 msgid "Please select a valid funding organisation from the list."
 msgstr "Please select a valid funding organization from the list."
@@ -1373,7 +1373,7 @@ msgid "Principal Investigator / Researcher"
 msgstr "Principal Investigator/Researcher"
 
 msgid "Principal investigator"
-msgstr "Principal investigator"
+msgstr "Principal Investigator"
 
 msgid "Privacy policy"
 msgstr "Privacy policy"
