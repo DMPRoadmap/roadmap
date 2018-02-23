@@ -161,7 +161,6 @@ class PlansController < ApplicationController
         # Save the guidance group selections
         guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-puts @plan.guidance_groups.collect(&:name).join(', ')
         @plan.save
       
         if @plan.update_attributes(attrs)
