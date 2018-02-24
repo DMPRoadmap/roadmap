@@ -78,6 +78,10 @@ a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:v
 .table {
   border: none;
 }
+th.last-edited {
+  min-width: 120px;
+}
+
 #search-addon, tbody tr:nth-child(even){
   background-color: $light-grey;
 }
@@ -110,7 +114,7 @@ th > a > .fa {
   padding: 4px 8px;
 
   a, a:hover, a:focus, a:visited, a:active, a:active:hover {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   input {
@@ -580,9 +584,11 @@ header {
     #signin-options {
       min-width: 450px;
       padding: 10px 15px;
+      text-align: center;
 
       h3 {
         margin-top: 25px;
+        font-size: 1.6rem;
       }
       a {
         margin-left: auto;

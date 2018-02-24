@@ -142,7 +142,7 @@ class UsersController < ApplicationController
       render(json: { 
         code: 0,
         email: '', 
-        msg: _("Error: We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account.") % { username: params[:username] }
+        msg: _("We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account.") % { username: params[:username] }
       })
     end
   end

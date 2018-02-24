@@ -4,7 +4,7 @@
             <tr>
               <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
               <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-              <th><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
+              <th class="last-edited"><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
               <th><%= _('Role') %></th>
               <th class="text-center sorter-false"><%= _('Test') %></th>
               <th><%= _('Visibility') %></th>
