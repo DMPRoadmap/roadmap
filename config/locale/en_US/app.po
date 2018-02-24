@@ -557,7 +557,7 @@ msgid "DMPTool News"
 msgstr "DMPTool News"
 
 msgid "DMPTool by the Numbers"
-msgstr "DMPTool by the Numbers"
+msgstr "DMPTool by the numbers"
 
 msgid "DMPTool is a service of the %{uc3} of the %{cdl}"
 msgstr "DMPTool is a service of the %{uc3} of the %{cdl}"
@@ -1418,7 +1418,7 @@ msgid "Public data management plans are created using the DMPTool - Dev and shar
 msgstr "Public plans are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
-msgstr "Public or organizational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgstr "Public or organizational visibility are intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 
 msgid "Public: anyone can view on the web"
 msgstr "Public: anyone can view on the web"
@@ -1778,7 +1778,7 @@ msgid "To help you write your plan, %{application_name} can show you guidance fr
 msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations."
 
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
-msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 of the following organizations that offer guidance relevant to your plan."
+msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 organizations that offer guidance relevant to your plan."
 
 msgid "Top"
 msgstr "Top"
