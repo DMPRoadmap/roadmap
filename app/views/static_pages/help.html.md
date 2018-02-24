@@ -2,14 +2,15 @@
 <hr>
 
 <h3>Contents</h3>
-Who can use the tool?
-How do I log in / create an account?
-Overview of My dashboard
-How do I create a data management plan?
-How do I get help from someone at my institution?
+
+Who can use the tool?   
+How do I log in / create an account?   
+Overview of My dashboard   
+How do I create a data management plan?   
+How do I get help from someone at my institution?   
 <hr>
 
-<h4>1. Who can use the tool?</h4>
+<h3>Who can use the tool?</h3>
 
 DMPTool is free for anyone to create data management plans. As a user, you can:   
 <ul>
@@ -18,7 +19,7 @@ DMPTool is free for anyone to create data management plans. As a user, you can:
 <li> If you are a researcher from one of the participating institutions, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>
 <hr>
 
-<h4>2. How do I log in / create an account?</h4>
+<h3>How do I log in / create an account?</h3>
 
 Click on Sign in at the top-right of the home page. You can also click the white “Get started” button.   
 
@@ -32,16 +33,16 @@ If your institution/organization is affiliated with DMPTool:
 <li>If your institution is not affiliated with DMPTool (or has not configured single sign-on), you need to create an account with an email address and password.</li>
 <hr>
   
-<h4>3. Overview of My dashboard</h4>
+<h3>Overview of My dashboard</h3>
 
 When you log in you will be directed to “My dashboard.” From here you can create, edit, share, download, copy, or remove any of your plans. You will also see plans that have been shared with you by others.    
 
 If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of public plans.
 <hr> 
 
-<h4>4. How do I create a data management plan?</h4>
+<h3>How do I create a data management plan?</h3>
 
-<h5>Create a plan</h5>
+<h4>Create a plan</h4>
 
 To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:   
 <ol type="1">
@@ -56,7 +57,7 @@ Once you have made your selections, click “Create plan.”
 You can also make a copy of an existing plan (from the Actions menu next to the plan on My dashboard) and update it for a new research project and/or grant proposal.
 <br>
 
-<h5>Write your plan</h5>
+<h4>Write your plan</h4>
 
 The tabbed interface allows you to navigate through different functions when editing your plan.   
 <ul>
@@ -67,7 +68,7 @@ The following tab(s) present the questions to answer. There may be more than one
 <li>“Download” allows you to download your plan in various formats. You can adjust the formatting (font type, size, and margins) for PDF files, which may be helpful if working to page limits (e.g., NSF data management plans are limited to 2 pages).</li></ul>
 <br>
 
-<h5>Share plans</h5>
+<h4>Share plans</h4>
 
 Input the email address(es) of any collaborators you would like to invite to read or edit your plan. Set their permissions via the radio buttons and click to 'Add collaborator.' Adjust permissions or remove collaborators at any time via the drop-down options in the table.
 
@@ -80,7 +81,7 @@ The “Share” tab is also where you can set your plan visibility.
 By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options. 
 <hr> 
 
-<h4>5. How do I get help from someone at my institution?</h4>
+<h3>How do I get help from someone at my institution?</h3>
 
 After logging in, you will find an email address and URL for help at the top of the page.   
  
