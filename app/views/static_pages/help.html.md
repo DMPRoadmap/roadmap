@@ -18,7 +18,7 @@ DMPTool is free for anyone to create data management plans. As a user, you can:
 <li> If you are a researcher from one of the participating institutions, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>
 <hr>
 
-<h4>1. How do I log in / create an account?</h4>
+<h4>2. How do I log in / create an account?</h4>
 
 Click on Sign in at the top-right of the home page. You can also click the white “Get started” button.   
 
@@ -44,7 +44,7 @@ If others at your institution/organization have chose to share their plans inter
 <h5>Create a plan</h5>
 
 To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:   
-<ol>
+<ol type="1">
 <li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li>
 <li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li>
 <li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of funder requirements supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>
