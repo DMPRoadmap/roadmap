@@ -73,7 +73,10 @@ class PlansController < ApplicationController
         @plan.assign_creator(current_user)
 
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.managing_orgs << org_id).flatten.uniq
+       
+        # DMPTool hack to select DCC guidance
+        #ids = (Org.managing_orgs << org_id).flatten.uniq
+        ids = (Org.find_by(abbreviation: 'DCC').pluck(:id) << org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
