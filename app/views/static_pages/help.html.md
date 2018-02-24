@@ -49,7 +49,7 @@ If others at your institution/organization have chose to share their plans inter
 
 To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:
 
-![Create plan](https://github.com/CDLUC3/dmp/blob/development/docs/quickstartguide/create_plan.png?raw=true)
+![Create plan](https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/create_plan.png?raw=true)
 
 <ol type="1">
 <li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li>
