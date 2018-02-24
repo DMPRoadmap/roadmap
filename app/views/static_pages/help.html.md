@@ -3,23 +3,23 @@
 
 <h3>Contents</h3>
 
-Who can use the tool?   
-How do I log in / create an account?   
-Overview of My dashboard   
-How do I create a data management plan?   
-How do I get help from someone at my institution?   
+[Who can use the tool?](#who-can-use-the-tool)   
+[How do I log in/create an account?](#-how-do-i-log-in-create-an-account)   
+[Overview of My dashboard](#overview-of-my-dashboard)   
+[How do I create a data management plan?](#how-do-i-create-a-data-management-plan)   
+[How do I get help from someone at my institution?](#how-do-i-get-help-from-someone-at-my-institution)   
 <hr>
 
-<h3>Who can use the tool?</h3>
+<h3 id="who-can-use-the-tool">Who can use the tool?</h3>
 
 DMPTool is free for anyone to create data management plans. As a user, you can:   
 <ul>
 <li>Create your own plans.</li>
 <li>Co-author a plan with collaborators.</li>
-<li> If you are a researcher from one of the participating institutions, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>
+<li> If you are a researcher from one of the <a href="https://dmptool.org/public_orgs\" target="_blank">participating institutions</a>, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>
 <hr>
 
-<h3>How do I log in / create an account?</h3>
+<h3 id="how-do-i-log-in-create-an-account">How do I log in/create an account?</h3>
 
 Click on Sign in at the top-right of the home page. You can also click the white “Get started” button.   
 
@@ -33,14 +33,14 @@ If your institution/organization is affiliated with DMPTool:
 <li>If your institution is not affiliated with DMPTool (or has not configured single sign-on), you need to create an account with an email address and password.</li>
 <hr>
   
-<h3>Overview of My dashboard</h3>
+<h3 id="overview-of-my-dashboard">Overview of My dashboard</h3>
 
 When you log in you will be directed to “My dashboard.” From here you can create, edit, share, download, copy, or remove any of your plans. You will also see plans that have been shared with you by others.    
 
-If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of public plans.
+If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a>.
 <hr> 
 
-<h3>How do I create a data management plan?</h3>
+<h3 id="how-do-i-create-a-data-management-plan">How do I create a data management plan?</h3>
 
 <h4>Create a plan</h4>
 
@@ -48,7 +48,7 @@ To create a plan, click the “Create plan” button on My dashboard or the top 
 <ol type="1">
 <li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li>
 <li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li>
-<li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of funder requirements supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>
+<li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href="https://dmptool.org/public_templates\" target="_blank">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>
 
 If you are just testing the tool or taking a course on data management, check the box “Mock project for test, practice, or educational purposes.” Marking your plans as a test will be reflected in usage statistics and prevent public or organizational sharing; this allows other users to find real sample plans more easily. 
 
@@ -61,7 +61,7 @@ You can also make a copy of an existing plan (from the Actions menu next to the 
 
 The tabbed interface allows you to navigate through different functions when editing your plan.   
 <ul>
-<li>“Project details” includes basic administrative details. The right-hand side of the page is where you can select up to 6 organizations to view additional guidance as you write your plan. The more information you provide here, the more useful your plan will be to you and others in the future (e.g., for data reuse and proper attribution). On the Edit profile page you can create or connect your ORCID iD; this is required by some funders and a growing list of publishers (Learn more at orcid.org).</li>
+<li>“Project details” includes basic administrative details. The right-hand side of the page is where you can select up to 6 organizations to view additional guidance as you write your plan. The more information you provide here, the more useful your plan will be to you and others in the future (e.g., for data reuse and proper attribution). On the Edit profile page you can create or connect your ORCID iD; this is required by some funders and a growing list of publishers (Learn more at <a href="https://orcid.org\" target="_blank">orcid.org</a>).</li>
 <li>“Plan overview” provides an overview of the questions that you will be asked.
 The following tab(s) present the questions to answer. There may be more than one tab if your funder or institution asks different sets of questions at different stages, e.g., at grant application and post-award. Guidance and comments are displayed in the right-hand panel beside each question. If you need more guidance or find there is too much, you can make adjustments on the “Project details” tab.</li> 
 <li>“Share” allows you to invite others to contribute to or comment on your plan. This is also where you can set your plan visibility (details below).</li>
@@ -76,12 +76,12 @@ The “Share” tab is also where you can set your plan visibility.
 <ul>
 <li>Private: restricted to you and your collaborators.</li>
   <li>Organizational: anyone at your organization can view your plan.</li>
-  <li>Public: anyone can view your plan in the Public plans list.</li></ul>
+  <li>Public: anyone can view your plan in the <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a> list.</li></ul>
 
 By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options. 
 <hr> 
 
-<h3>How do I get help from someone at my institution?</h3>
+<h3 id="how-do-i-get-help-from-someone-at-my-institution">How do I get help from someone at my institution?</h3>
 
 After logging in, you will find an email address and URL for help at the top of the page.   
  
