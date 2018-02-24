@@ -52,7 +52,8 @@ class ApplicationController < ActionController::Base
     if from_external_domain? || request.referer.eql?(new_user_session_url(:protocol => 'https')) || request.referer.eql?(new_user_registration_url(:protocol => 'https'))
       root_path
     else
-      return request.referer unless request.referer.nil?
+      # DMPTool customization to redirect users from LDAP email recovery to Dashboard
+      return request.referer unless request.referer.nil? || request.referer.include?(users_ldap_username_path)
       root_path
     end
   end
