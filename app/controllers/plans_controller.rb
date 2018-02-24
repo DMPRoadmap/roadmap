@@ -76,7 +76,7 @@ class PlansController < ApplicationController
        
         # DMPTool hack to select DCC guidance
         #ids = (Org.managing_orgs << org_id).flatten.uniq
-        ids = (Org.find_by(abbreviation: 'DCC').pluck(:id) << org_id).flatten.uniq
+        ids = [Org.find_by(abbreviation: 'DCC').id, org_id].uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
