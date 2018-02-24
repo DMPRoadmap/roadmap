@@ -4,7 +4,7 @@
 <h3>Contents</h3>
 
 [Who can use the tool?](#who-can-use-the-tool)   
-[How do I log in/create an account?](#-how-do-i-log-in-create-an-account)   
+[How do I log in or create an account?](#-how-do-i-log-in-or-create-an-account)   
 [Overview of My dashboard](#overview-of-my-dashboard)   
 [How do I create a data management plan?](#how-do-i-create-a-data-management-plan)   
 [How do I get help from someone at my institution?](#how-do-i-get-help-from-someone-at-my-institution)   
@@ -19,7 +19,7 @@ DMPTool is free for anyone to create data management plans. As a user, you can:
 <li> If you are a researcher from one of the <a href="https://dmptool.org/public_orgs\" target="_blank">participating institutions</a>, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>
 <hr>
 
-<h3 id="how-do-i-log-in-create-an-account">How do I log in/create an account?</h3>
+<h3 id="how-do-i-log-in-or-create-an-account">How do I log in or create an account?</h3>
 
 Click on Sign in at the top-right of the home page. You can also click the white “Get started” button.   
 
@@ -30,9 +30,7 @@ If your institution/organization is affiliated with DMPTool:
 <li>Researchers at some institutions will be presented with the institution's authentication page. Log in as you usually do for your institution’s web services.</li>
 <li>If your institution has not configured single sign-on, you need to create an account with DMPTool (last bullet).</li>
 <li>If you have already created an account with DMPTool, click the second button to sign in with the email address and password you previously chose. Once logged in, use Edit profile in the top-right menu bar to manage your password and other information.</li>
-<li>If your institution is not affiliated with DMPTool (or has not configured single sign-on), you need to create an account with an email address and password.</li>
-
-![UCR-signin](https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/UCR_signin.png?raw=true)
+<li>If your institution is not affiliated with DMPTool (or has not configured single sign-on), you need to create an account with an email address and password.</li></ul>
 
 <hr>
   
@@ -44,12 +42,10 @@ If others at your institution/organization have chose to share their plans inter
 <hr> 
 
 <h3 id="how-do-i-create-a-data-management-plan">How do I create a data management plan?</h3>
-
+<br>
 <h4>Create a plan</h4>
 
 To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:
-
-![create-plan](https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/create_plan.png?raw=true)
 
 <ol type="1">
 <li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li>
@@ -81,8 +77,8 @@ Input the email address(es) of any collaborators you would like to invite to rea
 The “Share” tab is also where you can set your plan visibility.
 <ul>
 <li>Private: restricted to you and your collaborators.</li>
-  <li>Organizational: anyone at your organization can view your plan.</li>
-  <li>Public: anyone can view your plan in the <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a> list.</li></ul>
+<li>Organizational: anyone at your organization can view your plan.</li>
+<li>Public: anyone can view your plan in the <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a> list.</li></ul>
 
 By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options. 
 <hr> 
