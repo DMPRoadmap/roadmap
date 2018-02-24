@@ -6,7 +6,7 @@
     <% if Rails.application.config.shibboleth_enabled %>
       <!-- Shibboleth DS enabled -->
       <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
-        <h3><%= _('Option %{number}: Is your institution affiliated with DMPTool?') % { number: step_counter } %></h3>
+        <h3><%= _('Option %{number}: If your institution is affiliated with DMPTool.') % { number: step_counter } %></h3>
         <% step_counter += 1 %>
         <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
           <%= link_to _('Your institution'), '#', class: 'btn btn-default btn-block',
@@ -20,12 +20,12 @@
       <%end%>
     <% end %>
 
-    <h3><%= _('Option %{number}: If not affiliated with DMPTool?') % { number: step_counter } %></h3>
+    <h3><%= _('Option %{number}: If your institution is not affiliated with DMPTool.') % { number: step_counter } %></h3>
     <% step_counter += 1 %>
     <%= link_to _('Email address'), '#', class: 'btn btn-default btn-block', id: 'show-sign-in-form',
                 'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %>
     <p><strong><%= _('- or -') %></strong></p>
-    <h3><%= _('Option %{number}: If not affiliated and you need an account?') % { number: step_counter } %></h3>
+    <h3><%= _('Option %{number}: If not affiliated and you need an account.') % { number: step_counter } %></h3>
     <div class="text-center">
       <%= link_to _('Create account with email address'), '#', id: 'show-create-account-form', class: 'btn btn-default btn-block',
                   'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %>

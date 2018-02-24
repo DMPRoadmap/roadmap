@@ -519,7 +519,7 @@ header {
     
     #account-nav {
       margin: 0 auto;
-      box-shadow: 0 5px $light-grey;
+      box-shadow: 0 2px $light-grey;
       background-color: white;
     
       #sign-in-menu {
@@ -610,6 +610,7 @@ header {
         li > a {
           font-size: 1.8rem;
           color: $dark-blue;
+          font-size: 2rem;
           background-color: $white;
           padding: 0 20px 0 0;
         }
@@ -828,6 +829,13 @@ footer.blue {
 /*   SPECIFIC PAGE RULES */
 /* ============================================================= */
 /* ============================================================= */
+/*   Get Started Page */
+/*   --------------------------------------- */
+#signin-options-get-started {
+  width: 50%;
+  margin: 0 auto;
+}
+
 /*   Signin/Create Account */
 /*   --------------------------------------- */
 .password-toggle {

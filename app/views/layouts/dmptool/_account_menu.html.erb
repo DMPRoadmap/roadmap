@@ -29,10 +29,9 @@
         </li>
       </ul>
     </li>
-
+    <li class="navbar-divider">&nbsp;</li>
     <% unless isActivePage(user_shibboleth_omniauth_callback_path) || isActivePage(user_orcid_omniauth_callback_path) %>
       <% unless user_signed_in? %>
-        <li class="navbar-divider">&nbsp;</li>
         <li>
           <a href="#" data-class="dropdown-toggle" role="button" id="header-signin" data-toggle="dropdown" aria-haspopup="true" 
              aria-expanded="false">
