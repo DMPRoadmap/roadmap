@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       root_path
     else
       # DMPTool customization to redirect users from LDAP email recovery to Dashboard
-      return request.referer unless request.referer.nil? || request.referer.include?(users_ldap_username_path)
+      return request.referer unless request.referer.nil? || request.referer.include?(users_ldap_username_path) || request.referer.include?(get_started_path)
       root_path
     end
   end
