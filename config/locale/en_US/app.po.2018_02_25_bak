@@ -1,0 +1,2315 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: app 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2017-05-02 14:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid " (e.g. School/ Department) "
+msgstr "(e.g., School/Department)"
+
+msgid " Customised By: "
+msgstr "Customized By: "
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
+msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse or have any relationship to your project or proposal "
+
+msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
+msgstr "Warning: Changing your organization will result in the loss of your administrative privileges."
+
+msgid " by %{user_name}"
+msgstr " by %{user_name}"
+
+msgid " current user privileges are: "
+msgstr "current user privileges are: "
+
+msgid " has been removed by "
+msgstr " has been removed by "
+
+msgid " to contact us."
+msgstr " to contact us."
+
+msgid "\"#{text}\""
+msgstr "\"#{text}\""
+
+msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
+msgstr "\"Are you sure you want to unlink your #{scheme.description} ID?\""
+
+msgid "\"The DMPTool Account email associated with this username is #{@user.email}\""
+msgstr "\"The DMPTool account email associated with this username is #{@user.email}\""
+
+msgid "\"The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}\""
+msgstr "\"The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}\""
+
+msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
+msgstr "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
+
+msgid "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
+msgstr "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
+
+msgid "\"Your account has been linked to #{scheme.description}.\""
+msgstr "\"Your account has been linked to #{scheme.description}.\""
+
+msgid "%{add_or_edit} Annotations"
+msgstr "%{add_or_edit} Customizations"
+
+msgid "%{application_name}"
+msgstr "%{application_name}"
+
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+
+msgid "%{application_name}: %{user_name} requested feedback on a plan"
+msgstr "%{application_name}: %{user_name} requested feedback on a plan"
+
+msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
+msgstr "%{application_name}: Expert feedback has been provided for %{plan_title}"
+
+msgid "%{application_name}: Your plan has been submitted for feedback"
+msgstr "%{application_name}: Your plan has been submitted for feedback"
+
+msgid "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email."
+msgstr "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email. "
+
+msgid "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+msgstr "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+
+msgid "%{commenter} has finished providing feedback on the plan “%{plan_title}”. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+msgstr "%{commenter} has finished providing feedback on the plan “%{plan_title}”. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+
+msgid "%{org_name} Plans"
+msgstr "%{org_name} Plans"
+
+msgid "%{org_name} Templates"
+msgstr "%{org_name} Templates"
+
+msgid "%{org_title} Plans"
+msgstr "%{org_title} Plans"
+
+msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
+msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
+
+msgid "%{plan_name}"
+msgstr "%{plan_name}"
+
+msgid "%{plan_owner} has been notified that you have finished providing feedback"
+msgstr "%{plan_owner} has been notified that you have finished providing feedback"
+
+msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+msgstr "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+
+msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
+msgstr "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
+
+msgid "%{tool_name}: A new comment was added to %{plan_title}"
+msgstr "%{tool_name}: A new comment was added to %{plan_title}"
+
+msgid "%{user_name}"
+msgstr "%{user_name}"
+
+msgid "%{value} is not a valid format"
+msgstr "%{value} is not a valid format"
+
+msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
+msgstr "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
+
+msgid "'Project details' includes basic administrative details."
+msgstr "'Project details' includes basic administrative details."
+
+msgid "(if available)"
+msgstr "(if available)"
+
+msgid "+ Add New Theme"
+msgstr "+ Add new theme"
+
+msgid "+ Add an additional URL"
+msgstr "+ Add an additional URL"
+
+msgid "-"
+msgstr "_"
+
+msgid "..."
+msgstr "..."
+
+msgid "... (continued)"
+msgstr "... (continued)"
+
+msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+
+msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
+msgstr "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organization. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
+
+msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
+msgstr "<p>To create a new template, first enter a title and optional description. Then you can create one or more phases. </p>"
+
+msgid "A Data Management Plan created using "
+msgstr "A Data Management Plan created using "
+
+msgid "A Data Management Plan created using %{application_name}"
+msgstr "A Data Management Plan created using %{application_name}"
+
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr "A Data Management Plan in %{application_name} has been shared with you"
+
+msgid "A Data Management Plan in %{tool_name} has been shared with you"
+msgstr "A Data Management Plan in %{tool_name} has been shared with you"
+
+msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
+
+msgid "A hash is expected for links"
+msgstr "A hash is expected for links"
+
+msgid "A key \"org\" is expected for links hash"
+msgstr "A key \"org\" is expected for links hash"
+
+msgid "A key %{key} is expected for links hash"
+msgstr "A key %{key} is expected for links hash"
+
+msgid "A new comment has been added to my DMP"
+msgstr "A new comment has been added to my plan"
+
+msgid "A pertinent ID as determined by the funder and/or organisation."
+msgstr "A pertinent ID as determined by the funder and/or institution/organization."
+
+msgid "A plan has been shared with me"
+msgstr "A plan has been shared with me"
+
+msgid "A required setting has not been provided"
+msgstr "A required setting has not been provided"
+
+msgid "A user has requested feedback on a DMP"
+msgstr "A user has requested feedback on a plan"
+
+msgid "API Information"
+msgstr "API Information"
+
+msgid "API rights"
+msgstr "API rights"
+
+msgid "API rights in %{tool_name}"
+msgstr "API rights in %{tool_name}"
+
+msgid "API token"
+msgstr "API token"
+
+msgid "About"
+msgstr "About"
+
+msgid "Access removed"
+msgstr "Access removed"
+
+msgid "Accessibility"
+msgstr "Accessibility"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Add Comment"
+msgstr "Add comment"
+
+msgid "Add Organisations"
+msgstr "Add organizations"
+
+msgid "Add Question"
+msgstr "Add question"
+
+msgid "Add Section"
+msgstr "Add section"
+
+msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
+msgstr "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organization/institution or department name."
+
+msgid "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\""
+msgstr "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organization/institution or department name e.g. \"UCLA\" or \"Engineering\""
+
+msgid "Add comments to share with collaborators"
+msgstr "Add comments to share with collaborators"
+
+msgid "Add links to funder websites that provide additional information about the requirements for this template"
+msgstr "Add links to funder websites that provide additional information about the requirements."
+
+msgid "Add links to sample plans if provided by the funder."
+msgstr "Add links to sample plans if provided by the funder."
+
+msgid "Add new phase"
+msgstr "Add new phase +"
+
+msgid "Add option"
+msgstr "Add option"
+
+msgid "Add organisations"
+msgstr "Add organizations"
+
+msgid "Additional Information"
+msgstr "Additional information"
+
+msgid "Additional comment area will be displayed."
+msgstr "Additional comment area will be displayed."
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Admin Features"
+msgstr "Admin features"
+
+msgid "Admin privileges granted to me"
+msgstr "Admin privileges granted to me"
+
+msgid "Administrator Email"
+msgstr "Administrator email"
+
+msgid "Administrator contact"
+msgstr "Administrator contact"
+
+msgid "Administrator privileges granted in %{tool_name}"
+msgstr "Administrator privileges granted in %{tool_name}"
+
+msgid "Affiliation: "
+msgstr "Affiliation: "
+
+msgid "All Templates"
+msgstr "All templates"
+
+msgid "All the best"
+msgstr "All the best"
+
+msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
+msgstr "Allows the user to provide the organization details (name, URL) and add basic branding such as the logo"
+
+msgid "Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves"
+msgstr "Allows the user to assign permissions to other users within the same organization. Users can only assign permissions they own themselves"
+
+msgid "Allows the user to create and edit guidance"
+msgstr "Allows the user to create and edit guidance"
+
+msgid "Allows the user to create new organisational templates, edit existing ones and customise funder templates"
+msgstr "Allows the user to create new organizational templates, edit existing ones, and customize funder templates"
+
+msgid "Allows the user to create new organisations"
+msgstr "Allows the user to create new organizations"
+
+msgid "Allows the user to grant API access to organisations"
+msgstr "Allows the user to grant API access to organizations"
+
+msgid "Allows the user to manage organisation affiliation"
+msgstr "Allows the user to manage organization affiliation"
+
+msgid "An error has occurred while saving/resetting your export settings."
+msgstr "An error has occurred while saving/resetting your download settings."
+
+msgid "Annotations"
+msgstr "Customizations"
+
+msgid "Answer"
+msgstr "Answer"
+
+msgid "Answer format"
+msgstr "Answer format"
+
+msgid "Answered"
+msgstr "Answered"
+
+msgid "Answered at"
+msgstr "Answered at"
+
+msgid "Answered by"
+msgstr "Answered by"
+
+msgid "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
+msgstr "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
+
+msgid "Are you sure you want to delete the theme \"%{title}\"?"
+msgstr "Are you sure you want to delete the theme \"%{title}\"?"
+
+msgid "Are you sure you want to disconnect your ORCID ID?"
+msgstr "Are you sure you want to disconnect your ORCID iD?"
+
+msgid "Are you sure you want to remove \"%{template_title}\"?"
+msgstr "Are you sure you want to remove \"%{template_title}\"?"
+
+msgid "Are you sure you want to remove this comment?"
+msgstr "Are you sure you want to remove this comment?"
+
+msgid "Are you sure you want to remove your customization of \"%{template_title}\"?"
+msgstr "Are you sure you want to remove your customization of \"%{template_title}\"?"
+
+msgid "Are you sure you want to unlink your institutional credentials?"
+msgstr "Are you sure you want to unlink your institutional credentials?"
+
+msgid "Are you sure you wish to remove this plan? Any collaborators will still be able to access it."
+msgstr "Are you sure you wish to remove this plan? Any collaborators will still be able to access it."
+
+msgid "Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it."
+msgstr "Are you sure you wish to remove this public plan? This will remove it from the Public Plans page but any collaborators will still be able to access it."
+
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+msgid "Back to edit phase"
+msgstr "Back to edit phase"
+
+msgid "Bad Credentials"
+msgstr "Bad credentials"
+
+msgid "Bad Parameters"
+msgstr "Bad parameters"
+
+msgid "Before you get started, we need some information about your research project to set you up with the best DMP template for your needs."
+msgstr "Before you get started, we need some information about your research project to set you up with the appropriate template."
+
+msgid "Begin typing to see a filtered list"
+msgstr "Begin typing to see a filtered list"
+
+msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
+msgstr "Below is a list of users registered for your organization. You can sort the data by each field."
+
+msgid "Bottom"
+msgstr "Bottom"
+
+msgid "Briefly summarise your research project to help others understand the purposes for which the data are being collected or created."
+msgstr "Briefly summarize your research project to help others understand the purposes for which the data are being collected or created."
+
+msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
+msgstr "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organizational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgstr "Cannot share plan with %{email} since that email matches with the owner of the plan."
+
+msgid "Change affiliation"
+msgstr "Change affiliation"
+
+msgid "Change my password"
+msgstr "Change my password"
+
+msgid "Change organisation details"
+msgstr "Change organization details"
+
+msgid "Change your password"
+msgstr "Change your password"
+
+msgid "Changed permissions on a Data Management Plan in %{tool_name}"
+msgstr "Changed permissions on a Data Management Plan in %{tool_name}"
+
+msgid "Check this box when you are ready for guidance associated with this group to appear on user's plans."
+msgstr "Check this box when you are ready for guidance associated with this group to appear on plans."
+
+msgid "Checking this box prevents the template from appearing in the public list of templates."
+msgstr "Checking this box prevents the template from appearing in the public list of templates."
+
+msgid "Clear search results"
+msgstr "Clear search results"
+
+msgid "Click below to give data management staff at your organisation access to read and comment on your plan."
+msgstr "Click below to give data management staff at your organization access to read and comment on your plan."
+
+msgid "Click here"
+msgstr "Click here"
+
+msgid "Click here to confirm your account"
+msgstr "Click here to confirm your account"
+
+msgid "Click the 'Create plan' button below to begin."
+msgstr "Click the 'Create plan' button to begin."
+
+msgid "Click the link below to unlock your account"
+msgstr "Click the link below to unlock your account"
+
+msgid "Co-owner"
+msgstr "Co-owner"
+
+msgid "Comment"
+msgstr "Comment"
+
+msgid "Comments"
+msgstr "Comments"
+
+msgid "Complete"
+msgstr "Complete"
+
+msgid "Completed Plans"
+msgstr "Completed plans"
+
+msgid "Completed plans"
+msgstr "Completed plans"
+
+msgid "Contact Us"
+msgstr "Contact us"
+
+msgid "Contact email"
+msgstr "Contact email"
+
+msgid "Contact us"
+msgstr "Contact us"
+
+msgid "Copy"
+msgstr "Copy"
+
+msgid "Copyright 2010-%{current_year} The Regents of the University of California"
+msgstr "Copyright 2010-%{current_year} The Regents of the University of California"
+
+msgid "Copyright information:"
+msgstr "Copyright information:"
+
+msgid "Create Organisation"
+msgstr "Create organization"
+
+msgid "Create a guidance group"
+msgstr "Create a guidance group"
+
+msgid "Create a new plan"
+msgstr "Create a new plan"
+
+msgid "Create a plan"
+msgstr "Create a plan"
+
+msgid "Create a template"
+msgstr "Create a template"
+
+msgid "Create account"
+msgstr "Create account"
+
+msgid "Create account with email address"
+msgstr "Create account with email address"
+
+msgid "Create an account to view the plan"
+msgstr "Create an account to view the plan"
+
+msgid "Create an account with any email address"
+msgstr "Create an account with any email address"
+
+msgid "Create data management plans that meet institutional and funder requirements."
+msgstr "Create data management plans that meet institutional and funder requirements."
+
+msgid "Create guidance"
+msgstr "Create guidance"
+
+msgid "Create or connect your ORCID iD"
+msgstr "Create or connect your ORCID iD"
+
+msgid "Create plan"
+msgstr "Create plan"
+
+msgid "Create plans"
+msgstr "Create plans"
+
+msgid "Create your account"
+msgstr "Create your account"
+
+msgid "Created at"
+msgstr "Created at"
+
+msgid "Created using the %{application_name}. Last modified %{date}"
+msgstr "Created using the %{application_name}. Last modified %{date}"
+
+msgid "Creator:"
+msgstr "Creator:"
+
+msgid "Creators: "
+msgstr "Creators: "
+
+msgid "Current Privileges"
+msgstr "Current privileges"
+
+msgid "Current password"
+msgstr "Current password"
+
+msgid "Customise"
+msgstr "Customize"
+
+msgid "Customizable Templates"
+msgstr "Customizable templates"
+
+msgid "Customization %{publication_status}"
+msgstr "Customization %{publication_status}"
+
+msgid "Customize Phase"
+msgstr "Customize phase"
+
+msgid "DMP Templates"
+msgstr "Templates"
+
+msgid "DMP Visibility Changed: %{plan_title}"
+msgstr "Plan Visibility Changed: %{plan_title}"
+
+msgid "DMPTool Background"
+msgstr "DMPTool Background"
+
+msgid "DMPTool News"
+msgstr "DMPTool News"
+
+msgid "DMPTool by the Numbers"
+msgstr "DMPTool by the numbers"
+
+msgid "DMPTool is a service of the %{uc3} of the %{cdl}"
+msgstr "DMPTool is a service of the %{uc3} of the %{cdl}"
+
+msgid "DOCX"
+msgstr "DOCX"
+
+msgid "Data Contact Person"
+msgstr "Data contact person"
+
+msgid "Data Management General Guidance"
+msgstr "Data management general guidance"
+
+msgid "Data contact person"
+msgstr "Data contact person"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Default answer"
+msgstr "Default answer"
+
+msgid "Default value"
+msgstr "Default value"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Delete question"
+msgstr "Delete question"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Deselect all"
+msgstr "Deselect all"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Didn't receive confirmation instructions?"
+msgstr "Didn't receive confirmation instructions?"
+
+msgid "Didn't receive unlock instructions?"
+msgstr "Didn't receive unlock instructions?"
+
+msgid "Disconnect your account from ORCID. You can reconnect at any time."
+msgstr "Disconnect your account from ORCID. You can reconnect at any time."
+
+msgid "Display additional comment area."
+msgstr "Display additional comment area."
+
+msgid "Don't forget to save your changes after making your selections."
+msgstr "Don't forget to save your changes after making your selections."
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Download Plan"
+msgstr "Download plan"
+
+msgid "Download plans"
+msgstr "Download plans"
+
+msgid "Download settings"
+msgstr "Download settings"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Edit Privileges"
+msgstr "Edit privileges"
+
+msgid "Edit Theme"
+msgstr "Edit theme"
+
+msgid "Edit User Privileges"
+msgstr "Edit user privileges"
+
+msgid "Edit comment to share with collaborators"
+msgstr "Edit comment to share with collaborators"
+
+msgid "Edit customisation"
+msgstr "Edit customization"
+
+msgid "Edit phase details"
+msgstr "Edit phase details"
+
+msgid "Edit profile"
+msgstr "Edit profile"
+
+msgid "Edit question"
+msgstr "Edit question"
+
+msgid "Edit template details"
+msgstr "Edit template details"
+
+msgid "Edit user privileges"
+msgstr "Edit user privileges"
+
+msgid "Edited"
+msgstr "Last edited"
+
+msgid "Edited Date"
+msgstr "Last edited"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email address"
+msgstr "Email address"
+
+msgid "End date"
+msgstr "End date"
+
+msgid "English (US)"
+msgstr "English (US)"
+
+msgid "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit."
+msgstr "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the colored banner once a section is opened to edit.</div>"
+
+msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
+msgstr "Enter a basic description. This will be presented to users above the summary of the sections and questions that they will be asked to answer."
+
+msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
+msgstr "Enter a description that helps you to differentiate between templates, e.g., if you have ones for different audiences"
+
+msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
+msgstr "Enter a title for the phase, e.g., initial plan, full plan... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic, e.g., UCLA"
+
+msgid "Enter a title for the section"
+msgstr "Enter a title for the section"
+
+msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
+msgstr "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so do not to duplicate too much text."
+
+msgid "Enter your guidance here. You can include links where needed."
+msgstr "Enter your guidance here. You can include links where needed."
+
+msgid "Error parsing links for a template"
+msgstr "Error parsing links for a template"
+
+msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
+msgstr "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
+
+msgid "Error raised while saving the visibility for plan id %{plan_id}"
+msgstr "Error raised while saving the visibility for plan id %{plan_id}"
+
+msgid "Error:"
+msgstr "Error:"
+
+msgid "Example Answer"
+msgstr "Example answer"
+
+msgid "Example answer"
+msgstr "Example answer"
+
+msgid "Example: my-org.org"
+msgstr "Example: my-org.org"
+
+msgid "Example: urn:mace:incommon:my-org.org"
+msgstr "Example: urn:mace:incommon:my-org.org"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Export settings updated successfully."
+msgstr "Export settings updated successfully."
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Face"
+msgstr "Face"
+
+msgid "Feedback has been provided for my DMP"
+msgstr "Feedback has been provided for my plan"
+
+msgid "Feedback has been requested for my DMP"
+msgstr "Feedback has been requested for my plan"
+
+msgid "Feedback has been requested."
+msgstr "Feedback has been requested"
+
+msgid "Feedback requested"
+msgstr "Feedback requested"
+
+msgid "Filter plans"
+msgstr "Filter plans"
+
+msgid "Find guidance from additional organisations below"
+msgstr "Find guidance from additional organizations below"
+
+msgid "Find your organisation to sign in"
+msgstr "Find your organization to sign in"
+
+msgid "First"
+msgstr "First"
+
+msgid "First Name"
+msgstr "First name"
+
+msgid "First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group."
+msgstr "<p>First create a guidance group. This could be organization-wide or a subset, e.g., a particular College/School, Institute, or department. When you create guidance you must assign it to a guidance group.</p>"
+
+msgid "First name"
+msgstr "First name"
+
+msgid "Font"
+msgstr "Font"
+
+msgid "For Administrators"
+msgstr "For administrators"
+
+msgid "For Developers"
+msgstr "For developers"
+
+msgid "For Researchers"
+msgstr "For researchers"
+
+msgid "Forgot email?"
+msgstr "Forgot email?"
+
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+msgid "Forgot your password?"
+msgstr "Forgot your password?"
+
+msgid "Format"
+msgstr "format"
+
+msgid "Funder"
+msgstr "Funder"
+
+msgid "Funder Links"
+msgstr "Funder links"
+
+msgid "Funder Requirements"
+msgstr "Funder requirements"
+
+msgid "Funder version is unpublished"
+msgstr "Funder version is unpublished"
+
+msgid "Get started"
+msgstr "Get started"
+
+msgid "Getting started:"
+msgstr "Getting started:"
+
+msgid "Github"
+msgstr "GitHub"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "Go to the blog"
+msgstr "Go to the blog"
+
+msgid "Grant API access"
+msgstr "Grant API access"
+
+msgid "Grant API to organisations"
+msgstr "Grant API to organizations"
+
+msgid "Grant Number"
+msgstr "Grant number"
+
+msgid "Grant number"
+msgstr "Grant number"
+
+msgid "Grant number: "
+msgstr "Grant number: "
+
+msgid "Grant permissions"
+msgstr "Grant permissions"
+
+msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
+msgstr "Grant reference number if applicable [POST-AWARD ONLY]"
+
+msgid "Guidance"
+msgstr "Guidance"
+
+msgid "Guidance group"
+msgstr "Guidance group"
+
+msgid "Guidance group list"
+msgstr "Guidance group list"
+
+msgid "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
+msgstr "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
+
+msgid "Guidance list"
+msgstr "Guidance list"
+
+msgid "Hello"
+msgstr "Hello"
+
+msgid "Hello "
+msgstr "Hello "
+
+msgid "Hello %{recipient_name}"
+msgstr "Hello %{recipient_name}"
+
+msgid "Hello %{user_email}"
+msgstr "Hello %{user_email}"
+
+msgid "Hello %{user_name}"
+msgstr "Hello %{user_name}"
+
+msgid "Hello %{user_name},"
+msgstr "Hello %{user_name},"
+
+msgid "Hello %{username}"
+msgstr "Hello %{username}"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Here you can view previously published versions of your template.  These can no longer be modified."
+msgstr "Here you can view previously published versions of your template.  These can no longer be modified."
+
+msgid "History"
+msgstr "History"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "How to use the API"
+msgstr "How to use the API"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr "If applying for funding, state the name exactly as in the grant proposal."
+
+msgid "If applying for funding, state the project title exactly as in the proposal."
+msgstr "If applying for funding, state the project title exactly as in the proposal."
+
+msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
+msgstr "If the guidance is only meant for a subset of users, e.g., those in a specific college or institute, check this box.  Users will be able to display this subset guidance when answering questions in the 'Create plan' wizard."
+
+msgid "If you didn't request this, please ignore this email."
+msgstr "If you didn't request this, please ignore this email."
+
+msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
+msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to NIH for example), you can do so by adding guidance to a specific question when you edit your template."
+
+msgid "If you have an existing DMPTool account, please enter the username you used and we send your email address right away."
+msgstr ""
+
+msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
+msgstr "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
+
+msgid "If you have forgotten your email and your username of the existing DMPTool account,  please click "
+msgstr "If you have forgotten your email and your username of the existing DMPTool account, please click "
+
+msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+msgstr "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+
+msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
+msgstr "If you wish to add an organizational template for a Data Management Plan, click the 'Create template' button. You can create more than one template, e.g., one for researchers and one for graduate students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'Customize template' options below."
+
+msgid "If you would like to change your password please complete the following fields."
+msgstr "If you would like to change your password please complete the following fields."
+
+msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
+msgstr "If you would like to modify one of the templates below, you must first change your organization affiliation."
+
+msgid "Information was successfully created."
+msgstr "Information was successfully created."
+
+msgid "Institution"
+msgstr "Institution"
+
+msgid "Institution not in the list?"
+msgstr "Institution not in the list?"
+
+msgid "Institutional Signin Enabled"
+msgstr "Institutional sign-in enabled"
+
+msgid "Institutional credentials"
+msgstr "Institutional credentials"
+
+msgid "Instructions"
+msgstr "Instructions"
+
+msgid "Invalid font face"
+msgstr "Invalid font face"
+
+msgid "Invalid font size"
+msgstr "Invalid font size"
+
+msgid "Invalid maximum pages"
+msgstr "Invalid maximum pages"
+
+msgid ""
+"Invitation to %{email} issued successfully. \n"
+msgstr "Invitation issued successfully."
+
+msgid "Invite collaborators"
+msgstr "Invite collaborators"
+
+msgid "Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
+msgstr "Invite people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
+
+msgid "It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration."
+msgstr "It does not look like you have set up an account with us yet. Please fill in the following information to complete your registration."
+
+msgid "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
+msgstr "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "Last Name"
+msgstr "Last name"
+
+msgid "Last Updated"
+msgstr "Last edited"
+
+msgid "Last activity"
+msgstr "Last activity"
+
+msgid "Last modified: "
+msgstr "Last modified: "
+
+msgid "Last name"
+msgstr "Last name"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "Left"
+msgstr "Left"
+
+msgid "Link text"
+msgstr ""
+
+msgid "Link your institutional credentials"
+msgstr "Link your institutional credentials"
+
+msgid "Link your institutional credentials to access your account with them."
+msgstr "Link your institutional credentials to access your account with them."
+
+msgid "Links"
+msgstr "Links"
+
+msgid "Links will be displayed next to your organisation's logo"
+msgstr "Links will be displayed next to your organization's logo"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Look up your institution here"
+msgstr "Look up your institution here"
+
+msgid "Look up your organisation here"
+msgstr "Look up your organization here"
+
+msgid "Make a copy"
+msgstr "Make a copy"
+
+msgid "Manage collaborators"
+msgstr "Manage collaborators"
+
+msgid "Manage guidance"
+msgstr "Manage guidance"
+
+msgid "Manage organisation affiliation"
+msgstr "Manage organization affiliation"
+
+msgid "Manage organisation details"
+msgstr "Manage organization details"
+
+msgid "Manage templates"
+msgstr "Manage templates"
+
+msgid "Manage user privileges"
+msgstr "Manage user privileges"
+
+msgid "Margin (mm)"
+msgstr "Margin (mm)"
+
+msgid "Margin cannot be negative"
+msgstr "Margin cannot be negative"
+
+msgid "Margin value is invalid"
+msgstr "Margin value is invalid"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Modify guidance"
+msgstr "Modify guidance"
+
+msgid "Modify templates"
+msgstr "Modify templates"
+
+msgid "Month"
+msgstr "Month"
+
+msgid "More information about administering the %{tool_name} for users at your organisation is available at %{help_url}."
+msgstr "More information about administering the %{tool_name} for users at your organization is available at %{help_url}."
+
+msgid "My DMP's visibility has changed"
+msgstr "My plan's visibility has changed"
+
+msgid "My Dashboard"
+msgstr "My dashboard"
+
+msgid "My Plan"
+msgstr "My plan"
+
+msgid "My organisation isn't listed."
+msgstr "My organization isn't listed."
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "New Theme"
+msgstr "New theme"
+
+msgid "New organisation"
+msgstr "New organization"
+
+msgid "New password"
+msgstr "New password"
+
+msgid "New template"
+msgstr "New template"
+
+msgid "New users"
+msgstr "New users"
+
+msgid "News is currently unavailable"
+msgstr "News is currently unavailable"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "No"
+msgstr "No"
+
+msgid "No additional comment area will be displayed."
+msgstr "No additional comment area will be displayed."
+
+msgid "No items available."
+msgstr "No items available."
+
+msgid "No organisations are currently registered."
+msgstr "No organizations are currently registered."
+
+msgid "No themes have been defined. Please contact your administrator for assistance."
+msgstr "No themes have been defined. Please contact your administrator for assistance."
+
+msgid "No. Completed Plans"
+msgstr "No. completed plans"
+
+msgid "No. Users joined"
+msgstr "No. users joined"
+
+msgid "No. completed plans during last year"
+msgstr "No. plans created during last year"
+
+msgid "No. users joined during last year"
+msgstr "No. users joined during last year"
+
+msgid "Not Applicable"
+msgstr "Not applicable"
+
+msgid "Not Customised"
+msgstr "Not customized"
+
+msgid "Not answered yet"
+msgstr "Not answered yet"
+
+msgid "Notice:"
+msgstr "Notice:"
+
+msgid "Notification Preferences"
+msgstr "Notification preferences"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Notify the plan owner that I have finished providing feedback"
+msgstr "Notify the plan owner that I have finished providing feedback"
+
+msgid "ORCID iD"
+msgstr "ORCID iD"
+
+msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
+msgstr "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
+
+msgid "Optional Subset"
+msgstr "Optional subset"
+
+msgid "Optional plan components"
+msgstr "Optional plan components"
+
+msgid "Optional subset"
+msgstr "Optional subset"
+
+msgid "Order"
+msgstr "Order"
+
+msgid "Order of display"
+msgstr "Order of display"
+
+msgid "Organisation"
+msgstr "Organization"
+
+msgid "Organisation Type(s)"
+msgstr "Organization type(s)"
+
+msgid "Organisation Types"
+msgstr "Organization types"
+
+msgid "Organisation URLs"
+msgstr "Organization URLs"
+
+msgid "Organisation abbreviated name"
+msgstr "Organization abbreviated name"
+
+msgid "Organisation details"
+msgstr "Organization details"
+
+msgid "Organisation full name"
+msgstr "Organization full name"
+
+msgid "Organisation not in the list?"
+msgstr "Organization not in the list?"
+
+msgid "Organisation type(s)"
+msgstr "Organization type(s)"
+
+msgid "Organisation: anyone at my organisation can view"
+msgstr "Organizational: anyone at my organization can view"
+
+msgid "Organisation: anyone at my organisation can view."
+msgstr "Organization: anyone at my organization can view"
+
+msgid "Organisational Admin"
+msgstr "Organizational Admin"
+
+msgid "Organisational Configuration Information"
+msgstr "Organizational configuration information"
+
+msgid "Organisational: anyone at your organisation can view your plan."
+msgstr "Organizational: anyone at your organization can view your plan."
+
+msgid "Organisations"
+msgstr "Organizations"
+
+msgid "Organization logo"
+msgstr "Organization logo"
+
+msgid "Organizations"
+msgstr "Organizations"
+
+msgid "Original funder template has changed!"
+msgstr "Original funder template has changed!"
+
+msgid "Own Templates"
+msgstr "Own templates"
+
+msgid "Owner"
+msgstr "Owner"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF formatting"
+msgstr "PDF formatting"
+
+msgid "Participating Institutions"
+msgstr "Participating institutions"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Password and comfirmation must match"
+msgstr "Password and confirmation must match"
+
+msgid "Password confirmation"
+msgstr "Password confirmation"
+
+msgid "Permissions"
+msgstr "Permissions"
+
+msgid "Personal Details"
+msgstr "Personal details"
+
+msgid "Phase"
+msgstr "Phase"
+
+msgid "Phase details"
+msgstr "Phase details"
+
+msgid "Phone"
+msgstr "Phone"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Plan Data Contact"
+msgstr "Plan data contact"
+
+msgid "Plan Description"
+msgstr "Plan description"
+
+msgid "Plan Guidance Configuration"
+msgstr "Plan guidance configuration"
+
+msgid "Plan ID"
+msgstr "Plan ID"
+
+msgid "Plan Name"
+msgstr "Plan name"
+
+msgid "Plan is already shared with %{email}."
+msgstr "Plan is already shared with %{email}."
+
+msgid "Plan overview"
+msgstr "Plan overview"
+
+msgid "Plan removed"
+msgstr "Plan removed"
+
+msgid "Plan shared with %{email}."
+msgstr "Plan shared with %{email}."
+
+msgid "Plans"
+msgstr "Plans"
+
+msgid "Please choose an organisation"
+msgstr "Please choose an organization"
+
+msgid "Please do not reply to this email."
+msgstr "Please do not reply to this email"
+
+msgid "Please enter a First name."
+msgstr "Please enter your first name"
+
+msgid "Please enter a Last name."
+msgstr "Please enter your last name"
+
+msgid "Please enter a password confirmation"
+msgstr "Please enter a password confirmation"
+
+msgid "Please enter a title for your template."
+msgstr "Please enter a title for your template"
+
+msgid "Please enter an email address"
+msgstr "Please enter an email address"
+
+msgid "Please enter an email address."
+msgstr "Please enter an email address"
+
+msgid "Please enter the name of your organisation"
+msgstr "Please enter the name of your organization"
+
+msgid "Please enter your current password"
+msgstr "Please enter your current password"
+
+msgid "Please enter your email below and we will send you instructions on how to reset your password."
+msgstr "Please enter your email below and we will send you instructions to reset your password."
+
+msgid "Please enter your password to change email address."
+msgstr "Please enter your password to change email address."
+
+msgid ""
+"Please note that your email address is used as your username.\n"
+"    If you change this, remember to use your new email address on sign in."
+msgstr "Please note that your email address is also your username. If you change it, remember to use your new email address on sign in."
+
+msgid "Please select a valid funding organisation from the list."
+msgstr "Please select a valid funding organization from the list."
+
+msgid "Please select a valid research organisation from the list."
+msgstr "Please select a valid research organization from the list."
+
+msgid "Please select an item from the list."
+msgstr "Please select an item from the list."
+
+msgid "Please select one"
+msgstr "Please select one"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Principal Investigator"
+msgstr "Principal Investigator"
+
+msgid "Principal Investigator / Researcher"
+msgstr "Principal Investigator/Researcher"
+
+msgid "Principal investigator"
+msgstr "Principal Investigator"
+
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+msgid "Private: restricted to me and my collaborators"
+msgstr "Private: restricted to me and my collaborators"
+
+msgid "Private: restricted to me and people I invite."
+msgstr "Private: restricted to me and people I invite"
+
+msgid "Profile information"
+msgstr "Profile information"
+
+msgid "Project Abstract"
+msgstr "Project abstract"
+
+msgid "Project Details"
+msgstr "Project details"
+
+msgid "Project Title"
+msgstr "Project title"
+
+msgid "Project abstract"
+msgstr "Project abstract"
+
+msgid "Project abstract: "
+msgstr "Project abstract: "
+
+msgid "Project title"
+msgstr "Project title"
+
+msgid "Provides the user with an API token and grants rights to harvest information from the tool"
+msgstr "Provides the user with an API token and grants rights to harvest information from the tool"
+
+msgid "Public DMPs"
+msgstr "Public plans"
+
+msgid "Public Plans"
+msgstr "Public plans"
+
+msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "Public plans are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+
+msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgstr "Public or organizational visibility are intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+
+msgid "Public: anyone can view on the web"
+msgstr "Public: anyone can view on the web"
+
+msgid "Public: anyone can view."
+msgstr "Public: anyone can view"
+
+msgid "Publish"
+msgstr "Publish"
+
+msgid "Publish changes"
+msgstr "Publish changes"
+
+msgid "Published"
+msgstr "Published"
+
+msgid "Query or feedback related to %{tool_name}"
+msgstr "Query or feedback related to %{tool_name}"
+
+msgid "Question"
+msgstr "Question"
+
+msgid "Question Number"
+msgstr "Question number"
+
+msgid "Question not answered."
+msgstr "Question not answered."
+
+msgid "Question number"
+msgstr "Question number"
+
+msgid "Question text"
+msgstr "Question text"
+
+msgid "Questions"
+msgstr "Questions"
+
+msgid "Quick Start Guide"
+msgstr "Quick start guide"
+
+msgid "Read only"
+msgstr "Read only"
+
+msgid "Reference"
+msgstr "Reference"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Remove the filter"
+msgstr "Remove the filter"
+
+msgid "Remove this link"
+msgstr "Remove this link"
+
+msgid "Request Expert Feedback - Automated Email:"
+msgstr "Request expert feedback - Automated email:"
+
+msgid "Request Feedback"
+msgstr "Request feedback"
+
+msgid "Request expert feedback"
+msgstr "Request expert feedback"
+
+msgid "Request feedback"
+msgstr "Request feedback"
+
+msgid "Requestor"
+msgstr "Requestor"
+
+msgid "Right"
+msgstr "Right"
+
+msgid "Role"
+msgstr "Permissions"
+
+msgid "Run your own filter"
+msgstr "Run your own filter"
+
+msgid "Sample Plan Links"
+msgstr "Sample plan links"
+
+msgid "Sample Plans"
+msgstr "Sample plans"
+
+msgid "Sample plans are provided by a funder, an organisation or a trusted party."
+msgstr "Sample plans are provided by a funder, an organization, or a trusted party."
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Save Unsuccessful."
+msgstr "Save unsuccessful."
+
+msgid "Saving..."
+msgstr "Saving..."
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Section details"
+msgstr "Section details"
+
+msgid "Sections"
+msgstr "Sections"
+
+msgid "Security check"
+msgstr "Security check"
+
+msgid "See the full list of participating institutions"
+msgstr "See the full list of participating institutions"
+
+msgid "See the full list of participating organisations"
+msgstr "See the full list of participating organizations"
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "Select an organisation from the list or leave blank if your organisation is not listed."
+msgstr "Select an organization from the list or leave blank if your organization is not listed."
+
+msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
+msgstr "Select one or more themes that are relevant to this guidance. This will display your generic organization-level guidance, as well as that from other sources, e.g., the %{org_name} guidance or any Schools/Departments that you provide guidance for."
+
+msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
+msgstr "Select one or more themes that are relevant to this question. This will allow organization-level guidance to appear alongside your question."
+
+msgid "Select phase to download"
+msgstr "Select phase to download"
+
+msgid "Select the primary funding organisation"
+msgstr "Select the primary funding organization"
+
+msgid "Select the primary research organisation"
+msgstr "Select the primary research organization"
+
+msgid "Select up to 6 organisations to see their guidance."
+msgstr "Select up to 6 organizations to see their guidance."
+
+msgid "Select which group this guidance relates to."
+msgstr "Select which group this guidance relates to."
+
+msgid "Selected option(s)"
+msgstr "Selected option(s)"
+
+msgid "Send"
+msgstr "Send"
+
+msgid "Set plan visibility"
+msgstr "Set plan visibility"
+
+msgid "Share"
+msgstr "Share"
+
+msgid "Shared"
+msgstr "Shared"
+
+msgid "Shibboleth Domain"
+msgstr "Shibboleth domain"
+
+msgid "Shibboleth Entity Id"
+msgstr "Shibboleth entity ID"
+
+msgid "Show"
+msgstr "Show"
+
+msgid "Show Phase"
+msgstr "Show phase"
+
+msgid "Show password"
+msgstr "Show password"
+
+msgid "Show passwords"
+msgstr "Show password"
+
+msgid "Sign in"
+msgstr "Sign in"
+
+msgid "Sign in with"
+msgstr "Sign in with"
+
+msgid "Sign in with your institutional credentials"
+msgstr "Sign in with your institutional credentials"
+
+msgid "Sign out"
+msgstr "Sign out"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
+msgstr "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Subject"
+msgstr "Subject"
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Successfully deleted your theme"
+msgstr "Successfully deleted your theme"
+
+msgid "Successfully signed in"
+msgstr "Successfully signed in"
+
+msgid "Successfully unlinked your account from %{is}."
+msgstr "Successfully unlinked your account from %{is}."
+
+msgid "Super Admin"
+msgstr "Super Admin"
+
+msgid "Template"
+msgstr "Template"
+
+msgid "Template History"
+msgstr "Template history"
+
+msgid "Template Name"
+msgstr "Template name"
+
+msgid "Template created using the %{application_name}. Last modified %{date}"
+msgstr "Template created using the %{application_name}. Last modified %{date}"
+
+msgid "Template details"
+msgstr "Template details"
+
+msgid "Template: "
+msgstr "Template: "
+
+msgid "Templates"
+msgstr "Templates"
+
+msgid "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
+msgstr "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
+
+msgid "Terms of use"
+msgstr "Terms of use"
+
+msgid "Terms of use and Privacy"
+msgstr "Terms of use & Privacy"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Text area"
+msgstr "Text area"
+
+msgid "Text field"
+msgstr "Text field"
+
+msgid "Thank you for registering. Please confirm your email address"
+msgstr "Thank you for registering. Please confirm your email address."
+
+msgid "That email address is already registered."
+msgstr "That email address is already registered."
+
+msgid "That template is not currently published."
+msgstr "That template is not published."
+
+msgid "The %{tool_name} team"
+msgstr "The %{tool_name} team"
+
+msgid "The email address you entered is not registered."
+msgstr "The email address you entered is not registered."
+
+msgid "The following answer cannot be saved"
+msgstr "The following answer cannot be saved"
+
+msgid "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award."
+msgstr "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages, e.g., at grant application and post award."
+
+msgid "The key %{key} does not have a valid set of object links"
+msgstr "The key %{key} does not have a valid set of object links"
+
+msgid "The original contributing institutions were: <a href=\"https://www.cdlib.org/services/uc3/\" target=\"_blank\">University of California Curation Center (UC3)</a> at the <a href=\"https://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>, <a href=\"https://www.dataone.org/\" target=\"_blank\">DataONE</a>, <a href=\"https://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC-UK)</a>, <a href=\"https://www.si.edu/\" target=\"_blank\">Smithsonian Institution</a>, <a href=\"https://www.library.ucla.edu/\" target=\"_blank\">University of California, Los Angeles Library</a>, <a href=\"https://libraries.ucsd.edu/\" target=\"_blank\">University of California, San Diego Libraries</a>, <a href=\"https://www.library.illinois.edu/\" target=\"_blank\">University of Illinois, Urbana-Champaign Library</a>, and <a href=\"https://www.library.virginia.edu/\" target=\"_blank\">University of Virginia Library</a>."
+msgstr "he original contributing institutions were: <a href=\"https://www.cdlib.org/services/uc3/\" target=\"_blank\">University of California Curation Center (UC3)</a> at the <a href=\"https://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>, <a href=\"https://www.dataone.org/\" target=\"_blank\">DataONE</a>, <a href=\"https://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC-UK)</a>, <a href=\"https://www.si.edu/\" target=\"_blank\">Smithsonian Institution</a>, <a href=\"https://www.library.ucla.edu/\" target=\"_blank\">University of California, Los Angeles Library</a>, <a href=\"https://libraries.ucsd.edu/\" target=\"_blank\">University of California, San Diego Libraries</a>, <a href=\"https://www.library.illinois.edu/\" target=\"_blank\">University of Illinois, Urbana-Champaign Library</a>, and <a href=\"https://www.library.virginia.edu/\" target=\"_blank\">University of Virginia Library</a>."
+
+msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+msgstr "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+
+msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
+msgstr "The table below lists the plans that users at your organization have created and shared within your organization. This allows you to download a PDF and view their plans as samples or to discover new research data."
+
+msgid "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
+msgstr "The table below lists the plans that you have created and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
+
+msgid "The theme with id %{id} could not be destroyed"
+msgstr "The theme with id %{id} could not be destroyed"
+
+msgid "The ‘Share’ tab is also where you can set your plan visibility."
+msgstr "The ‘Share’ tab is also where you can set your plan visibility."
+
+msgid "Theme created successfully"
+msgstr "Theme created successfully"
+
+msgid "Theme updated successfully"
+msgstr "Theme updated successfully"
+
+msgid "Themes"
+msgstr "Themes"
+
+msgid "There are currently no public DMPs."
+msgstr "There are currently no public plans."
+
+msgid "There are currently no public Templates."
+msgstr "There are currently no public templates."
+
+msgid "There are no records associated"
+msgstr "There are no records associated"
+
+msgid "There is no plan associated with id %{id}"
+msgstr "There is no plan associated with id %{id}"
+
+msgid "There is no plan with id %{id} for which to create or update an answer"
+msgstr "There is no plan with id %{id} for which to create or update an answer"
+
+msgid "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
+msgstr "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
+
+msgid "There is no theme associated with id %{id}"
+msgstr "There is no theme associated with id %{id}"
+
+msgid "There seems to be a problem with your logo. Please upload it again."
+msgstr "There seems to be a problem with your logo. Please upload it again."
+
+msgid "This allows you to order sections."
+msgstr "This allows you to order sections."
+
+msgid "This allows you to order the phases of your template."
+msgstr "This allows you to order the phases of your template."
+
+msgid "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
+msgstr "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
+
+msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
+
+msgid "This template is new and does not yet have any publication history."
+msgstr "This template is new and does not have any publication history."
+
+msgid "Title"
+msgstr "Title"
+
+msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations."
+msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations."
+
+msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
+msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 organizations that offer guidance relevant to your plan."
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Top 5 Templates"
+msgstr "Top 5 templates"
+
+msgid "Topic"
+msgstr "Topic"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total completed plans"
+msgstr "Total completed plans"
+
+msgid "Total users"
+msgstr "Total users"
+
+msgid "Transfer customisation"
+msgstr "Transfer customization"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "URL"
+msgstr "URL"
+
+#, fuzzy
+msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
+msgstr "plan"
+
+msgid "Unable to change the plan's test status"
+msgstr "Unable to change the plan's test status"
+
+msgid "Unable to change your organisation affiliation at this time."
+msgstr "Unable to change your organization affiliation at this time."
+
+msgid "Unable to create a new version of this template. You are currently working with a published copy."
+msgstr "Unable to create a new version of this template. You are currently working with a published copy."
+
+msgid "Unable to create your account at this time."
+msgstr "Unable to create your account at this time."
+
+msgid "Unable to download the DMP Template at this time."
+msgstr "Unable to download the template at this time."
+
+msgid "Unable to find plan id %{plan_id}"
+msgstr "Unable to find plan id %{plan_id}"
+
+msgid "Unable to identify a suitable template for your plan."
+msgstr "Unable to identify a suitable template for your plan."
+
+msgid "Unable to link your account to %{scheme}."
+msgstr "Unable to link your account to %{scheme}."
+
+msgid "Unable to notify user that you have finished providing feedback."
+msgstr "Unable to notify user that you have finished providing feedback."
+
+msgid "Unable to remove the plan"
+msgstr "Unable to remove the plan"
+
+msgid "Unable to save since theme parameter is missing"
+msgstr "Unable to save since theme parameter is missing"
+
+msgid "Unable to submit your request for feedback at this time."
+msgstr "Unable to submit your request for feedback at this time."
+
+msgid "Unable to unlink your account from %{is}."
+msgstr "Unable to unlink your account from %{is}."
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Unknown column name."
+msgstr "Unknown column name."
+
+msgid "Unknown formatting setting"
+msgstr "Unknown formatting setting"
+
+msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
+msgstr "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right.'"
+
+msgid "Unknown organisation."
+msgstr "Unknown organization."
+
+msgid "Unlink your account from your organisation. You can link again at any time."
+msgstr "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
+
+msgid "Unlock my account"
+msgstr "Unlock my account"
+
+msgid "Unpublish"
+msgstr "Unpublish"
+
+msgid "Unpublished"
+msgstr "Unpublished"
+
+msgid "Unpublished changes"
+msgstr "Unpublished changes"
+
+msgid "Up to "
+msgstr "Up to "
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Updated"
+msgstr "Last edited"
+
+msgid "Usage"
+msgstr "Usage"
+
+msgid "Use API"
+msgstr "Use API"
+
+msgid "User accounts"
+msgstr "User accounts"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "View"
+msgstr "View"
+
+msgid "View all"
+msgstr "View all"
+
+msgid "View all guidance"
+msgstr "View all guidance"
+
+msgid "View all organisations"
+msgstr "View all organizations"
+
+msgid "View all search results"
+msgstr "View all search results"
+
+msgid "View all templates"
+msgstr "View all templates"
+
+msgid "View less"
+msgstr "View less"
+
+msgid "View less search results"
+msgstr "View less search results"
+
+msgid "Visibility"
+msgstr "Visibility"
+
+msgid "Visibility definitions:"
+msgstr "Visibility definitions:"
+
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr "We found multiple templates corresponding to your funder."
+
+msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
+msgstr "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
+
+msgid "Welcome"
+msgstr "Welcome."
+
+msgid "Welcome to %{application_name}"
+msgstr "Welcome to %{application_name}"
+
+msgid "Welcome to %{tool_name}"
+msgstr "Welcome to %{tool_name}"
+
+msgid "Welcome to %{tool_name}, %{username}"
+msgstr "Welcome to %{tool_name}, %{username}"
+
+msgid "Welcome."
+msgstr "Welcome."
+
+msgid "What research project are you planning?"
+msgstr "What research project are you planning?"
+
+msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you can create sections and questions."
+
+msgid "Which DMP template would you like to use?"
+msgstr "Which template would you like to use?"
+
+msgid "Write Plan"
+msgstr "Write plan"
+
+msgid "Write plan"
+msgstr "Write plan"
+
+msgid "Write your plan"
+msgstr "Write your plan"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+msgstr "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+
+msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
+msgstr "You are about to delete '%{guidance_summary}'. Are you sure?"
+
+msgid "You are about to delete '%{org_name}'. Are you sure?"
+msgstr "You are about to delete '%{org_name}'. Are you sure?"
+
+msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
+msgstr "You are about to delete '%{phase_title}'. This will affect versions, sections, and questions linked to this phase. Are you sure?"
+
+msgid "You are about to delete '%{question_text}'. Are you sure?"
+msgstr "You are about to delete '%{question_text}'. Are you sure?"
+
+msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+
+msgid "You are already signed in as another user. Please log out to activate your invitation."
+msgstr "You are already signed in as another user. Please log out to activate your invitation."
+
+msgid "You are not authorized to perform this action."
+msgstr "You are not authorized to perform this action."
+
+msgid "You are now ready to create your first DMP."
+msgstr "You are now ready to create your first data management plan."
+
+msgid "You are viewing a historical version of this template. You will not be able to make changes."
+msgstr "You are viewing a historical version of this template. You will not be able to make changes."
+
+msgid "You can also grant rights to other collaborators."
+msgstr "You can also grant rights to other collaborators."
+
+msgid "You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>"
+msgstr "You can choose from:<ul><li>text area (large box for paragraphs);</li> <li>text field (for a short answer);</li> <li>checkboxes where options are presented in a list and multiple values can be selected;</li> <li>radio buttons where options are presented in a list but only one can be selected;</li> <li>dropdown like this box - only one option can be selected;</li> <li>multiple select box allows users to select several options from a scrollable list using the CTRL key</li></ul>"
+
+msgid "You can continue to edit and download the plan in the interim."
+msgstr "You can continue to edit and download the plan in the interim."
+
+msgid "You can edit any of the details below."
+msgstr "You can edit any of the details below."
+
+msgid "You can not edit a historical version of this template."
+msgstr "You cannot edit a historical version of this template."
+
+msgid "You can not publish a historical version of this template."
+msgstr "You cannot publish a historical version of this template."
+
+msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
+msgstr "You can write pieces of guidance to be displayed by theme (e.g., generic guidance on storage and backup). Writing generic guidance by theme saves you time and effort as it will be displayed across all templates rather than having to write guidance for each."
+
+msgid "You cannot delete a template that has been used to create plans."
+msgstr "You cannot delete a template that has been used to create plans."
+
+msgid "You cannot delete historical versions of this template."
+msgstr "You cannot delete historical versions of this template."
+
+msgid "You don't have access to use the API. An api token is needed to generate usage statistics."
+msgstr "You don't have access to use the API. An API token is required to generate usage statistics."
+
+msgid "You have been granted administrator privileges in %{tool_name}:"
+msgstr "You have been granted administrator privileges in %{tool_name}:"
+
+msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
+msgstr "You have been granted permission by your organization to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
+
+msgid "You have been revoked administrator privileges in %{tool_name}."
+msgstr "You have been revoked administrator privileges in %{tool_name}."
+
+msgid "You have unpublished changes"
+msgstr "You have unpublished changes"
+
+msgid "You may change your notification preferences on your profile page."
+msgstr "You may change your notification preferences on your profile page."
+
+msgid "You must accept the terms and conditions to register."
+msgstr "You must accept the terms and conditions to register."
+
+msgid "You must select a funding organisation from the list."
+msgstr "You must select a funding organization from the list."
+
+msgid "You must select a research organisation from the list."
+msgstr "You must select a research organization from the list."
+
+msgid "You must select at least one organisation type"
+msgstr "You must select at least one organization type."
+
+msgid "You need to sign in or sign up before continuing."
+msgstr "You need to sign in or sign up before continuing."
+
+msgid "You will need to create an account in order to accept your invitation to view the data management plan (DMP)."
+msgstr "You will need to create an account in order to accept your invitation to view the data management plan."
+
+msgid "Your"
+msgstr "Your"
+
+msgid "Your ORCID"
+msgstr "Your ORCID"
+
+msgid "Your access to "
+msgstr "Your access to "
+
+msgid "Your account has been linked to your organisation. You can now login with that method."
+msgstr "Your account has been linked to your organization. You can now log in with that method."
+
+msgid "Your account has been successfully linked to %{scheme}."
+msgstr "Your account has been successfully linked to %{scheme}."
+
+msgid "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
+msgstr "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
+
+msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
+msgstr "Your email address is also your login ID. Please confirm your password to make this change."
+
+msgid "Your guidance group has been published and is now available to users."
+msgstr "Your guidance group has been published and is now available to users."
+
+msgid "Your guidance group is no longer published and will not be available to users."
+msgstr "Your guidance group is no longer published and will not be available to users."
+
+msgid "Your guidance has been published and is now available to users."
+msgstr "Your guidance has been published and is now available to users."
+
+msgid "Your guidance is no longer published and will not be available to users."
+msgstr "Your guidance is no longer published and will not be available to users."
+
+msgid "Your institution"
+msgstr "Your institution"
+
+msgid "Your organisation affiliation has been changed. You may now edit templates for %{org_name}."
+msgstr "Your organization affiliation has been changed. You may now edit templates for %{org_name}."
+
+msgid "Your organisation does not seem to be properly configured."
+msgstr "Your organization does not seem to be configured properly."
+
+msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+msgstr "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+
+msgid "Your project is no longer a test."
+msgstr "Your project is no longer a test."
+
+msgid "Your project is now a test."
+msgstr "Your project is now a test."
+
+msgid "Your request for feedback has been submitted."
+msgstr "Your request for feedback has been submitted."
+
+msgid "Your template has been published and is now available to users."
+msgstr "Your template has been published and is now available to users."
+
+msgid "Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it"
+msgstr "Your template is no longer published. Users will not be able to create new plans for this template until you republish it"
+
+msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
+msgstr "account has been locked due to an excessive number of unsuccessful sign in attempts."
+
+msgid "activerecord.errors.messages.record_invalid"
+msgstr "unable to save your changes"
+
+msgid "activerecord.errors.models.user.attributes.current_password.invalid"
+msgstr "invalid email and/or password"
+
+msgid "activerecord.errors.models.user.attributes.email.blank"
+msgstr "can't be blank"
+
+msgid "activerecord.errors.models.user.attributes.password.blank"
+msgstr "can't be blank"
+
+msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
+msgstr "passwords must match"
+
+msgid "are not authorized to view that plan"
+msgstr "are not authorized to view that plan"
+
+msgid "available to the public"
+msgstr "available to the public"
+
+msgid "can't be blank"
+msgstr "can't be blank"
+
+msgid "can't be larger than 500KB"
+msgstr "can't be larger than 500KB"
+
+msgid "can't be less than zero"
+msgstr "can't be less than zero"
+
+msgid "changed"
+msgstr "changed"
+
+msgid "co-owner"
+msgstr "Co-owner"
+
+msgid "collapse all"
+msgstr "collapse all"
+
+msgid "comment"
+msgstr "Comment"
+
+msgid "copied"
+msgstr "copied"
+
+msgid "created"
+msgstr "Created"
+
+msgid "deleted"
+msgstr "Deleted"
+
+msgid "editor"
+msgstr "Editor"
+
+msgid "example answer"
+msgstr "Example answer"
+
+msgid "expand all"
+msgstr "expand all"
+
+msgid "for internal %{org_name} use only"
+msgstr "for internal %{org_name} use only"
+
+msgid "guidance"
+msgstr "guidance"
+
+msgid "guidance group"
+msgstr "guidance group"
+
+msgid "guidance on"
+msgstr "guidance on"
+
+msgid "into your browser"
+msgstr "into your browser"
+
+msgid "link name"
+msgstr "link name"
+
+msgid "must be logged in"
+msgstr "must be logged in"
+
+msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
+msgstr "must be one of the following formats: jpeg, jpg, png, gif, bmp"
+
+msgid "must be unique"
+msgstr "must be unique"
+
+msgid "must have access to guidances api"
+msgstr "must have access to guidances api"
+
+msgid "must have access to plans api"
+msgstr "must have access to plans api"
+
+msgid "note"
+msgstr "note"
+
+msgid "or"
+msgstr "or"
+
+msgid "or copy"
+msgstr "or copy"
+
+msgid "organisation"
+msgstr "organization"
+
+msgid "organisational"
+msgstr "organizational"
+
+msgid "password"
+msgstr "Password"
+
+msgid "permissions"
+msgstr "Permissions"
+
+msgid "phase"
+msgstr "phase"
+
+msgid "plan"
+msgstr "plan"
+
+msgid "plan's visibility"
+msgstr "plan's visibility"
+
+msgid "preferences"
+msgstr "preferences"
+
+msgid "private"
+msgstr "private"
+
+msgid "profile"
+msgstr "profile"
+
+msgid "public"
+msgstr "public"
+
+msgid "question"
+msgid_plural "questions"
+msgstr[0] "question"
+
+msgid "read the plan and leave comments."
+msgstr "read the plan and leave comments."
+
+msgid "read the plan and provide feedback."
+msgstr "read the plan and provide feedback."
+
+msgid "read-only"
+msgstr "Read only"
+
+msgid "removed"
+msgstr "Removed"
+
+msgid "reviewer"
+msgstr "Preview"
+
+msgid "role"
+msgstr "role"
+
+msgid "saved"
+msgstr "Saved"
+
+msgid "section"
+msgid_plural "sections"
+msgstr[0] "section"
+
+msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgstr "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+
+msgid "template"
+msgstr "template"
+
+msgid "test"
+msgstr "test"
+
+msgid "user"
+msgstr "user"
+
+msgid "user must be in your organisation"
+msgstr "user must be in your organization"
+
+msgid "write and edit the plan in a collaborative manner."
+msgstr "write and edit the plan in a collaborative manner."
