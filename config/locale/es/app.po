@@ -48,9 +48,6 @@ msgstr "user"
 msgid " has been removed by "
 msgstr " por "
 
-msgid " to contact us."
-msgstr ""
-
 msgid "\"#{text}\""
 msgstr ""
 
@@ -69,10 +66,6 @@ msgstr "user"
 msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
 msgstr ""
 
-#, fuzzy
-msgid "\"We do not recognize the username #{params[:username]}. Please check the username and try again.\""
-msgstr "user"
-
 msgid "\"Your account has been linked to #{scheme.description}.\""
 msgstr ""
 
@@ -83,7 +76,7 @@ msgid "%{application_name}"
 msgstr "DMPonline"
 
 #, fuzzy
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>.<br />If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr "DMPonline"
 
 #, fuzzy
@@ -152,14 +145,6 @@ msgstr "user"
 msgid "%{value} is not a valid format"
 msgstr ""
 
-#, fuzzy
-msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
-msgstr "plans"
-
-#, fuzzy
-msgid "'Project Details' includes basic administrative details."
-msgstr "Detalles"
-
 msgid "(if available)"
 msgstr ""
 
@@ -170,6 +155,12 @@ msgid "+ Add an additional URL"
 msgstr ""
 
 msgid "-"
+msgstr ""
+
+msgid "- or -"
+msgstr ""
+
+msgid "- or - "
 msgstr ""
 
 msgid "..."
@@ -433,6 +424,10 @@ msgid "Are you sure?"
 msgstr "¿Está seguro?"
 
 #, fuzzy
+msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a target=\"_blank\" href=\"https://tools.google.com/dlpage/gaoptout\">Google Analytics opt-out page</a> and install the add-on for your browser."
+msgstr "Nota"
+
+#, fuzzy
 msgid "Back to edit phase"
 msgstr "Volver a editar la vista"
 
@@ -459,16 +454,15 @@ msgstr "Inferior"
 msgid "Briefly summarise your research project to help others understand the purposes for which the data are being collected or created."
 msgstr "Creación"
 
-#, fuzzy
-msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
-msgstr "Organización"
-
 msgid "Cancel"
 msgstr "Cancelar"
 
 #, fuzzy
 msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
 msgstr "plans"
+
+msgid "Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services."
+msgstr ""
 
 msgid "Change affiliation"
 msgstr ""
@@ -532,14 +526,6 @@ msgid "Complete"
 msgstr "Modelo"
 
 #, fuzzy
-msgid "Completed Plans"
-msgstr "plans"
-
-#, fuzzy
-msgid "Completed plans"
-msgstr "plans"
-
-#, fuzzy
 msgid "Contact Us"
 msgstr "Contacto"
 
@@ -568,10 +554,6 @@ msgstr "Grupo de orientación"
 
 msgid "Create a new plan"
 msgstr "Crear un nuevo plan"
-
-#, fuzzy
-msgid "Create a plan"
-msgstr "Crear un plan"
 
 msgid "Create a template"
 msgstr "Crear una plantilla"
@@ -654,7 +636,10 @@ msgstr "Plantillas"
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Visibilidad"
 
-msgid "DMPTool Background"
+msgid "DMPTool"
+msgstr ""
+
+msgid "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"http://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3)."
 msgstr ""
 
 msgid "DMPTool News"
@@ -690,6 +675,10 @@ msgid "Default value"
 msgstr "Valor por defecto"
 
 msgid "Delete"
+msgstr "Borrar"
+
+#, fuzzy
+msgid "Delete phase"
 msgstr "Borrar"
 
 msgid "Delete question"
@@ -850,9 +839,6 @@ msgstr ""
 msgid "Example: urn:mace:incommon:my-org.org"
 msgstr ""
 
-msgid "Export"
-msgstr "Exportar"
-
 #, fuzzy
 msgid "Export settings updated successfully."
 msgstr "Exportar"
@@ -902,12 +888,6 @@ msgid "First name"
 msgstr "Nombre"
 
 msgid "Font"
-msgstr ""
-
-msgid "For Administrators"
-msgstr ""
-
-msgid "For Developers"
 msgstr ""
 
 msgid "For Researchers"
@@ -971,6 +951,10 @@ msgid "Grant number"
 msgstr "Título de subvención"
 
 #, fuzzy
+msgid "Grant number (optional)"
+msgstr "Título de subvención"
+
+#, fuzzy
 msgid "Grant number: "
 msgstr "Título de subvención"
 
@@ -988,10 +972,6 @@ msgstr "Grupo de orientación"
 
 msgid "Guidance group list"
 msgstr "Listado de grupos de orientación"
-
-#, fuzzy
-msgid "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
-msgstr "Detalles"
 
 msgid "Guidance list"
 msgstr "Listado de orientaciones"
@@ -1058,7 +1038,7 @@ msgid "If you do have a need to provide guidance for specific funders that would
 msgstr "Pregunta"
 
 #, fuzzy
-msgid "If you have an existing DMPTool account, please enter the username you used and we send your email address right away."
+msgid "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
 msgstr "user"
 
 #, fuzzy
@@ -1066,7 +1046,7 @@ msgid "If you have any questions or need help, please contact us at %{helpdesk_e
 msgstr "Pregunta"
 
 #, fuzzy
-msgid "If you have forgotten your email and your username of the existing DMPTool account,  please click "
+msgid "If you have forgotten the username and email for your existing DMPTool account, please %{contact_us_link}."
 msgstr "user"
 
 #, fuzzy
@@ -1083,6 +1063,10 @@ msgstr "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
 #, fuzzy
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
 msgstr "Organización"
+
+#, fuzzy
+msgid "In order to help identify and administer your account with the DMPTool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us."
+msgstr "Texto"
 
 #, fuzzy
 msgid "Information was successfully created."
@@ -1126,9 +1110,6 @@ msgstr ""
 #, fuzzy
 msgid "Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
 msgstr "plans"
-
-msgid "It does not look like you have setup an account with us yet. Please fill in the following information to complete your registration."
-msgstr ""
 
 msgid "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
 msgstr ""
@@ -1257,6 +1238,10 @@ msgstr "Mi proyecto"
 msgid "My organisation isn't listed."
 msgstr "No se muestra mi organización."
 
+#, fuzzy
+msgid "My privileges"
+msgstr "Editar"
+
 msgid "N/A"
 msgstr ""
 
@@ -1273,6 +1258,10 @@ msgstr "Organización"
 #, fuzzy
 msgid "New password"
 msgstr "Nueva clave"
+
+#, fuzzy
+msgid "New plans"
+msgstr "plans"
 
 msgid "New template"
 msgstr "Nueva plantilla"
@@ -1309,11 +1298,15 @@ msgid "No. Completed Plans"
 msgstr "plans"
 
 #, fuzzy
+msgid "No. Plans"
+msgstr "plans"
+
+#, fuzzy
 msgid "No. Users joined"
 msgstr "Usuarios"
 
 #, fuzzy
-msgid "No. completed plans during last year"
+msgid "No. plans during last year"
 msgstr "plans"
 
 #, fuzzy
@@ -1349,8 +1342,21 @@ msgid "ORCID iD"
 msgstr "ID"
 
 #, fuzzy
+msgid "ORCID logo"
+msgstr "ID"
+
+#, fuzzy
 msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
 msgstr "ID"
+
+msgid "Option %{number}: If not affiliated and you need an account."
+msgstr ""
+
+msgid "Option %{number}: If your institution is affiliated with DMPTool."
+msgstr ""
+
+msgid "Option %{number}: If your institution is not affiliated with DMPTool."
+msgstr ""
 
 #, fuzzy
 msgid "Optional Subset"
@@ -1420,10 +1426,6 @@ msgid "Organisational Configuration Information"
 msgstr "Organización"
 
 #, fuzzy
-msgid "Organisational: anyone at your organisation can view your plan."
-msgstr "Institución"
-
-#, fuzzy
 msgid "Organisations"
 msgstr "Organización"
 
@@ -1456,6 +1458,10 @@ msgstr "Dando formato al PDF"
 #, fuzzy
 msgid "Participating Institutions"
 msgstr "Institución"
+
+#, fuzzy
+msgid "Participating institutions/organizations can configure the tool to point to their resources and services, provide customized help, and provide suggested answers to the questions asked by funding agencies. DMPTool users affiliated with participating institutions can login with their own institutional accounts. For more information visit the %{about_us_link} page."
+msgstr "Pregunta"
 
 msgid "Password"
 msgstr "Clave"
@@ -1558,11 +1564,20 @@ msgstr "Por favor, introduzca el nombre de su entidad."
 msgid "Please enter your current password"
 msgstr ""
 
-msgid "Please enter your email below and we will send you instructions on how to reset your password."
-msgstr ""
+#, fuzzy
+msgid "Please enter your email below and we will send instructions to reset your password."
+msgstr "Clave"
 
 msgid "Please enter your password to change email address."
 msgstr ""
+
+#, fuzzy
+msgid "Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials."
+msgstr "DMPonline"
+
+#, fuzzy
+msgid "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation."
+msgstr "Organización"
 
 #, fuzzy
 msgid ""
@@ -1580,6 +1595,14 @@ msgstr "Organización"
 
 msgid "Please select an item from the list."
 msgstr ""
+
+#, fuzzy
+msgid "Please select an organisation from the list"
+msgstr "Organización"
+
+#, fuzzy
+msgid "Please select an organisation from the list, or enter your organisation's name."
+msgstr "Organización"
 
 msgid "Please select one"
 msgstr ""
@@ -1634,6 +1657,9 @@ msgstr ""
 #, fuzzy
 msgid "Project title"
 msgstr "Título"
+
+msgid "Promote the DMPTool"
+msgstr ""
 
 #, fuzzy
 msgid "Provides the user with an API token and grants rights to harvest information from the tool"
@@ -1824,6 +1850,9 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
+msgid "Send invitation"
+msgstr ""
+
 #, fuzzy
 msgid "Set plan visibility"
 msgstr "Visibilidad"
@@ -1859,7 +1888,7 @@ msgid "Sign in"
 msgstr "Conectar"
 
 #, fuzzy
-msgid "Sign in with"
+msgid "Sign in options"
 msgstr "Conectar"
 
 #, fuzzy
@@ -1933,7 +1962,7 @@ msgstr "Plantillas"
 msgid "Terms of use"
 msgstr ""
 
-msgid "Terms of use and Privacy"
+msgid "Terms of use & Privacy"
 msgstr ""
 
 #, fuzzy
@@ -1963,22 +1992,30 @@ msgstr "templates"
 msgid "The %{tool_name} team"
 msgstr "am"
 
-msgid "The email address you entered is not registered."
+msgid "The <a href=\"http://www.cldib.org\" target=\"_blank\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
 msgstr ""
+
+#, fuzzy
+msgid "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
+msgstr "plans"
+
+#, fuzzy
+msgid "The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management."
+msgstr "Pregunta"
 
 msgid "The following answer cannot be saved"
 msgstr ""
 
 #, fuzzy
-msgid "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award."
-msgstr "Pregunta"
+msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"http://www.cdlib.org/about/policies.html\" target=\"blank\">http://www.cdlib.org/about/policies.html</a>"
+msgstr "plans"
 
 msgid "The key %{key} does not have a valid set of object links"
 msgstr ""
 
 #, fuzzy
-msgid "The original contributing institutions were: <a href=\"https://www.cdlib.org/services/uc3/\" target=\"_blank\">University of California Curation Center (UC3)</a> at the <a href=\"https://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>, <a href=\"https://www.dataone.org/\" target=\"_blank\">DataONE</a>, <a href=\"https://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC-UK)</a>, <a href=\"https://www.si.edu/\" target=\"_blank\">Smithsonian Institution</a>, <a href=\"https://www.library.ucla.edu/\" target=\"_blank\">University of California, Los Angeles Library</a>, <a href=\"https://libraries.ucsd.edu/\" target=\"_blank\">University of California, San Diego Libraries</a>, <a href=\"https://www.library.illinois.edu/\" target=\"_blank\">University of Illinois, Urbana-Champaign Library</a>, and <a href=\"https://www.library.virginia.edu/\" target=\"_blank\">University of Virginia Library</a>."
-msgstr "Institución"
+msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"https://github.com/CDLUC3/dmp/wiki/DMPTool-Steering-Committee\" target=\"_blank\">DMPTool Steering Committee</a> that maintains monthly calls."
+msgstr "plans"
 
 #, fuzzy
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
@@ -1994,10 +2031,6 @@ msgstr "Creación"
 
 msgid "The theme with id %{id} could not be destroyed"
 msgstr ""
-
-#, fuzzy
-msgid "The ‘Share’ tab is also where you can set your plan visibility."
-msgstr "Compartir"
 
 #, fuzzy
 msgid "Theme created successfully"
@@ -2018,6 +2051,17 @@ msgstr "Plantillas"
 
 msgid "There are no records associated"
 msgstr ""
+
+msgid "There is no account associated with that email address. Please try again or %{contact_us_link}."
+msgstr ""
+
+#, fuzzy
+msgid "There is no data available for plans yet."
+msgstr "plans"
+
+#, fuzzy
+msgid "There is no data available for users joined yet."
+msgstr "user"
 
 #, fuzzy
 msgid "There is no plan associated with id %{id}"
@@ -2051,6 +2095,9 @@ msgstr "Pregunta"
 msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
 msgstr "templates"
 
+msgid "This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions."
+msgstr ""
+
 #, fuzzy
 msgid "This template is new and does not yet have any publication history."
 msgstr "templates"
@@ -2081,7 +2128,7 @@ msgid "Total"
 msgstr ""
 
 #, fuzzy
-msgid "Total completed plans"
+msgid "Total plans"
 msgstr "plans"
 
 #, fuzzy
@@ -2116,6 +2163,9 @@ msgstr "templates"
 msgid "Unable to create your account at this time."
 msgstr ""
 
+msgid "Unable to create your account."
+msgstr ""
+
 #, fuzzy
 msgid "Unable to download the DMP Template at this time."
 msgstr "Modelo"
@@ -2127,9 +2177,6 @@ msgstr "plans"
 #, fuzzy
 msgid "Unable to identify a suitable template for your plan."
 msgstr "templates"
-
-msgid "Unable to link your account to %{scheme}."
-msgstr ""
 
 #, fuzzy
 msgid "Unable to notify user that you have finished providing feedback."
@@ -2198,6 +2245,10 @@ msgstr "Yo"
 msgid "Use API"
 msgstr ""
 
+#, fuzzy
+msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgstr "Organización"
+
 msgid "User accounts"
 msgstr ""
 
@@ -2245,11 +2296,12 @@ msgid "Visibility definitions:"
 msgstr "Visibilidad"
 
 #, fuzzy
+msgid "We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account."
+msgstr "user"
+
+#, fuzzy
 msgid "We found multiple DMP templates corresponding to your funder."
 msgstr "templates"
-
-msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
-msgstr ""
 
 #, fuzzy
 msgid "Welcome"
@@ -2288,10 +2340,6 @@ msgstr "plans"
 msgid "Write plan"
 msgstr "plans"
 
-#, fuzzy
-msgid "Write your plan"
-msgstr "plans"
-
 msgid "Yes"
 msgstr ""
 
@@ -2305,14 +2353,15 @@ msgstr "Está a punto de borrar '%{guidance_summary}'. ¿Está seguro?"
 msgid "You are about to delete '%{org_name}'. Are you sure?"
 msgstr "Va a eliminar '%{question_text}'. ¿Está seguro?"
 
-msgid "You are about to delete '%{phase_title}'. This will affect versions, sections and questions linked to this phase. Are you sure?"
-msgstr "Va a eliminar '%{phase_title}'. Esto afectará a versiones, secciones y preguntas enlazadas con esta fase. ¿Está seguro?"
-
 msgid "You are about to delete '%{question_text}'. Are you sure?"
 msgstr "Va a eliminar '%{question_text}'. ¿Está seguro?"
 
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr "Va a borrar '%{section_title}'. Esta acción afectará las preguntas enlazadas con esta sección. ¿Está seguro?"
+
+#, fuzzy
+msgid "You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?"
+msgstr "¿Está seguro?"
 
 #, fuzzy
 msgid "You are already signed in as another user. Please log out to activate your invitation."
@@ -2415,11 +2464,19 @@ msgstr ""
 msgid "Your account has been linked to your organisation. You can now login with that method."
 msgstr "Organización"
 
-msgid "Your account has been successfully linked to %{scheme}."
-msgstr ""
+#, fuzzy
+msgid "Your account has been successfully created."
+msgstr "Creación"
 
 msgid "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
 msgstr ""
+
+msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email."
+msgstr ""
+
+#, fuzzy
+msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation."
+msgstr "Organización"
 
 #, fuzzy
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
@@ -2452,6 +2509,10 @@ msgstr "Organización"
 #, fuzzy
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Organización"
+
+#, fuzzy
+msgid "Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset."
+msgstr "Clave"
 
 #, fuzzy
 msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
