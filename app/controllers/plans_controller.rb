@@ -74,9 +74,9 @@ class PlansController < ApplicationController
 
         # pre-select org's guidance and the default org's guidance
        
-        # DMPTool hack to select DCC guidance
+        # DMPTool hack to select UCOP DMPTool guidance
         #ids = (Org.managing_orgs << org_id).flatten.uniq
-        ids = [Org.find_by(abbreviation: 'DCC').id, org_id].uniq
+        ids = [Org.find_by(abbreviation: 'UCOP').id, org_id].uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
@@ -143,7 +143,7 @@ class PlansController < ApplicationController
     end
 
     # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by{|org,gg| (org.nil? ? '' : org.name)}
+    @important_ggs = @important_ggs.uniq.sort_by{|org,gg| (org.nil? ? '' : org.name)}
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
     @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
 
