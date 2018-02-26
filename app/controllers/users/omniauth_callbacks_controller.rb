@@ -53,7 +53,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           
           session["devise.#{scheme.name.downcase}_data"] = omniauth
           flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
-          render 'devise/registrations/new', locals: { user: user }
+          render 'devise/registrations/new', locals: { user: user, orgs: Org.participating_as_array.sort{ |a, b| a.name <=> b.name } }
 
         else
           if UserIdentifier.create(identifier_scheme: scheme, 
