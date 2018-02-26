@@ -32,7 +32,7 @@ If your institution/organization is affiliated with DMPTool:
 <li>If you have already created an account with DMPTool, click the second button to sign in with the email address and password you previously chose. Once logged in, use Edit profile in the top-right menu bar to manage your password and other information.</li>
 <li>If your institution is not affiliated with DMPTool (or has not configured single sign-on), you need to create an account with an email address and password.</li></ul>
 
-<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/UCR_signin-ai.png?raw=true" alt="UCR sign in" style="width: 40%; margin-left: 45px;" />
+<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/UCR-signin-ai.png?raw=true" alt="UCR sign in" style="width: 40%; margin-left: 45px;" />
 
 <hr>
   
@@ -51,7 +51,7 @@ If others at your institution/organization have chose to share their plans inter
 
 To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:   
 
-<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/create_plan-ai.png?raw=true" alt="Create plan" style="width: 70%; margin-left: 45px;" />
+<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/create-plan-ai.png?raw=true" alt="Create plan" style="width: 70%; margin-left: 45px;" />
 
 <ol type="1">
 <li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li>
