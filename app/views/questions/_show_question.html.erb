@@ -89,7 +89,7 @@
           </div>
         <% end %>
         <div class="pull-right">
-          <% if (question.modifiable) %>
+          <% if (question.modifiable && edit) %>
             <%= link_to _('Edit question'), "#question_edit#{question.id}", class: "btn btn-default question_edit_link", role: "button" %>
             <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id, r: current_tab),
               confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:"button" %>
