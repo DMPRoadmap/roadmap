@@ -6,13 +6,17 @@ class PhasesController < ApplicationController
 
     # GET /plans/:plan_id/phases/:id/edit
     def edit
-
-    @plan = Plan.load_for_phase(params[:plan_id], params[:id])
+    @plan, @phase = Plan.load_for_phase(params[:plan_id], params[:id])
+    # check if plan exists first
+    if @plan.nil?
+      raise Pundit::NotAuthorizedError, "Must have access to plan"
+    end
+    if @phase.nil?
+      raise Pundit::NotAuthorizedError, "Phase must belong to plan"
+    end
     # authorization done on plan so found in plan_policy
     authorize @plan
-
-    phase_id = params[:id].to_i
-    @phase = @plan.template.phases.first
+    @answers = @plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
     @readonly = !@plan.editable_by?(current_user.id)
 
     # Now we need to get all the themed guidance for the plan.
@@ -57,9 +61,9 @@ class PhasesController < ApplicationController
     # Puts in question_guidance (key/value) entries where key is the question id and value is a hash.
     # Each question id hash has (key/value) entries where key is a theme and value is an Array of {text, org} objects
     # Example hash
-    # question_guidance = { question.id => 
+    # question_guidance = { question.id =>
     #                         { theme => [ {text: "......", org: "....."} ] }
-    #                     } 
+    #                     }
     questions.each do |question|
       qg = {}
       question.themes.each do |t|

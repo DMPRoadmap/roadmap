@@ -22,7 +22,8 @@
 <div class="project-tabs-body">
 
   <div class="accordion" id="sections-accordion">
-    <% @phase.sections.order(:number).each do |section| %>
+    <% sections = @phase.sections.sort_by {|section| section.number} %>
+    <% sections.each do |section| %>
 
       <% sectionid = section.id %>
 
@@ -61,7 +62,8 @@
 
             <!-- the section body -->
             <div class="loaded">
-              <% section.questions.each do |question| %>
+              <% questions = section.questions.sort_by {|question| question.number } %>
+              <% questions.each do |question| %>
                 <% if question.id == session[:question_id_comments].to_i then id_css = "current_question" end %>
                 <div id="<%= id_css%>">
 
@@ -71,6 +73,7 @@
                       locals: {
                         plan: @plan,
                         question: question,
+                        answer: @answers[question.id],
                         question_guidances: guidances,
                         last_question_id: section.questions.last.id,
                         readonly: @readonly
