@@ -9,7 +9,7 @@
         </li>
     <% end %>
     <!-- Add another phase button -->
-    <% if current_user.can_org_admin? && template.customization_of.nil? %>
+    <% if current_user.can_org_admin? && template.customization_of.nil? && edit %>
         <li role="presentation" <%= isActivePage(admin_add_phase_path(template)) ? ' class=active' : '' %>>
         <%= link_to(_('Add new phase'), admin_add_phase_path(template, r: current_tab), { 'aria-controls': 'add_phase', role: 'tab' }) %>
         </li>

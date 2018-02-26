@@ -30,7 +30,7 @@ module OrgAdmin
         published: published,
         current_org: current_user.org, 
         orgs: Org.all,
-        current_tab: params[:r] || 'all-templates',
+        current_tab: params[:r],
         scopes: { all: all_templates_hash[:scopes], orgs: own_hash[:scopes], funders: customizable_hash[:scopes] }
       }
     end
@@ -92,6 +92,7 @@ module OrgAdmin
           partial_path: 'edit',
           template: @template,
           current: @current,
+          edit: @template == @current,
           template_hash: @template_hash,
           current_tab: @current_tab
         })
