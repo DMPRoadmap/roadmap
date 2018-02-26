@@ -2292,7 +2292,7 @@ msgid "password"
 msgstr "Password"
 
 msgid "permissions"
-msgstr "Permissions"
+msgstr "privileges"
 
 msgid "phase"
 msgstr "phase"
