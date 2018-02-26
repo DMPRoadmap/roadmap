@@ -80,19 +80,19 @@ class ApplicationController < ActionController::Base
   end
 
   def failed_create_error(obj, obj_name)
-    "#{_('could not create your %{o}.') % {o: obj_name.downcase}} #{errors_to_s(obj)}"
+    "#{_('Could not create your %{o}.') % {o: obj_name.downcase}} #{errors_to_s(obj)}"
   end
 
   def failed_update_error(obj, obj_name)
-    "#{_('could not update your %{o}.') % {o: obj_name.downcase}} #{errors_to_s(obj)}"
+    "#{_('Could not update your %{o}.') % {o: obj_name.downcase}} #{errors_to_s(obj)}"
   end
   
   def failed_destroy_error(obj, obj_name)
-    "#{_('could not delete the %{o}.') % {o: obj_name.downcase}} #{errors_to_s(obj)}"
+    "#{_('Could not delete the %{o}.') % {o: obj_name.downcase}} #{errors_to_s(obj)}"
   end
   
   def success_message(obj_name, action)
-    "#{_('successfully %{action} your %{object}.') % {object: obj_name.downcase, action: action.downcase}}"
+    "#{_('Successfully %{action} your %{object}.') % {object: obj_name.downcase, action: action.downcase}}"
   end
 
   # Check whether the string is a valid array of JSON objects
