@@ -2,7 +2,8 @@ class PublicPagesController < ApplicationController
   after_action :verify_authorized, except: [:template_index, :plan_index, :orgs, :get_started]
 
   def orgs
-    render 'orgs', locals: { orgs: Org.participating }
+    funders = Org.funder.collect(&:id)
+    render 'orgs', locals: { orgs: Org.participating.where.not(id: funders) }
   end
   def get_started
     render '/shared/dmptool/_get_started'

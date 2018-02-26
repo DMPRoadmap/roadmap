@@ -4,7 +4,7 @@
       <%= check_box_tag "guidance_group_ids[]", groups[0].id,
                         current_selections.include?(groups[0].id), class: 'guidance-choice' %>
       <%# DMPTool hack to swap in 'DMPTool' for 'DCC' in guidance selection %>
-      <%= (org.abbreviation == 'DCC' ? _('DMPTool') : org.name) %>
+      <%= (org.abbreviation == 'UCOP' ? _('DMPTool') : org.name) %>
     </li>
   <% elsif groups %>
     <li class="checkbox">

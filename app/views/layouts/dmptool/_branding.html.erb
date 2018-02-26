@@ -35,7 +35,7 @@
                   <% current_user.org.links['org'].each_with_index do |link, i| %>
                     <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
                       <li class="org-links">
-                        <%= link_to link['text'].truncate(30), link['link'], target: '_blank', class: 'org-a' %>
+                        <%= link_to link['text'].truncate(40), link['link'], target: '_blank', class: 'org-a' %>
                       </li>
                     <% end %>
                   <% end %>
