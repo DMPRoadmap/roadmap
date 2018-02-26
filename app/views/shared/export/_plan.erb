@@ -34,7 +34,7 @@
                   <% end %>
                 </ul>
               <% else %>
-                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %></p>
+                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present? && question[:text][0].present?  %></p>
               <% end %>
               <br>
             <% end %>
