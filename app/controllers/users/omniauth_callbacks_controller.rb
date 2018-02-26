@@ -42,7 +42,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             firstname, surname = omniauth_info.name.split(' ')
           end
           
-          idp = OrgIdentifier.find_by(identifier: omniauth_info.identity_provider)
+          idp = OrgIdentifier.where_case_insensitive(identifier: omniauth_info.identity_provider).first unless omniauth_info.identity_provider
           org = Org.find_by(id: idp.org_id) if idp.present?
           pwd = SecureRandom.uuid
           
