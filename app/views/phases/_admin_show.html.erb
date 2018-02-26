@@ -60,7 +60,7 @@
               <% if edit && section.modifiable %>
                 <%= render partial: 'sections/edit_section', locals: { template: template, section: section, edit: edit, phase: phase, current_tab: current_tab } %>
               <% else %>
-                <%= render partial: 'sections/show_section', locals: { template: template, section: section, current_tab: current_tab } %>
+                <%= render partial: 'sections/show_section', locals: { template: template, section: section, current_tab: current_tab, edit: edit } %>
               <% end %>
              </div>
           </div>
