@@ -4,9 +4,10 @@ module Paginable
     
     # /paginable/orgs/public/:page
     def public
+      funders = Org.funder.collect(&:id)
       paginable_renderise(
         partial: 'public',
-        scope: Org.participating,
+        scope: Org.participating.where.not(id: funders),
         query_params: { sort_field: 'orgs.name', sort_direction: :asc }
       )
     end
