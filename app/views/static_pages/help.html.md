@@ -42,7 +42,7 @@ When you log in you will be directed to “My dashboard.” From here you can cr
 
 If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of <a href="https://dmptool.org/public_plans\" target="_blank">public plans</a>.   
 
-<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/my-dashboard-ai.png" alt="My dashboard" style="width: 80%; margin-left: 45px;" />
+<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/my-dashboard-ai.png?raw=true" alt="My dashboard" style="width: 80%; margin-left: 45px;" />
 <hr> 
 
 <h3 id="how-do-i-create-a-data-management-plan">How do I create a data management plan?</h3>
@@ -88,7 +88,7 @@ The “Share” tab is also where you can set your plan visibility.
 
 By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options.  
 
-<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/share-tab-ai.png" alt="Share tab" style="width: 80%; margin-left: 45px;" />
+<img src="https://github.com/CDLUC3/dmp/blob/master/docs/quickstartguide/share-tab-ai.png?raw=true" alt="Share tab" style="width: 80%; margin-left: 45px;" />
 <hr> 
 
 <h3 id="how-do-i-get-help-from-someone-at-my-institution">How do I get help from someone at my institution?</h3>
