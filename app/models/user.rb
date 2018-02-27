@@ -288,7 +288,7 @@ class User < ActiveRecord::Base
     if scheme.nil?
       throw Exception.new('Unknown OAuth provider: ' + auth.provider)
     else
-      joins(:user_identifiers).where_case_insensitive('user_identifiers.identifier': auth.uid,
+      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid.downcase,
                    'user_identifiers.identifier_scheme_id': scheme.id).first
     end
   end
