@@ -1,97 +1,40 @@
-## DMP Roadmap
+## DMPTool
 
-DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/
+The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management.
 
-The tool has four main functions:  
+The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) open source project. DMPRoadmap is being collaboratively developed by members of the University of California Curation Center (UC3), the Digital Curation Centre (DCC) and contributions from the community.
 
-1. To help create and maintain different versions of Data Management Plans;  
-2. To provide useful guidance on data management issues and how to meet research funders' requirements;  
-3. To export attractive and useful plans in a variety of formats;  
-4. To allow collaborative work when creating Data Management Plans.  
+### Support
+Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
+Please be advised though that we can only provide limited support for your local installations. Issues will be triaged by our team and if applicable will be moved/opened in the DMPRoadmap repository if applicable.
 
-#### Current Release
-Official release coming soon!
-[![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
+### Installation
 
-#### Summary
+If you would like to install and run this application, we encourage you to start with a basic [installation of DMPRoadmap](https://github.com/DMPRoadmap/roadmap/wiki/Installation). Follow the instructions and determine if the functionality it provides meets your requirements.
 
-#### Pre-requisites
-Roadmap is a Ruby on Rails application and you will need to have: 
-* Ruby >= 2.2.2
-* Rails >= 4.2
-* MySQL >= 5.0 OR PostgreSQL
+If you have already reviewed the basic functionality of DMPRoadmap and still want to install the DMPTool codebase please follow the core set of DMPRoadmap installation instructions and then perform the following tasks for the DMPTool implementation:
+- *Homepage images:* While you are free to use the images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `lib/assets/images/homepage/`. Each image has 3 sizes geared towards various device resolutions/format (e.g. smart phone). Follow the image sizes in the provided examples for your images. You must also retain the file names as the `lib/assets/stylesheets/dmptool.scss` references them by name
+- *Rotating news on the homepage:* Update the `config.rss` value in `config/application.rb` with the address of your blog's RSS feed.
+- *Styles:* The system loads the base DMPRoadmap stylesheet first then the DMPTool stylesheet. We recommend that you add your own additional stylesheet if your changes are extensive or update `lib/assets/stylesheets/dmptool.scss` directly. Do not make changes to the other stylesheets as they are managed as part of the DMPRoadmap project.
+- *Static Content:* Update the files in `app/views/static_pages/` so that they are appropriate for your installation. 
+- *Shibboleth:* Setting up your own Shibboleth service provider (SP) is beyond the scope of this application. If you have an SP available and want to use it, make sure that you enable the shibboleth settings in `config/application.rb` and then add your organization's entity id (found in your Shib SP's list of registered IdPs) within the UI. Then log out and log back in via your institution's credentials to test that things are working properly. Note that the DMPTool only allows users to authenticate via Shibboleth if the organization is regsitered within the system (meaning that it appears in the application's `orgs` table)
 
-Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
+### Differences between DMPRoadmap and DMPTool
 
-Further details on how to install MySQL and create your first user and database. Be sure to follow the instructions for your particular environment. 
-* Install: http://dev.mysql.com/downloads/mysql/
-* Create a user: http://dev.mysql.com/doc/refman/5.7/en/create-user.html
-* Create the database: http://dev.mysql.com/doc/refman/5.7/en/creating-database.html
+- *Basics:* The Homepage, header and footer menus and stylesheet has been customized to fit the DMPTool's needs
+- *Content:* The about, help and other static pages have been updated. We also switched these files over so that they can be edited in Markdown instead of HTML
+- *Sigin in/Create account:* The sign in and create account workflows differ. All of the DMPTool code for these items have been separated into their own `dmptool/` subdirectories
+- *Participating institutions:* We offer a list of participating institutions page
+- *Create buttons:* All of the create buttons (e.g. Create Plan, Create Template) have been moved so that they appear above the tables
+- *Plus/minus icons:* The plus/minus icons on the accordions have been moved so that they appear on the left
+- *Project details page:* The id field and contact phone numbers have been removed.
+- *External links:* All external links (except ORCID) open in a new tab/window 
 
-You may also find the following resources handy:
-
-* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
-* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
-
-#### Installation
-* Create your database. Select UTF-8 Unicode encoding (`utf8mb4` if using MySQL).
-* Clone this repository (or Fork the repository first if you plan on contributing)
-
->     > git clone https://github.com/[your organization]/roadmap.git
-
->     > cd roadmap
-
-* Make copies of the yaml configuration files and update the values for your installation
-
->     > cp config/database_example.yml config/database.yml
->     > cp config/secrets_example.yml config/secrets.yml
-
-* Make copies of the example gem initializer files and update the values for your installation
-
->     > cp config/initializers/devise.rb.example config/initializers/devise.rb
->     > cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
->     > cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
->     > cp config/locales/*.static.yml.example config/locales/*.static.yml
-
-* Create an environment variable for your instance's secret (as defined in config/secrets.yml). You should use the following command to generate secrets for each of your environments, storing the production one in the environment variable:
-
->     > rake secret
-
-* Run bundler and perform the DB migrations
-
->     > gem install bundler (if bundler is not yet installed)
-
->     > bundle install
-
->     > rake db:schema:load
-
->     > rake db:seed    (Unless you are migrating data from an old DMPOnline system)
-
-* Start the application
-
->     > rails server
-
-* Verify that the site is running properly by going to http://localhost:3000
-* Login as the default administrator: 'super_admin@example.com' - 'password123'
-
-#### Troubleshooting
+### Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki
 
-#### Support
-Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
-Please be advised though that we can only provide limited support for your local installations.
+### Contributing
+See the [Contributing Guide](https://github.com/DMPRoadmap/roadmap/wiki/Get-involved)
 
-#### Become a contributor
-If you would like to contribute to the project. Please follow these steps to submit a contribution:
-* Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
-* Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's '_**development**_' branch
-* Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
-* Make your changes in the new branch
-* When you have finished your work, make sure that your version of the '_**development**_' branch is still up to date with this project. Then merge your new branch into your '_**development**_' branch.
-* Then create a new Pull Request (PR) to this project's '_**contributions**_' branch in GitHub 
-* The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
-
-See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/wiki/Contributing) on the Wiki for more details
-
-#### License
-The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
+### License
+The DMPTool project uses the <a href="./LICENSE.md">MIT License</a>.
