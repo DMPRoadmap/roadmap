@@ -255,7 +255,7 @@ class PlansController < ApplicationController
 
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = @plan.settings(:export).formatting
-    file_name = @plan.title.gsub(/ /, "_")
+    file_name = @plan.title.gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
 
     respond_to do |format|
       format.html { render layout: false }
