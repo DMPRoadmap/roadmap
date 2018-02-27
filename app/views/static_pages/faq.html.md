@@ -153,13 +153,13 @@ For more information, see the <a href="https://dmptool.org/help\" target="_blank
 
 A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to "Request feedback" will be displayed on the "Share" tab when writing a plan. If a user clicks the "Request feedback" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool.   
 <br>
-Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the <a href="https://github.com/cdluc3/dmp/wiki/Help-for-Administrators" target="_blank">help for administrators</a> wiki.
+Administrators: if you are interested in enabling this functionality for users at your institution, see the "Request feedback" section of the <a href="https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators" target="_blank">help for administrators</a> wiki.
 <hr>
 
 <h3>For Administrators</h3>
 
 <h5 id="q-where-can-i-find-help-customizing-the-dmptool-for-my-institutionorganization">Q: Where can I find help customizing the DMPTool for my institution/organization?</h5>  
-A: There is an extensive list of <a href="https://github.com/cdluc3/dmp/wiki/Help-for-Administrators" target="_blank">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for: 
+A: There is an extensive list of <a href="https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators" target="_blank">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for: 
 
 1. Setting up the DMPTool   
     - Enabling Shibboleth   
@@ -181,12 +181,12 @@ To view templates created by others (if available), create a new plan in the too
 <hr>
 
 <h5 id="q-i-created-a-test-template-how-can-i-delete-it">Q: I created a test template. How can I delete it?</h5>   
-A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can "Unpublish" the template so that it will not appear to users. See our <a href="https://github.com/cdluc3/dmp/wiki/Help-for-Administrators" target="_blank">help documentation</a> on how to do this.
+A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can "Unpublish" the template so that it will not appear to users. See our <a href="https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators" target="_blank">help documentation</a> on how to do this.
 
 <hr>
 
 <h5 id="q-how-do-i-create-guidance-and-what-are-themes">Q: How do I create guidance? And what are themes?</h5>
-A:  The <a href="https://github.com/cdluc3/dmp/wiki/Help-for-Administrators" target="_blank">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:    
+A:  The <a href="https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators" target="_blank">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:    
 
 <ol type="1">
 <li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)  </li>   
