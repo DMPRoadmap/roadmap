@@ -31,7 +31,7 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_")
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
       respond_to do |format|
         format.docx { render docx: 'template_export', filename: "#{file_name}.docx" }
         format.pdf do
@@ -67,7 +67,7 @@ class PublicPagesController < ApplicationController
 
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = @plan.settings(:export).formatting
-    file_name = @plan.title.gsub(/ /, "_")
+    file_name = @plan.title.gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
 
     respond_to do |format|
       format.html
