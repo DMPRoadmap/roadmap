@@ -32,6 +32,8 @@ class PublicPagesController < ApplicationController
 
     begin
       file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
+      file_name = file_name[0..30] if file_name.length > 31
+    
       respond_to do |format|
         format.docx { render docx: 'template_export', filename: "#{file_name}.docx" }
         format.pdf do
@@ -68,7 +70,8 @@ class PublicPagesController < ApplicationController
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
-
+    file_name = file_name[0..30] if file_name.length > 31
+    
     respond_to do |format|
       format.html
       format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
