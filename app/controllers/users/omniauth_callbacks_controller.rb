@@ -39,10 +39,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           surname = omniauth_info.sn
           
           if omniauth_info.name.present? && (firstname.nil? || surname.nil?)
-            firstname, surname = omniauth_info.name.split(' ')
+            names = omniauth_info.name.split(' ')
+            firstname = names[0]
+            surname = names[names.length - 1] if names.length > 1
           end
           
-          idp = OrgIdentifier.where_case_insensitive(identifier: omniauth_info.identity_provider).first unless omniauth_info.identity_provider
+          idp = OrgIdentifier.where('LOWER(identifier) = ?', omniauth_info.identity_provider.downcase).first if omniauth_info.identity_provider.present?
           org = Org.find_by(id: idp.org_id) if idp.present?
           pwd = SecureRandom.uuid
           
