@@ -1267,7 +1267,7 @@ msgid "Password confirmation"
 msgstr "Password confirmation"
 
 msgid "Permissions"
-msgstr "privileges"
+msgstr "Permissions"
 
 msgid "Personal Details"
 msgstr "Personal details"
