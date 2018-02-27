@@ -31,7 +31,7 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '').gsub(':', '_')
       file_name = file_name[0..30] if file_name.length > 31
     
       respond_to do |format|
@@ -69,7 +69,7 @@ class PublicPagesController < ApplicationController
 
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = @plan.settings(:export).formatting
-    file_name = @plan.title.gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '')
+    file_name = @plan.title.gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '').gsub(':', '_')
     file_name = file_name[0..30] if file_name.length > 31
     
     respond_to do |format|
