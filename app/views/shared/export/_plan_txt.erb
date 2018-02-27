@@ -35,7 +35,7 @@
 <%= txt + "\n" %>
           <% end %>
         <% else %>
-<%= question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") + "\n" if question[:text].present? && question[:text][0].present?
+<%= question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") + "\n" if question[:text].present? && question[:text][0].present? %>
         <% end %>
       <% end %>
       <% answer = @plan.answer(question[:id], false) %>
