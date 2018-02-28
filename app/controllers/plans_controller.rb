@@ -258,7 +258,7 @@ class PlansController < ApplicationController
       format.html { render layout: false }
       format.csv  { send_data @plan.as_csv(@show_sections_questions),  filename: "#{file_name}.csv" }
       format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
-      format.docx { render docx: 'export', filename: "#{file_name}.docx" }
+      format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
       format.pdf do
         render pdf: file_name,
           margin: @formatting[:margin],
