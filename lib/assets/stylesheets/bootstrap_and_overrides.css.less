@@ -175,13 +175,14 @@ div.header_right{
     margin-right: 0px;
 }
 
-#main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover, lang-dropdown-link:hover{
+#main-nav-tabs li.active a, #main-nav-tabs li.active a:active, #main-nav-tabs li a:hover, #main-nav-tabs .main_nav li .lang-dropdown-link:hover{
   background-color: @orange_colour;
   color: @white_colour !important;
   font-weight: bold;
   border: 1px solid @orange_colour;
   padding: 4px 15px 4px 15px;
   text-decoration: none !important;
+  background-image: none;
 }
 
 .caret-orange {
@@ -197,7 +198,7 @@ a.dropdown-toggle:hover .caret-orange {
   border-bottom-color: white!important;
 }
 
-.lang-dropdown-link {
+#main-nav-tabs .main_nav li .lang-dropdown-link {
   margin-bottom: 0!important;
 }
 

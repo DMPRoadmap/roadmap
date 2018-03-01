@@ -36,7 +36,7 @@
         <%= render partial: 'templates/show_phases_sections', locals: {phase: phase[:data], phase_hash: phase, template: @template, current: @current} %>
       <% end %>
     <% else %>
-      <% (1..@hash[:template][:phases].length).each do |phase_no| %>
+      <% @hash[:template][:phases].keys.sort.each do |phase_no| %>
         <% phase = @hash[:template][:phases][phase_no] %>
         <div class="accordion" id="project-accordion">
           <div class="accordion-group">
