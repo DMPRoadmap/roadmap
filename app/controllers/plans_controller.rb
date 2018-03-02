@@ -251,7 +251,7 @@ class PlansController < ApplicationController
     @public_plan = false
 
     @hash = @plan.as_pdf(@show_coversheet)
-    @formatting = @plan.settings(:export).formatting
+    @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_")
 
     respond_to do |format|
@@ -265,7 +265,7 @@ class PlansController < ApplicationController
           footer: {
             center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
             font_size: 8,
-            spacing:   (@formatting[:margin][:bottom] / 2) - 4,
+            spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
             right:     '[page] of [topage]'
           }
       end
