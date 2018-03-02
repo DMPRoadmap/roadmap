@@ -2,11 +2,11 @@
 
 <hr>
 
-<%= raw _('The <a href="http://www.cldib.org" target="_blank">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector.') %>
+<%= raw _('The <a href="http://www.cldib.org">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector.') %>
 <br>
 <h4><%= _('DMPTool') %></h4>
 
-<%= raw _("DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"http://www.dcc.ac.uk/\" target=\"_blank\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3).") %>
+<%= raw _("DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"http://www.dcc.ac.uk/\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3).") %>
 <br>
 
 <h4><%= _('Your personal details') %></h4>
@@ -16,7 +16,7 @@
 
 <h4><%= _('Privacy policy') %></h4>
 
-<%= raw _('The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href="http://www.cdlib.org/about/policies.html" target="blank">http://www.cdlib.org/about/policies.html</a>') %>
+<%= raw _('The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href="http://www.cdlib.org/about/policies.html">http://www.cdlib.org/about/policies.html</a>') %>
 <br>
 
 <h4><%= _('Freedom of Information') %></h4>
@@ -31,7 +31,7 @@
 
 <h4><%= _('Google Analytics opt-out') %></h4>
 
-<%= raw _('As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a target="_blank" href="https://tools.google.com/dlpage/gaoptout">Google Analytics opt-out page</a> and install the add-on for your browser.') %>
+<%= raw _('As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href="https://tools.google.com/dlpage/gaoptout">Google Analytics opt-out page</a> and install the add-on for your browser.') %>
 <br>
 
 <h4><%= _('Third party APIs') %></h4>
