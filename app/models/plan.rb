@@ -218,7 +218,8 @@ class Plan < ActiveRecord::Base
 
         if self.save!
           # Send an email confirmation to the owners and co-owners
-          deliver_if(recipients: self.owner_and_coowners, key: 'users.feedback_requested') do |r|
+          owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
+          deliver_if(recipients: owners, key: 'users.feedback_requested') do |r|
             UserMailer.feedback_confirmation(r, self, user).deliver_now
           end
           # Send an email to all of the org admins as well as the Org's administrator email
@@ -255,8 +256,9 @@ class Plan < ActiveRecord::Base
         
         if self.save!
           # Send an email confirmation to the owners and co-owners
-          deliver_if(recipients: self.owner_and_coowners, key: 'users.feedback_provided') do |r|
-            UserMailer.feedback_notification(r, self, org_admin).deliver_now
+          owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
+          deliver_if(recipients: owners, key: 'users.feedback_provided') do |r|
+            UserMailer.feedback_complete(r, self, org_admin).deliver_now
           end
           true
         else
