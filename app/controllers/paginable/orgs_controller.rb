@@ -5,7 +5,7 @@ class Paginable::OrgsController < ApplicationController
     authorize(Org)
     paginable_renderise(
       partial: 'index',
-      scope: Org.includes(:templates, :users).joins(:templates, :users),
+      scope: Org.includes(:templates, :users),
       query_params: { sort_field: 'orgs.name', sort_direction: :asc })
   end
 end
