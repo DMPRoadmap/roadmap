@@ -52,13 +52,13 @@ class RegistrationsController < Devise::RegistrationsController
     else
       existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
       if existing_user.present?
-        if existing_user.accept_terms?
+        if existing_user.invitation_token.present? && !existing_user.accept_terms?
+          existing_user.destroy # Destroys the existing user since the accept terms are nil/false. and they have an invitation
+          # Note any existing role for that user will be deleted too. Added to accommodate issue at:
+          # https://github.com/DMPRoadmap/roadmap/issues/322 when invited user creates an account outside the invite workflow
+        else
           redirect_to after_sign_up_error_path_for(resource), alert: _('That email address is already registered.')
           return
-        else
-          existing_user.destroy # Destroys the existing user since the accept terms are nil/false.
-          # Note any existing role for that user will be deleted too. Added to accommodate issue at:
-          # https://github.com/DMPRoadmap/roadmap/issues/322
         end
       end
         if params[:user][:org_id].blank?
