@@ -30,12 +30,16 @@ class AnswersController < ApplicationController
           @answer.touch() # Saves the record with the updated_at set to the current time. Needed if only answer.question_options is updated
         end
         if q.question_format.rda_metadata?
-          a.update_answer_hash(JSON.parse(params[:standards]), p_params[:text])
+          @answer.update_answer_hash(JSON.parse(params[:standards]), p_params[:text])
+          @answer.save!
         end
       rescue ActiveRecord::RecordNotFound
         @answer = Answer.new(p_params.merge({ user_id: current_user.id }))
         @answer.lock_version = 1
         authorize @answer
+        if q.question_format.rda_metadata?
+          @answer.update_answer_hash(JSON.parse(params[:standards]), p_params[:text])
+        end
         @answer.save!
       rescue ActiveRecord::StaleObjectError
         @stale_answer = @answer
