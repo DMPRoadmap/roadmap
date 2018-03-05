@@ -50,7 +50,7 @@
     <% end %>
   <% end %>
   <fieldset <%= 'disabled' if readonly %>>
-    <% if question.option_based? %>
+    <% if question.option_based? || question.question_format.rda_metadata? %>
         <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
