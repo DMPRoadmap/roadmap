@@ -21,12 +21,12 @@
         </div>
     <% end %>
 <% elsif question.question_format.dropdown? || question.question_format.multiselectbox? %>
-    <% 
+    <%
         options_html = ""
         options.each do |op|
             options_html += answer.has_question_option(op.id) ?
                 "<option value=#{op.id} selected=\"selected\">#{op.text}</option>" :
-                "<option value=#{op.id}>#{op.text}</option>" 
+                "<option value=#{op.id}>#{op.text}</option>"
         end
     %>
     <%= f.label(:question_option_ids, raw(question.text), class: 'control-label') %>
@@ -38,7 +38,8 @@
 <% end %>
 <div class="form-group">
 <% if question.option_comment_display %><!-- Comment text area for option_based questions -->
+    <% text = question.question_format.rda_metadata? ? answer.answer_hash[:text] : answer.text %>
     <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>
-    <%= text_area_tag('answer[text]', answer.text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+    <%= text_area_tag('answer[text]', text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
 <% end %>
 </div>
