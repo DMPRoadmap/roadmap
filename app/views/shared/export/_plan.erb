@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
+<%= @formatting[:font_face] %>
     <%= render partial: '/shared/export/plan_styling' %>
   </head>
   <body>
@@ -13,7 +14,7 @@
     <% @hash[:phases].each do |phase| %>
       <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <!-- If there is more than one phase show the plan title and phase title -->
-      <h1>
+      <h1 style="text-align:center;">
         <%= (@hash[:phases].length > 1 ? "#{@plan.title} - #{phase[:title]}" : @plan.title) %>
       </h1>
 
