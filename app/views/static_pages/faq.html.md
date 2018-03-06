@@ -12,9 +12,9 @@
 [<%= _('Who owns the data management plans created with the DMPTool?') %>](#q-who-owns-the-data-management-plans-created-with-the-dmptool)  
 [<%= _('Why am I getting email notifications from the DMPTool?') %>](#q-why-am-i-getting-email-notifications-from-the-dmptool)  
 
-**<%= _('For Researchers') %>**
-[<%= _("I'm in a hurry! Is there a quick start guide for creating a data management plan?") %>](#q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan)
-[<%= _('Where can I read more about funder requirements for data management plans?') %>](#q-where-can-i-read-more-about-funder-requirements-for-data-management-plans)   
+**<%= _('For Researchers') %>**   
+[<%= _("I'm in a hurry! Is there a quick start guide for creating a data management plan?") %>](#q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan)   
+[<%= _('Where can I read more about funder requirements for data management plans?') %>](#q-where-can-i-read-more-about-funder-requirements-for-data-management-plans)      
 [<%= _('Are there examples of data management plans?') %>](#q-are-there-examples-of-data-management-plans)     
 [<%= _('What\\'s the difference between “sample” and “public” data management plans?') %>](#q-whats-the-difference-between-sample-and-public-data-management-plans)     
 [<%= _('What are the visibility options for my data management plan?') %>](#q-what-are-the-visibility-options-for-my-data-management-plan)   
@@ -32,7 +32,7 @@
 [<%= _('How do I create guidance? And what are themes?') %>](#q-how-do-i-create-guidance-and-what-are-themes)  
 
 
-<%= raw _("Can't find what you’re looking for? <a href=\"https://dmptool.org/contact_us\" >Contact us</a>") %>
+<%= raw _("Can't find what you’re looking for? <a href=\"https://dmptool.org/contact-us\" >Contact us</a>") %>
 
 <hr>
 <h3><%= _('About the DMPTool') %></h3>
@@ -69,15 +69,15 @@
 <hr>
 
 <h5 id="q-how-can-my-institution-participate-in-the-dmptool"><%= _('Q: How can my institution participate in the DMPTool?') %></h5>
-<%= raw _('A: First, check this <a href="https://dmptool.org/public_orgs">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href="https://dmptool.org/about">participating institution</a>.') %>
+<%= raw _('A: First, check this <a href="https://dmptool.org/public_orgs">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href="https://dmptool.org/about_us">participating institution</a>.') %>
 
-<%= raw _('If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href="https://dmptool.org/contact_us">contact us</a>.') %>
+<%= raw _('If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href="https://dmptool.org/contact-us">contact us</a>.') %>
 <hr>
 
 <h5 id="q-what-are-the-benefits-of-participating-in-the-dmptool"><%= _('Q: What are the benefits of participating in the DMPTool?') %></h5>
 <%= _('A: Participating institutions can incorporate information about their resources and services to aid researchers with data management. Participating institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from particpating institutions that have configured the tool with Shibboleth can log in with their own institutional accounts.') %>
 
-<%= raw _('For more information, see <a href="https://dmptool.org/about">About participating</a>.') %>
+<%= raw _('For more information, see <a href="https://dmptool.org/about_us">About participating</a>.') %>
 <hr>
 
 <h5 id="q-have-funders-endorsed-the-dmptool"><%= _('Q: Have funders endorsed the DMPTool?') %></h5>
@@ -172,4 +172,4 @@ The collection contains actual plans created by DMPTool users who have opted to 
 <%= _('There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.') %>
 <hr>
 
-<%= raw _("Can't find the answer you’re looking for? <a href=\"https://dmptool.org/contact_us\">Contact us</a>") %>
+<%= raw _("Can't find the answer you’re looking for? <a href=\"https://dmptool.org/contact-us\">Contact us</a>") %>
