@@ -1096,8 +1096,7 @@ msgstr "Taille de police non valide"
 msgid "Invalid maximum pages"
 msgstr "Nombre de pages maxi non valide"
 
-msgid ""
-"Invitation to %{email} issued successfully. \n"
+msgid "Invitation to %{email} issued successfully. \n"
 msgstr ""
 
 msgid "Invite collaborators"
@@ -1572,9 +1571,7 @@ msgid "Please note that your email address is also your username. If you change 
 msgstr "Organisation"
 
 #, fuzzy
-msgid ""
-"Please note that your email address is used as your username.\n"
-"    If you change this, remember to use your new email address on sign in."
+msgid "Please note that your email address is used as your username.\nIf you change this, remember to use your new email address on sign in."
 msgstr "<p>À noter que votre courriel est à utiliser comme nom dutilisateur. Si vous modifiez ces informations, rappelez-vous dutiliser votre courriel en vous connectant.</p>"
 
 #, fuzzy

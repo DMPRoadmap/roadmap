@@ -1105,8 +1105,7 @@ msgstr "Ungültige Schriftgröße"
 msgid "Invalid maximum pages"
 msgstr "Ungültige maximale Anzahl von Seiten"
 
-msgid ""
-"Invitation to %{email} issued successfully. \n"
+msgid "Invitation to %{email} issued successfully. \n"
 msgstr ""
 
 msgid "Invite collaborators"
@@ -1587,9 +1586,7 @@ msgid "Please note that your email address is also your username. If you change 
 msgstr "Organisation"
 
 #, fuzzy
-msgid ""
-"Please note that your email address is used as your username.\n"
-"    If you change this, remember to use your new email address on sign in."
+msgid "Please note that your email address is used as your username.\nIf you change this, remember to use your new email address on sign in."
 msgstr "<p>Bitte beachten Sie, dass Ihre Email-Adresse als Nutzername verwendet wird. Vergessen Sie nicht, Ihre neue E-Mail-Adresse beim der nächsten Anmeldung zu verwenden, falls Sie diese geändert haben.</p>"
 
 #, fuzzy
