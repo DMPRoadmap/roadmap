@@ -254,6 +254,10 @@ class Template < ActiveRecord::Base
     end
     return !modifiable
   end
+  
+  def template_type
+    self.customization_of.present? ? _('customisation') : _('template')
+  end
 
   # --------------------------------------------------------
   private
