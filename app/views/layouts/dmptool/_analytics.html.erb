@@ -1,0 +1,21 @@
+<% if Rails.configuration.branding[:keys].present? %>
+  <% if Rails.env.stage? %>
+    <script type="text/javascript">
+      (function() { var s = document.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = '//api.usersnap.com/load/<%= Rails.configuration.branding[:keys][:usersnap_key] %>.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+    </script>
+  <% end %>
+
+  <% # this only works without TurboLinks, if we need to add TurboLinks back
+     # to the application then we need to work around, http://railsapps.github.io/rails-google-analytics.html %>
+  <% if Rails.env.production? %>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '<%= Rails.configuration.branding[:keys][:google_analytics_key] %>', '<%= Rails.configuration.branding[:keys][:google_analytics_host] %>');
+      ga('send', 'pageview');
+    </script>
+  <% end %>
+<% end %>
