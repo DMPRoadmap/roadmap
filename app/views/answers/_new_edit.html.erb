@@ -10,27 +10,31 @@
 <% if q_format.rda_metadata? %>
   <% answer_hash = answer.answer_hash %>
   <div class="rda_metadata"><button class="remove-standard" style="display:hidden"></button>
-    <div class="selected_standards">Your Selected Standards:</br><ul class="list bullet"></ul></div>
+    <div class="selected_standards"><strong><%=_("Your Selected Standards:")%></strong></br><ul class="list bullet"></ul></div>
     <div class="rda_right" style="float:right;width:50%;margin-bottom:5px;">
       OR Search:</br>
       <input type="text" data-provide="typeahead" class="standards-typeahead"></input></br>
-      <button class="btn btn-primary select_standard_typeahead">Add Standard</button>
+      <button class="btn btn-primary select_standard_typeahead"><%=_("Add Standard")%></button>
     </div>
-    <div class="subject">Please select a subject</br><select name="subject"></select></div>
-    <div class="sub-subject">Please select a sub-subject</br><select name="sub-subject"></select></div>
+    <div class="subject"><%=_("Please select a subject")%></br>
+      <select name="subject" class="form-control"></select>
+    </div>
+    <div class="sub-subject"><%=_("Please select a sub-subject")%></br>
+      <select name="sub-subject" class="form-control"></select>
+    </div>
     </br>
     <div class="suggested-answer-div">
       <span class="suggested-answer-intro">
-          <%=_("Browse Standards") %>
+          <strong><%=_("Browse Standards") %></strong>
       </span>
 
       <div class="browse-standards-border">
         <p class="suggested-answer">
-          <%=_("Please wait, Standards are loading")%>
+          <strong><%=_("Please wait, Standards are loading")%></strong>
         </p>
       </div>
       <div>
-        <a href="#" class="custom-standard">Standard not listed?  Add your own.</a>
+        <a href="#" class="custom-standard"><strong>Standard not listed?  Add your own.</strong></a>
         <div class="add-custom-standard" style="display:none;">
           <input type="text" class="custom-standard-name"></input>
           <button class="btn btn-primary submit_custom_standard">Add Standard</button>

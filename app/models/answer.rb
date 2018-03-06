@@ -10,9 +10,9 @@ class Answer < ActiveRecord::Base
       else
         plan.touch  # Force updated_at changes if nothing changed since save only saves if changes were made to the record
       end
-    end 
+    end
   end
-  
+
   ##
   # Associations
 	belongs_to :question
@@ -97,7 +97,7 @@ class Answer < ActiveRecord::Base
   #                'standards' is a list of <std_id>: <title> pairs
   #                'text' is the text from the comments box
   def answer_hash
-    default = {'standards' => {}, text => ''}
+    default = {'standards' => {}, 'text' => ''}
     begin
       h = self.text.nil? ? default : JSON.parse(self.text)
     rescue JSON::ParserError => e
@@ -115,8 +115,8 @@ class Answer < ActiveRecord::Base
   # nothing returned, but the status of the text field of the answer is changed
   def update_answer_hash(standards={},text="")
     h = {}
-    h[:standards] = standards
-    h[:text] = text
+    h['standards'] = standards
+    h['text'] = text
     self.text = h.to_json
   end
 end
