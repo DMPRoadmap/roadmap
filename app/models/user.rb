@@ -229,9 +229,6 @@ class User < ActiveRecord::Base
         break random_token unless User.exists?(api_token: random_token)
       end
       update_column(:api_token, api_token)  unless new_record?
-      deliver_if(recipients: self, key: 'users.admin_privileges') do |r|
-        UserMailer.api_token_granted_notification(r).deliver_now
-      end
     end
   end
 
