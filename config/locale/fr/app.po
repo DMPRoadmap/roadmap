@@ -322,7 +322,7 @@ msgid "A user has requested feedback on a DMP"
 msgstr "user"
 
 #, fuzzy
-msgid "A:  The <a href=\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
+msgid "A:  The <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
 msgstr "Groupe de conseils"
 
 #, fuzzy
@@ -330,11 +330,11 @@ msgid "A: A data management plan is a formal document that outlines what you wil
 msgstr "plans"
 
 #, fuzzy
-msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\">help documentation</a> on how to do this."
+msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help documentation</a> on how to do this."
 msgstr "templates"
 
 #, fuzzy
-msgid "A: There is an extensive list of <a href=\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
+msgid "A: There is an extensive list of <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
 msgstr "templates"
 
 #, fuzzy
@@ -441,7 +441,7 @@ msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
 #, fuzzy
-msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\">help for administrators</a> wiki."
+msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help for administrators</a> wiki."
 msgstr "Section"
 
 msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf\">Adobe PDF</a></li></ul>"
@@ -582,11 +582,11 @@ msgid "Briefly summarise your research project to help others understand the pur
 msgstr "Créé"
 
 #, fuzzy
-msgid "Can't find the answer you’re looking for? <a href=\"https://dmptool.org/contact_us\">Contact us</a>"
+msgid "Can't find the answer you’re looking for? <a href=\"https://dmptool.org/contact-us\">Contact us</a>"
 msgstr "Communiquez avec nous"
 
 #, fuzzy
-msgid "Can't find what you’re looking for? <a href=\"https://dmptool.org/contact_us\" >Contact us</a>"
+msgid "Can't find what you’re looking for? <a href=\"https://dmptool.org/contact-us\" >Contact us</a>"
 msgstr "Communiquez avec nous"
 
 msgid "Cancel"
@@ -2013,7 +2013,7 @@ msgstr "Sections"
 msgid "Security check"
 msgstr ""
 
-msgid "See a current list of <a href=\"https://dmptool-stg.cdlib.org/public_orgs\">DMPTool participants</a>."
+msgid "See a current list of <a href=\"https://dmptool.org/public_orgs\">DMPTool participants</a>."
 msgstr ""
 
 msgid "See the full list of participating institutions"
@@ -2231,7 +2231,7 @@ msgid "The key %{key} does not have a valid set of object links"
 msgstr ""
 
 #, fuzzy
-msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"https://github.com/CDLUC3/dmptool/wiki/DMPTool-Steering-Committee\">DMPTool Steering Committee</a> that maintains monthly calls."
+msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"https://github.com/CDLUC3/dmptool/wiki/Steering-Committee\">DMPTool Steering Committee</a> that maintains monthly calls."
 msgstr "plans"
 
 msgid "The password must be between 8 and 128 characters."

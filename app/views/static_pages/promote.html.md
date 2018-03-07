@@ -17,6 +17,8 @@
 
 <%= raw _('Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/poster/DMPTool_poster_v2.pdf">Adobe PDF</a></li></ul>') %>
 
+<br>
+
 <h3><%= _('Talking points') %></h3>
 
 <%= raw _('Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf">Adobe PDF</a></li><li>Meeting with your IT Group: <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx">Microsoft Word</a> or <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf">Adobe PDF</a></li><li>Meeting with Administrators: <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx">Microsoft Word</a> or <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf">Adobe PDF</a></li><li>Meeting with Researchers: <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx">Microsoft Word</a> or <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf">Adobe PDF</a> </li></ul>') %>
