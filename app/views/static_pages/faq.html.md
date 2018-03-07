@@ -48,20 +48,20 @@
 <%= raw _('A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at <a href="https://dmptool.org/public_orgs">participating institutions</a> to help fulfill data management requirements.') %>
 
 
-<%= raw _('Use our %{<a href="https://dmptool.org/help">Quick Start Guide</a>} to begin creating a plan.') %>
+<%= raw _('Use our <a href="https://dmptool.org/help">Quick Start Guide</a> to begin creating a plan.') %>
 <hr>
 
 <h5 id="q-how-much-does-it-cost-to-use-the-dmptool"><%= _('Q: How much does it cost to use the DMPTool?') %></h5>  
 <%= _('A: The DMPTool is FREE. Anyone can create data management plans using the DMPTool.') %>
 
-<%= _('A login is required to access the DMPTool. If you are a researcher from a <a href="https://dmptool.org/public_orgs">participating institutions</a>, you can log in as a user from your institution. If your institution does not participate, you can create your own account.') %>
+<%=raw  _('A login is required to access the DMPTool. If you are a researcher from a <a href="https://dmptool.org/public_orgs">participating institutions</a>, you can log in as a user from your institution. If your institution does not participate, you can create your own account.') %>
 
 
 <%= raw _('Use our <a href="https://dmptool.org/help">Quick Start Guide</a> to begin creating a plan.') %>
 <hr>
 
 <h5 id="q-who-can-use-the-dmptool"><%= _('Q: Who can use the DMPTool?') %></h5>
-<%= _('A: Anyone can create data management plans. If you are a researcher from one of the <a href="https://dmptool.org/public_orgs">participating institutions</a>, you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan.') %>
+<%= raw _('A: Anyone can create data management plans. If you are a researcher from one of the <a href="https://dmptool.org/public_orgs">participating institutions</a>, you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan.') %>
 
 <%= _('If your institution does not participate, you can create your own account.') %>
 
@@ -87,7 +87,7 @@
 <hr>
 
 <h5 id="q-who-owns-the-data-management-plans-created-with-the-dmptool"><%= _('Q: Who owns the data management plans created with the DMPTool?') %></h5>  
-<%= _('A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href="https://dmptool.org/public_plans">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research.') %>
+<%= raw _('A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href="https://dmptool.org/public_plans">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research.') %>
 
 <%= raw _('See the <a href="https://dmptool.org/help">Quick Start Guide</a> for more information on setting your plan\\'s visibility.') %>
 <hr>
