@@ -20,6 +20,6 @@
   </p>
 <% end %>
 <p>
-  <%= raw _('More information about administering the %{tool_name} for users at your organisation is available at %{help_url}.') %{ :tool_name => tool_name, :help_url => link_to('help page', help_url)} %>
+  <%= raw _('More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}.') %{ :tool_name => tool_name, :help_url => link_to('help for administrators page', help_url)} %>
 </p>
 <%= render partial: 'email_signature' %>
