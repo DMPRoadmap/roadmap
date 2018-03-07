@@ -85,7 +85,11 @@ class QuestionsController < ApplicationController
     @section = @question.section
     @phase = @section.phase
     template = @phase.template
-    if @question.update_attributes(params[:question])
+    
+    attrs = params[:question]
+    attrs[:theme_ids] = [] unless attrs[:theme_ids]
+    
+    if @question.update_attributes(attrs)
       @phase.template.dirty = true
       @phase.template.save!
 

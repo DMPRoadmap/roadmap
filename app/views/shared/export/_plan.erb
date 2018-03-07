@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
+<%= @formatting[:font_face] %>
     <%= render partial: '/shared/export/plan_styling' %>
   </head>
   <body>
@@ -13,7 +14,7 @@
     <% @hash[:phases].each do |phase| %>
       <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <!-- If there is more than one phase show the plan title and phase title -->
-      <h1>
+      <h1 style="text-align:center;">
         <%= (@hash[:phases].length > 1 ? "#{@plan.title} - #{phase[:title]}" : @plan.title) %>
       </h1>
 
@@ -34,13 +35,13 @@
                   <% end %>
                 </ul>
               <% else %>
-                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %></p>
+                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present? && question[:text][0].present? %></p>
               <% end %>
               <br>
             <% end %>
 
             <% answer = @plan.answer(question[:id], false) %>
-            <% blank = answer.present? ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
+            <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
             <% if blank && @show_unanswered %>
               <p><%= _('Question not answered.') -%></p>
             <% elsif !blank %>

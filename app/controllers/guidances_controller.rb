@@ -67,8 +67,10 @@ class GuidancesController < ApplicationController
     authorize guidance
     guidance.text = params["guidance-text"]
     
-    if guidance.update_attributes(guidance_params)
-
+    attrs = guidance_params
+    attrs[:theme_ids] = [] unless attrs[:theme_ids]
+    
+    if guidance.update_attributes(attrs)
       if guidance.published?
         guidance_group = GuidanceGroup.find(guidance.guidance_group_id)
         if !guidance_group.published? || guidance_group.published.nil?

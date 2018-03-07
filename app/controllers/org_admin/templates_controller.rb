@@ -30,7 +30,7 @@ module OrgAdmin
         published: published,
         current_org: current_user.org, 
         orgs: Org.all,
-        current_tab: params[:r] || 'all-templates',
+        current_tab: params[:r],
         scopes: { all: all_templates_hash[:scopes], orgs: own_hash[:scopes], funders: customizable_hash[:scopes] }
       }
     end
@@ -68,12 +68,13 @@ module OrgAdmin
       authorize @template
 
       @current = Template.current(@template.dmptemplate_id)
-
+      @current_tab = params[:r] || 'all-templates'
+      
       if @template == @current 
         if @template.published?
           new_version = @template.get_new_version
           if !new_version.nil?
-            redirect_to(action: 'edit', id: new_version.id)
+            redirect_to(action: 'edit', id: new_version.id, r: @current_tab)
             return
           else
             flash[:alert] = _('Unable to create a new version of this template. You are currently working with a published copy.')
@@ -85,13 +86,13 @@ module OrgAdmin
 
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
-      @current_tab = params[:r] || 'all-templates'
       
       render('container',
         locals: { 
           partial_path: 'edit',
           template: @template,
           current: @current,
+          edit: @template == @current,
           template_hash: @template_hash,
           current_tab: @current_tab
         })
@@ -179,7 +180,7 @@ module OrgAdmin
     def history
       @template = Template.find(params[:id])
       authorize @template
-      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(version: :desc)
+      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id)
       @current = Template.current(@template.dmptemplate_id)
       @current_tab = params[:r] || 'all-templates'
     end

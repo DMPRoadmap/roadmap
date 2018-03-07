@@ -43,7 +43,7 @@ class PhasesController < ApplicationController
 
   #show and edit a phase of the template
   def admin_show
-    @phase = Phase.includes(:sections).order(:number).find(params[:id])
+    @phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
     authorize @phase
 
     @current = Template.current(@phase.template.dmptemplate_id)
@@ -56,6 +56,10 @@ class PhasesController < ApplicationController
       @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
     else
       @original_org = @phase.template.org
+    end
+    
+    if @phase.template != @current
+      flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
     end
     
     render('/org_admin/templates/container',
@@ -90,6 +94,7 @@ class PhasesController < ApplicationController
       locals: {
         partial_path: 'admin_add',
         template: @template,
+        edit: true,
         current_tab: params[:r] || 'all-templates'
       })
   end
