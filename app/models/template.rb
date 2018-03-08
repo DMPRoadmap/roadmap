@@ -169,6 +169,7 @@ class Template < ActiveRecord::Base
       new_version.version = (self.version + 1)
       new_version.published = false 
       new_version.visibility = self.visibility # do not change the visibility 
+      new_version.is_default = self.is_default # retain the default template flag
       new_version.save!
       new_version
     else
@@ -253,6 +254,10 @@ class Template < ActiveRecord::Base
     end
     return !modifiable
   end
+  
+  def template_type
+    self.customization_of.present? ? _('customisation') : _('template')
+  end
 
   # --------------------------------------------------------
   private
@@ -264,7 +269,7 @@ class Template < ActiveRecord::Base
       self.migrated = false
       self.dirty = false
       self.visibility = 0 # Organisationally visible by default
-      self.is_default = false
+      self.is_default = false if self.is_default.nil?
       self.version = 0 if self.version.nil?
       self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
 

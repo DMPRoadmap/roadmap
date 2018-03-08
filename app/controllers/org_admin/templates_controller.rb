@@ -30,7 +30,7 @@ module OrgAdmin
         published: published,
         current_org: current_user.org, 
         orgs: Org.all,
-        current_tab: params[:r] || 'all-templates',
+        current_tab: params[:r],
         scopes: { all: all_templates_hash[:scopes], orgs: own_hash[:scopes], funders: customizable_hash[:scopes] }
       }
     end
@@ -53,10 +53,10 @@ module OrgAdmin
       @template.links = (params["template-links"].present? ? JSON.parse(params["template-links"]) : {"funder": [], "sample_plan": []})
 
       if @template.save
-        redirect_to edit_org_admin_template_path(@template), notice: success_message(_('template'), _('created'))
+        redirect_to edit_org_admin_template_path(@template), notice: success_message(@template.template_type, _('created'))
       else
         @hash = @template.to_hash
-        flash[:alert] = failed_create_error(@template, _('template'))
+        flash[:alert] = failed_create_error(@template, @template.template_type)
         render action: "new"
       end
     end
@@ -68,30 +68,31 @@ module OrgAdmin
       authorize @template
 
       @current = Template.current(@template.dmptemplate_id)
-
+      @current_tab = params[:r] || 'all-templates'
+      
       if @template == @current 
         if @template.published?
           new_version = @template.get_new_version
           if !new_version.nil?
-            redirect_to(action: 'edit', id: new_version.id)
+            redirect_to(action: 'edit', id: new_version.id, r: @current_tab)
             return
           else
-            flash[:alert] = _('Unable to create a new version of this template. You are currently working with a published copy.')
+            flash[:alert] = _("Unable to create a new version of this #{@template.template_type}. You are currently working with a published copy.")
           end
         end
       else
-        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+        flash[:notice] = _("You are viewing a historical version of this #{@template.template_type}. You will not be able to make changes.")
       end
 
       # once the correct template has been generated, we convert it to hash
       @template_hash = @template.to_hash
-      @current_tab = params[:r] || 'all-templates'
       
       render('container',
         locals: { 
           partial_path: 'edit',
           template: @template,
           current: @current,
+          edit: @template == @current,
           template_hash: @template_hash,
           current_tab: @current_tab
         })
@@ -107,13 +108,13 @@ module OrgAdmin
 
       # Only allow the current version to be updated
       if current != @template
-        render(status: :forbidden, json: { msg: _('You can not edit a historical version of this template.')})
+        render(status: :forbidden, json: { msg: _("You can not edit a historical version of this #{@template.template_type}.")})
       else
         template_links = nil
         begin
           template_links = JSON.parse(params["template-links"]) if params["template-links"].present?
         rescue JSON::ParserError
-          render(status: :bad_request, json: { msg: _('Error parsing links for a template') })
+          render(status: :bad_request, json: { msg: _("Error parsing links for a #{@template.template_type}") })
           return
         end
 
@@ -136,10 +137,10 @@ module OrgAdmin
         end
       
         if @template.update_attributes(params[:template])
-          render(status: :ok, json: { msg: success_message(_('template'), _('saved'))})
+          render(status: :ok, json: { msg: success_message(@template.template_type, _('saved'))})
         else
           # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
-          render(status: :bad_request, json: { msg: failed_update_error(@template, _('template'))})
+          render(status: :bad_request, json: { msg: failed_update_error(@template, @template.template_type)})
         end
       end
     end
@@ -157,19 +158,19 @@ module OrgAdmin
         # Only allow the current version to be destroyed
         if current == @template
           if @template.destroy
-            flash[:notice] = success_message(_('template'), _('removed'))
+            flash[:notice] = success_message(@template.template_type, _('removed'))
             redirect_to org_admin_templates_path(r: current_tab)
           else
             @hash = @template.to_hash
-            flash[:alert] = failed_destroy_error(@template, _('template'))
+            flash[:alert] = failed_destroy_error(@template, @template.template_type)
             redirect_to org_admin_templates_path(r: current_tab)
           end
         else
-          flash[:alert] = _('You cannot delete historical versions of this template.')
+          flash[:alert] = _("You cannot delete historical versions of this #{@template.template_type}.")
           redirect_to org_admin_templates_path(r: current_tab)
         end
       else
-        flash[:alert] = _('You cannot delete a template that has been used to create plans.')
+        flash[:alert] = _("You cannot delete a #{@template.template_type} that has been used to create plans.")
         redirect_to org_admin_templates_path(r: current_tab)
       end
     end
@@ -179,7 +180,7 @@ module OrgAdmin
     def history
       @template = Template.find(params[:id])
       authorize @template
-      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id).order(version: :desc)
+      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id)
       @current = Template.current(@template.dmptemplate_id)
       @current_tab = params[:r] || 'all-templates'
     end
@@ -308,10 +309,10 @@ module OrgAdmin
       end
 
       if new_copy.save
-        flash[:notice] = 'Template was successfully copied.'
+        flash[:notice] = "#{@template.template_type.capitalize} was successfully copied."
         redirect_to edit_org_admin_template_path(id: new_copy.id, edit: true, r: 'organisation-templates'), notice: _('Information was successfully created.')
       else
-        flash[:alert] = failed_create_error(new_copy, _('template'))
+        flash[:alert] = failed_create_error(new_copy, @template.template_type)
       end
 
     end
@@ -321,12 +322,11 @@ module OrgAdmin
     def publish
       template = Template.find(params[:id])
       authorize template
-
       current = Template.current(template.dmptemplate_id)
       
       # Only allow the current version to be updated
       if current != template
-        redirect_to org_admin_templates_path, alert: _('You can not publish a historical version of this template.')
+        redirect_to org_admin_templates_path, alert: _("You can not publish a historical version of this #{template.template_type}.")
 
       else
         # Unpublish the older published version if there is one
@@ -340,8 +340,8 @@ module OrgAdmin
         template.published = true
         template.save
 
-        flash[:notice] = _('Your template has been published and is now available to users.')
-        redirect_to "#{org_admin_templates_path}#{template.customization_of.present? ? '#funder-templates' : '#organisation-templates'}"
+        flash[:notice] = _("Your #{template.template_type} has been published and is now available to users.")
+        redirect_to "#{org_admin_templates_path}#{template.template_type == 'customisation' ? '#funder-templates' : '#organisation-templates'}"
       end
     end
 
@@ -352,14 +352,14 @@ module OrgAdmin
       authorize template
 
       if template.nil?
-        flash[:alert] = _('That template is not currently published.')
+        flash[:alert] = _("That #{template.template_type} is not currently published.")
       else
         template.published = false
         template.save
-        flash[:notice] = _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it')
+        flash[:notice] = _("Your #{template.template_type} is no longer published. Users will not be able to create new DMPs for this #{template.template_type} until you re-publish it")
       end
 
-      redirect_to "#{org_admin_templates_path}#{template.customization_of.present? ? '#funder-templates' : '#organisation-templates'}"
+      redirect_to "#{org_admin_templates_path}#{template.template_type == 'customisation' ? '#funder-templates' : '#organisation-templates'}"
     end
     
     # PUT /org_admin/template_options  (AJAX)

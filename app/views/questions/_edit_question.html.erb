@@ -30,7 +30,7 @@ in the admin interface.
                 :id,
                 :title,
                 question.question_format_id),
-                {}, 
+                {},
                 class: "form-control",
                 'data-toggle': 'tooltip',
                 'data-html': true,
@@ -42,12 +42,13 @@ in the admin interface.
             <div class="col-md-offset-2">
               <%= render "/question_options/option_fields", f: f, q: question %>
               <!--display for selecting comment box when multiple choice is being used-->
-              <div class="checkbox">
-                <label>
-                  <%= f.check_box :option_comment_display, as: :check_boxes %><%= _('Display additional comment area.') %>
-                </label>
-              </div>
             </div>
+          </div>
+          <% comment_disp = question.question_format.option_based? || question.question_format.rda_metadata? %>
+          <div class="form-group col-md-10" data-attribute="option_comment" style="<%=comment_disp ? '' : 'display:none;'%>">
+            <label>
+              <%= f.check_box :option_comment_display, as: :check_boxes %><%= _('Display additional comment area.') %>
+            </label>
           </div>
           <!--Question default_value -->
           <div class="form-group col-md-10" data-attribute="default_value" style="<%= question.question_format.textfield? || question.question_format.textarea? ? '' : 'display: none;' %>">
@@ -87,7 +88,7 @@ in the admin interface.
           </div>
           <!-- Themes -->
           <div class="form-group col-md-10">
-            <%= render partial: 'org_admin/shared/theme_selector', 
+            <%= render partial: 'org_admin/shared/theme_selector',
                        locals: { f: f, all_themes: Theme.all.order("title"),
                                  popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
           </div>
