@@ -55,7 +55,7 @@ namespace :bugfix do
 
   desc "Set all funder templates (and the default template) to 'public' visibility and all others to 'organisational'"
   task set_template_visibility: :environment do
-    funders = Org.funders.pluck(:id)
+    funders = Org.funder.pluck(:id)
     Template.update_all visibility: Template.visibilities[:organisationally_visible]
     Template.where(org_id: funders).update_all visibility: Template.visibilities[:publicly_visible]
     Template.default.update visibility: Template.visibilities[:publicly_visible]
