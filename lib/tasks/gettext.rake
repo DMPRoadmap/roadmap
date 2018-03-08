@@ -4,7 +4,7 @@ namespace :gettext do
   end
   
   desc 'Add the specified language to the database'
-  task :add_language, [:code, :name, :is_default] => [:environment] do |t, args|
+  task :add_language_to_db, [:code, :name, :is_default] => [:environment] do |t, args|
     if args[:code].present? && args[:name].present?
       if Language.find_by(abbreviation: args[:code]).present?
         puts "That language already exists!"
@@ -18,7 +18,7 @@ namespace :gettext do
   end
   
   desc 'Remove the specified language from the database'
-  task :remove_language, [:code] => [:environment] do |t, args|
+  task :remove_language_from_db, [:code] => [:environment] do |t, args|
     if args[:code].present?
       lang = Language.find_by(abbreviation: args[:code])
       default = Language.find_by(default_language: true) || Language.first
