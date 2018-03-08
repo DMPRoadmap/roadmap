@@ -9,11 +9,11 @@
     <% if @show_coversheet %>
       <%= render partial: '/shared/export/plan_coversheet' %>
     <% end %>
-    
+
     <% @hash[:phases].each do |phase| %>
       <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <!-- If there is more than one phase show the plan title and phase title -->
-      <h1>
+      <h1 style="text-align:center;">
         <%= (@hash[:phases].length > 1 ? "#{@plan.title} - #{phase[:title]}" : @plan.title) %>
       </h1>
 
@@ -34,22 +34,34 @@
                   <% end %>
                 </ul>
               <% else %>
-                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %></p>
+                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present? && question[:text][0].present? %></p>
               <% end %>
               <br>
             <% end %>
 
             <% answer = @plan.answer(question[:id], false) %>
-            <% blank = answer.present? ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
-            <% if blank && @show_unanswered %>
+            <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
+            <% options = answer.present? ? answer.question_options : [] %>
+            <% if blank && @show_unanswered && options.blank? %>
               <p><%= _('Question not answered.') -%></p>
             <% elsif !blank %>
-              <% if answer.question_options.length > 0 %>
+              <% if options.present?%>
                 <ul>
-                  <% answer.question_options.each do |opt| %>
+                  <% options.each do |opt| %>
                     <li><%= opt.text %></li>
                   <% end %>
                 </ul>
+              <% end %>
+              <% if question[:format].rda_metadata? %>
+                <% ah = answer.answer_hash %>
+                <% if ah['standards'].present? %>
+                  <ul>
+                    <% ah['standards'].each do |id, title| %>
+                      <li><%= title %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+                <p><%= raw ah['text'] %></p>
               <% else %>
                 <p><%= raw answer.text %></p>
               <% end %>

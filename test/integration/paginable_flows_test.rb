@@ -36,9 +36,9 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     # Fails if search form does not exists under paginable-search
     refute_empty(css_select('.paginable-search form'))
     # Fails if sort link for email does not exist
-    refute_empty(css_select('a[href$="1?search=User&sort_direction=ASC&sort_field=email"]'))
+    refute_empty(css_select('a[href$="ALL?search=User&sort_direction=ASC&sort_field=email"]'))
     # Fails if sort link for last_sign_in_at does not exist
-    refute_empty(css_select('a[href$="1?search=User&sort_direction=ASC&sort_field=last_sign_in_at"]'))
+    refute_empty(css_select('a[href$="ALL?search=User&sort_direction=ASC&sort_field=last_sign_in_at"]'))
 
     link_view_less_search_results = css_select('a[href$="/1?search=User"]').first
     refute_nil(link_view_less_search_results)
@@ -77,9 +77,9 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     # Fails if search form does not exists under paginable-search
     refute_empty(css_select('.paginable-search form'))
     # Fails if sort link for email does not exist
-    refute_empty(css_select('a[href$="1?sort_direction=ASC&sort_field=email"]'))
+    refute_empty(css_select('a[href$="ALL?sort_direction=ASC&sort_field=email"]'))
     # Fails if sort link for last_sign_in_at does not exist
-    refute_empty(css_select('a[href$="1?sort_direction=ASC&sort_field=last_sign_in_at"]'))
+    refute_empty(css_select('a[href$="ALL?sort_direction=ASC&sort_field=last_sign_in_at"]'))
 
     link = css_select('a[href$="/1"]').first
     # Fails if link ending with /1 does not exist

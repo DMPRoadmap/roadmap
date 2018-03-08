@@ -164,19 +164,19 @@ span.sublist {
   margin-right: 25px;
 }
 
-/* Overrides ul list */ 
+/* Overrides ul list */
 #modal-permissions ul {
   list-style-type: none;
 }
 
-/* Overrides list-group */ 
+/* Overrides list-group */
 #modal-permissions .list-group li:nth-child(1){
   border-top: 0 none;
 }
 
-/* Overrides list-group-item */ 
+/* Overrides list-group-item */
 #modal-permissions .list-group-item {
-  height: 30px; 
+  height: 30px;
   padding: 5px 15px;
 }
 
@@ -383,7 +383,7 @@ $tooltip-background: $grey;
 
 .tooltip-inner {
   min-width: 320px;
-  max-width: 100%; 
+  max-width: 100%;
   text-align: left;
 }
 
@@ -492,4 +492,26 @@ $tooltip-background: $grey;
 .alert,
 .input-group-addon {
   border-radius: 0px;
+}
+
+/* rda styling */
+.browse-standards-border {
+  border: 1px solid $grey;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+  padding: 10px 10px 5px 10px;
+  margin-bottom:10px;
+  overflow-y: scroll;
+  max-height: 300px;
+  width: 100%;
+}
+
+.rda_metadata .form-control {
+  width: auto;
+}
+
+.remove-standard {
+  border: none;
+  background: none;
 }

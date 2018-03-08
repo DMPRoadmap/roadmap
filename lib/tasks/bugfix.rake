@@ -90,18 +90,21 @@ namespace :bugfix do
 
   desc "Allow Statistics API Usage for Org Admin Users"
   task stats_api_org_admin: :environment do
-    perms = Perm.where(name: ['modify_templates','modify_guidance','change_org_details','grant_permissions']).include(users: {org: :token_permission_types})
-    users = perms.map {|perm| perm.users}
-    users.flatten!.uniq!
-    orgs = users.map {|user| user.org}
-    orgs.uniq!
-    # ensure orgs have access to statistics controller
+    Rake::Task['bugfix:add_missing_token_permission_types'].execute
+    orgs = Org.where(is_other: nil)
     orgs.each do |org|
       org.grant_api!(TokenPermissionType::STATISTICS)
     end
-    # leave tokens intact
+    users = User.joins(:perms).where("org_id IN (?) AND (api_token IS NULL OR api_token = '')", orgs.collect(&:id))
     users.each do |user|
-      user.keep_or_generate_token!
+      if user.can_org_admin?
+        # Generate the tokens directly instead of via the User.keep_or_generate_token! method so that we do not spam users!!
+        user.api_token = loop do
+          random_token = SecureRandom.urlsafe_base64(nil, false)
+          break random_token unless User.exists?(api_token: random_token)
+        end
+        user.save!
+      end
     end
   end
 end

@@ -1,22 +1,24 @@
+<% font_size = @formatting[:font_size].kind_of?(Integer) ? Integer(@formatting[:font_size]) : 10 %>
+
 <style>
   html {
     font-family: <%= @formatting[:font_face].tr('"', '') -%>; 
-    font-size: <%= @formatting[:font_size] -%>pt; 
+    font-size: <%= font_size -%>pt; 
     margin: <%= @formatting[:margin][:top] %>px <%= @formatting[:margin][:right] %>px <%= @formatting[:margin][:bottom] %>px <%= @formatting[:margin][:left] %>px;
   }
   h1 {
-    font-size: <%= @formatting[:font_size] + 8 -%>pt; 
+    font-size: <%= font_size + 8 -%>pt; 
     font-face:bold; 
     padding: 0;
   }
   h2 {
-    font-size: <%= @formatting[:font_size] + 3 -%>pt; 
+    font-size: <%= font_size + 3 -%>pt; 
     font-face:bold; 
     padding: 0; 
     margin: 1em 0 0 0;
   }
   h3 {
-    font-size: <%= @formatting[:font_size] + 2 -%>pt; 
+    font-size: <%= font_size + 2 -%>pt; 
     font-face:bold; 
     padding: 0; 
     margin: 1em 0 0 0;
@@ -43,7 +45,7 @@
     margin-right: auto;
   }
   .cover-page {
-    font-size: <%= @formatting[:font_size] + 1 -%>pt; 
+    font-size: <%= font_size + 1 -%>pt; 
   }
   .question {
     margin-top: 15px;
