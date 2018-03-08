@@ -9,7 +9,8 @@ class Paginable::PlansController < ApplicationController
   def organisationally_or_publicly_visible
     raise Pundit::NotAuthorizedError unless Paginable::PlanPolicy.new(current_user).organisationally_or_publicly_visible?
     paginable_renderise(partial: 'organisationally_or_publicly_visible',
-      scope: Plan.organisationally_or_publicly_visible(current_user))
+      scope: Plan.organisationally_or_publicly_visible(current_user),
+      query_params: { sort_field: 'plans.title', sort_direction: :asc })
   end
   # GET /paginable/plans/publicly_visible/:page
   def publicly_visible

@@ -17,7 +17,8 @@
       partial: '/paginable/guidance_groups/index',
       controller: 'paginable/guidance_groups',
       action: 'index',
-      scope: @guidance_groups) %>
+      scope: @guidance_groups,
+      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
     <div>
       <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary"><%= _('Create a guidance group') %></a>
     </div>
@@ -36,7 +37,8 @@
         partial: '/paginable/guidances/index',
         controller: 'paginable/guidances',
         action: 'index',
-        scope: @guidances) %>
+        scope: @guidances,
+        query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
   
     <div>
       <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%= _('Create guidance') %></a>

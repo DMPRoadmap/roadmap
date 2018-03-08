@@ -8,7 +8,7 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
-    @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).order(:title => :asc).page(1)
+    @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).page(1)
   end
 
   # GET /plans/new
@@ -156,18 +156,26 @@ class PlansController < ApplicationController
     authorize @plan
     attrs = plan_params
 
-    # Save the guidance group selections
-    guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
-    save_guidance_selections(guidance_group_ids)
-
     respond_to do |format|
-      if @plan.update_attributes(attrs)
-        format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
-        format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
-      else
+      begin
+        # Save the guidance group selections
+        guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
+        @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+        @plan.save
+      
+        if @plan.update_attributes(attrs)
+          format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
+          format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
+        else
+          flash[:alert] = failed_update_error(@plan, _('plan'))
+          format.html { render action: "edit" }
+          format.json {render json: {code: 0, msg: flash[:alert]}}
+        end
+        
+      rescue Exception
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
-        format.json {render json: {code: 0, msg: failed_update_error(@plan, _('plan'))}}
+        format.json {render json: {code: 0, msg: flash[:alert]}}
       end
     end
   end
@@ -243,21 +251,21 @@ class PlansController < ApplicationController
     @public_plan = false
 
     @hash = @plan.as_pdf(@show_coversheet)
-    @formatting = @plan.settings(:export).formatting
+    @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_")
 
     respond_to do |format|
       format.html { render layout: false }
       format.csv  { send_data @plan.as_csv(@show_sections_questions),  filename: "#{file_name}.csv" }
       format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
-      format.docx { render docx: 'export', filename: "#{file_name}.docx" }
+      format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
       format.pdf do
         render pdf: file_name,
           margin: @formatting[:margin],
           footer: {
             center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
             font_size: 8,
-            spacing:   (@formatting[:margin][:bottom] / 2) - 4,
+            spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
             right:     '[page] of [topage]'
           }
       end
@@ -348,25 +356,6 @@ class PlansController < ApplicationController
                                  :grant_number, :description, :identifier, :principal_investigator,
                                  :principal_investigator_email, :principal_investigator_identifier,
                                  :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
-  end
-
-  def save_guidance_selections(guidance_group_ids)
-    all_guidance_groups = @plan.get_guidance_group_options
-    plan_groups = @plan.guidance_groups
-    guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-    all_guidance_groups.each do |group|
-      # case where plan group exists but not in selection
-      if plan_groups.include?(group) && ! guidance_groups.include?(group)
-      #   remove from plan groups
-        @plan.guidance_groups.delete(group)
-      end
-      #  case where plan group dosent exist and in selection
-      if !plan_groups.include?(group) && guidance_groups.include?(group)
-      #   add to plan groups
-        @plan.guidance_groups << group
-      end
-    end
-    @plan.save
   end
 
 
