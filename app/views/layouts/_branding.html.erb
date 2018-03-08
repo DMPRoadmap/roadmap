@@ -10,7 +10,7 @@
       </button>
       <% if user_signed_in? && !current_user.org.nil? %>
         <% if current_user.org.logo.present? %>
-          <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
+          <%= link_to(image_tag(current_user.org.logo.thumb('100x100').url,
                                 alt: current_user.org.name,
                                 class: "org-logo",
                                 title: current_user.org.name),
