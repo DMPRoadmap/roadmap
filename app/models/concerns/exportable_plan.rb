@@ -1,15 +1,15 @@
 module ExportablePlan
   extend ActiveSupport::Concern
-  
+
   included do
-    
+
     def as_pdf(coversheet = false)
       prepare(coversheet)
     end
-    
+
     def as_csv(headings = true, unanswered = true)
       hash = prepare(false)
-      
+
       CSV.generate do |csv|
         hdrs = (hash[:phases].length > 1 ? [_('Phase')] : [])
         if headings
@@ -17,7 +17,7 @@ module ExportablePlan
         else
           csv << _('Answer')
         end
-        
+
         csv << hdrs.flatten
         hash[:phases].each do |phase|
           phase[:sections].each do |section|
@@ -31,24 +31,24 @@ module ExportablePlan
               else
                 flds << [ sanitize_text(answer_text) ]
               end
-              
+
               csv << flds.flatten
             end
           end
         end
       end
     end
-    
-    private 
+
+    private
       def prepare(coversheet = false)
         hash = coversheet ? prepare_coversheet : {}
         template = Template.includes(phases: { sections: {questions: :question_format } }).
                             joins(phases: { sections: { questions: :question_format } }).
                             where(id: self.template_id).first
-        
+
         hash[:title] = self.title
         hash[:answers] = self.answers
-        
+
         # add the relevant questions/answers
         phases = []
         template.phases.each do |phase|
@@ -65,19 +65,19 @@ module ExportablePlan
               else
                 txt << question.text
               end
-              sctn[:questions] << { id: question.id, text: txt }
+              sctn[:questions] << { id: question.id, text: txt, format: question.question_format }
             end
             phs[:sections] << sctn
           end
           phases << phs
         end
         hash[:phases] = phases
-        
+
         record_plan_export(:pdf)
-        
+
         hash
       end
-    
+
       def prepare_coversheet
         hash = {}
         # name of owner and any co-owners
@@ -86,10 +86,10 @@ module ExportablePlan
           attribution << role.user.name(false)
         end
         hash[:attribution] = attribution
-        
+
         # Org name of plan owner's org
         hash[:affiliation] = self.owner.present? ? self.owner.org.name : ''
-        
+
         # set the funder name
         hash[:funder] = self.funder_name.present? ? self.funder_name : (self.template.org.present? ? self.template.org.name : '')
 
@@ -104,7 +104,7 @@ module ExportablePlan
         hash[:customizer] = customizer
         hash
       end
-    
+
       def record_plan_export(format)
         exported_plan = ExportedPlan.new.tap do |ep|
           ep.plan = self
@@ -118,7 +118,7 @@ module ExportablePlan
         end
         exported_plan.save
       end
-      
+
       def sanitize_text(text)
         if (!text.nil?) then ActionView::Base.full_sanitizer.sanitize(text.gsub(/&nbsp;/i,"")) end
       end
