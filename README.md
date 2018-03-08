@@ -11,7 +11,7 @@ Please be advised though that we can only provide limited support for your local
 
 ## Translations
 
-See the [Translations Guide](https://github.com/CDLUC3/dmptool/wiki/translations)
+See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
 
 ## Installation
 
