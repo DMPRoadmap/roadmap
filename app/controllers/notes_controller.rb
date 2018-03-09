@@ -13,9 +13,7 @@ class NotesController < ApplicationController
     # ensure user has access to plan BEFORE creating/finding answer
     raise Pundit::NotAuthorizedError unless Plan.find(params[:note][:plan_id]).readable_by?(@note.user_id)
     Answer.transaction do
-      if params[:note][:answer_id].present?
-        @answer = Answer.find(params[:note][:answer_id])
-      end
+      @answer = Answer.find_by(plan_id: params[:note][:plan_id], question_id: params[:note][:question_id])
       if @answer.blank?
         @answer = Answer.new
         @answer.plan_id = params[:note][:plan_id]
