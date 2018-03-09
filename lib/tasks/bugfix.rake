@@ -147,7 +147,7 @@ namespace :bugfix do
               end
               answer.question_options.each do |op|
                 unless qf.dropdown?
-                  new_answer.question_options << op unless op in new_answer.question_options
+                  new_answer.question_options << op unless new_answer.question_options.any? {|aop| aop.id == op.id}
                   puts "\t adding option #{op.text}"
                 end
               end
