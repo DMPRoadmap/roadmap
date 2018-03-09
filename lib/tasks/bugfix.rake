@@ -107,4 +107,59 @@ namespace :bugfix do
       end
     end
   end
+
+
+  desc "Remove Duplicate Answers"
+  task remove_duplicate_answers: :environment do
+    ## Concat Duplicate Answers
+    ActiveRecord::Base.transaction do
+      plan_ids = ActiveRecord::Base.connection.select_all("SELECT a1.plan_id as plan_id FROM Answers a1 INNER JOIN Answers a2 ON a1.plan_id = a2.plan_id AND a1.question_id = a2.question_id WHERE a1.id > a2.id" ).to_a.map{|h| h["plan_id"]}.uniq
+      plans = Plan.where(id: plan_ids)
+      plans.each do |plan|
+        plan.answers.pluck(:question_id).uniq.each do |question_id|
+          answers = Answer.where(plan_id: plan.id, question_id:  question_id).order(:updated_at)
+          if answers.length > 1 # Duplicates found
+            puts "found duplicate for plan:#{plan.id}\tquestion:#{question_id} \n\tanswers:[#{answers.map{|answer| answer.id}}]"
+            new_answer = Answer.new
+            new_answer.user_id = answers.last.user_id
+            new_answer.plan_id = plan.id
+            new_answer.question_id = question_id
+            new_answer.created_at = answers.last.created_at
+            num_text = 0
+            qf = answers.last.question.question_format
+            puts "\tquestion format #{qf.title}"
+            if qf.dropdown?
+              new_answer.question_options << answers.last.question_options.first
+              puts "\t adding option answers.last.question_options.first.text" unless answers.last.question_options.first.blank?
+            end
+            answers.reverse.each do |answer|
+              if num_text == 0 && answer.text.present? # case first present text
+                new_answer.text = answer.text
+                num_text += 1
+              end
+              if num_text == 1 && answer.text.present?
+                text = "<p><strong>ANSWER SAVED TWICE - REQUIRES MERGING<\strong><\p>"
+                text += new_answer.text
+                new_answer.text = text + "<p><strong>-------------<\strong><\p>" + answer.text
+              end
+              answer.notes.each do |note|
+                note.answer_id = new_answer.id
+              end
+              answer.question_options.each do |op|
+                unless qf.dropdown?
+                  new_answer.question_options << op unless op in new_answer.question_options
+                  puts "\t adding option #{op.text}"
+                end
+              end
+              answer.destroy
+            end
+            new_answer.save
+            puts "\tsaved new answer with text:\n#{new_answer.text}"
+          end
+        end
+      end
+    end
+  end
+
+
 end
