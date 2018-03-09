@@ -3,9 +3,6 @@
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
 <!-- Question text -->
-<p>
-  <strong><%= raw question.text %></strong>
-</p>
 <% q_format = question.question_format %>
 <% if q_format.rda_metadata? %>
   <% answer_hash = answer.answer_hash %>
