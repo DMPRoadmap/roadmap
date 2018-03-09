@@ -4,11 +4,11 @@ module PermsHelper
     {
       :add_organisations => _('Add organisations'),
       :change_org_affiliation => _('Change affiliation'),
-      :grant_permissions => _('Grant permissions'),
-      :modify_templates => _('Modify templates'),
-      :modify_guidance => _('Modify guidance'),
+      :grant_permissions => _('Manage user privileges'),
+      :modify_templates => _('Manage templates'),
+      :modify_guidance => _('Manage guidance'),
       :use_api => _('API rights'),
-      :change_org_details => _('Change organisation details'),
+      :change_org_details => _('Manage organisation details'),
       :grant_api_to_orgs => _('Grant API to organisations')
     }
   end

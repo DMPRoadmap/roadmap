@@ -185,6 +185,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       post 'create_or_update', on: :collection
     end
 
+    # Question Formats controller, currently just the one action
+    get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
+
     resources :notes, only: [:create, :update, :archive] do
       member do
         patch 'archive'
@@ -316,7 +319,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
       end
-      
+
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
       get 'download_plans' => 'plans#download_plans'
     end

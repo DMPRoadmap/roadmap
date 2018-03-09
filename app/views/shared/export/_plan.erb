@@ -9,7 +9,7 @@
     <% if @show_coversheet %>
       <%= render partial: '/shared/export/plan_coversheet' %>
     <% end %>
-    
+
     <% @hash[:phases].each do |phase| %>
       <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <!-- If there is more than one phase show the plan title and phase title -->
@@ -41,15 +41,27 @@
 
             <% answer = @plan.answer(question[:id], false) %>
             <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
-            <% if blank && @show_unanswered %>
+            <% options = answer.present? ? answer.question_options : [] %>
+            <% if blank && @show_unanswered && options.blank? %>
               <p><%= _('Question not answered.') -%></p>
             <% elsif !blank %>
-              <% if answer.question_options.length > 0 %>
+              <% if options.present?%>
                 <ul>
-                  <% answer.question_options.each do |opt| %>
+                  <% options.each do |opt| %>
                     <li><%= opt.text %></li>
                   <% end %>
                 </ul>
+              <% end %>
+              <% if question[:format].rda_metadata? %>
+                <% ah = answer.answer_hash %>
+                <% if ah['standards'].present? %>
+                  <ul>
+                    <% ah['standards'].each do |id, title| %>
+                      <li><%= title %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+                <p><%= raw ah['text'] %></p>
               <% else %>
                 <p><%= raw answer.text %></p>
               <% end %>
