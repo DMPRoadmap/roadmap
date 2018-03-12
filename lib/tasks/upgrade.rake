@@ -1,4 +1,4 @@
-namespace :bugfix do
+namespace :upgrade do
 
   desc "Upgrade to 1.0"
   task v1_0_0: :environment do
