@@ -1,10 +1,8 @@
 <hr />
-<div class="title" style="text-align:center;">
-  <h1><%= @plan.title %></h1>
-  <p><em>
-    <%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %>
-  </em></p>
-</div>
+<h1><%= @plan.title %></h1>
+<p><em>
+  <%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %>
+</em></p>
 <br/>
 <div class="cover-page">
   <p><%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %></p><br>

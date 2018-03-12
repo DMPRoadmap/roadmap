@@ -27,6 +27,9 @@
   <div class="form-group col-xs-8" id="org-controls" <%= raw "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
     <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
   </div>
+  <% if org_admin %>
+    <input type="hidden" id="original_org" value="<%= @user.org_id %>">
+  <% end %>
 
   <% if MANY_LANGUAGES %>
     <div class="form-group col-xs-8">
@@ -70,12 +73,14 @@
       <%= f.label(:api_token, _('API token'), class: 'control-label') %>
       <%= @user.api_token %>
     </div>
+    <div class="form-group col-xs-8">
       <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
-    <div><a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a></div>
+      <a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a>
+    </div>
   <% end %>
 
   <div class="form-group col-xs-8">
-    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
   </div>
 
   <%= render partial: 'password_confirmation', locals: {f: f} %>
