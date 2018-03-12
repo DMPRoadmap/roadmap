@@ -2,15 +2,17 @@ namespace :upgrade do
 
   desc "Upgrade to 1.0"
   task v1_0_0: :environment do
-    Rake::Task['bugfix:set_template_visibility'].execute
-    Rake::Task['bugfix:set_org_link_defaults'].execute
-    Rake::Task['bugfix:set_template_link_defaults'].execute
+    Rake::Task['upgrade:set_template_visibility'].execute
+    Rake::Task['upgrade:set_org_links_defaults'].execute
+    Rake::Task['upgrade:set_template_links_defaults'].execute
+    Rake::Task['upgrade:set_plan_complete'].execute
+    Rake::Task['upgrade:stats_api_org_admin'].execute
   end
 
   desc "Bug fixes for version v0.3.3"
   task v0_3_3: :environment do
-    Rake::Task['bugfix:fix_question_formats'].execute
-    Rake::Task['bugfix:add_missing_token_permission_types'].execute
+    Rake::Task['upgrade:fix_question_formats'].execute
+    Rake::Task['upgrade:add_missing_token_permission_types'].execute
   end
 
   desc "Add the missing formattype to the question_formats table"
@@ -36,8 +38,8 @@ namespace :upgrade do
       qf.save!
     end
 
-    if QuestionFormat.find_by(formattype: :date).nil?
-      QuestionFormat.create!({title: "Date", option_based: true, formattype: 6})
+    if QuestionFormat.find_by(formattype: QuestionFormat.formattypes[:date]).nil?
+      QuestionFormat.create!({ title: "Date", option_based: false, formattype: QuestionFormat.formattypes[:date] })
     end
   end
 
@@ -56,27 +58,19 @@ namespace :upgrade do
   desc "Set all funder templates (and the default template) to 'public' visibility and all others to 'organisational'"
   task set_template_visibility: :environment do
     funders = Org.funder.pluck(:id)
-    Template.update_all visibility: Template.visibilities[:organisationally_visible]
-    Template.where(org_id: funders).update_all visibility: Template.visibilities[:publicly_visible]
-    Template.default.update visibility: Template.visibilities[:publicly_visible]
+    Template.update_all(visibility: Template.visibilities[:organisationally_visible])
+    Template.where(org_id: funders).update_all(visibility: Template.visibilities[:publicly_visible])
+    Template.default.update(visibility: Template.visibilities[:publicly_visible])
   end
 
   desc "Set all orgs.links defaults"
-  task set_org_link_defaults: :environment do
-    Org.all.each do |org|
-      begin
-        org.update_attributes(links: {"org":[]})
-      rescue Dragonfly::Job::Fetch::NotFound
-        puts "Unable to set link defaults for Org #{org.id} - #{org.name} due to a missing logo file. Please update manually: `UPDATE orgs set links = '{\"org\":[]}' WHERE id = #{org.id};`"
-      end
-    end
+  task set_org_links_defaults: :environment do
+    Org.update_all(links: { 'org': [] })
   end
 
   desc "Set all template.links defaults"
-  task set_template_link_defaults: :environment do
-    Template.all.each do |template|
-      template.update_attributes(links: {"funder":[],"sample_plan":[]})
-    end
+  task set_template_links_defaults: :environment do
+    Template.update_all(links: {'funder':[],'sample_plan':[]})
   end
 
   desc "Sets completed for plans whose no. questions matches no. valid answers"
@@ -90,12 +84,12 @@ namespace :upgrade do
 
   desc "Allow Statistics API Usage for Org Admin Users"
   task stats_api_org_admin: :environment do
-    Rake::Task['bugfix:add_missing_token_permission_types'].execute
-    orgs = Org.where(is_other: nil)
+    Rake::Task['upgrade:add_missing_token_permission_types'].execute
+    orgs = Org.where(is_other: false).select(:id)
     orgs.each do |org|
-      org.grant_api!(TokenPermissionType::STATISTICS)
+      org.grant_api!(TokenPermissionType.where(token_type: 'statistics'))
     end
-    users = User.joins(:perms).where("org_id IN (?) AND (api_token IS NULL OR api_token = '')", orgs.collect(&:id))
+    users = User.joins(:perms).where(org_id: orgs).where(api_token: [nil, ''])
     users.each do |user|
       if user.can_org_admin?
         # Generate the tokens directly instead of via the User.keep_or_generate_token! method so that we do not spam users!!
