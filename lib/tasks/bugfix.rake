@@ -138,9 +138,9 @@ namespace :bugfix do
                 num_text += 1
               end
               if num_text == 1 && answer.text.present?
-                text = "<p><strong>ANSWER SAVED TWICE - REQUIRES MERGING<\strong><\p>"
+                text = "<p><strong>ANSWER SAVED TWICE - REQUIRES MERGING</strong></p>"
                 text += new_answer.text
-                new_answer.text = text + "<p><strong>-------------<\strong><\p>" + answer.text
+                new_answer.text = text + "<p><strong>-------------</strong></p>" + answer.text
               end
               answer.notes.each do |note|
                 note.answer_id = new_answer.id
