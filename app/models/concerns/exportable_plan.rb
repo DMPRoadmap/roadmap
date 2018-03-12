@@ -44,7 +44,7 @@ module ExportablePlan
         hash = coversheet ? prepare_coversheet : {}
         template = Template.includes(phases: { sections: {questions: :question_format } }).
                             joins(phases: { sections: { questions: :question_format } }).
-                            where(id: self.template_id).first
+                            where(id: self.template_id).order('sections.number', 'questions.number').first
 
         hash[:title] = self.title
         hash[:answers] = self.answers
