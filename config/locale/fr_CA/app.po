@@ -21,11 +21,11 @@ msgstr ""
 
 #, fuzzy
 msgid " (e.g. School/ Department) "
-msgstr "ej: Escuela / Departmento"
+msgstr "par ex. : Faculté/Département"
 
 #, fuzzy
 msgid " Customised By: "
-msgstr "Personalizar"
+msgstr "Personnaliser"
 
 #, fuzzy
 msgid " Plan"
@@ -50,7 +50,7 @@ msgstr "user"
 
 #, fuzzy
 msgid " has been removed by "
-msgstr " por "
+msgstr " par "
 
 msgid " in the project. You can also report bugs and request new features via "
 msgstr ""
@@ -60,7 +60,7 @@ msgstr ""
 
 #, fuzzy
 msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
-msgstr "ID"
+msgstr "Identifiant"
 
 #, fuzzy
 msgid "\"Error parsing links for a #{@template.template_type}\""
@@ -168,14 +168,14 @@ msgid ""
 "%{commenter_name} has commented on the plan %{plan_title}. To view the "
 "comments, please visit the My Dashboard page in %{tool_name} and open your "
 "plan."
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid ""
 "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". "
 "To view the comments, please visit the My Dashboard page in %{tool_name} and "
 "open your plan."
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "%{org_name} Plans"
@@ -183,7 +183,7 @@ msgstr "plans"
 
 #, fuzzy
 msgid "%{org_name} Templates"
-msgstr "Plantillas"
+msgstr "Modèles"
 
 #, fuzzy
 msgid "%{org_title} Plans"
@@ -192,7 +192,7 @@ msgstr "plans"
 #, fuzzy
 msgid ""
 "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
-msgstr "Pregunta"
+msgstr "Question"
 
 #, fuzzy
 msgid "%{plan_name}"
@@ -219,7 +219,7 @@ msgstr "plans"
 
 #, fuzzy
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "%{user_name}"
@@ -234,7 +234,7 @@ msgid ""
 "University of California, respectively. Our primary constituency is the "
 "research community. We provide services to the UK, US and international "
 "higher education sector. "
-msgstr " por "
+msgstr " par "
 
 msgid ""
 "(CDL-US) are now established in our national contexts as the resource for "
@@ -325,16 +325,17 @@ msgid ""
 "      <p>This statement was last revised on October 5, 2017 and may be "
 "revised at any time. Use of the tool indicates that you understand and agree "
 "to these terms and conditions.</p>"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "<p>%{application_name} has been developed by the <strong>%{organisation_name}"
 "</strong> to help you write data management plans.</p>"
 msgstr ""
-"<p>DMPonline ha sido desarrollado por el <a href='http://dcc.ac.uk' "
-"target='_blank'>Digital Curation Centre</a> como una herramienta para "
-"elaborar planes de gestión de datos.</p>"
+"<p>DMPonline est un développement du <a href=http://dcc.ac.uk "
+"target=_blank>Digital Curation Centre</a> (Centre de curation numérique "
+"britannique - DCC) pour vous aider dans la rédaction de plans de gestion de "
+"données, ou DMP.</p>"
 
 #, fuzzy
 msgid ""
@@ -342,16 +343,16 @@ msgid ""
 "for feedback from an administrator at your organisation. If you have "
 "questions pertaining to this action, please contact us at "
 "%{organisation_email}.</p>"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid ""
 "<p>To create a new template, first enter a title and description. Once you "
 "have saved this you will be presented with options to add one or more "
 "phases. </p>"
 msgstr ""
-"<p>Para crear una plantilla nueva, en primer lugar introduzca un título y "
-"una descripción. Tras grabar se le dará la opción de añadir una o más fases. "
-"</p>"
+"<p>Pour créer un nouveau modèle, commencez par saisir un titre et une "
+"description. Un fois ces éléments enregistrés, le programme vous propose "
+"dajouter une phase ou plus. </p>"
 
 #, fuzzy
 msgid ""
@@ -436,11 +437,11 @@ msgid ""
 "and click to download. You can also adjust the formatting (font type, size "
 "and margins) for PDF files, which may be helpful if working to page limits.</"
 "p>"
-msgstr "Añadir colaborador"
+msgstr "Ajouter le collaborateur"
 
 #, fuzzy
 msgid "A Data Management Plan created using "
-msgstr "Creación"
+msgstr "Créé"
 
 #, fuzzy
 msgid "A Data Management Plan created using %{application_name}"
@@ -471,18 +472,20 @@ msgstr ""
 
 #, fuzzy
 msgid "A new comment has been added to my DMP"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "A pertinent ID as determined by the funder and/or organisation."
-msgstr "El ID tal como lo determinó la institución u organismo financiador."
+msgstr ""
+"Un identifiant approprié conforme aux prescriptions de lorganisme financeur "
+"ou de létablissement."
 
 #, fuzzy
 msgid "A plan has been shared with me"
 msgstr "plans"
 
 msgid "A required setting has not been provided"
-msgstr "No se ha indicado un valor obligatorio"
+msgstr "Vous navez pas précisé un réglage obligatoire"
 
 #, fuzzy
 msgid "A user has requested feedback on a DMP"
@@ -501,10 +504,10 @@ msgid "API token"
 msgstr ""
 
 msgid "About"
-msgstr "Acerca de"
+msgstr "À propos..."
 
 msgid "About %{application_name}"
-msgstr ""
+msgstr "À propos de l'Assistant PGD"
 
 msgid "Access removed"
 msgstr ""
@@ -513,23 +516,23 @@ msgid "Accessibility"
 msgstr ""
 
 msgid "Actions"
-msgstr "Acciones"
+msgstr "Actions"
 
 #, fuzzy
 msgid "Add Comment"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "Add Organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Add Question"
-msgstr "Añadir pregunta"
+msgstr "Ajouter une question"
 
 #, fuzzy
 msgid "Add Section"
-msgstr "Añadir sección"
+msgstr "Ajouter une section"
 
 msgid "Add Standard"
 msgstr ""
@@ -540,18 +543,18 @@ msgid ""
 "tell the end user where the guidance has come from. It will be appended to "
 "text identifying the theme e.g. \"[guidance group name]: guidance on data "
 "sharing\" so we suggest you just use the organisation or department name."
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 #, fuzzy
 msgid ""
 "Add an appropriate name for your guidance group. This name will tell the end "
 "user where the guidance has come from. We suggest you use the organisation "
 "or department name e.g. \"OU\" or \"Maths & Stats\""
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 #, fuzzy
 msgid "Add comments to share with collaborators"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid ""
@@ -565,20 +568,20 @@ msgstr "plans"
 
 #, fuzzy
 msgid "Add new phase"
-msgstr "Añadir fase nueva +"
+msgstr "Ajouter une nouvelle phase +"
 
 msgid "Add option"
-msgstr "Añadir opción"
+msgstr "Ajoutez une option"
 
 #, fuzzy
 msgid "Add organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Additional Information"
 msgstr ""
 
 msgid "Additional comment area will be displayed."
-msgstr "Se mostrará un área adicional para comentarios."
+msgstr ""
 
 msgid "Admin"
 msgstr ""
@@ -588,7 +591,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Administrator Email"
-msgstr "Correo electrónico"
+msgstr "Courriel"
 
 msgid "Administrator contact"
 msgstr ""
@@ -601,7 +604,7 @@ msgstr ""
 
 #, fuzzy
 msgid "All Templates"
-msgstr "Plantillas"
+msgstr "Modèles"
 
 msgid "All the best"
 msgstr ""
@@ -610,13 +613,13 @@ msgstr ""
 msgid ""
 "Allows the user to amend the organisation details (name, URL etc) and add "
 "basic branding such as the logo"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "Allows the user to assign permissions to other users within the same "
 "organisation. Users can only assign permissions they own themselves"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Allows the user to create and edit guidance"
@@ -630,15 +633,15 @@ msgstr "templates"
 
 #, fuzzy
 msgid "Allows the user to create new organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Allows the user to grant API access to organisations."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Allows the user to manage organisation affiliation"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
@@ -648,51 +651,51 @@ msgstr ""
 
 #, fuzzy
 msgid "Answer"
-msgstr "Respuestas"
+msgstr "Réponses"
 
 msgid "Answer format"
-msgstr "Formato de la respuesta"
+msgstr "Format de réponse"
 
 #, fuzzy
 msgid "Answered"
-msgstr "Contestado "
+msgstr "Réponse "
 
 #, fuzzy
 msgid "Answered at"
-msgstr "Contestado "
+msgstr "Réponse "
 
 #, fuzzy
 msgid "Answered by"
-msgstr "Contestado "
+msgstr "Réponse "
 
 msgid ""
 "Anything you enter here will display in the answer box. If you want an "
 "answer in a certain format (e.g. tables), you can enter that style here."
 msgstr ""
-"Cualquier texto que introduzca aquí se mostrará en la caja de respuesta. Si "
-"quiere una respuesta en un formato concreto (ej: tablas), puede crear ese "
-"estilo aquí."
+"Tout ce que vous écrivez saffiche dans la boîte de réponse. Si vous "
+"souhaitez une réponse ayant une certaine forme (par ex. : des tableaux), "
+"cest ici que vous pouvez entrer ce style."
 
 #, fuzzy
 msgid ""
 "Are you sure you want to change your organisational affiliation? Doing so "
 "will remove your administrative privileges."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
 msgstr ""
 
 #, fuzzy
 msgid "Are you sure you want to disconnect your ORCID ID?"
-msgstr "ID"
+msgstr "Identifiant"
 
 #, fuzzy
 msgid "Are you sure you want to remove \"%{template_title}\"?"
-msgstr "¿Seguro que quiere eliminar esta nota?"
+msgstr "Êtes-vous sûr de vouloir retirer cette note?"
 
 #, fuzzy
 msgid "Are you sure you want to remove this comment?"
-msgstr "¿Seguro que quiere eliminar esta nota?"
+msgstr "Êtes-vous sûr de vouloir retirer cette note?"
 
 #, fuzzy
 msgid ""
@@ -712,14 +715,14 @@ msgstr "plans"
 msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from "
 "the Public DMPs page but any collaborators will still be able to access it."
-msgstr "DMP Públicos"
+msgstr "DMP publics"
 
 msgid "Are you sure?"
-msgstr "¿Está seguro?"
+msgstr "Êtes-vous sûr ?"
 
 #, fuzzy
 msgid "Back to edit phase"
-msgstr "Volver a editar la vista"
+msgstr "Retour à la vue à modifier"
 
 msgid "Bad Credentials"
 msgstr ""
@@ -731,7 +734,7 @@ msgstr ""
 msgid ""
 "Before you get started, we need some information about your research project "
 "to set you up with the best DMP template for your needs."
-msgstr "Preguntas"
+msgstr "Questions"
 
 msgid "Begin typing to see a filtered list"
 msgstr ""
@@ -740,23 +743,23 @@ msgid ""
 "Below is a list of users registered for your organisation. You can sort the "
 "data by each field."
 msgstr ""
-"Debajo tiene la lista de usuarios registrados en su entidad. Puede ordenar "
-"los datos por campo."
+"La liste ci-dessous indique les utilisateurs de votre organisme. Ces "
+"informations peuvent être triées par champ."
 
 msgid "Bottom"
-msgstr "Inferior"
+msgstr "Bas"
 
 #, fuzzy
 msgid ""
 "Briefly summarise your research project to help others understand the "
 "purposes for which the data are being collected or created."
-msgstr "Creación"
+msgstr "Créé"
 
 msgid "Browse Standards"
 msgstr ""
 
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Annuler"
 
 #, fuzzy
 msgid ""
@@ -767,17 +770,15 @@ msgstr "plans"
 msgid "Change affiliation"
 msgstr ""
 
-#, fuzzy
 msgid "Change my password"
-msgstr "Cambiar su clave"
+msgstr ""
 
-#, fuzzy
 msgid "Change your password"
-msgstr "Cambiar su clave"
+msgstr ""
 
 #, fuzzy
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
-msgstr "Permisos"
+msgstr "Permissions"
 
 #, fuzzy
 msgid ""
@@ -798,7 +799,7 @@ msgstr ""
 msgid ""
 "Click below to give data management staff at your organisation access to "
 "read and comment on your plan."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Click here"
 msgstr ""
@@ -808,34 +809,34 @@ msgstr ""
 
 #, fuzzy
 msgid "Click the 'Create plan' button below to begin."
-msgstr "Crear un plan"
+msgstr "Create plan"
 
 msgid "Click the link below to unlock your account"
 msgstr ""
 
 msgid "Co-owner"
-msgstr "Co-propietario"
+msgstr "Copropriétaire"
 
 msgid "Comment"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "Comments"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "Complete"
-msgstr "Modelo"
+msgstr "Template"
 
 #, fuzzy
 msgid "Contact Us"
-msgstr "Contacto"
+msgstr "Communiquez avec nous"
 
 msgid "Contact email"
 msgstr ""
 
 msgid "Contact us"
-msgstr "Contacto"
+msgstr "Communiquez avec nous"
 
 msgid "Copy"
 msgstr ""
@@ -845,20 +846,20 @@ msgstr ""
 
 #, fuzzy
 msgid "Create Organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Create a guidance group"
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 msgid "Create a new plan"
-msgstr "Crear un nuevo plan"
+msgstr "Créer un nouveau plan"
 
 msgid "Create a template"
-msgstr "Crear una plantilla"
+msgstr "Créer un modèle"
 
 msgid "Create account"
-msgstr "Registrarse"
+msgstr "Sinscrire"
 
 #, fuzzy
 msgid "Create an account to view the plan"
@@ -869,21 +870,21 @@ msgstr ""
 
 #, fuzzy
 msgid "Create guidance"
-msgstr "Nueva orientación"
+msgstr "Nouveaux conseils"
 
 #, fuzzy
 msgid "Create or connect your ORCID iD"
-msgstr "ID"
+msgstr "Identifiant"
 
 msgid "Create plan"
-msgstr "Crear un plan"
+msgstr "Create plan"
 
 #, fuzzy
 msgid "Create plans"
-msgstr "Crear un plan"
+msgstr "Create plan"
 
 msgid "Created at"
-msgstr "Creado el"
+msgstr "Créée à"
 
 #, fuzzy
 msgid "Created using the %{application_name}. Last modified %{date}"
@@ -899,18 +900,18 @@ msgid "Current Privileges"
 msgstr ""
 
 msgid "Current password"
-msgstr "Clave actual"
+msgstr ""
 
 msgid "Customise"
-msgstr "Personalizar"
+msgstr "Personnaliser"
 
 #, fuzzy
 msgid "Customising for your Organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Customizable Templates"
-msgstr "Plantillas"
+msgstr "Modèles"
 
 msgid "Customization %{publication_status}"
 msgstr ""
@@ -920,15 +921,15 @@ msgstr ""
 
 #, fuzzy
 msgid "DMP Background"
-msgstr "Volver"
+msgstr "Assistant PGD"
 
 #, fuzzy
 msgid "DMP Templates"
-msgstr "Plantillas"
+msgstr "Modèles"
 
 #, fuzzy
 msgid "DMP Visibility Changed: %{plan_title}"
-msgstr "Visibilidad"
+msgstr "Visibilité"
 
 msgid "DMPRoadmap"
 msgstr ""
@@ -938,7 +939,7 @@ msgid ""
 "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL "
 "as a shared resource for the research community. It is hosted at CDL by the "
 "University of California Curation Center."
-msgstr " por "
+msgstr " par "
 
 msgid "DOCX"
 msgstr ""
@@ -950,23 +951,23 @@ msgid "Data contact person"
 msgstr ""
 
 msgid "Default"
-msgstr "Por defecto"
+msgstr "Par défaut"
 
 msgid "Default answer"
-msgstr "Respuesta por defecto"
+msgstr "Réponse par défaut"
 
 msgid "Default value"
-msgstr "Valor por defecto"
+msgstr "Valeur par défaut"
 
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Effacer"
 
 #, fuzzy
 msgid "Delete phase"
-msgstr "Borrar"
+msgstr "Effacer"
 
 msgid "Delete question"
-msgstr "Borrar la pregunta"
+msgstr "Supprimer la question"
 
 msgid "Description"
 msgstr ""
@@ -975,20 +976,20 @@ msgid "Deselect all"
 msgstr ""
 
 msgid "Details"
-msgstr "Detalles"
+msgstr "Détails"
 
 msgid "Didn't receive confirmation instructions?"
-msgstr "¿No recibió instrucciones de confirmación?"
+msgstr "Instructions de confirmation non reçues ?"
 
 msgid "Didn't receive unlock instructions?"
-msgstr "¿No recibió instrucciones para el desbloqueo?"
+msgstr "Instructions de déverrouillage non reçues ?"
 
 #, fuzzy
 msgid "Disconnect your account from ORCID. You can reconnect at any time."
-msgstr "ID"
+msgstr "Identifiant"
 
 msgid "Display additional comment area."
-msgstr "Mostrar un área de comentarios adicional."
+msgstr ""
 
 #, fuzzy
 msgid "Do you have a %{application_name} account?"
@@ -1015,59 +1016,59 @@ msgid "Draft"
 msgstr ""
 
 msgid "Edit"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "Edit Privileges"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "Edit Theme"
-msgstr "Editar"
+msgstr "Modifier"
 
 msgid "Edit User Privileges"
 msgstr ""
 
 #, fuzzy
 msgid "Edit comment to share with collaborators"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 msgid "Edit customisation"
-msgstr "Editar la personalización"
+msgstr "Modifier la personnalisation"
 
 msgid "Edit phase details"
-msgstr "Editar los detalles de las fase"
+msgstr "Modifiez les détails de la phase"
 
 msgid "Edit profile"
-msgstr "Editar perfil"
+msgstr "Modifier le profil"
 
 msgid "Edit question"
-msgstr "Editar la pregunta"
+msgstr "Modifier la question"
 
 msgid "Edit template details"
-msgstr "Editar plantilla"
+msgstr "Modifier les détails du modèle"
 
 #, fuzzy
 msgid "Edit user privileges"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "Edited"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "Edited Date"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "Editor"
-msgstr "Editar"
+msgstr "Modifier"
 
 msgid "Email"
-msgstr "Correo electrónico"
+msgstr "Courriel"
 
 msgid "Email address"
-msgstr "Dirección de correo electrónico"
+msgstr "Adresse courriel"
 
 msgid "End date"
 msgstr ""
@@ -1078,49 +1079,52 @@ msgid ""
 "section or instructions on how to answer. This text will be displayed in the "
 "coloured banner once a section is opened to edit."
 msgstr ""
-"<div class='tooltip_box'>Teclee una descripción básica. Puede ser un resumen "
-"sobre que cubre esta sección o instrucciones sobre como responder las "
-"preguntas. Este texto se mostrará en un banner cada vez que se edite esta "
-"sección.</div>"
+"<div class=tooltip_box>Saisissez une courte description. Celle-ci peut "
+"résumer lobjet de la section ou donner des indications sur comment y "
+"répondre. Ce texte saffichera dans la bannière de couleur quand une section "
+"sera ouverte pour modification.</div>"
 
 msgid ""
 "Enter a basic description. This will be presented to users on the 'Admin "
 "Plan' tab, above the summary of the sections and questions which they will "
 "be asked to answer."
 msgstr ""
-"Teclee una descripción básica. Se les presentará a los usuarios bajo el "
-"resumen de secciones y preguntas solicitadas."
+"Entrez une courte description. Les utilisateurs la verront au-dessus du "
+"récapitulaif des parties et des questions auxquels ils devront répondre."
 
 msgid ""
 "Enter a description that helps you to differentiate between templates e.g. "
 "if you have ones for different audiences"
 msgstr ""
-"Introduzca una descripción que le ayude a diferenciar las plantillas. Ej: Si "
-"tiene varias para diferentes audiencias"
+"Saisissez une description qui vous permet de distinguer un modèle de lautre, "
+"par ex. : si vous visez différents"
 
 msgid ""
 "Enter a title for the phase e.g. intial DMP, full DMP... This is what users "
 "will see in the tabs when completing a plan. If you only have one phase, "
 "call it something generic e.g. Glasgow DMP"
-msgstr "Por favor, introduzca un título para la fase"
+msgstr ""
+"Saisissez une titre pour cette phase, par ex. : DMP initial, DMP complet... "
+"Ce sont ces mentions que verrons les utilisateurs dans les onglets pendant "
+"la rédaction dun plan. Si le vôtre ne comporte quune phase, donnez-lui un "
+"nom général, par ex. : DMP de Glasgow"
 
 #, fuzzy
 msgid "Enter a title for the section"
-msgstr "Sección"
+msgstr "Section"
 
 msgid ""
 "Enter specific guidance to accompany this question. If you have guidance by "
 "themes too, this will be pulled in based on your selections below so it's "
 "best not to duplicate too much text."
 msgstr ""
-"Introduzca la guía concreta para esta pregunta. Si también tiene guías "
-"temáticas, se eligirán en función de su slección, por lo que es preferible "
-"no duplicar mucho texto."
+"Saisissez des instructions spécifiques pour accompagner cette question. Si "
+"vous avez des conseils par thèmes aussi : ceux-ci vont être aiguillés ici "
+"selon ce que sélectionnez ci-dessous, aussi mieux vaut éviter de dupliquer "
+"trop dextraits."
 
 msgid "Enter your guidance here. You can include links where needed."
-msgstr ""
-"Introduzca sus orientaciones aquí. Puede incluir enlaces si lo cree "
-"necesario."
+msgstr "Entrez ici vos conseils. Vous pouvez ajouter des liens là où il faut."
 
 msgid ""
 "Error processing registration. Please check that you have entered a valid "
@@ -1136,11 +1140,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Example Answer"
-msgstr "Respuesta de ejemplo"
+msgstr "Exemple de réponse"
 
 #, fuzzy
 msgid "Example answer"
-msgstr "Respuesta de ejemplo"
+msgstr "Exemple de réponse"
 
 msgid "Example: my-org.org"
 msgstr ""
@@ -1150,10 +1154,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Export settings updated successfully."
-msgstr "Exportar"
+msgstr "Exporter"
 
 msgid "Face"
-msgstr "Estilo"
+msgstr "Police"
 
 msgid "Feedback has been provided for my DMP"
 msgstr ""
@@ -1168,22 +1172,22 @@ msgid "Feedback requested"
 msgstr ""
 
 msgid "Filter plans"
-msgstr "Filtro de planes"
+msgstr "Filtrer les plans"
 
 #, fuzzy
 msgid "Find guidance from additional organisations below"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Find your organisation to sign in"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "First"
 msgstr ""
 
 #, fuzzy
 msgid "First Name"
-msgstr "Nombre"
+msgstr "Prénom"
 
 #, fuzzy
 msgid ""
@@ -1191,37 +1195,36 @@ msgid ""
 "g. a particular College / School, Institute or department. When you create "
 "guidance you'll be asked to assign it to a guidance group."
 msgstr ""
-"<p>Primero cree un grupo de guías. Este podrá abarcar toda la institución o "
-"un subconjunto de la misma (ej: una escuela, colegio o departamento en "
-"particular). Cuando cree una guía, necesitará asignarla a un grupo de guías."
-"</p>"
+"<p>Commencez par créer un groupe de conseils. Celui-ci peut désigner un "
+"établissement dans son ensemble, ou un sous-ensemble : une faculté, un "
+"institut, un département. Quand vous créerez des conseils, on vous demandera "
+"de les affecter à un groupe de conseils.</p>"
 
 msgid "First name"
-msgstr "Nombre"
+msgstr "Prénom"
 
 msgid "Font"
 msgstr ""
 
-#, fuzzy
 msgid "Forgot password?"
-msgstr "¿Olvidó su clave?"
+msgstr ""
 
 msgid "Forgot your password?"
-msgstr "¿Olvidó su clave?"
+msgstr ""
 
 msgid "Format"
 msgstr ""
 
 msgid "Funder"
-msgstr "Financiador"
+msgstr "Funder"
 
 #, fuzzy
 msgid "Funder Links"
-msgstr "Financiador"
+msgstr "Funder"
 
 #, fuzzy
 msgid "Funder version is unpublished"
-msgstr "Financiador"
+msgstr "Funder"
 
 msgid "Getting Started"
 msgstr ""
@@ -1243,35 +1246,35 @@ msgstr ""
 
 #, fuzzy
 msgid "Grant API to organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Grant Number"
-msgstr "Título de subvención"
+msgstr "Titre de la subvention"
 
 msgid "Grant number"
-msgstr "Título de subvención"
+msgstr "Titre de la subvention"
 
 #, fuzzy
 msgid "Grant number: "
-msgstr "Título de subvención"
+msgstr "Titre de la subvention"
 
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
 msgstr ""
-"Número de referencia de la subvención si es aplicable [SÓLO PGDs YA "
-"ADJUDICADOS]"
+"N° de réféence de la subvention, le cas échéant (UNIQUEMENT POUR LES DMP "
+"CRÉÉS APRÈS OCTROI DUNE SUBVENTION)"
 
 msgid "Guidance"
-msgstr "Guía"
+msgstr "Conseils"
 
 msgid "Guidance group"
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 msgid "Guidance group list"
-msgstr "Listado de grupos de orientación"
+msgstr "Liste des groupes de conseils"
 
 msgid "Guidance list"
-msgstr "Listado de orientaciones"
+msgstr "Liste de conseils"
 
 msgid "Hello"
 msgstr ""
@@ -1299,7 +1302,7 @@ msgid "Hello %{username}"
 msgstr "user"
 
 msgid "Help"
-msgstr "Ayuda"
+msgstr "Aide"
 
 #, fuzzy
 msgid ""
@@ -1314,26 +1317,26 @@ msgid "History"
 msgstr ""
 
 msgid "Home"
-msgstr "Inicio"
+msgstr "Accueil"
 
 msgid "How to use the API"
 msgstr ""
 
 msgid "ID"
-msgstr "ID"
+msgstr "Identifiant"
 
 msgid ""
 "If applying for funding, state the name exactly as in the grant proposal."
 msgstr ""
-"Si se solicita financiación, indique el nombre exactamente como en la "
-"propuesta de subvención."
+"En cas de demande de financement, indiquer le nom exactement comme dans la "
+"demande de subvention."
 
 #, fuzzy
 msgid ""
 "If applying for funding, state the project title exactly as in the proposal."
 msgstr ""
-"Si se solicita financiación, indique el nombre exactamente como en la "
-"propuesta de subvención."
+"En cas de demande de financement, indiquer le nom exactement comme dans la "
+"demande de subvention."
 
 msgid ""
 "If the guidance is only meant for a subset of users e.g. those in a specific "
@@ -1341,10 +1344,10 @@ msgid ""
 "display this subset guidance when answering questions in the 'create plan' "
 "wizard."
 msgstr ""
-"Si la guía está dirigida a un subconjunto de los usuarios (ej: los "
-"pertenecientes a un colegio o instituto), seleccione esta opción. Los "
-"usuarios serán capaces de seleccionar esta guía cuando respondan sus "
-"preguntas durante la creación del plan."
+"Si les conseils ne sont destinés quà un sous-ensemble dutilisateurs (par "
+"ex. : faisant partie dune faculté ou dun institut), cochez cette case.  Les "
+"utilisateurs pourront sélectionner ce sous-groupe de conseils lorquils "
+"répondront aux questions dans lassistant de création de plan."
 
 msgid "If you didn't request this, please ignore this email."
 msgstr ""
@@ -1355,7 +1358,7 @@ msgid ""
 "not be useful to a wider audience (e.g. if you have specific instructions "
 "for applicants to BBSRC for example), you can do so by adding guidance to a "
 "specific question when you edit your template."
-msgstr "Pregunta"
+msgstr "Question"
 
 #, fuzzy
 msgid "If you do not have a %{application_name} account, click on"
@@ -1369,13 +1372,13 @@ msgstr ""
 msgid ""
 "If you have any questions or need help, please contact us at "
 "%{helpdesk_email} or visit %{contact_us}"
-msgstr "Pregunta"
+msgstr "Question"
 
 #, fuzzy
 msgid ""
 "If you have questions pertaining to this action, please visit the My "
 "Dashboard page in %{tool_name}"
-msgstr "Pregunta"
+msgstr "Question"
 
 #, fuzzy
 msgid ""
@@ -1385,38 +1388,38 @@ msgid ""
 "will be presented to users within your organisation when no funder templates "
 "apply. If you want to add questions to funder templates use the 'customise "
 "template' options below."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid ""
 "If you would like to change your password please complete the following "
 "fields."
-msgstr "Si quiere cambiar su clave, por favor, rellene los siguientes campos."
+msgstr ""
 
 #, fuzzy
 msgid ""
 "If you would like to modify one of the templates below, you must first "
 "change your organisation affiliation."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Information was successfully created."
-msgstr "La información se creó correctamente."
+msgstr "Création des informations effectuée."
 
 #, fuzzy
 msgid "Institutional credentials"
-msgstr "Institución"
+msgstr "Institution"
 
 #, fuzzy
 msgid "Instructions"
-msgstr "Institución"
+msgstr "Institution"
 
 msgid "Invalid font face"
-msgstr "Estilo de fuente inválido"
+msgstr "Police non valide"
 
 msgid "Invalid font size"
-msgstr "Tamaño de fuente inválido"
+msgstr "Taille de police non valide"
 
 msgid "Invalid maximum pages"
-msgstr "Número de páginas inválido"
+msgstr "Nombre de pages maxi non valide"
 
 msgid "Invitation to %{email} issued successfully. \n"
 msgstr ""
@@ -1438,11 +1441,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Last Name"
-msgstr "Apellidos"
+msgstr "Nom"
 
 #, fuzzy
 msgid "Last Updated"
-msgstr "Última actualización"
+msgstr "Dernière m.à j."
 
 msgid "Last activity"
 msgstr ""
@@ -1451,13 +1454,13 @@ msgid "Last modified: "
 msgstr ""
 
 msgid "Last name"
-msgstr "Apellidos"
+msgstr "Nom"
 
 msgid "Last updated"
-msgstr "Última actualización"
+msgstr "Dernière m.à j."
 
 msgid "Left"
-msgstr "Izquierdo"
+msgstr "Gauche"
 
 msgid "Link text"
 msgstr ""
@@ -1473,14 +1476,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Links will be displayed next to your organisation's logo"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Logout"
 msgstr ""
 
 #, fuzzy
 msgid "Look up your organisation here"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Make a copy"
 msgstr ""
@@ -1490,15 +1493,15 @@ msgstr ""
 
 #, fuzzy
 msgid "Manage guidance"
-msgstr "Nueva orientación"
+msgstr "Nouveaux conseils"
 
 #, fuzzy
 msgid "Manage organisation affiliation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Manage organisation details"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Manage templates"
@@ -1510,17 +1513,17 @@ msgstr "user"
 
 #, fuzzy
 msgid "Margin (mm)"
-msgstr "Margen"
+msgstr "Marge"
 
 msgid "Margin cannot be negative"
-msgstr "El margen no puede ser negativo"
+msgstr "Une marge ne peut être négative"
 
 msgid "Margin value is invalid"
-msgstr "El valor del margen no es válido"
+msgstr "Valeur de marge non valide"
 
 #, fuzzy
 msgid "Message"
-msgstr "Yo"
+msgstr "Moi"
 
 msgid "Month"
 msgstr ""
@@ -1529,7 +1532,7 @@ msgstr ""
 msgid ""
 "More information about administering the %{tool_name} for users at your "
 "organisation is available at the %{help_url}."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "My DMP's visibility has changed"
 msgstr ""
@@ -1539,14 +1542,14 @@ msgstr ""
 
 #, fuzzy
 msgid "My Plan"
-msgstr "Mi proyecto"
+msgstr "Mon plan"
 
 #, fuzzy
 msgid "My organisation isn't listed"
-msgstr "No se muestra mi organización."
+msgstr "Mon établissement nest pas listé."
 
 msgid "My organisation isn't listed."
-msgstr "No se muestra mi organización."
+msgstr "Mon établissement nest pas listé."
 
 msgid "My privileges"
 msgstr ""
@@ -1555,24 +1558,24 @@ msgid "N/A"
 msgstr ""
 
 msgid "Name"
-msgstr "Nombre"
+msgstr "Prénom"
 
 msgid "New Theme"
 msgstr ""
 
 #, fuzzy
 msgid "New organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "New password"
-msgstr "Nueva clave"
+msgstr ""
 
 #, fuzzy
 msgid "New plans"
 msgstr "plans"
 
 msgid "New template"
-msgstr "Nueva plantilla"
+msgstr "Nouveau modèle"
 
 #, fuzzy
 msgid "New users"
@@ -1580,7 +1583,7 @@ msgstr "user"
 
 #, fuzzy
 msgid "Next"
-msgstr "Texto"
+msgstr "Texte"
 
 msgid "No"
 msgstr ""
@@ -1590,14 +1593,14 @@ msgid "No %{application_name} account?"
 msgstr "DMPonline"
 
 msgid "No additional comment area will be displayed."
-msgstr "No se mostrará un área adicional para comentarios."
+msgstr ""
 
 msgid "No items available."
 msgstr ""
 
 #, fuzzy
 msgid "No organisations are currently registered."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid ""
 "No themes have been defined. Please contact your administrator for "
@@ -1614,7 +1617,7 @@ msgstr "plans"
 
 #, fuzzy
 msgid "No. Users joined"
-msgstr "Usuarios"
+msgstr "Utilisateurs"
 
 #, fuzzy
 msgid "No. plans during last year"
@@ -1629,14 +1632,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Not Customised"
-msgstr "Personalizar"
+msgstr "Personnaliser"
 
 msgid "Not answered yet"
-msgstr "Aún no respondido/a"
+msgstr "Pas encore de réponse"
 
 #, fuzzy
 msgid "Notice:"
-msgstr "Nota"
+msgstr "Note"
 
 msgid "Notification Preferences"
 msgstr ""
@@ -1650,92 +1653,92 @@ msgstr "plans"
 
 #, fuzzy
 msgid "ORCID iD"
-msgstr "ID"
+msgstr "Identifiant"
 
 #, fuzzy
 msgid "ORCID logo"
-msgstr "ID"
+msgstr "Identifiant"
 
 #, fuzzy
 msgid ""
 "ORCID provides a persistent digital identifier that distinguishes you from "
 "other researchers. Learn more at orcid.org"
-msgstr "ID"
+msgstr "Identifiant"
 
 #, fuzzy
 msgid "Optional Subset"
-msgstr "Subconjunto opcional"
+msgstr "Sous-ensemble facultatif"
 
 #, fuzzy
 msgid "Optional plan components"
 msgstr "plans"
 
 msgid "Optional subset"
-msgstr "Subconjunto opcional"
+msgstr "Sous-ensemble facultatif"
 
 msgid "Order"
-msgstr "Orden"
+msgstr "Ordre"
 
 msgid "Order of display"
-msgstr "Orden de presentación"
+msgstr "Ordre daffichage"
 
 msgid "Organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation Name"
-msgstr "Nombre de la entidad"
+msgstr "Nom de lorganisme"
 
 #, fuzzy
 msgid "Organisation Type(s)"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation Types"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation URLs"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation abbreviated name"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Organisation details"
-msgstr "Detalles de la entidad"
+msgstr "Détails sur lorganisme"
 
 #, fuzzy
 msgid "Organisation full name"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation not in the list?"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation type(s)"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisation: anyone at my organisation can view"
-msgstr "Institución"
+msgstr "Institution"
 
 #, fuzzy
 msgid "Organisation: anyone at my organisation can view."
-msgstr "Institución"
+msgstr "Institution"
 
 #, fuzzy
 msgid "Organisational Admin"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisational Configuration Information"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
@@ -1745,11 +1748,11 @@ msgid ""
 "included in funder templates. Users from participating organisations that "
 "configure the tool for single sign-on can log in with their own "
 "organisational accounts."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Organization logo"
-msgstr "Nombre de la entidad"
+msgstr "Nom de lorganisme"
 
 #, fuzzy
 msgid "Original funder template has changed!"
@@ -1757,65 +1760,64 @@ msgstr "templates"
 
 #, fuzzy
 msgid "Own Templates"
-msgstr "Sus plantillas"
+msgstr "Modèles propres"
 
 msgid "Owner"
-msgstr "Propietario"
+msgstr "Propriétaire"
 
 msgid "PDF"
 msgstr ""
 
 #, fuzzy
 msgid "PDF formatting"
-msgstr "Dando formato al PDF"
+msgstr "Mise en forme PDF"
 
 msgid "Password"
-msgstr "Clave"
+msgstr ""
 
-#, fuzzy
 msgid "Password and comfirmation must match"
-msgstr "Clave"
+msgstr ""
 
 msgid "Password confirmation"
-msgstr "Confirmación de clave"
+msgstr ""
 
 msgid "Permissions"
-msgstr "Permisos"
+msgstr "Permissions"
 
 #, fuzzy
 msgid "Personal Details"
-msgstr "Detalles"
+msgstr "Détails"
 
 #, fuzzy
 msgid "Phase"
-msgstr "Fase"
+msgstr "Phase"
 
 msgid "Phase details"
-msgstr "Detalles de la fase"
+msgstr "Détails de la phase"
 
 #, fuzzy
 msgid "Phone"
-msgstr "Ninguno/a"
+msgstr "Aucun"
 
 #, fuzzy
 msgid "Plan"
 msgstr "plans"
 
 msgid "Plan Data Contact"
-msgstr "Datos de contacto del proyecto"
+msgstr "Interlocuteur pour les données du plan"
 
 msgid "Plan Description"
-msgstr "Descripción"
+msgstr "Description"
 
 #, fuzzy
 msgid "Plan Guidance Configuration"
-msgstr "Guía"
+msgstr "Conseils"
 
 msgid "Plan ID"
-msgstr "Identificador del Proyecto"
+msgstr "Identifiant du projet"
 
 msgid "Plan Name"
-msgstr "Nombre del Proyecto"
+msgstr "Nom du projet"
 
 msgid "Plan is already shared with %{email}."
 msgstr ""
@@ -1825,7 +1827,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Plan removed"
-msgstr "Borrar"
+msgstr "Retirer"
 
 msgid "Plan shared with %{email}."
 msgstr ""
@@ -1839,7 +1841,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Please choose an organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Please choose one of the options."
 msgstr ""
@@ -1849,36 +1851,38 @@ msgstr ""
 
 #, fuzzy
 msgid "Please enter a First name."
-msgstr "Por favor, introduzca su nombre."
+msgstr "Entrez votre prénom, svp."
 
 #, fuzzy
 msgid "Please enter a Last name."
-msgstr "Por favor, introduzca su nombre."
+msgstr "Entrez votre prénom, svp."
 
 msgid "Please enter a password confirmation"
 msgstr ""
 
 msgid "Please enter a title for your template."
-msgstr "Por favor, introduzca un título para la plantilla."
+msgstr "Merci de saisir un titre pour votre modèle."
 
 #, fuzzy
 msgid "Please enter a valid number."
-msgstr "Por favor, introduzca su nombre."
+msgstr "Entrez votre prénom, svp."
 
 #, fuzzy
 msgid "Please enter a valid value."
-msgstr "Por favor, introduzca su nombre."
+msgstr "Entrez votre prénom, svp."
 
 msgid "Please enter an email address"
 msgstr ""
 
 #, fuzzy
 msgid "Please enter an email address."
-msgstr "Por favor, introduzca una dirección web válida."
+msgstr ""
+"Formation à la rédaction de documents scientifiques en anglais une adresse "
+"web valide."
 
 #, fuzzy
 msgid "Please enter the name of your organisation"
-msgstr "Por favor, introduzca el nombre de su entidad."
+msgstr "Veuillez saisir le nom de votre organisme.."
 
 msgid "Please enter your current password"
 msgstr ""
@@ -1903,13 +1907,13 @@ msgid ""
 "Please note that your email address is used as your username.\n"
 "    If you change this, remember to use your new email address on sign in."
 msgstr ""
-"<p>Por favor, tenga en cuenta que su dirección de correo electrónico se usa "
-"como su nombre de usuario. Si cambia esto, recuerde usar su nueva dirección "
-"de correo electrónico al conectar.</p>"
+"<p>À noter que votre courriel est à utiliser comme nom dutilisateur. Si vous "
+"modifiez ces informations, rappelez-vous dutiliser votre courriel en vous "
+"connectant.</p>"
 
 #, fuzzy
 msgid "Please select a research organisation and funder to continue."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Please select a sub-subject"
 msgstr ""
@@ -1919,11 +1923,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Please select a valid funding organisation from the list."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Please select a valid research organisation from the list."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Please select a value from the list."
 msgstr ""
@@ -1933,13 +1937,13 @@ msgstr ""
 
 #, fuzzy
 msgid "Please select an organisation from the list"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "Please select an organisation from the list, or enter your organisation's "
 "name."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Please select one"
 msgstr ""
@@ -1951,17 +1955,17 @@ msgid "Please wait, Standards are loading"
 msgstr ""
 
 msgid "Preview"
-msgstr "Previsualización"
+msgstr "Aperçu"
 
 #, fuzzy
 msgid "Previous"
-msgstr "Previsualización"
+msgstr "Aperçu"
 
 msgid "Principal Investigator"
 msgstr ""
 
 msgid "Principal Investigator / Researcher"
-msgstr "Principal Investigador / Científico"
+msgstr "Directeur de recherche / chercheur"
 
 msgid "Principal investigator"
 msgstr ""
@@ -1970,15 +1974,15 @@ msgid "Privacy policy"
 msgstr ""
 
 msgid "Private"
-msgstr "Privado"
+msgstr "Privé"
 
 #, fuzzy
 msgid "Private: restricted to me and my collaborators"
-msgstr "Privado"
+msgstr "Privé"
 
 #, fuzzy
 msgid "Private: restricted to me and people I invite."
-msgstr "Privado"
+msgstr "Privé"
 
 msgid "Profile information"
 msgstr ""
@@ -1988,11 +1992,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Project Details"
-msgstr "Detalles"
+msgstr "Détails"
 
 #, fuzzy
 msgid "Project Title"
-msgstr "Título"
+msgstr "Titre"
 
 msgid "Project abstract"
 msgstr ""
@@ -2004,8 +2008,8 @@ msgstr ""
 msgid "Project title"
 msgstr ""
 "#-#-#-#-#  app.po (app 1.0.0)  #-#-#-#-#\n"
-"Título\n"
-"#-#-#-#-#  es.merged.app.po (app 1.0.0)  #-#-#-#-#\n"
+"Titre\n"
+"#-#-#-#-#  fr_CA.merged.app.po (app 1.0.0)  #-#-#-#-#\n"
 
 #, fuzzy
 msgid ""
@@ -2014,29 +2018,33 @@ msgid ""
 msgstr "user"
 
 msgid "Public DMPs"
-msgstr "DMP Públicos"
+msgstr "DMP publics"
 
 #, fuzzy
 msgid ""
 "Public DMPs are plans created using the %{application_name} and shared "
 "publicly by their owners. They are not vetted for quality, completeness, or "
 "adherence to funder guidelines."
-msgstr "DMP Públicos"
+msgstr ""
+"Les DMP publics sont des plans créés à l'aide de DMPTool et partagés "
+"publiquement par leurs propriétaires. Ils ne sont pas vérifiés pour la "
+"qualité, l'exhaustivité ou l'adhésion aux lignes directrices des bailleurs "
+"de fonds."
 
 #, fuzzy
 msgid ""
 "Public or organisational visibility is intended for finished plans. You must "
 "answer at least %{percentage}%% of the questions to enable these options. "
 "Note: test plans are set to private visibility by default."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Public: anyone can view on the web"
-msgstr "Público"
+msgstr "Public"
 
 #, fuzzy
 msgid "Public: anyone can view."
-msgstr "Público"
+msgstr "Public"
 
 msgid "Publish"
 msgstr ""
@@ -2045,50 +2053,50 @@ msgid "Publish changes"
 msgstr ""
 
 msgid "Published"
-msgstr "Publicado"
+msgstr "Publiée"
 
 msgid "Query or feedback related to %{tool_name}"
 msgstr ""
 
 msgid "Question"
-msgstr "Pregunta"
+msgstr "Question"
 
 #, fuzzy
 msgid "Question Number"
-msgstr "Número de la pregunta"
+msgstr "Numéro de la question"
 
 msgid "Question not answered."
-msgstr "Pregunta no respondida."
+msgstr "Question sans réponse."
 
 msgid "Question number"
-msgstr "Número de la pregunta"
+msgstr "Numéro de la question"
 
 msgid "Question text"
-msgstr "Texto de la pregunta"
+msgstr "Texte de la question"
 
 msgid "Questions"
-msgstr "Preguntas"
+msgstr "Questions"
 
 msgid "Read only"
-msgstr "Sólo lectura"
+msgstr "Lecture seule"
 
 msgid "Reference"
 msgstr ""
 
 msgid "Remove"
-msgstr "Borrar"
+msgstr "Retirer"
 
 #, fuzzy
 msgid "Remove the filter"
-msgstr "Borrar"
+msgstr "Retirer"
 
 #, fuzzy
 msgid "Remove this link"
-msgstr "Borrar"
+msgstr "Retirer"
 
 #, fuzzy
 msgid "Request Expert Feedback - Automated Email:"
-msgstr "Correo electrónico"
+msgstr "Courriel"
 
 msgid "Request Feedback"
 msgstr ""
@@ -2103,11 +2111,11 @@ msgid "Requestor"
 msgstr ""
 
 msgid "Right"
-msgstr "Derecho"
+msgstr "Droite"
 
 #, fuzzy
 msgid "Role"
-msgstr "Función"
+msgstr "Rôle"
 
 msgid "Run your own filter"
 msgstr ""
@@ -2123,17 +2131,17 @@ msgstr "plans"
 #, fuzzy
 msgid ""
 "Sample plans are provided by a funder, an organisation or a trusted party."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Save"
-msgstr "Guardar"
+msgstr "Enregistrer"
 
 #, fuzzy
 msgid "Save Unsuccessful."
-msgstr "Guardar"
+msgstr "Enregistrer"
 
 msgid "Saving..."
-msgstr "Guardando..."
+msgstr "Enregistrement en cours..."
 
 #, fuzzy
 msgid ""
@@ -2145,27 +2153,27 @@ msgid ""
 "tool provides detailed guidance and links to general and organisational "
 "resources and walks a researcher through the process of generating a "
 "comprehensive plan tailored to specific DMP requirements."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Search"
 msgstr ""
 
 msgid "Section"
-msgstr "Sección"
+msgstr "Section"
 
 #, fuzzy
 msgid "Section details"
-msgstr "Sección"
+msgstr "Section"
 
 msgid "Sections"
-msgstr "Secciones"
+msgstr "Sections"
 
 msgid "Security check"
 msgstr ""
 
 #, fuzzy
 msgid "See the full list of participating organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "See the full list of partner institutions."
 msgstr ""
@@ -2175,7 +2183,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Select an organisation from the list."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
@@ -2183,33 +2191,33 @@ msgid ""
 "display your generic organisation-level guidance, as well as that from other "
 "sources e.g. the %{org_name} guidance or any Schools/Departments that you "
 "provide guidance for."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "Select one or more themes that are relevant to this question. This will "
 "allow similarly themed organisation-level guidance to appear alongside your "
 "question."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Select phase to download"
-msgstr "Fase"
+msgstr "Phase"
 
 #, fuzzy
 msgid "Select the primary funding organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Select the primary research organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Select up to 6 organisations to see their guidance."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Select which group this guidance relates to."
-msgstr "Seleccione a que grupo pertenece esta guía."
+msgstr "Sélectionnez le groupe auxquel ces conseils sont liés."
 
 msgid "Selected option(s)"
 msgstr ""
@@ -2219,14 +2227,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Set plan visibility"
-msgstr "Visibilidad"
+msgstr "Visibilité"
 
 msgid "Share"
-msgstr "Compartir"
+msgstr "Partager"
 
 #, fuzzy
 msgid "Shared"
-msgstr "Compartir"
+msgstr "Partager"
 
 msgid "Shibboleth Domain"
 msgstr ""
@@ -2240,33 +2248,30 @@ msgstr ""
 msgid "Show Phase"
 msgstr ""
 
-#, fuzzy
 msgid "Show password"
-msgstr "Nueva clave"
+msgstr ""
 
-#, fuzzy
 msgid "Show passwords"
-msgstr "Nueva clave"
+msgstr ""
 
 msgid "Sign in"
-msgstr "Conectar"
+msgstr "Connexion"
 
 #, fuzzy
 msgid "Sign in with your institutional credentials"
-msgstr "Conectar"
+msgstr "Connexion"
 
 #, fuzzy
 msgid "Sign up"
-msgstr "Desconectar"
+msgstr "Déconnexion"
 
 msgid "Size"
-msgstr "Tamaño"
+msgstr "Taille"
 
-#, fuzzy
 msgid ""
 "Someone has requested a link to change your %{tool_name} password. You can "
 "do this through the link below."
-msgstr "Clave"
+msgstr ""
 
 msgid "Start date"
 msgstr ""
@@ -2282,7 +2287,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Successfully deleted your theme"
-msgstr "Borrar"
+msgstr "Effacer"
 
 msgid "Successfully signed in"
 msgstr ""
@@ -2294,49 +2299,49 @@ msgid "Super Admin"
 msgstr ""
 
 msgid "Template"
-msgstr "Modelo"
+msgstr "Template"
 
 msgid "Template History"
 msgstr ""
 
 #, fuzzy
 msgid "Template Name"
-msgstr "Modelo"
+msgstr "Template"
 
 #, fuzzy
 msgid "Template created using the %{application_name}. Last modified %{date}"
 msgstr "DMPonline"
 
 msgid "Template details"
-msgstr "Detalles de la plantilla"
+msgstr "Détails du modèle"
 
 #, fuzzy
 msgid "Template: "
-msgstr "Modelo"
+msgstr "Template"
 
 msgid "Templates"
-msgstr "Plantillas"
+msgstr "Modèles"
 
 #, fuzzy
 msgid ""
 "Templates are provided by a funder, an organisation, or a trusted party."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Terms of use"
-msgstr ""
+msgstr "Exploitation sous licence et conditions d'utilisation"
 
 #, fuzzy
 msgid "Test"
-msgstr "Texto"
+msgstr "Texte"
 
 msgid "Text"
-msgstr "Texto"
+msgstr "Texte"
 
 msgid "Text area"
-msgstr "Text area"
+msgstr "Zone de texte"
 
 msgid "Text field"
-msgstr "Text field"
+msgstr "Champ textuel"
 
 msgid "Thank you for registering. Please confirm your email address"
 msgstr ""
@@ -2372,13 +2377,11 @@ msgid ""
 "machine actionable so please continue sharing your use cases."
 msgstr "am"
 
-#, fuzzy
 msgid "The password must be between 8 and 128 characters."
-msgstr "Clave"
+msgstr ""
 
-#, fuzzy
 msgid "The passwords must match."
-msgstr "Clave"
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -2390,34 +2393,35 @@ msgid ""
 "The table below lists the plans that users at your organisation have created "
 "and shared within your organisation. This allows you to download a PDF and "
 "view their plans as samples or to discover new research data."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "The table below lists the plans that you have created, and that have been "
 "shared with you by others. You can edit, share, download, make a copy, or "
 "remove these plans at any time."
-msgstr "Creación"
+msgstr "Créé"
 
 msgid "The theme with id %{id} could not be destroyed"
 msgstr ""
 
 #, fuzzy
 msgid "Theme created successfully"
-msgstr "Creación"
+msgstr "Créé"
 
 msgid "Theme updated successfully"
 msgstr ""
 
 msgid "Themes"
-msgstr "Temas"
+msgstr "Thèmes"
 
+#, fuzzy
 msgid "There are currently no public DMPs."
-msgstr ""
+msgstr "Aucun DMP n'a été rendu public."
 
 #, fuzzy
 msgid "There are currently no public Templates."
-msgstr "Plantillas"
+msgstr "Aucun DMP n'a été rendu public."
 
 msgid "There are no records associated"
 msgstr ""
@@ -2442,7 +2446,7 @@ msgstr "plans"
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id}"
 "for which to create or update an answer"
-msgstr "Pregunta"
+msgstr "Question"
 
 msgid "There is no theme associated with id %{id}"
 msgstr ""
@@ -2451,10 +2455,10 @@ msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
 
 msgid "This allows you to order sections."
-msgstr "Le permite ordenar las secciones."
+msgstr "Cette fonction vous permet de classer des sections."
 
 msgid "This allows you to order the phases of your template."
-msgstr "Esto le permite ordenar las fases de su plantilla."
+msgstr "Cette fonction vous permet de classer les phases de votre modèle."
 
 msgid "This field is required."
 msgstr ""
@@ -2463,7 +2467,7 @@ msgstr ""
 msgid ""
 "This information can only be changed by a system administrator. Contact the "
 "Help Desk if you have questions or to request changes."
-msgstr "Pregunta"
+msgstr "Question"
 
 #, fuzzy
 msgid ""
@@ -2482,7 +2486,7 @@ msgid "This will link your existing account to your credentials."
 msgstr ""
 
 msgid "Title"
-msgstr "Título"
+msgstr "Titre"
 
 #, fuzzy
 msgid ""
@@ -2498,11 +2502,11 @@ msgid ""
 msgstr "DMPonline"
 
 msgid "Top"
-msgstr "Superior"
+msgstr "Haut"
 
 #, fuzzy
 msgid "Topic"
-msgstr "Superior"
+msgstr "Haut"
 
 msgid "Total"
 msgstr ""
@@ -2536,17 +2540,17 @@ msgstr "plans"
 
 #, fuzzy
 msgid "Unable to change your organisation affiliation at this time."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Unable to download the DMP Template at this time."
-msgstr "Modelo"
+msgstr "Template"
 
 #, fuzzy
 msgid ""
 "Unable to find a suitable template for the research organisation and funder "
 "you selected."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Unable to find plan id %{plan_id}"
@@ -2580,24 +2584,22 @@ msgid "Unknown"
 msgstr ""
 
 msgid "Unknown column name."
-msgstr "Nombre de columna desconocido."
+msgstr "Nom de colonne inconnu."
 
 msgid "Unknown formatting setting"
-msgstr "Valores de formato desconocidos"
+msgstr "Réglage de mise en forme"
 
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
-msgstr ""
-"Margen desconocido. Sólo puede ser 'superior', 'inferior', 'izquierdo' or "
-"'derecho'"
+msgstr "Marge inconnue. Seules marges possibles : Haut, Bas, Gauche et Droite"
 
 #, fuzzy
 msgid "Unknown organisation."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "Unlink your account from your organisation. You can link again at any time."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Unlock my account"
 msgstr ""
@@ -2607,7 +2609,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Unpublished"
-msgstr "Publicado"
+msgstr "Publiée"
 
 msgid "Unpublished changes"
 msgstr ""
@@ -2620,11 +2622,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Updated"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "Usage"
-msgstr "Yo"
+msgstr "Moi"
 
 msgid "Use API"
 msgstr ""
@@ -2634,52 +2636,52 @@ msgid ""
 "Use the filters to generate organisational usage statistics for a custom "
 "date range. The graphs display new users and plans for your organisation "
 "over the past year. You can download a CSV report for each graph."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "User accounts"
 msgstr ""
 
 msgid "Users"
-msgstr "Usuarios"
+msgstr "Utilisateurs"
 
 msgid "Version"
-msgstr "Versión"
+msgstr "Version"
 
 msgid "View"
-msgstr "Ver"
+msgstr "Visualiser"
 
 #, fuzzy
 msgid "View all"
-msgstr "Ver"
+msgstr "Visualiser"
 
 msgid "View all guidance"
-msgstr "Ver todas las orientaciones"
+msgstr "Voir tous les conseils"
 
 #, fuzzy
 msgid "View all organisations"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "View all search results"
-msgstr "Ver"
+msgstr "Visualiser"
 
 msgid "View all templates"
-msgstr "Ver todas las plantillas"
+msgstr "Voir tous les modèles"
 
 #, fuzzy
 msgid "View less"
-msgstr "Ver"
+msgstr "Visualiser"
 
 #, fuzzy
 msgid "View less search results"
-msgstr "Ver"
+msgstr "Visualiser"
 
 msgid "Visibility"
-msgstr "Visibilidad"
+msgstr "Visibilité"
 
 #, fuzzy
 msgid "Visibility definitions:"
-msgstr "Visibilidad"
+msgstr "Visibilité"
 
 #, fuzzy
 msgid "We found multiple DMP templates corresponding to your funder."
@@ -2690,18 +2692,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Welcome"
-msgstr "Bienvenido/a."
+msgstr "Bienvenue !"
 
 msgid "Welcome to %{application_name}"
 msgstr ""
 
 #, fuzzy
 msgid "Welcome to %{tool_name}"
-msgstr "Bienvenido/a."
+msgstr "Bienvenue !"
 
 #, fuzzy
 msgid "Welcome to %{tool_name}, %{username}"
-msgstr "Bienvenido/a."
+msgstr "Bienvenue !"
 
 msgid ""
 "Welcome! You have signed up successfully with your institutional "
@@ -2709,7 +2711,7 @@ msgid ""
 msgstr ""
 
 msgid "Welcome."
-msgstr "Bienvenido/a."
+msgstr "Bienvenue !"
 
 #, fuzzy
 msgid "What research project are you planning?"
@@ -2720,9 +2722,9 @@ msgid ""
 "be created. Once you complete the form below you will be provided with "
 "options to create sections and questions."
 msgstr ""
-"Cuando crea una fase nueva para su plantilla, se creará automáticamente una "
-"versión. Una vez complete el siguiente formulario se le darán las opciones "
-"para crear secciones y preguntas."
+"Quand vous créez une nouvelle phase dans votre modèle, une version sera "
+"créée automatiquement. Quand vous remplirez la grille ci-dessous, le système "
+"affichera des options pour créer des sections et des questions."
 
 #, fuzzy
 msgid "Which DMP template would you like to use?"
@@ -2746,31 +2748,31 @@ msgid ""
 "You are about to delete '%{guidance_group_name}'. This will affect guidance. "
 "Are you sure?"
 msgstr ""
-"Está a punto de borrar el grupo '%{guidance_group_name}'. Esto afectará a la "
-"orientación. ¿Está seguro?"
+"You are about to delete %{guidance_group_name}. This will affect guidance. "
+"Are you sure?"
 
 msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
-msgstr "Está a punto de borrar '%{guidance_summary}'. ¿Está seguro?"
+msgstr "Vous allez effacer %{guidance_summary}. En êtes-vous sûr?"
 
 #, fuzzy
 msgid "You are about to delete '%{org_name}'. Are you sure?"
-msgstr "Va a eliminar '%{question_text}'. ¿Está seguro?"
+msgstr "Vous allez supprimer la question : %{question_text}. En êtes-vous sûr?"
 
 msgid "You are about to delete '%{question_text}'. Are you sure?"
-msgstr "Va a eliminar '%{question_text}'. ¿Está seguro?"
+msgstr "Vous allez supprimer la question : %{question_text}. En êtes-vous sûr?"
 
 msgid ""
 "You are about to delete '%{section_title}'. This will affect questions "
 "linked to this section. Are you sure?"
 msgstr ""
-"Va a borrar '%{section_title}'. Esta acción afectará las preguntas enlazadas "
-"con esta sección. ¿Está seguro?"
+"Vous allez supprimer %{section_title}. Cette opération affectera les "
+"questions liées à cette phase. En êtes-vous sûr?"
 
 #, fuzzy
 msgid ""
 "You are about to delete the '%{phase_title}' phase. This will remove all of "
 "the sections and questions listed below. Are you sure?"
-msgstr "¿Está seguro?"
+msgstr "Êtes-vous sûr ?"
 
 #, fuzzy
 msgid ""
@@ -2802,21 +2804,21 @@ msgid ""
 "selected;</li> <li>- multiple select box allows users to select several "
 "options from a scrollable list, using the CTRL key;</li></ul>"
 msgstr ""
-"Puede elegir entre:<ul><li>- área de texto (caja grande para párrafos);</li> "
-"<li>- campo de texto (para una respuesta corta);</li> <li>- checkboxes donde "
-"las opciones se presentan como una lista y pueden seleccionarse varios "
-"valores;</li> <li>- botones de radio, donde se presenta una lista de "
-"opciones para elegir sólo una de ellas;</li> <li>- lista despegable - sólo "
-"puede seleccionarse una opción;</li> <li>- lista de selección múltiple que "
-"permite a los usuarios seleccionar varias opciones de una lista desplazable "
-"usando la tecla CTRL;</li></ul>"
+"Vos choix possibles :<ul><li>- une zone de texte (un grand cadre pour les "
+"paragraphes);</li> <li>- un champ de texte (pour une réponse courte);</li> "
+"<li>- les cases à cocher se présentent en une liste où plusieurs choix "
+"peuvent être sélectionnés;</li> <li>- les boutons radio buttons se "
+"présentent en une liste où un seul choix est possible;</li> <li>- la liste "
+"déroulante comme cet encadré, où une seule sélection est possible;</li> "
+"<li>- un cadre à choix multiples permet à lutilisateur de faire plusieurs "
+"sélections dans une liste, avec la touche CTRL;</li></ul>"
 
 #, fuzzy
 msgid "You can continue to edit and download the plan in the interim."
 msgstr "plans"
 
 msgid "You can edit any of the details below."
-msgstr "Puede editar cualquiera de los siguientes datos."
+msgstr "Vous pouvez modifiez les informations ci-dessous."
 
 #, fuzzy
 msgid ""
@@ -2831,7 +2833,7 @@ msgstr "templates"
 msgid ""
 "You cannot be assigned to other organisation since that option does not "
 "exist in the system. Please contact your system administrators."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid ""
 "You don't have access to use the API. An api token is needed to generate "
@@ -2846,7 +2848,7 @@ msgid ""
 "You have been granted permission by your organisation to use our API. Your "
 "API token and instructions for using the API endpoints can be found at: "
 "%{link}"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr ""
@@ -2862,22 +2864,22 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a valid URL (e.g. https://organisation.org)."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "You must enter a valid email address."
-msgstr "Debe introducir una dirección de correo electrónico válida."
+msgstr "Vous devez entrer un courriel valide."
 
 #, fuzzy
 msgid "You must select a funding organisation from the list."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "You must select a research organisation from the list."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "You must select at least one organisation type"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "You need to sign in or sign up before continuing."
 msgstr ""
@@ -2892,7 +2894,7 @@ msgid "Your"
 msgstr ""
 
 msgid "Your ORCID"
-msgstr ""
+msgstr "Votre ORCID"
 
 msgid "Your Selected Standards:"
 msgstr ""
@@ -2904,7 +2906,7 @@ msgstr ""
 msgid ""
 "Your account has been linked to your organisation. You can now login with "
 "that method."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Your account has been successfully linked to %{scheme}."
 msgstr ""
@@ -2914,12 +2916,11 @@ msgid ""
 "You will now be able to sign in with them."
 msgstr ""
 
-#, fuzzy
 msgid ""
 "Your email address is also your login id and therefore an important part of "
 "your account information. For your safety we require you to confirm your "
 "password to make this change."
-msgstr "Clave"
+msgstr ""
 
 #, fuzzy
 msgid "Your guidance group has been published and is now available to users."
@@ -2929,7 +2930,7 @@ msgstr "templates"
 msgid ""
 "Your guidance group is no longer published and will not be available to "
 "users."
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 #, fuzzy
 msgid "Your guidance has been published and is now available to users."
@@ -2944,17 +2945,17 @@ msgstr "user"
 msgid ""
 "Your organisation affiliation has been changed. You may now edit templates "
 "for %{org_name}."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Your organisation does not seem to be properly configured."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid ""
 "Your permissions relating to %{plan_title} have changed. You now have "
 "%{type} access. This means you can %{placeholder1} %{placeholder2}"
-msgstr "Permisos"
+msgstr "Permissions"
 
 #, fuzzy
 msgid "Your project is no longer a test."
@@ -3012,37 +3013,37 @@ msgstr ""
 
 #, fuzzy
 msgid "co-owner"
-msgstr "Co-propietario"
+msgstr "Copropriétaire"
 
 msgid "collapse all"
 msgstr ""
 
 #, fuzzy
 msgid "comment"
-msgstr "Comentario"
+msgstr "Commentaire"
 
 msgid "copied"
 msgstr ""
 
 #, fuzzy
 msgid "created"
-msgstr "Creación"
+msgstr "Créé"
 
 #, fuzzy
 msgid "customisation"
-msgstr "Editar la personalización"
+msgstr "Modifier la personnalisation"
 
 #, fuzzy
 msgid "deleted"
-msgstr "Borrar"
+msgstr "Effacer"
 
 #, fuzzy
 msgid "editor"
-msgstr "Editar"
+msgstr "Modifier"
 
 #, fuzzy
 msgid "example answer"
-msgstr "Respuesta de ejemplo"
+msgstr "Exemple de réponse"
 
 msgid "expand all"
 msgstr ""
@@ -3055,7 +3056,7 @@ msgstr ""
 
 #, fuzzy
 msgid "guidance group"
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 msgid "guidance on"
 msgstr ""
@@ -3065,11 +3066,11 @@ msgstr ""
 
 #, fuzzy
 msgid "link name"
-msgstr "Nombre de proyecto"
+msgstr "Nom du plan"
 
 #, fuzzy
 msgid "must be logged in"
-msgstr "Último acceso"
+msgstr "Dernière connexion"
 
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr ""
@@ -3087,7 +3088,7 @@ msgstr "guidances"
 
 #, fuzzy
 msgid "note"
-msgstr "Nota"
+msgstr "Note"
 
 msgid "on the homepage."
 msgstr ""
@@ -3100,26 +3101,25 @@ msgstr ""
 
 #, fuzzy
 msgid "organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "organisational"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "page for guidance."
 msgstr ""
 
-#, fuzzy
 msgid "password"
-msgstr "Clave"
+msgstr ""
 
 #, fuzzy
 msgid "permissions"
-msgstr "Permisos"
+msgstr "Permissions"
 
 #, fuzzy
 msgid "phase"
-msgstr "Fase"
+msgstr "Phase"
 
 #, fuzzy
 msgid "plan"
@@ -3127,14 +3127,14 @@ msgstr "plans"
 
 #, fuzzy
 msgid "plan's visibility"
-msgstr "Visibilidad"
+msgstr "Visibilité"
 
 msgid "preferences"
 msgstr ""
 
 #, fuzzy
 msgid "private"
-msgstr "Privado"
+msgstr "Privé"
 
 msgid "profile"
 msgstr ""
@@ -3145,11 +3145,11 @@ msgstr ""
 #, fuzzy
 msgid "question"
 msgid_plural "questions"
-msgstr[0] "Pregunta"
+msgstr[0] "Question"
 
 #, fuzzy
 msgid "read the plan and leave comments."
-msgstr "Comentario"
+msgstr "Commentaire"
 
 #, fuzzy
 msgid "read the plan and provide feedback."
@@ -3157,28 +3157,28 @@ msgstr "plans"
 
 #, fuzzy
 msgid "read-only"
-msgstr "Sólo lectura"
+msgstr "Lecture seule"
 
 #, fuzzy
 msgid "removed"
-msgstr "Borrar"
+msgstr "Retirer"
 
 #, fuzzy
 msgid "reviewer"
-msgstr "Previsualización"
+msgstr "Aperçu"
 
 #, fuzzy
 msgid "role"
-msgstr "Función"
+msgstr "Rôle"
 
 #, fuzzy
 msgid "saved"
-msgstr "Guardar"
+msgstr "Enregistrer"
 
 #, fuzzy
 msgid "section"
 msgid_plural "sections"
-msgstr[0] "Sección"
+msgstr[0] "Section"
 
 msgid ""
 "since %{name} saved the answer below while you were editing. Please, combine "
@@ -3191,21 +3191,21 @@ msgstr "templates"
 
 #, fuzzy
 msgid "test"
-msgstr "Texto"
+msgstr "Texte"
 
 msgid "user"
 msgstr "user"
 
 #, fuzzy
 msgid "user must be in your organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "write and edit the plan in a collaborative manner."
 msgstr "plans"
 
 msgid " (UK users only)"
-msgstr " (sólo usuarios del Reino Unido)"
+msgstr " (réservé aux utilisateurs britanniques)"
 
 msgid " - "
 msgstr ""
@@ -3214,7 +3214,8 @@ msgstr ""
 msgid ""
 " I accept the <a href=\"/terms\" target=\"_blank\">terms and conditions</a> *"
 msgstr ""
-" Acepto los <a href=\"/terms\" target=\"_blank\">términos y condiciones</a> *"
+" Jaccepte les <a href=\"/terms\" target=\"_blank\">Conditions générales "
+"dutilisation.</a> *"
 
 msgid " access to"
 msgstr ""
@@ -3227,11 +3228,11 @@ msgstr ""
 
 #, fuzzy
 msgid " by"
-msgstr " por "
+msgstr " par "
 
 #, fuzzy
 msgid " have been changed by"
-msgstr " por "
+msgstr " par "
 
 msgid " into your browser)"
 msgstr ""
@@ -3247,7 +3248,7 @@ msgstr ""
 
 #, fuzzy
 msgid " provided by "
-msgstr " por "
+msgstr " par "
 
 #, fuzzy
 msgid " team"
@@ -3255,7 +3256,7 @@ msgstr "am"
 
 #, fuzzy
 msgid " that has been customised by "
-msgstr " por "
+msgstr " par "
 
 msgid " to accept the invitation, (or copy "
 msgstr ""
@@ -3304,10 +3305,10 @@ msgid ""
 msgstr ""
 
 msgid "(Using custom PDF formatting values)"
-msgstr "(Usando valores personalizados para el formato del PDF)"
+msgstr "(Utilisation de valeurs de mise en forme PDF personnalisées)"
 
 msgid "(Using template PDF formatting values)"
-msgstr "(Usando valores de la plantilla para el formato del template PDF)"
+msgstr "(Utilisation des valeurs de mise en forme PDF du modèle)"
 
 msgid ""
 "<div class='tooltip_box'><h4>Questions to consider:</h4><ul><li>- What is "
@@ -3317,13 +3318,13 @@ msgid ""
 "(or studies) to help others understand the purposes for which the data are "
 "being collected or created.</p></div>"
 msgstr ""
-"<div class='tooltip_box'><h4>Preguntas a considerar:</h4><ul><li>- ¿Cual es "
-"la naturaleza de su proyecto de investigación?</li><li>- ¿Qué temas de "
-"investigación está tratando? </li><li>- ¿Para qué propósito se están "
-"recogiendo o creando los datos? </li></ul><h4>Orientación:</h4><p>Resuma "
-"brevemente el tipo de estudio (o estudios) para ayudar a otros a comprender "
-"los propósitos para los cuales se están recogiendo o crendo los datos.</p></"
-"div>"
+"<div class=tooltip_box><h4>Questions auxquelles réfléchir :</h4><ul><li>- "
+"Quelle est la nature de votre projet de recherche ?</li><li>- Quelles ont "
+"les problématiques de recherche que vous traitez ? </li><li>- Dans quel but "
+"est effectuée la collecte ou la création des données ? </li></"
+"ul><h4>Conseils :</h4><p>Résumez brièvement le type détude(s) pour permettre "
+"à dautres de comprendre dans quel but les données sont collectées ou créées."
+"</p></div>"
 
 msgid ""
 "<div class='tooltip_box'>Enter a basic description. This could be a summary "
@@ -3331,17 +3332,17 @@ msgid ""
 "text will be displayed in the coloured banner once a section is opened to "
 "edit.</div>"
 msgstr ""
-"<div class='tooltip_box'>Teclee una descripción básica. Puede ser un resumen "
-"sobre que cubre esta sección o instrucciones sobre como responder las "
-"preguntas. Este texto se mostrará en un banner cada vez que se edite esta "
-"sección.</div>"
+"<div class=tooltip_box>Saisissez une courte description. Celle-ci peut "
+"résumer lobjet de la section ou donner des indications sur comment y "
+"répondre. Ce texte saffichera dans la bannière de couleur quand une section "
+"sera ouverte pour modification.</div>"
 
 msgid ""
 "<div class='tooltip_box'>Enter a description that helps you to differentiate "
 "between templates e.g. if you have ones for different audiences.</div>"
 msgstr ""
-"<div class='tooltip_box'>Introduzca una descripción que ayude a distinguir "
-"las plantillas. Ej: Si van dirigidas a audiencias distintas.</div>"
+"<div class=tooltip_box>Entrez une description qui permet de distinguer "
+"différents modèles, par ex. : pour des publics différents.</div>"
 
 msgid ""
 "<div class='white_background'> <p>The %{organisation_name} "
@@ -3380,7 +3381,7 @@ msgid ""
 "cookies'>main DCC website</a>.</p> </div> <br /> <div "
 "class='white_background'> <p>Use of the tool indicates that you understand "
 "and agree to these terms and conditions.</p></div>"
-msgstr ""
+msgstr "l'outil\",\"le système"
 
 msgid ""
 "<h3>Useful resources on Data Management Planning</h3> <ul class='help_ul'> "
@@ -3458,14 +3459,18 @@ msgid ""
 "research process. The course includes a number of software practicals on "
 "using SPSS, R, ArcGIS and NVivo. </li> </ul>"
 msgstr ""
+"Si vous avez besoin de plus de directives, communiquez avec nous par "
+"courriel à <a href='mailto:portage@carl-abrc.ca?Subject=Aide Assistant "
+"PGD'>portage@carl-abrc.ca</a>.</p>"
 
 msgid ""
 "<p>%{application_name} has been jointly developed by the <strong>"
 "%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr ""
-"<p>DMPonline ha sido desarrollado por el <a href='http://dcc.ac.uk' "
-"target='_blank'>Digital Curation Centre</a> como una herramienta para "
-"elaborar planes de gestión de datos.</p>"
+"<p>DMPonline est un développement du <a href=http://dcc.ac.uk "
+"target=_blank>Digital Curation Centre</a> (Centre de curation numérique "
+"britannique - DCC) pour vous aider dans la rédaction de plans de gestion de "
+"données, ou DMP.</p>"
 
 msgid ""
 "<p>%{application_name} is developed and maintained by the UK "
@@ -3536,27 +3541,27 @@ msgid ""
 "<p><strong>Welcome.</strong></br> You are now ready to create your first DMP."
 "</br>Click the 'Create plan' button below to begin.</p>"
 msgstr ""
-"<p><strong>Bienvenido.</strong></br> Ya está listo para crear su primer PGD."
-"</br>Haga clic en el botón 'Crear un plan' para comenzar.</p>"
+"<p><strong>Bienvenue.</strong></br> Vous voilà prêt à créer votre premier "
+"DMP.</br>Cliquez sur le bouton 'Créer un plan' ci-dessous pour commencer.</p>"
 
 msgid ""
 "<p>First create a guidance group. This could be institution wide or a subset "
 "e.g. a particular College / School, Institute or department. When you create "
 "guidance you'll be asked to assign it to a guidance group.</p>"
 msgstr ""
-"<p>Primero cree un grupo de guías. Este podrá abarcar toda la institución o "
-"un subconjunto de la misma (ej: una escuela, colegio o departamento en "
-"particular). Cuando cree una guía, necesitará asignarla a un grupo de guías."
-"</p>"
+"<p>Commencez par créer un groupe de conseils. Celui-ci peut désigner un "
+"établissement dans son ensemble, ou un sous-ensemble : une faculté, un "
+"institut, un département. Quand vous créerez des conseils, on vous demandera "
+"de les affecter à un groupe de conseils.</p>"
 
 msgid ""
 "<p>From here you can  download your plan in various formats. This may be "
 "useful if you need to submit your plan as part of a grant application.</br> "
 "Select what format you wish to use and click to 'Export'.</p>"
 msgstr ""
-"<p>Desde aquí puede descargar su plan en varios formatos. Esto puede ser "
-"útil si necesita enviar su plan para solicitar una subvención.</br> "
-"Seleccione qué formato quiere usar y haga clic en 'Exportar'.</p>"
+"<p>À ce niveau, vous pouvez décharger votre plan sous différents formats. "
+"Cela peut vous être utile pour soumettre votre plan dans une demande de "
+"subvention.</br> Sélectionnez votre format et cliquez sur Exporter.</p>"
 
 msgid ""
 "<p>Funding bodies increasingly require their grant-holders to produce Data "
@@ -3597,8 +3602,9 @@ msgid ""
 "multiple phases for you DMP, this should be clear in the title and "
 "description.<p/>"
 msgstr ""
-"<p>Aquí indicará el título mostrado a los usuarios. Si piensa tener varias "
-"fases en su PGD, esto debería quedar claro en el título y la descripción.<p/>"
+"<p>Vous définissez ici le titre que verrons les utilisateurs. Si vous "
+"souhaitez que votre DMP comporte plusieurs phases, cela doit apparaître "
+"clairement dans le titre et la description.<p/>"
 
 msgid ""
 "<p>If you wish to add an institutional template for a Data Management Plan, "
@@ -3608,13 +3614,14 @@ msgid ""
 "templates apply. If you want to add questions to funder templates use the "
 "'customise template' options below.</p>"
 msgstr ""
-"<p>Si desea añadir una plantilla institucional para un Plan de Gestión de "
-"Datos, use el botón 'crear plantilla'. Podrá crear más de una plantilla si "
-"lo cree conveniente. Ej: para investigadores y otro para estudiantes de "
-"postgrado.</p> <p>Su plantilla se presentará a los usuarios de su "
-"institución cuando no sean aplicables plantillas de agencias de "
-"financiación. Si quiere aññadir preguntas a las plantillas de las agencias "
-"de financiación, use las siguientes opciones de 'personalizar plantilla'</p>"
+"<p>Si vous souhaitez ajouter un modèle institutionnel propre à un plan de "
+"gestion de données, utilisez le bouton créer un modèle. Vous pouvez au "
+"besoin créer plusieurs modèles, par ex. : un pour des chercheurs et un pour "
+"des thésards.</p> <p>Votre modèle apparaîtra aux utilisateurs de votre "
+"établissement quand aucun modèle propre à un bailleur de subvention ne "
+"sapplique. Si vous souhaitez ajouter des questions dans un modèle de "
+"bailleur de subventions, utilisez les options de personalisation de modèle "
+"ci-après.</p>"
 
 msgid ""
 "<p>Select themes that are relevant to this question.</p> <p>This allows your "
@@ -3623,10 +3630,11 @@ msgid ""
 "Departments that you provide guidance for. </p> <p>You can select multiple "
 "themes by using the CTRL button.</p>"
 msgstr ""
-"<p>Seleccione los temas relevantes para esta pregunta.</p> <p>Le permite "
-"crear guías genéricas a nivel de institución o de otras fuentes. Ej. para el "
-"DCC o cualquier escuela o departamento a la que se dirija la guía. </p> "
-"<p>Puede seleccionar varios temas usando el botón CTRL.</p>"
+"<p>Sélectionnez les thèmes relatifs à cette question.</p> <p>Cette fonction "
+"permet dintégrer une documentation générale dassistance de votre "
+"établissement, comme encore issue dautres sources comme le DCC et des "
+"facultés ou départements auxquels vous fournissez des conseils. </p> <p>Vous "
+"pouvez sélectionner plusieurs thèmes avec la touche CTRL.</p>"
 
 msgid ""
 "<p>The %{organisation_abbreviation} are now collaborating to develop a joint "
@@ -3660,9 +3668,9 @@ msgid ""
 "been shared with you by others.</br>These can be edited, shared, exported or "
 "deleted at anytime.</p>"
 msgstr ""
-"<p>La siguiente tabla lista los planes que usted ha creado, así como los que "
-"otros investigadores hayan compartido con usted.</br>Se pueden editar, "
-"compartir, exportar o borrar en cualquier momento.</p>"
+"<p>Dans le tableau ci-dessous figurent les plans que vous avez créés, ainsi "
+"que ceux que vous partagez avec d'autres.</br>Vous pouvez à tout moment les "
+"modifier, les partager, les exporter, les effacer...</p>"
 
 msgid ""
 "<p>When you login to %{application_name} you will be directed to the 'My "
@@ -3699,6 +3707,48 @@ msgid ""
 "here you can edit, share, export or delete any of your plans. You will also "
 "see plans that have been shared with you by others.</p>"
 msgstr ""
+"<p>Lorsque vous vous connectez à l'Assistant PGD, vous serez dirigé vers la "
+"page « Mes plans ». À partir de cette page, vous pouvez modifier, partager, "
+"exporter ou supprimer l'un ou l'autre de vos plans. Vous verrez également "
+"les plans qui ont été partagés avec vous par d'autres personnes.</p> "
+"<h3>Créer un plan</h3> <p>Pour créer un plan, cliquez sur le bouton « Créer "
+"un plan » à la page « Mes plans » ou dans le menu du haut. Faites des choix "
+"dans les listes déroulantes et les cases à cocher afin de déterminer les "
+"questions et les directives qui seront affichées. Confirmez votre choix en "
+"cliquant sur « Oui, créer un plan ».</p> <h3>Rédiger votre plan</h3> "
+"<p>L'interface à onglets vous permet de naviguer dans diverses fonctions "
+"lorsque vous mettez au point votre plan.</p> <ul> <li>- L'option « "
+"renseignements sur le plan » comprend des renseignements administratifs de "
+"base, indique la série de questions et de directives sur laquelle votre plan "
+"s'appuie et vous donne un aperçu des questions auxquelles vous devez "
+"répondre.</li> <li>- Les onglets suivants contiennent les questions "
+"auxquelles il faut répondre. Il peut y avoir plus d'un onglet si votre "
+"bailleur de fonds ou votre université pose différentes séries de questions à "
+"diverses étapes, par exemple lors d'une demande de subvention et après "
+"l'octroi d'une subvention.</li> <li>- L'onglet « Partager » vous permet "
+"d'inviter d'autres personnes à lire votre plan ou à y collaborer.</li> <li>- "
+"L'onglet « Exporter » vous permet de télécharger votre plan en divers "
+"formats, ce qui peut être utile si vous devez joindre votre plan à une "
+"demande de subvention.</li> </ul> <p>Lorsque vous consultez l'un ou l'autre "
+"des onglets de questions, vous verrez les différentes sections de votre plan "
+"affichées. Cliquez sur ces onglets à tour de rôle pour répondre aux "
+"questions. Vous pouvez choisir le format de vos réponses à l'aide des "
+"boutons de mise en forme.</p> <p>Les directives sont affichées dans la "
+"partie de droite. Cliquez sur le symbole « + » pour les consulter.</p> "
+"<p>N'oubliez pas d'enregistrer vos réponses avant de poursuivre.</p> "
+"<h3>Partager les plans</h3> <p>Inscrivez l'adresse électronique de tout "
+"collaborateur que vous aimeriez inviter à lire ou à modifier votre plan. "
+"Choisissez le niveau d'autorisation que vous souhaitez lui accorder dans les "
+"options de la liste déroulante et cliquez sur « Ajouter un collaborateur ».</"
+"p> <h3>Exporter les plans</h3> <p>En choisissant cette option, vous pouvez "
+"télécharger votre plan en divers formats, ce qui peut être utile si vous "
+"devez joindre votre plan à une demande de subvention. Choisissez le format "
+"dans lequel vous aimeriez voir ou télécharger votre plan et cliquez pour "
+"l'exporter. Lorsque vous vous connectez à l'Assistant PGD, vous êtes dirigé "
+"vers la page « Mes plans ». À partir de cette page, vous pouvez modifier, "
+"partager, exporter ou supprimer l'un ou l'autre de vos plans. Vous voyez "
+"également les plans qui ont été partagés avec vous par d'autres personnes.</"
+"p>"
 
 #, fuzzy
 msgid ""
@@ -3713,17 +3763,18 @@ msgid ""
 "with %{application_name} if they don't already have an account. A "
 "notification is also issued when a user's permission level is changed.</p>"
 msgstr ""
-"<p>Aquí puede dar a otras personas acceso a su plan. Hay tres niveles de "
-"permiso.<ul><li>Los usuarios con acceso de \"sólo lectura\" sólo pueden leer "
-"el plan.</li><li>Los Editores pueden contribuir al plan.</li><li>Los Co-"
-"propietarios pueden también contribuir, editar los detalles y controlar el "
-"acceso al plan.</li></ul></p><p>Añada cada colaborador individualmente "
-"introduciendo su dirección de correo electrónico, seleccionando un nivel de "
-"permiso y haciendo clic en \"Añadir colaborador\".</p><p>Aquellos a quienes "
-"invite recibirán un aviso por correo electrónico indicando que tienen acceso "
-"al plan e invitándoles a registrarse en DMPonline si no tienen ya una "
-"cuenta. También se envia un aviso si se cambia el nivel de permiso de un "
-"usuario.</p>"
+"<p>À ce niveau, vous pouvez donner accès à votre plan à dautres personnes. "
+"Trois niveaux dautorisation sont possibles.<ul><li>Les utilisateurs avec un "
+"droit en \"lecture seule\" ne pourront que consulter le plan.</li><li>Les "
+"utilisateurs avec un droit de mofification pourront y contribuer.</"
+"li><li>Les copropriétaires le peuvent aussi, mais peuvent aussi en modifier "
+"les détails et en contrôler laccès.</li></ul></p><p>Ajoutez chacun des "
+"collaborateurs en saisissant leurs courriels lun après lautre, en "
+"choisissant un niveau dautorisation et en cliquant sur  \"Ajouter le "
+"collaborateur\".</p><p>Ceux qui sont invités recevront un avis par courriel "
+"leur indiquant quils ont accès à ce plan, invitant ceux qui nont pas de "
+"compte dans DMPonline à senregistrer. Lutilisateur reçoit aussi un avis "
+"quand ces droits sont changés.</p>"
 
 #, fuzzy
 msgid ""
@@ -3757,13 +3808,15 @@ msgid ""
 msgstr ""
 
 msgid "A pertinent ID as determined by the funder and/or institution."
-msgstr "El ID tal como lo determinó la institución u organismo financiador."
+msgstr ""
+"Un identifiant approprié conforme aux prescriptions de lorganisme financeur "
+"ou de létablissement."
 
 msgid "A version of "
 msgstr ""
 
 msgid "Abbreviation"
-msgstr "Abreviatura"
+msgstr "Abréviation"
 
 msgid "Add Annotations"
 msgstr ""
@@ -3774,34 +3827,34 @@ msgid ""
 "tell the end user where the guidance has come from. It will be appended to "
 "text identifying the theme e.g. \"[guidance group name]: guidance on data "
 "sharing\" so we suggest you just use the institution or department name."
-msgstr "Grupo de orientación"
+msgstr "Groupe de conseils"
 
 msgid "Add collaborator"
-msgstr "Añadir colaborador"
+msgstr "Ajouter le collaborateur"
 
 msgid "Add guidance"
-msgstr "Añadir orientación"
+msgstr "Ajoutez des conseils"
 
 msgid "Add guidance group"
-msgstr "Añadir grupo de orientación"
+msgstr "Ajoutez un groupe de conseils"
 
 msgid "Add new phase +"
-msgstr "Añadir fase nueva +"
+msgstr "Ajouter une nouvelle phase +"
 
 msgid "Add note"
-msgstr "Añadir nota"
+msgstr "Ajouter une note"
 
 msgid "Add question"
-msgstr "Añadir pregunta"
+msgstr "Ajouter une question"
 
 msgid "Add section"
-msgstr "Añadir sección"
+msgstr "Ajouter une section"
 
 msgid "Admin Details"
 msgstr ""
 
 msgid "Admin area"
-msgstr "Área de administración"
+msgstr "Administration"
 
 msgid "All the best,"
 msgstr ""
@@ -3813,29 +3866,32 @@ msgid ""
 msgstr "templates"
 
 msgid "Answer questions"
-msgstr "Responder"
+msgstr "Répondez aux questions"
 
 msgid "Answers"
-msgstr "Respuestas"
+msgstr "Réponses"
 
 #, fuzzy
 msgid "Are you sure you want to remove this note?"
-msgstr "¿Seguro que quiere eliminar esta nota?"
+msgstr "Êtes-vous sûr de vouloir retirer cette note?"
 
 msgid ""
 "Are you sure you wish to delete this plan? If the plan is being shared with "
 "other users, by deleting it from your list, the plan will be deleted from "
 "their plan list as well"
-msgstr "¿Está seguro de que quiere borrar este plan?"
+msgstr ""
+"Voulez-vous vraiment effacer ce plan ? S'il est partagé avec d'autres "
+"utilisateurs, le fait de l'effacer de votre liste, l'effacera aussi de leur "
+"liste de plans."
 
 msgid "Back"
-msgstr "Volver"
+msgstr "Retour"
 
 msgid "Back to edit view"
-msgstr "Volver a editar la vista"
+msgstr "Retour à la vue à modifier"
 
 msgid "Background"
-msgstr "Volver"
+msgstr "Assistant PGD"
 
 msgid "Before submitting, please consider:"
 msgstr ""
@@ -3844,7 +3900,7 @@ msgstr ""
 msgid ""
 "Before you get started, we need to ask a few questions to set you up with "
 "the best DMP template for your needs."
-msgstr "Preguntas"
+msgstr "Questions"
 
 msgid "By "
 msgstr ""
@@ -3854,10 +3910,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Change organisation details"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Check box"
-msgstr "Check box"
+msgstr "Case à cocher"
 
 msgid ""
 "Check this box when you are ready for this guidance to appear on user's "
@@ -3868,96 +3924,97 @@ msgid "Click here to accept the invitation"
 msgstr ""
 
 msgid "Collaborators"
-msgstr "Colaboradores"
+msgstr "Collaborateurs"
 
 #, fuzzy
 msgid "Comment removed."
-msgstr "Comentario"
+msgstr "Commentaire"
 
 msgid "Comment was successfully created."
 msgstr ""
 
 #, fuzzy
 msgid "Comment was successfully saved."
-msgstr "Plan creado con éxito"
+msgstr "Création du plan effectuée."
 
 msgid "Contact Email"
 msgstr ""
 
 msgid "Created"
-msgstr "Creación"
+msgstr "Créé"
 
 #, fuzzy
 msgid "Delete Example Answer"
-msgstr "Respuesta de ejemplo"
+msgstr "Exemple de réponse"
 
 msgid "Details successfully updated."
 msgstr ""
 
 msgid "Discard"
-msgstr "Descartar"
+msgstr "Rejeter"
 
 msgid "Dropdown"
-msgstr "Dropdown"
+msgstr "Liste déroulante"
 
 msgid "E.g ORCID http://orcid.org/."
-msgstr "P.e. ORCID http://orcid.org/."
+msgstr "par ex. : ORCID http://orcid.org/."
 
 #, fuzzy
 msgid "Edit Annotations"
-msgstr "Editar"
+msgstr "Modifier"
 
 msgid "Edit phase"
-msgstr "Editar fase"
+msgstr "Modifier la phase"
 
 msgid "Edit plan details"
-msgstr "Editar los detalles del plan"
+msgstr "Modifier des détails du plan"
 
 msgid ""
 "Editors can contribute to plans. Co-owners have additional rights to edit "
 "plan details and control access."
 msgstr ""
-"Los editores pueden contribuir a los planes. Los co-propietarios tienen "
-"derechos adicionales para editar los detalles del plan y controlar el acceso "
-"al mismo."
+"Les collaborateurs avec des droits de modification peuvent contribuer aux "
+"plans. Les copropriétaires ont en plus le droit de modifier les détails du "
+"plan et en contrôler laccès. "
 
 msgid ""
 "Enter any options that you wish to display. If you want to pre-set one "
 "option as selected, check the default box."
 msgstr ""
-"Introduzca las opciones que quiere mostrar. Si quiere que una opción esté "
-"seleccionada por defecto, marque la casilla correspondiente."
+"Saisissez toutes les options que vous voulez afficher. Si vous voulez "
+"paramétrer la sélection par défaut dun élément, cochez la case "
+"correspondante."
 
 msgid "Error!"
-msgstr "¡Error!"
+msgstr "Erreur!"
 
 #, fuzzy
 msgid "Example of answer"
-msgstr "Respuesta de ejemplo"
+msgstr "Exemple de réponse"
 
 msgid "Export"
-msgstr "Exportar"
+msgstr "Exporter"
 
 #, fuzzy
 msgid ""
 "Exporting public plan is under development. Apologies for any inconvience."
-msgstr "Exportar"
+msgstr "Exporter"
 
 msgid "File Name"
-msgstr "Título del plan"
+msgstr "Titre du plan"
 
 msgid "Fill in the required fields"
 msgstr ""
 
 msgid "Funders templates"
-msgstr "Plantillas de financiador"
+msgstr "Modèles des bailleurs de subventions"
 
 #, fuzzy
 msgid "Funding organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Future plans"
-msgstr "Hoja de ruta"
+msgstr ""
 
 msgid "Get involved"
 msgstr ""
@@ -3967,39 +4024,39 @@ msgstr ""
 
 #, fuzzy
 msgid "Guidance Choices"
-msgstr "Guía"
+msgstr "Conseils"
 
 #, fuzzy
 msgid "Guidance choices saved."
-msgstr "Guía"
+msgstr "Conseils"
 
 msgid "Guidance group was successfully created."
-msgstr "El grupo de orientación se creó correctamente."
+msgstr "Création du groupe de conseils effectuée."
 
 msgid "Guidance group was successfully deleted."
-msgstr "El grupo de orientación se borró correctamente."
+msgstr "Suppression du groupe de conseils effectuée."
 
 msgid "Guidance group was successfully updated."
-msgstr "El grupo de orientación se actualizó correctamente."
+msgstr "Mise à jour du groupe de conseils effectuée."
 
 msgid "Guidance was successfully created."
-msgstr "La orientación se creó correctamente."
+msgstr "Création de conseils effectuée."
 
 #, fuzzy
 msgid "Guidance was successfully deleted."
-msgstr "La orientación se creó correctamente."
+msgstr "Création de conseils effectuée."
 
 msgid "Guidance was successfully updated."
-msgstr "La orientación se actualizó correctamente."
+msgstr "Mise à jour de conseils effectuée."
 
 msgid "How many plans?"
-msgstr "¿Cuántos planes?"
+msgstr "Nombre de plans?"
 
 #, fuzzy
 msgid "If applying for funding, state the title exactly as in the proposal."
 msgstr ""
-"Si se solicita financiación, indique el nombre exactamente como en la "
-"propuesta de subvención."
+"En cas de demande de financement, indiquer le nom exactement comme dans la "
+"demande de subvention."
 
 msgid ""
 "If you are entering an URL try to use something like http://tinyurl.com/ to "
@@ -4015,154 +4072,152 @@ msgid "If you don't want to accept the invitation, please ignore this email."
 msgstr ""
 
 msgid "Included Elements"
-msgstr "Elementos incluídos"
+msgstr "Éléments inclus"
 
 msgid "Information was successfully deleted."
-msgstr "Information se destruyó correctamente"
+msgstr "Suppression des informations effectuée."
 
 msgid "Information was successfully updated."
-msgstr "La información se actualizó correctamente."
+msgstr "Mise à jour des informations effectuée."
 
 msgid "Institution"
-msgstr "Institución"
+msgstr "Institution"
 
 msgid "Invitation to %{email} issued successfully."
 msgstr ""
 
 msgid "Last logged in"
-msgstr "Último acceso"
+msgstr "Dernière connexion"
 
 msgid "Latest news"
-msgstr ""
+msgstr "Modèle de plan de gestion des données Portage"
 
 msgid "List of users"
-msgstr "Listado de usuarios"
+msgstr "Liste des utilisateurs"
 
 msgid "Logo"
 msgstr ""
 
 msgid "Main organisation"
-msgstr "Entidad principal"
+msgstr "Organisme principal"
 
 msgid "Many thanks,"
 msgstr ""
 
 msgid "Margin"
-msgstr "Margen"
+msgstr "Marge"
 
 msgid "Me"
-msgstr "Yo"
+msgstr "Moi"
 
 #, fuzzy
 msgid "Modify guidance"
-msgstr "Añadir orientación"
+msgstr "Ajoutez des conseils"
 
 #, fuzzy
 msgid "Modify templates"
 msgstr "templates"
 
 msgid "Multi select box"
-msgstr "Multi select box"
+msgstr "Boîte de sélections multiples"
 
 msgid "My plans"
-msgstr "Mis planes"
+msgstr "Mes plans"
 
 #, fuzzy
 msgid "My research organisation is not on the list"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Name (if different to above), telephone and email contact details"
-msgstr ""
-"Nombre (si es diferente del de más arriba), teléfono y dirección de correo "
-"electrónico"
+msgstr "Nom (sil diffère du précédent), coordonnées courriel et téléphone"
 
 msgid "Name of Principal Investigator(s) or main researcher(s) on the project."
 msgstr ""
-"Nombre del/de los Investigador/es Principal/es o investigador/es principal/"
-"es del proyecto."
+"Nom du ou des directeurs de recherche ou du ou des principaux chercheurs du "
+"projet."
 
 msgid "New guidance"
-msgstr "Nueva orientación"
+msgstr "Nouveaux conseils"
 
 msgid "New section title"
-msgstr "Título de la nueva sección"
+msgstr "Le nouveau titre de section"
 
 msgid "New to %{application_name}? Create an account today."
-msgstr "¿Nuevo en DMPonline? Regístrese ya."
+msgstr "Nouveau sur DMPonline ? Inscrivez-vous..."
 
 #, fuzzy
 msgid "No funder associated with this plan"
 msgstr "plans"
 
 msgid "No matches"
-msgstr "Ningún plan coincide con '%{filter}'"
+msgstr "Pas de plans pour %{filter}"
 
 msgid "None"
-msgstr "Ninguno/a"
+msgstr "Aucun"
 
 msgid "Note"
-msgstr "Nota"
+msgstr "Note"
 
 msgid "Note removed by"
-msgstr "Nota borrada por"
+msgstr "Note retirée par"
 
 msgid "Note removed by you"
-msgstr "Nota borrada por usted"
+msgstr "Note retirée par vous"
 
 msgid "Noted by:"
-msgstr "Anotado por:"
+msgstr "Note par :"
 
 msgid "Ok"
 msgstr ""
 
 msgid "On %{application_name}"
-msgstr ""
+msgstr "Concernant l'Assistant PGD"
 
 msgid "On data management planning"
-msgstr ""
+msgstr "Concernant la planification de la gestion des données"
 
 msgid "Or, sign in with your institutional credentials"
-msgstr "O conectar con sus credenciales institucionales"
+msgstr "ou, connectez-vous avec votre authentifiant détablissement"
 
 msgid "Organisation name"
-msgstr "Nombre de la entidad"
+msgstr "Nom de lorganisme"
 
 msgid "Organisation type"
-msgstr "Tipo de entidad"
+msgstr "Type dorganisme"
 
 msgid "Organisation was successfully updated."
-msgstr "Se ha actualizado correctamente la actualización."
+msgstr "Mise à jour de lorganisme effectuée."
 
 msgid "Organisational"
-msgstr "Organizativo"
+msgstr "Organisationnel"
 
 msgid "Organisational (visibile to others within your organisation)"
-msgstr "Con otros miembros de su organización"
+msgstr "Avec d'autres membres de votre organisation"
 
 msgid "Organization"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Other institutions"
 msgstr ""
 
 msgid "Own templates"
-msgstr "Sus plantillas"
+msgstr "Modèles propres"
 
 msgid "PDF Formatting"
-msgstr "Dando formato al PDF"
+msgstr "Mise en forme PDF"
 
 msgid "Plan data contact"
-msgstr "Datos de contacto del plan"
+msgstr "Interlocuteur pour les données du plan"
 
 msgid "Plan details"
-msgstr "Detalles"
+msgstr "Détails du plan"
 
 msgid "Plan name"
-msgstr "Nombre de proyecto"
+msgstr "Nom du plan"
 
 #, fuzzy
 msgid "Plan was successfully deleted."
-msgstr "Plan creado con éxito"
+msgstr "Création du plan effectuée."
 
 msgid "Plan was successfully updated."
 msgstr ""
@@ -4171,10 +4226,12 @@ msgid "Please add an abbreviation to your org for display with annotations!"
 msgstr ""
 
 msgid "Please enter a valid web address."
-msgstr "Por favor, introduzca una dirección web válida."
+msgstr ""
+"Formation à la rédaction de documents scientifiques en anglais une adresse "
+"web valide."
 
 msgid "Please enter the name of your organisation."
-msgstr "Por favor, introduzca el nombre de su entidad."
+msgstr "Veuillez saisir le nom de votre organisme.."
 
 msgid ""
 "Please enter your current password below when changing your email address."
@@ -4184,13 +4241,13 @@ msgid "Please enter your email"
 msgstr ""
 
 msgid "Please enter your first name."
-msgstr "Por favor, introduzca su nombre."
+msgstr "Entrez votre prénom, svp."
 
 msgid "Please enter your organisation's name."
-msgstr "Por favor, introduzca el nombre de su entidad."
+msgstr "Entrez le nom de votre organisme."
 
 msgid "Please enter your surname or family name."
-msgstr "Por favor, introduzca sus apellidos."
+msgstr "Entrez votre nom dusage ou de famille, svp."
 
 msgid "Please fill in the basic project details below"
 msgstr ""
@@ -4198,66 +4255,70 @@ msgstr ""
 msgid ""
 "Please fill in the basic project details below and click 'Update' to save"
 msgstr ""
-"Por favor, rellene los detalles básicos del proyecto y haga clic en "
-"'Actualizar' para guardarlos"
+"Veuillez renseigner les premiers détails ci-après et cliquez sur 'Mettre à "
+"jour' pour enregistrer"
 
 #, fuzzy
 msgid ""
 "Please note that your email address is used as your username. If you change "
 "this, remember to use your new email address on sign in."
 msgstr ""
-"<p>Por favor, tenga en cuenta que su dirección de correo electrónico se usa "
-"como su nombre de usuario. Si cambia esto, recuerde usar su nueva dirección "
-"de correo electrónico al conectar.</p>"
+"<p>À noter que votre courriel est à utiliser comme nom dutilisateur. Si vous "
+"modifiez ces informations, rappelez-vous dutiliser votre courriel en vous "
+"connectant.</p>"
 
 msgid "Please only enter up to 165 characters, you have used"
 msgstr ""
 
 #, fuzzy
 msgid "Please select an organisation, or select Other."
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Primary research organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Principal Investigator/Researcher"
-msgstr "Investigador principal"
+msgstr "Directeur de recherche/Chercheur"
 
 msgid "Principal Investigator/Researcher ID"
-msgstr "ID del Investigador Principal"
+msgstr "Identifiant du directeur de recherche/chercheur"
 
 msgid ""
 "Private (owners, co-owners, and administrators only) See our Terms of Use."
 msgstr ""
-"Privado (propietarios, copropietarios y administradores solamente) Consulte "
-"nuestras Condiciones de uso."
+"Privé (propriétaires, copropriétaires et administrateurs uniquement) "
+"Consultez nos Conditions d'utilisation."
 
 msgid "Privileges"
 msgstr ""
 
 msgid "Public"
-msgstr "Público"
+msgstr "Public"
 
 msgid "Public (Your DMP will appear on the Public DMPs page of this site)"
 msgstr ""
-"Publicamente en la web. Su DMP aparecerá en la página Public DMPs de este "
-"sitio."
+"Publiquement sur le web. Votre DMP apparaîtra sur la page Public DMPs de ce "
+"site."
 
 msgid ""
 "Public DMPs are plans created using the DMPTool and shared publicly by their "
 "owners. They are not vetted for quality, completeness, or adherence to "
 "funder guidelines."
-msgstr "DMP Públicos"
+msgstr ""
+"Les DMP publics sont des plans créés à l'aide de DMPTool et partagés "
+"publiquement par leurs propriétaires. Ils ne sont pas vérifiés pour la "
+"qualité, l'exhaustivité ou l'adhésion aux lignes directrices des bailleurs "
+"de fonds."
 
 msgid "Question not answered"
-msgstr "Pregunta no respondida."
+msgstr "Question sans réponse."
 
 msgid "Question text is empty, please enter your question."
 msgstr ""
 
 msgid "Radio buttons"
-msgstr "Radio buttons"
+msgstr "Boutons radio"
 
 msgid "Read more on the "
 msgstr ""
@@ -4266,73 +4327,73 @@ msgid "Releases"
 msgstr ""
 
 msgid "Remember me"
-msgstr "Recordarme"
+msgstr "Se souvenir de moi"
 
 msgid "Remove user access"
-msgstr "Eliminar acceso de usuario"
+msgstr "Retirer laccès utilisateur"
 
 msgid "Reset"
-msgstr "Reiniciar"
+msgstr "Réinitialiser"
 
 msgid "Screencast on how to use %{application_name}"
-msgstr "Video sobre cómo usar DMPonline"
+msgstr "Vidéo en ligne sur lutilisation de DMPonline"
 
 #, fuzzy
 msgid "Select a template"
 msgstr "templates"
 
 msgid "Select an action"
-msgstr "Seleccionar una acción"
+msgstr "Sélectionnez une action"
 
 #, fuzzy
 msgid "Select the funding organisation"
-msgstr "Organización"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Select the primary research organisation responsible"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Select which theme(s) this guidance relates to."
-msgstr "Seleccione a el/los tema(s) relacionados con esta orientación."
+msgstr "Sélectionnez le ou les thèmes liés à ces conseils."
 
 msgid "Share note"
-msgstr "Compartir nota"
+msgstr "Partager la note"
 
 msgid "Share note with collaborators"
-msgstr "Compartir nota con colaboradores"
+msgstr "Partager la note avec des collaborateurs"
 
 msgid "Sharing details successfully updated."
 msgstr ""
 
 msgid "Should this guidance apply:"
-msgstr "Esta guía se refiere a:"
+msgstr "Si ces conseils sappliquent :"
 
 msgid "Sign out"
-msgstr "Desconectar"
+msgstr "Déconnexion"
 
 msgid "Signed in as "
-msgstr "Registrado como "
+msgstr "Connecté en tant que "
 
 msgid "Someone has requested a link to change your "
 msgstr ""
 
 msgid "Suggested answer"
-msgstr "Respuesta sugerida"
+msgstr "Suggestion de réponse"
 
 msgid "Suggested answer/ Example"
-msgstr "Respuesta sugerida / ejemplo"
+msgstr "Suggestion/exemple de réponse"
 
 msgid "Super admin area"
-msgstr "Área de super administrador"
+msgstr "Espace Super admin"
 
 msgid "Test/Practice"
-msgstr "Prueba/Práctica"
+msgstr "Test/Pratique"
 
 msgid ""
 "Test/Practice (your plan is not visible to other users) See our Terms of Use."
 msgstr ""
-"Prueba / Práctica (su plan no es visible para otros usuarios) Vea nuestras "
-"Condiciones de uso."
+"Test / Practice (votre plan n'est pas visible aux autres utilisateurs) Voir "
+"nos Conditions d'utilisation."
 
 #, fuzzy
 msgid "That template is not currently published."
@@ -4354,52 +4415,52 @@ msgid ""
 "the data by each of these headings or filter by entering a text string in "
 "the search box."
 msgstr ""
-"Los items que seleccione se mostarán en la siguiente tabla. Puede ordenar "
-"los datos según sus encabezados o filtrar tecleando textos en la caja de "
-"búsqueda."
+"Les éléments que vous sélectionnez ici s'afficherontt dans le tableaiu ci-"
+"après. Vous pouvez trier les données à partir de chacune de ces en-tête ou "
+"les filtrer en tapant une chaîne de caractères dans la zone de recherche."
 
 msgid "There are no public DMPs."
-msgstr ""
+msgstr "Aucun DMP n'a été rendu public."
 
 msgid "These are the basic details for your organisation."
-msgstr "Estos son los detalles básicos de su entidad."
+msgstr "Voici/il sagit des informations de base sur votre organisme."
 
 msgid "This allows you to order questions within a section."
-msgstr "Le permite ordenar las preguntas de una sección."
+msgstr "Cette fonction vous permet de classer les questions dans une section."
 
 msgid "This document was generated by %{application_name}"
-msgstr "DMPonline"
+msgstr "%{application_name}"
 
 msgid "This must match what you entered in the previous field."
-msgstr "Ha de coincidir con lo que introdujo en el campo anterior."
+msgstr ""
 
 msgid ""
 "This page gives you an overview of your plan. It tells what your plan is "
 "based on and gives an overview of the questions that you will be asked."
 msgstr ""
-"Esta página le proporciona una visión general de su plan. Le dice en qué "
-"está basado su plan y le da una visión general de las preguntas que se le "
-"harán."
+"Cette page vous donne un aperçu de votre plan. Elle indique de quoi il "
+"s'inspire et donne une idée générale des questions auxquelles vous devrez "
+"répondre."
 
 #, fuzzy
 msgid "This plan is based on the default template."
 msgstr "templates"
 
 msgid "This plan is based on:"
-msgstr "Este plan está basado en:"
+msgstr "Ce plan sinspire de :"
 
 msgid "Top banner text"
-msgstr "Texto del banner superior"
+msgstr "Texte de la bannière en haut décran"
 
 #, fuzzy
 msgid "Un-published"
-msgstr "Publicado"
+msgstr "Publiée"
 
 msgid "Unsaved answers"
-msgstr "Preguntas sin contestar"
+msgstr "réponses non sauvegardées"
 
 msgid "Unsaved changes"
-msgstr "Deshaciendo cambios"
+msgstr "Modification non enregistrée"
 
 msgid "Upload a new logo file"
 msgstr ""
@@ -4408,10 +4469,10 @@ msgid "Using the generic Data Management Plan"
 msgstr ""
 
 msgid "View phase"
-msgstr "Ver fase"
+msgstr "Voir la phase"
 
 msgid "View plans"
-msgstr "Ver planes"
+msgstr "Voir les plans"
 
 #, fuzzy
 msgid "We found multiple DMP templates corresponding to the funder."
@@ -4420,63 +4481,63 @@ msgstr "templates"
 #, fuzzy
 msgid ""
 "We found multiple DMP templates corresponding to the research organisation."
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "Website"
-msgstr "Sitio web"
+msgstr "Site web"
 
 #, fuzzy
 msgid "Welcome to "
-msgstr "Bienvenido/a."
+msgstr "Bienvenue !"
 
 msgid "Would you like to save them now?"
-msgstr "¿Quere grabar los cambios ahora?"
+msgstr "Voulez-vous faire la sauvegarde maintenant?"
 
 msgid ""
 "You are about to delete '%{phase_title}'. This will affect versions, "
 "sections and questions linked to this phase. Are you sure?"
 msgstr ""
-"Va a eliminar '%{phase_title}'. Esto afectará a versiones, secciones y "
-"preguntas enlazadas con esta fase. ¿Está seguro?"
+"Vous allez supprimer %{phase_title}. Cette opération affectera les versions, "
+"sections et questions liées à cette phase. En êtes-vous sûr?"
 
 #, fuzzy
 msgid ""
 "You are about to delete a guidance for '%{question_text}'. Are you sure?"
 msgstr ""
-"Va a eliminar una respuesta sugerida / ejemplo de '%{question_text}'. ¿Está "
-"seguro?"
+"Vous allez supprimer la suggestion/lexemple de réponse à la questioo : "
+"%{question_text}. En êtes-vous sûr ?"
 
 msgid ""
 "You are about to delete a suggested answer/ example for '%{question_text}'. "
 "Are you sure?"
 msgstr ""
-"Va a eliminar una respuesta sugerida / ejemplo de '%{question_text}'. ¿Está "
-"seguro?"
+"Vous allez supprimer la suggestion/lexemple de réponse à la questioo : "
+"%{question_text}. En êtes-vous sûr ?"
 
 #, fuzzy
 msgid ""
 "You are about to delete an example answer for '%{question_text}'. Are you "
 "sure?"
 msgstr ""
-"Va a eliminar una respuesta sugerida / ejemplo de '%{question_text}'. ¿Está "
-"seguro?"
+"Vous allez supprimer la suggestion/lexemple de réponse à la questioo : "
+"%{question_text}. En êtes-vous sûr ?"
 
 #, fuzzy
 msgid ""
 "You can add an example answer to help users respond. These will be presented "
 "above the answer box and can be copied/ pasted."
 msgstr ""
-"Puede añadir un ejemplo o respuesta sugerida para ayudar a responder a sus "
-"usuarios. Se presentará bajo la caja de respuestas y pueden ser copiada y "
-"pegada."
+"Vous pouvez ajouter un exemple ou une suggestion de réponse pour aider les "
+"utilisateurs. Ils safficheront au-dessus de la grille de réponse et on peut "
+"les copier/coller."
 
 msgid ""
 "You can add an example or suggested answer to help users respond. These will "
 "be presented above the answer box and can be copied/ pasted."
 msgstr ""
-"Puede añadir un ejemplo o respuesta sugerida para ayudar a responder a sus "
-"usuarios. Se presentará bajo la caja de respuestas y pueden ser copiada y "
-"pegada."
+"Vous pouvez ajouter un exemple ou une suggestion de réponse pour aider les "
+"utilisateurs. Ils safficheront au-dessus de la grille de réponse et on peut "
+"les copier/coller."
 
 msgid ""
 "You can not continue until you have filled in all of the required "
@@ -4496,7 +4557,7 @@ msgid "You cannot delete historical versions of this template."
 msgstr "templates"
 
 msgid "You have altered answers but have not saved them:"
-msgstr "Ha modificado las respuestas, pero todavía no las ha grabado:"
+msgstr "Vous avez changé des réponses sans les sauvegarder:"
 
 msgid "You have been given "
 msgstr ""
@@ -4505,7 +4566,7 @@ msgstr ""
 msgid ""
 "You have been granted permission by your organisation to use our API. Your "
 "API token and instructions for using the API endpoints can be found "
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "You have un-published changes"
 msgstr ""
@@ -4519,10 +4580,10 @@ msgid ""
 msgstr ""
 
 msgid "Your browser does not support the video tag."
-msgstr "El navegador no soporta la etiqueta video."
+msgstr "La balise <video> nest pas reconnue par votre navigateur."
 
 msgid "Your password must contain at least 8 characters."
-msgstr "Su clave ha de tener al menos 8 caracteres."
+msgstr ""
 
 msgid "Your permissions relating to "
 msgstr ""
@@ -4568,15 +4629,14 @@ msgstr ""
 msgid ""
 "approx. %{space_used}%% of available space used (max %{num_pages} pages)"
 msgstr ""
-"aprox. %{space_used}% de disponibilidad del espacio usado (máx. %{num_pages} "
-"páginas)"
+"env. %{space_used}% despace disponible utilisé (%{num_pages} pages maxi)"
 
 #, fuzzy
 msgid "by "
-msgstr " por "
+msgstr " par "
 
 msgid "e.g. School/ Department"
-msgstr "ej: Escuela / Departmento"
+msgstr "par ex. : Faculté/Département"
 
 msgid "from now"
 msgstr ""
@@ -4602,10 +4662,10 @@ msgstr ""
 
 #, fuzzy
 msgid "no research organisation is associated with this plan"
-msgstr "Organización"
+msgstr "Organisation"
 
 msgid "questions answered"
-msgstr "preguntas respondidas"
+msgstr "questions avec réponses"
 
 msgid "select a guidance group"
 msgstr ""
@@ -4614,24 +4674,23 @@ msgid "select at least one theme"
 msgstr ""
 
 msgid " by "
-msgstr " por "
+msgstr " par "
 
 msgid ""
 "<p>You are about to unlink %{application_name} of your institutional "
 "credentials, would you like to continue?</p>"
 msgstr ""
-"<p>Va a desvincular DMPonline de las credenciales de su institución, ¿Quiere "
-"continuar?</p>"
+"<p>Vous allez détacher DMPonline de votre authentfiant détablissement, "
+"voulez-vous continuer ?</p>"
 
 msgid "This section is locked for editing by "
-msgstr "Esta sección está bloqueda para su edición por "
+msgstr "La modification de cette section a été verrouillée par "
 
 msgid "Unlink account"
-msgstr "Desvincular cuenta"
+msgstr "Délier le compte"
 
 msgid "Unlink institutional credentials alert"
-msgstr ""
-"Desvincule las alertas relacionadas con las credenciales de su institución"
+msgstr "Alerte de détachement dauthentifiant détablissement"
 
 msgid "You have unsaved answers in the following sections:"
 msgstr ""
