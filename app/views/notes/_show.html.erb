@@ -5,7 +5,7 @@
         <li><%= raw note.text %></li>
         <li>
             <span class="label label-info">
-                <%= "#{user.name} at #{l(note.updated_at, format: :custom)}" %>
+                <%= "#{user.name} at #{l(note.updated_at, format: :short)}" %>
             </span>
         </li>
     </ul>
