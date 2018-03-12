@@ -143,8 +143,10 @@ namespace :bugfix do
                 new_answer.text = text + "<p><strong>-------------</strong></p>" + answer.text
               end
               new_answer.save
+              new_answer.reload
               answer.notes.each do |note|
                 note.answer_id = new_answer.id
+                note.save
               end
               answer.question_options.each do |op|
                 unless qf.dropdown?
