@@ -41,18 +41,18 @@
             </a>
           </li>
         <% else %>
-          <li <%= 'class=active' if isActivePage(root_path) || isActivePage(plans_path) %>>
+          <li <%= 'class=active' if isActivePage(root_path, true) || isActivePage(plans_path, true) %>>
             <%= link_to _('Home'), root_path %>
           </li>
-          <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+          <li <%= 'class=active' if isActivePage(public_plans_path, true) %>>
             <%= link_to _('Public DMPs'), public_plans_path %>
           </li>
-          <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+          <li <%= 'class=active' if isActivePage(public_templates_path, true) %>>
             <%= link_to _('DMP Templates'), public_templates_path %>
           </li>
         <% end %>
         <!-- help page -->
-        <li <%= 'class=active' if isActivePage(help_path) %>>
+        <li <%= 'class=active' if isActivePage(help_path, true) %>>
           <%= link_to _('Help'), help_path %>
         </li>
       </ul>
@@ -60,7 +60,7 @@
           <%= render "layouts/signin_signout" %>
       </ul>
 
-      <% unless isActivePage(root_path) %>
+      <% unless isActivePage(root_path, true) %>
         <%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
       <% end %>
     </div><!-- /.navbar-collapse -->

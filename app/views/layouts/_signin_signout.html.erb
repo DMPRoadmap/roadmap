@@ -34,7 +34,7 @@
     </ul>
   </li>
 <% else %>
-  <% if !isActivePage(root_path) %>
+  <% if !isActivePage(root_path, true) %>
     <li>
       <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
         <i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>
