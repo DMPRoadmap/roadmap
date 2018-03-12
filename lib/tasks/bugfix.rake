@@ -142,6 +142,7 @@ namespace :bugfix do
                 text += new_answer.text
                 new_answer.text = text + "<p><strong>-------------</strong></p>" + answer.text
               end
+              new_answer.save
               answer.notes.each do |note|
                 note.answer_id = new_answer.id
               end
