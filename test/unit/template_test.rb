@@ -110,7 +110,7 @@ class TemplateTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can manage has_many relationship with Plan" do
-    plan = Plan.new(title: 'Test Plan')
+    plan = Plan.new(title: 'Test Plan', visibility: :is_test)
     verify_has_many_relationship(@template, plan, @template.plans.count)
   end
 
@@ -120,4 +120,57 @@ class TemplateTest < ActiveSupport::TestCase
     verify_belongs_to_relationship(tmplt, @org)
   end
 
+  test 'should be invalid when links is not a hash' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = []
+    refute(t.valid?)
+    assert_equal(['A hash is expected for links'], t.errors.messages[:links])
+  end
+
+  test 'should be invalid when links hash does not have the expected keys' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = { "foo" => [], "bar" => [] }
+    refute(t.valid?)
+    assert_equal(['A key funder is expected for links hash', 'A key sample_plan is expected for links hash'], t.errors.messages[:links])
+  end
+
+  test 'should be invalid when links hash keys are not compliant to object links format' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = { "funder" => [{}], "sample_plan" => [{}] }
+    refute(t.valid?)
+    assert_equal(['The key funder does not have a valid set of object links', 'The key sample_plan does not have a valid set of object links'], t.errors.messages[:links])
+  end
+
+  test 'should be valid when links hash keys are compliant to object links format' do
+    t = Template.new(title: 'My test', version: 1, org: @org)
+    t.links = { "funder" => [{ "link" => "foo", "text" => "bar" }], "sample_plan" => [] }
+    assert(t.valid?)
+    assert_equal(nil, t.errors.messages[:links])
+  end
+  
+  test 'should return the latest customizations for the Org' do
+    tA = Template.create!(title: 'My test A', version: 0, org: @org)
+    tB = Template.create!(title: 'My test B', version: 0, org: @org)
+    tC = Template.create!(title: 'My test C', version: 0, org: @org)
+    
+    # Test 1 - Multiple versions
+    cAv0 = Template.create!(title: 'My test customization A', version: 0, customization_of: tA.dmptemplate_id, org: Org.first)
+    cAv1 = Template.deep_copy(cAv0)
+    cAv1.update_attributes(version: 1)
+    
+    # Test 2 - Only one version
+    cBv0 = Template.create!(title: 'My test customization B', version: 0, customization_of: tB.dmptemplate_id, org: Org.first)
+
+    # Test 3 - Make sure it always returns the latest version regardless of published statuses
+    cCv0 = Template.create!(title: 'My test customization C', version: 0, customization_of: tC.dmptemplate_id, org: Org.first)
+    cCv1 = Template.deep_copy(cCv0)
+    cCv1.update_attributes(version: 1, published: true)
+    cCv2 = Template.deep_copy(cCv1)
+    cCv2.update_attributes(version: 2)
+    
+    latest = Template.org_customizations([tA, tB, tC].collect(&:dmptemplate_id), Org.first.id)
+    assert latest.include?(cAv1), 'expected to get customization A - version 1.'
+    assert latest.include?(cBv0), 'expected to get customization B - version 0.'
+    assert latest.include?(cCv2), 'expected to get customization C - version 2.'
+  end
 end
