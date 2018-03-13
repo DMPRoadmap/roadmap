@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrgTest < ActiveSupport::TestCase
   setup do
-    @org = Org.first
+    @org = Org.create!(name: 'Testing', abbreviation: 'TST', links: {"org":[]})
     
     @language = Language.find_by(abbreviation: I18n.default_locale)
   end
@@ -13,6 +13,7 @@ class OrgTest < ActiveSupport::TestCase
     assert_not(org.valid?)
     
     org.name = 'ABCD'
+    org.links = {"org":[]}
     assert(org.valid?)
   end
   
@@ -34,49 +35,38 @@ class OrgTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "type returns the correct value" do
     @org.institution = true
-    assert_equal "Institution", @org.type
+    assert_equal "Institution", @org.org_type_to_s
     
     @org.institution = false
     @org.funder = true
-    assert_equal "Funder", @org.type
+    assert_equal "Funder", @org.org_type_to_s
     
     @org.funder = false
     @org.organisation = true
-    assert_equal "Organisation", @org.type
+    assert_equal "Organisation", @org.org_type_to_s
     
     @org.organisation = false
     @org.research_institute = true
-    assert_equal "Research Institute", @org.type
+    assert_equal "Research Institute", @org.org_type_to_s
     
     @org.research_institute = false
     @org.project = true
-    assert_equal "Project", @org.type
+    assert_equal "Project", @org.org_type_to_s
     
     @org.project = false
     @org.school = true
-    assert_equal "School", @org.type
+    assert_equal "School", @org.org_type_to_s
     
     @org.school = false
-    assert_equal "None", @org.type
-  end
-
-  # ---------------------------------------------------
-  test "only accepts valid contact_email addresses" do
-    assert @org.valid?
+    assert_equal "None", @org.org_type_to_s
     
-    @org.contact_email = 'testing'
-    assert_not @org.valid?
-    @org.contact_email = 'testing.tester.org'
-    assert_not @org.valid?
-    @org.contact_email = 'testing@tester'
-    assert_not @org.valid?
-    
-    @org.contact_email = 'testing@tester.org'
-    assert @org.valid?
+    @org.funder = true
+    @org.organisation = true
+    assert_equal "Funder, Organisation", @org.org_type_to_s
   end
   
   # ---------------------------------------------------
-  test "should resize logo to a height of 100" do
+  test "should resize logo to a height of 75" do
     ['logo.jpg', # this one is at 160x160
      'logo_300x300.jpg', 
      'logo_100x100.jpg'].each do |file|
@@ -85,7 +75,7 @@ class OrgTest < ActiveSupport::TestCase
        @org.logo = Dragonfly.app.fetch_file("#{path}")
        
        assert @org.valid?, "expected the logo to have been attached to the org"
-       assert_equal 100, @org.logo.height, "expected the logo to have been resized properly"
+       assert_equal 75, @org.logo.height, "expected the logo to have been resized properly"
     end
   end
   
@@ -145,7 +135,7 @@ class OrgTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can CRUD" do
-    org = Org.create(name: 'testing')
+    org = Org.create(name: 'testing', links: {"org":[]})
     assert_not org.id.nil?, "was expecting to be able to create a new Org: #{org.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     org.abbreviation = 'TEST'
@@ -191,5 +181,11 @@ class OrgTest < ActiveSupport::TestCase
     tpt = TokenPermissionType.new(token_type: 'testing')
     verify_has_many_relationship(@org, tpt, @org.token_permission_types.count)
   end
-  
+
+  # ---------------------------------------------------
+  test "Guidance Group should be created after_create of the Org" do
+    org = Org.create!(name: 'Testing Guidance Group for Org', abbreviation: 'TGG', links: {"org":[]})
+    assert_equal org.guidance_groups.count, 1
+    org.destroy! 
+  end
 end

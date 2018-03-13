@@ -1,0 +1,13 @@
+<% org = template.org.abbreviation.present? ? template.org.abbreviation : template.org.name %>
+<% if example_answer.present? || guidance.present? %>
+  <dl<%= for_plan ? ' class="dl-horizontal"' : '' %>>
+    <% if example_answer.present? %>
+      <dt><%= _('Example answer') %></dt>
+      <dd><%= raw example_answer.text %><dd>
+    <% end %>
+    <% if guidance.present? %>
+      <dt><%= _('Guidance') %></dt>
+      <dd><%= raw guidance.text %></dd>
+    <% end %>
+  </dl>
+<% end %>
