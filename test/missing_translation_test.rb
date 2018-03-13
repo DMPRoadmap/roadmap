@@ -4,6 +4,9 @@ class MissingTranslationTest < ActionDispatch::IntegrationTest
   
   # --------------------------------------------------------------------
   test "Make sure that all FastGettext localisations are defined in the .pot/.po files" do
+
+# TODO: Do we even need this? We should be able to auto-run the Fastgettext scripts via hooks in rake tasks
+=begin
     missing = []
 
     # Scan through the /app directory for localisations
@@ -42,7 +45,7 @@ class MissingTranslationTest < ActionDispatch::IntegrationTest
     end
     
     assert missing.empty?, "Found some missing translations for model errors:\n #{missing.join("\n")}"
-
+=end
   end 
 
 

@@ -1,0 +1,36 @@
+<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+
+  <div class="form-group">
+    <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: "control-label") %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= render partial: "shared/my_org", 
+               locals: {f: f, default_org: @default_org, 
+                        orgs: Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), allow_other_orgs: true} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: "control-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="checkbox">
+    <label for="passwords_toggle_sign_up">
+      <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+    </label>
+  </div>
+  <div class="checkbox">
+    <%= f.label(:accept_terms,
+        raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+  </div>
+  
+  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
+<% end %>
