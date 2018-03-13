@@ -24,19 +24,6 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
-
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # yet still be able to expire them through the digest params.
-  config.assets.digest = true
-
-  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
-
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
@@ -74,9 +61,18 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  # Include working directory name in log for servers running multiple Rails instances.
+  logger = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = ::Logger::Formatter.new
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+  config.log_tags = [ Rails.root.to_s.split('/').last ]
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Assets pipeline
+  config.assets.enabled = false
+  config.assets.debug = false
+  config.assets.compile = false
+  config.assets.quiet = true
 end

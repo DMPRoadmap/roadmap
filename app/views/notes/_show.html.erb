@@ -1,0 +1,12 @@
+<%# locals: { note } %>
+<% if !note.nil? %>
+    <% user = User.find(note.user_id) %>
+    <ul class="list-unstyled">
+        <li><%= raw note.text %></li>
+        <li>
+            <span class="label label-info">
+                <%= "#{user.name} at #{l(note.updated_at, format: :short)}" %>
+            </span>
+        </li>
+    </ul>
+<% end %>

@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th class="sorter-false text-center"><%= _('Download') %></th>
+        <th><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <th><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th class="sorter-false"><%= _('Funder Links') %></th>
+        <th class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an organisation or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |template| %>
+        <tr>
+          <td><%= template.title %></td>
+          <td class="text-center">
+            <%= link_to _('DOCX'), template_export_path(template.dmptemplate_id, format: :docx), target: '_blank' %><br>
+            <%= link_to _('PDF'), template_export_path(template.dmptemplate_id, format: :pdf), target: '_blank' %>
+          </td>
+          <td><%= template.org.name %></td>
+          <td><%= l(template.updated_at.to_date, formats: :short) %></td>
+          <td>
+            <%= raw links_to_a_elements(template.links['funder'], '<br>') %>
+          </td>
+          <td>
+            <%= raw links_to_a_elements(template.links['sample_plan'], '<br>') %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

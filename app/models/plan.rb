@@ -1,5 +1,6 @@
 class Plan < ActiveRecord::Base
-
+  include ConditionalUserMailer
+  include ExportablePlan
   before_validation :set_creation_defaults
 
   ##
@@ -20,7 +21,6 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
-
 # COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
 #  has_many :users, through: :roles
 
@@ -28,17 +28,18 @@ class Plan < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :locked, :project_id, :version_id, :version, :plan_sections, 
+  attr_accessible :locked, :project_id, :version_id, :version, :plan_sections,
                   :exported_plans, :project, :title, :template, :grant_number,
                   :identifier, :principal_investigator, :principal_investigator_identifier,
                   :description, :data_contact, :funder_name, :visibility, :exported_plans,
-                  :roles, :users, :org, :as => [:default, :admin]
+                  :roles, :users, :org, :data_contact_email, :data_contact_phone, :feedback_requested,
+                  :principal_investigator_email, :as => [:default, :admin]
   accepts_nested_attributes_for :roles
 
   # public is a Ruby keyword so using publicly
   enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
-  #TODO: work out why this messes up plan creation : 
+  #TODO: work out why this messes up plan creation :
   #   briley: Removed reliance on :users, its really on :roles (shouldn't have a plan without at least a creator right?) It should be ok like this though now
 #  validates :template, :title, presence: true
 
@@ -52,8 +53,32 @@ class Plan < ActiveRecord::Base
 
   # Scope queries
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
-  scope :publicly_visible, -> { where(:visibility => visibilities[:publicly_visible]).order(:title => :asc) }
+  scope :publicly_visible, -> { includes(:template).where(:visibility => visibilities[:publicly_visible]) }
 
+  # Retrieves any plan in which the user has an active role and it is not a reviewer
+  scope :active, -> (user) {
+    includes([:template, :roles]).where({ "roles.active": true, "roles.user_id": user.id }).where(Role.not_reviewer_condition)
+  }
+
+  # Retrieves any plan organisationally or publicly visible for a given org id
+  scope :organisationally_or_publicly_visible, -> (user) {
+    includes(:template, {roles: :user})
+      .where({
+        visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
+        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
+        "users.org_id": user.org_id})
+      .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
+  }
+
+  scope :search, -> (term) {
+    search_pattern = "%#{term}%"
+    joins(:template).where("plans.title LIKE ? OR templates.title LIKE ?", search_pattern, search_pattern)
+  }
+
+  # Retrieves plan, template, org, phases, sections and questions
+  scope :overview, -> (id) {
+    Plan.includes(:phases, :sections, :questions, template: [ :org ]).find(id)
+  }
   ##
   # Settings for the template
   has_settings :export, class_name: 'Settings::Template' do |s|
@@ -80,10 +105,10 @@ class Plan < ActiveRecord::Base
   # returns the template for this plan, or generates an empty template and returns that
   #
   # @return [Dmptemplate] the template associated with this plan
-	def dmptemplate
-		#self.project.try(:dmptemplate) || Dmptemplate.new
-		self.template
-	end
+  def dmptemplate
+    #self.project.try(:dmptemplate) || Dmptemplate.new
+    self.template
+  end
 
 
 
@@ -105,24 +130,24 @@ class Plan < ActiveRecord::Base
   # @param qid [Integer] the id for the question to find the answer for
   # @param create_if_missing [Boolean] if true, will genereate a default answer to the question
   # @return [Answer,nil] the most recent answer to the question, or a new question with default value, or nil
-	def answer(qid, create_if_missing = true)
-  	answer = answers.where(:question_id => qid).order("created_at DESC").first
-  	question = Question.find(qid)
-		if answer.nil? && create_if_missing then
-			answer = Answer.new
-			answer.plan_id = id
-			answer.question_id = qid
-			answer.text = question.default_value
-			default_options = Array.new
-			question.question_options.each do |option|
-				if option.is_default
-					default_options << option
-				end
-			end
-			answer.question_options = default_options
-		end
-		return answer
-	end
+  def answer(qid, create_if_missing = true)
+    answer = answers.where(:question_id => qid).order("created_at DESC").first
+    question = Question.find(qid)
+    if answer.nil? && create_if_missing then
+      answer = Answer.new
+      answer.plan_id = id
+      answer.question_id = qid
+      answer.text = question.default_value
+      default_options = Array.new
+      question.question_options.each do |option|
+        if option.is_default
+          default_options << option
+        end
+      end
+      answer.question_options = default_options
+    end
+    return answer
+  end
 
 # TODO: This just retrieves all of the guidance associated with the themes within the template
 #       so why are we transferring it here to the plan?
@@ -173,88 +198,161 @@ class Plan < ActiveRecord::Base
     end
     return ggroups.uniq
   end
-
-
-
-
-   ##
-  # returns the guidances associated with the project's organisation, for a specified question
-  #
-  # @param question [Question] the question to find guidance for
-  # @return array of hashes with orgname, themes and the guidance itself
-  def guidance_for_question(question)
-    guidances = []
-
-    # add in the guidance for the template org
-    unless self.template.org.nil? then
-      self.template.org.guidance_groups.each do |group|
-        group.guidances.each do |guidance|
-          common_themes = guidance.themes.all & question.themes.all
-          if common_themes.length > 0
-            guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
-          end
-        end
-      end
-    end
-
-    # add in the guidance for the user's org
-    unless self.owner.nil?
-      unless self.owner.org.nil? then
-        self.owner.org.guidance_groups.each do |group|
-          group.guidances.each do |guidance|
-            common_themes = guidance.themes.all & question.themes.all
-            if common_themes.length > 0
-              guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
-            end
-          end
-        end
-      end
-    end
+  
+  ##
+  # Sets up the plan for feedback:
+  #  emails confirmation messages to owners
+  #  emails org admins and org contact 
+  #  adds org admins to plan with the 'reviewer' Role
+  def request_feedback(user)
+    Plan.transaction do
+      begin
+        val = Role.access_values_for(:reviewer, :commenter).min
+        self.feedback_requested = true
     
-    # Get guidance by theme from any guidance groups currently selected
-    self.guidance_groups.each do |group|
-      group.guidances.each do |guidance|
-        common_themes = guidance.themes.all & question.themes.all
-        if common_themes.length > 0
-          guidances << { orgname: self.template.org.name, theme: common_themes.join(','),  guidance: guidance }
+        # Share the plan with each org admin as the reviewer role
+        admins = user.org.org_admins
+        admins.each do |admin|
+          self.roles << Role.new(user: admin, access: val)
+        end 
+
+        if self.save!
+          # Send an email confirmation to the owners and co-owners
+          owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
+          deliver_if(recipients: owners, key: 'users.feedback_requested') do |r|
+            UserMailer.feedback_confirmation(r, self, user).deliver_now
+          end
+          # Send an email to all of the org admins as well as the Org's administrator email
+          if user.org.contact_email.present? && !admins.collect{ |u| u.email }.include?(user.org.contact_email)
+            admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+          end
+          deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
+            UserMailer.feedback_notification(r, self, user).deliver_now
+          end
+          true
+        else
+          false
         end
+      rescue Exception => e
+        Rails.logger.error e
+        false
       end
     end
-
-    return guidances
   end
 
-
-
-
   ##
-  # adds the given guidance to a hash indexed by a passed guidance group and theme
-  #
-  # @param guidance_array [{GuidanceGroup => {Theme => Array<Gudiance>}}] the passed hash of arrays of guidances.  Indexed by GuidanceGroup and Theme.
-  # @param guidance_group [GuidanceGroup] the guidance_group index of the hash
-  # @param theme [Theme] the theme object for the GuidanceGroup
-  # @param guidance [Guidance] the guidance object to be appended to the correct section of the array
-  # @return [{GuidanceGroup => {Theme => Array<Guidance>}}] the updated object which was passed in
-  def add_guidance_to_array(guidance_array, guidance_group, theme, guidance)
-    if guidance_array[guidance_group].nil? then
-      guidance_array[guidance_group] = {}
+  # Finalizes the feedback for the plan:
+  #  emails confirmation messages to owners
+  #  sets flag on plans.feedback_requested to false
+  #  removes org admins from the 'reviewer' Role for the Plan
+  def complete_feedback(org_admin)
+    Plan.transaction do
+      begin
+        self.feedback_requested = false
+        
+        # Remove the org admins reviewer role from the plan 
+        vals = Role.access_values_for(:reviewer)
+        self.roles.delete(Role.where(plan: self, access: vals))
+        
+        if self.save!
+          # Send an email confirmation to the owners and co-owners
+          owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
+          deliver_if(recipients: owners, key: 'users.feedback_provided') do |r|
+            UserMailer.feedback_complete(r, self, org_admin).deliver_now
+          end
+          true
+        else
+          false
+        end
+      rescue Exception => e
+        Rails.logger.error e
+        false
+      end
     end
-    if theme.nil? then
-      if guidance_array[guidance_group]["no_theme"].nil? then
-        guidance_array[guidance_group]["no_theme"] = []
-      end
-      if !guidance_array[guidance_group]["no_theme"].include?(guidance) then
-        guidance_array[guidance_group]["no_theme"].push(guidance)
-      end
-    else
-      if guidance_array[guidance_group][theme].nil? then
-        guidance_array[guidance_group][theme] = []
-      end
-      if !guidance_array[guidance_group][theme].include?(guidance) then
-        guidance_array[guidance_group][theme].push(guidance)
-      end
+  end
+
+  # Returns all of the plan's available guidance by question as a hash for use on the write plan page
+  # {
+  #   QUESTION: {
+  #     GUIDANCE_GROUP: {
+  #       THEME: [GUIDANCE, GUIDANCE],
+  #       THEME: [GUIDANCE]
+  #     }
+  #   }
+  # }
+  def guidance_by_question_as_hash
+    # Get all of the selected guidance groups for the plan
+    guidance_groups_ids = self.guidance_groups.collect(&:id)
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?) AND orgs.id != ?", 
+                                                       true, guidance_groups_ids, self.template.org.id)
+
+    # Gather all of the Themes used in the plan as a hash
+    # {
+    #  QUESTION: [THEME, THEME], 
+    #  QUESTION: [THEME]
+    # }
+    question_themes = {}
+    themes_used = []
+    self.questions.joins(:themes).pluck('questions.id', 'themes.title').each do |qt|
+      themes_used << qt[1] unless themes_used.include?(qt[1])
+      question_themes[qt[0]] = [] unless question_themes[qt[0]].present?
+      question_themes[qt[0]] << qt[1] unless question_themes[qt[0]].include?(qt[1])
     end
-      return guidance_array
+
+    # Gather all of the Guidance available for the themes used in the plan as a hash
+    # {
+    #  THEME: {
+    #    GUIDANCE_GROUP: [GUIDANCE, GUIDANCE], 
+    #    GUIDANCE_GROUP: [GUIDANCE]
+    #  }
+    # }
+    theme_guidance = {}
+    GuidanceGroup.includes(guidances: :themes).joins(:guidances).
+          where('guidance_groups.published = ? AND guidances.published = ? AND themes.title IN (?) AND guidance_groups.id IN (?)', true, true, themes_used, guidance_groups.collect(&:id)).
+          pluck('guidance_groups.name', 'themes.title', 'guidances.text').each do |tg|
+      
+      theme_guidance[tg[1]] = {} unless theme_guidance[tg[1]].present?
+      theme_guidance[tg[1]][tg[0]] = [] unless theme_guidance[tg[1]][tg[0]].present?
+      theme_guidance[tg[1]][tg[0]] << tg[2] unless theme_guidance[tg[1]][tg[0]].include?(tg[2])
+    end
+    
+    # Generate a hash for the view that contains all of a question guidance
+    # {
+    #   QUESTION: {
+    #     GUIDANCE_GROUP: {
+    #       THEME: [GUIDANCE, GUIDANCE],
+    #       THEME: [GUIDANCE]
+    #     }
+    #   }
+    # }
+    question_guidance = {}
+    question_themes.keys.each do |question|
+      ggs = {}
+      # Gather all of the guidance groups applicable to the themes assigned to the question
+      groups = []
+      question_themes[question].each do |theme|
+        groups << theme_guidance[theme].keys if theme_guidance[theme].present?
+      end
+        
+      # Loop through all of the applicable guidance groups and collect their themed guidance
+      groups.flatten.uniq.each do |guidance_group|
+        guidances_by_theme = {}
+        
+        # Collect all of the guidances for each theme used by the question
+        question_themes[question].each do |theme|
+          if theme_guidance[theme].present? && theme_guidance[theme][guidance_group].present?
+            guidances_by_theme[theme] = [] unless guidances_by_theme[theme].present?
+            guidances_by_theme[theme] = theme_guidance[theme][guidance_group]
+          end
+        end
+
+        ggs[guidance_group] = guidances_by_theme unless ggs[guidance_group]
+      end
+      
+      question_guidance[question] = ggs
+    end
+    
+    question_guidance
   end
 
   ##
@@ -262,36 +360,76 @@ class Plan < ActiveRecord::Base
   #
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if user can edit the plan
-	def editable_by?(user_id)
+  def editable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present? && role.editor?
-	end
+    has_role(user_id, :editor)
+  end
 
   ##
   # determines if the plan is readable by the specified user
-  # TODO: introduce explicit readable rather than implicit
-  # currently role with no flags = readable
   #
   # @param user_id [Integer] the id for a user
   # @return [Boolean] true if the user can read the plan
-	def readable_by?(user_id)
+  def readable_by?(user_id)
+    user = user_id.is_a?(User) ? user_id : User.find(user_id)
+    owner_orgs = self.owner_and_coowners.collect(&:org)
+    
+    # Super Admins can view plans read-only, Org Admins can view their Org's plans 
+    # otherwise the user must have the commenter role
+    (user.can_super_admin? ||
+     user.can_org_admin? && owner_orgs.include?(user.org) ||
+     has_role(user.id, :commenter))
+  end
+
+  ##
+  # determines if the plan is readable by the specified user
+  #
+  # @param user_id [Integer] the id for a user
+  # @return [Boolean] true if the user can read the plan
+  def commentable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present?
-	end
+    has_role(user_id, :commenter)
+  end
 
   ##
   # determines if the plan is administerable by the specified user
   #
   # @param user_id [Integer] the id for the user
   # @return [Boolean] true if the user can administer the plan
-	def administerable_by?(user_id)
+  def administerable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
-    role = roles.where(user_id: user_id).first
-    return role.present? && role.administrator?
-	end
+    has_role(user_id, :administrator)
+  end
 
+  ##
+  # determines if the plan is owned by the specified user
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user can administer the plan
+  def owned_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
+    has_role(user_id, :creator)
+  end
+
+  ##
+  # determines if the plan is reviewable by the specified user
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user can administer the plan
+  def reviewable_by?(user_id)
+    user_id = user_id.id if user_id.is_a?(User)
+    has_role(user_id, :reviewer)
+  end
+
+  ##
+  # determines whether or not the specified user has any rol on the plan
+  #
+  # @param user_id [Integer] the id for the user
+  # @return [Boolean] true if the user has any rol
+  def any_role?(user)
+    user_id = user.id if user.is_a?(User)
+    !self.roles.index{ |rol| rol.user_id == user_id }.nil?
+  end
 
   ##
   # defines and returns the status of the plan
@@ -369,7 +507,7 @@ class Plan < ActiveRecord::Base
       format = rec.qformat
 
       answer = nil
-      if qa_map.has_key?(qid) 
+      if qa_map.has_key?(qid)
         answer = qa_map[qid]
       end
 
@@ -423,7 +561,7 @@ class Plan < ActiveRecord::Base
       opt_hash[aid] << optid
     end
 
-    status["questions"].each_key do |questionid| 
+    status["questions"].each_key do |questionid|
       answerid = status["questions"][questionid]["answer_id"]
       status["questions"][questionid]["answer_option_ids"] = opt_hash[answerid]
     end
@@ -432,199 +570,6 @@ class Plan < ActiveRecord::Base
 
     return status
   end
-
-# TODO: Guessing this isn't in use since it still refers to Project and Version
-=begin
-  ##
-  # defines and returns the details for the plan
-  # details consists of a hash of: project_title, phase_title, and for each section,
-  # section: title, question text for each question, answer type and answer value
-  #
-  # @return [Details]
-  def details
-    details = {
-      "project_title" => project.title,
-      "phase_title" => version.phase.title,
-      "sections" => {}
-    }
-    sections.sort_by(&:"number").each do |s|
-      details["sections"][s.number] = {}
-      details["sections"][s.number]["title"] = s.title
-      details["sections"][s.number]["questions"] = {}
-      s.questions.order("number").each do |q|
-        details["sections"][s.number]["questions"][q.number] = {}
-        details["sections"][s.number]["questions"][q.number]["question_text"] = q.text
-        answer = answer(q.id, false)
-        if ! answer.nil? then
-                    q_format = q.question_format
-          if (q_format.title == t("helpers.checkbox") || q_format.title == t("helpers.multi_select_box") ||
-                                        q_format.title == t("helpers.radio_buttons") || q_format.title == t("helpers.dropdown")) then
-            details["sections"][s.number]["questions"][q.number]["selections"] = {}
-            answer.options.each do |o|
-              details["sections"][s.number]["questions"][q.number]["selections"][o.number] = o.text
-            end
-          end
-          details["sections"][s.number]["questions"][q.number]["answer_text"] = answer.text
-        end
-      end
-    end
-    return details
-  end
-=end
-
-# TODO: commenting this old lock stuff out since PlanSection is gone and we wanted to get rid of it
-=begin
-  ##
-  # determines wether or not a specified section of a plan is locked to a specified user and returns a status hash
-  #
-  # @param section_id [Integer] the setion to determine if locked
-  # @param user_id [Integer] the user to determine if locked for
-  # @return [Hash{String => Hash{String => Boolean, nil, String, Integer}}]
-  def locked(section_id, user_id)
-    plan_section = plan_sections.where("section_id = ? AND user_id != ? AND release_time > ?", section_id, user_id, Time.now).last
-    if plan_section.nil? then
-      status = {
-        "locked" => false,
-        "locked_by" => nil,
-        "timestamp" => nil,
-        "id" => nil
-      }
-    else
-      status = {
-        "locked" => true,
-        "locked_by" => plan_section.user.name,
-        "timestamp" => plan_section.updated_at,
-        "id" => plan_section.id
-      }
-    end
-  end
-
-  ##
-  # for each section, lock the section with the given user_id
-  #
-  # @param user_id [Integer] the id for the user who can use the sections
-  def lock_all_sections(user_id)
-    sections.each do |s|
-      lock_section(s.id, user_id, 1800)
-    end
-  end
-
-  ##
-  # for each section, unlock the section
-  #
-  # @param user_id [Integer] the id for the user to unlock the sections for
-  def unlock_all_sections(user_id)
-    plan_sections.where(:user_id => user_id).order("created_at DESC").each do |lock|
-      lock.delete
-    end
-  end
-
-  ##
-  # for each section, unlock the section
-  # Not sure how this is different from unlock_all_sections
-  #
-  # @param user_id [Integer]
-  def delete_recent_locks(user_id)
-    plan_sections.where(:user_id => user_id).each do |lock|
-      lock.delete
-    end
-  end
-
-  ##
-  # Locks the specified section to only be used by the specified user, for the number of secconds specified
-  #
-  # @param section_id [Integer] the id of the section to be locked
-  # @param user_id [Integer] the id of the user who can use the section
-  # @param release_time [Integer] the number of secconds the section will be locked for, defaults to 60
-  # @return [Boolean] wether or not the section was locked
-  def lock_section(section_id, user_id, release_time = 60)
-    status = locked(section_id, user_id)
-    if ! status["locked"] then
-      plan_section = PlanSection.new
-      plan_section.plan_id = id
-      plan_section.section_id = section_id
-      plan_section.release_time = Time.now + release_time.seconds
-      plan_section.user_id = user_id
-      plan_section.save
-    elsif status["current_user"] then
-      plan_section = PlanSection.find(status["id"])
-      plan_section.release_time = Time.now + release_time.seconds
-      plan_section.save
-    else
-      return false
-    end
-  end
-
-  ##
-  # unlocks the specified section for the specified user
-  #
-  # @param section_id [Integer] the id for the section to be unlocked
-  # @param user_id [Integer] the id for the user for whom the section was previously locked
-  # @return [Boolean] wether or not the lock was removed
-  def unlock_section(section_id, user_id)
-    plan_sections.where(:section_id => section_id, :user_id => user_id).order("created_at DESC").each do |lock|
-      lock.delete
-    end
-  end
-=end
-
-# TODO: Commenting out because this method appears below as well so this one is overwritten
-=begin
-  ##
-  # returns the time of either the latest answer to any question, or the latest update to the model
-  #
-  # @return [DateTime] the time at which the plan was last changed
-  def latest_update
-    if answers.any? then
-      last_answered = answers.order("updated_at DESC").first.updated_at
-      if last_answered > updated_at then
-        return last_answered
-      else
-        return updated_at
-      end
-    else
-      return updated_at
-    end
-  end
-=end
-
-# TODO: Guessing this isn't in use since it still refers to Project and Version
-=begin
-  ##
-  # returns an array of hashes.  Each hash contains the question's id, the answer_id,
-  # the answer_text, the answer_timestamp, and the answer_options
-  #
-  # @param section_id [Integer] the section to find answers of
-  # @return [Array<Hash{String => nil,String,Integer,DateTime}]
-  def section_answers(section_id)
-    section = Section.find(section_id)
-     section_questions = Array.new
-     counter = 0
-     section.questions.each do |q|
-       section_questions[counter] = {}
-       section_questions[counter]["id"] = q.id
-       #section_questions[counter]["multiple_choice"] = q.multiple_choice
-       q_answer = answer(q.id, false)
-       if q_answer.nil? then
-         section_questions[counter]["answer_id"] = nil
-         if q.suggested_answers.find_by_organisation_id(project.organisation_id).nil? then
-           section_questions[counter]["answer_text"] = ""
-         else
-           section_questions[counter]["answer_text"] = q.default_value
-         end
-         section_questions[counter]["answer_timestamp"] = nil
-         section_questions[counter]["answer_options"] = Array.new
-       else
-         section_questions[counter]["answer_id"] = q_answer.id
-         section_questions[counter]["answer_text"] = q_answer.text
-         section_questions[counter]["answer_timestamp"] = q_answer.created_at
-         section_questions[counter]["answer_options"] = q_answer.options.pluck(:id)
-       end
-       counter = counter + 1
-     end
-     return section_questions
-  end
-=end
 
 
   ##
@@ -636,83 +581,6 @@ class Plan < ActiveRecord::Base
     user_id = user_id.id if user_id.is_a?(User)
     add_user(user_id, true, true, true)
   end
-  
-
-
-# TODO: commenting these out because they are overriden by private methods below, so this 
-#       is unreachable
-=begin
-  ##
-  # Based on the height of the text gathered so far and the available vertical
-  # space of the pdf, estimate a percentage of how much space has been used.
-  # This is highly dependent on the layout in the pdf. A more accurate approach
-  # would be to render the pdf and check how much space had been used, but that
-  # could be very slow.
-  # NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
-  # for guidance when editing plan data, not to be 100% accurate.
-  #
-  # @param used_height [Integer] an estimate of the height used so far
-  # @return [Integer] the estimate of space used of an A4 portrain
-  def estimate_space_used(used_height)
-    @formatting ||= self.settings(:export).formatting
-
-    return 0 unless @formatting[:font_size] > 0
-
-    margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
-    page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-    available_height = page_height * self.template.settings(:export).max_pages
-
-    percentage = (used_height / available_height) * 100
-    (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
-  end
-
-  ##
-  # Take a guess at the vertical height (in mm) of the given text based on the
-  # font-size and left/right margins stored in the plan's settings.
-  # This assumes a fixed-width for each glyph, which is obviously
-  # incorrect for the font-face choices available; the idea is that
-  # they'll hopefully average out to that in the long-run.
-  # Allows for hinting different font sizes (offset from base via font_size_inc)
-  # and vertical margins (i.e. for heading text)
-  #
-  # @param text [String] the text to estimate size of
-  # @param font_size_inc [Integer] the size of the font of the text, defaults to 0
-  # @param vertical_margin [Integer] the top margin above the text, defaults to 0
-  def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
-    @formatting     ||= self.settings(:export).formatting
-    @margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
-    @base_font_size ||= @formatting[:font_size]
-
-    return 0 unless @base_font_size > 0
-
-    font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
-    font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
-    leading     = font_height / 2
-
-    chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
-    num_lines = (text.length / chars_in_line).ceil
-
-    (num_lines * font_height) + vertical_margin + leading
-  end
-=end
-
-# TODO: What are these used for? Should just be using self.org and self.org.funder? 
-=begin
-  ##
-  # sets a new funder for the project
-  # defaults to the first dmptemplate if the current template is nill and the funder has more than one dmptemplate
-  #
-  # @param new_funder_id [Integer] the id for a new funder
-  # @return [Organisation] the new funder
-  def funder_id=(new_funder_id)
-    if new_funder_id != "" then
-      new_funder = Org.find(new_funder_id);
-      if new_funder.templates.count >= 1 && self.template.nil? then
-        self.template = new_funder.templates.first
-      end
-    end
-  end
-=end
 
   ##
   # returns the funder id for the plan
@@ -742,86 +610,6 @@ class Plan < ActiveRecord::Base
     end
   end
 
-=begin
-  ##
-  # returns the name of the funder for the project
-  #
-  # @return [String] the name fo the funder for the project
-  def funder_name
-    if self.funder.nil?
-      return read_attribute(:funder_name)
-    else
-      return self.funder.name
-    end
-  end
-
-  ##
-  # defines a new funder_name for the project.
-  #
-  # @param new_funder_name [String] the string name of the new funder
-  # @return [Integer, nil] the org_id of the new funder
-  def funder_name=(new_funder_name)
-    write_attribute(:funder_name, new_funder_name)
-    org_table = Org.arel_table
-    existing_org = Org.where(org_table[:name].matches(new_funder_name))
-    if existing_org.nil?
-      existing_org = Org.where(org_table[:abbreviation].matches(new_funder_name))
-    end
-    unless existing_org.empty?
-      self.funder_id=existing_org.id
-    end
-  end
-
-  ##
-  # sets a new institution_id if there is no current organisation
-  #
-  # @param new_institution_id [Integer] the id for the new institution
-  # @return [Integer, Bool] false if an organisation exists, or the id of the set org if a new organisation is set
-  def institution_id=(new_institution_id)
-    if organisation.nil? then
-      self.organisation_id = new_institution_id
-    end
-  end
-
-  ##
-  # returns the organisation which is root over the owning organisation
-  #
-  # @return [Integer, nil] the organisation_id or nil
-  def institution_id
-#    if organisation.nil?
-#      return nil
-#    else
-#      return organisation.root.id
-#    end
-     return template.org.id
-  end
-
-  ##
-  # defines a new organisation_id for the project
-  # but is confusingly labled unit_id
-  #
-  # @param new_unit_id [Integer]
-  # @return [Integer, Boolean] the new organisation ID or false if no unit_id was passed
-  def unit_id=(new_unit_id)
-    unless new_unit_id.nil? ||new_unit_id == ""
-      self.organisation_id = new_unit_id
-    end
-  end
-
-  ##
-  # returns the organisation_id or nil
-  # again seems redundant
-  #
-  # @return [nil, Integer] nil if no organisation, or the id if there is an organisation specified
-  def unit_id
-    if organisation.nil? || organisation.parent_id.nil?
-      return nil
-    else
-      return organisation_id
-    end
-  end
-=end
-
   ##
   # assigns the passed user_id as an editor for the project
   # gives the user rights to read and edit
@@ -848,42 +636,6 @@ class Plan < ActiveRecord::Base
   def assign_administrator(user_id)
     add_user(user_id, true, true)
   end
-
-# TODO: ProjectGroup doesn't exist anymore so commenting these out
-=begin
-  ##
-  # returns the projects which the user can atleast read
-  #
-  # @param user_id [Integer] the user to lookup projects for
-  # @return [Array<Project>] list of all projects the user can atleast read
-  def self.projects_for_user(user_id)
-    projects = Array.new
-    groups = ProjectGroup.where("user_id = ?", user_id)
-    unless groups.nil? then
-      groups.each do |group|
-        unless group.project.nil? then
-          projects << group.project
-        end
-      end
-    end
-    return projects
-  end
-
-  ##
-  # whether or not the specified user_id created this project
-  # should be renamed to created_by?
-  #
-  # @param user_id [Integer] the user to check the priveleges of
-  # @return [Boolean] true if the user created the project
-  def created_by(user_id)
-    user = project_groups.find_by_user_id(user_id)
-    if (! user.nil?) && user.project_creator then
-      return true
-    else
-      return false
-    end
-  end
-=end
 
   ##
   # the datetime for the latest update of this plan
@@ -914,12 +666,23 @@ class Plan < ActiveRecord::Base
   #
   # @return [User] the creater of the project
   def owner
-    self.roles.each do |role|
-      if role.creator?
-        return role.user
-      end
-    end
-    return nil
+    vals = Role.access_values_for(:creator)
+    User.joins(:roles).where('roles.plan_id = ? AND roles.access IN (?)', self.id, vals).first
+  end
+
+  ##
+  # returns the shared roles of a plan, excluding the creator
+  def shared
+    role_values = Role.where(plan: self).where(Role.not_creator_condition).any? 
+  end
+
+  ##
+  # the owner and co-owners of the project
+  #
+  # @return [Users]
+  def owner_and_coowners
+    vals = Role.access_values_for(:creator).concat(Role.access_values_for(:administrator))
+    User.joins(:roles).where("roles.plan_id = ? AND roles.access IN (?)", self.id, vals)
   end
 
   ##
@@ -930,34 +693,14 @@ class Plan < ActiveRecord::Base
     self.latest_update.to_date
   end
 
-# TODO: These next 2 reference defunct models so commenting out
-=begin
-  ##
-  # whether or not the plan is shared with anybody
-  #
-  # @return [Boolean] true if the project has been shared
-  def shared?
-    self.project_groups.count > 1
-  end
-
-  alias_method :shared, :shared?
-
-  ##
-  # the organisation who owns the project
-  #
-  # @return [Dmptemplate,Organisation,String] the template, it's owner, or it's owner's abreviation
-  def template_owner
-    self.dmptemplate.try(:organisation).try(:abbreviation)
-  end
-=end
-  
   # Returns the number of answered questions from the entire plan
   def num_answered_questions
-    n = 0
-    self.sections.each do |s|
-      n+= s.num_answered_questions(self.id)
+    return Answer.where(id: answers.map(&:id)).includes({ question: :question_format }, :question_options).reduce(0) do |m, a|
+      if a.is_valid?
+        m+=1
+      end
+      m
     end
-    return n
   end
 
   # Returns a section given its id or nil if does not exist for the current plan
@@ -965,14 +708,9 @@ class Plan < ActiveRecord::Base
     self.sections.find { |s| s.id == section_id }
   end
 
-  # Returns the number of questions for a plan. Note, this method becomes useful
-  # for when sections and their questions are eager loaded so that avoids SQL queries.
+  # Returns the number of questions for a plan.
   def num_questions
-    n = 0
-    self.sections.each do |s|
-      n+= s.questions.size()
-    end
-    return n
+    return sections.includes(:questions).joins(:questions).reduce(0){ |m, s| m + s.questions.length }
   end
   # the following two methods are for eager loading. One gets used for the plan/show
   # page and the oter for the plan/edit. The difference is just that one pulls in more than
@@ -990,21 +728,88 @@ class Plan < ActiveRecord::Base
       ]).find(id)
   end
 
+  # Pre-fetched a plan phase together with its sections and questions associated. It also pre-fetches the answers and notes associated to the plan
   def self.load_for_phase(id, phase_id)
-    Plan.includes(
-      [template: [
-                   {phases: {sections: {questions: [{answers: :notes}, :annotations, :question_format, :themes]}}},
-                   {customizations: :org},
-                   :org
-                  ],
-       plans_guidance_groups: {guidance_group: {guidances: :themes}}
-      ]).where(id: id, phases: { id: phase_id }).first
+    plan = Plan
+      .joins(template: { phases: { sections: :questions }})
+      .preload(template: { phases: { sections: :questions }}) # Preserves the default order defined in the model relationships
+      .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
+      .merge(Plan.includes(answers: :notes))[0]
+    phase = plan.template.phases.find {|p| p.id==phase_id.to_i }
+
+    return plan, phase
   end
 
+  # deep copy the given plan and all of it's associations
+  #
+  # @params [Plan] plan to be deep copied
+  # @return [Plan] saved copied plan
+  def self.deep_copy(plan)
+    plan_copy = plan.dup
+    plan_copy.title = "Copy of " + plan.title
+    plan_copy.save!
+    plan.answers.each do |answer|
+      answer_copy = Answer.deep_copy(answer)
+      answer_copy.plan_id = plan_copy.id
+      answer_copy.save!
+    end
+    plan.guidance_groups.each do |guidance_group|
+      if guidance_group.present?
+        plan_copy.guidance_groups << GuidanceGroup.where(id: guidance_group.id).first
+      end
+    end
+    return plan_copy
+  end
 
+  # Returns visibility message given a Symbol type visibility passed, otherwise nil
+  def self.visibility_message(type)
+    message = {
+      :organisationally_visible => _('organisational'),
+      :publicly_visible => _('public'),
+      :is_test => _('test'),
+      :privately_visible => _('private')
+    }
+    message[type]
+  end
+
+  # Determines whether or not visibility changes are permitted according to the
+  # percentage of the plan answered in respect to a threshold defined at application.config
+  def visibility_allowed?
+    value=(self.num_answered_questions().to_f/self.num_questions()*100).round(2)
+    !self.is_test? && value >= Rails.application.config.default_plan_percentage_answered
+  end
+
+  # Determines whether or not a question (given its id) exists for the self plan
+  def question_exists?(question_id)
+    Plan.joins(:questions).exists?(id: self.id, "questions.id": question_id)
+  end
+
+  # Checks whether or not the number of questions matches the number of valid answers
+  def no_questions_matches_no_answers?
+    num_questions = question_ids.length
+    pre_fetched_answers = Answer
+      .includes({ question: :question_format }, :question_options)
+      .where(id: answer_ids)
+    num_answers = pre_fetched_answers.reduce(0) do |m, a|
+      if a.is_valid? 
+        m+=1
+      end
+      m
+    end
+    return num_questions == num_answers
+  end
 
   private
 
+  # Returns whether or not the user has the specified role for the plan
+  def has_role(user_id, role_as_sym)
+    if user_id.is_a?(Integer) && role_as_sym.is_a?(Symbol)
+      vals = Role.access_values_for(role_as_sym)
+      self.roles.where(user_id: user_id, access: vals, active: true).first.present?
+    else
+      false
+    end
+  end
 
   ##
   # adds a user to the project
@@ -1048,12 +853,12 @@ class Plan < ActiveRecord::Base
     end
 
     role.save
-    
-    # This is necessary because we're creating the associated record but not assigning it 
+
+    # This is necessary because we're creating the associated record but not assigning it
     # to roles. Auto-saving like this may be confusing when coding upstream in a controller,
-    # view or api. Should probably change this to: 
+    # view or api. Should probably change this to:
     #    self.roles << role
-    # and then let the save be called manually via: 
+    # and then let the save be called manually via:
     #    plan.save!
     #self.reload
   end
@@ -1077,66 +882,64 @@ class Plan < ActiveRecord::Base
 
 
   ##
-	# Based on the height of the text gathered so far and the available vertical
-	# space of the pdf, estimate a percentage of how much space has been used.
-	# This is highly dependent on the layout in the pdf. A more accurate approach
-	# would be to render the pdf and check how much space had been used, but that
-	# could be very slow.
-	# NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
-	# for guidance when editing plan data, not to be 100% accurate.
+  # Based on the height of the text gathered so far and the available vertical
+  # space of the pdf, estimate a percentage of how much space has been used.
+  # This is highly dependent on the layout in the pdf. A more accurate approach
+  # would be to render the pdf and check how much space had been used, but that
+  # could be very slow.
+  # NOTE: This is only an estimate, rounded up to the nearest 5%; it is intended
+  # for guidance when editing plan data, not to be 100% accurate.
   #
   # @param used_height [Integer] an estimate of the height used so far
   # @return [Integer] the estimate of space used of an A4 portrain
-	def estimate_space_used(used_height)
-		@formatting ||= self.settings(:export).formatting
+  def estimate_space_used(used_height)
+    @formatting ||= self.settings(:export).formatting
 
-		return 0 unless @formatting[:font_size] > 0
+    return 0 unless @formatting[:font_size] > 0
 
-		margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
-		page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-		available_height = page_height * self.dmptemplate.settings(:export).max_pages
+    margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
+    page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
+    available_height = page_height * self.dmptemplate.settings(:export).max_pages
 
-		percentage = (used_height / available_height) * 100
-		(percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
-	end
+    percentage = (used_height / available_height) * 100
+    (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
+  end
 
   ##
-	# Take a guess at the vertical height (in mm) of the given text based on the
-	# font-size and left/right margins stored in the plan's settings.
-	# This assumes a fixed-width for each glyph, which is obviously
-	# incorrect for the font-face choices available; the idea is that
-	# they'll hopefully average out to that in the long-run.
-	# Allows for hinting different font sizes (offset from base via font_size_inc)
-	# and vertical margins (i.e. for heading text)
+  # Take a guess at the vertical height (in mm) of the given text based on the
+  # font-size and left/right margins stored in the plan's settings.
+  # This assumes a fixed-width for each glyph, which is obviously
+  # incorrect for the font-face choices available; the idea is that
+  # they'll hopefully average out to that in the long-run.
+  # Allows for hinting different font sizes (offset from base via font_size_inc)
+  # and vertical margins (i.e. for heading text)
   #
   # @param text [String] the text to estimate size of
   # @param font_size_inc [Integer] the size of the font of the text, defaults to 0
   # @param vertical_margin [Integer] the top margin above the text, defaults to 0
-	def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
-		@formatting     ||= self.settings(:export).formatting
-		@margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
-		@base_font_size ||= @formatting[:font_size]
+  def height_of_text(text, font_size_inc = 0, vertical_margin = 0)
+    @formatting     ||= self.settings(:export).formatting
+    @margin_width   ||= @formatting[:margin][:left].to_i + @formatting[:margin][:right].to_i
+    @base_font_size ||= @formatting[:font_size]
 
-		return 0 unless @base_font_size > 0
+    return 0 unless @base_font_size > 0
 
-		font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
-		font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
-		leading     = font_height / 2
+    font_height = FONT_HEIGHT_CONVERSION_FACTOR * (@base_font_size + font_size_inc)
+    font_width  = font_height * FONT_WIDTH_HEIGHT_RATIO # Assume glyph width averages at 2/5s the height
+    leading     = font_height / 2
 
-		chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
-		num_lines = (text.length / chars_in_line).ceil
+    chars_in_line = (A4_PAGE_WIDTH - @margin_width) / font_width # 210mm for A4 portrait
+    num_lines = (text.length / chars_in_line).ceil
 
-		(num_lines * font_height) + vertical_margin + leading
-	end
+    (num_lines * font_height) + vertical_margin + leading
+  end
 
   # Initialize the title and dirty flags for new templates
   # --------------------------------------------------------
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create
-    if self.id.nil? 
+    if self.id.nil?
       self.title = "My plan (#{self.template.title})" if self.title.nil? && !self.template.nil?
-      self.visibility = 3
     end
   end
-
 end
