@@ -15,8 +15,6 @@ namespace :upgrade do
     Rake::Task['upgrade:add_missing_token_permission_types'].execute
   end
 
-  desc "run all post-upgrade tasks"
-
   desc "Add the missing formattype to the question_formats table"
   task fix_question_formats: :environment do
     QuestionFormat.all.each do |qf|
