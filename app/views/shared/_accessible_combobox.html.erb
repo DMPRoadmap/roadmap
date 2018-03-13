@@ -1,66 +1,38 @@
 <% if !models.nil? %>
+  <% required = required ||= false %>
+  <% classes = classes ||= '' %>
+  <% title = tooltip ||= '' %>
+  <% error = error ||= _('Please select an item from the list.') %>
+
   <% json = {} %>
-  <% models.map{|m| json[m[attribute]] = m.id} %>
+  <% models.map{|m| json["#{m[attribute]}"] = m.id} %>
 
   <input type="text" name="<%= name %>" id="<%= id %>" 
-         class="js-combobox <%= classes %>" list="<%= id %>_list" 
+         class="js-combobox form-control <%= classes %>" list="<%= id %>_list" 
          placeholder="<%= _('Begin typing to see a filtered list') %>"
          data-combobox-prefix-class="combobox"
          data-combobox-case-sensitive="no"
          data-combobox-search-option="containing"
          data-combobox-allow-suggestion-on-empty="true"
+         data-toggle="<%= title == '' ? '' : 'tooltip' %>"
+         title="<%= title %>"
          value="<%= default_selection[attribute] unless default_selection.nil? %>" />
   <datalist id="<%= id %>_list">
     <% models.each do |model| %>
-      <option value="<%= model[attribute] %>" />
+      <option value="<%= model[attribute] %>"></option>
     <% end %>
   </datalist>
+
+  <!-- Complete content of combobox -->
+  <input type="hidden" id="<%= id %>_crosswalk" value="<%= escape_javascript JSON.generate(json) %>" />
 
   <!-- The JQuery accessible combobox doesn't allow for an id to be present in the value attribute -->
   <!-- so we use this hidden input to store the selected id -->
   <!-- the selected id is found after the combobox loses focus by finding the selected item in the crosswalk json -->
   <input type="hidden" id="<%= id.gsub("_#{attribute}", "_id") %>" name="<%= name.gsub("_#{attribute}]", "_id]") %>"
-         value="<%= default_selection.id unless default_selection.nil? %>" />
- 
+         value="<%= default_selection.id unless default_selection.nil? %>" aria-required="<%= required %>"
+         data-validation="js-combobox" data-validation-error="<%= error %>" />
 
-  <script type="text/javascript">
-    var <%= id %>_crosswalk = <%= raw JSON.generate(json) %>;
-    
-    // When the user selects a value from the combobox, place the corresponding id in the hidden field
-    $(document).ready(function(){
-      var combo = $("#<%= id %>");
-      var clear = $(combo).siblings(".combobox-clear-button");
-      
-      // Pull the id out of the json hash based on the text the user selected
-      $(combo).keyup(function(){
-        var selection = <%= id %>_crosswalk[$(this).val()];
-        $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
-      }).focus(function(){
-        var selection = <%= id %>_crosswalk[$(this).val()];
-        $("#<%= id.gsub("_#{attribute}", "_id") %>").val(selection === 'undefined' ? '' : selection).change();
-      });
-      
-      // Initialize the clear buttons on load
-      // Replace the default js-combobox clear button [X] with a fontawesome icon
-      $(clear).html('<i class="fa fa-times-circle"></i>');
-      $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
-  
-      // Function to hide/show the clear button when text changed in the dropdown
-      // -------------------------------------------------------------
-      $(combo).keyup(function(){
-        $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
-      }).change(function(){
-        $(clear).css("display", $(combo).val().trim().length <= 0 ? 'none' : 'inline');
-      });
-
-      // Hide the clear button if it gets clicked
-      // -------------------------------------------------------------
-      $(clear).click(function(){
-        $(this).css("display", 'none');
-        $(combo).val("").focus();//.keyup();
-      });
-    });
-  </script>
 <% else %>
   <span id="<%= id %>_no_items"><%= _('No items available.') %></span>
 <% end %>

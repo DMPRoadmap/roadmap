@@ -1,0 +1,71 @@
+/* Tables */
+/* ------------------------------------------- */
+/*
+table {
+  width: 100%;
+  border: 1px solid $primary-color;
+  border-radius: 3px;
+  margin-bottom: 20px;
+    
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 6px 10px 10px 10px;
+    overflow: hidden;
+  }
+
+  td.td-as-th {
+    background-color: $primary-color;
+    padding: 0;
+  }
+
+  thead th {
+    position: relative;
+    color: $white;
+    background-color: $primary-color;
+    font-weight: bold;
+    text-align: left;
+
+    .fa {
+      margin-left: 10px;
+      font-size: 14px;
+      color: $white;
+    }
+    
+    div {
+      width: auto;
+    }
+  }
+  
+  tbody tr.table-data {
+    border-bottom: 1px solid $light-grey;
+    
+    td { border-right: 1px solid $light-grey; }
+    td:last-child { border: none; }
+  }
+*/
+	
+/* TODO: THIS ISN'T WORKING PARTIALLY DUE TO ROW ADDED BY JQUERY TABLESORTER */
+/*
+  tbody tr.table-data:last-child {
+    border-bottom: none;
+  }
+*/
+  /* TABLE SEARCH BAR */ 
+/*
+  .toolbar {
+    position: relative;
+    text-align: right;
+    
+    input[type='search'] {
+      width: 40%;
+    }
+    
+    a {
+      position: absolute;
+      top: 11px;
+      right: 25px;
+    }
+  }
+}
+*/
