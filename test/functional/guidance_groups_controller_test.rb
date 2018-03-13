@@ -31,19 +31,6 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     scaffold_org_admin(GuidanceGroup.first.org)
   end
   
-  # GET /org/admin/guidancegroup/:id/admin_show (admin_show_guidance_group_path)
-  # ----------------------------------------------------------
-  test 'show the guidance_group' do
-    # Should redirect user to the root path if they are not logged in!
-    get admin_show_guidance_group_path(GuidanceGroup.find_by(org: @user.org))
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_guidance_group_path(GuidanceGroup.find_by(org: @user.org))
-    assert_response :success
-  end
-
   # GET /org/admin/guidancegroup/:id/admin_new (admin_new_guidance_group_path)
   # ----------------------------------------------------------
   test 'load the new guidance_group page' do
@@ -72,13 +59,13 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     post admin_create_guidance_group_path(@user.org), {guidance_group: params}
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path(@user.org)
-    assert_equal _('Guidance group was successfully created.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert assigns(:guidance_group)
     assert_equal 'Testing create', GuidanceGroup.last.name, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_guidance_group_path(@user.org), {guidance_group: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
+    assert flash[:alert].start_with?(_('Could not create your'))
     assert_response :success
     assert assigns(:guidance_group)
   end
@@ -108,7 +95,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: params}
-    assert_equal _('Guidance group was successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
     assert_redirected_to "#{admin_index_guidance_path(@user.org)}?name=Testing+UPDATE"
     assert assigns(:guidance_group)
@@ -116,11 +103,45 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     
     # Invalid object
     put admin_update_guidance_group_path(GuidanceGroup.first), {guidance_group: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
+    assert flash[:alert].starts_with?(_('Could not update your'))
     assert_response :success
     assert assigns(:guidance_group)
   end
-  
+
+  # PUT /org/admin/guidancegroup/:id/admin_update_publish (admin_update_publish_guidance_group)
+  test 'publish the guidance' do 
+    @guidance_group = GuidanceGroup.first
+
+    # Should redirect user to the root path if they are not logged in!
+    put admin_update_publish_guidance_group_path(@guidance_group)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_update_publish_guidance_group_path(@guidance_group)
+    assert_response :redirect
+    assert flash[:notice].include?('published')
+    assert_redirected_to "#{admin_index_guidance_path}"
+    assert assigns(:guidance_group)
+  end
+
+  # PUT /org/admin/guidancegroup/:id/admin_update_unpublish (admin_update_unpublish_guidance_group)
+  test 'unpublish the guidance' do 
+    @guidance_group = GuidanceGroup.first
+
+    # Should redirect user to the root path if they are not logged in!
+    put admin_update_unpublish_guidance_group_path(@guidance_group)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_update_unpublish_guidance_group_path(@guidance_group)
+    assert_response :redirect
+    assert flash[:notice].include?('no longer published')
+    assert_redirected_to "#{admin_index_guidance_path}"
+    assert assigns(:guidance_group)
+  end
+
   # DELETE /org/admin/guidancegroup/:id/admin_destroy (admin_destroy_guidance_group_path)
   # ----------------------------------------------------------
   test 'delete the guidance_group' do
@@ -134,7 +155,7 @@ class GuidanceGroupsControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_guidance_group_path(GuidanceGroup.first)
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path
-    assert_equal _('Guidance group was successfully deleted.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       GuidanceGroup.find(id).nil?
     end

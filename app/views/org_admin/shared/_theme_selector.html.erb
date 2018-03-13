@@ -1,0 +1,30 @@
+<%# locals: all_themes & popover_message %>
+<div class="form-group">
+  <%= f.label _('Themes'), for: :theme_ids, class: 'control-label' %>
+  <%= render partial: 'shared/popover', 
+             locals: { message: popover_message, placement: 'right' }%>
+  <div class="row">
+    <% if all_themes.length > 0 %>
+      <% 
+        cntr = 0
+        nbr_of_cols = (all_themes.length.to_f / MAX_NUMBER_THEMES_PER_COLUMN.to_f).ceil
+        col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
+      %>
+      <div class="col-md-<%= col_size %>">
+        <% all_themes.each do |theme| %>
+          <% if cntr >= MAX_NUMBER_THEMES_PER_COLUMN %>
+            </div>
+            <div class="col-md-<%= col_size %>">
+            <% cntr = 0 %>
+          <% end %>
+          <div class="checkbox">
+            <%= f.label :theme_ids, raw("#{f.check_box :theme_ids, {multiple: true}, theme.id, nil} #{theme.title}") %>
+          </div>
+          <% cntr += 1 %>
+        <% end %>
+      </div>
+    <% else %>
+      <p><%= _('No themes have been defined. Please contact your administrator for assistance.') %></p>
+    <% end %>
+  </div>
+</div>

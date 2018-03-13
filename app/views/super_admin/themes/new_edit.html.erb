@@ -1,0 +1,28 @@
+<%# locals: { theme, options } %>
+<h2><%= options[:title] %></h2>
+<%= form_for theme, url: options[:url], method: options[:method], html: { class: 'theme' } do |f| %>
+    <div class="form-group">
+        <%= f.label(:title, _('Title'), class: 'control-label') %>
+        <%= f.text_field(:title,
+            class: "form-control",
+            value: theme.title,
+            "aria-required": true) %>
+    </div>
+    <div class="form-group">
+        <%= f.label(:description, _('Guidance')) %>
+        <%= f.text_area(:description,
+            class: "form-control",
+            rows: 10) %>
+    </div>
+    <div class="pull-right">
+        <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+        <%= link_to(
+            _('Delete'),
+            super_admin_theme_path(theme),
+            class: 'btn btn-default',
+            rel: 'nofollow',
+            'data-method': 'delete',
+            'data-confirm': _("Are you sure you want to delete the theme \"%{title}\"?") %{ :title => theme.title }) if options[:method] == :PUT %>
+        <%= link_to(_('Cancel'), super_admin_themes_path, class: 'btn btn-default', role: 'button') %>
+    </div>
+<% end %>
