@@ -1,0 +1,32 @@
+<hr />
+<h1><%= @plan.title %></h1>
+<p><em>
+  <%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %>
+</em></p>
+<br/>
+<div class="cover-page">
+  <p><%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %></p><br>
+
+  <p><%= _("Affiliation: ") + @hash[:affiliation] %></p><br>
+
+  <% if @hash[:funder].present? %>
+    <p><%= _("Template: ") + @hash[:funder] %></p><br>
+  <% else %>
+    <p><%= _("Template: ") + @hash[:template] + @hash[:customizer] %></p><br>
+  <% end %>
+
+  <% if @plan.grant_number.present? %>
+    <p><%= _("Grant number: ") + @plan.grant_number %></p> <br>
+  <% end %>
+
+  <% if @plan.description.present? %>
+    <p><%= _("Project abstract: ") %></p>
+    <div style="margin-left: 15px;"><%= raw(@plan.description) %></div><br>
+  <% end %>
+
+  <p><%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %></p> <br>
+
+  <p><%= _("Copyright information:") %></p>
+  <div style="margin-left: 15px;"><p><%= _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %></p></div>
+</div>
+<hr class="bottom" />

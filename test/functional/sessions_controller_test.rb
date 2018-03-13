@@ -39,7 +39,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "existing user's Shibboleth id is captured" do
     Warden.on_next_request do |proxy|
-      proxy.raw_session[:shibboleth_data] = {uid: 'abcdefg'}
+      proxy.raw_session[:"devise.shibboleth_data"] = {uid: 'abcdefg'}
     end
     post user_session_path, {user: {email: @user.email}, shibboleth_data: {uid: 'abcdefg'}}
     assert_response :redirect

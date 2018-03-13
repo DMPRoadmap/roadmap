@@ -1,0 +1,70 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <button type="button" class="close" 
+              data-dismiss="modal" 
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+      <h1 class="modal-title"><%= _('Edit user privileges') %></h1>
+    </div>
+    
+    <%= form_tag( admin_update_permissions_user_path(user), method: :put, remote: true, class: 'admin_update_permissions' ) do %>
+      <div class="modal-body" style="text-align: left">
+        <p><%= user.name(false) %><%= _(' current user privileges are: ') %></p>
+        <ul class="list-group">
+         <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
+          <%= label_tag :organisational_admin_privileges %>
+          <% perms.each do |perm| %>           
+            <% case perm.name when 'grant_permissions' %>
+              <li class="list-group-item" style="border: none" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
+                <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'org_grant_privileges' %>
+                <%= _('Manage user privileges') %></li>
+            <% when 'modify_templates' %>
+              <li class="list-group-item" style="border: none" title="<%= _('Allows the user to create new organisational templates, edit existing ones and customise funder templates') %>">
+                <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'org_grant_privileges' %>
+                <%= _('Manage templates') %></li>
+            <% when 'modify_guidance' %>
+              <li class="list-group-item" style="border: none" title="<%= _('Allows the user to create and edit guidance') %>">
+                <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'org_grant_privileges' %>
+                <%= _('Manage guidance') %></li>
+            <% when 'use_api' %>
+              <li class="list-group-item" style="border: none" title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
+                <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'org_grant_privileges' %>
+                <%= _('Use API') %></li>
+            <% when 'change_org_details' %>
+              <li class="list-group-item" style="border: none" title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
+                <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'org_grant_privileges' %>
+                <%= _('Manage organisation details') %></li>
+            <% end %>
+          <% end %>
+
+
+          <% if current_user.can_super_admin? %>
+            <input type="checkbox" name="super_admin_privileges" id="super_admin_privileges" />
+            <%= label_tag :super_admin_privileges %> 
+            <% perms.each do |perm| %>
+              <% case perm.name when 'add_organisations' %>
+                <li class="list-group-item" style="border: none" title="<%= _('Allows the user to create new organisations') %>">
+                  <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'super_grant_privileges' %>
+                  <%= _('Add Organisations') %></li>
+              <% when 'change_org_affiliation' %>
+                <li class="list-group-item" style="border: none" title="<%= _('Allows the user to manage organisation affiliation') %>">
+                  <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'super_grant_privileges' %>
+                  <%= _('Manage organisation affiliation') %></li>
+              <% when 'grant_api_to_orgs' %>
+                <li class="list-group-item" style="border: none" title="<%= _('Allows the user to grant API access to organisations.') %>">
+                  <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'super_grant_privileges' %>
+                  <%= _('Grant API access') %></li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag _('Save'), class: "btn btn-primary" %>
+        <%= button_tag(_('Cancel'), class: 'btn btn-primary', 'data-dismiss': 'modal') %>      
+      </div>
+    <% end %>
+  </div>
+</div>
