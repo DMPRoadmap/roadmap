@@ -158,5 +158,121 @@ namespace :upgrade do
     end
   end
 
+  desc "Remove deprecated themes"
+  task theme_delete_deprecated: :environment do
+    if t = Theme.find_by(title:'Project Description') then t.destroy end
+    if t = Theme.find_by(title:'Project Name') then t.destroy end
+    if t = Theme.find_by(title:'ID') then t.destroy end
+    if t = Theme.find_by(title:'PI / Researcher') then t.destroy end
+  end
+
+  desc "Create new Theme list"
+  task theme_new_themes: :environment do
+    ["Data description", "Data collection", "Metadata & documentation", "Storage & security",
+     "Preservation", "Data sharing", "Related policies", "Data format", "Data volume",
+     "Ethics & privacy", "Intellectual Property Rights", "Data repository", "Roles & responsibilities",
+     "Budget"].each do |t|
+      Theme.create(title: t)
+    end
+  end
+
+  desc "Transform existing themes and their associations into new theme list"
+  task theme_transform: :environment do
+    ActiveRecord::Base.transaction do
+      [
+      {'Budget':'Resourcing'},
+      {'Data collection':'Data Capture Methods'},
+      {'Data collection':'Data Quality'},
+      {'Data description':'Data Description'},
+      {'Data description':'Data Type'},
+      {'Data description':'Existing Data'},
+      {'Data description':'Relationship to Existing Data'},
+      {'Data format':'Data Format'},
+      {'Data repository':'Data Repository'},
+      {'Data sharing':'Expected Reuse'},
+      {'Data sharing':'Managed Access Procedures'},
+      {'Data sharing':'Method For Data Sharing'},
+      {'Data sharing':'Restrictions on Sharing'},
+      {'Data sharing':'Timeframe For Data Sharing'},
+      {'Data volume':'Data Volumes'},
+      {'Ethics & privacy':'Ethical Issues'},
+      {'Intellectual Property Rights':'IPR Ownership and Licencing'},
+      {'Metadata & documentation':'Discovery by Users'},
+      {'Metadata & documentation':'Documentation'},
+      {'Metadata & documentation':'Metadata '},  # there may be a whitespace here!
+      {'Preservation':'Data Selection'},
+      {'Preservation':'Period of Preservation'},
+      {'Preservation':'Preservation Plan'},
+      {'Related policies':'Related Policies'},
+      {'Roles & responsibilities':'Responsibilities'},
+      {'Storage & security':'Data Security'},
+      {'Storage & security':'Storage and Backup'},
+      ].each do |pair|
+        themeto   = Theme.find_by(title: pair.keys[0].to_s)
+        themefrom = Theme.find_by(title: pair.values[0])
+        Guidance.joins(:themes).where('themes.title' => themefrom.title).each do |gui|
+          gui.themes.delete(themefrom)
+          gui.themes << themeto
+        end
+        Question.joins(:themes).where('themes.title' => themefrom.title).each do |q|
+          q.themes.delete(themefrom)
+          q.themes << themeto
+        end
+      end
+    end
+  end
+
+  desc "Delete migrated themes and their associations"
+  task theme_remove_migrated: :environment do
+    ActiveRecord::Base.transaction do
+      ["Data Type", "Existing Data", "Relationship to Existing Data", "Data Quality", "Documentation",
+      "Discovery by Users", "Data Security", "Data Selection", "Period of Preservation",
+      "Expected Reuse", "Timeframe For Data Sharing", "Restrictions on Sharing",
+      "Managed Access Procedures", "Related Policies", "Data Description", "Data Volumes",
+      "Data Format", "Data Capture Methods", "Metadata ", "Ethical Issues",
+      "IPR Ownership and Licencing", "Storage and Backup", "Preservation Plan", "Data Repository",
+      "Method For Data Sharing", "Responsibilities", "Resourcing"].each do |t|
+        if deltheme = Theme.find_by(title: t) then deltheme.destroy end
+      end
+    end
+  end
+
+  desc "Deduplicate multiple associations resulting from Theme merges"
+  task theme_deduplicate_questions: :environment do
+    ActiveRecord::Base.transaction do
+      Question.all.each do |q|
+        themelist = []
+        if q.themes.present?
+          q.themes.each do |qt|
+            q.themes.delete(qt)
+            q.themes << qt
+          end
+        end
+      end
+    end
+  end
+
+  ############# Make sure there are no guidances with multiple themes before this step!! #############
+  desc "Concatenate Guidance which refers to the same Theme as a result of merges"
+  task single_guidance_for_theme: :environment do
+    ActiveRecord::Base.transaction do
+      allthemes = Theme.all
+      GuidanceGroup.all.each do |group|
+          if group.guidances.present?
+              allthemes.each do |theme|
+                  themeguidances = group.guidances.joins(:themes).where('themes.id = ?', theme.id)
+                  if themeguidances.present? && themeguidances.length >= 2
+                      themeguidances.drop(1).each do |guidance|
+                          themeguidances.first.text += '<p>——</p>' + guidance.text
+                          guidance.destroy
+                      end #themeguidances loop
+                      themeguidances.first.save
+                  end
+              end #allthemes loop
+          end
+      end #GuidanceGroup loop
+    end
+  end
+
 
 end
