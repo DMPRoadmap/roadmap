@@ -158,8 +158,8 @@ namespace :upgrade do
     end
   end
 
-  desc "Remove depricated themes"
-  task theme_delete_depricated: :environment do
+  desc "Remove deprecated themes"
+  task theme_delete_deprecated: :environment do
     if t = Theme.find_by(title:'Project Description') then t.destroy end
     if t = Theme.find_by(title:'Project Name') then t.destroy end
     if t = Theme.find_by(title:'ID') then t.destroy end
