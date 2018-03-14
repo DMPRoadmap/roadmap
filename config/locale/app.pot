@@ -225,7 +225,7 @@ msgstr ""
 msgid "<strong>Subject</strong>: Keywords or phrases describing the subject or content of the data"
 msgstr ""
 
-msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\">PNG</a></li><li>Original DMPTool Logo - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\">PNG</a></li></ul>"
+msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"%{logo_tagline_eps_url}\">EPS</a>, <a href=\"%{logo_tagline_svg_url}\">SVG</a>, <a href=\"%{logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"%{logo_eps_url}\">EPS</a>, <a href=\"%{logo_svg_url}\">SVG</a>, <a href=\"%{logo_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"%{vintage_logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"%{vintage_logo_png_url}\">PNG</a></li><li>Original DMPTool Logo - <a href=\"%{original_logo_png_url}\">PNG</a></li></ul>"
 msgstr ""
 
 msgid "A Data Management Plan created using "
@@ -270,16 +270,16 @@ msgstr ""
 msgid "A user has requested feedback on a DMP"
 msgstr ""
 
-msgid "A:  The <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
+msgid "A:  The <a href=\"%{admin_help_url}\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
 msgstr ""
 
 msgid "A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run."
 msgstr ""
 
-msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help documentation</a> on how to do this."
+msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on how to do this."
 msgstr ""
 
-msgid "A: There is an extensive list of <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
+msgid "A: There is an extensive list of <a href=\"%{admin_help_url}\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
 msgstr ""
 
 msgid "A: Yes! To view guidance created by others, create a new plan in the tool. On the \"Project details\" tab you will see \"Plan guidance configuration\" on the right. Click to \"See the full list\" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the \"Write plan\" tab."
@@ -372,10 +372,10 @@ msgstr ""
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
-msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\\\"https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators\\\">help for administrators</a> wiki."
+msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%{admin_help_url}\">help for administrators</a> wiki."
 msgstr ""
 
-msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf\">Adobe PDF</a></li></ul>"
+msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"%{advertise_pdf_url}\">Adobe PDF</a></li></ul>"
 msgstr ""
 
 msgid "Affiliation: "
@@ -462,7 +462,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"https://tools.google.com/dlpage/gaoptout\">Google Analytics opt-out page</a> and install the add-on for your browser."
+msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_out_url}\">Google Analytics opt-out page</a> and install the add-on for your browser."
 msgstr ""
 
 msgid "Back to edit phase"
@@ -489,10 +489,10 @@ msgstr ""
 msgid "Briefly summarise your research project to help others understand the purposes for which the data are being collected or created."
 msgstr ""
 
-msgid "Can't find the answer you’re looking for? <a href=\"https://dmptool.org/contact-us\">Contact us</a>"
+msgid "Can't find the answer you’re looking for? <a href=\"%{contact_us_url}\">Contact us</a>"
 msgstr ""
 
-msgid "Can't find what you’re looking for? <a href=\"https://dmptool.org/contact-us\" >Contact us</a>"
+msgid "Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a>"
 msgstr ""
 
 msgid "Cancel"
@@ -657,7 +657,7 @@ msgstr ""
 msgid "DMPTool"
 msgstr ""
 
-msgid "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"http://www.dcc.ac.uk/\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3)."
+msgid "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3)."
 msgstr ""
 
 msgid "DMPTool News"
@@ -684,7 +684,7 @@ msgstr ""
 msgid "Data contact person"
 msgstr ""
 
-msgid "Data documentation is commonly called metadata – \"data about data\". Researchers can document their data according to various metadata standards. Some metadata standards are designed for the purpose of documenting the contents of files, others for documenting the technical characteristics of files, and yet others for expressing relationships between files within a set of data. If you want to be able to share or publish your data, the <a href=\"https://schema.datacite.org/\">DataCite metadata standard</a> is of particular signficiance."
+msgid "Data documentation is commonly called metadata – \"data about data\". Researchers can document their data according to various metadata standards. Some metadata standards are designed for the purpose of documenting the contents of files, others for documenting the technical characteristics of files, and yet others for expressing relationships between files within a set of data. If you want to be able to share or publish your data, the <a href=\"%{datacite_standards_url}\">DataCite metadata standard</a> is of particular signficiance."
 msgstr ""
 
 msgid "Default"
@@ -1233,7 +1233,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf\">Adobe PDF</a> </li></ul>"
+msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
 msgstr ""
 
 msgid "New Theme"
@@ -1736,7 +1736,7 @@ msgstr ""
 msgid "Security check"
 msgstr ""
 
-msgid "See a current list of <a href=\"https://dmptool.org/public_orgs\">DMPTool participants</a>."
+msgid "See a current list of <a href=\"%{participants_url}\">DMPTool participants</a>."
 msgstr ""
 
 msgid "See the full list of participating institutions"
@@ -1910,7 +1910,7 @@ msgstr ""
 msgid "The %{tool_name} team"
 msgstr ""
 
-msgid "The <a href=\"http://www.cldib.org\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
+msgid "The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
 msgstr ""
 
 msgid "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
@@ -1922,13 +1922,13 @@ msgstr ""
 msgid "The following answer cannot be saved"
 msgstr ""
 
-msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"http://www.cdlib.org/about/policies.html\">http://www.cdlib.org/about/policies.html</a>"
+msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url}</a>"
 msgstr ""
 
 msgid "The key %{key} does not have a valid set of object links"
 msgstr ""
 
-msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"https://github.com/CDLUC3/dmptool/wiki/Steering-Committee\">DMPTool Steering Committee</a> that maintains monthly calls."
+msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"%{steering_committee_url}\">DMPTool Steering Committee</a> that maintains monthly calls."
 msgstr ""
 
 msgid "The password must be between 8 and 128 characters."
@@ -2141,7 +2141,7 @@ msgstr ""
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
 msgstr ""
 
-msgid "Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/poster/DMPTool_poster_v2.pdf\">Adobe PDF</a></li></ul>"
+msgid "Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href=\"%{poster_pdf_url}\">Adobe PDF</a></li></ul>"
 msgstr ""
 
 msgid "User accounts"
@@ -2183,7 +2183,7 @@ msgstr ""
 msgid "Visibility definitions:"
 msgstr ""
 
-msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/genericslides/DMPT2_GenericSlides.pptx\">Microsoft Powerpoint</a> </li></ul>"
+msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"%{dmptool_slides_ppt_url}\">Microsoft Powerpoint</a> </li></ul>"
 msgstr ""
 
 msgid "We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account."
