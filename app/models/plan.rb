@@ -735,7 +735,8 @@ class Plan < ActiveRecord::Base
       .preload(template: { phases: { sections: :questions }}) # Preserves the default order defined in the model relationships
       .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
       .merge(Plan.includes(answers: :notes))[0]
-    phase = plan.template.phases.first
+    phase = plan.template.phases.find {|p| p.id==phase_id.to_i }
+
     return plan, phase
   end
 

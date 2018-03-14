@@ -254,9 +254,10 @@ class PlansController < ApplicationController
     @public_plan = false
 
     @hash = @plan.as_pdf(@show_coversheet)
-    @formatting = @plan.settings(:export).formatting
+    @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_").gsub('/\n/', '').gsub('/\r/', '').gsub(':', '_')
     file_name = file_name[0..30] if file_name.length > 31
+
 
     respond_to do |format|
       format.html { render layout: false }
@@ -265,13 +266,13 @@ class PlansController < ApplicationController
       format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
       format.pdf do
         render pdf: file_name,
-          margin: @formatting[:margin],
-          footer: {
-            center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
-            font_size: 8,
-            spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-            right:     '[page] of [topage]'
-          }
+               margin: @formatting[:margin],
+               footer: {
+                 center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
+                 font_size: 8,
+                 spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+                 right:     '[page] of [topage]'
+               }
       end
     end
   end

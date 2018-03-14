@@ -30,6 +30,10 @@ module ApplicationHelper
     end
   end
 
+  def is_integer?(string)
+    return string.present? && string.match(/^(\d)+$/)
+  end
+
   def fingerprinted_asset(name)
     Rails.application.config.use_fingerprinted_assets ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end

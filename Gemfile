@@ -41,9 +41,10 @@ gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 # devise for user authentication
 gem 'devise', '~> 4.2.0'
 gem 'devise_invitable', '~> 1.7.0'
-gem 'omniauth', '~> 1.3.1'
+gem 'omniauth', '~> 1.3.2'
 gem 'omniauth-shibboleth', '~> 1.2.1'
-gem 'omniauth-orcid', '~> 1.2.1'
+gem 'omniauth-orcid', '~> 2.0'
+gem 'ruby_dig'  # for omniauth-orcid
 
 #rolify for roles
 gem 'rolify', '~> 5.1.0'

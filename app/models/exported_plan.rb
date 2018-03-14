@@ -11,11 +11,11 @@ class ExportedPlan < ActiveRecord::Base
 
   VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
 
-  validates :format, inclusion: { 
+  validates :format, inclusion: {
     in: VALID_FORMATS,
-    message: -> (object, data) do 
-      _('%{value} is not a valid format') % { :value => data[:value] } 
-    end 
+    message: -> (object, data) do
+      _('%{value} is not a valid format') % { :value => data[:value] }
+    end
   }
   validates :plan, :format, presence: {message: _("can't be blank")}
 
