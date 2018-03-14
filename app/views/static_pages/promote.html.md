@@ -1,18 +1,17 @@
 <h1><%= _('Promote the DMPTool') %></h1>
 <hr>
 
-<%= _('Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license.') 
-%>
+<%= _('Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license.') %>
 <br>
 
 
 <h3><%= _('DMPTool logo') %></h3>
-<%= raw _('<ul><li>DMPTool Logo (blue), with tagline - <a href="%{logo_tagline_eps_url}">EPS</a>, <a href="%{logo_tagline_svg_url}">SVG</a>, <a href="%{logo_tagline_png_url}">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href="%{logo_eps_url}">EPS</a>, <a href="%{logo_svg_url}">SVG</a>, <a href="%{logo_png_url}">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href="%{vintage_logo_tagline_png_url}">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href="%{vintage_logo_png_url}">PNG</a></li><li>Original DMPTool Logo - <a href="%{original_logo_png_url}">PNG</a></li></ul>') % { logo_tagline_eps_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps', logo_tagline_svg_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg', logo_tagline_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png', logo_eps_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps', logo_svg_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg', logo_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png', vintage_logo_tagline_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png', vintage_logo_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png', original_logo_png: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png' } %>
+<%= raw _('<ul><li>DMPTool Logo (blue), with tagline - <a href="%{logo_tagline_eps_url}">EPS</a>, <a href="%{logo_tagline_svg_url}">SVG</a>, <a href="%{logo_tagline_png_url}">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href="%{logo_eps_url}">EPS</a>, <a href="%{logo_svg_url}">SVG</a>, <a href="%{logo_png_url}">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href="%{vintage_logo_tagline_png_url}">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href="%{vintage_logo_png_url}">PNG</a></li><li>Original DMPTool Logo - <a href="%{original_logo_png_url}">PNG</a></li></ul>') % { logo_tagline_eps_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps', logo_tagline_svg_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg', logo_tagline_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png', logo_eps_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps', logo_svg_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg', logo_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png', vintage_logo_tagline_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png', vintage_logo_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png', original_logo_png_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png' } %>
 <br>
 
 <h3><%= _('Postcards - new versions coming soon!') %></h3>
 
-<%= raw _('Advertise the DMPTool to students and researchers at your institution.<ul><li><a href="%{advertise_pdf_url}">Adobe PDF</a></li></ul>' % { avertise_pdf_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf' }) %>
+<%= raw _('Advertise the DMPTool to students and researchers at your institution.<ul><li><a href="%{advertise_pdf_url}">Adobe PDF</a></li></ul>') % { advertise_pdf_url: 'https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf' } %>
   
 <br>
 
