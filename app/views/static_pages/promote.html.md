@@ -1,8 +1,11 @@
 <h1><%= _('Promote the DMPTool') %></h1>
 <hr>
 
-<%= _('Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license.') %>
+<%= _('Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license.') 
+%>
 <br>
+
+
 <h3><%= _('DMPTool logo') %></h3>
 <%= raw _('<ul><li>DMPTool Logo (blue), with tagline - <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps">EPS</a>, <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg">SVG</a>, <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps">EPS</a>, <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg">SVG</a>, <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png">PNG</a></li><li>Original DMPTool Logo - <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png">PNG</a></li></ul>') %>
 <br>
