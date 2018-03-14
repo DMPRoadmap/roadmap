@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-08 15:02-0800\n"
-"PO-Revision-Date: 2018-03-08 15:02-0800\n"
+"POT-Creation-Date: 2018-03-14 14:47-0700\n"
+"PO-Revision-Date: 2018-03-14 14:47-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -225,9 +225,6 @@ msgstr ""
 msgid "<strong>Subject</strong>: Keywords or phrases describing the subject or content of the data"
 msgstr ""
 
-msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"%{logo_tagline_eps_url}\">EPS</a>, <a href=\"%{logo_tagline_svg_url}\">SVG</a>, <a href=\"%{logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"%{logo_eps_url}\">EPS</a>, <a href=\"%{logo_svg_url}\">SVG</a>, <a href=\"%{logo_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"%{vintage_logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"%{vintage_logo_png_url}\">PNG</a></li><li>Original DMPTool Logo - <a href=\"%{original_logo_png_url}\">PNG</a></li></ul>"
-msgstr ""
-
 msgid "A Data Management Plan created using "
 msgstr ""
 
@@ -279,10 +276,45 @@ msgstr ""
 msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on how to do this."
 msgstr ""
 
+msgid "A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href=\"%{public_plans_url}\">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research."
+msgstr ""
+
+msgid "A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to \"Invite collaborators,” select the desired level of permissions, and click \"Submit\" to send an email invitation."
+msgstr ""
+
+msgid "A: If your institution <a href=\"%{participating_url}\">participates in the DMPTool</a>, you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help."
+msgstr ""
+
+msgid "A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT)."
+msgstr ""
+
+msgid "A: Since the DMPTool account is tied to an email address, the information will not automatically follow a user if they change institutions. However, we can connect users to their plans from previous institutions if they contact us. Users who change institutions and assume new institutional credentials must create a new DMPTool account."
+msgstr ""
+
+msgid "A: The <a href=\"%{public_templates_url}\">Funder Requirements page</a> provides direct links to funder guidelines, as well as sample plans if provided. You do not have to be logged into the DMPTool to access this page."
+msgstr ""
+
+msgid ""
+"A: The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</a>.\n"
+"The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\\\"%{public_templates_url}\\\">Funder Requirements page</a>."
+msgstr ""
+
+msgid "A: The sample plans on the <a href=\"%{public_templates_url}\">Funder Requirements page</a> are created by funders and offered as guidance on their websites. The <a href=\"%{public_plans_url}\">Public Plans</a> are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans."
+msgstr ""
+
+msgid "A: There are three visibility options for each plan you create:<ol><li>Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.</li><li>Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.</li><li>Public. Your plan will be available on the <a href=\"%{public_plans_url}\">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).</li></ol>"
+msgstr ""
+
 msgid "A: There is an extensive list of <a href=\"%{admin_help_url}\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
 msgstr ""
 
+msgid "A: We do not plan to delete any plans created with the DMPTool. As a plan owner, however, you can delete plans by going to “My Dashboard” and selecting “Remove” from the Actions menu next to the plan name."
+msgstr ""
+
 msgid "A: Yes! To view guidance created by others, create a new plan in the tool. On the \"Project details\" tab you will see \"Plan guidance configuration\" on the right. Click to \"See the full list\" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the \"Write plan\" tab."
+msgstr ""
+
+msgid "A:<ol><li>Log into the DMPTool.</li><li>On \"My Dashboard\" tick the box in the \"Test\" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).</li><li>To delete the plan: select \"Remove\" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.</li></ol>"
 msgstr ""
 
 msgid "API Information"
@@ -322,6 +354,9 @@ msgid "Add Question"
 msgstr ""
 
 msgid "Add Section"
+msgstr ""
+
+msgid "Add Standard"
 msgstr ""
 
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
@@ -373,9 +408,6 @@ msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
 msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%{admin_help_url}\">help for administrators</a> wiki."
-msgstr ""
-
-msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"%{advertise_pdf_url}\">Adobe PDF</a></li></ul>"
 msgstr ""
 
 msgid "Affiliation: "
@@ -435,6 +467,9 @@ msgstr ""
 msgid "Are there examples of data management plans?"
 msgstr ""
 
+msgid "Are you sure you want to change your organisational affiliation? Doing so will remove your administrative privileges."
+msgstr ""
+
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
 msgstr ""
 
@@ -489,7 +524,10 @@ msgstr ""
 msgid "Briefly summarise your research project to help others understand the purposes for which the data are being collected or created."
 msgstr ""
 
-msgid "Can't find the answer you’re looking for? <a href=\"%{contact_us_url}\">Contact us</a>"
+msgid "Browse Standards"
+msgstr ""
+
+msgid "Can't find the answer you’re looking for? <a href=\"%{contact_url}\">Contact us</a>"
 msgstr ""
 
 msgid "Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a>"
@@ -508,9 +546,6 @@ msgid "Change affiliation"
 msgstr ""
 
 msgid "Change my password"
-msgstr ""
-
-msgid "Change organisation details"
 msgstr ""
 
 msgid "Change your password"
@@ -661,9 +696,6 @@ msgid "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the
 msgstr ""
 
 msgid "DMPTool News"
-msgstr ""
-
-msgid "DMPTool Principles"
 msgstr ""
 
 msgid "DMPTool by the Numbers"
@@ -888,6 +920,9 @@ msgstr ""
 msgid "For Researchers"
 msgstr ""
 
+msgid "For more information, see <a href=\"%{about_url}\">About participating</a>."
+msgstr ""
+
 msgid "Forgot email?"
 msgstr ""
 
@@ -946,9 +981,6 @@ msgid "Grant number (optional)"
 msgstr ""
 
 msgid "Grant number: "
-msgstr ""
-
-msgid "Grant permissions"
 msgstr ""
 
 msgid "Grant reference number if applicable [POST-AWARD DMPs ONLY]"
@@ -1069,6 +1101,9 @@ msgid "If you would like to change your password please complete the following f
 msgstr ""
 
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
+msgstr ""
+
+msgid "If your institution/organization is affiliated with DMPTool:<ul><li>Click the first button to sign in with “Your institution.”</li><li>Select your institution from the list and click “Go.”</li><li>Researchers at some institutions will be presented with the institution\\"
 msgstr ""
 
 msgid "In order to help identify and administer your account with the DMPTool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us."
@@ -1197,16 +1232,10 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-msgid "Modify guidance"
-msgstr ""
-
-msgid "Modify templates"
-msgstr ""
-
 msgid "Month"
 msgstr ""
 
-msgid "More information about administering the %{tool_name} for users at your organisation is available at %{help_url}."
+msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
 msgstr ""
 
 msgid "My DMP's visibility has changed"
@@ -1231,9 +1260,6 @@ msgid "N/A"
 msgstr ""
 
 msgid "Name"
-msgstr ""
-
-msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
 msgstr ""
 
 msgid "New Theme"
@@ -1395,9 +1421,6 @@ msgstr ""
 msgid "Original funder template has changed!"
 msgstr ""
 
-msgid "Other risks to accessibility"
-msgstr ""
-
 msgid "Own Templates"
 msgstr ""
 
@@ -1535,6 +1558,12 @@ msgstr ""
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 
+msgid "Please select a sub-subject"
+msgstr ""
+
+msgid "Please select a subject"
+msgstr ""
+
 msgid "Please select a valid funding organisation from the list."
 msgstr ""
 
@@ -1554,6 +1583,9 @@ msgid "Please select an organisation from the list, or enter your organisation's
 msgstr ""
 
 msgid "Please select one"
+msgstr ""
+
+msgid "Please wait, Standards are loading"
 msgstr ""
 
 msgid "Preview"
@@ -1734,9 +1766,6 @@ msgid "Sections"
 msgstr ""
 
 msgid "Security check"
-msgstr ""
-
-msgid "See a current list of <a href=\"%{participants_url}\">DMPTool participants</a>."
 msgstr ""
 
 msgid "See the full list of participating institutions"
@@ -1991,9 +2020,6 @@ msgstr ""
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
 
-msgid "These are rough guidelines to follow to help manage your data files in case you don\\"
-msgstr ""
-
 msgid "This allows you to order sections."
 msgstr ""
 
@@ -2141,9 +2167,6 @@ msgstr ""
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
 msgstr ""
 
-msgid "Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href=\"%{poster_pdf_url}\">Adobe PDF</a></li></ul>"
-msgstr ""
-
 msgid "User accounts"
 msgstr ""
 
@@ -2181,9 +2204,6 @@ msgid "Visibility"
 msgstr ""
 
 msgid "Visibility definitions:"
-msgstr ""
-
-msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"%{dmptool_slides_ppt_url}\">Microsoft Powerpoint</a> </li></ul>"
 msgstr ""
 
 msgid "We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account."
@@ -2250,6 +2270,12 @@ msgid "Write plan"
 msgstr ""
 
 msgid "Yes"
+msgstr ""
+
+msgid "Yes! The <a href=\"%{help_url}\">Quick Start Guide</a> is available as a website or a PDF you can download."
+msgstr ""
+
+msgid "Yes, I understand that I will lose my administrative privileges"
 msgstr ""
 
 msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
@@ -2343,6 +2369,9 @@ msgid "Your"
 msgstr ""
 
 msgid "Your ORCID"
+msgstr ""
+
+msgid "Your Selected Standards:"
 msgstr ""
 
 msgid "Your access to "
