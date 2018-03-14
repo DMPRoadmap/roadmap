@@ -2,7 +2,7 @@
 
 <hr>
 
-<%= raw _('The <a href="http://www.cldib.org">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector.') %>
+<%= raw _('The <a href="http://www.cdlib.org">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector.') %>
 <br>
 <h4><%= _('DMPTool') %></h4>
 
