@@ -4,141 +4,101 @@
 **Arguments transferred: 'question'
 **Copyright: Digital Curation Centre and California Digital Library
 -->
-
-<div class="question-div">
-  <table class="dmp_details_table phase">
-    <!--Question number -->
-    <tr>
-      <td class="first_template"><%= _('Question number')%></td>
-      <td><%= question.number %></td>
-    </tr>
-
-    <!--Question text -->
-    <tr>
-      <td class="first_template"><%= _('Question text')%></td>
-      <td><%= raw question.text %>
-        </br>
-        <div class="answer-readonly">
-          <% q_format = question.question_format %>
-          <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
-            <ul class='options'>
-            <% if question.question_options.is_a? QuestionOption  %>
-              <li>- <%= question.question_options.text %></li>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-12">
+        <% q_format = question.question_format %>
+        <dl class="dl-horizontal">
+          <dt><%= _('Question number')%></dt>
+          <dd><%= question.number %></dd>
+          <dt><%= _('Question text')%></dt>
+          <dd><%= raw question.text %></dd>
+          <!-- question.option_based? -->
+          <dt></dt>
+          <dd></dd>
+          <!-- Default value -->
+          <% if q_format.textfield? || q_format.textarea? %>
+            <% if !question.default_value.nil? %>
+              <dt><%= _('Default value')%></dt>
+              <dd><%= raw question.default_value %></dd>
+            <% end %>
+          <% end %>
+          <!-- Format title -->
+          <dt><%= _('Answer format')%></dt>
+          <dd>
+            <%= q_format.title %>
+            <% if q_format.option_based? %>
+              <%= _('Additional comment area will be displayed.')%>
             <% else %>
-              <% if !question.question_options.to_a.nil? %>
-                <% question.question_options.to_a.sort_by{|op| op['number']}.each do |o| %>
-                  <li>- <%= o.text %></li>
-                <% end %>
+              <%= _('No additional comment area will be displayed.')%>
+            <% end %>
+          </dd>
+          <!-- Suggested answer or Example-->
+          <% if !question.section.phase.template.org.funder? %>
+              <% example_answer = question.get_example_answer(@original_org.id) %>
+              <% if example_answer.present?  && example_answer.text.present?  %>
+                  <dt><%= _('example answer')%></dt>
+                  <dd><%= raw example_answer.text %></dd>
               <% end %>
+          <% end %>
+          <!-- Guidance linked to this question -->
+          <% guidance = question.get_guidance_annotation(@original_org.id) %>
+          <% if guidance.present?  %>
+            <dt><%= _('Guidance')%></dt>
+            <dd><%= raw guidance.text %></dd>
+          <% end %>
+          <!-- Themes -->
+          <% themes_q = question.themes %>
+          <% if !themes_q.nil? %>
+              <dt><%= _('Themes')%></dt>
+              <dd><%= themes_q.join(', ') %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Add suggested or example answers to a funders template-->
+        <% example_answer = question.get_example_answer(current_user.org_id) %>
+        <% guidance = question.get_guidance_annotation(current_user.org_id) %>
+        <% editing = (example_answer.present? || guidance.present?) %>
+        <% if !question.modifiable %>
+          <h3> <%= _('Annotations') %> </h3>
+          <div id="show_annotations_div_<%= question.id%>" class="show_annotations_div">
+            <%= render partial: 'annotations/show', 
+                       locals: { example_answer: example_answer, 
+                                 guidance: guidance,
+                                 template: template,
+                                 for_plan: false } %>
+            <% unless question.modifiable %>
+              <div id="add_annotations_button_<%= question.id %>" class="pull-right">
+                <%= link_to _('%{add_or_edit} Annotations') % { add_or_edit: (editing ? 'Edit' : 'Add') }, 
+                            "#annotations_div_#{question.id}", class: "btn btn-default annotations_button", role:"button" %>
+              </div>
             <% end %>
-            </ul>
-          <% end %>
-        </div>
-      </td>
-    </tr>
-    <!--Default value -->
-    <% if q_format.title  == _('Text field') || q_format.title == _('Text area') %>
-      <% if !question.default_value.nil? %>
-        <tr>
-          <td class="first_template"><%= _('Default value')%></td>
-          <td><%= raw question.default_value %></td>
-        </tr>
-      <% end %>
-    <% end %>
-    <!-- Question format -->
-    <tr>
-      <td class="first_template"><%= _('Answer format')%></td>
-      <td><%= q_format.title %>
-        </br>
-        <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
-          <% if question.option_comment_display == true %>
-            <%= _('Additional comment area will be displayed.')%>
-          <% else %>
-            <%= _('No additional comment area will be displayed.')%>
-          <% end %>
+          </div>
+          <div id="annotations_div_<%= question.id %>" style="display: none" class="edit_annotations_div">
+            <%= render partial: 'annotations/new_edit', 
+                       locals: {
+                         example_answer: example_answer,
+                         guidance: guidance, 
+                         question: question,
+                         options: { url: admin_update_annotation_path(r: current_tab), method: 'PUT' } 
+                       } %>
+          </div>
         <% end %>
-        <div class="add_space"></div>
-      </td>
-    </tr>
-
-    <!-- Suggested answer or Example-->
-    <% if !question.section.phase.template.org.funder? %>
-      <% example_answer = question.get_example_answer(@original_org.id) %>
-      <% if example_answer.present?  && example_answer.text.present?  %>
-        <tr>
-          <td class="first_template">
-            <%= _('example answer')%>
-          </td>
-          <td><%= raw example_answer.text %></td>
-        </tr>
-      <% end %>
-    <% end %>
-    <!-- Guidance linked to this question -->
-    <% guidance = question.get_guidance_annotation(@original_org.id) %>
-    <% if guidance.present?  %>
-      <tr>
-        <td class="first_template"><%= _('Guidance')%></td>
-        <td><%= raw guidance.text %></td>
-      </tr>
-    <% end %>
-    <!-- Themes -->
-    <% themes_q = question.themes %>
-    <% if !themes_q.nil? %>
-      <tr>
-        <td class="first_template"><%= _('Themes')%></td>
-        <td><% i = 1%>
-          <% themes_q.each do |t|%>
-            <%= t.title %>
-            <% if themes_q.count > i %>
-              ,
-              <% i +=1 %>
-            <% end %>
+        <div class="pull-right">
+          <% if (question.modifiable && edit) %>
+            <%= link_to _('Edit question'), "#question_edit#{question.id}", class: "btn btn-default question_edit_link", role: "button" %>
+            <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id, r: current_tab),
+              confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:"button" %>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-  <br/>
-  <!-- Add suggested or example answers to a funders template-->
-  <% example_answer = question.get_example_answer(current_user.org_id) %>
-  <% guidance = question.get_guidance_annotation(current_user.org_id) %>
-  <% if !question.modifiable %>
-    <% if example_answer.present?  || guidance.present? %>
-      <div id="show_annotations_div_<%= question.id%>">
-        <%= render partial: 'annotations/show_annotation', locals: {example_answer: example_answer, guidance: guidance, question: question} %>
-      </div>
-      <div id="edit_annotations_div_<%= question.id%>" style="display: none">
-        <%= render partial: 'annotations/edit_annotation', locals: {example_answer: example_answer, guidance: guidance, question: question} %>
-      </div>
-    <% end %>
-    <div id="add_annotations_block_<%= question.id%>" style="display: none">
-      <%= render partial: 'annotations/add_annotation', locals: {question: question} %>
-    </div>
-  <% end %>
-
-  <br/>
-  <!-- edit question button-->
-  <% if (@edit && question.modifiable) %>
-    <div class="move_2_right">
-      <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-      <%= link_to _('Edit question'), '# ', class: "btn btn-primary edit_question_button"%>
-
-      <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
-        confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-primary"%>
-    </div>
-  <% else %>
-    <% if example_answer.nil? && guidance.nil? %>
-      <div id="add_annotations_button_<%= question.id%>">
-        <div class="move_2_right">
-          <%= hidden_field_tag :question_id, question.id, class: "question_id" %>
-          <%= link_to _('Add Annotations'), '# ', class: "btn btn-primary add_annotations_button"%>
         </div>
       </div>
-    <% end %>
-  <% end %>
-  <div class="div_clear"></div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <%#= render partial: 'guidances/guidance_display', locals: {question: question} %>
+  </div>
 </div>
-
-
-<!--guidance block -->
-<%= render partial: 'guidances/guidance_display', locals: {question: question}%>

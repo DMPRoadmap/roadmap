@@ -1,21 +1,91 @@
-<div>
-  <% if id.nil? || id.identifier == '' %>
-      <%= link_to "#{_("Link account with #{scheme.description} ID")}",
-                  Rails.application.routes.url_helpers.send(
-                    "user_#{scheme.name.downcase}_omniauth_authorize_path"
-                  ),
-                  title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "")
-      %>
-  <% else %>
-    <% if scheme.user_landing_url.nil? %>
-      <%= _("Your account has been linked to #{scheme.description}.") %>
-    <% else %>
-      <%= link_to "#{_("Your account has been linked to #{scheme.description}.")}", "#{scheme.user_landing_url}/#{id.identifier}", target: '_blank', 
-          title: t("identifier_schemes.schemes.#{scheme.name}.connect_tooltip", default: "") %>
+<% if id.nil? || id.identifier == '' %>
+    <% if scheme.name.downcase == 'orcid' %>
+        <%= link_to  Rails.application.routes.url_helpers.send("user_orcid_omniauth_authorize_path"),
+                     id: "connect-orcid-button", target: '_blank',
+                     title: _("ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"),
+                     'data-toggle': "tooltip" do %>
+          <%= image_tag 'https://orcid.org/sites/default/files/images/orcid_16x16.png', alt: _('ORCID logo') %>
+          &nbsp;
+          <%= _("Create or connect your ORCID iD") %>
+        <% end %>
+    <% elsif scheme.name.downcase == 'shibboleth' %>
+        <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
+        &nbsp;
+        <%= link_to _('Link your institutional credentials'),
+                    Rails.application.routes.url_helpers.send("user_shibboleth_omniauth_authorize_path"),
+                    title: _("Link your institutional credentials to access your account with them."),
+                    'data-toggle': "tooltip" %>
     <% end %>
-    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="false"></i>'.html_safe, 
-                destroy_user_identifier_path(id), method: :delete,
-                title: _("Unlink your account from #{scheme.description}. You can link again at any time."),
-                data: {confirm: _("Are you sure you want to unlink #{scheme.description} ID?")} %>
-  <% end %>
-</div>
+<% else %>
+    <% if scheme.name.downcase == 'orcid' %>
+        <% titletext = _("ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org") %>
+        <% unlinktext = _("Disconnect your account from ORCID. You can reconnect at any time.") %>
+        <% unlinkconf = _("Are you sure you want to disconnect your ORCID ID?") %>
+        <%= link_to "#{scheme.user_landing_url}/#{id.identifier}",
+                    id: 'orcid-id',
+                    target: '_blank',
+                    style: 'text-decoration: none',
+                    title: titletext,
+                    'aria-label': titletext,
+                    'data-toggle': "tooltip" do %>
+            <%= image_tag "#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description %>
+            &nbsp;
+            <%= "#{scheme.user_landing_url}/#{id.identifier}" %>
+        <% end %>
+    <% elsif scheme.name.downcase == 'shibboleth' %>
+        <% titletext  = _("Your account has been linked to your organisation. You can now login with that method.") %>
+        <% unlinktext = _("Unlink your account from your organisation. You can link again at any time.") %>
+        <% unlinkconf = _("Are you sure you want to unlink your institutional credentials?") %>
+        <% if scheme.user_landing_url.nil? %>
+            <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
+            &nbsp;
+            <%= titletext %>
+        <% else %>
+            <%= link_to "#{scheme.user_landing_url}/#{id.identifier}",
+                        target: '_blank',
+                        style: 'text-decoration: none',
+                        title: titletext,
+                        'aria-label': titletext,
+                        'data-toggle': "tooltip" do %>
+                <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
+                &nbsp;
+                <%= titletext %>
+            <% end %>
+        <% end %>
+    <% else %>
+        <% titletext = _("Your account has been linked to #{scheme.description}.") %>
+        <% if scheme.user_landing_url.nil? %>
+            <% if scheme.logo_url.nil? %>
+                <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
+            <% else %>
+                <%= image_tag "#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description %>
+            <% end %>
+            &nbsp;
+            <%= titletext %>
+        <% else %>
+            <%= link_to "#{scheme.user_landing_url}/#{id.identifier}",
+                        target: '_blank',
+                        style: 'text-decoration: none',
+                        title: titletext,
+                        'aria-label': titletext,
+                        'data-toggle': "tooltip" do %>
+                <% if scheme.logo_url.nil? %>
+                    <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
+                <% else %>
+                    <%= image_tag "#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description %>
+                <% end %>
+                &nbsp;
+                <%= titletext %>
+            <% end %>
+        <% end %>
+        <% unlinktext = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
+        <% unlinkconf = _("Are you sure you want to unlink #{scheme.description} ID?") %>
+    <% end %>
+    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
+                destroy_user_identifier_path(id),
+                method: :delete,
+                title: unlinktext,
+                data: {confirm: unlinkconf},
+                'aria-label': unlinktext,
+                'data-toggle': "tooltip" %>
+<% end %>

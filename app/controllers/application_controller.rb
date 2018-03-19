@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if user_signed_in?
-      redirect_to plans_url, notice: _('You are not authorized to perform this action.')
+      redirect_to plans_url, alert: _('You are not authorized to perform this action.')
     else
       redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
     end
@@ -49,19 +49,28 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    session[:previous_url] || root_path
+    if from_external_domain? || request.referer.eql?(new_user_session_url(:protocol => 'https')) || request.referer.eql?(new_user_registration_url(:protocol => 'https'))
+      root_path
+    else
+      return request.referer unless request.referer.nil?
+      root_path
+    end
   end
 
   def after_sign_up_path_for(resource)
-    session[:previous_url] || root_path
+    if from_external_domain? or request.referer.eql?(new_user_session_url(:protocol => 'https'))
+      root_path
+    else
+      request.referer
+    end
   end
 
   def after_sign_in_error_path_for(resource)
-    session[:previous_url] || root_path
+    (from_external_domain? ? root_path : request.referer || root_path)
   end
 
   def after_sign_up_error_path_for(resource)
-    session[:previous_url] || root_path
+    (from_external_domain? ? root_path : request.referer || root_path)
   end
 
   def authenticate_admin!
@@ -79,6 +88,22 @@ class ApplicationController < ActionController::Base
   
   def failed_destroy_error(obj, obj_name)
     "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  end
+  
+  def success_message(obj_name, action)
+    "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
+  end
+
+  # Check whether the string is a valid array of JSON objects
+  def is_json_array_of_objects?(string)
+    if string.present?
+      begin
+        json = JSON.parse(string)
+        return (json.is_a?(Array) && json.all?{ |o| o.is_a?(Hash) })
+      rescue JSON::ParserError
+        return false
+      end
+    end
   end
 
   private
@@ -120,4 +145,13 @@ class ApplicationController < ActionController::Base
     end
     # -------------------------------------------------------------
 
+    def from_external_domain?
+      if request.referer.present?
+        referer = URI.parse(request.referer)
+        home = URI.parse(root_url)
+        referer.host != home.host
+      else
+        false
+      end
+    end
 end

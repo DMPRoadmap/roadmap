@@ -1,0 +1,16 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= _('Name') %>&nbsp;<%= paginable_sort_link('title') %></th>
+      <th><%= _('Guidance') %>&nbsp;<%= paginable_sort_link('description') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.each do |theme| %>
+      <tr>
+        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
+        <td><%= raw(theme.description) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
