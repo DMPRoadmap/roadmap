@@ -1,0 +1,57 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="guidance-groups">
+    <thead>
+      <tr>
+        <th><%= _('Name') %></th>
+        <th class="text-center"><%= _('Status') %>&nbsp;<%= paginable_sort_link('published') %></th>
+        <th class="text-center"><%= _('Optional subset') %>&nbsp;<%= paginable_sort_link('optional_subset') %></th>
+        <th class="text-center"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('updated_at') %></th>
+        <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |guidance_gr| %>
+        <tr>
+          <td><%= guidance_gr.name %></td>
+          <td class="text-center">
+            <% if guidance_gr.published.nil? || guidance_gr.published == false %>
+                <%= _('Unpublished')%>
+            <% else %>
+                <%= _('Published')%>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <% if guidance_gr.optional_subset.nil? || guidance_gr.optional_subset == false %>
+                <%= _('No')%>
+            <% else %>
+                <%= _('Yes')%>
+            <% end %>
+          </td>
+          <td class="text-center"><%= l guidance_gr.updated_at.to_date, formats: :short %></td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="guidance_group-<%= guidance_gr.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="guidance_group-<%= guidance_gr.id %>-actions">
+                <li><%= link_to _('Edit'), admin_edit_guidance_group_path(guidance_gr) %></li>
+                <% if guidance_gr.published? %>
+                    <li><%= link_to _('Unpublish'),  admin_update_unpublish_guidance_group_path(guidance_gr), method: :put %></li>
+                <% else %>
+                    <li><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put %></li>
+                <% end %>
+                <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

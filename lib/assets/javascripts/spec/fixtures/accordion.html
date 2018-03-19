@@ -1,0 +1,60 @@
+<div id="accordion-tester">
+  <!-- accordion expand/collapse all controls -->
+  <div class="accordion-controls" data-parent="accordion">
+    <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+    <span>|</span>
+    <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+  </div>
+
+
+  <!-- Standard Bootstrap 3.x accordion -->
+  <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingA">
+        <h2 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="accordion" href="#collapseA" aria-controls="collapseA" aria-expanded="false">
+            Section A
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </a>
+        </h2>
+      </div>
+    </div>
+    <div id="collapseA" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingA">
+      <div class="panel-body">
+        This is test section A.
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingB">
+        <h2 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="accordion" href="#collapseB" aria-controls="collapseB" aria-expanded="false">
+            Section B
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </a>
+        </h2>
+      </div>
+    </div>
+    <div id="collapseB" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingB">
+      <div class="panel-body">
+        This is test section B.
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingC">
+        <h2 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="accordion" href="#collapseC" aria-controls="collapseC" aria-expanded="false">
+            Section C
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </a>
+        </h2>
+      </div>
+    </div>
+    <div id="collapseC" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingC">
+      <div class="panel-body">
+        This is test section C.
+      </div>
+    </div>
+  </div>
+</div>
