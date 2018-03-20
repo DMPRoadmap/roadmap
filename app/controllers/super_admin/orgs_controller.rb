@@ -21,6 +21,8 @@ module SuperAdmin
       org.logo = params[:logo] if params[:logo]
       if params[:org_links].present?
         org.links = JSON.parse(params[:org_links]) 
+      else
+        org.links = { org: [] }
       end
     
       begin
