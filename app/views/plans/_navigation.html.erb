@@ -13,14 +13,17 @@
       </a>
     </li>
   <% end %>
-  <% if plan.editable_by?(current_user) %>
-    <li role="presentation" class="<%= (isActivePage(share_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
+  <% if plan.users.include?(current_user) %>
+    <% if plan.editable_by?(current_user) %>
+      <li role="presentation" class="<%= (isActivePage(share_plan_path(plan)) ? 'active' : '') %>">
+        <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
+      </li>
+    <% end %>
+
+    <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
+      <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
     </li>
   <% end %>
-  <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
-    <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
-  </li>
 </ul>
 <div class="tab-content">
   <div id="content" role="tabpanel" class="tab-pane active">
