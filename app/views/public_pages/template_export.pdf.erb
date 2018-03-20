@@ -65,12 +65,12 @@
         <h2><%= section.title %></h2>
         <% section.questions.each do |question| %>
         <div class="question">
-          <p><%= raw question.text %></p>
+          <p><%= raw question.text.chomp.strip %></p>
           <% q_format = question.question_format %>
           <% if q_format.option_based? %>
             <ul>
             <% question.question_options.each do |option| %>
-              <li><%= option.text %></li>
+              <li><%= option.text.chomp.strip %></li>
             <% end %>
             </ul>
           <% end %>
@@ -78,7 +78,7 @@
         <div class="annotations">
           <% question.annotations.each do |annotation| %>
             <% unless annotation.text.chomp.strip.gsub(/<\/?p>/, '').gsub(/<br\s?\/>/, '').blank? %>
-              <p><i><%= annotation.type == 0 ? _('Example Answer') : _('Guidance') %></i>:</p>
+              <p><i><%= annotation.type == 'example_answer' ? _('Example Answer') : _('Guidance') %></i>:</p>
               <div style="margin-left: 15px;"><%= raw annotation.text.chomp.strip %></div>
             <% end %>
           <% end %>
