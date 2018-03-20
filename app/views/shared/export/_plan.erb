@@ -81,7 +81,7 @@
                 <% end %>
                 <p><%= raw ah['text'] %></p>
               <% else %>
-                <p><%= raw answer.text %></p>
+                <p><%= raw answer.text.chomp.strip %></p>
               <% end %>
             <% end %>
           </div>
