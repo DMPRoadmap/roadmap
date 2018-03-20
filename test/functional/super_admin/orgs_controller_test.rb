@@ -51,6 +51,7 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
   test 'super admin can create an org' do  
     params = {name: 'Test Org create', abbreviation: 'ABCD'}
     sign_in @super_admin
+    
     post super_admin_orgs_path, {org: params}
     assert_response :redirect
   end
