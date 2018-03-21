@@ -87,6 +87,18 @@ class Answer < ActiveRecord::Base
     return notes.select{ |n| n.archived.blank? }.sort!{ |x,y| y.updated_at <=> x.updated_at }
   end
 
+  ##
+  # Returns True if answer text is blank, false otherwise
+  # specificly we want to remove empty hml tags and check
+  #
+  # @return [Boolean] is the answer's text blank
+  def is_blank?
+    if self.text.present?
+      return self.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank?
+    end
+    # no text so blank
+    return True
+  end
 
   ##
   # Returns the parsed JSON hash for the current answer object
