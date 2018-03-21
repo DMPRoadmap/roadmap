@@ -50,8 +50,8 @@ class User < ActiveRecord::Base
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, -> (org_id) { 
-    joins(:perms).where("users.org_id = ? AND perms.name IN (?)", org_id,
-      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND users.active = ?", org_id,
+      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'], true)
   }
 
   scope :search, -> (term) {
@@ -66,6 +66,12 @@ class User < ActiveRecord::Base
   }
 
   after_update :when_org_changes
+
+  ##
+  # This method uses Devise's built-in handling for inactive users
+  def active_for_authentication?
+    super && self.active?
+  end
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #

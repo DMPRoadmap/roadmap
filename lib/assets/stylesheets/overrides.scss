@@ -49,6 +49,9 @@ thead th.table-scope {
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #CCC;
 }
+th.date-column {
+  min-width: 120px;
+}
 
 // Fix issues with dropdwon within tables being cut off
 .table-responsive > .table {
@@ -83,6 +86,12 @@ thead th.table-scope {
      tbody > tr > td { border: none; }
   }
 }
+
+/* MODAL DIALOG STYLING */
+.modal-dialog {
+  background-color: $white;
+}
+
 
 /* nav-tabs and nav-pills styling */
 .nav-tabs, .nav-pills {

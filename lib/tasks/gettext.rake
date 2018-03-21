@@ -1,6 +1,6 @@
 namespace :gettext do
   def files_to_translate
-    Dir.glob("{app,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}")
+    Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}")
   end
   
   desc 'Add the specified language to the database'
