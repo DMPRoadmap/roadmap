@@ -19,10 +19,12 @@
         <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
       </li>
     <% end %>
-
-    <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
-    </li>
+    <%# download should be available for any users that the plan is shared with but not reviewers %>
+    <% if !plan.reviewable_by?(current_user) %>
+      <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
+        <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 <div class="tab-content">
