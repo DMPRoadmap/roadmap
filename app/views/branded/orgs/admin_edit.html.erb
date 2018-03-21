@@ -1,0 +1,36 @@
+<div class="row org-admin">
+  <div class="col-md-12">
+    <h1><%= org.id.present? ? _('Organisation details') : _('New organisation') %></h1>
+    <% if current_user.can_super_admin? %>
+      <%= link_to _('View all organisations'), super_admin_orgs_path, class: 'btn btn-default pull-right' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row org-admin">
+  <div class="col-md-12">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="profile" class="active">
+        <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
+      </li>
+      <% if org.id.present? %>
+        <li role="feedback">
+          <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+        </li>
+      <% end %>
+    </ul>
+  
+    <div class="tab-content">
+      <div id="profile" role="tabpanel" class="tab-pane active px-2">
+        <%= render partial: 'orgs/profile_form', locals: local_assigns %>
+      </div>
+
+      <% if org.id.present? %>
+        <div id="feedback" role="tabpanel" class="tab-pane">
+          <%= render partial: 'orgs/feedback_form', locals: local_assigns %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

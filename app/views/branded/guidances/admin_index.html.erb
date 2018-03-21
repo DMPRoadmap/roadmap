@@ -1,0 +1,48 @@
+<div class="row org-admin">
+  <div class="col-md-12">
+    <h1><%= _('Guidance') %></h1>
+
+    <p class="text-justify">
+      <%= _("First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.") %>
+    </p>
+  </div>
+</div>
+
+<div class="row org-admin">
+  <div class="col-md-12">
+    <h2><%= _('Guidance group list') %></h2>
+  
+    <!-- List of guidance groups -->
+    <%= paginable_renderise(
+      partial: '/paginable/guidance_groups/index',
+      controller: 'paginable/guidance_groups',
+      action: 'index',
+      scope: @guidance_groups,
+      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
+    <div>
+      <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary"><%= _('Create a guidance group') %></a>
+    </div>
+
+    <h2><%= _('Guidance list') %></h2>
+
+    <p class="text-justify">
+      <%= _('You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each.') %>
+    </p>
+    <p class="text-justify">
+      <%= _('If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template.') %>
+    </p>
+
+    <!-- List of guidance -->
+    <%= paginable_renderise(
+        partial: '/paginable/guidances/index',
+        controller: 'paginable/guidances',
+        action: 'index',
+        scope: @guidances,
+        query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
+  
+    <div>
+      <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%= _('Create guidance') %></a>
+    </div>
+  </div>
+</div>
+
