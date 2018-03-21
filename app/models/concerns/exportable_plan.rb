@@ -56,15 +56,7 @@ module ExportablePlan
           phase.sections.each do |section|
             sctn = { title: section.title, number: section.number, questions: [] }
             section.questions.each do |question|
-              txt = []
-              if question.question_format.option_based?
-                opts = QuestionOption.where(question_id: question.id)
-                opts.each do |opt|
-                  txt << opt.text
-                end
-              else
-                txt << question.text
-              end
+              txt = question.text
               sctn[:questions] << { id: question.id, text: txt, format: question.question_format }
             end
             phs[:sections] << sctn
