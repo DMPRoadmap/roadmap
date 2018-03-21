@@ -60,7 +60,7 @@
             <% blank = answer.present? ? answer.is_blank? : true %>
             <% options = answer.present? ? answer.question_options : [] %>
             <%# case where question has not been answered sufficiently to display%>
-            <% if @show_unanswered && (answer.blank? || (options.blank? && blank)))%>
+            <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
               <p><%= _('Question not answered.') -%></p>
             <% else %>
               <%# case where Question has options %>

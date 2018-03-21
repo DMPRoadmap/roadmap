@@ -97,7 +97,7 @@ class Answer < ActiveRecord::Base
       return self.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank?
     end
     # no text so blank
-    return True
+    return true
   end
 
   ##
