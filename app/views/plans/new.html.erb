@@ -12,8 +12,10 @@
   <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
-      <h2 id="project-title"><%= _('What research project are you planning?') %></h2>
       <div class="form-group row">
+        <label id="project-title" class="h2-label control-label">
+          <%= _('What research project are you planning?') %>
+        </label>
         <div class="col-xs-6">
           <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
                 'data-toggle': 'tooltip',
@@ -26,8 +28,10 @@
       </div>
 
       <!-- Organisation selection -->
-      <h2 id="research-org"><%= _('Select the primary research organisation') %></h2>
       <div class="form-group row">
+        <label id="research-org" class="h2-label control-label">
+          <%= _('Select the primary research organisation') %>
+        </label>
         <div class="col-md-6">
           <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[org_name]',
@@ -48,8 +52,10 @@
       </div>
   
       <!-- Funder selection -->
-      <h2 id="funder-org"><%= _('Select the primary funding organisation') %></h2>
       <div class="form-group row">
+        <label id="funder-org" class="h2-label control-label">
+          <%= _('Select the primary funding organisation') %>
+        </label>
         <div class="col-xs-6">
           <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[funder_name]',
