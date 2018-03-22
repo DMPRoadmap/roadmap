@@ -2097,7 +2097,7 @@ msgid "Unable to download the DMP Template at this time."
 msgstr "Unable to download the template at this time."
 
 msgid "Unable to find a suitable template for the research organisation and funder you selected."
-msgstr "Unable to find a suitable template for the research organisation and funder you selected."
+msgstr "Unable to find a suitable template for the research organization and funder you selected."
 
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Unable to find plan id %{plan_id}"
