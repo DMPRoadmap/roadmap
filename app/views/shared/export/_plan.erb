@@ -19,7 +19,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
-    <%= render partial: '/shared/export/plan_styling', 
+    <%= render partial: '/shared/export/plan_styling',
                locals: {
                  font_face: font_face,
                  font_size: "#{font_size}pt",
@@ -44,25 +44,17 @@
         <% section[:questions].each do |question| %>
           <div class="question">
             <% if @show_sections_questions && !@public_plan %>
-              <%# text in this case is an array to accomodate for option_based %>
-              <% if question[:text].length > 1 %>
-                <ul>
-                  <% question[:text].each do |txt| %>
-                    <li><%= txt %></li>
-                  <% end %>
-                </ul>
-              <% else %>
-                <p><%= raw question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present? && question[:text][0].present? %></p>
-              <% end %>
+              <p><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present?%></p>
               <br>
             <% end %>
-
             <% answer = @plan.answer(question[:id], false) %>
-            <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank? : true %>
+            <% blank = answer.present? ? answer.is_blank? : true %>
             <% options = answer.present? ? answer.question_options : [] %>
-            <% if blank && @show_unanswered && options.blank? %>
+            <%# case where question has not been answered sufficiently to display%>
+            <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
               <p><%= _('Question not answered.') -%></p>
-            <% elsif !blank %>
+            <% else %>
+              <%# case where Question has options %>
               <% if options.present?%>
                 <ul>
                   <% options.each do |opt| %>
@@ -70,7 +62,8 @@
                   <% end %>
                 </ul>
               <% end %>
-              <% if question[:format].rda_metadata? %>
+              <%# case for RDA answer display %>
+              <% if question[:format].rda_metadata? && !blank %>
                 <% ah = answer.answer_hash %>
                 <% if ah['standards'].present? %>
                   <ul>
@@ -80,7 +73,8 @@
                   </ul>
                 <% end %>
                 <p><%= raw ah['text'] %></p>
-              <% else %>
+              <%# case for displaying comments OR text %>
+              <% elsif !blank %>
                 <p><%= raw answer.text %></p>
               <% end %>
             <% end %>
