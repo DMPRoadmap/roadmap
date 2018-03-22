@@ -25,20 +25,20 @@
     </div>
     <div class="panel-group" id="sections-accordion" role="tablist" aria-multiselectable="true">
     <% phase.sections.each do |section| %>
-      <% sectionid = section.id %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
              data-parent="sections-accordion" 
-             href="#collapse-<%= sectionid %>"
+             href="#collapse-<%= section.id %>"
              aria-expanded="false" 
-             aria-controls="collapse-<%= sectionid %>">
+             aria-controls="collapse-<%= section.id %>">
 
-          <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
+          <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
             <div class="panel-title pull-left">
               <%= section.title %> 
               <% if plan.present? %>
-                  <span class="section-progress-<%= sectionid %>">
-                    <%= render :partial => "/sections/progress", locals: { section: section, plan: plan } %>
+                  <span class="section-progress-<%= section.id %>">
+                    <%= render partial: "/sections/progress", 
+                               locals: { section: section, plan: plan } %>
                   </span>
               <% end %>
             </div>
@@ -46,37 +46,13 @@
             <div class="clearfix"></div>
           </div>
         </div>
-        <div id="collapse-<%= sectionid %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= sectionid %>">
+        <div id="collapse-<%= section.id %>" 
+             class="panel-collapse collapse" role="tabpanel" 
+             aria-labelledby="heading-<%= section.id %>" 
+             data-target="<%= edit_plan_phase_section_path(plan.id, phase.id, section.id) %>">
           <div class="panel-body"><!-- accordion body -->
             <div class="section-description"><%= raw section.description %></div>
-              <!-- the section body -->
-              <% section.questions.each_with_index do |question, i| %>
-                <% # Load the answer or create a new one
-                  answer = answers[question.id] if plan.present?
-                  if answer.blank?
-                    answer = Answer.new({ plan: plan, question: question })
-                  end
-                %>
-                <div class="row">
-                  <div class="col-md-8">
-                    <!-- Answer Section -->
-                    <div class="question-form">
-                      <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
-                        <%= render(partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: readonly, locking: false }) %>
-                      </div>
-                      <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
-                        <%= render(partial: '/answers/status', locals: { answer: answer }) %>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <!-- Guidances and notes partial view -->
-                    <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups } %>
-                  </div>
-                </div>
-                <%= raw('<hr />') if i != section.questions.length - 1 %>
-              <% end %> <!-- section.questions.each do -->
+              
             </div> <!-- panel-body -->
           </div> <!-- panel-collapse -->
         </div> <!-- panel panel-default -->

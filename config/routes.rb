@@ -71,6 +71,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     member do
       get 'admin_grant_permissions'
       put 'admin_update_permissions'
+      put 'activate'
     end
   end
 
@@ -188,8 +189,13 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'status'
           post 'update'
         end
-      end
 
+        resources :sections do
+          member do
+            get 'edit'
+          end
+        end
+      end
 
       member do
         get 'status'
@@ -313,5 +319,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     namespace :super_admin do
       resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
+      resources :users, only: [:edit, :update]
     end
 end

@@ -15,6 +15,10 @@
     <p><%= _("Template: ") + @hash[:template] + @hash[:customizer] %></p><br>
   <% end %>
 
+  <% if @plan.principal_investigator_identifier.present? %>
+    <p><%= _("ORCID iD: ") + @plan.principal_investigator_identifier %></p> <br>
+  <% end %>
+
   <% if @plan.grant_number.present? %>
     <p><%= _("Grant number: ") + @plan.grant_number %></p> <br>
   <% end %>
