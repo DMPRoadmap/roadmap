@@ -1,0 +1,29 @@
+<!-- locals: phase, section, answers, plan, question_guidance, guidance_groups, readonly -->
+<!-- the section body -->
+<% section.questions.each_with_index do |question, i| %>
+  <% # Load the answer or create a new one
+    answer = answers[question.id] if plan.present?
+    if answer.blank?
+      answer = Answer.new({ plan: plan, question: question })
+    end
+  %>
+  <div class="row">
+    <div class="col-md-8">
+      <!-- Answer Section -->
+      <div class="question-form">
+        <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
+        <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
+          <%= render(partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: readonly, locking: false }) %>
+        </div>
+        <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
+          <%= render(partial: '/answers/status', locals: { answer: answer }) %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <!-- Guidances and notes partial view -->
+      <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups } %>
+    </div>
+  </div>
+  <%= raw('<hr />') if i != section.questions.length - 1 %>
+<% end %> <!-- section.questions.each do -->

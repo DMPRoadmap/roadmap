@@ -89,4 +89,33 @@ class SectionsController < ApplicationController
     end
   end
 
+  def edit
+    plan = Plan.find(params[:plan_id])
+    authorize plan
+    
+    section = Section.includes(:phase, { questions: :themes }).find(params[:id])
+    answers = plan.answers.where(question_id: section.questions.collect(&:id))
+    
+    # Refactor to only load what we need now that we're focused in on an 
+    # individual section
+    guidance_groups_ids = plan.guidance_groups.collect(&:id)
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    
+    answers = answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+    readonly = !plan.editable_by?(current_user.id)
+    
+    render json: {
+      "section" => {
+        "id" => section.id,
+        "html" => render_to_string(
+          partial: '/sections/edit_section_answers', 
+          locals: { plan: plan, phase: section.phase, section: section,
+                    question_guidance: plan.guidance_by_question_as_hash,
+                    guidance_groups: guidance_groups,
+                    answers: answers, readonly: readonly }, 
+          formats: [:html])
+      }
+    }.to_json
+  end
+
 end
