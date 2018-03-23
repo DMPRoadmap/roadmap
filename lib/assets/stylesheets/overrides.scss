@@ -204,6 +204,15 @@ span.sublist {
 .fa-sort, .fa-sort-asc, .fa-sort-desc {
   color: $white;
 }
+p.spinner {
+  width: 100%;
+  text-align: center;
+
+  .fa-spinner {
+    color: $highlight-background-color;
+    font-size: 4rem;
+  }
+}
 
 /* RADIO BUTTONS */
 .radio label {
@@ -537,4 +546,9 @@ $tooltip-background: $grey;
 .remove-standard {
   border: none;
   background: none;
+}
+
+// WRITE PLAN PAGE AJAX LOADED SECTION CONTENT
+#sections-accordion .panel-collapse {
+  padding: 10px 15px 20px 15px;
 }
