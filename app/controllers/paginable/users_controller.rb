@@ -8,6 +8,6 @@ class Paginable::UsersController < ApplicationController
     else
       scope = current_user.org.users.includes(:roles)
     end
-    paginable_renderise(partial: 'index', scope: scope)
+    paginable_renderise(partial: 'index', scope: scope, view_all: false)
   end
 end
