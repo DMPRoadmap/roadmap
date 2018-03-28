@@ -1,7 +1,7 @@
 <%= f.label :org_name, _('Organisation'), class: 'control-label' %>
 <%= render partial: "shared/accessible_combobox",
-             locals: {name: "user[org_name]",
-                      id: "user_org_name",
+             locals: {name: "#{f.object_name}[org_name]",
+                      id: "#{f.object_name}_org_name",
                       default_selection: default_org,
                       models: orgs,
                       attribute: 'name'} %>

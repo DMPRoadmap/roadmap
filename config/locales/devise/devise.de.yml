@@ -10,7 +10,7 @@ de:
       send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit einer Anleitung zur Bestätigung Ihres Zugangs."
     failure:
       already_authenticated: "Sie sind bereits angemeldet."
-      inactive: "Ihr Zugang ist noch nicht aktiviert worden."
+      inactive: "Ihr Konto ist nicht mehr aktiv. Bitte kontaktieren Sie uns, um Ihr Konto zu reaktivieren."
       invalid: "E-Mail-Adresse oder Passwort ungültig."
       invalid_token: "Ungültiges Authentifizierungs-Token."
       locked: "Ihr Zugang ist gesperrt."

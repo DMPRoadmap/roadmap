@@ -110,7 +110,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     put plan_path(@plan), {plan: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
-    assert_redirected_to plan_url(@plan)
+    assert_redirected_to overview_plan_path(@plan)
     assert assigns(:plan)
     assert_equal 'Testing UPDATE', @plan.reload.title, "expected the record to have been updated"
 
@@ -200,7 +200,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     put plan_path(@plan), {plan: {id: @plan.id}, guidance_group_ids: ids}
     assert_response :redirect
-    assert_redirected_to plan_path(@plan)
+    assert_redirected_to overview_plan_path(@plan)
 
     @plan.reload
     ggs = @plan.guidance_groups.ids
