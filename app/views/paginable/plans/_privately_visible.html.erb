@@ -55,15 +55,19 @@
                     <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
                     <% if plan.editable_by?(current_user.id) then %>
                       <li><%= link_to _('Edit'), plan_path(plan) %></li>
-                      <li><%= link_to _('Share'), share_plan_path(plan) %></li>
+                      
+                      <% if plan.administerable_by?(current_user.id) %>
+                        <li><%= link_to _('Share'), share_plan_path(plan) %></li>
+                      <% end %>
 
                       <li><%= link_to _('Download'), download_plan_path(plan) %></li>
-
                       <li><%= link_to(_('Make a copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>
                     <% else %>
                       <li><%= link_to _('View'), plan_path(plan) %></li>
-
-                      <li><%= link_to _('Download'), download_plan_path(plan) %></li>
+                      
+                      <% if !plan.reviewable_by?(current_user.id) %>
+                        <li><%= link_to _('Download'), download_plan_path(plan) %></li>
+                      <% end %>
                     <% end %>
                     <% role = plan.roles.where(user_id: current_user.id).first %>
                     <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
