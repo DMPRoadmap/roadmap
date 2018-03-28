@@ -61,7 +61,7 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     refute_empty(css_select('a[href$="1?sort_field=email&sort_direction=ASC"]'))
     # Fails if sort link for last_sign_in_at does not exist
     refute_empty(css_select('a[href$="1?sort_field=last_sign_in_at&sort_direction=ASC"]'))
-
+    # Super admins are not able to see View All link
     link = css_select('a[href$="/ALL"]').first
     assert_nil(link)
 
