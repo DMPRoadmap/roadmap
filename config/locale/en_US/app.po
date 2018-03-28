@@ -1189,7 +1189,7 @@ msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Plan Visibility Changed: %{plan_title}"
 
 msgid "DMPRoadmap"
-msgid "DMPTool"
+msgstr "DMPTool"
 
 msgid "DMPTool"
 msgstr "DMPTool"
