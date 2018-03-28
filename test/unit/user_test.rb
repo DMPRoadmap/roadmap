@@ -139,6 +139,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
+  test "new user is active by default" do
+    assert @user.active?
+  end
+
+  # ---------------------------------------------------
   test "can only have one identifier per IdentifierScheme" do
     @scheme = IdentifierScheme.first
 

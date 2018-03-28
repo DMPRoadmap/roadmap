@@ -52,6 +52,7 @@ class UsersController < ApplicationController
     authorize @user
     perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
     perms = Perm.where( id: perms_ids)
+    privileges_changed = false
     current_user.perms.each do |perm|
       if @user.perms.include? perm
         if ! perms.include? perm
@@ -59,20 +60,24 @@ class UsersController < ApplicationController
           if perm.id == Perm.use_api.id
             @user.remove_token!
           end
+          privileges_changed = true
         end
       else
         if perms.include? perm
           @user.perms << perm
           if perm.id == Perm.use_api.id
             @user.keep_or_generate_token!
+            privileges_changed = true
           end
         end
       end
     end
 
     if @user.save!
-      deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
-        UserMailer.admin_privileges(r).deliver_now
+      if privileges_changed
+        deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
+          UserMailer.admin_privileges(r).deliver_now
+        end
       end
       render(json: {
         code: 1,
@@ -120,6 +125,29 @@ class UsersController < ApplicationController
       end
     else
       redirect_to request.referer, alert: _('Unknown organisation.')
+    end
+  end
+  
+  # PUT /users/:id/activate
+  # -----------------------------------------------------
+  def activate
+    authorize current_user
+
+    user = User.find(params[:id])
+    if user.present?
+      begin
+        user.active = !user.active
+        user.save!
+        render json: {
+          code: 1, 
+          msg: _('Successfully %{action} %{username}\'s account.') % { action: user.active ? _('activated') : _('deactivated'), username: user.name(false) }
+        }
+      rescue Exception
+        render json: { 
+          code: 0, 
+          msg: _('Unable to %{action} %{username}') % { action: user.active ? _('activate') : _('deactivate'), username: user.name(false) }
+        }
+      end
     end
   end
   
