@@ -1,0 +1,23 @@
+add_organisations:
+  name: 'add_organisations'
+
+change_org_affiliation:
+  name: 'change_org_affiliation'
+
+grant_permissions:
+  name: 'grant_permissions'
+
+modify_templates:
+  name: 'modify_templates'
+
+modify_guidance:
+  name: 'modify_guidance'
+
+use_api:
+  name: 'use_api'
+
+change_org_details:
+  name: 'change_org_details'
+
+grant_api_to_orgs:
+  name: 'grant_api_to_orgs'

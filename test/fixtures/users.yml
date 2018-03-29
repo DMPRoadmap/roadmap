@@ -1,0 +1,7 @@
+super_admin:
+   email: "super.admin@example.com"
+   firstname: "Super"
+   surname: "Admin"
+   perms: add_organisations, change_org_affiliation, grant_permissions, modify_templates, modify_guidance, use_api, change_org_details, grant_api_to_orgs
+   accept_terms: true
+   api_token: 'abcd1234'
