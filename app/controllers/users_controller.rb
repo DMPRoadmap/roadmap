@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def admin_grant_permissions
     user = User.find(params[:id])
     authorize user
-    
+
     # Super admin can grant any Perm, org admins can only grant Perms they
     # themselves have access to
     if current_user.can_super_admin?
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
     render json: {
       "user" => {
         "id" => user.id,
-        "html" => render_to_string(partial: 'users/admin_grant_permissions', 
-                                   locals: { user: user, perms: perms }, 
+        "html" => render_to_string(partial: 'users/admin_grant_permissions',
+                                   locals: { user: user, perms: perms },
                                    formats: [:html])
       }
     }.to_json
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
       redirect_to request.referer, alert: _('Unknown organisation.')
     end
   end
-  
+
   # PUT /users/:id/activate
   # -----------------------------------------------------
   def activate
@@ -139,23 +139,31 @@ class UsersController < ApplicationController
         user.active = !user.active
         user.save!
         render json: {
-          code: 1, 
+          code: 1,
           msg: _('Successfully %{action} %{username}\'s account.') % { action: user.active ? _('activated') : _('deactivated'), username: user.name(false) }
         }
       rescue Exception
-        render json: { 
-          code: 0, 
+        render json: {
+          code: 0,
           msg: _('Unable to %{action} %{username}') % { action: user.active ? _('activate') : _('deactivate'), username: user.name(false) }
         }
       end
     end
   end
-  
+
+  # POST /users/acknowledge_notification
+  def acknowledge_notification
+    authorize current_user
+    @notification = Notification.find(params[:notification_id])
+    current_user.acknowledge(@notification)
+    render nothing: true
+  end
+
   private
   def org_swap_params
     params.require(:user).permit(:org_id, :org_name)
   end
-  
+
   ##
   # html forms return our boolean values as strings, this converts them to true/false
   def booleanize_hash(node)
