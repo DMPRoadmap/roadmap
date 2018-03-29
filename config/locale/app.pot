@@ -1609,6 +1609,9 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
+msgid "Private: visible to me, specified collaborators and administrators at my organisation"
+msgstr ""
+
 msgid "Private: restricted to me and my collaborators"
 msgstr ""
 
