@@ -14,8 +14,8 @@
         partial: '/paginable/users/index',
         controller: 'paginable/users',
         action: 'index', 
-        scope: @users, 
-        locals: { page: 1 }) %>
+        scope: @users,
+        view_all: !current_user.can_super_admin?) %>
     </div>
   </div>
 </div>

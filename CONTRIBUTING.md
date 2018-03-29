@@ -5,7 +5,7 @@ These guidelines are an attempt to ensure that we are able to provide the commun
 
 * If you would like to contribute to the project, please follow these steps to submit a contribution:
   * Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
-  * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`development`** branch
+  * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`contributions`** branch
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
   * Make your changes in the new branch. When you have finished your work (e.g. 3 commits), squash all the commits on the branch that you are working on:
     ```bash
@@ -28,15 +28,15 @@ These guidelines are an attempt to ensure that we are able to provide the commun
     # Rebase 6c51182..59df9aa onto 6c51182
     ```
     Then, change `pick` to `squash` for the 2nd and 3rd commits (to squash them into the single first commit).
-  * To make sure that your version of the **`development`** branch is still up to date with this project, switch to it and synchronise:
+  * To make sure that your version of the **`contributions`** branch is still up to date with this project, switch to it and synchronise:
     ```bash
-    git checkout development
-    git pull origin development
+    git checkout contributions
+    git pull origin contributions
     ```
   * Switch back to your feature branch and rebase:
     ```bash
     git checkout <feature branch>
-    git rebase development
+    git rebase contributions
     ```
   * Fix merge conflicts (if any encountered) and then push to your fork:
     ```bash
@@ -55,7 +55,7 @@ Table of contents:
 ## GitHub Workflow
 A contribution consists of any work that is voluntarily submitted to the project. This includes bug fixes, enhancements and documentation that is intended as an improvement to the DMP Roadmap system.
 
-Any individual with a GitHub account may propose a Contribution by submitting a Pull Request (PR) to this project's **`contributions`** branch. The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the development roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
+Any individual with a GitHub account may propose a Contribution by submitting a Pull Request (PR) to this project's **`contributions`** branch. The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the project roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
 
 ![GitHub Workflow ](https://github.com/DMPRoadmap/roadmap/blob/master/public/github-contributor-infographic-final.png)
 
