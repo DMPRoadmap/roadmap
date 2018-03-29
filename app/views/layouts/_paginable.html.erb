@@ -30,22 +30,22 @@
             <% if searchable? %>
                 <ul class="list-inline">
                 <% if paginable? %>
-                  <li><%= link_to(_('View all search results'), paginable_base_url_with_query_params(page: 'ALL'), { 'data-remote': true }) %></li>
+                  <li><%= link_to(_('View all search results'), paginable_base_url_with_query_params(page: 'ALL'), { 'data-remote': true, class: 'paginable-action' }) %></li>
                 <% else %>
-                  <%= link_to(_('View less search results'), paginable_base_url_with_query_params(page: 1), { 'data-remote': true }) %>
+                  <%= link_to(_('View less search results'), paginable_base_url_with_query_params(page: 1), { 'data-remote': true, class: 'paginable-action' }) %>
                 <% end %>
-                  <li><%= link_to(_('Clear search results'), paginable_base_url_with_query_params(page: 1, search: nil), { 'data-remote': true }) %></li>
+                  <li><%= link_to(_('Clear search results'), paginable_base_url_with_query_params(page: 1, search: nil), { 'data-remote': true, class: 'paginable-action' }) %></li>
                 </ul>
             <% else %>
               <% if paginable? %>
-                <%= link_to(_('View all'), paginable_base_url_with_query_params(page: 'ALL'), { 'data-remote': true }) if @paginable_options[:view_all] %>
+                <%= link_to(_('View all'), paginable_base_url_with_query_params(page: 'ALL'), { 'data-remote': true, class: 'paginable-action' }) if @paginable_options[:view_all] %>
               <% else %>
-                <%= link_to(_('View less'), paginable_base_url_with_query_params(page: 1), { 'data-remote': true }) %>
+                <%= link_to(_('View less'), paginable_base_url_with_query_params(page: 1), { 'data-remote': true, class: 'paginable-action' }) %>
               <% end %>
             <% end %>
           <% else %>
             <% if searchable? %>
-              <%= link_to(_('Clear search results'), paginable_base_url_with_query_params(page: 1, search: nil), { 'data-remote': true }) %>
+              <%= link_to(_('Clear search results'), paginable_base_url_with_query_params(page: 1, search: nil), { 'data-remote': true, class: 'paginable-action' }) %>
             <% end %>
           <% end %>
         </div>
