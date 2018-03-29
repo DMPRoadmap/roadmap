@@ -14,7 +14,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def share?
-    @plan.editable_by?(@user.id)
+    @plan.editable_by?(@user.id) 
   end
 
   def export?

@@ -91,15 +91,15 @@ class RegistrationsController < Devise::RegistrationsController
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       
-      # If the user left the org box blank default it to the 'Other' Org
-      if params[:user][:org_id].blank?
-        other = Org.find_by(is_other: true)
-        params[:user][:org_id] = other.id if other.present?
-      end
-      
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
       else
+        # If the user left the org box blank default it to the 'Other' Org
+        if params[:user][:org_id].blank?
+          other = Org.find_by(is_other: true)
+          params[:user][:org_id] = other.id if other.present?
+        end
+        
         do_update(require_password=needs_password?(current_user, params))
       end
     else

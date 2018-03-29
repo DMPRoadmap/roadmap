@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313120831) do
+ActiveRecord::Schema.define(version: 20180315161757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -415,6 +415,7 @@ ActiveRecord::Schema.define(version: 20180313120831) do
     t.string   "recovery_email"
     t.string   "ldap_password"
     t.string   "ldap_username"
+    t.boolean  "active",                 default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
