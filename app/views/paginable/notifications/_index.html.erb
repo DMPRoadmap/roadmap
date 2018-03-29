@@ -1,0 +1,20 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= _('Title') %>&nbsp;<%= paginable_sort_link('title') %></th>
+      <th><%= _('Level') %>&nbsp;<%= paginable_sort_link('level') %></th>
+      <th><%= _('Start') %>&nbsp;<%= paginable_sort_link('starts_at') %></th>
+      <th><%= _('Expiration') %>&nbsp;<%= paginable_sort_link('expires_at') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.each do |notification| %>
+      <tr>
+        <td><%= link_to notification.title, edit_super_admin_notification_path(notification) %></td>
+        <td><%= notification.level %></td>
+        <td><%= notification.starts_at %></td>
+        <td><%= notification.expires_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
