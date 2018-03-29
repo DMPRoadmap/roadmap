@@ -280,7 +280,7 @@ class Plan < ActiveRecord::Base
   #     }
   #   }
   # }
-  def guidance_by_question_as_hash
+  def guidance_by_question_as_hash(section_id)
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
     guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?)", 
@@ -293,7 +293,7 @@ class Plan < ActiveRecord::Base
     # }
     question_themes = {}
     themes_used = []
-    self.questions.joins(:themes).pluck('questions.id', 'themes.title').each do |qt|
+    self.questions.joins(:themes).where(section_id: section_id).pluck('questions.id', 'themes.title').each do |qt|
       themes_used << qt[1] unless themes_used.include?(qt[1])
       question_themes[qt[0]] = [] unless question_themes[qt[0]].present?
       question_themes[qt[0]] << qt[1] unless question_themes[qt[0]].include?(qt[1])
@@ -352,7 +352,7 @@ class Plan < ActiveRecord::Base
       question_guidance[question] = ggs
     end
     
-    question_guidance
+    [guidance_groups, question_guidance]
   end
 
   ##

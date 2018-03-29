@@ -89,4 +89,32 @@ class SectionsController < ApplicationController
     end
   end
 
+  # GET /plans/[:plan_id]/phases/[:phase_id]/sections/[:id]/edit
+  # -----------------------------------------------------------------
+  def edit
+    plan = Plan.find(params[:plan_id])
+    authorize plan
+    
+    section = Section.includes(:phase, { questions: :themes }).find(params[:id])
+    answers = plan.answers.where(question_id: section.questions.collect(&:id))
+        
+    guidance_groups, guidance_hash = plan.guidance_by_question_as_hash(section.id)
+    
+    answers = answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+    readonly = !plan.editable_by?(current_user.id)
+    
+    render json: {
+      "section" => {
+        "id" => section.id,
+        "html" => render_to_string(
+          partial: '/sections/edit_section_answers', 
+          locals: { plan: plan, phase: section.phase, section: section,
+                    question_guidance: guidance_hash,
+                    guidance_groups: guidance_groups,
+                    answers: answers, readonly: readonly }, 
+          formats: [:html])
+      }
+    }.to_json
+  end
+
 end

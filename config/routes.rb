@@ -189,8 +189,13 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'status'
           post 'update'
         end
-      end
 
+        resources :sections do
+          member do
+            get 'edit'
+          end
+        end
+      end
 
       member do
         get 'status'
