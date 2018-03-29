@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <span class="last">
-  <%= link_to_unless current_page.last?, _('Last'), url, remote: remote %>
+  <%= link_to_unless current_page.last?, _('Last'), url, remote: remote, class: 'paginable-action' %>
 </span>
