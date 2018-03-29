@@ -164,7 +164,7 @@ class PlansController < ApplicationController
         @plan.save
       
         if @plan.update_attributes(attrs)
-          format.html { redirect_to @plan, :editing => false, notice: success_message(_('plan'), _('saved')) }
+          format.html { redirect_to overview_plan_path(@plan), notice: success_message(_('plan'), _('saved')) }
           format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
         else
           flash[:alert] = failed_update_error(@plan, _('plan'))
