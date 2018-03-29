@@ -271,6 +271,10 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :themes, only: [] do
         get 'index/:page', action: :index, on: :collection, as: :index
       end
+      # Paginable actions for notifications
+      resources :notifications, only: [] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
       # Paginable actions for templates
       resources :templates, only: [] do
         get 'all/:page', action: :all, on: :collection, as: :all
@@ -315,5 +319,8 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :users, only: [:edit, :update]
+      resources :notifications do
+          post '/acknowledge', to: 'notifications#acknowledge'
+      end
     end
 end

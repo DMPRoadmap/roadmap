@@ -1,0 +1,71 @@
+require 'test_helper'
+module SuperAdmin
+  class NotificationsControllerTest < ActionController::TestCase
+    fixtures :notifications, :notification_types, :users, :perms
+    self.use_instantiated_fixtures = true
+    include Devise::Test::ControllerHelpers
+
+    setup do
+      sign_in @super_admin
+      @notification = @valid
+    end
+
+    test 'should get index' do
+      get :index
+      assert_response :success
+      assert_not_nil assigns(:notifications)
+    end
+
+    test 'should get new' do
+      get :new
+      assert_response :success
+    end
+
+    test 'should create notification' do
+      assert_difference('Notification.count') do
+        post :create, notification: {
+          notification_type_id: @notification.notification_type_id,
+          title: @notification.title,
+          level: @notification.level,
+          body: @notification.body,
+          dismissable: @notification.dismissable,
+          starts_at: @notification.starts_at,
+          expires_at: @notification.expires_at
+        }
+      end
+
+      assert_redirected_to super_admin_notifications_url
+    end
+
+    # test 'should show notification' do
+    #   get :show, id: @notification
+    #   assert_response :success
+    # end
+
+    test 'should get edit' do
+      get :edit, id: @notification
+      assert_response :success
+    end
+
+    test 'should update notification' do
+      patch :update, id: @notification, notification: {
+        notification_type_id: @notification.notification_type_id,
+        title: @notification.title,
+        level: @notification.level,
+        body: @notification.body,
+        dismissable: @notification.dismissable,
+        starts_at: @notification.starts_at,
+        expires_at: @notification.expires_at
+      }
+      assert_redirected_to super_admin_notifications_url
+    end
+
+    test 'should destroy notification' do
+      assert_difference('Notification.count', -1) do
+        delete :destroy, id: @notification
+      end
+
+      assert_redirected_to super_admin_notifications_url
+    end
+  end
+end

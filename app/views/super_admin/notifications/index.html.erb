@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2><%= _('Notifications') %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="pull-right">
+      <%= link_to _('+ Add New Notification'), new_super_admin_notification_path, class: 'btn btn-default', role: 'button' %>
+    </div>
+    <div class="table-responsive">
+      <%= paginable_renderise(
+        partial: '/paginable/notifications/index',
+        controller: 'paginable/notifications',
+        action: 'index',
+        scope: notifications,
+        query_params: { sort_field: 'notifications.starts_at', sort_direction: 'desc' })
+      %>
+    </div>
+  </div>
+</div>
