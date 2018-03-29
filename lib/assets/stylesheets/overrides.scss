@@ -9,6 +9,11 @@ $gold: #c09853;
 $highlight-color: $black;
 $highlight-background-color: #F36F24;
 
+/**** assign the red color to text ****/
+.red {
+  color: $red;
+}
+
 /**** font configuration ****/
 @font-face {
   font-family: 'GillSansLight';
@@ -49,6 +54,9 @@ thead th.table-scope {
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #CCC;
 }
+th.date-column {
+  min-width: 120px;
+}
 
 // Fix issues with dropdwon within tables being cut off
 .table-responsive > .table {
@@ -83,6 +91,12 @@ thead th.table-scope {
      tbody > tr > td { border: none; }
   }
 }
+
+/* MODAL DIALOG STYLING */
+.modal-dialog {
+  background-color: $white;
+}
+
 
 /* nav-tabs and nav-pills styling */
 .nav-tabs, .nav-pills {
@@ -468,15 +482,24 @@ $tooltip-background: $grey;
 }
 
 /* Plan creation */
-.create-plan-or {
-  padding: 5px 0 0 15px;
-}
-.create-plan-checkbox {
-  margin-left: -40px;
-  margin-top: -5px;
-}
-.create-plan-mock {
-  margin-left: -40px;
+#new_plan {
+  .create-plan-or {
+    padding: 5px 0 0 15px;
+  }
+  .create-plan-checkbox {
+    margin-left: -40px;
+    margin-top: -5px;
+  }
+  .create-plan-mock {
+    margin-left: -40px;
+  }
+  .h2-label {
+    font-size: 30px;
+    font-weight: normal;
+  }
+  .red {
+    margin-left: 15px;
+  }
 }
 
 /* Sharp edges */

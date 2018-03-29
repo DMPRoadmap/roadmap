@@ -10,30 +10,48 @@ module Paginable
     # query_params {Hash} - A hash of query parameters used to merge with params object from the controller for which this concern is included
     # scope {ActiveRecord::Relation} - Represents scope variable
     # locals {Hash} - A hash objects with any additional local variables to be passed to the partial view
-    def paginable_renderise(partial: nil, controller: params[:controller], action: params[:action], path_params: {}, query_params: {}, scope: nil, locals: {})
-      raise ArgumentError, 'scope should be an ActiveRecord::Relation object' unless scope.is_a?(ActiveRecord::Relation)
-      raise ArgumentError, 'path_params should be a Hash object' unless path_params.is_a?(Hash)
-      raise ArgumentError, 'query_params should be a Hash object' unless query_params.is_a?(Hash) 
-      raise ArgumentError, 'locals should be a Hash object' unless locals.is_a?(Hash)
-      @paginable_controller = controller
-      @paginable_action = action
-      @paginable_path_params = path_params
-      merge_query_params(query_params)
-      refined_scope = refine_query(scope)
-      render(layout: "/layouts/paginable", partial: partial, locals: { 
-        controller: controller,
-        action: action,
-        paginable: refined_scope.respond_to?(:total_pages), 
-        scope: refined_scope }.merge(locals))
+    def paginable_renderise(partial: nil, controller: nil, action: nil, path_params: {}, query_params: {}, scope: nil, locals: {}, **options)
+      raise ArgumentError, _('scope should be an ActiveRecord::Relation object') unless scope.is_a?(ActiveRecord::Relation)
+      raise ArgumentError, _('path_params should be a Hash object') unless path_params.is_a?(Hash)
+      raise ArgumentError, _('query_params should be a Hash object') unless query_params.is_a?(Hash) 
+      raise ArgumentError, _('locals should be a Hash object') unless locals.is_a?(Hash)
+
+      # Default options
+      @paginable_options = {}.merge(options)
+      @paginable_options[:view_all] = options.fetch(:view_all, true)
+      # Assignment for paginable_params based on arguments passed to the method
+      @paginable_params = params.symbolize_keys
+      @paginable_params[:controller] = controller if controller
+      @paginable_params[:action] = action if action
+      @paginable_params = query_params.symbolize_keys.merge(@paginable_params) # if duplicate keys, those from @paginable_params take precedence
+      # Additional path_params passed to this function got special treatment (e.g. it is taking into account when building base_url)
+      @paginable_path_params = path_params.symbolize_keys
+
+      if @paginable_params[:page] == 'ALL' && @paginable_params[:search].blank? && @paginable_options[:view_all] == false
+        render(status: :forbidden, html: _('Restricted access to View All the records'))
+      else
+        @refined_scope = refine_query(scope)
+        render(layout: "/layouts/paginable",
+          partial: partial,
+          locals: locals.merge({
+            scope: @refined_scope,
+            search_term: @paginable_params[:search] }))
+      end
     end
     # Returns the base url of the paginable route for a given page passed
     def paginable_base_url(page = 1)
-      options = { controller: @paginable_controller || params[:controller],
-        action: @paginable_action || params[:action], page: page }
-      if @paginable_path_params.present?
-        options = @paginable_path_params.merge(options)
+      return url_for(@paginable_path_params.merge({ controller: @paginable_params[:controller],
+        action: @paginable_params[:action], page: page }))
+    end
+    # Returns the base url of the paginable router for a given page passed together with its query_params.
+    # It is used to retain context, i.e. search, sort_field, sort_direction, etc
+    def paginable_base_url_with_query_params(page: 1, **stringify_query_params_options)
+      base_url = paginable_base_url(page)
+      stringified_query_params = stringify_query_params(stringify_query_params_options)
+      if stringified_query_params.present?
+        return "#{base_url}?#{stringified_query_params}"
       end
-      return url_for(options)
+      return base_url
     end
     # Generates an HTML link to sort given a sort field.
     # sort_field {String} - Represents the column name for a table
@@ -42,76 +60,71 @@ module Paginable
     end
     # Determines whether or not the latest request included the search functionality
     def searchable?
-      return params[:search].present?
+      return @paginable_params[:search].present?
     end
-    # Generates an HTML link with search functionality (if latest request included the search functionality)
-    # text {String} - Represents the text for the searchable link
-    # page {String | Fixnum } - Represents the page to request for a search term
-    def paginable_search_link(text = _('link name'), page = 1)
-      url = paginable_base_url(page)
-      url+= "?search=#{params[:search]}" if searchable?
-      return link_to(text, url, 'data-remote': true)
+    # Determines whether or not the scoped query is paginated or not
+    def paginable?
+      return @refined_scope.respond_to?(:total_pages)
     end
   end
   private
-    # Attemps to merge query_params into params hash unless a key is already present at params
-    def merge_query_params(query_params = {})
-      query_params.each_pair.reduce(params) do |m, o|
-        key = o[0].to_sym
-        if m[key].nil?
-          m[key] = o[1].to_s
-        end
-        m 
-      end
-    end
     # Returns the upcase string (e.g ASC or DESC) if sort_direction param is present in any of the forms 'asc', 'desc', 'ASC', 'DESC'
-    # otherwise returns nil
-    def sort_direction
-      if params[:sort_direction].present?
-        directions = ['asc', 'desc', 'ASC', 'DESC']
-        return directions.include?(params[:sort_direction]) ? params[:sort_direction].upcase : 'ASC'
-      end
-      return nil
+    # otherwise returns ASC
+    def upcasing_sort_direction(direction = @paginable_params[:sort_direction])
+      directions = ['asc', 'desc', 'ASC', 'DESC']
+      return directions.include?(direction) ? direction.upcase : 'ASC'
     end
     # Returns DESC when ASC is passed and vice versa, otherwise nil
-    def swap_sort_direction(direction)
-      return 'DESC' if direction == 'ASC'
-      return 'ASC' if direction == 'DESC'
+    def swap_sort_direction(direction = @paginable_params[:sort_direction])
+      direction_upcased = upcasing_sort_direction(direction)
+      return 'DESC' if direction_upcased == 'ASC'
+      return 'ASC' if direction_upcased == 'DESC'
     end
     # Refine a scope passed to this concern if any of the params (search, sort_field or page) are present
     def refine_query(scope)
-      scope = scope.search(params[:search]) if params[:search].present? # Can raise NoMethodError if the scope does not define a search method
-      if params[:sort_field].present?
-        direction = sort_direction
-        scope = direction.present? ? scope.order("#{params[:sort_field]} #{direction}") : scope.order("#{params[:sort_field]}") # Can raise ActiveRecord::StatementInvalid (e.g. column does not exist, ambiguity on column, etc)
+      scope = scope.search(@paginable_params[:search]) if @paginable_params[:search].present? # Can raise NoMethodError if the scope does not define a search method
+      if @paginable_params[:sort_field].present?
+        scope = scope.order("#{@paginable_params[:sort_field]} #{upcasing_sort_direction}") # Can raise ActiveRecord::StatementInvalid (e.g. column does not exist, ambiguity on column, etc)
       end
-      if params[:page] != 'ALL'
-        scope = scope.page(params[:page]) # Can raise error if page is not a number
+      if @paginable_params[:page] != 'ALL'
+        scope = scope.page(@paginable_params[:page]) # Can raise error if page is not a number
       end
       return scope
     end
     # Returns the sort link name for a given sort_field. The link name includes html prevented of being escaped
     def sort_link_name(sort_field)
       className = 'fa-sort'
-      direction = sort_direction
-      if direction.present? && params[:sort_field] == sort_field
-        className = direction == 'ASC'? 'fa-sort-asc' : 'fa-sort-desc'
+      if @paginable_params[:sort_field] == sort_field
+        className = upcasing_sort_direction == 'ASC'? 'fa-sort-asc' : 'fa-sort-desc'
       end
       return raw("<i class=\"fa #{className}\" aria-hidden=\"true\" style=\"float: right; font-size: 1.2em;\"></i>")
     end
     # Returns the sort url for a given sort_field.
     def sort_link_url(sort_field)
-      page = params[:page] == 'ALL' ? 'ALL' : 1  # Retain ALL param page if latest request included it
-      url = paginable_base_url(page)+"?"
-      query_string = []
-      query_string << "search=#{params[:search]}" if params[:search].present?
-      direction = sort_direction
-      if direction.present? && params[:sort_field] == sort_field
-        query_string << "sort_direction=#{swap_sort_direction(direction)}"
+      page = @paginable_params[:page] == 'ALL' ? 'ALL' : 1
+      if @paginable_params[:sort_field] == sort_field
+        return paginable_base_url_with_query_params(
+          page: page,
+          sort_field: sort_field,
+          sort_direction: swap_sort_direction)
       else
-        query_string << "sort_direction=ASC"
+        return paginable_base_url_with_query_params(
+          page: page,
+          sort_field: sort_field)
       end
-      query_string << "sort_field=#{sort_field}"
-      return url+query_string.join('&') 
+    end
+    def stringify_query_params(
+      search: @paginable_params[:search],
+      sort_field: @paginable_params[:sort_field],
+      sort_direction: nil)
+
+      query_string = []
+      query_string << "search=#{search}" if search.present?
+      if sort_field.present?
+        query_string << "sort_field=#{sort_field}"
+        direction = sort_direction || upcasing_sort_direction
+        query_string << "sort_direction=#{direction}"
+      end
+      return query_string.join('&')
     end
 end
