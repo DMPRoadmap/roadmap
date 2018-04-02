@@ -36,4 +36,17 @@ namespace :gettext do
       puts "You must provide the ISO-639 language code for the language: e.g. gettext:remove_language[ja]"
     end
   end
+  
+  desc 'Find diffs between main app.pot and specified locale'
+  task :diffs, [:code] => [:environment] do |t, args|
+    if args[:code].present?
+      File.open('/config/locale/app.pot').each do |line|
+        if line.start_with?('msgid ')
+          puts line.gsub('msgid ', '')
+        end
+      end
+    else
+      puts "You must specify a locale code (e.g. en_US or fr)"
+    end
+  end
 end
