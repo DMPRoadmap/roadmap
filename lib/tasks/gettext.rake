@@ -40,11 +40,32 @@ namespace :gettext do
   desc 'Find diffs between main app.pot and specified locale'
   task :diffs, [:code] => [:environment] do |t, args|
     if args[:code].present?
-      File.open('/config/locale/app.pot').each do |line|
+      locale_file = "config/locale/#{args[:code]}/app.po"
+      msgids, orphaned = [], []
+      
+      puts "scanning config/locale/app.pot for msgids ..."
+      File.open('config/locale/app.pot').each do |line|
         if line.start_with?('msgid ')
-          puts line.gsub('msgid ', '')
+          msgids << line unless msgids.include?(line)
         end
       end
+      
+      puts "comparing msgids with those in #{locale_file} ..."
+      File.open(locale_file).each do |line|
+        if line.start_with?('msgid ')
+          if msgids.include?(line)
+            msgids.delete_if{ |id| id == line }
+          else
+            orphaned << line
+          end
+        end
+      end
+      
+      puts "The following msgids were found in the core app.pot file but NOT in the #{args[:code]} version:"
+      msgids.map{ |id| puts "\n\t#{id}" }
+      puts "---------------------------------------------------------------------"
+      puts "The following msgids appear in the #{args[:code]} file but NOT in the core app.pot. They may be obsolete:"
+      orphaned.map{ |id| puts "\n\t#{id}" }
     else
       puts "You must specify a locale code (e.g. en_US or fr)"
     end
