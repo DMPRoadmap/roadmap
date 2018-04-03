@@ -1,6 +1,6 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-fr:
+fr_FR:
   devise:
     confirmations:
       confirmed: "Votre compte a bien été validé. Veuillez vous connecter."
