@@ -63,7 +63,7 @@
                     <div class="question-form">
                       <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
                       <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
-                        <%= render(partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: readonly, locking: false }) %>
+                        <%= render(partial: '/answers/new_edit', locals: { template: phase.template, question: question, answer: answer, readonly: readonly, locking: false }) %>
                       </div>
                       <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
                         <%= render(partial: '/answers/status', locals: { answer: answer }) %>
