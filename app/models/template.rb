@@ -268,11 +268,11 @@ class Template < ActiveRecord::Base
       self.published = false
       self.migrated = false
       self.dirty = false
-      self.visibility = 0 # Organisationally visible by default
       self.is_default = false if self.is_default.nil?
       self.version = 0 if self.version.nil?
-      self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
-
+      # Organisationally visible by default unless Org is only a funder
+      self.visibility = (self.org.present? && self.org.funder_only?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible] 
+      
       # Generate a unique identifier for the dmptemplate_id if necessary
       if self.dmptemplate_id.nil?
         self.dmptemplate_id = loop do
