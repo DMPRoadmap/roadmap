@@ -1,12 +1,8 @@
 <% org = template.org.abbreviation.present? ? template.org.abbreviation : template.org.name %>
-<% if example_answer.present? || guidance.present? %>
+<% if guidance.present? %>
   <dl<%= for_plan ? ' class="dl-horizontal"' : '' %>>
-    <% if example_answer.present? %>
-      <dt><%= _('Example answer') %></dt>
-      <dd><%= raw example_answer.text %><dd>
-    <% end %>
     <% if guidance.present? %>
-      <dt><%= _('Guidance') %></dt>
+      <dt><%= template.customization_of.nil? ? _('Guidance') : _('%{org} Guidance') % { org: guidance.org.short_name } %></dt>
       <dd><%= raw guidance.text %></dd>
     <% end %>
   </dl>
