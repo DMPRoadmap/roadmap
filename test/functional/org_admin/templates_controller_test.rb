@@ -168,7 +168,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     id = @template.id
     sign_in @user
 
-    family = @template.dmptemplate_id
+    family = @template.family_id
     prior = Template.current(family)
 
     version_the_template
@@ -237,7 +237,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     params = {title: 'ABCD'}
     sign_in @user
 
-    family = @template.dmptemplate_id
+    family = @template.family_id
     prior = Template.current(family)
 
     version_the_template
@@ -287,11 +287,11 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     # Sign in as the regular user so we can customize the funder template
     sign_in @user
 
-    template = Template.live(funder_template.dmptemplate_id)
+    template = Template.live(funder_template.family_id)
 
     get customize_org_admin_template_path(template)
 
-    customization = Template.where(customization_of: template.dmptemplate_id).last
+    customization = Template.where(customization_of: template.family_id).last
 
     assert_response :redirect
     assert_redirected_to edit_org_admin_template_url(Template.last, r: 'funder-templates')
@@ -299,7 +299,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 0, customization.version
     assert_not customization.published?
-    assert customization.dirty?
 
     # Make sure the funder templates data is not modifiable!
     customization.phases.each do |p|
@@ -326,7 +325,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   test "publish a template" do
     sign_in @user
 
-    family = @template.dmptemplate_id
+    family = @template.family_id
     prior = Template.current(family)
 
     version_the_template
@@ -360,7 +359,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   test "unpublish a template" do
     sign_in @user
 
-    family = @template.dmptemplate_id
+    family = @template.family_id
 
     prior = Template.current(family)
 
@@ -428,38 +427,38 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     institution_org = Org.find_by(org_type: 1)
     other_org = Org.create!(name: 'Another Org', abbreviation: 'BLAH', org_type: 3, links: {"org":[]})
     
-    params = [{ title: 'Default template', org: default_org, migrated: false, dmptemplate_id: '00000100', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: true },
-              { title: 'UOS published A', org: institution_org, migrated: false, dmptemplate_id: '00000099', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'UOS published B', org: institution_org, migrated: false, dmptemplate_id: '00000098', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'UOS unpublished C', org: institution_org, migrated: false, dmptemplate_id: '00000097', published: false, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'UOS unpublished Dv0', org: institution_org, migrated: false, dmptemplate_id: '00000096', published: false, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'UOS published Dv1', org: institution_org, migrated: false, dmptemplate_id: '00000096', published: true, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'UOS published Ev0', org: institution_org, migrated: false, dmptemplate_id: '00000095', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'UOS unpublished Ev1', org: institution_org, migrated: false, dmptemplate_id: '00000095', published: false, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'BLAH internal published A', org: other_org, migrated: false, dmptemplate_id: '00000079', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'BLAH public published B', org: other_org, migrated: false, dmptemplate_id: '00000078', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
-              { title: 'Funder public published A', org: funder_org, migrated: false, dmptemplate_id: '00000089', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
-              { title: 'Funder internal published B', org: funder_org, migrated: false, dmptemplate_id: '00000088', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'Funder internal unpublished B', org: funder_org, migrated: false, dmptemplate_id: '00000088', published: false, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
-              { title: 'Funder public unpublished C', org: funder_org, migrated: false, dmptemplate_id: '00000087', published: false, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
-              { title: 'Funder public unpublished Dv0', org: funder_org, migrated: false, dmptemplate_id: '00000086', published: false, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
-              { title: 'Funder public published Dv1', org: funder_org, migrated: false, dmptemplate_id: '00000086', published: true, version: 1, visibility: Template.visibilities[:publicly_visible], is_default: false },
-              { title: 'Funder public published Ev0', org: funder_org, migrated: false, dmptemplate_id: '00000085', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
-              { title: 'Funder public unpublished Ev1', org: funder_org, migrated: false, dmptemplate_id: '00000085', published: false, version: 1, visibility: Template.visibilities[:publicly_visible], is_default: false }]
+    params = [{ title: 'Default template', org: default_org, archived: false, family_id: '00000100', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: true },
+              { title: 'UOS published A', org: institution_org, archived: false, family_id: '00000099', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS published B', org: institution_org, archived: false, family_id: '00000098', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS unpublished C', org: institution_org, archived: false, family_id: '00000097', published: false, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS unpublished Dv0', org: institution_org, archived: false, family_id: '00000096', published: false, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS published Dv1', org: institution_org, archived: false, family_id: '00000096', published: true, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS published Ev0', org: institution_org, archived: false, family_id: '00000095', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'UOS unpublished Ev1', org: institution_org, archived: false, family_id: '00000095', published: false, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'BLAH internal published A', org: other_org, archived: false, family_id: '00000079', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'BLAH public published B', org: other_org, archived: false, family_id: '00000078', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public published A', org: funder_org, archived: false, family_id: '00000089', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder internal published B', org: funder_org, archived: false, family_id: '00000088', published: true, version: 0, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'Funder internal unpublished B', org: funder_org, archived: false, family_id: '00000088', published: false, version: 1, visibility: Template.visibilities[:organisationally_visible], is_default: false },
+              { title: 'Funder public unpublished C', org: funder_org, archived: false, family_id: '00000087', published: false, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public unpublished Dv0', org: funder_org, archived: false, family_id: '00000086', published: false, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public published Dv1', org: funder_org, archived: false, family_id: '00000086', published: true, version: 1, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public published Ev0', org: funder_org, archived: false, family_id: '00000085', published: true, version: 0, visibility: Template.visibilities[:publicly_visible], is_default: false },
+              { title: 'Funder public unpublished Ev1', org: funder_org, archived: false, family_id: '00000085', published: false, version: 1, visibility: Template.visibilities[:publicly_visible], is_default: false }]
     
     params.each do |hash|
       begin
         template = Template.new(hash)
         template.save!
         # Template's have default values when created, so override those defaults
-        template.update_attributes!(published: hash[:published], visibility: hash[:visibility], is_default: hash[:is_default], dmptemplate_id: hash[:dmptemplate_id])
+        template.update_attributes!(published: hash[:published], visibility: hash[:visibility], is_default: hash[:is_default], family_id: hash[:family_id])
         
         if template.is_default?
-          cust = Template.create!({ title: 'UOS customization of Default template', org: institution_org, migrated: false, version: 0})
-          cust.update_attributes(published: true, customization_of: template.dmptemplate_id, visibility: Template.visibilities[:organisationally_visible])
+          cust = Template.create!({ title: 'UOS customization of Default template', org: institution_org, archived: false, version: 0})
+          cust.update_attributes(published: true, customization_of: template.family_id, visibility: Template.visibilities[:organisationally_visible])
         elsif template.title == 'Funder public published A'
-          cust = Template.create!({ title: 'UOS customization of Funder public published A', org: institution_org, migrated: false, version: 0})
-          cust.update_attributes(published: false, customization_of: template.dmptemplate_id, visibility: Template.visibilities[:organisationally_visible])
+          cust = Template.create!({ title: 'UOS customization of Funder public published A', org: institution_org, archived: false, version: 0})
+          cust.update_attributes(published: false, customization_of: template.family_id, visibility: Template.visibilities[:organisationally_visible])
         end
       rescue ActiveRecord::RecordInvalid
         puts "EXCEPTION: #{template.errors.collect{ |e, m| "#{e}: #{m}" }.join(', ')}"
@@ -484,7 +483,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
         # An Org Admin (for a non-funder Org) should only see their current templates in the own templates table
         templates.each do |template|
           # Expect to see the most current version of organisational templates
-          current = Template.current(template.dmptemplate_id)
+          current = Template.current(template.family_id)
           if template == current
             assert el.to_s.include?(template.title), "expected #{user.email}'s own templates table to have the institutional template: '#{template.title}'"
           else

@@ -18,26 +18,26 @@ module Api
 
         published_templates.each do |temp|
           if @org_templates[temp.org].present?
-            if @org_templates[temp.org][:own][temp.dmptemplate_id].nil?
-              @org_templates[temp.org][:own][temp.dmptemplate_id] = temp
+            if @org_templates[temp.org][:own][temp.family_id].nil?
+              @org_templates[temp.org][:own][temp.family_id] = temp
             end
           else
             @org_templates[temp.org] = {}
             @org_templates[temp.org][:own] = {}
             @org_templates[temp.org][:cust] = {}
-            @org_templates[temp.org][:own][temp.dmptemplate_id] = temp
+            @org_templates[temp.org][:own][temp.family_id] = temp
           end
         end
         customized_templates.each do |temp|
           if @org_templates[temp.org].present?
-            if @org_templates[temp.org][:cust][temp.dmptemplate_id].nil?
-              @org_templates[temp.org][:cust][temp.dmptemplate_id] = temp
+            if @org_templates[temp.org][:cust][temp.family_id].nil?
+              @org_templates[temp.org][:cust][temp.family_id] = temp
             end
           else
             @org_templates[temp.org] = {}
             @org_templates[temp.org][:own] = {}
             @org_templates[temp.org][:cust] = {}
-            @org_templates[temp.org][:cust][temp.dmptemplate_id] = temp
+            @org_templates[temp.org][:cust][temp.family_id] = temp
           end
         end
         respond_with @org_templates

@@ -11,9 +11,6 @@ class SectionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @section.save
-      @section.phase.template.dirty = true
-      @section.phase.template.save!
-
       redirect_to admin_show_phase_path(id: @section.phase_id, r: current_tab,
         :section_id => @section.id), notice: success_message(_('section'), _('created'))
     else
@@ -24,7 +21,7 @@ class SectionsController < ApplicationController
       @question_id = nil
       flash[:alert] = failed_create_error(@section, _('section'))
       if @phase.template.customization_of.present?
-        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        @original_org = Template.where(family_id: @phase.template.customization_of).first.org
       else
         @original_org = @phase.template.org
       end
@@ -41,9 +38,6 @@ class SectionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @section.update_attributes(params[:section])
-      @section.phase.template.dirty = true
-      @section.phase.template.save!
-
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('section'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
@@ -53,7 +47,7 @@ class SectionsController < ApplicationController
       @question_id = nil
       flash[:alert] = failed_update_error(@section, _('section'))
       if @phase.template.customization_of.present?
-        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        @original_org = Template.where(family_id: @phase.template.customization_of).first.org
       else
         @original_org = @phase.template.org
       end
@@ -69,8 +63,6 @@ class SectionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @section.destroy
-      @phase.template.dirty = true
-      @phase.template.save!
       redirect_to admin_show_phase_path(id: @phase.id, r: current_tab), notice: success_message(_('section'), _('deleted'))
     else
       @edit = (@phase.template.org == current_user.org)
@@ -81,7 +73,7 @@ class SectionsController < ApplicationController
 
       flash[:alert] = failed_destroy_error(@section, _('section'))
       if @phase.template.customization_of.present?
-        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        @original_org = Template.where(family_id: @phase.template.customization_of).first.org
       else
         @original_org = @phase.template.org
       end

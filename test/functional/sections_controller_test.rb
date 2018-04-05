@@ -39,9 +39,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   test "create a new section" do
     params = {phase_id: @phase.id, title: 'Section Tester', number: 99}
     
-    @phase.template.dirty = false
-    @phase.template.save!
-    
     # Should redirect user to the root path if they are not logged in!
     post admin_create_section_path(@phase), {section: params}
     assert_unauthorized_redirect_to_root_path
@@ -53,9 +50,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_show_phase_url(id: @phase.id, section_id: Section.last.id, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal 'Section Tester', Section.last.title, "expected the record to have been created!"
-    
-    # Make sure that the template's dirty flag got set
-    assert @phase.template.reload.dirty?, "expected the templates dirty flag to be true"
     
     # Invalid object
     post admin_create_section_path(@phase), {section: {phase_id: @phase.id, title: nil}}
@@ -73,9 +67,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   test "update the section" do
     params = {title: 'Phase - UPDATE'}
     
-    @phase.template.dirty = false
-    @phase.template.save!
-    
     # Should redirect user to the root path if they are not logged in!
     put admin_update_section_path(@phase.sections.first), {section: params}
     assert_unauthorized_redirect_to_root_path
@@ -88,9 +79,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to admin_show_phase_url(id: @phase.id, section_id: @phase.sections.first.id, r: 'all-templates')
     assert_equal 'Phase - UPDATE', @phase.sections.first.title, "expected the record to have been updated"
-    
-    # Make sure that the template's dirty flag got set
-    assert @phase.template.reload.dirty?, "expected the templates dirty flag to be true"
     
     # Invalid save
     put admin_update_section_path(@phase.sections.first), {section: {title: nil}}
@@ -109,9 +97,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   test "delete the section" do
     id = @phase.sections.first.id
     
-    @phase.template.dirty = false
-    @phase.template.save!
-    
     # Should redirect user to the root path if they are not logged in!
     delete admin_destroy_section_path(id: @phase.id, section_id: id)
     assert_unauthorized_redirect_to_root_path
@@ -127,9 +112,5 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_raise ActiveRecord::RecordNotFound do 
       Section.find(id).nil?
     end
-    
-    # Make sure that the template's dirty flag got set
-    assert @phase.template.reload.dirty?, "expected the templates dirty flag to be true"
   end
-  
 end

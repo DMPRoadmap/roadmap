@@ -17,15 +17,15 @@ class Template < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
 
-  has_many :customizations, class_name: 'Template', foreign_key: 'dmptemplate_id'
-  belongs_to :dmptemplate, class_name: 'Template'
+  has_many :customizations, class_name: 'Template', foreign_key: 'family_id'
+  belongs_to :family, class_name: 'Template'
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
   attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of,
-                  :is_default, :guidance_group_ids, :org, :plans, :phases, :dmptemplate_id,
-                  :migrated, :version, :visibility, :published, :links, :as => [:default, :admin]
+                  :is_default, :guidance_group_ids, :org, :plans, :phases, :family_id,
+                  :archived, :version, :visibility, :published, :links, :as => [:default, :admin]
 
   # A standard template should be organisationally visible. Funder templates that are 
   # meant for external use will be publicly visible. This allows a funder to create 'funder' as
@@ -39,7 +39,7 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
-  scope :valid,  -> { where(migrated: false) }
+  scope :valid,  -> { where(archived: false) }
   scope :published, -> { where(published: true) }
 
   # Retrieves all valid and published templates
@@ -50,8 +50,8 @@ class Template < ActiveRecord::Base
   scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]) }
   scope :organisationally_visible, -> { where(:visibility => Template.visibilities[:organisationally_visible]) }
   
-  # Retrieves template with distinct dmptemplate_id that are valid (e.g. migrated false) and customization_of is nil. Note,
-  # if organisation ids are passed, the query will filter only those distinct dmptemplate_ids for those organisations
+  # Retrieves template with distinct family_id that are valid (e.g. archived false) and customization_of is nil. Note,
+  # if organisation ids are passed, the query will filter only those distinct family_ids for those organisations
   scope :families, -> (org_ids=nil) {
     if org_ids.is_a?(Array) 
       valid.where(org_id: org_ids, customization_of: nil).distinct
@@ -59,13 +59,13 @@ class Template < ActiveRecord::Base
       valid.where(customization_of: nil).distinct
     end 
   }
-  # Retrieves the maximum version for the array of dmptemplate_ids passed. If dmptemplate_ids is missing, every maximum
-  # version for each different dmptemplate_id will be retrieved
-  scope :dmptemplate_ids_with_max_version, -> (dmptemplate_ids=nil) {
-    if dmptemplate_ids.is_a?(Array)
-      select("MAX(version) AS version", :dmptemplate_id).where(dmptemplate_id: dmptemplate_ids).group(:dmptemplate_id)
+  # Retrieves the maximum version for the array of family_ids passed. If family_ids is missing, every maximum
+  # version for each different family_id will be retrieved
+  scope :family_ids_with_max_version, -> (family_ids=nil) {
+    if family_ids.is_a?(Array)
+      select("MAX(version) AS version", :family_id).where(family_id: family_ids).group(:family_id)
     else
-      select("MAX(version) AS version", :dmptemplate_id).group(:dmptemplate_id)
+      select("MAX(version) AS version", :family_id).group(:family_id)
     end
   }
   # Retrieves the maximum version for the array of customization_ofs passed. If customization_ofs is missing, every maximum
@@ -77,15 +77,15 @@ class Template < ActiveRecord::Base
       select("MAX(version) AS version", :customization_of).group(:customization_of)
     end
   }
-  # Retrieves the latest template version, i.e. the one with maximum version for each dmptemplate_id
-  scope :latest_version, -> (dmptemplate_ids=nil) {
-    from(dmptemplate_ids_with_max_version(dmptemplate_ids), :current)
+  # Retrieves the latest template version, i.e. the one with maximum version for each family_id
+  scope :latest_version, -> (family_ids=nil) {
+    from(family_ids_with_max_version(family_ids), :current)
     .joins("INNER JOIN templates ON current.version = templates.version"\
-      " AND current.dmptemplate_id = templates.dmptemplate_id")
+      " AND current.family_id = templates.family_id")
   }
-  # Retrieves the latest customized version, i.e. the one with maximum version for each customization_of=dmptemplate_id
-  scope :latest_customization, -> (org_id, dmptemplate_ids=nil) {
-    from(customization_ofs_with_max_version(dmptemplate_ids), :current)
+  # Retrieves the latest customized version, i.e. the one with maximum version for each customization_of=family_id
+  scope :latest_customization, -> (org_id, family_ids=nil) {
+    from(customization_ofs_with_max_version(family_ids), :current)
     .joins("INNER JOIN templates ON current.version = templates.version"\
       " AND current.customization_of = templates.customization_of")
     .where('templates.org_id = ?', org_id)
@@ -96,22 +96,22 @@ class Template < ActiveRecord::Base
     joins(:org).where("templates.title LIKE ? OR orgs.name LIKE ?", search_pattern, search_pattern)
   }
   
-  # Retrieves the list of all dmptemplate_ids (template versioning families) for the specified Org
-  def self.dmptemplate_ids
-    Template.all.valid.distinct.pluck(:dmptemplate_id)
+  # Retrieves the list of all family_ids (template versioning families) for the specified Org
+  def self.family_ids
+    Template.all.valid.distinct.pluck(:family_id)
   end
 
-  # Retrieves the most recent version of the template for the specified dmptemplate_id
-  def self.current(dmptemplate_id)
-    Template.where(dmptemplate_id: dmptemplate_id).order(version: :desc).valid.first
+  # Retrieves the most recent version of the template for the specified family_id
+  def self.current(family_id)
+    Template.where(family_id: family_id).order(version: :desc).valid.first
   end
 
-  # Retrieves the current published version of the template for the specified Org and dmptemplate_id
-  def self.live(dmptemplate_id)
-    if dmptemplate_id.respond_to?(:each)
-      Template.where(dmptemplate_id: dmptemplate_id, published: true).valid
+  # Retrieves the current published version of the template for the specified Org and family_id
+  def self.live(family_id)
+    if family_id.respond_to?(:each)
+      Template.where(family_id: family_id, published: true).valid
     else
-      Template.where(dmptemplate_id: dmptemplate_id, published: true).valid.first
+      Template.where(family_id: family_id, published: true).valid.first
     end
   end
 
@@ -121,14 +121,14 @@ class Template < ActiveRecord::Base
 
   ##
   # Retrieves the most current customization of the template for the
-  # specified org and dmptemplate_id
+  # specified org and family_id
   # returns nil if no customizations found
   #
-  # @params  dmptemplate_ids of the original template
+  # @params  family_ids of the original template
   # @params [integer] org_id for the customizing organisation
   # @return [nil, Template] the customized template or nil
-  def self.org_customizations(dmptemplate_ids, org_id)
-    template_ids = latest_customization(org_id, dmptemplate_ids).pluck(:id)
+  def self.org_customizations(family_ids, org_id)
+    template_ids = latest_customization(org_id, family_ids).pluck(:id)
     includes(:org).where(id: template_ids)
   end
   
@@ -136,9 +136,9 @@ class Template < ActiveRecord::Base
   # TODO pass an array of org ids instead of Org instances
   def self.get_latest_template_versions(orgs)
     if orgs.respond_to?(:each)
-      families_ids = families(orgs.map(&:id)).pluck(:dmptemplate_id)
+      families_ids = families(orgs.map(&:id)).pluck(:family_id)
     elsif orgs.is_a?(Org)
-      families_ids = families([orgs.id]).pluck(:dmptemplate_id)
+      families_ids = families([orgs.id]).pluck(:family_id)
     else
       families_ids = []
     end
@@ -150,13 +150,13 @@ class Template < ActiveRecord::Base
   # TODO pass an array of org ids instead of Org instances
   def self.get_public_published_template_versions(orgs)
     if orgs.respond_to?(:each)
-      families_ids = families(orgs.map(&:id)).pluck(:dmptemplate_id)
+      families_ids = families(orgs.map(&:id)).pluck(:family_id)
     elsif orgs.is_a?(Org)
-      families_ids = families([orgs.id]).pluck(:dmptemplate_id)
+      families_ids = families([orgs.id]).pluck(:family_id)
     else
       families_ids = []
     end
-    includes(:org).where(dmptemplate_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
+    includes(:org).where(family_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
   end
   
   ##
@@ -245,7 +245,7 @@ class Template < ActiveRecord::Base
   # Verify if a template has customisation by given organisation
   #
   # @param org_id [integer] the integer id for an organisation
-  # @param temp [dmptemplate] a template object
+  # @param temp [family] a template object
   # @return [Boolean] true if temp has customisation by the given organisation
   def has_customisations?(org_id, temp)
     modifiable = true
@@ -261,23 +261,22 @@ class Template < ActiveRecord::Base
 
   # --------------------------------------------------------
   private
-  # Initialize the published and dirty flags for new templates
+  # Initialize the new template
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create
     if self.id.nil?
       self.published = false
-      self.migrated = false
-      self.dirty = false
+      self.archived = false
       self.visibility = 0 # Organisationally visible by default
       self.is_default = false if self.is_default.nil?
       self.version = 0 if self.version.nil?
       self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
 
-      # Generate a unique identifier for the dmptemplate_id if necessary
-      if self.dmptemplate_id.nil?
-        self.dmptemplate_id = loop do
+      # Generate a unique identifier for the family_id if necessary
+      if self.family_id.nil?
+        self.family_id = loop do
           random = rand 2147483647
-          break random unless Template.exists?(dmptemplate_id: random)
+          break random unless Template.exists?(family_id: random)
         end
       end
     end

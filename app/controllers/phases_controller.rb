@@ -46,14 +46,14 @@ class PhasesController < ApplicationController
     @phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
     authorize @phase
 
-    @current = Template.current(@phase.template.dmptemplate_id)
+    @current = Template.current(@phase.template.family_id)
     @edit = (@phase.template.org == current_user.org) && (@phase.template == @current)
 
     if params.has_key?(:question_id)
       @question_id = params[:question_id].to_i
     end
     if @phase.template.customization_of.present?
-      @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+      @original_org = Template.where(family_id: @phase.template.customization_of).first.org
     else
       @original_org = @phase.template.org
     end
@@ -109,9 +109,6 @@ class PhasesController < ApplicationController
     @phase.modifiable = true
     @current_tab = params[:r] || 'all-templates'
     if @phase.save
-      @phase.template.dirty = true
-      @phase.template.save!
-
       redirect_to admin_show_phase_path(id: @phase.id, r: @current_tab), notice: success_message(_('phase'), _('created'))
     else
       flash[:alert] = failed_create_error(@phase, _('phase'))
@@ -129,9 +126,6 @@ class PhasesController < ApplicationController
     @phase.description = params["phase-desc"]
     @current_tab = params[:r] || 'all-templates'
     if @phase.update_attributes(params[:phase])
-      @phase.template.dirty = true
-      @phase.template.save!
-
       redirect_to admin_show_phase_path(@phase, r: @current_tab), notice: success_message(_('phase'), _('saved'))
     else
       @sections = @phase.sections
@@ -144,7 +138,7 @@ class PhasesController < ApplicationController
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
       flash[:alert] = failed_update_error(@phase, _('phase'))
       if @phase.template.customization_of.present?
-        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        @original_org = Template.where(family_id: @phase.template.customization_of).first.org
       else
         @original_org = @phase.template.org
       end
@@ -159,9 +153,6 @@ class PhasesController < ApplicationController
     @template = @phase.template
     @current_tab = params[:r] || 'all-templates'
     if @phase.destroy
-      @template.dirty = true
-      @template.save!
-
       redirect_to edit_org_admin_template_path(@template, r: @current_tab), notice: success_message(_('phase'), _('deleted'))
     else
       @sections = @phase.sections
@@ -174,7 +165,7 @@ class PhasesController < ApplicationController
       @question_id = (params[:question_id].nil? ? nil : params[:question_id].to_i)
       flash[:alert] = failed_destroy_error(@phase, _('phase'))
       if @phase.template.customization_of.present?
-        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        @original_org = Template.where(family_id: @phase.template.customization_of).first.org
       else
         @original_org = @phase.template.org
       end

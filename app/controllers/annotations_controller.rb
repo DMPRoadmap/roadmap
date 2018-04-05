@@ -16,7 +16,6 @@ class AnnotationsController < ApplicationController
 
     if !flash[:notice].blank? || !flash[:alert].blank?
       template = question.section.phase.template
-      template.dirty = true
       template.save!
     end
     tab = params[:r] || 'all-templates'

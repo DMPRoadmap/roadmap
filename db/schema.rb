@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315161757) do
+ActiveRecord::Schema.define(version: 20180405152454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
+  
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "org_id"
@@ -339,13 +339,13 @@ ActiveRecord::Schema.define(version: 20180315161757) do
     t.integer  "version"
     t.integer  "visibility"
     t.integer  "customization_of"
-    t.integer  "dmptemplate_id"
-    t.boolean  "migrated"
-    t.boolean  "dirty",            default: false
+    t.integer  "family_id"
+    t.boolean  "archived"
     t.text     "links",            default: "{\"funder\":[], \"sample_plan\":[]}"
   end
 
-  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index"
+  add_index "templates", ["family_id"], name: "index_templates_on_family_id"
+  add_index "templates", ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
   add_index "templates", ["org_id"], name: "index_templates_on_org_id"
 
   create_table "themes", force: :cascade do |t|
@@ -384,11 +384,11 @@ ActiveRecord::Schema.define(version: 20180315161757) do
   create_table "users", force: :cascade do |t|
     t.string   "firstname"
     t.string   "surname"
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: "",   null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

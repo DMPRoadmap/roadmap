@@ -13,7 +13,7 @@ class Paginable::TemplatesController < ApplicationController
     hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
     
     # Gather up all of the publication dates for the live versions of each template.
-    published = get_publication_dates(hash[:scopes][:dmptemplate_ids])
+    published = get_publication_dates(hash[:scopes][:family_ids])
     
     paginable_renderise partial: 'all',
                         scope: hash[:templates],
@@ -34,7 +34,7 @@ class Paginable::TemplatesController < ApplicationController
     hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
     
     # Gather up all of the publication dates for the live versions of each template.
-    published = get_publication_dates(hash[:scopes][:dmptemplate_ids])
+    published = get_publication_dates(hash[:scopes][:family_ids])
     
     paginable_renderise partial: 'funders',
                         scope: hash[:templates],
@@ -55,7 +55,7 @@ class Paginable::TemplatesController < ApplicationController
     hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
     
     # Gather up all of the publication dates for the live versions of each template.
-    published = get_publication_dates(hash[:scopes][:dmptemplate_ids])
+    published = get_publication_dates(hash[:scopes][:family_ids])
     
     paginable_renderise partial: 'orgs',
                         scope: hash[:templates],
@@ -68,7 +68,7 @@ class Paginable::TemplatesController < ApplicationController
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
   def publicly_visible
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:dmptemplate_id)).publicly_visible.pluck(:id) <<
+    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) <<
     Template.where(is_default: true).valid.published.pluck(:id)
     
     paginable_renderise(
@@ -81,8 +81,8 @@ class Paginable::TemplatesController < ApplicationController
   def history
     @template = Template.find(params[:id])
     authorize @template
-    @templates = Template.where(dmptemplate_id: @template.dmptemplate_id)
-    @current = Template.current(@template.dmptemplate_id)
+    @templates = Template.where(family_id: @template.family_id)
+    @current = Template.current(@template.family_id)
     paginable_renderise(
       partial: 'history',
       scope: @templates,
