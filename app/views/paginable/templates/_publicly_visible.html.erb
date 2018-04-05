@@ -15,8 +15,8 @@
         <tr>
           <td><%= template.title %></td>
           <td class="text-center">
-            <%= link_to _('DOCX'), template_export_path(template.dmptemplate_id, format: :docx), target: '_blank' %><br>
-            <%= link_to _('PDF'), template_export_path(template.dmptemplate_id, format: :pdf), target: '_blank' %>
+            <%= link_to _('DOCX'), template_export_path(template.family_id, format: :docx), target: '_blank' %><br>
+            <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
           <td><%= template.org.name %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>

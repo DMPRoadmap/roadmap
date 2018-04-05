@@ -20,7 +20,7 @@ module OrgAdmin
       customizable_hash[:templates] = customizable_hash[:templates].page(1)
 
       # Gather up all of the publication dates for the live versions of each template.
-      published = get_publication_dates(all_templates_hash[:scopes][:dmptemplate_ids])
+      published = get_publication_dates(all_templates_hash[:scopes][:family_ids])
       
       render 'index', locals: {
         all_templates: all_templates_hash[:templates],
@@ -46,7 +46,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def create
       authorize Template
-      # creates a new template with version 0 and new dmptemplate_id
+      # creates a new template with version 0 and new family_id
       @template = Template.new(params[:template])
       @template.org_id = current_user.org.id
       @template.description = params['template-desc']
@@ -67,7 +67,7 @@ module OrgAdmin
       @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format, :annotations]]]).find(params[:id])
       authorize @template
 
-      @current = Template.current(@template.dmptemplate_id)
+      @current = Template.current(@template.family_id)
       @current_tab = params[:r] || 'all-templates'
       
       if @template == @current 
@@ -104,7 +104,7 @@ module OrgAdmin
       @template = Template.find(params[:id])
       authorize @template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
 
-      current = Template.current(@template.dmptemplate_id)
+      current = Template.current(@template.family_id)
 
       # Only allow the current version to be updated
       if current != @template
@@ -116,13 +116,6 @@ module OrgAdmin
         rescue JSON::ParserError
           render(status: :bad_request, json: { msg: _("Error parsing links for a #{@template.template_type}") })
           return
-        end
-
-        # TODO dirty check at template model instead of here for reusability, i.e. method dirty? passing a template object	
-        if @template.description != params["template-desc"] ||
-                @template.title != params[:template][:title] ||
-                @template.links != template_links	
-          @template.dirty = true	
         end
         
         @template.description = params["template-desc"]
@@ -153,7 +146,7 @@ module OrgAdmin
       authorize @template
 
       if @template.plans.length <= 0
-        current = Template.current(@template.dmptemplate_id)
+        current = Template.current(@template.family_id)
 
         # Only allow the current version to be destroyed
         if current == @template
@@ -180,8 +173,8 @@ module OrgAdmin
     def history
       @template = Template.find(params[:id])
       authorize @template
-      @templates = Template.where(dmptemplate_id: @template.dmptemplate_id)
-      @current = Template.current(@template.dmptemplate_id)
+      @templates = Template.where(family_id: @template.family_id)
+      @current = Template.current(@template.family_id)
       @current_tab = params[:r] || 'all-templates'
     end
     
@@ -195,12 +188,11 @@ module OrgAdmin
       customisation = Template.deep_copy(@template)
       customisation.org = current_user.org
       customisation.version = 0
-      customisation.customization_of = @template.dmptemplate_id
-      customisation.dmptemplate_id = loop do
+      customisation.customization_of = @template.family_id
+      customisation.family_id = loop do
         random = rand 2147483647
-        break random unless Template.exists?(dmptemplate_id: random)
+        break random unless Template.exists?(family_id: random)
       end
-      customisation.dirty = true
       customisation.save
 
       customisation.phases.includes(:sections, :questions).each do |phase|
@@ -229,8 +221,7 @@ module OrgAdmin
       new_customization = Template.deep_copy(@template)
       new_customization.org_id = current_user.org_id
       new_customization.published = false
-      new_customization.customization_of = @template.dmptemplate_id
-      new_customization.dirty = true
+      new_customization.customization_of = @template.family_id
       new_customization.phases.includes(sections: :questions).each do |phase|
         phase.modifiable = false
         phase.save
@@ -243,10 +234,10 @@ module OrgAdmin
           end
         end
       end
-      customizations = Template.includes(:org, phases:[sections: [questions: :annotations]]).where(org_id: current_user.org_id, customization_of: @template.dmptemplate_id).order(version: :desc)
+      customizations = Template.includes(:org, phases:[sections: [questions: :annotations]]).where(org_id: current_user.org_id, customization_of: @template.family_id).order(version: :desc)
       # existing version to port over
       max_version = customizations.first
-      new_customization.dmptemplate_id = max_version.dmptemplate_id
+      new_customization.family_id = max_version.family_id
       new_customization.version = max_version.version + 1
       # here we rip the customizations out of the old template
       # First, we find any customzed phases or sections
@@ -303,9 +294,9 @@ module OrgAdmin
       new_copy.title = "Copy of " + @template.title
       new_copy.version = 0
       new_copy.published = false
-      new_copy.dmptemplate_id = loop do
+      new_copy.family_id = loop do
         random = rand 2147483647
-        break random unless Template.exists?(dmptemplate_id: random)
+        break random unless Template.exists?(family_id: random)
       end
 
       if new_copy.save
@@ -322,7 +313,7 @@ module OrgAdmin
     def publish
       template = Template.find(params[:id])
       authorize template
-      current = Template.current(template.dmptemplate_id)
+      current = Template.current(template.family_id)
       
       # Only allow the current version to be updated
       if current != template
@@ -330,13 +321,11 @@ module OrgAdmin
 
       else
         # Unpublish the older published version if there is one
-        live = Template.live(template.dmptemplate_id)
+        live = Template.live(template.family_id)
         if !live.nil? and self != live
           live.published = false
           live.save!
         end
-        # Set the dirty flag to false
-        template.dirty = false
         template.published = true
         template.save
 
@@ -380,7 +369,7 @@ module OrgAdmin
           unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
             templates.each do |tmplt|
-              customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.dmptemplate_id)
+              customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.family_id)
               if customization.present? && tmplt.created_at < customization.created_at
                 templates.delete(tmplt)
                 templates << customization

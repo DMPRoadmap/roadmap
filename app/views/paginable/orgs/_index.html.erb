@@ -15,7 +15,7 @@
           <td><%= org.name %></td>
           <td><%= org.contact_email %></td>
           <td><%= org.org_type_to_s %></td>
-          <td><%= org.templates.collect(&:dmptemplate_id).uniq.length %></td>
+          <td><%= org.templates.collect(&:family_id).uniq.length %></td>
           <td>
             <div class="dropdown">
               <button

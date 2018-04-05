@@ -4,7 +4,7 @@ class PublicPagesController < ApplicationController
   # GET template_index
   # -----------------------------------------------------
   def template_index
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:dmptemplate_id)).publicly_visible.pluck(:id) <<
+    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) <<
     Template.where(is_default: true).valid.published.pluck(:id)
     @templates = Template.includes(:org).where(id: templates.uniq.flatten).valid.published.order(title: :asc).page(1)
   end
@@ -12,7 +12,7 @@ class PublicPagesController < ApplicationController
   # GET template_export/:id
   # -----------------------------------------------------
   def template_export
-    # only export live templates, id passed is dmptemplate_id
+    # only export live templates, id passed is family_id
     @template = Template.live(params[:id])
     # covers authorization for this action.  Pundit dosent support passing objects into scoped policies
     raise Pundit::NotAuthorizedError unless PublicPagePolicy.new( @template).template_export?

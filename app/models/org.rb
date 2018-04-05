@@ -126,7 +126,7 @@ class Org < ActiveRecord::Base
   ##
   # returns all published templates belonging to the organisation
   #
-  # @return [Array<Dmptemplate>] published dmptemplates
+  # @return [Array<Template>] published templates
 	def published_templates
 		return templates.where("published = ?", true)
 	end

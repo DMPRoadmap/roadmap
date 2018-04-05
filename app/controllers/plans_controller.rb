@@ -144,7 +144,7 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
     @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
 
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(family: @plan.template.customization_of).first)
 
     respond_to :html
   end
@@ -360,13 +360,13 @@ class PlansController < ApplicationController
   end
 
 
-  # different versions of the same template have the same dmptemplate_id
+  # different versions of the same template have the same family_id
   # but different version numbers so for each set of templates with the
-  # same dmptemplate_id choose the highest version number.
+  # same family_id choose the highest version number.
   def get_most_recent( templates )
     groups = Hash.new
     templates.each do |t|
-      k = t.dmptemplate_id
+      k = t.family_id
       if !groups.has_key?(k)
         groups[k] = t
       else

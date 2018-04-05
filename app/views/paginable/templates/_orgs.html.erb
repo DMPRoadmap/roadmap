@@ -6,7 +6,7 @@
       <% if scopes.present? %>
         <tr><th colspan="5" class="sorter-false table-scope"><ul class="nav navbar-nav">
           <% scopes.keys.each do |k| %>
-            <% unless k == :dmptemplate_ids %>
+            <% unless k == :family_ids %>
               <li><%= link_to "#{k.capitalize} (#{scopes[k]})", "#{orgs_paginable_templates_path(1)}?scope=#{k}", class: 'template-scope', 'data-remote': true %></li>
             <% end %>
           <% end %>
@@ -30,7 +30,7 @@
             <%= raw(template.description) %>
           </td>
           <td>
-            <% if published[template.dmptemplate_id].present? && !template.published? %>
+            <% if published[template.family_id].present? && !template.published? %>
               <%= _('Unpublished changes') %>
             <% elsif template.published? %>
               <%= _('Published') %>
@@ -55,7 +55,7 @@
               <ul class="dropdown-menu">
                 <li><%= link_to _('Edit'), edit_org_admin_template_path(id: template.id, edit: "true", r: 'organisation-templates') %></li>
                 <li><%= link_to _('History'), history_org_admin_template_path(id: template.id, r: 'organisation-templates') %></li>
-                <% if !published[template.dmptemplate_id].present? %>
+                <% if !published[template.family_id].present? %>
                   <li><%= link_to _('Publish'), publish_org_admin_template_path(template, r: 'organisation-templates') %></li>
                 <% elsif !template.published? %>
                   <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template, r: 'organisation-templates') %></li>

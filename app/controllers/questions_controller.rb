@@ -15,8 +15,6 @@ class QuestionsController < ApplicationController
         @question.default_value = params["question-default-value-textarea"]
       end
       if @question.save
-        @question.section.phase.template.dirty = true
-        @question.section.phase.template.save!
         if params[:example_answer].present?
           example_answer = Annotation.new({question_id: @question.id, org_id: current_user.org_id, text: params[:example_answer], type: Annotation.types[:example_answer]})
           example_answer.save
@@ -37,7 +35,7 @@ class QuestionsController < ApplicationController
 
         flash[:alert] = failed_create_error(@question, _('question'))
         if @phase.template.customization_of.present?
-          @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+          @original_org = Template.where(family_id: @phase.template.customization_of).first.org
         else
           @original_org = @phase.template.org
         end
@@ -90,9 +88,6 @@ class QuestionsController < ApplicationController
     attrs[:theme_ids] = [] unless attrs[:theme_ids]
     
     if @question.update_attributes(attrs)
-      @phase.template.dirty = true
-      @phase.template.save!
-
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
@@ -103,7 +98,7 @@ class QuestionsController < ApplicationController
 
       flash[:alert] = failed_update_error(@question, _('question'))
       if @phase.template.customization_of.present?
-        @original_org = Template.where(dmptemplate_id: @phase.template.customization_of).first.org
+        @original_org = Template.where(family_id: @phase.template.customization_of).first.org
       else
         @original_org = @phase.template.org
       end
@@ -119,9 +114,6 @@ class QuestionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @question.destroy
-      @phase.template.dirty = true
-      @phase.template.save!
-
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('question'), _('deleted'))
     else
       redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), alert: failed_destroy_error(@question, 'question')

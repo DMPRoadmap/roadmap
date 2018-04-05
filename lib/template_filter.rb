@@ -12,7 +12,7 @@ module TemplateFilter
       # If the user is an Org Admin look for customizations to funder templates
       customizations = {}
       if current_user.can_org_admin?
-        families = templates.collect(&:dmptemplate_id).uniq
+        families = templates.collect(&:family_id).uniq
         Template.org_customizations(families, current_user.org_id).each do |customization|
           customizations[customization.customization_of] = customization if customization.present?
         end
@@ -23,7 +23,7 @@ module TemplateFilter
       # We scope based on the customizations
       if params[:scope].present? && params[:scope] != 'all'
         scoped = templates.select do |t| 
-          c = customizations[t.dmptemplate_id]
+          c = customizations[t.family_id]
           (params[:scope] == 'unpublished' && (!c.present? || !c.published?)) || (params[:scope] == 'published' && c.present? && c.published?)
         end
         templates = Template.where(id: scoped.collect(&:id))
@@ -53,11 +53,11 @@ module TemplateFilter
   private
     # Gets the nbr of templates and nbr of published/unpublished templates
     def calculate_table_scopes(templates, customizations)
-      scopes = { all: templates.length, published: 0, unpublished: 0, dmptemplate_ids: templates.collect(&:dmptemplate_id).uniq }
+      scopes = { all: templates.length, published: 0, unpublished: 0, family_ids: templates.collect(&:family_id).uniq }
       templates.each do |t|
         # If we have customizations use their status
         if customizations.keys.length > 0
-          c = customizations[t.dmptemplate_id]
+          c = customizations[t.family_id]
           # If the template was not customized then its unpublished
           if c.nil?
             scopes[:unpublished] += 1
@@ -78,7 +78,7 @@ module TemplateFilter
       published = {}
       lives = Template.live(family_ids)
       lives.each do |live|
-        published[live.dmptemplate_id] = live.updated_at
+        published[live.family_id] = live.updated_at
       end
       published
     end

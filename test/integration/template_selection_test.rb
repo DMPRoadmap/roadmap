@@ -11,14 +11,14 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     scaffold_org_admin(@template.org)
 
     @funder = Org.find_by(org_type: 2)
-    @funder_template = @funder.templates.where(published: true).first #Template.create(title: 'Funder template', org: @funder, migrated: false)
+    @funder_template = @funder.templates.where(published: true).first #Template.create(title: 'Funder template', org: @funder, archived: false)
     # Template can't be published on creation so do it afterward
     @funder_template.published = true
     @funder_template.visibility = Template.visibilities[:publicly_visible]
     @funder_template.save
 
     @org = @researcher.org
-    @org_template = Template.create(title: 'Org template', org: @org, migrated: false)
+    @org_template = Template.create(title: 'Org template', org: @org, archived: false)
     # Template can't be published on creation so do it afterward
     @org_template.published = true
     @org_template.visibility = Template.visibilities[:organisationally_visible]
@@ -38,7 +38,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
 
     assert_equal 1, json['templates'].size
     assert_equal original_id, json['templates'][0]['id']
-    assert_equal original_id, Template.live(@template.dmptemplate_id).id
+    assert_equal original_id, Template.live(@template.family_id).id
 
     # Version the template again
     original_id = template.id
@@ -51,7 +51,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
 
     assert_equal 1, json['templates'].size
     assert_equal original_id, json['templates'][0]['id']
-    assert_equal original_id, Template.live(@template.dmptemplate_id).id
+    assert_equal original_id, Template.live(@template.family_id).id
 
     # Update the template and make sure the published version stayed the same
     sign_in @user
@@ -65,7 +65,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
 
     assert_equal 1, json['templates'].size
     assert_equal original_id, json['templates'][0]['id']
-    assert_equal original_id, Template.live(@template.dmptemplate_id).id
+    assert_equal original_id, Template.live(@template.family_id).id
   end
 
   # ----------------------------------------------------------
@@ -128,7 +128,7 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     # Template can't be published on creation so do it afterward
     customization.published = true
     customization.visibility = Template.visibilities[:organisationally_visible]
-    customization.customization_of = @funder_template.dmptemplate_id
+    customization.customization_of = @funder_template.family_id
     customization.save
 
     sign_in @researcher
@@ -165,6 +165,6 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
     # ----------------------------------------------------------
     def version_template(template)
       get publish_org_admin_template_path(template)
-      Template.current(template.dmptemplate_id)
+      Template.current(template.family_id)
     end
 end
