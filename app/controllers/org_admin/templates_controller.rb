@@ -364,7 +364,7 @@ module OrgAdmin
       if org_id.present? || funder_id.present?
         unless funder_id.blank?
           # Load the funder's template(s)
-          templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id).to_a
+          templates = Template.publicly_visible.where(published: true, org_id: funder_id).to_a
 
           unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template

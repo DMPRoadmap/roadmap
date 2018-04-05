@@ -3,9 +3,15 @@ require 'test_helper'
 class TemplateTest < ActiveSupport::TestCase
 
   setup do
-    @org = Org.last
+    # Need to clear the tables until we get seed.rb out of test_helper.rb
+    Template.delete_all
     
-    scaffold_template
+    @funder = init_funder
+    @org = init_organisation
+    @institution = init_institution
+    @funder_org = init_funder_organisation
+    
+    @basic_template = init_template(@funder)
   end
 
   def settings(extras = {})
@@ -18,6 +24,52 @@ class TemplateTest < ActiveSupport::TestCase
   def default_formatting
     Settings::Template::DEFAULT_SETTINGS[:formatting]
   end
+  
+  test "default values are properly set on template creation" do
+    assert_equal false, @basic_template.published, 'expected a new template to not be published'
+    assert_equal false, @basic_template.archived, 'expected a new template to not be archived'
+
+# TODO: refactor this visibility check once merged with master (funder should be publicly visible, all other organisationally)
+    assert @basic_template.organisationally_visible?, 'expected a new template to be organisationally visible'
+
+    assert_equal false, @basic_template.is_default, 'expected a new template to not be the default template'
+    assert_equal 0, @basic_template.version, 'expected a new template to have a version == 0'
+    assert_not_nil @basic_template.family_id, 'expected a new template to have a family_id'
+  end
+
+  test "unarchived returns only unarchived templates" do
+    # Create an unarchived and an archived template (set archived after init because it will default to false on creation)
+    archived = init_template(@funder, { title: 'Archived Template' })
+    archived.update_attributes(archived: true)
+    results = Template.unarchived
+    assert_equal 1, results.count, 'expected there to be only 1 unarchived template'
+    assert_equal @basic_template, results.first, 'expected the correct template to have been returned'
+  end
+  
+  test "archived returns only archived templates" do
+    # Create an unarchived and an archived template (set archived after init because it will default to false on creation)
+    archived = init_template(@funder, { title: 'Archived Template' })
+    archived.update_attributes(archived: true)
+    results = Template.archived
+    assert_equal 1, results.count, 'expected there to be only 1 archived template'
+    assert_equal archived, results.first, 'expected the correct template to have been returned'
+  end
+  
+  test "published returns only published templates" do
+    published = init_template(@funder, { title: 'Published Template' })
+    published.update_attributes(published: true)
+    results = Template.published
+    assert_equal 1, results.count, 'expected there to be only 1 published template'
+    assert_equal published, results.first, 'expected the correct template to have been returned'
+  end
+  
+  test "latest returns only the latest version of templates" do
+  
+  end
+
+
+
+
 
   # ---------------------------------------------------
   test "required fields are required" do

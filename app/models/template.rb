@@ -39,33 +39,82 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
-  scope :valid,  -> { where(archived: false) }
-  scope :published, -> { where(published: true) }
+  # Archived scopes (should be used as base for all other scopes and queries!)
+  scope :archived, -> { where(archived: true) }
+  scope :unarchived, -> { where(archived: false) }
+
+  # Version scopes
+  scope :published, -> (family_id = nil) { 
+    if family_id.present?
+      unarchived.where(published: true, family_id: family_id)
+    else
+      unarchived.where(published: true) 
+    end
+  }
+  scope :latest, -> (family_id = nil) { 
+    if family_id.present?
+      unarchived.select("MAX(version) AS version", :family_id).group(:family_id)
+    else
+      unarchived.select("MAX(version) AS version", :family_id).where(family_id: family_ids).group(:family_id)
+    end
+  }
+
+  # Org type specific scopes
+  scope :public_funder, -> { 
+    funder_ids = Org.funders.pluck(&:id)
+    unarchived.latest
+  }
+
+  # Customization scopes
+  scope :customization, -> (org_id = nil) { 
+    if org_id.present?
+      unarchived.latest.where(customization_of: self.id, org_id: org_id)
+    else
+      unarchived.latest.where(customization_of: self.id)
+    end
+  }
+  scope :published_customization, -> (org_id) { 
+    if org_id.present?
+      published.customizations(org_id).where(published: true)
+    end
+  }
+
+  # Returns all of the unique family ids (unarchived)
+  def self.family_ids
+    Template.unarchived.pluck(&:family_id).uniq
+  end
+
+
+
+
+
+#  scope :valid,  -> { where(archived: false) }
+#  scope :published, -> { where(published: true) }
 
   # Retrieves all valid and published templates
   scope :valid_published, -> (is_default: false)  {
-    Template.where(templates: { is_default: is_default }).valid().published()
+    Template.where(templates: { is_default: is_default }).unarchived.published()
   }
 
-  scope :publicly_visible, -> { where(:visibility => Template.visibilities[:publicly_visible]) }
-  scope :organisationally_visible, -> { where(:visibility => Template.visibilities[:organisationally_visible]) }
+  scope :publicly_visible, -> { unarchived.where(:visibility => Template.visibilities[:publicly_visible]) }
+  scope :organisationally_visible, -> { unarchived.where(:visibility => Template.visibilities[:organisationally_visible]) }
   
   # Retrieves template with distinct family_id that are valid (e.g. archived false) and customization_of is nil. Note,
   # if organisation ids are passed, the query will filter only those distinct family_ids for those organisations
   scope :families, -> (org_ids=nil) {
     if org_ids.is_a?(Array) 
-      valid.where(org_id: org_ids, customization_of: nil).distinct
+      unarchived.where(org_id: org_ids, customization_of: nil).distinct
     else
-      valid.where(customization_of: nil).distinct
+      unarchived.where(customization_of: nil).distinct
     end 
   }
   # Retrieves the maximum version for the array of family_ids passed. If family_ids is missing, every maximum
   # version for each different family_id will be retrieved
   scope :family_ids_with_max_version, -> (family_ids=nil) {
     if family_ids.is_a?(Array)
-      select("MAX(version) AS version", :family_id).where(family_id: family_ids).group(:family_id)
+      select("MAX(version) AS version", :family_id).unarchived.where(family_id: family_ids).group(:family_id)
     else
-      select("MAX(version) AS version", :family_id).group(:family_id)
+      select("MAX(version) AS version", :family_id).unarchived.group(:family_id)
     end
   }
   # Retrieves the maximum version for the array of customization_ofs passed. If customization_ofs is missing, every maximum
@@ -82,13 +131,13 @@ class Template < ActiveRecord::Base
   }
   # Retrieves the latest template version, i.e. the one with maximum version for each family_id
   scope :latest_version, -> (family_ids=nil) {
-    from(family_ids_with_max_version(family_ids), :current)
+    unarchived.from(family_ids_with_max_version(family_ids), :current)
     .joins("INNER JOIN templates ON current.version = templates.version"\
       " AND current.family_id = templates.family_id")
   }
   # Retrieves the latest customized version, i.e. the one with maximum version for each customization_of=dmptemplate_id
   scope :latest_customization, -> (org_id, family_ids=nil) {
-    from(customization_ofs_with_max_version(family_ids, org_id), :current)
+    unarchived.from(customization_ofs_with_max_version(family_ids, org_id), :current)
     .joins("INNER JOIN templates ON current.version = templates.version"\
       " AND current.customization_of = templates.customization_of")
     .where('templates.org_id = ?', org_id)
@@ -96,30 +145,30 @@ class Template < ActiveRecord::Base
   
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    joins(:org).where("templates.title LIKE ? OR orgs.name LIKE ?", search_pattern, search_pattern)
+    unarchived.joins(:org).where("templates.title LIKE ? OR orgs.name LIKE ?", search_pattern, search_pattern)
   }
   
   # Retrieves the list of all family_ids (template versioning families) for the specified Org
   def self.family_ids
-    Template.all.valid.distinct.pluck(:family_id)
+    Template.unarchived.distinct.pluck(:family_id)
   end
 
   # Retrieves the most recent version of the template for the specified family_id
   def self.current(family_id)
-    Template.where(family_id: family_id).order(version: :desc).valid.first
+    Template.unarchived.where(family_id: family_id).order(version: :desc).first
   end
 
   # Retrieves the current published version of the template for the specified Org and family_id
   def self.live(family_id)
     if family_id.respond_to?(:each)
-      Template.where(family_id: family_id, published: true).valid
+      Template.unarchived.where(family_id: family_id, published: true)
     else
-      Template.where(family_id: family_id, published: true).valid.first
+      Template.unarchived.where(family_id: family_id, published: true).first
     end
   end
 
   def self.default
-    Template.valid.where(is_default: true, published: true).order(:version).last
+    Template.unarchived.where(is_default: true, published: true).order(:version).last
   end
 
   ##
@@ -132,7 +181,7 @@ class Template < ActiveRecord::Base
   # @return [nil, Template] the customized template or nil
   def self.org_customizations(family_ids, org_id)
     template_ids = latest_customization(org_id, family_ids).pluck(:id)
-    includes(:org).where(id: template_ids)
+    unarchived.includes(:org).where(id: template_ids)
   end
   
   # Retrieves current templates with their org associated for a set of valid orgs
@@ -146,7 +195,7 @@ class Template < ActiveRecord::Base
       families_ids = []
     end
     template_ids = latest_version(families_ids).pluck(:id)
-    includes(:org).where(id: template_ids)
+    unarchived.includes(:org).where(id: template_ids)
   end
   
   # Retrieves current templates with their org associated for a set of valid orgs
@@ -159,7 +208,7 @@ class Template < ActiveRecord::Base
     else
       families_ids = []
     end
-    includes(:org).where(family_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
+    unarchived.includes(:org).where(family_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
   end
   
   ##
