@@ -3,60 +3,60 @@ require 'test_helper'
 class PhaseTest < ActiveSupport::TestCase
   
   setup do
-    @org = Org.first
-    @template = Template.first
-    @phase = Phase.create(title: 'Test Phase 1', number: 1, template: @template)
+    # Need to clear the tables until we get seed.rb out of test_helper.rb
+    Template.delete_all
+    @funder = init_funder
+    @template = init_template(@funder, published: true)
+    @phase = init_phase(@template)
   end
   
-  # ---------------------------------------------------
   test "required fields are required" do
     assert_not Phase.new.valid?
-    assert_not Phase.new(title: 'Testing', number: 1).valid?, "expected the dmptemplate field to be required"
+    assert_not Phase.new(title: 'Testing', number: 1).valid?, "expected the template field to be required"
     assert_not Phase.new(number: 2, template: @template).valid?, "expected the title field to be required"
     assert_not Phase.new(title: 'Testing', template: @template).valid?, "expected the number field to be required"
     
-    # Ensure the bar minimum and complete versions are valid
+    # Ensure the bare minimum and complete versions are valid
     a = Phase.new(title: 'Testing', template: @template, number: 2)
     assert a.valid?, "expected the 'title', 'number' and 'template' fields to be enough to create an Phase! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
   
-  # ---------------------------------------------------
-  test "to_s returns the title" do
-    assert_equal @phase.title, @phase.to_s
+  test "titles scope returns a list of all phase id with their titles for the specified template" do
+    init_phase(@template, { title: 'test scope 1', number: 2 })
+    init_phase(@template, { title: 'test scope 2', number: 3 })
+    titles = Phase.titles(@template)
+    assert_equal 3, titles.length, 'expected 3 phases, the orignal and 2 new'
+    assert_not titles.select{ |p| p.title == 'test scope 2' }.empty?, "expected to find the second phase"
   end
   
-  # ---------------------------------------------------
-  test "has_sections returns false if there are NO published versions with sections" do
-    # TODO: build out this test if the has_sections method is actually necessary
+  test "titles scope does not return phases from other templates" do
+    init_phase(@template, { title: 'test scope 1', number: 2 })
+    template2 = init_template(@funder, { title: 'template 2' })
+    init_phase(template2, { title: 'other template scope' })
+    titles = Phase.titles(@template)
+    assert titles.select{ |p| p.title == 'other template scope' }.empty?, "expected to not find the other template's phase"
   end
   
-  # ---------------------------------------------------
-  test "deep copy" do
-    verify_deep_copy(@phase, ['id', 'created_at', 'updated_at'])
-  end
-  
-  # ---------------------------------------------------
-  test "can CRUD Phase" do
-    obj = Phase.create(title: 'Testing CRUD', template: @template, number: 4)
-    assert_not obj.id.nil?, "was expecting to be able to create a new Phase! - #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
-
-    obj.title = 'Testing an update'
-    obj.save!
-    obj.reload
-    assert_equal 'Testing an update', obj.title, "Was expecting to be able to update the title of the Phase!"
-  
-    assert obj.destroy!, "Was unable to delete the Phase!"
-  end
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Sections" do
-    s = Section.new(title: 'Test Section', number: 2)
-    verify_has_many_relationship(@phase, s, @phase.sections.count)
+  test "#deep_copy creates a new phase object and attaches new section objects" do
+    assert_deep_copy(@phase, @phase.deep_copy, relations: [:sections])
   end
 
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with Template" do
-    phase = Phase.new(title: 'Tester', number: 9)
-    verify_belongs_to_relationship(phase, @template)
+  test "num_questions returns the total number of questions for the phase" do
+    section = init_section(@phase)
+    section2 = init_section(@phase, { title: 'Section B', number: 2 })
+    init_question(section)
+    init_question(section, { text: 'Question number 2', number: 2 })
+    init_question(section2)
+    assert_equal 3, @phase.num_questions, 'expected 3 questions for the phase, 2 for the 1st section and 1 for the 2nd section'
+  end
+  
+  test "num_questions does not count questions that belong to other templates" do
+    section = init_section(@phase)
+    init_question(section)
+    template2 = init_template(@funder, { title: 'template 2' })
+    phase2 = init_phase(template2, { title: 'other template scope' })
+    section2 = init_section(phase2)
+    init_question(section2)
+    assert_equal 1, @phase.num_questions, 'expected 1 question for the phase'
   end
 end

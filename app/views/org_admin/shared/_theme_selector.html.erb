@@ -3,7 +3,9 @@
   <%= f.label _('Themes'), for: :theme_ids, class: 'control-label' %>
   <%= render partial: 'shared/popover', 
              locals: { message: popover_message, placement: 'right' }%>
-  <div class="row">
+
+  <div class="form-group col-md-12">
+
     <% if all_themes.length > 0 %>
       <% 
         cntr = 0
@@ -18,7 +20,13 @@
             <% cntr = 0 %>
           <% end %>
           <div class="checkbox">
-            <%= f.label :theme_ids, raw("#{f.check_box :theme_ids, {multiple: true}, theme.id, nil} #{theme.title}") %>
+            <% namespace = f.object.class.name.downcase %>
+            <% id = f.object.id.present? ? f.object.id : 'new' %>
+            <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme.id %>" 
+                   name="<%= namespace %>[theme_ids][]" 
+                   type="checkbox" 
+                   value="<%= theme.id %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
+            <%= theme.title %>
           </div>
           <% cntr += 1 %>
         <% end %>

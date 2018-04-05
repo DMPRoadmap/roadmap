@@ -1,0 +1,5 @@
+<h2><%= _('Phase details') %></h2>
+<p><%= _('When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions.') %></p>
+<%= form_for phase, { url: org_admin_template_phases_path(template), html: { class: 'phase_form' } } do |f| %>
+  <%= render partial: 'org_admin/phases/form', locals: local_assigns.merge({ f: f }) %>
+<% end %>

@@ -22,9 +22,6 @@ module DMPRoadmap
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-	
-	#commented 15.03.2016
-	#config.autoload_paths << Rails.root.join('lib')
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -42,6 +39,8 @@ module DMPRoadmap
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
+    
+    config.eager_load_paths << "app/models/scopes"
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,

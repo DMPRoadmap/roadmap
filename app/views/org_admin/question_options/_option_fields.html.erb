@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= _('Order')%>
+  </div>
+  <div class="col-md-3">
+    <%= _('Text')%>
+  </div>
+  <div class="col-md-3">
+    <%= _('Default')%>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+<% if q.question_options.count == 0 %>
+  <% 2.times {q.question_options.build } %>
+<% end %>
+<% i = 0 %>
+  <% q.question_options.to_a.sort_by{|op| op['number']}.each do |options_q| %>
+    <%= f.fields_for :question_options, options_q do |op|%>
+    <% i = i + 1 %>
+    <% options_q.number = i %>
+    <div class="row" data-attribute="question_option">
+      <div class="col-md-3">
+        <%= op.number_field :number, in: 1..20, class: 'form-control' %>
+      </div>
+      <div class="col-md-3">
+        <%= op.text_field :text, as: :string, class: 'form-control' %>
+      </div>
+      <div class="col-md-3">
+        <%= op.check_box :is_default %>
+      </div>
+      <div class="col-md-3">
+        <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
+        <a href="#" class="delete_question_option"><%= _('Remove') %></a>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+<div class="row">
+  <div class="col-md-12">
+    <a href="#" class="new_question_option"><%= _('Add option') %></a>
+  </div>
+</div>

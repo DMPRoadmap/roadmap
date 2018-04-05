@@ -1,7 +1,8 @@
 <%= f.label :org_name, _('Organisation'), class: 'control-label' %>
+<% object_name = (f.options[:namespace].present? ? "#{f.options[:namespace]}_#{f.object_name}" : f.object_name) %>
 <%= render partial: "shared/accessible_combobox",
-             locals: {name: "#{f.object_name}[org_name]",
-                      id: "#{f.object_name}_org_name",
+             locals: {name: "#{object_name}[org_name]",
+                      id: "#{object_name}_org_name",
                       default_selection: default_org,
                       models: orgs,
                       attribute: 'name'} %>

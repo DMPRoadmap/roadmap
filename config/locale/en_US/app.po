@@ -1137,7 +1137,7 @@ msgid "Download settings"
 msgstr "Download settings"
 
 msgid "Draft"
-msgstr "Drafgt"
+msgstr "Draft"
 
 msgid "Edit"
 msgstr "Edit"
