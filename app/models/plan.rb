@@ -101,28 +101,6 @@ class Plan < ActiveRecord::Base
   end
 
   ##
-  # returns the template for this plan, or generates an empty template and returns that
-  #
-  # @return [Dmptemplate] the template associated with this plan
-  def dmptemplate
-    #self.project.try(:dmptemplate) || Dmptemplate.new
-    self.template
-  end
-
-
-
-  def base_template
-    base = nil
-    t = self.template
-    if t.customization_of.present?
-      base = Template.where("family_id = ? and created_at < ?", t.customization_of, self.created_at).order(version: :desc).first
-    end
-    return base
-  end
-
-
-
-  ##
   # returns the most recent answer to the given question id
   # optionally can create an answer if none exists
   #

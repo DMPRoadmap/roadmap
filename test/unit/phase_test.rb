@@ -11,7 +11,7 @@ class PhaseTest < ActiveSupport::TestCase
   # ---------------------------------------------------
   test "required fields are required" do
     assert_not Phase.new.valid?
-    assert_not Phase.new(title: 'Testing', number: 1).valid?, "expected the dmptemplate field to be required"
+    assert_not Phase.new(title: 'Testing', number: 1).valid?, "expected the template field to be required"
     assert_not Phase.new(number: 2, template: @template).valid?, "expected the title field to be required"
     assert_not Phase.new(title: 'Testing', template: @template).valid?, "expected the number field to be required"
     
