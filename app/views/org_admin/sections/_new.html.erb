@@ -1,0 +1,6 @@
+<!-- add a section and one question. Version is passed as an argument-->
+<% number = phase.sections.empty? ? 0 : phase.sections.maximum(:number) %>
+<% new_section = Section.new(phase_id: phase.id, number: number + 1) %>
+<%= render partial: 'org_admin/sections/form',
+           locals: local_assigns.merge({ section: new_section, method: :post, url: org_admin_template_phase_sections_path(template_id: template.id, phase_id: phase.id) }) %>
+
