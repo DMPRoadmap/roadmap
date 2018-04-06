@@ -39,9 +39,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "create a new question" do
     params = {section_id: @section.id, text: 'Test Question', number: 9, question_format_id: @question_format.id}
-
-    @section.phase.template.dirty = false
-    @section.phase.template.save!
     
     # Should redirect user to the root path if they are not logged in!
     post admin_create_question_path(@section), {question: params}
@@ -59,9 +56,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_show_phase_url(id: @section.phase.id, section_id: @section.id, question_id: Question.last.id, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal 'Test Question', Question.last.text, "expected the record to have been created!"
-    
-    # Make sure that the template's dirty flag got set
-    assert @section.phase.template.reload.dirty?, "expected the templates dirty flag to be true"
     
     # Invalid object
     post admin_create_question_path(@section), {question: {section_id: @section.id, text: nil, question_format_id: @question_format.id}}
@@ -81,9 +75,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   test "update the question" do
     params = {text: 'Question - UPDATE'}
     
-    @section.phase.template.dirty = false
-    @section.phase.template.save!
-    
     # Should redirect user to the root path if they are not logged in!
     put admin_update_question_path(@section.questions.first), {question: params}
     assert_unauthorized_redirect_to_root_path
@@ -99,9 +90,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:section)
     assert assigns(:question)
     assert_equal 'Question - UPDATE', @section.questions.first.text, "expected the record to have been updated"
-    
-    # Make sure that the template's dirty flag got set
-    assert @section.phase.template.reload.dirty?, "expected the templates dirty flag to be true"
     
     # Invalid save
     put admin_update_question_path(@section.questions.first), {question: {text: nil}}
@@ -122,9 +110,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   test "delete the question" do
     id = @section.questions.first.id
     
-    @section.phase.template.dirty = false
-    @section.phase.template.save!
-    
     # Should redirect user to the root path if they are not logged in!
     delete admin_destroy_question_path(id: @section.id, question_id: id)
     assert_unauthorized_redirect_to_root_path
@@ -142,8 +127,5 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
       Question.find(id).nil?
     end
     
-    # Make sure that the template's dirty flag got set
-    assert @section.phase.template.reload.dirty?, "expected the templates dirty flag to be true"
   end
-  
 end

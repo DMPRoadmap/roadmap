@@ -54,7 +54,7 @@ class Guidance < ActiveRecord::Base
   # returns all templates belgonging to a specified guidance group
   #
   # @param guidance_group [Integer] the integer id for an guidance_group
-  # @return [Array<Dmptemplates>] list of templates
+  # @return [Array<Templates>] list of templates
 	def get_guidance_group_templates? (guidance_group)
     # DISCUSS - here we have yet another way of finding a specific or group of
     # an object.  Would it make sense to standardise the project by only using

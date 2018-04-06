@@ -14,7 +14,7 @@ class TemplateDashboard < Administrate::BaseDashboard
     sections: Field::HasMany,
     questions: Field::HasMany,
     customizations: Field::HasMany.with_options(class_name: "Template"),
-    dmptemplate: Field::BelongsTo.with_options(class_name: "Template"),
+    family: Field::BelongsTo.with_options(class_name: "Template"),
     setting_objects: Field::HasMany.with_options(class_name: "Settings::Template"),
     id: Field::Number,
     title: Field::String,
@@ -27,9 +27,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     version: Field::Number,
     visibility: Field::Number,
     customization_of: Field::Number,
-    dmptemplate_id: Field::Number,
-    migrated: Field::Boolean,
-    dirty: Field::Boolean,
+    family_id: Field::Number,
+    archived: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -55,7 +54,7 @@ class TemplateDashboard < Administrate::BaseDashboard
     :sections,
     :questions,
     :customizations,
-    :dmptemplate,
+    :family,
     :setting_objects,
     :id,
     :title,
@@ -68,9 +67,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     :version,
     :visibility,
     :customization_of,
-    :dmptemplate_id,
-    :migrated,
-    :dirty,
+    :family_id,
+    :archived,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -83,7 +81,7 @@ class TemplateDashboard < Administrate::BaseDashboard
     :sections,
     :questions,
     :customizations,
-    :dmptemplate,
+    :family,
     :setting_objects,
     :title,
     :description,
@@ -93,9 +91,8 @@ class TemplateDashboard < Administrate::BaseDashboard
     :version,
     :visibility,
     :customization_of,
-    :dmptemplate_id,
-    :migrated,
-    :dirty,
+    :family_id,
+    :archived,
   ].freeze
 
   # Overwrite this method to customize how templates are displayed

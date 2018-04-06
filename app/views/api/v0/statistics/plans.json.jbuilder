@@ -6,7 +6,7 @@ json.plans @org_plans.each do |plan|
   json.title          plan.title
   json.template do
     json.title        plan.template.title
-    json.id           plan.template.dmptemplate_id
+    json.id           plan.template.family_id
   end
   json.funder do
     json.name         (plan.template.org.funder? ? plan.template.org.name : '')

@@ -31,39 +31,39 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "family_ids scope only returns the dmptemplate_ids for the specific Org" do
+  test "family_ids scope only returns the family_ids for the specific Org" do
     Org.all.each do |org|
-      family_ids = Template.valid.all.pluck(:dmptemplate_id).uniq
-      scoped = Template.dmptemplate_ids
+      family_ids = Template.valid.all.pluck(:family_id).uniq
+      scoped = Template.family_ids
       assert_equal family_ids.count, scoped.count
       
       family_ids.each do |id|
         assert scoped.include?(id), "expected the family_ids scope to contain #{id} for Org: #{org.id}"
       end
       scoped.each do |id|
-        assert family_ids.include?(id), "expected #{id} to be a valid dmptemplate_id for Org: #{org.id}"
+        assert family_ids.include?(id), "expected #{id} to be a valid family_id for Org: #{org.id}"
       end
     end
   end
 
   # ---------------------------------------------------
-  test "current scope only returns the most recent version for each dmptemplate_id" do
+  test "current scope only returns the most recent version for each family_id" do
     Org.all.each do |org|
-      Template.dmptemplate_ids.each do |dmptemplate_id|
-        latest = Template.where(dmptemplate_id: dmptemplate_id).order(updated_at: :desc).first
+      Template.family_ids.each do |family_id|
+        latest = Template.where(family_id: family_id).order(updated_at: :desc).first
         
-        assert_equal latest, Template.current(dmptemplate_id), "Expected the template.id #{latest.id} to be the current record for Org: #{org.id}, dmptemplate_id: #{dmptemplate_id}"
+        assert_equal latest, Template.current(family_id), "Expected the template.id #{latest.id} to be the current record for Org: #{org.id}, family_id: #{family_id}"
       end
     end
   end
   
   # ---------------------------------------------------
-  test "published scope only returns the current published version for each dmptemplate_id" do
+  test "published scope only returns the current published version for each family_id" do
     Org.all.each do |org|
-      Template.dmptemplate_ids.each do |dmptemplate_id|
-        latest = Template.where(dmptemplate_id: dmptemplate_id, published: true).order(updated_at: :desc).first
+      Template.family_ids.each do |family_id|
+        latest = Template.where(family_id: family_id, published: true).order(updated_at: :desc).first
 
-        assert_equal latest, Template.live(dmptemplate_id), "Expected the #{latest.nil? ? 'template to have never been published' : "template.id #{latest.id} to be the published record"} for Org: #{org.id}, dmptemplate_id: #{dmptemplate_id}"
+        assert_equal latest, Template.live(family_id), "Expected the #{latest.nil? ? 'template to have never been published' : "template.id #{latest.id} to be the published record"} for Org: #{org.id}, family_id: #{family_id}"
       end
     end
   end
@@ -154,21 +154,21 @@ class TemplateTest < ActiveSupport::TestCase
     tC = Template.create!(title: 'My test C', version: 0, org: @org)
     
     # Test 1 - Multiple versions
-    cAv0 = Template.create!(title: 'My test customization A', version: 0, customization_of: tA.dmptemplate_id, org: Org.first)
+    cAv0 = Template.create!(title: 'My test customization A', version: 0, customization_of: tA.family_id, org: Org.first)
     cAv1 = Template.deep_copy(cAv0)
     cAv1.update_attributes(version: 1)
     
     # Test 2 - Only one version
-    cBv0 = Template.create!(title: 'My test customization B', version: 0, customization_of: tB.dmptemplate_id, org: Org.first)
+    cBv0 = Template.create!(title: 'My test customization B', version: 0, customization_of: tB.family_id, org: Org.first)
 
     # Test 3 - Make sure it always returns the latest version regardless of published statuses
-    cCv0 = Template.create!(title: 'My test customization C', version: 0, customization_of: tC.dmptemplate_id, org: Org.first)
+    cCv0 = Template.create!(title: 'My test customization C', version: 0, customization_of: tC.family_id, org: Org.first)
     cCv1 = Template.deep_copy(cCv0)
     cCv1.update_attributes(version: 1, published: true)
     cCv2 = Template.deep_copy(cCv1)
     cCv2.update_attributes(version: 2)
     
-    latest = Template.org_customizations([tA, tB, tC].collect(&:dmptemplate_id), Org.first.id)
+    latest = Template.org_customizations([tA, tB, tC].collect(&:family_id), Org.first.id)
     assert latest.include?(cAv1), 'expected to get customization A - version 1.'
     assert latest.include?(cBv0), 'expected to get customization B - version 0.'
     assert latest.include?(cCv2), 'expected to get customization C - version 2.'
