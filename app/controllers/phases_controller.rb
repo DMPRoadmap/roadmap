@@ -21,6 +21,7 @@ class PhasesController < ApplicationController
     answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
     
     render('/phases/edit', locals: {
+      base_template_org: phase.template.base_org,
       plan: plan, phase: phase, readonly: readonly,
       question_guidance: plan.guidance_by_question_as_hash,
       guidance_groups: guidance_groups,
@@ -80,6 +81,7 @@ class PhasesController < ApplicationController
     authorize @phase
     @template = @phase.template
     @current_tab = params[:r] || 'all-templates'
+    @base_template_org = @phase.template.base_org
   end
 
 
