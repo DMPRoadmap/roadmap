@@ -27,7 +27,7 @@
       <ul class="nav nav-tabs" role="tablist">
         <% if annotations.present? %>
           <li role="presentation" class="active">
-            <a href="#annotations-<%= question.id %>" aria-controls="annotations-<%= question.id %>" role="tab" data-toggle="tab" 
+            <a data-target="#annotations-<%= question.id %>" aria-controls="annotations-<%= question.id %>" role="tab" data-toggle="tab" 
                class="view-plan-guidance">
               <%= template.org.short_name %>
             </a>
@@ -37,7 +37,7 @@
           <% obj = guidance_groups.select{ |gg| gg.name == group }.first %>
           <% if obj.present? %>
             <li role="presentation">
-              <a href="#guidance-<%= question.id %>-<%= obj.id %>" aria-controls="guidance-<%= question.id %>-<%= obj.id %>" 
+              <a data-target="#guidance-<%= question.id %>-<%= obj.id %>" aria-controls="guidance-<%= question.id %>-<%= obj.id %>" 
                  role="tab" data-toggle="tab" class="view-plan-guidance">
                 <%= group[0..15] %>
               </a>

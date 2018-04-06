@@ -1,4 +1,4 @@
-<%# locals: { question, answer, readonly, locking } %>
+<%# locals: { template, question, answer, readonly, locking } %>
 <!--
   This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
 -->
@@ -64,15 +64,18 @@
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
-  <% annotation = question.first_example_answer %>
-  <% if annotation.present? && annotation.text.present? %>
-    <div class="panel panel-default">
-      <span class="label label-default">
-        <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
-      </span>
-      <div class="panel-body">
-        <%= raw annotation.text %>
+  <% annotations = [question.first_example_answer] %>
+  <% annotations << question.get_example_answer(template.org.id) if template.present? && template.org.present? %>
+  <% annotations.each do |annotation| %>
+    <% if annotation.present? && annotation.org.present? %>
+      <div class="panel panel-default">
+        <span class="label label-default">
+          <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+        </span>
+        <div class="panel-body">
+          <%= raw annotation.text %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 <% end %>
