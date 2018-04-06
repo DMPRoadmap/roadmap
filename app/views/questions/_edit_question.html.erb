@@ -66,7 +66,7 @@ in the admin interface.
           <div class="form-group col-md-10">
             <%= f.label(:example_answer, _('Example Answer'), class: "control-label") %>
             <div class="" data-toggle="tooltip" title="<%= ('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>">
-              <% example_answer = question.get_example_answer(current_user.org.id) %>
+              <% example_answer = question.get_example_answers(current_user.org.id).first %>
               <% if example_answer.nil? %>
                   <% example_answer = question.annotations.build %>
                   <% example_answer.type = :example_answer %>
