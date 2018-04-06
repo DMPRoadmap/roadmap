@@ -14,9 +14,9 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     # Fails if search form does not exists under paginable-search
     refute_empty(css_select('.paginable-search form'))
     # Fails if sort link for email does not exist
-    refute_empty(css_select('a[href$="1?search=User&sort_direction=ASC&sort_field=email"]'))
+    refute_empty(css_select('a[href$="1?search=User&sort_field=email&sort_direction=ASC"]'))
     # Fails if sort link for last_sign_in_at does not exist
-    refute_empty(css_select('a[href$="1?search=User&sort_direction=ASC&sort_field=last_sign_in_at"]'))
+    refute_empty(css_select('a[href$="1?search=User&sort_field=last_sign_in_at&sort_direction=ASC"]'))
 
     link_view_all_search_results = css_select('a[href$="/ALL?search=User"]').first
     refute_nil(link_view_all_search_results)
@@ -36,9 +36,9 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     # Fails if search form does not exists under paginable-search
     refute_empty(css_select('.paginable-search form'))
     # Fails if sort link for email does not exist
-    refute_empty(css_select('a[href$="ALL?search=User&sort_direction=ASC&sort_field=email"]'))
+    refute_empty(css_select('a[href$="ALL?search=User&sort_field=email&sort_direction=ASC"]'))
     # Fails if sort link for last_sign_in_at does not exist
-    refute_empty(css_select('a[href$="ALL?search=User&sort_direction=ASC&sort_field=last_sign_in_at"]'))
+    refute_empty(css_select('a[href$="ALL?search=User&sort_field=last_sign_in_at&sort_direction=ASC"]'))
 
     link_view_less_search_results = css_select('a[href$="/1?search=User"]').first
     refute_nil(link_view_less_search_results)
@@ -58,36 +58,15 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     # Fails if search form does not exists under paginable-search
     refute_empty(css_select('.paginable-search form'))
     # Fails if sort link for email does not exist
-    refute_empty(css_select('a[href$="1?sort_direction=ASC&sort_field=email"]'))
+    refute_empty(css_select('a[href$="1?sort_field=email&sort_direction=ASC"]'))
     # Fails if sort link for last_sign_in_at does not exist
-    refute_empty(css_select('a[href$="1?sort_direction=ASC&sort_field=last_sign_in_at"]'))
-
+    refute_empty(css_select('a[href$="1?sort_field=last_sign_in_at&sort_direction=ASC"]'))
+    # Super admins are not able to see View All link
     link = css_select('a[href$="/ALL"]').first
-    # Fails if link ending with /ALL does not exist
-    refute_nil(link)
-    assert_equal(link.content, _('View all'))
+    assert_nil(link)
 
     # Fails if pagination nav is not found
     refute_empty(css_select('nav.pagination'))
-  end
-
-  test 'when total greather than default_per_page pagination and not searchable/not paginable are enabled' do
-    create_users(Kaminari.config.default_per_page)
-    get(index_paginable_users_path('ALL'))
-    # Fails if search form does not exists under paginable-search
-    refute_empty(css_select('.paginable-search form'))
-    # Fails if sort link for email does not exist
-    refute_empty(css_select('a[href$="ALL?sort_direction=ASC&sort_field=email"]'))
-    # Fails if sort link for last_sign_in_at does not exist
-    refute_empty(css_select('a[href$="ALL?sort_direction=ASC&sort_field=last_sign_in_at"]'))
-
-    link = css_select('a[href$="/1"]').first
-    # Fails if link ending with /1 does not exist
-    refute_nil(link)
-    assert_equal(link.content, _('View less'))
-
-    # Fails if pagination nav is found
-    assert_empty(css_select('nav.pagination'))
   end
 
   test 'when total less than default_per_page pagination and searchable is enabled and no records found' do
@@ -119,6 +98,13 @@ class PaginableFlowsTest < ActionDispatch::IntegrationTest
     # Fails if link ending with /1 does not exist. Note, used to clear results
     refute_nil(link)
     assert_equal(link.content, _('Clear search results'))
+  end
+
+  test 'returns forbidden status when view_all option is false' do
+    create_users(Kaminari.config.default_per_page)
+    get(index_paginable_users_path('ALL'))
+    assert_response(:forbidden)
+    assert_equal(_('Restricted access to View All the records'), response.body)
   end
 
   teardown do
