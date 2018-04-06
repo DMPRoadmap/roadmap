@@ -8,7 +8,7 @@ en_GB:
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
       already_authenticated: "You are already signed in."
-      inactive: "Your account was not activated yet."
+      inactive: "Your account is no longer active. Please contact us to reactivate your account."
       invalid: "Invalid email or password."
       invalid_token: "Invalid authentication token."
       invited: "You have a pending invitation, accept it to finish creating your account."

@@ -118,7 +118,7 @@ class Question < ActiveRecord::Base
   def first_example_answer
     self.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first
   end
-
+  
   ##
   # get guidance belonging to the current user's org for this question(need org 
   # to distinguish customizations)

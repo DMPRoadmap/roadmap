@@ -70,12 +70,15 @@ class Template < ActiveRecord::Base
   }
   # Retrieves the maximum version for the array of customization_ofs passed. If customization_ofs is missing, every maximum
   # version for each different customization_of will be retrieved
-  scope :customization_ofs_with_max_version, -> (customization_ofs=nil) {
-    if customization_ofs.is_a?(Array)
-      select("MAX(version) AS version", :customization_of).where(customization_of: customization_ofs).group(:customization_of)
-    else
-      select("MAX(version) AS version", :customization_of).group(:customization_of)
+  scope :customization_ofs_with_max_version, -> (customization_ofs=nil, org_id=nil) {
+    chained_scope = select("MAX(version) AS version", :customization_of)
+    if customization_ofs.respond_to?(:each)
+      chained_scope = chained_scope.where(customization_of: customization_ofs)
     end
+    if org_id.present?
+      chained_scope = chained_scope.where(org_id: org_id)
+    end
+    chained_scope.group(:customization_of)
   }
   # Retrieves the latest template version, i.e. the one with maximum version for each dmptemplate_id
   scope :latest_version, -> (dmptemplate_ids=nil) {
@@ -85,7 +88,7 @@ class Template < ActiveRecord::Base
   }
   # Retrieves the latest customized version, i.e. the one with maximum version for each customization_of=dmptemplate_id
   scope :latest_customization, -> (org_id, dmptemplate_ids=nil) {
-    from(customization_ofs_with_max_version(dmptemplate_ids), :current)
+    from(customization_ofs_with_max_version(dmptemplate_ids, org_id), :current)
     .joins("INNER JOIN templates ON current.version = templates.version"\
       " AND current.customization_of = templates.customization_of")
     .where('templates.org_id = ?', org_id)
@@ -268,11 +271,11 @@ class Template < ActiveRecord::Base
       self.published = false
       self.migrated = false
       self.dirty = false
-      self.visibility = 0 # Organisationally visible by default
       self.is_default = false if self.is_default.nil?
       self.version = 0 if self.version.nil?
-      self.visibility = Template.visibilities[:organisationally_visible] if self.visibility.nil?
-
+      # Organisationally visible by default unless Org is only a funder
+      self.visibility = (self.org.present? && self.org.funder_only?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible] 
+      
       # Generate a unique identifier for the dmptemplate_id if necessary
       if self.dmptemplate_id.nil?
         self.dmptemplate_id = loop do
