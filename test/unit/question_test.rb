@@ -64,7 +64,7 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal 'Test 2', @question.annotations.where(org_id: Org.first.id).first.text, "expected the correct annotation"
 
     org = Org.create(name: 'New One', links: {"org":[]})
-    assert_equal nil, @question.get_example_answer(org.id), "expected no annotation for a new org"
+    assert_equal 0, @question.get_example_answers(org.id).length, "expected no annotation for a new org"
   end
 
   # ---------------------------------------------------
