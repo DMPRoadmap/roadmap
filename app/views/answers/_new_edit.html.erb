@@ -64,18 +64,18 @@
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
-  <% annotations = [question.first_example_answer] %>
-  <% annotations << question.get_example_answer(template.org.id) if template.present? && template.org.present? %>
-  <% annotations.each do |annotation| %>
-    <% if annotation.present? && annotation.org.present? %>
-      <div class="panel panel-default">
-        <span class="label label-default">
-          <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
-        </span>
-        <div class="panel-body">
-          <%= raw annotation.text %>
+  <% if template.present? && template.org.present? %>
+    <% question.get_example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
+      <% if annotation.present? && annotation.org.present? %>
+        <div class="panel panel-default">
+          <span class="label label-default">
+            <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+          </span>
+          <div class="panel-body">
+            <%= raw annotation.text %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

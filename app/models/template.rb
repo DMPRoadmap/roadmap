@@ -262,6 +262,16 @@ class Template < ActiveRecord::Base
     self.customization_of.present? ? _('customisation') : _('template')
   end
 
+  # Retrieves the template's org or the org of the template this one is derived
+  # from of it is a customization
+  def base_org
+    if self.customization_of.present?
+      base_template_org = Template.where(dmptemplate_id: self.customization_of).first.org
+    else
+      base_template_org = self.org
+    end
+  end
+
   # --------------------------------------------------------
   private
   # Initialize the published and dirty flags for new templates
