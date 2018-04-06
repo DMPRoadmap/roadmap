@@ -78,14 +78,15 @@ class ActiveSupport::TestCase
   # Template initializers
   def init_template(org, **props)
     if org.is_a? Org
-      validate_and_create_obj(Template.new(template_seed.merge(props)))
+      validate_and_create_obj(Template.new(template_seed.merge({ org: org }.merge(props))))
     else
       puts "You must supply an Org when creating a template! Got the following instead: #{org.inspect}"
       nil
     end
   end
-
-
+  
+  
+  
 
 
   # Get the organisational admin for the Org specified or create one

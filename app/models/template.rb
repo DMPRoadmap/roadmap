@@ -17,8 +17,12 @@ class Template < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
 
-  has_many :customizations, class_name: 'Template', foreign_key: 'family_id'
-  belongs_to :family, class_name: 'Template'
+  # Self join for Customizations
+  has_many :customizations, class_name: 'Template', foreign_key: 'customization_of'
+  belongs_to :customized_from, class_name: 'Template'
+
+  # Self join for Siblings/Versions
+  has_many :versions, class_name: 'Template', foreign_key: 'family_id'
 
   ##
   # Possibly needed for active_admin
@@ -39,11 +43,18 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, :version, presence: {message: _("can't be blank")}
 
-  # Archived scopes (should be used as base for all other scopes and queries!)
+
+# ---------------------------------------------------------
+# NEW Scopes and methods for Template Versioning project
+# ---------------------------------------------------------
+
+  # Archiving scopes (should be used as base for all other scopes and queries!)
+  # ---------------------------------------------------------
   scope :archived, -> { where(archived: true) }
   scope :unarchived, -> { where(archived: false) }
 
-  # Version scopes
+  # Version specific scopes
+  # ---------------------------------------------------------
   scope :published, -> (family_id = nil) { 
     if family_id.present?
       unarchived.where(published: true, family_id: family_id)
@@ -51,21 +62,28 @@ class Template < ActiveRecord::Base
       unarchived.where(published: true) 
     end
   }
-  scope :latest, -> (family_id = nil) { 
+  
+# Jose: I updated the relationships above so that we now have template.versions 
+#       which ties to family_id; and customizations and customized_from which are
+#       tied to customization_of.
+#
+#       We many be able to use those in many instances instead of these class
+#       scopes
+  scope :latest_version_numbers, -> (family_id = nil) {
     if family_id.present?
-      unarchived.select("MAX(version) AS version", :family_id).group(:family_id)
-    else
       unarchived.select("MAX(version) AS version", :family_id).where(family_id: family_ids).group(:family_id)
+    else
+      unarchived.select("MAX(version) AS version", :family_id).group(:family_id)
     end
   }
-
-  # Org type specific scopes
-  scope :public_funder, -> { 
-    funder_ids = Org.funders.pluck(&:id)
-    unarchived.latest
+  scope :latest_version, -> (family_id = nil) {
+    unarchived.from(latest_version_numbers(family_id), :current)
+      .joins("INNER JOIN templates ON current.version = templates.version " +
+             "AND current.family_id = templates.family_id").first
   }
 
-  # Customization scopes
+  # Customization specific scopes
+  # ---------------------------------------------------------
   scope :customization, -> (org_id = nil) { 
     if org_id.present?
       unarchived.latest.where(customization_of: self.id, org_id: org_id)
@@ -79,16 +97,47 @@ class Template < ActiveRecord::Base
     end
   }
 
+  # Org type specific scopes
+  # ---------------------------------------------------------
+  scope :public_funder, -> { 
+    funder_ids = Org.funders.pluck(&:id)
+    unarchived.latest
+  }
+
   # Returns all of the unique family ids (unarchived)
   def self.family_ids
     Template.unarchived.pluck(&:family_id).uniq
   end
+  
+  # Returns a new version of this template
+  def new_version
+    if self.id.present?
+      new_version = Template.deep_copy(self)
+      new_version.version = (self.version + 1)
+      new_version.published = false 
+      new_version.visibility = self.visibility # do not change the visibility 
+      new_version.is_default = self.is_default # retain the default template flag
+      new_version
+    else
+      nil
+    end
+  end
+  
+# -----------------------------------------------------------------------------
+# JOSE: The methods above are the ones I have been verifying and intend to keep. 
+#       They each have corresponding unit tests (including a new one to check
+#       for the proper default values for a new template).
+#       The ones below are the old methods (e.g. 'valid'). If one of the old 
+#       ones is still good and you think we should keep it, just move it up above
+#       and adjust it if necessary.
+#
+#       
+# -----------------------------------------------------------------------------
 
 
 
 
-
-#  scope :valid,  -> { where(archived: false) }
+  scope :valid,  -> { where(archived: false) }
 #  scope :published, -> { where(published: true) }
 
   # Retrieves all valid and published templates
@@ -321,6 +370,9 @@ class Template < ActiveRecord::Base
     end
   end
 
+
+# JOSE: I have already updated the creation defaults below but feel free to
+# adjust if necessary
   # --------------------------------------------------------
   private
   # Initialize the new template
