@@ -65,7 +65,7 @@ class QuestionsController < ApplicationController
       # The user cleared out the guidance value so delete the record
       guidance.destroy! if guidance.present?
     end
-    example_answer = @question.get_example_answer(current_user.org_id)
+    example_answer = @question.get_example_answers(current_user.org_id).first
     if params["question"]["annotations_attributes"].present? && params["question"]["annotations_attributes"]["0"]["id"].present?
       unless example_answer.present?
         example_answer = Annotation.new(type: :example_answer, org_id: current_user.org_id, question_id: @question.id)
