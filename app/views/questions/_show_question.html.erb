@@ -36,7 +36,7 @@
           </dd>
           <!-- Suggested answer or Example-->
           <% if !question.section.phase.template.org.funder? %>
-              <% example_answer = question.get_example_answer(@original_org.id) %>
+              <% example_answer = question.get_example_answers(@original_org.id).first %>
               <% if example_answer.present?  && example_answer.text.present?  %>
                   <dt><%= _('example answer')%></dt>
                   <dd><%= raw example_answer.text %></dd>
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-md-12">
         <!-- Add suggested or example answers to a funders template-->
-        <% example_answer = question.get_example_answer(current_user.org_id) %>
+        <% example_answer = question.get_example_answers(current_user.org_id).first %>
         <% guidance = question.get_guidance_annotation(current_user.org_id) %>
         <% editing = (example_answer.present? || guidance.present?) %>
         <% if !question.modifiable %>
