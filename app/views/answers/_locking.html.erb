@@ -1,5 +1,6 @@
 <div class="answer_notice">
     <p><%= _('The following answer cannot be saved') %></p>
-        <%= render partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: true, locking: true } %>
+    <%# We do not need to re-show example answers in this lock conflict section so leave template nil %>
+    <%= render partial: '/answers/new_edit', locals: { template: nil, question: question, answer: answer, readonly: true, locking: true } %>
     <p><%= _('since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again.') % { name: user.name} %></p>
 </div>

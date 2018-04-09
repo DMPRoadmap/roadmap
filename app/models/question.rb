@@ -108,17 +108,17 @@ class Question < ActiveRecord::Base
   ##
  	# get example answer belonging to the currents user for this question
   #
-  # @param org_id [Integer] the id for the organisation
-  # @return [String] the example answer for this question for the specified org
- 	def get_example_answer(org_id)
- 		example_answer = self.annotations.where(org_id: org_id).where(type: Annotation.types[:example_answer]).order(:created_at)
- 		return example_answer.first
+  # @param org_ids [Array<Integer>] the ids for the organisations
+  # @return [Array<Annotation>] the example answers for this question for the specified orgs
+ 	def get_example_answers(org_ids)
+    org_ids = [org_ids] unless org_ids.is_a?(Array)
+    self.annotations.where(org_id: [org_ids], type: Annotation.types[:example_answer]).order(:created_at)
  	end
 
   def first_example_answer
     self.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first
   end
-
+  
   ##
   # get guidance belonging to the current user's org for this question(need org 
   # to distinguish customizations)
