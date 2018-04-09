@@ -341,7 +341,7 @@ module OrgAdmin
         template.save
 
         flash[:notice] = _("Your #{template.template_type} has been published and is now available to users.")
-        redirect_to "#{org_admin_templates_path}#{template.template_type == 'customisation' ? '#funder-templates' : '#organisation-templates'}"
+        redirect_to "#{org_admin_templates_path}#{template.template_type == _('customisation') ? '#funder-templates' : '#organisation-templates'}"
       end
     end
 
@@ -359,7 +359,7 @@ module OrgAdmin
         flash[:notice] = _("Your #{template.template_type} is no longer published. Users will not be able to create new DMPs for this #{template.template_type} until you re-publish it")
       end
 
-      redirect_to "#{org_admin_templates_path}#{template.template_type == 'customisation' ? '#funder-templates' : '#organisation-templates'}"
+      redirect_to "#{org_admin_templates_path}#{template.template_type == _('customisation') ? '#funder-templates' : '#organisation-templates'}"
     end
     
     # PUT /org_admin/template_options  (AJAX)
