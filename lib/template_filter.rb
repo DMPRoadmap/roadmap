@@ -12,9 +12,11 @@ module TemplateFilter
       # If the user is an Org Admin look for customizations to funder templates
       customizations = {}
       if current_user.can_org_admin?
-        families = templates.collect(&:family_id).uniq
-        Template.org_customizations(families, current_user.org_id).each do |customization|
-          customizations[customization.customization_of] = customization if customization.present?
+        family_ids = Template.families.pluck(:family_id)
+        latest_customized_versions = Template.latest_customized_version(family_ids, current_user.org_id).includes(:org)
+        customizations = latest_customized_versions.reduce({}) do |memo, customization|
+          memo[customization.customization_of] = customization
+          memo
         end
       end
 
@@ -32,9 +34,9 @@ module TemplateFilter
     else
       # If we're collecting all templates
       if all
-        templates = Template.get_latest_template_versions(Org.all)
+        templates = Template.latest_version_per_org(Org.all.pluck(:id)).includes(:org)
       else
-        templates = Template.get_latest_template_versions(Org.where(id: current_user.org.id))
+        templates = Template.latest_version_per_org(Org.where(id: current_user.org.id)).includes(:org)
       end
 
       scopes = calculate_table_scopes(templates, {})

@@ -13,8 +13,8 @@ module Api
 
         @org_templates = {}
 
-        published_templates = Template.includes(:org).valid.where(customization_of: nil, published: true).order(:org_id, :version)
-        customized_templates = Template.includes(:org).valid.where(org_id: @user.org_id, published: true).where.not(customization_of: nil)
+        published_templates = Template.includes(:org).unarchived.where(customization_of: nil, published: true).order(:org_id, :version)
+        customized_templates = Template.includes(:org).unarchived.where(org_id: @user.org_id, published: true).where.not(customization_of: nil)
 
         Template.published.order(:org_id, :version).each do |temp|
           if @org_templates[temp.org].present?

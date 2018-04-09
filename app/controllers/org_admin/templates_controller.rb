@@ -369,7 +369,7 @@ module OrgAdmin
           unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
             templates.each do |tmplt|
-              customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.family_id)
+              customization = Template.unarchived.find_by(published: true, org_id: org_id, customization_of: tmplt.family_id)
               if customization.present? && tmplt.created_at < customization.created_at
                 templates.delete(tmplt)
                 templates << customization
@@ -381,7 +381,7 @@ module OrgAdmin
         # If the no funder was specified OR the funder matches the org
         if funder_id.blank? || funder_id == org_id
           # Retrieve the Org's templates
-          templates << Template.organisationally_visible.valid.where(published: true, org_id: org_id, customization_of: nil).to_a
+          templates << Template.organisationally_visible.unarchived.where(published: true, org_id: org_id, customization_of: nil).to_a
         end
         
         templates = templates.flatten.uniq

@@ -74,9 +74,9 @@ class TemplateTest < ActiveSupport::TestCase
   test "able to determine the latest version number" do
     version2 = @basic_template.new_version
     version2.save!
-    results = Template.latest_version_numbers(@basic_template.family_id)
+    results = Template.latest_version_per_family(@basic_template.family_id)
     assert_equal 1, results.length, 'expected only one version to be returned for the specific family'
-    assert_equal version2.version, results.first.version, 'expected the new version' 
+    assert_equal version2.version, results.first.version, 'expected the new version'
   end
   
   test "able to retrieve the latest version" do
