@@ -6,7 +6,10 @@ class GuidanceGroupTest < ActiveSupport::TestCase
   setup do
     @user = User.first
     @org = Org.last
-    
+    # First clear out any existing templates
+    GuidanceGroup.all.each do |gg|
+      gg.destroy!
+    end  
     @guidance_group = GuidanceGroup.create(name: 'Test Guidance Group', org: @org,
                                            optional_subset: false, published: true)
   end
@@ -46,7 +49,7 @@ class GuidanceGroupTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "user can view guidance_group if it belongs to a funder" do
-    gg = GuidanceGroup.create(name: 'Funder Test', org: Org.funders.first)
+    gg = GuidanceGroup.create(name: 'Funder Test', org: Org.funder.first)
     
     assert GuidanceGroup.can_view?(@user, gg)
   end
@@ -66,7 +69,7 @@ class GuidanceGroupTest < ActiveSupport::TestCase
 
     ggs = [@guidance_group,
            GuidanceGroup.create(name: 'User Test', org: @org),
-           GuidanceGroup.create(name: 'Funder Test', org: Org.funders.first),
+           GuidanceGroup.create(name: 'Funder Test', org: Org.funder.first),
            GuidanceGroup.create(name: 'Managing CC Test', org: Org.managing_orgs.first)]
     
     v = GuidanceGroup.all_viewable(@user)

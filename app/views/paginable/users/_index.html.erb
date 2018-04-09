@@ -1,0 +1,75 @@
+<% is_super_admin = current_user.can_super_admin? %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+              <th><%= _('Name') %>&nbsp;<%= paginable_sort_link('firstname') %></th>
+              <th><%= _('Email') %>&nbsp;<%= paginable_sort_link('email') %></th>
+              <th><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+              <th class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('created_at') %></th>
+              <th class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('last_sign_in_at') %></th>
+              <th class="text-center sorter-false"><%= _('Plans') %></th>
+              <th class="text-center sorter-false"><%= _('Current Privileges') %></th>
+              <th class="text-center"><%= _('Active') %></th>
+              <th class="text-center sorter-false"><%= _('Privileges') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% scope.each do |user| %>
+              <% if !user.nil? then%>
+                <tr>
+                  <td>
+                      <% if !user.name.nil? %>
+                          <%= is_super_admin ? link_to(user.name(false), edit_super_admin_user_path(user)) : user.name(false) %>
+                      <% else %>
+                          <%= is_super_admin ? link_to(_('Edit Profile'), edit_user_registration_path(user)) : '' %>
+                      <% end %>
+                  </td>
+                  <td><%= user.email %></td>
+                  <td><%= user.org.name if user.org.present? %></td>
+                  <td class="text-center">
+                      <% if !user.created_at.nil? %>
+                      <%= l user.created_at.to_date, :formats => :short %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                      <% if !user.last_sign_in_at.nil? %>
+                      <%= l user.last_sign_in_at.to_date, :formats => :short %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                      <% unless user.roles.nil? %>
+                      <%= user.roles.where(Role.not_reviewer_condition).length %>
+                      <% end %>
+                  </td>
+                  <%# The content of this column get updated through AJAX whenever the permission for an user are updated %>
+                  <td class="text-center" data-descriptor="current_privileges">
+                    <%= render partial: 'users/current_privileges', locals: { user: user } %>
+                  </td>
+                  <td class="text-center user-status">
+                    <% if is_super_admin %>
+                      <%= form_for user, url: activate_user_path(user), html: { method: :put, remote: true, class: 'activate-user' } do |f| %>
+                        <%= check_box_tag(:active, "1", user.active) %>
+                        <%= f.submit(_('Update'), style: 'display: none;') %>
+                      <% end %>
+                    <% else %>
+                      <%= user.active? ? _('Yes') : _('No') %>
+                    <% end %>
+                  </td>
+                  <td class="text-center">
+                    <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
+                    <% unless current_user == user || !is_super_admin && user.can_super_admin? %>
+                      <%= link_to( _('Edit'), admin_grant_permissions_user_path(user)) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+          <% end %>
+        </tbody>
+      </table>
+      <div id="modal-permissions" class="modal" tabindex="-1" role="dialog"></div>
+    </div>
+  </div>
+</div>

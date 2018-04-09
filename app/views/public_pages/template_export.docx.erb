@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>
+      <%= @template.title %>
+    </title>
+    <style>
+      .guidance {
+        margin: 10px 0 10px 15px;
+      }
+    </style>
+  </head>
+  <body style="font-family: Arial; font-size: 11pt;">
+    <% @template.phases.each do |phase| %>
+      <!-- page break before each phase -->
+      <br style="page-break-before: always">
+      <h2><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h2>
+
+      <% phase.sections.each do |section| %>
+        <h3><%= section.title %></h3>
+        <% section.questions.each do |question|%>
+          <div>
+            <p><%= raw question.text.chomp.strip %></p>
+            <% q_format = question.question_format %>
+            <% if q_format.option_based? %>
+              <ul>
+                <% question.question_options.each do |option| %>
+                  <li><%= option.text.chomp.strip %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        
+          <div class="guidance">
+            <% question.annotations.each do |annotation| %>
+              <% unless annotation.text.chomp.strip.gsub(/<\/?p>/, '').gsub(/<br\s?\/>/, '').blank? %>
+                <br>
+                <p><i><%= annotation.type == 'example_answer' ? _('Example Answer') : _('Guidance') %></i>:</p>
+                <%= raw annotation.text.chomp.strip %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <br>
+        <% end %>
+      <% end %>
+    <% end %>
+  </body>
+</html>

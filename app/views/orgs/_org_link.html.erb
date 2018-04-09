@@ -1,0 +1,15 @@
+<div class="row org-link">
+  <div class="form-group col-xs-4">
+    <%= label_tag 'org_links_url', _('URL'), class: "control-label" %>
+    <%= text_field_tag 'org_links_url', link, class: "form-control" %>
+  </div>
+  <div class="form-group col-xs-4">
+    <%= label_tag 'org_links_text', _('Link text'), class: "control-label" %>
+    <%= text_field_tag 'org_links_text', text, class: "form-control" %>
+  </div>
+  <div class="form-group col-xs-2">
+    <a href="#" class="remove-org-link" aria-label="<%= _('Remove this link') %>">
+      <i class="fa fa-times-circle fa-reverse" aria-hidden="true"></i>
+    </a> 
+  </div>
+</div>

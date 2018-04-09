@@ -3,15 +3,15 @@
 <div class="question-div">
 
   <!--question format-->
-  <% q_format = question.question_format%>
+  <% q_format = question.question_format %>
   <form action="">
     <div class="question-form">
       <!-- verify if the question has multiple choice -->
-      <% if q_format.title == _('Check box') || q_format.title == _('Multi select box') || q_format.title == _('Radio buttons') || q_format.title == _('Dropdown') %>
+      <% if q_format.option_based? %>
         <% options = question.question_options.order("number") %>
 
         <!--checkbox display-->
-        <% if q_format.title == _('Check box') %>
+        <% if q_format.checkbox? %>
           <%if !options.nil? %>
             <fieldset class="choices">
               <label class="text_colour"><%= raw question.text %></label>
@@ -23,7 +23,7 @@
             </fieldset>
           <% end %>
         <!--multi select box display-->
-        <% elsif q_format.title == _('Multi select box') %>
+        <% elsif q_format.multiselectbox? %>
           <% if !options.nil? %>
             <label class="text_colour"><%= raw question.text %></label>
             <select multiple="multiple">
@@ -33,7 +33,7 @@
             </select>
           <% end %>
         <!--Radio buttons display-->
-        <% elsif q_format.title == _('Radio buttons') %>
+        <% elsif q_format.radiobuttons? %>
           <% if !options.nil?  %>
             <fieldset class="choices">
               <label class="text_colour"><%= raw question.text %></label>
@@ -45,7 +45,7 @@
             </fieldset>
           <% end %>
         <!--dropdown display-->
-        <% elsif q_format.title == _('Dropdown') %>
+        <% elsif q_format.dropdown? %>
           <% if !options.nil? %>
             <label class="text_colour" ><%= raw question.text %></label>
             <select>

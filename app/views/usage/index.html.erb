@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Usage statistics</h1>
+    <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= _('Run your own filter') %></h3>
+    <% if current_user.api_token.present? %>
+      <form class="usage_index">
+        <%= hidden_field_tag('api_token', current_user.api_token) %>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= label_tag('topic', _('Topic')) %>
+              <%= select_tag('topic', options_for_select(
+                [
+                  [_('Users'), 'users', { 'data-url': users_joined_api_v0_statistics_path }],
+                  [_('Plans'), 'plans', { 'data-url': created_plans_api_v0_statistics_path }]
+                ]), class: 'form-control') %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= label_tag('start_date', _('Start date')) %>
+              <%= date_field_tag('start_date', nil, class: 'form-control') %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= label_tag('end_date', _('End date')) %>
+              <%= date_field_tag('end_date', nil, class: 'form-control') %>
+            </div>
+          </div>
+          <% if current_user.can_super_admin? %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= label_tag(:org_id, _('Organisation')) %>
+                <%= select_tag(:org_id, options_from_collection_for_select(orgs, :id, :name, current_user.org_id), class: 'form-control') %>
+              </div>
+            </div>
+          <% else %>
+            <%= hidden_field_tag(:org_id, current_user.org_id) %>
+          <% end %>
+          <div class="col-md-2">
+            <%= submit_tag(_('Go'), class: 'btn btn-default') %>
+          </div>
+        </div>
+      </form>
+    <% else %>
+      <p class="bg-warning">
+        <%= _('You don\'t have access to use the API. An api token is needed to generate usage statistics.') %>
+      </p>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div data-topics style="display: none">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4 style="margin-top:0px" style="display: none" data-topic="users"><%= _('New users') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="plans"><%= _('New plans') %></h4>
+              <strong data-range style="font-size: 36px;"></strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4 style="margin-top:0px" style="display: none" data-topic="users"><%= _('Total users') %></h4>
+              <h4 style="margin-top:0px" style="display: none" data-topic="plans"><%= _('Total plans') %></h4>
+              <strong data-totals style="font-size: 36px;"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="pull-left">
+      <h4><%= _('No. users joined during last year') %></h4>
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
+        <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="clearfix"></div>
+    <p class="alert alert-info" style="display: none;"><%= _('There is no data available for users joined yet.') %></p>
+    <canvas id="yearly_users"></canvas>
+  </div>
+  <div class="col-md-6">
+    <div class="pull-left">
+      <h4><%= _('No. plans during last year') %></h4>
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
+        <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="clearfix"></div>
+    <p class="alert alert-info" style="display: none;"><%= _('There is no data available for plans yet.') %></p>
+    <canvas id="yearly_plans"></canvas>
+  </div>
+</div>
