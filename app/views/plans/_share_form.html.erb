@@ -80,7 +80,7 @@
   </div>
 
   <div class="form-group col-xs-8">
-    <p><strong><%= _('Permissions') %></strong></p>
+    <label class="control-label"><%= _('Permissions') %></label>
     <div class="radio">
       <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
     </div>

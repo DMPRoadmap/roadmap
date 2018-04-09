@@ -20,11 +20,6 @@ gem 'pg', '~> 0.19.0'
 gem 'flag_shih_tzu', '~> 0.3'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
-#    JS <-> RUBY BRIDGE
-gem 'libv8', '~> 3.16'
-gem 'therubyracer', '>=0.11.4', platforms: :ruby
-
-# ------------------------------------------------
 #    JSON DSL - USED BY API
 gem 'jbuilder', '~> 2.6.0'
 
@@ -41,9 +36,10 @@ gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 # devise for user authentication
 gem 'devise', '~> 4.2.0'
 gem 'devise_invitable', '~> 1.7.0'
-gem 'omniauth', '~> 1.3.1'
+gem 'omniauth', '~> 1.3.2'
 gem 'omniauth-shibboleth', '~> 1.2.1'
-gem 'omniauth-orcid', '~> 1.2.1'
+gem 'omniauth-orcid', '~> 2.0'
+gem 'ruby_dig'  # for omniauth-orcid
 
 #rolify for roles
 gem 'rolify', '~> 5.1.0'

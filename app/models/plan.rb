@@ -283,8 +283,8 @@ class Plan < ActiveRecord::Base
   def guidance_by_question_as_hash
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?) AND orgs.id != ?", 
-                                                       true, guidance_groups_ids, self.template.org.id)
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?)", 
+                                                       true, guidance_groups_ids)
 
     # Gather all of the Themes used in the plan as a hash
     # {
@@ -735,7 +735,8 @@ class Plan < ActiveRecord::Base
       .preload(template: { phases: { sections: :questions }}) # Preserves the default order defined in the model relationships
       .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
       .merge(Plan.includes(answers: :notes))[0]
-    phase = plan.template.phases.first
+    phase = plan.template.phases.find {|p| p.id==phase_id.to_i }
+
     return plan, phase
   end
 
