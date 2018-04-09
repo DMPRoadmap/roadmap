@@ -27,6 +27,68 @@ class ActiveSupport::TestCase
   # Sometimes TravisCI fails when accessing the LANGUAGES array, so reload it here if necessary
   LANGUAGES = Language.all if LANGUAGES.empty?
 
+  # Default attributes for model initialization
+  def org_seed  
+    { name: 'Test Institution',
+      abbreviation: 'TST',
+      org_type: Org.org_type_values_for(:institution).min,
+      target_url: 'http://test-funder.org',
+      language: LANGUAGES.first,
+      contact_email: 'help.desk@test-funder.org',
+      contact_name: 'Help Desk',
+      links: {"org":[{"link":"http://dmproadmap.org","text":"DMPRoadmap"}]},
+    }
+  end
+  def template_seed 
+    {
+      title: 'Test template', 
+      org: Org.first, 
+    }
+  end
+  
+  def validate_and_create_obj(obj)
+    obj.validate
+    if obj.errors.present?
+      # Unable to save the object, so output an error rather than burying it
+      puts "Unable to save #{obj.class.name} because: #{obj.errors.collect{ |e,m| "#{e}: #{m}" }.join(', ')}"
+    else
+      obj.save!
+    end
+    assert obj.valid?
+    obj
+  end
+  
+  # Org initializers
+  def init_institution(**props)
+    validate_and_create_obj(Org.new(org_seed.merge(props)))
+  end
+  def init_funder(**props)
+    hash = { name: 'Test Funder', abbreviation: 'TSTFNDR', org_type: Org.org_type_values_for(:funder).min }
+    validate_and_create_obj(Org.new(org_seed.merge(hash.merge(props))))
+  end
+  def init_organisation(**props)
+    hash = { name: 'Test Organisation', abbreviation: 'TSTORG', org_type: Org.org_type_values_for(:organisation).min }
+    validate_and_create_obj(Org.new(org_seed.merge(hash.merge(props))))
+  end
+  def init_funder_organisation(**props)
+    hash = { name: 'Test Funder/Organisation', abbreviation: 'TSTFNDRORG', org_type: Org.org_type_values_for(:funder, :organisation).min }
+    validate_and_create_obj(Org.new(org_seed.merge(hash.merge(props))))
+  end
+
+  # Template initializers
+  def init_template(org, **props)
+    if org.is_a? Org
+      validate_and_create_obj(Template.new(template_seed.merge({ org: org }.merge(props))))
+    else
+      puts "You must supply an Org when creating a template! Got the following instead: #{org.inspect}"
+      nil
+    end
+  end
+  
+  
+  
+
+
   # Get the organisational admin for the Org specified or create one
   # ----------------------------------------------------------------------
   def scaffold_org_admin(org)

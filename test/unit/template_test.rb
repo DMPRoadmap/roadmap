@@ -3,9 +3,15 @@ require 'test_helper'
 class TemplateTest < ActiveSupport::TestCase
 
   setup do
-    @org = Org.last
+    # Need to clear the tables until we get seed.rb out of test_helper.rb
+    Template.delete_all
     
-    scaffold_template
+    @funder = init_funder
+    @org = init_organisation
+    @institution = init_institution
+    @funder_org = init_funder_organisation
+    
+    @basic_template = init_template(@funder)
   end
 
   def settings(extras = {})
@@ -18,19 +24,85 @@ class TemplateTest < ActiveSupport::TestCase
   def default_formatting
     Settings::Template::DEFAULT_SETTINGS[:formatting]
   end
+  
+  test "default values are properly set on template creation" do
+    assert_equal false, @basic_template.published, 'expected a new template to not be published'
+    assert_equal false, @basic_template.archived, 'expected a new template to not be archived'
+    assert_equal 0, @basic_template.version, 'expected a new template to have a version == 0'
+    assert_not_nil @basic_template.family_id, 'expected a new template to have a family_id'
+    assert_equal false, @basic_template.is_default, 'expected a new template to not be the default template'
+    assert @basic_template.publicly_visible?, 'expected a new funder template to be publicly visible'
 
-  # ---------------------------------------------------
+    tmplt = init_template(@org)
+    tmplt2 = init_template(@funder_org)
+    assert tmplt.organisationally_visible?, 'expected a new non-funder template to be organisationally visible'
+    assert tmplt2.organisationally_visible?, 'expected a new non-funder template to be organisationally visible'
+  end
+
   test "required fields are required" do
     assert_not Template.new.valid?
     assert_not Template.new(version: 1, title: 'Tester').valid?, "expected the 'org' field to be required"
-    assert_not Template.new(org: @org, version: 1).valid?, "expected the 'title' field to be required"
-    
-    # Ensure the bare minimum and complete versions are valid
-    a = Template.new(org: @org, title: 'Tester')
-    assert a.valid?, "expected the 'org', 'version' and 'title' fields to be enough to create an Template! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    assert_not Template.new(org: @funder, version: 1).valid?, "expected the 'title' field to be required"
+  end
+  
+  test "unarchived returns only unarchived templates" do
+    # Create an unarchived and an archived template (set archived after init because it will default to false on creation)
+    archived = init_template(@funder, { title: 'Archived Template' })
+    archived.update_attributes(archived: true)
+    results = Template.unarchived
+    assert_equal 1, results.length, 'expected there to be only 1 unarchived template'
+    assert_equal @basic_template, results.first, 'expected the correct template to have been returned'
+  end
+  
+  test "archived returns only archived templates" do
+    # Create an unarchived and an archived template (set archived after init because it will default to false on creation)
+    archived = init_template(@funder, { title: 'Archived Template' })
+    archived.update_attributes(archived: true)
+    results = Template.archived
+    assert_equal 1, results.length, 'expected there to be only 1 archived template'
+    assert_equal archived, results.first, 'expected the correct template to have been returned'
+  end
+  
+  test "published returns only published templates" do
+    published = init_template(@funder, { title: 'Published Template' })
+    published.update_attributes(published: true)
+    results = Template.published
+    assert_equal 1, results.length, 'expected there to be only 1 published template'
+    assert_equal published, results.first, 'expected the correct template to have been returned'
+  end
+  
+  test "able to determine the latest version number" do
+    version2 = @basic_template.new_version
+    version2.save!
+    results = Template.latest_version_numbers(@basic_template.family_id)
+    assert_equal 1, results.length, 'expected only one version to be returned for the specific family'
+    assert_equal version2.version, results.first.version, 'expected the new version' 
+  end
+  
+  test "able to retrieve the latest version" do
+    version2 = @basic_template.new_version
+    version2.save!
+    result = Template.latest_version(@basic_template.family_id)
+    assert_equal 1, result.length, 'expected only one version to be returned'
+    assert_equal version2, result.first, 'expected the new version'
   end
 
-  # ---------------------------------------------------
+  test "able to retrieve a new versions" do
+    assert_equal 0, @basic_template.version, 'expected the initial template version to be zero'
+    version2 = @basic_template.new_version    
+    assert_equal 1, version2.version, 'expected the version number to be one more than the original template\'s'
+    assert_equal @basic_template.family_id, version2.family_id, 'expected the new version to have the same family_id'
+    assert_equal @basic_template.visibility, version2.visibility, 'expected the new version to have the same visibility'
+    assert_equal @basic_template.is_default, version2.is_default, 'expected the new version to have the same default flag'
+    assert_equal false, version2.archived, 'expected the new version to no be archived'
+  end
+
+
+
+
+
+  
+=begin
   test "family_ids scope only returns the family_ids for the specific Org" do
     Org.all.each do |org|
       family_ids = Template.valid.all.pluck(:family_id).uniq
@@ -89,18 +161,7 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   
-  # ---------------------------------------------------
-  test "can CRUD Template" do
-    tmplt = Template.create(org: @org, version: 1, title: 'Tester')
-    assert_not tmplt.id.nil?, "was expecting to be able to create a new Template!"
-
-    tmplt.description = 'Testing an update'
-    tmplt.save!
-    tmplt.reload
-    assert_equal 'Testing an update', tmplt.description, "Was expecting to be able to update the description of the Template!"
   
-    assert tmplt.destroy!, "Was unable to delete the Template!"
-  end
   
   # ---------------------------------------------------
   test "can manage has_many relationship with Phase" do
@@ -173,4 +234,5 @@ class TemplateTest < ActiveSupport::TestCase
     assert latest.include?(cBv0), 'expected to get customization B - version 0.'
     assert latest.include?(cCv2), 'expected to get customization C - version 2.'
   end
+=end
 end
