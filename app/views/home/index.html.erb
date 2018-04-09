@@ -11,12 +11,12 @@
         <div class="col-md-4">
           <div class="fa fa-file"></div>
           <div class="home-stats-bold"><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></div>
-          <p><%= _('Plans')%><a href="<%= public_plans_path %>">More</a></p>
+          <p><%= _('Plans')%><a href="<%= public_plans_path %>"><%= _('More') %></a></p>
         </div>
         <div class="col-md-4">
           <div class="fa fa-building"></div>
           <div class="home-stats-bold"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
-          <p><%= _('Participating Institutions')%><a href="<%= public_orgs_path %>">More</a></p>
+          <p><%= _('Participating Institutions')%><a href="<%= public_orgs_path %>"><%= _('More') %></a></p>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
         <% top_5.each do |title| %>
           <li><%= title %></li>
         <% end %>
-        <li><a href="<%= public_templates_path %>" class="pull-right">More</a></li>
+        <li><a href="<%= public_templates_path %>" class="pull-right"><%= _('More') %></a></li>
       </ul>
     </div>
   </div>

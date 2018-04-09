@@ -1087,6 +1087,9 @@ msgstr "Prénom"
 msgid "Font"
 msgstr ""
 
+msgid "For Administrators"
+msgstr ""
+
 msgid "For Researchers"
 msgstr ""
 
@@ -1380,6 +1383,9 @@ msgstr "Nom"
 msgid "Last updated"
 msgstr "Dernière m.à j."
 
+msgid "Learn"
+msgstr ""
+
 msgid "Left"
 msgstr "Gauche"
 
@@ -1459,6 +1465,9 @@ msgid "Modify templates"
 msgstr "templates"
 
 msgid "Month"
+msgstr ""
+
+msgid "More"
 msgstr ""
 
 #, fuzzy

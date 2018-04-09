@@ -917,6 +917,9 @@ msgstr ""
 msgid "Font"
 msgstr ""
 
+msgid "For Administrators"
+msgstr ""
+
 msgid "For Researchers"
 msgstr ""
 
@@ -1172,6 +1175,9 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
+msgid "Learn"
+msgstr ""
+
 msgid "Left"
 msgstr ""
 
@@ -1233,6 +1239,9 @@ msgid "Message"
 msgstr ""
 
 msgid "Month"
+msgstr ""
+
+msgid "More"
 msgstr ""
 
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."

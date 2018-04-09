@@ -2,7 +2,7 @@
   <ul id="sign-in-menu" class="nav navbar-nav navbar-right">
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        <%= ('Learn') %> <span class="fa fa-sort-desc" aria-hidden="true"></span>
+        <%= _('Learn') %> <span class="fa fa-sort-desc" aria-hidden="true"></span>
       </a>
       <ul id="explore-menu" class="dropdown-menu">
         <li>
@@ -21,7 +21,8 @@
                </ul>
              </li>
              <li>
-               <%= link_to raw("#{_('For Administrators')} <i class=\"fa fa-external-link\">&nbsp;</i>"), 'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
+               <%= lbl = _('For Administrators') %>
+               <%= link_to raw("#{lbl} <i class=\"fa fa-external-link\">&nbsp;</i>"), 'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
                <ul class="nav indented"><li><%= link_to _('Promote the DMPTool'), promote_path %></li></ul>
              </li>
            </ul>

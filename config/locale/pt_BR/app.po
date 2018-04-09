@@ -942,6 +942,10 @@ msgstr "Primeiro nome"
 msgid "Font"
 msgstr "Fonte"
 
+#, fuzzy
+msgid "For Administrators"
+msgstr ""
+
 msgid "For Researchers"
 msgstr "Para Pesquisadores"
 
@@ -1204,6 +1208,10 @@ msgstr "Sobrenome"
 msgid "Last updated"
 msgstr "Última Atualização"
 
+#, fuzzy
+msgid "Learn"
+msgstr ""
+
 msgid "Left"
 msgstr "Esquerda"
 
@@ -1272,6 +1280,10 @@ msgstr "Modificar modelos"
 
 msgid "Month"
 msgstr "Mês"
+
+#, fuzzy
+msgid "More"
+msgstr ""
 
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
 msgstr "Mais informações sobre a administração de %{tool_name} para usuários de sua organização disponíveis em %{help_url}.\""
@@ -2109,7 +2121,7 @@ msgid "Top"
 msgstr "Alto"
 
 msgid "Top 5 Templates"
-msgstr "5 Modelos mais acessados ??"
+msgstr "5 Modelos mais acessados"
 
 msgid "Topic"
 msgstr "Tópico"

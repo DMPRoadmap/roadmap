@@ -930,6 +930,10 @@ msgstr "First name"
 msgid "Font"
 msgstr "Font"
 
+#, fuzzy
+msgid "For Administrators"
+msgstr "Admin"
+
 msgid "For Researchers"
 msgstr "For researchers"
 
@@ -1189,6 +1193,9 @@ msgstr "Last name"
 msgid "Last updated"
 msgstr "Last updated"
 
+msgid "Learn"
+msgstr ""
+
 msgid "Left"
 msgstr "Left"
 
@@ -1257,6 +1264,10 @@ msgstr "Modify templates"
 
 msgid "Month"
 msgstr "Month"
+
+#, fuzzy
+msgid "More"
+msgstr "or"
 
 #, fuzzy
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
