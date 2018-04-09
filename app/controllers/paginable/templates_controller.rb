@@ -69,7 +69,7 @@ class Paginable::TemplatesController < ApplicationController
   # -----------------------------------------------------
   def publicly_visible
     templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) <<
-    Template.where(is_default: true).valid.published.pluck(:id)
+    Template.where(is_default: true).unarchived.published.pluck(:id)
     
     paginable_renderise(
       partial: 'publicly_visible',
