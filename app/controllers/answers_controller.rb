@@ -58,6 +58,7 @@ class AnswersController < ApplicationController
       }).find(p_params[:plan_id])
       @question = @answer.question
       @section = @plan.get_section(@question.section_id)
+      template = @section.phase.template
 
       render json: {
         "question" => {
@@ -66,7 +67,7 @@ class AnswersController < ApplicationController
           "locking" => @stale_answer ?
             render_to_string(partial: 'answers/locking', locals: { question: @question, answer: @stale_answer, user: @answer.user }, formats: [:html]) :
             nil,
-          "form" => render_to_string(partial: 'answers/new_edit', locals: { question: @question, answer: @answer, readonly: false, locking: false }, formats: [:html]),
+          "form" => render_to_string(partial: 'answers/new_edit', locals: { template: template, question: @question, answer: @answer, readonly: false, locking: false, base_template_org: template.base_org }, formats: [:html]),
           "answer_status" => render_to_string(partial: 'answers/status', locals: { answer: @answer}, formats: [:html])
         },
         "section" => {

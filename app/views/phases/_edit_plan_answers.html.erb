@@ -63,7 +63,7 @@
                     <div class="question-form">
                       <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
                       <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
-                        <%= render(partial: '/answers/new_edit', locals: { question: question, answer: answer, readonly: readonly, locking: false }) %>
+                        <%= render(partial: '/answers/new_edit', locals: { template: phase.template, question: question, answer: answer, readonly: readonly, locking: false, base_template_org: base_template_org }) %>
                       </div>
                       <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
                         <%= render(partial: '/answers/status', locals: { answer: answer }) %>
@@ -72,7 +72,7 @@
                   </div>
                   <div class="col-md-4">
                     <!-- Guidances and notes partial view -->
-                    <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups } %>
+                    <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups, base_template_org: base_template_org } %>
                   </div>
                 </div>
                 <%= raw('<hr />') if i != section.questions.length - 1 %>
