@@ -81,6 +81,14 @@ class Question < ActiveRecord::Base
     return question_copy
   end
 
+  def deep_copy(modifiable=true)
+    copy = self.dup
+    copy.modifiable = modifiable
+    copy.question_options = self.question_options.map(&:deep_copy)
+    copy.annotations = self.annotations.map(&:deep_copy)
+    copy.themes = self.themes.map{ |theme| theme }
+    return copy
+  end
   ##
 	# guidance for org
   #

@@ -23,4 +23,8 @@ class QuestionOption < ActiveRecord::Base
     question_option_copy.save!
     return question_option_copy
   end
+
+  def deep_copy
+    return self.dup
+  end
 end

@@ -19,13 +19,13 @@ module TemplateScope
     scope :latest_version_per_family, -> (family_id = nil) {
       chained_scope = unarchived.select("MAX(version) AS version", :family_id)
       if family_id.present?
-        chained_scope = chained_scope.where(family_id: family_ids)
+        chained_scope = chained_scope.where(family_id: family_id)
       end
       chained_scope.group(:family_id)
     }
-    scope :latest_customized_version_per_customised_of, -> (customization_ofs=nil, org_id = nil) {
+    scope :latest_customized_version_per_customised_of, -> (customization_of=nil, org_id = nil) {
       chained_scope = select("MAX(version) AS version", :customization_of)
-      chained_scope = chained_scope.where(customization_of: customization_ofs)
+      chained_scope = chained_scope.where(customization_of: customization_of)
       if org_id.present?
         chained_scope = chained_scope.where(org_id: org_id)
       end
@@ -33,25 +33,25 @@ module TemplateScope
     }
     # Retrieves the latest templates, i.e. those with maximum version associated. It can be filtered down
     # if family_id is passed
-    scope :latest_version, -> (family_ids = nil) {
-      unarchived.from(latest_version_per_family(family_ids), :current)
+    scope :latest_version, -> (family_id = nil) {
+      unarchived.from(latest_version_per_family(family_id), :current)
         .joins("INNER JOIN templates ON current.version = templates.version " +
              "AND current.family_id = templates.family_id")
     }
     # Retrieves the latest customized versions, i.e. those with maximum version associated for a set
-    # of family_ids and an org
-    scope :latest_customized_version, -> (family_ids = nil, org_id = nil) {
-      unarchived.from(latest_customized_version_per_customised_of(family_ids, org_id), :current)
+    # of family_id and an org
+    scope :latest_customized_version, -> (family_id = nil, org_id = nil) {
+      unarchived.from(latest_customized_version_per_customised_of(family_id, org_id), :current)
       .joins("INNER JOIN templates ON current.version = templates.version"\
         " AND current.customization_of = templates.customization_of")
-      .where('templates.org_id = ?', org_id)
+      .where(templates: { org_id: org_id })
     }
-    # Retrieves the latest templates, i.e. those with maximum version associated for a set of org_ids passed
-    scope :latest_version_per_org, -> (org_ids = nil) {
-      if org_ids.respond_to?(:each)
-        family_ids = families(org_ids).pluck(:family_id)
+    # Retrieves the latest templates, i.e. those with maximum version associated for a set of org_id passed
+    scope :latest_version_per_org, -> (org_id = nil) {
+      if org_id.respond_to?(:each)
+        family_ids = families(org_id).pluck(:family_id)
       else
-        family_ids = families([org_ids]).pluck(:family_id)
+        family_ids = families([org_id]).pluck(:family_id)
       end
       latest_version(family_ids)
     }

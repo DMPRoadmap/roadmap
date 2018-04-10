@@ -7,13 +7,19 @@ module TemplateFilter
       # Include the default template in the list of funder templates
       orgs << Template.default.org unless current_user.org == Template.default.org
 
-      templates = Template.get_public_published_template_versions(orgs)
+      templates = Template.unarchived
+        .where(family_id: Template.families(orgs.map(&:id)).pluck(:family_id))
+        .where(published: true)
+        .where(visibility: Template.visibilities[:publicly_visible])
+        .includes(:org)
 
       # If the user is an Org Admin look for customizations to funder templates
       customizations = {}
       if current_user.can_org_admin?
         family_ids = Template.families.pluck(:family_id)
+        puts "family_ids: #{family_ids}"
         latest_customized_versions = Template.latest_customized_version(family_ids, current_user.org_id).includes(:org)
+        latest_customized_versions.each{ |tcv| puts tcv.inspect }
         customizations = latest_customized_versions.reduce({}) do |memo, customization|
           memo[customization.customization_of] = customization
           memo
@@ -36,7 +42,7 @@ module TemplateFilter
       if all
         templates = Template.latest_version_per_org(Org.all.pluck(:id)).includes(:org)
       else
-        templates = Template.latest_version_per_org(Org.where(id: current_user.org.id)).includes(:org)
+        templates = Template.latest_version_per_org(Org.where(id: current_user.org.id).pluck(:id)).includes(:org)
       end
 
       scopes = calculate_table_scopes(templates, {})

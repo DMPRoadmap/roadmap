@@ -72,6 +72,15 @@ class QuestionTest < ActiveSupport::TestCase
     verify_deep_copy(@question, ['id', 'created_at', 'updated_at'])
   end
 
+  test "#deep_copy creates a new question object and attaches new annotation/question_option objects" do
+    questions = scaffold_template.phases.first.sections.first.questions.select{ |q| q.option_based? }
+    questions.each do |question|
+      question_copy = question.deep_copy
+      assert_deep_copy(question, question_copy, relations: [:annotations, :question_options])
+      assert_equal(question.themes, question_copy.themes)
+    end
+  end
+
   # ---------------------------------------------------
   test "can CRUD Question" do
     obj = Question.create(section: @section, text: 'Test ABC', number: 7)

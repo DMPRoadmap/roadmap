@@ -97,8 +97,10 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal false, version2.archived, 'expected the new version to no be archived'
   end
 
-
-
+  test "#deep_copy creates a new template object and attaches new phase objects" do
+    template = scaffold_template
+    assert_deep_copy(template, template.deep_copy, relations: [:phases])
+  end
 
 
   

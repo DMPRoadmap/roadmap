@@ -50,4 +50,11 @@ class Section < ActiveRecord::Base
     end
     return section_copy
   end
+
+  def deep_copy(modifiable=true)
+    copy = self.dup
+    copy.modifiable = modifiable
+    copy.questions = self.questions.map{ |question| question.deep_copy(modifiable) }
+    return copy
+  end
 end

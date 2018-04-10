@@ -48,9 +48,6 @@ class Template < ActiveRecord::Base
 
   # Class methods gets defined within this 
   class << self
-    def family_ids
-      unarchived.distinct.pluck(:family_id)
-    end
     def current(family_id)
       unarchived.where(family_id: family_id).order(version: :desc).first
     end
@@ -64,18 +61,6 @@ class Template < ActiveRecord::Base
     def default
       unarchived.where(is_default: true, published: true).order(:version).last
     end
-    # Retrieves current templates with their org associated for a set of valid orgs
-    # TODO re-evaluate its usage, it is really needed? 
-    def get_public_published_template_versions(orgs)
-      if orgs.respond_to?(:each)
-        families_ids = families(orgs.map(&:id)).pluck(:family_id)
-      elsif orgs.is_a?(Org)
-        families_ids = families([orgs.id]).pluck(:family_id)
-      else
-        families_ids = []
-      end
-      unarchived.includes(:org).where(family_id: families_ids, published: true, visibility: Template.visibilities[:publicly_visible])
-    end
     # TODO re-implementation with set of options and no side-effects, i.e. never save
     def deep_copy(template)
       template_copy = template.dup
@@ -87,6 +72,12 @@ class Template < ActiveRecord::Base
       end
       return template_copy
     end
+  end
+
+  def deep_copy(modifiable=true)
+    copy = self.dup
+    copy.phases = self.phases.map{ |phase| phase.deep_copy(modifiable) }
+    return copy
   end
 
   # Returns a new version of this template
