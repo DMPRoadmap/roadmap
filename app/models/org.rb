@@ -160,8 +160,8 @@ class Org < ActiveRecord::Base
     #
     def resize_image
       unless logo.nil?
-        if logo.height != 75
-          self.logo = logo.thumb('x75')  # resize height and maintain aspect ratio
+        if logo.height != 100
+          self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
         end
       end
     end
