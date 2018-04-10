@@ -112,6 +112,13 @@ class Phase < ActiveRecord::Base
     return phase_copy
   end
 
+  def deep_copy(modifiable=true)
+    copy = self.dup
+    copy.modifiable = modifiable
+    copy.sections = self.sections.map{ |section| section.deep_copy(modifiable) }
+    return copy
+  end
+
   # Returns the number of answered question for the phase.
   def num_answered_questions(plan)
     return 0 if plan.nil?

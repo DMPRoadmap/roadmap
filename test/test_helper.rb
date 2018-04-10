@@ -215,6 +215,26 @@ class ActiveSupport::TestCase
     end
   end
 
+  def assert_deep_copy(original, copy, **options)
+    if original.class == copy.class
+        relations = options.fetch(:relations, []).map(&:to_sym)
+        assert(original.object_id != copy.object_id)
+        assert_nil(copy.id, "id should be nil for #{copy.class}") if copy.respond_to?(:id)
+        assert_nil(copy.created_at, "created_at should be nil for #{copy.class}") if copy.respond_to?(:created_at)
+        assert_nil(copy.updated_at, "updated_at should be nil for #{copy.class}") if copy.respond_to?(:updated_at)
+        relations.each do |relation|
+          if copy.respond_to?(relation)
+            relation_obj = copy.send(relation)
+            if relation_obj.respond_to?(:each)
+              relation_obj.each do |obj|
+                assert_nil(obj.id, "id should be nil for the relation object from #{obj.class}") if copy.respond_to?(:id)
+              end 
+            end
+          end
+        end
+    end
+  end
+
   # ----------------------------------------------------------------------
   def verify_has_many_relationship(object, new_association, initial_expected_count)
     # Assumes that the association name matches the pluralized name of the class

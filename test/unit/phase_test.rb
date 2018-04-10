@@ -35,6 +35,11 @@ class PhaseTest < ActiveSupport::TestCase
     verify_deep_copy(@phase, ['id', 'created_at', 'updated_at'])
   end
   
+  test "#deep_copy creates a new phase object and attaches new section objects" do
+    phase = scaffold_template.phases.first
+    assert_deep_copy(phase, phase.deep_copy, relations: [:sections])
+  end
+
   # ---------------------------------------------------
   test "can CRUD Phase" do
     obj = Phase.create(title: 'Testing CRUD', template: @template, number: 4)

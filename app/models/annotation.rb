@@ -37,4 +37,8 @@ class Annotation < ActiveRecord::Base
     annotation_copy.save!
     return annotation_copy
   end
+
+  def deep_copy
+    return self.dup
+  end
 end
