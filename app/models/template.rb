@@ -4,7 +4,7 @@ class Template < ActiveRecord::Base
   include TemplateScope
   validates_with TemplateLinksValidator
 
-  before_validation :set_creation_defaults # TODO use before_create instead?
+  before_create :set_creation_defaults 
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
@@ -17,13 +17,6 @@ class Template < ActiveRecord::Base
   has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
-
-  # Self join for Customizations
-  has_many :customizations, class_name: 'Template', foreign_key: 'customization_of' # This will return empty list unless customization_of values are ids from templates.id
-  belongs_to :customized_from, class_name: 'Template' # This requires adding new attribute to the table (e.g. customized_from) and its value MUST be an id from templates.id
-
-  # Self join for Siblings/Versions. This will return nil unless family_id is an id from templates.id attribute
-  has_many :versions, class_name: 'Template', foreign_key: 'family_id'
 
   ##
   # Possibly needed for active_admin
@@ -42,9 +35,7 @@ class Template < ActiveRecord::Base
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
-  validates :org, :title, :version, presence: {message: _("can't be blank")}
-
-
+  validates :org, :title, presence: {message: _("can't be blank")}
 
   # Class methods gets defined within this 
   class << self
@@ -61,57 +52,88 @@ class Template < ActiveRecord::Base
     def default
       unarchived.where(is_default: true, published: true).order(:version).last
     end
-    # TODO re-implementation with set of options and no side-effects, i.e. never save
-    def deep_copy(template)
-      template_copy = template.dup
-      template_copy.save!
-      template.phases.each do |phase|
-        phase_copy = Phase.deep_copy(phase)
-        phase_copy.template_id = template_copy.id
-        phase_copy.save!
-      end
-      return template_copy
-    end
   end
 
+  # Creates a copy of the current template
   def deep_copy(modifiable=true)
     copy = self.dup
     copy.phases = self.phases.map{ |phase| phase.deep_copy(modifiable) }
     return copy
   end
 
-  # Returns a new version of this template
-  # TODO thread-safe, we need to lock the specific template to increment the versioning
-  def new_version
-    if self.id.present?
-      new_version = Template.deep_copy(self)
-      new_version.version = (self.version + 1)
-      new_version.published = false 
-      new_version.visibility = self.visibility # do not change the visibility 
-      new_version.is_default = self.is_default # retain the default template flag
-      new_version
-    else
-      nil
-    end
+  # Returns whether or not this is the latest version of the current template's family
+  def is_latest?
+    return (self.id == Template.latest_version(self.family_id).pluck(:id).first)
   end
-  ##
-  # create a new version of the most current copy of the template
-  #
-  # @return [Template] new version
-  # TODO remove? it is very similar to template#new_version
-  def get_new_version
-    if self.id.present?
-      new_version = Template.deep_copy(self)
-      new_version.version = (self.version + 1)
-      new_version.published = false 
-      new_version.visibility = self.visibility # do not change the visibility 
-      new_version.is_default = self.is_default # retain the default template flag
-      new_version.save!
-      new_version
-    else
-      nil
-    end
+
+  # Returns a new unpublished copy of this template (with a version number incremented by 1)
+  def new_version(modifiable=true)
+    new_version = self.deep_copy(modifiable)
+    new_version.version = (self.version + 1)
+    new_version.published = false 
+    new_version.visibility = self.visibility # do not change the visibility 
+    new_version.is_default = self.is_default # retain the default template flag
+    return new_version
   end
+
+  # Returns a new copy of this template that is ready for customization by the specified org
+  def customize(customizing_org)
+    customization = self.deep_copy(false) # Set modifiable=false for all phases/sections/questions of original template
+    customization.family_id = new_family_id
+    customization.customization_of = self.family_id
+    customization.version = 0
+    customization.org = customizing_org
+    customization.published = false
+    customization.visibility = Template.visibilities[:organisationally_visible] # Customizers are never funder_only Orgs
+    customization.is_default = false
+
+    # Set the modifiable flag on all of the templates components to false
+    customization.phases.each do |phase|
+      phase.modifiable = false
+      phase.sections.each do |section|
+        section.modifiable = false
+        section.questions.each do |question|
+          question.modifiable = false
+        end
+      end
+    end
+    return customization
+  end
+
+  def upgrade_customization
+    # Retrieve the latest published copy of the parent template then create the new customization
+    origin = Template.published(self.customization_of)
+    target = origin.customize(self.org)
+    
+    # Copy over all of the existing annotations from the current customization if they can be matched to questions on the new one
+    # TODO: Is there a better way to do this than match on the number without modifying the DB? 
+    target.phases.each do |phase|
+      original_phase = self.phases.joins(sections: :questions).includes(sections: :questions).select{ |p| p.number == phase.number }
+      if original_phase.present?
+        phase.sections.each do |section|
+          original_section = original_phase.sections.select{ |s| s.number == section.number }
+          if original_section.present?
+            section.questions.each do |question|
+              original_question = original_section.questions.select{ |q| q.number == question.number }
+              if original_question.present?
+                original_question.annotations.where(org_id: self.org.id).each do |annotation|
+                  question.annotations << annotation.deep_copy
+                end
+              end
+            end # questions.each
+          end
+        end # sections.each
+      end
+    end
+    
+    # Copy over any entirely new sections
+    self.phases.includes(:phase, { sections: :questions }).where('sections.modifiable = ?', true).each do |section|
+      new_phase = target.phases.select{ |p| p.number == section.phase.number }
+      new_phase.sections << section.deep_copy if new_phase.present?
+    end
+    target
+  end
+
   ##
   # convert the given template to a hash and return with all it's associations
   # to use, please pre-fetch org, phases, section, questions, annotations,
@@ -153,20 +175,7 @@ class Template < ActiveRecord::Base
     return hash
   end
 
-  ##
-  # Verify if a template has customisation by given organisation
-  #
-  # @param org_id [integer] the integer id for an organisation
-  # @param temp [family] a template object
-  # @return [Boolean] true if temp has customisation by the given organisation
-  def has_customisations?(org_id, temp)
-    modifiable = true
-    phases.each do |phase|
-      modifiable = modifiable && phase.modifiable
-    end
-    return !modifiable
-  end
-  
+  # TODO: Determine if this should be in the controller/views instead of the model
   def template_type
     self.customization_of.present? ? _('customisation') : _('template')
   end
@@ -175,31 +184,33 @@ class Template < ActiveRecord::Base
   # from of it is a customization
   def base_org
     if self.customization_of.present?
-      base_template_org = Template.where(dmptemplate_id: self.customization_of).first.org
+      return Template.where(family_id: self.customization_of).first.org
     else
-      base_template_org = self.org
+      return self.org
     end
   end
 
   private
+  # Generate a new random family identifier
+  def new_family_id
+    family_id = loop do
+      random = rand 2147483647
+      break random unless Template.exists?(family_id: random)
+    end
+    family_id
+  end
+  
   # Initialize the new template
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create
     if self.id.nil?
       self.published = false
       self.archived = false
-      self.is_default = false if self.is_default.nil?
       self.version = 0 if self.version.nil?
+      self.is_default = false if self.is_default.nil?
+      self.family_id = new_family_id if self.family_id.nil?
       # Organisationally visible by default unless Org is only a funder
       self.visibility = (self.org.present? && self.org.funder_only?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible] 
-      
-      # Generate a unique identifier for the dmptemplate_id if necessary
-      if self.family_id.nil?
-        self.family_id = loop do
-          random = rand 2147483647
-          break random unless Template.exists?(family_id: random)
-        end
-      end
     end
   end
 end

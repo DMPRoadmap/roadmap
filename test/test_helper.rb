@@ -45,6 +45,38 @@ class ActiveSupport::TestCase
       org: Org.first, 
     }
   end
+  def phase_seed
+    {
+      title: 'Test phase',
+      description: 'This is a phase used for testing',
+      number: 1,
+      modifiable: true,
+    }
+  end
+  def section_seed
+    {
+      title: 'Test section',
+      description: 'This is a section used for testing',
+      number: 1,
+      modifiable: true,
+    }
+  end
+  def question_seed
+    {
+      text: 'how is our test coverage?',
+      default_value: 'Not as good as it could be.',
+      number: 1,
+      question_format: QuestionFormat.where(option_based: false).first,
+      option_comment_display: true,
+      modifiable: true,
+    }
+  end
+  def annotation_seed
+    {
+      text: 'This is some test guidance for a customization',
+      type: Annotation.types[:guidance]
+    }
+  end
   
   def validate_and_create_obj(obj)
     obj.validate
@@ -84,9 +116,38 @@ class ActiveSupport::TestCase
       nil
     end
   end
-  
-  
-  
+  def init_phase(template, **props)
+    if template.is_a? Template
+      validate_and_create_obj(Phase.new(phase_seed.merge({ template: template }.merge(props))))
+    else
+      puts "You must supply a Template when creating a phase! Got the following instead: #{template.inspect}"
+      nil
+    end
+  end
+  def init_section(phase, **props)
+    if phase.is_a? Phase
+      validate_and_create_obj(Section.new(section_seed.merge({ phase: phase }.merge(props))))
+    else
+      puts "You must supply a Phase when creating a section! Got the following instead: #{phase.inspect}"
+      nil
+    end
+  end
+  def init_question(section, **props)
+    if section.is_a? Section
+      validate_and_create_obj(Question.new(question_seed.merge({ section: section }.merge(props))))
+    else
+      puts "You must supply a Section when creating a question! Got the following instead: #{section.inspect}"
+      nil
+    end
+  end
+  def init_annotation(org, question, **props)
+    if org.is_a?(Org) && question.is_a?(Question)
+      validate_and_create_obj(Annotation.new(annotation_seed.merge({ org: org, question: question }.merge(props))))
+    else
+      puts "You must supply an Org and Question when creating an annotation! Got the following instead: ORG - #{org.inspect}, QUESTION - #{question.inspect}"
+      nil
+    end
+  end
 
 
   # Get the organisational admin for the Org specified or create one

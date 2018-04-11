@@ -182,32 +182,19 @@ module OrgAdmin
     # -----------------------------------------------------
     def customize
       @template = Template.find(params[:id])
-      @current_tab = params[:r] || 'all-templates'
       authorize @template
 
-      customisation = Template.deep_copy(@template)
-      customisation.org = current_user.org
-      customisation.version = 0
-      customisation.customization_of = @template.family_id
-      customisation.family_id = loop do
-        random = rand 2147483647
-        break random unless Template.exists?(family_id: random)
+      # If a new version of the base template has been published before the user has customized it, get the current published version
+      unless @template.published?
+        @template = Template.published(@template.family_id)
       end
-      customisation.save
-
-      customisation.phases.includes(:sections, :questions).each do |phase|
-        phase.modifiable = false
-        phase.save!
-        phase.sections.each do |section|
-          section.modifiable = false
-          section.save!
-          section.questions.each do |question|
-            question.modifiable = false
-            question.save!
-          end
-        end
+      # Pessimistically lock the Template row while we create the customization
+      @template.with_lock do
+        customisation = @template.customize(current_user.org)
+        customisation.save!
       end
-
+      
+      @current_tab = params[:r] || 'all-templates'
       redirect_to edit_org_admin_template_path(customisation, r: 'funder-templates')
     end
 
@@ -218,22 +205,8 @@ module OrgAdmin
       @template = Template.includes(:org).find(params[:id])
       @current_tab = params[:r] || 'all-templates'
       authorize @template
-      new_customization = Template.deep_copy(@template)
-      new_customization.org_id = current_user.org_id
-      new_customization.published = false
-      new_customization.customization_of = @template.family_id
-      new_customization.phases.includes(sections: :questions).each do |phase|
-        phase.modifiable = false
-        phase.save
-        phase.sections.each do |section|
-          section.modifiable = false
-          section.save
-          section.questions.each do |question|
-            question.modifiable = false
-            question.save
-          end
-        end
-      end
+      new_customization = @template.customize(current_user.org)
+
       customizations = Template.includes(:org, phases:[sections: [questions: :annotations]]).where(org_id: current_user.org_id, customization_of: @template.family_id).order(version: :desc)
       # existing version to port over
       max_version = customizations.first
