@@ -72,7 +72,7 @@ module OrgAdmin
       
       if @template == @current 
         if @template.published?
-          new_version = @template.get_new_version
+          new_version = @template.generate_version
           if !new_version.nil?
             redirect_to(action: 'edit', id: new_version.id, r: @current_tab)
             return
