@@ -183,12 +183,11 @@ module OrgAdmin
     def customize
       @template = Template.find(params[:id])
       authorize @template
+      # TODO add check to see whether or not the template to customise belongs to an org that is funder
+      # TODO use POST instead of GET since we are effectively adding a new template resource
 
-      # If a new version of the base template has been published before the user has customized it, get the current published version
-      unless @template.published?
-        @template = Template.published(@template.family_id)
-      end
       # Pessimistically lock the Template row while we create the customization
+      customisation = nil
       @template.with_lock do
         customisation = @template.customize(current_user.org)
         customisation.save!
@@ -263,7 +262,7 @@ module OrgAdmin
       current_tab = params[:r] || 'all-templates'
       authorize @template
 
-      new_copy = Template.deep_copy(@template)
+      new_copy = @template.deep_copy
       new_copy.title = "Copy of " + @template.title
       new_copy.version = 0
       new_copy.published = false
@@ -291,7 +290,6 @@ module OrgAdmin
       # Only allow the current version to be updated
       if current != template
         redirect_to org_admin_templates_path, alert: _("You can not publish a historical version of this #{template.template_type}.")
-
       else
         # Unpublish the older published version if there is one
         live = Template.live(template.family_id)

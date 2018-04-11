@@ -86,17 +86,6 @@ class Template < ActiveRecord::Base
     customization.published = false
     customization.visibility = Template.visibilities[:organisationally_visible] # Customizers are never funder_only Orgs
     customization.is_default = false
-
-    # Set the modifiable flag on all of the templates components to false
-    customization.phases.each do |phase|
-      phase.modifiable = false
-      phase.sections.each do |section|
-        section.modifiable = false
-        section.questions.each do |question|
-          question.modifiable = false
-        end
-      end
-    end
     return customization
   end
 

@@ -210,7 +210,8 @@ class ActiveSupport::TestCase
   # Version the template
   # ----------------------------------------------------------------------
   def version_the_template
-    @template = @template.get_new_version
+    @template = @template.new_version
+    @template.save
   end
 
   # Scaffold a new Plan based on the scaffolded Template

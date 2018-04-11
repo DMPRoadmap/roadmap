@@ -698,8 +698,7 @@ class Plan < ActiveRecord::Base
   def self.eager_load(id)
     Plan.includes(
       [{template: [
-                   {phases: {sections: {questions: :answers}}},
-                   {customizations: :org}
+                   {phases: {sections: {questions: :answers}}}
                   ]},
        {plans_guidance_groups: {guidance_group: :guidances}}
       ]).find(id)

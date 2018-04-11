@@ -108,7 +108,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'get templates#edit returns ok with flash notice when template is not current' do
-    new_version = Template.deep_copy(@template)
+    new_version = @template.deep_copy
     new_version.version = (@template.version + 1)
     new_version.save
     sign_in @user
@@ -333,18 +333,18 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     current = Template.current(family)
 
-    # We shouldn't be able to edit a historical version
-    get publish_org_admin_template_path(prior)
-    assert_equal _('You can not publish a historical version of this template.'), flash[:alert]
-    assert_response :redirect
-    assert_redirected_to org_admin_templates_path
-
     # Publish the current template
     get publish_org_admin_template_path(current)
     assert_equal _('Your template has been published and is now available to users.'), flash[:notice]
     assert_response :redirect
     assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
     current = Template.current(family)
+
+    # We shouldn't be able to edit a historical version
+    get publish_org_admin_template_path(prior)
+    assert_equal _('You can not publish a historical version of this template.'), flash[:alert]
+    assert_response :redirect
+    assert_redirected_to org_admin_templates_path
   end
 
   test "unauthorized user cannot unpublish a template" do
