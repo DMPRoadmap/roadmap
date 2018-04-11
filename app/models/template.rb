@@ -123,6 +123,10 @@ class Template < ActiveRecord::Base
     target.phases.select{ |phase| phase.modifiable }.each do |modifiable_phase|
       customization.phases << modifiable_phase
     end
+    
+    # Update the upgraded customization's version number
+    customization.version = target.version
+
     return customization
   end
 

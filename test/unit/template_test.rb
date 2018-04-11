@@ -214,11 +214,40 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal(_('upgrade_customization requires a customised template'), exception.message)
   end
 
-  test "#upgrade_customization" do
-    # TODO verify creates a new copy if current customization is published
-    # TODO verify preserves version if is NOT published
-    # TODO verify the newly created template is the latest published from funders merged with any modifiable object from the template
-    # that we want to upgrade
+  test "#upgrade_customization preserves the current version if it is unpublished" do
+    customization = @basic_template.customize(@institution)
+    transferred = customization.upgrade_customization
+    assert_equal customization.version, transferred.version, 'expected the version number to be retained if the current cusomization is not published'
+  end
+
+  test "#upgrade_customization creates a new version if the current is published" do
+    customization = @basic_template.customize(@institution)
+    customization.published = true
+    customization.save!
+    transferred = customization.upgrade_customization
+    assert_equal (customization.version + 1), transferred.version, 'expected the version number to have been incremented when the current cusomization was published'
+  end
+
+  test "#upgrade_customization retains modifiable objects from the original customization" do
+    init_full_template(@basic_template)
+    
+    # Initialize the customization with an annotation to a funder question and a custom section
+    customization = @basic_template.customize(@institution)
+    first_question = customization.phases.first.sections.first.questions.first
+    init_annotation(customization.org, first_question)
+    section = init_section(@basic_template.phases.first, { title: 'New customized section' })
+    question = init_question(section, { text: 'New customized question' })
+    customization.save!
+    
+    @basic_template.phases.first.sections.first.questions.first.update_attributes(text: 'Modified question')
+    funder_section = init_section(@basic_template.phases.first, { title: 'additional funder section' })
+    funder_question = init_question(funder_section, { text: 'additional funder question' })
+    
+    transferred = customization.upgrade_customization
+    q = transferred.phases.first.sections.first.questions.first
+    assert_equal 'Modified question', q.text, 'expected the upgraded customization to have the modified funder question text'
+    assert_equal 1, q.annotations.length, 'expected the the upgraded customization to have the original customization\'s annotation'
+    assert_equal 3, transferred.phases.first.sections.length, 'expected the upgraded customization to contain the orignal funder section, the new funder section and the customizer\'s section'
   end
   
 =begin
