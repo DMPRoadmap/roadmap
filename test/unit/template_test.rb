@@ -11,7 +11,7 @@ class TemplateTest < ActiveSupport::TestCase
     @institution = init_institution
     @funder_org = init_funder_organisation
     
-    @basic_template = init_template(@funder)
+    @basic_template = init_template(@funder, published: true)
   end
 
   def init_full_template(template)
@@ -32,11 +32,12 @@ class TemplateTest < ActiveSupport::TestCase
   end
   
   test "default values are properly set on template creation" do
-    assert_equal false, @basic_template.published, 'expected a new template to not be published'
-    assert_equal false, @basic_template.archived, 'expected a new template to not be archived'
-    assert_not_nil @basic_template.family_id, 'expected a new template to have a family_id'
-    assert_equal false, @basic_template.is_default, 'expected a new template to not be the default template'
-    assert @basic_template.publicly_visible?, 'expected a new funder template to be publicly visible'
+    template = init_template(@funder)
+    assert_equal false, template.published, 'expected a new template to not be published'
+    assert_equal false, template.archived, 'expected a new template to not be archived'
+    assert_not_nil template.family_id, 'expected a new template to have a family_id'
+    assert_equal false, template.is_default, 'expected a new template to not be the default template'
+    assert template.publicly_visible?, 'expected a new funder template to be publicly visible'
 
     tmplt = init_template(@org)
     tmplt2 = init_template(@funder_org)
@@ -68,16 +69,8 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal archived, results.first, 'expected the correct template to have been returned'
   end
   
-  test "published returns only published templates" do
-    published = init_template(@funder, { title: 'Published Template' })
-    published.update_attributes(published: true)
-    results = Template.published
-    assert_equal 1, results.length, 'expected there to be only 1 published template'
-    assert_equal published, results.first, 'expected the correct template to have been returned'
-  end
-  
   test "able to determine the latest version number" do
-    version2 = @basic_template.new_version
+    version2 = @basic_template.generate_version
     version2.save!
     results = Template.latest_version_per_family(@basic_template.family_id)
     assert_equal 1, results.length, 'expected only one version to be returned for the specific family'
@@ -85,7 +78,7 @@ class TemplateTest < ActiveSupport::TestCase
   end
   
   test "able to retrieve the latest version" do
-    version2 = @basic_template.new_version
+    version2 = @basic_template.generate_version
     version2.save!
     result = Template.latest_version(@basic_template.family_id)
     assert_equal 1, result.length, 'expected only one version to be returned'
@@ -95,7 +88,7 @@ class TemplateTest < ActiveSupport::TestCase
   test "able to version a template" do
     init_full_template(@basic_template)
     assert_equal 0, @basic_template.version, 'expected the initial template version to be zero'
-    version2 = @basic_template.new_version
+    version2 = @basic_template.generate_version
     assert_equal 1, version2.version, 'expected the version number to be one more than the original template\'s'
     assert_equal @basic_template.family_id, version2.family_id, 'expected the new version to have the same family_id'
     assert_equal @basic_template.visibility, version2.visibility, 'expected the new version to have the same visibility'
@@ -114,32 +107,45 @@ class TemplateTest < ActiveSupport::TestCase
 
   test "can properly determine if current template is the latest version" do
     assert @basic_template.is_latest?, 'expected the initial template to be the latest version'
-    version2 = @basic_template.new_version
+    version2 = @basic_template.generate_version
     version2.save!
     assert_not @basic_template.is_latest?, 'expected the initial template to no longer be the latest version'
     assert version2.is_latest?, 'expected the new version to be the latest version'
   end
 
-  test "able to customize a template" do
+  test "#customize raises RuntimeError when a non Org object is passed" do
+    init_full_template(@basic_template)
+    exception = assert_raises(RuntimeError) do
+      @basic_template.customize(nil)
+    end
+    assert_equal(_('customize requires an organisation target'), exception.message)
+  end
+
+  test "#customize raises RuntimeError when the template belongs to a non funder" do
+    template = init_template(@org, published: true)
+    exception = assert_raises(RuntimeError) do
+      template.customize(@institution)
+    end
+  end
+
+  test "#customize generates a new template" do
     init_full_template(@basic_template)
     @basic_template.is_default = true
     @basic_template.save!
-    assert_equal 0, @basic_template.version, 'expected the initial template version to be zero'
     customization = @basic_template.customize(@institution)
-    assert_equal 0, customization.version, 'expected the initial customization version to be zero'
-    assert_equal @basic_template.family_id, customization.customization_of, 'expected the customization_of id to match the base template\'s family_id'
-    assert_equal @institution, customization.org, 'expected the customizatio\'s org to match the one specified'
-    assert_not customization.published, 'expected the customization to not be published'
-    assert_equal 'organisationally_visible', customization.visibility, 'expected the customization\'s visibility to be organisationally visible'
-    assert_not customization.is_default, 'expected the customization to not be the default template'
+
+    assert(customization.family_id.present?, 'expected a newly family_id value')
+    assert_equal(@basic_template.family_id, customization.customization_of, 'expected the customization_of id to match the base template\'s family_id')
+    assert_equal(0, customization.version, 'expected the initial customization version to be zero')
+    assert_equal(@institution, customization.org, 'expected the customizatio\'s org to match the one specified')
+    assert_not(customization.published, 'expected the customization to not be published')
+    assert_equal('organisationally_visible', customization.visibility, 'expected the customization\'s visibility to be organisationally visible')
+    assert_not(customization.is_default, 'expected the customization to not be the default template')
+
+    # Following statements go further than checking that the instance method behaves adequately
     assert_equal @basic_template.phases.length, customization.phases.length, 'expected the customization to have the same number of phases as the base template'
     assert (@basic_template.phases.collect{ |p| p.sections.length } - customization.phases.collect{ |p| p.sections.length}).empty?, 'expected the customization to have the same number of sections as the base template'
     assert (@basic_template.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } } - customization.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } }).empty?, 'expected the customization to have the same number of questions as the base template'
-  end
-
-  test "base template and its phases, sections and questions are not modifiable on a customized template" do
-    init_full_template(@basic_template)
-    customization = @basic_template.customize(@institution)
     customization.phases.each do |phase|
       assert_not phase.modifiable?, 'expected original phases to not be modifiable on the customized template'
       phase.sections.each do |section|
@@ -157,7 +163,6 @@ class TemplateTest < ActiveSupport::TestCase
     first_question = customization.phases.first.sections.first.questions.first
     init_annotation(customization.org, first_question)
     customization.save!
-    
   end
 
   test "base_org returns the current template org if the template is not customized" do
@@ -174,6 +179,46 @@ class TemplateTest < ActiveSupport::TestCase
   end
   test "template_type returns 'template' for an uncustomized template" do
     assert_equal _('template'), @basic_template.template_type, 'expected the template type to be \'template\' for an uncustomized template'
+  end
+
+  test "#generate_version raises RuntimeError when the template is not published" do
+    template = init_template(@org, published: false)
+    exception = assert_raises(RuntimeError) do
+      template.generate_version
+    end
+    assert_equal(_('generate_version requires a published template'), exception.message)
+  end
+
+  test "#generate_version raises RuntimeError when the template is a customized one" do
+    template = init_template(@funder, published: true)
+    customized = template.customize(template.org)
+    customized.published = true
+    exception = assert_raises(RuntimeError) do
+      customized.generate_version
+    end
+    assert_equal(_('generate_version is only applicable for a non-customised template. Use customize instead'), exception.message)
+  end
+
+  test "#generate_version creates a new version for a published and non-customised template" do
+    template = init_template(@org, published: true)
+    new_template = template.generate_version
+    assert_equal(@basic_template.version + 1, new_template.version)
+    assert(new_template.published == false)
+  end
+
+  test "#upgrade_customization raises RuntimeError when the template is not customised" do
+    template = init_template(@org, published: true)
+    exception = assert_raises(RuntimeError) do
+      template.upgrade_customization
+    end
+    assert_equal(_('upgrade_customization requires a customised template'), exception.message)
+  end
+
+  test "#upgrade_customization" do
+    # TODO verify creates a new copy if current customization is published
+    # TODO verify preserves version if is NOT published
+    # TODO verify the newly created template is the latest published from funders merged with any modifiable object from the template
+    # that we want to upgrade
   end
   
 =begin

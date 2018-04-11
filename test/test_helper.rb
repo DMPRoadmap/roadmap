@@ -210,7 +210,7 @@ class ActiveSupport::TestCase
   # Version the template
   # ----------------------------------------------------------------------
   def version_the_template
-    @template = @template.new_version
+    @template = @template.generate_version
     @template.save
   end
 

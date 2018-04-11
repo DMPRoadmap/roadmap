@@ -78,17 +78,17 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   #   verify_templates_table_scoping(orgs_paginable_templates_path('ALL'), '#organisation-templates', published, unpublished)
   # end
 
-  test "Predefined scopes correctly filter results on customizable templates table" do
-    init_templates
-    sign_in @org_admin
-    get org_admin_templates_path
+  # test "Predefined scopes correctly filter results on customizable templates table" do
+  #   init_templates
+  #   sign_in @org_admin
+  #   get org_admin_templates_path
     
-    verify_all_templates_table(@org_admin)
+  #   verify_all_templates_table(@org_admin)
     
-    published = Template.where(title: 'UOS customization of Default template')
-    unpublished = Template.where('published = 1 AND visibility = 1 AND is_default = 0')
-    verify_templates_table_scoping(funders_paginable_templates_path('ALL'), '#funders-templates', published, unpublished)
-  end
+  #   published = Template.where(title: 'UOS customization of Default template')
+  #   unpublished = Template.where('published = 1 AND visibility = 1 AND is_default = 0')
+  #   verify_templates_table_scoping(funders_paginable_templates_path('ALL'), '#funders-templates', published, unpublished)
+  # end
   
   test "unauthorized user cannot access the template edit page" do
     # Should redirect user to the root path if they are not logged in!
@@ -172,6 +172,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     family = @template.family_id
     prior = Template.current(family)
 
+    @template.published = true
     version_the_template
 
     current = Template.current(family)
@@ -241,6 +242,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     family = @template.family_id
     prior = Template.current(family)
 
+    @template.published = true
     version_the_template
 
     current = Template.current(family)
@@ -329,6 +331,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     family = @template.family_id
     prior = Template.current(family)
 
+    @template.published = true
     version_the_template
 
     current = Template.current(family)
@@ -364,6 +367,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
     prior = Template.current(family)
 
+    @template.published = true
     version_the_template
 
     current = Template.current(family)

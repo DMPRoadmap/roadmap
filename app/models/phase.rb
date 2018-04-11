@@ -112,10 +112,10 @@ class Phase < ActiveRecord::Base
     return phase_copy
   end
 
-  def deep_copy(modifiable=true)
+  def deep_copy(**options)
     copy = self.dup
-    copy.modifiable = modifiable
-    copy.sections = self.sections.map{ |section| section.deep_copy(modifiable) }
+    copy.modifiable = options.fetch(:modifiable, self.modifiable)
+    copy.sections = self.sections.map{ |section| section.deep_copy(options) }
     return copy
   end
 

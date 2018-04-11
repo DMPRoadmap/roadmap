@@ -4,7 +4,7 @@ class Template < ActiveRecord::Base
   include TemplateScope
   validates_with TemplateLinksValidator
 
-  before_create :set_creation_defaults 
+  before_validation :set_defaults 
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
@@ -55,9 +55,11 @@ class Template < ActiveRecord::Base
   end
 
   # Creates a copy of the current template
-  def deep_copy(modifiable=true)
+  def deep_copy(**options)
     copy = self.dup
-    copy.phases = self.phases.map{ |phase| phase.deep_copy(modifiable) }
+    copy.version = options.fetch(:version, self.version)
+    copy.published = options.fetch(:published, self.published)
+    copy.phases = self.phases.map{ |phase| phase.deep_copy(options) }
     return copy
   end
 
@@ -66,61 +68,62 @@ class Template < ActiveRecord::Base
     return (self.id == Template.latest_version(self.family_id).pluck(:id).first)
   end
 
-  # Returns a new unpublished copy of this template (with a version number incremented by 1)
-  def new_version(modifiable=true)
-    new_version = self.deep_copy(modifiable)
-    new_version.version = (self.version + 1)
-    new_version.published = false 
-    new_version.visibility = self.visibility # do not change the visibility 
-    new_version.is_default = self.is_default # retain the default template flag
-    return new_version
+  # Generates a new copy of self
+  def generate_version
+    raise _('generate_version requires a published template') unless published
+    raise _('generate_version is only applicable for a non-customised template. Use customize instead') if customization_of.present?
+    template = deep_copy(version: self.version+1, published: false)
+    return template
   end
 
-  # Returns a new copy of this template that is ready for customization by the specified org
+  # Generates a new copy of self for the specified customizing_org
   def customize(customizing_org)
-    customization = self.deep_copy(false) # Set modifiable=false for all phases/sections/questions of original template
+    raise _('customize requires an organisation target') unless customizing_org.is_a?(Org) # Assume customizing_org is persisted
+    raise _('customize requires a template from a funder') unless org.funder_only? # Assume self has org associated
+    customization = deep_copy(modifiable: false, version: 0, published: false)
     customization.family_id = new_family_id
-    customization.customization_of = self.family_id
-    customization.version = 0
+    customization.customization_of = family_id
     customization.org = customizing_org
-    customization.published = false
-    customization.visibility = Template.visibilities[:organisationally_visible] # Customizers are never funder_only Orgs
+    customization.visibility = Template.visibilities[:organisationally_visible]
     customization.is_default = false
     return customization
   end
 
   def upgrade_customization
-    # Retrieve the latest published copy of the parent template then create the new customization
-    origin = Template.published(self.customization_of)
-    target = origin.customize(self.org)
-    
-    # Copy over all of the existing annotations from the current customization if they can be matched to questions on the new one
-    # TODO: Is there a better way to do this than match on the number without modifying the DB? 
-    target.phases.each do |phase|
-      original_phase = self.phases.joins(sections: :questions).includes(sections: :questions).select{ |p| p.number == phase.number }
-      if original_phase.present?
-        phase.sections.each do |section|
-          original_section = original_phase.sections.select{ |s| s.number == section.number }
-          if original_section.present?
-            section.questions.each do |question|
-              original_question = original_section.questions.select{ |q| q.number == question.number }
-              if original_question.present?
-                original_question.annotations.where(org_id: self.org.id).each do |annotation|
-                  question.annotations << annotation.deep_copy
-                end
-              end
-            end # questions.each
-          end
-        end # sections.each
+    raise _('upgrade_customization requires a customised template') unless customization_of.present?
+    target = self
+    if self.published?
+      target = deep_copy(version: self.version+1, published: false) # preserves modifiable flags from the self template copied
+    end
+    # Creates a new customisation for the published template whose family_id is self.customization_of
+    customization = Template.published(self.customization_of).first.customize(self.org)
+
+    # Merges modifiable sections or questions from target into customization template object
+    customization.phases = customization.phases.map do |customization_phase|
+      # Search for the phase in target whose number is equal
+      candidate_phase_index = target.phases.find_index{ |phase| phase.number == customization_phase.number }
+      # Selects modifiable sections from the candidate_phase
+      modifiable_sections = target.phases[candidate_phase_index].sections.select{ |section| section.modifiable }
+      # Attaches modifiable sections into the customization_phase
+      modifiable_sections.each do |modifiable_section|
+        customization_phase.sections << modifiable_section
+      end
+      # Selects unmodifiable sections from the candidate_phase
+      unmodifiable_sections = target.phases[candidate_phase_index].sections.select{ |section| !section.modifiable }
+      unmodifiable_sections.each do |unmodifiable_section|
+        # Search for modifiable questions within the target template
+        modifiable_questions = unmodifiable_section.questions.select{ |question| question.modifiable }
+        customization_section_index = customization_phase.sections.find_index{ |section| section.number == unmodifiable_section.number }
+        modifiable_questions.each do |modifiable_question|
+          customization_phase.sections[customization_section_index] << modifiable_question
+        end
       end
     end
-    
-    # Copy over any entirely new sections
-    self.phases.includes(:phase, { sections: :questions }).where('sections.modifiable = ?', true).each do |section|
-      new_phase = target.phases.select{ |p| p.number == section.phase.number }
-      new_phase.sections << section.deep_copy if new_phase.present?
+    # Appends the modifiable phases from target
+    target.phases.select{ |phase| phase.modifiable }.each do |modifiable_phase|
+      customization.phases << modifiable_phase
     end
-    target
+    return customization
   end
 
   ##
@@ -188,18 +191,16 @@ class Template < ActiveRecord::Base
     end
     family_id
   end
-  
-  # Initialize the new template
-  def set_creation_defaults
-    # Only run this before_validation because rails fires this before save/create
-    if self.id.nil?
-      self.published = false
-      self.archived = false
-      self.version = 0 if self.version.nil?
-      self.is_default = false if self.is_default.nil?
-      self.family_id = new_family_id if self.family_id.nil?
-      # Organisationally visible by default unless Org is only a funder
-      self.visibility = (self.org.present? && self.org.funder_only?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible] 
-    end
+  # Default values to set before running any validation
+  def set_defaults
+    self.published ||= false
+    self.archived ||= false
+    self.is_default ||= false
+    self.version ||= 0
+    self.visibility = (org.present? && org.funder_only?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
+    self.customization_of ||= nil
+    self.family_id ||= new_family_id
+    self.archived ||= false
+    self.links ||= { funder: [], sample_plan: [] }
   end
 end
