@@ -189,16 +189,6 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal(_('generate_version requires a published template'), exception.message)
   end
 
-  test "#generate_version raises RuntimeError when the template is a customized one" do
-    template = init_template(@funder, published: true)
-    customized = template.customize(template.org)
-    customized.published = true
-    exception = assert_raises(RuntimeError) do
-      customized.generate_version
-    end
-    assert_equal(_('generate_version is only applicable for a non-customised template. Use customize instead'), exception.message)
-  end
-
   test "#generate_version creates a new version for a published and non-customised template" do
     template = init_template(@org, published: true)
     new_template = template.generate_version
@@ -206,7 +196,7 @@ class TemplateTest < ActiveSupport::TestCase
     assert(new_template.published == false)
   end
 
-  test "#upgrade_customization raises RuntimeError when the template is not customised" do
+  test "#upgrade_customization raises RuntimeError when the template is not a customisation of another template" do
     template = init_template(@org, published: true)
     exception = assert_raises(RuntimeError) do
       template.upgrade_customization
@@ -214,40 +204,63 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal(_('upgrade_customization requires a customised template'), exception.message)
   end
 
-  test "#upgrade_customization preserves the current version if it is unpublished" do
-    customization = @basic_template.customize(@institution)
-    transferred = customization.upgrade_customization
-    assert_equal customization.version, transferred.version, 'expected the version number to be retained if the current cusomization is not published'
-  end
-
-  test "#upgrade_customization creates a new version if the current is published" do
+  test "#upgrade_customization creates a new version" do
     customization = @basic_template.customize(@institution)
     customization.published = true
-    customization.save!
     transferred = customization.upgrade_customization
-    assert_equal (customization.version + 1), transferred.version, 'expected the version number to have been incremented when the current cusomization was published'
+    assert_equal(customization.version + 1, transferred.version, 'expected the version number to have been incremented when the current cusomization was published')
+    assert_equal(customization.family_id, transferred.family_id, 'expected the family_id to be retained when upgrade_customization is called')
   end
 
-  test "#upgrade_customization retains modifiable objects from the original customization" do
+  test "#upgrade_customization appends modifiable phases to the new customisation" do
     init_full_template(@basic_template)
-    
-    # Initialize the customization with an annotation to a funder question and a custom section
     customization = @basic_template.customize(@institution)
-    first_question = customization.phases.first.sections.first.questions.first
-    init_annotation(customization.org, first_question)
-    section = init_section(@basic_template.phases.first, { title: 'New customized section' })
-    question = init_question(section, { text: 'New customized question' })
-    customization.save!
-    
-    @basic_template.phases.first.sections.first.questions.first.update_attributes(text: 'Modified question')
-    funder_section = init_section(@basic_template.phases.first, { title: 'additional funder section' })
-    funder_question = init_question(funder_section, { text: 'additional funder question' })
-    
+    customization.phases << Phase.new(title: 'New customised phase', number: 2, modifiable: true)
+    customization.phases << Phase.new(title: 'New customised phase 2', number: 3, modifiable: true)
+
     transferred = customization.upgrade_customization
-    q = transferred.phases.first.sections.first.questions.first
-    assert_equal 'Modified question', q.text, 'expected the upgraded customization to have the modified funder question text'
-    assert_equal 1, q.annotations.length, 'expected the the upgraded customization to have the original customization\'s annotation'
-    assert_equal 3, transferred.phases.first.sections.length, 'expected the upgraded customization to contain the orignal funder section, the new funder section and the customizer\'s section'
+    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_equal(3, transferred.phases.length, 'expected 3 phases after upgrading a customised template')
+  end
+
+  test "#upgrade_customization appends modifiable sections into an unmodifiable phase" do
+    init_full_template(@basic_template)
+    customization = @basic_template.customize(@institution)
+    customization.phases.first.sections << Section.new(title: 'New customised section', number: 2, modifiable: true)
+    customization.phases.first.sections << Section.new(title: 'New customised section 2', number: 3, modifiable: true)
+
+    transferred = customization.upgrade_customization
+    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_equal(3, transferred.phases.first.sections.length, 'expected 3 sections after upgrading a customised template')
+  end
+
+  test "#upgrade_customization appends modifiable questions into an unmodifiable section" do
+    init_full_template(@basic_template)
+    customization = @basic_template.customize(@institution)
+    customization.phases.first.sections.first.questions << Question.new(text: 'New customised question', number: 2, modifiable: true)
+    customization.phases.first.sections.first.questions << Question.new(text: 'New customised question 2', number: 3, modifiable: true)
+
+    transferred = customization.upgrade_customization
+    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_equal(3, transferred.phases.first.sections.first.questions.length, 'expected 3 questions after upgrading a customised template')
+  end
+
+  test "#upgrade_customization appends annotations added to an unmodifiable question" do
+    init_full_template(@basic_template)
+    customization = @basic_template.customize(@institution)
+    customization.phases.first.sections.first.questions.first.annotations << 
+      Annotation.new(text: 'New customised guidance', type: Annotation.types[:guidance], org: customization.org)
+    customization.phases.first.sections.first.questions.first.annotations << 
+      Annotation.new(text: 'New customised example_answer', type: Annotation.types[:example_answer], org: customization.org)
+
+    @basic_template.phases.first.sections.first.questions.first.annotations <<
+      Annotation.new(text: 'New funder guidance', type: Annotation.types[:guidance], org: @basic_template.org)
+    @basic_template.phases.first.sections.first.questions.first.annotations <<
+      Annotation.new(text: 'New funder example_answer', type: Annotation.types[:example_answer], org: @basic_template.org)
+
+    transferred = customization.upgrade_customization
+    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_equal(4, transferred.phases.first.sections.first.questions.first.annotations.length, 'expected 4 annotations after upgrading a customised template')
   end
   
 =begin

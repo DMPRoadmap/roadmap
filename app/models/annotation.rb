@@ -39,6 +39,8 @@ class Annotation < ActiveRecord::Base
   end
 
   def deep_copy
-    return self.dup
+    copy = self.dup
+    copy.question_id = nil
+    return copy
   end
 end

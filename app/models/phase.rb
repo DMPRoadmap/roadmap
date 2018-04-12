@@ -41,7 +41,7 @@ class Phase < ActiveRecord::Base
   # Callbacks
   after_save do |phase|
     # Updates the template.updated_at attribute whenever a phase has been created/updated 
-    phase.template.touch
+    phase.template.touch if template.present?
   end
 
 
@@ -115,7 +115,9 @@ class Phase < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
-    copy.sections = self.sections.map{ |section| section.deep_copy(options) }
+    copy.template_id = nil
+    copy.save!(validate:false)  if options.fetch(:save, false)
+    self.sections.each{ |section| copy.sections << section.deep_copy(options) }
     return copy
   end
 

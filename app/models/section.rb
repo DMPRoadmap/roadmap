@@ -54,7 +54,9 @@ class Section < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
-    copy.questions = self.questions.map{ |question| question.deep_copy(options) }
+    copy.phase_id = nil
+    copy.save!(validate: false)  if options.fetch(:save, false)
+    self.questions.map{ |question| copy.questions << question.deep_copy(options) }
     return copy
   end
 end
