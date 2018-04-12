@@ -55,11 +55,13 @@ class Template < ActiveRecord::Base
   end
 
   # Creates a copy of the current template
+  # raises ActiveRecord::RecordInvalid when save option is true and validations fails
   def deep_copy(**options)
     copy = self.dup
     copy.version = options.fetch(:version, self.version)
     copy.published = options.fetch(:published, self.published)
-    copy.phases = self.phases.map{ |phase| phase.deep_copy(options) }
+    copy.save! if options.fetch(:save, false)
+    self.phases.each{ |phase| copy.phases << phase.deep_copy(options) }
     return copy
   end
 
@@ -71,8 +73,7 @@ class Template < ActiveRecord::Base
   # Generates a new copy of self
   def generate_version
     raise _('generate_version requires a published template') unless published
-    raise _('generate_version is only applicable for a non-customised template. Use customize instead') if customization_of.present?
-    template = deep_copy(version: self.version+1, published: false)
+    template = deep_copy(version: self.version+1, published: false, save: true)
     return template
   end
 
@@ -80,7 +81,7 @@ class Template < ActiveRecord::Base
   def customize(customizing_org)
     raise _('customize requires an organisation target') unless customizing_org.is_a?(Org) # Assume customizing_org is persisted
     raise _('customize requires a template from a funder') unless org.funder_only? # Assume self has org associated
-    customization = deep_copy(modifiable: false, version: 0, published: false)
+    customization = deep_copy(modifiable: false, version: 0, published: false, save: true)
     customization.family_id = new_family_id
     customization.customization_of = family_id
     customization.org = customizing_org
@@ -88,45 +89,53 @@ class Template < ActiveRecord::Base
     customization.is_default = false
     return customization
   end
-
+  # Generates a new copy of self including latest changes from the funder this template is customized_of
   def upgrade_customization
     raise _('upgrade_customization requires a customised template') unless customization_of.present?
-    target = self
-    if self.published?
-      target = deep_copy(version: self.version+1, published: false) # preserves modifiable flags from the self template copied
-    end
+    source = self
+    source = deep_copy(version: self.version+1, published: false) # preserves modifiable flags from the self template copied
     # Creates a new customisation for the published template whose family_id is self.customization_of
     customization = Template.published(self.customization_of).first.customize(self.org)
-
-    # Merges modifiable sections or questions from target into customization template object
-    customization.phases = customization.phases.map do |customization_phase|
-      # Search for the phase in target whose number is equal
-      candidate_phase_index = target.phases.find_index{ |phase| phase.number == customization_phase.number }
-      # Selects modifiable sections from the candidate_phase
-      modifiable_sections = target.phases[candidate_phase_index].sections.select{ |section| section.modifiable }
-      # Attaches modifiable sections into the customization_phase
-      modifiable_sections.each do |modifiable_section|
-        customization_phase.sections << modifiable_section
-      end
-      # Selects unmodifiable sections from the candidate_phase
-      unmodifiable_sections = target.phases[candidate_phase_index].sections.select{ |section| !section.modifiable }
-      unmodifiable_sections.each do |unmodifiable_section|
-        # Search for modifiable questions within the target template
-        modifiable_questions = unmodifiable_section.questions.select{ |question| question.modifiable }
-        customization_section_index = customization_phase.sections.find_index{ |section| section.number == unmodifiable_section.number }
-        modifiable_questions.each do |modifiable_question|
-          customization_phase.sections[customization_section_index] << modifiable_question
+    # Sorts the phases from the source template, i.e. self
+    sorted_phases = source.phases.sort{ |phase1,phase2| phase1.number <=> phase2.number }
+    # Merges modifiable sections or questions from source into customization template object
+    customization.phases.each do |customization_phase|
+      # Search for the phase in the source template whose number matches the customization_phase
+      candidate_phase = sorted_phases.bsearch{ |phase| customization_phase.number <=> phase.number }
+      if candidate_phase.present? # The funder could have added this new phase after the customisation took place
+        # Selects modifiable sections from the candidate_phase
+        modifiable_sections = candidate_phase.sections.select{ |section| section.modifiable }
+        # Attaches modifiable sections into the customization_phase
+        modifiable_sections.each{ |modifiable_section| customization_phase.sections << modifiable_section }
+        # Sorts the sections for the customization_phase
+        sorted_sections = customization_phase.sections.sort{ |section1, section2| section1.number <=> section2.number }
+        # Selects unmodifiable sections from the candidate_phase
+        unmodifiable_sections = candidate_phase.sections.select{ |section| !section.modifiable }
+        unmodifiable_sections.each do |unmodifiable_section|
+          # Search for modifiable questions within the unmodifiable_section from candidate_phase
+          modifiable_questions = unmodifiable_section.questions.select{ |question| question.modifiable }
+          customization_section = sorted_sections.bsearch{ |section| unmodifiable_section.number <=> section.number }
+          if customization_section.present? # The funder could have deleted the section
+            modifiable_questions.each{ |modifiable_question| customization_section.questions << modifiable_question; }
+          end
+          # Search for unmodifiable questions within the unmodifiable_section in case source template added annotations
+          unmodifiable_questions = unmodifiable_section.questions.select{ |question| !question.modifiable }
+          sorted_questions = customization_section.questions.sort{ |question1, question2| question1.number <=> question2.number }
+          unmodifiable_questions.each do |unmodifiable_question|
+            customization_question = sorted_questions.bsearch{ |question| unmodifiable_question.number <=> question.number }
+            if customization_question.present?  # The funder could have deleted the question
+              annotations_added_by_customiser = unmodifiable_question.annotations.select{ |annotation| annotation.org_id == source.org_id }
+              annotations_added_by_customiser.each{ |annotation| customization_question.annotations << annotation }
+            end
+          end
         end
       end
     end
-    # Appends the modifiable phases from target
-    target.phases.select{ |phase| phase.modifiable }.each do |modifiable_phase|
-      customization.phases << modifiable_phase
-    end
-    
-    # Update the upgraded customization's version number
-    customization.version = target.version
-
+    # Appends the modifiable phases from source
+    source.phases.select{ |phase| phase.modifiable }.each{ |modifiable_phase| customization.phases << modifiable_phase }
+    # Sets template properties to those from source template
+    customization.version = source.version
+    customization.family_id = source.family_id
     return customization
   end
 
