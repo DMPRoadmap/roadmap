@@ -122,7 +122,7 @@ class Question < ActiveRecord::Base
   # @return [Array<Annotation>] the example answers for this question for the specified orgs
  	def get_example_answers(org_ids)
     org_ids = [org_ids] unless org_ids.is_a?(Array)
-    self.annotations.where(org_id: [org_ids], type: Annotation.types[:example_answer]).order(:created_at)
+    self.annotations.where(org_id: org_ids, type: Annotation.types[:example_answer]).order(:created_at)
  	end
 
   def first_example_answer

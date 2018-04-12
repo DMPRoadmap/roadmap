@@ -201,57 +201,11 @@ module OrgAdmin
     # the funder template's id is passed through here
     # -----------------------------------------------------
     def transfer_customization
-      @template = Template.includes(:org).find(params[:id])
+      current_customization = Template.includes(:org).find(params[:id])
       @current_tab = params[:r] || 'all-templates'
       authorize @template
-      new_customization = @template.customize(current_user.org)
-
-      customizations = Template.includes(:org, phases:[sections: [questions: :annotations]]).where(org_id: current_user.org_id, customization_of: @template.family_id).order(version: :desc)
-      # existing version to port over
-      max_version = customizations.first
-      new_customization.family_id = max_version.family_id
-      new_customization.version = max_version.version + 1
-      # here we rip the customizations out of the old template
-      # First, we find any customzed phases or sections
-      max_version.phases.each do |phase|
-        # check if the phase was added as a customization
-        if phase.modifiable
-          # deep copy the phase and add it to the template
-          phase_copy = Phase.deep_copy(phase)
-          phase_copy.number = new_customization.phases.length + 1
-          phase_copy.template_id = new_customization.id
-          phase_copy.save!
-        else
-          # iterate over the sections to see if any of them are customizations
-          phase.sections.each do |section|
-            if section.modifiable
-              # this is a custom section
-              section_copy = Section.deep_copy(section)
-              customization_phase = new_customization.phases.includes(:sections).where(number: phase.number).first
-              section_copy.phase_id = customization_phase.id
-              # custom sections get added to the end
-              section_copy.number = customization_phase.sections.length + 1
-              # section from phase with corresponding number in the main_template
-              section_copy.save!
-            else
-              # not a customized section, iterate over questions
-              customization_phase = new_customization.phases.includes(sections: [questions: :annotations]).where(number: phase.number).first
-              customization_section = customization_phase.sections.where(number: section.number).first
-              section.questions.each do |question|
-                # find corresponding question in new template
-                customization_question = customization_section.questions.where(number: question.number).first
-                # apply annotations
-                question.annotations.where(org_id: current_user.org_id).each do |annotation|
-                  annotation_copy = Annotation.deep_copy(annotation)
-                  annotation_copy.question_id = customization_question.id
-                  annotation_copy.save!
-                end
-              end
-            end
-          end
-        end
-      end
-      new_customization.save
+      new_customization = @template.upgrade_customization
+      new_customization.save!
       redirect_to edit_org_admin_template_path(new_customization, r: 'funder-templates')
     end
     
@@ -259,25 +213,16 @@ module OrgAdmin
     # -----------------------------------------------------
     def copy
       @template = Template.find(params[:id])
-      current_tab = params[:r] || 'all-templates'
       authorize @template
-
-      new_copy = @template.deep_copy
-      new_copy.title = "Copy of " + @template.title
-      new_copy.version = 0
-      new_copy.published = false
-      new_copy.family_id = loop do
-        random = rand 2147483647
-        break random unless Template.exists?(family_id: random)
-      end
-
-      if new_copy.save
+      new_copy = template.generate_copy
+      if new_copy.save!
         flash[:notice] = "#{@template.template_type.capitalize} was successfully copied."
-        redirect_to edit_org_admin_template_path(id: new_copy.id, edit: true, r: 'organisation-templates'), notice: _('Information was successfully created.')
+        redirect_to edit_org_admin_template_path(new_copy, edit: true, r: 'organisation-templates')
       else
         flash[:alert] = failed_create_error(new_copy, @template.template_type)
+        current_tab = params[:r] || 'all-templates'
+        redirect_to "#{org_admin_templates_path}##{current_tab}"
       end
-
     end
     
     # GET /org_admin/templates/:id/publish  (AJAX)  TODO convert to PUT verb

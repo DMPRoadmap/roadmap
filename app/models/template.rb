@@ -54,20 +54,19 @@ class Template < ActiveRecord::Base
     end
   end
 
-  # Creates a copy of the current template
-  # raises ActiveRecord::RecordInvalid when save option is true and validations fails
-  def deep_copy(**options)
-    copy = self.dup
-    copy.version = options.fetch(:version, self.version)
-    copy.published = options.fetch(:published, self.published)
-    copy.save! if options.fetch(:save, false)
-    self.phases.each{ |phase| copy.phases << phase.deep_copy(options) }
-    return copy
-  end
 
   # Returns whether or not this is the latest version of the current template's family
   def is_latest?
     return (self.id == Template.latest_version(self.family_id).pluck(:id).first)
+  end
+
+  # Returns a new unpublished copy of this template with a new family_id and a version = zero
+  def generate_copy
+    template = deep_copy(modifiable: true, version: 0, published: false, save: true)
+    template.family_id = new_family_id 
+    template.title = _('Copy of %{template}') % template.title
+    template.save!
+    return template
   end
 
   # Generates a new copy of self
@@ -89,6 +88,7 @@ class Template < ActiveRecord::Base
     customization.is_default = false
     return customization
   end
+  
   # Generates a new copy of self including latest changes from the funder this template is customized_of
   def upgrade_customization
     raise _('upgrade_customization requires a customised template') unless customization_of.present?
@@ -204,6 +204,18 @@ class Template < ActiveRecord::Base
     end
     family_id
   end
+
+  # Creates a copy of the current template
+  # raises ActiveRecord::RecordInvalid when save option is true and validations fails
+  def deep_copy(**options)
+    copy = self.dup
+    copy.version = options.fetch(:version, self.version)
+    copy.published = options.fetch(:published, self.published)
+    copy.save! if options.fetch(:save, false)
+    self.phases.each{ |phase| copy.phases << phase.deep_copy(options) }
+    return copy
+  end
+  
   # Default values to set before running any validation
   def set_defaults
     self.published ||= false

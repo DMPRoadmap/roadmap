@@ -15,7 +15,7 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   def init_full_template(template)
-    phase = init_phase(@basic_template)
+    phase = init_phase(template)
     section = init_section(phase)
     init_question(section)
   end
@@ -100,9 +100,11 @@ class TemplateTest < ActiveSupport::TestCase
     assert (@basic_template.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } } - version2.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } }).empty?, 'expected the new version to have the same number of questions as the base template'
   end
 
-  test "#deep_copy creates a new template object and attaches new phase objects" do
-    template = scaffold_template
-    assert_deep_copy(template, template.deep_copy, relations: [:phases])
+  test "#generate_copy creates a new template object" do
+    template = init_full_template(@basic_template)
+    copy = template.generate_copy
+    copy.save!
+    assert_deep_copy(template, copy, relations: [:phases])
   end
 
   test "can properly determine if current template is the latest version" do
