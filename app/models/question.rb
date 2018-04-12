@@ -57,6 +57,7 @@ class Question < ActiveRecord::Base
     return self.answers.to_a.select{|ans| ans.plan_id == plan_id}
   end
 
+# TODO: Remove this one in favor of the instance version
   ##
   # deep copy the given question and all it's associations
   #

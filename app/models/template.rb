@@ -61,10 +61,11 @@ class Template < ActiveRecord::Base
   end
 
   # Returns a new unpublished copy of this template with a new family_id and a version = zero
-  def generate_copy
+  def generate_copy(org)
     template = deep_copy(modifiable: true, version: 0, published: false, save: true)
     template.family_id = new_family_id 
-    template.title = _('Copy of %{template}') % template.title
+    template.org = org
+    template.title = _('Copy of %{template}') % { template: template.title }
     template.save!
     return template
   end

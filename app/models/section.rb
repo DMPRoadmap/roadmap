@@ -35,6 +35,7 @@ class Section < ActiveRecord::Base
     end
   end
 
+# TODO: Remove this one in favor of the instance version
   ##
   # deep copy of the given section and all it's associations
   #

@@ -96,6 +96,7 @@ class Phase < ActiveRecord::Base
   end
 =end
   
+# TODO: Remove this one in favor of the instance version
   ##
   # deep copy the given phase and all it's associations
   #

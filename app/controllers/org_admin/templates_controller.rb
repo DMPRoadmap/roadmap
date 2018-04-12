@@ -201,7 +201,7 @@ module OrgAdmin
     # the funder template's id is passed through here
     # -----------------------------------------------------
     def transfer_customization
-      current_customization = Template.includes(:org).find(params[:id])
+      @template = Template.includes(:org).find(params[:id])
       @current_tab = params[:r] || 'all-templates'
       authorize @template
       new_customization = @template.upgrade_customization
@@ -214,7 +214,7 @@ module OrgAdmin
     def copy
       @template = Template.find(params[:id])
       authorize @template
-      new_copy = template.generate_copy
+      new_copy = @template.generate_copy(current_user.org)
       if new_copy.save!
         flash[:notice] = "#{@template.template_type.capitalize} was successfully copied."
         redirect_to edit_org_admin_template_path(new_copy, edit: true, r: 'organisation-templates')
