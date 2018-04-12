@@ -181,14 +181,6 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal @basic_template.org, customization.base_org, 'expected a customized template to consider the parent template\'s org the base_org'
   end
 
-  test "template_type returns 'customisation' for a customized template" do
-    customization = @basic_template.customize(@institution)
-    assert_equal _('customisation'), customization.template_type, 'expected the template type to be \'customisation\' for a customized template'
-  end
-  test "template_type returns 'template' for an uncustomized template" do
-    assert_equal _('template'), @basic_template.template_type, 'expected the template type to be \'template\' for an uncustomized template'
-  end
-
   test "#generate_version raises RuntimeError when the template is not published" do
     template = init_template(@org, published: false)
     exception = assert_raises(RuntimeError) do

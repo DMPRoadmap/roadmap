@@ -53,8 +53,7 @@ class Template < ActiveRecord::Base
       unarchived.where(is_default: true, published: true).order(:version).last
     end
   end
-
-
+  
   # Returns whether or not this is the latest version of the current template's family
   def is_latest?
     return (self.id == Template.latest_version(self.family_id).pluck(:id).first)
@@ -151,6 +150,8 @@ class Template < ActiveRecord::Base
   # TODO: Themes & guidance?
   #
   # @return [hash] hash of template, phases, sections, questions, question_options, annotations
+
+# TODO: If there is time to update the UI to stop using hashes, remove this method
   def to_hash
     hash = {}
     hash[:template] = {}
@@ -183,11 +184,6 @@ class Template < ActiveRecord::Base
       end
     end
     return hash
-  end
-
-  # TODO: Determine if this should be in the controller/views instead of the model
-  def template_type
-    self.customization_of.present? ? _('customisation') : _('template')
   end
 
   # Retrieves the template's org or the org of the template this one is derived
