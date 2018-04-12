@@ -104,6 +104,7 @@ class TemplateTest < ActiveSupport::TestCase
 
   test "able to copy a template" do
     template = init_full_template(@basic_template)
+    template.update_attributes(is_default: true, published: true) # Update these flags to verify that the copy sets them properly
     copy = template.generate_copy(@institution)
     assert_not_equal template.id, copy.id, 'expecetd the copy to have a different id'
     assert_not_equal template.family_id, copy.family_id, 'expected the copy to have a different family id'

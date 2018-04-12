@@ -60,17 +60,19 @@ class Template < ActiveRecord::Base
     return (self.id == Template.latest_version(self.family_id).pluck(:id).first)
   end
 
-  # Returns a new unpublished copy of this template with a new family_id and a version = zero
+  # Returns a new unpublished copy of self with a new family_id, version = zero for the specified org
   def generate_copy(org)
     template = deep_copy(modifiable: true, version: 0, published: false, save: true)
-    template.family_id = new_family_id 
-    template.org = org
-    template.title = _('Copy of %{template}') % { template: template.title }
-    template.save!
+    template.update!({
+      family_id: new_family_id,
+      org: org,
+      is_default: false,
+      title: _('Copy of %{template}') % { template: template.title }
+    })
     return template
   end
 
-  # Generates a new copy of self
+  # Generates a new copy of self with an incremented version number
   def generate_version
     raise _('generate_version requires a published template') unless published
     template = deep_copy(version: self.version+1, published: false, save: true)
@@ -82,11 +84,13 @@ class Template < ActiveRecord::Base
     raise _('customize requires an organisation target') unless customizing_org.is_a?(Org) # Assume customizing_org is persisted
     raise _('customize requires a template from a funder') unless org.funder_only? # Assume self has org associated
     customization = deep_copy(modifiable: false, version: 0, published: false, save: true)
-    customization.family_id = new_family_id
-    customization.customization_of = family_id
-    customization.org = customizing_org
-    customization.visibility = Template.visibilities[:organisationally_visible]
-    customization.is_default = false
+    customization.update!({
+      family_id: new_family_id,
+      customization_of: self.family_id,
+      org: customizing_org,
+      visibility: Template.visibilities[:organisationally_visible],
+      is_default: false
+    })
     return customization
   end
   
