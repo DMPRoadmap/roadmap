@@ -53,24 +53,25 @@ class Template < ActiveRecord::Base
       unarchived.where(is_default: true, published: true).order(:version).last
     end
   end
-
-  # Creates a copy of the current template
-  # raises ActiveRecord::RecordInvalid when save option is true and validations fails
-  def deep_copy(**options)
-    copy = self.dup
-    copy.version = options.fetch(:version, self.version)
-    copy.published = options.fetch(:published, self.published)
-    copy.save! if options.fetch(:save, false)
-    self.phases.each{ |phase| copy.phases << phase.deep_copy(options) }
-    return copy
-  end
-
+  
   # Returns whether or not this is the latest version of the current template's family
   def is_latest?
     return (self.id == Template.latest_version(self.family_id).pluck(:id).first)
   end
 
-  # Generates a new copy of self
+  # Returns a new unpublished copy of self with a new family_id, version = zero for the specified org
+  def generate_copy(org)
+    template = deep_copy(modifiable: true, version: 0, published: false, save: true)
+    template.update!({
+      family_id: new_family_id,
+      org: org,
+      is_default: false,
+      title: _('Copy of %{template}') % { template: template.title }
+    })
+    return template
+  end
+
+  # Generates a new copy of self with an incremented version number
   def generate_version
     raise _('generate_version requires a published template') unless published
     template = deep_copy(version: self.version+1, published: false, save: true)
@@ -82,13 +83,16 @@ class Template < ActiveRecord::Base
     raise _('customize requires an organisation target') unless customizing_org.is_a?(Org) # Assume customizing_org is persisted
     raise _('customize requires a template from a funder') unless org.funder_only? # Assume self has org associated
     customization = deep_copy(modifiable: false, version: 0, published: false, save: true)
-    customization.family_id = new_family_id
-    customization.customization_of = family_id
-    customization.org = customizing_org
-    customization.visibility = Template.visibilities[:organisationally_visible]
-    customization.is_default = false
+    customization.update!({
+      family_id: new_family_id,
+      customization_of: self.family_id,
+      org: customizing_org,
+      visibility: Template.visibilities[:organisationally_visible],
+      is_default: false
+    })
     return customization
   end
+  
   # Generates a new copy of self including latest changes from the funder this template is customized_of
   def upgrade_customization
     raise _('upgrade_customization requires a customised template') unless customization_of.present?
@@ -146,6 +150,8 @@ class Template < ActiveRecord::Base
   # TODO: Themes & guidance?
   #
   # @return [hash] hash of template, phases, sections, questions, question_options, annotations
+
+# TODO: If there is time to update the UI to stop using hashes, remove this method
   def to_hash
     hash = {}
     hash[:template] = {}
@@ -180,11 +186,6 @@ class Template < ActiveRecord::Base
     return hash
   end
 
-  # TODO: Determine if this should be in the controller/views instead of the model
-  def template_type
-    self.customization_of.present? ? _('customisation') : _('template')
-  end
-
   # Retrieves the template's org or the org of the template this one is derived
   # from of it is a customization
   def base_org
@@ -204,6 +205,18 @@ class Template < ActiveRecord::Base
     end
     family_id
   end
+
+  # Creates a copy of the current template
+  # raises ActiveRecord::RecordInvalid when save option is true and validations fails
+  def deep_copy(**options)
+    copy = self.dup
+    copy.version = options.fetch(:version, self.version)
+    copy.published = options.fetch(:published, self.published)
+    copy.save! if options.fetch(:save, false)
+    self.phases.each{ |phase| copy.phases << phase.deep_copy(options) }
+    return copy
+  end
+  
   # Default values to set before running any validation
   def set_defaults
     self.published ||= false

@@ -15,9 +15,10 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   def init_full_template(template)
-    phase = init_phase(@basic_template)
+    phase = init_phase(template)
     section = init_section(phase)
     init_question(section)
+    return template
   end
 
   def settings(extras = {})
@@ -50,7 +51,7 @@ class TemplateTest < ActiveSupport::TestCase
     assert_not Template.new(version: 1, title: 'Tester').valid?, "expected the 'org' field to be required"
     assert_not Template.new(org: @funder, version: 1).valid?, "expected the 'title' field to be required"
   end
-  
+
   test "unarchived returns only unarchived templates" do
     # Create an unarchived and an archived template (set archived after init because it will default to false on creation)
     archived = init_template(@funder, { title: 'Archived Template' })
@@ -86,23 +87,38 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   test "able to version a template" do
-    init_full_template(@basic_template)
-    assert_equal 0, @basic_template.version, 'expected the initial template version to be zero'
-    version2 = @basic_template.generate_version
+    template = init_full_template(@basic_template)
+    assert_equal 0, template.version, 'expected the initial template version to be zero'
+    version2 = template.generate_version
     assert_equal 1, version2.version, 'expected the version number to be one more than the original template\'s'
-    assert_equal @basic_template.family_id, version2.family_id, 'expected the new version to have the same family_id'
-    assert_equal @basic_template.visibility, version2.visibility, 'expected the new version to have the same visibility'
-    assert_equal @basic_template.is_default, version2.is_default, 'expected the new version to have the same default flag'
+    assert_equal template.family_id, version2.family_id, 'expected the new version to have the same family_id'
+    assert_equal template.visibility, version2.visibility, 'expected the new version to have the same visibility'
+    assert_equal template.is_default, version2.is_default, 'expected the new version to have the same default flag'
     assert_equal false, version2.archived, 'expected the new version to no be archived'
     # All components were transferred over to the new version
-    assert_equal @basic_template.phases.length, version2.phases.length, 'expected the new version to have the same number of phases as the base template'
-    assert (@basic_template.phases.collect{ |p| p.sections.length } - version2.phases.collect{ |p| p.sections.length}).empty?, 'expected the new version to have the same number of sections as the base template'
-    assert (@basic_template.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } } - version2.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } }).empty?, 'expected the new version to have the same number of questions as the base template'
+    assert_equal template.phases.length, version2.phases.length, 'expected the new version to have the same number of phases'
+    template.phases.each_with_index do |phase, idx|
+      assert_phases_equal(phase, version2.phases[idx])
+    end
   end
 
-  test "#deep_copy creates a new template object and attaches new phase objects" do
-    template = scaffold_template
-    assert_deep_copy(template, template.deep_copy, relations: [:phases])
+  test "able to copy a template" do
+    template = init_full_template(@basic_template)
+    template.update_attributes(is_default: true, published: true) # Update these flags to verify that the copy sets them properly
+    copy = template.generate_copy(@institution)
+    assert_not_equal template.id, copy.id, 'expecetd the copy to have a different id'
+    assert_not_equal template.family_id, copy.family_id, 'expected the copy to have a different family id'
+    assert_equal @institution, copy.org, 'expected the copy to have the correct Org'
+    assert_equal 0, copy.version, 'expected the copy\'s version number to be zero'
+    assert_not copy.published?, 'expected the copy to not be published'
+    assert_not copy.is_default?, 'expected the copy to not be the default template'
+    assert_equal 'organisationally_visible', copy.visibility, 'expected the visibility to be organisational'
+    assert_equal 'Copy of %{template}' % { template: template.title }, copy.title, 'expected the template title to be "Copy of %{template}"'
+    assert_equal template.description, copy.description, 'expected the template descriptions to match'
+    assert_equal template.phases.length, copy.phases.length, 'expected the copy to have the same number of phases'
+    template.phases.each_with_index do |phase, idx|
+      assert_phases_equal(phase, copy.phases[idx])
+    end
   end
 
   test "can properly determine if current template is the latest version" do
@@ -129,13 +145,13 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   test "#customize generates a new template" do
-    init_full_template(@basic_template)
-    @basic_template.is_default = true
-    @basic_template.save!
-    customization = @basic_template.customize(@institution)
+    template = init_full_template(@basic_template)
+    template.is_default = true
+    template.save!
+    customization = template.customize(@institution)
 
     assert(customization.family_id.present?, 'expected a newly family_id value')
-    assert_equal(@basic_template.family_id, customization.customization_of, 'expected the customization_of id to match the base template\'s family_id')
+    assert_equal(template.family_id, customization.customization_of, 'expected the customization_of id to match the base template\'s family_id')
     assert_equal(0, customization.version, 'expected the initial customization version to be zero')
     assert_equal(@institution, customization.org, 'expected the customizatio\'s org to match the one specified')
     assert_not(customization.published, 'expected the customization to not be published')
@@ -143,17 +159,9 @@ class TemplateTest < ActiveSupport::TestCase
     assert_not(customization.is_default, 'expected the customization to not be the default template')
 
     # Following statements go further than checking that the instance method behaves adequately
-    assert_equal @basic_template.phases.length, customization.phases.length, 'expected the customization to have the same number of phases as the base template'
-    assert (@basic_template.phases.collect{ |p| p.sections.length } - customization.phases.collect{ |p| p.sections.length}).empty?, 'expected the customization to have the same number of sections as the base template'
-    assert (@basic_template.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } } - customization.phases.collect{ |p| p.sections.collect{ |s| s.questions.length } }).empty?, 'expected the customization to have the same number of questions as the base template'
-    customization.phases.each do |phase|
-      assert_not phase.modifiable?, 'expected original phases to not be modifiable on the customized template'
-      phase.sections.each do |section|
-        assert_not section.modifiable?, 'expected original sections to not be modifiable on the customized template'
-        section.questions.each do |question|
-          assert_not question.modifiable?, 'expected original questions to not be modifiable on the customized template'
-        end
-      end
+    assert_equal template.phases.length, customization.phases.length, 'expected the customization to have the same number of phases as the base template'
+    template.phases.each_with_index do |phase, idx|
+      assert_phases_equal(phase, customization.phases[idx])
     end
   end
 
@@ -173,14 +181,6 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal @basic_template.org, customization.base_org, 'expected a customized template to consider the parent template\'s org the base_org'
   end
 
-  test "template_type returns 'customisation' for a customized template" do
-    customization = @basic_template.customize(@institution)
-    assert_equal _('customisation'), customization.template_type, 'expected the template type to be \'customisation\' for a customized template'
-  end
-  test "template_type returns 'template' for an uncustomized template" do
-    assert_equal _('template'), @basic_template.template_type, 'expected the template type to be \'template\' for an uncustomized template'
-  end
-
   test "#generate_version raises RuntimeError when the template is not published" do
     template = init_template(@org, published: false)
     exception = assert_raises(RuntimeError) do
@@ -193,7 +193,7 @@ class TemplateTest < ActiveSupport::TestCase
     template = init_template(@org, published: true)
     new_template = template.generate_version
     assert_equal(@basic_template.version + 1, new_template.version)
-    assert(new_template.published == false)
+    assert_not(new_template.published)
   end
 
   test "#upgrade_customization raises RuntimeError when the template is not a customisation of another template" do
@@ -219,7 +219,7 @@ class TemplateTest < ActiveSupport::TestCase
     customization.phases << Phase.new(title: 'New customised phase 2', number: 3, modifiable: true)
 
     transferred = customization.upgrade_customization
-    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(3, transferred.phases.length, 'expected 3 phases after upgrading a customised template')
   end
 
@@ -230,7 +230,7 @@ class TemplateTest < ActiveSupport::TestCase
     customization.phases.first.sections << Section.new(title: 'New customised section 2', number: 3, modifiable: true)
 
     transferred = customization.upgrade_customization
-    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(3, transferred.phases.first.sections.length, 'expected 3 sections after upgrading a customised template')
   end
 
@@ -241,7 +241,7 @@ class TemplateTest < ActiveSupport::TestCase
     customization.phases.first.sections.first.questions << Question.new(text: 'New customised question 2', number: 3, modifiable: true)
 
     transferred = customization.upgrade_customization
-    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(3, transferred.phases.first.sections.first.questions.length, 'expected 3 questions after upgrading a customised template')
   end
 
@@ -259,10 +259,10 @@ class TemplateTest < ActiveSupport::TestCase
       Annotation.new(text: 'New funder example_answer', type: Annotation.types[:example_answer], org: @basic_template.org)
 
     transferred = customization.upgrade_customization
-    assert(customization.object_id != transferred.object_id, 'customization and transferred are distinct objects')
+    assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(4, transferred.phases.first.sections.first.questions.first.annotations.length, 'expected 4 annotations after upgrading a customised template')
   end
-  
+ 
 =begin
   test "family_ids scope only returns the family_ids for the specific Org" do
     Org.all.each do |org|

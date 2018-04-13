@@ -148,6 +148,50 @@ class ActiveSupport::TestCase
       nil
     end
   end
+  
+  
+  # equality helpers for complex objects
+  def assert_annotations_equal(annotation1, annotation2)
+    assert_equal annotation1.text, annotation2.text, 'expected the annotations to have the same text'
+    assert_equal annotation1.type, annotation2.type, 'expected the annotations to be of the same type'
+  end
+  def assert_question_options_equal(option1, option2)
+    assert_equal option1.text, option2.text, 'expecetd the question options to have the same text'
+    assert_equal option1.number, option2.number, 'expecetd the question options to have the same number'
+    assert_equal option1.is_default, option2.is_default, 'expecetd the question options to have the same default flag value'
+  end
+  def assert_questions_equal(question1, question2)
+    assert_equal question1.number, question2.number, 'expected the question numbers to match'
+    assert_equal question1.text, question2.text, 'expected the question text to match'
+    assert_equal question1.question_format, question2.question_format, 'expected the question formats to match'
+    assert_equal question1.option_comment_display, question2.option_comment_display, 'expected the question optional comment display flags to match'
+    assert_equal question1.annotations.length, question2.annotations.length, 'expected the questions to have the same number of annotations'
+    assert_equal question1.question_options.length, question2.question_options.length, 'expected the questions to have the same number of options'
+    question1.annotations.each_with_index do |annotation, idx|
+      assert_annotations_equal(annotation, question2.annotations[idx])
+    end
+    question1.question_options.each_with_index do |option, idx|
+      assert_question_options_equal(option, question2.question_options[idx])
+    end
+  end
+  def assert_sections_equal(section1, section2)
+    assert_equal section1.number, section2.number, 'expected the section numbers to match'
+    assert_equal section1.title, section2.title, 'expected the section titles to match'
+    assert_equal section1.description, section2.description, 'expected the section descriptions to match'
+    assert_equal section1.questions.length, section2.questions.length, 'expected the sections to have the same number of questions'
+    section1.questions.each_with_index do |question, idx|
+      assert_questions_equal(question, section2.questions[idx])
+    end
+  end
+  def assert_phases_equal(phase1, phase2)
+    assert_equal phase1.number, phase2.number, 'expected the phase numbers to match'
+    assert_equal phase1.title, phase2.title, 'expected the phase titles to match'
+    assert_equal phase1.description, phase2.description, 'expected the phase descriptions to match'
+    assert_equal phase1.sections.length, phase2.sections.length, 'expected the phase to have the same number of sections'
+    phase1.sections.each_with_index do |section, idx|
+      assert_sections_equal(section, phase2.sections[idx])
+    end
+  end
 
 
   # Get the organisational admin for the Org specified or create one
