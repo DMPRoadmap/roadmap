@@ -56,13 +56,13 @@
                 <li><%= link_to _('Edit'), edit_org_admin_template_path(id: template.id, edit: "true", r: 'organisation-templates') %></li>
                 <li><%= link_to _('History'), history_org_admin_template_path(id: template.id, r: 'organisation-templates') %></li>
                 <% if !published[template.family_id].present? %>
-                  <li><%= link_to _('Publish'), publish_org_admin_template_path(template, r: 'organisation-templates') %></li>
+                  <li><%= link_to _('Publish'), publish_org_admin_template_path(template, r: 'organisation-templates'), 'data-method': 'patch' %></li>
                 <% elsif !template.published? %>
-                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template, r: 'organisation-templates') %></li>
+                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template, r: 'organisation-templates'), 'data-method': 'patch' %></li>
                 <% else %>
-                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template, r: 'organisation-templates') %></li>
+                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template, r: 'organisation-templates'), 'data-method': 'patch' %></li>
                 <% end %>
-                <li><%= link_to _('Copy'), copy_org_admin_template_path(template) %></li>
+                <li><%= link_to _('Copy'), copy_org_admin_template_path(template), 'data-method': 'post' %></li>
                 <% if template.plans.length <= 0 %>
                   <li>
                     <%= link_to _('Remove'), org_admin_template_path(id: template.id, r: 'organisation-templates'), 

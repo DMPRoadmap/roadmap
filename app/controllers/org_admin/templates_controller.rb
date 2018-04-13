@@ -1,6 +1,7 @@
 module OrgAdmin
   class TemplatesController < ApplicationController
     include Paginable
+    include Versionable
     include TemplateFilter
     after_action :verify_authorized
 
@@ -9,6 +10,9 @@ module OrgAdmin
     def index
       authorize Template
       
+# TODO: Refactor this method and its views in next sprint if time allows so that
+#       we are no longer passing around hashes and do not need the template_filter.rb
+
       # Apply scoping
       all_templates_hash = apply_scoping(params[:scope] || 'all', false, true)
       own_hash = apply_scoping(params[:scope] || 'all', false, false)
@@ -47,123 +51,113 @@ module OrgAdmin
     def create
       authorize Template
       # creates a new template with version 0 and new family_id
-      @template = Template.new(params[:template])
-      @template.org_id = current_user.org.id
-      @template.description = params['template-desc']
-      @template.links = (params["template-links"].present? ? JSON.parse(params["template-links"]) : {"funder": [], "sample_plan": []})
+      template = Template.new(params[:template])
+      template.org_id = current_user.org.id
+      template.description = params['template-desc']
+      template.links = (params["template-links"].present? ? JSON.parse(params["template-links"]) : {"funder": [], "sample_plan": []})
 
-      if @template.save
-        redirect_to edit_org_admin_template_path(@template), notice: success_message(template_type(@template), _('created'))
+      if template.save!
+        redirect_to edit_org_admin_template_path(template), notice: success_message(template_type(template), _('created'))
       else
-        @hash = @template.to_hash
-        flash[:alert] = failed_create_error(@template, template_type(@template))
-        render action: "new"
+# TODO: update view so we no longer need to use a hash
+        hash = template.to_hash
+        flash[:alert] = failed_create_error(template, template_type(template))
+        render partial: "org_admin/templates/new", locals: { template: template, hash: hash }
       end
     end
     
     # GET /org_admin/templates/:id/edit
     # -----------------------------------------------------
     def edit
-      @template = Template.includes(:org, phases: [sections: [questions: [:question_options, :question_format, :annotations]]]).find(params[:id])
-      authorize @template
-
-      @current = Template.current(@template.family_id)
-      @current_tab = params[:r] || 'all-templates'
+      template = Template.find(params[:id])
+      authorize template
+      current_tab = params[:r] || 'all-templates'
       
-      if @template == @current 
-        if @template.published?
-          new_version = @template.generate_version!
-          if !new_version.nil?
-            redirect_to(action: 'edit', id: new_version.id, r: @current_tab)
-            return
-          else
-            flash[:alert] = _("Unable to create a new version of this #{template_type(@template)}. You are currently working with a published copy.")
-          end
-        end
-      else
-        flash[:notice] = _("You are viewing a historical version of this #{template_type(@template)}. You will not be able to make changes.")
+      if !template.latest?
+        current = Template.latest_version(template.family_id)
+        flash[:notice] = _("You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes.")
       end
 
+# TODO: Update the UI so we no longer need the hash and so that we do not need the edit flag!
       # once the correct template has been generated, we convert it to hash
-      @template_hash = @template.to_hash
+      hash = template.to_hash
       
       render('container',
         locals: { 
           partial_path: 'edit',
-          template: @template,
-          current: @current,
-          edit: @template == @current,
-          template_hash: @template_hash,
-          current_tab: @current_tab
+          template: template,
+          current: current,
+          edit: (template == current),
+          template_hash: hash,
+          current_tab: current_tab
         })
     end
     
     # PUT /org_admin/templates/:id (AJAXable)
     # -----------------------------------------------------
     def update
-      @template = Template.find(params[:id])
-      authorize @template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
+      template = Template.find(params[:id])
+      authorize template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
 
-      current = Template.current(@template.family_id)
-
-      # Only allow the current version to be updated
-      if current != @template
-        render(status: :forbidden, json: { msg: _("You can not edit a historical version of this #{template_type(@template)}.")})
-      else
+      if template.latest?
+# TODO: Would be nice to do this once at the beginning by passing in the params[:id]
+        template, versioned = find_or_generate(template)
         template_links = nil
         begin
           template_links = JSON.parse(params["template-links"]) if params["template-links"].present?
         rescue JSON::ParserError
-          render(status: :bad_request, json: { msg: _("Error parsing links for a #{template_type(@template)}") })
+          render(status: :bad_request, json: { msg: _("Error parsing links for a #{template_type(template)}") })
           return
         end
-        
-        @template.description = params["template-desc"]
-        @template.links = template_links if template_links.present?
       
+        template.description = params["template-desc"]
+        template.links = template_links if template_links.present?
+    
         # If the visibility checkbox is not checked and the user's org is a funder set the visibility to public
         # otherwise default it to organisationally_visible
         if current_user.org.funder? && params[:template_visibility].nil?
-          @template.visibility = Template.visibilities[:publicly_visible]
+          template.visibility = Template.visibilities[:publicly_visible]
         else
-          @template.visibility = Template.visibilities[:organisationally_visible]
+          template.visibility = Template.visibilities[:organisationally_visible]
         end
-      
-        if @template.update_attributes(params[:template])
-          render(status: :ok, json: { msg: success_message(template_type(@template), _('saved'))})
+    
+        if template.update_attributes(params[:template])
+          render(status: :ok, json: { msg: success_message(template_type(template), _('saved'))})
         else
           # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
-          render(status: :bad_request, json: { msg: failed_update_error(@template, template_type(@template))})
+          render(status: :bad_request, json: { msg: failed_update_error(template, template_type(template))})
         end
+      else
+        render(status: :forbidden, json: { msg: _("You can not edit a historical version of this #{template_type(template)}.")})
       end
     end
     
     # DELETE /org_admin/templates/:id
     # -----------------------------------------------------
     def destroy
-      @template = Template.find(params[:id])
+      template = Template.find(params[:id])
       current_tab = params[:r] || 'all-templates'
-      authorize @template
+      authorize template
 
-      if @template.plans.length <= 0
-        current = Template.current(@template.family_id)
+      if template.plans.length <= 0
+        current = Template.current(template.family_id)
 
         # Only allow the current version to be destroyed
-        if current == @template
-          if @template.destroy
-            flash[:notice] = success_message(template_type(@template), _('removed'))
+        if template.latest?
+          if template.destroy
+            flash[:notice] = success_message(template_type(template), _('removed'))
             redirect_to org_admin_templates_path(r: current_tab)
           else
-            @hash = @template.to_hash
-            flash[:alert] = failed_destroy_error(@template, template_type(@template))
+            hash = template.to_hash
+            flash[:alert] = failed_destroy_error(template, template_type(template))
             redirect_to org_admin_templates_path(r: current_tab)
           end
         else
-          flash[:alert] = _("You cannot delete historical versions of this #{template_type(@template)}.")
+          flash[:alert] = _("You cannot delete historical versions of this #{template_type(template)}.")
           redirect_to org_admin_templates_path(r: current_tab)
         end
       else
-        flash[:alert] = _("You cannot delete a #{template_type(@template)} that has been used to create plans.")
+        flash[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
         redirect_to org_admin_templates_path(r: current_tab)
       end
     end
@@ -171,40 +165,57 @@ module OrgAdmin
     # GET /org_admin/templates/:id/history
     # -----------------------------------------------------
     def history
-      @template = Template.find(params[:id])
-      authorize @template
-      @templates = Template.where(family_id: @template.family_id)
-      @current = Template.current(@template.family_id)
-      @current_tab = params[:r] || 'all-templates'
+      template = Template.find(params[:id])
+      authorize template
+      templates = Template.where(family_id: template.family_id)
+      current = Template.current(template.family_id)
+      current_tab = params[:r] || 'all-templates'
+      render partial: 'org_admin/templates/history', 
+             locals: { templates: templates, template: template, current: current, current_tab: current_tab }
     end
     
-    # GET /org_admin/templates/:id/customize
+    # POST /org_admin/templates/:id/customize
     # -----------------------------------------------------
     def customize
-      @template = Template.find(params[:id])
-      authorize @template
-      # TODO use POST instead of GET since we are effectively adding a new template resource
-      # TODO add check @template.customize? before
-      customisation = @template.customize!(current_user.org)
-      
-      @current_tab = params[:r] || 'all-templates'
-      redirect_to edit_org_admin_template_path(customisation, r: 'funder-templates')
+      template = Template.find(params[:id])
+      authorize template
+      current_tab = 'funder-templates'
+      if template.customize?(current_user.org)
+        begin
+          customisation = template.customize!(current_user.org)
+          redirect_to edit_org_admin_template_path(customisation, r: current_tab)
+        rescue StandardError => e
+          flash[:alert] = _('Unable to customize that template.')
+          redirect_to org_admin_templates_path(r: current_tab)
+        end
+      else
+        flash[:notice] = _('That template is not customizable.')
+        redirect_to org_admin_templates_path(r: current_tab)
+      end
     end
 
-    # GET /org_admin/templates/:id/transfer_customization
+    # POST /org_admin/templates/:id/transfer_customization
     # the funder template's id is passed through here
     # -----------------------------------------------------
     def transfer_customization
-      @template = Template.includes(:org).find(params[:id])
-      @current_tab = params[:r] || 'all-templates'
-      authorize @template
-      # TODO add check @template.upgrade_customization?
-      new_customization = @template.upgrade_customization!
-      new_customization.save!
-      redirect_to edit_org_admin_template_path(new_customization, r: 'funder-templates')
+      template = Template.includes(:org).find(params[:id])
+      current_tab = 'funder-templates'
+      authorize template
+      if template.customize?(current_user.org)
+        begin
+          new_customization = template.upgrade_customization!
+          redirect_to edit_org_admin_template_path(new_customization, r: current_tab)
+        rescue StandardError => e
+          flash[:alert] = _('Unable to transfer your customizations.')
+          redirect_to org_admin_templates_path(r: current_tab)
+        end
+      else
+        flash[:notice] = _('That template is no longer customizable.')
+        redirect_to org_admin_templates_path(r: current_tab)
+      end
     end
     
-    # PUT /org_admin/templates/:id/copy  (AJAX)
+    # POST /org_admin/templates/:id/copy  (AJAX)
     # -----------------------------------------------------
     def copy
       template = Template.find(params[:id])
@@ -213,24 +224,21 @@ module OrgAdmin
         new_copy = template.generate_copy!(current_user.org)
         flash[:notice] = "#{template_type(template).capitalize} was successfully copied."
         redirect_to edit_org_admin_template_path(new_copy, edit: true, r: 'organisation-templates')
-      rescue ActiveRecord::RecordInvalid => e
+      rescue StandardError => e
         flash[:alert] = failed_create_error(template, template_type(template))
         current_tab = params[:r] || 'all-templates'
         redirect_to "#{org_admin_templates_path}##{current_tab}"
       end
     end
     
-    # GET /org_admin/templates/:id/publish  (AJAX)  TODO convert to PUT verb
+    # PATCH /org_admin/templates/:id/publish  (AJAX)
     # -----------------------------------------------------
     def publish
       template = Template.find(params[:id])
       authorize template
-      current = Template.current(template.family_id)
       
       # Only allow the current version to be updated
-      if current != template
-        redirect_to org_admin_templates_path, alert: _("You can not publish a historical version of this #{template_type(template)}.")
-      else
+      if template.latest?
         # Unpublish the older published version if there is one
         live = Template.live(template.family_id)
         if !live.nil? and self != live
@@ -242,48 +250,49 @@ module OrgAdmin
 
         flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
         redirect_to "#{org_admin_templates_path}#{template_type(template) == _('customisation') ? '#funder-templates' : '#organisation-templates'}"
+      else
+        redirect_to org_admin_templates_path, alert: _("You can not publish a historical version of this #{template_type(template)}.")
       end
     end
 
-    # GET /org_admin/templates/:id/unpublish  (AJAX)  TODO convert to PUT verb
+    # PATCH /org_admin/templates/:id/unpublish  (AJAX)
     # -----------------------------------------------------
     def unpublish
       template = Template.find(params[:id])
       authorize template
 
-      if template.nil?
-        flash[:alert] = _("That #{template_type(template)} is not currently published.")
-      else
+      if template.present?
         template.published = false
         template.save
         flash[:notice] = _("Your #{template_type(template)} is no longer published. Users will not be able to create new DMPs for this #{template_type(template)} until you re-publish it")
+      else
+        flash[:alert] = _("That #{template_type(template)} is not currently published.")
       end
 
       redirect_to "#{org_admin_templates_path}#{template_type(template) == _('customisation') ? '#funder-templates' : '#organisation-templates'}"
     end
     
-    # PUT /org_admin/template_options  (AJAX)
+    # GET /org_admin/template_options  (AJAX)
     # Collect all of the templates available for the org+funder combination
     # --------------------------------------------------------------------------
     def template_options()
       org_id = (plan_params[:org_id] == '-1' ? '' : plan_params[:org_id])
       funder_id = (plan_params[:funder_id] == '-1' ? '' : plan_params[:funder_id])
       authorize Template.new
-    
       templates = []
 
       if org_id.present? || funder_id.present?
         unless funder_id.blank?
           # Load the funder's template(s)
-          templates = Template.publicly_visible.where(published: true, org_id: funder_id).to_a
-
+          templates = Template.where(org_id: funder_id).published.publicly_visible
           unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
-            templates.each do |tmplt|
-              customization = Template.unarchived.find_by(published: true, org_id: org_id, customization_of: tmplt.family_id)
+            templates = templates.map do |tmplt|
+              customization = Template.published.latest_customized_version(tmplt.family_id, org_id).first
               if customization.present? && tmplt.created_at < customization.created_at
-                templates.delete(tmplt)
-                templates << customization
+                customization
+              else
+                tmplt
               end
             end
           end
@@ -292,9 +301,8 @@ module OrgAdmin
         # If the no funder was specified OR the funder matches the org
         if funder_id.blank? || funder_id == org_id
           # Retrieve the Org's templates
-          templates << Template.organisationally_visible.unarchived.where(published: true, org_id: org_id, customization_of: nil).to_a
+          templates << Template.published.organisationally_visible.where(org_id: org_id, customization_of: nil).to_a
         end
-        
         templates = templates.flatten.uniq
       end
 
@@ -303,7 +311,6 @@ module OrgAdmin
         templates << Template.where(is_default: true, published: true).first
       end
       templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
-    
       render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
     end
 

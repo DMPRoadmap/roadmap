@@ -39,6 +39,18 @@ class ActiveSupport::TestCase
       links: {"org":[{"link":"http://dmproadmap.org","text":"DMPRoadmap"}]},
     }
   end
+  def user_seed
+    {
+      email: 'test-user@testing-roadmap.org', 
+      firstname: 'Test', 
+      surname: 'User',
+      language: Language.find_by(abbreviation: FastGettext.locale),
+      password: "password123", 
+      password_confirmation: "password123",
+      accept_terms: true, 
+      confirmed_at: Time.zone.now, 
+    }
+  end
   def template_seed 
     {
       title: 'Test template', 
@@ -77,6 +89,13 @@ class ActiveSupport::TestCase
       type: Annotation.types[:guidance]
     }
   end
+  def question_option_seed
+    {
+      text: 'Option A',
+      number: 1,
+      is_default: true,
+    }
+  end
   
   def validate_and_create_obj(obj)
     obj.validate
@@ -107,6 +126,35 @@ class ActiveSupport::TestCase
     validate_and_create_obj(Org.new(org_seed.merge(hash.merge(props))))
   end
 
+  # User initializers
+  def init_researcher(org, **props)
+    validate_and_create_obj(User.new(user_seed.merge({ 
+      org: org, 
+      surname: 'Researcher',
+      email: 'researcher@testing-roadmap.org',
+     }.merge(props))))
+  end
+  def init_org_admin(org, **props)
+    perms = Perm.where.not(name: ['admin', 'add_organisations', 
+                                  'change_org_affiliation', 'grant_api_to_orgs', 
+                                  'change_org_details'])
+    validate_and_create_obj(User.new(user_seed.merge({ 
+      org: org, 
+      surname: 'OrgAdmin', 
+      email: 'org.admin@testing-roadmap.org',
+      perms: perms,
+     }.merge(props))))
+  end
+  def init_super_admin(org, **props)
+    perms = Perm.all
+    validate_and_create_obj(User.new(user_seed.merge({ 
+      org: org, 
+      surname: 'SuperAdmin', 
+      email: 'super.admin@testing-roadmap.org',
+      perms: perms 
+    }.merge(props))))
+  end
+  
   # Template initializers
   def init_template(org, **props)
     if org.is_a? Org
@@ -148,7 +196,14 @@ class ActiveSupport::TestCase
       nil
     end
   end
-  
+  def init_question_option(question, **props)
+    if question.is_a?(Question)
+      validate_and_create_obj(QuestionOption.new(question_option_seed.merge({ question: question }.merge(props))))
+    else
+      puts "You must supply a Question when creating a question option! Got the following instead: QUESTION - #{question.inspect}"
+      nil
+    end
+  end
   
   # equality helpers for complex objects
   def assert_annotations_equal(annotation1, annotation2)
