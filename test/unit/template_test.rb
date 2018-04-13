@@ -71,7 +71,7 @@ class TemplateTest < ActiveSupport::TestCase
   end
   
   test "able to determine the latest version number" do
-    version2 = @basic_template.generate_version
+    version2 = @basic_template.generate_version!
     version2.save!
     results = Template.latest_version_per_family(@basic_template.family_id)
     assert_equal 1, results.length, 'expected only one version to be returned for the specific family'
@@ -79,7 +79,7 @@ class TemplateTest < ActiveSupport::TestCase
   end
   
   test "able to retrieve the latest version" do
-    version2 = @basic_template.generate_version
+    version2 = @basic_template.generate_version!
     version2.save!
     result = Template.latest_version(@basic_template.family_id)
     assert_equal 1, result.length, 'expected only one version to be returned'
@@ -89,7 +89,7 @@ class TemplateTest < ActiveSupport::TestCase
   test "able to version a template" do
     template = init_full_template(@basic_template)
     assert_equal 0, template.version, 'expected the initial template version to be zero'
-    version2 = template.generate_version
+    version2 = template.generate_version!
     assert_equal 1, version2.version, 'expected the version number to be one more than the original template\'s'
     assert_equal template.family_id, version2.family_id, 'expected the new version to have the same family_id'
     assert_equal template.visibility, version2.visibility, 'expected the new version to have the same visibility'
@@ -102,10 +102,18 @@ class TemplateTest < ActiveSupport::TestCase
     end
   end
 
-  test "able to copy a template" do
+  test "#generate_copy! raises RuntimeError when a non Org object is passed" do
+    init_full_template(@basic_template)
+    exception = assert_raises(RuntimeError) do
+      @basic_template.generate_copy!(nil)
+    end
+    assert_equal(_('generate_copy! requires an organisation target'), exception.message)
+  end
+
+  test "#generate_copy! creates a new copy of a template" do
     template = init_full_template(@basic_template)
     template.update_attributes(is_default: true, published: true) # Update these flags to verify that the copy sets them properly
-    copy = template.generate_copy(@institution)
+    copy = template.generate_copy!(@institution)
     assert_not_equal template.id, copy.id, 'expecetd the copy to have a different id'
     assert_not_equal template.family_id, copy.family_id, 'expected the copy to have a different family id'
     assert_equal @institution, copy.org, 'expected the copy to have the correct Org'
@@ -122,33 +130,33 @@ class TemplateTest < ActiveSupport::TestCase
   end
 
   test "can properly determine if current template is the latest version" do
-    assert @basic_template.is_latest?, 'expected the initial template to be the latest version'
-    version2 = @basic_template.generate_version
+    assert @basic_template.latest?, 'expected the initial template to be the latest version'
+    version2 = @basic_template.generate_version!
     version2.save!
-    assert_not @basic_template.is_latest?, 'expected the initial template to no longer be the latest version'
-    assert version2.is_latest?, 'expected the new version to be the latest version'
+    assert_not @basic_template.latest?, 'expected the initial template to no longer be the latest version'
+    assert version2.latest?, 'expected the new version to be the latest version'
   end
 
-  test "#customize raises RuntimeError when a non Org object is passed" do
+  test "#customize! raises RuntimeError when a non Org object is passed" do
     init_full_template(@basic_template)
     exception = assert_raises(RuntimeError) do
-      @basic_template.customize(nil)
+      @basic_template.customize!(nil)
     end
-    assert_equal(_('customize requires an organisation target'), exception.message)
+    assert_equal(_('customize! requires an organisation target'), exception.message)
   end
 
-  test "#customize raises RuntimeError when the template belongs to a non funder" do
+  test "#customize! raises RuntimeError when the template belongs to a non funder" do
     template = init_template(@org, published: true)
     exception = assert_raises(RuntimeError) do
-      template.customize(@institution)
+      template.customize!(@institution)
     end
   end
 
-  test "#customize generates a new template" do
+  test "#customize! generates a new template" do
     template = init_full_template(@basic_template)
     template.is_default = true
     template.save!
-    customization = template.customize(@institution)
+    customization = template.customize!(@institution)
 
     assert(customization.family_id.present?, 'expected a newly family_id value')
     assert_equal(template.family_id, customization.customization_of, 'expected the customization_of id to match the base template\'s family_id')
@@ -167,7 +175,7 @@ class TemplateTest < ActiveSupport::TestCase
 
   test "template customizations can be transferred after base template changes" do
     init_full_template(@basic_template)
-    customization = @basic_template.customize(@institution)
+    customization = @basic_template.customize!(@institution)
     first_question = customization.phases.first.sections.first.questions.first
     init_annotation(customization.org, first_question)
     customization.save!
@@ -177,77 +185,77 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal @basic_template.org, @basic_template.base_org, 'expected an uncustomized template to consider its own org the base_org'
   end
   test "base_org returns the parent template org if the template is customized" do
-    customization = @basic_template.customize(@institution)
+    customization = @basic_template.customize!(@institution)
     assert_equal @basic_template.org, customization.base_org, 'expected a customized template to consider the parent template\'s org the base_org'
   end
 
-  test "#generate_version raises RuntimeError when the template is not published" do
+  test "#generate_version! raises RuntimeError when the template is not published" do
     template = init_template(@org, published: false)
     exception = assert_raises(RuntimeError) do
-      template.generate_version
+      template.generate_version!
     end
-    assert_equal(_('generate_version requires a published template'), exception.message)
+    assert_equal(_('generate_version! requires a published template'), exception.message)
   end
 
-  test "#generate_version creates a new version for a published and non-customised template" do
+  test "#generate_version! creates a new version for a published and non-customised template" do
     template = init_template(@org, published: true)
-    new_template = template.generate_version
+    new_template = template.generate_version!
     assert_equal(@basic_template.version + 1, new_template.version)
     assert_not(new_template.published)
   end
 
-  test "#upgrade_customization raises RuntimeError when the template is not a customisation of another template" do
+  test "#upgrade_customization! raises RuntimeError when the template is not a customisation of another template" do
     template = init_template(@org, published: true)
     exception = assert_raises(RuntimeError) do
-      template.upgrade_customization
+      template.upgrade_customization!
     end
-    assert_equal(_('upgrade_customization requires a customised template'), exception.message)
+    assert_equal(_('upgrade_customization! requires a customised template'), exception.message)
   end
 
-  test "#upgrade_customization creates a new version" do
-    customization = @basic_template.customize(@institution)
+  test "#upgrade_customization! creates a new version" do
+    customization = @basic_template.customize!(@institution)
     customization.published = true
-    transferred = customization.upgrade_customization
+    transferred = customization.upgrade_customization!
     assert_equal(customization.version + 1, transferred.version, 'expected the version number to have been incremented when the current cusomization was published')
-    assert_equal(customization.family_id, transferred.family_id, 'expected the family_id to be retained when upgrade_customization is called')
+    assert_equal(customization.family_id, transferred.family_id, 'expected the family_id to be retained when upgrade_customization! is called')
   end
 
-  test "#upgrade_customization appends modifiable phases to the new customisation" do
+  test "#upgrade_customization! appends modifiable phases to the new customisation" do
     init_full_template(@basic_template)
-    customization = @basic_template.customize(@institution)
+    customization = @basic_template.customize!(@institution)
     customization.phases << Phase.new(title: 'New customised phase', number: 2, modifiable: true)
     customization.phases << Phase.new(title: 'New customised phase 2', number: 3, modifiable: true)
 
-    transferred = customization.upgrade_customization
+    transferred = customization.upgrade_customization!
     assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(3, transferred.phases.length, 'expected 3 phases after upgrading a customised template')
   end
 
-  test "#upgrade_customization appends modifiable sections into an unmodifiable phase" do
+  test "#upgrade_customization! appends modifiable sections into an unmodifiable phase" do
     init_full_template(@basic_template)
-    customization = @basic_template.customize(@institution)
+    customization = @basic_template.customize!(@institution)
     customization.phases.first.sections << Section.new(title: 'New customised section', number: 2, modifiable: true)
     customization.phases.first.sections << Section.new(title: 'New customised section 2', number: 3, modifiable: true)
 
-    transferred = customization.upgrade_customization
+    transferred = customization.upgrade_customization!
     assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(3, transferred.phases.first.sections.length, 'expected 3 sections after upgrading a customised template')
   end
 
-  test "#upgrade_customization appends modifiable questions into an unmodifiable section" do
+  test "#upgrade_customization! appends modifiable questions into an unmodifiable section" do
     init_full_template(@basic_template)
-    customization = @basic_template.customize(@institution)
+    customization = @basic_template.customize!(@institution)
     customization.phases.first.sections.first.questions << Question.new(text: 'New customised question', number: 2, modifiable: true)
     customization.phases.first.sections.first.questions << Question.new(text: 'New customised question 2', number: 3, modifiable: true)
 
-    transferred = customization.upgrade_customization
+    transferred = customization.upgrade_customization!
     assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(3, transferred.phases.first.sections.first.questions.length, 'expected 3 questions after upgrading a customised template')
   end
 
-  test "#upgrade_customization appends annotations added to an unmodifiable question" do
+  test "#upgrade_customization! appends annotations added to an unmodifiable question" do
     init_full_template(@basic_template)
-    customization = @basic_template.customize(@institution)
+    customization = @basic_template.customize!(@institution)
     customization.phases.first.sections.first.questions.first.annotations << 
       Annotation.new(text: 'New customised guidance', type: Annotation.types[:guidance], org: customization.org)
     customization.phases.first.sections.first.questions.first.annotations << 
@@ -258,9 +266,52 @@ class TemplateTest < ActiveSupport::TestCase
     @basic_template.phases.first.sections.first.questions.first.annotations <<
       Annotation.new(text: 'New funder example_answer', type: Annotation.types[:example_answer], org: @basic_template.org)
 
-    transferred = customization.upgrade_customization
+    transferred = customization.upgrade_customization!
     assert_not_equal(customization.object_id, transferred.object_id, 'customization and transferred are distinct objects')
     assert_equal(4, transferred.phases.first.sections.first.questions.first.annotations.length, 'expected 4 annotations after upgrading a customised template')
+  end
+
+  test "#generate_version? returns true when the template is published" do
+    @basic_template.published = true
+    assert(@basic_template.generate_version?)
+  end
+
+  test "#generate_version? returns false when the template is not published" do
+    @basic_template.published = false
+    assert_not(@basic_template.generate_version?)
+  end
+
+  test "#customize? returns false when no org is passed" do
+    assert_not(@basic_template.customize?(nil))
+  end
+
+  test "#customize? returns true when the org does not have a customization of the template" do
+    assert(@basic_template.customize?(@institution))
+  end
+
+  test "#customize? returns false when the org has already a customization of the template" do
+    @basic_template.customize!(@institution)
+    assert_not(@basic_template.customize?(@institution))
+  end
+
+  test "#upgrade_customization? returns false when the template is not a customization of another template" do
+    assert_not(@basic_template.upgrade_customization?)
+  end
+
+  test "#upgrade_customization? returns false when the template is already according to the latest published funder template" do
+    @basic_template.published = true
+    customization = @basic_template.customize!(@institution)
+    assert_not(customization.upgrade_customization?)
+  end
+
+  test "#upgrade_customization? returns true when the template is stale, i.e a new version from funder has been published" do
+    @basic_template.published = true
+    customization = @basic_template.customize!(@institution)
+    customization.created_at = customization.created_at.yesterday
+    new_version = @basic_template.generate_version!
+    new_version.published = true
+    new_version.save!
+    assert(customization.upgrade_customization?)
   end
  
 =begin

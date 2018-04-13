@@ -109,7 +109,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
   test 'get templates#edit returns ok with flash notice when template is not current' do
     @template.update_attributes(published: true)
-    new_version = @template.generate_version
+    new_version = @template.generate_version!
     sign_in @user
     get(edit_org_admin_template_path(@template.id))
     assert_response(:ok)

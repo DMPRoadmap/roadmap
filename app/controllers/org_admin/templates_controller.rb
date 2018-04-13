@@ -72,7 +72,7 @@ module OrgAdmin
       
       if @template == @current 
         if @template.published?
-          new_version = @template.generate_version
+          new_version = @template.generate_version!
           if !new_version.nil?
             redirect_to(action: 'edit', id: new_version.id, r: @current_tab)
             return
@@ -183,15 +183,9 @@ module OrgAdmin
     def customize
       @template = Template.find(params[:id])
       authorize @template
-      # TODO add check to see whether or not the template to customise belongs to an org that is funder
       # TODO use POST instead of GET since we are effectively adding a new template resource
-
-      # Pessimistically lock the Template row while we create the customization
-      customisation = nil
-      @template.with_lock do
-        customisation = @template.customize(current_user.org)
-        customisation.save!
-      end
+      # TODO add check @template.customize? before
+      customisation = @template.customize!(current_user.org)
       
       @current_tab = params[:r] || 'all-templates'
       redirect_to edit_org_admin_template_path(customisation, r: 'funder-templates')
@@ -204,7 +198,8 @@ module OrgAdmin
       @template = Template.includes(:org).find(params[:id])
       @current_tab = params[:r] || 'all-templates'
       authorize @template
-      new_customization = @template.upgrade_customization
+      # TODO add check @template.upgrade_customization?
+      new_customization = @template.upgrade_customization!
       new_customization.save!
       redirect_to edit_org_admin_template_path(new_customization, r: 'funder-templates')
     end
@@ -212,14 +207,14 @@ module OrgAdmin
     # PUT /org_admin/templates/:id/copy  (AJAX)
     # -----------------------------------------------------
     def copy
-      @template = Template.find(params[:id])
-      authorize @template
-      new_copy = @template.generate_copy(current_user.org)
-      if new_copy.save!
-        flash[:notice] = "#{template_type(@template).capitalize} was successfully copied."
+      template = Template.find(params[:id])
+      authorize template
+      begin
+        new_copy = template.generate_copy!(current_user.org)
+        flash[:notice] = "#{template_type(template).capitalize} was successfully copied."
         redirect_to edit_org_admin_template_path(new_copy, edit: true, r: 'organisation-templates')
-      else
-        flash[:alert] = failed_create_error(new_copy, template_type(@template))
+      rescue ActiveRecord::RecordInvalid => e
+        flash[:alert] = failed_create_error(template, template_type(template))
         current_tab = params[:r] || 'all-templates'
         redirect_to "#{org_admin_templates_path}##{current_tab}"
       end
