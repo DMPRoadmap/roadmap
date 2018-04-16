@@ -19,13 +19,15 @@ class AnnotationsController < ApplicationController
       template.save!
     end
     tab = params[:r] || 'all-templates'
-    redirect_to "#{admin_show_phase_path(question.section.phase.id)}?section_id=#{question.section.id}&r=#{tab}"
+    redirect_to "#{org_admin_template_phase_path(question.section.phase.template.id, question.section.phase.id)}?section_id=#{question.section.id}&r=#{tab}"
   end
 
   #delete an annotation
   def admin_destroy
     annotation = Annotation.find(params[:id])
     authorize annotation
+# TODO: refactor this so its more performant
+    template_id = annotation.question.section.phase.template.id
     parent_ids = Annotation.joins("INNER JOIN questions ON annotations.question_id = questions.id").joins("INNER JOIN sections ON questions.section_id = sections.id").joins("INNER JOIN phases ON sections.phase_id = phases.id").where("annotations.id": params[:id]).pluck("phases.id", "sections.id").first #annotation.question.section.phase.id
     if annotation.present?
       type = (annotation.type == Annotation.types[:example_answer] ? 'example answer' : 'guidance')
@@ -36,7 +38,7 @@ class AnnotationsController < ApplicationController
       end
     end
     tab = params[:r] || 'all-templates'
-    redirect_to "#{admin_show_phase_path(parent_ids[0])}?section_id=#{parent_ids[1]}&r=#{tab}"
+    redirect_to "#{org_admin_template_phase_path(template_id, parent_ids[0])}?section_id=#{parent_ids[1]}&r=#{tab}"
   end
 
   private

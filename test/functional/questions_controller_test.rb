@@ -53,7 +53,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     post admin_create_question_path(@section), {question: params}
     assert_response :redirect
     assert assigns(:question)
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, section_id: @section.id, question_id: Question.last.id, r: 'all-templates')
+    assert_redirected_to org_admin_template_phase_path(@section.phase.template.id, @section.phase.id, section_id: @section.id, question_id: Question.last.id, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal 'Test Question', Question.last.text, "expected the record to have been created!"
     
@@ -85,7 +85,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_question_path(@section.questions.first), {question: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, section_id: @section.id, question_id: @section.questions.first.id, r: 'all-templates')
+    assert_redirected_to org_admin_template_phase_path(@section.phase.template.id, @section.phase.id, section_id: @section.id, question_id: @section.questions.first.id, r: 'all-templates')
     assert assigns(:phase)
     assert assigns(:section)
     assert assigns(:question)
@@ -121,7 +121,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:phase)
     assert assigns(:section)
     assert assigns(:question)
-    assert_redirected_to admin_show_phase_url(id: @section.phase.id, section_id: @section.id, r: 'all-templates')
+    assert_redirected_to org_admin_template_phase_path(@section.phase.template.id, @section.phase.id, section_id: @section.id, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Question.find(id).nil?

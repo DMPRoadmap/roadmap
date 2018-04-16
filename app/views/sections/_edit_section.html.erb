@@ -32,7 +32,7 @@
           <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
           <%= link_to _('Delete'), admin_destroy_section_path(section_id: section.id, r: current_tab), 'data-method': 'delete', rel: 'nofollow',
                 'data-confirm': _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, class: 'btn btn-default', role:'button' %>
-          <%= link_to _('Cancel'), admin_show_phase_path(section.phase), class: 'btn btn-default', role: 'button' %>
+          <%= link_to _('Cancel'), org_admin_template_phase_path(template, section.phase), class: 'btn btn-default', role: 'button' %>
         </div>
       </div>
     <% end %>
@@ -44,7 +44,7 @@
         <% questions.each do |question| %>
           <hr />
           <div class="question_show" id="<%= "question_show#{question.id}" %>">
-            <%= render partial: 'questions/show_question', locals: {template: template, question: question, current_tab: current_tab, edit: edit} %>
+            <%= render partial: 'questions/show_question', locals: {template: template, question: question, current_tab: current_tab, edit: edit, original_org: template.base_org} %>
           </div>
           <div class="question_edit" id="<%= "question_edit#{question.id}" %>" style="display: none;">
             <%= render partial: 'questions/edit_question', locals: {template: template, question: question, current_tab: current_tab} %>

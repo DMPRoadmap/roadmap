@@ -1,0 +1,16 @@
+<dl class="dl-horizontal">
+  <dt><%= _('Title') %></dt>
+  <dd><%= phase.title %></dd>
+  <dt><%= _('Order of display') %></dt>
+  <dd><%= phase.number %></dd>
+  <dt><%= _('Description') %></dt>
+  <dd><%= raw phase.description %></dd>
+</dl>
+<% if phase.modifiable && edit %>
+    <div class="pull-right">
+      <ul class="list-inline">
+        <li><%= link_to(_('Edit phase details'), edit_org_admin_template_phase_path(template, phase, r: current_tab), { class: "btn btn-default phase_edit_link", role: "button" }) %></li>
+        <li><%= link_to(_('Preview'), preview_org_admin_template_phase_path(template, phase, r: current_tab), { class: 'btn btn-default phase_preview_link', role: 'button' }) %></li>
+      </ul>
+    </div>
+<% end %>

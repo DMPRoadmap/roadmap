@@ -72,4 +72,8 @@ class PlanPolicy < ApplicationPolicy
   def update_guidances_list?
     @plan.editable_by?(@user.id)
   end
+  
+  def phase_status?
+    @plan.readable_by?(@user.id)
+  end
 end

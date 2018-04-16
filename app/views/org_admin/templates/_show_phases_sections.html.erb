@@ -10,9 +10,9 @@
   <div class="col-md-12">
     <div class="pull-right">
       <% phase_button_text = template.customization_of.nil? ? _('Show Phase') : _('Customize Phase') %>
-      <%= link_to phase_button_text, admin_show_phase_path(id: phase.id), { class: "btn btn-default", role: 'button' } %>
+      <%= link_to phase_button_text, org_admin_template_phase_path(phase.template, phase), { class: "btn btn-default", role: 'button' } %>
       <% if template == current && phase.modifiable %>
-        <%= link_to _('Delete phase'), admin_destroy_phase_path(phase_id: phase.id),
+        <%= link_to _('Delete phase'), org_admin_template_phase_path(phase.template, phase),
                     data: { confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title }, 
                             length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-default', role: 'button' %>
       <% end %>

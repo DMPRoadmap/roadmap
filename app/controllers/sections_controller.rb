@@ -11,7 +11,7 @@ class SectionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @section.save
-      redirect_to admin_show_phase_path(id: @section.phase_id, r: current_tab,
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @section.phase_id, r: current_tab,
         :section_id => @section.id), notice: success_message(_('section'), _('created'))
     else
       @edit = (@phase.template.org == current_user.org)
@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(id: @phase.id, r: current_tab)
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, r: current_tab)
     end
   end
 
@@ -38,7 +38,7 @@ class SectionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @section.update_attributes(params[:section])
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('section'), _('saved'))
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('section'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -51,7 +51,7 @@ class SectionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab)
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, section_id: @section.id, r: current_tab)
     end
   end
 
@@ -63,7 +63,7 @@ class SectionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @section.destroy
-      redirect_to admin_show_phase_path(id: @phase.id, r: current_tab), notice: success_message(_('section'), _('deleted'))
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, r: current_tab), notice: success_message(_('section'), _('deleted'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -77,7 +77,7 @@ class SectionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to(admin_show_phase_path(id: @phase.id, r: current_tab))
+      redirect_to(org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, r: current_tab))
     end
   end
 
