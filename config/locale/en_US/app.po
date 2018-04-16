@@ -1097,7 +1097,7 @@ msgid "If you didn't request this, please ignore this email."
 msgstr "If you didn't request this, please ignore this email."
 
 msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
-msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
+msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to NSF Engineering), you can do so by adding guidance to individual questions as 'customizations' in the Templates area."
 
 msgid "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
 msgstr "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
