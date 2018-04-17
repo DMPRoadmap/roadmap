@@ -15,16 +15,12 @@
       <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>   
       <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
       <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="https://github.com/DMPRoadmap/roadmap"><%= _('Github') %></a></li>
+      <li><a href="<%= Rails.configuration.branding[:application][:url] %>"><%= _('Github') %></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <%= link_to( image_tag("uc3_logo_white.png", class: "img-responsive", alt: 'University of California Curation Center'),
-                               "http://www.cdlib.org/uc3/", title: "University of California Curation Center", target: '_blank') %>
-      </li>
-      <li>
-        <%= link_to( image_tag("dcc_logo_white.png", class: "img-responsive", alt: 'Digital Curation Centre'),
-                     "http://www.dcc.ac.uk/", title: "Digital Curation Centre", target: '_blank') %>
+        <%= link_to( image_tag("roadmap_logo_orange_white.png", class: "img-responsive roadmap-logo", alt: 'DMPRoadmap Github'),
+                               "https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github", target: '_blank') %>
       </li>
     </ul>
   </div>
