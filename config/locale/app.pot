@@ -1415,6 +1415,9 @@ msgstr ""
 msgid "Organisational Admin"
 msgstr ""
 
+msgid "Organisational admin privileges"
+msgstr ""
+
 msgid "Organisational Configuration Information"
 msgstr ""
 
@@ -1892,6 +1895,9 @@ msgid "Successfully unlinked your account from %{is}."
 msgstr ""
 
 msgid "Super Admin"
+msgstr ""
+
+msgid "Super admin privileges"
 msgstr ""
 
 msgid "Table of Contents"
