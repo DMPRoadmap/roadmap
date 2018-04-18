@@ -1,13 +1,19 @@
 module Versionable
   extend ActiveSupport::Concern
 
+  ##
+  # Takes in a Template, phase, Section, Question, or Annotaion
+  # IF the template is published, generates a new template
+  # finds the passed object in the new template
+  # @param obj - Template, Phase, Section, Question, Annotation
+  # @return type_of(obj)
   def get_modifiable(obj)
     if obj.respond_to? 'template'
       template = obj.template
     elsif obj.is_a? Template
       template = obj
     else
-      return nil # Throw error as wrong obj added
+      raise ArgumentError, _('obj should be a Template, Phase, Section, Question, or Annotation') # Throw error as wrong obj added
     end
     template, copy = find_or_generate(template)
     # copy not generated - return obj
@@ -17,6 +23,42 @@ module Versionable
         obj = template
       else
         obj = find_in_space(obj,template.phases)
+      end
+    end
+    return obj
+  end
+
+  ##
+  # Takes in a phase, Section, Question, or Annotation which is newly
+  # generated and returns a modifiable verson of that object
+  # NOTE: the passed obj is still not saved, but it's parent_id will be updated
+  def get_new(obj)
+    if obj.respond_to? 'template'
+      template = obj.template
+    else
+      raise ArgumentError, _('obj should be a Phase, Section, Question, or Annotation') # Throw error as wrong obj added
+    end
+    template, copy = find_or_generate(template)
+    if copy
+      case obj
+      when Phase
+        par = 'template'
+      when Section
+        par = 'phase'
+      when Question
+        par = 'section'
+      when Annotation
+        par = 'question'
+      end
+
+      if par=='template'
+        obj.template_id = template.id
+      elsif par.present?
+        parent = find_in_space(obj.public_send(par),template.phases)
+        par += "_id="
+        obj.public_send(par,parent.id)
+      else
+        raise ArgumentError,  _('obj should be a Phase, Section, Question, or Annotation')
       end
     end
     return obj
@@ -42,10 +84,7 @@ module Versionable
   def find_in_space(obj, search_space)
     # obj can be a phase/section/question/annotation
     # case of objet being an instance of search space
-    puts search_space.first.class
-    puts search_space
     if obj.is_a? search_space.first.class
-      puts "match"
       if obj.respond_to?('number') && search_space.first.respond_to?('number')
         return search_space.find{|search| search.number == obj.number}
       else # object must be an annotation
@@ -57,17 +96,12 @@ module Versionable
     when Phase
       comp = obj.phase.number
       nxt = 'sections'
-      puts 'phase'
     when Section
       comp = obj.section.number
       nxt = 'questions'
-      puts 'section'
     when Question
-      puts 'question'
-      comp = obj.question.number
       nxt = 'annotations'
-    when Annotation
-      puts 'something broke'
+      comp = obj.question.number
     end
     return find_in_space(obj, search_space.find{|search| search.number == comp}.public_send(nxt))
   end
