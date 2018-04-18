@@ -1441,7 +1441,7 @@ msgid "Organisational Admin"
 msgstr "Organizational Admin"
 
 msgid "Organisational admin privileges"
-msgstr "Organizational admin provileges"
+msgstr "Organizational admin privileges"
 
 msgid "Organisational Configuration Information"
 msgstr "Organizational configuration information"
