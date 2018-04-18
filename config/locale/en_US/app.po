@@ -94,7 +94,6 @@ msgstr "%{add_or_edit} Customizations"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#, fuzzy
 msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>.<br />If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 
@@ -930,9 +929,8 @@ msgstr "First name"
 msgid "Font"
 msgstr "Font"
 
-#, fuzzy
 msgid "For Administrators"
-msgstr "Admin"
+msgstr "For Administrators"
 
 msgid "For Researchers"
 msgstr "For researchers"
@@ -1265,13 +1263,11 @@ msgstr "Modify templates"
 msgid "Month"
 msgstr "Month"
 
-#, fuzzy
 msgid "More"
-msgstr "or"
+msgstr "More"
 
-#, fuzzy
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
-msgstr "organization"
+msgid "More information about administering the %{tool_name} for users at your organization is available at the %{help_url}."
 
 msgid "My DMP's visibility has changed"
 msgstr "My plan's visibility has changed"
@@ -1436,7 +1432,7 @@ msgid "Organisation type(s)"
 msgstr "Organization type(s)"
 
 msgid "Organisation: anyone at my organisation can view"
-msgstr "Organizational: anyone at my organization can view"
+msgstr "Organization: anyone at my organization can view"
 
 msgid "Organisation: anyone at my organisation can view."
 msgstr "Organization: anyone at my organization can view"
@@ -1579,7 +1575,6 @@ msgstr "Please enter the name of your organization"
 msgid "Please enter your current password"
 msgstr "Please enter your current password"
 
-#, fuzzy
 msgid "Please enter your email below and we will send instructions to reset your password."
 msgstr "Please enter your email below and we will send you instructions on how to reset your password."
 
@@ -1690,7 +1685,6 @@ msgstr "Public plans"
 msgid "Public Plans"
 msgstr "Public plans"
 
-#, fuzzy
 msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 msgstr "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
@@ -2096,7 +2090,6 @@ msgstr "Title"
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations."
 msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations."
 
-#, fuzzy
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
 msgstr "To help you write your plan, %{application_name} can show you guidance from a variety of organizations. Please choose up to 6 organizations of the following organizations who offer guidance relevant to your plan."
 
