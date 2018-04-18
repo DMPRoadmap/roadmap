@@ -12,6 +12,8 @@ class Question < ActiveRecord::Base
   has_and_belongs_to_many :themes, join_table: "questions_themes"
   belongs_to :section
   belongs_to :question_format
+  has_one :template, through: :section
+  has_one :phase, through: :section
 
   ##
   # Nested Attributes
@@ -24,11 +26,11 @@ class Question < ActiveRecord::Base
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, 
-                  :annotation, :text, :section_id, :question_format_id, 
-                  :question_options_attributes, :annotations_attributes, 
-                  :option_comment_display, :theme_ids, :section, :question_format, 
-                  :question_options, :annotations, :answers, :themes, 
+  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number,
+                  :annotation, :text, :section_id, :question_format_id,
+                  :question_options_attributes, :annotations_attributes,
+                  :option_comment_display, :theme_ids, :section, :question_format,
+                  :question_options, :annotations, :answers, :themes,
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
@@ -129,9 +131,9 @@ class Question < ActiveRecord::Base
   def first_example_answer
     self.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first
   end
-  
+
   ##
-  # get guidance belonging to the current user's org for this question(need org 
+  # get guidance belonging to the current user's org for this question(need org
   # to distinguish customizations)
   #
   # @param org_id [Integer] the id for the organisation

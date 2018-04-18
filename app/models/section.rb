@@ -4,6 +4,7 @@ class Section < ActiveRecord::Base
   belongs_to :phase
   belongs_to :organisation
   has_many :questions, :dependent => :destroy
+  has_one :template, through: :phase
 
   #Link the data
   accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
