@@ -555,7 +555,7 @@ msgid "Change my password"
 msgstr "Change my password"
 
 msgid "Change organisation details"
-msgstr "Change organisation details"
+msgstr "Change organization details"
 
 msgid "Change your password"
 msgstr "Change your password"
