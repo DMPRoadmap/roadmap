@@ -5,7 +5,7 @@
 
   # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined
   # in the branding config file
-  contact_us_link = Rails.application.config.branding[:organisation][:contact_us_url] || contact_us_url
+  contact_us = Rails.application.config.branding[:organisation][:contact_us_url] || contact_us_url
 %>
 <p>
   <%= _('All the best') %>
@@ -13,5 +13,5 @@
   <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
 </p>
 <p>
-  <%= _('You may change your notification preferences on your profile page.') %>&nbsp;<%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact => link_to(contact_us_link, contact_us_link) }) %>
+  <%= _('You may change your notification preferences on your profile page.') %>&nbsp;<%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact => link_to(contact_us, contact_us) }) %>
 </p>

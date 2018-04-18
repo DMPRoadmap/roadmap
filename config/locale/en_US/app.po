@@ -1267,7 +1267,7 @@ msgid "More"
 msgstr "More"
 
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
-msgid "More information about administering the %{tool_name} for users at your organization is available at the %{help_url}."
+msgstr "More information about administering the %{tool_name} for users at your organization is available at the %{help_url}."
 
 msgid "My DMP's visibility has changed"
 msgstr "My plan's visibility has changed"
@@ -1432,7 +1432,7 @@ msgid "Organisation type(s)"
 msgstr "Organization type(s)"
 
 msgid "Organisation: anyone at my organisation can view"
-msgstr "Organization: anyone at my organization can view"
+msgstr "Organizational: anyone at my organization can view"
 
 msgid "Organisation: anyone at my organisation can view."
 msgstr "Organization: anyone at my organization can view"
