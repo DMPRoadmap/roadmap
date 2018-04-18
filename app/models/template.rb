@@ -123,7 +123,8 @@ class Template < ActiveRecord::Base
     template = deep_copy(
       attributes: {
         version: self.version+1,
-        published: false
+        published: false,
+        org: self.org
       }, save: true)
     return template
   end

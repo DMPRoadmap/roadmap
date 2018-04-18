@@ -73,7 +73,7 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test "#deep_copy creates a new question object and attaches new annotation/question_option objects" do
-    questions = scaffold_template.phases.first.sections.first.questions.select{ |q| q.option_based? }
+    questions = @section.questions.select{ |q| q.option_based? }
     questions.each do |question|
       question_copy = question.deep_copy
       assert_deep_copy(question, question_copy, relations: [:annotations, :question_options])
