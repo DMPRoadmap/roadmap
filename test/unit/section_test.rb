@@ -32,8 +32,7 @@ class SectionTest < ActiveSupport::TestCase
   end
 
   test "#deep_copy creates a new section object and attaches new question objects" do
-    section = scaffold_template.phases.first.sections.first
-    assert_deep_copy(section, section.deep_copy, relations: [:questions])
+    assert_deep_copy(@section, @section.deep_copy, relations: [:questions])
   end
   
   # ---------------------------------------------------
