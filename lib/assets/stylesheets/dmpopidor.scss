@@ -467,3 +467,14 @@ $light-yellow: #fff9e5;
     }
 
 }
+
+/*
+    CIL MESSAGE
+*/ 
+
+.cil_message > p {
+    font-size: x-small;
+    font-style: italic;
+    line-height: 1.5em;
+    padding-bottom: 4px;
+}
