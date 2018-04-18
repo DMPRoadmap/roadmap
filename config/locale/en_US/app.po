@@ -1655,6 +1655,9 @@ msgstr "Private: restricted to me and my collaborators"
 msgid "Private: restricted to me and people I invite."
 msgstr "Private: restricted to me and people I invite"
 
+msgid "Private: visible to me, specified collaborators and administrators at my organisation"
+msgstr "Private: visible to me, specified collaborators and administrators at my organization"
+
 msgid "Profile information"
 msgstr "Profile information"
 
