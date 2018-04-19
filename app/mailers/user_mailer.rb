@@ -127,4 +127,22 @@ class UserMailer < ActionMailer::Base
       end
     end
   end
+
+  def anonymization_warning(user)
+    @user = user
+    @end_date = (@user.last_sign_in_at + 5.years).to_date
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @user.email, subject: 
+        _('Account expiration in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+    end
+  end
+
+  def anonymization_notice(user)
+    @user = user
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @user.email, subject: 
+        _('Account expired in %{tool_name}')} %{ :tool_name => Rails.configuration.branding[:application][:name] })
+    end
+  end
+
 end

@@ -4924,3 +4924,23 @@ msgstr ""
 msgctxt "Your <tool name> account"
 msgid "Your"
 msgstr "Your"
+
+
+
+msgid "Account expiration in %{tool_name}"
+msgstr "Account expiration in %{tool_name}"
+
+msgid "Account expired in %{tool_name}"
+msgstr "Account expired in %{tool_name}"
+
+msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+msgstr "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated"
+msgstr "All accounts inactive for 5 years are automaticaly deactivated"
+
+msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
+msgstr "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
+msgstr "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
