@@ -4,7 +4,7 @@ class TemplateTest < ActiveSupport::TestCase
 
   setup do
     # Need to clear the tables until we get seed.rb out of test_helper.rb
-    Template.delete_all
+    Template.destroy_all
     
     @funder = init_funder
     @org = init_organisation
@@ -172,6 +172,26 @@ class TemplateTest < ActiveSupport::TestCase
       assert_phases_equal(phase, customization.phases[idx])
     end
   end
+  test "#customize! is thread-safe and therefore only one customization_of/version/org_id record exists in the db" do
+    template = init_template(@funder, published: true)
+    await = true
+    should_assert = true
+    threads = 3.times.map do |i|
+      Thread.new do
+        while await do ; end
+        begin
+          template.customize!(@org)
+        rescue ActiveRecord::StatementInvalid => e
+          # SQLite only supports one writer at a time. (e.g. https://www.sqlite.org/rescode.html#busy)
+          should_assert = false if e.message.include?("SQLite3::BusyException")
+        end
+      end
+    end
+    await = false
+    threads.map(&:join)
+    # ActiveRecord::Base.connection.adapter_name != 'SQLite'
+    assert_equal(1, Template.where(customization_of: template.family_id, version: 0, org_id: @org.id).count) if should_assert
+  end
 
   test "template customizations can be transferred after base template changes" do
     init_full_template(@basic_template)
@@ -202,6 +222,26 @@ class TemplateTest < ActiveSupport::TestCase
     new_template = template.generate_version!
     assert_equal(@basic_template.version + 1, new_template.version)
     assert_not(new_template.published)
+  end
+
+  test "#generate_version! is thread-safe and therefore only one family_id/version record exists in the db" do
+    template = init_template(@org, published: true)
+    await = true
+    should_assert = true
+    threads = 3.times.map do |i|
+      Thread.new do
+        while await do ; end
+        begin
+          template.generate_version!
+        rescue ActiveRecord::StatementInvalid => e
+          # SQLite only supports one writer at a time. (e.g. https://www.sqlite.org/rescode.html#busy)
+          should_assert = false if e.message.include?("SQLite3::BusyException")
+        end
+      end
+    end
+    await = false
+    threads.map(&:join)
+    assert_equal(1, Template.where(family_id: template.family_id, version: 1).count) if should_assert
   end
 
   test "#upgrade_customization! raises RuntimeError when the template is not a customisation of another template" do

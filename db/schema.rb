@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405152454) do
+ActiveRecord::Schema.define(version: 20180418115318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  
+
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "org_id"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "updated_at"
   end
 
-  add_index "annotations", ["question_id"], name: "index_annotations_on_question_id"
+  add_index "annotations", ["question_id"], name: "index_annotations_on_question_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -37,15 +37,15 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.integer  "lock_version", default: 0
   end
 
-  add_index "answers", ["plan_id"], name: "index_answers_on_plan_id"
-  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+  add_index "answers", ["plan_id"], name: "index_answers_on_plan_id", using: :btree
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "answers_question_options", id: false, force: :cascade do |t|
     t.integer "answer_id",          null: false
     t.integer "question_option_id", null: false
   end
 
-  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id"
+  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -84,9 +84,9 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "published"
   end
 
-  add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id"
+  add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id", using: :btree
 
   create_table "guidances", force: :cascade do |t|
     t.text     "text"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "published"
   end
 
-  add_index "guidances", ["guidance_group_id"], name: "index_guidances_on_guidance_group_id"
+  add_index "guidances", ["guidance_group_id"], name: "index_guidances_on_guidance_group_id", using: :btree
 
   create_table "identifier_schemes", force: :cascade do |t|
     t.string   "name"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "updated_at"
   end
 
-  add_index "notes", ["answer_id"], name: "index_notes_on_answer_id"
+  add_index "notes", ["answer_id"], name: "index_notes_on_answer_id", using: :btree
 
   create_table "org_identifiers", force: :cascade do |t|
     t.string   "identifier"
@@ -155,15 +155,15 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "updated_at"
   end
 
-  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id"
+  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id", using: :btree
 
   create_table "orgs", force: :cascade do |t|
     t.string   "name"
     t.string   "abbreviation"
     t.string   "target_url"
     t.string   "wayfless_entity"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "parent_id"
     t.boolean  "is_other"
     t.string   "sort_name"
@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.string   "logo_uid"
     t.string   "logo_name"
     t.string   "contact_email"
-    t.integer  "org_type",               default: 0,              null: false
+    t.integer  "org_type",               default: 0,     null: false
     t.text     "links",                  default: "{\"org\":[]}"
     t.string   "contact_name"
     t.boolean  "feedback_enabled",       default: false
@@ -188,6 +188,9 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "perms", ["name"], name: "index_perms_on_name", using: :btree
+  add_index "perms", ["name"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+
   create_table "phases", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -199,7 +202,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "modifiable"
   end
 
-  add_index "phases", ["template_id"], name: "index_phases_on_template_id"
+  add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
     t.string   "title"
@@ -223,14 +226,14 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "complete",                          default: false
   end
 
-  add_index "plans", ["template_id"], name: "index_plans_on_template_id"
+  add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
   end
 
-  add_index "plans_guidance_groups", ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
+  add_index "plans_guidance_groups", ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id", using: :btree
 
   create_table "prefs", force: :cascade do |t|
     t.text    "settings"
@@ -255,7 +258,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "updated_at"
   end
 
-  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id"
+  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "text"
@@ -269,14 +272,14 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "modifiable"
   end
 
-  add_index "questions", ["section_id"], name: "index_questions_on_section_id"
+  add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
     t.integer "theme_id",    null: false
   end
 
-  add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id"
+  add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
     t.string  "abbreviation"
@@ -294,8 +297,8 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "active",     default: true
   end
 
-  add_index "roles", ["plan_id"], name: "index_roles_on_plan_id"
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id"
+  add_index "roles", ["plan_id"], name: "index_roles_on_plan_id", using: :btree
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
     t.string   "title"
@@ -308,7 +311,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "modifiable"
   end
 
-  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id"
+  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false
@@ -319,7 +322,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "splash_logs", force: :cascade do |t|
     t.string   "destination"
@@ -344,9 +347,11 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.text     "links",            default: "{\"funder\":[], \"sample_plan\":[]}"
   end
 
-  add_index "templates", ["family_id"], name: "index_templates_on_family_id"
-  add_index "templates", ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
-  add_index "templates", ["org_id"], name: "index_templates_on_org_id"
+  add_index "templates", ["customization_of", "version", "org_id"], name: "index_templates_on_customization_of_and_version_and_org_id", unique: true, using: :btree
+  add_index "templates", ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true, using: :btree
+  add_index "templates", ["family_id"], name: "index_templates_on_family_id", using: :btree
+  add_index "templates", ["org_id", "family_id"], name: "template_organisation_dmptemplate_index", using: :btree
+  add_index "templates", ["org_id"], name: "index_templates_on_org_id", using: :btree
 
   create_table "themes", force: :cascade do |t|
     t.string   "title"
@@ -361,8 +366,8 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.integer "guidance_id"
   end
 
-  add_index "themes_in_guidance", ["guidance_id"], name: "index_themes_in_guidance_on_guidance_id"
-  add_index "themes_in_guidance", ["theme_id"], name: "index_themes_in_guidance_on_theme_id"
+  add_index "themes_in_guidance", ["guidance_id"], name: "index_themes_in_guidance_on_guidance_id", using: :btree
+  add_index "themes_in_guidance", ["theme_id"], name: "index_themes_in_guidance_on_theme_id", using: :btree
 
   create_table "token_permission_types", force: :cascade do |t|
     t.string   "token_type"
@@ -379,7 +384,7 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.integer  "identifier_scheme_id"
   end
 
-  add_index "user_identifiers", ["user_id"], name: "index_user_identifiers_on_user_id"
+  add_index "user_identifiers", ["user_id"], name: "index_user_identifiers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname"
@@ -416,15 +421,15 @@ ActiveRecord::Schema.define(version: 20180405152454) do
     t.boolean  "active",                 default: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["org_id"], name: "index_users_on_org_id"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
 
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "perm_id"
   end
 
-  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id"
+  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 
   add_foreign_key "annotations", "orgs"
   add_foreign_key "annotations", "questions"
