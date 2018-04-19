@@ -15,4 +15,8 @@ class StaticPagesController < ApplicationController
   def roadmap
     
   end
+
+  def tutorials
+    
+  end
 end

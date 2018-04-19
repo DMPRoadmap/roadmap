@@ -42,6 +42,10 @@
             <%= link_to _('DMP Templates'), public_templates_path %>
           </li>
         <% end %>
+        <!-- tutorials page -->
+        <li <%= 'class=active' if isActivePage(tutorials_path, true) %>>
+          <%= link_to _('Tutorials'), tutorials_path %>
+        </li>
         <!-- help page -->
         <li <%= 'class=active' if isActivePage(help_path, true) %>>
           <%= link_to _('Help'), help_path %>
