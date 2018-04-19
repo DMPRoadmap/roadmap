@@ -3,13 +3,13 @@ class ContactUs::ContactsController < ApplicationController
   def create
     @contact = ContactUs::Contact.new(params[:contact_us_contact])
 
-    if verify_recaptcha(model: @contact) && @contact.save
-      redirect_to(ContactUs.success_redirect || '/', :notice => _('Contact email was successfully sent.'))
-    else
-      flash[:alert] = _('Captcha verification failed, please retry.')
-      redirect_to request.referrer
-      #render_new_page
+    unless user_signed_in?
+      unless verify_recaptcha(model: @contact) && @contact.save
+        flash[:alert] = _('Captcha verification failed, please retry.')
+        redirect_to request.referrer and return
+      end
     end
+    redirect_to(ContactUs.success_redirect || '/', :notice => _('Contact email was successfully sent.'))
   end
 
   def new
