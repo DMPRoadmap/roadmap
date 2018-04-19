@@ -917,6 +917,9 @@ msgstr ""
 msgid "Font"
 msgstr ""
 
+msgid "For Administrators"
+msgstr ""
+
 msgid "For Researchers"
 msgstr ""
 
@@ -1172,6 +1175,9 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
+msgid "Learn"
+msgstr ""
+
 msgid "Left"
 msgstr ""
 
@@ -1233,6 +1239,9 @@ msgid "Message"
 msgstr ""
 
 msgid "Month"
+msgstr ""
+
+msgid "More"
 msgstr ""
 
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
@@ -1404,6 +1413,9 @@ msgid "Organisation: anyone at my organisation can view."
 msgstr ""
 
 msgid "Organisational Admin"
+msgstr ""
+
+msgid "Organisational admin privileges"
 msgstr ""
 
 msgid "Organisational Configuration Information"
@@ -1616,6 +1628,9 @@ msgid "Private: restricted to me and my collaborators"
 msgstr ""
 
 msgid "Private: restricted to me and people I invite."
+msgstr ""
+
+msgid "Private: visible to me, specified collaborators and administrators at my organisation"
 msgstr ""
 
 msgid "Profile information"
@@ -1886,6 +1901,9 @@ msgid "Successfully unlinked your account from %{is}."
 msgstr ""
 
 msgid "Super Admin"
+msgstr ""
+
+msgid "Super admin privileges"
 msgstr ""
 
 msgid "Table of Contents"
@@ -2622,4 +2640,43 @@ msgid "user must be in your organisation"
 msgstr ""
 
 msgid "write and edit the plan in a collaborative manner."
+msgstr ""
+
+msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\">PNG</a></li><li>Original DMPTool Logo - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\">PNG</a></li></ul>"
+msgstr ""
+
+msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf\">Adobe PDF</a></li></ul>"
+msgstr ""
+
+msgid "Change organisation details"
+msgstr ""
+
+msgid "DMPTool Principles"
+msgstr ""
+
+msgid "Grant permissions"
+msgstr ""
+
+msgid "Modify guidance"
+msgstr ""
+
+msgid "Modify templates"
+msgstr ""
+
+msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf\">Adobe PDF</a> </li></ul>"
+msgstr "" 
+
+msgid "Other risks to accessibility"
+msgstr ""
+
+msgid "See a current list of <a href=\"https://dmptool.org/public_orgs\">DMPTool participants</a>."
+msgstr ""
+
+msgid "These are rough guidelines to follow to help manage your data files in case you don\\"
+msgstr ""
+
+msgid "Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/poster/DMPTool_poster_v2.pdf\">Adobe PDF</a></li></ul>"
+msgstr ""
+
+msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/genericslides/DMPT2_GenericSlides.pptx\">Microsoft Powerpoint</a> </li></ul>"
 msgstr ""
