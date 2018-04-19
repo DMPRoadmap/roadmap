@@ -26,8 +26,8 @@ class OrgsController < ApplicationController
     end
     
     begin
-      # Only allow super admins to change the org types and shib info
-      if current_user.can_super_admin?    
+      # Only allow super admins to change the org types and shib info if they're not updating the feedback tab
+      if current_user.can_super_admin? && !org_params[:feedback_enabled].present?
         # Handle Shibboleth identifiers if that is enabled
         if Rails.application.config.shibboleth_use_filtered_discovery_service 
           shib = IdentifierScheme.find_by(name: 'shibboleth')
