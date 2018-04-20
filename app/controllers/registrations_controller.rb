@@ -85,6 +85,12 @@ class RegistrationsController < Devise::RegistrationsController
                                         user: @user)
                   flash[:notice] = _('Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.')
                 end
+                if prov.name == 'orcid'
+                  UserIdentifier.create(identifier_scheme: prov,
+                                        identifier: oauth['uid'],
+                                        user: @user)
+                  flash[:notice] = _('Welcome! You have signed up successfully with your ORCID account. You will now be able to access your account with them.')
+                end
               end
             end
             respond_with resource, location: after_sign_up_path_for(resource)

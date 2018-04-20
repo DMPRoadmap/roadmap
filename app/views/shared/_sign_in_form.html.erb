@@ -29,4 +29,17 @@
     <% end %>
   <% end %>
 
+  <% if Rails.application.config.orcid_enabled %>
+    <% if session['devise.orcid_data'].nil? %>
+      <h4 class="text-center">- <%= _('or') %> -</h4>
+      <div class="form-group">
+        <span class="center-block btn-group-justified">
+          <% target = user_orcid_omniauth_authorize_path %>
+          <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your ORCID account') %></a>
+        </span>
+      </div>
+    <% else %>
+      <%= f.hidden_field :orcid_id, :value => session['devise.orcid_data']['uid'] %>
+    <% end %>
+  <% end %>
 <% end %>
