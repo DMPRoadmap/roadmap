@@ -12,10 +12,14 @@
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;"><%= Rails.configuration.branding[:application][:version] %></span></li>
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
-      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>   
-      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
+      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>  
       <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="<%= Rails.configuration.branding[:application][:url] %>"><%= _('Github') %></a></li>
+      <li><a href="<%= Rails.configuration.branding[:application][:url] %>"><%= _('Github') %></a></li> 
+      <li><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
+      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
+      <li><a title="Twitter" href="<%= Rails.configuration.branding[:application][:twitter_url] %>"><i class="fa fa-twitter"></i></a></li>
+      <li><a title="<%= _('Mailing list') %>" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>"><i class="fa fa-comments"></i></a></li>
+    
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li>
