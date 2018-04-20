@@ -35,6 +35,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         if scheme.name == 'shibboleth'
           set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
           sign_in_and_redirect user, event: :authentication
+        elsif scheme.name == 'orcid'
+          sign_in_and_redirect user, event: :authentication
         else
           flash[:notice] = _('Successfully signed in')
           redirect_to new_user_registration_url
