@@ -283,7 +283,7 @@ namespace :upgrade do
       .order(family_id: :asc, version: :asc, updated_at: :desc)
 
     current_family_id = nil
-    unique_versions = nil
+    unique_versions = Set.new
     duplicates = []
     templates.each do |template|
       if current_family_id != template.family_id
@@ -329,7 +329,7 @@ namespace :upgrade do
       .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
     generate_compound_key = lambda{ |customization_of, org_id| return "#{customization_of}_#{org_id}" }
     current = nil
-    unique_versions = nil
+    unique_versions = Set.new
     duplicates = []
     templates.each do |template|
       key = generate_compound_key.call(template.customization_of, template.org_id)
