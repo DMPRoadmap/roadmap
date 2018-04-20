@@ -49,16 +49,17 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if from_external_domain? || request.referer.eql?(new_user_session_url(:protocol => 'https')) || request.referer.eql?(new_user_registration_url(:protocol => 'https'))
+    referer_path = URI(request.referer).path unless request.referer.nil? or nil
+    if from_external_domain? || referer_path.eql?(new_user_session_path) || referer_path.eql?(new_user_registration_path) || referer_path.nil?
       root_path
     else
-      return request.referer unless request.referer.nil?
-      root_path
+      request.referer
     end
   end
 
   def after_sign_up_path_for(resource)
-    if from_external_domain? or request.referer.eql?(new_user_session_url(:protocol => 'https'))
+    referer_path = URI(request.referer).path unless request.referer.nil? or nil
+    if from_external_domain? || referer_path.eql?(new_user_session_path) || referer_path.nil?
       root_path
     else
       request.referer
@@ -85,11 +86,11 @@ class ApplicationController < ActionController::Base
   def failed_update_error(obj, obj_name)
     "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
-  
+
   def failed_destroy_error(obj, obj_name)
     "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
-  
+
   def success_message(obj_name, action)
     "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
   end
@@ -108,7 +109,7 @@ class ApplicationController < ActionController::Base
 
   private
     # Override rails default render action to look for a branded version of a
-    # template instead of using the default one. If no override exists, the 
+    # template instead of using the default one. If no override exists, the
     # default version in ./app/views/[:controller]/[:action] will be used
     #
     # The path in the app/views/branded/ directory must match the the file it is
@@ -117,7 +118,7 @@ class ApplicationController < ActionController::Base
     def prepend_view_paths
       prepend_view_path "app/views/branded"
     end
-    
+
     def errors_to_s(obj)
       if obj.errors.count > 0
         msg = "<br />"
@@ -126,7 +127,7 @@ class ApplicationController < ActionController::Base
             msg += "#{_(e)} - #{_(m)}<br />"
           else
             msg += "'#{obj[e]}' - #{_(m)}<br />"
-          end 
+          end
         end
         msg
       end
