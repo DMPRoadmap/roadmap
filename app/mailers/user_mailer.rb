@@ -133,7 +133,7 @@ class UserMailer < ActionMailer::Base
     @end_date = (@user.last_sign_in_at + 5.years).to_date
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email, subject: 
-        _('Account expiration in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+        d_('dmpopidor', 'Account expiration in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
 
@@ -141,7 +141,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email, subject: 
-        _('Account expired in %{tool_name}')} %{ :tool_name => Rails.configuration.branding[:application][:name] })
+        d_('dmpopidor', 'Account expired in %{tool_name}')} %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
 

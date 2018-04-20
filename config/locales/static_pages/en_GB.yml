@@ -1,11 +1,4 @@
 en_GB:
-  helpers:
-    public_area_label: "Public Area"
-    institution_sign_in: "Institutional Access"
-    classic_sign_in: "Individual Access"
-    sign_up_cil_message: "<p>The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login.</p>
-                            <p>You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;'>&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;</a>. You can also direct a complaint at a controlling body.</p>"
-
   about_page:
     title: "About DMP OPIDoR"
     # tab_1: "DMP OPIDoR"

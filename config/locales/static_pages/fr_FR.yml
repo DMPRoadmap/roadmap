@@ -1,11 +1,4 @@
 fr_FR:
-  helpers:
-    public_area_label: "Section publique" 
-    institution_sign_in: "Accès institutionnel"
-    classic_sign_in: "Accès individuel"
-    sign_up_cil_message: "<p>Les informations recueillies vous concernant vont faire l’objet d’un traitement destiné à l'Inist-CNRS (UPS76) et au correspondant Informatique et Libertés. Pour la finalité suivante : gestion des comptes des utilisateurs. Les destinataires de ces données sont les administrateurs DMP OPIDoR de l’Inist-CNRS. La durée de conservation des données est de 5 ans suite à la dernière connexion.</p>
-                          <p>Vous bénéficiez d’un droit d’accès, de rectification, de portabilité, d’effacement de celles-ci ou une limitation du traitement. Vous pouvez vous opposer au traitement des données vous concernant et disposez du droit de retirer votre consentement à tout moment en vous adressant à <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;'>&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;</a>. Vous avez la possibilité d’introduire une réclamation auprès d’une autorité de contrôle.</p>"
-
   about_page:
     title: "A propos de DMP OPIDoR"
     # tab_1: "DMP OPIDoR"

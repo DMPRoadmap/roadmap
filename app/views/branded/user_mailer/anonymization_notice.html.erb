@@ -2,8 +2,8 @@
     <p><%= _('Hello ') %><%= @user.name %></p>
   
     <p>
-      <%= _('You have not signed in since %{last_sign_in_date} and your account has been deactivated') % { :last_sign_in_date => @user.last_sign_in_at.to_date } %>.
-      <%= _('All accounts inactive for 5 years are automaticaly deactivated') %>.
+      <%= d_('dmpopidor', 'You have not signed in since %{last_sign_in_date} and your account has been deactivated') % { :last_sign_in_date => @user.last_sign_in_at.to_date } %>.
+      <%= d_('dmpopidor', 'All accounts inactive for 5 years are automaticaly deactivated') %>.
     </p>
   
     <p>
