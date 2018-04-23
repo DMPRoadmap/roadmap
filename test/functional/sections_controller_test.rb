@@ -47,7 +47,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     
     post admin_create_section_path(@phase), {section: params}
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @phase.id, section_id: Section.last.id, r: 'all-templates')
+    assert_redirected_to org_admin_template_phase_path(@phase.template.id, @phase.id, section_id: Section.last.id, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal 'Section Tester', Section.last.title, "expected the record to have been created!"
     
@@ -77,7 +77,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     put admin_update_section_path(@phase.sections.first), {section: params}
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
     assert_response :redirect
-    assert_redirected_to admin_show_phase_url(id: @phase.id, section_id: @phase.sections.first.id, r: 'all-templates')
+    assert_redirected_to org_admin_template_phase_path(@phase.template.id, @phase.id, section_id: @phase.sections.first.id, r: 'all-templates')
     assert_equal 'Phase - UPDATE', @phase.sections.first.title, "expected the record to have been updated"
     
     # Invalid save
@@ -107,7 +107,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert assigns(:section)
     assert assigns(:phase)
-    assert_redirected_to admin_show_phase_url(id: @phase.id, r: 'all-templates')
+    assert_redirected_to org_admin_template_phase_path(@phase.template.id, @phase.id, r: 'all-templates')
     assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Section.find(id).nil?

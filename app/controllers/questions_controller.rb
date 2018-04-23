@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
           guidance = Annotation.new({question_id: @question.id, org_id: current_user.org_id, text: params[:guidance], type: Annotation.types[:guidance]})
           guidance.save
         end
-        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('created'))
+        redirect_to org_admin_template_phase_path(template_id: @question.section.phase.template.id, id: @question.section.phase_id, section_id: @question.section_id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('created'))
       else
         @edit = (@question.section.phase.template.org == current_user.org)
         @open = true
@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
         else
           @original_org = @phase.template.org
         end
-        redirect_to admin_show_phase_path(id: @question.section.phase_id, section_id: @question.section_id, r: current_tab)
+        redirect_to org_admin_template_phase_path(template_id: @question.section.phase.template.id, id: @question.section.phase_id, section_id: @question.section_id, r: current_tab)
       end
     rescue ActionController::ParameterMissing => e
       flash[:alert] = e.message
@@ -88,7 +88,7 @@ class QuestionsController < ApplicationController
     attrs[:theme_ids] = [] unless attrs[:theme_ids]
     
     if @question.update_attributes(attrs)
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('saved'))
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab), notice: success_message(_('question'), _('saved'))
     else
       @edit = (@phase.template.org == current_user.org)
       @open = true
@@ -102,7 +102,7 @@ class QuestionsController < ApplicationController
       else
         @original_org = @phase.template.org
       end
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab)
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, section_id: @section.id, question_id: @question.id, r: current_tab)
     end
   end
 
@@ -114,9 +114,9 @@ class QuestionsController < ApplicationController
     @phase = @section.phase
     current_tab = params[:r] || 'all-templates'
     if @question.destroy
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('question'), _('deleted'))
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, section_id: @section.id, r: current_tab), notice: success_message(_('question'), _('deleted'))
     else
-      redirect_to admin_show_phase_path(id: @phase.id, section_id: @section.id, r: current_tab), alert: failed_destroy_error(@question, 'question')
+      redirect_to org_admin_template_phase_path(template_id: @phase.template.id, id: @phase.id, section_id: @section.id, r: current_tab), alert: failed_destroy_error(@question, 'question')
     end
   end
 

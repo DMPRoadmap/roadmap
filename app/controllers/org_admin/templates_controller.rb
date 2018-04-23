@@ -321,6 +321,10 @@ module OrgAdmin
       params.require(:plan).permit(:org_id, :funder_id)
     end
     
+    def template_params
+      params.require(:template).permit(:title, :description, :visibility, :links)
+    end
+    
     def template_type(template)
       template.customization_of.present? ? _('customisation') : _('template')
     end

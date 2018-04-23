@@ -51,6 +51,7 @@ class ActiveSupport::TestCase
       confirmed_at: Time.zone.now, 
     }
   end
+
   def template_seed 
     {
       title: 'Test template', 
@@ -94,6 +95,23 @@ class ActiveSupport::TestCase
       text: 'Option A',
       number: 1,
       is_default: true,
+    }
+  end
+  def plan_seed 
+    {
+      title: 'Test plan',
+      funder_name: 'Organisation with a lot of funds',
+      grant_number: 'Grant123',
+      identifier: '123456789',
+      description: 'This is the project abstract.',
+      visibility: Plan.visibilities[:privately_visible],
+      principal_investigator: 'Jane Doe',
+      principal_investigator_identifier: 'ORCID123',
+      principal_investigator_email: 'jane.doe@pi.roadmap.org',
+      principal_investigator_phone: '1234',
+      data_contact: 'John Doe',
+      data_contact_email: 'john.doe@pi.roadmap.org',
+      data_contact_phone: '5678',
     }
   end
   
@@ -201,6 +219,14 @@ class ActiveSupport::TestCase
       validate_and_create_obj(QuestionOption.new(question_option_seed.merge({ question: question }.merge(props))))
     else
       puts "You must supply a Question when creating a question option! Got the following instead: QUESTION - #{question.inspect}"
+      nil
+    end
+  end
+  def init_plan(template, **props)
+    if template.is_a? Template
+      validate_and_create_obj(Plan.new(plan_seed.merge({ template: template }.merge(props))))
+    else
+      puts "You must supply a Template when creating a plan! Got the following instead: #{template.inspect}"
       nil
     end
   end

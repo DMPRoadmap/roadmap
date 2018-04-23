@@ -149,6 +149,30 @@ class PlansController < ApplicationController
     respond_to :html
   end
 
+  # GET /plans/:plan_id/phases/:id/edit
+  def edit
+    plan = Plan.find(params[:id])
+    authorize plan
+    
+    plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
+    
+    readonly = !plan.editable_by?(current_user.id)
+    
+    guidance_groups_ids = plan.guidance_groups.collect(&:id)
+    
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
+    # we create a hash whose keys are question id and value is the answer associated
+    answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+    
+    render('/phases/edit', locals: {
+      base_template_org: phase.template.base_org,
+      plan: plan, phase: phase, readonly: readonly,
+      question_guidance: plan.guidance_by_question_as_hash,
+      guidance_groups: guidance_groups,
+      answers: answers })
+  end
+  
   # PUT /plans/1
   # PUT /plans/1.json
   def update

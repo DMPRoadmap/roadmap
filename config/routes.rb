@@ -135,17 +135,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
-    resources :phases, path: 'org/admin/templates/phases', only: [] do
-      member do
-        get 'admin_show'
-        get 'admin_preview'
-        get 'admin_add'
-        put 'admin_update'
-        post 'admin_create'
-        delete 'admin_destroy'
-      end
-    end
-
     resources :sections, path: 'org/admin/templates/sections', only: [] do
       member do
         post 'admin_create'
@@ -183,15 +172,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     resources :plans do
-      resources :phases do
-        member do
-          get 'edit'
-          get 'status'
-          post 'update'
-        end
-      end
-
-
       member do
         get 'status'
         get 'locked'
@@ -212,6 +192,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
         get 'overview'
+        get 'phase_status'
       end
 
       collection do
@@ -305,8 +286,14 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           patch 'publish', action: :publish, constraints: {format: [:json]}
           patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
+        
+        resources :phases, only: [:show, :edit, :new, :create, :edit, :update, :destroy] do
+          member do
+            get 'preview'
+          end
+        end
       end
-
+      
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
       get 'download_plans' => 'plans#download_plans'
     end
