@@ -4,7 +4,7 @@ class PhaseTest < ActiveSupport::TestCase
   
   setup do
     # Need to clear the tables until we get seed.rb out of test_helper.rb
-    Template.delete_all    
+    Template.delete_all
     @funder = init_funder
     @template = init_template(@funder, published: true)
     @phase = init_phase(@template)

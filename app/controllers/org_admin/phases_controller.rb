@@ -88,16 +88,21 @@ module OrgAdmin
       phase = Phase.new(phase_params)
       phase.template = Template.find(params[:template_id])
       authorize phase
-      phase = get_new(phase)
+      begin
+        phase = get_new(phase)
 
 # TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
-      phase.description = params["phase-desc"]
-      current_tab = params[:r] || 'all-templates'
+        phase.description = params["phase-desc"]
+        current_tab = params[:r] || 'all-templates'
 
-      if phase.save!
-        flash[:notice] = success_message(_('phase'), _('created'))
-      else
-        flash[:alert] = failed_create_error(phase, _('phase'))
+        if phase.save!
+          flash[:notice] = success_message(_('phase'), _('created'))
+        else
+          flash[:alert] = failed_create_error(phase, _('phase'))
+        end
+      rescue StandardError => e
+        flash[:alert] = _('Unable to create a new version of this template.')
+        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
       end
       
       if flash[:alert].present?
@@ -113,16 +118,20 @@ module OrgAdmin
     def update
       phase = Phase.find(params[:id])
       authorize phase
-      phase = get_modifiable(phase)
+      begin
+        phase = get_modifiable(phase)
       
-  # TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
-      phase.description = params["phase-desc"]
-      current_tab = params[:r] || 'all-templates'
+    # TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
+        phase.description = params["phase-desc"]
+        current_tab = params[:r] || 'all-templates'
 
-      if phase.save!
-        flash[:notice] = success_message(_('phase'), _('updated'))
-      else
-        flash[:alert] = failed_update_error(phase, _('phase'))
+        if phase.update!(phase_params)
+          flash[:notice] = success_message(_('phase'), _('updated'))
+        else
+          flash[:alert] = failed_update_error(phase, _('phase'))
+        end
+      rescue StandardError => e
+        flash[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
     end
@@ -132,14 +141,18 @@ module OrgAdmin
     def destroy
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
-      phase = get_modifiable(phase)
-      current_tab = params[:r] || 'all-templates'
+      begin
+        phase = get_modifiable(phase)
+        current_tab = params[:r] || 'all-templates'
       
-      template = phase.template
-      if phase.destroy!
-        flash[:notice] = success_message(_('phase'), _('deleted'))
-      else
-        flash[:alert] = failed_destroy_error(phase, _('phase'))
+        template = phase.template
+        if phase.destroy!
+          flash[:notice] = success_message(_('phase'), _('deleted'))
+        else
+          flash[:alert] = failed_destroy_error(phase, _('phase'))
+        end
+      rescue StandardError => e
+        flash[:alert] = _('Unable to create a new version of this template.')
       end
       
       if flash[:alert].present?
