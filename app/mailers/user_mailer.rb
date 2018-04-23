@@ -141,7 +141,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email, subject: 
-        d_('dmpopidor', 'Account expired in %{tool_name}')} %{ :tool_name => Rails.configuration.branding[:application][:name] })
+        d_('dmpopidor', 'Account expired in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
 
