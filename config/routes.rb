@@ -135,22 +135,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
-    resources :sections, path: 'org/admin/templates/sections', only: [] do
-      member do
-        post 'admin_create'
-        put 'admin_update'
-        delete 'admin_destroy'
-      end
-    end
-
-    resources :questions, path: 'org/admin/templates/questions', only: [] do
-      member do
-        post 'admin_create'
-        put 'admin_update'
-        delete 'admin_destroy'
-      end
-    end
-
     resources :annotations, path: 'org/admin/templates/annotations', only: [] do
       member do
         put 'admin_update'
@@ -290,6 +274,12 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         resources :phases, only: [:show, :edit, :new, :create, :edit, :update, :destroy] do
           member do
             get 'preview'
+          end
+          
+          resources :sections, only: [:index, :show, :edit, :new, :update, :create, :destroy] do
+            resources :questions, only: [:index, :show, :edit, :new, :update, :create, :destroy] do
+              
+            end
           end
         end
       end

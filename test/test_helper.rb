@@ -74,12 +74,18 @@ class ActiveSupport::TestCase
       modifiable: true,
     }
   end
+  def question_format_seed 
+    {
+      title: 'Text area',
+      option_based: false,
+      formattype: QuestionFormat.formattypes[:text_area]
+    }
+  end
   def question_seed
     {
       text: 'how is our test coverage?',
       default_value: 'Not as good as it could be.',
       number: 1,
-      question_format: QuestionFormat.where(option_based: false).first,
       option_comment_display: true,
       modifiable: true,
     }
@@ -112,6 +118,26 @@ class ActiveSupport::TestCase
       data_contact: 'John Doe',
       data_contact_email: 'john.doe@pi.roadmap.org',
       data_contact_phone: '5678',
+    }
+  end
+  def theme_seed
+    {
+      title: 'Test theme',
+      description: 'This theme is used for testing',
+      locale: Language.find_by(abbreviation: FastGettext.locale),
+    }
+  end
+  def guidance_group_seed
+    {
+      name: 'Test guidance group',
+      optional_subset: false,
+      published: true,
+    }
+  end
+  def guidance_seed
+    {
+      text: 'This is thematic test guidance.',
+      published: true,
     }
   end
   
@@ -198,8 +224,13 @@ class ActiveSupport::TestCase
       nil
     end
   end
+  def init_question_format(**props)
+    validate_and_create_obj(QuestionFormat.new(question_format_seed.merge(props)))
+  end
   def init_question(section, **props)
     if section.is_a? Section
+# TODO call init_question_format instead once the seeds.rb has been removed
+      props[:question_format] = QuestionFormat.first unless props[:question_format].present?
       validate_and_create_obj(Question.new(question_seed.merge({ section: section }.merge(props))))
     else
       puts "You must supply a Section when creating a question! Got the following instead: #{section.inspect}"
@@ -220,6 +251,23 @@ class ActiveSupport::TestCase
     else
       puts "You must supply a Question when creating a question option! Got the following instead: QUESTION - #{question.inspect}"
       nil
+    end
+  end
+  def init_theme(**props)
+    validate_and_create_obj(Theme.new(theme_seed.merge(props)))
+  end
+  def init_guidance_group(org, **props)
+    if org.is_a? Org
+      validate_and_create_obj(GuidanceGroup.new(guidance_group_seed.merge({ org: org }.merge(props))))
+    else
+      puts "You must supply an Org when creating a GuidanceGroup! Got the following instead: ORG: #{org.inspect}"
+    end
+  end
+  def init_guidance(guidance_group, **props)
+    if guidance_group.is_a?(GuidanceGroup)
+      validate_and_create_obj(Guidance.new(guidance_seed.merge({ guidance_group: guidance_group }.merge(props))))
+    else
+      puts "You must supply a GuidanceGroup when creating a Guidance! Got the following instead: GUIDANCE_GROUP: #{guidance_group.inspect}"
     end
   end
   def init_plan(template, **props)
