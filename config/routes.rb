@@ -299,11 +299,11 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       resources :templates, only: [:index, :new, :create, :edit, :update, :destroy] do
         member do
           get 'history'
-          get 'customize'
-          get 'transfer_customization'
-          get 'copy', action: :copy, constraints: {format: [:json]}
-          get 'publish', action: :publish, constraints: {format: [:json]}
-          get 'unpublish', action: :unpublish, constraints: {format: [:json]}
+          post 'customize'
+          post 'transfer_customization'
+          post 'copy', action: :copy, constraints: {format: [:json]}
+          patch 'publish', action: :publish, constraints: {format: [:json]}
+          patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
       end
 
