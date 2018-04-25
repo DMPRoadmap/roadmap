@@ -353,138 +353,20 @@ class TemplateTest < ActiveSupport::TestCase
     new_version.save!
     assert(customization.upgrade_customization?)
   end
- 
-=begin
-  test "family_ids scope only returns the family_ids for the specific Org" do
-    Org.all.each do |org|
-      family_ids = Template.valid.all.pluck(:family_id).uniq
-      scoped = Template.family_ids
-      assert_equal family_ids.count, scoped.count
-      
-      family_ids.each do |id|
-        assert scoped.include?(id), "expected the family_ids scope to contain #{id} for Org: #{org.id}"
-      end
-      scoped.each do |id|
-        assert family_ids.include?(id), "expected #{id} to be a valid family_id for Org: #{org.id}"
-      end
-    end
-  end
 
-  # ---------------------------------------------------
-  test "current scope only returns the most recent version for each family_id" do
-    Org.all.each do |org|
-      Template.family_ids.each do |family_id|
-        latest = Template.where(family_id: family_id).order(updated_at: :desc).first
-        
-        assert_equal latest, Template.current(family_id), "Expected the template.id #{latest.id} to be the current record for Org: #{org.id}, family_id: #{family_id}"
-      end
-    end
+  test "default template retains the correct flags when versioned" do
+    @basic_template.update!({ org: @org, published: true, is_default: true, visibility: Template.visibilities[:publicly_visible] })
+    new_version = @basic_template.generate_version!
+    assert_not new_version.published?, 'expected the new version to not be published'
+    assert new_version.is_default?, 'expected the new version to be flagged as the default template'
+    assert new_version.publicly_visible?, 'expected the new version to be publicly visible'
   end
   
-  # ---------------------------------------------------
-  test "published scope only returns the current published version for each family_id" do
-    Org.all.each do |org|
-      Template.family_ids.each do |family_id|
-        latest = Template.where(family_id: family_id, published: true).order(updated_at: :desc).first
-
-        assert_equal latest, Template.live(family_id), "Expected the #{latest.nil? ? 'template to have never been published' : "template.id #{latest.id} to be the published record"} for Org: #{org.id}, family_id: #{family_id}"
-      end
-    end
+  test " a customization of the default template is not marked as the default" do
+    @basic_template.update!({ org: @org, published: true, is_default: true, visibility: Template.visibilities[:publicly_visible] })
+    customization = @basic_template.customize!(@institution)
+    assert_not customization.published?, 'expected the customization to not be published'
+    assert_not customization.is_default?, 'expected the customization to not be flagged as the default template'
+    assert_not customization.publicly_visible?, 'expected the customization to not be publicly visible'
   end
-  
-  # ---------------------------------------------------
-  test "deep copy" do
-    verify_deep_copy(@template, ['id', 'created_at', 'updated_at'])
-  end
-
-  # ---------- has_customisations? ----------
-  test "has_customisations? correctly identifies if a given org has customised the template" do
-    @template.phases.first.modifiable = false
-    assert @template.has_customisations?(@org.id, @template), "expected the template to have customisations if it's phase is NOT modifiable"
-
-    @template.phases.first.modifiable = true
-    assert_not @template.has_customisations?(@org.id, @template), "expected the template to NOT have customisations if it's phase is modifiable"
-    
-    @template.phases << Phase.new(title: 'New phase test', modifiable: false)
-    assert @template.has_customisations?(@org.id, @template), "expected the template to have customisations if all of its phases is NOT modifiable"
-    
-    @template.phases.last.modifiable = true
-    assert_not @template.has_customisations?(@org.id, @template), "expected the template to NOT have customisations if one of its phases is modifiable"
-  end
-
-  
-  
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Phase" do
-    phase = Phase.new(title: 'Test Phase', number: 2)
-    verify_has_many_relationship(@template, phase, @template.phases.count)
-  end
-  
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Plan" do
-    plan = Plan.new(title: 'Test Plan', visibility: :is_test)
-    verify_has_many_relationship(@template, plan, @template.plans.count)
-  end
-
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with Org" do
-    tmplt = Template.new(title: 'My test', version: 1)
-    verify_belongs_to_relationship(tmplt, @org)
-  end
-
-  test 'should be invalid when links is not a hash' do
-    t = Template.new(title: 'My test', version: 1, org: @org)
-    t.links = []
-    refute(t.valid?)
-    assert_equal(['A hash is expected for links'], t.errors.messages[:links])
-  end
-
-  test 'should be invalid when links hash does not have the expected keys' do
-    t = Template.new(title: 'My test', version: 1, org: @org)
-    t.links = { "foo" => [], "bar" => [] }
-    refute(t.valid?)
-    assert_equal(['A key funder is expected for links hash', 'A key sample_plan is expected for links hash'], t.errors.messages[:links])
-  end
-
-  test 'should be invalid when links hash keys are not compliant to object links format' do
-    t = Template.new(title: 'My test', version: 1, org: @org)
-    t.links = { "funder" => [{}], "sample_plan" => [{}] }
-    refute(t.valid?)
-    assert_equal(['The key funder does not have a valid set of object links', 'The key sample_plan does not have a valid set of object links'], t.errors.messages[:links])
-  end
-
-  test 'should be valid when links hash keys are compliant to object links format' do
-    t = Template.new(title: 'My test', version: 1, org: @org)
-    t.links = { "funder" => [{ "link" => "foo", "text" => "bar" }], "sample_plan" => [] }
-    assert(t.valid?)
-    assert_equal(nil, t.errors.messages[:links])
-  end
-  
-  test 'should return the latest customizations for the Org' do
-    tA = Template.create!(title: 'My test A', version: 0, org: @org)
-    tB = Template.create!(title: 'My test B', version: 0, org: @org)
-    tC = Template.create!(title: 'My test C', version: 0, org: @org)
-    
-    # Test 1 - Multiple versions
-    cAv0 = Template.create!(title: 'My test customization A', version: 0, customization_of: tA.family_id, org: Org.first)
-    cAv1 = Template.deep_copy(cAv0)
-    cAv1.update_attributes(version: 1)
-    
-    # Test 2 - Only one version
-    cBv0 = Template.create!(title: 'My test customization B', version: 0, customization_of: tB.family_id, org: Org.first)
-
-    # Test 3 - Make sure it always returns the latest version regardless of published statuses
-    cCv0 = Template.create!(title: 'My test customization C', version: 0, customization_of: tC.family_id, org: Org.first)
-    cCv1 = Template.deep_copy(cCv0)
-    cCv1.update_attributes(version: 1, published: true)
-    cCv2 = Template.deep_copy(cCv1)
-    cCv2.update_attributes(version: 2)
-    
-    latest = Template.org_customizations([tA, tB, tC].collect(&:family_id), Org.first.id)
-    assert latest.include?(cAv1), 'expected to get customization A - version 1.'
-    assert latest.include?(cBv0), 'expected to get customization B - version 0.'
-    assert latest.include?(cCv2), 'expected to get customization C - version 2.'
-  end
-=end
 end

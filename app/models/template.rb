@@ -132,7 +132,7 @@ class Template < ActiveRecord::Base
   # Generates a new copy of self for the specified customizing_org
   def customize!(customizing_org)
     raise _('customize! requires an organisation target') unless customizing_org.is_a?(Org) # Assume customizing_org is persisted
-    raise _('customize! requires a template from a funder') unless org.funder_only? # Assume self has org associated
+    raise _('customize! requires a template from a funder') unless org.funder_only? || self.is_default # Assume self has org associated
     customization = deep_copy(
       attributes: {
         version: 0,
@@ -262,7 +262,7 @@ class Template < ActiveRecord::Base
       self.archived ||= false
       self.is_default ||= false
       self.version ||= 0
-      self.visibility = (org.present? && org.funder_only?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
+      self.visibility = ((self.org.present? && self.org.funder_only?) || self.is_default?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
       self.customization_of ||= nil
       self.family_id ||= new_family_id
       self.archived ||= false
