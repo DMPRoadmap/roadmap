@@ -30,7 +30,7 @@
     <% section[:questions].each do |question| %>
       <% if @show_sections_questions %>
         <%# text in this case is an array to accomodate for option_based %>
-        <% if question[:text].length > 1 %>
+        <% if question[:text].respond_to?(:each) %>
           <% question[:text].each do |txt| %>
 <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
           <% end %>
@@ -47,9 +47,8 @@
           <% answer.question_options.each do |opt| %>
 <%= "    #{opt.text}\n" %>
           <% end %>
-        <% else %>
-<%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
         <% end %>
+<%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
       <% end %>
     <% end %>
   <% end %>

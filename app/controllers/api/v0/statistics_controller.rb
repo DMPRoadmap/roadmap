@@ -12,11 +12,10 @@ module Api
       def users_joined
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).users_joined?
 
-        scoped = User.unscoped.where.not(confirmed_at: nil)
         if @user.can_super_admin? && params[:org_id].present?
-          scoped = scoped.where(org_id: params[:org_id])
+          scoped = User.unscoped.where(org_id: params[:org_id])
         else
-          scoped = scoped.where(org_id: @user.org_id)
+          scoped = User.unscoped.where(org_id: @user.org_id)
         end
 
         if params[:range_dates].present?
@@ -28,13 +27,13 @@ module Api
           end
           respond_to do |format|
             format.json { render(json: r.to_json) }
-            format.csv { 
+            format.csv {
               send_data(CSV.generate do |csv|
                 csv << [_('Month'), _('No. Users joined')]
                 total = 0
                 r.each_pair{ |k,v| csv << [k,v]; total+=v }
                 csv << [_('Total'), total]
-              end, filename: "#{_('users_joined')}.csv") } 
+              end, filename: "#{_('users_joined')}.csv") }
           end
         else
           scoped = scoped.where('created_at >= ?', Date.parse(params[:start_date])) if params[:start_date].present?
@@ -80,7 +79,7 @@ module Api
           plans = plans.where('plans.updated_at >= ?', Date.parse(params[:start_date])) if params[:start_date].present?
           plans = plans.where('plans.updated_at <= ?', Date.parse(params[:end_date])) if params[:end_date].present?
           count = roles.joins(:user, :plan).merge(users).merge(plans).select(:plan_id).distinct.count
-          render(json: { completed_plans: count }) 
+          render(json: { completed_plans: count })
         end
       end
 
@@ -88,7 +87,7 @@ module Api
       # Returns the number of created plans within the user's org for the data start_date and end_date specified
       def created_plans
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
-        
+
         roles = Role.where("#{Role.creator_condition} OR #{Role.administrator_condition}")
 
         users = User.unscoped
