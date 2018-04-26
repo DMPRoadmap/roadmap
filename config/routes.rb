@@ -277,7 +277,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'feedback_complete'
         end
       end
-      resources :templates, only: [:index, :new, :create, :edit, :update, :destroy] do
+      resources :templates, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
         member do
           get 'history'
           post 'customize'

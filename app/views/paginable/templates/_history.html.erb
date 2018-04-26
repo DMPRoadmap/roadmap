@@ -29,7 +29,11 @@
             <%= l org_template.updated_at.to_date, formats: :short %>
           </td>
           <td class="text-center">
-            <%= link_to (org_template == current ? _('Edit') : _('View')), edit_org_admin_template_path(id: org_template), class: "dmp_table_link"%>
+            <% if org_template == current %>
+              <%= link_to _('Edit'), edit_org_admin_template_path(id: org_template), class: "dmp_table_link" %>
+            <% else %>
+              <%= link_to  _('View'), org_admin_template_path(id: org_template), class: "dmp_table_link" %>
+            <% end %>
           </td>
         </tr>
       <% end %>

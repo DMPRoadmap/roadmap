@@ -19,6 +19,10 @@ class TemplatePolicy < ApplicationPolicy
     user.can_super_admin? || user.can_modify_templates?
   end
 
+  def show?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+  
   def edit?
     user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
   end
