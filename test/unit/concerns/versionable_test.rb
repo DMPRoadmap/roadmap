@@ -194,17 +194,17 @@ class VersionableTest < ActiveSupport::TestCase
     section = @template.phases.first.sections.first
     new_section = get_modifiable(section)
     assert_equal(section.id, new_section.id, 'returns the same section id')
-    assert_equal(section.template, new_section.template, 'returns the section without generating a new template hierarchy')
+    assert_equal(section.phase.template, new_section.phase.template, 'returns the section without generating a new template hierarchy')
     # Looking for a question
     question = @template.phases.first.sections.first.questions.first
     new_question = get_modifiable(question)
     assert_equal(question.id, new_question.id, 'returns the same question id')
-    assert_equal(question.template, new_question.template, 'returns the question without generating a new template hierarchy')
+    assert_equal(question.section.phase.template, new_question.section.phase.template, 'returns the question without generating a new template hierarchy')
     # Looking for an annotation
     annotation = @template.phases.first.sections.first.questions.first.annotations.first
     new_annotation = get_modifiable(annotation)
     assert_equal(annotation.id, new_annotation.id, 'returns the same annotation id')
-    assert_equal(annotation.template, new_annotation.template, 'returns the annotation without generating a new template hierarchy')
+    assert_equal(annotation.question.section.phase.template, new_annotation.question.section.phase.template, 'returns the annotation without generating a new template hierarchy')
   end
 
   test "#get_modifiable returns new phase when template is published" do
@@ -222,7 +222,7 @@ class VersionableTest < ActiveSupport::TestCase
     section = @template.phases.first.sections.first
     new_section = get_modifiable(section)
     assert_not_equal(section.id, new_section.id, 'returns different section id')
-    assert_not_equal(section.template, new_section.template, 'returns different template belonging')
+    assert_not_equal(section.phase.template, new_section.phase.template, 'returns different template belonging')
   end
 
   test "#get_modifiable returns new question when template is published" do
@@ -231,7 +231,7 @@ class VersionableTest < ActiveSupport::TestCase
     question = @template.phases.first.sections.first.questions.first
     new_question = get_modifiable(question)
     assert_not_equal(question.id, new_question.id, 'returns different question id')
-    assert_not_equal(question.template, new_question.template, 'returns different template belonging')
+    assert_not_equal(question.section.phase.template, new_question.section.phase.template, 'returns different template belonging')
   end
 
   test "#get_modifiable returns new annotation when template is published" do
@@ -240,6 +240,18 @@ class VersionableTest < ActiveSupport::TestCase
     annotation = @template.phases.first.sections.first.questions.first.annotations.first
     new_annotation = get_modifiable(annotation)
     assert_not_equal(annotation.id, new_annotation.id, 'returns different annotation id')
-    assert_not_equal(annotation.template, new_annotation.template, 'returns different template belonging')
+    assert_not_equal(annotation.question.section.phase.template, new_annotation.question.section.phase.template, 'returns different template belonging')
+  end
+  
+  test "#get_modifiable returns new question_option when template is published" do
+    @template.published = true
+    @template.save!
+    question = @template.phases.first.sections.first.questions.first
+    question.question_options << init_question_option(question)
+    question_option = question.question_options.first
+    new_question = get_modifiable(question)
+    new_question_option = new_question.question_options.first
+    assert_not_equal(question_option.id, new_question_option.id, 'returns different question_option id')
+    assert_not_equal(question_option.question.section.phase.template, new_question_option.question.section.phase.template, 'returns different template belonging')
   end
 end

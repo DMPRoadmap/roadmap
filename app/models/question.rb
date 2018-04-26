@@ -87,10 +87,11 @@ class Question < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
-    copy.section_id = nil
+    copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
-    self.question_options.each{ |question_option| copy.question_options << question_option.deep_copy }
-    self.annotations.each{ |annotation| copy.annotations << annotation.deep_copy }
+    options[:question_id] = copy.id
+    self.question_options.each{ |question_option| copy.question_options << question_option.deep_copy(options) }
+    self.annotations.each{ |annotation| copy.annotations << annotation.deep_copy(options) }
     self.themes.each{ |theme| copy.themes << theme }
     return copy
   end

@@ -24,9 +24,9 @@ class QuestionOption < ActiveRecord::Base
     return question_option_copy
   end
 
-  def deep_copy
+  def deep_copy(**options)
     copy = self.dup
-    copy.question_id = nil
+    copy.question_id = options.fetch(:question_id, nil)
     return copy
   end
 end
