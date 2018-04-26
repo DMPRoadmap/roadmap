@@ -35,8 +35,9 @@ class Phase < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
-    copy.template_id = nil
+    copy.template_id = options.fetch(:template_id, nil)
     copy.save!(validate:false)  if options.fetch(:save, false)
+    options[:phase_id] = id
     self.sections.each{ |section| copy.sections << section.deep_copy(options) }
     return copy
   end

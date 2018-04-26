@@ -71,6 +71,7 @@ class Template < ActiveRecord::Base
       attributes.each_pair{ |attribute, value| copy.send("#{attribute}=".to_sym, value) if copy.respond_to?("#{attribute}=".to_sym) }
     end
     copy.save! if options.fetch(:save, false)
+    options[:template_id] = copy.id
     self.phases.each{ |phase| copy.phases << phase.deep_copy(options) }
     return copy
   end
