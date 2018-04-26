@@ -5,8 +5,8 @@ class Annotation < ActiveRecord::Base
   belongs_to :org
   belongs_to :question
   has_one :section, through: :question
-  has_one :phase, through: :section
-  has_one :template, through: :phase
+  has_one :phase, through: :question
+  has_one :template, through: :question
 
   ##
   # I liked type as the name for the enum so overriding inheritance column
