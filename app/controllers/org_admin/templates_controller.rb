@@ -99,36 +99,21 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
 
-      if template.latest?
-# TODO: Would be nice to do this once at the beginning by passing in the params[:id]
-        template, versioned = find_or_generate(template)
-        template_links = nil
-        begin
-          template_links = JSON.parse(params["template-links"]) if params["template-links"].present?
-        rescue JSON::ParserError
-          render(status: :bad_request, json: { msg: _("Error parsing links for a #{template_type(template)}") })
-          return
-        end
-      
+      begin
+        template = Template.find_or_generate_version!(template)
+        template.links = ActiveSupport::JSON.decode(params["template-links"]) if params["template-links"].present?
         template.description = params["template-desc"]
-        template.links = template_links if template_links.present?
-    
-        # If the visibility checkbox is not checked and the user's org is a funder set the visibility to public
-        # otherwise default it to organisationally_visible
-        if current_user.org.funder? && params[:template_visibility].nil?
-          template.visibility = Template.visibilities[:publicly_visible]
-        else
-          template.visibility = Template.visibilities[:organisationally_visible]
-        end
-    
-        if template.update_attributes(params[:template])
-          render(status: :ok, json: { msg: success_message(template_type(template), _('saved'))})
-        else
-          # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
-          render(status: :bad_request, json: { msg: failed_update_error(template, template_type(template))})
-        end
+      rescue ActiveSupport::JSON.parse_error
+        render(status: :bad_request, json: { msg: _("Error parsing links for a #{template_type(template)}") }) and return
+      rescue => e
+        render(status: :forbidden, json: { msg: e.message }) and return
+      end
+
+      if template.update_attributes(params[:template])
+        render(status: :ok, json: { msg: success_message(template_type(template), _('saved'))})
       else
-        render(status: :forbidden, json: { msg: _("You can not edit a historical version of this #{template_type(template)}.")})
+        # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
+        render(status: :bad_request, json: { msg: failed_update_error(template, template_type(template))})
       end
     end
     

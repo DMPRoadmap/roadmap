@@ -369,4 +369,21 @@ class TemplateTest < ActiveSupport::TestCase
     assert_not customization.is_default?, 'expected the customization to not be flagged as the default template'
     assert_not customization.publicly_visible?, 'expected the customization to not be publicly visible'
   end
+
+  test "::find_or_generate_version! raises RuntimeError when attempting to retrieve a historical version for being modified" do
+    @basic_template.generate_version!
+    exception = assert_raises(RuntimeError) do
+      Template.find_or_generate_version!(@basic_template)
+    end
+    assert_equal(_('A historical template cannot be retrieved for being modified'), exception.message)
+  end
+  test "::find_or_generate_version! does not generate a new version" do
+    new_template = @basic_template.generate_version!
+    template = Template.find_or_generate_version!(new_template)
+    assert_equal(new_template, template)
+  end
+  test "::find_or_generate_version! generates a new version" do
+    template = Template.find_or_generate_version!(@basic_template)
+    assert_not_equal(@basic_template, template)
+  end
 end

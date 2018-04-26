@@ -12,8 +12,8 @@ class Question < ActiveRecord::Base
   has_and_belongs_to_many :themes, join_table: "questions_themes"
   belongs_to :section
   belongs_to :question_format
-  has_one :template, through: :section
   has_one :phase, through: :section
+  has_one :template, through: :section
 
   ##
   # Nested Attributes

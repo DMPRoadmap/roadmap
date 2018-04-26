@@ -52,6 +52,15 @@ class Template < ActiveRecord::Base
     def default
       unarchived.where(is_default: true, published: true).order(:version).last
     end
+    def find_or_generate_version!(template)
+      if template.latest?
+        if template.generate_version?
+          return template.generate_version!
+        end
+        return template
+      end
+      raise _('A historical template cannot be retrieved for being modified')
+    end
   end
 
   # Creates a copy of the current template
