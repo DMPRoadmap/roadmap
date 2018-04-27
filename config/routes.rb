@@ -238,9 +238,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
       # Paginable actions for templates
       resources :templates, only: [] do
-        get 'all/:page', action: :all, on: :collection, as: :all
-        get 'funders/:page', action: :funders, on: :collection, as: :funders
-        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
+        get 'index/:page', action: :index, on: :collection, as: :index
+        get 'customisable/:page', action: :customisable, on: :collection, as: :customisable
+        get 'organisational/:page', action: :organisational, on: :collection, as: :organisational
         get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
         get ':id/history/:page', action: :history, on: :collection, as: :history
       end
@@ -269,6 +269,12 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           post 'copy', action: :copy, constraints: {format: [:json]}
           patch 'publish', action: :publish, constraints: {format: [:json]}
           patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
+        end
+        
+        # Used for the organisational and customizable views of index
+        collection do
+          get 'organisational'
+          get 'customisable'
         end
         
         resources :phases, only: [:show, :edit, :new, :create, :edit, :update, :destroy] do

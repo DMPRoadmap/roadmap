@@ -1,0 +1,78 @@
+<% # locals: templates %>
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th><%= _('Funder') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <th><%= _('Status') %>&nbsp;<%= paginable_sort_link('templates.published') %></th>
+        <th><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% scope.each do |template| %>
+      <% customization = customizations.present? ? customizations.select{ |customization| customization.customization_of == template.family_id }.first : nil %>
+      <tr>
+        <td>
+          <%= template.title %>
+        </td>
+        <td>
+          <%= template.org.name %>
+        </td>
+        <td>
+          <% if customization.present? %>
+            <% if customization.created_at < template.created_at %>
+              <%= _('Original funder template has changed!') %>
+            <% else %>
+              <% if customization.published? %>
+                <%= _('Published') %>
+              <% elsif customization.version.present? && customization.version > 0 %>
+                <%= _('Draft') %>
+              <% else %>
+                <%= _('Unpublished') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= _('Not customized') %>
+          <% end %>
+        </td>
+        <td>
+          <% last_temp_updated = template.updated_at %>
+          <%= l last_temp_updated.to_date, formats: :short %>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <%= _('Actions') %><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% if customization.present? %>
+                <% if customization.created_at < template.created_at %>
+                  <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(customization.id), 'data-method': 'post' %></li>
+                <% else %>
+                  <li><%= link_to _('Edit customisation'), org_admin_template_path(id: customization.id) %></li>
+                  <% if !customization.published? %>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                  <% else %>
+                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                  <% end %>
+                  <% if customization.plans.length <= 0 %>
+                    <li>
+                      <%= link_to _('Remove'), org_admin_template_path(id: customization.id), 
+                                  'data-method': 'delete', rel: 'nofollow',
+                                  'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"?') % { template_title: customization.title} %>
+                    </li>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <li><%= link_to _('Customise'), customize_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+              <% end %>
+            </ul>
+          </div>
+        </td>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

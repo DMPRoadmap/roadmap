@@ -74,6 +74,7 @@ module OrgAdmin
           locals: {
             partial_path: 'new',
             template: template,
+            referrer: request.referrer.present? ? request.referrer : org_admin_templates_path,
             edit: true,
             current_tab: params[:r] || 'all-templates'
           })

@@ -1,19 +1,7 @@
-<% # locals: templates, current_org %>
-
+<% # locals: templates %>
 <div class="table-responsive">
   <table class="table table-hover table-bordered">
     <thead>
-      <% if scopes.present? %>
-        <tr><th colspan="4" class="sorter-false table-scope"><ul class="nav navbar-nav">
-          <% scopes.keys.each do |k| %>
-            <% unless k == :family_ids %>
-              <li><%= link_to "#{k.capitalize} (#{scopes[k]})", 
-                              "#{all_paginable_templates_path(1)}?scope=#{k}", 
-                              class: 'template-scope', 'data-remote': true %></li>
-            <% end %>
-          <% end %>
-        </ul></th></tr>
-      <% end %>
       <tr>
         <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
@@ -31,14 +19,12 @@
             <%= template.org.name %>
           </td>
           <td>
-            <%# Leaving this line here as a placeholder for determining how to notify user of changes now that dirty flag is removed %>
-            <%# if template.dirty? %>
-              <%# _('Unpublished changes') %>
-
             <% if template.published? %>
               <%= _('Published') %>
-            <% else %>
+            <% elsif template.version.present? && template.version <= 0 %>
               <%= _('Unpublished') %>
+            <% else %>
+              <%= _('Draft') %>
             <% end %>
           </td>
           <td>

@@ -66,8 +66,9 @@
                 </li>
               <% end %>
               <% if current_user.can_modify_templates? %>
-                  <li <%= 'class=active' if isActivePage(org_admin_templates_path) %>>
-                    <%= link_to _('Templates'), org_admin_templates_path %>
+                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                  <li <%= 'class=active' if isActivePage(template_path) %>>
+                    <%= link_to _('Templates'), template_path %>
                   </li>
               <% end %>
               <% if current_user.can_modify_guidance? %>

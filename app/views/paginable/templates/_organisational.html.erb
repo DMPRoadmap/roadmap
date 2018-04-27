@@ -1,0 +1,78 @@
+<% # locals: templates %>
+<% context = isActivePage(organisational_org_admin_templates_path) ? 'organisational' : (isActivePage(customisable_org_admin_templates_path) ? 'customizable' : 'all') %>
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <% if context == 'organisational' %>
+          <th><%= _('Description') %>&nbsp;<%= paginable_sort_link('template.description') %></th>
+        <% else %>
+          <th><%= (context == 'customizable' ? _('Funder') : _('Organisation')) %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <% end %>
+        <th><%= _('Status') %>&nbsp;<%= paginable_sort_link('templates.published') %></th>
+        <th><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <% if context != 'all' %>
+          <th>&nbsp;</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% scope.each do |template| %>
+      <tr>
+        <td>
+          <%= template.title %>
+        </td>
+          <td>
+            <%= context == 'organisational' ? raw(template.description) : template.org.name %>
+          </td>
+          <td>
+            <%# Leaving this line here as a placeholder for determining how to notify user of changes now that dirty flag is removed %>
+            <%# if template.dirty? %>
+              <%# _('Unpublished changes') %>
+
+            <% if template.published? %>
+              <%= _('Published') %>
+            <% elsif template.version.present? && template.version <= 0 %>
+              <%= _('Unpublished') %>
+            <% else %>
+              <%= _('Draft') %>
+            <% end %>
+          </td>
+          <td>
+            <% last_temp_updated = template.updated_at %>
+            <%= l last_temp_updated.to_date, formats: :short %>
+          </td>
+          <% if context != 'all' %>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <%= _('Actions') %><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><%= link_to _('Edit'), edit_org_admin_template_path(template.id) %></li>
+                  <li><%= link_to _('History'), history_org_admin_template_path(template.id) %></li>
+                  <% if template.published? %>
+                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                  <% elsif template.version > 0 %>
+                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch' %></li>
+                  <% else %>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                  <% end %>
+                  <li><%= link_to _('Copy'), copy_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+                  <% if template.plans.length <= 0 %>
+                    <li>
+                      <%= link_to _('Remove'), org_admin_template_path(id: template.id), 
+                                  'data-method': 'delete', rel: 'nofollow',
+                                  'data-confirm': _('Are you sure you want to remove "%{template_title}"?') % { template_title: template.title} %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </td>
+          <% end %>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
