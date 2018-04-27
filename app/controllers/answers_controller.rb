@@ -72,7 +72,7 @@ class AnswersController < ApplicationController
         },
         "section" => {
           "id" => @section.id,
-          "progress" => render_to_string(partial: '/sections/progress', locals: { section: @section, plan: @plan }, formats: [:html])
+          "progress" => render_to_string(partial: '/org_admin/sections/progress', locals: { section: @section, plan: @plan }, formats: [:html])
         },
         "plan" => {
           "id" => @plan.id,
