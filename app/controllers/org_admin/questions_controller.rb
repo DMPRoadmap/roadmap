@@ -24,8 +24,9 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions/[:id]
     def show
-      question = Question.includes(:annotations, :question_options).find(params[:id])
+      question = Question.find(params[:id])
       authorize question
+      question = Question.includes(:annotations, :question_options).find(params[:id])
       render partial: 'show', 
         locals: { 
           template: question.section.phase.template, 
@@ -39,8 +40,9 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions/[:id]/edit
     def edit
-      question = Question.includes(:annotations, :question_options, section: { phase: :template }).find(params[:id])
+      question = Question.find(params[:id])
       authorize question
+      question = Question.includes(:annotations, :question_options, section: { phase: :template }).find(params[:id])
 # TODO: refactor so we're only sending back what is necessary
       render partial: 'edit', 
         locals: { 
@@ -55,7 +57,7 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions/new
     def new
-      section = Section.includes(phase: :template).find(params[:section_id])
+      section = Section.includes(:questions).find(params[:section_id])
       question = Question.new(section: section, number: (section.questions.length > 0 ? section.questions.max{ |a, b| a.number <=> b.number }.number+1 : 1))
       authorize question
 # TODO: refactor so we're only sending back what is necessary
@@ -71,10 +73,10 @@ module OrgAdmin
     
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions
     def create
-      section = Section.includes(:questions, phase: :template).find(params[:section_id])
-      question = Question.new(question_params.merge({ section_id: section.id }))
+      question = Question.new(question_params.merge({ section_id: params[:section_id] }))
       current_tab = params[:r] || 'all-templates'
       authorize question
+      section = Section.includes(:questions, phase: :template).find(params[:section_id])
       begin
         question = get_new(question)
         section = question.section
