@@ -72,7 +72,7 @@ module OrgAdmin
         authorize phase
         render('/org_admin/templates/container',
           locals: {
-            partial_path: 'add',
+            partial_path: 'new',
             template: template,
             edit: true,
             current_tab: params[:r] || 'all-templates'

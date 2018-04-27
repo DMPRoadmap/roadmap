@@ -7,14 +7,14 @@ in the admin interface.
 -->
 <% @new_question = Question.new %>
 <% @new_question.number = section.questions.count + 1 %>
-<%= form_for @new_question, url:  admin_create_question_path(id: "new_question_#{section.id}", r: current_tab) , html: {class: 'question_form'} do |f| %>
+<%= form_for @new_question, url:  org_admin_template_phase_section_questions_path(template_id: template.id, phase_id: phase.id, section_id: section.id, r: current_tab) , html: {class: 'question_form'} do |f| %>
   <%= f.hidden_field :section_id, value: section.id %>
   <%= hidden_field_tag :section_id, section.id, class: "section_id_new" %>
 
   <!--Question number -->
   <div class="form-group col-md-4">
     <%= f.label(:number, _('Question Number'), class: "control-label") %>
-    <%= f.number_field(:number, in: 1..50, class: "form-control", "aria-required": true, 'aria-required': true) %>
+    <%= f.number_field(:number, in: 1..50, class: "form-control", "aria-required": true) %>
   </div>
 
   <!--Question text -->
