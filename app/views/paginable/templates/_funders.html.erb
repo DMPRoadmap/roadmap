@@ -71,7 +71,7 @@
                   <% if customization.updated_at < template.updated_at %>
                     <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(template), 'data-method': 'post' %></li>
                   <% else %>
-                    <li><%= link_to _('Edit customisation'), edit_org_admin_template_path(id: customization.id, edit: "true", r: 'funder-templates') %></li>
+                    <li><%= link_to _('Edit customisation'), org_admin_template_path(id: customization.id, r: 'funder-templates') %></li>
                     <% if !customization.published? %>
                       <li><%= link_to _('Publish'), publish_org_admin_template_path(customization, r: 'funder-templates'), 'data-method': 'patch' %></li>
                     <% else %>

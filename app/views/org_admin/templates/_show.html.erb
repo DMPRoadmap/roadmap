@@ -1,0 +1,34 @@
+<!-- show template details A template is passed as an argument-->
+<dl class="dl-horizontal">
+  <dt><%= _('Title') %></dt>
+  <dd><%= template.title %></dd>
+  <dt><%= _('Description') %></dt>
+  <dd>
+    <%= (!template.description.nil? && template.description != "" ? raw(template.description) : '-') %>
+  </dd>
+  <dt><%= _('Status') %></dt>
+  <dd>
+    <% if template.published? %>
+      <%= _('Published') %>
+    <% elsif template.version == 0 %>
+      <%= _('Unpublished')%>
+    <% else %>
+      <%= _('You have unpublished changes') %>
+    <% end %>
+  </dd>
+  <% if current_user.org.funder? && !current_user.org.funder_only? %>
+    <!-- If the Org is a funder and another org type then allow then to set the visibility -->
+    <dt><%= _('Visibility') %></dt>
+    <dd>
+      <% if template.visibility == 'organisationally_visible' %> 
+        <%= _('for internal %{org_name} use only') % {org_name: template.org.name} %>
+      <% else %>
+        <%=  _('available to the public') + (template.published? ? '' : ' (once published)') %>
+      <% end %>
+    </dd>
+  <% end %>
+  <dt><%= _('Created at') %></dt>
+  <dd><%= l template.created_at.to_date, formats: :short %></dd>
+  <dt><%= _('Last updated') %></dt>
+  <dd><%= l template.updated_at.to_date, formats: :short %></dd>
+</dl>

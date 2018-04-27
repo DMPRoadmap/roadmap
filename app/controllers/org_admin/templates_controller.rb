@@ -39,11 +39,29 @@ module OrgAdmin
       }
     end
     
+    # GET /org_admin/templates/[:id]
+    def show
+      template = Template.includes(:org, :phases).find(params[:id])
+      authorize template
+      render 'container', locals: { partial_path: 'show', template: template }
+    end
+    
+    # GET /org_admin/templates/:id/edit
+    # -----------------------------------------------------
+    def edit
+      template = Template.includes(:org, :phases).find(params[:id])
+      authorize template
+      if !template.latest?
+        flash[:notice] = _("You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes.")
+      end
+      render 'container', locals: { partial_path: 'edit', template: template }
+    end
+    
     # GET /org_admin/templates/new
     # -----------------------------------------------------
     def new
       authorize Template
-      @current_tab = params[:r] || 'all-templates'
+      render 'container', locals: { partial_path: 'new', template: Template.new(org: current_user.org) }
     end
     
     # POST /org_admin/templates
@@ -64,33 +82,6 @@ module OrgAdmin
         flash[:alert] = failed_create_error(template, template_type(template))
         render partial: "org_admin/templates/new", locals: { template: template, hash: hash }
       end
-    end
-    
-    # GET /org_admin/templates/:id/edit
-    # -----------------------------------------------------
-    def edit
-      template = Template.find(params[:id])
-      authorize template
-      current_tab = params[:r] || 'all-templates'
-      
-      if !template.latest?
-        current = Template.latest_version(template.family_id)
-        flash[:notice] = _("You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes.")
-      end
-
-# TODO: Update the UI so we no longer need the hash and so that we do not need the edit flag!
-      # once the correct template has been generated, we convert it to hash
-      hash = template.to_hash
-      
-      render('container',
-        locals: { 
-          partial_path: 'edit',
-          template: template,
-          current: current,
-          edit: (template == current),
-          template_hash: hash,
-          current_tab: current_tab
-        })
     end
     
     # PUT /org_admin/templates/:id (AJAXable)
@@ -155,7 +146,7 @@ module OrgAdmin
       templates = Template.where(family_id: template.family_id)
       current = Template.current(template.family_id)
       current_tab = params[:r] || 'all-templates'
-      render partial: 'org_admin/templates/history', 
+      render 'org_admin/templates/history', 
              locals: { templates: templates, template: template, current: current, current_tab: current_tab }
     end
     
