@@ -375,15 +375,18 @@ module OrgAdmin
       if org_id.present? || funder_id.present?
         unless funder_id.blank?
           # Load the funder's template(s)
-          templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id).to_a
+          funder_templates = Template.valid.publicly_visible.where(published: true, org_id: funder_id)
 
-          unless org_id.blank?
+          if org_id.blank?
+            templates = funder_templates.to_a
+          else
             # Swap out any organisational cusotmizations of a funder template
-            templates.each do |tmplt|
+            funder_templates.each do |tmplt|
               customization = Template.valid.find_by(published: true, org_id: org_id, customization_of: tmplt.dmptemplate_id)
               if customization.present? && tmplt.created_at < customization.created_at
-                templates.delete(tmplt)
                 templates << customization
+              else
+                templates << tmplt
               end
             end
           end
