@@ -183,13 +183,11 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       templates = Template.where(family_id: template.family_id)
-      current = Template.current(template.family_id)
-      current_tab = params[:r] || 'all-templates'
-      render 'org_admin/templates/history', locals: { 
+      render 'history', locals: { 
         templates: templates, 
-        template: template, 
-        current: current, 
-        referrer: request.referrer.present? ? request.referrer : org_admin_templates_path }
+        referrer: template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path,
+        current: templates.maximum(:version)
+      }
     end
     
     # POST /org_admin/templates/:id/customize
