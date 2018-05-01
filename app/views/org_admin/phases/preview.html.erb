@@ -3,8 +3,8 @@
     <h1><%= template.title %></h1>
     <div class="pull-right">
       <ul class="list-inline">
-        <li><%= link_to _('Back to edit phase'), org_admin_template_phase_path(template.id, phase.id, r: current_tab), class: 'btn btn-primary' %></li>
-        <li><%= link_to _('View all templates'), org_admin_templates_path(r: current_tab), class: 'btn btn-primary' %></li>
+        <li><%= link_to _('Back to edit phase'), edit_org_admin_template_phase_path(template.id, phase.id), class: 'btn btn-primary' %></li>
+        <li><%= link_to _('View all templates'), org_admin_templates_path, class: 'btn btn-primary' %></li>
       </ul>
     </div>
   </div>

@@ -36,9 +36,7 @@ module OrgAdmin
         locals: { 
           template: section.phase.template, 
           phase: section.phase, 
-          section: section ,
-          current_tab: params[:r] || 'all-templates',
-          edit: true
+          section: section
         }
     end
 
@@ -63,27 +61,18 @@ module OrgAdmin
       authorize section
       begin
         section = get_new(section)
-      
-# TODO: update UI so that this comes in as part of the `section:` part of the params
-        section.description = params["section-desc"]
         phase = section.phase
-        current_tab = params[:r] || 'all-templates'
 
-# TODO: Consider calling this via AJAX and returning the `edit` partial instead of rerendering the entire page
-        if section.save!
+        if section.save
           flash[:notice] = success_message(_('section'), _('created'))
+          redirect_to edit_org_admin_template_phase_path(template_id: phase.template_id, id: section.phase_id, section_id: section.id)
         else
           flash[:alert] = failed_create_error(section, _('section'))
+          redirect_to edit_org_admin_template_phase_path(template_id: phase.template_id, id: section.phase_id)
         end
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
-      end
-      
-      if flash[:alert].present?
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
-      else
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: section.phase_id, r: current_tab,
-          section_id: section.id)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template_id, id: phase.id)
       end
     end
 
@@ -95,9 +84,7 @@ module OrgAdmin
         section = get_modifiable(section)
         section.description = params["section-desc"]
         phase = section.phase
-        current_tab = params[:r] || 'all-templates'
 
-# TODO: Consider calling this via AJAX and returning the `edit` partial instead of rerendering the entire page
         if section.update!(section_params)
           flash[:notice] = success_message(_('section'), _('saved'))
         else
@@ -108,9 +95,9 @@ module OrgAdmin
       end
       
       if flash[:alert].present?
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section_id: section.id, r: current_tab)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section_id: section.id)
       else
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section_id: section.id, r: current_tab)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section_id: section.id)
       end
     end
 
@@ -121,9 +108,7 @@ module OrgAdmin
       begin
         section = get_modifiable(section)
         phase = section.phase
-        current_tab = params[:r] || 'all-templates'
       
-# TODO: Consider calling this via AJAX and removing that portion of the DOM if successful
         if section.destroy!
           flash[:notice] = success_message(_('section'), _('deleted'))
         else
@@ -134,9 +119,9 @@ module OrgAdmin
       end
       
       if flash[:alert].present?
-        redirect_to(org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab))
+        redirect_to(edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id))
       else
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
+        redirect_to(edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id))
       end
     end
     

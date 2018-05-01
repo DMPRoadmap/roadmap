@@ -4,45 +4,45 @@ module OrgAdmin
     
     after_action :verify_authorized
 
-    #show and edit a phase of the template
-    # GET /org_admin/phases/[:id]
-# TODO: removed the edit local after refactoring the UI
-# TODO: refactor the way the current_tab is handled!!
+    # GET /org_admin/templates/:template_id/phases/[:id]
     def show
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
       if !phase.template.latest?
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
+      section_id = params.fetch(:section_id, nil)
+      question_id = params.fetch(:question_id, nil)
       render('container',
         locals: { 
           partial_path: 'show',
           template: phase.template,
           phase: phase,
-          edit: (phase.template.latest? && phase.template.org == current_user.org),
-          current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil,
-          question_id: params.has_key?(:question_id) ? params[:question_id].to_i : nil,
-          current_tab: params[:r] || 'all-templates'
+          sections: phase.sections.order(:number).select(:id, :title),
+          edit: phase.template.latest? && phase.template.org == current_user.org || template.customization_of.present?,
+          current_section: section_id.present? ? Section.find_by(id: section_id, phase_id: phase.id) : nil,
+          current_question: question_id.present? ? Question.find_by(id: question_id, section_id: section_id) : nil
         })
     end
 
-# TODO: removed the edit local after refactoring the UI
-    # GET /org_admin/phases/[:id]/edit
+    # GET /org_admin/templates/:template_id/phases/[:id]/edit
     def edit
-      phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
+      phase = Phase.includes(:template).find(params[:id])
       authorize phase
       if !phase.template.latest?
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
+      section_id = params.fetch(:section_id, nil)
+      question_id = params.fetch(:question_id, nil)
       render('container',
         locals: { 
           partial_path: 'edit',
           template: phase.template,
           phase: phase,
-          edit: (phase.template.latest? && phase.template.org == current_user.org),
-          current_section: params.has_key?(:section_id) ? params[:section_id].to_i : nil,
-          question_id: params.has_key?(:question_id) ? params[:question_id].to_i : nil,
-          current_tab: params[:r] || 'all-templates'
+          sections: phase.sections.order(:number).select(:id, :title),
+          edit: phase.template.latest? && phase.template.org == current_user.org || template.customization_of.present?,
+          current_section: section_id.present? ? Section.find_by(id: section_id, phase_id: phase.id) : nil,
+          current_question: question_id.present? ? Question.find_by(id: question_id, section_id: section_id) : nil
         })
     end
 

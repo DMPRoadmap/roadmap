@@ -15,6 +15,8 @@ class Section < ActiveRecord::Base
 
   validates :phase, :title, :number, presence: {message: _("can't be blank")}
 
+  before_validation :set_defaults
+
   ##
   # return the title of the section
   #
@@ -44,4 +46,9 @@ class Section < ActiveRecord::Base
     self.questions.map{ |question| copy.questions << question.deep_copy(options) }
     return copy
   end
+
+  private
+    def set_defaults
+      self.modifiable = true if modifiable.nil?
+    end
 end

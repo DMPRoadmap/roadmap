@@ -29,4 +29,8 @@ class SectionTest < ActiveSupport::TestCase
   test "#deep_copy creates a new section object and attaches new question objects" do
     assert_deep_copy(@section, @section.deep_copy, relations: [:questions])
   end
+
+  test "default values are properly set on section creation" do
+    assert(@section.modifiable, 'expected a new section to be modifiable')
+  end
 end
