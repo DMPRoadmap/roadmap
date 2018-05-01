@@ -55,6 +55,7 @@ class ActiveSupport::TestCase
   def template_seed 
     {
       title: 'Test template', 
+      description: 'this is a test template',
       org: Org.first, 
     }
   end

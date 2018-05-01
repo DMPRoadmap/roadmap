@@ -2,67 +2,50 @@ class Paginable::TemplatesController < ApplicationController
   include Paginable
   include TemplateFilter
       
-  # GET /paginable/templates/all/:page  (AJAX)
+  # GET /paginable/templates/:page  (AJAX)
   # -----------------------------------------------------
-  def all
+  def index
     raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).all?
-    # Apply scoping
-    hash = apply_scoping(params[:scope] || 'all', false, true)
-
-    # Apply pagination
-    hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
-    
-    # Gather up all of the publication dates for the live versions of each template.
-    published = get_publication_dates(hash[:scopes][:family_ids])
-    
-    paginable_renderise partial: 'all',
-                        scope: hash[:templates],
-                        locals: { current_org: current_user.org.id,
-                                  customizations: hash[:customizations],
-                                  published: published,
-                                  scopes: hash[:scopes]}
+    case params[:f]
+    when 'published'
+      templates = Template.latest_version.published
+    when 'unpublished'
+      templates = Template.latest_version.where(published: false)
+    else
+      templates = Template.latest_version
+    end
+    paginable_renderise partial: 'index', scope: templates, locals: { action: 'index' }
   end
   
-  # GET /paginable/templates/funders/:page  (AJAX)
+  # GET /paginable/templates/organisational/:page  (AJAX)
   # -----------------------------------------------------
-  def funders
+  def organisational
     raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).funders?
-    # Apply scoping
-    hash = apply_scoping(params[:scope] || 'all', true, false)
-
-    # Apply pagination
-    hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
-    
-    # Gather up all of the publication dates for the live versions of each template.
-    published = get_publication_dates(hash[:scopes][:family_ids])
-    
-    paginable_renderise partial: 'funders',
-                        scope: hash[:templates],
-                        locals: { current_org: current_user.org.id,
-                                  customizations: hash[:customizations],
-                                  published: published,
-                                  scopes: hash[:scopes] }
+    case params[:f]
+    when 'published'
+      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil).published
+    when 'unpublished'
+      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil).where(published: false)
+    else
+      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil)
+    end
+    paginable_renderise partial: 'organisational', scope: templates, locals: { action: 'index' }
   end
   
-  # GET /paginable/templates/orgs/:page  (AJAX)
+  # GET /paginable/templates/customisable/:page  (AJAX)
   # -----------------------------------------------------
-  def orgs
+  def customisable
     raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).orgs?
-    # Apply scoping
-    hash = apply_scoping(params[:scope] || 'all', false, false)
-    
-    # Apply pagination
-    hash[:templates] = hash[:templates].page(params[:page]) if params[:page] != 'ALL'
-    
-    # Gather up all of the publication dates for the live versions of each template.
-    published = get_publication_dates(hash[:scopes][:family_ids])
-    
-    paginable_renderise partial: 'orgs',
-                        scope: hash[:templates],
-                        locals: { current_org: current_user.org.id,
-                                  customizations: hash[:customizations],
-                                  published: published,
-                                  scopes: hash[:scopes]}
+    customizations = Template.latest_customized_version_for_org(current_user.org.id)
+    case params[:f]
+    when 'customised'
+      templates = Template.latest_customizable.where(family_id: customizations.collect(&:customization_of))
+    when 'not-customised'
+      templates = Template.latest_customizable.where.not(family_id: customizations.collect(&:customization_of))
+    else
+      templates = Template.latest_customizable
+    end
+    paginable_renderise partial: 'customisable', scope: templates, locals: { action: 'index', customizations: customizations }
   end
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
@@ -70,7 +53,6 @@ class Paginable::TemplatesController < ApplicationController
   def publicly_visible
     templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) <<
     Template.where(is_default: true).unarchived.published.pluck(:id)
-    
     paginable_renderise(
       partial: 'publicly_visible',
       scope: Template.includes(:org).where(id: templates.uniq.flatten).valid.published)

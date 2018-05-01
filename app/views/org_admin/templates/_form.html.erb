@@ -19,7 +19,7 @@
                          placement: 'right' }%>
     <div class="checkbox">
       <%= f.label(:visibility,
-          raw("#{check_box_tag('template_visibility', '0', (template.visibility == 'organisationally_visible'))} #{_('for internal %{org_name} use only') % {org_name: @template.org.name}}")) %>
+          raw("#{check_box_tag('template_visibility', '0', (template.visibility == 'organisationally_visible'))} #{_('for internal %{org_name} use only') % {org_name: template.org.name}}")) %>
     </div>
   </div>
 <% end %>
@@ -32,7 +32,7 @@
       <% elsif template.version.present? && template.version <= 0 %>
         <%= _('Unpublished') %>
       <% else %>
-        <% _('You have unpublished changes') %>
+        <% _('Draft') %>
       <% end %>
     </p>
 </div>

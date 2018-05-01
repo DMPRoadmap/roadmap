@@ -25,26 +25,53 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "unauthorized user cannot access the templates#index page" do
-    # Should redirect user to the root path if they are not logged in!
     get org_admin_templates_path
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
+    get org_admin_templates_path
+    assert_authorized_redirect_to_plans_page
+    sign_in @org_admin
     get org_admin_templates_path
     assert_authorized_redirect_to_plans_page
   end
 
   test "authorized user can access the templates#index page" do
-    sign_in @org_admin
+    sign_in @super_admin
     get org_admin_templates_path
     assert_response :success
   end
 
+  test "unauthorized user cannot access the templates#organisational page" do
+    get organisational_org_admin_templates_path
+    assert_unauthorized_redirect_to_root_path
+    sign_in @researcher
+    get organisational_org_admin_templates_path
+    assert_authorized_redirect_to_plans_page
+  end
+
+  test "authorized user can access the templates#organisational page" do
+    sign_in @org_admin
+    get organisational_org_admin_templates_path
+    assert_response :success
+  end
+  
+  test "unauthorized user cannot access the templates#customisable page" do
+    get customisable_org_admin_templates_path
+    assert_unauthorized_redirect_to_root_path
+    sign_in @researcher
+    get customisable_org_admin_templates_path
+    assert_authorized_redirect_to_plans_page
+  end
+  
+  test "authorized user can access the templates#customisable page" do
+    sign_in @org_admin
+    get customisable_org_admin_templates_path
+    assert_response :success
+  end
+  
   test "unauthorized user cannot access the template#edit page" do
-    # Should redirect user to the root path if they are not logged in!
     get edit_org_admin_template_path(@org_template)
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     get edit_org_admin_template_path(@org_template)
     assert_authorized_redirect_to_plans_page
@@ -86,10 +113,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "unauthorized user cannot access the template#new page" do
-    # Should redirect user to the root path if they are not logged in!
     get new_org_admin_template_path
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     get new_org_admin_template_path
     assert_authorized_redirect_to_plans_page
@@ -102,10 +127,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "unauthorized user cannot access the template#history page" do
-    # Should redirect user to the root path if they are not logged in!
     get history_org_admin_template_path(@org_template)
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     get history_org_admin_template_path(@org_template)
     assert_authorized_redirect_to_plans_page
@@ -118,10 +141,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "unauthorized user cannot access template#delete" do
-    # Should redirect user to the root path if they are not logged in!
     delete org_admin_template_path(@org_template)
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     delete org_admin_template_path(@org_template)
     assert_authorized_redirect_to_plans_page
@@ -131,7 +152,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     delete org_admin_template_path(@org_template)
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path(r: 'all-templates')
+    assert_redirected_to org_admin_templates_path
     assert_nil flash[:alert]
   end
 
@@ -140,15 +161,13 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     version = @org_template.generate_version!
     delete org_admin_template_path(@org_template)
     assert_response :redirect
-    assert_redirected_to org_admin_templates_path(r: 'all-templates')
+    assert_redirected_to org_admin_templates_path
     assert_not_nil flash[:alert]
   end
 
   test "unauthorized user cannot create a template#create" do
-    # Should redirect user to the root path if they are not logged in!
     post org_admin_templates_path(@institution), {template: {title: ''}}
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     post org_admin_templates_path(@institution), {template: {title: ''}}
     assert_authorized_redirect_to_plans_page
@@ -165,10 +184,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "unauthorized user cannot update a template#update" do
-    # Should redirect user to the root path if they are not logged in!
     put org_admin_template_path(@org_template), {template: {title: ''}}
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     put org_admin_template_path(@org_template), {template: {title: ''}}
     assert_authorized_redirect_to_plans_page
@@ -194,10 +211,8 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "unauthorized user cannot customize a template#customize" do
-    # Make sure we are redirected if we're not logged in
     post customize_org_admin_template_path(@org_template)
     assert_unauthorized_redirect_to_root_path
-    # Non Org-Admin cannot perform this action
     sign_in @researcher
     post customize_org_admin_template_path(@org_template)
     assert_authorized_redirect_to_plans_page
@@ -208,7 +223,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     post customize_org_admin_template_path(@funder_template)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.latest_customized_version(@funder_template.family_id, @institution.id).first, r: 'funder-templates')
+    assert_redirected_to edit_org_admin_template_url(Template.latest_customized_version(@funder_template.family_id, @institution.id).first)
   end
 
   test "unauthorized user cannot publish a template#publish" do
@@ -230,7 +245,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     patch publish_org_admin_template_path(@org_template)
     assert_equal _('Your template has been published and is now available to users.'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
+    assert_redirected_to org_admin_templates_path
   end
 
   test "unauthorized user cannot unpublish a template#unpublish" do
@@ -246,7 +261,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     patch unpublish_org_admin_template_path(@org_template)
     assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to "#{org_admin_templates_path}#organisation-templates"
+    assert_redirected_to org_admin_templates_path
   end
   
   test "unauthorized user cannot copy a template#copy" do
@@ -268,14 +283,14 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @super_admin
     post copy_org_admin_template_path(@funder_template)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.where(org_id: @organisation.id).order(id: :desc).last, edit: true, r: 'organisation-templates')
+    assert_redirected_to edit_org_admin_template_url(Template.where(org_id: @organisation.id).order(id: :desc).last)
   end
   
   test "authorized user can copy a template#copy" do
     sign_in @org_admin
     post copy_org_admin_template_path(@org_template)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.where(org_id: @institution.id).last, edit: true, r: 'organisation-templates')
+    assert_redirected_to edit_org_admin_template_url(Template.where(org_id: @institution.id).last)
   end
 
   test "unauthorized user cannot transfer a template customization template#transfer_customization" do
@@ -294,7 +309,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     @funder_template.update!({ published: true })
     post transfer_customization_org_admin_template_path(original)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.latest_customized_version(@funder_template.family_id, @institution.id).first, r: 'funder-templates')
+    assert_redirected_to edit_org_admin_template_url(Template.latest_customized_version(@funder_template.family_id, @institution.id).first)
   end
   
   test "unauthorized user cannot get template#template_options" do

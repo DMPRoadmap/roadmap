@@ -10,10 +10,10 @@
   <dd>
     <% if template.published? %>
       <%= _('Published') %>
-    <% elsif template.version == 0 %>
+    <% elsif template.version <= 0 %>
       <%= _('Unpublished')%>
     <% else %>
-      <%= _('You have unpublished changes') %>
+      <%= _('Draft') %>
     <% end %>
   </dd>
   <% if current_user.org.funder? && !current_user.org.funder_only? %>

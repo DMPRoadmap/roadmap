@@ -1,5 +1,3 @@
-<%# Determine which tab to return to based on whether or not we're customizing %>
-<% referrer = "#{org_admin_templates_path}##{template.customization_of.present? ? 'funder-templates' : 'organisation-templates'}" %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= template.id.present? ? template.title : _('New Template') %></h1>

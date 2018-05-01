@@ -5,6 +5,7 @@ class Template < ActiveRecord::Base
   validates_with TemplateLinksValidator
 
   before_validation :set_defaults 
+  after_update :reconcile_published, if: Proc.new { |template| template.published? && template.version.present? && template.version > 0 }
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
@@ -213,49 +214,6 @@ class Template < ActiveRecord::Base
     return customization
   end
 
-  ##
-  # convert the given template to a hash and return with all it's associations
-  # to use, please pre-fetch org, phases, section, questions, annotations,
-  #   question_options, question_formats,
-  # TODO: Themes & guidance?
-  #
-  # @return [hash] hash of template, phases, sections, questions, question_options, annotations
-
-# TODO: If there is time to update the UI to stop using hashes, remove this method
-  def to_hash
-    hash = {}
-    hash[:template] = {}
-    hash[:template][:data] = self
-    hash[:template][:org] = self.org
-    phases = {}
-    hash[:template][:phases] = phases
-    self.phases.each do |phase|
-      phases[phase.number] = {}
-      phases[phase.number][:data] = phase
-      phases[phase.number][:sections] = {}
-      phase.sections.each do |section|
-        phases[phase.number][:sections][section.number] = {}
-        phases[phase.number][:sections][section.number][:data] = section
-        phases[phase.number][:sections][section.number][:questions] = {}
-        section.questions.each do |question|
-          phases[phase.number][:sections][section.number][:questions][question.number] = {}
-          phases[phase.number][:sections][section.number][:questions][question.number][:data] = question
-          phases[phase.number][:sections][section.number][:questions][question.number][:annotations] = {}
-          question.annotations.each do |annotation|
-            phases[phase.number][:sections][section.number][:questions][question.number][:annotations][annotation.id] = {}
-            phases[phase.number][:sections][section.number][:questions][question.number][:annotations][annotation.id][:data] = annotation
-          end
-          phases[phase.number][:sections][section.number][:questions][question.number][:question_options] = {}
-          question.question_options.each do |question_option|
-            phases[phase.number][:sections][section.number][:questions][question.number][:question_options][:data] = question_option
-            phases[phase.number][:sections][section.number][:questions][question.number][:question_format] = question.question_format
-          end
-        end
-      end
-    end
-    return hash
-  end
-
   private
     # Generate a new random family identifier
     def new_family_id
@@ -277,5 +235,13 @@ class Template < ActiveRecord::Base
       self.family_id ||= new_family_id
       self.archived ||= false
       self.links ||= { funder: [], sample_plan: [] }
+    end
+    
+    # Only one version of a template should be published at a time, so if this one was published make sure other versions are not
+    def reconcile_published
+      if self.published?
+        # Unpublish all other versions of this template family
+        Template.where('family_id = ? AND published = ? AND id != ?', self.family_id, true, self.id).update_all(published: false)
+      end
     end
 end
