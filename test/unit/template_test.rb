@@ -147,17 +147,20 @@ class TemplateTest < ActiveSupport::TestCase
 
   test "#customize! raises RuntimeError when the template belongs to a non funder" do
     template = init_template(@org, published: true)
-    exception = assert_raises(RuntimeError) do
+    exception = assert_raises(StandardError) do
       template.customize!(@institution)
     end
   end
-
+  
+  test "#customize! allows user to customize the default template" do
+    template = init_template(@org, published: true, is_default: true)
+    customization = template.customize!(@institution)
+    assert_not_nil(customization)
+  end
+  
   test "#customize! generates a new template" do
     template = init_full_template(@basic_template)
-    template.is_default = true
-    template.save!
     customization = template.customize!(@institution)
-
     assert(customization.family_id.present?, 'expected a newly family_id value')
     assert_equal(template.family_id, customization.customization_of, 'expected the customization_of id to match the base template\'s family_id')
     assert_equal(0, customization.version, 'expected the initial customization version to be zero')
@@ -325,6 +328,11 @@ class TemplateTest < ActiveSupport::TestCase
     assert_not(@basic_template.customize?(nil))
   end
 
+  test "#customize? returns false when the template is not owned by a funder or is not the default template" do
+    template = init_template(@institution, { title: 'institutional template', is_default: false })
+    assert_not template.customize?(@funder)
+  end
+
   test "#customize? returns true when the org does not have a customization of the template" do
     assert(@basic_template.customize?(@institution))
   end
@@ -377,15 +385,18 @@ class TemplateTest < ActiveSupport::TestCase
     end
     assert_equal(_('A historical template cannot be retrieved for being modified'), exception.message)
   end
+
   test "::find_or_generate_version! does not generate a new version" do
     new_template = @basic_template.generate_version!
     template = Template.find_or_generate_version!(new_template)
     assert_equal(new_template, template)
   end
+
   test "::find_or_generate_version! generates a new version" do
     template = Template.find_or_generate_version!(@basic_template)
     assert_not_equal(@basic_template, template)
   end
+
   test "publishing a template automatically unpublishes other versions" do
     @basic_template.published = true
     @basic_template.save!
@@ -395,27 +406,22 @@ class TemplateTest < ActiveSupport::TestCase
     assert v2.reload.published?, 'expected the new version to be published'
     assert_not @basic_template.reload.published?, 'expected the old version to be unpublished'
   end
-  test "#latest_customized_version_for_org returns only customized templates for the specified org" do
-    template = @basic_template.customize!(@institution)
-    templates = Template.latest_customized_version_for_org(@institution)
-    assert_equal 1, templates.length, 'expected only 1 customization'
-    assert_equal template, templates.first
+
+  test "draft? returns false for a published template" do
+    @basic_template.published = true
+    assert_not @basic_template.draft?
   end
-  test "#latest_version_for_org returns only templates for the specified org" do
-    template = @basic_template.generate_copy!(@institution)
-    templates = Template.latest_version_for_org(@institution)
-    assert_equal 1, templates.length, 'expected only 1 template'
-    assert_equal template, templates.first
+  
+  test "draft? returns true for an unpublished version of a template that has a published version" do
+    @basic_template.published = true
+    version = @basic_template.generate_version!
+    assert version.draft?
   end
-  test "#latest_customized_version_for_org returns an empty collection if the org had no customizations" do
-    template = @basic_template.customize!(@institution)
-    org = init_organisation(name: 'Test template Org')
-    templates = Template.latest_customized_version_for_org(org)
-    assert_equal 0, templates.length, 'expected no customizations'
-  end
-  test "#latest_version_for_org returns an empty collection if the org had no templates" do
-    org = init_organisation(name: 'Test template Org')
-    templates = Template.latest_version_for_org(org)
-    assert_equal 0, templates.length, 'expected no templates'
+  
+  test "draft? returns false for a template that has no published versions" do
+    @basic_template.published = true
+    version = @basic_template.generate_version!
+    @basic_template.update(published: false)
+    assert_not version.draft?
   end
 end
