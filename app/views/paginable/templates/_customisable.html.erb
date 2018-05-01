@@ -22,15 +22,13 @@
         </td>
         <td>
           <% if customization.present? %>
-            <% if customization.created_at < template.created_at %>
+            <% if customization.upgrade_customization? %>
               <%= _('Original funder template has changed!') %>
             <% else %>
               <% if customization.published? %>
                 <%= _('Published') %>
-              <% elsif customization.version.present? && customization.version > 0 %>
-                <%= _('Draft') %>
               <% else %>
-                <%= _('Unpublished') %>
+                <%= _('Draft') %>
               <% end %>
             <% end %>
           <% else %>
