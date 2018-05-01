@@ -62,8 +62,11 @@ class TemplateTest < ActiveSupport::TestCase
     Org.all.each do |org|
       Template.dmptemplate_ids.each do |dmptemplate_id|
         latest = Template.where(dmptemplate_id: dmptemplate_id, published: true).order(updated_at: :desc).first
-
-        assert_equal latest, Template.live(dmptemplate_id), "Expected the #{latest.nil? ? 'template to have never been published' : "template.id #{latest.id} to be the published record"} for Org: #{org.id}, dmptemplate_id: #{dmptemplate_id}"
+        if latest.nil?
+          "Expected the template to have never been published" 
+        else
+          assert_equal latest, Template.live(dmptemplate_id), "Expected the template.id #{latest.id} to be the published record for Org: #{org.id}, dmptemplate_id: #{dmptemplate_id}"
+        end
       end
     end
   end
@@ -145,7 +148,7 @@ class TemplateTest < ActiveSupport::TestCase
     t = Template.new(title: 'My test', version: 1, org: @org)
     t.links = { "funder" => [{ "link" => "foo", "text" => "bar" }], "sample_plan" => [] }
     assert(t.valid?)
-    assert_equal(nil, t.errors.messages[:links])
+    assert_nil t.errors.messages[:links]
   end
   
   test 'should return the latest customizations for the Org' do
