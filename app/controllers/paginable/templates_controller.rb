@@ -1,6 +1,5 @@
 class Paginable::TemplatesController < ApplicationController
   include Paginable
-  include TemplateFilter
       
   # GET /paginable/templates/:page  (AJAX)
   # -----------------------------------------------------
@@ -23,11 +22,11 @@ class Paginable::TemplatesController < ApplicationController
     raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).funders?
     case params[:f]
     when 'published'
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil).published
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id).published
     when 'unpublished'
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil).where(published: false)
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id, published: false)
     else
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil)
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
     end
     paginable_renderise partial: 'organisational', scope: templates, locals: { action: 'index' }
   end
