@@ -32,3 +32,6 @@
   <dt><%= _('Last updated') %></dt>
   <dd><%= l template.updated_at.to_date, formats: :short %></dd>
 </dl>
+
+<%# passing phases separately here because we're only pulling down the necessary attributes %>
+<%= render partial: 'org_admin/phases/overview', locals: { template: template, phases: phases } %>
