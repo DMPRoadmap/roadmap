@@ -104,7 +104,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     post org_admin_template_phase_sections_path(@template, @phase), params
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @phase.id, r: 'all-templates', section_id: @phase.sections.last.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section_id: @phase.sections.last.id)
   end
   
   test 'authorized user can call section_controller#create for a published template' do
@@ -113,7 +113,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     post org_admin_template_phase_sections_path(@template, @phase), params
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, r: 'all-templates', section_id: template.phases.first.sections.last.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section_id: template.phases.first.sections.last.id)
   end
   
   test 'unauthorized user cannot call section_controller#edit' do
@@ -142,7 +142,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     put org_admin_template_phase_section_path(@template, @phase, @section), params
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @phase.id, r: 'all-templates', section_id: @phase.sections.last.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section_id: @phase.sections.last.id)
   end
   
   test 'authorized user can call section_controller#edit for a published template' do
@@ -151,7 +151,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     put org_admin_template_phase_section_path(@template, @phase, @section), params
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, r: 'all-templates', section_id: template.phases.first.sections.last.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section_id: template.phases.first.sections.last.id)
   end
   
   test 'unauthorized user cannot call section_controller#destroy' do
@@ -177,7 +177,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     delete org_admin_template_phase_section_path(@template, @phase, @section)
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @phase.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id)
   end
   
   test 'authorized user can call section_controller#destroy for a published template' do
@@ -185,6 +185,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_phase_section_path(@template, @phase, @section)
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id)
   end
 end
