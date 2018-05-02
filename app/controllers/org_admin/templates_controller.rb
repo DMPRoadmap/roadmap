@@ -81,11 +81,16 @@ module OrgAdmin
     
     # GET /org_admin/templates/[:id]
     def show
-      template = Template.includes(:org, :phases).find(params[:id])
+      template = Template.find(params[:id])
       authorize template
+      # Load the info needed for the overview section if the authorization check passes!
+      phases = template.phases.includes(sections: { questions: :question_options }).
+                        order('phases.number', 'sections.number', 'questions.number', 'question_options.number').
+                        select('phases.title', 'phases.description', 'sections.title', 'questions.text', 'question_options.text')
       render 'container', locals: { 
         partial_path: 'show', 
         template: template,
+        phases: phases,
         referrer: request.referrer.present? ? request.referrer : org_admin_templates_path }
     end
     
@@ -94,12 +99,17 @@ module OrgAdmin
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
+      # Load the info needed for the overview section if the authorization check passes!
+      phases = template.phases.includes(sections: { questions: :question_options }).
+                        order('phases.number', 'sections.number', 'questions.number', 'question_options.number').
+                        select('phases.title', 'phases.description', 'sections.title', 'questions.text', 'question_options.text')
       if !template.latest?
         flash[:notice] = _("You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes.")
       end
       render 'container', locals: { 
         partial_path: 'edit', 
         template: template,
+        phases: phases,
         referrer: request.referrer.present? ? request.referrer : org_admin_templates_path }
     end
     
