@@ -8,17 +8,17 @@
 <div id="footer-navbar" class="navbar-dmpopidor navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li><%= link_to "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
+      <li><%= link_to "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize, "#{Rails.configuration.branding[:organisation][:url] }", target: "_blank" %></li>
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;"><%= Rails.configuration.branding[:application][:version] %></span></li>
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
       <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>  
       <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="<%= Rails.configuration.branding[:application][:url] %>"><%= _('Github') %></a></li> 
+      <li><a title="Github" target="_blank" href="<%= Rails.configuration.branding[:application][:url] %>" target="_blank"><%= _('Github') %></a></li> 
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
       <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
-      <li><a title="Twitter" href="<%= Rails.configuration.branding[:application][:twitter_url] %>"><i class="fa fa-twitter"></i></a></li>
-      <li><a title="<%= d_('dmpopidor', 'Mailing list') %>" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>"><i class="fa fa-comments"></i></a></li>
+      <li><a title="Twitter" target="_blank" href="<%= Rails.configuration.branding[:application][:twitter_url] %>"><i class="fa fa-twitter"></i></a></li>
+      <li><a title="<%= d_('dmpopidor', 'Mailing list') %>"  target="_blank" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>"><i class="fa fa-comments"></i></a></li>
     
     </ul>
     <ul class="nav navbar-nav navbar-right">
