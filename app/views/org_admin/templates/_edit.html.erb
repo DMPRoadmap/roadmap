@@ -7,3 +7,6 @@
     </div>
   </div>
 </div>
+
+<%# passing phases separately here because we're only pulling down the necessary attributes %>
+<%= render partial: 'org_admin/phases/overview', locals: { template: template, phases: phases } %>
