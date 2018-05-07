@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <%= _('Template History') %>
+      <%= templates.first.customization_of.present? ? _('Template Customisation History') : _('Template History') %>
       <div class="pull-right">
         <%= link_to _('View all templates'), referrer, class: "btn btn-primary" %>
       </div>
@@ -18,10 +18,9 @@
         partial: '/paginable/templates/history',
         controller: 'paginable/templates',
         action: 'history',
-        path_params: { id: template.id },
-        query_params: { sort_field: :version, sort_direction: :desc }, 
+        query_params: { sort_field: 'templates.version', sort_direction: 'desc' }, 
         scope: templates,
-        locals: { current: current }) %>
+        locals: local_assigns ) %>
     <% else %>
       <p><%= _('This template is new and does not yet have any publication history.') %></p>
     <% end %>
