@@ -1,73 +1,74 @@
 require 'test_helper'
 
 class NotificationTest < ActiveSupport::TestCase
-  fixtures :notifications, :notification_types, :users, :perms
-  self.use_instantiated_fixtures = true
+  fixtures :notifications, :users
 
   # Validity
-  test 'valid' do
-    assert_equal(true, @valid.valid?)
+  test 'validations valid' do
+    1.upto(10) { |i| assert(notifications("notification_#{i}").valid?) }
   end
 
   # Date validation
-  test 'wrong_date' do
-    assert_equal(false, @wrong_dates.valid?)
+  test 'validations inconsistent dates' do
+    assert_not(notifications(:inconsistent_dates).valid?)
   end
 
   # Missing parameters
-  test 'missing_params' do
-    assert_equal(false, @missing_type_id.valid?)
-    assert_equal(false, @missing_title.valid?)
-    assert_equal(false, @missing_body.valid?)
-    assert_equal(false, @missing_level.valid?)
-    assert_equal(true, @missing_dismissable.valid?)
-    assert_equal(false, @missing_starts_at.valid?)
-    assert_equal(false, @missing_expires_at.valid?)
+  test 'validations missing params' do
+    assert(notifications(:missing_dismissable).valid?)
+
+    notifications(
+      :missing_type_id,
+      :missing_title,
+      :missing_body,
+      :missing_level,
+      :missing_starts_at,
+      :missing_expires_at
+    ).each do |n|
+      assert_not(n.valid?)
+    end
   end
 
   # Active notification (has started and not expired)
   test 'active notification' do
-    n = @valid.clone
-    n.update(starts_at: Date.today, expires_at: Date.tomorrow)
+    n = notifications(:notification_1)
 
     # Not logged in, dismissable Notification
     User.current = nil
     n.update(dismissable: true)
-    assert_equal(false, n.active?)
+    assert_not(n.active?)
 
     # Not logged in, undismissable Notification
     n.update(dismissable: false)
-    assert_equal(true, n.active?)
+    assert(n.active?)
 
     # Logged in, undismissable Notification
-    User.current = @super_admin
-    assert_equal(true, n.active?)
+    User.current = users(:super_admin)
+    assert(n.active?)
 
     # Logged in, dismissable Notification
     n.update(dismissable: true)
-    assert_equal(true, n.active?)
+    assert(n.active?)
   end
 
   # Inactive notification (has not started)
-  test 'inactive notifcation' do
-    n = @valid.clone
-    n.update(starts_at: Date.tomorrow, expires_at: Date.tomorrow + 1.day)
-
-    assert_equal(false, n.active?)
+  test 'inactive notification' do
+    assert_not(notifications(:inactive).active?)
   end
 
   # Un-dismissability
-  test 'not_dismissable' do
-    User.current = @super_admin
-    assert_equal(false, @not_dismissable.acknowledge)
+  test 'not undismissable' do
+    User.current = users(:super_admin)
+
+    assert_not(notifications(:not_dismissable).acknowledge)
+    assert_not(notifications(:not_dismissable).acknowledged?)
   end
 
   # Dismissability/Acknowledgement
-  test 'acknowledged' do
-    User.current = @super_admin
-    n = @valid.clone
-    n.acknowledge
+  test 'acknowledgement' do
+    User.current = users(:super_admin)
 
-    assert_equal(true, n.acknowledged?)
+    assert(notifications(:notification_1).acknowledge)
+    assert(notifications(:notification_1).acknowledged?)
   end
 end

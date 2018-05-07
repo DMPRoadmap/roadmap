@@ -1,16 +1,19 @@
-# Valid
-valid:
-  notification_type_id: global
-  title: Test notification 1
+# Many valid notifications
+<% 1.upto(10) do |i| %>
+notification_<%= i %>:
+  id: <%= i %> # Stable id
+  notification_type: global
+  title: notification_<%= i %>
   level: info
-  body: Test notification 1
+  body: notification <%= i %>
   dismissable: true
-  starts_at: 2020-01-01
-  expires_at: 2970-01-01
+  starts_at: <%= Date.today %>
+  expires_at: <%= Date.tomorrow %>
+<% end %>
 
 # Invalid: inconsistent dates
-wrong_dates:
-  notification_type_id: global
+inconsistent_dates:
+  notification_type: global
   title: Test notification 2
   level: info
   body: Test notification 2
@@ -29,7 +32,7 @@ missing_type_id:
 
 # Invalid: missing title
 missing_title:
-  notification_type_id: global
+  notification_type: global
   level: info
   body: Test notification 4
   dismissable: true
@@ -38,7 +41,7 @@ missing_title:
 
 # Invalid: missing level
 missing_level:
-  notification_type_id: global
+  notification_type: global
   title: Test notification 5
   body: Test notification 5
   dismissable: true
@@ -47,7 +50,7 @@ missing_level:
 
 # Invalid: missing body
 missing_body:
-  notification_type_id: global
+  notification_type: global
   title: Test notification 6
   level: info
   dismissable: true
@@ -56,7 +59,7 @@ missing_body:
 
 # Valid: missing 'dismissable' but has default
 missing_dismissable:
-  notification_type_id: global
+  notification_type: global
   title: Test notification 7
   level: info
   body: Test notification 7
@@ -65,7 +68,7 @@ missing_dismissable:
 
 # Invalid: missing start date
 missing_starts_at:
-  notification_type_id: global
+  notification_type: global
   title: Test notification 8
   level: info
   body: Test notification 8
@@ -74,7 +77,7 @@ missing_starts_at:
 
 # Invalid: missing expiration date
 missing_expires_at:
-  notification_type_id: global
+  notification_type: global
   title: Test notification 9
   level: info
   body: Test notification 9
@@ -83,10 +86,20 @@ missing_expires_at:
 
 # Valid but should not be dismissable
 not_dismissable:
-  notification_type_id: global
+  notification_type: global
   title: Test notification 10
   level: info
   body: Test notification 10
   dismissable: false
   starts_at: 2020-01-01
   expires_at: 2970-01-01
+
+# Valid, inactive (start date not yet reached)
+inactive:
+  notification_type: global
+  title: inactive
+  level: info
+  body: inactive
+  dismissable: false
+  starts_at: <%= Date.tomorrow %>
+  expires_at: <%= Date.tomorrow+1 %>
