@@ -28,30 +28,19 @@ module OrgAdmin
     # -----------------------------------------------------
     def organisational
       authorize Template
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil)
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
       published, draft = templates.partition{|t| t.published? }
-      if current_user.can_super_admin?
-        render 'index', locals: { 
-          orgs: Org.all,
-          title: _('%{org_name} Templates') % { org_name: current_user.org.name },
-          templates: templates,
-          action: 'organisational',
-          query_params: { sort_field: :title, sort_direction: :asc },
-          all_count: templates.length,
-          published_count: published.present? ? published.length : 0,
-          draft_count: draft.present? ? draft.length : 0
-        }
-      else
-        render 'index', locals: { 
-          title: _('Own Templates'),
-          templates: templates,
-          action: 'organisational',
-          query_params: { sort_field: :title, sort_direction: :asc },
-          all_count: templates.length,
-          published_count: published.present? ? published.length : 0,
-          draft_count: draft.present? ? draft.length : 0
-        }
-      end
+      title = current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates')
+      render 'index', locals: { 
+        orgs: current_user.can_super_admin? ? Org.all : nil,
+        title: title,
+        templates: templates,
+        action: 'organisational',
+        query_params: { sort_field: :title, sort_direction: :asc },
+        all_count: templates.length,
+        published_count: published.present? ? published.length : 0,
+        draft_count: draft.present? ? draft.length : 0
+      }
     end
 
     # A version of index that displays only templates that are customizable
@@ -59,7 +48,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def customisable
       authorize Template
-      customizations = Template.latest_customized_version_for_org(current_user.org.id)
+      customizations = Template.latest_customized_version_per_org(current_user.org.id).where(org_id: current_user.org.id)
       funder_templates = Template.latest_customizable
       # We use this to validate the counts below in the event that a template was customized but the base template
       # org is no longer a funder
@@ -225,7 +214,7 @@ module OrgAdmin
     def transfer_customization
       template = Template.includes(:org).find(params[:id])
       authorize template
-      if template.customize?(current_user.org)
+      if template.upgrade_customization?
         begin
           new_customization = template.upgrade_customization!
           redirect_to edit_org_admin_template_path(new_customization)
@@ -259,8 +248,7 @@ module OrgAdmin
     def publish
       template = Template.find(params[:id])
       authorize template
-      # Allowing to publish any version here for future compatibility with publishing older versions from the history page
-      if template.present?
+      if template.latest?
         # Now make the specified version published
         template.published = true
         template.save!
@@ -276,8 +264,7 @@ module OrgAdmin
     def unpublish
       template = Template.find(params[:id])
       authorize template
-      # Allowing to unpublish any version here for future compatibility with unpublishing older versions from the history page
-      if template.present?
+      if template.latest?
         template.published = false
         template.save!
         flash[:notice] = _("Your #{template_type(template)} is no longer published. Users will not be able to create new DMPs for this #{template_type(template)} until you re-publish it")
@@ -298,13 +285,14 @@ module OrgAdmin
 
       if org_id.present? || funder_id.present?
         unless funder_id.blank?
-          # Load the funder's template(s)
-          templates = Template.where(org_id: funder_id).published.publicly_visible
+          # Load the funder's template(s) minus the default template (that gets swapped in below if NO other templates are available)
+          templates = Template.latest_customizable.select{ |t| !t.is_default? }
           unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
             templates = templates.map do |tmplt|
               customization = Template.published.latest_customized_version(tmplt.family_id, org_id).first
-              if customization.present? && tmplt.created_at < customization.created_at
+              # Only provide the customized version if its still up to date with the funder template!
+              if customization.present? && !customization.upgrade_customization?
                 customization
               else
                 tmplt
@@ -323,7 +311,11 @@ module OrgAdmin
 
       # If no templates were available use the default template
       if templates.empty?
-        templates << Template.where(is_default: true, published: true).first
+        default = Template.default
+        if default.present?
+          customization = Template.published.latest_customized_version(default.family_id, org_id).first
+          templates << (customization.present? ? customization : default)
+        end
       end
       templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
       render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json

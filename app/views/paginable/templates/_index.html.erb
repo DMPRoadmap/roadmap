@@ -13,7 +13,7 @@
     <% scope.each do |template| %>
       <tr>
         <td>
-          <%= template.title %>
+          <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
         </td>
           <td>
             <%= template.org.name %>
@@ -21,10 +21,10 @@
           <td>
             <% if template.published? %>
               <%= _('Published') %>
-            <% elsif template.version.present? && template.version <= 0 %>
-              <%= _('Unpublished') %>
-            <% else %>
+            <% elsif template.draft? %>
               <%= _('Draft') %>
+            <% else %>
+              <%= _('Unpublished') %>
             <% end %>
           </td>
           <td>

@@ -15,19 +15,19 @@
       <% customization = customizations.present? ? customizations.select{ |customization| customization.customization_of == template.family_id }.first : nil %>
       <tr>
         <td>
-          <%= template.title %>
+          <%= "#{template.is_default ? '* ' : ''}#{template.title}" %>
         </td>
         <td>
           <%= template.org.name %>
         </td>
         <td>
           <% if customization.present? %>
-            <% if customization.created_at < template.created_at %>
+            <% if customization.upgrade_customization? %>
               <%= _('Original funder template has changed!') %>
             <% else %>
               <% if customization.published? %>
                 <%= _('Published') %>
-              <% elsif customization.version.present? && customization.version > 0 %>
+              <% elsif customization.draft? %>
                 <%= _('Draft') %>
               <% else %>
                 <%= _('Unpublished') %>

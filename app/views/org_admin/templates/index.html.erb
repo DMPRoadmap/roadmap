@@ -7,7 +7,7 @@
       <p><%= _('If you would like to modify one of the templates below, you must first change your organisation affiliation.') %></p>
     </div>
     <div class="col-md-6">
-      <%= form_for current_user, url: org_swap_user_path(current_user), html: {method: :put, id: 'super-admin-switch-org'} do |f| %>
+      <%= form_for current_user, url: org_swap_user_path(current_user), namespace: 'superadmin', html: {method: :put, id: 'super-admin-switch-org'} do |f| %>
         <%= render partial: "shared/my_org", locals: {f: f, default_org: current_user.org, orgs: orgs, allow_other_orgs: false} %>
         <%= f.submit _('Change affiliation'), class: 'btn btn-default' %>
       <% end %>

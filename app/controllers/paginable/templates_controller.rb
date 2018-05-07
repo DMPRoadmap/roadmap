@@ -1,11 +1,10 @@
 class Paginable::TemplatesController < ApplicationController
   include Paginable
-  include TemplateFilter
       
   # GET /paginable/templates/:page  (AJAX)
   # -----------------------------------------------------
   def index
-    raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).all?
+    authorize Template
     case params[:f]
     when 'published'
       templates = Template.latest_version.published
@@ -20,23 +19,23 @@ class Paginable::TemplatesController < ApplicationController
   # GET /paginable/templates/organisational/:page  (AJAX)
   # -----------------------------------------------------
   def organisational
-    raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).funders?
+    authorize Template
     case params[:f]
     when 'published'
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil).published
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id).published
     when 'unpublished'
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil).where(published: false)
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id, published: false)
     else
-      templates = Template.latest_version_for_org(current_user.org.id).where(customization_of: nil)
+      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
     end
-    paginable_renderise partial: 'organisational', scope: templates, locals: { action: 'index' }
+    paginable_renderise partial: 'organisational', scope: templates, locals: { action: 'organisational' }
   end
   
   # GET /paginable/templates/customisable/:page  (AJAX)
   # -----------------------------------------------------
   def customisable
-    raise Pundit::NotAuthorizedError unless Paginable::TemplatePolicy.new(current_user).orgs?
-    customizations = Template.latest_customized_version_for_org(current_user.org.id)
+    authorize Template
+    customizations = Template.latest_customized_version_per_org(current_user.org.id)
     case params[:f]
     when 'customised'
       templates = Template.latest_customizable.where(family_id: customizations.collect(&:customization_of))
@@ -45,7 +44,7 @@ class Paginable::TemplatesController < ApplicationController
     else
       templates = Template.latest_customizable
     end
-    paginable_renderise partial: 'customisable', scope: templates, locals: { action: 'index', customizations: customizations }
+    paginable_renderise partial: 'customisable', scope: templates, locals: { action: 'customisable', customizations: customizations }
   end
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)

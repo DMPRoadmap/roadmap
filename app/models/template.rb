@@ -5,7 +5,7 @@ class Template < ActiveRecord::Base
   validates_with TemplateLinksValidator
 
   before_validation :set_defaults 
-  after_update :reconcile_published, if: Proc.new { |template| template.published? && template.version.present? && template.version > 0 }
+  after_update :reconcile_published, if: Proc.new { |template| template.published? }
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
@@ -49,9 +49,6 @@ class Template < ActiveRecord::Base
       else
         unarchived.where(family_id: family_id, published: true).first
       end
-    end
-    def default
-      unarchived.where(is_default: true, published: true).order(:version).last
     end
     def find_or_generate_version!(template)
       if template.latest?
@@ -97,20 +94,25 @@ class Template < ActiveRecord::Base
   end
   # Determines whether or not a customization for the customizing_org passed should be generated
   def customize?(customizing_org)
-    if customizing_org.is_a?(Org)
+    if customizing_org.is_a?(Org) && (self.org.funder_only? || self.is_default)
       return !Template.unarchived.where(customization_of: self.family_id, org: customizing_org).exists?
     end
     return false
   end
   # Determines whether or not a customized template should be upgraded
   def upgrade_customization?
-    if customization_of.present?
+    if self.customization_of.present?
       funder_template = Template.published(self.customization_of).select(:created_at).first
       if funder_template.present?
         return funder_template.created_at > self.created_at
       end
     end
     return false
+  end
+
+  # Checks to see if the template family has a published version and if its not the current template
+  def draft?
+    return !self.published && Template.published(self.family_id).length > 0
   end
 
   # Returns a new unpublished copy of self with a new family_id, version = zero for the specified org
@@ -143,7 +145,7 @@ class Template < ActiveRecord::Base
   # Generates a new copy of self for the specified customizing_org
   def customize!(customizing_org)
     raise _('customize! requires an organisation target') unless customizing_org.is_a?(Org) # Assume customizing_org is persisted
-    raise _('customize! requires a template from a funder') unless org.funder_only? || self.is_default # Assume self has org associated
+    raise _('customize! requires a template from a funder') if !self.org.funder_only? && !self.is_default # Assume self has org associated
     customization = deep_copy(
       attributes: {
         version: 0,
@@ -239,9 +241,7 @@ class Template < ActiveRecord::Base
     
     # Only one version of a template should be published at a time, so if this one was published make sure other versions are not
     def reconcile_published
-      if self.published?
-        # Unpublish all other versions of this template family
-        Template.where('family_id = ? AND published = ? AND id != ?', self.family_id, true, self.id).update_all(published: false)
-      end
+      # Unpublish all other versions of this template family
+      Template.where('family_id = ? AND published = ? AND id != ?', self.family_id, true, self.id).update_all(published: false)
     end
 end
