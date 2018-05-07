@@ -19,7 +19,6 @@ module OrgAdmin
           template: phase.template,
           phase: phase,
           sections: phase.sections.order(:number).select(:id, :title),
-          edit: phase.template.latest? && phase.template.org == current_user.org || template.customization_of.present?,
           current_section: section_id.present? ? Section.find_by(id: section_id, phase_id: phase.id) : nil,
           current_question: question_id.present? ? Question.find_by(id: question_id, section_id: section_id) : nil
         })

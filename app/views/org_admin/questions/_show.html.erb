@@ -64,7 +64,7 @@
         <% guidance = question.get_guidance_annotation(current_user.org_id) %>
         <% editing = (example_answer.present? || guidance.present?) %>
         <% if !question.modifiable %>
-          <h3> <%= _('Annotations') %> </h3>
+          <h4> <%= _('Annotations') %> </h4>
           <div id="show_annotations_div_<%= question.id%>" class="show_annotations_div">
             <%= render partial: 'annotations/show', 
                        locals: { example_answer: example_answer, 
@@ -84,14 +84,14 @@
                          example_answer: example_answer,
                          guidance: guidance, 
                          question: question,
-                         options: { url: admin_update_annotation_path(r: current_tab), method: 'PUT' } 
+                         options: { url: admin_update_annotation_path, method: 'PUT' } 
                        } %>
           </div>
         <% end %>
         <div class="pull-right">
           <% if (question.modifiable && edit) %>
             <%= link_to _('Edit question'), "#question_edit#{question.id}", class: "btn btn-default question_edit_link", role: "button" %>
-            <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id, r: current_tab),
+            <%= link_to _('Delete question'), admin_destroy_question_path(question_id: question.id),
               confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:"button" %>
           <% end %>
         </div>
