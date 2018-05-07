@@ -23,9 +23,13 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
     def show
-      section = Section.includes(questions: [:annotations, :question_options]).find(params[:id])
+      section = Section.find(params[:id])
       authorize section
-      render partial: 'show', locals: { section: section }
+      section = Section.includes(questions: [:annotations, :question_options]).find(params[:id])
+      render partial: 'show', locals: { 
+        template: Template.find(params[:template_id]),
+        section: section 
+      }
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit

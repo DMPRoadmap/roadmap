@@ -68,7 +68,6 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: 'history',
       scope: @templates,
-      query_params: { sort_field: :version, sort_direction: :desc },
-      locals: { current: @current })
+      locals: { current: templates.maximum(:version) })
   end
 end
