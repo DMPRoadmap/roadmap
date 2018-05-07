@@ -135,13 +135,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
-    resources :annotations, path: 'org/admin/templates/annotations', only: [] do
-      member do
-        put 'admin_update'
-        delete 'admin_destroy'
-      end
-    end
-
     resources :answers, only: [] do
       post 'create_or_update', on: :collection
     end
@@ -284,12 +277,13 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           
           resources :sections, only: [:index, :show, :edit, :new, :update, :create, :destroy] do
             resources :questions, only: [:index, :show, :edit, :new, :update, :create, :destroy] do
-              
             end
           end
         end
       end
       
+      resources :annotations, only: [:create, :destroy, :update] do ; end
+
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
       get 'download_plans' => 'plans#download_plans'
     end

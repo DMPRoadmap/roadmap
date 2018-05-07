@@ -49,7 +49,7 @@
                             <%= raw question.text %>
                             <% if question.question_options.length > 0 %>
                               <ul>
-                                <% question_options.each do |option| %>
+                                <% question.question_options.each do |option| %>
                                   <li><%= option.text %></li>
                                 <% end %>
                               </ul>
