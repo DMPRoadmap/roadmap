@@ -1,8 +1,16 @@
 super_admin:
    id: 1
-   email: "super.admin@example.com"
-   firstname: "Super"
-   surname: "Admin"
+   email: super.admin@example.com
+   firstname: Super
+   surname: Admin
    perms: add_organisations, change_org_affiliation, grant_permissions, modify_templates, modify_guidance, use_api, change_org_details, grant_api_to_orgs
    accept_terms: true
-   api_token: 'abcd1234'
+   api_token: abcd1234
+
+normal_user:
+   id: 2
+   email: normal.user@example.com
+   firstname: Normal
+   surname: User
+   accept_terms: true
+   api_token: abcd1234
