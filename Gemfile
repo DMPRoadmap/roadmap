@@ -5,7 +5,7 @@ ruby '>= 2.4.1'
 # ------------------------------------------------
 #    RAILS
 gem 'rails', '~> 4.2.10'
-gem 'railties', '~> 4.2'
+gem 'railties'
 
 #    GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 #    THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN FUTURE VERSIONS
@@ -15,9 +15,9 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2', '~> 0.4.0'
 gem 'pg', '~> 0.19.0'
-gem 'flag_shih_tzu', '~> 0.3'  # Allows for bitfields in activereccord
+gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
 #    JSON DSL - USED BY API
@@ -30,26 +30,26 @@ gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 # ------------------------------------------------
 #    USERS
 # devise for user authentication
-gem 'devise', '~> 4.2.0'
-gem 'devise_invitable', '~> 1.7.0'
-gem 'omniauth', '~> 1.3.2'
-gem 'omniauth-shibboleth', '~> 1.2.1'
-gem 'omniauth-orcid', '~> 2.0'
+gem 'devise'
+gem 'devise_invitable'
+gem 'omniauth'
+gem 'omniauth-shibboleth'
+gem 'omniauth-orcid'
 gem 'ruby_dig'  # for omniauth-orcid
 
 # Gems for repository integration
-gem 'pundit', '~> 1.1.0'
+gem 'pundit'
 
 # ------------------------------------------------
 #    SETTINGS FOR TEMPLATES AND PLANS (FONTS, COLUMN LAYOUTS, ETC)
-gem 'ledermann-rails-settings', '~> 2.4.2'
+gem 'ledermann-rails-settings'
 
 # ------------------------------------------------
 #    VIEWS
 gem 'contact_us', '~> 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
-gem 'recaptcha', '~> 4.1.0'
-gem 'dragonfly', '~> 1.0.12'                         # LOGO UPLOAD
-gem 'formtastic', '~> 3.1.4'
+gem 'recaptcha'
+gem 'dragonfly'                       # LOGO UPLOAD
+gem 'formtastic'
 
 # ------------------------------------------------
 #     EXPORTING
@@ -67,25 +67,25 @@ gem 'gettext', '>=3.0.2', :require => false, :group => :development
 
 # ------------------------------------------------
 #     PAGINATION
-gem 'kaminari', '>= 1.0'
+gem 'kaminari'
 # ------------------------------------------------
 
 #     ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
-  gem "byebug", '~> 9.0'
+  gem "byebug"
 end
 
 group :test do
-  gem 'minitest-reporters', '~> 1.1.11'
-  gem 'rack-test', '~> 0.6.3'
-  gem 'webmock', '~> 2.1.0'
-  gem 'sqlite3', '~> 1.3.12'
-  gem 'simplecov', '~> 0.12', require: false
+  gem 'minitest-reporters'
+  gem 'rack-test'
+  gem 'webmock'
+  gem 'sqlite3'
+  gem 'simplecov', require: false
 end
 
 group :development do
-  gem "better_errors", '~> 2.1.1'
-  gem "binding_of_caller", '~> 0.7.2'
+  gem "better_errors"
+  gem "binding_of_caller"
   gem 'web-console', '~> 2.3.0'
-  gem 'rack-mini-profiler', '~> 0.10.1'
+  gem 'rack-mini-profiler'
 end
