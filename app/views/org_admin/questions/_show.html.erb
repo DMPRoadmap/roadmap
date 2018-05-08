@@ -79,12 +79,12 @@
             <% end %>
           </div>
           <div id="annotations_div_<%= question.id %>" style="display: none" class="edit_annotations_div">
-            <%= render partial: 'annotations/new_edit', 
+            <%= render partial: 'org_admin/annotations/new_edit', 
                        locals: {
                          example_answer: example_answer,
                          guidance: guidance, 
                          question: question,
-                         options: { url: admin_update_annotation_path, method: 'PUT' } 
+                         options: { url: org_admin_question_annotation_path(question), method: 'PUT' } 
                        } %>
           </div>
         <% end %>
