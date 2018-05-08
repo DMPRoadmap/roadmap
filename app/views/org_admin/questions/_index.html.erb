@@ -1,0 +1,27 @@
+<h3><%= _('Questions') %></h3>
+<% questions = section.questions.order('number') %>
+<% if questions.present? %>
+  <% questions.each do |question| %>
+    <hr />
+    <% target = "org_admin/questions/#{editing ? 'edit' : 'show'}" %>
+    <div class="question_<%= editing ? 'edit' : 'show' %>" 
+         id="<%= "question_#{editing ? 'edit' : 'show'}#{question.id}" %>">
+      <%= render partial: target, locals: { template: template, section: question.section, question: question } %>
+    </div>
+    <% if questions.last.id != question.id %>
+      <hr />
+    <% end %>
+  <% end %>
+<% end %>
+<% if editing %>
+  <div class="row">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
+        </div>
+        <div class="question_new" style="display: none;">
+          <%= render partial: 'org_admin/questions/new', locals: { template: template, section: section } %>
+        </div>
+      </div>
+    </div>
+<% end %>

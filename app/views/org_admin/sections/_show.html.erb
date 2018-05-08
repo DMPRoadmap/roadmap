@@ -7,18 +7,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3><%= _('Questions') %></h3>
-    <% questions = section.questions.order('number') %>
-    <% if questions.present? %>
-      <% questions.each do |question| %>
-        <hr />
-        <div class="question_show" id="<%= "question_show#{question.id}" %>">
-          <%= render partial: 'org_admin/questions/show', locals: { template: template, question: question, original_org: template.base_org} %>
-        </div>
-        <% if questions.last.id != question.id %>
-          <hr />
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render partial: 'org_admin/questions/index', 
+               locals: local_assigns.merge({ editing: false }) %>
   </div>
 </div>

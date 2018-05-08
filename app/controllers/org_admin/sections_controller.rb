@@ -44,20 +44,6 @@ module OrgAdmin
         }
     end
 
-    # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/new
-    def new
-      phase = Phase.includes(:template, :sections).find(params[:phase_id])
-      section = Section.new(phase: phase, number: (phase.sections.length > 0 ? phase.sections.max{ |a, b| a.number <=> b.number }.number+1 : 1))
-      authorize section
-      render partial: 'new', 
-        locals: { 
-          template: phase.template,
-          phase: phase,
-          section: section,
-          current_tab: params[:r] || 'all-templates'
-        }
-    end
-
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
     def create
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
