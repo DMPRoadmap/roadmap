@@ -34,7 +34,7 @@ class Question < ActiveRecord::Base
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
-
+  
   ##
   # returns the text from the question
   #
@@ -108,4 +108,11 @@ class Question < ActiveRecord::Base
     return guidance.first
   end
 
+  def annotations_per_org(org_id)
+    example_answer = annotations.find_by(org_id: org_id, type: Annotation.types[:example_answer])
+    guidance = annotations.find_by(org_id: org_id, type: Annotation.types[:guidance])
+    example_answer = annotations.build({ type: :example_answer, text: 'whatever' }) if example_answer.nil?
+    guidance = annotations.build({ type: :guidance, text: 'whatever too' }) if guidance.nil?
+    return [example_answer, guidance]
+  end
 end

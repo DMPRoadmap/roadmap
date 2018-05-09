@@ -1,4 +1,4 @@
-<%= form_for(question, url: url, namespace: question.id, html: { method: method, class: 'question_form' }) do |f| %>
+<%= form_for(question, url: url, namespace: question.id.present? ? question.id : 'new_question', html: { method: method, class: 'question_form' }) do |f| %>
   <% current_format = question.question_format.present? ? question.question_format : QuestionFormat.find_by(formattype: QuestionFormat.formattypes[:textarea]) %>
 
   <!--Question number -->
@@ -51,30 +51,12 @@
       </span>
     </div>
   </div>
-  <!-- Suggested answer or Example for Question -->
-  <div class="form-group col-md-10">
-    <%= f.label(:example_answer, _('Example Answer'), class: "control-label") %>
-    <div class="" data-toggle="tooltip" title="<%= ('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.') %>">
-      <% example_answer = question.get_example_answers(current_user.org.id).first %>
-      <% if example_answer.nil? %>
-          <% example_answer = question.annotations.build %>
-          <% example_answer.type = :example_answer %>
-      <% end %>
-      <%= f.fields_for :annotations, example_answer do |s|%>
-        <%= s.hidden_field :org_id, value: current_user.org.id %>
-          <%= s.text_area(:text, class: 'question') %>
-      <% end %>
-    </div>
-  </div>
-  <!-- Guidance for Question -->
-  <div class="form-group col-md-10">
-    <%= f.label(:guidance, _('Guidance'), class: "control-label") %>
-    <div data-toggle="tooltip" title="<%= _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.") %>">
-      <% guidance = question.get_guidance_annotation(current_user.org_id) %>
-      <% guidance_text = guidance.present? ? guidance.text : "" %>
-      <%= text_area_tag("question-guidance-#{question.id}", guidance_text , class: 'question') %>
-    </div>
-  </div>
+  <%# example_answer and guidance annotations as nested fields %>
+  <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+    <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
+      <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+    <% end %>
+  <% end %>
   <!-- Themes -->
   <div class="form-group col-md-10">
     <%= render partial: 'org_admin/shared/theme_selector',
