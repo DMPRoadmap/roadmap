@@ -7,6 +7,7 @@ ruby '>= 2.4.1'
 gem 'rails', '~> 4.2.10'
 gem 'railties'
 
+
 #    GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 #    THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN FUTURE VERSIONS
 #    WE SHOULD CONSIDER BRINGING THE CODE UP TO DATE INSTEAD
@@ -22,12 +23,8 @@ gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 # ------------------------------------------------
 #    JSON DSL - USED BY API
 gem 'jbuilder', '~> 2.6.0'
-
 # ------------------------------------------------
-#    SUPER ADMIN SECTION
-gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
 
-# ------------------------------------------------
 #    USERS
 # devise for user authentication
 gem 'devise'
@@ -48,7 +45,7 @@ gem 'ledermann-rails-settings'
 #    VIEWS
 gem 'contact_us', '~> 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha'
-gem 'dragonfly'                       # LOGO UPLOAD
+gem 'dragonfly'              # LOGO UPLOAD
 gem 'formtastic'
 
 # ------------------------------------------------

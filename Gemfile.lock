@@ -1,21 +1,3 @@
-GIT
-  remote: git://github.com/thoughtbot/administrate.git
-  revision: 6bc227907e8567ca9d8c51658abc92fc2b19ca2d
-  branch: v0.7.0
-  specs:
-    administrate (0.7.0)
-      actionpack (>= 4.2, < 5.1)
-      actionview (>= 4.2, < 5.1)
-      activerecord (>= 4.2, < 5.1)
-      autoprefixer-rails (~> 6.0)
-      datetime_picker_rails (~> 0.0.7)
-      jquery-rails (>= 4.0)
-      kaminari (>= 1.0)
-      momentjs-rails (~> 2.8)
-      normalize-rails (>= 3.0)
-      sass-rails (~> 5.0)
-      selectize-rails (~> 0.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -56,8 +38,6 @@ GEM
     addressable (2.4.0)
     ansi (1.5.0)
     arel (6.0.4)
-    autoprefixer-rails (6.7.7.2)
-      execjs
     bcrypt (3.1.11)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
@@ -75,8 +55,6 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
     daemons (1.2.4)
-    datetime_picker_rails (0.0.7)
-      momentjs-rails (>= 2.8.1)
     debug_inspector (0.0.3)
     devise (4.4.3)
       bcrypt (~> 3.0)
@@ -131,10 +109,6 @@ GEM
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
-    jquery-rails (4.2.1)
-      rails-dom-testing (>= 1, < 3)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
     json (2.1.0)
     jwt (1.5.6)
     kaminari (1.1.1)
@@ -235,7 +209,6 @@ GEM
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
     sax-machine (1.3.2)
-    selectize-rails (0.12.4)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -276,7 +249,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  administrate!
   better_errors
   binding_of_caller
   byebug
