@@ -1,7 +1,7 @@
 require 'test_helper'
 module SuperAdmin
   class NotificationsControllerTest < ActionController::TestCase
-    fixtures :notifications, :users
+    fixtures :notifications, :users, :perms
     include Devise::Test::ControllerHelpers
 
     setup do
