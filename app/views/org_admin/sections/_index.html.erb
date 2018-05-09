@@ -50,21 +50,34 @@
       <% end %>
     </div>
     <% if phase.modifiable? || template.customization_of.present? %>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="pull-right">
-            <%= link_to(_('Add Section'), "#section_new#{phase.id}", { class: "btn btn-default section_new_link", role: "button" }) %>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div id="section_new<%= phase.id %>" class="section_new" style="display: none;">
-            <%= render partial: 'org_admin/sections/new', 
+<div class="panel panel-default">
+  <a href="#new_section" class="heading-button" 
+     data-toggle="collapse" data-parent="sections-accordion" 
+    data-target="#collapseSectionNew"
+    aria-expanded="false" 
+    aria-controls="#collapseSectionNew">
+
+    <div class="panel-heading" role="tab" id="<%= "headingSectionNew" %>">
+      <div class="panel-title pull-left">
+        <%= _('Add a new section') %>
+      </div>
+      <div class="pull-right">
+        <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </a>
+  <div
+    id="collapseSectionNew" class="panel-collapse collapse" role="tabpanel"
+    aria-labelledby="<%= "headingSectionNew" %>">
+     <div class="panel-body">
+       <%= render partial: 'org_admin/sections/new', 
                   locals: { 
                     template: template, 
                     phase: phase } %>
-          </div>
-        </div>
-      </div>
+     </div>
+  </div>
+</div>
     <% end %>
   </div>
 </div>
