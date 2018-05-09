@@ -24,8 +24,8 @@ gem 'flag_shih_tzu', '~> 0.3'  # Allows for bitfields in activereccord
 gem 'jbuilder', '~> 2.6.0'
 
 # ------------------------------------------------
-#    SUPER ADMIN SECTION
-gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
+#    SLUGS/PERMALINKS
+gem 'friendly_id', '~> 5.1.0'
 
 # ------------------------------------------------
 #    USERS
