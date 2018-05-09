@@ -28,10 +28,6 @@ gem 'jbuilder', '~> 2.6.0'
 gem 'friendly_id', '~> 5.1.0'
 
 # ------------------------------------------------
-#    SUPER ADMIN SECTION
-gem "administrate", :github => 'thoughtbot/administrate', :branch =>'v0.7.0'
-
-# ------------------------------------------------
 #    USERS
 # devise for user authentication
 gem 'devise', '~> 4.2.0'
