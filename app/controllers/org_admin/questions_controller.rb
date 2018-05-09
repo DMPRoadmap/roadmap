@@ -9,7 +9,7 @@ module OrgAdmin
     def index
       authorize Question.new
       section = Section.includes(:questions, phase: :template).find(params[:section_id])
-      edit = (current_user.can_modify_templates?  &&  (section.phase.template.org_id == current_user.org_id))
+      editing = (current_user.can_modify_templates?  &&  (section.phase.template.org_id == current_user.org_id))
 # TODO: refactor so we're only sending back what is necessary
       render partial: 'index', 
         locals: { 
@@ -18,7 +18,7 @@ module OrgAdmin
           section: section,
           questions: section.questions, 
           current_tab: params[:r] || 'all-templates',
-          edit: edit 
+          editing: editing 
         }
     end
 

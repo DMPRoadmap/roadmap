@@ -1,5 +1,4 @@
 <% new_question = Question.new(section_id: section.id, number: (section.questions.empty? ? 1 : section.questions.order(number: :desc).limit(1).first.number + 1)) %>
-<% puts new_question.inspect %>
 <%= render partial: 'org_admin/questions/form', 
            locals: local_assigns.merge({ 
              question: new_question, 
