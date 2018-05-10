@@ -32,7 +32,7 @@
       <% elsif template.version.present? && template.version <= 0 %>
         <%= _('Unpublished') %>
       <% else %>
-        <% _('Draft') %>
+        <%= _('Draft') %>
       <% end %>
     </p>
 </div>

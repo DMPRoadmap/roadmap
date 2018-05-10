@@ -4,7 +4,7 @@
     <div class="panel-group" id="sections_accordion" role="tablist">
       <% sections.each do |section| %>
         <div class="panel panel-default">
-          <% if template.customization_of.present? || !phase.modifiable %> 
+          <% if template.customization_of.present? || !modifiable %> 
             <% href = org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
           <% else %> 
             <% href = edit_org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
@@ -49,7 +49,7 @@
         </div>
       <% end %>
     </div>
-    <% if phase.modifiable? || template.customization_of.present? %>
+    <% if modifiable || template.customization_of.present? %>
 <div class="panel panel-default">
   <a href="#new_section" class="heading-button" 
      data-toggle="collapse" data-parent="sections-accordion" 
