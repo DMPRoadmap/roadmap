@@ -136,7 +136,12 @@ module OrgAdmin
       authorize template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
 
       begin
-        template = Template.find_or_generate_version!(template)
+        # Commenting this out for ticket #1476 which requests that we not version a template
+        # if its details change (only for phase/section/question changes). Leaving the line
+        # below in the event that we determine that some attributes (e.g. title) should trigger
+        # a new version
+        #template = Template.find_or_generate_version!(template)
+
         template.links = ActiveSupport::JSON.decode(params["template-links"]) if params["template-links"].present?
         template.description = params["template-desc"]
       rescue ActiveSupport::JSON.parse_error
