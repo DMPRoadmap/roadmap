@@ -144,7 +144,7 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
     @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
 
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(family: @plan.template.customization_of).first)
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(family_id: @plan.template.customization_of).first)
 
     respond_to :html
   end
