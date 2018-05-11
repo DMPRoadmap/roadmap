@@ -200,16 +200,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert json_body["msg"].start_with?('Successfully') && json_body["msg"].include?('saved')
   end
 
-  test "cannot update a historical version template#update" do
-    params = {title: 'ABCD'}
-    version = @org_template.generate_version!
-    sign_in @org_admin
-    put org_admin_template_path(@org_template), {template: params}
-    assert_response :forbidden
-    json_body = ActiveSupport::JSON.decode(response.body)
-    assert json_body["msg"].include?(_('historical'))
-  end
-
   test "unauthorized user cannot customize a template#customize" do
     post customize_org_admin_template_path(@org_template)
     assert_unauthorized_redirect_to_root_path
