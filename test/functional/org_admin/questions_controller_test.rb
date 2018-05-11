@@ -34,53 +34,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "unauthorized user cannot access the questions_controller#show page" do
-    get org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
-    assert_unauthorized_redirect_to_root_path
-  end
-
-  test 'authorized user can access the questions_controller#show page' do
-    [@researcher, @org_admin].each do |user|
-      sign_in user
-    get org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
-      assert_response :success, "expected #{user.name(false)} to be able to access the questions_controller#show page"
-      assert_nil flash[:notice]
-      assert_nil flash[:alert]
-    end
-  end
-
-  test "unauthorized user cannot access the questions_controller#edit page" do
-    get edit_org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
-    assert_unauthorized_redirect_to_root_path
-    sign_in @researcher
-    get edit_org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
-    assert_authorized_redirect_to_plans_page
-  end
-
-  test 'authorized user can access the questions_controller#edit page' do
-    sign_in @org_admin
-    get edit_org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
-    assert_response :success
-    assert_nil flash[:notice]
-    assert_nil flash[:alert]
-  end
-  
-  test "unauthorized user cannot access the questions_controller#new page" do
-    get new_org_admin_template_phase_section_question_path(@template, @phase, @section)
-    assert_unauthorized_redirect_to_root_path
-    sign_in @researcher
-    get new_org_admin_template_phase_section_question_path(@template, @phase, @section)
-    assert_authorized_redirect_to_plans_page
-  end
-
-  test 'authorized user can access the questions_controller#new page' do
-    sign_in @org_admin
-    get new_org_admin_template_phase_section_question_path(@template, @phase, @section)
-    assert_response :success
-    assert_nil flash[:notice]
-    assert_nil flash[:alert]
-  end
-  
   test 'unauthorized user cannot call question_controller#create' do
     params = { question: { text: 'New question test', number: 2, question_format_id: @text_area.id } }
     post org_admin_template_phase_section_questions_path(@template, @phase, @section), params
@@ -107,7 +60,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     post org_admin_template_phase_section_questions_path(@template, @phase, @section), params
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section_id: @section.id, question_id: @section.questions.last.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section: @section.id)
   end
   
   test 'authorized user can call question_controller#create for a published template' do
@@ -116,7 +69,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     post org_admin_template_phase_section_questions_path(@template, @phase, @section), params
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, question_id: template.phases.first.sections.first.questions.last.id, r: 'all-templates', section_id: template.phases.first.sections.first.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section: template.phases.first.sections.first.id)
   end
   
   test 'unauthorized user cannot call question_controller#edit' do
@@ -146,7 +99,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     put org_admin_template_phase_section_question_path(@template, @phase, @section, @question), params
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section_id: @section.id, r: 'all-templates', question_id: @section.questions.last.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section: @section.id)
   end
   
   test 'authorized user can call question_controller#edit for a published template' do
@@ -155,7 +108,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     put org_admin_template_phase_section_question_path(@template, @phase, @section, @question), params
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, r: 'all-templates', question_id: template.phases.first.sections.first.questions.last.id, section_id: template.phases.first.sections.first.id)
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section: template.phases.first.sections.first.id)
   end
 
   test 'unauthorized user cannot call question_controller#destroy' do
@@ -182,7 +135,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     delete org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section_id: @section.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section: @section.id)
   end
   
   test 'authorized user can call question_controller#destroy for a published template' do
@@ -190,6 +143,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section_id: template.phases.first.sections.first.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section: template.phases.first.sections.first.id)
   end
 end

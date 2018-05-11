@@ -13,7 +13,7 @@ in the admin interface.
                    locals: local_assigns.merge({ 
                      question: question, 
                      method: :put, 
-                     url: org_admin_template_phase_section_questions_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id, id: question.id) }) %>
+                     url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id, id: question.id) }) %>
       </div>
     </div>
   </div>

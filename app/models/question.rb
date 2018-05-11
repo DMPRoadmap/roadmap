@@ -20,8 +20,7 @@ class Question < ActiveRecord::Base
   # TODO: evaluate if we need this
   accepts_nested_attributes_for :answers, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
   accepts_nested_attributes_for :question_options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :annotations,  :allow_destroy => true
-  accepts_nested_attributes_for :themes
+  accepts_nested_attributes_for :annotations, :allow_destroy => true
 
   ##
   # Possibly needed for active_admin
@@ -111,8 +110,8 @@ class Question < ActiveRecord::Base
   def annotations_per_org(org_id)
     example_answer = annotations.find_by(org_id: org_id, type: Annotation.types[:example_answer])
     guidance = annotations.find_by(org_id: org_id, type: Annotation.types[:guidance])
-    example_answer = annotations.build({ type: :example_answer, text: 'whatever' }) if example_answer.nil?
-    guidance = annotations.build({ type: :guidance, text: 'whatever too' }) if guidance.nil?
+    example_answer = annotations.build({ type: :example_answer, text: '', org_id: org_id }) unless example_answer.present?
+    guidance = annotations.build({ type: :guidance, text: '', org_id: org_id }) unless guidance.present?
     return [example_answer, guidance]
   end
 end

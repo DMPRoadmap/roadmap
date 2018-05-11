@@ -79,7 +79,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     post org_admin_template_phases_path(@template), params
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @template.phases.last.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @template.phases.last.id)
   end
   
   test 'authorized user can create a phase for a published template' do
@@ -88,7 +88,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     post org_admin_template_phases_path(@template), params
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.last.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.last.id)
   end
   
   test 'unauthorized user cannot edit a phase' do
@@ -106,7 +106,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     put org_admin_template_phase_path(@template, @phase), params
     assert_response :redirect
-    assert_redirected_to org_admin_template_phase_path(template_id: @template.id, id: @template.phases.last.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @template.phases.last.id)
   end
   
   test 'authorized user can edit a phase for a published template' do
@@ -115,7 +115,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     put org_admin_template_phase_path(@template, @phase), params
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to org_admin_template_phase_path(template_id: template.id, id: template.phases.last.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.last.id)
   end
   
   test 'unauthorized user cannot delete a phase' do
@@ -132,7 +132,7 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     delete org_admin_template_phase_path(@template, @phase)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_path(@template.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_path(@template.id)
   end
   
   test 'authorized user can delete a phase from a published template' do
@@ -141,6 +141,6 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_phase_path(@template, @phase)
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to edit_org_admin_template_path(template.id, r: 'all-templates')
+    assert_redirected_to edit_org_admin_template_path(template.id)
   end
 end

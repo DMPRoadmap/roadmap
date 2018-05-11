@@ -11,16 +11,14 @@ module OrgAdmin
       if !phase.template.latest?
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
-      section_id = params.fetch(:section_id, nil)
-      question_id = params.fetch(:question_id, nil)
+      section = params.fetch(:section, nil)
       render('container',
         locals: { 
           partial_path: 'show',
           template: phase.template,
           phase: phase,
           sections: phase.sections.order(:number).select(:id, :title),
-          current_section: section_id.present? ? Section.find_by(id: section_id, phase_id: phase.id) : nil,
-          current_question: question_id.present? ? Question.find_by(id: question_id, section_id: section_id) : nil
+          current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
         })
     end
 
@@ -31,8 +29,7 @@ module OrgAdmin
       if !phase.template.latest?
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
-      section_id = params.fetch(:section_id, nil)
-      question_id = params.fetch(:question_id, nil)
+      section = params.fetch(:section, nil)
       render('container',
         locals: { 
           partial_path: 'edit',
@@ -40,8 +37,7 @@ module OrgAdmin
           phase: phase,
           sections: phase.sections.order(:number).select(:id, :title),
           edit: phase.template.latest? && phase.template.org == current_user.org || template.customization_of.present?,
-          current_section: section_id.present? ? Section.find_by(id: section_id, phase_id: phase.id) : nil,
-          current_question: question_id.present? ? Question.find_by(id: question_id, section_id: section_id) : nil
+          current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
         })
     end
 
@@ -66,7 +62,7 @@ module OrgAdmin
         phase = Phase.new({
           template: template,
           modifiable: true,
-          number: (template.phases.length > 0 ? template.phases.collect(&:number).max{|a, b| a.number <=> b.number } + 1 : 1)
+          number: (template.phases.length > 0 ? template.phases.collect(&:number).max{|a, b| a <=> b } + 1 : 1)
         })
         authorize phase
         render('/org_admin/templates/container',
@@ -93,8 +89,8 @@ module OrgAdmin
 
 # TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
         phase.description = params["phase-desc"]
-        current_tab = params[:r] || 'all-templates'
-
+        phase.modifiable = true
+        
         if phase.save!
           flash[:notice] = success_message(_('phase'), _('created'))
         else
@@ -102,13 +98,12 @@ module OrgAdmin
         end
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
       end
       
       if flash[:alert].present?
-        redirect_to edit_org_admin_template_path(id: phase.template_id, r: current_tab)
+        redirect_to edit_org_admin_template_path(id: phase.template_id)
       else
-        redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id)
       end
     end
 
@@ -123,7 +118,6 @@ module OrgAdmin
       
     # TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
         phase.description = params["phase-desc"]
-        current_tab = params[:r] || 'all-templates'
 
         if phase.update!(phase_params)
           flash[:notice] = success_message(_('phase'), _('updated'))
@@ -133,7 +127,7 @@ module OrgAdmin
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      redirect_to org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, r: current_tab)
+      redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id)
     end
 
     #delete a phase
@@ -143,7 +137,6 @@ module OrgAdmin
       authorize phase
       begin
         phase = get_modifiable(phase)
-        current_tab = params[:r] || 'all-templates'
       
         template = phase.template
         if phase.destroy!
@@ -156,9 +149,9 @@ module OrgAdmin
       end
       
       if flash[:alert].present?
-        redirect_to org_admin_template_phase_path(template.id, phase.id, r: current_tab)
+        redirect_to org_admin_template_phase_path(template.id, phase.id)
       else
-        redirect_to edit_org_admin_template_path(template, r: current_tab)
+        redirect_to edit_org_admin_template_path(template)
       end
     end
 

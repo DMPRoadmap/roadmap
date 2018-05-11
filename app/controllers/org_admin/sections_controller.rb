@@ -9,14 +9,14 @@ module OrgAdmin
     def index
       authorize Section.new
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
-      edit = (current_user.can_modify_templates?  &&  (phase.template.org_id == current_user.org_id))
+      edit = phase.template.latest? && (current_user.can_modify_templates?  &&  (phase.template.org_id == current_user.org_id))
       render partial: 'index', 
         locals: { 
           template: phase.template, 
           phase: phase, 
           sections: phase.sections, 
           current_section: phase.sections.first,
-          current_tab: params[:r] || 'all-templates',
+          modifiable: edit,
           edit: edit 
         }
     end
@@ -34,7 +34,7 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
     def edit
-      section = Section.includes({phase: :template}, questions: [:annotations, :question_options]).find(params[:id])
+      section = Section.includes({phase: :template}, questions: [:question_options, { annotations: :org }]).find(params[:id])
       authorize section
       render partial: 'edit', 
         locals: { 
@@ -55,7 +55,7 @@ module OrgAdmin
 
         if section.save
           flash[:notice] = success_message(_('section'), _('created'))
-          redirect_to edit_org_admin_template_phase_path(template_id: phase.template_id, id: section.phase_id, section_id: section.id)
+          redirect_to edit_org_admin_template_phase_path(template_id: phase.template_id, id: section.phase_id, section: section.id)
         else
           flash[:alert] = failed_create_error(section, _('section'))
           redirect_to edit_org_admin_template_phase_path(template_id: phase.template_id, id: section.phase_id)
@@ -85,9 +85,9 @@ module OrgAdmin
       end
       
       if flash[:alert].present?
-        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section_id: section.id)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section: section.id)
       else
-        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section_id: section.id)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id, section: section.id)
       end
     end
 

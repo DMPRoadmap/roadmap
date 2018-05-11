@@ -1,3 +1,4 @@
+<% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= template.title %></h1>
@@ -8,7 +9,7 @@
 <div class="row">
   <div class="col-md-12">
     <!-- render navigation tabs for the template-->
-    <%= render partial: "/org_admin/templates/navigation", locals: local_assigns %>
+    <%= render partial: "/org_admin/templates/navigation", locals: local_assigns.merge({ modifiable: modifiable }) %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
         <div class="panel panel-default">
@@ -23,7 +24,7 @@
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12">
-                <%= render partial: partial_path, locals: local_assigns %>
+                <%= render partial: partial_path, locals: local_assigns.merge({ modifiable: modifiable }) %>
               </div>
             </div>
             <div class="row">
@@ -40,7 +41,7 @@
                 <% end %>
               </div>
             </div>
-            <%= render partial: 'org_admin/sections/index', locals: local_assigns %>
+            <%= render partial: 'org_admin/sections/index', locals: local_assigns.merge({ modifiable: modifiable }) %>
           </div>
         </div>
       </div>

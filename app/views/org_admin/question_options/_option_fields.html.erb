@@ -30,7 +30,7 @@
         <%= op.check_box :is_default %>
       </div>
       <div class="col-md-3">
-        <%= op.hidden_field :_destroy %>
+        <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
         <a href="#" class="delete_question_option"><%= _('Remove') %></a>
       </div>
     </div>
