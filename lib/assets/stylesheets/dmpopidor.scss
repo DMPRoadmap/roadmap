@@ -49,6 +49,9 @@ $light-yellow: #fff9e5;
  /*
     FOOTER
  */
+.navbar-fixed-bottom {
+    z-index: 50;
+}
 #footer-navbar {
     &.navbar-dmpopidor {
         background-color: $blue;
