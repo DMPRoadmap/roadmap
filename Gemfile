@@ -16,7 +16,7 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-gem 'mysql2', '~> 0.4.0'
+gem 'mysql2', '~> 0.4.10'
 gem 'pg', '~> 0.19.0'
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
@@ -43,24 +43,24 @@ gem 'ledermann-rails-settings'
 
 # ------------------------------------------------
 #    VIEWS
-gem 'contact_us', '~> 1.2.0' # COULD BE EASILY REPLACED WITH OUR OWN CODE
+gem 'contact_us' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha'
 gem 'dragonfly'              # LOGO UPLOAD
 gem 'formtastic'
 
 # ------------------------------------------------
 #     EXPORTING
-gem 'wkhtmltopdf-binary', '~> 0.12.3'
-gem 'thin', '~> 1.7'
-gem 'wicked_pdf', '~> 1.1.0'
-gem 'htmltoword', '~> 0.5.1'
-gem 'feedjira', '~> 2.0.0'
+gem 'wkhtmltopdf-binary'
+gem 'thin'
+gem 'wicked_pdf'
+gem 'htmltoword'
+gem 'feedjira'
 
 # ------------------------------------------------
 #     INTERNATIONALIZATION
-gem 'gettext_i18n_rails', '~> 1.8'
-gem "gettext_i18n_rails_js", "~> 1.2.0"
-gem 'gettext', '>=3.0.2', :require => false, :group => :development
+gem 'gettext_i18n_rails'
+gem 'gettext_i18n_rails_js'
+gem 'gettext', :require => false, :group => :development
 
 # ------------------------------------------------
 #     PAGINATION
@@ -83,6 +83,6 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'web-console', '~> 2.3.0'
+  gem 'web-console'
   gem 'rack-mini-profiler'
 end
