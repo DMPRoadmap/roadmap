@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
 
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
+  has_and_belongs_to_many :notifications, dependent: :destroy, join_table: 'notification_acknowledgements'
 
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
@@ -292,19 +293,10 @@ class User < ActiveRecord::Base
     User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
   end
 
-  # Get the current User
-  # Useful for accessing current User info in views
-  # @return [User] the current logged in user
-  def self.current
-    Thread.current[:user]
-  end
-
-  # Set the current User
-  # Used to set the current User from current_user in controllers
-  # @param user user to set
-  # @return [User] the current logged in user
-  def self.current=(user)
-    Thread.current[:user] = user
+  # Acknoledge a Notification
+  # @param notification Notification to acknowledge
+  def acknowledge(notification)
+    notifications << notification if notification.dismissable?
   end
 
   private

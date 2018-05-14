@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   # Look for template overrides before rendering
   before_filter :prepend_view_paths
 
-  # Set current user (see set_current_user)
-  before_filter :set_current_user
 
   include GlobalHelpers
   include Pundit
@@ -156,10 +154,5 @@ class ApplicationController < ActionController::Base
       else
         false
       end
-    end
-
-    # Set access to current_user through model
-    def set_current_user
-      User.current = current_user
     end
 end

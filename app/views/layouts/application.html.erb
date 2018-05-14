@@ -63,7 +63,7 @@
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
           <span><%= raw (has_alert ? alert : notice) %></span>
         </div>
-        <%= render "layouts/notifications", notifications: Notification.all_active %>
+        <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
       </main>
 

@@ -29,7 +29,7 @@ module SuperAdmin
       authorize(Notification)
       begin
         n = Notification.new(notification_params)
-        n.notification_type_id = 1
+        n.notification_type = 'global'
         n.save!
         flash[:notice] = _('Notification created successfully')
       rescue ActionController::ParameterMissing
