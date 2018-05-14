@@ -19,21 +19,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     @question = init_question(@section)
   end
   
-  test "unauthorized user cannot access the questions_controller#index page" do
-    get org_admin_template_phase_section_questions_path(@template, @phase, @section)
-    assert_unauthorized_redirect_to_root_path
-  end
-
-  test 'authorized user can access the questions_controller#index page' do
-    [@researcher, @org_admin].each do |user|
-      sign_in user
-      get org_admin_template_phase_section_questions_path(@template, @phase, @section)
-      assert_response :success, "expected #{user.name(false)} to be able to access the questions_controller#index page"
-      assert_nil flash[:notice]
-      assert_nil flash[:alert]
-    end
-  end
-
   test 'unauthorized user cannot call question_controller#create' do
     params = { question: { text: 'New question test', number: 2, question_format_id: @text_area.id } }
     post org_admin_template_phase_section_questions_path(@template, @phase, @section), params

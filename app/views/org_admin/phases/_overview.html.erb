@@ -8,12 +8,12 @@
         <h3>
           <%= phase.title %>
           <div class="pull-right">
-            <% if !modifiable %>
-              <%= link_to _('Show phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
-            <% elsif template.customization_of.nil? %>
+            <% if template.customization_of.present? && template.latest? %>
+              <%= link_to _('Customize phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
+            <% elsif modifiable %>
               <%= link_to _('Edit phase'), edit_org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
             <% else %>
-              <%= link_to _('Customize phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
+              <%= link_to _('Show phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
             <% end %>
             <% if template.latest? && phase.modifiable %>
               <%= link_to _('Delete phase'), org_admin_template_phase_path(template.id, phase.id),

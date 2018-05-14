@@ -9,11 +9,11 @@
   <dt><%= _('Status') %></dt>
   <dd>
     <% if template.published? %>
-      <%= _('Published') %>
+      <%= template.customization_of.present? ? _('Customizations are published') : _('Published') %>
     <% elsif template.version <= 0 %>
-      <%= _('Unpublished')%>
+      <%= template.customization_of.present? ? _('Customizations are unpublished') :_('Unpublished')%>
     <% else %>
-      <%= _('Draft') %>
+      <%= template.customization_of.present? ? _('Draft customizations') :_('Draft') %>
     <% end %>
   </dd>
   <% if current_user.org.funder? && !current_user.org.funder_only? %>

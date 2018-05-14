@@ -76,6 +76,9 @@ module OrgAdmin
       phases = template.phases.includes(sections: { questions: :question_options }).
                         order('phases.number', 'sections.number', 'questions.number', 'question_options.number').
                         select('phases.title', 'phases.description', 'sections.title', 'questions.text', 'question_options.text')
+      if !template.latest?
+        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+      end
       render 'container', locals: { 
         partial_path: 'show', 
         template: template,
@@ -117,10 +120,9 @@ module OrgAdmin
     def create
       authorize Template
       # creates a new template with version 0 and new family_id
-      template = Template.new(params[:template])
+      template = Template.new(template_params)
       template.org_id = current_user.org.id
-      template.description = params['template-desc']
-      template.links = (params["template-links"].present? ? JSON.parse(params["template-links"]) : {"funder": [], "sample_plan": []})
+      template.links = (params["template-links"].present? ? ActiveSupport::JSON.decode(params["template-links"]) : {"funder": [], "sample_plan": []})
       if template.save!
         redirect_to edit_org_admin_template_path(template), notice: success_message(template_type(template), _('created'))
       else
@@ -133,28 +135,20 @@ module OrgAdmin
     # -----------------------------------------------------
     def update
       template = Template.find(params[:id])
-      authorize template   # NOTE if non-authorized error is raised, it performs a redirect to root_path and no JSON output is generated
-
+      authorize template 
       begin
-        # Commenting this out for ticket #1476 which requests that we not version a template
-        # if its details change (only for phase/section/question changes). Leaving the line
-        # below in the event that we determine that some attributes (e.g. title) should trigger
-        # a new version
-        #template = Template.find_or_generate_version!(template)
-
+        template.assign_attributes(template_params)
         template.links = ActiveSupport::JSON.decode(params["template-links"]) if params["template-links"].present?
-        template.description = params["template-desc"]
+        if template.save!
+          render(status: :ok, json: { msg: success_message(template_type(template), _('saved'))})
+        else
+          # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
+          render(status: :bad_request, json: { msg: failed_update_error(template, template_type(template))})
+        end
       rescue ActiveSupport::JSON.parse_error
         render(status: :bad_request, json: { msg: _("Error parsing links for a #{template_type(template)}") }) and return
       rescue => e
         render(status: :forbidden, json: { msg: e.message }) and return
-      end
-
-      if template.update_attributes(params[:template])
-        render(status: :ok, json: { msg: success_message(template_type(template), _('saved'))})
-      else
-        # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly
-        render(status: :bad_request, json: { msg: failed_update_error(template, template_type(template))})
       end
     end
     
@@ -163,17 +157,14 @@ module OrgAdmin
     def destroy
       template = Template.find(params[:id])
       authorize template
-      if template.plans.length <= 0
-        # Only allow the current version to be destroyed
-        if template.latest?
-          if template.destroy
+      versions = Template.includes(:plans).where(family_id: template.family_id)
+      if versions.select{|t| t.plans.length > 0 }.empty?
+        versions.each do |version|
+          if version.destroy!
             flash[:notice] = success_message(template_type(template), _('removed'))
           else
-            hash = template.to_hash
             flash[:alert] = failed_destroy_error(template, template_type(template))
           end
-        else
-          flash[:alert] = _("You cannot delete historical versions of this #{template_type(template)}.")
         end
       else
         flash[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
@@ -202,7 +193,7 @@ module OrgAdmin
       if template.customize?(current_user.org)
         begin
           customisation = template.customize!(current_user.org)
-          redirect_to edit_org_admin_template_path(customisation)
+          redirect_to org_admin_template_path(customisation)
         rescue StandardError => e
           flash[:alert] = _('Unable to customize that template.')
           redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
@@ -254,10 +245,12 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       if template.latest?
-        # Now make the specified version published
-        template.published = true
-        template.save!
-        flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
+        # Now make the current version published
+        if template.update_attributes!({ published: true })
+          flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
+        else
+          flash[:alert] = _("Unable to publish your #{template_type(template)}.")
+        end
       else
         flash[:alert] = _("You can not publish a historical version of this #{template_type(template)}.")
       end
@@ -269,13 +262,13 @@ module OrgAdmin
     def unpublish
       template = Template.find(params[:id])
       authorize template
-      if template.latest?
-        template.published = false
-        template.save!
-        flash[:notice] = _("Your #{template_type(template)} is no longer published. Users will not be able to create new DMPs for this #{template_type(template)} until you re-publish it")
-      else
-        flash[:alert] = _("That #{template_type(template)} is not currently published.")
+      versions = Template.where(family_id: template.family_id)
+      versions.each do |version|
+        unless version.update_attributes!({ published: false })
+          flash[:alert] = _("Unable to unpublish your #{template_type(template)}.")
+        end
       end
+      flash[:notice] = _("Successfully unpublished your #{template_type(template)}") unless flash[:alert].present?
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
     

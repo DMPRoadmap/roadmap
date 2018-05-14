@@ -3,11 +3,9 @@
   <%= f.text_field(:title, class: "form-control", "aria-required": true) %>
 </div>
 
-<div class="form-group col-xs-8">
+<div class="form-group col-xs-8" data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
   <%= f.label(:description, _('Description'), class: "control-label") %>
-  <div data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
-    <%= text_area_tag("template-desc", template.description, { class: 'template', "aria-required": false }) %>
-  </div>
+  <%= f.text_area(:description, class: "template") %>
 </div>
 
 <% if current_user.org.funder? && !current_user.org.funder_only? %>
@@ -76,5 +74,4 @@
 
 <div class="form-group col-xs-8">
   <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
-  <%= link_to(_('Cancel'), referrer, { class: 'btn btn-default', role: "button" }) %>
 </div>

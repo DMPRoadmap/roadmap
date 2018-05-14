@@ -59,34 +59,21 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <!-- Add suggested or example answers to a funders template-->
-        <% example_answer = question.get_example_answers(current_user.org_id).first %>
-        <% guidance = question.get_guidance_annotation(current_user.org_id) %>
-        <% editing = (example_answer.present? || guidance.present?) %>
-        <% if !question.modifiable %>
+        <% if template.customization_of.present? && template.latest? %>
           <h4> <%= _('Annotations') %> </h4>
-          <div id="show_annotations_div_<%= question.id%>" class="show_annotations_div">
-            <%= render partial: 'org_admin/annotations/show', 
-                       locals: { example_answer: example_answer, 
-                                 guidance: guidance,
-                                 template: template,
-                                 for_plan: false } %>
-            <% unless question.modifiable %>
-              <div id="add_annotations_button_<%= question.id %>" class="pull-right">
-                <%= link_to _('%{add_or_edit} Annotations') % { add_or_edit: (editing ? 'Edit' : 'Add') }, 
-                            "#annotations_div_#{question.id}", class: "btn btn-default annotations_button", role:"button" %>
-              </div>
+          <%= form_for(question, url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), namespace: question.id, html: { method: 'put', class: 'question_form' }) do |f| %>
+            <%# example_answer and guidance annotations as nested fields %>
+            <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+              <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
+                <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+              <% end %>
             <% end %>
-          </div>
-          <div id="annotations_div_<%= question.id %>" style="display: none" class="edit_annotations_div">
-            <%= render partial: 'org_admin/annotations/new_edit', 
-                       locals: {
-                         example_answer: example_answer,
-                         guidance: guidance, 
-                         question: question,
-                         options: { url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), method: 'PUT' } 
-                       } %>
-          </div>
+            <div class="form-group col-md-10">
+              <div class="pull-right">
+                <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>

@@ -13,11 +13,9 @@
     </div>
   </div>
 
-  <div class="form-group col-md-10">
+  <div class="form-group col-md-10" data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
     <%= f.label(:description, _('Description'), class: "control-label") %>
-    <div data-toggle="tooltip" title="<%= _("Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit.") %>">
-      <%= f.text_area(:description, class: "section tinymce form-control") %>
-    </div>
+    <%= f.text_area(:description, class: "section") %>
   </div>
 
   <div class="form-group col-md-10">
@@ -27,7 +25,6 @@
         <%= link_to _('Delete'), org_admin_template_phase_section_path(template_id: template.id, phase_id: section.phase.id, id: section), 'data-method': 'delete', rel: 'nofollow',
             'data-confirm': _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, class: 'btn btn-default', role:'button' %>
       <% end %>
-      <%= link_to _('Cancel'), edit_org_admin_template_phase_path(template, section.phase), class: 'btn btn-default', role: 'button' %>
     </div>
   </div>
 <% end %>

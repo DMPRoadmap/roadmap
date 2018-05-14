@@ -4,10 +4,10 @@
     <div class="panel-group" id="sections_accordion" role="tablist">
       <% sections.each do |section| %>
         <div class="panel panel-default">
-          <% if template.customization_of.present? || !modifiable %> 
-            <% href = org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
-          <% else %> 
+          <% if section.modifiable? && template.latest? %> 
             <% href = edit_org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
+          <% else %> 
+            <% href = org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
           <% end %>
           <a
             href="<%= href %>"
@@ -37,7 +37,8 @@
              <div class="panel-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
               <%# This is AJAX loaded on demand unless section_id is specified in the URL %>
               <% if current_section.present? && section.id == current_section.id %>
-                <%= render partial: 'org_admin/sections/edit', 
+                <% partial = "org_admin/sections/#{section.modifiable? ? 'edit' : 'show'}" %>
+                <%= render partial: partial, 
                       locals: { 
                         template: template, 
                         phase: phase, 

@@ -2,7 +2,6 @@
 <% questions = section.questions.order('number') %>
 <% if questions.present? %>
   <% questions.each do |question| %>
-    <hr />
     <% target = "org_admin/questions/#{editing ? 'edit' : 'show'}" %>
     <div class="question_<%= editing ? 'edit' : 'show' %>" 
          id="<%= "question_#{editing ? 'edit' : 'show'}#{question.id}" %>">

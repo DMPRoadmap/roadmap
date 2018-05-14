@@ -115,6 +115,11 @@ class Template < ActiveRecord::Base
     return !self.published && Template.published(self.family_id).length > 0
   end
 
+  def removable?
+    versions = Template.includes(:plans).where(family_id: self.family_id)
+    return versions.select{|version| version.plans.length > 0 }.empty?
+  end
+
   # Returns a new unpublished copy of self with a new family_id, version = zero for the specified org
   def generate_copy!(org)
     raise _('generate_copy! requires an organisation target') unless org.is_a?(Org) # Assume customizing_org is persisted
