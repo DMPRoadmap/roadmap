@@ -29,46 +29,21 @@ class NotificationTest < ActiveSupport::TestCase
     end
   end
 
-  # Active notification (has started and not expired)
-  test 'active notification' do
-    n = notifications(:notification_1)
-
-    # Not logged in, dismissable Notification
-    User.current = nil
-    n.update(dismissable: true)
-    assert_not(n.active?)
-
-    # Not logged in, undismissable Notification
-    n.update(dismissable: false)
-    assert(n.active?)
-
-    # Logged in, undismissable Notification
-    User.current = users(:super_admin)
-    assert(n.active?)
-
-    # Logged in, dismissable Notification
-    n.update(dismissable: true)
-    assert(n.active?)
-  end
-
   # Inactive notification (has not started)
-  test 'inactive notification' do
-    assert_not(notifications(:inactive).active?)
+  test 'active notification' do
+    assert_includes(Notification.active, notifications(:notification_1))
+    assert_not_includes(Notification.active, notifications(:inactive))
   end
 
   # Un-dismissability
-  test 'not undismissable' do
-    User.current = users(:super_admin)
-
-    assert_not(notifications(:not_dismissable).acknowledge)
-    assert_not(notifications(:not_dismissable).acknowledged?)
+  test 'not dismissable' do
+    assert_not(users(:super_admin).acknowledge(notifications(:not_dismissable)))
+    assert_not(notifications(:not_dismissable).acknowledged?(users(:super_admin)))
   end
 
   # Dismissability/Acknowledgement
   test 'acknowledgement' do
-    User.current = users(:super_admin)
-
-    assert(notifications(:notification_1).acknowledge)
-    assert(notifications(:notification_1).acknowledged?)
+    assert(users(:super_admin).acknowledge(notifications(:notification_1)))
+    assert(notifications(:notification_1).acknowledged?(users(:super_admin)))
   end
 end

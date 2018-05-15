@@ -7,6 +7,15 @@ module SuperAdmin
     setup do
       sign_in users(:super_admin)
       @notification = notifications(:notification_1)
+      @notification_attributes = {
+        notification_type: @notification.notification_type,
+        title: @notification.title,
+        level: @notification.level,
+        body: @notification.body,
+        dismissable: @notification.dismissable,
+        starts_at: @notification.starts_at,
+        expires_at: @notification.expires_at
+      }
     end
 
     test 'should get index' do
@@ -22,15 +31,7 @@ module SuperAdmin
 
     test 'should create notification' do
       assert_difference('Notification.count') do
-        post :create, notification: {
-          notification_type_id: @notification.notification_type_id,
-          title: @notification.title,
-          level: @notification.level,
-          body: @notification.body,
-          dismissable: @notification.dismissable,
-          starts_at: @notification.starts_at,
-          expires_at: @notification.expires_at
-        }
+        post :create, notification: @notification_attributes
       end
 
       assert_redirected_to super_admin_notifications_url
@@ -43,15 +44,7 @@ module SuperAdmin
     end
 
     test 'should update notification' do
-      patch :update, id: @notification, notification: {
-        notification_type_id: @notification.notification_type_id,
-        title: @notification.title,
-        level: @notification.level,
-        body: @notification.body,
-        dismissable: @notification.dismissable,
-        starts_at: @notification.starts_at,
-        expires_at: @notification.expires_at
-      }
+      patch :update, id: @notification, notification: @notification_attributes
       assert_redirected_to super_admin_notifications_url
     end
 
@@ -64,7 +57,7 @@ module SuperAdmin
     end
 
     test 'unauthorized redirections' do
-      sign_in users(:normal_user)
+      sign_in users(:unprivileged_user)
 
       get :index
       assert_redirected_to(plans_url)
@@ -72,29 +65,13 @@ module SuperAdmin
       get :new
       assert_redirected_to(plans_url)
 
-      post :create, notification: {
-        notification_type_id: @notification.notification_type_id,
-        title: @notification.title,
-        level: @notification.level,
-        body: @notification.body,
-        dismissable: @notification.dismissable,
-        starts_at: @notification.starts_at,
-        expires_at: @notification.expires_at
-      }
+      post :create, notification: @notification_attributes
       assert_redirected_to(plans_url)
 
       get :edit, id: @notification
       assert_redirected_to(plans_url)
 
-      patch :update, id: @notification, notification: {
-        notification_type_id: @notification.notification_type_id,
-        title: @notification.title,
-        level: @notification.level,
-        body: @notification.body,
-        dismissable: @notification.dismissable,
-        starts_at: @notification.starts_at,
-        expires_at: @notification.expires_at
-      }
+      patch :update, id: @notification, notification: @notification_attributes
       assert_redirected_to(plans_url)
 
       delete :destroy, id: @notification

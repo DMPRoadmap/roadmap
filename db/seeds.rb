@@ -821,7 +821,3 @@ answers = [
 ]
 answers.map{ |a| Answer.create!(a) if Answer.where(plan: a[:plan], user: a[:user], question: a[:question]).empty? }
 =end
-
-# Default Notifications types
-# -------------------------------------------------------
-NotificationType.create(name: 'global')
