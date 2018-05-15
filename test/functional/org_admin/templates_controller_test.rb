@@ -156,15 +156,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_nil flash[:alert]
   end
 
-  test "cannot delete a historical version on template#delete" do
-    sign_in @org_admin
-    version = @org_template.generate_version!
-    delete org_admin_template_path(@org_template)
-    assert_response :redirect
-    assert_redirected_to org_admin_templates_path
-    assert_not_nil flash[:alert]
-  end
-
   test "unauthorized user cannot create a template#create" do
     post org_admin_templates_path(@institution), {template: {title: ''}}
     assert_unauthorized_redirect_to_root_path
@@ -213,7 +204,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     sign_in @org_admin
     post customize_org_admin_template_path(@funder_template)
     assert_response :redirect
-    assert_redirected_to edit_org_admin_template_url(Template.latest_customized_version(@funder_template.family_id, @institution.id).first)
+    assert_redirected_to org_admin_template_url(Template.latest_customized_version(@funder_template.family_id, @institution.id).first)
   end
 
   test "unauthorized user cannot publish a template#publish" do
@@ -249,7 +240,6 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   test "authorized user can unpublish a template#unpublish" do
     sign_in @org_admin
     patch unpublish_org_admin_template_path(@org_template)
-    assert_equal _('Your template is no longer published. Users will not be able to create new DMPs for this template until you re-publish it'), flash[:notice]
     assert_response :redirect
     assert_redirected_to org_admin_templates_path
   end

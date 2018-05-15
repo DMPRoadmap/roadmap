@@ -17,7 +17,7 @@ module OrgAdmin
           partial_path: 'show',
           template: phase.template,
           phase: phase,
-          sections: phase.sections.order(:number).select(:id, :title),
+          sections: phase.sections.order(:number).select(:id, :title, :modifiable),
           current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
         })
     end
@@ -35,8 +35,7 @@ module OrgAdmin
           partial_path: 'edit',
           template: phase.template,
           phase: phase,
-          sections: phase.sections.order(:number).select(:id, :title),
-          edit: phase.template.latest? && phase.template.org == current_user.org || template.customization_of.present?,
+          sections: phase.sections.order(:number).select(:id, :title, :modifiable),
           current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
         })
     end
@@ -49,8 +48,7 @@ module OrgAdmin
       render('/org_admin/phases/preview', 
         locals: {
           template: phase.template,
-          phase: phase,
-          current_tab: params[:r] || 'all-templates'
+          phase: phase
         })
     end
 
@@ -69,15 +67,13 @@ module OrgAdmin
           locals: {
             partial_path: 'new',
             template: template,
-            referrer: request.referrer.present? ? request.referrer : org_admin_templates_path,
-            edit: true,
-            current_tab: params[:r] || 'all-templates'
+            referrer: request.referrer.present? ? request.referrer : org_admin_templates_path
           })
       else
         render org_admin_templates_path, alert: _('You canot add a phase to a historical version of a template.')
       end
     end
-
+        
     #create a phase
     # POST /org_admin/phases
     def create
@@ -86,11 +82,7 @@ module OrgAdmin
       authorize phase
       begin
         phase = get_new(phase)
-
-# TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
-        phase.description = params["phase-desc"]
         phase.modifiable = true
-        
         if phase.save!
           flash[:notice] = success_message(_('phase'), _('created'))
         else
@@ -99,14 +91,12 @@ module OrgAdmin
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      
       if flash[:alert].present?
         redirect_to edit_org_admin_template_path(id: phase.template_id)
       else
         redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id)
       end
     end
-
 
     #update a phase of a template
     # PUT /org_admin/phases/[:id]
@@ -115,10 +105,6 @@ module OrgAdmin
       authorize phase
       begin
         phase = get_modifiable(phase)
-      
-    # TODO: update this so that the description comes through as part of the normal form attributes [:phase][:description]
-        phase.description = params["phase-desc"]
-
         if phase.update!(phase_params)
           flash[:notice] = success_message(_('phase'), _('updated'))
         else
@@ -137,7 +123,6 @@ module OrgAdmin
       authorize phase
       begin
         phase = get_modifiable(phase)
-      
         template = phase.template
         if phase.destroy!
           flash[:notice] = success_message(_('phase'), _('deleted'))
@@ -157,7 +142,7 @@ module OrgAdmin
 
     private
       def phase_params
-        params.require(:phase).permit(:title, :description, :number, :template_id)
+        params.require(:phase).permit(:title, :description, :number)
       end
   end
 end
