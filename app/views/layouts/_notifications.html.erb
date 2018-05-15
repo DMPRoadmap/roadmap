@@ -1,0 +1,14 @@
+<% notifications.each do |a| %>
+  <% unless a.acknowledged?(current_user) %>
+    <div class="alert alert-<%= a.level %>">
+      <span class="fa <%= fa_classes(a) %>"></span>
+      <span class="aria-only"><strong><%= "#{a.level.capitalize}:" %></strong></span>
+      <span><%= raw a.body %></span>
+      <% if a.dismissable? %>
+        <button class="close" data-dismiss="alert" data-url="<%= user_acknowledge_notification_url(a) %>" data-remote="true" data-method="post" data-params="notification_id=<%= a.id %>" aria-label="Close">
+          <span class="fa fa-times-circle" aria-hidden="true"></span>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

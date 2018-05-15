@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Look for template overrides before rendering
   before_filter :prepend_view_paths
 
+
   include GlobalHelpers
   include Pundit
   helper_method GlobalHelpers.instance_methods
@@ -85,11 +86,11 @@ class ApplicationController < ActionController::Base
   def failed_update_error(obj, obj_name)
     "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
-  
+
   def failed_destroy_error(obj, obj_name)
     "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
   end
-  
+
   def success_message(obj_name, action)
     "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
   end
@@ -108,7 +109,7 @@ class ApplicationController < ActionController::Base
 
   private
     # Override rails default render action to look for a branded version of a
-    # template instead of using the default one. If no override exists, the 
+    # template instead of using the default one. If no override exists, the
     # default version in ./app/views/[:controller]/[:action] will be used
     #
     # The path in the app/views/branded/ directory must match the the file it is
@@ -117,7 +118,7 @@ class ApplicationController < ActionController::Base
     def prepend_view_paths
       prepend_view_path "app/views/branded"
     end
-    
+
     def errors_to_s(obj)
       if obj.errors.count > 0
         msg = "<br />"
@@ -126,7 +127,7 @@ class ApplicationController < ActionController::Base
             msg += "#{_(e)} - #{_(m)}<br />"
           else
             msg += "'#{obj[e]}' - #{_(m)}<br />"
-          end 
+          end
         end
         msg
       end
