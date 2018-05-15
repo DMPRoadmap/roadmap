@@ -2,6 +2,5 @@
   <h1><%= _('Welcome.')%></h1>
   <p>
       <%= raw _('<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {:application_name => Rails.configuration.branding[:application][:name], :organisation_name => Rails.configuration.branding[:organisation][:name]} %>
-      <label for="linklist"><%=_('Getting started:')%></label>
   </p>
 </div>
