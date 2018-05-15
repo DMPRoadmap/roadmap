@@ -11,7 +11,7 @@
     <%= _('Hello %{user_email}') %{ :user_email => @resource.email } %>
   </p>
   <p>
-  <%= _('%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}') %{ 
+  <%= d_('dmpopidor', '%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}') %{ 
     :sender_name => sender_name,
     :tool_name => tool_name
      }%>

@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, 
-           subject: _('%{user_name} has shared a Data Management Plan with you in %{tool_name}') %{ 
+           subject: d_('dmpopidor', '%{user_name} has shared a Data Management Plan with you in %{tool_name}') %{ 
              :user_name => @user.invited_by.name(false),
              :tool_name => Rails.configuration.branding[:application][:name]
             })

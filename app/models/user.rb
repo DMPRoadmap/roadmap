@@ -281,7 +281,7 @@ class User < ActiveRecord::Base
   # Override devise_invitable email title
   # --------------------------------------------------------------
   def deliver_invitation(options = {})
-    super(options.merge(subject: _('%{user_name} has shared a Data Management Plan with you in %{tool_name}') % {
+    super(options.merge(subject: d_('dmpopidor', '%{user_name} has shared a Data Management Plan with you in %{tool_name}') % {
       user_name: self.invited_by.name(false),
       tool_name: Rails.configuration.branding[:application][:name]
       }))
