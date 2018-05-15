@@ -267,7 +267,8 @@ class PlansController < ApplicationController
                  center:    _('Created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
                  font_size: 8,
                  spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-                 right:     '[page] of [topage]'
+                 right:     '[page] of [topage]',
+                 encoding: 'utf8'
                }
       end
     end

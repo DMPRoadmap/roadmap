@@ -50,3 +50,10 @@ msgstr ""
 
 msgid "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
 msgstr ""
+
+msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
+msgstr ""
+
+msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr ""
+
