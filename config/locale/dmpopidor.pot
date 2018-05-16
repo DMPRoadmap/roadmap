@@ -57,3 +57,6 @@ msgstr ""
 msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr ""
 
+msgid "Tutorials"
+msgstr ""
+

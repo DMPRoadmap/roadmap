@@ -53,3 +53,6 @@ msgstr "%{user_name} a partagé un plan de gestion de données avec vous sur %{t
 
 msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr "%{sender_name} vous a invité à contribuer à son plan de gestion de données sur %{tool_name}"
+
+msgid "Tutorials"
+msgstr "Tutoriels"
