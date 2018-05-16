@@ -14,7 +14,7 @@
         <tr>
           <td>
             <%= template.title%>
-            <% if current == template.version %>
+            <% if template.draft? && template.latest? %>
               &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
             <% end %>
           </td>
