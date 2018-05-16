@@ -1,6 +1,6 @@
 <%
   tool_name = Rails.configuration.branding[:application][:name]
-  username = @user.name
+  username = @role.user.name(false)
   plan_title = @role.plan.title
   access = nil
   access_level = @role.access_level()

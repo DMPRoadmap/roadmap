@@ -1,7 +1,7 @@
 <%
   tool_name = Rails.configuration.branding[:application][:name]
-  sender_name = @user.invited_by.name(false)
-  user_email = @user.email
+  sender_name = @user.invited_by ? @user.invited_by.name(false) : "A collegue"
+  user_email = @user.name(false)
   link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
