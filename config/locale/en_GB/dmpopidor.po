@@ -57,3 +57,6 @@ msgstr "%{sender_name} has invited you to contribute to their Data Management Pl
 
 msgid "Tutorials"
 msgstr "Tutorials"
+
+msgid "Select an answer"
+msgstr "Select an answer"

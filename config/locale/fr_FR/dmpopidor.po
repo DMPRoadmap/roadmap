@@ -56,3 +56,6 @@ msgstr "%{sender_name} vous a invité à contribuer à son plan de gestion de do
 
 msgid "Tutorials"
 msgstr "Tutoriels"
+
+msgid "Select an answer"
+msgstr "Sélectionnez une réponse"

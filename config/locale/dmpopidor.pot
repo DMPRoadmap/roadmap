@@ -60,3 +60,6 @@ msgstr ""
 msgid "Tutorials"
 msgstr ""
 
+msgid "Select an answer"
+msgstr ""
+
