@@ -18,7 +18,7 @@
       <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
     </li>
   <% end %>
-  <% if !plan.reviewable_by?(current_user.id) %>
+  <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
     </li>
