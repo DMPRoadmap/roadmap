@@ -237,7 +237,7 @@ class Template < ActiveRecord::Base
       self.archived ||= false
       self.is_default ||= false
       self.version ||= 0
-      self.visibility = ((self.org.present? && self.org.funder_only?) || self.is_default?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
+      self.visibility = ((self.org.present? && self.org.funder_only?) || self.is_default?) ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible] unless self.id.present?
       self.customization_of ||= nil
       self.family_id ||= new_family_id
       self.archived ||= false
