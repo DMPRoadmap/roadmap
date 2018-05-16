@@ -17,13 +17,13 @@
 	<%= t('help_page.title')%>
 </h1>
 
-<div id="project-tabs" class="nav-project-tabs">
+<div id="project-tabs" class="nav-project-tabs static_page_content">
 	<ul class="nav nav-tabs" data-tabs="tabs">
 		<li class="active"><%= link_to t('help_page.tab_1'), "#ToolHelp", :data => { :toggle => "tab"} %></li>
         <li><%= link_to t('help_page.tab_2'), "#PlanningHelp", :data => { :toggle => "tab"} %></li>
 	</ul>
 </div>
-<div class="dmp_details_body">
+<div class="dmp_details_body static_page_content">
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="ToolHelp">
 			<%= raw t('help_page.body_text_tab_1_html')%>
