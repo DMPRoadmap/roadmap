@@ -29,15 +29,20 @@ module OrgAdmin
       if !phase.template.latest?
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
-      section = params.fetch(:section, nil)
-      render('container',
-        locals: { 
-          partial_path: 'edit',
-          template: phase.template,
-          phase: phase,
-          sections: phase.sections.order(:number).select(:id, :title, :modifiable),
-          current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
-        })
+      # User cannot edit a phase if its a customization so redirect to show
+      if phase.template.customization_of.present?
+        redirect_to org_admin_template_phase_path(template_id: phase.template, id: phase.id)
+      else
+        section = params.fetch(:section, nil)
+        render('container',
+          locals: { 
+            partial_path: 'edit',
+            template: phase.template,
+            phase: phase,
+            sections: phase.sections.order(:number).select(:id, :title, :modifiable),
+            current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
+          })
+      end
     end
 
     #preview a phase

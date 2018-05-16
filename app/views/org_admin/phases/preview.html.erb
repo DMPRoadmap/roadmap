@@ -4,7 +4,15 @@
     <h1><%= template.title %></h1>
     <div class="pull-right">
       <ul class="list-inline">
-        <li><%= link_to _('Back to edit phase'), edit_org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+        <% if template.latest? %>
+          <% if template.customization_of.present? %>
+            <li><%= link_to _('Back to customise phase'), org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+          <% else %>
+            <li><%= link_to _('Back to edit phase'), edit_org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to _('Back to phase'), org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+        <% end %>
       </ul>
     </div>
   </div>
