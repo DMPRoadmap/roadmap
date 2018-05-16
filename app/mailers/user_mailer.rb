@@ -11,13 +11,14 @@ class UserMailer < ActionMailer::Base
     end
   end
   
-  def sharing_notification(role, user)
+  def sharing_notification(role, user, current_user)
     @role = role
     @user = user
+    @current_user = current_user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, 
            subject: d_('dmpopidor', '%{user_name} has shared a Data Management Plan with you in %{tool_name}') %{ 
-             :user_name => @user.invited_by ? @user.invited_by.name(false) : "A collegue",
+             :user_name => current_user.name(false),
              :tool_name => Rails.configuration.branding[:application][:name]
             })
     end

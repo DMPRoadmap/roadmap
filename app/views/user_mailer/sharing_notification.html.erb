@@ -1,6 +1,6 @@
 <%
   tool_name = Rails.configuration.branding[:application][:name]
-  sender_name = @user.invited_by ? @user.invited_by.name(false) : "A collegue"
+  sender_name = @current_user.name(false)
   user_email = @user.name(false)
   link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
 %>
