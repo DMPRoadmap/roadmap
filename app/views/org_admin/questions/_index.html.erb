@@ -2,25 +2,21 @@
 <% questions = section.questions.order('number') %>
 <% if questions.present? %>
   <% questions.each do |question| %>
-    <% target = "org_admin/questions/#{editing ? 'edit' : 'show'}" %>
-    <div class="question_<%= editing ? 'edit' : 'show' %>" 
-         id="<%= "question_#{editing ? 'edit' : 'show'}#{question.id}" %>">
-      <%= render partial: target, locals: { template: template, section: question.section, question: question } %>
-    </div>
+    <%= render partial: 'org_admin/questions/container', 
+               locals: local_assigns.merge({ question: question }) %>
     <% if questions.last.id != question.id %>
       <hr />
     <% end %>
   <% end %>
 <% end %>
-<% if editing %>
+<% if template.latest? && section.modifiable? %>
   <div class="row">
-      <div class="col-md-12">
-        <div class="pull-right">
-          <%= link_to(_('Add Question'), '#', { class: 'btn btn-default question_new_link', role: "button" }) %>
-        </div>
-        <div class="question_new" style="display: none;">
-          <%= render partial: 'org_admin/questions/new', locals: { template: template, section: section } %>
-        </div>
+    <div class="col-md-12">
+      <h4 style="display: none"><%= _('New Question') %></h4>
+      <div class="pull-right">
+        <%= link_to(_('Add Question'), new_org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id), { class: 'btn btn-default question_new_link', role: "button" }) %>
       </div>
     </div>
+    <div class="col-md-12 question_new"></div>
+  </div>
 <% end %>

@@ -276,7 +276,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           end
           
           resources :sections, only: [:index, :show, :edit, :update, :create, :destroy] do
-            resources :questions, only: [:index, :show, :edit, :new, :update, :create, :destroy] do
+            resources :questions, only: [:show, :edit, :new, :update, :create, :destroy] do
             end
           end
         end

@@ -5,6 +5,42 @@ module OrgAdmin
     respond_to :html
     after_action :verify_authorized
 
+    # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/question/[:id]
+    def show
+      question = Question.includes(:annotations, :question_options, section: { phase: :template }).find(params[:id])
+      authorize question
+      render partial: 'show', locals: { 
+        template: question.section.phase.template, 
+        section: question.section,
+        question: question 
+      }
+    end
+    
+    # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/question/[:id]/edit
+    def edit
+      question = Question.includes(:annotations, :question_options, section: { phase: :template }).find(params[:id])
+      authorize question
+      render partial: 'edit', locals: { 
+        template: question.section.phase.template, 
+        section: question.section,
+        question: question 
+      }
+    end
+    
+    # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions/new
+    def new
+      section = Section.includes(phase: :template).find(params[:section_id])
+      question = Question.new({ section_id: section.id, question_format: QuestionFormat.find_by(title: 'Text area') })
+      authorize question
+      render partial: 'form', locals: { 
+        template: section.phase.template, 
+        section: section,
+        question: question,
+        method: 'post',
+        url: org_admin_template_phase_section_questions_path(template_id: section.phase.template.id, phase_id: section.phase.id, id: section.id)
+      }
+    end
+
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions
     def create
       question = Question.new(question_params.merge({ section_id: params[:section_id] }))

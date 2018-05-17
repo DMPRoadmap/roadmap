@@ -4,13 +4,8 @@
     <div class="panel-group" id="sections_accordion" role="tablist">
       <% sections.each do |section| %>
         <div class="panel panel-default">
-          <% if section.modifiable? && template.latest? %> 
-            <% href = edit_org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
-          <% else %> 
-            <% href = org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>
-          <% end %>
           <a
-            href="<%= href %>"
+            href="<%= org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>"
             data-remote="true"
             class="heading-button"
             data-toggle="collapse"
@@ -38,7 +33,7 @@
               <%# This is AJAX loaded on demand unless section_id is specified in the URL %>
               <% if current_section.present? && section.id == current_section.id %>
                 <% partial = "org_admin/sections/#{section.modifiable? ? 'edit' : 'show'}" %>
-                <%= render partial: partial, 
+                <%= render partial: "#{partial}", 
                       locals: { 
                         template: template, 
                         phase: phase, 
@@ -51,34 +46,34 @@
       <% end %>
     </div>
     <% if modifiable || template.customization_of.present? %>
-<div class="panel panel-default">
-  <a href="#new_section" class="heading-button" 
-     data-toggle="collapse" data-parent="sections-accordion" 
-    data-target="#collapseSectionNew"
-    aria-expanded="false" 
-    aria-controls="#collapseSectionNew">
+      <div class="panel panel-default">
+        <a href="#new_section" class="heading-button" 
+           data-toggle="collapse" data-parent="sections-accordion" 
+           data-target="#collapseSectionNew"
+           aria-expanded="false" 
+           aria-controls="#collapseSectionNew">
 
-    <div class="panel-heading" role="tab" id="<%= "headingSectionNew" %>">
-      <div class="panel-title pull-left">
-        <%= _('Add a new section') %>
+          <div class="panel-heading" role="tab" id="<%= "headingSectionNew" %>">
+            <div class="panel-title pull-left">
+              <%= _('Add a new section') %>
+            </div>
+            <div class="pull-right">
+              <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </a>
+        <div
+          id="collapseSectionNew" class="panel-collapse collapse" role="tabpanel"
+          aria-labelledby="<%= "headingSectionNew" %>">
+           <div class="panel-body">
+             <%= render partial: 'org_admin/sections/new', 
+                        locals: { 
+                          template: template, 
+                          phase: phase } %>
+           </div>
+        </div>
       </div>
-      <div class="pull-right">
-        <i class="fa fa-plus pull-right" aria-hidden="true"></i>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-  </a>
-  <div
-    id="collapseSectionNew" class="panel-collapse collapse" role="tabpanel"
-    aria-labelledby="<%= "headingSectionNew" %>">
-     <div class="panel-body">
-       <%= render partial: 'org_admin/sections/new', 
-                  locals: { 
-                    template: template, 
-                    phase: phase } %>
-     </div>
-  </div>
-</div>
     <% end %>
   </div>
 </div>
