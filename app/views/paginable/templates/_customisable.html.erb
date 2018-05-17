@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <% scope.each do |template| %>
-      <% customization = customizations.present? ? customizations.select{ |customization| customization.customization_of == template.family_id }.first : nil %>
+      <% customization = customizations.find{ |customization| customization.customization_of == template.family_id } %>
       <tr>
         <td>
           <%= "#{template.is_default ? '* ' : ''}#{template.title}" %>
