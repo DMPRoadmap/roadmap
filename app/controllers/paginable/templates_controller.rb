@@ -13,7 +13,7 @@ class Paginable::TemplatesController < ApplicationController
     else
       templates = Template.latest_version
     end
-    paginable_renderise partial: 'index', scope: templates, locals: { action: 'index' }
+    paginable_renderise partial: 'index', scope: templates.includes(:org), locals: { action: 'index' }
   end
   
   # GET /paginable/templates/organisational/:page  (AJAX)
@@ -37,14 +37,14 @@ class Paginable::TemplatesController < ApplicationController
     authorize Template
     customizations = Template.latest_customized_version_per_org(current_user.org.id)
     case params[:f]
-    when 'customised'
-      templates = Template.latest_customizable.where(family_id: customizations.collect(&:customization_of))
-    when 'not-customised'
-      templates = Template.latest_customizable.where.not(family_id: customizations.collect(&:customization_of))
-    else
-      templates = Template.latest_customizable
+      when 'customised'
+        templates = Template.latest_customizable.where(family_id: customizations.collect(&:customization_of))
+      when 'not-customised'
+        templates = Template.latest_customizable.where.not(family_id: customizations.collect(&:customization_of))
+      else
+        templates = Template.latest_customizable
     end
-    paginable_renderise partial: 'customisable', scope: templates, locals: { action: 'customisable', customizations: customizations }
+    paginable_renderise partial: 'customisable', scope: templates.includes(:org), locals: { action: 'customisable', customizations: customizations }
   end
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
