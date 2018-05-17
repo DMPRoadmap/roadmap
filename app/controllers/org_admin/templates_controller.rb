@@ -14,7 +14,7 @@ module OrgAdmin
       render 'index', locals: { 
         orgs: Org.all,
         title: _('All Templates'),
-        templates: templates,
+        templates: templates.includes(:org),
         action: 'index',
         query_params: { sort_field: :title, sort_direction: :asc },
         all_count: templates.length,
@@ -49,7 +49,7 @@ module OrgAdmin
     def customisable
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id).where(org_id: current_user.org.id)
-      funder_templates = Template.latest_customizable
+      funder_templates = Template.latest_customizable.includes(:org)
       # We use this to validate the counts below in the event that a template was customized but the base template
       # org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
