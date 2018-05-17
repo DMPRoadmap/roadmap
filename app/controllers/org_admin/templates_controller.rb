@@ -284,7 +284,7 @@ module OrgAdmin
       if org_id.present? || funder_id.present?
         unless funder_id.blank?
           # Load the funder's template(s) minus the default template (that gets swapped in below if NO other templates are available)
-          templates = Template.latest_customizable.select{ |t| !t.is_default? }
+          templates = Template.latest_customizable.where(org_id: funder_id).select{ |t| !t.is_default? }
           unless org_id.blank?
             # Swap out any organisational cusotmizations of a funder template
             templates = templates.map do |tmplt|
@@ -315,6 +315,7 @@ module OrgAdmin
           templates << (customization.present? ? customization : default)
         end
       end
+      
       templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
       render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
     end

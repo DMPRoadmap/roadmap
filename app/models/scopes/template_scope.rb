@@ -74,7 +74,7 @@ module TemplateScope
     # Retrieves the latest version of each customizable funder template (and the default template)
     scope :latest_customizable, -> {
       family_ids = families(Org.funder.collect(&:id)).distinct.pluck(:family_id) << default.family_id
-      published(family_ids.flatten)
+      published(family_ids.flatten).where('visibility = ? OR is_default = ?', visibilities[:publicly_visible], true)
     }    
     # Retrieves unarchived templates with public visibility
     scope :publicly_visible, -> { unarchived.where(:visibility => visibilities[:publicly_visible]) }
