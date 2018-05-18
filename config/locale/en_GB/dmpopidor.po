@@ -60,3 +60,12 @@ msgstr "Tutorials"
 
 msgid "Select an answer"
 msgstr "Select an answer"
+
+msgid "Private: visible to me and specified collaborators"
+msgstr "Private: visible to me and specified collaborators"
+
+msgid "Administrator: visible to me, specified collaborators and administrators at my organisation"
+msgstr "Administrator: visible to me, specified collaborators and administrators at my organisation"
+
+msgid "Administrator"
+msgstr "Administrator"

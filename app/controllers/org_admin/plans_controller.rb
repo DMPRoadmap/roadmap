@@ -7,7 +7,7 @@ module OrgAdmin
       
       vals = Role.access_values_for(:reviewer)
       @feedback_plans = Plan.joins(:roles).where('roles.user_id = ? and roles.access IN (?)', current_user.id, vals)
-      @plans = current_user.org.plans
+      @plans = current_user.org.plans.where.not(:visibility => 4)
     end
     
     # GET org_admin/plans/:id/feedback_complete
