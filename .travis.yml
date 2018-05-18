@@ -1,19 +1,36 @@
-language: ruby
-rvm:
-  - 2.2.2
-before_install: 
-  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs
-before_script:
-  - cd lib/assets && npm install && npm run bundle -- -p && cd -
-  - cp config/database_example.yml config/database.yml
-  - cp config/secrets_example.yml config/secrets.yml
-  - cp config/branding_example.yml config/branding.yml
-  - cp config/initializers/devise.rb.example config/initializers/devise.rb
-  - cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
-  - cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-  - bundle exec rake db:drop RAILS_ENV=test
-  - bundle exec rake db:create RAILS_ENV=test
-  - bundle exec rake db:schema:load RAILS_ENV=test
+matrix:
+  include:
+    - language: bash
+      services: docker
+      install:
+        - git clone https://github.com/docker-library/official-images.git ~/official-images
 
-script:
-  - bundle exec rake test
+      before_script:
+        - image="ualbertalib/dmp_roadmap:latest"
+
+      script:
+        - docker build -t "$image" .
+        - ~/official-images/test/run.sh "$image"
+
+      after_script:
+        - docker images
+
+    - language: ruby
+      rvm: 2.2.2
+
+      before_install:
+        - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs
+      before_script:
+        - cd lib/assets && npm install && npm run bundle -- -p && cd -
+        - cp config/database_example.yml config/database.yml
+        - cp config/secrets_example.yml config/secrets.yml
+        - cp config/branding_example.yml config/branding.yml
+        - cp config/initializers/devise.rb.example config/initializers/devise.rb
+        - cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+        - cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+        - bundle exec rake db:drop RAILS_ENV=test
+        - bundle exec rake db:create RAILS_ENV=test
+        - bundle exec rake db:schema:load RAILS_ENV=test
+
+      script:
+        - bundle exec rake test

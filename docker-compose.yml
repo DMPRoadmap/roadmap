@@ -1,0 +1,29 @@
+version: '3'
+
+volumes:
+  db:
+
+services:
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: thisisasecret
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    volumes:
+      - db:/var/lib/mysql
+
+  web:
+    image: ualbertalib/dmp_roadmap:master
+    restart: always
+    environment:
+      DATABASE_URL: 'mysql2://root:thisisasecret@db/roadmap'
+      RAILS_ENV: development
+    command: bash -c 'rm -f tmp/pids/server.pid && rails s -p 3001 -b "0.0.0.0"'
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+    ports:
+      - 3001:3001
