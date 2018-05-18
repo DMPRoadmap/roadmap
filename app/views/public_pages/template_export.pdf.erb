@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>
+      <%= @template.title %>
+    </title>
+    <style>
+      html {
+        font-family: <%= @formatting[:font_face].tr('"', '') -%>; 
+        font-size: <%= @formatting[:font_size] -%>pt; 
+        margin: <%= @formatting[:margin][:top] %>px <%= @formatting[:margin][:right] %>px <%= @formatting[:margin][:bottom] %>px <%= @formatting[:margin][:left] %>px; */
+      }
+      h1 {
+        font-size: <%= @formatting[:font_size] + 3 -%>pt; 
+        font-face:bold; 
+        padding: 0;
+      }
+      h2 {
+        font-size: <%= @formatting[:font_size] + 2 -%>pt; 
+        font-face:bold; 
+        padding: 0; 
+        margin: 1em 0 0 0;
+      }
+      h3 {
+        font-size: <%= @formatting[:font_size] + 1 -%>pt; 
+        font-face:bold; 
+        padding: 0; 
+        margin: 1em 0 0 0;
+      }
+      h2 + div.question > h3 {
+        margin: 0; 
+      }
+      table, tr, td, th, tbody, thead, tfoot {
+        page-break-inside: avoid !important; 
+      }
+      table { 
+        border-collapse: collapse; 
+      }
+      th, td { 
+        border: 1px solid black !important; 
+        padding: 2px;
+      }
+      p { 
+        margin: 0.25em 0;
+      }
+      .question {
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+      .question:first-child {
+        margin-top: 0;
+      }
+      .annotations {
+        margin-left: 15px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <% @template.phases.each do |phase| %>
+      <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
+      <h1><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h1>
+      <% phase.sections.each do |section| %>
+        <h2><%= section.title %></h2>
+        <% section.questions.each do |question| %>
+        <div class="question">
+          <p><%= raw question.text.chomp.strip %></p>
+          <% q_format = question.question_format %>
+          <% if q_format.option_based? %>
+            <ul>
+            <% question.question_options.each do |option| %>
+              <li><%= option.text.chomp.strip %></li>
+            <% end %>
+            </ul>
+          <% end %>
+        </div>
+        <div class="annotations">
+          <% question.annotations.each do |annotation| %>
+            <% unless annotation.text.chomp.strip.gsub(/<\/?p>/, '').gsub(/<br\s?\/>/, '').blank? %>
+              <p><i><%= annotation.type == 'example_answer' ? _('Example Answer') : _('Guidance') %></i>:</p>
+              <div style="margin-left: 15px;"><%= raw annotation.text.chomp.strip %></div>
+            <% end %>
+          <% end %>
+        </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </body>
+</html>

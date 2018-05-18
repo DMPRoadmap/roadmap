@@ -27,9 +27,9 @@ class GuidanceGroupsController < ApplicationController
     end
 
     if @guidance_group.save
-      redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully created.')
+      redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('created'))
     else
-      flash[:notice] = failed_create_error(@guidance_group, _('guidance group'))
+      flash[:alert] = failed_create_error(@guidance_group, _('guidance group'))
       render 'admin_new'
     end
   end
@@ -50,14 +50,13 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.published = true unless params[:save_publish].nil?
 
     if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
+      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: success_message(_('guidance group'), _('saved'))
     else
-      flash[:notice] = failed_update_error(@guidance_group, _('guidance group'))
+      flash[:alert] = failed_update_error(@guidance_group, _('guidance group'))
       render 'admin_edit'
     end
   end
 
-# TODO: This does not have a route in config/routes.rb and is unreachable!
   # PUT /guidance_groups/1
   def admin_update_publish
     @guidance_group = GuidanceGroup.find(params[:id])
@@ -65,13 +64,22 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.org.id = current_user.org.id
     @guidance_group.published = true
 
-    if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: _('Guidance group was successfully updated.')
-    else
-      redirect_to admin_index_guidance_path(@guidance_group), notice: failed_update_error(@guidance_group, _('guidance group'))
-    end
+    @guidance_group.save
+    flash[:notice] = _('Your guidance group has been published and is now available to users.')
+    redirect_to admin_index_guidance_path
   end
 
+  # PUT /guidance_groups/1
+  def admin_update_unpublish
+    @guidance_group = GuidanceGroup.find(params[:id])
+    authorize @guidance_group
+    @guidance_group.org.id = current_user.org.id
+    @guidance_group.published = false
+
+    @guidance_group.save
+    flash[:notice] = _('Your guidance group is no longer published and will not be available to users.')
+    redirect_to admin_index_guidance_path
+  end
 
   # DELETE /guidance_groups/1
   # DELETE /guidance_groups/1.json
@@ -79,9 +87,9 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     if @guidance_group.destroy
-      redirect_to admin_index_guidance_path, notice: _('Guidance group was successfully deleted.')
+      redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('deleted'))
     else
-      redirect_to admin_index_guidance_path, notice: failed_destroy_error(@guidance_group, _('guidance group'))
+      redirect_to admin_index_guidance_path, alert: failed_destroy_error(@guidance_group, _('guidance group'))
     end
   end
 

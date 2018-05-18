@@ -165,17 +165,16 @@ token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermi
 orgs = [
   {name: Rails.configuration.branding[:organisation][:name],
    abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
-   banner_text: 'This is an example organisation',
-   org_type: 3,
+   org_type: 4, links: {"org":[]},
    language_id: Language.find_by(abbreviation: 'en_GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
    abbreviation: 'GA',
-   org_type: 2,
+   org_type: 2, links: {"org":[]},
    language: Language.find_by(abbreviation: 'en_GB')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
-   org_type: 1,
+   org_type: 1, links: {"org":[]},
    language: Language.find_by(abbreviation: 'en_GB')}
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
@@ -193,6 +192,7 @@ users = [
    language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.all,
    accept_terms: true,
+   api_token: 'abcd1234',
    confirmed_at: Time.zone.now},
   {email: "funder_admin@example.com",
    firstname: "Funder",
@@ -203,6 +203,7 @@ users = [
    language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
+   api_token: 'efgh5678',
    confirmed_at: Time.zone.now},
   {email: "org_admin@example.com",
    firstname: "Organisational",
@@ -213,6 +214,7 @@ users = [
    language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
+   api_token: 'ijkl9012',
    confirmed_at: Time.zone.now},
   {email: "org_user@example.com",
    firstname: "Organisational",
@@ -353,15 +355,19 @@ templates = [
    is_default: true,
    version: 0,
    migrated: false,
-   dmptemplate_id: 1},
+   dmptemplate_id: 1,
+   visibility: Template.visibilities[:publicly_visible],
+   links: {"funder":[],"sample_plan":[]}},
   
   {title: "OLD - Department of Testing Award",
-    published: false,
-    org: Org.find_by(abbreviation: 'GA'),
-    is_default: false,
-    version: 0,
-    migrated: false,
-   dmptemplate_id: 2},
+   published: false,
+   org: Org.find_by(abbreviation: 'GA'),
+   is_default: false,
+   version: 0,
+   migrated: false,
+   visibility: Template.visibilities[:organisationally_visible],
+   dmptemplate_id: 2,
+   links: {"funder":[],"sample_plan":[]}},
      
   {title: "Department of Testing Award",
    published: true,
@@ -369,7 +375,9 @@ templates = [
    is_default: false,
    version: 0,
    migrated: false,
-   dmptemplate_id: 3}
+   visibility: Template.visibilities[:organisationally_visible],
+   dmptemplate_id: 3,
+   links: {"funder":[],"sample_plan":[]}}
 ]
 # Template creation calls defaults handler which sets is_default and 
 # published to false automatically, so update them after creation
@@ -378,6 +386,7 @@ templates.map do |t|
     tmplt = Template.create!(t) 
     tmplt.published = t[:published]
     tmplt.is_default = t[:is_default]
+    tmplt.visibility = t[:visibility]
     tmplt.save!
   end
 end

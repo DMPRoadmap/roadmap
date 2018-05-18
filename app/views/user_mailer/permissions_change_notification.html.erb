@@ -1,18 +1,17 @@
-<% FastGettext.with_locale FastGettext.default_locale do %>
-<% 
-  access_level = "read-only"
-  permissions = "This means you can read the plan and leave comments."
-  if @role.editor?
-    access_level = "editor"
-    permissions = "This means you can write and edit the plan in a collaborative manner."
-  end
-  if @role.administrator?
-    access_level = "co-owner"
-    permissions = "This means you can write and edit the plan in a collaborative manner. You can also grant rights to other collaborators."
-  end
+<%
+  tool_name = Rails.configuration.branding[:application][:name]
+  username = @user.name
+  plan_title = @role.plan.title
+  access = nil
+  access_level = @role.access_level()
+  access_level_messages = Role.access_level_messages
 %>
-<p><%= _('Hello ') %><%= @role.user.name %>,</p>
-<p><%= _('Your permissions relating to ') %> "<%= link_to @role.plan.title, url_for(action: 'show', controller: 'plans', id: @role.plan.id, locale: FastGettext.default_locale) %>" <%= _(' have been changed by') %><%="#{@current_user.name(false)}. " %><%= _('You now have ') %><%= access_level %><%= _(' access. ') %><%= permissions %></p>
-<p><%=_('All the best,')%><br /><%= _('The ')%><%= Rails.configuration.branding[:application][:name] %><%=_(' team')%>.</p>
-
+<% FastGettext.with_locale FastGettext.default_locale do %>
+  <p>
+    <%= _('Hello %{username}') %{ :username => username } %>
+  </p>
+  <p>
+    <%= _('Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}') %{ :plan_title => plan_title, :type => access_level_messages[access_level][:type], :placeholder1 => access_level_messages[access_level][:placeholder1], :placeholder2 => access_level_messages[access_level][:placeholder2] } %>
+  </p>
+  <%= render partial: 'email_signature' %>
 <% end %>

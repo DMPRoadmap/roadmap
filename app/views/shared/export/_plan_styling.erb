@@ -1,0 +1,61 @@
+<style>
+  @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Helvetica' %>';
+
+  body {
+    font-family: @font-face;
+    font-size: <%= font_size %>;
+    margin: <%= margin %>;
+
+    h1 {
+      font-size: 1.5rem; 
+      font-face: bold; 
+      padding: 0;
+    }
+    h2 {
+      font-size: 1.3rem; 
+      font-face: bold; 
+      padding: 0; 
+      margin: 1em 0 0 0;
+    }
+    h3 {
+      font-size: 1.1rem; 
+      font-face: bold; 
+      padding: 0; 
+      margin: 1em 0 0 0;
+    }
+    h2 + div.question > h3 {
+      margin: 0; 
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+      page-break-inside: avoid !important; 
+    }
+    table { 
+      border-collapse: collapse; 
+    }
+    th, td { 
+      border: 1px solid black !important; 
+      padding: 2px;
+    }
+    p { 
+      margin: 0.25em 0;
+    }
+    .cover-page {
+      font-size: 1.1rem; 
+    }
+    .question {
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+    .question:first-child {
+      margin-top: 0;
+    }
+    .annotations {
+      margin-left: 15px;
+      margin-bottom: 10px;
+    }
+    hr.bottom {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+<% choices.each do |org, groups| %>
+  <% if groups && groups.size == 1 %>
+    <li class="checkbox">
+      <%= check_box_tag "guidance_group_ids[]", groups[0].id,
+                        current_selections.include?(groups[0].id), class: 'guidance-choice' %>
+      <%= org.name %>
+    </li>
+  <% elsif groups %>
+    <li class="checkbox">
+      <%= org.name %>
+      <ul>
+        <% groups.each do |group| %>
+          <li class="checkbox">
+            <span class="sublist">└─ </span>
+            <%= check_box_tag "guidance_group_ids[]", group.id,
+                              current_selections.include?(group.id), class: 'guidance-choice' %>
+            <%= group.name %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end%>
+<% end %>

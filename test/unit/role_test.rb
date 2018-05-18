@@ -17,7 +17,7 @@ class RoleTest < ActiveSupport::TestCase
     assert_not Role.new(user: @user, access: 1).valid?, "expected the 'plan' field to be required"
     
     # Ensure the bar minimum and complete versions are valid
-    plan = Plan.create(title: 'Test Plan', template: Template.last)
+    plan = Plan.create(title: 'Test Plan', template: Template.last, visibility: :is_test)
     a = Role.new(user: @user, plan: plan, access: 15)
     assert a.valid?, "expected the 'user', 'plan' and 'access' fields to be enough to create an Role! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
@@ -58,7 +58,7 @@ class RoleTest < ActiveSupport::TestCase
   
   # ---------------------------------------------------
   test "can CRUD Role" do
-    plan = Plan.create(title: 'Test Plan', template: Template.last)
+    plan = Plan.create(title: 'Test Plan', template: Template.last, visibility: :is_test)
     obj = Role.create(user: @user, plan: plan, access: 1)
     assert_not obj.id.nil?, "was expecting to be able to create a new Role: #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 

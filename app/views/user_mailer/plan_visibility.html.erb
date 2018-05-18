@@ -1,0 +1,26 @@
+<%
+  tool_name = Rails.configuration.branding[:application][:name]
+  username = @user.name
+  plan_title = @plan.title
+  plan_visibility = Plan.visibility_message(@plan.visibility.to_sym)
+%>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+  <p>
+    <%= _('Hello %{username}') %{ :username => username } %>
+  </p>
+  <p>
+    <%= _('The plan %{plan_title} had its visibility changed to %{plan_visibility}.') %{ :plan_title => plan_title, :plan_visibility => plan_visibility } %>
+  </p>
+  <p>
+    <%= _('Visibility definitions:') %>
+    <ul>
+      <li><%= _('Private: restricted to me and my collaborators') %></li>
+      <li><%= _('Organisation: anyone at my organisation can view') %></li>
+      <li><%= _('Public: anyone can view on the web') %></li>
+    </ul>
+  </p>
+  <p>
+    <%= _('If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}' %{ :tool_name => tool_name }) %>
+  </p>
+  <%= render partial: 'email_signature' %>
+<% end %>

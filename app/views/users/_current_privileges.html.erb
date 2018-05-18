@@ -1,0 +1,8 @@
+<%# locals: { user }%>
+<% if user.can_super_admin? %>
+  <%= _("Super Admin") %>
+<% elsif  user.can_org_admin? %>
+  <%= _("Organisational Admin") %>
+<% else %>
+  <%= _("") %>
+<% end %>

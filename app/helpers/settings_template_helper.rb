@@ -17,7 +17,7 @@ module SettingsTemplateHelper
             elsif admin_field == 'funder'
                 return _('Funder')
             elsif admin_field == 'institution'
-                return _('Institution')
+                return _('Organisation')
             elsif admin_field == 'orcid'
                 return _('Your ORCID')
             end

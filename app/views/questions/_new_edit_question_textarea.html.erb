@@ -1,0 +1,17 @@
+<%# locals: { f, question, answer, locking } %>
+<%# 
+  When locking variable is true, this partial renders a plain paragraph with the question answer or default value instead.
+  Since the partial answers/_locking reuses the partial answers/_new_edit which reuses this partial within, when a stale answer is found
+  the browser renders two forms (first the stale answer form followed by the latest answer saved). This reusability comes with a side-effect,
+  i.e. the browser might end up with duplicate ids for the form controls and therefore re-loading tinymce for the locking form becomes
+  rather cumbersome. As such, this workaround, simplifies the logic when a stale answer is found by rendering the html of the answer directly
+  within a paragraph.
+%>
+<div class="form-group">
+    <%= f.label(:text, raw(question.text), class: 'control-label') %>
+    <% if locking %>
+      <%= raw("<p>#{answer.text || question.default_value}</p>") %> 
+    <% else %>
+      <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+    <% end %>
+</div>

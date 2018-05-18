@@ -1,0 +1,129 @@
+/**** Main layout configuration ****/
+
+/* For sticky footer */
+main {
+  margin-bottom: 100px;
+  @media (max-width: 768px) {
+    margin-bottom: 420px;
+  }
+  @media (min-width: 768px) and (max-width: 1000px) {
+    margin-bottom: 200px;
+  }
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+/**** font configuration ****/
+/*
+@font-face {
+  font-family: 'GillSansLight';
+  src: font-url('GillSansLight.ttf') format('truetype');
+  font-weight: normal;
+}
+
+$black: #000;
+$white: #FFF;
+$highlight-color: $black;
+$highlight-background-color: #F36F24;
+*/
+
+
+/* MESSAGES */
+/*
+$error-color: $white;
+$error-background: #990000;
+
+$notice-color: $white;
+$notice-background: #196719;
+
+$tooltip-color: $white;
+$tooltip-background: #333;
+*/
+
+
+/* BUTTONS */
+/*
+$disabled-button-color: #808080;
+$cancel-button-color: #F17D04;
+*/
+
+
+/* HEADER STYLING */
+/*
+$header-height: 165px;
+$header-logo-width: 165px;
+$header-background: $white;
+$header-text-color: $black;
+$header-background: linear-gradient(#ED6406, #F59503);
+*/
+
+#app-navbar {
+  border-radius: 0px;
+}
+
+/* For org navbar custom height */
+#org-navbar {
+  border-radius: 0px;
+  margin-top: -20px;
+}
+@media (min-width: 768px) {
+  #org-navbar .navbar-nav li a {
+    line-height: 102px;
+    height: 102px;
+    padding-top: 0;
+  }
+}
+@media (min-width: 768px) {
+  #admin-dropdown ul li a, #super-admin-dropdown ul li a {
+    line-height: 26px !important;
+    height: 26px !important;
+    margin-top: 3px !important;
+  }
+}
+
+/* For dark (inverse) navbars */
+.inverse-dropdown {
+  background-color: #222 !important;
+  border-color: #080808 !important;
+  & > li > a {
+    color: #999 !important;
+    &:hover {
+      color: #fff !important;
+      background-color: #000 !important;
+    }
+  }
+  .active a {
+      color: #fff !important;
+      background-color: #000 !important;
+  }
+}
+
+/* HEADER LOGOS */
+.app-logo {
+  height: 50px;
+  padding-right:15px;
+}
+.org-logo {
+  height: 100px;
+  padding-right:15px;
+}
+
+
+/* FOOTER STYLING */
+
+/* For sticky footer */
+#footer-navbar {
+  margin-bottom: 0px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius:0px;
+  ul {
+    padding-right:15px;
+  }
+}

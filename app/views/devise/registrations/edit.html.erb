@@ -1,117 +1,46 @@
-<div class="main">
-  <h1><%= _('Edit profile') %></h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Edit profile') %></h1>
+  </div>
+</div>
 
-  <p>
-    <%= _("Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.") %>
-  </p>
-
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: "roadmap-form white_background"}) do |f| %>
-      <!-- Edit Profile -->
-      <fieldset class="side-by-side">
-        <legend><%= _('You can edit any of the details below.') %></legend>
-        
-        <%= hidden_field_tag :unlink_flag, "false", id: "unlink_flag" %>
-
-        <div>
-          <%= f.label :email, _('Email') + " *" %>
-          <%= f.email_field :email, as: :email, class: "input-medium has-tooltip",
-                             "data-toggle": "tooltip", "data-trigger": "focus", 
-                            "title": _('Please enter your current password below when changing your email address.') %>
-        </div>
-        <div>
-          <%= f.label :firstname, _('First name')+ " *" %>
-          <%= f.text_field :firstname, as: :string,
-                            id: "first_time_login_firstname",
-                            autofocus: true,
-                            class: "input-medium has-tooltip",
-                            "data-toggle" => "tooltip",
-                            "data-trigger" => "focus" ,
-                            "title" => _('Please enter your first name.') %>
-        </div>
-        <div>
-          <%= f.label :surname, _('Last name') + " *" %>
-          <%= f.text_field :surname, as: :string, id: "first_time_login_surname",
-                    class: "input-medium has-tooltip", "data-toggle" => "tooltip",
-                    "data-trigger" => "focus" ,
-                    "title" => _('Please enter your surname or family name.') %>
-        </div>
-        <div>
-          <%= f.label :org, _('Organisation') + " *" %>
-          <%= render partial: "shared/accessible_combobox", 
-                     locals: {name: "#{resource_name}[org_name]",
-                              id: "#{resource_name}_org_name",
-                              default_selection: @default_org,
-                              models: @orgs,
-                              attribute: 'name',
-                              classes: 'fixed-width-large'} %>
-        </div>
-        
-        <% if MANY_LANGUAGES %>
-          <div>
-            <% lang = current_user.language.nil? ? FastGettext.default_locale : current_user.language.abbreviation %>
-            <%= f.label :language, _('Language') %>
-            <select id="user_language_id" name="user[language_id]" 
-                    class="input-medium">
-              <%= @languages.each do |l| %>
-                <option value="<%= l.id %>"<%= lang == l.abbreviation ? ' selected="selected"' : '' %>>
-                  <%= l.name %>
-                </option>
-              <% end %>
-            </select>
-          </div>
-        <% end %>
-
-        <% @identifier_schemes.each do |scheme| %>
-          <div>
-            <label>
-                <% if scheme.logo_url.nil? %>
-                    <i class="fa fa-user" title="<%= scheme.name %>" aria-hidden="true" style="font-size:16px; width:16px; text-align:center;"></i>
-                <% else %>
-                    <img title="<%= scheme.name %>" src=<%= "#{scheme.logo_url}" %> size="16px" />
-                <% end %>
-           </label>
-            <div class="identifier-scheme">
-              <%= render partial: 'external_identifier', 
-                         locals: {scheme: scheme, 
-                                  id: current_user.identifier_for(scheme)} %>
+<div class="row">
+  <div class="col-md-12">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="personal-details" class="active">
+          <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
+        </li>
+        <li role="password-details">
+          <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
+        </li>
+        <li role="notification-preferences">
+          <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
+        </li>
+      </ul>
+    
+      <div class="tab-content">
+        <div id="personal-details" role="tabpanel" class="tab-pane active">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'devise/registrations/personal_details' %>
             </div>
           </div>
-        <% end %>
-
-        <% unless @user.api_token.blank? %>
-          <div>
-            <%= f.label :api_token, _('API token') %><%= @user.api_token %>
+        </div>
+        <div id="password-details" role="tabpanel" class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'devise/registrations/password_details' %>
+            </div>
           </div>
-          <div>
-            <label><%= _('API Information') %></label><%= link_to( _('How to use the API'), controller: "token_permission_types", action: "index")%>
+        </div>
+        <div id="notification-preferences" role="tabpanel" class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'users/notification_preferences' %>
+            </div>
           </div>
-        <% end %>
+        </div>
+      </div>
 
-        <br />
-       
-        <legend><%= _('If you would like to change your password please complete the following fields.') %></legend>
-
-        <div>
-          <%= f.label :current_password,  _('Current password') %>
-          <%= f.password_field :current_password, as: :password, class: 'input-medium' %>
-        </div>
-        
-        <div>
-          <%= f.label :password, _('New password') %>
-          <%= f.password_field :password, as: :password, autocomplete: "off", class: 'input-medium' %>
-        </div>
-        
-        <div>
-          <%= f.label :password_confirmation, _('Password confirmation') %>
-          <%= f.password_field :password_confirmation, as: :password, autocomplete: "off", 
-                      class: 'input-medium' %>
-        </div>
-        
-        <div>
-          <label></label>
-          <input type="submit" class="form-submit" value="<%= _('Save') %>" />
-        </div>
-      </fieldset>
-
-  <% end %>
+  </div>
 </div>

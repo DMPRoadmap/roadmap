@@ -25,61 +25,42 @@ class OrgsControllerTest < ActionDispatch::IntegrationTest
   #   admin_update_org  PUT      /org/admin/:id/admin_update    orgs#admin_update
   
   setup do
-    @org = Org.first
-    scaffold_org_admin(@org)
-  end
-
-  # GET /org/admin/:id/admin_show (admin_show_org_path)
-  # ----------------------------------------------------------
-  test 'show the org' do
-    # Should redirect user to the root path if they are not logged in!
-    get admin_show_org_path(@org)
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_org_path(@org)
-    assert_response :success
-    assert assigns(:org)
+    @test_org = Org.create!(name: 'Testing', abbreviation: 'TST', links: {"org":[]})
+    @admin = User.create!(email: "org-admin-controller-test@example.com", firstname: "Org", surname: "Admin",
+                         password: "password123", password_confirmation: "password123",
+                         org: @test_org, accept_terms: true, confirmed_at: Time.zone.now,
+                         perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs', 'change_org_details']))
+    @admin.perms << Perm.find_by(name: 'change_org_details')
+    @admin.perms << Perm.find_by(name: 'modify_templates')
+    @admin.perms << Perm.find_by(name: 'modify_guidance')
+    @admin.perms << Perm.find_by(name: 'grant_permissions')
+    @admin.save!
   end
 
   # GET /org/admin/:id/admin_edit (admin_edit_org_path)
   # ----------------------------------------------------------
   test 'load the edit org page' do
     # Should redirect user to the root path if they are not logged in!
-    get admin_edit_org_path(@org)
+    get admin_edit_org_path(@test_org)
     assert_unauthorized_redirect_to_root_path
     
-    sign_in @user
-    
-    get admin_edit_org_path(@org)
+    sign_in @admin
+    get admin_edit_org_path(@test_org)
     assert_response :success
-    assert assigns(:org)
-    assert assigns(:languages)
   end
   
   # PUT /org/admin/:id/admin_update (admin_update_org_path)
   # ----------------------------------------------------------
   test 'update the org' do
-    params = {name: 'Testing UPDATE'}
+    params = {name: 'Testing UPDATE', links: {"org": []}}
     
     # Should redirect user to the root path if they are not logged in!
-    put admin_update_org_path(@org), {org: params}
+    put admin_update_org_path(@test_org), {org: params}
     assert_unauthorized_redirect_to_root_path
     
-    sign_in @user
-    
-    put admin_update_org_path(@org), {org: params}
-    assert_equal _('Organisation was successfully updated.'), flash[:notice]
+    sign_in @admin
+    put admin_update_org_path(@test_org), {org: params}
     assert_response :redirect
-    assert_redirected_to admin_show_org_path(@org)
-    assert assigns(:org)
-    assert_equal 'Testing UPDATE', @org.reload.name, "expected the record to have been updated"
-    
-    # Invalid object
-    put admin_update_org_path(@org), {org: {name: nil}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
-    assert_response :success
-    assert assigns(:org)
+    assert_equal 'Testing UPDATE', @test_org.reload.name, "expected the record to have been updated"
   end
 end

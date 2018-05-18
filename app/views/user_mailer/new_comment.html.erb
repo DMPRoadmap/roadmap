@@ -1,0 +1,17 @@
+<%
+  tool_name = Rails.configuration.branding[:application][:name]
+  commenter_name = @commenter.name
+  plan_title = @plan.title
+  user_name = @plan.owner.name
+%>
+<% FastGettext.with_locale FastGettext.default_locale do %>
+  <p>
+    <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
+  </p>
+  <p>
+    <%= _('%{commenter_name} has commented on the plan %{plan_title}. To view the comments, '\
+    'please visit the My Dashboard page in %{tool_name} and open your plan.') %{ :plan_title => plan_title,
+    :commenter_name => commenter_name, :tool_name => tool_name } %>
+  </p>
+  <%= render partial: 'email_signature' %>
+<% end %>

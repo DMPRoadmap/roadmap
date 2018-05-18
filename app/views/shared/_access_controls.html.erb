@@ -1,0 +1,35 @@
+<div class="sign-in">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#sign-in-form" role="tab" aria-controls="sign-in-form" data-toggle="tab">
+        <%= _('Sign in') %>
+      </a>
+    </li>
+    <% unless isActivePage(new_user_registration_path, true) %>
+      <li role="presentation">
+        <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
+          <%= _('Create account') %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content">
+    <div id="sign-in-form" role="tabpanel" class="tab-pane active">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= render :partial => 'shared/sign_in_form' %>
+        </div>
+      </div>
+    </div>
+    <% unless isActivePage(new_user_registration_path, true) %>
+      <div id="create-account-form" role="tabpanel" class="tab-pane">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= render :partial => 'shared/create_account_form', locals: {extended: false} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

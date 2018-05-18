@@ -16,13 +16,13 @@ module Settings
 
     DEFAULT_SETTINGS = {
       formatting: {
-        margin: { # in millimeters
-          top:    10,
-          bottom: 10,
-          left:   10,
-          right:  10
+        margin: {
+          top:    25,
+          bottom: 20,
+          left:   12,
+          right:  12
         },
-        font_face: VALID_FONT_FACES.first,
+        font_face: 'Arial, Helvetica, Sans-Serif',
         font_size: 10 # pt
       },
       max_pages: 3,

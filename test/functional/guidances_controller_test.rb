@@ -49,21 +49,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:guidances)
     assert assigns(:guidance_groups)
   end
-
-  # GET /org/admin/guidance/:id/admin_show (admin_show_guidance_path)
-  # ----------------------------------------------------------
-  test 'load the guidance page' do
-    # Should redirect user to the root path if they are not logged in!
-    # TODO: Why is there an id here!? its a new guidance_group!
-    get admin_show_guidance_path(guidance_group_id: @guidance_group.id, id: @guidance_group.guidances.first.id)
-    assert_unauthorized_redirect_to_root_path
-    
-    sign_in @user
-    
-    get admin_show_guidance_path(guidance_group_id: @guidance_group.id, id: @guidance_group.guidances.first.id)
-    assert_response :success
-    assert assigns(:guidance)
-  end
   
   # /org/admin/guidance/:id/admin_new (admin_new_guidance_path)
   # ----------------------------------------------------------
@@ -76,9 +61,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     get admin_new_guidance_path(@guidance_group)
     assert_response :success
-    assert assigns(:guidance)
-    assert assigns(:guidance_groups)
-    assert assigns(:themes)
   end
 
   # /org/admin/guidance/:id/admin_edit (admin_edit_guidance_path)
@@ -92,9 +74,6 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     get admin_edit_guidance_path(@guidance_group)
     assert_response :success
-    assert assigns(:guidance)
-    assert assigns(:guidance_groups)
-    assert assigns(:themes)
   end
 
   # POST /org/admin/guidance/:id/admin_create (admin_create_guidance_path)
@@ -110,16 +89,15 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     post admin_create_guidance_path(@user.org), params
     assert_response :redirect
-    assert_redirected_to admin_show_guidance_path(Guidance.last)
-    assert_equal _('Guidance was successfully created.'), flash[:notice]
-    assert assigns(:guidance)
+    assert_redirected_to admin_index_guidance_path
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('created')
     assert_equal 'Testing create', Guidance.last.text, "expected the record to have been created!"
     
     # Invalid object
     post admin_create_guidance_path(@user.org), {'guidance-text': nil, guidance: {published: false}}
-    assert flash[:notice].starts_with?(_('Could not create your'))
-    assert_response :success
-    assert assigns(:guidance)
+    assert flash[:alert].starts_with?(_('Could not create your'))
+    assert_response :redirect
+    assert_redirected_to admin_index_guidance_path
   end
     
   # PUT /org/admin/guidance/:id/admin_update (admin_update_guidance_path)
@@ -135,18 +113,51 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     
     put admin_update_guidance_path(Guidance.first), params
     assert_response :redirect
-    assert_equal _('Guidance was successfully updated.'), flash[:notice]
-    assert_redirected_to "#{admin_show_guidance_path(Guidance.first)}?guidance_group_id=#{GuidanceGroup.first.id}"
-    assert assigns(:guidance)
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('saved')
+    assert_redirected_to admin_index_guidance_path
     assert_equal 'Testing UPDATE', Guidance.first.text, "expected the record to have been updated"
     
     # Invalid object
     put admin_update_guidance_path(Guidance.first), {'guidance-text': nil, guidance: {guidance_group_id: GuidanceGroup.first.id}}
-    assert flash[:notice].starts_with?(_('Could not update your'))
-    assert_response :success
-    assert assigns(:guidance)
+    assert flash[:alert].starts_with?(_('Could not update your'))
+    assert_response :redirect
+    assert_redirected_to admin_edit_guidance_path(Guidance.first)
   end
-  
+
+  # PUT /org/admin/guidance/:id/admin_publish (admin_publish_guidance)
+  test 'publish the guidance' do 
+    @guidance = Guidance.first
+    @guidance_group = @guidance.guidance_group
+
+    # Should redirect user to the root path if they are not logged in!
+    put admin_publish_guidance_path(@guidance)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_publish_guidance_path(@guidance)
+    assert_response :redirect
+    assert flash[:notice].include?('published')
+    assert_redirected_to "#{admin_index_guidance_path}"
+  end
+
+  # PUT /org/admin/guidance/:id/admin_unpublish (admin_unpublish_guidance)        
+  test 'unpublish the guidance' do 
+    @guidance = Guidance.first
+    @guidance_group = @guidance.guidance_group
+
+    # Should redirect user to the root path if they are not logged in!
+    put admin_unpublish_guidance_path(@guidance)
+    assert_unauthorized_redirect_to_root_path
+    
+    sign_in @user
+    
+    put admin_unpublish_guidance_path(@guidance)
+    assert_response :redirect
+    assert flash[:notice].include?('no longer published')
+    assert_redirected_to "#{admin_index_guidance_path}"
+  end
+
   # DELETE /org/admin/guidance/:id/admin_destroy (admin_destroy_guidance_path)
   # ----------------------------------------------------------
   test 'delete the guidance' do
@@ -160,8 +171,7 @@ class GuidancesControllerTest < ActionDispatch::IntegrationTest
     delete admin_destroy_guidance_path(Guidance.first)
     assert_response :redirect
     assert_redirected_to admin_index_guidance_path
-    assert_equal _('Guidance was successfully deleted.'), flash[:notice]
-    assert assigns(:guidance)
+    assert flash[:notice].start_with?('Successfully') && flash[:notice].include?('deleted')
     assert_raise ActiveRecord::RecordNotFound do 
       Guidance.find(id).nil?
     end

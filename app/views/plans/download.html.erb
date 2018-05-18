@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- render the project title -->
+    <h1><%= @plan.title %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: 'download_form', layout: 'navigation', locals: { plan: @plan } %>
+  </div>
+</div>

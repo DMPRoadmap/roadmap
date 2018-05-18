@@ -1,9 +1,0 @@
-<%- model_class = Project -%>
-
-<!-- render the project title -->
-<%= render :partial => "/projects/project_title", locals: {project: @project} %>
-
-<!-- render navigation tabs for the project-->
-<%= render :partial => "project_nav_tabs", locals: {project: @project, active: "edit_project"} %>
-
-<%= render :partial => 'form' %>

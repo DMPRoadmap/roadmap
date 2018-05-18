@@ -1,0 +1,27 @@
+<%# locals: { plan, question, answer } %>
+<% notes = answer.non_archived_notes %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: "/notes/list", locals: { question_id: question.id, notes: notes, plan: plan }, formats: [:html] %>  
+      </div>
+    </div>
+    <% if plan.commentable_by?(current_user) %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="note_new" id="<%= "note_new#{question.id}" %>" data-question-id="<%= question.id %>">
+              <%= render partial: "/notes/new", locals: { question: question, answer: answer, plan: plan }, formats: [:html] %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pull-right">
+            <%= link_to(_('Add Comment'), "#note_new#{question.id}", class: "btn btn-default note_new_link", role: "button", style: "visibility: hidden") %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

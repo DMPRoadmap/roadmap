@@ -39,7 +39,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     get root_path
     
     # Make sure that the user is sent to the page that lists their plans
-    assert_select '.welcome-message h2', _('Welcome.')
+    assert_select 'h1', _('Welcome.')
   end
   
   # ----------------------------------------------------------
@@ -58,7 +58,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     
       # Make sure that the user is sent to the page that lists their plans
       assert_response :success
-      assert_select '.welcome-message h2', _('Welcome.')
+      assert_select 'h1', _('Welcome.')
     end
   end
 

@@ -1,0 +1,68 @@
+<form id="test-form">
+  <!-- Fields that are not required and have no validation specified -->
+  <h2>Fields that are not required and have no validation specified</h2>
+  <div class="form-group">
+    <label for="text-not-required-no-validation" class="control-label">Text Field (not required)</label>
+    <input id="text-not-required-no-validation" type="text" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="email-not-required-no-validation" class="control-label">Email Field (not required)</label>
+    <input id="email-not-required-no-validation" type="email" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="password-not-required-no-validation" class="control-label">Password Field (not required)</label>
+    <input id="password-not-required-no-validation" type="password" class="form-control" />
+  </div>
+  <div class="radio">
+    <label for="radioA-not-required-no-validation">
+      <input id="radioA-not-required-no-validation" name="Radio-not-required-no-validation" type="radio" value="a" />Radio A (not required)
+    </label>
+    <label for="radioB-not-required-no-validation">
+      <input id="radioB-not-required-no-validation" name="Radio-not-required-no-validation" type="radio" value="b" />Radio B (not required)
+    </label>
+  </div>
+
+  <!-- Fields that are required -->
+  <h2>Fields that are required</h2>
+  <div class="form-group">
+    <label for="text-required" class="control-label">Text Field</label>
+    <input id="text-required" type="text" aria-required="true" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="email-required" class="control-label">Email Field</label>
+    <input id="email-required" type="email" aria-required="true" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="password-required" class="control-label">Password Field</label>
+    <input id="password-required" type="password" aria-required="true" class="form-control" />
+  </div>
+  <div class="radio">
+    <label for="radioA-required">
+      <input id="radioA-required" type="radio" name="radio-required" value="a" />Radio A
+    </label>
+    <label for="radioB-required">
+      <input id="radioB-required" type="radio" name="radio-required" value="b" aria-required="true" />Radio B
+    </label>
+  </div>
+
+  <!-- Fields that are not required but have validation specified -->
+  <h2>Fields that are not required but have validation specified</h2>
+  <div class="form-group">
+    <label for="email-not-required-with-validation" class="control-label">Email Field</label>
+    <input id="email-not-required-with-validation" type="email" data-validation="email" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="password-not-required-with-validation" class="control-label">Password Field</label>
+    <input id="password-not-required-with-validation" type="password" data-validation="password" class="form-control" />
+  </div>
+  <div class="radio">
+    <label for="radioA-not-required-with-validation">
+      <input id="radioA-not-required-with-validation" name="radio-not-required-with-validation" type="radio" value="a" />Radio A (not required)
+    </label>
+    <label for="radioB-not-required-with-validation">
+      <input id="radioB-not-required-with-validation" name="radio-not-required-with-validation" type="radio" value="b" data-validation="radio" />Radio B (not required)
+    </label>
+  </div>
+
+  <button id="form-submit" type="submit" class="btn btn-default">Save</button>
+</form>

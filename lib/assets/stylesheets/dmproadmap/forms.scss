@@ -1,0 +1,956 @@
+/* ================================================ */
+/* FORM Styling                                     */
+/* The top of this file is generic form styles and  */
+/* the bottom contains page specific changes to the generic */
+/* ================================================ */
+/*
+textarea,
+input[type="text"], input[type="email"], input[type="password"],
+input[type="search"], input[type="tel"], select {
+  font-family: $font-family;
+  font-size: 14px;
+  border-radius: 3px;
+  line-height: 30px;
+  min-width: 150px;
+  height: 30px;
+  padding-left: 10px;
+  margin: 5px 15px 15px 0;
+  border: 1px solid $medium-grey;
+}
+input[type="checkbox"], input[type="radio"], select {
+  border: 1px solid $medium-grey;
+}
+*/
+
+/* Tinymce control hover (e.g. bold, italic, etc.) */
+/*
+.mce-btn button:hover {
+  background-color: $white;
+}
+
+textarea:focus, select:focus,
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
+input[type="search"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
+  box-shadow: 0 0 8px $light-grey;
+}
+
+select {
+  margin-top: 10px;
+  vertical-align: top;
+  height: 30px;
+}
+
+select[multiple="true"], select[multiple="multiple"] {
+  height: 65px;
+}
+
+label.disabled {
+  color: $disabled-button-color;
+}
+
+.checkbox-label {
+  display: inline-block;
+  font-size: 1em;
+  margin: 0;
+  padding: 2px;
+}
+
+.checkbox-input {
+  border: none;
+  vertical-align: middle;
+  height: 17px;
+  margin: 0 4px 0 0;
+  padding: 0;
+}
+
+form, fieldset {
+  border: 0;
+}
+
+div.under-input {
+  display: block;
+  margin: -5px 0 10px;
+
+  label {
+    font-weight: normal;
+  }
+}
+*/
+
+/* Roadmap Form Styling */
+/* ------------------------------------------------ */
+/*
+form.roadmap-form {
+  text-align: top;
+
+  div.form-separator {
+    width: 75%;
+    margin: 25px auto;
+    border-bottom: 1px solid $dark-grey;
+  }
+
+  fieldset.padded {
+    padding: 10px 10px 25px 10px;
+  }
+*/
+  /* Fieldset with labels over inputs */
+  /* -------------------------------- */
+/*
+  fieldset.standard {
+    padding: 5px;
+    background-color: $white;
+    text-align: left;
+    margin-bottom: 25px;
+
+    div.form-separator {
+      margin-left: 15px;
+    }
+
+    .mce-tinymce {
+      display: inline-block;
+      margin: 10px 5px 15px 15px;
+      min-width: 350px;
+      max-width: 550px;
+      width: 78%;
+    }
+
+    label,
+    input[type="checkbox"],
+    .combobox-container,
+    .left-indent {
+      margin-left: 15px;
+    }
+
+    input[type="text"], select {
+      margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
+      vertical-align: top;
+    }
+
+    label:not(.checkbox-label) {
+      display: block;
+    }
+
+    input, select {
+      margin-bottom: 15px;
+    }
+
+    .checkbox-label {
+      font-weight: normal;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+*/
+  /* Fieldset with labels to the left of inputs */
+  /* ------------------------------------------ */
+/*
+  fieldset.side-by-side {
+    border: 0;
+
+    .mce-tinymce {
+      display: inline-block;
+      margin-bottom: 15px;
+      width: 51%;
+    }
+
+    div.under-input {
+      margin-left: 25%;
+
+      label {
+        width: auto;
+      }
+    }
+
+    div {
+      label,
+      .button-spacer,
+      div.read-only,
+      input[type="checkbox"],
+      .combobox-container,
+      .identifier-scheme {
+        display: inline-block;
+      }
+
+      .identifier-scheme-indent {
+        margin-left: -5px;
+      }
+
+      label, .button-spacer {
+        width: 25%;
+        text-align: right;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      label.align-top {
+        vertical-align: top;
+      }
+      input.form-submit,
+      button.form-cancel {
+        font-size: 10pt;
+        text-decoration:none;
+      }
+      div.read-only{
+        margin-bottom: 15px;
+      }
+    }
+  }
+*/
+  /* Generic Fieldset Settings */
+/*
+  fieldset legend {
+    font-family: $header-font;
+    color: $primary-color;
+    font-size: 26px;
+    font-weight: normal;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+
+    float: left;
+    border-bottom: none;
+  }
+
+  label.required:before {
+    content: "* ";
+  }
+
+  .form-input {
+    clear: both;
+  }
+
+  .input-full-width {
+    width: 95%;
+  }
+  .input-extra-large {
+    width: 70%;
+  }
+  .input-large {
+    min-width: 340px;
+    max-width: 540px; 
+    width: 75%;
+  }
+  .input-medium {
+    width: 30%;
+  }
+  select.input-medium {
+    width: 32%;
+  }
+  .input-small {
+    min-width: 180px;
+    max-width: 340px; 
+    width: 45%;
+  }
+*/
+  /* Used for the jquery autocomplete combobox on side-by-side fieldsets */
+/*
+  .fixed-width-large {
+    width: 550px;
+  }
+
+  input.form-submit[aria-disabled='true'] {
+    background-color: $disabled-button-color;
+  }
+  input.form-submit:focus + [role="tooltip"] {
+    display: inline-block;
+  }
+  button.form-cancel {
+    background-color: $cancel-button-color;
+    color: $white;
+  }
+*/
+  /* Tooltip */
+/*
+  .arrow-left {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid $dark-grey;
+  }
+
+  input.small-input-button {
+    width: 150px;
+  }
+
+  div.form-input {
+    position: relative;
+  }
+*/
+
+  /* Input validation errors */
+/*
+  .red-border {
+    border: 1px solid $error-color;
+    box-shadow: 0 0 6px $error-background;
+  }
+
+  .error-tooltip, .error-tooltip-right, .error-tooltip-top, .submit-tooltip {
+    display: none;
+    width: 45%;
+    background: $error-background;
+    border-radius: 6px;
+    color: $error-color;
+    padding: 6px 25px 7px 10px;
+  }
+
+  .error-tooltip[role='alert'], .submit-tooltip[role='tooltip'] {
+    top: 65px;
+    left: 0;
+    display: inline;
+    position: absolute;
+    z-index: 9;
+  }
+
+  .error-tooltip[role='alert']:before, .submit-tooltip[role='tooltip']:before {
+    display: inline;
+    position: absolute;
+    top: -30px;
+    margin: 0 auto;
+    @include icon(caret-up);
+    color: $error-background;
+    font-size: 44px;
+  }
+
+  .error-tooltip-top[role='alert'] {
+    top: -35px;
+    left: 0;
+    display: inline;
+    position: absolute;
+    z-index: 9;
+  }
+  .error-tooltip-top[role='alert']:before {
+    display: inline;
+    position: absolute;
+    margin: 0 auto;
+    top: 30px;
+    @include icon(caret-down);
+    color: $error-background;
+    font-size: 44px;
+  }
+
+  .error-tooltip-right[role="alert"], .error-tooltip-right[role="tooltip"] {
+    top: 0;
+    left: 400px;
+    display: inline;
+  }
+  .error-tooltip-right[role='alert']:before, .error-tooltip-right[role="tooltip"] {
+    display: inline;
+    position: relative;
+    left: -23px;
+    top: 11px;
+    @include icon(caret-left);
+    color: $error-background;
+    font-size: 44px;
+  }
+}
+*/
+	
+/* Accessible JQuery combobox */
+/* ------------------------------------------------------ */
+/*
+.invisible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.combobox-container {
+  position: relative;
+  width: 370px;
+  font-family: $font-family;
+}
+
+.combobox-suggestions {
+  position: absolute;
+  left: 0;
+  width: 98%;
+  margin-top: -10px;
+  background: #fff;
+  z-index: 99;
+}
+.combobox-suggestion {
+  color: #666;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.combobox-suggestion:first-child {
+  border-top: 1px solid #000;
+}
+.combobox-suggestion:hover,
+.combobox-suggestion:focus {
+  color: $white;
+  background-color: $primary-color;
+}
+
+.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
+  @include icon(times-circle);
+  cursor: pointer;
+  display: inline;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 8px;
+  margin-right: -25px;
+  border: none;
+  background: transparent;
+  color: $black;
+  padding-top: 3px;
+  font-size: 16pt;
+}
+*/
+	
+/* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
+/*
+.js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
+.js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
+*/
+
+/* ------------------------------------------------ */
+/* ------------------------------------------------ */
+/* Page specific form styling                       */
+/* ------------------------------------------------ */
+/* ------------------------------------------------ */
+
+
+/* Sign in/Create account and edit profile forms */
+/* ------------------------------------------------ */
+/*
+.omniauth-options {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+
+  .omniauth-login {
+    display: inline-block;
+    width: 90%;
+    padding: 4px 12px;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 5px;
+  }
+}
+
+
+#new_user fieldset {
+  width: 90%;
+  padding-bottom: 15px;
+  margin-bottom: 5px;
+
+  input[type="password"],
+  #user_password,
+  #user_other_organisation,
+  input[type="email"] {
+    width: 90%;
+  }
+  .js-container {
+    width: 100%;
+    #user_org_name {
+      width: 90%;
+      margin-bottom: 5px;
+    }
+  }
+  #other-org-link {
+    margin-bottom: 15px;
+  }
+
+  .small-header {
+    margin-top: 0;
+  }
+
+  .checkbox-right {
+    width: 97%;
+    position: relative;
+
+    #user_remember_me, input[type='checkbox'], .checkbox-label {
+      float: right;
+    }
+  }
+  #user_accept_terms {
+    margin-right: 5px;
+    
+  }
+}
+#edit_user fieldset {
+  div.identifier-scheme {
+    margin-bottom: 15px;
+  }
+
+  .checkbox-right,
+  .checkbox-right-side-by-side {
+    position: relative;
+
+    #user_remember_me, input[type='checkbox'], .checkbox-label {
+      float: right;
+    }
+  }
+
+  .checkbox-right-side-by-side {
+    width: 65%;
+  }
+  .checkbox-right {
+    width: 55%;
+  }
+}
+
+#new_user.register-form {
+  .inline {
+    width: 46%;
+    margin-right: 5px;
+    #user_firstname,
+    #user_surname {
+      width: 92%;
+    }
+  }
+}
+div#forgot-password-link {
+  vertical-align: bottom;
+  margin-bottom: 5px;
+
+  a:hover {
+    color: $primary-color !important;
+  }
+}
+#new_user #password-reset-form {
+  width: 50%;
+}
+*/
+
+/* Shibboleth Custom Discovery Service form */
+/* ------------------------------------------------ */
+/*
+#shibboleth-ds {
+  width: 50%;
+}
+
+form.shibboleth-ds-form {
+  width: 55%;
+
+  select {
+    width: 85%;
+  }
+
+  input.form-submit {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+}
+
+div.three-column, div.two-column, div.one-column {
+  display: inline-block;
+  vertical-align: top;
+
+  ul li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 4px 12px;
+  }
+
+  ul li.separator {
+    background-color: $medium-grey;
+    color: $white;
+    font-weight: bold;
+  }
+}
+div.three-column {
+  width: 31%;
+}
+div.two-column {
+  width: 47%;
+}
+div.one-column {
+  width: 95%;
+}
+*/
+
+/* ------------------------------------------------ */
+/* Orcid Component */
+/* ------------------------------------------------ */
+/*
+#connect-orcid-button{
+  border: 1px solid #D3D3D3;
+  padding: 5px 5px 5px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px #999;
+  cursor: pointer;
+  color: #999;
+  font-weight: bold;
+  font-size: .8em;
+  line-height: 24px;
+  text-decoration: none;
+  vertical-align: right;
+  background-image: url('http://orcid.org/sites/default/files/images/orcid_16x16.png');
+  background-repeat: no-repeat;
+  background-position: left 5px;
+}
+
+#connect-orcid-button:hover{
+  border: 1px solid #338caf;
+  color: #338caf;
+}
+
+#orcid-id-logo{
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 3px;
+  float: left;
+}
+
+#orcid-id {
+  color: #338caf;
+  text-decoration: none;
+}
+*/
+	
+/* View plans */
+/* ------------------------------------------------ */
+/*
+div.main_page_content p #create-test {
+  vertical-align: middle;
+}
+td.plan-edit-actions {
+  position: absolute;
+  overflow: visible;
+
+  ul {
+    top: 8px;
+    left: 0;
+
+    li a {
+      text-decoration: none;
+    }
+  }
+}
+*/
+	
+/* Create plan */
+/* ------------------------------------------------ */
+/*
+#create_plan {
+  position: relative;
+
+  fieldset {
+    margin-bottom: 10px;
+  }
+
+  #plan_title {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  div.form-left-side {
+    position: relative;
+    clear: both;
+    float: left;
+    width: 35%;
+  }
+  div.form-right-side {
+    position: relative;
+    float: left;
+    margin-left: 20px;
+    padding-top: 20px;
+    width: 50%;
+    min-width: 400px;
+
+    label, input {
+      display: inline-block;
+    }
+    label {
+      width: 75%;
+    }
+    p {
+      vertical-align: top;
+      margin-top: -2px;
+      margin: -2px -5px 0 5px;
+    }
+  }
+}
+*/
+
+/* Show/Edit plan details */
+/* ------------------------------------------------ */
+/*
+.project-title-container {
+  width: 60%;
+}
+#details-panel {
+
+  hr {
+    width: 40%;
+  }
+}
+.edit-plan-left {
+  display: inline-block;
+  width: 60%;
+}
+.edit-plan-right {
+  vertical-align: top;
+  display: inline-block;
+  width: 35%;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  .fa {
+    vertical-align: top;
+    font-size: 18px;
+    margin-left: 5px;
+  }
+
+  fieldset.standard {
+    label {
+      margin-left: 0;
+    }
+  }
+}
+*/
+
+/* Write plan */
+/* ------------------------------------------------ */
+/*
+#sections-accordion-controls {
+  width: 55%;
+  margin: 15px 0 15px 45px;
+
+  a {
+    text-decoration: none;
+  }
+  .expand-collapse-all, .progress {
+    width: 45%;
+  }
+  .progress {
+    position: relative;
+    width: 52%;
+
+    .bar-container {
+      position: relative;
+      top: 0;
+      margin: 0 -10px 0 auto;
+      padding: 5px;
+      border-radius: 5px;
+      width: 200px;
+      height: 20px;
+
+      #questions-progress-title {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 3;
+      }
+      #questions-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 98%;
+        border-radius: 3px;
+        background-color: $light-grey;
+        z-index: 1;
+      }
+    }
+  }
+}
+*/
+	
+/* Section title / progress */
+/*
+#sections-accordion {
+  h2 {
+    font-size: 18px;
+
+    .section-title {
+      color: $white;
+      background-color: $primary-color;
+      width: 55%;
+      height: 100%;
+      padding: 0 0 10px 10px;
+      margin-bottom: -10px;
+
+      .section-status {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        width: 55%;
+        text-align: right;
+        font-size: 16px;
+
+        .fa {
+          font-size: 14px;
+          position: absolute;
+          top: 5px;
+          right: -19px;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .section-description {
+    width: 60%;
+  }
+*/
+
+  /* Example Answers */
+/*
+  div.suggested-answer-div {
+    width: 80%;
+    margin: 10px 15px;
+    border: 0.5px solid $light-grey;
+    border-radius: 3px;
+    padding: 5px 15px;
+
+    .suggested-answer-intro {
+      position: relative;
+      top: -17px;
+      left: 10px;
+      font-weight: bold;
+      background-color: $white;
+      padding: 0 10px;
+    }
+    .suggested-answer-border {
+      margin-top: -20px;
+      max-height: 200px;
+      overflow: scroll;
+    }
+  }
+
+  .form-input {
+    margin-top: -10px;
+
+    ol, ul {
+      list-style: none;
+    }
+  }
+
+  div.mce-tinymce {
+    width: 84%;
+  }
+
+  .guidance_tab {
+    h3 {
+      font-size: 16px;
+      .fa {
+        font-size: 14px;
+      }
+    }
+    .tab-panel {
+      min-height: auto;
+    }
+    .question-guidance .expand-collapse-all {
+      margin-bottom: 5px;
+    }
+  }
+
+  .comment-area {
+    .div-table-content {
+      max-height: 200px;
+      overflow-y: auto;
+      border-bottom: 1px solid $primary-color;
+
+      .dmp_table {
+        margin-top: 40px;
+        border: none;
+        border-top: 1px solid $primary-color;
+
+        tr {
+          border-bottom: 1px solid $light-grey;
+        }
+      }
+    }
+    .view_comment_class {
+      ul {
+        padding-left: 0;
+      }
+    }
+  }
+}
+*/
+
+/* Share plan */
+/* ------------------------------------------------ */
+/*
+#collaborator-table {
+  min-width: 450px;
+  max-width: 850px;
+  width: 60%;
+}
+.share-plan input, 
+.share-plan form.roadmap-form fieldset.standard label {
+  margin-left: 10px;
+}
+*/
+
+/* Org edit */
+/* ------------------------------------------------ */
+/*
+#edit_org_details {
+  .org-logo {
+    margin-bottom: 10px;
+
+    label, div {
+      vertical-align: top;
+    }
+
+    img {
+      border: 1px dashed $medium-grey;
+    }
+
+    #logo-controls {
+      width: 50%;
+      label {
+        text-align: left;
+      }
+      label {
+        width: auto;
+      }
+      #logo-controls-separator {
+        margin-left: 50px;
+        padding: 10px 0 15px 0;
+        text-align: center;
+      }
+    }
+  }
+  #banner-text div.inline {
+    width: 70%;
+    margin-top: 15px;
+  }
+}
+*/
+/* Plan Export Page */
+/* ------------------------------------------------ */
+/*
+#pdf-format-options {
+  select, label{
+    display: block;
+    height: 30px;
+    width: 100%;
+    min-width: initial;
+  }
+  .font, .margins {
+    display: inline-block;
+    div{
+      display: inline-block;
+    }
+  }
+}
+*/

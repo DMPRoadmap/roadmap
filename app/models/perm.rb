@@ -9,17 +9,6 @@ class Perm < ActiveRecord::Base
   #attr_accessible :name, :as => [:default, :admin]
 
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
-
-  ##
-  # Constant perms
-  #ADD_ORGS            = Perm.where(name: 'add_organisations').first.freeze
-  #CHANGE_AFFILIATION  = Perm.where(name: 'change_org_affiliation').first.freeze
-  #GRANT_PERMISSIONS   = Perm.where(name: 'grant_permissions').first.freeze
-  #MODIFY_TEMPLATES    = Perm.where(name: 'modify_templates').first.freeze
-  #MODIFY_GUIDANCE     = Perm.where(name: 'modify_guidance').first.freeze
-  #USE_API             = Perm.where(name: 'use_api').first.freeze
-  #CHANGE_ORG_DETAILS  = Perm.where(name: 'change_org_details').first.freeze
-  #GRANT_API           = Perm.where(name: 'grant_api_to_orgs').first.freeze
   
   scope :add_orgs, -> {Perm.find_by(name: 'add_organisations')}
   scope :change_affiliation, -> {Perm.find_by(name: 'change_org_affiliation')}

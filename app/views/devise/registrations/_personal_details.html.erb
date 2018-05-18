@@ -1,0 +1,88 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
+  <p class="form-control-static">
+    <%= raw _("Please note that your email address is used as your username.
+    If you change this, remember to use your new email address on sign in.") %>
+  </p>
+
+  <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
+  <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
+
+  <div class="form-group col-xs-8">
+    <%= f.label(:email, _('Email'), class: 'control-label') %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
+    <%= hidden_field_tag :original_email, @user.email %>
+  </div>
+
+  <div class="form-group col-xs-8">
+    <%= f.label(:firstname, _('First name'), class: 'control-label') %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true, value: @user.firstname) %>
+  </div>
+
+  <div class="form-group col-xs-8">
+    <%= f.label(:surname, _('Last name'), class: 'control-label') %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
+  </div>
+
+  <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
+  <div class="form-group col-xs-8" id="org-controls" <%= raw "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
+    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
+  </div>
+  <% if org_admin %>
+    <input type="hidden" id="original_org" value="<%= @user.org_id %>">
+  <% end %>
+
+  <% if MANY_LANGUAGES %>
+    <div class="form-group col-xs-8">
+      <% lang_id = current_user.language.nil? ? Language.id_for(FastGettext.default_locale) : current_user.language.id %>
+      <%= f.label(:language_id, _('Language'), class: 'control-label') %>
+      <%= select_tag("user[language_id]",
+          options_from_collection_for_select(@languages, "id", "name", lang_id),
+          class: "form-control") %>
+    </div>
+  <% end %>
+
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-xs-8">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
+  <% @identifier_schemes.each do |scheme| %>
+    <div class="form-group col-xs-8">
+      <% if scheme.name.downcase == 'shibboleth' %>
+        <label class='control-label'>
+          <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
+        </label>
+      <% elsif scheme.name.downcase == 'orcid' %>
+        <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
+      <% else %>
+        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
+      <% end %>
+
+      <div class='identifier-scheme'>
+        <%= render partial: "external_identifier",
+                   locals: { scheme: scheme,
+                             id: current_user.identifier_for(scheme)} %>
+      </div>
+    </div>
+  <% end %>
+
+  <% unless @user.api_token.blank? %>
+    <div class="form-group col-xs-8">
+      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
+      <%= @user.api_token %>
+    </div>
+    <div class="form-group col-xs-8">
+      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
+      <a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a>
+    </div>
+  <% end %>
+
+  <div class="form-group col-xs-8">
+    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
+  </div>
+
+  <%= render partial: 'password_confirmation', locals: {f: f} %>
+
+<% end %>

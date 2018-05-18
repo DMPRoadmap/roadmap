@@ -1,0 +1,12 @@
+<%# locals: { plan } %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= plan.title %></h1> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: 'overview_details', layout: 'plans/navigation', locals: local_assigns %>
+  </div>
+</div>

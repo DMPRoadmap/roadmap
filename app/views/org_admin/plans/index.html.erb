@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">    
+    <h1><%= _('%{org_name} Plans') % { org_name: current_user.org.name } %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @feedback_plans.length > 0 %>
+      <h2><%= _('Notifications') %></h2>
+      <div class="panel panel-default">
+        <div class="panel-body notifications">
+          <table class="table">
+            <thead>
+              <th><%= _('Plan') %></th>
+              <th><%= _('Requestor') %></th>
+              <th><%= _('Type') %></th>
+              <th><%= _('Actions') %></th>
+            </thead>
+            <tbody>
+              <% @feedback_plans.each do |notice| %>
+                <!-- Using the plan owner as the requestor even though it could have been issued by a co-owner -->
+                <!-- TODO: correct this behavior once the notification table is in place -->
+                <tr>
+                  <td><%= link_to notice.name, plan_path(notice) %></td>
+                  <td><%= notice.owner.name(false) %></td>
+                  <td><%= _('Feedback requested') %></td>
+                  <td><%= link_to _('Complete'), feedback_complete_org_admin_plan_path(notice), 'data-toggle': 'tooltip', title: _('Notify the plan owner that I have finished providing feedback') %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+    <% if @plans.length > 0 %>
+      <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
+      <%= paginable_renderise(
+        partial: '/paginable/plans/org_admin',
+        controller: 'paginable/plans',
+        action: 'org_admin',
+        scope: @plans,
+        query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>
+    <% end %>
+  </div>
+</div>

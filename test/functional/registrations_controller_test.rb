@@ -7,7 +7,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     @user = User.first
   end
   
-  # -------------------------------------------------------------
+  # # -------------------------------------------------------------
   test "sign up form loads" do
     get new_user_registration_path
     
@@ -17,7 +17,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   
   # -------------------------------------------------------------
   test "user receives proper error messaging if they have not accepted terms" do
-    post user_registration_path, {user: {accept_terms: false}}
+    post user_registration_path, {user: {accept_terms: nil}}
     
     assert_response :redirect
     follow_redirect!
@@ -26,19 +26,27 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal _('You must accept the terms and conditions to register.'), flash[:alert]
   end
   
+  test "user receives proper error messaging if they have not select an org from the list or entered their organisation name" do
+    post user_registration_path, {user: {accept_terms: "on"}}
+    assert_response :redirect
+    follow_redirect!
+    
+    assert_response :success
+    assert_equal _('Please select an organisation from the list, or enter your organisation\'s name.'), flash[:alert]
+  end
+
   # -------------------------------------------------------------
   test "user receives proper error messaging if they have not provided a valid email and/or password" do
+    org_id = Org.first.id
     [ {}, 
-      {email: 'foo.bar@test.org'},                    # No Password or Confirmation
-      {password: 'test12345'},                        # No Confirmation
-      {password_confirmation: 'test12345'},           # No Password
+      {email: 'foo.bar@test.org' },                    # No Password or Confirmation
+      {password: 'test12345' },                        # No Email
       {password: 'test12345', password_confirmation: 'test12345'}, # No Email
-      {email: 'foo.bar@test.org', password: 'test', password_confirmation: 'test'}, # Password is too short
-      {email: 'foo.bar@test.org', password: 'test12345', password_confirmation: 'test123'}, # Passwords do not match
-      {email: 'foo.bar$test.org', password: 'test12345', password_confirmation: 'test12345'} # invalid email
+      {email: 'foo.bar@test.org', password: 'test' }, # Password is too short
+      {email: 'foo.bar$test.org', password: 'test12345' } # invalid email
     ].each do |params|
-      post user_registration_path, {user: {accept_terms: 1}.merge(params)}
-    
+      post user_registration_path, {user: { accept_terms: "on", org_id: org_id }.merge(params)}
+
       assert_response :redirect
       follow_redirect!
     
@@ -49,26 +57,18 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   
   # -------------------------------------------------------------
   test "user is able to register and is auto-logged in and brought to profile page" do
-    form = {accept_terms: 1, 
+    form = {accept_terms: "on", 
             email: 'foo.bar@test.org', 
-            password: 'Test12345', 
-            password_confirmation: 'Test12345'}
+            password: 'Test12345',
+            org_id: Org.first.id }
+    post user_registration_path, {user: form}
     
-    cntr = 1
-    # Test the bare minimum requirements and then all options
-    [form, form.merge({email: "foo.bar#{cntr}@test.org", 
-                       organisation_id: Org.first.id})].each do |params|
-      post user_registration_path, {user: params}
+    assert_response :redirect
+    assert_redirected_to root_url
     
-      assert_response :redirect
-      assert_redirected_to root_url
-    
-      follow_redirect!
-      assert_response :redirect
-      assert_redirected_to plans_path
-      
-      cntr += 1
-    end
+    follow_redirect!
+    assert_response :redirect
+    assert_redirected_to plans_path
   end
   
   # -------------------------------------------------------------
@@ -78,7 +78,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     get edit_user_registration_path
     
     assert_response :success
-    assert_select '.main_page_content h1', _('Edit profile')
+    assert_select 'main h1', _('Edit profile')
     
   end
   
@@ -88,14 +88,14 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     
     # Change name
     put user_registration_path, {user: {email: @user.email, firstname: 'Testing', surname: 'UPDATE', org_id: Org.first.id}}
-    assert_equal _('Details successfully updated.'), flash[:notice]
+    assert flash[:notice].start_with?('Successfully')
     assert_response :redirect
-    assert_redirected_to edit_user_registration_url
+    assert_redirected_to "#{edit_user_registration_url}\#personal-details"
     
     # Change email but didn't provide password
     put user_registration_path, {user: {email: 'something@else.org', firstname: @user.firstname, surname: @user.surname, org_id: Org.first.id}}
     assert_response :success
-    assert_equal _('Please enter your password to change email address.'), flash[:notice]
+    assert_equal _('Please enter your password to change email address.'), flash[:alert]
 
 # TODO: These don't seem to be behaving as expected. There were several typos in the controller that have been fixed
 #       (succesfully_updated vs successfully_updated)

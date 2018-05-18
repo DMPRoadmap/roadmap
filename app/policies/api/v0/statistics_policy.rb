@@ -18,6 +18,9 @@ module Api
         true
       end
 
+      def completed_plans?
+        true
+      end
       ##
       # need to check if your org owns this template
       def using_template?

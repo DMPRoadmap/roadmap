@@ -19,10 +19,9 @@ Official release coming soon!
 Roadmap is a Ruby on Rails application and you will need to have: 
 * Ruby >= 2.2.2
 * Rails >= 4.2
-* MySql >= 5.0 OR PostgreSql
+* MySQL >= 5.0 OR PostgreSQL
 
-#### Migrating data from a running instance of DMPOnline_v4 or DMPTool
-Migration instructions will be coming soon
+Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
 
 Further details on how to install MySQL and create your first user and database. Be sure to follow the instructions for your particular environment. 
 * Install: http://dev.mysql.com/downloads/mysql/
@@ -35,7 +34,7 @@ You may also find the following resources handy:
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 #### Installation
-* Create your database. Select UTF-8 Unicode (utf8) encoding.
+* Create your database. Select UTF-8 Unicode encoding (`utf8mb4` if using MySQL).
 * Clone this repository (or Fork the repository first if you plan on contributing)
 
 >     > git clone https://github.com/[your organization]/roadmap.git

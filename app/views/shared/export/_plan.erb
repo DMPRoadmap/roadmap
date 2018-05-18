@@ -1,0 +1,86 @@
+<%
+  font_face = (@formatting[:font_face].present? ? "#{@formatting[:font_face]}" : 'Arial, Helvetica, Sans-Serif')
+  font_size = (@formatting[:font_size].present? ? "#{@formatting[:font_size]}" : '12')
+  margin_top = '5'
+  margin_bottom = '10'
+  margin_left = '12'
+  margin_right = '12'
+
+  if @formatting[:margin].present?
+    margin_top = (@formatting[:margin][:top].is_a?(Integer) ? @formatting[:margin][:top] * 4 : @formatting[:margin][:top]) if @formatting[:margin][:top].present?
+    margin_right = (@formatting[:margin][:right].is_a?(Integer) ? @formatting[:margin][:right] * 4 : @formatting[:margin][:right]) if @formatting[:margin][:right].present?
+    margin_bottom = (@formatting[:margin][:bottom].is_a?(Integer) ? @formatting[:margin][:bottom] * 4 : @formatting[:margin][:bottom]) if @formatting[:margin][:bottom].present?
+    margin_left = (@formatting[:margin][:left].is_a?(Integer) ? @formatting[:margin][:left] * 4 : @formatting[:margin][:left]) if @formatting[:margin][:left].present?
+  end
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title><%= @plan.title %></title>
+    <%= render partial: '/shared/export/plan_styling',
+               locals: {
+                 font_face: font_face,
+                 font_size: "#{font_size}pt",
+                 margin: "#{margin_top}px #{margin_right}px #{margin_bottom}px #{margin_left}px"
+               } %>
+  </head>
+  <body>
+    <% if @show_coversheet %>
+      <%= render partial: '/shared/export/plan_coversheet' %>
+    <% end %>
+
+    <% @hash[:phases].each do |phase| %>
+      <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
+      <!-- If there is more than one phase show the plan title and phase title -->
+      <h1><%= (@hash[:phases].length > 1 ? "#{@plan.title} - #{phase[:title]}" : @plan.title) %></h1>
+      <hr />
+      <% phase[:sections].each do |section| %>
+        <% if @show_sections_questions %>
+          <h3><%= section[:title] %></h3>
+        <% end %>
+
+        <% section[:questions].each do |question| %>
+          <div class="question">
+            <% if @show_sections_questions && !@public_plan %>
+              <p><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present?%></p>
+              <br>
+            <% end %>
+            <% answer = @plan.answer(question[:id], false) %>
+            <% blank = answer.present? ? answer.is_blank? : true %>
+            <% options = answer.present? ? answer.question_options : [] %>
+            <%# case where question has not been answered sufficiently to display%>
+            <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+              <p><%= _('Question not answered.') -%></p>
+            <% else %>
+              <%# case where Question has options %>
+              <% if options.present?%>
+                <ul>
+                  <% options.each do |opt| %>
+                    <li><%= opt.text %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+              <%# case for RDA answer display %>
+              <% if question[:format].rda_metadata? && !blank %>
+                <% ah = answer.answer_hash %>
+                <% if ah['standards'].present? %>
+                  <ul>
+                    <% ah['standards'].each do |id, title| %>
+                      <li><%= title %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+                <p><%= raw ah['text'] %></p>
+              <%# case for displaying comments OR text %>
+              <% elsif !blank %>
+                <p><%= raw answer.text %></p>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %> <!-- sections.each -->
+    <% end %>
+  </body>
+</html>

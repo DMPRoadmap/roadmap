@@ -39,18 +39,6 @@ class ApplicationHelperTest < ActionView::TestCase
   end
   
   # -----------------------------------------------------------------------
-  test "javascript should add JS script tags to the HTML head content for each of the files provided" do
-    current = content_for(:head)
-    
-    javascript('abc.js')
-    assert content_for(:head).include?("#{javascript_include_tag('abc.js')}"), "Expected the abc.js script to be added to the HTML head content but got: #{content_for(:head)}"
-    
-    javascript('zyx.js', 'wvu.js')
-    assert content_for(:head).include?("#{javascript_include_tag('wvu.js')}"), "Expected the wvu.js script to be added to the HTML head content but got: #{content_for(:head)}"
-    assert content_for(:head).include?("#{javascript_include_tag('zyx.js')}"), "Expected the zyx.js script to be added to the HTML head content but got: #{content_for(:head)}"
-  end
-  
-  # -----------------------------------------------------------------------
   test "hash_to_js_json_variable should return valid JSON markup for the specified Hash object" do
     actual = hash_to_js_json_variable('hasher', {foo: 'bar', abc: '123'})
     

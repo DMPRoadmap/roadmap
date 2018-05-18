@@ -9,15 +9,15 @@ class NotePolicy < ApplicationPolicy
   end
 
   def create?
-    @note.answer.plan.readable_by?(@user.id)
+    @note.answer.plan.commentable_by?(@user.id)
   end
 
   def update?
-    Plan.find(@note.answer.plan_id).readable_by?(@user.id)
+    Plan.find(@note.answer.plan_id).commentable_by?(@user.id)
   end
 
   def archive?
-    Plan.find(@note.answer.plan_id).readable_by?(@user.id)
+    Plan.find(@note.answer.plan_id).commentable_by?(@user.id)
   end
 
 end

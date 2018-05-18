@@ -1,23 +1,9 @@
-<!-- header information -->
-
-<div class="main_header">
-	<div class="header_left">
-        <div class="home_logo">
-          <%= link_to(image_tag("logo.jpg"), root_path)%>
-        </div>
-    </div>
-    <div class="header_right">	
-        <div class="org_branding">
-             <%= render "layouts/branding" %>
-        </div>
-        
-        <div class="signin_signout_header_link">
-             <%= render "layouts/signin_signout" %>
-        </div>
-        
-        <div class="main_navigation">
-            <%= render "layouts/navigation" %>
-        </div> 
-    
-    </div>  
-</div>    
+<!-- header information (bootstrap 3 column layout) -->
+<div class="main-nav">
+  <%= render partial: "layouts/navigation" %>
+</div>
+<div class="org-branding">
+  <% if user_signed_in? && !current_user.org.nil? && !current_user.org.is_other %>
+    <%= render partial: "layouts/branding" , locals: {max_number_links: MAX_NUMBER_LINKS_FUNDER,} %>
+  <% end %>
+</div>

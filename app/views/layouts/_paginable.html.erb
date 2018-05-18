@@ -1,0 +1,61 @@
+<% 
+  # Custom layout to be included on any view that needs pagination
+  # locals: { scope, search_term } 
+%>
+<% total = paginable? ? scope.total_count : scope.length %>
+<div class="paginable">
+  <div class="paginable-search">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render(partial: '/shared/search', locals: { search_term: search_term }) if searchable? || total > Kaminari.config.default_per_page %>
+      </div>
+    </div>
+  </div>
+  <div class="paginable-results">
+    <div class="row">
+      <div class="col-md-12">
+        <% if scope.length > 0 %>
+          <%= yield %>
+        <% else %>
+          <p class="bg-info">
+            <%= _('There are no records associated') %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-left">
+          <% if total > Kaminari.config.default_per_page %>
+            <% if searchable? %>
+                <ul class="list-inline">
+                <% if paginable? %>
+                  <li><%= link_to(_('View all search results'), paginable_base_url_with_query_params(page: 'ALL'), { 'data-remote': true, class: 'paginable-action' }) %></li>
+                <% else %>
+                  <%= link_to(_('View less search results'), paginable_base_url_with_query_params(page: 1), { 'data-remote': true, class: 'paginable-action' }) %>
+                <% end %>
+                  <li><%= link_to(_('Clear search results'), paginable_base_url_with_query_params(page: 1, search: nil), { 'data-remote': true, class: 'paginable-action' }) %></li>
+                </ul>
+            <% else %>
+              <% if paginable? %>
+                <%= link_to(_('View all'), paginable_base_url_with_query_params(page: 'ALL'), { 'data-remote': true, class: 'paginable-action' }) if @paginable_options[:view_all] %>
+              <% else %>
+                <%= link_to(_('View less'), paginable_base_url_with_query_params(page: 1), { 'data-remote': true, class: 'paginable-action' }) %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% if searchable? %>
+              <%= link_to(_('Clear search results'), paginable_base_url_with_query_params(page: 1, search: nil), { 'data-remote': true, class: 'paginable-action' }) %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="pull-right">
+          <% if paginable? %>
+              <%= paginate(scope, params: @paginable_params, remote: true) %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

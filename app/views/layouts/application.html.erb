@@ -1,84 +1,110 @@
 <!DOCTYPE html>
-<html class="dmponline" lang="<%= FastGettext.locale %>">
-	<head>
-	  <title><%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %></title>
+<html lang="en">
+  <head>
+    <title>
+      <%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    </title>
       <%= favicon_link_tag "favicon.ico" %>
-		<!--[ if lte IE 9]>
-			<script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-		   	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
-		   	<style type="text/css"> 
-		   		.navbar { 
-		   			filter:none !important; 
-		   		} 
-		   	</style> 
-		<![endif]-->
-		  
-		<!--[if gte IE 9]>
-		  	<style type="text/css">
-		    	.gradient {
-		    	   	filter: none;
-		    	}
-		  	</style>
-		<![endif]-->
-    
-		<%= stylesheet_link_tag   "application" %>
-		<%= javascript_include_tag "application"%>
-		
-		<%= javascript_include_tag "jquery.tablesorter"%>
-		<script>
-			$(function() {	
-				//function for sorting html tables
-				$("#dmp_table").tablesorter({dateFormat: "uk"}); 
-				$("#dmp_table_2").tablesorter({dateFormat: "uk"});
-			});
-         
-			// Set the JS locale equal to the one Rails has
-			I18n.defaultLocale = "<%= I18n.default_locale %>";
-			I18n.locale = "<%= I18n.locale %>";
-		</script>
+    <!--[ if lte IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+         <style type="text/css">
+           .navbar {
+             filter:none !important;
+           }
+         </style>
+    <![endif]-->
 
-		<!--[if IE]>
-			  	<script>
-			  		$(function() {
-					    // Invoke the plugin
-					    $('input, textarea').placeholder();
-					    $('input, iframe').placeholder();
-					});    
-				</script>
-		<![endif]-->	
+    <!--[if gte IE 9]>
+        <style type="text/css">
+          .gradient {
+               filter: none;
+          }
+        </style>
+    <![endif]-->
 
-		<%= yield(:head) %>
-		<%= csrf_meta_tags %>
+    <!--[if IE]>
+          <script>
+            $(function() {
+              // Invoke the plugin
+              $('input, textarea').placeholder();
+              $('input, iframe').placeholder();
+          });
+        </script>
+    <![endif]-->
 
+    <%= stylesheet_link_tag fingerprinted_asset('application') %>
+    <%= javascript_include_tag fingerprinted_asset('vendor') %>
+    <%= javascript_include_tag fingerprinted_asset('application') %> 
+    <%= csrf_meta_tags %>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		    
-	</head>
-	<body class="dmponline" >
-		<!--p class="alert alert-danger">The DMPRoadmap service will be down from 1600 BST (UTC+1) on Friday, 15th May 2015 to allow essential updates.  Please ensure you have saved your data and logged out before this time to avoid any problems.  We will be back again as soon as possible on Friday evening.</p-->
-	    <!--p class="alert alert-success">Our essential updates have been completed, and DMPRoadmap is up and running again. Many thanks for your patience.</p -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  </head>
+  <body>
 
-	    <!-- header renedering -->
-	    <%= render "layouts/header" %>
-	    
-    <p id="main-page-alert" class="alert alert-notice" style="display:none"></p>
+      <!-- header rendering -->
+      <header>
+        <%= render partial: "layouts/header" %>
+      </header>
 
-		<div class="main_page_container">
-			<% if notice %>
-  				<p class="alert alert-notice"><%= raw notice %></p>
-				<% end %>
-			<% if alert %>
- 				<p class="alert alert-error"><%= raw alert %></p>
-			<% end %>
-			
-		    <div class="main_page_content">
-		    	<%= yield %>
-		    </div>	
-		</div>
-		
-		<!-- footer rendering -->
-		<%= render "layouts/footer" %>
-			
-	</body>
+      <%
+      has_alert = (alert || flash[:alert] || flash[:error])
+      has_notice = (notice || flash[:notice])
+      %>
+
+      <!-- main page content rendering -->
+      <main class="container">
+        <div id="notification-area"
+             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
+          <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+          <span><%= raw (has_alert ? alert : notice) %></span>
+        </div>
+        <%= yield %>
+      </main>
+
+      <!-- footer rendering -->
+      <footer >
+        <%= render "layouts/footer" %>
+      </footer>
+
+    <% 
+    constants_json = {
+      PASSWORD_MIN_LENGTH: 8,
+      PASSWORD_MAX_LENGTH: 128,
+      MAX_NUMBER_ORG_URLS: 3,
+      MAX_NUMBER_GUIDANCE_SELECTIONS: 6,
+
+      VALIDATION_MESSAGE_DEFAULT: _('Please enter a valid value.'),
+      VALIDATION_MESSAGE_EMAIL: _('You must enter a valid email address.'),
+      VALIDATION_MESSAGE_URL: _('You must enter a valid URL (e.g. https://organisation.org).'),
+      VALIDATION_MESSAGE_NUMBER: _('Please enter a valid number.'),
+      VALIDATION_MESSAGE_PASSWORD: _('The password must be between 8 and 128 characters.'),
+      VALIDATION_MESSAGE_PASSWORDS_MATCH: _('The passwords must match.'),
+      VALIDATION_MESSAGE_RADIO: _('Please choose one of the options.'),
+      VALIDATION_MESSAGE_CHECKBOX: _('Please check the box to continue.'),
+      VALIDATION_MESSAGE_SELECT: _('Please select a value from the list.'),
+      VALIDATION_MESSAGE_TEXT: _('This field is required.'),
+
+      SHOW_PASSWORD_MESSAGE: _('Show password'),
+      SHOW_SELECT_ORG_MESSAGE: _('Select an organisation from the list.'),
+      SHOW_OTHER_ORG_MESSAGE: _('My organisation isn\'t listed'),
+ 
+      PLAN_VISIBILITY_WHEN_TEST: _('N/A'),
+      PLAN_VISIBILITY_WHEN_NOT_TEST: _('Private'),
+      PLAN_VISIBILITY_WHEN_NOT_TEST_TOOLTIP: _('Private: restricted to me and people I invite.'),
+
+      SHIBBOLETH_DISCOVERY_SERVICE_HIDE_LIST: _('Hide list.'),
+      SHIBBOLETH_DISCOVERY_SERVICE_SHOW_LIST: _('See the full list of partner institutions.'),
+
+      NO_TEMPLATE_FOUND_ERROR: _('Unable to find a suitable template for the research organisation and funder you selected.'),
+      NEW_PLAN_DISABLED_TOOLTIP: _('Please select a research organisation and funder to continue.')
+    }.to_json
+    %>
+
+    <input type="hidden" id="js-constants" value="<%= constants_json %>" />
+  </body>
 </html>

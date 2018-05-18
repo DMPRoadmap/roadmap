@@ -1,0 +1,12 @@
+<% # locals: { search_term } %>
+<%= form_tag(paginable_base_url_with_query_params(page: 1), method: :get, remote: true, class: 'form-inline paginable-action') do %>
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon" id="search-addon">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </span>
+      <%= text_field_tag(:search, search_term, class: 'form-control', 'aria-describedby': 'search-addon', 'aria-required': true) %>
+    </div>
+  </div>
+  <%= submit_tag(_('Search'), class: 'btn btn-default', style: 'margin-top: 8px;') %>
+<% end %>

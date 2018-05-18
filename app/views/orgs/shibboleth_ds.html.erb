@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Find your organisation to sign in') %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, html: {id: 'shibboleth_ds'} do |f| %>
+      <div class="form-group col-xs-8">
+        <%= f.label(:org_name, _('Look up your organisation here'), class: "control-label") %>
+  
+        <% if @orgs.length <= 10 %>
+          <select id="org_name">
+            <option value=""><%= _('Please select one') %></option>
+            <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
+          </select>
+        
+        <% else %>
+          <%= render partial: "shared/accessible_combobox", 
+                     locals: {name: 'org_name',
+                              id: 'org_name',
+                              default_selection: nil,
+                              models: @orgs,
+                              attribute: 'name',
+                              required: true,
+                              classes: ''} %>
+        <% end %>
+      
+        <%= f.button(_('Go'), class: "btn btn-default", type: "submit") %>
+
+        <% if @orgs.length > 10 %>
+          <p class="centered">
+            <strong>- <%= _('or') %> -</strong>
+            <br />
+            <a id="show_list" href="#"><%= _('See the full list of participating organisations') %></a>
+          </p>
+        <% end %>
+
+      </div>
+    <% end %>
+  
+    <div id="full_list" style="display: none" aria-hidden="true">
+      <div id="org-list">
+        <%
+        increment, cols, letter, total, row = 50, 1, '', @orgs.length, 0
+
+        # Determine how many letter separators 
+        total += @orgs.collect{|o| o.name[0]}.uniq.count
+        cols = (total > 100 ? 3 : (total > 50 ? 2 : 1))
+        increment = (total / cols)
+        %>
+        <% @orgs.each do |org| %>
+          <% if row == 0 || (row % increment == 0) %>
+            <% if row > 0 %>
+              </ul></div>
+            <% end %>
+            <div class="col-md-<%= (cols == 3 ? '4' : (cols == 2 ? '6' : '12')) %>"><ul>
+          <% end %>
+
+          <% unless org.name[0].capitalize == letter %>
+            <li class="bg-primary"><%= org.name[0].capitalize %></li>
+            <% row += 1 %>
+            <% letter = org.name[0].capitalize %>
+          <% end %>
+
+          <li><a href="<%= "#{shibboleth_ds_path}/#{org.id}" %>"><%= org.name %></a></li>
+          <% row += 1 %>
+        <% end %>
+      </div>
+    </div>
+  
+    <hr />
+  
+    <p>
+      <%= _('Organisation not in the list?') %>&nbsp;
+      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin">
+        <%= _('Create an account with any email address')%>
+      </button>
+    </p>
+  </div>
+</div>
