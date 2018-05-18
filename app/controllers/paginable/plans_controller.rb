@@ -25,6 +25,6 @@ class Paginable::PlansController < ApplicationController
   def org_admin
     raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
     paginable_renderise(partial: 'org_admin',
-      scope: current_user.org.plans)
+      scope: current_user.org.plans.where.not(:visibility => 4))
   end
 end
