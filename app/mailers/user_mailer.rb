@@ -111,7 +111,7 @@ class UserMailer < ActionMailer::Base
   def new_comment(commenter, plan)
     if commenter.is_a?(User) && plan.is_a?(Plan)
       owner = plan.owner
-      if owner.present? && owner.active?
+      if owner.present? && owner.active? && owner.email != commenter.email
         @commenter = commenter
         @plan = plan
         FastGettext.with_locale FastGettext.default_locale do
