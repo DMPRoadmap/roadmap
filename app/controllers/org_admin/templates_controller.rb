@@ -10,7 +10,7 @@ module OrgAdmin
     def index
       authorize Template
       templates = Template.latest_version
-      published, draft = templates.partition{|t| t.published? }
+      published = templates.select{|t| t.published? || t.draft? }.length
       render 'index', locals: { 
         orgs: Org.all,
         title: _('All Templates'),
@@ -18,8 +18,8 @@ module OrgAdmin
         action: 'index',
         query_params: { sort_field: :title, sort_direction: :asc },
         all_count: templates.length,
-        published_count: published.present? ? published.length : 0,
-        draft_count: draft.present? ? draft.length : 0
+        published_count: published.present? ? published : 0,
+        unpublished_count: published.present? ? (templates.length - published): templates.length
       }
     end
     
@@ -29,7 +29,7 @@ module OrgAdmin
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
-      published, draft = templates.partition{|t| t.published? }
+      published = templates.select{|t| t.published? || t.draft? }.length
       title = current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates')
       render 'index', locals: { 
         orgs: current_user.can_super_admin? ? Org.all : nil,
@@ -38,8 +38,8 @@ module OrgAdmin
         action: 'organisational',
         query_params: { sort_field: :title, sort_direction: :asc },
         all_count: templates.length,
-        published_count: published.present? ? published.length : 0,
-        draft_count: draft.present? ? draft.length : 0
+        published_count: published.present? ? published : 0,
+        unpublished_count: published.present? ? (templates.length - published): templates.length
       }
     end
 
@@ -53,8 +53,7 @@ module OrgAdmin
       # We use this to validate the counts below in the event that a template was customized but the base template
       # org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
-      published = customizations.select{ |c| funder_template_families.include?(c.customization_of) }.length
-      draft = funder_templates.length - published
+      published = customizations.select{|t| t.published? || t.draft? }.length
       render 'index', locals: { 
         orgs: (current_user.can_super_admin? ? Org.all : []),
         title: _('Customizable Templates'),
@@ -63,8 +62,9 @@ module OrgAdmin
         action: 'customisable',
         query_params: { sort_field: :title, sort_direction: :asc },
         all_count: funder_templates.length,
-        published_count: published,
-        draft_count: draft
+        published_count: published.present? ? published : 0,
+        unpublished_count: published.present? ? (customizations.length - published): customizations.length,
+        not_customized_count: funder_templates.length - customizations.length
       }
     end
     
