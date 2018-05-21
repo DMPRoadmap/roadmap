@@ -70,6 +70,9 @@
           <%= link_to _('Delete'), org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id),
           confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:'button'%>
       <% end %>
+      <% href = question.id.present? ? org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) : '#' %>
+      <% selector = question.id.present? ? 'cancel-edit-question' : 'cancel-new-question' %>
+      <%= link_to _('Cancel'), href, class: "btn btn-default #{selector}" %>
     </div>
   </div>
 <% end %>
