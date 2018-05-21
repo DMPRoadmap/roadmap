@@ -7,7 +7,7 @@
           <a
             href="<%= org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>"
             data-remote="true"
-            class="heading-button"
+            class="heading-button ajaxified-link"
             data-toggle="collapse"
             data-parent="sections-accordion" 
             data-target="#collapseSection<%= section.id%>"
@@ -28,7 +28,8 @@
             id="<%= "collapseSection#{section.id}" %>"
             class="panel-collapse collapse<%= " in" if current_section.present? && section.id == current_section.id %>"
             role="tabpanel"
-            aria-labelledby="<%= "headingSection#{section.id}" %>">
+            aria-labelledby="<%= "headingSection#{section.id}" %>"
+            data-context="ajaxified-section">
              <div class="panel-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
               <%# This is AJAX loaded on demand unless section_id is specified in the URL %>
               <% if current_section.present? && section.id == current_section.id %>
