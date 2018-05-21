@@ -29,8 +29,9 @@ module OrgAdmin
     
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:section_id]/questions/new
     def new
-      section = Section.includes(phase: :template).find(params[:section_id])
-      question = Question.new({ section_id: section.id, question_format: QuestionFormat.find_by(title: 'Text area') })
+      section = Section.includes(:questions, phase: :template).find(params[:section_id])
+      nbr = section.questions.maximum(:number)
+      question = Question.new({ section_id: section.id, question_format: QuestionFormat.find_by(title: 'Text area'), number: nbr.present? ? nbr + 1 : 1 })
       authorize question
       render partial: 'form', locals: { 
         template: section.phase.template, 
@@ -54,6 +55,9 @@ module OrgAdmin
           flash[:alert] = failed_create_error(question, _('question'))
         end
       rescue StandardError => e
+question.valid?
+puts "ERROR: #{e.message}"
+puts question.errors.collect{|e,m| "#{e} - #{m}"}.join(', ')
         flash[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id, section: section.id)

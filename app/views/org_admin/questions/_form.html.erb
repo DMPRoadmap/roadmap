@@ -1,3 +1,4 @@
+<h4><%= question.id.present? ? _('Question %{number}:') % { number: question.number } : _('New question:') %></h4>
 <%= form_for(question, url: url, namespace: question.id.present? ? question.id : 'new_question', html: { method: method, class: 'question_form' }) do |f| %>
   <% current_format = question.question_format.present? ? question.question_format : QuestionFormat.find_by(formattype: QuestionFormat.formattypes[:textarea]) %>
 
@@ -9,7 +10,7 @@
   <!--Question text -->
   <div class="form-group col-md-10">
     <%= f.label(:text, _('Question text'), class: "control-label") %>
-    <%= f.text_area(:text, class: "question") %>
+    <%= f.text_area(:text, class: "question", 'aria-required': true) %>
   </div>
   <!-- Question format -->
   <div class="form-group col-md-4">
@@ -67,12 +68,13 @@
     <div class="pull-right">
       <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
       <% if question.id.present? && !question.section.phase.template.published? %>
-          <%= link_to _('Delete'), org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id),
-          confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, method: :delete, class: "btn btn-default", role:'button'%>
+          <% href = org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) %>
+          <%= link_to _('Delete'), href, confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, 
+                      method: :delete, class: "btn btn-default", role:'button'%>
+        <%= link_to _('Cancel'), href, class: "btn btn-default ajaxified-question", method: 'get', remote: true %>
+      <% else %>
+        <%= link_to _('Cancel'), '#', class: "btn btn-default cancel-new-question" %>
       <% end %>
-      <% href = question.id.present? ? org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) : '#' %>
-      <% selector = question.id.present? ? 'cancel-edit-question' : 'cancel-new-question' %>
-      <%= link_to _('Cancel'), href, class: "btn btn-default #{selector}" %>
     </div>
   </div>
 <% end %>
