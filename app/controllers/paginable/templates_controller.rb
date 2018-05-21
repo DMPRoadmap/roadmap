@@ -5,13 +5,14 @@ class Paginable::TemplatesController < ApplicationController
   # -----------------------------------------------------
   def index
     authorize Template
+    templates = Template.latest_version
     case params[:f]
     when 'published'
-      templates = Template.latest_version.published
+      template_ids = templates.select{|t| t.published? || t.draft? }.collect(&:family_id)
+      templates = Template.latest_version(template_ids)
     when 'unpublished'
-      templates = Template.latest_version.where(published: false)
-    else
-      templates = Template.latest_version
+      template_ids = templates.select{|t| !t.published? && !t.draft? }.collect(&:family_id)
+      templates = Template.latest_version(template_ids)
     end
     paginable_renderise partial: 'index', scope: templates.includes(:org), locals: { action: 'index' }
   end
@@ -20,13 +21,14 @@ class Paginable::TemplatesController < ApplicationController
   # -----------------------------------------------------
   def organisational
     authorize Template
+    templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
     case params[:f]
     when 'published'
-      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id).published
+      template_ids = templates.select{|t| t.published? || t.draft? }.collect(&:family_id)
+      templates = Template.latest_version(template_ids)
     when 'unpublished'
-      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id, published: false)
-    else
-      templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
+      template_ids = templates.select{|t| !t.published? && !t.draft? }.collect(&:family_id)
+      templates = Template.latest_version(template_ids)
     end
     paginable_renderise partial: 'organisational', scope: templates, locals: { action: 'organisational' }
   end
@@ -36,13 +38,16 @@ class Paginable::TemplatesController < ApplicationController
   def customisable
     authorize Template
     customizations = Template.latest_customized_version_per_org(current_user.org.id)
+    templates = Template.latest_customizable
     case params[:f]
-      when 'customised'
-        templates = Template.latest_customizable.where(family_id: customizations.collect(&:customization_of))
+      when 'published'
+        customization_ids = customizations.select{|t| t.published? || t.draft? }.collect(&:customization_of)
+        templates = Template.latest_customizable.where(family_id: customization_ids)
+      when 'unpublished'
+        customization_ids = customizations.select{|t| !t.published? && !t.draft? }.collect(&:customization_of)
+        templates = Template.latest_customizable.where(family_id: customization_ids)
       when 'not-customised'
         templates = Template.latest_customizable.where.not(family_id: customizations.collect(&:customization_of))
-      else
-        templates = Template.latest_customizable
     end
     paginable_renderise partial: 'customisable', scope: templates.includes(:org), locals: { action: 'customisable', customizations: customizations }
   end

@@ -5,7 +5,7 @@
       <tr>
         <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th><%= _('Funder') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th><%= _('Status') %>&nbsp;<%= paginable_sort_link('templates.published') %></th>
+        <th><%= _('Status') %></th>
         <th><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th>&nbsp;</th>
       </tr>
@@ -28,7 +28,9 @@
               <% if customization.published? %>
                 <%= _('Published') %>
               <% elsif customization.draft? %>
-                <%= _('Draft') %>
+                <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %>
+                <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
+              &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
               <% else %>
                 <%= _('Unpublished') %>
               <% end %>

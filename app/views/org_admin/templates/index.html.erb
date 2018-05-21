@@ -53,12 +53,13 @@
               <ul class="nav navbar-nav">
                 <% if isActivePage(customisable_org_admin_templates_path) %>
                   <li><%= link_to _('All (%{count})') % { count: all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Customised (%{count})') % { count: published_count}, "#{filter_path}?f=customised&#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Not customised (%{count})') % { count: draft_count}, "#{filter_path}?f=not-customised&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Published (%{count})') % { count: published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Unpublished (%{count})') % { count: unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Not customised (%{count})') % { count: not_customized_count}, "#{filter_path}?f=not-customised&#{qry}", 'data-remote': "true" %></li>
                 <% else %>
                   <li><%= link_to _('All (%{count})') % { count: all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %></li>
                   <li><%= link_to _('Published (%{count})') % { count: published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Draft (%{count})') % { count: draft_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Unpublished (%{count})') % { count: unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
                 <% end %>
               </ul>
             </div>
