@@ -59,7 +59,7 @@ class Paginable::TemplatesController < ApplicationController
     Template.where(is_default: true).unarchived.published.pluck(:id)
     paginable_renderise(
       partial: 'publicly_visible',
-      scope: Template.includes(:org).where(id: templates.uniq.flatten).valid.published)
+      scope: Template.includes(:org).where(id: templates.uniq.flatten).published)
   end
 
   # GET /paginable/templates/:id/history/:page  (AJAX)
