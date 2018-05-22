@@ -23,7 +23,9 @@
         <td>
           <% if customization.present? %>
             <% if customization.upgrade_customization? %>
-              <%= _('Original funder template has changed!') %>
+              <% tooltip = _("Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s).") %>
+              <%= _('Original funder template has changed!') %><em class="sr-only"><%= tooltip %></em>
+              &nbsp;&nbsp;<i class="fa fa-files-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
             <% else %>
               <% if customization.published? %>
                 <%= _('Published') %>

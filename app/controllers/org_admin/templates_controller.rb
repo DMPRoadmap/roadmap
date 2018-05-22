@@ -83,7 +83,7 @@ module OrgAdmin
         partial_path: 'show', 
         template: template,
         phases: phases,
-        referrer: get_referrer(request.referrer) }
+        referrer: get_referrer(template, request.referrer) }
     end
     
     # GET /org_admin/templates/:id/edit
@@ -102,7 +102,7 @@ module OrgAdmin
         partial_path: 'edit', 
         template: template,
         phases: phases,
-        referrer: get_referrer(request.referrer) }
+        referrer: get_referrer(template, request.referrer) }
     end
     
     # GET /org_admin/templates/new
@@ -335,9 +335,10 @@ module OrgAdmin
       template.customization_of.present? ? _('customisation') : _('template')
     end
    
-    def get_referrer(referrer)
+    def get_referrer(template, referrer)
       if referrer.present?  
-        if referrer.end_with?(org_admin_template_path 
+puts "REFERRER: #{referrer}"
+        if referrer.end_with?(new_org_admin_template_path) || referrer.end_with?(edit_org_admin_template_path) || referrer.end_with?(org_admin_template_path) 
           template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path 
         else 
           request.referrer
