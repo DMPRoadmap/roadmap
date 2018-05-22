@@ -61,27 +61,29 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <% if template.customization_of.present? && template.latest? %>
-          <h4> <%= _('Annotations') %> </h4>
-          <%= form_for(question, url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), namespace: question.id, html: { method: 'put', class: 'question_form' }) do |f| %>
-            <%# example_answer and guidance annotations as nested fields %>
-            <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
-              <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
-                <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+        <% if template.latest? %>
+          <% if template.customization_of.present? && !section.modifiable? %>
+            <h4> <%= _('Annotations') %> </h4>
+            <%= form_for(question, url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), namespace: question.id, html: { method: 'put', class: 'question_form' }) do |f| %>
+              <%# example_answer and guidance annotations as nested fields %>
+              <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+                <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
+                  <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+                <% end %>
               <% end %>
+              <div class="form-group col-md-10">
+                <div class="pull-right">
+                  <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+                </div>
+              </div>
             <% end %>
+          <% elsif section.modifiable? %>
             <div class="form-group col-md-10">
               <div class="pull-right">
-                <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
               </div>
             </div>
           <% end %>
-        <% elsif section.modifiable? && template.latest? %>
-          <div class="form-group col-md-10">
-            <div class="pull-right">
-              <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
-            </div>
-          </div>
         <% end %>
       </div>
     </div>

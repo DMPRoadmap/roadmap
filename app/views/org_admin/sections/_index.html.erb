@@ -4,8 +4,9 @@
     <div class="panel-group" id="sections_accordion" role="tablist">
       <% sections.each do |section| %>
         <div class="panel panel-default">
+          <% href = (section.modifiable? ? edit_org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) : org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id)) %>
           <a
-            href="<%= org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) %>"
+            href="<%= href %>"
             data-remote="true"
             class="heading-button ajaxified-section"
             data-toggle="collapse"
