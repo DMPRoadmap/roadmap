@@ -767,7 +767,8 @@ class Plan < ActiveRecord::Base
       :organisationally_visible => _('organisational'),
       :publicly_visible => _('public'),
       :is_test => _('test'),
-      :privately_visible => _('private')
+      :privately_visible => _('Administrator'),
+      :privately_private_visible => _('private')
     }
     message[type]
   end
