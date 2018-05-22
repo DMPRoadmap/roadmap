@@ -1,13 +1,13 @@
 <%
-	titles = {
-		example_answer: _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'),
-		guidance: _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.")
-	}
+  titles = {
+    example_answer: _('You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted.'),
+    guidance: _("Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text.")
+  }
 %>
 <div class="form-group col-md-10">
-	<%= f.label(:type, f.object.type.humanize, class: "control-label") %>
- 	<div data-toggle="tooltip" title="<%= titles[f.object.type.to_sym] %>">
-  	<%= f.text_area(:text, class: 'annotation') %>
+  <%= f.label(:type, f.object.type.humanize, class: "control-label") %>
+   <div data-toggle="tooltip" title="<%= titles[f.object.type.to_sym] %>">
+    <%= f.text_area(:text, class: 'question') %>
   </div>
 </div>
 <%= f.hidden_field(:id) %>

@@ -15,8 +15,10 @@
           <dt><%= _('Question text')%></dt>
           <dd><%= raw question.text %></dd>
           <!-- question.option_based? -->
-          <dt></dt>
-          <dd></dd>
+          <% if question.option_based? %>
+            <dt><%= _('Question options') %></dt>
+            <dd><%= question.question_options.collect(&:text).join(', ') %></dd>
+          <% end %>
           <!-- Default value -->
           <% if q_format.textfield? || q_format.textarea? %>
             <% if !question.default_value.nil? %>
@@ -77,7 +79,7 @@
         <% elsif section.modifiable? && template.latest? %>
           <div class="form-group col-md-10">
             <div class="pull-right">
-              <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default edit-question", remote: true %>
+              <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
             </div>
           </div>
         <% end %>
