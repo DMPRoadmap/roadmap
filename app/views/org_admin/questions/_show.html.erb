@@ -82,6 +82,14 @@
               <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
             </div>
           </div>
+        <% else %>
+          <h4> <%= _('Annotations') %> </h4>
+          <dl class="dl-horizontal">
+            <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+              <dt><%= annotation.type.humanize %></dt>
+              <dd><%= annotation.text.present? ? raw(annotation.text) : _('None provided') %></dd>
+            <% end %>
+          </dl>
         <% end %>
       </div>
     </div>

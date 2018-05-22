@@ -28,10 +28,18 @@
             <%= l template.updated_at.to_date, formats: :short %>
           </td>
           <td class="text-center">
-            <% if template.version == current %>
-              <%= link_to _('Edit'), edit_org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+            <% if template.customization_of.present? %>
+              <% if template.latest? %>
+                <%= link_to  _('Edit customizations'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% else %>
+                <%= link_to  _('View customizations'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% end %>
             <% else %>
-              <%= link_to  _('View'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% if template.latest? %>
+                <%= link_to _('Edit'), edit_org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% else %>
+                <%= link_to  _('View'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% end %>
             <% end %>
           </td>
         </tr>
