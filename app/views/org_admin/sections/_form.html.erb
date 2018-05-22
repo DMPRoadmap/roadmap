@@ -1,7 +1,7 @@
 <%= form_for(section, url: url, namespace: section.id.present? ? section.id : 'new_section', html: { method: method }) do |f| %>
   <div class="form-group col-md-10">
     <%= f.label(:title, _('Title') ,class: "control-label") %>
-    <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section')} ) %>
+    <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section'), 'aria-required': true} ) %>
   </div>
 
   <div class="form-group">
@@ -9,7 +9,7 @@
       <%= f.label(:number, _('Order of display'), class: "control-label") %>
     </div>
     <div class="col-md-4">
-      <%= f.number_field(:number, in: 1..15, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
+      <%= f.number_field(:number, in: 1..15, class: "form-control", 'aria-required': true, 'data-toggle': 'tooltip', title: _('This allows you to order sections.')) %>
     </div>
   </div>
 

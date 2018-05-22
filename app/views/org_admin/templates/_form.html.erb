@@ -27,7 +27,7 @@
     <p class="form-control-static">
       <% if template.published? %>
         <%= _('Published') %>
-      <% elsif template.version.present? && template.version <= 0 %>
+      <% elsif (template.version.present? && template.version <= 0) || !template.id.present? %>
         <%= _('Unpublished') %>
       <% else %>
         <%= _('Draft') %>

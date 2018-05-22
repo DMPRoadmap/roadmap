@@ -62,16 +62,18 @@ module OrgAdmin
     def new
       template = Template.includes(:phases).find(params[:template_id])
       if template.latest?
+        nbr = template.phases.maximum(:number)
         phase = Phase.new({
           template: template,
           modifiable: true,
-          number: (template.phases.length > 0 ? template.phases.collect(&:number).max{|a, b| a <=> b } + 1 : 1)
+          number: (nbr.present? ? nbr + 1 : 1)
         })
         authorize phase
         render('/org_admin/templates/container',
           locals: {
             partial_path: 'new',
             template: template,
+            phase: phase,
             referrer: request.referrer.present? ? request.referrer : org_admin_templates_path
           })
       else

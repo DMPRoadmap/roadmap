@@ -55,9 +55,6 @@ module OrgAdmin
           flash[:alert] = failed_create_error(question, _('question'))
         end
       rescue StandardError => e
-question.valid?
-puts "ERROR: #{e.message}"
-puts question.errors.collect{|e,m| "#{e} - #{m}"}.join(', ')
         flash[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id, section: section.id)
