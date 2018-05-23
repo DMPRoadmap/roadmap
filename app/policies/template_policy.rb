@@ -8,9 +8,17 @@ class TemplatePolicy < ApplicationPolicy
   end
   
   def index?
-    user.can_super_admin? || user.can_modify_templates?
+    user.can_super_admin?
   end
 
+  def organisational?
+    user.can_modify_templates?
+  end
+  
+  def customisable?
+    user.can_modify_templates?
+  end
+  
   def new?
     user.can_super_admin? || user.can_modify_templates?
   end
@@ -19,6 +27,10 @@ class TemplatePolicy < ApplicationPolicy
     user.can_super_admin? || user.can_modify_templates?
   end
 
+  def show?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+  
   def edit?
     user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
   end
@@ -40,17 +52,6 @@ class TemplatePolicy < ApplicationPolicy
   end
 
   def transfer_customization?
-    user.can_super_admin? || user.can_modify_templates?
-  end
-  
-  # Pagination 
-  def all?
-    user.can_super_admin?
-  end
-  def funders?
-    user.can_super_admin? || user.can_modify_templates?
-  end
-  def orgs?
     user.can_super_admin? || user.can_modify_templates?
   end
 

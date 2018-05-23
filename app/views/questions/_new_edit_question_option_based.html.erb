@@ -5,7 +5,7 @@
     <% options.each do |op| %>
         <div class="checkbox">
             <label>
-                <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id) }, op.id, nil) %>
+                <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.has_question_option(op.id) || (answer.question_options.empty? && op.is_default?) }, op.id, nil) %>
                 <%= raw op.text %>
             </label>
         </div>
@@ -15,7 +15,7 @@
     <% options.each do |op| %>
         <div class="radio">
             <label>
-                <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id), id: "answer_option_ids_#{op.id}" } %>
+                <%= f.radio_button :question_option_ids, op.id, { checked: answer.has_question_option(op.id) || (answer.question_options.empty? && op.is_default?), id: "answer_option_ids_#{op.id}" } %>
                 <%= raw op.text %>
             </label>
         </div>
@@ -24,7 +24,7 @@
     <%
         options_html = ""
         options.each do |op|
-            options_html += answer.has_question_option(op.id) ?
+            options_html += answer.has_question_option(op.id) || (answer.question_options.empty? && op.is_default?) ?
                 "<option value=#{op.id} selected=\"selected\">#{op.text}</option>" :
                 "<option value=#{op.id}>#{op.text}</option>"
         end

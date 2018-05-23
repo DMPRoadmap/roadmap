@@ -3,120 +3,79 @@ require 'test_helper'
 class QuestionTest < ActiveSupport::TestCase
 
   setup do
-    @user = User.last
-
-    scaffold_template
-
-    @section = @template.phases.first.sections.first
-
-    @question = Question.create(text: 'Test question', default_value: 'ABCD',
-                                number: 999, section: @section,
-                                question_format: QuestionFormat.where(option_based: false).first,
-                                option_comment_display: true, modifiable: true,
-                                themes: [Theme.first],
-                                annotations: [Annotation.new(org: @user.org,
-                                                text: "just a suggestion")])
+    # Need to clear the tables until we get seed.rb out of test_helper.rb
+    Template.delete_all    
+    @funder = init_funder
+    @institution = init_institution
+    @template = init_template(@institution, published: true)
+    @phase = init_phase(@template)
+    @section = init_section(@phase)
+    @question = init_question(@section)
   end
 
-  # ---------------------------------------------------
   test "required fields are required" do
     assert_not Question.new.valid?
     assert_not Question.new(section: @section, number: 7).valid?, "expected the 'text' field to be required"
     assert_not Question.new(number: 7, text: 'Testing').valid?, "expected the 'section' field to be required"
     assert_not Question.new(section: @section, text: 'Testing').valid?, "expected the 'number' field to be required"
 
-    # Ensure the bar minimum and complete versions are valid
+    # Ensure the bare minimum and complete versions are valid
     a = Question.new(section: @section, text: 'Testing', number: 7)
     assert a.valid?, "expected the 'text', 'section' and 'number' fields to be enough to create an Question! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
   end
 
-  # ---------------------------------------------------
   test "to_s returns the Question text" do
     assert_equal @question.text, @question.to_s
   end
 
-  # ---------------------------------------------------
+  test "option_based? returns the correct boolean value" do
+    assert_not @question.option_based?
+# TODO: replace with a call to the init_question_format factory method once seeds.rb is no longer being loaded 
+    @question.question_format = QuestionFormat.find_by(option_based: true)
+    @question.save!
+    assert @question.option_based?
+  end
+  
+  test "#deep_copy creates a new question object and attaches new annotations/question_options objects" do
+    init_annotation(@institution, @question)
+    init_question_option(@question)
+    assert_deep_copy(@question, @question.deep_copy, relations: [:annotations, :question_options])
+  end
+  
+# TODO: This method should get moved to a view helper instead
   test "returns the correct themed guidance for the org" do
-    all = Theme.first.guidances + Theme.last.guidances
+    theme = init_theme
+    guidance_group = init_guidance_group(@institution)
+    funder_guidance_group = init_guidance_group(@funder, { title: 'Test funder guidance group' } )
+    guidance = init_guidance(guidance_group, { themes: [theme] })
+    funder_guidance = init_guidance(funder_guidance_group, { themes: [theme] })
 
-    # Attach 2 themes to the question
-    @question.themes = [Theme.first, Theme.last]
+    @question.themes << theme
     @question.save!
 
-    # Attach the first theme's first gudiance's group to the org
-    @user.org.guidance_groups << Theme.first.guidances.first.guidance_group
-    @user.save!
+    institution_guidances = @question.guidance_for_org(@institution)
+    # method retuns a hash {'descriptive string': 'guidances array'}
+    assert_equal 1, institution_guidances.length
+    assert_equal guidance, institution_guidances.first.last
 
-    assert_not @question.guidance_for_org(@user.org).empty?, "expected guidance to be returned"
-
-    assert @question.guidance_for_org(@user.org).first.first.include?(Theme.first.title), "expected the theme.title"
-    assert @question.guidance_for_org(@user.org).first.first.include?(Theme.first.guidances.first.guidance_group.name), "expected the guidance_group.name"
-    assert_equal Theme.first.guidances.first, @question.guidance_for_org(@user.org).first.last, "expected the guidance object to be returned"
+    funder_guidances = @question.guidance_for_org(@funder)
+    # method retuns a hash {'descriptive string', 'guidances array'}
+    assert_equal 1, funder_guidances.length
+    assert_equal funder_guidance, funder_guidances.first.last
   end
-
+    
   # ---------------------------------------------------
   test "returns the correct annotation for the org" do
-    @question.annotations = [Annotation.create(org: @user.org, text: 'Test 1', type: Annotation.types[:example_answer]),
-                            Annotation.create(org: Org.first, text: 'Test 2', type: Annotation.types[:example_answer])]
-    @question.save!
-
-    assert_equal 'Test 1', @question.annotations.where(org_id: @user.org.id).first.text, "expected the correct annotation"
-    assert_equal 'Test 2', @question.annotations.where(org_id: Org.first.id).first.text, "expected the correct annotation"
-
-    org = Org.create(name: 'New One', links: {"org":[]})
-    assert_equal 0, @question.get_example_answers(org.id).length, "expected no annotation for a new org"
-  end
-
-  # ---------------------------------------------------
-  test "deep copy" do
-    verify_deep_copy(@question, ['id', 'created_at', 'updated_at'])
-  end
-
-  # ---------------------------------------------------
-  test "can CRUD Question" do
-    obj = Question.create(section: @section, text: 'Test ABC', number: 7)
-    assert_not obj.id.nil?, "was expecting to be able to create a new Question: #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
-
-    obj.text = 'Testing an update'
-    obj.save!
-    obj.reload
-    assert_equal 'Testing an update', obj.text, "Was expecting to be able to update the text of the Question!"
-
-    assert obj.destroy!, "Was unable to delete the Question!"
-  end
-
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with Section" do
-    verify_belongs_to_relationship(@question, @template.phases.first.sections.last)
-  end
-
-  # ---------------------------------------------------
-  test "can manage belongs_to relationship with QuestionFormat" do
-    verify_belongs_to_relationship(@question, QuestionFormat.where(option_based: false).last)
-  end
-
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Answer" do
-    scaffold_plan
-    a = Answer.new(user: @user, plan: @plan, text: 'Test Answer')
-    verify_has_many_relationship(@question, a, @question.answers.count)
-  end
-
-  # ---------------------------------------------------
-  test "can manage has_many relationship with QuestionOption" do
-    qo = QuestionOption.new(text: 'Test', number: 9)
-    verify_has_many_relationship(@question, qo, @question.question_options.count)
-  end
-
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Annotation" do
-    sa = Annotation.new(text: 'Suggested Answer', org: @user.org)
-    verify_has_many_relationship(@question, sa, @question.annotations.count)
-  end
-
-  # ---------------------------------------------------
-  test "can manage has_many relationship with Themes" do
-    t = Theme.new(title: 'Test Theme')
-    verify_has_many_relationship(@question, t, @question.themes.count)
+    annotation = init_annotation(@institution, @question, { type: Annotation.types[:example_answer] })
+    annotation2 = init_annotation(@institution, @question)
+    funder_annotation = init_annotation(@funder, @question, { text: 'Test funder example answer', type: Annotation.types[:example_answer] } )
+    funder_annotation2 = init_annotation(@funder, @question, { text: 'Test funder guidance'} )
+        
+    institutional_annotations = @question.get_example_answers(@institution)
+    assert_equal 1, institutional_annotations.length
+    assert_equal annotation, institutional_annotations.first
+    funder_annotations = @question.get_example_answers(@funder)
+    assert_equal 1, funder_annotations.length
+    assert_equal funder_annotation, funder_annotations.first
   end
 end

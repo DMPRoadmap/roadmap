@@ -136,40 +136,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
     end
 
-    resources :phases, path: 'org/admin/templates/phases', only: [] do
-      member do
-        get 'admin_show'
-        get 'admin_preview'
-        get 'admin_add'
-        put 'admin_update'
-        post 'admin_create'
-        delete 'admin_destroy'
-      end
-    end
-
-    resources :sections, path: 'org/admin/templates/sections', only: [] do
-      member do
-        post 'admin_create'
-        put 'admin_update'
-        delete 'admin_destroy'
-      end
-    end
-
-    resources :questions, path: 'org/admin/templates/questions', only: [] do
-      member do
-        post 'admin_create'
-        put 'admin_update'
-        delete 'admin_destroy'
-      end
-    end
-
-    resources :annotations, path: 'org/admin/templates/annotations', only: [] do
-      member do
-        put 'admin_update'
-        delete 'admin_destroy'
-      end
-    end
-
     resources :answers, only: [] do
       post 'create_or_update', on: :collection
     end
@@ -184,15 +150,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     end
 
     resources :plans do
-      resources :phases do
-        member do
-          get 'edit'
-          get 'status'
-          post 'update'
-        end
-      end
-
-
       member do
         get 'status'
         get 'locked'
@@ -213,6 +170,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
         get 'overview'
+        get 'phase_status'
       end
 
       collection do
@@ -278,9 +236,9 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
       end
       # Paginable actions for templates
       resources :templates, only: [] do
-        get 'all/:page', action: :all, on: :collection, as: :all
-        get 'funders/:page', action: :funders, on: :collection, as: :funders
-        get 'orgs/:page', action: :orgs, on: :collection, as: :orgs
+        get 'index/:page', action: :index, on: :collection, as: :index
+        get 'customisable/:page', action: :customisable, on: :collection, as: :customisable
+        get 'organisational/:page', action: :organisational, on: :collection, as: :organisational
         get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
         get ':id/history/:page', action: :history, on: :collection, as: :history
       end
@@ -301,16 +259,35 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           get 'feedback_complete'
         end
       end
-      resources :templates, only: [:index, :new, :create, :edit, :update, :destroy] do
+      resources :templates, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
         member do
           get 'history'
-          get 'customize'
-          get 'transfer_customization'
-          get 'copy', action: :copy, constraints: {format: [:json]}
-          get 'publish', action: :publish, constraints: {format: [:json]}
-          get 'unpublish', action: :unpublish, constraints: {format: [:json]}
+          post 'customize'
+          post 'transfer_customization'
+          post 'copy', action: :copy, constraints: {format: [:json]}
+          patch 'publish', action: :publish, constraints: {format: [:json]}
+          patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
+        end
+        
+        # Used for the organisational and customizable views of index
+        collection do
+          get 'organisational'
+          get 'customisable'
+        end
+        
+        resources :phases, only: [:show, :edit, :new, :create, :edit, :update, :destroy] do
+          member do
+            get 'preview'
+          end
+          
+          resources :sections, only: [:index, :show, :edit, :update, :create, :destroy] do
+            resources :questions, only: [:show, :edit, :new, :update, :create, :destroy] do
+            end
+          end
         end
       end
+      
+      resources :annotations, only: [:create, :destroy, :update] do ; end
 
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
       get 'download_plans' => 'plans#download_plans'

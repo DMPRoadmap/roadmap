@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="template_edit">
+      <%= form_for(template, url: org_admin_templates_path) do |f| %>
+        <%= render partial: 'form', locals: { template: template, referrer: referrer, f: f }%>
+      <% end %>
+    </div>
+  </div>
+</div>
