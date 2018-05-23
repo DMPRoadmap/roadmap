@@ -1,0 +1,66 @@
+<% url = @notification.new_record? ? super_admin_notifications_path : super_admin_notification_path(@notification) %>
+
+<%= form_for @notification, url: url, html: { class: 'notification' } do |f| %>
+  <div class="row">
+    <div class="form-group col-xs-10">
+      <%= f.label :title, _('Title'), class: 'control-label' %>
+      <%= f.text_field :title,
+          class: 'form-control',
+          value: @notification.title,
+          "aria-required": true %>
+    </div>
+
+    <div class="form-group col-xs-2">
+      <%= f.label :level, _('Level'), class: 'control-label' %>
+      <%= f.select :level,
+          Notification.levels.keys.map { |l| [l.humanize, l] },
+          { value: @notification.level },
+          { class: 'form-control',
+            data: { toggle: 'tooltip', html: true }, title: _('<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red') } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-xs-12">
+      <%= f.check_box :dismissable, style: 'width: auto' %>
+      <%= f.label :dismissable, _('Dismissable'), class: 'control-label' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-xs-6">
+      <%= f.label :starts_at, _('Start'), class: 'control-label' %>
+      <%= f.date_field :starts_at,
+          class: 'form-control',
+          value: (@notification.starts_at || Date.today),
+          min: Date.today %>
+    </div>
+
+    <div class="form-group col-xs-6">
+      <%= f.label :expires_at, _('Expiration'), class: 'control-label' %>
+      <%= f.date_field :expires_at,
+        class: 'form-control',
+        value: (@notification.expires_at || Date.tomorrow),
+        min: Date.tomorrow %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, _('Body'), class: 'control-label' %>
+    <%= f.text_area :body,
+        class: 'form-control',
+        value: @notification.body,
+        "aria-required": true %>
+  </div>
+
+  <div class="pull-right">
+    <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+    <%= link_to(
+          _('Delete'),
+          super_admin_notification_path(@notification),
+          class: 'btn btn-default',
+          method: :delete,
+          data: { confirm: _('Are you sure you want to delete the notification "%{title}"') % { title: @notification.title }}) unless @notification.new_record? %>
+    <%= link_to _('Cancel'), super_admin_notifications_path, class: 'btn btn-default', role: 'button' %>
+  </div>
+<% end %>
