@@ -9,8 +9,6 @@ class Phase < ActiveRecord::Base
   # Sort order: Number ASC
   default_scope { order(number: :asc) }
 
-
-#	extend FriendlyId
 	##
   # Associations
 	belongs_to :template
@@ -22,11 +20,6 @@ class Phase < ActiveRecord::Base
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
 	attr_accessible :description, :number, :title, :template_id, 
                   :template, :sections, :modifiable, :as => [:default, :admin]
-
-  ##
-  # sluggable title
-	#friendly_id :title, use: [:slugged, :history, :finders]
-
 
   validates :title, :number, :template, presence: {message: _("can't be blank")}
 

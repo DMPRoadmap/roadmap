@@ -20,7 +20,7 @@ class ApplicationHelperTest < ActionView::TestCase
   test "resource should return contents of instance variable @resource OR a new User" do
     # If @resource is not set then we should receive a new User
     assert resource.is_a?(User), "Expected resource() to return a new User"
-    assert_equal nil, resource.id, "Expected resource() to return a User with an Id"
+    assert_nil resource.id, "Expected resource() to return a User with an Id"
     
     # If @resource is set then we should receive that object
     @resource = Org.first
