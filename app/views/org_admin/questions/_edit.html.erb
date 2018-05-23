@@ -1,0 +1,23 @@
+<!--
+**Project: DMPRoadmap
+**Description: This block displays editing a question, its guidance, and options when multiple choice is selected
+in the admin interface.
+**Arguments transferred: an instance of 'question'
+**Copyright: Digital Curation Centre and California Digital Library
+-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'org_admin/questions/form', 
+                   locals: local_assigns.merge({ 
+                     question: question, 
+                     method: :put, 
+                     url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id, id: question.id) }) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <%#= render partial: "guidances/guidance_display", locals: {question: question} %>
+  </div>
+</div>

@@ -12,81 +12,62 @@ class Question < ActiveRecord::Base
   has_and_belongs_to_many :themes, join_table: "questions_themes"
   belongs_to :section
   belongs_to :question_format
+  has_one :phase, through: :section
+  has_one :template, through: :section
 
   ##
   # Nested Attributes
   # TODO: evaluate if we need this
   accepts_nested_attributes_for :answers, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
   accepts_nested_attributes_for :question_options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :annotations,  :allow_destroy => true
-  accepts_nested_attributes_for :themes
+  accepts_nested_attributes_for :annotations, :allow_destroy => true
 
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number, 
-                  :annotation, :text, :section_id, :question_format_id, 
-                  :question_options_attributes, :annotations_attributes, 
-                  :option_comment_display, :theme_ids, :section, :question_format, 
-                  :question_options, :annotations, :answers, :themes, 
+  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number,
+                  :annotation, :text, :section_id, :question_format_id,
+                  :question_options_attributes, :annotations_attributes,
+                  :option_comment_display, :theme_ids, :section, :question_format,
+                  :question_options, :annotations, :answers, :themes,
                   :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-
-
-
+  
   ##
   # returns the text from the question
   #
   # @return [String] question's text
-	def to_s
+  def to_s
     "#{text}"
   end
-
 
   def option_based?
     format = self.question_format
     return format.option_based
   end
 
-  def plan_answers(plan_id)
-    return self.answers.to_a.select{|ans| ans.plan_id == plan_id}
+  def deep_copy(**options)
+    copy = self.dup
+    copy.modifiable = options.fetch(:modifiable, self.modifiable)
+    copy.section_id = options.fetch(:section_id, nil)
+    copy.save!(validate: false)  if options.fetch(:save, false)
+    options[:question_id] = copy.id
+    self.question_options.each{ |question_option| copy.question_options << question_option.deep_copy(options) }
+    self.annotations.each{ |annotation| copy.annotations << annotation.deep_copy(options) }
+    self.themes.each{ |theme| copy.themes << theme }
+    return copy
   end
-
+  
+# TODO: consider moving this to a view helper instead and use the built in scopes for guidance. May need to add
+#       a new one for 'thematic_guidance'. This method doesn't even make reference to this class and its returning
+#       a hash that is specific to a view
   ##
-  # deep copy the given question and all it's associations
-  #
-  # @params [Question] question to be deep copied
-  # @return [Question] the saved, copied question
-  def self.deep_copy(question)
-    question_copy = question.dup
-    question_copy.save!
-    question.question_options.each do |question_option|
-      question_option_copy = QuestionOption.deep_copy(question_option)
-      question_option_copy.question_id = question_copy.id
-      question_option_copy.save!
-    end
-    question.annotations.each do |annotation|
-      annotation_copy = Annotation.deep_copy(annotation)
-      annotation_copy.question_id = question_copy.id
-      annotation_copy.save!
-    end
-    question.themes.each do |theme|
-      question_copy.themes << theme
-    end
-    return question_copy
-  end
-
-  ##
-	# guidance for org
+  # guidance for org
   #
   # @param org [Org] the org to find guidance for
   # @return [Hash{String => String}]
-	def guidance_for_org(org)
+  def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
     theme_ids = themes.collect{|t| t.id}
@@ -102,25 +83,21 @@ class Question < ActiveRecord::Base
       end
     end
 
-		return guidances
- 	end
+    return guidances
+   end
 
   ##
- 	# get example answer belonging to the currents user for this question
+  # get example answer belonging to the currents user for this question
   #
   # @param org_ids [Array<Integer>] the ids for the organisations
   # @return [Array<Annotation>] the example answers for this question for the specified orgs
- 	def get_example_answers(org_ids)
+   def get_example_answers(org_ids)
     org_ids = [org_ids] unless org_ids.is_a?(Array)
-    self.annotations.where(org_id: [org_ids], type: Annotation.types[:example_answer]).order(:created_at)
- 	end
+    self.annotations.where(org_id: org_ids, type: Annotation.types[:example_answer]).order(:created_at)
+   end
 
-  def first_example_answer
-    self.annotations.where(type: Annotation.types[:example_answer]).order(:created_at).first
-  end
-  
   ##
-  # get guidance belonging to the current user's org for this question(need org 
+  # get guidance belonging to the current user's org for this question(need org
   # to distinguish customizations)
   #
   # @param org_id [Integer] the id for the organisation
@@ -130,4 +107,11 @@ class Question < ActiveRecord::Base
     return guidance.first
   end
 
+  def annotations_per_org(org_id)
+    example_answer = annotations.find_by(org_id: org_id, type: Annotation.types[:example_answer])
+    guidance = annotations.find_by(org_id: org_id, type: Annotation.types[:guidance])
+    example_answer = annotations.build({ type: :example_answer, text: '', org_id: org_id }) unless example_answer.present?
+    guidance = annotations.build({ type: :guidance, text: '', org_id: org_id }) unless guidance.present?
+    return [example_answer, guidance]
+  end
 end
