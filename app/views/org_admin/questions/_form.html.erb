@@ -69,8 +69,7 @@
       <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
       <% if question.id.present? && !question.section.phase.template.published? %>
           <% href = org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) %>
-          <%= link_to _('Delete'), href, confirm: _("You are about to delete '%{question_text}'. Are you sure?") % { :question_text => question.text }, 
-                      method: :delete, class: "btn btn-default", role:'button'%>
+          <%= link_to _('Delete'), href, method: :delete, class: "btn btn-default", role:'button', 'data-confirm': _("You are about to delete question #%{question_number}. Are you sure?") % { question_number: question.number } %>
         <%= link_to _('Cancel'), href, class: "btn btn-default ajaxified-question", method: 'get', remote: true %>
       <% else %>
         <%= link_to _('Cancel'), '#', class: "btn btn-default cancel-new-question" %>
