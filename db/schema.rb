@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418115318) do
+ActiveRecord::Schema.define(version: 20180508151824) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
@@ -73,17 +73,6 @@ ActiveRecord::Schema.define(version: 20180418115318) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type"
-    t.datetime "created_at"
-  end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
@@ -446,4 +435,39 @@ ActiveRecord::Schema.define(version: 20180418115318) do
   end
 
   add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
+
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
+  add_foreign_key "answers", "plans"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "guidance_groups", "orgs"
+  add_foreign_key "guidances", "guidance_groups"
+  add_foreign_key "notes", "answers"
+  add_foreign_key "notes", "users"
+  add_foreign_key "notification_acknowledgements", "notifications"
+  add_foreign_key "notification_acknowledgements", "users"
+  add_foreign_key "org_identifiers", "identifier_schemes"
+  add_foreign_key "org_identifiers", "orgs"
+  add_foreign_key "org_token_permissions", "orgs"
+  add_foreign_key "org_token_permissions", "token_permission_types"
+  add_foreign_key "orgs", "languages"
+  add_foreign_key "orgs", "regions"
+  add_foreign_key "phases", "templates"
+  add_foreign_key "plans", "templates"
+  add_foreign_key "plans_guidance_groups", "guidance_groups"
+  add_foreign_key "plans_guidance_groups", "plans"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "question_formats"
+  add_foreign_key "questions", "sections"
+  add_foreign_key "roles", "plans"
+  add_foreign_key "roles", "users"
+  add_foreign_key "sections", "phases"
+  add_foreign_key "templates", "orgs"
+  add_foreign_key "themes_in_guidance", "guidances"
+  add_foreign_key "themes_in_guidance", "themes"
+  add_foreign_key "user_identifiers", "identifier_schemes"
+  add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "languages"
+  add_foreign_key "users", "orgs"
 end
