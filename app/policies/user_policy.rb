@@ -27,23 +27,26 @@ class UserPolicy < ApplicationPolicy
   def org_swap?
     user.can_super_admin?
   end
-  
+
   def activate?
     user.can_super_admin?
   end
-  
+
   def edit?
     user.can_super_admin?
   end
-  
+
   def update?
     user.can_super_admin?
   end
-  
+
   class Scope < Scope
     def resolve
       scope.where(org_id: user.org_id)
     end
   end
 
+  def acknowledge_notification?
+    true
+  end
 end

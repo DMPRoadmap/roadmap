@@ -5,8 +5,8 @@
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [
-  {name: 'orcid', description: 'ORCID', active: true, 
-   logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png', 
+  {name: 'orcid', description: 'ORCID', active: true,
+   logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
    user_landing_url:'https://orcid.org' },
   {name: 'shibboleth', description: 'Your institutional credentials', active: true,
   },
@@ -57,7 +57,7 @@ languages.map{ |l| Language.create!(l) if Language.find_by(abbreviation: l[:abbr
 Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
   if f[-4..-1] == '.yml'
     lang = f.gsub('.yml', '')
-    
+
     if Language.where(abbreviation: lang).empty?
       Language.create!({
         abbreviation: lang,
@@ -72,10 +72,10 @@ end
 # Regions (create the super regions first and then create the rest)
 # -------------------------------------------------------
 regions = [
-  {abbreviation: 'horizon', 
+  {abbreviation: 'horizon',
    description: 'European super region',
    name: 'Horizon2020',
-   
+
    sub_regions: [
      {abbreviation: 'uk',
       description: 'United Kingdom',
@@ -90,7 +90,7 @@ regions = [
       description: 'Spain',
       name: 'ES'}
   ]},
-  {abbreviation: 'us', 
+  {abbreviation: 'us',
    description: 'United States of America',
    name: 'US'}
 ]
@@ -99,9 +99,9 @@ regions = [
 regions.each do |r|
   srs = r[:sub_regions]
   r.delete(:sub_regions) unless r[:sub_regions].nil?
-  
+
   if Region.find_by(abbreviation: r[:abbreviation]).nil?
-    region = Region.create!(r) 
+    region = Region.create!(r)
 
     unless srs.nil?
       srs.each do |sr|
@@ -111,7 +111,7 @@ regions.each do |r|
         end
       end
     end
-    
+
   end
 end
 
@@ -179,7 +179,7 @@ orgs = [
 ]
 orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
 
-# Create a Super Admin associated with our generic organisation, 
+# Create a Super Admin associated with our generic organisation,
 # an Org Admin for our funder and an Org Admin and User for our University
 # -------------------------------------------------------
 users = [
@@ -229,7 +229,7 @@ users = [
 users.map{ |u| User.create!(u) if User.find_by(email: u[:email]).nil? }
 
 # Create a Guidance Group for our organisation and the funder
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
    org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
@@ -243,17 +243,17 @@ guidance_groups = [
 guidance_groups.map{ |gg| GuidanceGroup.create!(gg) if GuidanceGroup.find_by(name: gg[:name]).nil? }
 
 # Initialize with the generic Roadmap guidance and a sample funder guidance
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 guidances = [
   {text: "● Give a summary of the data you will collect or create, noting the content, coverage and data type, e.g., tabular data, survey data, experimental measurements, models, software, audiovisual data, physical samples, etc.
-● Consider how your data could complement and integrate with existing data, or whether there are any existing data or methods that you could reuse.  
+● Consider how your data could complement and integrate with existing data, or whether there are any existing data or methods that you could reuse.
 ● If purchasing or reusing existing data, explain how issues such as copyright and IPR have been addressed. You should aim to m
 inimise any restrictions on the reuse (and subsequent sharing) of third-party data.",
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Data Description')]},
-  {text: "● Clearly note what format(s) your data will be in, e.g., plain text (.txt), comma-separated values (.csv), geo-referenced TIFF (.tif, .tfw). 
-● Explain why you have chosen certain formats. Decisions may be based on staff expertise, a preference for open formats, the standards accepted by data centres or widespread usage within a given community. 
+  {text: "● Clearly note what format(s) your data will be in, e.g., plain text (.txt), comma-separated values (.csv), geo-referenced TIFF (.tif, .tfw).
+● Explain why you have chosen certain formats. Decisions may be based on staff expertise, a preference for open formats, the standards accepted by data centres or widespread usage within a given community.
 ● Using standardised, interchangeable or open formats ensures the long-term usability of data; these are recommended for sharing and archiving.
 ● See <a href='https://www.ukdataservice.ac.uk/manage-data/format/recommended-formats' title='UK Data Service guidance on recommended formats'>UK Data Service guidance on recommended formats</a> or <a href='https://www.dataone.org/best-practices/document-and-store-data-using-stable-file-formats' title='DataONE Best Practices for file formats'>DataONE Best Practices for file formats</a>",
    guidance_group: GuidanceGroup.first,
@@ -265,9 +265,9 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Data Volume')]},
-  {text: "● Outline how the data will be collected and processed. This should cover relevant standards or methods, quality assurance and data organisation. 
+  {text: "● Outline how the data will be collected and processed. This should cover relevant standards or methods, quality assurance and data organisation.
 ● Indicate how the data will be organised during the project, mentioning, e.g., naming conventions, version control and folder structures. Consistent, well-ordered research data will be easier to find, understand and reuse
-● Explain how the consistency and quality of data collection will be controlled and documented. This may include processes such as calibration, repeat samples or measurements, standardised data capture, data entry validation, peer review of data or representation with controlled vocabularies. 
+● Explain how the consistency and quality of data collection will be controlled and documented. This may include processes such as calibration, repeat samples or measurements, standardised data capture, data entry validation, peer review of data or representation with controlled vocabularies.
 ● See the <a href='https://www.dataone.org/best-practices/quality' title='DataOne Best Practices for data quality'>DataOne Best Practices for data quality</a>",
    guidance_group: GuidanceGroup.first,
    published: true,
@@ -287,23 +287,23 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Ethics & Privacy')]},
-  {text: "● State who will own the copyright and IPR of any new data that you will generate. For multi-partner projects, IPR ownership should be covered in the consortium agreement. 
-● Outline any restrictions needed on data sharing, e.g., to protect proprietary or patentable data. 
+  {text: "● State who will own the copyright and IPR of any new data that you will generate. For multi-partner projects, IPR ownership should be covered in the consortium agreement.
+● Outline any restrictions needed on data sharing, e.g., to protect proprietary or patentable data.
 ● Explain how the data will be licensed for reuse. See the <a href='http://www.dcc.ac.uk/resources/how-guides/license-research-data' title='DCC guide on How to license research data'>DCC guide on How to license research data</a> and <a href='https://ufal.github.io/public-license-selector' title='EUDAT’s data and software licensing wizard'>EUDAT’s data and software licensing wizard</a>.",
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Intellectual Property Rights')]},
   {text: "● Describe where the data will be stored and backed up during the course of research activities. This may vary if you are doing fieldwork or working across multiple sites so explain each procedure.
-● Identify who will be responsible for backup and how often this will be performed. The use of robust, managed storage with automatic backup, for example, that provided by university IT teams, is preferable. Storing data on laptops, computer hard drives or external storage devices alone is very risky. 
+● Identify who will be responsible for backup and how often this will be performed. The use of robust, managed storage with automatic backup, for example, that provided by university IT teams, is preferable. Storing data on laptops, computer hard drives or external storage devices alone is very risky.
 ● See <a href='https://www.ukdataservice.ac.uk/manage-data/store' title='UK Data Service Guidance on data storage'>UK Data Service Guidance on data storage</a> or <a href='https://www.dataone.org/best-practices/storage' title='DataONE Best Practices for storage'>DataONE Best Practices for storage</a>
-● Also consider data security, particularly if your data is sensitive e.g., detailed personal data, politically sensitive information or trade secrets. Note the main risks and how these will be managed. 
+● Also consider data security, particularly if your data is sensitive e.g., detailed personal data, politically sensitive information or trade secrets. Note the main risks and how these will be managed.
 ● Identify any formal standards that you will comply with, e.g., ISO 27001. See the <a href='http://www.dcc.ac.uk/resources/briefing-papers/standards-watch-papers/information-security-management-iso-27000-iso-27k-s' title='DCC Briefing Paper on Information Security Management -ISO 27000'>DCC Briefing Paper on Information Security Management -ISO 27000</a> and <a href='https://www.ukdataservice.ac.uk/manage-data/store/security' title='UK Data Service guidance on data security'>UK Data Service guidance on data security</a>",
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Storage & Security')]},
-  {text: "● How will you share the data e.g. deposit in a data repository, use a secure data service, handle data requests directly or use another mechanism? The methods used will depend on a number of factors such as the type, size, complexity and sensitivity of the data. 
-● When will you make the data available? Research funders expect timely release. They typically allow embargoes but not prolonged exclusive use. 
-● Who will be able to use your data? If you need to restricted access to certain communities or apply data sharing agreements, explain why. 
+  {text: "● How will you share the data e.g. deposit in a data repository, use a secure data service, handle data requests directly or use another mechanism? The methods used will depend on a number of factors such as the type, size, complexity and sensitivity of the data.
+● When will you make the data available? Research funders expect timely release. They typically allow embargoes but not prolonged exclusive use.
+● Who will be able to use your data? If you need to restricted access to certain communities or apply data sharing agreements, explain why.
 ● Consider strategies to minimise restrictions on sharing. These may include anonymising or aggregating data, gaining participant consent for data sharing, gaining copyright permissions, and agreeing a limited embargo period.
 ● How might your data be reused in other contexts? Where there is potential for reuse, you should use standards and formats that facilitate this, and ensure that appropriate metadata is available online so your data can be discovered. Persistent identifiers should be applied so people can reliably and efficiently find your data. They also help you to track citations and reuse.",
    guidance_group: GuidanceGroup.first,
@@ -321,19 +321,19 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Preservation')]},
-  {text: "● Outline the roles and responsibilities for all activities, e.g., data capture, metadata production, data quality, storage and backup, data archiving & data sharing. Individuals should be named where possible. 
+  {text: "● Outline the roles and responsibilities for all activities, e.g., data capture, metadata production, data quality, storage and backup, data archiving & data sharing. Individuals should be named where possible.
 ● For collaborative projects you should explain the coordination of data management responsibilities across partners.
 ● See UK Data Service guidance on <a href='https://www.ukdataservice.ac.uk/manage-data/plan/roles-and-responsibilities' title='data management roles and responsibilities'>data management roles and responsibilities</a> or DataONE Best Practices: <a href='https://www.dataone.org/best-practices/define-roles-and-assign-responsibilities-data-management' title='Define roles and assign responsibilities for data management'>Define roles and assign responsibilities for data management</a>",
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Roles & Responsibilities')]},
   {text: "● Carefully consider and justify any resources needed to deliver the plan.  These may include storage costs, hardware, staff time, costs of preparing data for deposit and repository charges.
-● Outline any relevant technical expertise, support and training that is likely to be required and how it will be acquired. 
+● Outline any relevant technical expertise, support and training that is likely to be required and how it will be acquired.
 ● If you are not depositing in a data repository, ensure you have appropriate resources and systems in place to share and preserve the data. See UK Data Service guidance on <a href='https://www.ukdataservice.ac.uk/manage-data/plan/costing' title='costing data management'>costing data management</a>",
    guidance_group: GuidanceGroup.first,
    published: true,
    themes: [Theme.find_by(title: 'Budget')]},
-  {text: "● Consider whether there are any existing procedures that you can base your approach on. If your group/department has local guidelines that you work to, point to them here. 
+  {text: "● Consider whether there are any existing procedures that you can base your approach on. If your group/department has local guidelines that you work to, point to them here.
 ● List any other relevant funder, institutional, departmental or group policies on data management, data sharing and data security. ",
    guidance_group: GuidanceGroup.first,
    published: true,
@@ -346,7 +346,7 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
 guidances.map{ |g| Guidance.create!(g) if Guidance.find_by(text: g[:text]).nil? }
 
 # Create a default template for the curation centre and one for the example funder
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 templates = [
   {title: "My Curation Center's Default Template",
    description: "The default template",
@@ -358,7 +358,7 @@ templates = [
    dmptemplate_id: 1,
    visibility: Template.visibilities[:publicly_visible],
    links: {"funder":[],"sample_plan":[]}},
-  
+
   {title: "OLD - Department of Testing Award",
    published: false,
    org: Org.find_by(abbreviation: 'GA'),
@@ -368,7 +368,7 @@ templates = [
    visibility: Template.visibilities[:organisationally_visible],
    dmptemplate_id: 2,
    links: {"funder":[],"sample_plan":[]}},
-     
+
   {title: "Department of Testing Award",
    published: true,
    org: Org.find_by(abbreviation: 'GA'),
@@ -379,11 +379,11 @@ templates = [
    dmptemplate_id: 3,
    links: {"funder":[],"sample_plan":[]}}
 ]
-# Template creation calls defaults handler which sets is_default and 
+# Template creation calls defaults handler which sets is_default and
 # published to false automatically, so update them after creation
-templates.map do |t| 
-  if Template.find_by(title: t[:title]).nil? 
-    tmplt = Template.create!(t) 
+templates.map do |t|
+  if Template.find_by(title: t[:title]).nil?
+    tmplt = Template.create!(t)
     tmplt.published = t[:published]
     tmplt.is_default = t[:is_default]
     tmplt.visibility = t[:visibility]
@@ -392,18 +392,18 @@ templates.map do |t|
 end
 
 # Create 2 phases for the funder's template and one for our generic template
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 phases = [
   {title: "Generic Data Management Planning Template",
    number: 1,
    modifiable: false,
    template: Template.find_by(title: "My Curation Center's Default Template")},
-  
+
   {title: "Detailed Overview",
     number: 1,
     modifiable: false,
     template: Template.find_by(title: "OLD - Department of Testing Award")},
-     
+
   {title: "Preliminary Statement of Work",
    number: 1,
    modifiable: true,
@@ -420,7 +420,7 @@ funder_template_phase_1 = Phase.find_by(title: "Preliminary Statement of Work")
 funder_template_phase_2 = Phase.find_by(title: "Detailed Overview")
 
 # Create sections for the 2 templates and their phases
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 sections = [
   # Sections for the Generic Template
   {title: "Data Collection",
@@ -464,7 +464,7 @@ sections = [
    number: 1,
    published: false,
    modifiable: true,
-   phase: Phase.find_by(title: "Detailed Overview")}, 
+   phase: Phase.find_by(title: "Detailed Overview")},
 
   # Sections for the Funder Template's Preliminary Phase
   {title: "Data Overview",
@@ -510,7 +510,7 @@ sections.map{ |s| Section.create!(s) if Section.find_by(title: s[:title]).nil? }
 text_area = QuestionFormat.find_by(title: "Text area")
 
 # Create questions for the 2 templates and their phases
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 questions = [
   # Questions for the Generic Template
   {text: "What data will you collect or create?",
@@ -588,7 +588,7 @@ questions = [
    modifiable: false,
    section: Section.find_by(title: "Responsibilities and Resources"),
    question_format: text_area},
-    
+
   # Questions for old version of Funder Template
   {text: "What data will you collect and how will it be obtained?",
    number: 1,
@@ -600,7 +600,7 @@ questions = [
    modifiable: false,
    section: Section.find_by(title: "Data Collection and Preservation"),
    question_format: text_area},
-    
+
   # Questions for the Funder Template's Preliminary Phase
   {text: "Provide an overview of the dataset.",
    number: 1,
@@ -620,7 +620,7 @@ questions = [
    section: Section.find_by(title: "Data Description"),
    question_format: text_area,
    themes: [Theme.find_by(title: "Data Collection")]},
-   
+
   # Questions for the Funder Template's Detailed Phase
   {text: "What is your policy for long term access to your dataset?",
    number: 1,
@@ -689,11 +689,11 @@ questions = [
 questions.map{ |q| Question.create!(q) if Question.find_by(text: q[:text]).nil? }
 
 drop_down_question = Question.find_by(text: "Where will you store your data during the research period?")
-multi_select_question = Question.find_by(text: "What type(s) of data will you collect?") 
+multi_select_question = Question.find_by(text: "What type(s) of data will you collect?")
 radio_button_question = Question.find_by(text: "Please select the appropriate formats.")
 
 # Create suggested answers for a few questions
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 annotations = [
   {text: "We will preserve it in Dryad or a similar data repository service.",
    type: Annotation.types[:example_answer],
@@ -707,7 +707,7 @@ annotations = [
 annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
 
 # Create options for the dropdown, multi-select and radio buttons
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 question_options = [
   {text: "csv files",
    number: 1,
@@ -721,7 +721,7 @@ question_options = [
    number: 3,
    question: radio_button_question,
    is_default: false},
-   
+
   {text: "local hard drive",
    number: 1,
    question: drop_down_question,
@@ -734,7 +734,7 @@ question_options = [
    number: 3,
    question: drop_down_question,
    is_default: false},
-   
+
   {text: "statistical",
    number: 1,
    question: multi_select_question,
@@ -755,7 +755,7 @@ question_options = [
 question_options.map{ |q| QuestionOption.create!(q) if QuestionOption.find_by(text: q[:text]).nil? }
 
 # Create plans
-# ------------------------------------------------------- 
+# -------------------------------------------------------
 =begin
 plans = [
   {title: "Sample plan",
@@ -787,7 +787,7 @@ answers = [
    plan: plan,
    user: user,
    question: Question.find_by(text: "How will you store the data and how will it be preserved?")},
-   
+
   {text: "We want people to be able to access it. ",
    plan: plan,
    user: user,
@@ -799,7 +799,7 @@ answers = [
   {plan: plan,
    user: user,
    question: multi_select_question,
-   question_options: [QuestionOption.find_by(text: "image/video"), 
+   question_options: [QuestionOption.find_by(text: "image/video"),
                       QuestionOption.find_by(text: "other")]},
   {plan: plan,
    user: user,

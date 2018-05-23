@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315161757) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20180412092647) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
@@ -80,7 +77,7 @@ ActiveRecord::Schema.define(version: 20180315161757) do
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 40
+    t.string   "sluggable_type"
     t.datetime "created_at"
   end
 
@@ -138,6 +135,28 @@ ActiveRecord::Schema.define(version: 20180315161757) do
   end
 
   add_index "notes", ["answer_id"], name: "index_notes_on_answer_id"
+
+  create_table "notification_acknowledgements", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "notification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_acknowledgements", ["notification_id"], name: "index_notification_acknowledgements_on_notification_id"
+  add_index "notification_acknowledgements", ["user_id"], name: "index_notification_acknowledgements_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "notification_type"
+    t.string   "title"
+    t.integer  "level"
+    t.text     "body"
+    t.boolean  "dismissable"
+    t.date     "starts_at"
+    t.date     "expires_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "org_identifiers", force: :cascade do |t|
     t.string   "identifier"
@@ -384,11 +403,11 @@ ActiveRecord::Schema.define(version: 20180315161757) do
   create_table "users", force: :cascade do |t|
     t.string   "firstname"
     t.string   "surname"
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: "",   null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -426,42 +445,4 @@ ActiveRecord::Schema.define(version: 20180315161757) do
 
   add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id"
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
-  add_foreign_key "answers", "plans"
-  add_foreign_key "answers", "questions"
-  add_foreign_key "answers", "users"
-  add_foreign_key "answers_question_options", "answers"
-  add_foreign_key "answers_question_options", "question_options"
-  add_foreign_key "guidance_groups", "orgs"
-  add_foreign_key "guidances", "guidance_groups"
-  add_foreign_key "notes", "answers"
-  add_foreign_key "notes", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
-  add_foreign_key "org_identifiers", "orgs"
-  add_foreign_key "org_token_permissions", "orgs"
-  add_foreign_key "org_token_permissions", "token_permission_types"
-  add_foreign_key "orgs", "languages"
-  add_foreign_key "orgs", "regions"
-  add_foreign_key "phases", "templates"
-  add_foreign_key "plans", "templates"
-  add_foreign_key "plans_guidance_groups", "guidance_groups"
-  add_foreign_key "plans_guidance_groups", "plans"
-  add_foreign_key "question_options", "questions"
-  add_foreign_key "questions", "question_formats"
-  add_foreign_key "questions", "sections"
-  add_foreign_key "questions_themes", "questions"
-  add_foreign_key "questions_themes", "themes"
-  add_foreign_key "roles", "plans"
-  add_foreign_key "roles", "users"
-  add_foreign_key "sections", "phases"
-  add_foreign_key "templates", "orgs"
-  add_foreign_key "themes_in_guidance", "guidances"
-  add_foreign_key "themes_in_guidance", "themes"
-  add_foreign_key "user_identifiers", "identifier_schemes"
-  add_foreign_key "user_identifiers", "users"
-  add_foreign_key "users", "languages"
-  add_foreign_key "users", "orgs"
-  add_foreign_key "users_perms", "perms"
-  add_foreign_key "users_perms", "users"
 end
