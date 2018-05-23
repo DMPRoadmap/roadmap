@@ -66,8 +66,9 @@
                 </li>
               <% end %>
               <% if current_user.can_modify_templates? %>
-                  <li <%= 'class=active' if isActivePage(org_admin_templates_path) %>>
-                    <%= link_to _('Templates'), org_admin_templates_path %>
+                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                  <li <%= 'class=active' if isActivePage(template_path) %>>
+                    <%= link_to _('Templates'), template_path %>
                   </li>
               <% end %>
               <% if current_user.can_modify_guidance? %>
@@ -99,6 +100,11 @@
               <% if current_user.can_org_admin? || current_user.can_super_admin? %>
                 <li <%= 'class=active' if isActivePage(usage_index_path) %>>
                   <%= link_to(_('Usage'), usage_index_path) %>
+                </li>
+              <% end %>
+              <% if current_user.can_super_admin? %>
+                <li <%= 'class=active' if isActivePage(super_admin_notifications_path) %>>
+                  <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>
               <% end %>
             </ul>

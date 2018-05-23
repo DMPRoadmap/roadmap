@@ -1,0 +1,22 @@
+<h3><%= _('Questions') %></h3>
+<% questions = section.questions.order('number') %>
+<% if questions.present? %>
+  <% questions.each do |question| %>
+    <%= render partial: 'org_admin/questions/container', 
+               locals: local_assigns.merge({ question: question }) %>
+    <% if questions.last.id != question.id %>
+      <hr />
+    <% end %>
+  <% end %>
+<% end %>
+<% if template.latest? && section.modifiable? %>
+  <div class="pull-right new-question-button">
+    <%= link_to(_('Add Question'), new_org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id), { class: 'btn btn-default ajaxified-question', role: "button", remote: true }) %>
+  </div>
+
+  <div class="row">
+    <div class="question_container col-md-12 new-question" id="new_question_section_<%= section.id %>">
+      <h4 style="display: none"><%= _('New Question') %></h4>
+    </div>
+  </div>
+<% end %>

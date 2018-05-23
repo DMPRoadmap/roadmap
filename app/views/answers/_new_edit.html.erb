@@ -44,7 +44,7 @@
   </div>
 <% end %>
 
-<%= form_for answer, url: {controller: :answers, action: :create_or_update}, html: {method: :post, 'data-autosave': question.id, class: 'form-answer' } do |f| %>
+<%= form_for answer, url: create_or_update_answers_path(question_id: question.id), html: {method: :post, 'data-autosave': question.id, class: 'form-answer' } do |f| %>
   <% if !readonly %>
     <%= f.hidden_field :plan_id %>
     <%= f.hidden_field :question_id %>

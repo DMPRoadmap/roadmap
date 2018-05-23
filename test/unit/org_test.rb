@@ -153,7 +153,7 @@ class OrgTest < ActiveSupport::TestCase
   end
 
   # ---------------------------------------------------
-  test "can manage has_many relationship with Dmptemplates" do
+  test "can manage has_many relationship with Templates" do
     tmplt = Template.new(title: 'Added through test', version: 1)
     verify_has_many_relationship(@org, tmplt, @org.templates.count)
   end
