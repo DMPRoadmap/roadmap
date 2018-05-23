@@ -108,7 +108,6 @@ config/initializers/locale.rb	Tue, 24 Sep 2013 15:31:14 +0100
 config/initializers/mime_types.rb	Mon, 14 Jul 2014 15:43:22 +0100
 config/initializers/omniauth.rb	Mon, 07 Jul 2014 11:30:12 +0100
 config/initializers/recaptcha.rb	Wed, 16 Jul 2014 16:29:56 +0100
-config/initializers/rolify.rb	Tue, 24 Sep 2013 15:31:14 +0100
 config/initializers/secret_token.rb	Mon, 14 Jul 2014 15:43:22 +0100
 config/initializers/session_store.rb	Tue, 24 Sep 2013 15:31:14 +0100
 config/initializers/wrap_parameters.rb	Tue, 24 Sep 2013 15:31:14 +0100
