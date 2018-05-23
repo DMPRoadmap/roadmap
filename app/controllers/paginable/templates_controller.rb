@@ -5,14 +5,14 @@ class Paginable::TemplatesController < ApplicationController
   # -----------------------------------------------------
   def index
     authorize Template
-    templates = Template.latest_version
+    templates = Template.latest_version.where(customization_of: nil)
     case params[:f]
     when 'published'
       template_ids = templates.select{|t| t.published? || t.draft? }.collect(&:family_id)
-      templates = Template.latest_version(template_ids)
+      templates = Template.latest_version(template_ids).where(customization_of: nil)
     when 'unpublished'
       template_ids = templates.select{|t| !t.published? && !t.draft? }.collect(&:family_id)
-      templates = Template.latest_version(template_ids)
+      templates = Template.latest_version(template_ids).where(customization_of: nil)
     end
     paginable_renderise partial: 'index', scope: templates.includes(:org), locals: { action: 'index' }
   end

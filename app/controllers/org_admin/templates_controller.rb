@@ -9,7 +9,7 @@ module OrgAdmin
     # -----------------------------------------------------
     def index
       authorize Template
-      templates = Template.latest_version
+      templates = Template.latest_version.where(customization_of: nil)
       published = templates.select{|t| t.published? || t.draft? }.length
       render 'index', locals: { 
         orgs: Org.all,
