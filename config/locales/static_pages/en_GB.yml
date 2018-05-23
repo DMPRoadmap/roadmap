@@ -1,4 +1,11 @@
 en_GB:
+  helpers:
+    public_area_label: "Public Area"
+    institution_sign_in: "Institutional Access"
+    classic_sign_in: "Individual Access"
+    sign_up_cil_message: "<p>The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login.</p>
+                            <p>You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;'>&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;</a>. You can also direct a complaint at a controlling body.</p>"
+
   about_page:
     title: "About DMP OPIDoR"
     # tab_1: "DMP OPIDoR"
@@ -13,8 +20,8 @@ en_GB:
     <p>If you do not have a DMP OPIDoR account, click on <a href='/'>'Create an account'</a> on the homepage.</p>
     <p>If you have an account, please log in :</p>
     <ul>
-      <li>- with the institutional access. Your DMP OPIDoR account will be linked to your institutional credentials.</li>
-      <li>- or with the individual access.</li>
+      <li> with the institutional access. Your DMP OPIDoR account will be linked to your institutional credentials.</li>
+      <li> or with the individual access.</li>
     </ul>
     <p>And start creating or editing your DMP.</p>
     <p>Please visit the <a href='/help'>'Help'</a> page for guidance.</p>
@@ -75,10 +82,10 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
     <h3>Example Data Management Plans</h3>
     <p><b>Examples of H2020 DMPs :</b></p>
     <ul>
-      <li>- <a target='_blank' href='http://www.amecrys-project.eu/images/documents/Deliverable-7.2---Data-Management-Plan.pdf'>AMECRYS</a> Revolutionising Downstream Processing of Monoclonal Antibodies by Continuous Template-Assisted Membrane Crystallization. [PDF, 23 pages]</li>
-      <li>- <a target='_blank' href='http://pieproject.eu/wp-content/uploads/2017/01/PIE_D1.2_FIN.pdf'>PIE News</a> Poverty, Income, and Employment News NEWS. [PDF, 29 pages]</li>
-      <li>- <a target='_blank' href='http://www.compbiomed.eu/wp-content/uploads/2017/03/D1.3_DataManagementPlan_CBK_v1.3.pdf'>CompBiomed</a> A Centre of Excellence in Computational Biomedicine. [PDF, 15 pages]</li>
-      <li>- <a target='_blank' href='https://www.aquacosm.eu/download/deliverables/D4.2%20Database%20management%20Plan_final.pdf'>AQUASCOM</a> Network of Leading European AQUAtic MesoCOSM Facilities Connecting Mountains to Oceans from the Arctic to the Mediterranean. [PDF, 18 pages]</li>
+      <li> <a target='_blank' href='http://www.amecrys-project.eu/images/documents/Deliverable-7.2---Data-Management-Plan.pdf'>AMECRYS</a> Revolutionising Downstream Processing of Monoclonal Antibodies by Continuous Template-Assisted Membrane Crystallization. [PDF, 23 pages]</li>
+      <li> <a target='_blank' href='http://pieproject.eu/wp-content/uploads/2017/01/PIE_D1.2_FIN.pdf'>PIE News</a> Poverty, Income, and Employment News NEWS. [PDF, 29 pages]</li>
+      <li> <a target='_blank' href='http://www.compbiomed.eu/wp-content/uploads/2017/03/D1.3_DataManagementPlan_CBK_v1.3.pdf'>CompBiomed</a> A Centre of Excellence in Computational Biomedicine. [PDF, 15 pages]</li>
+      <li> <a target='_blank' href='https://www.aquacosm.eu/download/deliverables/D4.2%20Database%20management%20Plan_final.pdf'>AQUASCOM</a> Network of Leading European AQUAtic MesoCOSM Facilities Connecting Mountains to Oceans from the Arctic to the Mediterranean. [PDF, 18 pages]</li>
     </ul>
     <p><b>Other examples of DMPs</b></p>  
     <ul class='help_ul'>
@@ -149,8 +156,8 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
         <i>Serres A., Vignale F. In UEB (Université Européenne de Bretagne). Form@doct. Rennes : UEB, janvier  2016.</i>
       </li>
       <li>
-        <a target='_blank' href='http://prodinra.inra.fr/?locale=fr#!ConsultNotice:382263'>Ouverture des données de la recherche. Guide d'analyse du cadre juridique en France</a> [PDF, 46 pages]<br />
-        <i>Becard N., Castets-Renard C., Chassang G., Courtois M.-A., Dantant M., Gandon N., Martin C., Martelletti A., Mendoza-Caminade A., Morcrette N., Neirac C. 2016. DOI : 10.15454/1.481273124091092E12.</i>
+        <a target='_blank' href='http://prodinra.inra.fr/?locale=fr#!ConsultNotice:382263'>Ouverture des données de la recherche. Guide d'analyse du cadre juridique en France</a> [PDF, 45 pages]<br />
+        <i>Becard N., Castets-Renard C., Chassang G., Dantant M., Freyt-Caffin L., Gandon N., Martin C., Martelletti A., Mendoza-Caminade A., Morcrette N., Neirac C. 2017. DOI : 10.15454/1.481273124091092E12.</i>
       </li>
       <li>
         <a target='_blank' href='https://erc.europa.eu/sites/default/files/document/file/ERC_info_document-Open_Research_Data_and_Data_Management_Plans.pdf'>Open Research Data and Data Management Plans. Information for ERC grantees.</a> [PDF, 15 pages]<br />
@@ -176,10 +183,10 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
     <h3>Write your plan</h3>
     <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p>
     <ul>
-      <li>- 'Plan details' includes basic administrative details, tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li>
-      <li>- The following tab(s) present the questions to answer. There may be more than one tab if your funder, institution or university asks different sets of questions at different stages e.g. at grant application and post-award.</li>
-      <li>- The 'Share' tab allows you to invite others to read or contribute to your plan.</li>
-      <li>- The 'Export' tab allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li>
+      <li> 'Plan details' includes basic administrative details, tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li>
+      <li> The following tab(s) present the questions to answer. There may be more than one tab if your funder, institution or university asks different sets of questions at different stages e.g. at grant application and post-award.</li>
+      <li> The 'Share' tab allows you to invite others to read or contribute to your plan.</li>
+      <li> The 'Export' tab allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li>
     </ul>
     <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p>
     <p>Guidance is displayed in the right-hand panel. Click the '+' symbol to view this.</p>
@@ -254,4 +261,3 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
     <p>Users will be provided with information on such modifications on the home page. If users do not agree with the new terms of use, they will be able to close their account.</p>
     <br/>
    </div>"
-

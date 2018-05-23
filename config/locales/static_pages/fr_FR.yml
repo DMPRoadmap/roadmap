@@ -1,4 +1,11 @@
-fr_FR:
+fr:
+  helpers:
+    public_area_label: "Section publique" 
+    institution_sign_in: "Accès institutionnel"
+    classic_sign_in: "Accès individuel"
+    sign_up_cil_message: "<p>Les informations recueillies vous concernant vont faire l’objet d’un traitement destiné à l'Inist-CNRS (UPS76) et au correspondant Informatique et Libertés. Pour la finalité suivante : gestion des comptes des utilisateurs. Les destinataires de ces données sont les administrateurs DMP OPIDoR de l’Inist-CNRS. La durée de conservation des données est de 5 ans suite à la dernière connexion.</p>
+                          <p>Vous bénéficiez d’un droit d’accès, de rectification, de portabilité, d’effacement de celles-ci ou une limitation du traitement. Vous pouvez vous opposer au traitement des données vous concernant et disposez du droit de retirer votre consentement à tout moment en vous adressant à <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;'>&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;</a>. Vous avez la possibilité d’introduire une réclamation auprès d’une autorité de contrôle.</p>"
+
   about_page:
     title: "A propos de DMP OPIDoR"
     # tab_1: "DMP OPIDoR"
@@ -13,8 +20,8 @@ fr_FR:
       <p>En l'absence de compte DMP OPIDoR, cliquez sur <a href='/'>'Créer un compte'</a> en page d'accueil.</p>
       <p>Si vous avez un compte, connectez vous :</p>
       <ul>
-        <li>- par l'accès institutionnel. Votre compte DMP OPIDoR sera lié à votre compte institutionnel.</li>
-        <li>- ou par l'accès individuel.</li>
+        <li> par l'accès institutionnel. Votre compte DMP OPIDoR sera lié à votre compte institutionnel.</li>
+        <li> ou par l'accès individuel.</li>
       </ul>
       <p>Vous pouvez commencer à créer ou modifier votre plan de gestion des données.</p>
       <p>Consultez la page d'<a href='/help'>'Aide'</a> pour quelques conseils.</p>
@@ -76,10 +83,10 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
     <h3>Exemples de Data Management Plans</h3>
     <p><b>Quelques exemples de DMP rédigés dans le cadre de projets Horizon 2020 :</b></p>
     <ul>
-      <li>- <a target='_blank' href='http://www.amecrys-project.eu/images/documents/Deliverable-7.2---Data-Management-Plan.pdf'>AMECRYS</a> Revolutionising Downstream Processing of Monoclonal Antibodies by Continuous Template-Assisted Membrane Crystallization. [PDF, 23 pages]</li>
-      <li>- <a target='_blank' href='http://pieproject.eu/wp-content/uploads/2017/01/PIE_D1.2_FIN.pdf'>PIE News</a> Poverty, Income, and Employment News NEWS. [PDF, 29 pages]</li>
-      <li>- <a target='_blank' href='http://www.compbiomed.eu/wp-content/uploads/2017/03/D1.3_DataManagementPlan_CBK_v1.3.pdf'>CompBiomed</a> A Centre of Excellence in Computational Biomedicine. [PDF, 15 pages]</li>
-      <li>- <a target='_blank' href='https://www.aquacosm.eu/download/deliverables/D4.2%20Database%20management%20Plan_final.pdf'>AQUASCOM</a> Network of Leading European AQUAtic MesoCOSM Facilities Connecting Mountains to Oceans from the Arctic to the Mediterranean; [PDF, 18 pages]</li>
+      <li> <a target='_blank' href='http://www.amecrys-project.eu/images/documents/Deliverable-7.2---Data-Management-Plan.pdf'>AMECRYS</a> Revolutionising Downstream Processing of Monoclonal Antibodies by Continuous Template-Assisted Membrane Crystallization. [PDF, 23 pages]</li>
+      <li> <a target='_blank' href='http://pieproject.eu/wp-content/uploads/2017/01/PIE_D1.2_FIN.pdf'>PIE News</a> Poverty, Income, and Employment News NEWS. [PDF, 29 pages]</li>
+      <li> <a target='_blank' href='http://www.compbiomed.eu/wp-content/uploads/2017/03/D1.3_DataManagementPlan_CBK_v1.3.pdf'>CompBiomed</a> A Centre of Excellence in Computational Biomedicine. [PDF, 15 pages]</li>
+      <li> <a target='_blank' href='https://www.aquacosm.eu/download/deliverables/D4.2%20Database%20management%20Plan_final.pdf'>AQUASCOM</a> Network of Leading European AQUAtic MesoCOSM Facilities Connecting Mountains to Oceans from the Arctic to the Mediterranean; [PDF, 18 pages]</li>
     </ul> 
     <p><b>Autres exemples de DMPs</b></p>    
     <ul class='help_ul'>
@@ -151,7 +158,7 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
       </li>
       <li>
         <a target='_blank' href='http://prodinra.inra.fr/?locale=fr#!ConsultNotice:382263'>Ouverture des données de la recherche. Guide d'analyse du cadre juridique en France</a> [PDF, 46 pages]<br />
-        <i>Becard N., Castets-Renard C., Chassang G., Courtois M.-A., Dantant M., Gandon N., Martin C., Martelletti A., Mendoza-Caminade A., Morcrette N., Neirac C. 2016. DOI : 10.15454/1.481273124091092E12.</i>
+        <i>Becard N., Castets-Renard C., Chassang G., Dantant M., Freyt-Caffin L., Gandon N., Martin C., Martelletti A., Mendoza-Caminade A., Morcrette N., Neirac C. 2017. DOI : 10.15454/1.481273124091092E12.</i>
       </li>
       <li>
         <a target='_blank' href='https://erc.europa.eu/sites/default/files/document/file/ERC_info_document-Open_Research_Data_and_Data_Management_Plans.pdf'>Open Research Data and Data Management Plans. Information for ERC grantees.</a> [PDF, 15 pages]<br />
@@ -177,10 +184,10 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
     <h3>Rédiger votre plan</h3>
     <p>L'interface sous forme d'onglets vous permet de naviguer dans diverses rubriques lorsque vous rédigez votre plan.</p>
     <ul>
-       <li>- L'onglet 'Renseignements sur le plan' comprend quelques renseignements administratifs, indique le modèle et les recommandations sur lesquels votre plan s'appuiera et vous donne un aperçu des questions auxquelles vous devez répondre.</li>
-       <li>- Les onglets suivants contiennent les questions auxquelles vous pouvez répondre. Il peut y avoir plusieurs onglets si votre financeur ou votre université pose différentes séries de questions à diverses étapes, par exemple lors d'une demande de subvention et après l'octroi d'une subvention.</li>
-       <li>- L'onglet 'Partager' vous permet d'inviter d'autres personnes à lire votre plan ou à y collaborer.</li>
-       <li>- L'onglet 'Exporter' vous permet de télécharger votre plan en divers formats, ce qui peut être utile si vous devez joindre votre plan à une demande de subvention.</li>
+       <li> L'onglet 'Renseignements sur le plan' comprend quelques renseignements administratifs, indique le modèle et les recommandations sur lesquels votre plan s'appuiera et vous donne un aperçu des questions auxquelles vous devez répondre.</li>
+       <li> Les onglets suivants contiennent les questions auxquelles vous pouvez répondre. Il peut y avoir plusieurs onglets si votre financeur ou votre organisme de recherche pose différentes séries de questions à diverses étapes, par exemple lors d'une demande de subvention et après l'octroi d'une subvention.</li>
+       <li> L'onglet 'Partager' vous permet d'inviter d'autres personnes à lire votre plan ou à y collaborer.</li>
+       <li> L'onglet 'Exporter' vous permet de télécharger votre plan en divers formats, ce qui peut être utile si vous devez joindre votre plan à une demande de subvention.</li>
     </ul>
     <p>Lorsque vous consultez l'un ou l'autre des onglets de questions, vous verrez les différentes sections de votre plan. Cliquez successivement sur les différentes sections pour répondre aux questions. Vous pouvez mettre en forme vos réponses à l'aide des boutons de l'éditeur de texte.</p>
     <p>Les recommandations sont affichées dans le cadre à droite. Cliquez sur le symbole '+' pour les consulter.</p>
@@ -257,4 +264,3 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
     <p>Ces modifications feront l’objet d’une information des utilisateurs sur la page d’accueil. En cas de désaccord avec les nouvelles conditions générales d’utilisation, les utilisateurs auront la possibilité de clore leur compte.</p>
     <br/>
    </div>"
-
