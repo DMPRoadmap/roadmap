@@ -49,7 +49,7 @@ class Paginable::TemplatesController < ApplicationController
       when 'not-customised'
         templates = Template.latest_customizable.where.not(family_id: customizations.collect(&:customization_of))
     end
-    paginable_renderise partial: 'customisable', scope: templates.includes(:org), locals: { action: 'customisable', customizations: customizations }
+    paginable_renderise partial: 'customisable', scope: templates.joins(:org), locals: { action: 'customisable', customizations: customizations }
   end
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
