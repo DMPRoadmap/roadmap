@@ -83,7 +83,7 @@ module OrgAdmin
         partial_path: 'show', 
         template: template,
         phases: phases,
-        referrer: request.referrer.present? ? request.referrer : org_admin_templates_path }
+        referrer: get_referrer(template, request.referrer) }
     end
     
     # GET /org_admin/templates/:id/edit
@@ -102,7 +102,7 @@ module OrgAdmin
         partial_path: 'edit', 
         template: template,
         phases: phases,
-        referrer: request.referrer.present? ? request.referrer : org_admin_templates_path }
+        referrer: get_referrer(template, request.referrer) }
     end
     
     # GET /org_admin/templates/new
@@ -213,7 +213,7 @@ module OrgAdmin
       if template.upgrade_customization?
         begin
           new_customization = template.upgrade_customization!
-          redirect_to edit_org_admin_template_path(new_customization)
+          redirect_to org_admin_template_path(new_customization)
         rescue StandardError => e
           flash[:alert] = _('Unable to transfer your customizations.')
           redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
@@ -334,6 +334,18 @@ module OrgAdmin
     def template_type(template)
       template.customization_of.present? ? _('customisation') : _('template')
     end
-    
+   
+    def get_referrer(template, referrer)
+      if referrer.present?  
+puts "REFERRER: #{referrer}"
+        if referrer.end_with?(new_org_admin_template_path) || referrer.end_with?(edit_org_admin_template_path) || referrer.end_with?(org_admin_template_path) 
+          template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path 
+        else 
+          request.referrer
+        end
+      else
+        org_admin_templates_path
+      end
+    end
   end
 end

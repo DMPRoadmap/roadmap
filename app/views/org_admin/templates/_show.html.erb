@@ -8,12 +8,19 @@
   </dd>
   <dt><%= _('Status') %></dt>
   <dd>
-    <% if template.published? %>
-      <%= template.customization_of.present? ? _('Customizations are published') : _('Published') %>
-    <% elsif template.version <= 0 %>
-      <%= template.customization_of.present? ? _('Customizations are unpublished') :_('Unpublished')%>
+    <% if template.upgrade_customization? %>
+      <%= _('Original funder template has changed!') %>
     <% else %>
-      <%= template.customization_of.present? ? _('Draft customizations') :_('Draft') %>
+      <% if template.published? %>
+        <%= template.customization_of.present? ? _('Customizations are published') : _('Published') %>
+      <% elsif template.draft? %>
+        <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %> 
+        <%= template.customization_of.present? ? _('Customizations are published') :_('Published')%>
+        <em class="sr-only"><%= tooltip %></em>
+        &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+      <% else %>
+        <%= template.customization_of.present? ? _('Customizations are unpublished') :_('Unpublished') %>
+      <% end %>
     <% end %>
   </dd>
   <% if current_user.org.funder? && !current_user.org.funder_only? %>
