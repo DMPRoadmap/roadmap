@@ -42,10 +42,6 @@ class PlanTest < ActiveSupport::TestCase
 =end
   end
 
-  # ---------------------------------------------------
-  test "dmptemplate returns the template" do
-    assert_equal @plan.template, @plan.dmptemplate
-  end
 
   # ---------------------------------------------------
   test "correctly creates a new answer" do

@@ -7,23 +7,19 @@ class AnnotationPolicy < ApplicationPolicy
     @annotation = annotation
   end
 
-  ##
-  # Users can modify annotations if:
-  #  - They can modify templates
-  #  - The template which they are modifying belongs to their orggi
-  ##
-
-  def admin_create?
-    # here we pass through a question instead of an annotation object
-    user.can_modify_templates?  &&  (annotation.section.phase.template.org_id == user.org_id)
+  def create?
+    question = Question.find_by(id: @annotation.question_id)
+    if question.present?
+      return @user.can_modify_templates? && question.template.org_id == @user.org_id
+    end
+    return false
   end
 
-  def admin_update?
-    user.can_modify_templates?  &&  (annotation.question.section.phase.template.org_id == user.org_id) && annotation.org_id == user.org_id
+  def update?
+    @user.can_modify_templates? && annotation.template.org_id == @user.org_id
   end
 
-  def admin_destroy?
-    user.can_modify_templates?  &&  (annotation.question.section.phase.template.org_id == user.org_id)
+  def destroy?
+    update?
   end
-
 end

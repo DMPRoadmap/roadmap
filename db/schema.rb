@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412092647) do
+ActiveRecord::Schema.define(version: 20180418115318) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
@@ -358,13 +358,15 @@ ActiveRecord::Schema.define(version: 20180412092647) do
     t.integer  "version"
     t.integer  "visibility"
     t.integer  "customization_of"
-    t.integer  "dmptemplate_id"
-    t.boolean  "migrated"
-    t.boolean  "dirty",            default: false
+    t.integer  "family_id"
+    t.boolean  "archived"
     t.text     "links",            default: "{\"funder\":[], \"sample_plan\":[]}"
   end
 
-  add_index "templates", ["org_id", "dmptemplate_id"], name: "template_organisation_dmptemplate_index"
+  add_index "templates", ["customization_of", "version", "org_id"], name: "index_templates_on_customization_of_and_version_and_org_id", unique: true
+  add_index "templates", ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
+  add_index "templates", ["family_id"], name: "index_templates_on_family_id"
+  add_index "templates", ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
   add_index "templates", ["org_id"], name: "index_templates_on_org_id"
 
   create_table "themes", force: :cascade do |t|
@@ -443,6 +445,5 @@ ActiveRecord::Schema.define(version: 20180412092647) do
     t.integer "perm_id"
   end
 
-  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id"
-
+  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 end

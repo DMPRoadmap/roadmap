@@ -1,0 +1,115 @@
+<!--
+**Project: DMPRoadmap
+**Description: This block shows a question, its guidance, and options when multiple choice is selected.
+**Arguments transferred: 'question'
+**Copyright: Digital Curation Centre and California Digital Library
+-->
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-12">
+        <% q_format = question.question_format %>
+        <dl class="dl-horizontal">
+          <dt><%= _('Question number')%></dt>
+          <dd><%= question.number %></dd>
+          <dt><%= _('Question text')%></dt>
+          <dd><%= raw question.text %></dd>
+          <!-- question.option_based? -->
+          <% if question.option_based? %>
+            <dt><%= _('Question options') %></dt>
+            <dd><%= question.question_options.collect(&:text).join(', ') %></dd>
+          <% end %>
+          <!-- Default value -->
+          <% if q_format.textfield? || q_format.textarea? %>
+            <% if !question.default_value.nil? %>
+              <dt><%= _('Default value')%></dt>
+              <dd><%= raw question.default_value %></dd>
+            <% end %>
+          <% end %>
+          <!-- Format title -->
+          <dt><%= _('Answer format')%></dt>
+          <dd>
+            <%= q_format.title %>
+            <% if q_format.option_based? %>
+              <%= _('Additional comment area will be displayed.')%>
+            <% else %>
+              <%= _('No additional comment area will be displayed.')%>
+            <% end %>
+          </dd>
+          <!-- Suggested answer or Example-->
+          <% if !question.section.phase.template.org.funder? %>
+              <% example_answer = question.get_example_answers(template.base_org.id).first %>
+              <% if example_answer.present?  && example_answer.text.present?  %>
+                  <dt><%= _('example answer')%></dt>
+                  <dd><%= raw example_answer.text %></dd>
+              <% end %>
+          <% end %>
+          <!-- Guidance linked to this question -->
+          <% guidance = question.get_guidance_annotation(template.base_org.id) %>
+          <% if guidance.present?  %>
+            <dt><%= _('Guidance')%></dt>
+            <dd><%= raw guidance.text %></dd>
+          <% end %>
+          <!-- Themes -->
+          <% themes_q = question.themes %>
+          <% if !themes_q.nil? %>
+              <dt><%= _('Themes')%></dt>
+              <dd><%= themes_q.join(', ') %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <% if template.latest? %>
+          <% if template.customization_of.present? %>
+            <% if section.modifiable? %>
+              <h4> <%= _('Annotations') %> </h4>
+              <dl class="dl-horizontal">
+                <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+                  <dt><%= annotation.type.humanize %></dt>
+                  <dd><%= annotation.text.present? ? raw(annotation.text) : _('None provided') %></dd>
+                <% end %>
+              </dl>
+            <% else %>
+              <h4> <%= _('Annotations') %> </h4>
+              <%= form_for(question, url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), namespace: question.id, html: { method: 'put', class: 'question_form' }) do |f| %>
+                <%# example_answer and guidance annotations as nested fields %>
+                <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+                  <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
+                    <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+                  <% end %>
+                <% end %>
+                <div class="form-group col-md-10">
+                  <div class="pull-right">
+                    <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if section.modifiable? %>
+            <div class="form-group col-md-10">
+              <div class="pull-right">
+                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <% if template.customization_of.present? %>
+            <h4> <%= _('Annotations') %> </h4>
+            <dl class="dl-horizontal">
+              <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+                <dt><%= annotation.type.humanize %></dt>
+                <dd><%= annotation.text.present? ? raw(annotation.text) : _('None provided') %></dd>
+              <% end %>
+            </dl>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <%#= render partial: 'guidances/guidance_display', locals: {question: question} %>
+  </div>
+</div>

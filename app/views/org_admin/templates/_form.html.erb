@@ -1,0 +1,77 @@
+<div class="form-group col-xs-8">
+  <%= f.label(:title, _('Title'), class: "control-label") %>
+  <%= f.text_field(:title, class: "form-control", "aria-required": true) %>
+</div>
+
+<div class="form-group col-xs-8" data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
+  <%= f.label(:description, _('Description'), class: "control-label") %>
+  <%= f.text_area(:description, class: "template") %>
+</div>
+
+<% if current_user.org.funder? && !current_user.org.funder_only? %>
+  <!-- If the Org is a funder and another org type then allow then to set the visibility -->
+  <div class="form-group col-xs-8">
+    <%= f.label _('Visibility'), class: 'control-label' %>
+    <%= render partial: 'shared/popover', 
+               locals: { message: _('Checking this box prevents the template from appearing in the public list of templates.'),
+                         placement: 'right' }%>
+    <div class="checkbox">
+      <%= f.label(:visibility,
+          raw("#{check_box_tag('template_visibility', '0', (template.visibility == 'organisationally_visible'))} #{_('for internal %{org_name} use only') % {org_name: template.org.name}}")) %>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group col-xs-8">
+  <%= label_tag(:status, _('Status'), class: "control-label") %>
+    <p class="form-control-static">
+      <% if template.published? %>
+        <%= _('Published') %>
+      <% elsif (template.version.present? && template.version <= 0) || !template.id.present? %>
+        <%= _('Unpublished') %>
+      <% else %>
+        <%= _('Draft') %>
+      <% end %>
+    </p>
+</div>
+
+<% if template.id.present? %>
+  <div class="form-group col-xs-8">
+    <%= label_tag(:created_at, _('Created at'), class: "control-label") %>
+    <p class="form-control-static">
+      <%= l template.created_at.to_date, formats: :short %>
+    </p>
+  </div>
+  <div class="form-group col-xs-8">
+    <%= label_tag(:updated, _('Last updated'), class: "control-label") %>
+    <p class="form-control-static">
+      <%= l template.updated_at.to_date, formats: :short %>
+    </p>
+  </div>
+<% end %>
+
+<% if template.org.funder? %>
+  <div class="form-group col-xs-8">
+    <%= render(partial: '/shared/links',
+    locals: { 
+      context: 'funder',
+      title: _('Funder Links'),
+      links: template.links['funder'],
+      max_number_links: MAX_NUMBER_LINKS_FUNDER,
+      tooltip: _('Add links to funder websites that provide additional information about the requirements for this template') }) %>
+  </div>
+  <div class="form-group col-xs-8">
+    <%= render(partial: '/shared/links',
+    locals: { 
+      context: 'sample_plan',
+      title: _('Sample Plan Links'),
+      links: template.links['sample_plan'],
+      max_number_links: MAX_NUMBER_LINKS_SAMPLE_PLAN,
+      tooltip: _('Add links to sample plans if provided by the funder.') }) %>
+  </div>
+  <%= hidden_field_tag('template-links', ActiveSupport::JSON.encode(template.links)) %>
+<% end %>
+
+<div class="form-group col-xs-8">
+  <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+</div>
