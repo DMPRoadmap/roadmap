@@ -42,10 +42,6 @@ class PlanTest < ActiveSupport::TestCase
 =end
   end
 
-  # ---------------------------------------------------
-  test "dmptemplate returns the template" do
-    assert_equal @plan.template, @plan.dmptemplate
-  end
 
   # ---------------------------------------------------
   test "correctly creates a new answer" do
@@ -54,8 +50,10 @@ class PlanTest < ActiveSupport::TestCase
     q.save!
 
     answer = @plan.answer(q.id)
-    assert_equal nil, answer.id, "expected a new Answer"
-    assert_equal q.default_value, answer.text, "expected the new Answer to use the Default Answer for the Question"
+    assert_nil answer.id, "expected a new Answer"
+    unless q.default_value.nil?
+      assert_equal q.default_value, answer.text, "expected the new Answer to use the Default Answer for the Question"
+    end
   end
 
   # ---------------------------------------------------

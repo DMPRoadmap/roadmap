@@ -4,167 +4,164 @@ class TemplateSelectionTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    scaffold_template
-    @template = Template.default
-
-    @researcher = User.last
-    scaffold_org_admin(@template.org)
-
-    @funder = Org.find_by(org_type: 2)
-    @funder_template = @funder.templates.where(published: true).first #Template.create(title: 'Funder template', org: @funder, migrated: false)
-    # Template can't be published on creation so do it afterward
-    @funder_template.published = true
-    @funder_template.visibility = Template.visibilities[:publicly_visible]
-    @funder_template.save
-
-    @org = @researcher.org
-    @org_template = Template.create(title: 'Org template', org: @org, migrated: false)
-    # Template can't be published on creation so do it afterward
-    @org_template.published = true
-    @org_template.visibility = Template.visibilities[:organisationally_visible]
-    @org_template.save
+    # Need to clear the tables until we get seed.rb out of test_helper.rb
+    Template.delete_all
+    
+    @funder = init_funder
+    @institution = init_institution
+    @organisation = init_organisation
+    @funder2 = init_funder({ name: 'Funder 2', abbreviation: 'F2' })
+    
+    @researcher = init_researcher(@institution)
+    @org_admin = init_org_admin(@institution)
+    
+    @funder_published_public_template = init_template(@funder, {
+      title: 'Test Funder public Template', 
+      published: true
+    })
+    @funder_published_private_template = init_template(@funder, {
+      title: 'Test Funder private Template', 
+      published: true
+    })
+    # funder templates are public by default on creation so set it to organisationally_visible afterward
+    @funder_published_private_template.update!({ visibility: Template.visibilities[:organisationally_visible] })
+    @funder_unpublished_template = init_template(@funder, {
+      title: 'Test Funder unpublished Template', 
+      published: false
+    })
+    @funder2_published_public_template = init_template(@funder2, {
+      title: 'Test Funder 2 Template', 
+      published: true
+    })
+    @org_published_private_template = init_template(@institution, {
+      title: 'Test Org Template', 
+      published: true
+    })
+    @default_published_private_template = init_template(@organisation, {
+      title: 'Default Template',
+      published: true,
+      is_default: true
+    })
+  end
+  
+  # ----------------------------------------------------------
+  test 'new plan gets published versions of templates not the latest version' do
+    version = @org_published_private_template.generate_version!
+    sign_in @researcher
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}"
+    json = JSON.parse(@response.body)
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal @org_published_private_template.id, json['templates'][0]['id'], 'expected the published version of the template'
   end
 
   # ----------------------------------------------------------
-  test 'plan gets publish versions of templates' do
-    original_id = @template.id
-    template = version_template(@template)
-
+  test 'new plan gets default template when no funder or research org is specified' do
     sign_in @researcher
-
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@template.org_id}"
-    assert_response :success
+    get "#{org_admin_template_options_path}?plan[org_id]=&plan[funder_id]="
     json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal original_id, json['templates'][0]['id']
-    assert_equal original_id, Template.live(@template.dmptemplate_id).id
-
-    # Version the template again
-    original_id = template.id
-    template = version_template(template)
-
-    # Make sure the published version is used
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@template.org_id}"
-    assert_response :success
-    json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal original_id, json['templates'][0]['id']
-    assert_equal original_id, Template.live(@template.dmptemplate_id).id
-
-    # Update the template and make sure the published version stayed the same
-    sign_in @user
-    put org_admin_template_path(template), {template: {title: "Blah blah blah"}}
-
-    sign_in @researcher
-
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@template.org_id}"
-    assert_response :success
-    json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal original_id, json['templates'][0]['id']
-    assert_equal original_id, Template.live(@template.dmptemplate_id).id
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal @default_published_private_template.id, json['templates'][0]['id'], 'expected the default template'
   end
 
   # ----------------------------------------------------------
-  test 'plan gets generic template when no funder or org' do
-    temp = Template.find_by(published: true, is_default: true)
-    if temp.blank?
-      @template.is_default = true
-      @template.save!
-      temp = @template
-    end
-
+  test 'new plan gets org template when a research org is specified but no funder is specified' do
     sign_in @researcher
-    get "#{org_admin_template_options_path}?plan[org_id]="
-    assert_response :success
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]="
     json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal @template.id, json['templates'][0]['id']
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal @org_published_private_template.id, json['templates'][0]['id'], 'expected 1 org template'
   end
 
   # ----------------------------------------------------------
-  test 'plan gets org template when no funder' do
+  test 'new plan gets multiple org templates when a research org is specified but no funder is specified' do
+    template2 = init_template(@institution, {
+      title: 'Test Org Template 2', 
+      published: true,
+      is_default: false,
+    })
+    template2.update!(visibility: Template.visibilities[:organisationally_visible])
     sign_in @researcher
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@org.id}&plan[funder_id]="
-
-    assert_response :success
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]="
     json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal @org_template.id, json['templates'][0]['id']
+    assert_equal 2, json['templates'].size, "expected 2 templates but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    json['templates'].each{ |h| assert [@org_published_private_template.id, template2.id].include?(h['id']), 'expected the json to include only the 2 org templates' }
   end
 
   # ----------------------------------------------------------
-  test 'plan gets funder template when no org' do
+  test 'new plan gets public funder template when no research org is specified' do
     sign_in @researcher
     get "#{org_admin_template_options_path}?plan[org_id]=&plan[funder_id]=#{@funder.id}"
-
-    assert_response :success
     json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal @funder_template.id, json['templates'][0]['id']
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal @funder_published_public_template.id, json['templates'][0]['id'], 'expected the funder template'
   end
 
   # ----------------------------------------------------------
-  test 'plan gets funder template when org has no customization' do
+  test 'new plan gets multiple public funder templates when no research org is specified' do
+    template2 = init_template(@funder, {
+      title: 'Test Funder Template 2', 
+      published: true,
+      is_default: false,
+      visibility: Template.visibilities[:publicly_visible]
+    })
     sign_in @researcher
-
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
-    assert_response :success
+    get "#{org_admin_template_options_path}?plan[org_id]=&plan[funder_id]=#{@funder.id}"
     json = JSON.parse(@response.body)
-
-    assert_equal 1, json['templates'].size
-    assert_equal @funder_template.id, json['templates'][0]['id']
+    assert_equal 2, json['templates'].size, "expected 2 templates but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    json['templates'].each{ |h| assert [@funder_published_public_template.id, template2.id].include?(h['id']), 'expected the json to include only the 2 funder templates' }
+  end
+  
+  # ----------------------------------------------------------
+  test 'new plan gets both the public funder template when both research org and funder are specified' do
+    sign_in @researcher
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]=#{@funder.id}"
+    json = JSON.parse(@response.body)
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal @funder_published_public_template.id, json['templates'][0]['id'], 'expected the funder template'
   end
 
   # ----------------------------------------------------------
-  test 'plan gets customized version of funder template' do
-    customization = Template.create(title: 'Customization', org: @org)
-    # Template can't be published on creation so do it afterward
-    customization.published = true
-    customization.visibility = Template.visibilities[:organisationally_visible]
-    customization.customization_of = @funder_template.dmptemplate_id
-    customization.save
-
+  test 'new plan gets the customized version of funder template when the specified research org has customized it' do
+    customization = @funder_published_public_template.customize!(@institution)
+    customization.update!(title: 'Customization test', published: true)
     sign_in @researcher
-
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
-    assert_response :success
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]=#{@funder.id}"
     json = JSON.parse(@response.body)
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal customization.id, json['templates'][0]['id'], 'expected the customization of the funder template'
+  end
     
-    assert_equal 1, json['templates'].size
-    assert_equal customization.id, json['templates'][0]['id']
-  end
-
   # ----------------------------------------------------------
-  test 'list of templates is returned when the funder has multiples' do
-    funder_template2 = Template.create(title: 'Funder template 2', org: @funder)
-    # Template can't be published on creation so do it afterward
-    funder_template2.published = true
-    funder_template2.visibility = Template.visibilities[:publicly_visible]
-    funder_template2.save
-
+  test 'plan gets choice between multiple funder templates when both research org and funder are specified and both the org and funder have multiple templates' do
+    funder_template2 = init_template(@funder, { title: 'Funder template 2', published: true, visibility: Template.visibilities[:publicly_visible] })
+    org_template2 = init_template(@institution, { title: 'Org template 2', published: true, visibility: Template.visibilities[:organisationally_visible] })
     sign_in @researcher
-
-    get "#{org_admin_template_options_path}?plan[org_id]=#{@org.id}&plan[funder_id]=#{@funder.id}"
-    assert_response :success
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]=#{@funder.id}"
     json = JSON.parse(@response.body)
-
-    assert_equal 2, json['templates'].size
-    assert_equal @funder_template.id, json['templates'][0]['id']
-    assert_equal funder_template2.id, json['templates'][1]['id']
+    assert_equal 2, json['templates'].size, "expected 2 templates but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    json['templates'].each{ |h| assert [@funder.id, funder_template2.id].include?(h['id']), 'expected the json to include only the funder templates' }
   end
-
-
-  private
-    # ----------------------------------------------------------
-    def version_template(template)
-      get publish_org_admin_template_path(template)
-      Template.current(template.dmptemplate_id)
-    end
+  
+  # ----------------------------------------------------------
+  test 'new plan gets default template when combination of specified funder and research org have no templates' do
+    @org_published_private_template.destroy!
+    @funder_published_public_template.destroy!
+    sign_in @researcher
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]=#{@funder.id}"
+    json = JSON.parse(@response.body)
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal @default_published_private_template.id, json['templates'][0]['id'], 'expected the default template'
+  end
+  
+  # ----------------------------------------------------------
+  test 'new plan gets customized version of the default template if the research org has no template of its own but has customized the default template' do
+    @org_published_private_template.destroy
+    customization = @default_published_private_template.customize!(@institution)
+    customization.update!(title: 'Default template customization test', published: true)
+    sign_in @researcher
+    get "#{org_admin_template_options_path}?plan[org_id]=#{@institution.id}&plan[funder_id]="
+    json = JSON.parse(@response.body)
+    assert_equal 1, json['templates'].size, "expected 1 template but got: #{json['templates'].collect{|h| h['title'] }.join(', ')}"
+    assert_equal customization.id, json['templates'][0]['id'], "expected the customized version of the default template"
+  end
 end

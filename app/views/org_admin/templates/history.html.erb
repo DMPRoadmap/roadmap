@@ -1,27 +1,26 @@
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <%= _('Template History') %>
+      <%= templates.first.customization_of.present? ? _('Template Customisation History') : _('Template History') %>
       <div class="pull-right">
-        <%= link_to _('View all templates'), "#{org_admin_templates_path}##{@current_tab}", class: "btn btn-primary" %>
+        <%= link_to _('View all templates'), referrer, class: "btn btn-primary" %>
       </div>
     </h1>
-    <p><%= _('Here you can view previously published versions of your template.  These can no longer be modified.')%></p>
+    <p><%= raw _('Here you can view previously published versions of your template.  These can no longer be modified.')%></p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
     <!-- List of own templates -->
-    <% if @templates.length > 0 %>
+    <% if templates.length > 0 %>
       <%= paginable_renderise(
         partial: '/paginable/templates/history',
         controller: 'paginable/templates',
         action: 'history',
-        path_params: { id: @template.id },
-        query_params: { sort_field: :version, sort_direction: :desc }, 
-        scope: @templates,
-        locals: { current: @current }) %>
+        query_params: { sort_field: 'templates.version', sort_direction: 'desc' }, 
+        scope: templates,
+        locals: local_assigns ) %>
     <% else %>
       <p><%= _('This template is new and does not yet have any publication history.') %></p>
     <% end %>

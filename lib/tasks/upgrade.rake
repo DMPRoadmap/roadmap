@@ -1,3 +1,4 @@
+require 'set'
 namespace :upgrade do
 
   desc "Upgrade to 1.0"
@@ -274,5 +275,98 @@ namespace :upgrade do
     end
   end
 
+  desc "Remove duplicated non customised template versions"
+  task remove_duplicated_non_customised_template_versions: :environment do
+    templates = Template
+      .select(:id, :family_id, :version, :updated_at)
+      .group(:family_id, :version, :id)
+      .order(family_id: :asc, version: :asc, updated_at: :desc)
 
+    current_family_id = nil
+    unique_versions = Set.new
+    duplicates = []
+    templates.each do |template|
+      if current_family_id != template.family_id
+        current_family_id = template.family_id
+        unique_versions = Set.new
+      end
+      if unique_versions.add?(template.version).nil?
+        duplicates << template
+      end
+    end
+    current_family_id = nil
+    version_counter = nil
+    duplicates.each do |template|
+      if current_family_id != template.family_id
+        current_family_id = template.family_id
+        version_counter = nil
+      end
+      num_plans = Plan.where(template_id: template.id).count
+      if num_plans > 0
+        version_counter = version_counter.nil? ? -1 : version_counter - 1
+        unsaved_template = Template.find(template.id)
+        unsaved_template.version = version_counter
+        if Template.exists?(customization_of: template.family_id)
+          puts "template with id: #{template.id} has NOT been ARCHIVED since it had customised templates"
+        else
+          puts "template with id: #{template.id} has been ARCHIVED since it had plans associated but no customised templates"
+          unsaved_template.archived = true
+        end
+        unsaved_template.save!
+      else
+        Template.destroy(template.id)
+        puts "template with id: #{template.id} has been REMOVED since it had no plans associated"
+      end
+    end
+    puts "remove_duplicated_non_customised_template_versions DONE"
+  end
+  desc "Remove duplicated customised template versions"
+  task remove_duplicated_customised_template_versions: :environment do
+    templates = Template
+      .select(:id, :customization_of, :version, :org_id, :updated_at)
+      .where('customization_of IS NOT NULL')
+      .group(:customization_of, :org_id, :version, :id)
+      .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
+    generate_compound_key = lambda{ |customization_of, org_id| return "#{customization_of}_#{org_id}" }
+    current = nil
+    unique_versions = Set.new
+    duplicates = []
+    templates.each do |template|
+      key = generate_compound_key.call(template.customization_of, template.org_id)
+      if current != key
+        current = key
+        unique_versions = Set.new
+      end
+      if unique_versions.add?(template.version).nil?
+        duplicates << template
+      end
+    end
+    current = nil
+    version_counter = nil
+    duplicates.each do |template|
+      key = generate_compound_key.call(template.customization_of, template.org_id)
+      if current != key
+        current = key
+        version_counter = nil
+      end
+      num_plans = Plan.where(template_id: template.id).count
+      if num_plans > 0
+        version_counter = version_counter.nil? ? -1 : version_counter - 1
+        unsaved_template = Template.find(template.id)
+        unsaved_template.version = version_counter
+        unsaved_template.archived = true
+        unsaved_template.save!
+        puts "template with id: #{template.id} has been ARCHIVED since it had plans associated"
+      else
+        Template.destroy(template.id)
+        puts "template with id: #{template.id} has been REMOVED since it has no plans associated"
+      end
+    end
+    puts "remove_duplicated_customised_template_versions DONE"
+  end
+  desc "Remove duplicated template versions"
+  task remove_duplicated_template_versions: :environment do
+    Rake::Task['upgrade:remove_duplicated_non_customised_template_versions'].execute
+    Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
+  end
 end
