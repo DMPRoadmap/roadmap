@@ -1,4 +1,3 @@
-<% # locals: funder_templates, org_templates, current_user, current_org, orgs, current_tab %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
@@ -8,8 +7,8 @@
       <p><%= _('If you would like to modify one of the templates below, you must first change your organisation affiliation.') %></p>
     </div>
     <div class="col-md-6">
-      <%= form_for current_user, url: org_swap_user_path(current_user), html: {method: :put, id: 'super-admin-switch-org'} do |f| %>
-        <%= render partial: "shared/my_org", locals: {f: f, default_org: current_org, orgs: orgs, allow_other_orgs: false} %>
+      <%= form_for current_user, url: org_swap_user_path(current_user), namespace: 'superadmin', html: {method: :put, id: 'super-admin-switch-org'} do |f| %>
+        <%= render partial: "shared/my_org", locals: {f: f, default_org: current_user.org, orgs: orgs, allow_other_orgs: false} %>
         <%= f.submit _('Change affiliation'), class: 'btn btn-default' %>
       <% end %>
     </div>
@@ -23,62 +22,60 @@
     </p>
   </div>
 </div>
-<% selected_tab = current_tab || (current_user.can_super_admin? ? 'all-templates' : 'organisation-templates') %>
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
       <% if current_user.can_super_admin? %>
-        <li role="all-templates"<%= selected_tab == 'all-templates' ? 'class=active' : '' %>>
-          <a href="#all-templates" role="tab" aria-controls="all-templates" data-toggle="tab"><%= _('All Templates') %></a>
+        <li role="presentation" <%= isActivePage(org_admin_templates_path, true) ? ' class=active' : '' %>>
+          <%= link_to(_('All Templates'), org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>
-      <li role="organisation-templates"<%= selected_tab == 'organisation-templates' ? 'class=active' : '' %>>
-        <a href="#organisation-templates" role="tab" aria-controls="organisation-templates" data-toggle="tab"><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></a>
+      <li role="presentation" <%= isActivePage(organisational_org_admin_templates_path) ? ' class=active' : '' %>>
+        <% if current_user.can_super_admin? %>
+          <% link_text = _('%{org_name} Templates') % { org_name: current_user.org.name } %>
+        <% else %>
+          <% link_text = _('Own Templates') %>
+        <% end %>
+        <%= link_to(link_text, organisational_org_admin_templates_path, { role: 'tab' }) %>
       </li>
-      <!-- If the Org is not just a funder then show the customizations table -->
-      <% if !current_org.funder_only? %>
-        <li role="funder-templates"<%= selected_tab == 'funder-templates' ? 'class=active' : '' %>>
-          <a href="#funder-templates" role="tab" aria-controls="funder-templates" data-toggle="tab"><%= _('Customizable Templates') %></a>
+      <% if !current_user.org.funder_only? %>
+        <li role="presentation" <%= isActivePage(customisable_org_admin_templates_path) ? ' class=active' : '' %>>
+          <%= link_to(_('Customizable Templates'), customisable_org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>
     </ul>
   
     <div class="tab-content">
-      <% if current_user.can_super_admin? %>
-        <div id="all-templates" role="tabpanel" class="tab-pane<%= (selected_tab == 'all-templates' ? ' active' : '') %>">
-          <h2><%= _('All Templates') %></h2>
-          <%= paginable_renderise(
-            partial: 'paginable/templates/all',
-            controller: 'paginable/templates',
-            action: 'all', 
-            scope: all_templates,
-            query_params: { sort_field: 'templates.title', sort_direction: :asc },
-            locals: {current_org: current_org.id, published: published, scopes: scopes[:all], hide_actions: true}) %>
+      <div role="tabpanel" class="tab-pane active">
+        <div class="panel panel-default">
+          <div class="panel-body template-scope">
+            <h2><%= title %></h2>
+            <div class="template-table-filters">
+              <% filter_path = "/paginable/templates/#{action}/#{1}" %>
+              <% qry = query_params.collect{ |k,v| "#{k}=#{v}" }.join('&') %>
+              <ul class="nav navbar-nav">
+                <% if isActivePage(customisable_org_admin_templates_path) %>
+                  <li><%= link_to _('All (%{count})') % { count: all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Published (%{count})') % { count: published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Unpublished (%{count})') % { count: unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Not customised (%{count})') % { count: not_customized_count}, "#{filter_path}?f=not-customised&#{qry}", 'data-remote': "true" %></li>
+                <% else %>
+                  <li><%= link_to _('All (%{count})') % { count: all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Published (%{count})') % { count: published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %></li>
+                  <li><%= link_to _('Unpublished (%{count})') % { count: unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
+                <% end %>
+              </ul>
+            </div>
+            <%= paginable_renderise(
+                  partial: "paginable/templates/#{action}",
+                  controller: 'paginable/templates',
+                  action: action, 
+                  scope: templates,
+                  query_params: { sort_field: 'templates.title', sort_direction: :asc },
+                  locals: local_assigns) %>
+          </div>
         </div>
-      <% end %>
-      <div id="organisation-templates" role="tabpanel" class="tab-pane<%= selected_tab == 'organisation-templates' ? ' active' : '' %>">
-        <h2><%= current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates') %></h2>
-        <%= paginable_renderise(
-          partial: 'paginable/templates/orgs',
-          controller: 'paginable/templates',
-          action: 'orgs', 
-          scope: own_templates,
-          query_params: { sort_field: 'templates.title', sort_direction: :asc },
-          locals: {current_org: current_org.id, published: published, scopes: scopes[:orgs], hide_actions: false}) %>
       </div>
-      <!-- If the Org is not just a funder then show the customizations table -->
-      <% if !current_org.funder_only? %>
-        <div id="funder-templates" role="tabpanel" class="tab-pane<%= selected_tab == 'funder-templates' ? ' active' : '' %>">
-          <h2><%= _('Customizable Templates') %></h2>
-          <%= paginable_renderise(
-            partial: 'paginable/templates/funders',
-            controller: 'paginable/templates',
-            action: 'funders', 
-            scope: customizable_templates,
-            query_params: { sort_field: 'templates.title', sort_direction: :asc },
-            locals: {current_org: current_org.id, customizations: customized_templates, published: published, scopes: scopes[:funders]}) %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>

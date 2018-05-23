@@ -39,7 +39,7 @@
               <%= section.title %> 
               <% if plan.present? %>
                   <span class="section-progress-<%= sectionid %>">
-                    <%= render :partial => "/sections/progress", locals: { section: section, plan: plan } %>
+                    <%= render :partial => "/org_admin/sections/progress", locals: { section: section, plan: plan } %>
                   </span>
               <% end %>
             </div>

@@ -4,17 +4,13 @@ class Annotation < ActiveRecord::Base
   # Associations
   belongs_to :org
   belongs_to :question
+  has_one :section, through: :question
+  has_one :phase, through: :question
+  has_one :template, through: :question
 
   ##
   # I liked type as the name for the enum so overriding inheritance column
   self.inheritance_column = nil
-
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :org_id, :question_id, :text, :type,
-                  :org, :question, :as => [:default, :admin]
-
 
   validates :question, :org,  presence: {message: _("can't be blank")}
 
@@ -36,5 +32,11 @@ class Annotation < ActiveRecord::Base
     annotation_copy = annotation.dup
     annotation_copy.save!
     return annotation_copy
+  end
+
+  def deep_copy(**options)
+    copy = self.dup
+    copy.question_id = options.fetch(:question_id, nil)
+    return copy
   end
 end

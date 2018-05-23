@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Look for template overrides before rendering
   before_filter :prepend_view_paths
 
+
   include GlobalHelpers
   include Pundit
   helper_method GlobalHelpers.instance_methods

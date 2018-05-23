@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
 
   has_many :user_identifiers
   has_many :identifier_schemes, through: :user_identifiers
+  has_and_belongs_to_many :notifications, dependent: :destroy, join_table: 'notification_acknowledgements'
 
   validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
@@ -49,7 +50,7 @@ class User < ActiveRecord::Base
   default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
-  scope :org_admins, -> (org_id) { 
+  scope :org_admins, -> (org_id) {
     joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND users.active = ?", org_id,
       ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'], true)
   }
@@ -305,9 +306,9 @@ class User < ActiveRecord::Base
 
     if self.pref.present?
       existing = self.pref.settings[key.to_s].deep_symbolize_keys
-    
-      # Check for new preferences 
-      defaults.keys.each do |grp| 
+
+      # Check for new preferences
+      defaults.keys.each do |grp|
         defaults[grp].keys.each do |pref, v|
           # If the group isn't present in the saved values add all of it's preferences
           existing[grp] = defaults[grp] if existing[grp].nil?
@@ -334,6 +335,12 @@ class User < ActiveRecord::Base
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
     User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
+  end
+
+  # Acknoledge a Notification
+  # @param notification Notification to acknowledge
+  def acknowledge(notification)
+    notifications << notification if notification.dismissable?
   end
 
   private

@@ -1,0 +1,50 @@
+<% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= template.title %></h1>
+    <% referrer = template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path %>
+    <%= link_to _('View all templates'), referrer, class: 'btn btn-default pull-right' %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <!-- render navigation tabs for the template-->
+    <%= render partial: "/org_admin/templates/navigation", locals: local_assigns.merge({ modifiable: modifiable }) %>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <% # locals: { phase, template, edit, current_section } %>
+            <div class="pull-left">
+              <h2><%= _('Phase details')%></h2>
+            </div>
+            <div class="pull-right">
+              <%= link_to(_('Preview'), preview_org_admin_template_phase_path(template, phase), { class: 'btn btn-default phase_preview_link', role: 'button' }) %>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12">
+                <%= render partial: partial_path, locals: local_assigns.merge({ modifiable: modifiable }) %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h2><%= _('Sections') %></h2>
+                <% if phase.sections.length > 1 %>
+                  <div id="sections-accordion-controls">
+                    <div class="accordion-controls" data-parent="sections_accordion">
+                      <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+                      <span>|</span>
+                      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <%= render partial: 'org_admin/sections/index', locals: local_assigns.merge({ modifiable: modifiable }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

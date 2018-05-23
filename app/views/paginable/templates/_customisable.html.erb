@@ -1,0 +1,86 @@
+<% # locals: templates %>
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th><%= _('Funder') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <th><%= _('Status') %></th>
+        <th><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% scope.each do |template| %>
+      <% customization = customizations.find{ |customization| customization.customization_of == template.family_id } %>
+      <tr>
+        <td>
+          <%= "#{template.is_default ? '* ' : ''}#{template.title}" %>
+        </td>
+        <td>
+          <%= template.org.name %>
+        </td>
+        <td>
+          <% if customization.present? %>
+            <% if customization.upgrade_customization? %>
+              <% tooltip = _("Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s).") %>
+              <%= _('Original funder template has changed!') %><em class="sr-only"><%= tooltip %></em>
+              &nbsp;&nbsp;<i class="fa fa-files-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+            <% else %>
+              <% if customization.published? %>
+                <%= _('Published') %>
+              <% elsif customization.draft? %>
+                <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %>
+                <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
+              &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+              <% else %>
+                <%= _('Unpublished') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= _('Not customized') %>
+          <% end %>
+        </td>
+        <td>
+          <% last_temp_updated = template.updated_at %>
+          <%= l last_temp_updated.to_date, formats: :short %>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <%= _('Actions') %><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% if customization.present? %>
+                <% if customization.created_at < template.created_at %>
+                  <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(customization.id), 'data-method': 'post' %></li>
+                <% else %>
+                  <li><%= link_to _('Edit customisation'), org_admin_template_path(id: customization.id) %></li>
+                  <li><%= link_to _('History'), history_org_admin_template_path(customization.id) %></li>
+                  <% if customization.draft? || customization.published? %>
+                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                  <% end %>
+                  <% if customization.draft? %>
+                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                  <% elsif !customization.published? %>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                  <% end %>
+                  <% if customization.removable? %>
+                    <li>
+                      <%= link_to _('Remove'), org_admin_template_path(id: customization.id), 
+                                  'data-method': 'delete', rel: 'nofollow',
+                                  'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: customization.title} %>
+                    </li>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <li><%= link_to _('Customise'), customize_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+              <% end %>
+            </ul>
+          </div>
+        </td>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -97,31 +97,8 @@ class Plan < ActiveRecord::Base
   def settings(key)
     self_settings = self.super_settings(key)
     return self_settings if self_settings.value?
-#    self.dmptemplate.settings(key)
     self.template.settings(key) unless self.template.nil?
   end
-
-  ##
-  # returns the template for this plan, or generates an empty template and returns that
-  #
-  # @return [Dmptemplate] the template associated with this plan
-  def dmptemplate
-    #self.project.try(:dmptemplate) || Dmptemplate.new
-    self.template
-  end
-
-
-
-  def base_template
-    base = nil
-    t = self.template
-    if t.customization_of.present?
-      base = Template.where("dmptemplate_id = ? and created_at < ?", t.customization_of, self.created_at).order(version: :desc).first
-    end
-    return base
-  end
-
-
 
   ##
   # returns the most recent answer to the given question id
@@ -721,8 +698,7 @@ class Plan < ActiveRecord::Base
   def self.eager_load(id)
     Plan.includes(
       [{template: [
-                   {phases: {sections: {questions: :answers}}},
-                   {customizations: :org}
+                   {phases: {sections: {questions: :answers}}}
                   ]},
        {plans_guidance_groups: {guidance_group: :guidances}}
       ]).find(id)
@@ -864,12 +840,12 @@ class Plan < ActiveRecord::Base
   end
 
   ##
-  # creates a plan for each phase in the dmptemplate associated with this project
+  # creates a plan for each phase in the template associated with this project
   # unless the phase is unpublished, it creates a new plan, and a new version of the plan and adds them to the project's plans
   #
   # @return [Array<Plan>]
   def create_plans
-    dmptemplate.phases.each do |phase|
+    self.template.phases.each do |phase|
       latest_published_version = phase.latest_published_version
       unless latest_published_version.nil?
         new_plan = Plan.new
@@ -899,7 +875,7 @@ class Plan < ActiveRecord::Base
 
     margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
     page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-    available_height = page_height * self.dmptemplate.settings(:export).max_pages
+    available_height = page_height * self.template.settings(:export).max_pages
 
     percentage = (used_height / available_height) * 100
     (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
@@ -934,7 +910,7 @@ class Plan < ActiveRecord::Base
     (num_lines * font_height) + vertical_margin + leading
   end
 
-  # Initialize the title and dirty flags for new templates
+  # Initialize the title for new templates
   # --------------------------------------------------------
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create
