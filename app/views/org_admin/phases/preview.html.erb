@@ -1,0 +1,48 @@
+<% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= template.title %></h1>
+    <div class="pull-right">
+      <ul class="list-inline">
+        <% if template.latest? %>
+          <% if template.customization_of.present? %>
+            <li><%= link_to _('Back to customise phase'), org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+          <% else %>
+            <li><%= link_to _('Back to edit phase'), edit_org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to _('Back to phase'), org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <%= link_to _('Write plan'), '#', class: 'preview-tab' %>
+      </li>
+    </ul>
+
+    <!-- render phase below -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= render partial: '/phases/edit_plan_answers', 
+                  locals: {
+                    plan: nil, 
+                    phase: phase, 
+                    readonly: true, 
+                    question_guidance: {}, 
+                    edit: false, 
+                    guidance_groups: [], 
+                    base_template_org: template.base_org } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

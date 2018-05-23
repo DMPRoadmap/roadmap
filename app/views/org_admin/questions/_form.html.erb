@@ -1,0 +1,79 @@
+<h4><%= question.id.present? ? _('Question %{number}:') % { number: question.number } : _('New question:') %></h4>
+<%= form_for(question, url: url, namespace: question.id.present? ? question.id : 'new_question', html: { method: method, class: 'question_form' }) do |f| %>
+  <% current_format = question.question_format.present? ? question.question_format : QuestionFormat.find_by(formattype: QuestionFormat.formattypes[:textarea]) %>
+
+  <!--Question number -->
+  <div class="form-group col-md-4">
+    <%= f.label(:number, _('Question Number'), class: "control-label") %>
+    <%= f.number_field(:number, in: 1..50, class: "form-control", 'aria-required': true) %>
+  </div>
+  <!--Question text -->
+  <div class="form-group col-md-10">
+    <%= f.label(:text, _('Question text'), class: "control-label") %>
+    <%= f.text_area(:text, class: "question", 'aria-required': true) %>
+  </div>
+  <!-- Question format -->
+  <div class="form-group col-md-4">
+    <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
+      <%= f.select :question_format_id,
+        options_from_collection_for_select(QuestionFormat.all.order("title"),
+        :id,
+        :title,
+        question.question_format_id),
+        {},
+        class: "form-control question_format",
+        'data-toggle': 'tooltip',
+        'data-html': true,
+        title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
+      %>
+  </div>
+  <!--display form to enter option for option_based questions -->
+  <div class="form-group col-md-10" data-attribute="question_options" style="<%= current_format.option_based? ? '' : 'display:none;' %>">
+    <div class="col-md-offset-2">
+      <%= render "/org_admin/question_options/option_fields", f: f, q: question %>
+      <!--display for selecting comment box when multiple choice is being used-->
+    </div>
+  </div>
+  <% comment_disp = current_format.option_based? || current_format.rda_metadata? %>
+  <div class="form-group col-md-10" data-attribute="option_comment" style="<%=comment_disp ? '' : 'display:none;'%>">
+    <label>
+      <%= f.check_box :option_comment_display, as: :check_boxes %><%= _('Display additional comment area.') %>
+    </label>
+  </div>
+  <!--Question default_value -->
+  <div class="form-group col-md-10" data-attribute="default_value" style="<%= current_format.textfield? || current_format.textarea? ? '' : 'display: none;' %>">
+    <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
+    <div class="" data-toggle="tooltip" title="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
+      <span data-attribute="textfield" style="<%= current_format.textfield? ? '' : 'display:none;' %>">
+        <%= f.text_field(:default_value, class: 'form-control') %>
+      </span>
+      <span data-attribute="textarea" style="<%= current_format.textarea? ? '' : 'display:none;' %>">
+        <%= text_area_tag('question[default_value]', question.default_value, id: "#{question.id.present? ? question.id : 'new'}_question_default_value_area", class: "form-control question") %>
+      </span>
+    </div>
+  </div>
+  <%# example_answer and guidance annotations as nested fields %>
+  <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
+    <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
+      <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
+    <% end %>
+  <% end %>
+  <!-- Themes -->
+  <div class="form-group col-md-10">
+    <%= render partial: 'org_admin/shared/theme_selector',
+               locals: { f: f, all_themes: Theme.all.order("title"), 
+                         popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
+  </div>
+  <div class="form-group col-md-10">
+    <div class="pull-right">
+      <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+      <% if question.id.present? && !question.section.phase.template.published? %>
+          <% href = org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) %>
+          <%= link_to _('Delete'), href, method: :delete, class: "btn btn-default", role:'button', 'data-confirm': _("You are about to delete question #%{question_number}. Are you sure?") % { question_number: question.number } %>
+        <%= link_to _('Cancel'), href, class: "btn btn-default ajaxified-question", method: 'get', remote: true %>
+      <% else %>
+        <%= link_to _('Cancel'), '#', class: "btn btn-default cancel-new-question" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

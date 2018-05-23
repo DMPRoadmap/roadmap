@@ -13,27 +13,27 @@ class PhasePolicy < ApplicationPolicy
   #  - They can modify templates
   #  - The template which they are modifying belongs to their org
 
-  def admin_show?
+  def show?
     user.can_modify_templates?  && (phase.template.org_id == user.org_id)
   end
 
-  def admin_preview?
+  def preview?
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
 
-  def admin_update?
+  def update?
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
 
-  def admin_add?
+  def new?
     user.can_modify_templates?  && (phase.template.org_id == user.org_id)
   end
 
-  def admin_create?
+  def create?
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
 
-  def admin_destroy?
+  def destroy?
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
 

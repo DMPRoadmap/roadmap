@@ -136,7 +136,7 @@ module Api
           if @templates[template.title].blank?
             @templates[template.title] = {}
             @templates[template.title][:title]  = template.title
-            @templates[template.title][:id]     = template.dmptemplate_id
+            @templates[template.title][:id]     = template.family_id
             if template.plans.present?
               @templates[template.title][:uses] = restrict_date_range(template.plans).length
             else
@@ -173,7 +173,7 @@ module Api
           if @templates[plan.template.title].blank?
             @templates[plan.template.title] = {}
             @templates[plan.template.title][:title] = plan.template.title
-            @templates[plan.template.title][:id] = plan.template.dmptemplate_id
+            @templates[plan.template.title][:id] = plan.template.family_id
             @templates[plan.template.title][:uses] = 1
           else
             @templates[plan.template.title][:uses] += 1

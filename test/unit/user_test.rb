@@ -15,6 +15,15 @@ class UserTest < ActiveSupport::TestCase
                         org: Org.last,
                         api_token: 'ABC123',
                         language: Language.find_by(abbreviation: I18n.locale))
+
+    @notification = Notification.create!(
+      notification_type: Notification.notification_types[:global], 
+      title: 'notification_1', 
+      level: Notification.levels[:info],
+      body: 'notification 1', 
+      dismissable: false, 
+      starts_at: Date.today, 
+      expires_at: Date.tomorrow)
   end
 
   # ---------------------------------------------------
@@ -348,5 +357,17 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal(previous_api_token, @user.api_token)
     assert_equal(previous_perms, @user.perms)
+  end
+
+  # Cannot dismiss Notifications that are non-dismissable
+  test 'cannot acknowledge a notification that is not dismissable' do
+    @user.acknowledge(@notification)
+    assert_not(@notification.acknowledged?(@user))
+  end
+  # Can dismiss Notifications that are dismissable
+  test 'can acknowledge a notification' do
+    @notification.update!(dismissable: true)
+    @user.acknowledge(@notification)
+    assert(@notification.acknowledged?(@user))
   end
 end
