@@ -46,7 +46,7 @@
         </div>
       <% end %>
     </div>
-    <% if modifiable || template.customization_of.present? %>
+    <% if template.latest? && (modifiable || template.customization_of.present?) %>
       <div class="panel panel-default">
         <a href="#new_section" class="heading-button" 
            data-toggle="collapse" data-parent="sections-accordion" 
