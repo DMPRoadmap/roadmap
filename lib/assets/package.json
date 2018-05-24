@@ -32,7 +32,8 @@
     "number-to-text": "^0.3.2",
     "placeholder": "1.0.2",
     "timeago.js": "^3.0.2",
-    "tinymce": "4.6.5"
+    "tinymce": "4.6.5",
+    "url-loader": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

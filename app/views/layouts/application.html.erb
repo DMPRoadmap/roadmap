@@ -95,6 +95,8 @@
         <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
         <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
         <span><%= raw (has_alert ? alert : notice) %></span>
+      </div>
+      <div id="global-notification-area">
         <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
       </div>
 

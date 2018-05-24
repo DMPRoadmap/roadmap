@@ -392,9 +392,8 @@ li.bg-primary {
 
 /* LAYOUT */
 /* --------------------------------------- */
-header, #account-nav, #notification-area, #forgot-password-notification-area, 
-main, footer,
-.homepage-img #home-welcome-msg #message{
+header, #account-nav, #notification-area, #global-notification-area, #forgot-password-notification-area, 
+main, footer, .homepage-img #home-welcome-msg #message{
   font-family: Arial;
   min-width: 480px;
   max-width: 1140px;
@@ -403,7 +402,7 @@ header, footer {
   padding: 0 15px;
 }
 
-#notification-area, #forgot-password-notification-area {
+#notification-area, #global-notification-area, #forgot-password-notification-area {
   margin: -10px auto 5px auto;
   padding: 5px 0 5px 20px;
   
