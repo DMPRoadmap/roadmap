@@ -39,7 +39,7 @@ msgid " current user privileges are: "
 msgstr " os privilégios atuais do usuário são"
 
 msgid " has been removed by "
-msgstr " foi removido por"
+msgstr " foi removido por "
 
 msgid "\"#{text}\""
 msgstr "\"#{text}\""
@@ -108,13 +108,13 @@ msgid "%{application_name}: Your plan has been submitted for feedback"
 msgstr "%{application_name}: Seu plano foi submetido para feedback."
 
 msgid "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email."
-msgstr "%{click_here} para aceitar o convite, (ou copie %{link} em seu navegador). Se você não quiser aceitar o convite, por favor, ignore este email."
+msgstr "%{click_here} para aceitar o convite, (ou copie %{link} em seu navegador). Se não quiser aceitar o convite, por favor, ignore esta mensagem."
 
 msgid "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-msgstr "%{commenter_name} fez comentários sobre seu plano %{plan_title}. Para ver os comentários, por favor, visite a página Meu Painel de Control em %{tool_name} e abra seu plano."
+msgstr "%{commenter_name} fez comentários sobre o plano %{plan_title}. Para ver os comentários, por favor, visite a página Meu Painel de Controle em %{tool_name} e abra seu plano."
 
 msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-msgstr "%{commenter} terminou o feedback sobre o plano \"%{plan_title}\". Para ver os comentários, por favor, visite a página Meu Painel de Control em %{tool_name} e abra seu plano.."
+msgstr "%{commenter} concluiu o feedback sobre o plano \"%{plan_title}\". Para ver seus comentários, por favor, visite a página Meu Painel de Controle em %{tool_name} e abra seu plano."
 
 msgid "%{org_name} Plans"
 msgstr "Planos"
@@ -135,10 +135,10 @@ msgid "%{plan_owner} has been notified that you have finished providing feedback
 msgstr "%{plan_owner} foi avisado de que você terminou de dar feedback"
 
 msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-msgstr "%{requestor} solicitou feedback sobre um plano \"%{plan_name}.\" Para inserir comentários, por favor, visite a página \"Planos\" sob o menu Admin em %{application_name} e abra o plano."
+msgstr "%{requestor} solicitou feedback sobre o plano \"%{plan_name}.\" Para adicionar comentários, por favor, visite a página \'Planos\' no menu Administrador em %{application_name} e abra o plano."
 
 msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "%{tool_name} vai ajudá-lo a desenvolver seu Plano de Gestão de Dados.  Caso tenha alguma dúvida ou deseje dar um feedback sobre a ferramente, por favor, entre em contato conosco em %{helpdesk_email} ou visite %{contact_us}"
+msgstr "%{tool_name} vai ajudá-lo a desenvolver seu Plano de Gestão de Dados. Se você tiver dúvidas ou quiser enviar-nos algum feedback enquanto estiver usando a ferramenta, por favor, entre em contato conosco em %{helpdesk_email} ou visite %{contact_us}"
 
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Um novo comentário foi adicionado a %{plan_title}"
@@ -240,7 +240,7 @@ msgid "A Data Management Plan in %{tool_name} has been shared with you"
 msgstr "Um Plano de Gestão de Dados em %{tool_name} foi compartilhado com você"
 
 msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "Um colega convidou você a contribuir com seu Plano de Gestão de Dados em %{tool_name}"
+msgstr "Um colega convidou você para contribuir com seu Plano de Gestão de Dados em %{tool_name}"
 
 msgid "A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it\\"
 msgstr "Um plano de gestão de dados é um documento formal que descreve o que você fará com seus dados durante e depois de um projeto de pesquisa. A maioria dos pesquisadores coleta dados com algum tipo de plano em mente, mas\\"
@@ -357,6 +357,12 @@ msgstr "Acessibilidade"
 msgid "Actions"
 msgstr "Ações"
 
+msgid "Active"
+msgstr "Ativo"
+
+msgid "Add"
+msgstr "Adicionar"
+
 msgid "Add Comment"
 msgstr "Adicionar Comentário"
 
@@ -424,17 +430,23 @@ msgstr "Privilégios de administrador atribuídos em %{tool_name}"
 msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%{admin_help_url}\">help for administrators</a> wiki."
 msgstr "Administrador: caso tenha interesse em abilitar esta funcionalidade para usuários de sua instituição, veja a seção \"Solicite feedback\" na wiki <a href=\"%{admin_help_url}\">ajuda para administradores</a>"
 
+msgid "Advertise the DMPTool to students and researchers at your institution."
+msgstr "Divulgue DMPTool entre os estundantes e pesquisadores de sua instituição."
+
 msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf\">Adobe PDF</a></li></ul>"
 msgstr "Divulgue o DMPTool entre os estudantes e pesquisadores de sua instituição.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard_v2.pdf\">Adobe PDF</a></li></ul>"
 
 msgid "Affiliation: "
 msgstr "Afiliação: "
 
+msgid "All"
+msgstr "Tudo"
+
 msgid "All Templates"
 msgstr "Todos os Templates"
 
 msgid "All the best"
-msgstr "Tudo de bom"
+msgstr "Atenciosamente"
 
 msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
 msgstr "Permite ao usuário corrigir os dados da organização (nome, URL etc.) e acrescentar itens de identificação como o logo."
@@ -594,14 +606,26 @@ msgstr "Clique aqui"
 msgid "Click here to confirm your account"
 msgstr "Clique aqui para confirmar sua conta"
 
+msgid "Click on Sign in at the top-right of the home page. You can also click the white 'Get started' button."
+msgstr "Clique em Entrar no lado superior direito da página inicial. Você também pode clicar o botão branco 'Como começar'."
+
 msgid "Click the 'Create plan' button below to begin."
 msgstr "Para começar, clique no botão 'Criar plano' abaixo."
+
+msgid "Click the first button to sign in with 'Your institution.'"
+msgstr "Clique o primeiro botão para entrar com 'Sua instituição.'"
 
 msgid "Click the link below to unlock your account"
 msgstr "Clique no link abaixo para desbloquear sua conta"
 
+msgid "Co-author a plan with collaborators."
+msgstr "Criar um plano em coautoria com colaboradores."
+
 msgid "Co-owner"
 msgstr "Coproprietário"
+
+msgid "Co-owner: can edit project details, change visibility, and add collaborators"
+msgstr "Coproprietário: pode editar detalhes do projeto, modificar a visibilidade e adicionar colaboradores"
 
 msgid "Comment"
 msgstr "Comentar"
@@ -632,6 +656,9 @@ msgstr "Copyright 2010-%{current_year} The Regents of the University of Californ
 
 msgid "Copyright information:"
 msgstr "Informação de copyright"
+
+msgid "Could not %{action} your %{object}."
+msgstr "Não foi possível %{action} seu %{object}."
 
 msgid "Create Organisation"
 msgstr "Criar Organização"
@@ -675,8 +702,14 @@ msgstr "Criar planos"
 msgid "Create your account"
 msgstr "Criar sua conta"
 
+msgid "Create your own plans."
+msgstr "Criar seus próprios planos"
+
 msgid "Created at"
 msgstr "Criado em"
+
+msgid "Created date"
+msgstr "Data de criação"
 
 msgid "Created using the %{application_name}. Last modified %{date}"
 msgstr "Criado usando %{application_name}. Última modificação %{date}"
@@ -713,6 +746,12 @@ msgstr "Visibilidade do PGD Modificada: %{plan_title}"
 
 msgid "DMPTool"
 msgstr "DMPTool"
+
+msgid "DMPTool logo"
+msgstr "Logo DMPTool"
+
+msgid "DMPTool is free for anyone to create data management plans. As a user, you can:"
+msgstr "DMPTool pode ser usado gratuitamente por qualquer pessoa que deseje criar planos de gestão de dados. Como usuário, você pode:"
 
 msgid "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3)."
 msgstr "DMPTool ('a ferramenta', 'o sistema') é uma ferramente desenvolvida pela CDL e o <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> como um recurso compartilhado para a comunidade de pesquisa. Está hospedado na CDL pelo University of California Curation Center (UC3)."
@@ -840,8 +879,14 @@ msgstr "Editado"
 msgid "Edited Date"
 msgstr "Data da Edição"
 
+msgid "Editing profile for"
+msgstr "Editando o perfil de"
+
 msgid "Editor"
 msgstr "Editor"
+
+msgid "Editor: can comment and make changes"
+msgstr "Editor: pode comentar e fazer mudanças"
 
 msgid "Email"
 msgstr "Email"
@@ -944,7 +989,7 @@ msgstr "Fonte"
 
 #, fuzzy
 msgid "For Administrators"
-msgstr ""
+msgstr "Para Administradores"
 
 msgid "For Researchers"
 msgstr "Para Pesquisadores"
@@ -965,6 +1010,9 @@ msgstr "Esqueceu sua senha?"
 msgid "Format"
 msgstr "Formato"
 
+msgid "Freedom of Information"
+msgstr "Liberdade de Informação"
+
 msgid "Funder"
 msgstr "Órgão Financiador"
 
@@ -976,6 +1024,9 @@ msgstr "Exigências do Órgão Financiador"
 
 msgid "Funder version is unpublished"
 msgstr "A versão do Órgão Financiador não está publicada"
+
+msgid "General purpose slides - updated slides coming soon!"
+msgstr "Slides gerais - atualizações em breve!"
 
 msgid "General Overview"
 msgstr "Visão Geral"
@@ -994,6 +1045,9 @@ msgstr "Ir"
 
 msgid "Go to the blog"
 msgstr "Ir para o blog"
+
+msgid "Google Analytics opt-out"
+msgstr "Sair do Google Analytics"
 
 msgid "Grant API access"
 msgstr "Autorizar acesso à API"
@@ -1076,6 +1130,9 @@ msgstr "Página Inicial"
 msgid "How can my institution participate in the DMPTool?"
 msgstr "Como minha instituição pode participar do DMPTool?"
 
+msgid "How do I log in or create an account?"
+msgstr "Como fazer login ou criar uma conta?"
+
 msgid "How long will you save my plans?"
 msgstr "Por quanto tempo vocês guardarão meus planos?"
 
@@ -1106,8 +1163,14 @@ msgstr "Se vai solicitar financiamento, insira o título do projeto exatamente c
 msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
 msgstr "Se as instruções são dirigidas a um subconjunto de usuários, e.g. àqueles em uma faculdade ou instituto específicos, selecione esta caixa. Os usuários poderão escolher a exibição dessas instruções especiais quando estiverem respondendo as questões no wizard 'criar plano'."
 
+msgid "If your institution/organization is affiliated with DMPTool:"
+msgstr "Se sua instituição/organização é afiliada ao DMPTool:"
+
+msgid "If you are a researcher from one of the participating institutions, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts."
+msgstr "Se você é pesquisador de uma das instituições participante, você pode fazer seu login usando suas credenciais institucionais. É possível que você receba orientações específicas para sua instituição ou que consiga ajuda de um especialista em dados local."
+
 msgid "If you didn't request this, please ignore this email."
-msgstr "Se você não fez essa solicitação, por favor, ignore este email."
+msgstr "Se você não fez essa solicitação, por favor, ignore esta mensagem."
 
 msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
 msgstr "Se você necessita criar instruções para órgãos financiadores específicos que não seriam úteis para uma audiência maior (e.g. se você tem instruções específicas para solicitações ao BBSRC), você pode fazer isso acrescentando instruções a uma questão específica, ao editar seu modelo."
@@ -1116,13 +1179,13 @@ msgid "If you have an existing DMPTool account, please enter your username and w
 msgstr "Se você já tem uma conta DMPTool, por favor, insira seu username e nós retornaremos o endereço de email associado a ele."
 
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "Se você tem perguntas ou precisa de ajuda, por favor, contate-nos via %{helpdesk_email} ou visite %{contact_us}"
+msgstr "Caso tenha perguntas ou precise de ajuda, por favor, entre em contato conosco em %{helpdesk_email} ou visite %{contact_us}."
 
 msgid "If you have forgotten the username and email for your existing DMPTool account, please %{contact_us_link}."
 msgstr "Se você esqueceu o username e o email de sua conta DMPTool, por favor %{contact_us_link}."
 
 msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
-msgstr "Se você tem perguntas referentes a esta ação, por favor, visite a página Meu Painel de Control em %{tool_name}"
+msgstr "Se você tiver perguntas a respeito dessa ação, por favor, visite a página Meu Painel de Controle em %{tool_name}"
 
 msgid "If you want to be able to share or cite your dataset, you\\"
 msgstr "Se você quer ser capaz de compartilhar ou citar seu conjunto de dados, você\\"
@@ -1210,7 +1273,7 @@ msgstr "Última Atualização"
 
 #, fuzzy
 msgid "Learn"
-msgstr ""
+msgstr "Aprender"
 
 msgid "Left"
 msgstr "Esquerda"
@@ -1272,6 +1335,9 @@ msgstr "Valor da margem inválido"
 msgid "Message"
 msgstr "Mensagem"
 
+msgid "Mock project for testing, practice, or educational purposes"
+msgstr "Projeto simulado para teste, prática ou fins educacionais"
+
 msgid "Modify guidance"
 msgstr "Modificar instruções"
 
@@ -1281,12 +1347,11 @@ msgstr "Modificar modelos"
 msgid "Month"
 msgstr "Mês"
 
-#, fuzzy
 msgid "More"
-msgstr ""
+msgstr "Mais"
 
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
-msgstr "Mais informações sobre a administração de %{tool_name} para usuários de sua organização disponíveis em %{help_url}.\""
+msgstr "Mais informações sobre administrar %{tool_name} para usuários em sua organização estão disponíveis em %{help_url}."
 
 msgid "My DMP's visibility has changed"
 msgstr "A visibilidade do meu PGD mudou"
@@ -1306,11 +1371,17 @@ msgstr "Minha organização não está listada"
 msgid "My privileges"
 msgstr "Meus privilégios"
 
+msgid "My research organisation is not on the list or no research organisation is associated with this plan"
+msgstr "Minha instituição de pesquisa não está na lista ou não há nenhuma organização associada a este plano"
+
 msgid "N/A"
 msgstr "N/A"
 
 msgid "Name"
 msgstr "Nome"
+
+msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting."
+msgstr "Precisa fazer outras pessoas no seu campus interessar-se pelo DMPTool? Use nossos Pontos para Discussão na condução de seus encontros. De maneira geral, um documento com pontos de discussão é estruturado para ajudar você a manter sua linha de argumentação em encontros com pessoas de fora de seu departamento. Ele assegura que os pontos mais importantes estejam ao seu alcance e ajuda você a progredir em direção aos objetivos do encontro."
 
 msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf\">Adobe PDF</a> </li></ul>"
 msgstr "Precisa divulgar DMPTool entre outras pessoas em seu campus? Use nosso Talking Points para organizar suas discussões. Um documento Talking Points é desenhado para ajudar você a manter o foco durante reuniões com pessoas de fora de seu departamento. Ele assegura que os pontos principais estão acessíveis e ajuda você a manter-se na direção das metas do encontro.<ul><li>Visão geral do Talking Points: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf\">Adobe PDF</a></li><li>Reunindo-se com sua equipe de TI: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx\">Microsoft Word</a> ou <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf\">Adobe PDF</a></li><li>Reunindo-se com Administradores: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx\">Microsoft Word</a> ou <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf\">Adobe PDF</a></li><li>Reunindo-se com Pesquisadores: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx\">Microsoft Word</a> ou <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf\">Adobe PDF</a> </li></ul>"
@@ -1344,6 +1415,9 @@ msgstr "Não"
 
 msgid "No additional comment area will be displayed."
 msgstr "Nenhuma área de comentário adicional será mostrada."
+
+msgid "No funder associated with this plan"
+msgstr "Não há nenhum órgão financiador associado a este plano"
 
 msgid "No items available."
 msgstr "Nenhum item disponível."
@@ -1459,6 +1533,9 @@ msgstr "Organização: qualquer pessoa em minha organização pode ver."
 msgid "Organisational Admin"
 msgstr "Administrador Organizacional"
 
+msgid "Organisational admin privileges"
+msgstr "Privilégios de administrador institucional"
+
 msgid "Organisational Configuration Information"
 msgstr "Informação de Configuração Organizacional"
 
@@ -1503,6 +1580,9 @@ msgstr "A senha e a confirmação devem ser iguais"
 
 msgid "Password confirmation"
 msgstr "Confirmação de senha"
+
+msgid "Passwords"
+msgstr "Senhas"
 
 msgid "Permissions"
 msgstr "Permissões"
@@ -1649,6 +1729,9 @@ msgstr "Por favor, selecione um(a)"
 msgid "Please wait, Standards are loading"
 msgstr ""
 
+msgid "Poster - new version coming soon!"
+msgstr "Poster - nova versão em breve!"
+
 msgid "Preview"
 msgstr "Visualizar"
 
@@ -1671,10 +1754,13 @@ msgid "Private"
 msgstr "Privado"
 
 msgid "Private: restricted to me and my collaborators"
-msgstr "Privado: restrito a mim e a meus colaboradores"
+msgstr "Privado: restrito a mim e meus colaboradores"
 
 msgid "Private: restricted to me and people I invite."
 msgstr "Privado: restrito a mim e a meus convidados."
+
+msgid "Private: visible to me, specified collaborators and administrators at my organisation"
+msgstr "Privado: visível para mim, para os colaboradores especificados e os administradores de minha organização"
 
 msgid "Profile information"
 msgstr "Informação de perfil"
@@ -1700,6 +1786,9 @@ msgstr "Título do projeto"
 msgid "Promote the DMPTool"
 msgstr "Promova DMPTool"
 
+msgid "Postcards - new versions coming soon!"
+msgstr "Postais - novas versões em breve!"
+
 msgid "Provides the user with an API token and grants rights to harvest information from the tool"
 msgstr "Fornece ao usuário um token da API e dá a ele o direito de colher informações da ferramenta."
 
@@ -1712,14 +1801,17 @@ msgstr "Planos Públicos"
 msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 msgstr "Os Planos de Gestão de Dados públicos são criados usando DMPTool - Dev e são compartilhados publicamente por seus proprietários. Eles não são examinados para verificar sua qualidade, completude ou adequação às exigências de órgãos financiadores."
 
+msgid "Public DMPs are plans created using the DMPTool service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgstr "PGDs públicos são planos criados com o serviço DMPTool e compartilhados publicamente por seus proprietários. Eles não são examinados com relação a qualidade, completeza ou adequação a exigências de instituições de fomento."
+
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 msgstr "Pretende-se atribuir visibilidade organizacional ou pública a planos finalizados. Você precisa responder pelo menos %{percentage}%% das questões para habilitar essas opções. Nota: por padrão, atribui-se visibilidade privada aos planos de teste."
 
 msgid "Public: anyone can view on the web"
-msgstr "Público: qualquer usuário na web pode visualizar."
+msgstr "Público: qualquer pessoa na web pode ver"
 
-msgid "Public: anyone can view."
-msgstr "Público: qualquer pessoa pode visualizar."
+msgid "Public: anyone can view"
+msgstr "Público: qualquer pessoa pode ver"
 
 msgid "Publish"
 msgstr "Publicar"
@@ -1757,6 +1849,9 @@ msgstr "Guia de Início Rápido"
 msgid "Read only"
 msgstr "Somente leitura"
 
+msgid "Read only: can view and comment, but not make changes"
+msgstr "Somente leitura: pode ver e comentar, mas não pode fazer mudanças"
+
 msgid "Reference"
 msgstr "Referência"
 
@@ -1787,6 +1882,12 @@ msgstr "Solicitante"
 msgid "Research projects generate and collect countless varieties of data. To forumulate a data management plan, it\\"
 msgstr "Projetos de pesquisa coletam e geram um sem-número de tipos de dados. Para formular um plano de gestão de dados, "
 
+msgid "Researchers at some institutions will be presented with the institution's authentication page. Log in as you usually do for your institution's web services."
+msgstr "Para pesquisadores de algumas instituições, será apresentada a página de autenticação da própria instituição. Faça login como de costume ao acessar os serviços de internet de sua instituição."
+
+msgid "Revisions"
+msgstr "Revisões"
+
 msgid "Right"
 msgstr "Direito"
 
@@ -1795,6 +1896,9 @@ msgstr "Papel"
 
 msgid "Run your own filter"
 msgstr "Use seu próprio filtro"
+
+msgid "Same as Principal Investigator"
+msgstr "O mesmo que Investigador Principal"
 
 msgid "Sample Plan Links"
 msgstr "Links para Amostras de Planos"
@@ -1831,6 +1935,9 @@ msgstr "Verificação de segurança"
 
 msgid "See a current list of <a href=\"https://dmptool.org/public_orgs\">DMPTool participants</a>."
 msgstr "Veja uma lista atualizada de <a href=\"https://dmptool.org/public_orgs\">participantes do DMPTool</a>."
+
+msgid "See the full list"
+msgstr "Ver a lista completa"
 
 msgid "See the full list of participating institutions"
 msgstr "Veja a lista completa de instituições participantes"
@@ -1870,6 +1977,9 @@ msgstr "Selecione até 6 organizações para ver suas instruções."
 
 msgid "Select which group this guidance relates to."
 msgstr "Selecione o grupo ao qual se relacionam estas instruções."
+
+msgid "Select your institution from the list and click 'Go.'"
+msgstr "Selecione sua instituição na lista e clique 'Go.'"
 
 msgid "Selected option(s)"
 msgstr "Opção(ões) selecionadas"
@@ -1923,7 +2033,7 @@ msgid "Size"
 msgstr "Tamanho"
 
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
-msgstr "Alguém solicitou um link para mudar sua senha do %{tool_name}. Você pode fazer isso no link abaixo."
+msgstr "Alguém solicitou um link para mudar sua senha em %{tool_name} password. Você pode fazer isso usando o link abaixo."
 
 msgid "Start date"
 msgstr "Data de início"
@@ -1937,6 +2047,9 @@ msgstr "Assunto"
 msgid "Submit"
 msgstr "Submeter"
 
+msgid "Successfully %{action} your %{object}."
+msgstr "Sucesso ao %{action} seu %{object}."
+
 msgid "Successfully deleted your theme"
 msgstr "Seu tema foi apagado com sucesso"
 
@@ -1949,8 +2062,14 @@ msgstr "Sua conta em %{is} foi desvinculada com sucesso."
 msgid "Super Admin"
 msgstr "Super Administrador"
 
+msgid "Super admin privileges"
+msgstr "Privilégios de super-administrdor"
+
 msgid "Table of Contents"
 msgstr "Conteúdo"
+
+msgid "Talking points"
+msgstr "Pontos para discussão"
 
 msgid "Template"
 msgstr "Template"
@@ -1979,8 +2098,8 @@ msgstr "Os modelos para planos de gestão de dados são baseados nas exigências
 msgid "Terms of use"
 msgstr "Condições de uso"
 
-msgid "Terms of use & Privacy"
-msgstr "Condições de uso & Privacidade"
+msgid "Terms of use & Privacy policy"
+msgstr "Termos de uso & Política de privacidade"
 
 msgid "Test"
 msgstr "Teste"
@@ -2001,7 +2120,7 @@ msgid "That email address is already registered."
 msgstr "Esse email já está registrado."
 
 msgid "The %{tool_name} team"
-msgstr "Equipe %{tool_name}"
+msgstr "A equipe %{tool_name}"
 
 msgid "The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
 msgstr "A <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> é mantida pela University of California (UC). Nosso público principal é a comunidade de pesquisa da UC; além disso, prestamos serviços para o setor de educação superior dos EUA e do exterior."
@@ -2031,7 +2150,7 @@ msgid "The passwords must match."
 msgstr "As senhas devem coincidir."
 
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
-msgstr "O plano %{plan_title} teve sua visibilidade modificada para %{plan_visibility}."
+msgstr "O plano %{plan_title} teve sua visibilidade modificad para %{plan_visibility}."
 
 msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
 msgstr "A tabela abaixo lista os planos que os usuários em sua organização criaram e compartilharam dentro dela. Com ela você pode baixar um PDF e visualizar seus planos como amostras ou descobrir novos dados de pesquisa."
@@ -2086,6 +2205,9 @@ msgstr "Parece haver um problema com seu logo. Por favor, suba-o novamente."
 
 msgid "These are rough guidelines to follow to help manage your data files in case you don\\"
 msgstr "Estas são as diretrizes básicas a serem seguidas para ajudar a gerenciar seus arquivos de dados caso você não"
+
+msgid "Third party APIs"
+msgstr "APIs de terceiros"
 
 msgid "This allows you to order sections."
 msgstr "Isto lhe permite ordenar as seções."
@@ -2211,7 +2333,7 @@ msgid "Unpublish"
 msgstr "Despublicar"
 
 msgid "Unpublished"
-msgstr "Despublicado"
+msgstr "Não publicado"
 
 msgid "Unpublished changes"
 msgstr "Mudanças despublicadas"
@@ -2228,8 +2350,14 @@ msgstr "Atualizado"
 msgid "Usage"
 msgstr "Uso"
 
+msgid "Usage statistics"
+msgstr "Estatísticas de uso"
+
 msgid "Use API"
 msgstr "Usar API"
+
+msgid "Use this conference-style poster to advertise the DMPTool at events on your campus."
+msgstr "Use este poster em formato de apresentação para divulgar o DMPTool nos eventos em seu campus."
 
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
 msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada??. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
@@ -2264,6 +2392,9 @@ msgstr "Ver todos os resultados da busca"
 msgid "View all templates"
 msgstr "Ver todos os modelos"
 
+msgid "View all users"
+msgstr "Ver todos os usuários"
+
 msgid "View less"
 msgstr "Ver menos"
 
@@ -2274,7 +2405,10 @@ msgid "Visibility"
 msgstr "Visibilidade"
 
 msgid "Visibility definitions:"
-msgstr "Definições de visibilidade"
+msgstr "Definições de Visibilidade:"
+
+msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool."
+msgstr "Criamos um conjunto genérico de slides que você pode usar para introduzir pesquisadores e outros ao DMPTool."
 
 msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/genericslides/DMPT2_GenericSlides.pptx\">Microsoft Powerpoint</a> </li></ul>"
 msgstr "Nós criamos um conjunto de slides genérico que você pode usar para introduzir pesquisadores e outros ao DMPTool.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/genericslides/DMPT2_GenericSlides.pptx\">Microsoft Powerpoint</a> </li></ul>"
@@ -2329,6 +2463,9 @@ msgstr "Qual modelo de PGD você gostaria de usar?"
 
 msgid "Who can help me at my institution?"
 msgstr "Quem pode ajudar-me em minha instituição?"
+
+msgid "Who can use the tool?"
+msgstr "Quem pode usar a ferramenta?"
 
 msgid "Why am I getting email notifications from the DMPTool?"
 msgstr "Por que estou recebendo notificações do DMPTool por email?"
@@ -2402,19 +2539,19 @@ msgid "You don't have access to use the API. An api token is needed to generate 
 msgstr "Você não tem acesso ao uso da API. É preciso um token da API para gerar estatísticas de uso."
 
 msgid "You have been granted administrator privileges in %{tool_name}:"
-msgstr "Você recebeu privilégios de administrador em %{tool_name}:"
+msgstr "Você recebeu privilégios de administrador para %{tool_name}:"
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
 msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas [endpoints??] da API podem ser encontrados em: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
-msgstr "Seus privilégios de administrador em %{tool_name} foram revogados."
+msgstr "Seus privilégios de administrador de %{tool_name} foram revogados."
 
 msgid "You have unpublished changes"
 msgstr "Você tem modificações não publicadas."
 
 msgid "You may change your notification preferences on your profile page."
-msgstr "Você pode mudar suas preferências de notificação na página de seu perfil."
+msgstr "Você pode modificar suas preferências de notificação na página com seu perfil."
 
 msgid "You must accept the terms and conditions to register."
 msgstr "Você deve aceitar os termos e condições para registrar-se."
@@ -2443,6 +2580,9 @@ msgstr "Você precisará criar uma conta para poder aceitar seu convite para vis
 msgid "Your"
 msgstr "Seu(sua)"
 
+msgid "Your personal details"
+msgstr "Seus detalhes pessoais"
+
 msgid "Your ORCID"
 msgstr "Seu ORCID"
 
@@ -2451,7 +2591,7 @@ msgid "Your Selected Standards:"
 msgstr ""
 
 msgid "Your access to "
-msgstr "Seu acesso a"
+msgstr "Seu acesso ao plano "
 
 msgid "Your account has been linked to your organisation. You can now login with that method."
 msgstr "Sua conta foi vinculada a sua organização. Você agora pode entrar com ese método."
@@ -2496,7 +2636,7 @@ msgid "Your password is stored in encrypted form and cannot be retrieved. If for
 msgstr "Sua senha é armazenada com criptografia e não pode ser recuperada. Se for esquecida, será preciso redefini-la."
 
 msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
-msgstr "Suas permissões com relação a %{plan_title} mudaram. Você agora tem acesso %{type}. Isso significa que você pode %{placeholder1} %{placeholder2}"
+msgstr "Suas permissões com relação ao plano %{plan_title} foram modificadas. Você agora tem acesso %{type}. Isso significa que você pode %{placeholder1} %{placeholder2}"
 
 msgid "Your project is no longer a test."
 msgstr "Seu projeto não é mais um teste."
@@ -2645,6 +2785,9 @@ msgstr "privado"
 msgid "profile"
 msgstr "perfil"
 
+msgid "project details coversheet"
+msgstr "capa com detalhes do projeto"
+
 msgid "public"
 msgstr "público"
 
@@ -2652,6 +2795,9 @@ msgid "question"
 msgid_plural "questions"
 msgstr[0] "pergunta"
 msgstr[1] "perguntas"
+
+msgid "question text and section headings"
+msgstr "texto das questões e cabeçalhos das seções"
 
 msgid "read the plan and leave comments."
 msgstr "ler o plano e deixar comentários."
@@ -2687,6 +2833,9 @@ msgstr "modelo"
 
 msgid "test"
 msgstr "teste"
+
+msgid "unanswered questions"
+msgstr "questões não respondidas"
 
 msgid "user"
 msgstr "usuário"
