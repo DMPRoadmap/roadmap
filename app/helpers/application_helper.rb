@@ -35,6 +35,13 @@ module ApplicationHelper
   end
 
   def fingerprinted_asset(name)
+
+  # START DMPTool customization
+  # ---------------------------------------------------------
+    #Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
     Rails.application.config.use_fingerprinted_assets ? "#{name}-#{ASSET_FINGERPRINT}" : name
+  # ---------------------------------------------------------
+  # END DMPTool customization
+
   end
 end

@@ -3,6 +3,9 @@ require 'rss'
 class HomeController < ApplicationController
   respond_to :html
 
+# START DMPTool customization
+# ---------------------------------------------------------
+  
   ##
   # Index
   #
@@ -68,5 +71,7 @@ class HomeController < ApplicationController
       logger.error("Caught exception RSS parse: #{e}.")
     end
   end
+# ---------------------------------------------------------
+# END DMPTool customization
 
 end

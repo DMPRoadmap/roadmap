@@ -77,12 +77,10 @@ group :test do
   gem 'rack-test'
   gem 'webmock'
   gem 'sqlite3'
-  gem 'simplecov', require: false
 end
 
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'web-console'
-  gem 'rack-mini-profiler'
 end

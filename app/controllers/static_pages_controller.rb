@@ -1,5 +1,7 @@
 class StaticPagesController < ApplicationController
 
+# ------------------------------------
+# START DMPTool customization
   include MarkdownHandler
 
   def about_us
@@ -10,6 +12,8 @@ class StaticPagesController < ApplicationController
       format.html
     end
   end
+# END DMPTool customization
+# ------------------------------------
 
   def contact_us
   end

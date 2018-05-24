@@ -21,8 +21,12 @@ class PlansController < ApplicationController
     @funders = Org.funder.joins(:templates).where(templates: {published: true}).uniq.sort{|x,y| x.name <=> y.name }
     @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
 
+  # ------------------------------------
+  # START DMPTool customization
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org) && !current_user.org.is_other?
+  # END DMPTool customization
+  # ------------------------------------
 
     flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
     @is_test = params[:test] ||= false

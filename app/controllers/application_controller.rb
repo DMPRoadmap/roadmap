@@ -53,10 +53,15 @@ class ApplicationController < ActionController::Base
     referer_path = URI(request.referer).path unless request.referer.nil? or nil
     if from_external_domain? || referer_path.eql?(new_user_session_path) || referer_path.eql?(new_user_registration_path) || referer_path.nil?
       root_path
+
+    # START DMPTool customization
+    # ---------------------------------------------------------
     else
       # DMPTool customization to redirect users from LDAP email recovery to Dashboard
       return request.referer unless request.referer.nil? || request.referer.include?(users_ldap_username_path) || request.referer.include?(get_started_path)
       root_path
+    # END DMPTool customization
+    # ---------------------------------------------------------
     end
   end
 

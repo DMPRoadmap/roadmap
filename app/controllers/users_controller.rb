@@ -127,30 +127,6 @@ class UsersController < ApplicationController
       redirect_to request.referer, alert: _('Unknown organisation.')
     end
   end
-
-  # GET /users/:id/ldap_username
-  def ldap_username
-    skip_authorization
-    render '/users/dmptool/ldap_username'
-  end
-
-  def ldap_account
-    skip_authorization
-    @user = User.where(ldap_username: params[:username]).first
-    if @user.present?
-      render(json: {
-        code: 1,
-        email: @user.email,
-        msg: _("The DMPTool Account email associated with this username is #{@user.email}"),
-      })
-    else
-      render(json: { 
-        code: 0,
-        email: '', 
-        msg: _("We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account.") % { username: params[:username] }
-      })
-    end
-  end
   
   # PUT /users/:id/activate
   # -----------------------------------------------------
@@ -182,6 +158,36 @@ class UsersController < ApplicationController
     current_user.acknowledge(@notification)
     render nothing: true
   end
+
+
+  # START DMPTool customization
+  # ---------------------------------------------------------
+  # GET /users/:id/ldap_username
+  def ldap_username
+    skip_authorization
+    render '/users/dmptool/ldap_username'
+  end
+
+  def ldap_account
+    skip_authorization
+    @user = User.where(ldap_username: params[:username]).first
+    if @user.present?
+      render(json: {
+        code: 1,
+        email: @user.email,
+        msg: _("The DMPTool Account email associated with this username is #{@user.email}"),
+      })
+    else
+      render(json: { 
+        code: 0,
+        email: '', 
+        msg: _("We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account.") % { username: params[:username] }
+      })
+    end
+  end
+  # ---------------------------------------------------------
+  # END DMPTool customization
+
 
   private
   def org_swap_params

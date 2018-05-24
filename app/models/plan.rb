@@ -166,7 +166,14 @@ class Plan < ActiveRecord::Base
         section.questions.each do |question|
           question.themes.each do |theme|
             theme.guidances.each do |guidance|
+
+            # START DMPTool customization
+            # ---------------------------------------------------------
+              #ggroups << guidance.guidance_group if guidance.guidance_group.published
               ggroups << guidance.guidance_group if guidance.guidance_group.published && !guidance.guidance_group.org.is_other?
+            # ---------------------------------------------------------
+            # END DMPTool customization
+              
               # only show published guidance groups
             end
           end
