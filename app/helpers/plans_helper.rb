@@ -43,6 +43,8 @@ module PlansHelper
     when 'publicly_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
     when 'privately_visible'
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{d_('dmpopidor', 'Administrator')}</span>"
+    when 'privately_private_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
     else
       return "<span>#{_('Private')}</span>" # Test Plans

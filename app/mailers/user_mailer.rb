@@ -11,12 +11,16 @@ class UserMailer < ActionMailer::Base
     end
   end
   
-  def sharing_notification(role, user)
+  def sharing_notification(role, user, current_user)
     @role = role
     @user = user
+    @current_user = current_user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, 
-           subject: _('A Data Management Plan in %{tool_name} has been shared with you') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+           subject: d_('dmpopidor', '%{user_name} has shared a Data Management Plan with you in %{tool_name}') %{ 
+             :user_name => current_user.name(false),
+             :tool_name => Rails.configuration.branding[:application][:name]
+            })
     end
   end
   
@@ -107,7 +111,7 @@ class UserMailer < ActionMailer::Base
   def new_comment(commenter, plan)
     if commenter.is_a?(User) && plan.is_a?(Plan)
       owner = plan.owner
-      if owner.present? && owner.active?
+      if owner.present? && owner.active? && owner.email != commenter.email
         @commenter = commenter
         @plan = plan
         FastGettext.with_locale FastGettext.default_locale do
@@ -127,4 +131,22 @@ class UserMailer < ActionMailer::Base
       end
     end
   end
+
+  def anonymization_warning(user)
+    @user = user
+    @end_date = (@user.last_sign_in_at + 5.years).to_date
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @user.email, subject: 
+        d_('dmpopidor', 'Account expiration in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+    end
+  end
+
+  def anonymization_notice(user)
+    @user = user
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: @user.email, subject: 
+        d_('dmpopidor', 'Account expired in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+    end
+  end
+
 end

@@ -4,7 +4,7 @@ class PublicPagesController < ApplicationController
   # GET template_index
   # -----------------------------------------------------
   def template_index
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) <<
+    templates = Template.live(Template.families(Org.all.pluck(:id)).pluck(:dmptemplate_id)).publicly_visible.pluck(:id) <<
     Template.where(is_default: true).unarchived.published.pluck(:id)
     @templates = Template.includes(:org).where(id: templates.uniq.flatten).unarchived.published.order(title: :asc).page(1)
   end
