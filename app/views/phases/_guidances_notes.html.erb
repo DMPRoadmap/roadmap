@@ -54,7 +54,7 @@
                 <% num_annotations = 0 %>
                 <% i = 0 %>
                 <% annotations.each do |annotation| %>
-                  <%= render partial: 'annotations/show', 
+                  <%= render partial: 'org_admin/annotations/show', 
                     locals: {
                       template: template,
                       example_answer: (annotation.example_answer? ? annotation : nil),

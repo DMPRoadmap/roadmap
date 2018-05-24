@@ -126,7 +126,7 @@ class Org < ActiveRecord::Base
   ##
   # returns all published templates belonging to the organisation
   #
-  # @return [Array<Dmptemplate>] published dmptemplates
+  # @return [Array<Template>] published templates
 	def published_templates
 		return templates.where("published = ?", true)
 	end
@@ -160,8 +160,8 @@ class Org < ActiveRecord::Base
     #
     def resize_image
       unless logo.nil?
-        if logo.height != 75
-          self.logo = logo.thumb('x75')  # resize height and maintain aspect ratio
+        if logo.height != 100
+          self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
         end
       end
     end
