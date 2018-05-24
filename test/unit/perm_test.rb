@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PermTest < ActiveSupport::TestCase
-
   setup do
     @user = User.last
     

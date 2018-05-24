@@ -1,0 +1,44 @@
+<!-- show template details A template is passed as an argument-->
+<dl class="dl-horizontal">
+  <dt><%= _('Title') %></dt>
+  <dd><%= template.title %></dd>
+  <dt><%= _('Description') %></dt>
+  <dd>
+    <%= (!template.description.nil? && template.description != "" ? raw(template.description) : '-') %>
+  </dd>
+  <dt><%= _('Status') %></dt>
+  <dd>
+    <% if template.upgrade_customization? %>
+      <%= _('Original funder template has changed!') %>
+    <% else %>
+      <% if template.published? %>
+        <%= template.customization_of.present? ? _('Customizations are published') : _('Published') %>
+      <% elsif template.draft? %>
+        <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %> 
+        <%= template.customization_of.present? ? _('Customizations are published') :_('Published')%>
+        <em class="sr-only"><%= tooltip %></em>
+        &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+      <% else %>
+        <%= template.customization_of.present? ? _('Customizations are unpublished') :_('Unpublished') %>
+      <% end %>
+    <% end %>
+  </dd>
+  <% if current_user.org.funder? && !current_user.org.funder_only? %>
+    <!-- If the Org is a funder and another org type then allow then to set the visibility -->
+    <dt><%= _('Visibility') %></dt>
+    <dd>
+      <% if template.visibility == 'organisationally_visible' %> 
+        <%= _('for internal %{org_name} use only') % {org_name: template.org.name} %>
+      <% else %>
+        <%=  _('available to the public') + (template.published? ? '' : ' (once published)') %>
+      <% end %>
+    </dd>
+  <% end %>
+  <dt><%= _('Created at') %></dt>
+  <dd><%= l template.created_at.to_date, formats: :short %></dd>
+  <dt><%= _('Last updated') %></dt>
+  <dd><%= l template.updated_at.to_date, formats: :short %></dd>
+</dl>
+
+<%# passing phases separately here because we're only pulling down the necessary attributes %>
+<%= render partial: 'org_admin/phases/overview', locals: { template: template, phases: phases, modifiable: modifiable } %>

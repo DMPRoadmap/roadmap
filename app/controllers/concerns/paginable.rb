@@ -26,7 +26,6 @@ module Paginable
       @paginable_params = query_params.symbolize_keys.merge(@paginable_params) # if duplicate keys, those from @paginable_params take precedence
       # Additional path_params passed to this function got special treatment (e.g. it is taking into account when building base_url)
       @paginable_path_params = path_params.symbolize_keys
-
       if @paginable_params[:page] == 'ALL' && @paginable_params[:search].blank? && @paginable_options[:view_all] == false
         render(status: :forbidden, html: _('Restricted access to View All the records'))
       else
@@ -103,15 +102,23 @@ module Paginable
     def sort_link_url(sort_field)
       page = @paginable_params[:page] == 'ALL' ? 'ALL' : 1
       if @paginable_params[:sort_field] == sort_field
-        return paginable_base_url_with_query_params(
-          page: page,
-          sort_field: sort_field,
-          sort_direction: swap_sort_direction)
+        sort_url = paginable_base_url_with_query_params(
+            page: page,
+            sort_field: sort_field,
+            sort_direction: swap_sort_direction)
       else
-        return paginable_base_url_with_query_params(
+        sort_url = paginable_base_url_with_query_params(
           page: page,
           sort_field: sort_field)
       end
+      return "#{sort_url}#{stringify_nonpagination_query_params}"
+    end
+    # Retrieve any query params that are not a part of the paginable concern
+    def stringify_nonpagination_query_params
+      other_params = @paginable_params.select do |param|
+        ![:page, :sort_field, :sort_direction, :search, :controller, :action].include?(param)
+      end
+      return other_params.empty? ? '' : "&#{other_params.collect{ |k, v| "#{k}=#{v}" }.join('&')}"
     end
     def stringify_query_params(
       search: @paginable_params[:search],
