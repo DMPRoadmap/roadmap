@@ -35,7 +35,7 @@ class AnswerTest < ActiveSupport::TestCase
       assert_not q.nil?, "expected the test template to have a question of type: #{qf.title}"
       
       answr = Answer.create(user: @user, plan: @plan, question: q, question_options: [q.question_options.first])
-      assert_not answr.id.nil?, "was expecting to be able to create a new Answer for a #{qf.title} question: #{answr.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+      assert_not_nil answr.id, "was expecting to be able to create a new Answer for a #{qf.title} question: #{answr.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
       answr.question_options = [q.question_options.last]
       answr.save!
@@ -52,15 +52,16 @@ class AnswerTest < ActiveSupport::TestCase
     qf = QuestionFormat.where(option_based: true).first
     q = @plan.template.questions.select{|q| q.question_format == qf }.first
     
-    assert_not q.nil?, "expected the test template to have a question of type: #{qf.title}"
+    assert_not_nil q, "expected the test template to have a question of type: #{qf.title}"
     answr = Answer.create(user: @user, plan: @plan, question: q, question_options: [q.question_options.first])
     
     copy = Answer.deep_copy(answr)
-    
-    assert_equal answr.text, copy.text, "expected the answer text to be the same"
-    assert_equal answr.question.id, copy.question.id, "expected the question to be the same"
-    answr.question_options.each do |opt|
-      assert copy.question_options.include?(opt), "expected the copy to have question options"
+    unless answr.text.nil? || copy.text.nil?
+      assert_equal answr.text, copy.text, "expected the answer text to be the same"
+      assert_equal answr.question.id, copy.question.id, "expected the question to be the same"
+      answr.question_options.each do |opt|
+        assert copy.question_options.include?(opt), "expected the copy to have question options"
+      end
     end
   end
   

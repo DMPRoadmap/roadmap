@@ -8,7 +8,7 @@ class UserMailerPreview < ActionMailer::Preview
                               password: "password123", password_confirmation: "password123", org: @org, 
                               accept_terms: true, confirmed_at: Time.zone.now)
     @template = Template.new(title: 'Test template', description: 'My test template', org: @org, 
-                                 migrated: false, dmptemplate_id: "9999999")
+                                 archived: false, family_id: "9999999")
     @plan = Plan.new(template: @template, title: 'Test Plan', grant_number: 'Grant-123',
                      principal_investigator: 'Researcher', principal_investigator_identifier: 'researcher-1234',
                      description: "this is my plan's informative description",
