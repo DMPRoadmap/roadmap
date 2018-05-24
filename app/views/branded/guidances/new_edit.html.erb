@@ -23,9 +23,10 @@
       <div class="checkbox">
         <%= f.label :published, raw("#{f.check_box :published, as: :check_boxes, 'data-toggle': 'tooltip', title: _("Check this box when you are ready for this guidance to appear on user's plans.")} #{_('Published?')}") %>
       </div>
-
-      <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
-      <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
+      <div class="form-group clear-fix">
+        <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
+        <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
+      </div>
     <%end%>
   </div>
 </div>

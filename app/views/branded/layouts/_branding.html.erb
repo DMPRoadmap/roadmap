@@ -59,15 +59,16 @@
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="admin-menu">
+            <ul class="dropdown-menu dmpopidor-dropdow" aria-labelledby="admin-menu">
               <% if current_user.can_org_admin? %>
                 <li <%= 'class=active' if isActivePage(org_admin_plans_path) %>>
                   <%= link_to _('Plans'), org_admin_plans_path %>
                 </li>
               <% end %>
               <% if current_user.can_modify_templates? %>
-                  <li <%= 'class=active' if isActivePage(org_admin_templates_path) %>>
-                    <%= link_to _('Templates'), org_admin_templates_path %>
+                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                  <li <%= 'class=active' if isActivePage(template_path) %>>
+                    <%= link_to _('Templates'), template_path %>
                   </li>
               <% end %>
               <% if current_user.can_modify_guidance? %>
