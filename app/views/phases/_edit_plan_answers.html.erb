@@ -35,7 +35,13 @@
 
           <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
             <div class="panel-title">
+
+            <!-- START DMPTool customization -->
+            <!-- ========================================= -->
               <i class="fa fa-plus" aria-hidden="true"></i>
+            <!-- ========================================= -->
+            <!-- END DMPTool customization -->
+
               <%= section.title %> 
               <% if plan.present? %>
                   <span class="section-progress-<%= sectionid %>">
@@ -43,6 +49,13 @@
                   </span>
               <% end %>
             </div>
+
+          <!-- START DMPTool customization -->
+          <!-- ========================================= -->
+            <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+          <!-- ========================================= -->
+          <!-- END DMPTool customization -->
+
             <div class="clearfix"></div>
           </div>
         </div>

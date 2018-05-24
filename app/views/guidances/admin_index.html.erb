@@ -12,7 +12,13 @@
   <div class="col-md-12">
     <h2>
       <%= _('Guidance group list') %>
+
+    <!-- START DMPTool customization -->
+    <!-- ========================================= -->
       <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary pull-right"><%= _('Create a guidance group') %></a>
+    <!-- ========================================= -->
+    <!-- END DMPTool customization -->
+
     </h2>
   
     <!-- List of guidance groups -->
@@ -42,6 +48,15 @@
         action: 'index',
         scope: @guidances,
         query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
+
+  <!-- START DMPTool customization -->
+  <!-- ========================================= -->
+    <!-- <div> -->
+      <!-- <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%#= _('Create guidance') %></a> -->
+    <!-- </div> -->
+  <!-- ========================================= -->
+  <!-- END DMPTool customization -->
+
   </div>
 </div>
 

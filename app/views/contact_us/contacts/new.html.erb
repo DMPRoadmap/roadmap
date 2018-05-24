@@ -9,11 +9,26 @@
   </div>
 </div>
 <div class="row">
+
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+  <!-- <div class="col-md-6"> --><!-- Left column container -->
+      <%#= render :partial => "contact_us/contacts/new_left" %>
+  <!-- </div> --><!-- Left column container -->
+  <!-- <div class="col-md-6"> --><!-- Right column container -->
+    <!-- <div class="pull-right"> -->
+      <%#= render :partial => "contact_us/contacts/new_right" %>
+    <!-- </div> -->
+  <!-- </div> --><!-- Right column container -->
+  
   <div class="col-md-5"><!-- Left column container -->
       <%= render :partial => "contact_us/contacts/new_left" %>
   </div><!-- Left column container -->
   <div class="col-md-1">&nbsp;</div>
   <div class="col-md-6"><!-- Right column container -->
     <%= render :partial => "contact_us/contacts/new_right" %>
- </div><!-- Right column container -->
+  </div><!-- Right column container -->
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
+ 
 </div>
