@@ -255,6 +255,10 @@ $light-yellow: #fff9e5;
             border: 1px solid $blue;
         }
     }
+    // example answer
+    .example-answer {
+        overflow: auto;
+    }
     // main border
     .panel-default {
         border-color: $blue;
