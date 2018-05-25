@@ -21,10 +21,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # @scheme [IdentifierScheme] The IdentifierScheme for the provider
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
-    user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
-    
   # ------------------------------------
   # START DMPTool customization
+    #user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+  
+    omniauth = (request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+    user = User.from_omniauth(omniauth)
     omniauth_info = (omniauth.nil? ? {} : (omniauth.info.nil? ? {} : omniauth.info))
   # END DMPTool customization
   # ------------------------------------
