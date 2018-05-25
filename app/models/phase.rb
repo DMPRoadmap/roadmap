@@ -12,6 +12,7 @@ class Phase < ActiveRecord::Base
   # Associations
   belongs_to :template
   has_many :sections, -> { order(:number => :asc) }, dependent: :destroy
+  has_many :questions, through: :sections
 
   ##
   # Possibly needed for active_admin
