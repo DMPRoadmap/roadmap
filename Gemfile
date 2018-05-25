@@ -84,3 +84,9 @@ group :development do
   gem "binding_of_caller"
   gem 'web-console'
 end
+
+# START DMPTool customization
+# ------------------------------------------------
+gem 'redcarpet'   # For Markdown static pages
+# ------------------------------------------------
+# END DMPTool customization
